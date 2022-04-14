@@ -1,0 +1,10 @@
+{
+  "name": "@cypress/design-system",
+  "version": "0.0.0",
+  "description": "Design system for the marketing site, app and cloud",
+  "main": "index.js",
+  "repository": "https://github.com/cypress-io/design-system.git",
+  "author": "Bart Ledoux <ledouxb@gmail.com>",
+  "license": "MIT",
+  "private": true
+}
