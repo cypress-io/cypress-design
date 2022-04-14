@@ -1,0 +1,57 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { HorizontalList, Icon, StatusIcon } from '@frontend/design-system'
+
+# HorizontalList
+
+<Meta title="Design system/HorizontalList" component={HorizontalList} />
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <HorizontalList>
+      <span>foo</span>
+      <span>bar</span>
+      <span>baz</span>
+    </HorizontalList>
+  </Story>
+</Preview>
+
+## With custom margin
+
+<Preview>
+  <Story name="With custom margin">
+    <HorizontalList margin={4}>
+      <span>foo</span>
+      <span>bar</span>
+      <span>baz</span>
+      <div>
+        <i className="fa fa-clock-o" /> Ran 2 hours ago
+      </div>
+    </HorizontalList>
+  </Story>
+</Preview>
+
+## With custom divider
+
+<Preview>
+  <Story name="With custom divider">
+    <HorizontalList
+      divider={
+        <Icon
+          name="chevron-right"
+          className="test-results__test-result-title-divider"
+        />
+      }
+    >
+      <span>foo</span>
+      <span>bar</span>
+      <span>baz</span>
+    </HorizontalList>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={HorizontalList} />

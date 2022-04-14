@@ -1,0 +1,68 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import { formatISO, sub, toDate } from 'date-fns'
+import { map, take } from 'lodash'
+
+import { RunStatusDots } from '@frontend/design-system'
+
+# RunStatusDots
+
+<Meta title="Design system/RunStatusDots" component={RunStatusDots} />
+
+export const runStatuses = [
+  'CANCELLED',
+  'ERRORED',
+  'FAILED',
+  'NOTESTS',
+  'OVERLIMIT',
+  'PASSED',
+  'RUNNING',
+  'TIMEDOUT',
+]
+
+export const runs = map(runStatuses, (status, i) => {
+  return {
+    buildNumber: i + 1,
+    status,
+    endTime: formatISO(sub(new Date(), { hours: runStatuses.length - i })),
+  }
+})
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <RunStatusDots runs={take(runs, 3)} />
+  </Story>
+</Preview>
+
+## Example with all statuses shown
+
+<Preview>
+  <Story name="All statuses">
+    <RunStatusDots runs={runs} />
+  </Story>
+</Preview>
+
+## Limited to 4 runs
+
+<Preview>
+  <Story name="Limited to 4 runs">
+    <RunStatusDots runs={runs} maxShown={4} />
+  </Story>
+</Preview>
+
+## Can fill empty runs with placeholders
+
+<Preview>
+  <Story name="Can fill empty runs with placeholders">
+    <div>
+      <RunStatusDots runs={[]} maxShown={4} shouldFillEmpty />
+      <br />
+      <RunStatusDots runs={[runs[2]]} maxShown={4} shouldFillEmpty />
+    </div>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={RunStatusDots} />

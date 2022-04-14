@@ -1,0 +1,106 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { Button, Form, FormGroup, Panel, Table } from '@frontend/design-system'
+import { radios } from '@storybook/addon-knobs'
+import { storiesOf } from '@storybook/react'
+
+# Card
+
+<Meta title="Design system/Card" component={Panel} />
+
+export const bsStyleOptions = {
+  Default: 'default',
+  Danger: 'danger',
+  Warning: 'warning',
+}
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <Panel bsStyle={radios('Variant', bsStyleOptions, 'default', 'variant')}>
+      <Panel.Heading>
+        <Panel.Title>This is the card title</Panel.Title>
+      </Panel.Heading>
+      <Panel.Body>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit? Aenean commodo
+        ligula eget dolor! Aenean massa; Cum sociis natoque penatibus et magnis
+        dis parturient montes, nascetur ridiculus mus; Donec quam felis,
+        ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa
+        quis enim; Donec pede justo, fringilla vel, aliquet nec, vulputate eget,
+        arcu; In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo!
+        Nullam dictum felis eu pede mollis pretium; Integer tincidunt.
+      </Panel.Body>
+      <Panel.Footer>This is the card footer</Panel.Footer>
+    </Panel>
+  </Story>
+</Preview>
+
+## Table
+
+<Preview>
+  <Story name="Table">
+    <Panel bsStyle={radios('Variant', bsStyleOptions, 'default', 'variant')}>
+      <Panel.Heading>
+        <Panel.Title>This is the card title</Panel.Title>
+      </Panel.Heading>
+      <Table>
+        <thead>
+          <tr>
+            <th>Entry Header 1</th>
+            <th>Entry Header 2</th>
+            <th>Entry Header 3</th>
+            <th>Entry Header 4</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Entry First Line 1</td>
+            <td>Entry First Line 2</td>
+            <td>Entry First Line 3</td>
+            <td>Entry First Line 4</td>
+          </tr>
+          <tr>
+            <td>Entry Line 1</td>
+            <td>Entry Line 2</td>
+            <td>Entry Line 3</td>
+            <td>Entry Line 4</td>
+          </tr>
+          <tr>
+            <td>Entry Last Line 1</td>
+            <td>Entry Last Line 2</td>
+            <td>Entry Last Line 3</td>
+            <td>Entry Last Line 4</td>
+          </tr>
+        </tbody>
+      </Table>
+      <Panel.Footer>This is the card footer</Panel.Footer>
+    </Panel>
+  </Story>
+</Preview>
+
+## Form
+
+<Preview>
+  <Story name="Form">
+    <Panel bsStyle={radios('Variant', bsStyleOptions, 'default', 'variant')}>
+      <Panel.Heading>
+        <Panel.Title>This is the card title</Panel.Title>
+      </Panel.Heading>
+      <Form>
+        <FormGroup label="Created">2019-05-15</FormGroup>
+        <FormGroup label="Stuff">
+          Enim consequat reprehenderit eu in do enim eiusmod sit.
+        </FormGroup>
+        <Panel.Body>
+          <Button>Button below form</Button>
+        </Panel.Body>
+      </Form>
+      <Panel.Footer>This is the card footer</Panel.Footer>
+    </Panel>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={Panel} />

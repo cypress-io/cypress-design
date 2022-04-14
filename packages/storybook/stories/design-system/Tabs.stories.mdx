@@ -1,0 +1,29 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { Nav, NavItem } from '@frontend/design-system'
+
+# Tabs
+
+<Meta title="Design system/Tabs" component={Nav} />
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <Nav bsStyle="tabs" activeKey={1}>
+      <NavItem eventKey={0}>Overview</NavItem>
+      <NavItem eventKey={1}>Runs</NavItem>
+      <NavItem eventKey={2}>Settings</NavItem>
+    </Nav>
+  </Story>
+</Preview>
+
+# Props
+
+## Nav
+
+<Props of={Nav} />
+
+## NavItem
+
+<Props of={NavItem} />

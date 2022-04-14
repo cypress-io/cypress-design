@@ -1,0 +1,37 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { Banner, Button } from '@frontend/design-system'
+
+export const bannerStyles = [
+  'default',
+  'info',
+  'info-alt',
+  'success',
+  'warning',
+  'danger',
+]
+
+# Banner
+
+<Meta title="Design system/Banner" component={Banner} />
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    {bannerStyles.map((style) => (
+      <div style={{ marginBottom: '16px', width: '700px' }} key={style}>
+        <Banner variant={style}>
+          A(n) {style} banner
+          <Button bsStyle={style} bsSize="small" className="btn-outline">
+            Button
+          </Button>
+        </Banner>
+      </div>
+    ))}
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={Banner} />

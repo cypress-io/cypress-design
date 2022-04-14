@@ -1,0 +1,49 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { Checkbox, Radio } from '@frontend/design-system'
+
+# Checkbox
+
+<Meta title="Design system/Checkbox and Radio" component={Checkbox} />
+
+## Checkbox
+
+<Preview>
+  <Story name="Checkbox">
+    <>
+      <Checkbox isChecked label="Checked" />
+      <br />
+      <Checkbox isChecked label="Checked" subLabel="With sub-label" />
+      <br />
+      <Checkbox label="Unchecked" />
+      <br />
+      <Checkbox isChecked isDisabled label="Disabled & checked" />
+      <br />
+      <Checkbox isDisabled label="Disabled & unchecked" />
+    </>
+  </Story>
+</Preview>
+
+## Radio
+
+<Preview>
+  <Story name="Radio">
+    <>
+      <Radio isChecked label="Checked" />
+      <br />
+      <Radio isChecked label="Checked" subLabel="With sub-label" />
+      <br />
+      <Radio label="Unchecked" />
+      <br />
+      <Radio isChecked isDisabled label="Disabled & checked" />
+      <br />
+      <Radio isDisabled label="Disabled & unchecked" />
+    </>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={Checkbox} />
+
+<Props of={Radio} />

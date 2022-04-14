@@ -1,0 +1,73 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import {
+  Switch,
+  CloseIcon,
+  CustomIcon,
+  IconButton,
+  ImageIcon,
+  VideoIcon,
+} from '@frontend/design-system'
+import styles from '@frontend/design-system/src/components/buttons/module.IconButton.scss'
+
+# Switch
+
+<Meta title="Design system/Switch" component={Switch} />
+
+## Sizes & States
+
+<Preview>
+  <Story name="Sizes & States">
+    <div
+      className="storybook-table"
+      style={{
+        gridTemplateColumns: 'repeat(5, auto)',
+        gridGap: '48px',
+      }}
+    >
+      <div style={{ display: 'contents' }}>
+        <div />
+        <div>x16</div>
+        <div>x24</div>
+        <div>x32</div>
+        <div>x48 (default)</div>
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Off</div>
+        <Switch size="x16" />
+        <Switch size="x24" />
+        <Switch size="x32" />
+        <Switch size="x48" />
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>On</div>
+        <Switch checked size="x16" />
+        <Switch checked size="x24" />
+        <Switch checked size="x32" />
+        <Switch checked size="x48" />
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Off, disabled</div>
+        <div />
+        <div />
+        <div />
+        <Switch disabled size="x48" />
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>On, disabled</div>
+        <div />
+        <div />
+        <div />
+        <Switch checked disabled size="x48" />
+      </div>
+    </div>
+  </Story>
+</Preview>
+
+# Props
+
+## Switch
+
+Extends `HTMLButtonElement`
+
+<Props of={Switch} />

@@ -1,0 +1,59 @@
+table > tbody {
+  border: 0;
+  box-shadow: none;
+  & > tr:last-of-type > td {
+    border-bottom: none;
+  }
+}
+
+.table {
+  border: 0;
+
+  & > thead {
+    & > tr > th {
+      @extend .h6;
+      color: $gray-700;
+      vertical-align: middle;
+      border-bottom-width: 1px;
+      height: 48px;
+    }
+
+    th.right-align {
+      text-align: right;
+    }
+  }
+
+  & > tbody {
+    & > tr {
+      &:last-of-type {
+        & > td {
+          border-bottom: 1px solid $gray-100;
+        }
+      }
+
+      & > tr {
+        background-color: $gray-A1;
+      }
+
+      & > td {
+        // padding: 16px 8px;
+        vertical-align: middle;
+
+        &.right-align {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  & > tfoot {
+    border-top: 2px solid $gray-200;
+    background-color: $gray-A1;
+    // padding: 16px 8px;
+    vertical-align: middle;
+
+    .right-align {
+      text-align: right;
+    }
+  }
+}

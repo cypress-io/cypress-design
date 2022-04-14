@@ -1,0 +1,18 @@
+{
+  "extends": ["plugin:cypress/recommended", "../../.eslintrc.js"],
+  "rules": {
+    "padding-line-between-statements": "off",
+    "react/jsx-filename-extension": "off",
+    "@packages/no-react-bootstrap-import": "off"
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
+  }
+}

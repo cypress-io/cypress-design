@@ -1,0 +1,37 @@
+.motion-example {
+  width: 112px;
+  height: 10px;
+  margin: 20px 0;
+  border: 1px solid gray;
+  border-top: none;
+  border-bottom: none;
+
+  .motion-example--target {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: red;
+  }
+
+  &.motion-example--cubic {
+    .motion-example--target {
+      animation: whip 1000ms cubic-bezier(0.55, 0.055, 0.675, 0.19) infinite alternate;
+    }
+  }
+
+  &.motion-example--ease {
+    .motion-example--target {
+      animation: whip 2000ms ease-in-out infinite alternate;
+    }
+  }
+}
+
+@keyframes whip {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(0); }
+  40% { transform: translateX(100px); }
+  60% { transform: translateX(100px); }
+  80% { transform: translateX(0); }
+  100% { transform: translateX(0); }
+}

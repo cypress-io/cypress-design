@@ -1,0 +1,86 @@
+.panel {
+  border: none;
+  box-shadow: $box-shadow;
+  margin-bottom: 40px;
+
+  &.panel-default .panel-heading {
+    background-color: $gray-A1;
+  }
+
+  &.panel-danger {
+    .panel-heading {
+      & + .panel-body {
+        border-top: none;
+      }
+    }
+    .table thead:first-child > tr:first-child > th {
+      border-top: none;
+    }
+  }
+
+  &.panel-warning {
+    .panel-heading {
+      & + .panel-body {
+        border-top: none;
+      }
+    }
+    .table thead:first-child > tr:first-child > th {
+      border-top: none;
+    }
+  }
+
+  .panel-title {
+    font-weight: bold;
+  }
+
+  .panel-footer {
+    color: $gray-500;
+    border-color: $gray-100;
+    font-size: 0.9em;
+  }
+
+  hr {
+    margin: 0;
+    border-color: $gray-200;
+  }
+
+  .panel-heading {
+    border-top: none;
+    // note: everything has a top border; nothing has a bottom border
+    border-bottom: none;
+  }
+
+  // body needs a top border if & only if there's a header
+  .panel-body {
+    border-top: none;
+  }
+
+  .panel-heading + .panel-body {
+    border-top: 1px solid $gray-200;
+  }
+}
+
+.panel {
+  // Inset all table content so it aligns with the header padding
+  > .table {
+    margin-bottom: 0;
+    th:first-child,
+    td:first-child {
+      padding-left: 16px !important;
+    }
+    th:last-child,
+    td:last-child {
+      padding-right: 16px !important;
+    }
+  }
+  > form {
+    > fieldset {
+      padding: 0;
+    }
+  }
+  .panel-heading + table {
+    thead:first-child > tr:first-child > th {
+      border-top: 1px solid $gray-200;
+    }
+  }
+}

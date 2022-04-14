@@ -1,0 +1,72 @@
+import {
+  ContentLoader,
+  LoaderChart,
+  LoaderGraph,
+  LoaderList,
+} from '@frontend/design-system'
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+# Loading indicators
+
+<Meta title="Design system/Loading indicators" component={ContentLoader} />
+
+## Skeleton screens
+
+Uses [react-content-loader](https://www.npmjs.com/package/react-content-loader)
+
+<Preview>
+  <Story name="Skeleton screens">
+    <div style={{ width: 400, height: 5 * 32 }}>
+      <ContentLoader height={5 * 32}>
+        {[0, 1, 2, 3, 4].map((n) => (
+          <React.Fragment>
+            <rect x="0" y={8 + n * 32} width="192" height="16" />
+            <rect x={192 + 16} y={8 + n * 32} width="64" height="16" />
+            <rect
+              x={192 + 64 + 2 * 16}
+              y={8 + n * 32}
+              width="128"
+              height="16"
+            />
+          </React.Fragment>
+        ))}
+      </ContentLoader>
+    </div>
+  </Story>
+</Preview>
+
+## Loader chart
+
+<Preview>
+  <Story name="Loader chart">
+    <div style={{ backgroundColor: 'white', width: 800, height: 400 }}>
+      <LoaderChart />
+    </div>
+  </Story>
+</Preview>
+
+## Loader graph
+
+<Preview>
+  <Story name="Loader graph">
+    <div style={{ backgroundColor: 'white', width: 800, height: 100 }}>
+      <LoaderGraph width={250} height={70} />
+    </div>
+  </Story>
+</Preview>
+
+## Loader list
+
+<Preview>
+  <Story name="Loader list">
+    <div style={{ backgroundColor: 'white', width: 800, height: 340 }}>
+      <LoaderList rows={3} />
+    </div>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={ContentLoader} />
+
+<Props of={LoaderChart} />

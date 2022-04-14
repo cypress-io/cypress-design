@@ -1,0 +1,18 @@
+.property-list {
+  padding: 0;
+  margin: 0;
+
+  &__property {
+    margin: 0 0 16px 0;
+  }
+
+  dt {
+    margin: 0 0 4px 0;
+    font-family: $font-muli;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: $gray-700;
+    text-transform: uppercase;
+  }
+}

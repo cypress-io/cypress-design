@@ -1,0 +1,34 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { Tooltip } from '@frontend/design-system'
+
+# Tooltip
+
+export const directions = ['top', 'right', 'bottom', 'left']
+
+<Meta title="Design system/Tooltip" component={Tooltip} />
+
+## Basic
+
+Read https://www.nngroup.com/articles/tooltip-guidelines/
+
+<Preview>
+  <Story name="Basic">
+    {directions.map((direction) => (
+      <div style={{ display: 'inline-block', width: 100 }}>
+        <Tooltip
+          id={direction}
+          placement={direction}
+          overlay={<span>Tooltip</span>}
+          trigger={['click', 'hover']}
+        >
+          <span>{direction}</span>
+        </Tooltip>
+      </div>
+    ))}
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={Tooltip} />

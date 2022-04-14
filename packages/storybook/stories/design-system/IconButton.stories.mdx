@@ -1,0 +1,80 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { CustomIcon, IconButton } from '@frontend/design-system'
+import styles from '@frontend/design-system/src/components/buttons/module.IconButton.scss'
+
+# IconButton
+
+<Meta title="Design system/IconButton" component={IconButton} />
+
+## States
+
+<Preview>
+  <Story name="States">
+    <div
+      class="storybook-table"
+      style={{
+        gridTemplateColumns: 'repeat(4, auto)',
+        gridGap: '48px',
+      }}
+    >
+      <div style={{ display: 'contents' }}>
+        <div />
+        <div>Regular</div>
+        <div>Circle</div>
+        <div>Circle with text</div>
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Basic</div>
+        <IconButton icon="close" />
+        <IconButton isCircle icon="close" />
+        <IconButton isCircle text="Close" icon="close" />
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Hover</div>
+        <IconButton className={styles.hover} icon="close" />
+        <IconButton className={styles.hover} isCircle icon="close" />
+        <IconButton
+          className={styles.hover}
+          isCircle
+          text="Close"
+          icon="close"
+        />
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Focus</div>
+        <IconButton className={styles.focus} icon="close" />
+        <IconButton className={styles.focus} isCircle icon="close" />
+        <IconButton
+          className={styles.focus}
+          isCircle
+          text="Close"
+          icon="close"
+        />
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Disabled</div>
+        <IconButton disabled icon="close" />
+        <IconButton disabled isCircle icon="close" />
+        <IconButton disabled isCircle text="Close" icon="close" />
+      </div>
+    </div>
+  </Story>
+</Preview>
+
+## Examples
+
+<Preview>
+  <Story name="Examples">
+    <>
+      <IconButton icon="close" />
+      <IconButton icon="image" />
+      <IconButton icon="video" />
+      <IconButton isCircle text="Screenshots" icon="image" />
+    </>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={IconButton} />

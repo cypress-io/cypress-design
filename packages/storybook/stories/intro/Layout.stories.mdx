@@ -1,0 +1,61 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+<Meta title="Intro/Layout & Terminology" />
+
+# Terminology
+
+## Test
+
+A test is an `it()` statement that contains one or more [assertions](https://docs.cypress.io/guides/core-concepts/introduction-to-cypress#Assertions). e.g.
+
+```
+it('Visits the Kitchen Sink', () => {
+  cy.visit('https://example.cypress.io')
+})
+```
+
+## Spec
+
+A spec or spec file is a file that contains one or more tests. The file name might be something like `sample_spec.js` or `Sample.spec.tsx`.
+
+## Run
+
+In the context of the dashboard, a run consists of all the test results that were recorded during a specific recording. Recordings occur by passing the [record key](https://docs.cypress.io/guides/dashboard/projects#Record-key) when running Cypress tests on your computer or in CI.
+
+Each run has one and only one of the following statuses: RUNNING, ERRORED, FAILED, TIMEDOUT, NOTESTS, PASSED, OVERLIMIT, or CANCELLED.
+
+## Test result
+
+A test result is the recording of a specific test on a specific run.
+
+Each test result has one and only one of the following [statuses](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Test-statuses): RUNNING, PENDING, SKIPPED, FAILED, PASSED, TIMEDOUT, ERRORED, or CANCELLED.
+
+Additionally, test results may be [flaky](https://docs.cypress.io/guides/dashboard/flaky-test-management#Flake-Detection), if retries are enabled.
+
+<Preview>
+  <Story name="Terminology">
+    <img src="/img/runs-specs-test-results.png" />
+  </Story>
+</Preview>
+
+# Layout
+
+## Runs List
+
+<Preview>
+  <Story name="Runs List">
+    <img src="/img/layout-list.png" width="800" />
+  </Story>
+</Preview>
+
+## Run Details
+
+<Preview>
+  <Story name="Run Details">
+    <>
+      <img src="/img/layout-detail-1.png" width="800" />
+      <br />
+      <img src="/img/layout-detail-2.png" width="800" />
+    </>
+  </Story>
+</Preview>

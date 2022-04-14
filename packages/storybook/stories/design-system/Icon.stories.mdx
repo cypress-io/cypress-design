@@ -1,0 +1,574 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import { Button, CustomIcon, Icon, palette } from '@frontend/design-system'
+import {
+  CheckIcon,
+  DotFillIcon,
+  LockIcon,
+  GitPullRequestIcon,
+  RepoIcon,
+  XIcon,
+} from '@primer/octicons-react'
+import UilCloudDownload from '@iconscout/react-unicons/icons/uil-cloud-download'
+import UilPalette from '@iconscout/react-unicons/icons/uil-palette'
+import UilTag from '@iconscout/react-unicons/icons/uil-tag'
+import { includes, repeat } from 'lodash'
+
+# Icon
+
+For status icons, see <a href="?path=/docs/design-system-statusicon--status-icons">the StatusIcon story</a>.
+
+<Meta title="Design system/Icon" component={Icon} />
+
+## New Cypress Custom Icons (2-color)
+
+Developers: If you need to add a new custom icon, you can read the docs in this repo (docs/custom-icons.md) or on [GitHub](https://github.com/cypress-io/cypress-services/blob/develop/docs/custom-icons.md), or you can watch a screen recording of this whole process [on Google Drive](https://drive.google.com/file/d/18ORqKLyA2DAtMdGyjWdApgXb1XBrIDws/view?usp=sharing).
+
+Example icon usage: `<CustomIcon name="security-lock-locked" size="x16" />`
+
+export const newCustomIcons = [
+  { name: 'action-add-large', sizes: ['x16'] },
+  { name: 'action-add-small', sizes: ['x16'] },
+  { name: 'action-add-xsmall', sizes: ['x16'] },
+  { name: 'action-delete-medium', sizes: ['x16'] },
+  { name: 'action-delete-xlarge', sizes: ['x16'] },
+  { name: 'arrow-default-right-medium', sizes: ['x16'] },
+  { name: 'checkmark-small', sizes: ['x16'] },
+  { name: 'chevron-single-right', sizes: ['x16'] },
+  { name: 'document-code', sizes: ['x24'] },
+  { name: 'general-clipboard', sizes: ['x16'] },
+  { name: 'general-office-building', sizes: ['x16'] },
+  { name: 'object-book', sizes: ['x16'] },
+  { name: 'object-briefcase', sizes: ['x16'] },
+  { name: 'object-folder', sizes: ['x16'] },
+  { name: 'object-gear', sizes: ['x16'] },
+  { name: 'security-lock-locked', sizes: ['x16'] },
+  { name: 'status-loading', sizes: ['x16'] },
+  { name: 'technology-amazon-codebuild', sizes: ['x16'] },
+  { name: 'technology-azure', sizes: ['x16'] },
+  { name: 'technology-bitbucket', sizes: ['x16'] },
+  { name: 'technology-branch-horizontal-short', sizes: ['x16'] },
+  { name: 'technology-branch-horizontal-tall', sizes: ['x16'] },
+  { name: 'technology-browser-testing-2', sizes: ['x48'] },
+  { name: 'technology-circle-ci', sizes: ['x16'] },
+  { name: 'technology-github', sizes: ['x16'] },
+  { name: 'technology-gitlab', sizes: ['x16'] },
+  { name: 'technology-infinity-loop', sizes: ['x16', 'x24'] },
+  { name: 'technology-jenkins', sizes: ['x16'] },
+  { name: 'technology-pull-request', sizes: ['x16'] },
+  { name: 'technology-terminal', sizes: ['x16'] },
+  { name: 'technology-travis-ci', sizes: ['x16'] },
+  { name: 'test-type-component', sizes: ['x20'] },
+  { name: 'test-type-e2e', sizes: ['x20'] },
+  { name: 'user-general', sizes: ['x16'] },
+]
+
+export const iconSizes = ['x12', 'x16', 'x20', 'x24', 'x32', 'x40', 'x48']
+
+<Preview>
+  <Story name="New Cypress Custom Icons">
+    <div
+      className="storybook-table"
+      style={{
+        gridTemplateColumns: `${repeat('auto ', iconSizes.length)} 1fr`,
+      }}
+    >
+      <div style={{ display: 'contents' }}>
+        <div></div>
+        <div style={{ gridColumn: `2 / span ${iconSizes.length}` }}>
+          Available sizes
+        </div>
+      </div>
+      <div style={{ display: 'contents' }}>
+        <div>Name</div>
+        {iconSizes.map((size) => {
+          return <div>{size}</div>
+        })}
+      </div>
+      {newCustomIcons.map((icon) => {
+        return (
+          <div key={icon.name} style={{ display: 'contents' }}>
+            <div>{icon.name}</div>
+            {iconSizes.map((size) => {
+              return (
+                <div>
+                  {includes(icon.sizes, size) && (
+                    <CustomIcon name={icon.name} size={size} />
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        )
+      })}
+    </div>
+  </Story>
+</Preview>
+
+## Old Cypress Custom Icons
+
+For new implementations, it's generally preferable to use the new 2-color icons instead of these.
+
+<Preview>
+  <Story name="Old Cypress Custom Icons">
+    <div
+      className="storybook-table"
+      style={{ gridTemplateColumns: 'auto auto 1fr', color: '#17202c' }}
+    >
+      <div>Name</div>
+      <div>Icon</div>
+      <div>Small</div>
+      <div>add</div>
+      <div>
+        <CustomIcon name="add" />
+      </div>
+      <div>
+        <CustomIcon name="add" variant="small" />
+      </div>
+      <div>archive</div>
+      <div>
+        <CustomIcon name="archive" />
+      </div>
+      <div />
+      <div>arrow-left</div>
+      <div>
+        <CustomIcon name="arrow-left" />
+      </div>
+      <div />
+      <div>avatar</div>
+      <div>
+        <CustomIcon name="avatar" />
+      </div>
+      <div>
+        <CustomIcon name="avatar" variant="small" />
+      </div>
+      <div>branch</div>
+      <div>
+        <CustomIcon name="branch" />
+      </div>
+      <div>
+        <CustomIcon name="branch" variant="small" />
+      </div>
+      <div>browser</div>
+      <div>
+        <CustomIcon name="browser" />
+      </div>
+      <div />
+      <div>camera</div>
+      <div>
+        <CustomIcon name="camera" />
+      </div>
+      <div />
+      <div>check</div>
+      <div>
+        <CustomIcon name="check" />
+      </div>
+      <div />
+      <div>chevron-down</div>
+      <div>
+        <CustomIcon name="chevron-down" />
+      </div>
+      <div />
+      <div>chevron-left</div>
+      <div>
+        <CustomIcon name="chevron-left" />
+      </div>
+      <div />
+      <div>chevron-right</div>
+      <div>
+        <CustomIcon name="chevron-right" />
+      </div>
+      <div />
+      <div>chevron-up</div>
+      <div>
+        <CustomIcon name="chevron-up" />
+      </div>
+      <div />
+      <div>ci</div>
+      <div>
+        <CustomIcon name="ci" />
+      </div>
+      <div>
+        <CustomIcon name="ci" variant="small" />
+      </div>
+      <div>close</div>
+      <div>
+        <CustomIcon name="close" />
+      </div>
+      <div>
+        <CustomIcon name="close" variant="small" />
+      </div>
+      <div>collapse</div>
+      <div>
+        <CustomIcon name="collapse" />
+      </div>
+      <div />
+      <div>comment</div>
+      <div>
+        <CustomIcon name="comment" />
+      </div>
+      <div>
+        <CustomIcon name="comment" variant="small" />
+      </div>
+      <div>commit</div>
+      <div>
+        <CustomIcon name="commit" />
+      </div>
+      <div>
+        <CustomIcon name="commit" variant="small" />
+      </div>
+      <div>cypress</div>
+      <div>
+        <CustomIcon name="cypress" />
+      </div>
+      <div />
+      <div>date</div>
+      <div>
+        <CustomIcon name="date" />
+      </div>
+      <div />
+      <div>date-interval</div>
+      <div>
+        <CustomIcon name="date-interval" />
+      </div>
+      <div />
+      <div>duration</div>
+      <div>
+        <CustomIcon name="duration" />
+      </div>
+      <div>
+        <CustomIcon name="duration" variant="small" />
+      </div>
+      <div>edit</div>
+      <div>
+        <CustomIcon name="edit" />
+      </div>
+      <div>
+        <CustomIcon name="edit" variant="small" />
+      </div>
+      <div>expand</div>
+      <div>
+        <CustomIcon name="expand" />
+      </div>
+      <div />
+      <div>flaky</div>
+      <div>
+        <CustomIcon name="flaky" />
+      </div>
+      <div />
+      <div />
+      <div>idea</div>
+      <div>
+        <CustomIcon name="idea" />
+      </div>
+      <div />
+      <div>image</div>
+      <div>
+        <CustomIcon name="image" />
+      </div>
+      <div>
+        <CustomIcon name="image" variant="small" />
+      </div>
+      <div>info</div>
+      <div>
+        <CustomIcon name="info" />
+      </div>
+      <div>
+        <CustomIcon name="info" variant="small" />
+      </div>
+      <div>input-icon</div>
+      <div>
+        <CustomIcon name="input-icon" />
+      </div>
+      <div>jira</div>
+      <div>
+        <CustomIcon name="jira" />
+      </div>
+      <div />
+      <div>last-modified</div>
+      <div>
+        <CustomIcon name="last-modified" />
+      </div>
+      <div />
+      <div>link</div>
+      <div>
+        <CustomIcon name="link" />
+      </div>
+      <div>
+        <CustomIcon name="link" variant="small" />
+      </div>
+      <div>more-actions</div>
+      <div>
+        <CustomIcon name="more-actions" />
+      </div>
+      <div />
+      <div>more-message</div>
+      <div>
+        <CustomIcon name="more-message" />
+      </div>
+      <div />
+      <div>mute-test</div>
+      <div>
+        <CustomIcon name="mute-test" />
+      </div>
+      <div>
+        <CustomIcon name="mute-test" variant="small" />
+      </div>
+      <div>no</div>
+      <div>
+        <CustomIcon name="no" />
+      </div>
+      <div />
+      <div>number</div>
+      <div>
+        <CustomIcon name="number" />
+      </div>
+      <div>
+        <CustomIcon name="number" variant="small" />
+      </div>
+      <div>operating-system</div>
+      <div>
+        <CustomIcon name="operating-system" />
+      </div>
+      <div />
+      <div>output</div>
+      <div>
+        <CustomIcon name="output" />
+      </div>
+      <div>
+        <CustomIcon name="output" variant="small" />
+      </div>
+      <div>price-tag</div>
+      <div>
+        <CustomIcon name="price-tag" />
+      </div>
+      <div />
+      <div>progress</div>
+      <div>
+        <CustomIcon name="progress" />
+      </div>
+      <div />
+      <div>project</div>
+      <div>
+        <CustomIcon name="project" />
+      </div>
+      <div />
+      <div>pull-request</div>
+      <div>
+        <CustomIcon name="pull-request" />
+      </div>
+      <div>
+        <CustomIcon name="pull-request" variant="small" />
+      </div>
+      <div>question</div>
+      <div>
+        <CustomIcon name="question" />
+      </div>
+      <div>
+        <CustomIcon name="question" variant="small" />
+      </div>
+      <div>retry</div>
+      <div>
+        <CustomIcon name="retry" />
+      </div>
+      <div />
+      <div>run-group</div>
+      <div>
+        <CustomIcon name="run-group" />
+      </div>
+      <div>
+        <CustomIcon name="run-group" variant="small" />
+      </div>
+      <div>screenshot</div>
+      <div>
+        <CustomIcon name="screenshot" />
+      </div>
+      <div />
+      <div>smart-orchestration</div>
+      <div>
+        <CustomIcon name="smart-orchestration" />
+      </div>
+      <div>
+        <CustomIcon name="smart-orchestration" variant="small" />
+      </div>
+      <div>smart-orchestration-enabled</div>
+      <div>
+        <CustomIcon name="smart-orchestration-enabled" />
+      </div>
+      <div />
+      <div>spec</div>
+      <div>
+        <CustomIcon name="spec" />
+      </div>
+      <div />
+      <div>status</div>
+      <div>
+        <CustomIcon name="status" />
+      </div>
+      <div />
+      <div>tag</div>
+      <div>
+        <CustomIcon name="tag" />
+      </div>
+      <div />
+      <div>test-case</div>
+      <div>
+        <CustomIcon name="test-case" />
+      </div>
+      <div />
+      <div>time</div>
+      <div>
+        <CustomIcon name="time" />
+      </div>
+      <div>
+        <CustomIcon name="time" variant="small" />
+      </div>
+      <div>video</div>
+      <div>
+        <CustomIcon name="video" />
+      </div>
+      <div />
+      <div>warning</div>
+      <div>
+        <CustomIcon name="warning" />
+      </div>
+      <div>
+        <CustomIcon name="warning" variant="small" />
+      </div>
+    </div>
+  </Story>
+</Preview>
+
+### Custom icons can inherit colors as needed
+
+<Preview>
+  <Story name="Custom Icons - color">
+    <div style={{ color: palette.jade500 }}>
+      <CustomIcon name="cypress" />
+      <CustomIcon name="security-lock-locked" size="x16" />
+    </div>
+  </Story>
+</Preview>
+
+### New custom icons can have either of their colors adjusted
+
+```scss
+// example css
+// applied here in `frontend/packages/storybook/.storybook/style.scss`
+
+.custom-icon-colors {
+  [stroke].icon-dark {
+    stroke: blue;
+  }
+  [fill].icon-light {
+    fill: lightblue;
+  }
+}
+```
+
+<Preview>
+  <Story name="New custom Icons - double color">
+    <div>
+      <CustomIcon
+        name="security-lock-locked"
+        size="x16"
+        className="custom-icon-colors"
+      />
+    </div>
+  </Story>
+</Preview>
+
+### Custom icons can expand
+
+But should generally be displayed at their original size
+
+<Preview>
+  <Story name="Custom Icons - size">
+    <CustomIcon name="cypress" style={{ width: '60px', height: '60px' }} />
+    <CustomIcon
+      name="security-lock-locked"
+      size="x16"
+      style={{ width: '60px', height: '60px' }}
+    />
+  </Story>
+</Preview>
+
+### Custom icons can spin
+
+<Preview>
+  <Story name="Custom Icons - spin">
+    <CustomIcon name="progress" spin alt="spinning" />
+    <CustomIcon name="security-lock-locked" size="x16" spin alt="spinning" />
+  </Story>
+</Preview>
+
+We support both Font Awesome icons and Unicons, although these should not be needed for new implementations.
+
+## Unicons Icons (legacy)
+
+[List of Unicons](https://iconscout.com/unicons/explore/line)
+
+<Preview>
+  <Story name="Unicon Icons">
+    <>
+      <div>
+        <UilTag />
+        <UilPalette />
+      </div>
+      <div>
+        <Button aria-label="Change palette" onClick={() => {}}>
+          <UilCloudDownload />
+        </Button>
+      </div>
+    </>
+  </Story>
+</Preview>
+
+## Font Awesome Icons (legacy)
+
+[List of Font Awesome icons](https://fontawesome.com/v4.7.0/icons/) (we use v4.7.0)
+
+<Preview>
+  <Story name="Font Awesome Icons">
+    <>
+      <div>
+        <Icon name="question-circle" />
+        <Icon name="chevron-up" />
+        <Icon name="close" />
+        <Icon name="ellipsis-h" />
+        <Icon name="spinner" spin />
+      </div>
+      <div>
+        <Button bsStyle="primary" disabled>
+          <Icon name="refresh" spin /> Submit
+        </Button>{' '}
+        <Button bsStyle="primary">
+          <Icon name="paper-plane" /> Request access
+        </Button>
+      </div>
+    </>
+  </Story>
+</Preview>
+
+## Octicons
+
+We also have [Octicons](https://primer.style/octicons/) included for Git & GitHub iconography
+
+<Preview>
+  <Story name="Octicons">
+    <>
+      <CheckIcon fill="#1a7f37" /> <XIcon fill="#cf222e" />{' '}
+      <DotFillIcon fill="#bf8700" /> <LockIcon /> <GitPullRequestIcon />{' '}
+      <RepoIcon />
+    </>
+  </Story>
+</Preview>
+
+# Props
+
+## Icon
+
+<Props of={Icon} />
+
+## CustomIcon
+
+<Props of={CustomIcon} />

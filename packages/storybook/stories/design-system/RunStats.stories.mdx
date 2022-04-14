@@ -1,0 +1,37 @@
+import { RunStats } from '@frontend/design-system'
+
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+# RunStats
+
+<Meta title="Design system/RunStats" component={RunStats} />
+
+Note: stats link to the test results
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <RunStats skipped={0} pending={0} passed={22} failed={1} />
+  </Story>
+</Preview>
+
+## Expanded
+
+<Preview>
+  <Story name="Expanded">
+    <RunStats
+      projectId="6599333f-6b6c-4980-992e-b4d7f835282d"
+      buildNumber={644}
+      skipped={0}
+      pending={0}
+      passed={22}
+      failed={1}
+      expanded
+    />
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={RunStats} />

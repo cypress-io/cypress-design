@@ -1,0 +1,37 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+
+import { SectionHeading, CollapsingSection } from '@frontend/design-system'
+
+# Headings
+
+<Meta title="Design system/Headings" component={SectionHeading} />
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <SectionHeading title="Test Results" />
+  </Story>
+</Preview>
+
+## With beta badge
+
+<Preview>
+  <Story name="With beta badge">
+    <SectionHeading title="Test Results" isBeta />
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={SectionHeading} />
+
+# Collapsing Section
+
+<Preview>
+  <Story name="Collapsing Section with beta badge">
+    <CollapsingSection title="Test Results" isBeta>
+      <div>Children component</div>
+    </CollapsingSection>
+  </Story>
+</Preview>

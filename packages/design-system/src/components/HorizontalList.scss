@@ -1,0 +1,16 @@
+.horizontal-list {
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+  &__item-divider {
+    color: $gray-300;
+  }
+  a {
+    text-decoration: none;
+    color: $gray-600;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: $indigo-500;
+  }
+}

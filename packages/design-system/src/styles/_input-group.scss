@@ -1,0 +1,88 @@
+.input-form-group-container {
+  .form-group {
+    margin-bottom: 0;
+  }
+  .input-form-group {
+    width: 100%;
+    margin: 0;
+    padding: 16px 0;
+    border-top: 1px solid $gray-200;
+    display: grid;
+    grid-template-columns: auto minmax(50%, calc(100% - 500px));
+    @media (max-width: 1000px) {
+      grid-template-columns: 1fr;
+      .description {
+        margin-bottom: 8px;
+      }
+    }
+    .left-column {
+      margin: 0 16px;
+    }
+    &.input-group .form-control:first-child {
+      border-radius: 4px;
+    }
+    .label {
+      color: $gray-800;
+      font-size: 16px;
+      font-weight: normal;
+      padding: 4px 0;
+    }
+    .description {
+      color: $gray-600;
+      font-size: 13px;
+    }
+    .input-form-group-contents {
+      margin: 0 16px;
+      color: $gray-800;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .error-message {
+        margin-top: 2px;
+      }
+    }
+    .radio {
+      &:first-child {
+        margin-top: 0;
+      }
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .disabled {
+    background-color: $gray-50;
+    .label {
+      color: $gray-600;
+    }
+    .description,
+    .error-message {
+      color: $gray-500;
+    }
+  }
+  .warning {
+    background-color: $orange-50;
+    .label {
+      color: $orange-800;
+    }
+    .description,
+    .error-message {
+      color: $orange-700;
+    }
+  }
+  .danger {
+    background-color: $red-50;
+    .label {
+      color: $red-800;
+    }
+    .description,
+    .error-message {
+      color: $red-700;
+    }
+  }
+  .alert {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+}

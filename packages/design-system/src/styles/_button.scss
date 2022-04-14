@@ -1,0 +1,67 @@
+@mixin outline-button($color) {
+  border-color: $color;
+  color: $color;
+}
+
+.btn-light {
+  @include button-variant($btn-light-color, $btn-light-bg, $btn-light-border);
+}
+
+.btn-dark {
+  @include button-variant($btn-dark-color, $btn-dark-bg, $btn-dark-border);
+}
+
+.btn-error {
+  @include button-variant($btn-error-color, $btn-error-bg, $btn-error-border);
+}
+
+.btn.btn-outline {
+  transition: all 0.1s ease;
+  text-shadow: none;
+  background-color: white;
+  &:hover {
+    background-color: rgba(white, 0.95);
+  }
+
+  &.btn-default {
+    @include outline-button($btn-default-bg);
+  }
+
+  &.btn-primary {
+    @include outline-button($btn-primary-bg);
+  }
+
+  &.btn-success {
+    @include outline-button($btn-success-bg);
+  }
+
+  &.btn-info {
+    @include outline-button($btn-info-bg);
+  }
+
+  &.btn-warning {
+    @include outline-button($btn-warning-bg);
+  }
+
+  &.btn-danger {
+    @include outline-button($btn-danger-bg);
+  }
+
+  &.btn-light {
+    @include outline-button($btn-light-bg);
+  }
+
+  &.btn-dark {
+    @include outline-button($btn-dark-bg);
+  }
+
+  &.btn-error {
+    @include outline-button($btn-error-bg);
+  }
+}
+
+.btn.btn-icon {
+  & + & {
+    margin: 0 8px;
+  }
+}

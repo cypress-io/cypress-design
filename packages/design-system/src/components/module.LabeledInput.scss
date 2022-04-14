@@ -1,0 +1,79 @@
+@import '@frontend/design-system/src/styles/_variables';
+
+.labeledInputContainer {
+  position: relative;
+  height: 40px;
+  flex: 1;
+  :global(.form-control) {
+    transition: 0.2s ease;
+    box-shadow: none;
+    border-color: $gray-100;
+  }
+  &:hover,
+  &:focus-within {
+    :global(.form-control) {
+      transition: 0.2s ease;
+      box-shadow: 0 0 0 2px $indigo-100;
+      border: 1px solid $indigo-300;
+    }
+  }
+  svg {
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    margin-left: 1em;
+    height: 1em;
+    @media (max-width: 400px) {
+      display: none;
+    }
+  }
+  input {
+    padding-left: 3em;
+    height: 100%;
+    @media (max-width: 400px) {
+      padding-left: 1em;
+    }
+  }
+}
+
+.labelContainer {
+  position: absolute !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 80%;
+  padding-right: 16px;
+  right: 0;
+  border-radius: 0px 4px 4px 0px;
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+.labelText {
+  color: $gray-400;
+}
+
+.divider {
+  border-left: 1px solid;
+  border-color: $gray-100;
+  height: 80% !important;
+  margin-right: 16px;
+}
+
+.iconHolder {
+  color: $gray-400;
+  position: absolute;
+  margin-left: -44px;
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.inputClearSearchIcon {
+  padding: 0;
+  margin: 0;
+  margin-left: -32px;
+}

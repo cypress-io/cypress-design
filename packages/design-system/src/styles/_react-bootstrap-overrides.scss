@@ -1,0 +1,133 @@
+// react-bootstrap overrides
+// see https://github.com/twbs/bootstrap-sass/blob/v3.4.1/assets/stylesheets/bootstrap/_variables.scss for base values
+
+$gray-darker: $gray-900;
+$gray-dark: $gray-800;
+$gray: $gray-600;
+$gray-light: $gray-500;
+$gray-lighter: $gray-100;
+
+$brand-primary: $indigo-600;
+$brand-success: $jade-400;
+$brand-info: $indigo-300;
+$brand-warning: $orange-300;
+$brand-danger: $red-700;
+
+$link-color: $indigo-500;
+
+$table-bg-accent: $gray-50;
+$table-bg-hover: $indigo-50;
+$table-border-color: $gray-200;
+
+$btn-default-color: $gray-A1;
+$btn-default-bg: $indigo-500;
+$btn-default-border: transparent;
+
+$btn-primary-color: $gray-A1;
+$btn-primary-bg: $indigo-500;
+$btn-primary-border: transparent;
+
+$btn-success-color: white;
+$btn-success-bg: $indigo-500;
+$btn-success-border: transparent;
+
+$btn-warning-color: white;
+$btn-warning-bg: $orange-500;
+$btn-warning-border: transparent;
+
+$btn-danger-color: white;
+$btn-danger-bg: $red-500;
+$btn-danger-border: transparent;
+
+$btn-light-color: $indigo-500;
+$btn-light-bg: $indigo-50;
+$btn-light-border: transparent;
+
+$btn-dark-color: $gray-100;
+$btn-dark-bg: $gray-900;
+$btn-dark-border: $gray-700;
+
+$btn-error-color: $red-800;
+$btn-error-bg: $red-50;
+$btn-error-border: transparent;
+
+$input-border: $gray-200;
+$input-border-focus: $indigo-400;
+$input-color: $gray-800;
+$input-color-placeholder: $gray-400;
+$input-bg-disabled: $gray-50;
+
+$legend-border-color: $gray-100;
+
+$dropdown-fallback-border: $gray-200;
+$dropdown-divider-bg: $gray-100;
+$dropdown-link-hover-bg: $gray-50;
+
+$font-size-h6: 10px;
+$font-size-h5: $typographic-scale * $font-size-h6;
+$font-size-h4: $typographic-scale * $font-size-h5;
+$font-size-h3: $typographic-scale * $font-size-h4;
+$font-size-h2: $typographic-scale * $font-size-h3;
+$font-size-h1: $typographic-scale * $font-size-h2;
+
+$headings-font-family: $font-muli;
+
+$screen-xs: 0;
+$screen-sm: 700px;
+$screen-md: 900px;
+$screen-xl: 1300px;
+
+$panel-body-padding: 16px;
+$panel-heading-padding: 16px;
+$panel-footer-bg: $gray-50;
+$panel-warning-text: white;
+$panel-warning-heading-bg: $orange-500;
+$panel-danger-text: white;
+$panel-danger-heading-bg: $red-700;
+
+$modal-inner-padding: 16px;
+$modal-title-padding: 16px;
+$modal-footer-border-color: $gray-200;
+$modal-backdrop-bg: $gray-900;
+
+$navbar-default-link-color: $indigo-600;
+
+$nav-link-padding: 8px 16px;
+$nav-link-hover-bg: rgba($indigo-600, 0.15);
+
+$nav-tabs-border-color: transparent;
+$nav-tabs-link-hover-border-color: $indigo-600;
+$nav-tabs-active-link-hover-bg: transparent; // react bootstrap also applies this to non-hovered active tabs, so this is overridden in _nav.scss
+$nav-tabs-active-link-hover-color: $indigo-600;
+$nav-tabs-active-link-hover-border-color: $indigo-600;
+
+$state-success-text: $jade-600;
+$state-success-bg: $jade-100;
+$state-success-border: $jade-600;
+
+$state-info-text: $indigo-700;
+$state-info-bg: $indigo-100;
+$state-info-border: $indigo-700;
+
+$state-warning-text: $orange-600;
+$state-warning-bg: $orange-100;
+$state-warning-border: $orange-600;
+
+$state-danger-text: $red-600;
+$state-danger-bg: $red-100;
+$state-danger-border: $red-600;
+
+$label-success-bg: $jade-500;
+$label-info-bg: $indigo-400;
+$label-warning-bg: $orange-500;
+
+$alert-padding: 16px !default;
+
+$progress-bar-bg: $gray-50;
+$progress-bar-danger-bg: $red-500;
+$progress-bar-warning-bg: $orange-200;
+
+$panel-inner-border: $gray-200;
+$panel-footer-bg: $gray-50;
+$panel-default-border: $gray-200;
+$panel-default-heading-bg: $gray-50;

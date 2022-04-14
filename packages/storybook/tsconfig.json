@@ -1,0 +1,13 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react",
+    "resolveJsonModule": true,
+    "lib": ["es2016", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "apollo-client": ["../../node_modules/@apollo/client"]
+    }
+  }
+}

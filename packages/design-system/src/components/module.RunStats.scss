@@ -1,0 +1,85 @@
+@import '@frontend/design-system/src/styles/_variables';
+
+.runStats {
+  display: flex;
+
+  a,
+  a:hover,
+  a:active,
+  a:visited {
+    text-decoration: none;
+  }
+
+  :global(.spec-group) & {
+    display: block;
+    height: 24px;
+    margin-right: 8px;
+  }
+
+  :global(.group-info) & {
+    margin-top: 12px;
+  }
+
+  :global(.single-spec-header) & {
+    margin-top: 20px;
+  }
+}
+
+.flakyBadge {
+  margin: 2px 8px 0px 0px;
+
+  :global(.row-content__title) {
+    border-radius: 4px;
+    font-size: 14px;
+    padding: 4px 6px;
+  }
+}
+
+.testResultStatuses {
+  font-size: 14px;
+  font-weight: 500;
+  list-style: none;
+  color: $gray-600;
+  border: 1px solid $gray-100;
+  border-radius: 4px;
+  display: flex;
+
+  li {
+    height: 22px;
+    line-height: 20px;
+    padding: 0px 6px 0px 2px;
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+
+    svg {
+      margin: 0px 4px;
+    }
+  }
+
+  :global(.status-icon) {
+    margin: 0px 4px;
+    vertical-align: middle;
+  }
+
+  :global(.fa-circle-o-notch) {
+    font-size: 12px;
+  }
+
+  a,
+  a:hover,
+  a:active,
+  a:visited {
+    color: $gray-700;
+  }
+
+  a:hover,
+  a:active {
+    background-color: $indigo-100;
+  }
+}

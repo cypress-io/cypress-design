@@ -1,0 +1,59 @@
+@import '@frontend/design-system/src/styles/_variables';
+
+.checkbox {
+  [type='checkbox'] {
+    position: absolute;
+    left: 0;
+    margin: 0;
+    z-index: -1;
+    opacity: 0.01;
+  }
+}
+
+.label {
+  cursor: pointer;
+  font-weight: 400;
+  padding-left: 24px;
+  position: relative;
+
+  &:before {
+    content: '';
+    top: 2px;
+    left: 0px;
+    width: 16px;
+    height: 16px;
+    background-color: $gray-A1;
+    border: 1px solid $gray-100;
+    border-radius: 4px;
+    position: absolute;
+  }
+
+  &.checked:before {
+    content: '';
+    background-color: $indigo-400;
+    background-image: url('@DS/lib/img/checkbox-check.svg');
+    background-repeat: no-repeat;
+    border-color: $indigo-500;
+    box-sizing: border-box;
+  }
+
+  &.disabled {
+    color: $gray-500;
+    cursor: not-allowed;
+    &:before {
+      background-color: $gray-50;
+      background-image: none;
+      border-color: $gray-100;
+    }
+
+    &.checked {
+      &:before {
+        background-image: url('@DS/lib/img/checkbox-check-disabled.svg');
+      }
+    }
+  }
+}
+
+.subLabel {
+  font-size: 10px;
+}

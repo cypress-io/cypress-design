@@ -1,0 +1,172 @@
+import { Meta, Story, Preview, Props } from '@storybook/addon-docs/blocks'
+import Select from 'react-select'
+
+import {
+  Form,
+  FormControl,
+  Icon,
+  FormGroup,
+  Radio,
+  Switch,
+  Tooltip,
+} from '@frontend/design-system'
+
+export const selectOptions = [
+  {
+    value: 'foo',
+    label: 'foo',
+  },
+  {
+    value: 'bar',
+    label: 'bar',
+    suggested: true,
+  },
+  {
+    value: 'baz',
+    label: 'baz',
+  },
+]
+
+# Form Group
+
+<Meta title="Design system/FormGroup" component={FormGroup} />
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    <Form style={{ width: '700px', minHeight: '500px' }}>
+      <FormGroup
+        label="Switch"
+        description={
+          <span>
+            <b>Rich</b> content
+          </span>
+        }
+        errorMessage={null}
+        errorState="valid"
+      >
+        <Switch />
+      </FormGroup>
+      <FormGroup label="Select" description="Cupidatat laboris dolore aliquip">
+        <FormControl componentClass="select" value="foo" onChange={() => {}}>
+          <option value="foo">Select something</option>
+        </FormControl>
+      </FormGroup>
+      <FormGroup label="Autocomplete">
+        <Select
+          options={selectOptions}
+          placeholder={
+            <span>
+              <Icon name="search" />
+              &nbsp;Search for a widget&hellip;
+            </span>
+          }
+        />
+      </FormGroup>
+      <FormGroup label="Radio button">
+        <Radio value="Option A" label="Option A" />
+        <Radio value="Option B" label="Option B" />
+      </FormGroup>
+      <FormGroup label="Purely descriptive" description="No input">
+        FYI: Thing is successfully installed.
+      </FormGroup>
+      <FormGroup label="Text input" description="Full name">
+        <FormControl type="text" placeholder="Name" />
+      </FormGroup>
+    </Form>
+  </Story>
+</Preview>
+
+## Disabled
+
+<Preview>
+  <Story name="Disabled">
+    <Form style={{ width: '700px', minHeight: '500px' }}>
+      <FormGroup
+        label="Switch"
+        description={
+          <span>
+            <b>Rich</b> content
+          </span>
+        }
+        errorMessage={null}
+        errorState="disabled"
+      >
+        <Switch disabled />
+      </FormGroup>
+      <FormGroup
+        label="Select"
+        description="Cupidatat laboris dolore aliquip"
+        errorState="disabled"
+      >
+        <FormControl
+          componentClass="select"
+          value="foo"
+          onChange={() => {}}
+          disabled
+        >
+          <option value="foo">Select something</option>
+        </FormControl>
+      </FormGroup>
+      <FormGroup label="Autocomplete" errorState="disabled">
+        <Select
+          isDisabled
+          options={selectOptions}
+          placeholder={
+            <span>
+              <Icon name="search" />
+              &nbsp;Search for a widget&hellip;
+            </span>
+          }
+        />
+      </FormGroup>
+      <FormGroup label="Radio button" errorState="disabled">
+        <Radio value="Option A" label="Option A" isDisabled />
+        <Radio value="Option B" label="Option B" isDisabled />
+      </FormGroup>
+      <FormGroup
+        label="Purely descriptive"
+        description="No input"
+        errorState="disabled"
+      >
+        FYI: Thing is successfully installed.
+      </FormGroup>
+      <FormGroup
+        label="Text input"
+        description="Full name"
+        errorState="disabled"
+      >
+        <FormControl type="text" placeholder="Name" disabled />
+      </FormGroup>
+    </Form>
+  </Story>
+</Preview>
+
+### Disabled, no form field shown
+
+<Preview>
+  <Story name="No form field">
+    <Form style={{ width: '700px', minHeight: '500px' }}>
+      <FormGroup
+        label="Organization website"
+        description="The website of your organization. We'll use this to validate your organization."
+        errorState="disabled"
+      >
+        <div>
+          cypress.io{' '}
+          <Tooltip
+            placement="right"
+            overlay={"Only admins can edit this organization's website"}
+          >
+            <i className="fa fa-info-circle" />
+          </Tooltip>
+        </div>
+      </FormGroup>
+    </Form>
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={FormGroup} />

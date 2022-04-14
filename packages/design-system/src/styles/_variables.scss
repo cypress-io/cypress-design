@@ -1,0 +1,157 @@
+// Color palettes
+$gray-50: #f3f4fa;
+$gray-100: #e1e3ed;
+$gray-200: #d0d2e0;
+$gray-300: #bfc2d4;
+$gray-400: #afb3c7;
+$gray-500: #9095ad;
+$gray-600: #747994;
+$gray-700: #5a5f7a;
+$gray-800: #434861;
+$gray-900: #2e3247;
+$gray-1000: #1b1e2e;
+$gray-A1: #ffffff;
+$gray-A2: #000000;
+
+$red-50: #fbeff1;
+$red-100: #fad9df;
+$red-200: #f8c4cd;
+$red-300: #f59aa9;
+$red-400: #e45770;
+$red-500: #c62b49;
+$red-600: #9f1331;
+$red-700: #7a0723;
+$red-800: #5e021b;
+$red-900: #4f0018;
+$red-1000: #490018;
+
+$orange-50: #f5f4d7;
+$orange-100: #f3ecb3;
+$orange-200: #f1e08f;
+$orange-300: #edbb4a;
+$orange-400: #db7903;
+$orange-500: #bd5800;
+$orange-600: #963f00;
+$orange-700: #702c00;
+$orange-800: #521f00;
+$orange-900: #411800;
+$orange-1000: #391500;
+
+$jade-50: #e4fbf2;
+$jade-100: #c2f1de;
+$jade-200: #a3e7cb;
+$jade-300: #69d3a7;
+$jade-400: #1fa971;
+$jade-500: #00814d;
+$jade-600: #005f39;
+$jade-700: #00442a;
+$jade-800: #003220;
+$jade-900: #00291b;
+$jade-1000: #00261a;
+
+$indigo-50: #f0f1ff;
+$indigo-100: #daddfe;
+$indigo-200: #c5c9fd;
+$indigo-300: #9aa2fc;
+$indigo-400: #6470f3;
+$indigo-500: #4956e3;
+$indigo-600: #3a46cc;
+$indigo-700: #2f3ab0;
+$indigo-800: #252e8f;
+$indigo-900: #1c236d;
+$indigo-1000: #151a50;
+
+$purple-50: #f5f0fb;
+$purple-100: #e9ddfa;
+$purple-200: #decbf8;
+$purple-300: #c8a7f5;
+$purple-400: #a06ce4;
+$purple-500: #7f43c9;
+$purple-600: #632aa6;
+$purple-700: #4b1a83;
+$purple-800: #3b1268;
+$purple-900: #320e58;
+$purple-1000: #2f0c52;
+
+$teal-50: #e0f6fa;
+$teal-100: #b7e7f0;
+$teal-200: #90d9e6;
+$teal-300: #4bbfd2;
+$teal-400: #0097a8;
+$teal-500: #007780;
+$teal-600: #00595d;
+$teal-700: #004143;
+$teal-800: #003131;
+$teal-900: #002828;
+$teal-1000: #002525;
+
+$fuchsia-50: #faeffb;
+$fuchsia-100: #f7daf9;
+$fuchsia-200: #f3c6f8;
+$fuchsia-300: #ed9ff4;
+$fuchsia-400: #d65fe3;
+$fuchsia-500: #b735c7;
+$fuchsia-600: #901ca2;
+$fuchsia-700: #6c0f7e;
+$fuchsia-800: #510862;
+$fuchsia-900: #400651;
+$fuchsia-1000: #39054a;
+
+$yellow-50: #f7f4d2;
+$yellow-100: #ece6a9;
+$yellow-200: #e1d984;
+$yellow-300: #cbbe41;
+$yellow-400: #a18e00;
+$yellow-500: #7e6a00;
+$yellow-600: #644d00;
+$yellow-700: #523800;
+$yellow-800: #452900;
+$yellow-900: #3d1e00;
+$yellow-1000: #391800;
+
+$green-50: #f5f5d0;
+$green-100: #e7e8ab;
+$green-200: #dadc89;
+$green-300: #bdc44d;
+$green-400: #849706;
+$green-500: #5b7100;
+$green-600: #405500;
+$green-700: #2e4000;
+$green-800: #233200;
+$green-900: #1c2a00;
+$green-1000: #192500;
+
+$magenta-50: #fceef5;
+$magenta-100: #fadaea;
+$magenta-200: #f9c5df;
+$magenta-300: #f69eca;
+$magenta-400: #e45da3;
+$magenta-500: #c53282;
+$magenta-600: #9c1964;
+$magenta-700: #750c4d;
+$magenta-800: #59063d;
+$magenta-900: #490435;
+$magenta-1000: #420333;
+
+// Icons
+:root {
+  --icon-light: #{$gray-200};
+  --icon-dark: #{$gray-1000};
+  --icon-white: #{$gray-A1};
+}
+
+// Misc variables
+$box-shadow: 0 1px 3px rgba($gray-900, 0.12);
+$beacon-padding: 84px;
+$page-header-height: 80px;
+$run-details-tabs-height: 40px;
+
+// Typography
+$font-muli: 'Muli', sans-serif;
+$font-family-sans-serif: 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+$font-sans: $font-family-sans-serif;
+$font-mono: Consolas, Monaco, 'Andale Mono', monospace;
+$headings-font-family: $font-muli;
+
+$font-base-size: 14px;
+$typographic-scale: 1.25;

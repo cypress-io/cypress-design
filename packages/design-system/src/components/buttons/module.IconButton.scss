@@ -1,0 +1,116 @@
+@import '@frontend/design-system/src/styles/_variables';
+
+.cyIconButton {
+  background-color: transparent;
+  border: none;
+  color: $gray-900;
+  padding: 0px;
+
+  &.circle {
+    .buttonContainer {
+      background-color: $gray-50;
+      border-radius: 18px;
+    }
+  }
+
+  &:hover {
+    color: $gray-900;
+    .buttonContainer {
+      background-color: $gray-100;
+    }
+  }
+
+  &:focus,
+  &.active {
+    color: $gray-900;
+    outline: none;
+    .buttonContainer {
+      background-color: $gray-300;
+      outline: none;
+    }
+  }
+
+  &[disabled] {
+    color: $gray-400;
+    cursor: not-allowed;
+    pointer-events: none;
+    &.circle {
+      .buttonContainer {
+        background-color: $gray-50;
+        &:hover {
+          background-color: $gray-50;
+        }
+      }
+    }
+    .buttonContainer {
+      &:hover {
+        background-color: transparent;
+      }
+    }
+    &.active {
+      color: $gray-500;
+      .buttonContainer {
+        background-color: $gray-300;
+      }
+    }
+  }
+}
+
+.cyIconCustomButton {
+  &.active {
+    color: $gray-900;
+    outline: none;
+    .buttonContainer {
+      color: $gray-A1;
+      background-color: $indigo-600;
+      outline: none;
+    }
+
+    &:hover {
+      .buttonContainer {
+        background-color: $indigo-700;
+        outline: none;
+      }
+    }
+  }
+}
+
+.buttonContainer {
+  border-radius: 2px;
+  padding: 8px;
+  box-sizing: border-box;
+  height: 36px;
+  width: 36px;
+  margin: 0 auto;
+}
+
+.text {
+  width: 68px;
+  margin: 8px auto 0 auto;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+// NOTE: .hover & .focus are used only to display those states in storybook
+.hover,
+.circle.hover {
+  color: $gray-700;
+  .buttonContainer {
+    background-color: $gray-100;
+  }
+}
+
+.focus,
+.circle.focus {
+  color: $gray-800;
+  .buttonContainer {
+    background-color: $gray-300;
+    outline: none;
+    &:hover {
+      background-color: $gray-300;
+    }
+  }
+  &:hover {
+    color: $gray-800;
+  }
+}

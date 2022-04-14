@@ -1,0 +1,32 @@
+import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks'
+import _ from 'lodash'
+
+import { paletteList } from '../../src/color'
+
+import { Tag } from '@frontend/design-system'
+
+# Tag
+
+If not provided, text color is automatically black or white based on which would contrast better with the background color.
+
+<Meta title="Design system/Tag" component={Tag} />
+
+## Basic
+
+<Preview>
+  <Story name="Basic">
+    {paletteList('jade').map((color, i) => {
+      return (
+        <div>
+          <Tag key={i} backgroundColor={color.hex}>
+            {`jade-${color.name}`}
+          </Tag>
+        </div>
+      )
+    })}
+  </Story>
+</Preview>
+
+# Props
+
+<Props of={Tag} />

@@ -1,0 +1,39 @@
+@import '@frontend/design-system/src/styles/_variables';
+
+.container {
+  border-bottom: 1px solid $gray-200;
+}
+
+.header {
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.title {
+  display: flex;
+}
+
+.subtitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 0 0 0 2px;
+}
+
+.subtitleContainerMaxWidth {
+  max-width: 248px;
+}
+
+.subtitle {
+  margin: 0 2px 0 0;
+  font-family: $font-family-sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  text-align: right;
+  color: $gray-500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

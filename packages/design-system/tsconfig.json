@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "noImplicitAny": false,
+    "lib": ["es2017", "dom"]
+  },
+  "include": [
+    "src/**/*.ts*",
+    "src/components/property-list.jsx",
+    "./typings.d.ts"
+  ],
+  "exclude": ["tests/*"]
+}
