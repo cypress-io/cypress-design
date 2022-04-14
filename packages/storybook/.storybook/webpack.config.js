@@ -9,12 +9,10 @@ const frontendPkg = path.resolve(__dirname, '../..')
 
 module.exports = async ({ config }) => {
   const storybookPath = path.resolve(__dirname, '..')
-  const dashboardPath = path.join(frontendPkg, 'dashboard')
   const designSystemPath = path.join(frontendPkg, 'design-system')
   const reactPath = path.join(frontendPkg, 'react')
   const commonPath = path.join(rootDir, 'packages/common')
   const featureFlagsPath = path.join(rootDir, 'packages/feature-flags')
-  const graphqlFixturesPath = path.join(frontendPkg, 'graphql-fixtures')
 
   const babelRule = config.module.rules[0]
   const babelLoader = babelRule.use[0]
@@ -49,26 +47,17 @@ module.exports = async ({ config }) => {
   babelRule.include.push(
     reactPath,
     storybookPath,
-    dashboardPath,
     featureFlagsPath,
     designSystemPath,
-    graphqlFixturesPath,
     commonPath
   )
 
   config.resolve.alias = {
     '~': path.resolve(__dirname, '../../dashboard/src'),
-    '@DS': path.resolve(__dirname, '../../design-system/src'),
-    'apollo-client': '@apollo/client',
+    '@DS': path.resolve(__dirname, '../../design-system/src')
   }
 
   config.plugins.push(
-    new CopyWebpackPlugin([
-      {
-        from: '../dashboard/src/lib/img',
-        to: './img',
-      },
-    ]),
     new WindiCSSWebpackPlugin({
       root: path.resolve(__dirname, '../../..'),
     })
@@ -95,9 +84,7 @@ module.exports = async ({ config }) => {
             importer: globImporter,
             includePaths: [
               storybookPath,
-              dashboardPath,
               designSystemPath,
-              graphqlFixturesPath,
               path.resolve(__dirname, '../node_modules'),
               path.resolve(__dirname, '../../../node_modules'),
             ],
@@ -127,9 +114,7 @@ module.exports = async ({ config }) => {
             importer: globImporter,
             includePaths: [
               storybookPath,
-              dashboardPath,
               designSystemPath,
-              graphqlFixturesPath,
               path.resolve(__dirname, '../node_modules'),
               path.resolve(__dirname, '../../../node_modules'),
             ],

@@ -8,13 +8,15 @@
   "dependencies": {},
   "devDependencies": {
     "bootstrap-sass": "3.4.1",
+    "node-sass-globbing": "0.0.23",
     "rc-tooltip": "3.7.3",
     "react-bootstrap": "0.32.4",
     "react-content-loader": "3.1.1",
     "react-inlinesvg": "2.3.0",
     "react-markdown": "^4.3.1",
     "react-vis": "1.11.5",
-    "remark-disable-tokenizers": "^1.0.24"
+    "remark-disable-tokenizers": "^1.0.24",
+    "sass": "^1.50.0"
   },
   "peerDependencies": {
     "prop-types": "^15.7.2",
