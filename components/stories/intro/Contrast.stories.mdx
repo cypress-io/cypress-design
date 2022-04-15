@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import { Meta, Preview, Story } from '@storybook/addon-docs/blocks'
-import { FormGroup, palette } from '@frontend/design-system'
-import Select from 'react-select'
+import { useState } from "react"
+import { Meta, Preview, Story } from "@storybook/addon-docs/blocks"
+import { palette } from "../../palette"
+import Select from "react-select"
 
-import { Contrast } from '../../src/contrast'
-import { ContrastFullTable } from '../../src/contrast-full-table'
+import { Contrast } from "../src/contrast"
+import { ContrastFullTable } from "../src/contrast-full-table"
 
 # Contrast
 
@@ -26,10 +26,8 @@ Note: All evaluations assume full opacity.
       {
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
-      const [backgroundColor, setBackgroundColor] = useState('gray1000')
-      const keys = Object.keys(palette).filter(
-        (k) => k.endsWith('0') || k.endsWith('1') || k.endsWith('2')
-      )
+      const [backgroundColor, setBackgroundColor] = useState("$gray-1000")
+      const keys = Object.keys(palette)
       const paletteList = keys.map((k) => {
         return {
           value: k,
@@ -41,20 +39,20 @@ Note: All evaluations assume full opacity.
       }
       return (
         <div>
-          <FormGroup
-            label="Choose background color"
-            description="grayA1 is white and grayA2 is black"
+          <div
             style={{
-              border: `2px solid ${palette.jade400}`,
-              marginBottom: '48px',
+              border: `2px solid ${palette["$jade-400"]}`,
+              marginBottom: "48px",
             }}
           >
+            <p>Choose background color</p>
+            <p>grayA1 is white and grayA2 is black</p>
             <Select
               options={paletteList}
-              defaultValue={{ value: 'gray1000', label: 'gray1000' }}
+              defaultValue={{ value: "$gray-1000", label: "$gray-1000" }}
               onChange={onChange}
             />
-          </FormGroup>
+          </div>
           <div>
             <Contrast background={backgroundColor} />
             <ContrastFullTable background={backgroundColor} />

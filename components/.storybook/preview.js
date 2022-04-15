@@ -6,4 +6,10 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  options: {
+    storySort: {
+      order: ["Intro", "React"],
+    },
+  },
+  viewMode: "docs",
 }
