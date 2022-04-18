@@ -9,6 +9,7 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "components/*"
+    "components/*/react",
+    "components/*/vue"
   ]
 }
