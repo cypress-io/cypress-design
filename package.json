@@ -8,10 +8,12 @@
   "license": "MIT",
   "private": true,
   "workspaces": [
-    "packages/*",
     "components/*/react",
+    "storybook-react",
     "components/*/vue",
-    "components/storybook-react",
-    "components/storybook-vue"
-  ]
+    "storybook-vue"
+  ],
+  "dependencies": {
+    "@vue/tsconfig": "^0.1.3"
+  }
 }

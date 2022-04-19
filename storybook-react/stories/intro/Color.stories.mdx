@@ -1,0 +1,88 @@
+import { addParameters } from "@storybook/react"
+import { Meta, Preview, Props, Story } from "@storybook/addon-docs/blocks"
+import { palette } from "../../../palette"
+
+import { BrandColors } from "../src/color"
+
+# Brand Colors
+
+<Meta
+  title="Intro/Color"
+  component={BrandColors}
+  parameters={{ info: { disable: true } }}
+/>
+
+## Palette
+
+<Preview>
+  <Story name="Color">
+    <BrandColors />
+  </Story>
+</Preview>
+
+## CSS variables
+
+You may use the colors as CSS variables, as listed in `frontend/packages/design-system/src/styles/_variables.scss`, e.g.
+
+```
+span {
+  background-color: $jade-400;
+  color: $gray-A1;
+}
+```
+
+## JS variables
+
+If needed, you can import colors by using
+
+`import { palette } from '@frontend/design-system'`
+
+and then use them as e.g. `palette.jade400`, `palette.indigo700`
+
+CSS is generally prefered over this approach, but this can be useful in situations where using CSS would be irrelevant or overly complicated.
+
+For example, as a prop for a component:
+
+```
+<TestTrend commitBranchColor={palette.purple600} />
+```
+
+or in a JS array or object:
+
+```
+const colorOptions = [
+  palette.red200,
+  palette.orange200,
+  palette.jade100,
+  palette.indigo200,
+  palette.purple200,
+  palette.gray200,
+]
+```
+
+or in tests:
+
+```
+cy.get('.cy-icon-button').should('have.color', palette.gray400)
+
+cy.getCy('current-usage')
+  .should('have.attr', 'stroke', palette.red500)
+```
+
+## Windi
+
+We'll gradually be moving over to Tailwind & Windi for the design system components. This will help components in the services monorepo to maintain some parity with components in the `cypress` monorepo. Generally, new code in the `design-system` package should use Tailwind classes instead of CSS variables.
+
+We'll be using `-white` and `-black` instead of `$gray-A1` and `$gray-A2`, again for the sake of parity with the `cypress` repo.
+
+Example usage:
+
+<div className="bg-jade-400 text-white">background of jade 400</div>
+<div className="text-indigo-700">text of indigo 700</div>
+
+```
+<div className="bg-jade-400 text-white">background of jade 400</div>
+<div className="text-indigo-700">text of indigo 700</div>
+```
+
+See also: Tailwind docs for [text color](https://tailwindcss.com/docs/text-color) and [background color](https://tailwindcss.com/docs/background-color)
