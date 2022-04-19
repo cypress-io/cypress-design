@@ -1,11 +1,9 @@
 {
-  "name": "components",
+  "name": "@cypress-design/storybook-vue",
+  "private": true,
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "vue": "3"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
@@ -13,8 +11,7 @@
     "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.4.22",
     "@storybook/addon-links": "^6.4.22",
-    "@storybook/react": "^6.4.22",
-    "@storybook/testing-library": "^0.0.9",
+    "@storybook/vue": "^6.4.22",
     "chroma-js": "^2.4.2",
     "lodash": "^4.17.21",
     "react-select": "^5.3.0",

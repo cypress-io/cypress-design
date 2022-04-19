@@ -1,6 +1,7 @@
 import React from "react"
+import { Story } from "@storybook/react"
 
-import { Checkbox } from "./Checkbox"
+import { Checkbox, type CheckboxProps } from "./Checkbox"
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -15,6 +16,6 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template = (args) => <Checkbox {...args} />
 
-export const Primary = Template.bind({})
+export const Primary: Story<CheckboxProps> = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {}

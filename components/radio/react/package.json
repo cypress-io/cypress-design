@@ -1,8 +1,0 @@
-{
-  "name": "@cypress-design/react-radio",
-  "version": "0.1.0",
-  "devDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
-  }
-}

@@ -1,5 +1,5 @@
 {
-  "name": "@cypress/design-system",
+  "name": "@cypress-design/design",
   "version": "0.0.0",
   "description": "Design system for the marketing site, app and cloud",
   "main": "index.js",
@@ -10,6 +10,8 @@
   "workspaces": [
     "packages/*",
     "components/*/react",
-    "components/*/vue"
+    "components/*/vue",
+    "components/storybook-react",
+    "components/storybook-vue"
   ]
 }

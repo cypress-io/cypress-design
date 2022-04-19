@@ -1,6 +1,0 @@
-{
-  "projects": [
-    "./tsconfig.react.json",
-    "./src/lib/test/tsconfig.json"
-  ]
-}

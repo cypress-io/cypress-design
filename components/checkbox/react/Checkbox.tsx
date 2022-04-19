@@ -1,8 +1,10 @@
-// import cs from "clsx"
+import cs from "clsx"
 import React, { FunctionComponent, HTMLProps, ReactNode } from "react"
 // import styles from './module.Checkbox.scss'
 
-interface CheckboxProps extends Omit<HTMLProps<HTMLDivElement>, "label"> {
+const styles: Record<string, string> = {}
+
+export interface CheckboxProps extends Omit<HTMLProps<HTMLDivElement>, "label"> {
   isChecked?: boolean
   isDisabled?: boolean
   label: ReactNode
@@ -23,15 +25,15 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   return (
     <div
       {...rest}
-      // className={cs(styles.checkbox, rest.className)}
+      className={cs(styles.checkbox, rest.className)}
       data-cy="cy-checkbox-container"
     >
       <label
-      // className={cs({
-      //   [styles.label]: true,
-      //   [styles.checked]: isChecked,
-      //   [styles.disabled]: isDisabled,
-      // })}
+      className={cs({
+        [styles.label]: true,
+        [styles.checked]: isChecked,
+        [styles.disabled]: isDisabled,
+      })}
       >
         <input
           type="checkbox"
@@ -45,7 +47,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
           <>
             <br />
             <span
-            // className={cs('text-muted', styles.subLabel)}
+              className={cs('text-muted', styles.subLabel)}
             >
               {subLabel}
             </span>
