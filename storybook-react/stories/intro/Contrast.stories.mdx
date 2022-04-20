@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Meta, Preview, Story } from '@storybook/addon-docs/blocks';
-import { palette } from '../../../palette';
+import { colors } from '@cypress-design/css';
 import Select from 'react-select';
 
 import { Contrast } from '../src/contrast';
@@ -27,7 +27,7 @@ Note: All evaluations assume full opacity.
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
       const [backgroundColor, setBackgroundColor] = useState('$gray-1000');
-      const keys = Object.keys(palette);
+      const keys = Object.keys(colors);
       const paletteList = keys.map((k) => {
         return {
           value: k,
@@ -41,7 +41,7 @@ Note: All evaluations assume full opacity.
         <div>
           <div
             style={{
-              border: `2px solid ${palette['$jade-400']}`,
+              border: `2px solid ${colors['$jade-400']}`,
               marginBottom: '48px',
             }}
           >

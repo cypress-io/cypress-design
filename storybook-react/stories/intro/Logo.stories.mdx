@@ -1,5 +1,5 @@
 import { Meta, Preview, Props, Story } from '@storybook/addon-docs/blocks';
-import { palette } from '../../../palette';
+import { colors } from '@cypress-design/css';
 
 # Logo
 
@@ -9,7 +9,7 @@ import { palette } from '../../../palette';
 
 <Preview>
   <Story name="Main">
-    <div style={{ backgroundColor: palette.gray800, padding: '24px' }}>
+    <div style={{ backgroundColor: colors.gray800, padding: '24px' }}>
       <img src="/img/cypress-logo.svg" />
     </div>
   </Story>
