@@ -1,4 +1,5 @@
 const { CyCSSWebpackPlugin } = require('@cypress-design/css');
+const path = require('path');
 
 module.exports = {
   stories: [

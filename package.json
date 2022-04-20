@@ -14,6 +14,10 @@
     "storybook-vue",
     "css"
   ],
+  "scripts": {
+    "build:css": "yarn workspace @cypress-design/css build",
+    "postinstall": "yarn build:css"
+  },
   "dependencies": {
     "@vue/tsconfig": "^0.1.3"
   },

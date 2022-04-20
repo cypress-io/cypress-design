@@ -7,8 +7,7 @@
     "src"
   ],
   "scripts": {
-    "build": "tsc",
-    "postinstall": "yarn build"
+    "build": "tsc"
   },
   "dependencies": {
     "@windicss/plugin-interaction-variants": "^1.0.0",
