@@ -1,5 +1,6 @@
 const { mergeConfig } = require('vite');
 const vueJsx = require('@vitejs/plugin-vue-jsx').default
+const WindiCSS = require('vite-plugin-windicss').default
 
 
 module.exports = {
@@ -19,6 +20,7 @@ module.exports = {
     return mergeConfig(config, {
       // aadd management of jsx files
       plugins: [
+        WindiCSS(),
         vueJsx()
       ],
     });
