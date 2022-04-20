@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.1",
   "scripts": {
-    "start": "start-storybook -p 6006",
+    "start": "start-storybook -p 6007",
     "build": "build-storybook"
   },
   "dependencies": {
