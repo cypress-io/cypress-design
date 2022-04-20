@@ -1,13 +1,26 @@
+const { mergeConfig } = require('vite');
+const vueJsx = require('@vitejs/plugin-vue-jsx').default
+
+
 module.exports = {
-  "stories": [
+  stories: [
     "../../components/*/vue/*.stories.tsx"
   ],
-  "addons": [
+  addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials"
   ],
-  "framework": "@storybook/vue3",
-  "core": {
-    "builder": "storybook-builder-vite"
-  }
+  framework: "@storybook/vue3",
+  core: {
+    "builder": "@storybook/builder-vite"
+  },
+  async viteFinal(config, { configType }) {
+    // return the customized config
+    return mergeConfig(config, {
+      // aadd management of jsx files
+      plugins: [
+        vueJsx()
+      ],
+    });
+  },
 }

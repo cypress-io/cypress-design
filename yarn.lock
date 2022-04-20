@@ -1367,13 +1367,14 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@joshwooding/vite-plugin-react-docgen-typescript@0.0.2":
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/@joshwooding/vite-plugin-react-docgen-typescript/-/vite-plugin-react-docgen-typescript-0.0.2.tgz#e0ae8c94f468da3a273a7b0acf23ba3565f86cbc"
-  integrity sha512-0hbsoX2c7Z3lJKY+88ToduiQDyh+Mggpd6Go0vVV3PchMRyE9iOCVUBiqd4FFfgNdFdk6iNKrO9bdIiHOpW6jA==
+"@joshwooding/vite-plugin-react-docgen-typescript@0.0.4":
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/@joshwooding/vite-plugin-react-docgen-typescript/-/vite-plugin-react-docgen-typescript-0.0.4.tgz#1b41e3c0f6a09b0279e64f225ebfd2fb86a33dff"
+  integrity sha512-ezL7SU//1OV4Oyt/zQ3CsX8uLujVEYUHuULkqgcW6wOuQfRnvgkn99HZtLWwS257GmZVwszGQzhL7VE3PbMAYw==
   dependencies:
     glob "^7.2.0"
     glob-promise "^4.2.0"
+    magic-string "^0.26.1"
     react-docgen-typescript "^2.1.1"
 
 "@jridgewell/resolve-uri@^3.0.3":
@@ -1766,6 +1767,25 @@
     ts-dedent "^2.0.0"
     util-deprecate "^1.0.2"
 
+"@storybook/builder-vite@^0.1.29":
+  version "0.1.29"
+  resolved "https://registry.yarnpkg.com/@storybook/builder-vite/-/builder-vite-0.1.29.tgz#ca7dff079968605e323b365d72c28903e4a072eb"
+  integrity sha512-WMPY1Pd5Da3BdXDfgFNhIWq09i7oxMT06nxS909VKOOKHZvckmfQpS8iKJLYp730t4t7S3+MtHf/t2+Kr7Cxew==
+  dependencies:
+    "@joshwooding/vite-plugin-react-docgen-typescript" "0.0.4"
+    "@mdx-js/mdx" "^1.6.22"
+    "@storybook/csf-tools" "^6.4.3"
+    "@storybook/source-loader" "^6.4.3"
+    "@vitejs/plugin-react" "^1.0.8"
+    ast-types "^0.14.2"
+    es-module-lexer "^0.9.3"
+    glob "^7.2.0"
+    glob-promise "^4.2.0"
+    magic-string "^0.26.1"
+    react-docgen "^6.0.0-alpha.0"
+    slash "^3.0.0"
+    vite-plugin-mdx "^3.5.6"
+
 "@storybook/builder-webpack4@6.4.22":
   version "6.4.22"
   resolved "https://registry.yarnpkg.com/@storybook/builder-webpack4/-/builder-webpack4-6.4.22.tgz#d3384b146e97a2b3a6357c6eb8279ff0f1c7f8f5"
@@ -2082,7 +2102,7 @@
     "@storybook/core-client" "6.4.22"
     "@storybook/core-server" "6.4.22"
 
-"@storybook/csf-tools@6.4.22", "@storybook/csf-tools@^6.3.3":
+"@storybook/csf-tools@6.4.22", "@storybook/csf-tools@^6.4.3":
   version "6.4.22"
   resolved "https://registry.yarnpkg.com/@storybook/csf-tools/-/csf-tools-6.4.22.tgz#f6d64bcea1b36114555972acae66a1dbe9e34b5c"
   integrity sha512-LMu8MZAiQspJAtMBLU2zitsIkqQv7jOwX7ih5JrXlyaDticH7l2j6Q+1mCZNWUOiMTizj0ivulmUsSaYbpToSw==
@@ -2262,7 +2282,7 @@
     core-js "^3.6.5"
     find-up "^4.1.0"
 
-"@storybook/source-loader@6.4.22", "@storybook/source-loader@^6.3.12":
+"@storybook/source-loader@6.4.22", "@storybook/source-loader@^6.4.3":
   version "6.4.22"
   resolved "https://registry.yarnpkg.com/@storybook/source-loader/-/source-loader-6.4.22.tgz#c931b81cf1bd63f79b51bfa9311de7f5a04a7b77"
   integrity sha512-O4RxqPgRyOgAhssS6q1Rtc8LiOvPBpC1EqhCYWRV3K+D2EjFarfQMpjgPj18hC+QzpUSfzoBZYqsMECewEuLNw==
@@ -7036,6 +7056,13 @@ magic-string@^0.25.7:
   dependencies:
     sourcemap-codec "^1.4.8"
 
+magic-string@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.26.1.tgz#ba9b651354fa9512474199acecf9c6dbe93f97fd"
+  integrity sha512-ndThHmvgtieXe8J/VGPjG+Apu7v7ItcD5mhEIvOscWjPF/ccOiLxHaSuCAS2G+3x4GKsAbT8u7zdyamupui8Tg==
+  dependencies:
+    sourcemap-codec "^1.4.8"
+
 make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-2.1.0.tgz#5f0310e18b8be898cc07009295a30ae41e91e6f5"
@@ -8464,6 +8491,22 @@ react-docgen@^5.0.0:
     node-dir "^0.1.10"
     strip-indent "^3.0.0"
 
+react-docgen@^6.0.0-alpha.0:
+  version "6.0.0-alpha.2"
+  resolved "https://registry.yarnpkg.com/react-docgen/-/react-docgen-6.0.0-alpha.2.tgz#cc31aa9e283fb6d4cc17849849dd48e30c8bd61c"
+  integrity sha512-VHgaazAkzmuwgJsGIzmzidwYDP7/ra5j3BB61jar/VqvrKzk8G2zE77AYxp/qYzByK3mqBP+ytqjy6paXTy62A==
+  dependencies:
+    "@babel/core" "^7.7.5"
+    "@babel/generator" "^7.12.11"
+    ast-types "^0.14.2"
+    commander "^2.19.0"
+    doctrine "^3.0.0"
+    estree-to-babel "^3.1.0"
+    neo-async "^2.6.1"
+    node-dir "^0.1.10"
+    resolve "^1.17.0"
+    strip-indent "^3.0.0"
+
 react-dom@16.14.0:
   version "16.14.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
@@ -8907,7 +8950,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.10.0, resolve@^1.12.0, resolve@^1.14.2, resolve@^1.15.1, resolve@^1.19.0, resolve@^1.20.0, resolve@^1.22.0, resolve@^1.3.2:
+resolve@^1.10.0, resolve@^1.12.0, resolve@^1.14.2, resolve@^1.15.1, resolve@^1.17.0, resolve@^1.19.0, resolve@^1.20.0, resolve@^1.22.0, resolve@^1.3.2:
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/resolve/-/resolve-1.22.0.tgz#5e0b8c67c15df57a89bdbabe603a002f21731198"
   integrity sha512-Hhtrw0nLeSrFQ7phPp4OOcVjLPIeMnRlr5mcnVuMe7M/7eBn98A3hmFRLoFo3DLZkivSYwhRUJTyPyWAk56WLw==
@@ -9422,22 +9465,6 @@ store2@^2.12.0:
   version "2.13.2"
   resolved "https://registry.yarnpkg.com/store2/-/store2-2.13.2.tgz#01ad8802ca5b445b9c316b55e72645c13a3cd7e3"
   integrity sha512-CMtO2Uneg3SAz/d6fZ/6qbqqQHi2ynq6/KzMD/26gTkiEShCcpqFfTHgOxsE0egAq6SX3FmN4CeSqn8BzXQkJg==
-
-storybook-builder-vite@^0.1.23:
-  version "0.1.23"
-  resolved "https://registry.yarnpkg.com/storybook-builder-vite/-/storybook-builder-vite-0.1.23.tgz#6ffe2b04c09abb0c1d039f91330802f210785821"
-  integrity sha512-PmeeYKHaBNQgRVJEwhfyo4Psev1Y7Gj51nlYxUDIG3dpy1e1aGzFubDgsmg9W/BhyHKcLIKp98JBpa1DwL702A==
-  dependencies:
-    "@joshwooding/vite-plugin-react-docgen-typescript" "0.0.2"
-    "@mdx-js/mdx" "^1.6.22"
-    "@storybook/csf-tools" "^6.3.3"
-    "@storybook/source-loader" "^6.3.12"
-    "@vitejs/plugin-react" "^1.0.8"
-    es-module-lexer "^0.9.3"
-    glob "^7.2.0"
-    glob-promise "^4.2.0"
-    slash "^3.0.0"
-    vite-plugin-mdx "^3.5.6"
 
 stream-browserify@^2.0.1:
   version "2.0.2"
