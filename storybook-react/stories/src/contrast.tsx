@@ -1,4 +1,4 @@
-import { colors } from '@cypress-design/css';
+import { colors } from '@cypress-design/css/dist/colors';
 import chroma from 'chroma-js';
 import React, { FunctionComponent } from 'react';
 import { find } from 'lodash';
