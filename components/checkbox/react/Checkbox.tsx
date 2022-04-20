@@ -1,17 +1,17 @@
-import cs from "clsx";
-import React, { FunctionComponent, HTMLProps, ReactNode } from "react";
+import cs from 'clsx';
+import React, { FunctionComponent, HTMLProps, ReactNode } from 'react';
 // import styles from './module.Checkbox.scss'
 
 const styles: Record<string, string> = {};
 
 export interface CheckboxProps
-  extends Omit<HTMLProps<HTMLDivElement>, "label"> {
+  extends Omit<HTMLProps<HTMLDivElement>, 'label'> {
   isChecked?: boolean;
   isDisabled?: boolean;
   label: ReactNode;
   onChange: () => void;
   subLabel?: string | null;
-  "data-cy"?: string;
+  'data-cy'?: string;
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
@@ -20,7 +20,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   label,
   onChange,
   subLabel,
-  "data-cy": dataCy,
+  'data-cy': dataCy,
   ...rest
 }) => {
   return (
@@ -38,7 +38,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
       >
         <input
           type="checkbox"
-          data-cy={dataCy || "cy-checkbox"}
+          data-cy={dataCy || 'cy-checkbox'}
           checked={isChecked}
           disabled={isDisabled}
           onChange={onChange}
@@ -47,7 +47,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         {subLabel && (
           <>
             <br />
-            <span className={cs("text-muted", styles.subLabel)}>
+            <span className={cs('text-muted', styles.subLabel)}>
               {subLabel}
             </span>
           </>

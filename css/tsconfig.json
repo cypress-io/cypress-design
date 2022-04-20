@@ -3,11 +3,12 @@
   "compilerOptions": {
     "outDir": "dist",
     "target": "esnext",
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "esModuleInterop": true
   }
 }

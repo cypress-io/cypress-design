@@ -34,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-type InputState = "success" | "danger" | "default";
+type InputState = 'success' | 'danger' | 'default';
 
 withDefaults(
   defineProps<{
@@ -44,12 +44,12 @@ withDefaults(
     label?: string;
   }>(),
   {
-    state: "default",
+    state: 'default',
     label: undefined,
   }
 );
 
 const emit = defineEmits<{
-  (event: "update:modelValue", value: boolean): void;
+  (event: 'update:modelValue', value: boolean): void;
 }>();
 </script>

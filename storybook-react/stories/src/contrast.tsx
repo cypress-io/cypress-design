@@ -1,50 +1,50 @@
-import { colors } from "@cypress-design/css";
-import chroma from "chroma-js";
-import React, { FunctionComponent } from "react";
-import { find } from "lodash";
+import { colors } from '@cypress-design/css';
+import chroma from 'chroma-js';
+import React, { FunctionComponent } from 'react';
+import { find } from 'lodash';
 
 // import "./contrast.scss"
 
 const values = [
-  "50",
-  "100",
-  "200",
-  "300",
-  "400",
-  "500",
-  "600",
-  "700",
-  "800",
-  "900",
-  "1000",
-  "A1",
-  "A2",
+  '50',
+  '100',
+  '200',
+  '300',
+  '400',
+  '500',
+  '600',
+  '700',
+  '800',
+  '900',
+  '1000',
+  'A1',
+  'A2',
 ];
 
 const colorways = [
-  "gray",
-  "red",
-  "orange",
-  "jade",
-  "indigo",
-  "purple",
-  "teal",
-  "fuchsia",
-  "yellow",
-  "green",
-  "magenta",
+  'gray',
+  'red',
+  'orange',
+  'jade',
+  'indigo',
+  'purple',
+  'teal',
+  'fuchsia',
+  'yellow',
+  'green',
+  'magenta',
 ];
 
 const headerTextColor = (color: string) => {
-  return chroma(color).luminance() > 0.5 ? "black" : "white";
+  return chroma(color).luminance() > 0.5 ? 'black' : 'white';
 };
 
 type ColorsItem = {
   name: string;
   hex: string;
   ratio: number;
-  largeContrast: "AAA" | "AA" | "Not legible";
-  normalContrast: "AAA" | "AA" | "Not legible";
+  largeContrast: 'AAA' | 'AA' | 'Not legible';
+  normalContrast: 'AAA' | 'AA' | 'Not legible';
   value: string;
   label: string;
 };
@@ -54,7 +54,7 @@ type ColorwayProps = {
   /** background is the name of a color, e.g. $gray-1000 */
   background: string;
   colors: ColorsItem[];
-  standard: "AAA" | "AA";
+  standard: 'AAA' | 'AA';
 };
 
 const SmallTextColorway: FunctionComponent<ColorwayProps> = ({
@@ -69,7 +69,7 @@ const SmallTextColorway: FunctionComponent<ColorwayProps> = ({
 
       {values.map((value) => {
         const colorName = `$${colorway}-${value}`;
-        const color = find(colors, ["name", colorName]);
+        const color = find(colors, ['name', colorName]);
 
         if (!color || color.normalContrast !== standard) {
           return <div />;
@@ -100,7 +100,7 @@ const LargeTextColorway: FunctionComponent<ColorwayProps> = ({
 
       {values.map((value) => {
         const colorName = `$${colorway}-${value}`;
-        const color = find(colors, ["name", colorName]);
+        const color = find(colors, ['name', colorName]);
 
         if (!color || color.largeContrast !== standard) {
           return (
@@ -127,18 +127,18 @@ const LargeTextColorway: FunctionComponent<ColorwayProps> = ({
 };
 
 type TextTableProps = {
-  size: "large" | "small";
+  size: 'large' | 'small';
   /** background is the name of a color, e.g. $gray-1000 */
   background: string;
   colors: ColorsItem[];
-  standard: "AAA" | "AA";
+  standard: 'AAA' | 'AA';
 };
 
 const TextTable: FunctionComponent<TextTableProps> = ({
-  size = "small",
+  size = 'small',
   background,
   colors,
-  standard = "AAA",
+  standard = 'AAA',
 }) => {
   return (
     <div
@@ -152,7 +152,7 @@ const TextTable: FunctionComponent<TextTableProps> = ({
             style={{ borderColor: headerTextColor(background) }}
             key={size + standard + colorway}
           >
-            {size === "small" ? (
+            {size === 'small' ? (
               <SmallTextColorway
                 colorway={colorway}
                 background={background}
@@ -187,9 +187,9 @@ export const Contrast: FunctionComponent<ContrastProps> = ({ background }) => {
     const hex = colors[k];
     const ratio = chroma.contrast(hex, backgroundHex);
     const largeContrast =
-      ratio >= 4.5 ? "AAA" : ratio >= 3 ? "AA" : "Not legible";
+      ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
     const normalContrast =
-      ratio >= 7.1 ? "AAA" : ratio >= 4.5 ? "AA" : "Not legible";
+      ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
 
     return {
       name: k,

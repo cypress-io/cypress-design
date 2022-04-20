@@ -1,15 +1,17 @@
-import VitePlugin from "vite-plugin-windicss";
-import WebpackPlugin from "windicss-webpack-plugin";
-import windiConfig, { defaultConfig } from "./windi.config";
+import VitePlugin, { type UserOptions } from 'vite-plugin-windicss';
+import WebpackPlugin from 'windicss-webpack-plugin';
+import windiConfig from './windi.config';
 
-export const CyCSSVitePlugin = () =>
+export const CyCSSVitePlugin = (options: UserOptions) =>
   VitePlugin({
     config: windiConfig,
+    ...options,
   });
 
-export const CyCSSWebpackPlugin = () =>
+export const CyCSSWebpackPlugin = (options: UserOptions) =>
   new WebpackPlugin({
     config: windiConfig,
+    ...options,
   });
 
-export { colors } from "./colors";
+export { colors } from './colors';

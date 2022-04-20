@@ -1,20 +1,12 @@
-import Checkbox from "./Checkbox.vue";
+import Checkbox from './Checkbox.vue';
 
 export default {
-  title: "Vue/Checkbox",
+  title: 'Vue/Checkbox',
   component: Checkbox,
 };
 
-export const Sample = (args: any) => ({
-  // Components used in your story `template` are defined in the `components` object
-  components: { Checkbox },
-  // The story's `args` need to be mapped into the template through the `setup()` method
-  setup() {
-    // Story args can be spread into the returned object
-    return { ...args };
-  },
-  // Then, the spread values can be accessed directly in the template
-  render() {
-    return <Checkbox id="sample" modelValue={true} />;
-  },
-});
+export const Sample = () => (
+  <div class="p-4">
+    <Checkbox label="Sample" id="sample" modelValue={true} />
+  </div>
+);

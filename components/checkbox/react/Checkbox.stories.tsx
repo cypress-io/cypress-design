@@ -1,15 +1,15 @@
-import React from "react";
-import { Story } from "@storybook/react";
+import React from 'react';
+import { Story } from '@storybook/react';
 
-import { Checkbox, type CheckboxProps } from "./Checkbox";
+import { Checkbox, type CheckboxProps } from './Checkbox';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "React/Checkbox",
+  title: 'React/Checkbox',
   component: Checkbox,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
-    backgroundColor: { control: "color" },
+    backgroundColor: { control: 'color' },
   },
 };
 

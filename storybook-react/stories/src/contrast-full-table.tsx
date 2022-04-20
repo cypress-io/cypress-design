@@ -1,8 +1,8 @@
-import { colors } from "@cypress-design/css";
-import chroma from "chroma-js";
-import React, { FunctionComponent } from "react";
-import { round } from "lodash";
-import { Color } from "./color";
+import { colors } from '@cypress-design/css';
+import chroma from 'chroma-js';
+import React, { FunctionComponent } from 'react';
+import { round } from 'lodash';
+import { Color } from './color';
 
 // import "./contrast.scss"
 
@@ -24,9 +24,9 @@ export const TableRow: FunctionComponent<TableRowProps> = ({
 }) => {
   const ratio = chroma.contrast(color.hex, backgroundHex);
   const largeContrast =
-    ratio >= 4.5 ? "AAA" : ratio >= 3 ? "AA" : "Not legible";
+    ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
   const normalContrast =
-    ratio >= 7.1 ? "AAA" : ratio >= 4.5 ? "AA" : "Not legible";
+    ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
 
   // if (this.props.ratioLimit && ratio < this.props.ratioLimit) {
   //   return null
@@ -56,7 +56,7 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
   const backgroundHex = colors[background];
 
   const headerTextColor = (backgroundColor: string) =>
-    chroma.hex(backgroundColor).luminance() > 0.5 ? "black" : "white";
+    chroma.hex(backgroundColor).luminance() > 0.5 ? 'black' : 'white';
 
   const keys = Object.keys(colors);
   const colorsList = keys.map((k) => ({
