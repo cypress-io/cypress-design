@@ -1,8 +1,8 @@
-import { addParameters } from "@storybook/react"
-import { Meta, Preview, Props, Story } from "@storybook/addon-docs/blocks"
-import { palette } from "../../../palette"
+import { addParameters } from "@storybook/react";
+import { Meta, Preview, Props, Story } from "@storybook/addon-docs/blocks";
+import { colors } from "@cypress-design/css";
 
-import { BrandColors } from "../src/color"
+import { BrandColors } from "../src/color";
 
 # Brand Colors
 
@@ -20,24 +20,13 @@ import { BrandColors } from "../src/color"
   </Story>
 </Preview>
 
-## CSS variables
-
-You may use the colors as CSS variables, as listed in `frontend/packages/design-system/src/styles/_variables.scss`, e.g.
-
-```
-span {
-  background-color: $jade-400;
-  color: $gray-A1;
-}
-```
-
 ## JS variables
 
 If needed, you can import colors by using
 
-`import { palette } from '@frontend/design-system'`
+`import { colors } from '@cypress-design/css'`
 
-and then use them as e.g. `palette.jade400`, `palette.indigo700`
+and then use them as e.g. `colors.jade400`, `colors.indigo700`
 
 CSS is generally prefered over this approach, but this can be useful in situations where using CSS would be irrelevant or overly complicated.
 
@@ -51,12 +40,12 @@ or in a JS array or object:
 
 ```
 const colorOptions = [
-  palette.red200,
-  palette.orange200,
-  palette.jade100,
-  palette.indigo200,
-  palette.purple200,
-  palette.gray200,
+  colors.red200,
+  colors.orange200,
+  colors.jade100,
+  colors.indigo200,
+  colors.purple200,
+  colors.gray200,
 ]
 ```
 

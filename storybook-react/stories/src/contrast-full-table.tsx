@@ -1,31 +1,32 @@
-import { palette } from "../../../palette"
-import chroma from "chroma-js"
-import React, { FunctionComponent } from "react"
-import { round } from "lodash"
-import { Color } from "./color"
+import { colors } from "@cypress-design/css";
+import chroma from "chroma-js";
+import React, { FunctionComponent } from "react";
+import { round } from "lodash";
+import { Color } from "./color";
 
 // import "./contrast.scss"
 
 type TableRowProps = {
-  color: Color
-  backgroundHex: string
-  key: number
-}
+  color: Color;
+  backgroundHex: string;
+  key: number;
+};
 
 type ContrastFullTableProps = {
   /** background is the name of a color, e.g. $gray-1000 */
-  background: string
-}
+  background: string;
+};
 
 export const TableRow: FunctionComponent<TableRowProps> = ({
   color,
   backgroundHex,
   key,
 }) => {
-  const ratio = chroma.contrast(color.hex, backgroundHex)
-  const largeContrast = ratio >= 4.5 ? "AAA" : ratio >= 3 ? "AA" : "Not legible"
+  const ratio = chroma.contrast(color.hex, backgroundHex);
+  const largeContrast =
+    ratio >= 4.5 ? "AAA" : ratio >= 3 ? "AA" : "Not legible";
   const normalContrast =
-    ratio >= 7.1 ? "AAA" : ratio >= 4.5 ? "AA" : "Not legible"
+    ratio >= 7.1 ? "AAA" : ratio >= 4.5 ? "AA" : "Not legible";
 
   // if (this.props.ratioLimit && ratio < this.props.ratioLimit) {
   //   return null
@@ -46,22 +47,22 @@ export const TableRow: FunctionComponent<TableRowProps> = ({
       <td>{normalContrast}</td>
       <td>{round(ratio, 2)}</td>
     </tr>
-  )
-}
+  );
+};
 
 export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
   background,
 }) => {
-  const backgroundHex = palette[background]
+  const backgroundHex = colors[background];
 
   const headerTextColor = (backgroundColor: string) =>
-    chroma.hex(backgroundColor).luminance() > 0.5 ? "black" : "white"
+    chroma.hex(backgroundColor).luminance() > 0.5 ? "black" : "white";
 
-  const keys = Object.keys(palette)
-  const paletteList = keys.map((k) => ({
+  const keys = Object.keys(colors);
+  const colorsList = keys.map((k) => ({
     name: k,
-    hex: palette[k],
-  }))
+    hex: colors[k],
+  }));
 
   return (
     <details>
@@ -85,11 +86,11 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
           </tr>
         </thead>
         <tbody>
-          {paletteList.map((color, i) => (
+          {colorsList.map((color, i) => (
             <TableRow key={i} color={color} backgroundHex={backgroundHex} />
           ))}
         </tbody>
       </table>
     </details>
-  )
-}
+  );
+};

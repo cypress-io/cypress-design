@@ -4,7 +4,7 @@
     "noImplicitAny": false,
     "lib": ["es2017", "dom"],
     "esModuleInterop": true,
-    "strict": true,
+    "strict": true
   },
-   "files": ["./typings.d.ts"]
+  "files": ["./typings.d.ts"]
 }

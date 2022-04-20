@@ -11,9 +11,13 @@
     "components/*/react",
     "storybook-react",
     "components/*/vue",
-    "storybook-vue"
+    "storybook-vue",
+    "css"
   ],
   "dependencies": {
     "@vue/tsconfig": "^0.1.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.6.2"
   }
 }

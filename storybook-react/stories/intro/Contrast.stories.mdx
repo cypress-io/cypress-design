@@ -1,10 +1,10 @@
-import { useState } from "react"
-import { Meta, Preview, Story } from "@storybook/addon-docs/blocks"
-import { palette } from "../../../palette"
-import Select from "react-select"
+import { useState } from "react";
+import { Meta, Preview, Story } from "@storybook/addon-docs/blocks";
+import { palette } from "../../../palette";
+import Select from "react-select";
 
-import { Contrast } from "../src/contrast"
-import { ContrastFullTable } from "../src/contrast-full-table"
+import { Contrast } from "../src/contrast";
+import { ContrastFullTable } from "../src/contrast-full-table";
 
 # Contrast
 
@@ -26,17 +26,17 @@ Note: All evaluations assume full opacity.
       {
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
-      const [backgroundColor, setBackgroundColor] = useState("$gray-1000")
-      const keys = Object.keys(palette)
+      const [backgroundColor, setBackgroundColor] = useState("$gray-1000");
+      const keys = Object.keys(palette);
       const paletteList = keys.map((k) => {
         return {
           value: k,
           label: k,
-        }
-      })
+        };
+      });
       const onChange = (selection) => {
-        setBackgroundColor(selection.value)
-      }
+        setBackgroundColor(selection.value);
+      };
       return (
         <div>
           <div
@@ -58,7 +58,7 @@ Note: All evaluations assume full opacity.
             <ContrastFullTable background={backgroundColor} />
           </div>
         </div>
-      )
+      );
     }}
   </Story>
 </Preview>

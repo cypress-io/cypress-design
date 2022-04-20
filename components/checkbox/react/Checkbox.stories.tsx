@@ -1,7 +1,7 @@
-import React from "react"
-import { Story } from "@storybook/react"
+import React from "react";
+import { Story } from "@storybook/react";
 
-import { Checkbox, type CheckboxProps } from "./Checkbox"
+import { Checkbox, type CheckboxProps } from "./Checkbox";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -11,11 +11,11 @@ export default {
   argTypes: {
     backgroundColor: { control: "color" },
   },
-}
+};
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template = (args) => <Checkbox {...args} />
+const Template = (args) => <Checkbox {...args} />;
 
-export const Primary: Story<CheckboxProps> = Template.bind({})
+export const Primary: Story<CheckboxProps> = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {}
+Primary.args = {};

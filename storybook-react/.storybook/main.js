@@ -1,9 +1,9 @@
-const WindiCSSWebpackPlugin = require('windicss-webpack-plugin')
+const WindiCSSWebpackPlugin = require("windicss-webpack-plugin");
 
 module.exports = {
   stories: [
-    "../stories/**/*.stories.mdx", 
-    "../../components/*/react/*.stories.tsx"
+    "../stories/**/*.stories.mdx",
+    "../../components/*/react/*.stories.tsx",
   ],
   addons: [
     "@storybook/addon-links",
@@ -12,7 +12,7 @@ module.exports = {
   ],
   framework: "@storybook/react",
   webpackFinal: (config) => {
-    config.plugins.push(new WindiCSSWebpackPlugin())
-    return config
+    config.plugins.push(new WindiCSSWebpackPlugin());
+    return config;
   },
-}
+};

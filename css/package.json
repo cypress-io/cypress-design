@@ -1,0 +1,23 @@
+{
+  "name": "@cypress-design/css",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@windicss/plugin-interaction-variants": "^1.0.0",
+    "vite-plugin-windicss": "^1.8.4",
+    "windicss": "^3.5.1",
+    "windicss-webpack-plugin": "^1.6.10"
+  },
+  "devDependencies": {
+    "typescript": "4.6.3",
+    "webpack": "4",
+    "color-string": "1.9.0"
+  }
+}

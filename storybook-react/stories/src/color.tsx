@@ -1,65 +1,67 @@
-import { palette } from "../../../palette"
-import chroma from "chroma-js"
-import React, { FunctionComponent } from "react"
+import { colors } from "@cypress-design/css";
+import chroma from "chroma-js";
+import React, { FunctionComponent } from "react";
 
 export const paletteList = (color: string) => {
-  const keys = Object.keys(palette).filter((k) => k.startsWith(`$${color}`))
+  const keys = Object.keys(colors).filter((k) => k.startsWith(`$${color}`));
   return keys.map((k) => ({
     name: k.replace(`$${color}-`, ""),
-    hex: palette[k],
-  }))
-}
+    hex: colors[k],
+  }));
+};
 
 export type Color = {
-  hex: string
-  name: string
+  hex: string;
+  name: string;
+};
+
+interface ColorTileProps {
+  color: Color;
 }
 
-type ColorTileProps = {
-  color: Color
-}
-
-type ColorPaletteProps = {
-  colors: Color[]
-  name: string
+interface ColorPaletteProps {
+  colors: Color[];
+  name: string;
 }
 
 export const ColorTile: FunctionComponent<ColorTileProps> = ({ color }) => {
   const style = {
     backgroundColor: color.hex,
     height: 64,
-  }
+  };
 
-  const textColor = chroma.hex(color.hex).luminance() > 0.5 ? "black" : "white"
+  const textColor = chroma.hex(color.hex).luminance() > 0.5 ? "black" : "white";
 
   return (
-    <div style={{ display: "inline-block", position: "relative" }}>
-      <div style={style}></div>
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 4,
-          color: textColor,
-          fontSize: "1.5rem",
-        }}
-      >
-        {color.name}
+    <>
+      <div style={{ display: "inline-block", position: "relative" }}>
+        <div style={style}></div>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 4,
+            color: textColor,
+            fontSize: "1.5rem",
+          }}
+        >
+          {color.name}
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 4,
+            color: textColor,
+            fontSize: "1rem",
+          }}
+        >
+          {color.hex}
+        </div>
       </div>
-      <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 4,
-          color: textColor,
-          fontSize: "1rem",
-        }}
-      >
-        {color.hex}
-      </div>
-    </div>
-  )
-}
+    </>
+  );
+};
 
 export const ColorPalette: FunctionComponent<ColorPaletteProps> = ({
   colors,
@@ -68,7 +70,7 @@ export const ColorPalette: FunctionComponent<ColorPaletteProps> = ({
   const style = {
     display: "grid",
     gridTemplateColumns: `repeat(${colors.length}, 1fr)`,
-  }
+  };
 
   return (
     <div style={{ margin: "20px 0" }}>
@@ -79,14 +81,14 @@ export const ColorPalette: FunctionComponent<ColorPaletteProps> = ({
         ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const BrandColors: FunctionComponent = () => {
   const style = {
     width: "66vw",
     margin: "10px auto",
-  }
+  };
 
   return (
     <div style={style}>
@@ -105,5 +107,5 @@ export const BrandColors: FunctionComponent = () => {
       <ColorPalette name="Green" colors={paletteList("green")} />
       <ColorPalette name="Magenta" colors={paletteList("magenta")} />
     </div>
-  )
-}
+  );
+};
