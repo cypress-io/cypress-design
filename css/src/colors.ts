@@ -146,7 +146,7 @@ const customColors = {
     900: '#490435',
     1000: '#420333',
   },
-};
+} as const;
 
 export const cyColors = {
   ...customColors,
@@ -194,11 +194,11 @@ export const cyColors = {
     ...customColors.gray,
     DEFAULT: customColors.gray[600],
   },
-};
+} as const;
 
 // filter out this deprecated color to remove the annoying warning
 const FilteredColors = Object.keys(Colors).reduce((acc, key) => {
-  if (key !== 'lightBlue') {
+  if (!['lightBlue', 'warmGray'].includes(key)) {
     acc[key] = Colors[key];
   }
 
