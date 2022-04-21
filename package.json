@@ -14,14 +14,14 @@
     "storybook/*"
   ],
   "scripts": {
-    "build": "yarn --cwd ./css build && yarn build:intro && yarn build:react && yarn build:vue",
-    "build:intro": "yarn --cwd ./storybook/intro build",
-    "build:react": "cd ./storybook/react && yarn build",
-    "build:vue": "cd ./storybook/vue && yarn build",
+    "build": "yarn build:css && yarn build:intro && yarn build:react && yarn build:vue",
+    "build:intro": "yarn workspace storybook build",
+    "build:react": "yarn workspace storybook-react build",
+    "build:vue": "yarn workspace storybook-vue build",
     "start": "concurrently yarn:start:*",
-    "start:intro": "yarn --cwd ./storybook/intro start",
-    "start:react": "yarn --cwd ./storybook/react start --no-open",
-    "start:vue": "yarn --cwd ./storybook/vue start --no-open",
+    "start:intro": "yarn workspace storybook start",
+    "start:react": "yarn workspace storybook-react start",
+    "start:vue": "yarn workspace storybook-vue start",
     "build:css": "yarn workspace @cypress-design/css build",
     "postinstall": "yarn build:css"
   },
