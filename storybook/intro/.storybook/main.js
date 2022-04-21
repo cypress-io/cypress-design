@@ -21,17 +21,15 @@ module.exports = {
         },
       };
     }
-    console.log('----');
-    console.log(process.env.VERCEL_URL);
     return {
       react: {
         title: 'React',
-        url: process.env.VERCEL_URL + '/react',
+        url: '/react',
         expanded: true,
       },
       vue: {
         title: 'Vue',
-        url: process.env.VERCEL_URL + '/vue',
+        url: '/vue',
         expanded: true,
       },
     };

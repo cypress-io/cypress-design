@@ -15,16 +15,15 @@
   ],
   "scripts": {
     "build": "yarn --cwd ./css build && concurrently yarn:build:*",
-    "build:intro": "yarn --cwd ./storybook/storybook-intro build",
-    "build:react": "cd ./storybook/storybook-react && yarn build && npx sb extract ../dist/react",
-    "build:vue": "cd ./storybook/storybook-vue && yarn build && npx sb extract ../dist/vue",
+    "build:intro": "yarn --cwd ./storybook/intro build",
+    "build:react": "cd ./storybook/react && yarn build && npx sb extract ../dist/react",
+    "build:vue": "cd ./storybook/vue && yarn build && npx sb extract ../dist/vue",
     "start": "concurrently yarn:start:*",
-    "start:react": "yarn --cwd ./storybook/storybook-react start",
-    "start:vue": "yarn --cwd ./storybook/storybook-vue start",
+    "start:intro": "yarn --cwd ./storybook/intro start",
+    "start:react": "yarn --cwd ./storybook/react start --no-open",
+    "start:vue": "yarn --cwd ./storybook/vue start --no-open",
     "build:css": "yarn workspace @cypress-design/css build",
-    "postinstall": "yarn build:css",
-    "storybook:build": "yarn --cwd ./storybook/storybook-intro build",
-    "storybook:start": "yarn --cwd ./storybook/storybook-intro start"
+    "postinstall": "yarn build:css"
   },
   "dependencies": {
     "@vue/tsconfig": "^0.1.3"
