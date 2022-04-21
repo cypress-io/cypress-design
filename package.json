@@ -11,7 +11,9 @@
     "components/*/react",
     "components/*/vue",
     "css",
-    "storybook"
+    "storybook",
+    "storybook/storybook-react",
+    "storybook/storybook-vue"
   ],
   "scripts": {
     "build:css": "yarn workspace @cypress-design/css build",
