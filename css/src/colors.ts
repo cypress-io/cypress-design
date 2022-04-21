@@ -198,7 +198,16 @@ export const cyColors = {
 
 // filter out this deprecated color to remove the annoying warning
 const FilteredColors = Object.keys(Colors).reduce((acc, key) => {
-  if (!['lightBlue', 'warmGray', 'trueGray'].includes(key)) {
+  if (
+    ![
+      'blueGray',
+      'coolGray',
+      'lightBlue',
+      'warmGray',
+      'trueGray',
+      'zink',
+    ].includes(key)
+  ) {
     acc[key] = Colors[key];
   }
 

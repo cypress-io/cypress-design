@@ -14,10 +14,10 @@
     "storybook/*"
   ],
   "scripts": {
-    "build": "yarn --cwd ./css build && concurrently yarn:build:*",
+    "build": "yarn --cwd ./css build && yarn build:react && yarn build:vue && yarn build:intro",
     "build:intro": "yarn --cwd ./storybook/intro build",
-    "build:react": "cd ./storybook/react && yarn build && npx sb extract ../dist/react",
-    "build:vue": "cd ./storybook/vue && yarn build && npx sb extract ../dist/vue",
+    "build:react": "cd ./storybook/react && yarn build",
+    "build:vue": "cd ./storybook/vue && yarn build",
     "start": "concurrently yarn:start:*",
     "start:intro": "yarn --cwd ./storybook/intro start",
     "start:react": "yarn --cwd ./storybook/react start --no-open",
