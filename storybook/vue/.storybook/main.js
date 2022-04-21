@@ -27,6 +27,7 @@ module.exports = {
         // add management of jsx files
         vueJsx(),
       ],
+      base: '/vue/',
     });
   },
 };
