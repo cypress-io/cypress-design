@@ -1,14 +1,27 @@
-const { CyCSSWebpackPlugin } = require('@cypress-design/css');
-const path = require('path');
-
 module.exports = {
-  stories: ['../../../components/*/react/*.stories.tsx'],
+  stories: ['../stories/**/*.stories.mdx'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     // "@storybook/addon-interactions",
   ],
   framework: '@storybook/react',
+  refs: {
+    react: {
+      title: 'React',
+      url: process.env.VERCEL_URL
+        ? process.env.VERCEL_URL + '/storybook-react/storybook-static'
+        : 'http://localhost:6008',
+      expanded: true,
+    },
+    vue: {
+      title: 'Vue',
+      url: process.env.VERCEL_URL
+        ? process.env.VERCEL_URL + '/storybook-vue/storybook-static'
+        : 'http://localhost:6007',
+      expanded: true,
+    },
+  },
   managerWebpack: (config) => {
     config.module.rules = [
       {
@@ -25,21 +38,6 @@ module.exports = {
       },
       ...config.module.rules,
     ];
-    return config;
-  },
-  webpackFinal: (config) => {
-    config.plugins.push(
-      CyCSSWebpackPlugin({
-        scan: {
-          include: [
-            path.resolve(
-              __dirname,
-              '../../../components/*/react/*.stories.tsx'
-            ),
-          ],
-        },
-      })
-    );
     return config;
   },
 };

@@ -1,0 +1,35 @@
+{
+  "name": "storybook",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "yarn --cwd ../css build && concurrently yarn:build:*",
+    "build:intro": "build-storybook",
+    "build:react": "cd storybook-react && yarn build && npx sb extract",
+    "build:vue": "cd storybook-vue && yarn build && npx sb extract",
+    "start": "concurrently yarn:start:*",
+    "start:intro": "start-storybook -p 6006",
+    "start:react": "yarn --cwd ./storybook-react start",
+    "start:vue": "yarn --cwd ./storybook-vue start"
+  },
+  "dependencies": {
+    "react": "17",
+    "react-dom": "17"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.9",
+    "@storybook/addon-actions": "^6.4.22",
+    "@storybook/addon-essentials": "^6.4.22",
+    "@storybook/addon-links": "^6.4.22",
+    "@storybook/react": "^6.4.22",
+    "chroma-js": "^2.4.2",
+    "concurrently": "^7.1.0",
+    "lodash": "^4.17.21",
+    "react-select": "^5.3.0",
+    "string-replace-loader": "^3.1.0",
+    "typescript": "^4.6.3",
+    "windicss": "^3.5.1",
+    "windicss-webpack-plugin": "^1.6.10"
+  }
+}
