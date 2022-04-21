@@ -1,8 +1,7 @@
 {
   "name": "storybook",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
+  "private": true,
+  "version": "0.0.1",
   "scripts": {
     "build": "yarn --cwd ../css build && concurrently yarn:build:*",
     "build:intro": "build-storybook",
