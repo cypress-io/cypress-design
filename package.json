@@ -14,7 +14,7 @@
     "storybook/*"
   ],
   "scripts": {
-    "build": "yarn --cwd ./css build && yarn build:react && yarn build:vue && yarn build:intro",
+    "build": "yarn --cwd ./css build && yarn build:intro && yarn build:react && yarn build:vue",
     "build:intro": "yarn --cwd ./storybook/intro build",
     "build:react": "cd ./storybook/react && yarn build",
     "build:vue": "cd ./storybook/vue && yarn build",
