@@ -1,5 +1,6 @@
 {
-  "name": "@cypress-design/storybook-react",
+  "name": "storybook-react",
+  "private": true,
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
