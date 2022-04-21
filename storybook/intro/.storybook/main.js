@@ -1,3 +1,6 @@
+const { CyCSSWebpackPlugin } = require('@cypress-design/css');
+const path = require('path');
+
 module.exports = {
   stories: ['../stories/**/*.stories.mdx'],
   addons: [
@@ -50,6 +53,16 @@ module.exports = {
       },
       ...config.module.rules,
     ];
+    return config;
+  },
+  webpackFinal: async (config) => {
+    config.plugins.push(
+      CyCSSWebpackPlugin({
+        scan: {
+          include: [path.resolve(__dirname, '../stories/**/*.stories.mdx')],
+        },
+      })
+    );
     return config;
   },
 };
