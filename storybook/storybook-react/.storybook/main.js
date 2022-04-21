@@ -3,8 +3,8 @@ const path = require('path');
 
 module.exports = {
   stories: [
-    '../stories/**/*.stories.mdx',
-    '../../components/*/react/*.stories.tsx',
+    '../../stories/**/*.stories.mdx',
+    '../../../components/*/react/*.stories.tsx',
   ],
   addons: [
     '@storybook/addon-links',
@@ -14,14 +14,14 @@ module.exports = {
   framework: '@storybook/react',
   refs: {
     react: {
-      title: "Vue",
+      title: 'Vue',
       url: process.env.VERCEL_URL
-        ? process.env.VERCEL_URL + "/storybook-vue/storybook-static"
-        : "http://localhost:6007",
+        ? process.env.VERCEL_URL + '/storybook-vue/storybook-static'
+        : 'http://localhost:6007',
       expanded: true,
     },
   },
-  framework: "@storybook/react",
+  framework: '@storybook/react',
   managerWebpack: (config) => {
     config.module.rules = [
       {
@@ -29,7 +29,7 @@ module.exports = {
         use: {
           // without this, storybook composition only works if the external storybook(s) are launched before the primary one
           // https://github.com/storybookjs/storybook/issues/13650#issuecomment-773375007
-          loader: "string-replace-loader",
+          loader: 'string-replace-loader',
           options: {
             search: /"type": "unknown"/g,
             replace: () => '"type": "server-checked"',
@@ -37,15 +37,18 @@ module.exports = {
         },
       },
       ...config.module.rules,
-    ]
-    return config
+    ];
+    return config;
   },
   webpackFinal: (config) => {
     config.plugins.push(
       CyCSSWebpackPlugin({
         scan: {
           include: [
-            path.resolve(__dirname, '../../components/*/react/*.stories.tsx'),
+            path.resolve(
+              __dirname,
+              '../../../components/*/react/*.stories.tsx'
+            ),
           ],
         },
       })

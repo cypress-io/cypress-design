@@ -4,7 +4,7 @@ const path = require('path');
 const vueJsx = require('@vitejs/plugin-vue-jsx').default;
 
 module.exports = {
-  stories: ['../../components/*/vue/*.stories.tsx'],
+  stories: ['../../../components/*/vue/*.stories.tsx'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   framework: '@storybook/vue3',
   core: {
@@ -17,7 +17,10 @@ module.exports = {
         CyCSSVitePlugin({
           scan: {
             include: [
-              path.resolve(__dirname, '../../components/*/vue/*.stories.tsx'),
+              path.resolve(
+                __dirname,
+                '../../../components/*/vue/*.stories.tsx'
+              ),
             ],
           },
         }),

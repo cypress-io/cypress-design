@@ -1,4 +1,4 @@
 {
-  "extends": "../tsconfig.react.json",
+  "extends": "../../tsconfig.react.json",
   "include": ["stories/**/*.mdx", "stories/**/*.tsx", "stories/**/*.ts"]
 }
