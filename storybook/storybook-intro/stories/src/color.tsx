@@ -3,11 +3,10 @@ import chroma from 'chroma-js';
 import React, { FunctionComponent } from 'react';
 
 export const paletteList = (color: keyof typeof palette) => {
-  return Object.entries(palette[color])
-    .map(([name, hex]) => ({
-      name,
-      hex,
-    }));
+  return Object.entries(palette[color]).map(([name, hex]) => ({
+    name,
+    hex,
+  }));
 };
 
 export type Color = {
@@ -72,7 +71,6 @@ export const ColorPalette: FunctionComponent<ColorPaletteProps> = ({
     gridTemplateColumns: `repeat(${colors.length}, 1fr)`,
   };
 
-  console.log({ colors})
   return (
     <div style={{ margin: '20px 0' }}>
       <h4>{name}</h4>

@@ -11,20 +11,26 @@
     "components/*/react",
     "components/*/vue",
     "css",
-    "storybook",
-    "storybook/storybook-react",
-    "storybook/storybook-vue"
+    "storybook/*"
   ],
   "scripts": {
+    "build": "yarn --cwd ./css build && concurrently yarn:build:*",
+    "build:intro": "yarn --cwd ./storybook/storybook-intro build",
+    "build:react": "cd ./storybook/storybook-react && yarn build && npx sb extract ../dist/react",
+    "build:vue": "cd ./storybook/storybook-vue && yarn build && npx sb extract ../dist/vue",
+    "start": "concurrently yarn:start:*",
+    "start:react": "yarn --cwd ./storybook/storybook-react start",
+    "start:vue": "yarn --cwd ./storybook/storybook-vue start",
     "build:css": "yarn workspace @cypress-design/css build",
     "postinstall": "yarn build:css",
-    "storybook:build": "yarn --cwd ./storybook build",
-    "storybook:start": "yarn --cwd ./storybook start"
+    "storybook:build": "yarn --cwd ./storybook/storybook-intro build",
+    "storybook:start": "yarn --cwd ./storybook/storybook-intro start"
   },
   "dependencies": {
     "@vue/tsconfig": "^0.1.3"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "prettier": "^2.6.2"
   }
 }

@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "start-storybook -p 6008",
-    "build": "build-storybook"
+    "build": "build-storybook --quiet --output-dir ../dist/react"
   },
   "author": "",
   "license": "ISC"
