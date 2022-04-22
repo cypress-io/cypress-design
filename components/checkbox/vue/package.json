@@ -16,7 +16,7 @@
   "scripts": {
     "build": "yarn build:module && yarn build:types",
     "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc *.vue --declaration --emitDeclarationOnly --skipLibCheck --outFile ./dist/index"
+    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "license": "MIT"
 }

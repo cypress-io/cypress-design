@@ -5,7 +5,10 @@
     "target": "esnext",
     "moduleResolution": "node",
     "module": "ESNext",
-    "strict": true
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true
   },
   "files": ["./typings.d.ts"]
 }
