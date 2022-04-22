@@ -4,7 +4,8 @@
     "jsx": "preserve",
     "target": "esnext",
     "moduleResolution": "node",
-    "module": "ESNext"
+    "module": "ESNext",
+    "strict": true
   },
   "files": ["./typings.d.ts"]
 }
