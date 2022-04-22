@@ -1,6 +1,5 @@
 import cs from 'clsx';
-import React, { FunctionComponent, HTMLProps, ReactNode } from 'react';
-// import styles from './module.Checkbox.scss'
+import type { FunctionComponent, HTMLProps, ReactNode } from 'react';
 
 const styles: Record<string, string> = {};
 
