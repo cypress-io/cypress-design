@@ -4,6 +4,7 @@ import vue from '@vitejs/plugin-vue';
 export default (libConfig: LibraryOptions) =>
   defineConfig({
     build: {
+      sourcemap: true,
       lib: {
         fileName: (format) => `index.${format}.js`,
         ...libConfig,

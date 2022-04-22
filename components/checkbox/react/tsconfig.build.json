@@ -1,0 +1,7 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": ["./Checkbox.tsx", "./index.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+  }
+}

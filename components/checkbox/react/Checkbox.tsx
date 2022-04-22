@@ -1,4 +1,5 @@
 import cs from 'clsx';
+import * as React from 'react';
 import type { FunctionComponent, HTMLProps, ReactNode } from 'react';
 
 const styles: Record<string, string> = {};
@@ -56,3 +57,5 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
     </div>
   );
 };
+
+export default Checkbox;
