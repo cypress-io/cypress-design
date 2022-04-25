@@ -11,7 +11,8 @@
     "components/*/react",
     "components/*/vue",
     "css",
-    "storybook/*"
+    "storybook/*",
+    "test/*"
   ],
   "scripts": {
     "build": "yarn build:css && yarn build:intro && yarn build:react && yarn build:vue",
