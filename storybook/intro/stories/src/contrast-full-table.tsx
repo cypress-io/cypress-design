@@ -40,11 +40,7 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
         <thead>
           <tr>
             <th
-              className="border px-2 py-1"
-              style={{
-                backgroundColor: background.value,
-                color: headerTextColor,
-              }}
+              className={`border px-2 py-1 ${background.label} text-${headerTextColor}`}
             >
               Color
             </th>
@@ -58,11 +54,7 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
           {colorsList.map((color, i) => (
             <tr className="header" key={i}>
               <th
-                className="border px-2 py-1"
-                style={{
-                  backgroundColor: background.value,
-                  color: color.hex,
-                }}
+                className={`border px-2 py-1 ${background.label} text-${color.name}`}
               >
                 {color.name}
               </th>

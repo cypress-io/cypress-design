@@ -84,14 +84,14 @@ const Cell: FunctionComponent<CellProps> = ({
       </div>
 
       {compliantColors.length === 0 && (
-        <div style={{ color: contrastingTextColor(background.value) }}>
+        <div className={`text-${contrastingTextColor(background.value)} `}>
           No compliant values
         </div>
       )}
 
       {/* example text for large size */}
       {compliantColors.length > 0 && size === 'large' && (
-        <div className="py-4">
+        <div className={`text-${contrastingTextColor(background.value)} py-4`}>
           <span className="text-[24px]">24px+ or</span>
           <br />
           <span className="font-bold text-[18px]">18px+ &amp; bold</span>
@@ -138,9 +138,8 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
         Compliant colors against {background.label}: Small text
       </h2>
       <div
-        className="grid"
+        className={`grid ${background.label}`}
         style={{
-          backgroundColor: background.value,
           gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
         }}
       >
@@ -164,9 +163,8 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
         Compliant colors against {background.label}: Large text
       </h2>
       <div
-        className="grid"
+        className={`grid ${background.label}`}
         style={{
-          backgroundColor: background.value,
           gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
         }}
       >

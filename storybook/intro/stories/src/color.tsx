@@ -1,7 +1,15 @@
 import { colors as designColors } from '@cypress-design/css/dist/colors';
 import React, { FunctionComponent } from 'react';
 import { contrastingTextColor } from './contrast';
-import { filter, flatten, pick, startsWith, values } from 'lodash';
+import {
+  filter,
+  flatten,
+  includes,
+  pick,
+  startCase,
+  startsWith,
+  values,
+} from 'lodash';
 import flat from 'flat';
 
 const brandPalettes = {
@@ -45,21 +53,15 @@ export const ColorTile: FunctionComponent<ColorTileProps> = ({ color }) => {
   const textColor = contrastingTextColor(color.hex);
   return (
     <>
-      <div
-        className="inline-block relative h-24"
-        style={{ backgroundColor: color.hex }}
-      >
-        <div
-          className="absolute top-0 inset-x-1 text-md"
-          style={{ color: textColor }}
-        >
-          {color.name.split('-')[0]}-
+      <div className={`inline-block relative h-24 bg-${color.name}`}>
+        <div className={`absolute top-0 inset-x-1 text-md text-${textColor}`}>
+          {color.name.split('-')[0]}
+          {includes(color.name, '-') ? '-' : ''}
           <br />
           {color.name.split('-')[1]}
         </div>
         <div
-          className="absolute bottom-0 inset-x-1 text-sm"
-          style={{ color: textColor }}
+          className={`absolute bottom-0 inset-x-1 text-sm text-${textColor}`}
         >
           {color.hex}
         </div>
@@ -73,7 +75,7 @@ export const BrandColors: FunctionComponent = () => {
     <div className="w-full">
       {Object.keys(brandPalettes).map((paletteName) => (
         <div key={paletteName} className="mb-8">
-          <h3 className="text-2xl">{paletteName}</h3>
+          <h3 className="text-2xl">{startCase(paletteName)}</h3>
           {brandPalettes[paletteName].map((colorway) => {
             return (
               <div className="grid grid-cols-11" key={colorway}>
