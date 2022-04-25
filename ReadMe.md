@@ -59,6 +59,8 @@ See [the component ReadMe](./components/) for the list of available components a
 
 ### Running storybook
 
+### Create a new component
+
 ### Running tests
 
 ## Structure
