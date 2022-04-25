@@ -3,41 +3,9 @@ import React, { FunctionComponent } from 'react';
 import { map, round } from 'lodash';
 import { ColorsItem, contrastingTextColor } from './contrast';
 
-type TableRowProps = {
-  color: ColorsItem;
-  background: { value: string; label: string };
-};
-
 type ContrastFullTableProps = {
   background: { value: string; label: string };
   colors: object;
-};
-
-export const TableRow: FunctionComponent<TableRowProps> = ({
-  color,
-  background,
-}) => {
-  // if (this.props.ratioLimit && ratio < this.props.ratioLimit) {
-  //   return null
-  // }
-
-  return (
-    <tr className="header">
-      <th
-        className="border px-2 py-1"
-        style={{
-          backgroundColor: background.value,
-          color: color.hex,
-        }}
-      >
-        {color.name}
-      </th>
-      <td className="border px-2 py-1">{color.name}</td>
-      <td className="border px-2 py-1">{color.largeContrast}</td>
-      <td className="border px-2 py-1">{color.normalContrast}</td>
-      <td className="border px-2 py-1">{round(color.ratio, 2)}</td>
-    </tr>
-  );
 };
 
 export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
@@ -46,16 +14,16 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
 }) => {
   const headerTextColor = contrastingTextColor(background.value);
 
-  const colorsList: ColorsItem[] = map(colors, (hex, name) => {
-    const ratio = chroma.contrast(hex, background.value);
+  const colorsList: ColorsItem[] = map(colors, (color) => {
+    const ratio = chroma.contrast(color.hex, background.value);
     const largeContrast =
       ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
     const normalContrast =
       ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
 
     return {
-      hex,
-      name,
+      hex: color.hex,
+      name: color.name,
       ratio,
       largeContrast,
       normalContrast,
@@ -88,7 +56,21 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
         </thead>
         <tbody>
           {colorsList.map((color, i) => (
-            <TableRow key={i} color={color} background={background} />
+            <tr className="header" key={i}>
+              <th
+                className="border px-2 py-1"
+                style={{
+                  backgroundColor: background.value,
+                  color: color.hex,
+                }}
+              >
+                {color.name}
+              </th>
+              <td className="border px-2 py-1">{color.name}</td>
+              <td className="border px-2 py-1">{color.largeContrast}</td>
+              <td className="border px-2 py-1">{color.normalContrast}</td>
+              <td className="border px-2 py-1">{round(color.ratio, 2)}</td>
+            </tr>
           ))}
         </tbody>
       </table>

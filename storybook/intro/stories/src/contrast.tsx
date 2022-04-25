@@ -105,7 +105,7 @@ const Cell: FunctionComponent<CellProps> = ({
 
 type ContrastProps = {
   background: { value: string; label: string };
-  colors: object;
+  colors: { hex: string; name: string }[];
   colorways: string[];
 };
 
@@ -114,21 +114,21 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
   colors,
   colorways,
 }) => {
-  const colorAttributes: ColorsItem[] = map(colors, (hex, name) => {
-    const ratio = chroma.contrast(hex, background.value);
+  const colorAttributes: ColorsItem[] = map(colors, (color) => {
+    const ratio = chroma.contrast(color.hex, background.value);
     const largeContrast =
       ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
     const normalContrast =
       ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
 
     return {
-      name: name,
-      hex,
+      name: color.name,
+      hex: color.hex,
       ratio,
       largeContrast,
       normalContrast,
-      value: hex,
-      label: hex,
+      value: color.hex,
+      label: color.hex,
     };
   });
 
@@ -145,9 +145,9 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
         }}
       >
         {colorways.map((colorway) => {
-          const colors = filter(colorAttributes, (color) => {
-            return startsWith(color.name, colorway);
-          });
+          const colors = filter(colorAttributes, (color) =>
+            startsWith(color.name, colorway)
+          );
 
           return (
             <Cell

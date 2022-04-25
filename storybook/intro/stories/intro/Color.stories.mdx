@@ -1,6 +1,5 @@
 import { addParameters } from '@storybook/react';
 import { Meta, Canvas, Props, Story } from '@storybook/addon-docs';
-import { colors } from '@cypress-design/css/dist/colors';
 
 import { BrandColors } from '../src/color';
 
@@ -60,9 +59,7 @@ cy.getCy('current-usage')
 
 ## Windi
 
-We'll gradually be moving over to Tailwind & Windi for the design system components. This will help components in the services monorepo to maintain some parity with components in the `cypress` monorepo. Generally, new code in the `design-system` package should use Tailwind classes instead of CSS variables.
-
-We'll be using `-white` and `-black` instead of `$gray-A1` and `$gray-A2`, again for the sake of parity with the `cypress` repo.
+Design system components use Tailwind & Windi.
 
 Example usage:
 
@@ -74,4 +71,4 @@ Example usage:
 <div className="text-indigo-700">text of indigo 700</div>
 ```
 
-See also: Tailwind docs for [text color](https://tailwindcss.com/docs/text-color) and [background color](https://tailwindcss.com/docs/background-color)
+See also: Tailwind docs for [text color](https://tailwindcss.com/docs/text-color) and [background color](https://tailwindcss.com/docs/background-color).
