@@ -1,6 +1,6 @@
 import { colors as palette } from '@cypress-design/css/dist/colors';
-import chroma from 'chroma-js';
 import React, { FunctionComponent } from 'react';
+import { contrastingTextColor } from './contrast';
 
 export const paletteList = (color: keyof typeof palette) => {
   return Object.entries(palette[color]).map(([name, hex]) => ({
@@ -29,7 +29,7 @@ export const ColorTile: FunctionComponent<ColorTileProps> = ({ color }) => {
     height: 64,
   };
 
-  const textColor = chroma.hex(color.hex).luminance() > 0.5 ? 'black' : 'white';
+  const textColor = contrastingTextColor(color.hex);
 
   return (
     <>

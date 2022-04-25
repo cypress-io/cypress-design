@@ -1,10 +1,28 @@
 import { useState } from 'react';
 import { Meta, Preview, Story } from '@storybook/addon-docs';
-import { colors } from '@cypress-design/css/dist/colors';
+import { colors as designColors } from '@cypress-design/css/dist/colors';
 import Select from 'react-select';
+import flatten from 'flat';
+import { map, pick } from 'lodash'
 
 import { Contrast } from '../src/contrast';
 import { ContrastFullTable } from '../src/contrast-full-table';
+
+export const colorways = [
+  'gray',
+  'red',
+  'orange',
+  'jade',
+  'indigo',
+  'purple',
+  'teal',
+  'fuchsia',
+  'yellow',
+  'green',
+  'magenta',
+  'black',
+  'white',
+];
 
 # Contrast
 
@@ -26,36 +44,40 @@ Note: All evaluations assume full opacity.
       {
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
-      const [backgroundColor, setBackgroundColor] = useState('$gray-1000');
-      const keys = Object.keys(colors);
-      const paletteList = keys.map((k) => {
-        return {
-          value: k,
-          label: k,
-        };
+      const namedColors = pick(designColors, colorways);
+      const colors = flatten(namedColors, {
+        delimiter: '-',
       });
+      const [backgroundColor, setBackgroundColor] = useState({ value: colors['gray-1000'], label: 'bg-gray-1000' });
+      const paletteList = map(colors, (hex, name) => {
+        return {
+          value: hex,
+          label: `bg-${name}`
+        }
+      })
       const onChange = (selection) => {
-        setBackgroundColor(selection.value);
+        setBackgroundColor(selection);
       };
       return (
         <div>
           <div
             style={{
-              border: `2px solid ${colors['$jade-400']}`,
+              border: `2px solid ${colors['jade-400']}`,
               marginBottom: '48px',
             }}
           >
-            <p>Choose background color</p>
-            <p>grayA1 is white and grayA2 is black</p>
+            <p className="m-4">Choose background color</p>
+            {/* <p>grayA1 is white and grayA2 is black</p> */}
             <Select
+              className="m-4"
               options={paletteList}
-              defaultValue={{ value: '$gray-1000', label: '$gray-1000' }}
+              defaultValue={backgroundColor}
               onChange={onChange}
             />
           </div>
           <div>
-            <Contrast background={backgroundColor} />
-            <ContrastFullTable background={backgroundColor} />
+            <Contrast background={backgroundColor} colors={colors} colorways={colorways} />
+            <ContrastFullTable background={backgroundColor} colors={colors} />
           </div>
         </div>
       );
