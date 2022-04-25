@@ -1,0 +1,23 @@
+{
+  "about": "This is a hygen-create definitions file. The hygen-create utility creates generators that can be executed using hygen.",
+  "hygen_create_version": "0.2.0",
+  "name": "component",
+  "files_and_dirs": {
+    "components/ComponentName/react/ComponentName.stories.tsx": true,
+    "components/ComponentName/react/ComponentName.tsx": true,
+    "components/ComponentName/react/index.ts": true,
+    "components/ComponentName/react/package.json": true,
+    "components/ComponentName/react/rollup.config.js": true,
+    "components/ComponentName/react/tsconfig.build.json": true,
+    "components/ComponentName/react/tsconfig.json": true,
+    "components/ComponentName/vue/ComponentName.stories.tsx": true,
+    "components/ComponentName/vue/ComponentName.vue": true,
+    "components/ComponentName/vue/index.ts": true,
+    "components/ComponentName/vue/package.json": true,
+    "components/ComponentName/vue/tsconfig.build.json": true,
+    "components/ComponentName/vue/tsconfig.json": true,
+    "components/ComponentName/vue/vite.config.ts": true
+  },
+  "templatize_using_name": "ComponentName",
+  "gen_parent_dir": false
+}
