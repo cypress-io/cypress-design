@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import logo from './logo.svg'
+import Checkbox from '@cypress-design/react-checkbox'
 import './App.css'
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           >
             Vite Docs
           </a>
+          <Checkbox label="Sample" onChange={() => console.log('changed')}/>
         </p>
       </header>
     </div>
