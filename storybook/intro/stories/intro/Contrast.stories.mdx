@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { Meta, Preview, Story } from '@storybook/addon-docs';
-import { colors } from '@cypress-design/css/dist/colors';
 import Select from 'react-select';
+import { find, map, pick } from 'lodash'
 
 import { Contrast } from '../src/contrast';
 import { ContrastFullTable } from '../src/contrast-full-table';
+import { colors } from '../src/color'
+
+import { brandColorways } from '../src/color.tsx';
 
 # Contrast
 
@@ -26,36 +29,30 @@ Note: All evaluations assume full opacity.
       {
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
-      const [backgroundColor, setBackgroundColor] = useState('$gray-1000');
-      const keys = Object.keys(colors);
-      const paletteList = keys.map((k) => {
+      const [backgroundColor, setBackgroundColor] = useState({ value: find(colors, ['name', 'gray-1000']).hex, label: 'bg-gray-1000' });
+      const selectOptions = map(colors, (color) => {
         return {
-          value: k,
-          label: k,
-        };
-      });
+          value: color.hex,
+          label: `bg-${color.name}`
+        }
+      })
       const onChange = (selection) => {
-        setBackgroundColor(selection.value);
+        setBackgroundColor(selection);
       };
       return (
         <div>
-          <div
-            style={{
-              border: `2px solid ${colors['$jade-400']}`,
-              marginBottom: '48px',
-            }}
-          >
-            <p>Choose background color</p>
-            <p>grayA1 is white and grayA2 is black</p>
+          <div className="border-jade-400 border-2 mb-8">
+            <p className="m-4">Choose background color</p>
             <Select
-              options={paletteList}
-              defaultValue={{ value: '$gray-1000', label: '$gray-1000' }}
+              className="m-4"
+              options={selectOptions}
+              defaultValue={backgroundColor}
               onChange={onChange}
             />
           </div>
           <div>
-            <Contrast background={backgroundColor} />
-            <ContrastFullTable background={backgroundColor} />
+            <Contrast background={backgroundColor} colors={colors} colorways={brandColorways} />
+            <ContrastFullTable background={backgroundColor} colors={colors} />
           </div>
         </div>
       );

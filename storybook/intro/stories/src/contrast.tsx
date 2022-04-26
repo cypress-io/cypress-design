@@ -1,247 +1,194 @@
-import { colors } from '@cypress-design/css/dist/colors';
 import chroma from 'chroma-js';
 import React, { FunctionComponent } from 'react';
-import { find } from 'lodash';
+import { filter, find, map, startsWith } from 'lodash';
 
-// import "./contrast.scss"
+export const contrastingTextColor = (color: string) => {
+  const ratioToBlack = chroma.contrast(color, 'black');
+  const ratioToWhite = chroma.contrast(color, 'white');
 
-const values = [
-  '50',
-  '100',
-  '200',
-  '300',
-  '400',
-  '500',
-  '600',
-  '700',
-  '800',
-  '900',
-  '1000',
-  'A1',
-  'A2',
-];
-
-const colorways = [
-  'gray',
-  'red',
-  'orange',
-  'jade',
-  'indigo',
-  'purple',
-  'teal',
-  'fuchsia',
-  'yellow',
-  'green',
-  'magenta',
-];
-
-const headerTextColor = (color: string) => {
-  return chroma(color).luminance() > 0.5 ? 'black' : 'white';
+  return ratioToBlack > ratioToWhite ? 'black' : 'white';
 };
 
-type ColorsItem = {
+export type ColorsItem = {
   name: string;
   hex: string;
   ratio: number;
   largeContrast: 'AAA' | 'AA' | 'Not legible';
   normalContrast: 'AAA' | 'AA' | 'Not legible';
-  value: string;
-  label: string;
+  value?: string;
+  label?: string;
 };
 
 type ColorwayProps = {
-  colorway: string;
-  /** background is the name of a color, e.g. $gray-1000 */
-  background: string;
   colors: ColorsItem[];
-  standard: 'AAA' | 'AA';
+  size: 'normal' | 'large';
 };
 
-const SmallTextColorway: FunctionComponent<ColorwayProps> = ({
-  colorway,
-  background,
-  colors,
-  standard,
-}) => {
+const TextColorway: FunctionComponent<ColorwayProps> = ({ colors, size }) => {
   return (
     <>
-      <div style={{ color: headerTextColor(background) }}>{colorway}:</div>
-
-      {values.map((value) => {
-        const colorName = `$${colorway}-${value}`;
-        const color = find(colors, ['name', colorName]);
-
-        if (!color || color.normalContrast !== standard) {
-          return <div />;
-        }
-
-        return (
-          <div style={{ color: color.hex }} key={value}>
-            {color.name}
-          </div>
-        );
-      })}
-    </>
-  );
-};
-
-const LargeTextColorway: FunctionComponent<ColorwayProps> = ({
-  colorway,
-  background,
-  colors,
-  standard,
-}) => {
-  return (
-    <>
-      <div className="large" style={{ color: headerTextColor(background) }}>
-        {colorway}:
-      </div>
-      <div />
-
-      {values.map((value) => {
-        const colorName = `$${colorway}-${value}`;
-        const color = find(colors, ['name', colorName]);
-
-        if (!color || color.largeContrast !== standard) {
+      {colors.map((color) => {
+        if (size === 'large') {
           return (
-            <>
-              <div />
-              <div />
-            </>
+            <div style={{ color: color.hex }} key={color.name}>
+              <span className="text-[24px]">
+                {color[`${size}Contrast`]}: text-{color.name}
+              </span>
+            </div>
           );
         }
 
         return (
-          <>
-            <div className="large" style={{ color: color.hex }}>
-              {color.name}
-            </div>
-            <div className="bold" style={{ color: color.hex }}>
-              {color.name}
-            </div>
-          </>
+          <div style={{ color: color.hex }} key={color.name}>
+            {color[`${size}Contrast`]}: text-{color.name}
+          </div>
         );
       })}
     </>
   );
 };
 
-type TextTableProps = {
-  size: 'large' | 'small';
-  /** background is the name of a color, e.g. $gray-1000 */
-  background: string;
+type CellProps = {
+  size: 'large' | 'normal';
+  /** background is a hex value */
+  background: { value: string; label: string };
   colors: ColorsItem[];
-  standard: 'AAA' | 'AA';
+  colorway: string;
 };
 
-const TextTable: FunctionComponent<TextTableProps> = ({
-  size = 'small',
+const Cell: FunctionComponent<CellProps> = ({
+  size = 'normal',
   background,
   colors,
-  standard = 'AAA',
+  colorway,
 }) => {
+  const headerTextClass = size === 'normal' ? '' : 'text-2xl';
+
+  // make a list of the compliant colors
+  // AAA first, then AA
+  const compliantColors: ColorsItem[] = [
+    ...filter(colors, [`${size}Contrast`, 'AAA']),
+    ...filter(colors, [`${size}Contrast`, 'AA']),
+  ];
+
   return (
     <div
-      className={`text-table ${size}-text-table`}
-      style={{ backgroundColor: background }}
+      className="border text-white p-4 grid-cols-1"
+      style={{ borderColor: contrastingTextColor(background.value) }}
     >
-      {colorways.map((colorway) => {
-        return (
-          <div
-            className="color"
-            style={{ borderColor: headerTextColor(background) }}
-            key={size + standard + colorway}
-          >
-            {size === 'small' ? (
-              <SmallTextColorway
-                colorway={colorway}
-                background={background}
-                colors={colors}
-                standard={standard}
-              />
-            ) : (
-              <LargeTextColorway
-                colorway={colorway}
-                background={background}
-                colors={colors}
-                standard={standard}
-              />
-            )}
-          </div>
-        );
-      })}
+      <div
+        className={headerTextClass}
+        style={{ color: contrastingTextColor(background.value) }}
+      >
+        {colorway}:
+      </div>
+
+      {compliantColors.length === 0 && (
+        <div className={`text-${contrastingTextColor(background.value)} `}>
+          No compliant values
+        </div>
+      )}
+
+      {/* example text for large size */}
+      {compliantColors.length > 0 && size === 'large' && (
+        <div className={`text-${contrastingTextColor(background.value)} py-4`}>
+          <span className="text-[24px]">24px+ or</span>
+          <br />
+          <span className="font-bold text-[18px]">18px+ &amp; bold</span>
+        </div>
+      )}
+
+      <TextColorway colors={compliantColors} size={size} />
     </div>
   );
 };
 
 type ContrastProps = {
-  /** background is the name of a color, e.g. $gray-1000 */
-  background: string;
+  background: { value: string; label: string };
+  colors: { hex: string; name: string }[];
+  colorways: string[];
 };
 
-export const Contrast: FunctionComponent<ContrastProps> = ({ background }) => {
-  const backgroundHex = colors[background];
-
-  const keys = Object.keys(colors);
-  const colorsList: ColorsItem[] = keys.map((k) => {
-    const hex = colors[k];
-    const ratio = chroma.contrast(hex, backgroundHex);
+export const Contrast: FunctionComponent<ContrastProps> = ({
+  background,
+  colors,
+  colorways,
+}) => {
+  const colorAttributes: ColorsItem[] = map(colors, (color) => {
+    const ratio = chroma.contrast(color.hex, background.value);
     const largeContrast =
       ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
     const normalContrast =
       ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
 
     return {
-      name: k,
-      hex,
+      name: color.name,
+      hex: color.hex,
       ratio,
       largeContrast,
       normalContrast,
-      value: k,
-      label: k,
+      value: color.hex,
+      label: color.hex,
     };
   });
 
   return (
     <>
-      <h2>AAA-compliant colors against {background}: Small text</h2>
-      <TextTable
-        standard="AAA"
-        colors={colorsList}
-        background={backgroundHex}
-        size="small"
-      />
-      <h2>AA-compliant colors against {background}: Small text</h2>
-      Note: all AAA colors above are also AA compliant.
-      <TextTable
-        standard="AA"
-        colors={colorsList}
-        background={backgroundHex}
-        size="small"
-      />
-      <h2>AAA-compliant colors against {background}: Large text</h2>
-      <p>
-        Text is considered large if it is 18px and bold or larger, or 24px or
-        larger. Those sizes and weights are displayed here.
-      </p>
-      <TextTable
-        standard="AAA"
-        colors={colorsList}
-        background={backgroundHex}
-        size="large"
-      />
-      <h2>AA-compliant colors against {background}: Large text</h2>
-      <p>
-        Text is considered large if it is 18px and bold or larger, or 24px or
-        larger. Those sizes and weights are displayed here.
-      </p>
-      <p>Note: all AAA colors above are also AA compliant.</p>
-      <TextTable
-        standard="AA"
-        colors={colorsList}
-        background={backgroundHex}
-        size="large"
-      />
+      <h2 className="py-4 text-2xl">
+        Compliant colors against {background.label}: Small text
+      </h2>
+      <div
+        className={`grid ${background.label}`}
+        style={{
+          gridTemplateColumns: 'repeat(auto-fit, minmax(210px, 1fr))',
+        }}
+      >
+        {colorways.map((colorway) => {
+          const colors = filter(colorAttributes, (color) =>
+            startsWith(color.name, colorway)
+          );
+
+          return (
+            <Cell
+              key={'normal' + colorway}
+              colors={colors}
+              colorway={colorway}
+              background={background}
+              size="normal"
+            />
+          );
+        })}
+      </div>
+      <h2 className="py-4 text-2xl">
+        Compliant colors against {background.label}: Large text
+      </h2>
+      <div
+        className={`grid ${background.label}`}
+        style={{
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        }}
+      >
+        {colorways.map((colorway) => {
+          const colors =
+            colorway === 'black'
+              ? [find(colorAttributes, ['name', 'black'])]
+              : colorway === 'white'
+              ? [find(colorAttributes, ['name', 'white'])]
+              : filter(colorAttributes, (color) => {
+                  return startsWith(color.name, colorway);
+                });
+
+          return (
+            <Cell
+              key={'large' + colorway}
+              colors={colors}
+              colorway={colorway}
+              background={background}
+              size="large"
+            />
+          );
+        })}
+      </div>
     </>
   );
 };
