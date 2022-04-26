@@ -25,36 +25,36 @@ If needed, you can import colors by using
 
 `import { colors } from '@cypress-design/css'`
 
-and then use them as e.g. `colors.jade400`, `colors.indigo700`
+and then use them as e.g. `colors.jade[400]`, `colors.indigo[700]`
 
 CSS is generally prefered over this approach, but this can be useful in situations where using CSS would be irrelevant or overly complicated.
 
 For example, as a prop for a component:
 
-```
-<TestTrend commitBranchColor={colors.purple600} />
+```jsx
+<TestTrend commitBranchColor={colors.purple[600]} />
 ```
 
 or in a JS array or object:
 
-```
+```js
 const colorOptions = [
-  colors.red200,
-  colors.orange200,
-  colors.jade100,
-  colors.indigo200,
-  colors.purple200,
-  colors.gray200,
+  colors.red[200],
+  colors.orange[200],
+  colors.jade[100],
+  colors.indigo[200],
+  colors.purple[200],
+  colors.gray[200],
 ]
 ```
 
 or in tests:
 
-```
-cy.get('.cy-icon-button').should('have.color', colors.gray400)
+```js
+cy.get('.cy-icon-button').should('have.color', colors.gray[400])
 
 cy.getCy('current-usage')
-  .should('have.attr', 'stroke', colors.red500)
+  .should('have.attr', 'stroke', colors.red[500])
 ```
 
 ## Windi
@@ -66,7 +66,7 @@ Example usage:
 <div className="bg-jade-400 text-white">background of jade 400</div>
 <div className="text-indigo-700">text of indigo 700</div>
 
-```
+```html
 <div className="bg-jade-400 text-white">background of jade 400</div>
 <div className="text-indigo-700">text of indigo 700</div>
 ```
