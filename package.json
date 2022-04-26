@@ -24,7 +24,7 @@
     "start:vue": "yarn workspace storybook-vue start",
     "build:css": "yarn workspace @cypress-design/css build",
     "postinstall": "yarn build:css",
-    "new:component": "hygen component new --name"
+    "new:component": "hygen component new"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^21.1.0",
