@@ -9,15 +9,13 @@ import { Checkbox } from './Checkbox'
 <Preview>
   <Story name="Checkbox">
     <>
-      <Checkbox isChecked label="Checked" />
+      <Checkbox modelValue={true} label="Checked" />
       <br />
-      <Checkbox isChecked label="Checked" subLabel="With sub-label" />
+      <Checkbox modelValue={false} label="Unchecked" />
       <br />
-      <Checkbox label="Unchecked" />
+      <Checkbox modelValue={true} disabled label="Disabled & checked" />
       <br />
-      <Checkbox isChecked isDisabled label="Disabled & checked" />
-      <br />
-      <Checkbox isDisabled label="Disabled & unchecked" />
+      <Checkbox modelValue={false} disabled label="Disabled & unchecked" />
     </>
   </Story>
 </Preview>
