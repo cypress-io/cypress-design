@@ -2,7 +2,7 @@
 to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
 ---
 {
-  "name": "@cypress-design/vue-<%= name.toLowerCase() %>",
+  "name": "@cypress-design/vue-<%= h.inflection.transform(name, ['underscore','dasherize']) %>",
   "version": "0.1.0",
   "files": [
     "*"

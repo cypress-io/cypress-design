@@ -2,7 +2,7 @@
 to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
 ---
 {
-  "name": "@cypress-design/react-<%= name.toLowerCase() %>",
+  "name": "@cypress-design/react-<%= h.inflection.transform(name, ['underscore','dasherize']) %>",
   "version": "0.1.0",
   "files": [
     "*"
