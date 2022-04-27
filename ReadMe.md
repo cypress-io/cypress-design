@@ -95,6 +95,30 @@ The system will ask you to provide the name of the component and generate all th
 
 In the new directory, you will find a React and a Vuejs version to complete. Each framework folder will also contain a stories file.
 
+### Updating the generators
+
+First create a scaffold for a component called ComponentName. The name matters because it will be used to generate the component templates and overwrite the old ones.
+
+```bash
+yarn new:component --name ComponentName
+```
+
+Then do all the changes you want to make to the component template.
+
+Every time you use `ComponentName` in this template, it will be replaced in generated scaffolding.
+
+Finally, to finalize the changes to the template, run
+
+```bash
+rm -rf _templates/component/new/*.ejs.t
+npx hygen-create remove components/ComponentName
+npx hygen-create add components/ComponentName
+npx hygen-create generate
+rm -rf components/ComponentName
+```
+
+Finally, you should see the `prompt.js` file has been moved. Revert that change before committing.
+
 ### Running tests
 
 No tests have been implemented yet
