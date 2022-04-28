@@ -1,8 +1,8 @@
 ---
-to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
+to: components/<%= h.capitalize(name) %>/react/package.json
 ---
 {
-  "name": "@cypress-design/vue-<%= h.inflection.transform(name, ['underscore','dasherize']) %>",
+  "name": "@cypress-design/react-<%= name.toLowerCase() %>",
   "version": "0.1.0",
   "files": [
     "*"
@@ -18,8 +18,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+    "build:module": "rollup -c ./rollup.config.js",
+    "build:types": "tsc --project ./tsconfig.build.json"
   },
   "license": "MIT"
 }

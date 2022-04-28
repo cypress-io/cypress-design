@@ -1,0 +1,23 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import { Checkbox } from './Checkbox'
+
+# Checkbox
+
+<Meta title="Checkbox" component={Checkbox} />
+
+<Canvas>
+  <Story name="Checkbox">
+    <>
+      <Checkbox modelValue={true} label="Checked" />
+      <br />
+      <Checkbox modelValue={false} label="Unchecked" />
+      <br />
+      <Checkbox modelValue={true} disabled label="Disabled & checked" />
+      <br />
+      <Checkbox modelValue={false} disabled label="Disabled & unchecked" />
+    </>
+  </Story>
+</Canvas>
+
+<ArgsTable />
