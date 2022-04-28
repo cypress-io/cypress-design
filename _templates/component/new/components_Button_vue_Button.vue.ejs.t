@@ -1,10 +1,10 @@
 ---
-to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.camelize(name, false) %>.vue
+to: components/<%= h.capitalize(name) %>/vue/<%= h.capitalize(name) %>.vue
 ---
 <template>
   <div :id="id">
     <label>{{ label }}</label>
-    Template for <%= h.inflection.camelize(name, false) %>
+    Template for <%= h.capitalize(name) %>
   </div>
 </template>
 

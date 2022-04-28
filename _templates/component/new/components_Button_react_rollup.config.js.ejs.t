@@ -1,5 +1,5 @@
 ---
-to: components/<%= h.inflection.camelize(name, false) %>/react/rollup.config.js
+to: components/<%= h.capitalize(name) %>/react/rollup.config.js
 ---
 import rootRollupConfig from '../../root.rollup.config';
 
