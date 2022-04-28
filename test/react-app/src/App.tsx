@@ -1,10 +1,11 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import Checkbox from '@cypress-design/react-checkbox'
-import './App.css'
+import { useState } from 'react';
+import logo from './logo.svg';
+import Checkbox from '@cypress-design/react-checkbox';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [isChecked, setChecked] = useState(false);
 
   return (
     <div className="App">
@@ -37,11 +38,15 @@ function App() {
           >
             Vite Docs
           </a>
-          <Checkbox label="Sample" onChange={() => console.log('changed')}/>
+          <Checkbox
+            label="Sample"
+            isChecked={isChecked}
+            onChange={() => setChecked(!isChecked)}
+          />
         </p>
       </header>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

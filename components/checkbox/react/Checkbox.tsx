@@ -53,7 +53,6 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
           </>
         )}
       </label>
-      <h4>test</h4>
     </div>
   );
 };
