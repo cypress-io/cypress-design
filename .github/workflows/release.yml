@@ -15,6 +15,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set committer info
+        ## attribute the commit to cypress-bot: https://github.community/t/logging-into-git-as-a-github-app/115916
+        run: |
+          git config --local user.email "${{ env.CYPRESS_BOT_APP_ID }}+cypress-bot[bot]@users.noreply.github.com"
+          git config --local user.name "cypress-bot[bot]"
 
       - name: Yarn install
         run: yarn install
