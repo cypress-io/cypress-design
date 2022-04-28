@@ -22,7 +22,7 @@ const config = {
   },
   devServer: {
     static: {
-      directory: './dist',
+      directory: './public',
     },
   },
   resolve: {

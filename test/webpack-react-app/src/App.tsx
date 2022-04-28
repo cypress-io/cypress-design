@@ -1,25 +1,24 @@
-
 import * as React from 'react';
-import { hot } from "react-hot-loader/root";
-import Checkbox from '@cypress-design/react-checkbox'
+import { FunctionComponent, useState } from 'react';
+import { hot } from 'react-hot-loader/root';
+import Checkbox from '@cypress-design/react-checkbox';
 
 interface Props {
-   name:
-    string
+  name: string;
 }
 
-class App extends React.Component<Props> {
-  render() {
-    const { name } = this.props;
-    return (
-      <>
-        <h1>
-          Hello {name}
-        </h1>
-        <Checkbox onChange={() => console.log('Checkbox changed')} label="Sample Checkbox"/>
-      </>
-    );
-  }
-}
+const App: FunctionComponent<Props> = ({ name }) => {
+  const [isChecked, setChecked] = useState(false);
+  return (
+    <>
+      <h1>Hello {name}</h1>
+      <Checkbox
+        label="Sample"
+        isChecked={isChecked}
+        onChange={() => setChecked(!isChecked)}
+      />
+    </>
+  );
+};
 
 export default hot(App);
