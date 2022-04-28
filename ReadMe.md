@@ -13,7 +13,7 @@ https://cypress-design.vercel.app
 First install the css package
 
 ```bash
-npm install -g @cypress-design/css
+npm install --save-dev @cypress-design/css
 ```
 
 Then, add the plugins to your bundler
