@@ -1,5 +1,6 @@
 const { CyCSSWebpackPlugin } = require('@cypress-design/css');
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   stories: ['../stories/**/*.stories.mdx'],
@@ -53,6 +54,18 @@ module.exports = {
       },
       ...config.module.rules,
     ];
+
+    config.plugins.push(
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: './stories/src/images',
+            to: './img',
+          },
+        ],
+      })
+    );
+
     return config;
   },
   webpackFinal: async (config) => {
