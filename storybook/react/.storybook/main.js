@@ -2,7 +2,7 @@ const { CyCSSWebpackPlugin } = require('@cypress-design/css');
 const path = require('path');
 
 module.exports = {
-  stories: ['../../../components/*/react/*.stories.mdx'],
+  stories: ['../../../components/*/react/*.stories.tsx'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
   framework: '@storybook/react',
   webpackFinal: (config) => {
@@ -12,7 +12,7 @@ module.exports = {
           include: [
             path.resolve(
               __dirname,
-              '../../../components/*/react/*.stories.mdx'
+              '../../../components/*/react/*.stories.tsx'
             ),
             path.resolve(__dirname, '../../../components/*/react/*.tsx'),
           ],
