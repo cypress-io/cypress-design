@@ -150,6 +150,7 @@ const customColors = {
 
 export const cyColors = {
   ...customColors,
+  // TODO: are these actual concepts from the design system?
   primary: {
     ...customColors.indigo,
     DEFAULT: customColors.indigo[500],
@@ -198,6 +199,8 @@ export const cyColors = {
 
 // filter out this deprecated color to remove the annoying warning
 const FilteredColors = Object.keys(Colors).reduce((acc, key) => {
+  // TODO: should we maybe not include the default colors at all? (other than white & black)
+  // TODO: run `yarn windi` in frontend-shared to see if the other colors are used
   if (
     ![
       'blueGray',

@@ -1,7 +1,7 @@
 /**
  * WindiCSS will strip out any styles that aren't used.
  * We do a lot of dynamic stuff, and we're not too concerned
- * ith bundle size, so this is a pretty greedy list
+ * with bundle size, so this is a pretty greedy list
  */
 import { colors } from './colors';
 import { map, reduce, kebabCase } from 'lodash';
@@ -27,7 +27,7 @@ const colorSafelist = reduce(
     before:text-${name}-${k}`;
     }).join(' ')}`;
   },
-  ''
+  ' bg-white bg-black text-white text-black'
 );
 
 export const safelist = `${textSafelist} ${colorSafelist}`;
