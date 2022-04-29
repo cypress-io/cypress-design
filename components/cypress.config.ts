@@ -1,8 +1,18 @@
+// const { devServer } = require('@cypress/vite-dev-server');
 import { defineConfig } from 'cypress';
-import { devServer } from '@cypress/vite-dev-server';
+
+// export default defineConfig({
+//   component: {
+//     devServer,
+//     indexHtmlFile: './cypress/support/component-index.html',
+//   },
+// });
 
 export default defineConfig({
   component: {
-    devServer,
+    devServer: {
+      framework: 'vue',
+      bundler: 'vite',
+    },
   },
 });

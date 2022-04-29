@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 import { ref } from 'vue';
 import Checkbox from './Checkbox.vue';
 
@@ -5,7 +7,7 @@ describe('<Checkbox />', () => {
   it('renders', () => {
     const value = ref(true);
 
-    cy.mount(() => (
+    cy.mount(
       <Checkbox
         label="Welcome guide settings"
         id="welcome-opt-out"
@@ -15,6 +17,6 @@ describe('<Checkbox />', () => {
           Show the welcome guide when opening Cypress.
         </span>
       </Checkbox>
-    ));
+    );
   });
 });
