@@ -1,12 +1,7 @@
 <template>
   <div class="relative flex items-center">
     <div class="flex items-center h-5">
-      <input
-        :id="id"
-        :value="modelValue"
-        :aria-describedby="`${id}-description`"
-        :name="id"
-        type="checkbox"
+      <input :id="id" :checked="modelValue" :aria-describedby="`${id}-description`" :name="id" type="checkbox"
         class="border-1 rounded border-gray-200 bg-white h-4 w-4 text-indigo-500 disabled:bg-gray-100 checked:bg-indigo-500"
         :class="{
           'text-indigo-500 checked:border-indigo-300 checked:bg-indigo-600 checked:text-indigo-600':
@@ -15,17 +10,11 @@
             state === 'success',
           'checked:border-red-300 checked:bg-red-600 checked:text-red-600':
             state === 'danger',
-        }"
-        @update:modelValue="emit('update:modelValue', !!$event.target.value)"
-      />
+        }" @click="updated()" />
     </div>
     <div class="ml-2 text-16px leading-normal">
       <slot name="label">
-        <label
-          v-if="label"
-          :for="id"
-          class="disabled:text-gray-500 text-gray-800 font-light select-none"
-        >
+        <label v-if="label" :for="id" class="disabled:text-gray-500 text-gray-800 font-light select-none">
           {{ label }}
         </label>
       </slot>
@@ -36,7 +25,7 @@
 <script lang="ts" setup>
 type InputState = 'success' | 'danger' | 'default';
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     id: string;
     modelValue: boolean;
@@ -52,4 +41,8 @@ withDefaults(
 const emit = defineEmits<{
   (event: 'update:modelValue', value: boolean): void;
 }>();
+
+function updated() {
+  emit('update:modelValue', !props.modelValue)
+}
 </script>
