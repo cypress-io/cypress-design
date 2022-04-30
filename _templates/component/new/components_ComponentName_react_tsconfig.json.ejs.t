@@ -1,5 +1,5 @@
 ---
-to: components/<%= h.capitalize(name) %>/react/tsconfig.json
+to: components/<%= h.inflection.camelize(name, false) %>/react/tsconfig.json
 ---
 {
   "extends": "../../../tsconfig.react.json",

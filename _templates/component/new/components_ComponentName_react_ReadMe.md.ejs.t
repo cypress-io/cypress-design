@@ -1,7 +1,7 @@
 ---
-to: components/<%= h.capitalize(name) %>/react/ReadMe.md
+to: components/<%= h.inflection.camelize(name, false) %>/react/ReadMe.md
 ---
-# <%= h.capitalize(name) %>
+# <%= h.inflection.camelize(name, false) %>
 
 ## Summary
 
