@@ -8,7 +8,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@cypress-design/react-checkbox": "^0.1.0",
+    "@cypress-design/react-checkbox": "^0.0.0",
     "react": "*",
     "react-dom": "*"
   },

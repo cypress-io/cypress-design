@@ -3,7 +3,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
 ---
 {
   "name": "@cypress-design/vue-<%= name.toLowerCase() %>",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "files": [
     "*"
   ],
