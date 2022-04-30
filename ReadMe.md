@@ -95,9 +95,11 @@ The system will ask you to provide the name of the component and generate all th
 
 In the new directory, you will find a React and a Vuejs version to complete. Each framework folder will also contain a stories file.
 
-### Updating the generators
+### Updating the component generator
 
-First create a scaffold for a component called ComponentName. The name matters because it will be used to generate the component templates and overwrite the old ones.
+When you use the `yarn new:component` command, the template used is called a generator. It could be useful to update it from time to tim if the standards change.
+
+First, create a scaffold for a component called ComponentName. The name matters because it will be used to generate the component templates and overwrite the old ones.
 
 ```bash
 yarn new:component --name ComponentName
