@@ -1,12 +1,12 @@
 {
   "name": "@cypress-design/test-webpack-react-app",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "webpack serve --hot --mode development"
   },
   "dependencies": {
-    "@cypress-design/vue-checkbox": "^0.0.0",
+    "@cypress-design/vue-checkbox": "^0.1.0",
     "react": "*",
     "react-dom": "*",
     "react-hot-loader": "^4.13.0"
