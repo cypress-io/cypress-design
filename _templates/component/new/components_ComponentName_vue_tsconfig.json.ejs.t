@@ -1,5 +1,5 @@
 ---
-to: components/<%= h.capitalize(name) %>/vue/tsconfig.json
+to: components/<%= h.inflection.camelize(name, false) %>/vue/tsconfig.json
 ---
 {
   "extends": "../../../tsconfig.vue.json",

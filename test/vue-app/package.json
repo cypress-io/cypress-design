@@ -9,7 +9,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@cypress-design/vue-checkbox": "^0.1.0",
+    "@cypress-design/vue-checkbox": "^0.0.0",
     "vue": "^3.2.33"
   },
   "devDependencies": {

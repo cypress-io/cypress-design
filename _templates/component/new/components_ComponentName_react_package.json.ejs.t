@@ -1,9 +1,9 @@
 ---
-to: components/<%= h.capitalize(name) %>/react/package.json
+to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
 ---
 {
   "name": "@cypress-design/react-<%= name.toLowerCase() %>",
-  "version": "0.1.0",
+  "version": "0.0.0",
   "files": [
     "*"
   ],
