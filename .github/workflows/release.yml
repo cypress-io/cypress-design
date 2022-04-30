@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - main
-      - elevatebart/action-to-release
 
 concurrency:
   group: release-${{ github.ref }}
@@ -43,7 +42,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm exec changeset publish
+          publish: yarn changeset publish
           commit: 'ci(changesets): version packages'
           title: 'ci(changesets): version packages'
         env:
