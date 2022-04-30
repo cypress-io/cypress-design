@@ -19,12 +19,14 @@
     "build:intro": "yarn workspace storybook build",
     "build:react": "yarn workspace storybook-react build",
     "build:vue": "yarn workspace storybook-vue build",
+    "build:components": "node components/build-components.js",
     "start": "concurrently yarn:start:*",
     "start:intro": "yarn workspace storybook start",
     "start:react": "yarn workspace storybook-react start",
     "start:vue": "yarn workspace storybook-vue start",
     "build:css": "yarn workspace @cypress-design/css build",
-    "postinstall": "yarn build:css"
+    "postinstall": "yarn build:css",
+    "new:component": "hygen component new"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^21.1.0",
@@ -33,7 +35,9 @@
     "@vitejs/plugin-vue": "^2.3.1",
     "@vitejs/plugin-vue-jsx": "^1.3.9",
     "@vue/tsconfig": "^0.1.3",
+    "execa": "^6.1.0",
     "concurrently": "^7.1.0",
+    "hygen": "^6.2.0",
     "prettier": "^2.6.2",
     "rollup": "^2.70.2",
     "typescript": "~4.6.3",

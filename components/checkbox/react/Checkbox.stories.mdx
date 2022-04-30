@@ -1,4 +1,4 @@
-import { Meta, Preview, Props, Story } from '@storybook/addon-docs'
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 import { Checkbox } from './Checkbox'
 
@@ -6,7 +6,7 @@ import { Checkbox } from './Checkbox'
 
 <Meta title="Checkbox" component={Checkbox} />
 
-<Preview>
+<Canvas>
   <Story name="Checkbox">
     <>
       <Checkbox modelValue={true} label="Checked" />
@@ -18,4 +18,6 @@ import { Checkbox } from './Checkbox'
       <Checkbox modelValue={false} disabled label="Disabled & unchecked" />
     </>
   </Story>
-</Preview>
+</Canvas>
+
+<ArgsTable />
