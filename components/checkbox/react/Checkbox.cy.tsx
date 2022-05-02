@@ -1,11 +1,9 @@
-/// <reference types="cypress" />
-
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'cypress/react';
 import { Checkbox } from './Checkbox';
 
 describe('Checkbox', () => {
-  it.skip('renders', () => {
+  it('renders', () => {
     let isChecked = true;
 
     mount(
