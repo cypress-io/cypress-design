@@ -134,7 +134,9 @@ Finally, you should see the `prompt.js` file has been moved. Revert that change 
 
 ### Running tests
 
-No tests have been implemented yet
+To run in open mode, run `yarn workspace components cypress:open`.
+
+To run in CLI, run `yarn workspace components cypress:run`.
 
 ## Structure
 

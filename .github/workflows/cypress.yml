@@ -1,0 +1,22 @@
+name: Cypress Tests
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Yarn install
+        run: yarn install
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v2.9.7
+        with:
+          record: true
+          start: yarn workspace components cypress:run
+        env:
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
