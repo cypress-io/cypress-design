@@ -34,16 +34,3 @@ declare global {
 }
 
 Cypress.Commands.add('mount', mount);
-
-// console.log('-------');
-
-// Cypress.on('test:before:run', () => {
-//   console.log('hello before');
-
-//   const el = document.getElementById('__cy_root');
-//   el?.setAttribute('data-cy-root', '');
-//   console.log(el);
-// });
-
-// Example use:
-// cy.mount(MyComponent)
