@@ -1,7 +1,7 @@
 {
   "name": "storybook",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.0",
   "scripts": {
     "build": "build-storybook --output-dir ../dist --quiet",
     "start": "start-storybook -p 6006"
