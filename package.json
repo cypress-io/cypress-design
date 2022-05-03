@@ -11,6 +11,7 @@
     "components/*/react",
     "components/*/vue",
     "css",
+    "icon-registry",
     "storybook/*",
     "test/*"
   ],
