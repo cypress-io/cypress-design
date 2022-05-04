@@ -24,7 +24,7 @@ export const Icon: FunctionComponent<
     height: size,
     width: size,
     fill: 'none',
-    ...attributes,
+    ...attributes, // add all standard attributes back to the svg tag
     dangerouslySetInnerHTML: {
       __html: iconData.data,
     },
