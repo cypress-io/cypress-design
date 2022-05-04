@@ -1,4 +1,4 @@
-/* placeholder to be replaced by build icons */
+/* placeholder to be replaced by build-icons.mjs */
 
 export interface Icon {
   pascalCaseName: string;
