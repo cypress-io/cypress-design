@@ -17,19 +17,20 @@ export const CircleIcon = () => {
 Sample:
 
 ```ts
-import type { colors } from '@cypress-design/css';
+// lists all the colors available from windi classes
+export type WindiColors = 'jade-200' | 'jade-300' | 'red-200' | 'red-300';
 
 export type IconProps =
-  | IconActionDeleteCircleProps
-  | IconTestingTypeComponentProps;
+  | IIconActionDeleteCircleProps
+  | IIconTestingTypeComponentProps;
 // | ...
 
-interface IconActionDeleteCircleProps {
+interface IIconActionDeleteCircleProps {
   iconId: 'action-delete-circle';
   color?: keyof typeof colors;
 }
 
-interface IconTestingTypeComponentProps {
+interface IIconTestingTypeComponentProps {
   iconId: 'testing-type-component';
   size?: 16 | 24 | 64 | 120;
   color?: keyof typeof colors;
