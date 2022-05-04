@@ -13,12 +13,12 @@ export default (props: Icon & SVGAttributes) => {
     class: className,
     ...attributes // we want to extract all standard SVG attributes separately
   } = props as any;
-  const { size, compiledClasses, iconData } = compileIcon(props);
+  const { size, compiledClasses, body } = compileIcon(props);
   const componentProps: any = {
     width: size,
     height: size,
     fill: 'none',
-    innerHTML: iconData.data,
+    innerHTML: body,
     ...attributes, // add all standard attributes back to the svg tag
   };
   if (className) {

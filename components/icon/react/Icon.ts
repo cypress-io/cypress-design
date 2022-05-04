@@ -19,14 +19,14 @@ export const Icon: FunctionComponent<
     className,
     ...attributes // we want to extract all standard SVG attributes separately
   } = props as any;
-  const { size, compiledClasses, iconData } = compileIcon(props);
+  const { size, compiledClasses, body } = compileIcon(props);
   const componentProps: any = {
     height: size,
     width: size,
     fill: 'none',
     ...attributes, // add all standard attributes back to the svg tag
     dangerouslySetInnerHTML: {
-      __html: iconData.data,
+      __html: body,
     },
   };
   if (className) {

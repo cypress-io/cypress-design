@@ -27,6 +27,6 @@ export const compileIcon = ({
   return {
     size: sizeWithDefault,
     compiledClasses,
-    iconData,
+    body: iconData.data,
   };
 };
