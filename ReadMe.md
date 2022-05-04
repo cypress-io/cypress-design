@@ -78,7 +78,7 @@ The 3 storybooks are linked using [storybook composition](https://storybook.js.o
 If you only want to run vue storybook, run the command below. Use the same fashion if you want to only run react.
 
 ```bash
-yarn start:vue
+yarn storybook:vue
 ```
 
 ### Create a new component
