@@ -13,6 +13,6 @@ jobs:
         run: yarn install
 
       - name: Cypress run
-        run: yarn workspace components cypress:run --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+        run: yarn cypress run --component --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
