@@ -1,3 +1,8 @@
+/**
+ * Build every package in the directory `components`
+ * This script needs to run before we can publish components
+ */
+
 const path = require('path');
 
 async function build() {
