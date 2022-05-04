@@ -1,4 +1,5 @@
 const path = require('path');
+const { CyCSSWebpackPlugin } = require('@cypress-design/css');
 
 const config = {
   entry: ['react-hot-loader/patch', './src/index.tsx'],
@@ -31,6 +32,13 @@ const config = {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  plugins: [
+    CyCSSWebpackPlugin({
+      scan: {
+        include: ['/src/**/*.@(tsx|ts|js)'],
+      },
+    }),
+  ],
 };
 
 module.exports = config;

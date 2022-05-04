@@ -14,8 +14,9 @@ const App: FunctionComponent<Props> = ({ name }) => {
       <h1>Hello {name}</h1>
       <Checkbox
         label="Sample"
-        isChecked={isChecked}
+        checked={isChecked}
         onChange={() => setChecked(!isChecked)}
+        modelValue={isChecked}
       />
     </>
   );
