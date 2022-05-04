@@ -16,7 +16,7 @@
     "test/*"
   ],
   "scripts": {
-    "build:storybook": "yarn build:icons && yarn build:css && yarn build:intro --quiet && yarn build:react --quiet && yarn build:vue --quiet",
+    "build:storybook": "yarn build:icons && yarn build:css && yarn build:storybook:intro --quiet && yarn build:storybook:react --quiet && yarn build:storybook:vue --quiet",
     "build:storybook:intro": "yarn workspace storybook build",
     "build:storybook:react": "yarn workspace storybook-react build",
     "build:storybook:vue": "yarn workspace storybook-vue build",
