@@ -21,6 +21,8 @@ const colorSafelist = reduce(
       return `
     icon-light-${name}-${k}
     icon-dark-${name}-${k}
+    icon-light-secondary-${name}-${k}
+    icon-dark-secondary-${name}-${k}
     bg-${name}-${k}
     text-${name}-${k}
     before:bg-${name}-${k}
