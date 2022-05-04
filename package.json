@@ -16,7 +16,7 @@
     "test/*"
   ],
   "scripts": {
-    "build": "yarn build:css && yarn build:intro && yarn build:react && yarn build:vue",
+    "build": "yarn build:css && yarn build:intro --quiet && yarn build:react --quiet && yarn build:vue --quiet",
     "build:intro": "yarn workspace storybook build",
     "build:react": "yarn workspace storybook-react build",
     "build:vue": "yarn workspace storybook-vue build",
