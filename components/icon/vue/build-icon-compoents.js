@@ -4,11 +4,11 @@ const { promises: fs } = require('fs');
 const camelcase = require('camelcase');
 const { icons, iconSet } = require('@cypress-design/icon-registry');
 
-const iconsComponents = Object.keys(icons).map((iconId) => {
-  const pascalCaseName = camelcase(iconId, { pascalCase: true });
-  const iconMetadata = icons[iconId];
+const iconsComponents = Object.keys(icons).map((name) => {
+  const pascalCaseName = camelcase(name, { pascalCase: true });
+  const iconMetadata = icons[name];
   const availableIds = iconMetadata.availableSizes.map(
-    (size) => `${camelcase(iconId)}X${size}`
+    (size) => `${camelcase(name)}X${size}`
   );
 
   const iconBodies = iconSet.reduce((acc, icon) => {
@@ -19,7 +19,7 @@ const iconsComponents = Object.keys(icons).map((iconId) => {
     return acc;
   }, {});
   return dedent`
-  export const Icon${pascalCaseName} = (props: Omit<iconsRegistry.I${pascalCaseName}, 'iconId'>) => {
+  export const Icon${pascalCaseName} = (props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
     const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ ...(props as any), availableSizes: ${JSON.stringify(
       iconMetadata.availableSizes
     )} })
@@ -30,7 +30,7 @@ const iconsComponents = Object.keys(icons).map((iconId) => {
     )}
     const body = iconBodies[size]
     if(!body){
-      throw Error(\`Icon "${iconId}" is not available in size ${'$'}{size}\`)
+      throw Error(\`Icon "${name}" is not available in size ${'$'}{size}\`)
     }
     return h('svg', compileVueIconProperties({
       ...props,

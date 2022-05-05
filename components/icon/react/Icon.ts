@@ -1,8 +1,5 @@
 import * as React from 'react';
-import {
-  type Icon as IconProps,
-  compileIcon,
-} from '@cypress-design/icon-registry';
+import { type IconProps, compileIcon } from '@cypress-design/icon-registry';
 import type { FunctionComponent } from 'react';
 
 export const Icon: FunctionComponent<
@@ -18,19 +15,19 @@ export const compileReactIconProperties = ({
   body,
   compiledClasses,
   size,
-  darkColor,
-  lightColor,
-  secondaryDarkColor,
-  secondaryLightColor,
+  strokeColor,
+  fillColor,
+  secondaryStrokeColor,
+  secondaryFillColor,
   ...attributes
 }: {
   body: string;
   compiledClasses: string[];
   size: string;
-  darkColor?;
-  lightColor?;
-  secondaryDarkColor?;
-  secondaryLightColor?;
+  strokeColor?;
+  fillColor?;
+  secondaryStrokeColor?;
+  secondaryFillColor?;
 } & React.SVGProps<SVGSVGElement>) => {
   const componentProps: any = {
     width: size,

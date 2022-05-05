@@ -1,7 +1,7 @@
-import { type Icon, compileIcon } from '@cypress-design/icon-registry';
+import { type IconProps, compileIcon } from '@cypress-design/icon-registry';
 import { h, type SVGAttributes } from 'vue';
 
-export default (props: Icon & SVGAttributes) => {
+export default (props: IconProps & SVGAttributes) => {
   return h('svg', compileVueIconProperties(compileIcon(props)));
 };
 
@@ -9,19 +9,19 @@ export const compileVueIconProperties = ({
   body,
   compiledClasses,
   size,
-  darkColor,
-  lightColor,
-  secondaryDarkColor,
-  secondaryLightColor,
+  strokeColor,
+  fillColor,
+  secondaryStrokeColor,
+  secondaryFillColor,
   ...attributes
 }: SVGAttributes & {
   body: string;
   compiledClasses: string[];
   size: string;
-  darkColor?: string;
-  lightColor?: string;
-  secondaryDarkColor?: string;
-  secondaryLightColor?: string;
+  strokeColor?: string;
+  fillColor?: string;
+  secondaryStrokeColor?: string;
+  secondaryFillColor?: string;
 }) => {
   const componentProps: any = {
     width: size,

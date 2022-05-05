@@ -5,4 +5,4 @@ export default {
   component: Icon,
 };
 
-export const Sample = () => <Icon iconId="book-code" size="48" secondaryDarkColor='blue-400' secondaryLightColor='red-500' />
+export const Sample = () => <Icon name="book-code" size="48" secondaryStrokeColor='blue-400' secondaryFillColor='red-500' />

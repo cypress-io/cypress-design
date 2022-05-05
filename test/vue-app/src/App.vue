@@ -11,6 +11,6 @@ const checked = ref(false)
     <Checkbox v-model="checked" label="Checkbox" id="Sample" />
     <p v-if="checked">Checked</p>
     <IconBookCode size="48" light-color="amber-300" dark-color="amber-500" />
-    <Icon iconId="book" darkColor="amber-500" size="24" />
+    <Icon name="book" strokeColor="amber-500" size="24" />
   </div>
 </template>

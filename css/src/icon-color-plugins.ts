@@ -23,10 +23,10 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
     ? theme?.(`colors.${name}.${weight}`)
     : theme?.(`colors.${name}`);
   let [lightKey, darkKey, secondaryLightKey, secondaryDarkKey] = [
-    `.icon-light-${name}`,
-    `.icon-dark-${name}`,
-    `.icon-light-secondary-${name}`,
-    `.icon-dark-secondary-${name}`,
+    `.icon-fill-${name}`,
+    `.icon-stroke-${name}`,
+    `.icon-fill-secondary-${name}`,
+    `.icon-stroke-secondary-${name}`,
   ];
 
   // transparent, black, and white
@@ -38,62 +38,62 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
   }
 
   return {
-    // When we're targeting an svg with icon-light-red-500
+    // When we're targeting an svg with icon-fill-red-500
     // only attach the fill and stroke for those same icons
-    // and vice versa for icon-dark
+    // and vice versa for icon-stroke
     [lightKey]: {
-      '> *[fill].icon-light': {
+      '> *[fill].icon-fill': {
         fill: resolvedColor,
       },
-      '> *[stroke].icon-light': {
+      '> *[stroke].icon-fill': {
         stroke: resolvedColor,
       },
-      '> *[fill][stroke].icon-light-fill': {
+      '> *[fill][stroke].icon-fill-fill': {
         fill: resolvedColor,
       },
-      '> *[fill][stroke].icon-light-stroke': {
+      '> *[fill][stroke].icon-fill-stroke': {
         stroke: resolvedColor,
       },
     },
     [secondaryLightKey]: {
-      '> *[fill].icon-light-secondary': {
+      '> *[fill].icon-fill-secondary': {
         fill: resolvedColor,
       },
-      '> *[stroke].icon-light-secondary': {
+      '> *[stroke].icon-fill-secondary': {
         stroke: resolvedColor,
       },
-      '> *[fill][stroke].icon-light-secondary-fill': {
+      '> *[fill][stroke].icon-fill-secondary-fill': {
         fill: resolvedColor,
       },
-      '> *[fill][stroke].icon-light-secondary-stroke': {
+      '> *[fill][stroke].icon-fill-secondary-stroke': {
         stroke: resolvedColor,
       },
     },
     [darkKey]: {
-      '> *[fill].icon-dark': {
+      '> *[fill].icon-stroke': {
         fill: resolvedColor,
       },
-      '> *[stroke].icon-dark': {
+      '> *[stroke].icon-stroke': {
         stroke: resolvedColor,
       },
-      '> *[fill][stroke].icon-dark-fill': {
+      '> *[fill][stroke].icon-stroke-fill': {
         fill: resolvedColor,
       },
-      '> *[fill][stroke].icon-dark-stroke': {
+      '> *[fill][stroke].icon-stroke-stroke': {
         stroke: resolvedColor,
       },
     },
     [secondaryDarkKey]: {
-      '> *[fill].icon-dark-secondary': {
+      '> *[fill].icon-stroke-secondary': {
         fill: resolvedColor,
       },
-      '> *[stroke].icon-dark-secondary': {
+      '> *[stroke].icon-stroke-secondary': {
         stroke: resolvedColor,
       },
-      '> *[fill][stroke].icon-dark-secondary-fill': {
+      '> *[fill][stroke].icon-stroke-secondary-fill': {
         fill: resolvedColor,
       },
-      '> *[fill][stroke].icon-dark-secondary-stroke': {
+      '> *[fill][stroke].icon-stroke-secondary-stroke': {
         stroke: resolvedColor,
       },
     },
@@ -131,11 +131,11 @@ function addIconUtilityClasses(theme) {
       // And the selectors and values affected are values
       /**
        * {
-       *  `.icon-light-jade-500`: {
-       *    '> *[stroke].icon-light': {
+       *  `.icon-fill-jade-500`: {
+       *    '> *[stroke].icon-fill': {
        *      stroke: resolvedColor
        *    },
-       *    '> *[fill].icon-light': {
+       *    '> *[fill].icon-fill': {
        *      fill: resolvedColor
        *    }
        *  }

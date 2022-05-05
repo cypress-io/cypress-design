@@ -4,11 +4,11 @@ const { promises: fs } = require('fs');
 const camelcase = require('camelcase');
 const { icons, iconSet } = require('@cypress-design/icon-registry');
 
-const iconsComponents = Object.keys(icons).map((iconId) => {
-  const pascalCaseName = camelcase(iconId, { pascalCase: true });
-  const iconMetadata = icons[iconId];
+const iconsComponents = Object.keys(icons).map((name) => {
+  const pascalCaseName = camelcase(name, { pascalCase: true });
+  const iconMetadata = icons[name];
   const availableIds = iconMetadata.availableSizes.map(
-    (size) => `${camelcase(iconId)}X${size}`
+    (size) => `${camelcase(name)}X${size}`
   );
 
   const iconBodies = iconSet.reduce((acc, icon) => {
@@ -20,7 +20,7 @@ const iconsComponents = Object.keys(icons).map((iconId) => {
   }, {});
   return dedent`
   export const Icon${pascalCaseName}: React.FC<
-    Omit<iconsRegistry.I${pascalCaseName}, 'iconId'> & React.SVGProps<SVGSVGElement>
+    Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & React.SVGProps<SVGSVGElement>
   > = (props) => {
     const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ ...(props as any), availableSizes: ${JSON.stringify(
       iconMetadata.availableSizes
@@ -32,7 +32,7 @@ const iconsComponents = Object.keys(icons).map((iconId) => {
     )}
     const body = iconBodies[size]
     if(!body){
-      throw Error(\`Icon "${iconId}" is not available in size ${'$'}{size}\`)
+      throw Error(\`Icon "${name}" is not available in size ${'$'}{size}\`)
     }
     return React.createElement('svg', compileReactIconProperties({
       ...props,

@@ -26,12 +26,12 @@ export type IconProps =
 // | ...
 
 interface IIconActionDeleteCircleProps {
-  iconId: 'action-delete-circle';
+  name: 'action-delete-circle';
   color?: keyof typeof colors;
 }
 
 interface IIconTestingTypeComponentProps {
-  iconId: 'testing-type-component';
+  name: 'testing-type-component';
   size?: 16 | 24 | 64 | 120;
   color?: keyof typeof colors;
   bgColor?: keyof typeof colors;
