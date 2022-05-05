@@ -88,10 +88,21 @@ async function ensureDistExist() {
 async function generateIndex(iconsObjectUnique) {
   const indexFileContent = iconsObjectUnique
     .map((icon) => {
-      const { snakeCaseName } = icon;
+      const {
+        snakeCaseName,
+        availableSizes,
+        hasLightColor,
+        hasDarkColor,
+        hasSecondaryLightColor,
+        hasSecondaryDarkColor,
+      } = icon;
       // prettier-ignore
       return dedent`'${snakeCaseName}': {
-        availableSizes: ['${icon.availableSizes.join('\', \'')}']
+          availableSizes: ['${availableSizes.join('\', \'')}'],
+          hasLightColor: ${Boolean(hasLightColor)},
+          hasDarkColor: ${Boolean(hasDarkColor)},
+          hasSecondaryLightColor: ${Boolean(hasSecondaryLightColor)},
+          hasSecondaryDarkColor: ${Boolean(hasSecondaryDarkColor)},
       }`;
     })
     .join(',\n');
