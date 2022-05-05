@@ -2,13 +2,20 @@
   "name": "@cypress-design/icon-registry",
   "version": "0.0.0",
   "description": "All svg files to be exposed to the Icon component",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    }
+  },
   "license": "MIT",
   "scripts": {
     "build:lib": "tsc -p tsconfig.json",
+    "build:libcjs": "tsc -p tsconfig.json --module commonjs --outDir \"dist/cjs\" ",
     "build:icons": "node ./build-icons.mjs",
     "build:svg": "svg-to-ts-files",
-    "build": "yarn build:lib && yarn build:svg && yarn build:icons"
+    "build": "yarn build:icons && yarn build:svg && yarn build:lib && yarn build:libcjs"
   },
   "files": [
     "dist"
@@ -25,11 +32,11 @@
       "./icons/*.svg"
     ],
     "interfaceName": "CyIcon",
+    "outputDirectory": "./src",
     "typeName": "cyIcon",
     "barrelFileName": "iconsList",
     "prefix": "cy",
     "modelFileName": "icon.model",
-    "compileSources": true,
     "iconsFolderName": "iconsData",
     "completeIconSetName": "iconSet",
     "exportCompleteIconSet": true,
