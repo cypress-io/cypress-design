@@ -39,7 +39,12 @@ export const getComponentAttributes = ({
   secondaryFillColor?: string;
 }) => {
   const sizeWithDefault =
-    size ?? (availableSizes.length >= 1 ? availableSizes[0] : '');
+    size ??
+    (availableSizes.length >= 1
+      ? availableSizes.indexOf('16') > -1
+        ? '16'
+        : availableSizes[0]
+      : '');
 
   const compiledClasses = [
     strokeColor && `icon-stroke-${strokeColor}`,
