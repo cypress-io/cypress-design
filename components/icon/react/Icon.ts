@@ -18,17 +18,27 @@ export const compileReactIconProperties = ({
   body,
   compiledClasses,
   size,
+  darkColor,
+  lightColor,
+  secondaryDarkColor,
+  secondaryLightColor,
   ...attributes
 }: {
   body: string;
   compiledClasses: string[];
   size: string;
+  darkColor?;
+  lightColor?;
+  secondaryDarkColor?;
+  secondaryLightColor?;
 } & React.SVGProps<SVGSVGElement>) => {
   const componentProps: any = {
     width: size,
     height: size,
     fill: 'none',
-    innerHTML: body,
+    dangerouslySetInnerHTML: {
+      __html: body,
+    },
     ...attributes, // add all standard attributes back to the svg tag
   };
   if (attributes.className) {

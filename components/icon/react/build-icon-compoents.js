@@ -20,7 +20,7 @@ const iconsComponents = Object.keys(icons).map((iconId) => {
   }, {});
   return dedent`
   export const Icon${pascalCaseName}: React.FC<
-    iconsRegistry.I${pascalCaseName} & React.SVGProps<SVGSVGElement>
+    Omit<iconsRegistry.I${pascalCaseName}, 'iconId'> & React.SVGProps<SVGSVGElement>
   > = (props) => {
     const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ ...(props as any), availableSizes: ${JSON.stringify(
       iconMetadata.availableSizes

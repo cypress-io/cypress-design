@@ -9,11 +9,19 @@ export const compileVueIconProperties = ({
   body,
   compiledClasses,
   size,
+  darkColor,
+  lightColor,
+  secondaryDarkColor,
+  secondaryLightColor,
   ...attributes
 }: SVGAttributes & {
   body: string;
   compiledClasses: string[];
   size: string;
+  darkColor?: string;
+  lightColor?: string;
+  secondaryDarkColor?: string;
+  secondaryLightColor?: string;
 }) => {
   const componentProps: any = {
     width: size,
