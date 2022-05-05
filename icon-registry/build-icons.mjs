@@ -56,6 +56,13 @@ async function getIcons() {
     }
     return acc;
   }, []);
+
+  iconsObjectUnique.forEach((icon) => {
+    icon.availableSizes = icon.availableSizes.sort((a, b) =>
+      parseInt(a) > parseInt(b) ? 1 : -1
+    );
+  });
+
   await ensureDistExist();
   await generateIndex(iconsObjectUnique);
 }
