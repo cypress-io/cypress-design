@@ -1,4 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { icons } from '@cypress-design/icon-registry';
 
 import { Icon } from './Icon'
 
@@ -8,7 +9,19 @@ import { Icon } from './Icon'
 
 <Canvas>
   <Story name="Icon">
-    <Icon name="book-code" strokeColor="gray-300" />
+    <div>
+      {Object.keys(icons).map((iconName) => {
+        return <div class="flex align-center items-center border-b border-solid border-gray-300 pb-2 pt-4">
+          <div class="w-45 text-right mr-4">{iconName}</div>
+          {icons[iconName].availableSizes.map((size) => {
+            return <div class="w-25 text-center">
+              <Icon name={iconName} size={size} strokeColor="blue-600" fillColor="red-200" />
+              <div class="text-xs text-gray-600">{size}</div>
+            </div>
+          })}
+        </div>
+      })}
+    </div>
   </Story>
 </Canvas>
 
