@@ -14,7 +14,7 @@
     }
   },
   "scripts": {
-    "build": "yarn build:module && yarn build:types",
+    "build": "yarn build:codegen && yarn build:module && yarn build:types",
     "build:codegen": "node ./build-icon-compoents.js",
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"

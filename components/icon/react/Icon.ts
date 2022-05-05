@@ -8,34 +8,36 @@ import type { FunctionComponent } from 'react';
 export const Icon: FunctionComponent<
   IconProps & React.SVGProps<SVGSVGElement>
 > = (props) => {
-  const {
-    // all these constants are going to be dumped
-    iconId,
-    size: _s,
-    darkColor,
-    lightColor,
-    secondaryDarkColor,
-    secondaryLightColor,
-    className,
-    ...attributes // we want to extract all standard SVG attributes separately
-  } = props as any;
-  const { size, compiledClasses, body } = compileIcon(props);
+  return React.createElement(
+    'svg',
+    compileReactIconProperties(compileIcon(props))
+  );
+};
+
+export const compileReactIconProperties = ({
+  body,
+  compiledClasses,
+  size,
+  ...attributes
+}: {
+  body: string;
+  compiledClasses: string[];
+  size: string;
+} & React.SVGProps<SVGSVGElement>) => {
   const componentProps: any = {
-    height: size,
     width: size,
+    height: size,
     fill: 'none',
+    innerHTML: body,
     ...attributes, // add all standard attributes back to the svg tag
-    dangerouslySetInnerHTML: {
-      __html: body,
-    },
   };
-  if (className) {
-    compiledClasses.push(className);
+  if (attributes.className) {
+    compiledClasses.push(attributes.className);
   }
   if (compiledClasses.length) {
     componentProps.className = compiledClasses.join(' ');
   }
-  return React.createElement('svg', componentProps);
+  return componentProps;
 };
 
 export default Icon;

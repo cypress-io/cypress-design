@@ -14,12 +14,17 @@
     }
   },
   "scripts": {
-    "build": "yarn build:module && yarn build:types",
+    "build": "yarn build:codegen && yarn build:module && yarn build:types",
+    "build:codegen": "node ./build-icon-compoents.js",
     "build:module": "rollup -c ./rollup.config.js",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
     "@cypress-design/icon-registry": "^0.0.0"
+  },
+  "devDependencies": {
+    "camelcase": "^6.3.0",
+    "dedent": "^0.7.0"
   },
   "license": "MIT"
 }
