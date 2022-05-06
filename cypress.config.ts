@@ -32,7 +32,11 @@ export default defineConfig({
           }),
           CyCSSVitePlugin({
             scan: {
-              include: ['**/*.vue', '**/*.ts', '**/*.tsx'],
+              include: [
+                'components/**/*.vue',
+                'components/**/*.ts',
+                'components/**/*.tsx',
+              ],
             },
           }),
         ],

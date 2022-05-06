@@ -12,6 +12,7 @@ describe('Checkbox', () => {
         id="welcome-opt-out"
         modelValue={isChecked}
         onChange={() => (isChecked = !isChecked)}
+        className="m-2 px-2 py-1 outline outline-gray-300"
       />
     );
   });
