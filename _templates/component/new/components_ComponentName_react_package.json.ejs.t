@@ -21,5 +21,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
     "build:module": "rollup -c ./rollup.config.js",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
+  "dependencies": {
+    "clsx": "*"
+  },
   "license": "MIT"
 }
