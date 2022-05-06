@@ -47,6 +47,9 @@ export const getComponentAttributes = ({
         : availableSizes[0]
       : '');
 
+  // TODO: when all icons are converted to using the design system,
+  // replace dark by stroke and light by fill,
+  // both here and in the windi plugins configs.
   const compiledClasses = [
     strokeColor && `icon-dark-${strokeColor}`,
     fillColor && `icon-light-${fillColor}`,
