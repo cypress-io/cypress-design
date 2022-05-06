@@ -17,6 +17,7 @@ export const compileIcon = (props: IconProps) => {
     throw new Error(`icon '${name}' at size ${sizeWithDefault} not found`);
   }
   return {
+    ...(props as any),
     size: sizeWithDefault,
     compiledClasses,
     body: iconData.data,
