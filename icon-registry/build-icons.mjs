@@ -34,10 +34,10 @@ async function getIcons() {
         })}Props`,
         snakeCaseName,
         size,
-        hasstrokeColor: /icon-stroke/.test(svgContent),
-        hasfillColor: /icon-fill/.test(svgContent),
-        hasSecondaryfillColor: /icon-fill-secondary/.test(svgContent),
-        hasSecondarystrokeColor: /icon-stroke-secondary/.test(svgContent),
+        hasStrokeColor: /icon-stroke/.test(svgContent),
+        hasFillColor: /icon-fill/.test(svgContent),
+        hasSecondaryStrokeColor: /icon-stroke-secondary/.test(svgContent),
+        hasSecondaryFillColor: /icon-fill-secondary/.test(svgContent),
       };
     })
   );
@@ -51,8 +51,10 @@ async function getIcons() {
         (item) => item.interfaceName === curr.interfaceName
       );
       acc[index].availableSizes.push(curr.size);
-      acc[index].hasstrokeColor |= curr.hasstrokeColor;
-      acc[index].hasfillColor |= curr.hasfillColor;
+      acc[index].hasStrokeColor |= curr.hasStrokeColor;
+      acc[index].hasFillColor |= curr.hasFillColor;
+      acc[index].hasSecondaryStrokeColor |= curr.hasSecondaryStrokeColor;
+      acc[index].hasSecondaryFillColor |= curr.hasSecondaryFillColor;
     }
     return acc;
   }, []);
@@ -83,18 +85,18 @@ async function generateIndex(iconsObjectUnique) {
       const {
         snakeCaseName,
         availableSizes,
-        hasfillColor,
-        hasstrokeColor,
-        hasSecondaryfillColor,
-        hasSecondarystrokeColor,
+        hasFillColor,
+        hasStrokeColor,
+        hasSecondaryFillColor,
+        hasSecondaryStrokeColor,
       } = icon;
       // prettier-ignore
       return dedent`'${snakeCaseName}': {
           availableSizes: ['${availableSizes.join('\', \'')}'],
-          hasfillColor: ${Boolean(hasfillColor)},
-          hasstrokeColor: ${Boolean(hasstrokeColor)},
-          hasSecondaryfillColor: ${Boolean(hasSecondaryfillColor)},
-          hasSecondarystrokeColor: ${Boolean(hasSecondarystrokeColor)},
+          hasFillColor: ${Boolean(hasFillColor)},
+          hasStrokeColor: ${Boolean(hasStrokeColor)},
+          hasSecondaryFillColor: ${Boolean(hasSecondaryFillColor)},
+          hasSecondaryStrokeColor: ${Boolean(hasSecondaryStrokeColor)},
       }`;
     })
     .join(',\n');
@@ -104,10 +106,10 @@ async function generateIndex(iconsObjectUnique) {
       // prettier-ignore
       return dedent`export interface ${icon.interfaceName} {
           name: '${icon.snakeCaseName}';
-          size?: '${icon.availableSizes.join('\' | \'')}';${icon.hasstrokeColor ? `
-          strokeColor?: WindiColor;`: ''}${icon.hasfillColor ? `
-          fillColor?: WindiColor;` : ''}${icon.hasSecondarystrokeColor ? `
-          secondaryStrokeColor?: WindiColor;` : ''}${icon.hasSecondaryfillColor ? `
+          size?: '${icon.availableSizes.join('\' | \'')}';${icon.hasStrokeColor ? `
+          strokeColor?: WindiColor;`: ''}${icon.hasFillColor ? `
+          fillColor?: WindiColor;` : ''}${icon.hasSecondaryStrokeColor ? `
+          secondaryStrokeColor?: WindiColor;` : ''}${icon.hasSecondaryFillColor ? `
           secondaryFillColor?: WindiColor;` : ''}
       }`;
     })
