@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import * as React from 'react';
 import type { FunctionComponent, HTMLProps, ReactNode } from 'react';
 
@@ -20,7 +21,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   ...rest
 }) => {
   return (
-    <div {...rest} className="relative flex items-center">
+    <div {...rest} className={clsx(rest.className, "relative flex items-center")}>
       <div className="flex items-center h-5">
         <input
           id={id}
