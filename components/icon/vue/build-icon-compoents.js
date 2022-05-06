@@ -2,11 +2,11 @@ const path = require('path');
 const dedent = require('dedent');
 const { promises: fs } = require('fs');
 const camelcase = require('camelcase');
-const { icons, iconSet } = require('@cypress-design/icon-registry');
+const { iconsMetadata, iconSet } = require('@cypress-design/icon-registry');
 
-const iconsComponents = Object.keys(icons).map((name) => {
+const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   const pascalCaseName = camelcase(name, { pascalCase: true });
-  const iconMetadata = icons[name];
+  const iconMetadata = iconsMetadata[name];
   const availableIds = iconMetadata.availableSizes.map(
     (size) => `${camelcase(name)}X${size}`
   );

@@ -1,10 +1,10 @@
-import { type IconProps, icons } from './icons';
+import { type IconProps, iconsMetadata } from './icons';
 import { iconSet } from './iconsList';
 import camelCase from 'camelcase';
 
 export const compileIcon = (props: IconProps) => {
   const { name } = props;
-  const { availableSizes } = icons[name];
+  const { availableSizes } = iconsMetadata[name];
 
   const { sizeWithDefault, compiledClasses } = getComponentAttributes({
     ...(props as any),
