@@ -19,10 +19,8 @@ const colorSafelist = reduce(
       if (k === 'DEFAULT') return ``;
 
       return `
-    icon-fill-${name}-${k}
-    icon-stroke-${name}-${k}
-    icon-fill-secondary-${name}-${k}
-    icon-stroke-secondary-${name}-${k}
+    icon-light-${name}-${k}
+    icon-dark-${name}-${k}
     bg-${name}-${k}
     text-${name}-${k}
     before:bg-${name}-${k}

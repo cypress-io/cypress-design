@@ -48,11 +48,11 @@ export const getComponentAttributes = ({
       : '');
 
   const compiledClasses = [
-    strokeColor && `icon-stroke-${strokeColor}`,
-    fillColor && `icon-fill-${fillColor}`,
-    secondaryStrokeColor && `icon-stroke-secondary-${secondaryStrokeColor}`,
-    secondaryFillColor && `icon-fill-secondary-${secondaryFillColor}`,
-  ].filter((a) => a);
+    strokeColor && `icon-dark-${strokeColor}`,
+    fillColor && `icon-light-${fillColor}`,
+    secondaryStrokeColor && `icon-dark-secondary-${secondaryStrokeColor}`,
+    secondaryFillColor && `icon-light-secondary-${secondaryFillColor}`,
+  ].filter(Boolean);
 
   return { compiledClasses, sizeWithDefault };
 };
