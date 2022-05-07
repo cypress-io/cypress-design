@@ -1,7 +1,7 @@
 import { type IconProps, compileIcon } from '@cypress-design/icon-registry';
 import { h, type SVGAttributes } from 'vue';
 
-export default (props: IconProps & SVGAttributes) => {
+export default (props: IconProps & Omit<SVGAttributes, 'name'>) => {
   return h('svg', compileVueIconProperties(compileIcon(props)));
 };
 

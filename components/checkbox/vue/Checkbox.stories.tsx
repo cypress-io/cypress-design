@@ -12,3 +12,6 @@ export const Sample = () => (
 );
 
 Sample.story = { name: "Checkbox" }
+Sample.parameters = {
+  controls: { hideNoControlsWarning: true },
+}

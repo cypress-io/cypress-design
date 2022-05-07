@@ -7,7 +7,9 @@ import { Checkbox } from './Checkbox'
 <Meta title="Checkbox" component={Checkbox} />
 
 <Canvas>
-  <Story name="Checkbox">
+  <Story name="Checkbox" parameters={{
+    controls: { hideNoControlsWarning: true },
+  }}>
     <>
       <Checkbox modelValue={true} label="Checked" />
       <br />

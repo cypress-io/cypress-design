@@ -37,7 +37,7 @@ import { Icon } from './Icon'
 <Canvas>
   <Story name="Icon">
     {(args) => {
-      const name = args.name ?? 'book'
+      const name = args.name ?? 'placeholder'
       if(args.size && !iconsMetadata[name]?.availableSizes.includes(args.size)) {
         return <p className="text-red-500 bg-red-50">Not available at this size</p>
       }
