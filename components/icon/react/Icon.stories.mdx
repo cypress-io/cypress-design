@@ -10,48 +10,36 @@ import { Icon } from './Icon'
 <Meta
   title="Icon"
   component={Icon}
+  argTypes={{
+    name: {
+      defaultValue: 'book',
+      options: Object.keys(iconsMetadata),
+      control: { type: 'select' },
+    },
+    size: {
+      options: ['8', '16', '24', '48', '120'],
+      control: { type: 'select' },
+    },
+    strokeColor: {
+      options: ['blue', 'jade', 'red', 'indigo', 'purple', 'gray', 'black'].map(col => `${col}-500`),
+      control: { type: 'select' },
+    },
+    fillColor: {
+      options: ['blue', 'jade', 'red', 'indigo', 'purple', 'gray', 'black'].map(col => `${col}-100`),
+      control: { type: 'select' },
+    },
+  }}
 />
+
+<ArgsTable/>
 
 <Canvas>
   <Story name="Icon">
-    {() => {
-        const colors = ['blue', 'jade', 'red', 'indigo', 'purple', 'gray', 'black'];
-        const [fillColor, setFillColor] = useState({label:'jade', value:'jade'});
-        const [strokeColor, setStrokeColor] = useState({label:'jade', value:'jade'});
-        const colorOptions = colors.map(name => ({
-                value: name,
-                label: name,
-              }));
-        return (<>
-          <div className="flex items-center border-b-3 border-gray-300 pb-3">
-            strokeColor
-            <Select 
-              defaultValue={strokeColor} 
-              className="ml-2 mr-4" 
-              onChange={setStrokeColor} 
-              options={colorOptions} 
-            />
-            fillColor
-            <Select
-              defaultValue={fillColor} 
-              className="mx-2" 
-              onChange={setFillColor} 
-              options={colorOptions} />
-          </div>
-          <div>
-            {Object.keys(iconsMetadata).map((iconName) => {
-              return <div key={iconName} className="flex align-center items-end border-b border-gray-300 pb-2 pt-4">
-                <div className="w-45 text-right mr-4">{iconName}</div>
-                {iconsMetadata[iconName].availableSizes.map((size) => {
-                  return <div className="mr-4 text-center pb-1 align-bottom" key={`${iconName}_${size}`}>
-                    <Icon name={iconName} size={size} strokeColor={`${strokeColor.value}-500`} fillColor={`${fillColor.value}-100`} className="m-2"/>
-                    <div className="text-xs text-gray-600">{size}</div>
-                  </div>
-                })}
-              </div>
-            })}
-          </div>
-        </>)
+    {(args) => {
+      if(!iconsMetadata[args.name]?.availableSizes.includes(args.size)) {
+        return <p className="text-red-500 bg-red-100">Not available at this size</p>
+      }
+      return <Icon {...args} className="m-2"/>
     }}
   </Story>
 </Canvas>
