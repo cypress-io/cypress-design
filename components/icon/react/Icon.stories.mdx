@@ -12,20 +12,21 @@ import { Icon } from './Icon'
   component={Icon}
   argTypes={{
     name: {
-      defaultValue: 'book',
-      options: Object.keys(iconsMetadata),
       control: { type: 'select' },
     },
     size: {
-      options: ['8', '16', '24', '48', '120'],
       control: { type: 'select' },
     },
     strokeColor: {
-      options: ['blue', 'jade', 'red', 'indigo', 'purple', 'gray', 'black'].map(col => `${col}-500`),
       control: { type: 'select' },
     },
     fillColor: {
-      options: ['blue', 'jade', 'red', 'indigo', 'purple', 'gray', 'black'].map(col => `${col}-100`),
+      control: { type: 'select' },
+    },
+    secondaryStrokeColor: {
+      control: { type: 'select' },
+    },
+    secondaryFillColor: {
       control: { type: 'select' },
     },
   }}
@@ -36,10 +37,11 @@ import { Icon } from './Icon'
 <Canvas>
   <Story name="Icon">
     {(args) => {
-      if(!iconsMetadata[args.name]?.availableSizes.includes(args.size)) {
-        return <p className="text-red-500 bg-red-100">Not available at this size</p>
+      const name = args.name ?? 'book'
+      if(args.size && !iconsMetadata[name]?.availableSizes.includes(args.size)) {
+        return <p className="text-red-500 bg-red-50">Not available at this size</p>
       }
-      return <Icon {...args} className="m-2"/>
+      return <Icon {...{...args, name }} className="m-2"/>
     }}
   </Story>
 </Canvas>

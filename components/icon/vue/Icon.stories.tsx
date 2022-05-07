@@ -6,3 +6,5 @@ export default {
 };
 
 export const Sample = () => <Icon name="book-code" size="48" secondaryStrokeColor='blue-400' secondaryFillColor='red-500' />
+
+Sample.story = { name: "Icon" }

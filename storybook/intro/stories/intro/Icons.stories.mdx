@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Select from 'react-select';
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { iconsMetadata } from '@cypress-design/icon-registry';
+import LinkTo from '@storybook/addon-links/react';
 
 import Icon from '@cypress-design/react-icon'
 
@@ -9,23 +10,39 @@ import Icon from '@cypress-design/react-icon'
 
 <Meta
   title="Intro/Icons"
-  component={Icon}
 />
+
+You will find here the list all icons available to cypress developers.
+Most of them can be colored using the `strokeColor` and `fillColor` props.
+
+To know what colors you can customize, look for the letters near the icons.
+
+- `s` means strokeColor is available
+- `f` means fillColor is available
+- `f+` means secondaryFillColor is available
+- `s+` means secondaryStrokeColor is available
+
+For more info, check-out the Icon component documentation on the framework you are using.
+<ul>
+  <li><a href="/docs/react_icon--icon">React</a></li>
+  <li><a href="/docs/vue_icon--sample">Vue</a></li>
+</ul>
 
 <Canvas>
   <Story name="Icons">
     {() => {
         const colors = ['blue', 'jade', 'red', 'indigo', 'purple', 'gray', 'black'];
+        const [strokeColor, setStrokeColor] = useState({label:'teal', value:'teal'});
         const [fillColor, setFillColor] = useState({label:'jade', value:'jade'});
-        const [strokeColor, setStrokeColor] = useState({label:'jade', value:'jade'});
-        const [secondaryFillColor, setSecondaryFillColor] = useState({label:'indigo', value:'indigo'});
         const [secondaryStrokeColor, setSecondaryStrokeColor] = useState({label:'indigo', value:'indigo'});
+        const [secondaryFillColor, setSecondaryFillColor] = useState({label:'indigo', value:'indigo'});
         const colorOptions = colors.map(name => ({
                 value: name,
                 label: name,
               }));
         return (<>
-          <div className="flex items-center border-b-3 border-gray-300 pb-3">
+          <h3 className="text-lg border-b-1 border-gray-300 pb-1">Use the dropdowns below to customize the colors of the icons</h3>
+          <div className={`flex items-center border-b-1 border-gray-300 p-3 text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
             strokeColor
             <Select 
               defaultValue={strokeColor} 
@@ -71,10 +88,10 @@ import Icon from '@cypress-design/react-icon'
                       <div className="text-xs text-gray-600">{size}</div>
                     </div>
                     <div key={`${iconName}_${size}_colors`} className="text-center">
-                      {meta.hasStrokeColor && meta.hasStrokeColor.includes(size) && <div className={`px-1 my-1 text-xs text-${strokeColor.value}-500`}>s</div>}
-                      {meta.hasFillColor && meta.hasFillColor.includes(size) && <div className={`px-1 my-1 text-xs text-gray-800 bg-${fillColor.value}-50`}>f</div>}
-                      {meta.hasSecondaryStrokeColor && meta.hasSecondaryStrokeColor.includes(size) && <div className={`px-1 my-1 text-xs text-${secondaryStrokeColor.value}-500`}>ss</div>}
-                      {meta.hasSecondaryFillColor && meta.hasSecondaryFillColor.includes(size) && <div className={`px-1 my-1 text-xs text-gray-800 bg-${secondaryFillColor.value}-50`}>sf</div>}
+                      {meta.hasStrokeColor && meta.hasStrokeColor.includes(size) && <div className={`rounded px-1 my-1 text-xs text-${strokeColor.value}-500`}>s</div>}
+                      {meta.hasFillColor && meta.hasFillColor.includes(size) && <div className={`rounded px-1 my-1 text-xs text-gray-800 bg-${fillColor.value}-50`}>f</div>}
+                      {meta.hasSecondaryStrokeColor && meta.hasSecondaryStrokeColor.includes(size) && <div className={`rounded px-1 my-1 text-xs text-${secondaryStrokeColor.value}-500`}>s+</div>}
+                      {meta.hasSecondaryFillColor && meta.hasSecondaryFillColor.includes(size) && <div className={`rounded px-1 my-1 text-xs text-gray-800 bg-${secondaryFillColor.value}-50`}>f+</div>}
                     </div>
                   </div>)
                 })}
