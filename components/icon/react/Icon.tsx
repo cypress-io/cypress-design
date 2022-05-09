@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { type IconProps, compileIcon } from '@cypress-design/icon-registry';
-import type { FunctionComponent } from 'react';
+import type { FunctionComponent, SVGProps } from 'react';
+import { compileIcon } from '@cypress-design/icon-registry';
+import type { IconProps } from '@cypress-design/icon-registry';
 
 export const Icon: FunctionComponent<
-  IconProps & React.SVGProps<SVGSVGElement>
+  IconProps & SVGProps<SVGSVGElement>
 > = (props) => {
   return React.createElement(
     'svg',
