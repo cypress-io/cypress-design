@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build": "yarn build:codegen && yarn build:module && yarn build:types",
-    "build:codegen": "node ./build-icon-compoents.js",
+    "build:codegen": "node ./build-icon-components.js",
     "build:module": "rollup -c ./rollup.config.js",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
