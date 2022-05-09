@@ -1,3 +1,8 @@
+/**
+ * Build every package in the directory `components`
+ * This script needs to run before we can publish components
+ */
+
 const path = require('path');
 
 async function build() {
@@ -11,11 +16,7 @@ async function build() {
   );
   const packages = Object.keys(workspaces);
   packages
-    .filter(
-      (p) =>
-        p.startsWith('@cypress-design/react-') ||
-        p.startsWith('@cypress-design/vue-')
-    )
+    .filter((p) => workspaces[p].location.startsWith('components'))
     .map(async (p) => {
       const command = `yarn workspace ${p} build ${args.join(' ')}`;
       const { stdout } = await execaCommand(command);
