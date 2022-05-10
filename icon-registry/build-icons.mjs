@@ -15,6 +15,15 @@ import camelCase from 'camelcase';
 import dedent from 'dedent';
 import { colors } from '@cypress-design/css';
 
+const propsRE = {
+  hasStrokeColor: /icon-dark/,
+  hasFillColor: /icon-light/,
+  hasSecondaryStrokeColor: /icon-dark-secondary/,
+  hasSecondaryFillColor: /icon-light-secondary/,
+};
+
+const props = Object.keys(propsRE);
+
 async function getIcons() {
   const icons = await globby('*.svg', {
     cwd: path.join(__dirname, './icons'),
@@ -33,10 +42,10 @@ async function getIcons() {
         })}Props`,
         snakeCaseName,
         size,
-        hasStrokeColor: /icon-dark/.test(svgContent),
-        hasFillColor: /icon-light/.test(svgContent),
-        hasSecondaryStrokeColor: /icon-dark-secondary/.test(svgContent),
-        hasSecondaryFillColor: /icon-light-secondary/.test(svgContent),
+        ...props.reduce((acc, prop) => {
+          acc[prop] = propsRE[prop].test(svgContent);
+          return acc;
+        }, {}),
       };
       return iconMeta;
     })
@@ -49,12 +58,7 @@ async function getIcons() {
         ...curr,
         availableSizes: [curr.size],
       };
-      [
-        'hasStrokeColor',
-        'hasFillColor',
-        'hasSecondaryStrokeColor',
-        'hasSecondaryFillColor',
-      ].forEach((property) => {
+      props.forEach((property) => {
         if (curr[property]) {
           iconMeta[property] = [curr.size];
         }
@@ -65,12 +69,7 @@ async function getIcons() {
         (item) => item.interfaceName === curr.interfaceName
       );
       acc[index].availableSizes.push(curr.size);
-      [
-        'hasStrokeColor',
-        'hasFillColor',
-        'hasSecondaryStrokeColor',
-        'hasSecondaryFillColor',
-      ].forEach((property) => {
+      props.forEach((property) => {
         if (curr[property]) {
           if (acc[index][property]) {
             acc[index][property].push(curr.size);
@@ -106,36 +105,72 @@ async function ensureDistExist() {
 async function generateIndex(iconsObjectUnique) {
   const indexFileContent = iconsObjectUnique
     .map((icon) => {
-      const {
-        snakeCaseName,
-        availableSizes,
-        hasFillColor,
-        hasStrokeColor,
-        hasSecondaryFillColor,
-        hasSecondaryStrokeColor,
-      } = icon;
       // prettier-ignore
-      return dedent`'${snakeCaseName}': {
-          availableSizes: ['${availableSizes.join('\', \'')}'],
-          hasFillColor: ${JSON.stringify(hasFillColor)},
-          hasStrokeColor: ${JSON.stringify(hasStrokeColor)},
-          hasSecondaryFillColor: ${JSON.stringify(hasSecondaryFillColor)},
-          hasSecondaryStrokeColor: ${JSON.stringify(hasSecondaryStrokeColor)},
+      return dedent`
+      '${icon.snakeCaseName}': {
+          availableSizes: ['${icon.availableSizes.join('\', \'')}'],
+          hasFillColor: ${JSON.stringify(icon.hasFillColor)},
+          hasStrokeColor: ${JSON.stringify(icon.hasStrokeColor)},
+          hasSecondaryFillColor: ${JSON.stringify(icon.hasSecondaryFillColor)},
+          hasSecondaryStrokeColor: ${JSON.stringify(icon.hasSecondaryStrokeColor)},
       }`;
     })
     .join(',\n');
 
   const typesFileContent = iconsObjectUnique
     .map((icon) => {
-      // prettier-ignore
-      return dedent`export interface ${icon.interfaceName} {
-          name: '${icon.snakeCaseName}';
-          size?: '${icon.availableSizes.join('\' | \'')}';${icon.hasStrokeColor ? `
-          strokeColor?: WindiColor;`: ''}${icon.hasFillColor ? `
-          fillColor?: WindiColor;` : ''}${icon.hasSecondaryStrokeColor ? `
-          secondaryStrokeColor?: WindiColor;` : ''}${icon.hasSecondaryFillColor ? `
-          secondaryFillColor?: WindiColor;` : ''}
-      }`;
+      // check if the current icon has the same color for each size
+      // compare the stringified version of sizes per property
+      const isUnique =
+        icon.availableSizes.length === 1 ||
+        props.reduce(
+          ({ prevValue, isUnique }, prop) => {
+            if (!icon[prop]) {
+              return { prevValue, isUnique };
+            }
+            const curValue = JSON.stringify(icon[prop]);
+            if (isUnique && prevValue && curValue && prevValue !== curValue) {
+              isUnique = false;
+            }
+            return { prevValue: curValue, isUnique };
+          },
+          { prevValue: undefined, isUnique: true }
+        ).isUnique;
+      // if yes it is very easy to generate the type definition
+      if (isUnique) {
+        // prettier-ignore
+        return dedent`
+        export interface ${icon.interfaceName} {
+            name: '${icon.snakeCaseName}';
+            size?: '${icon.availableSizes.join('\' | \'')}';${icon.hasStrokeColor ? `
+            strokeColor?: WindiColor;`: ''}${icon.hasFillColor ? `
+            fillColor?: WindiColor;` : ''}${icon.hasSecondaryStrokeColor ? `
+            secondaryStrokeColor?: WindiColor;` : ''}${icon.hasSecondaryFillColor ? `
+            secondaryFillColor?: WindiColor;` : ''}
+        }`;
+      } else {
+        // if not, we need to generate the type definition for each size
+
+        const sizeInterfaces = icon.availableSizes.map((size) => {
+          // prettier-ignore
+          return `
+          export interface ${icon.interfaceName}X${size} {
+              name: '${icon.snakeCaseName}';
+              size?: '${size}';${(icon.hasStrokeColor && icon.hasStrokeColor?.indexOf(size) > -1) ? `
+              strokeColor?: WindiColor;`: ''}${(icon.hasFillColor && icon.hasFillColor?.indexOf(size) > -1) ? `
+              fillColor?: WindiColor;` : ''}${(icon.hasSecondaryStrokeColor && icon.hasSecondaryStrokeColor?.indexOf(size) > -1) ? `
+              secondaryStrokeColor?: WindiColor;` : ''}${(icon.hasSecondaryFillColor && icon.hasSecondaryFillColor?.indexOf(size) > -1) ? `
+              secondaryFillColor?: WindiColor;` : ''}
+          }`
+        });
+
+        // prettier-ignore
+        return dedent`
+          ${sizeInterfaces.join('\n\n')}
+
+          export type ${icon.interfaceName} = ${icon.availableSizes.map(size => `${icon.interfaceName}X${size}`).join(' | ')};
+        `
+      }
     })
     .join('\n\n');
 
@@ -147,7 +182,6 @@ async function generateIndex(iconsObjectUnique) {
   export var iconsMetadata = {
     ${indexFileContent}
   } as const;
-
   type WindiColor = '${Object.keys(colors)
     .reduce((acc, color) => {
       if (typeof colors[color] !== 'object') {
