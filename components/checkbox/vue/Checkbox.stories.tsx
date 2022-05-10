@@ -10,3 +10,8 @@ export const Sample = () => (
     <Checkbox label="Sample" id="sample" modelValue={true} />
   </div>
 );
+
+Sample.story = { name: "Checkbox" }
+Sample.parameters = {
+  controls: { hideNoControlsWarning: true },
+}
