@@ -1,10 +1,8 @@
-import { withDesign } from 'storybook-addon-designs'
 import Checkbox from './Checkbox.vue';
 
 export default {
   title: 'Checkbox',
   component: Checkbox,
-  decorators: [withDesign],
 };
 
 export const Sample = () => (
