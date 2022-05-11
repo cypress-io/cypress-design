@@ -23,5 +23,5 @@ import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.cameli
 <ArgsTable />
 
 <Description>
-  {changelog.replace(/^# .+/, '# Changelog')}
+  {changelog.replace(/^# .+/, '## Changelog')}
 </Description>
