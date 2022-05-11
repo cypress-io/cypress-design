@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Meta, Preview, Story } from '@storybook/addon-docs';
+import { Meta, Canvas, Story } from '@storybook/addon-docs';
 import Select from 'react-select';
 import { find, map, pick } from 'lodash'
 
@@ -23,7 +23,7 @@ If you're building something using colors outside our brand colors, please check
 
 Note: All evaluations assume full opacity.
 
-<Preview>
+<Canvas>
   <Story name="Contrast">
     {() => {
       {
@@ -58,4 +58,4 @@ Note: All evaluations assume full opacity.
       );
     }}
   </Story>
-</Preview>
+</Canvas>

@@ -11,7 +11,7 @@ export const Sample = () => (
   </div>
 );
 
-Sample.story = { name: "Checkbox" }
+Sample.storyName = "Checkbox"
 Sample.parameters = {
   controls: { hideNoControlsWarning: true },
   design: {
