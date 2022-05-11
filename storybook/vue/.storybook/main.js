@@ -5,7 +5,11 @@ const vueJsx = require('@vitejs/plugin-vue-jsx').default;
 
 module.exports = {
   stories: ['../../../components/*/vue/*.stories.@(mdx|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    'storybook-addon-designs',
+  ],
   framework: '@storybook/vue3',
   core: {
     builder: '@storybook/builder-vite',

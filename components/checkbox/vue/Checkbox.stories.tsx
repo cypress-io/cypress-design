@@ -1,8 +1,10 @@
+import { withDesign } from 'storybook-addon-designs'
 import Checkbox from './Checkbox.vue';
 
 export default {
   title: 'Checkbox',
   component: Checkbox,
+  decorators: [withDesign],
 };
 
 export const Sample = () => (
@@ -14,4 +16,8 @@ export const Sample = () => (
 Sample.story = { name: "Checkbox" }
 Sample.parameters = {
   controls: { hideNoControlsWarning: true },
+  design: {
+    type: "figma",
+    url: 'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=1027%3A9825',
+  }
 }

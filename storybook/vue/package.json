@@ -18,6 +18,7 @@
     "@storybook/vue3": "^6.4.22",
     "@types/node": "^16.11.26",
     "babel-loader": "^8.2.4",
+    "storybook-addon-designs": "^6.2.1",
     "vite-plugin-windicss": "^1.8.4",
     "windicss": "^3.5.1"
   }

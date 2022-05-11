@@ -3,7 +3,11 @@ const path = require('path');
 
 module.exports = {
   stories: ['../../../components/*/react/*.stories.@(mdx|tsx)'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    'storybook-addon-designs',
+  ],
   framework: '@storybook/react',
   webpackFinal: (config) => {
     config.plugins.push(
