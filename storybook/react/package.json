@@ -23,7 +23,8 @@
   },
   "scripts": {
     "start": "start-storybook -p 6008",
-    "build": "build-storybook --output-dir ../dist/react"
+    "build": "build-storybook --output-dir ../dist/react",
+    "postbuild": "npx sb extract ../dist/react ../dist/react/stories.json"
   },
   "author": "",
   "license": "ISC"
