@@ -13,7 +13,7 @@ import { globby } from 'globby';
 import { promises as fs } from 'fs';
 import camelCase from 'camelcase';
 import dedent from 'dedent';
-import { colors } from '@cypress-design/css';
+import { cyColors } from '@cypress-design/css';
 
 const propsRE = {
   hasStrokeColor: /icon-dark/,
@@ -182,12 +182,12 @@ async function generateIndex(iconsObjectUnique) {
   export var iconsMetadata = {
     ${indexFileContent}
   } as const;
-  type WindiColor = '${Object.keys(colors)
-    .reduce((acc, color) => {
-      if (typeof colors[color] !== 'object') {
+  type WindiColor = '${Object.entries(cyColors)
+    .reduce((acc, [color, colorObject]) => {
+      if (typeof colorObject !== 'object') {
         return acc;
       }
-      const completeColors = Object.keys(colors[color]).map((key) => {
+      const completeColors = Object.keys(colorObject).map((key) => {
         return `${color}${key !== 'DEFAULT' ? `-${key}` : ''}`;
       });
       return [].concat(acc, completeColors);

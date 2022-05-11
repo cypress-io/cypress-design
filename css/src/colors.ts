@@ -2,7 +2,7 @@
 
 import Colors from 'windicss/colors';
 
-const customColors = {
+export const cyColors = {
   jade: {
     50: '#E4FBF2',
     100: '#C2F1DE',
@@ -148,52 +148,51 @@ const customColors = {
   },
 } as const;
 
-export const cyColors = {
-  ...customColors,
+export const semanticColors = {
   // TODO: are these actual concepts from the design system?
   primary: {
-    ...customColors.indigo,
-    DEFAULT: customColors.indigo[500],
+    ...cyColors.indigo,
+    DEFAULT: cyColors.indigo[500],
   },
   secondary: {
-    ...customColors.indigo,
-    DEFAULT: customColors.indigo[50],
+    ...cyColors.indigo,
+    DEFAULT: cyColors.indigo[50],
   },
   error: {
-    ...customColors.red,
-    DEFAULT: customColors.red[400],
+    ...cyColors.red,
+    DEFAULT: cyColors.red[400],
   },
   caution: {
-    ...customColors.red,
-    DEFAULT: customColors.red[500],
+    ...cyColors.red,
+    DEFAULT: cyColors.red[500],
   },
   info: {
-    ...customColors.indigo,
-    DEFAULT: customColors.indigo[500],
+    ...cyColors.indigo,
+    DEFAULT: cyColors.indigo[500],
   },
   warning: {
-    ...customColors.orange,
-    DEFAULT: customColors.orange[500],
+    ...cyColors.orange,
+    DEFAULT: cyColors.orange[500],
   },
   'warning-light': {
-    ...customColors.orange,
-    DEFAULT: customColors.orange[400],
+    ...cyColors.orange,
+    DEFAULT: cyColors.orange[400],
   },
   success: {
-    ...customColors.jade,
-    DEFAULT: customColors.jade[400],
+    ...cyColors.jade,
+    DEFAULT: cyColors.jade[400],
   },
   'success-light': {
-    ...customColors.jade,
-    DEFAULT: customColors.jade[300],
+    ...cyColors.jade,
+    DEFAULT: cyColors.jade[300],
   },
   confirm: {
-    ...customColors.jade,
-    DEFAULT: customColors.jade[500],
+    ...cyColors.jade,
+    DEFAULT: cyColors.jade[500],
   },
   'body-gray': {
-    ...customColors.gray,
-    DEFAULT: customColors.gray[600],
+    ...cyColors.gray,
+    DEFAULT: cyColors.gray[600],
   },
 } as const;
 
@@ -217,4 +216,4 @@ const FilteredColors = Object.keys(Colors).reduce((acc, key) => {
   return acc;
 }, {});
 
-export const colors = { ...FilteredColors, ...cyColors };
+export const colors = { ...FilteredColors, ...semanticColors, ...cyColors };

@@ -14,4 +14,4 @@ export const CyCSSWebpackPlugin = (options: UserOptions) =>
     ...options,
   });
 
-export { colors } from './colors';
+export * from './colors';
