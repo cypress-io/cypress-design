@@ -10,6 +10,7 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-designs',
   ],
+  features: { buildStoriesJson: true },
   framework: '@storybook/vue3',
   core: {
     builder: '@storybook/builder-vite',

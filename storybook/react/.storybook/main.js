@@ -8,6 +8,7 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-designs',
   ],
+  features: { buildStoriesJson: true },
   framework: '@storybook/react',
   webpackFinal: (config) => {
     config.plugins.push(

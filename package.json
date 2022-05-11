@@ -24,8 +24,8 @@
     "build:components": "node components/build-components.js",
     "start": "concurrently yarn:storybook:*",
     "storybook:intro": "yarn workspace storybook start",
-    "storybook:react": "yarn workspace storybook-react start",
-    "storybook:vue": "yarn workspace storybook-vue start",
+    "storybook:react": "yarn workspace storybook-react start --no-open",
+    "storybook:vue": "yarn workspace storybook-vue start --no-open",
     "build:css": "yarn workspace @cypress-design/css build",
     "postinstall": "yarn build:css",
     "new:component": "hygen component new"
