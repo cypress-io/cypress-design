@@ -182,7 +182,7 @@ async function generateIndex(iconsObjectUnique) {
   export var iconsMetadata = {
     ${indexFileContent}
   } as const;
-  type WindiColor = '${Object.entries(cyColors)
+  type WindiColor = 'current' | 'transparent' | '${Object.entries(cyColors)
     .reduce((acc, [color, colorObject]) => {
       if (typeof colorObject !== 'object') {
         return acc;
