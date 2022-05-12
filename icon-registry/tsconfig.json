@@ -10,5 +10,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "declarationMap": true,
+    "declarationDir": "dist/types",
   }
 }

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "All svg files to be exposed to the Icon component",
   "main": "dist/cjs/index.js",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
@@ -12,7 +13,7 @@
   "license": "MIT",
   "scripts": {
     "build:lib": "tsc -p tsconfig.json",
-    "build:libcjs": "tsc -p tsconfig.json --module commonjs --outDir \"dist/cjs\" ",
+    "build:libcjs": "tsc -p tsconfig.json --module commonjs --outDir \"dist/cjs\" --declaration false --declarationMap false --declarationDir null",
     "build:icons": "node ./build-icons.mjs",
     "build:svg": "svg-to-ts-files",
     "build": "yarn build:icons && yarn build:svg && yarn build:lib && yarn build:libcjs"

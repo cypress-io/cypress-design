@@ -10,23 +10,23 @@ const textSafelist = ['xs', 'sm', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl']
   .map((v) => `text-${v}`)
   .join(' ');
 const colorSafelist = reduce(
-  colors,
+  { ...colors, transparent: { ONLY: true }, current: { ONLY: true } },
   (acc, variants, colorName) => {
     const name = kebabCase(colorName);
 
     return `${acc}
     ${map(variants, (_: string, k: string) => {
       if (k === 'DEFAULT') return ``;
-
+      const variantName = k === 'ONLY' ? name : `${name}-${k}`;
       return `
-    icon-light-${name}-${k}
-    icon-dark-${name}-${k}
-    icon-light-secondary-${name}-${k}
-    icon-dark-secondary-${name}-${k}
-    bg-${name}-${k}
-    text-${name}-${k}
-    before:bg-${name}-${k}
-    before:text-${name}-${k}`;
+    icon-light-${variantName}
+    icon-dark-${variantName}
+    icon-light-secondary-${variantName}
+    icon-dark-secondary-${variantName}
+    bg-${variantName}
+    text-${variantName}
+    before:bg-${variantName}
+    before:text-${variantName}`;
     }).join(' ')}`;
   },
   ' bg-white bg-black text-white text-black'
