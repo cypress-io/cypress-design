@@ -3,8 +3,10 @@ import type { FunctionComponent, SVGProps } from 'react';
 import { compileIcon } from '@cypress-design/icon-registry';
 import type { IconProps } from '@cypress-design/icon-registry';
 
+type SVGPropsWithoutColorsOrSize = Omit<React.SVGProps<SVGSVGElement>, 'fill' | 'stroke' | 'fillColor' | 'strokeColor' | 'size' >
+
 export const Icon: FunctionComponent<
-  IconProps & SVGProps<SVGSVGElement>
+  IconProps & SVGPropsWithoutColorsOrSize
 > = (props) => {
   return React.createElement(
     'svg',
@@ -29,8 +31,8 @@ export const compileReactIconProperties = ({
   fillColor?;
   secondaryStrokeColor?;
   secondaryFillColor?;
-} & React.SVGProps<SVGSVGElement>) => {
-  const componentProps: any = {
+} & SVGPropsWithoutColorsOrSize) => {
+  const componentProps = {
     width: size,
     height: size,
     fill: 'none',
