@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "build": "build-storybook --docs --output-dir ../dist",
+    "build": "build-storybook --output-dir ../dist --quiet",
     "start": "start-storybook -p 6006"
   },
   "dependencies": {
