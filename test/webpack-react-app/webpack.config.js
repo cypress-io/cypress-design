@@ -19,6 +19,10 @@ const config = {
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   devServer: {
@@ -27,7 +31,7 @@ const config = {
     },
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.css'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
@@ -35,7 +39,7 @@ const config = {
   plugins: [
     CyCSSWebpackPlugin({
       scan: {
-        include: ['/src/**/*.@(tsx|ts|js)'],
+        include: ['src/**/*.@(tsx|ts|js)'],
       },
     }),
   ],

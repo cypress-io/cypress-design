@@ -6,7 +6,8 @@
     "dev": "webpack serve --hot --mode development"
   },
   "dependencies": {
-    "@cypress-design/vue-checkbox": "^0.1.0",
+    "@cypress-design/react-checkbox": "^0.1.0",
+    "@cypress-design/react-icon": "^0.0.0",
     "react": "*",
     "react-dom": "*",
     "react-hot-loader": "^4.13.0"
@@ -20,6 +21,8 @@
     "@types/react": "*",
     "@types/react-dom": "*",
     "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
     "ts-loader": "^9.2.9",
     "typescript": "^4.6.3",
     "webpack": "^5.72.0",
