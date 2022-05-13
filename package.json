@@ -25,7 +25,7 @@
     "start": "concurrently yarn:storybook:*",
     "storybook:intro": "yarn workspace storybook start",
     "storybook:react": "yarn workspace storybook-react start",
-    "storybook:vue": "yarn workspace storybook-vue start",
+    "storybook:vue": "yarn histoire dev",
     "build:css": "yarn workspace @cypress-design/css build",
     "postinstall": "yarn build:css",
     "new:component": "hygen component new"
@@ -45,6 +45,7 @@
     "cypress": "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-b9af1054a860aea35ec0d6e935174f5a50a0bbf6/cypress.tgz",
     "execa": "^6.1.0",
     "hygen": "^6.2.0",
+    "histoire": "",
     "prettier": "^2.6.2",
     "rollup": "^2.70.2",
     "typescript": "~4.6.3",
