@@ -75,7 +75,10 @@ export const BrandColors: FunctionComponent = () => {
     <div className="w-full">
       {Object.keys(brandPalettes).map((paletteName) => (
         <div key={paletteName} className="mb-8">
-          <h3 className="text-2xl">{startCase(paletteName)}</h3>
+          <h3 className="text-2xl flex items-end gap-2">
+            {startCase(paletteName)}
+            {paletteName === 'tertiary' && <p className="text-sm text-gray-500">(Use only for generated content)</p>}
+          </h3>
           {brandPalettes[paletteName].map((colorway) => {
             return (
               <div className="grid grid-cols-11" key={colorway}>
