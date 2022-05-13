@@ -19,7 +19,16 @@ const App: FunctionComponent<Props> = ({ name }) => {
         onChange={() => setChecked(!isChecked)}
         modelValue={isChecked}
       />
-      <Icon name="book-code" fillColor="red-300" strokeColor="green-600"/>
+      <Icon name="book-code" fillColor="red-300" strokeColor="green-600" />
+      {/* <IconCircleBgQuestionMark stroke-color="indigo-500" /> */}
+      <Icon
+        name="box-open"
+        fillColor="indigo-500"
+        strokeColor="indigo-500"
+        secondaryFillColor="red-500"
+        secondaryStrokeColor="red-500"
+        size="48"
+      />
     </>
   );
 };
