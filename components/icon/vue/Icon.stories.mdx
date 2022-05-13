@@ -1,9 +1,9 @@
 import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
 import { iconsMetadata } from '@cypress-design/icon-registry';
 import { version } from "./package.json";
-import changelog from "./CHANGELOG.md";
-
-import { Icon } from './Icon'
+import changelog from "./CHANGELOG.md?raw";
+const colors = ['jade', 'teal', 'red', 'indigo', 'blue', 'purple', 'gray'];
+import Icon from './Icon'
 
 <h1>Icon<span className="text-lg font-normal"> - v{version}</span></h1>
 
@@ -12,35 +12,53 @@ import { Icon } from './Icon'
   component={Icon}
   argTypes={{
     name: {
+      options: Object.keys(iconsMetadata),
       control: { type: 'select' },
     },
     size: {
+      options: ['8', '16', '32', '48', '120'],
       control: { type: 'select' },
     },
     strokeColor: {
+      options: colors.map(color => `${color}-500`),
       control: { type: 'select' },
     },
     fillColor: {
+      options: colors.map(color => `${color}-100`),
       control: { type: 'select' },
     },
     secondaryStrokeColor: {
+      options: colors.map(color => `${color}-500`),
       control: { type: 'select' },
     },
     secondaryFillColor: {
+      options: colors.map(color => `${color}-100`),
       control: { type: 'select' },
-    },
+    }
   }}
 />
 
 <Canvas>
   <Story name="Icon">
-    {(args) => {
-      const name = args.name ?? 'placeholder'
-      if(args.size && !iconsMetadata[name]?.availableSizes.includes(args.size)) {
-        return <p className="text-red-500 bg-red-50">Not available at this size</p>
+    {(args) => (
+      {
+        components: { Icon },
+        data() {
+          args.name = args.name ?? 'placeholder'
+          return { args }
+        },
+        computed: {
+          unavailableSize() {
+            const { size, name } = this.args
+            return size && iconsMetadata[name] && !iconsMetadata[name]?.availableSizes.includes(size)
+          }
+        },
+        template: `<div>
+          <p v-if="this.unavailableSize" class="text-red-500 bg-red-50">Not available at this size</p>
+          <Icon v-else v-bind="this.args" />
+        </div>`,
       }
-      return <Icon {...{...args, name }} className="m-2"/>
-    }}
+    )}
   </Story>
 </Canvas>
 
