@@ -13,7 +13,7 @@ describe('Icon', () => {
         </li>
       <li className="flex items-center px-2">
         strokeColor="current" - <button className="flex gap-2 items-center m-2 bg-jade-400 hover:bg-jade-500 text-white py-1 px-2 rounded">
-          <Icon name="add-large" strokeColor="current" />
+          <Icon name="action-add-large" strokeColor="current" />
           Add a new icon
         </button>
       </li>
