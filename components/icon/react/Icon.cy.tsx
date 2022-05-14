@@ -1,12 +1,12 @@
 import * as React from 'react';
-import Icon, { IconBookCode } from './index'
+import Icon, { IconObjectBookCode } from './index'
 import { mount } from 'cypress/react';
 
 describe('Icon', () => {
   it('renders correctly', () => {
     mount(<ul className="m-4">
       <li className="flex items-center mb-3 px-2">
-        fillColor="red-100" - <IconBookCode fillColor="red-100" className="ml-2" strokeColor="red-500" secondaryFillColor="indigo-100" secondaryStrokeColor="indigo-600"/>
+        fillColor="red-100" - <IconObjectBookCode fillColor="red-100" className="ml-2" strokeColor="red-500" secondaryFillColor="indigo-100" secondaryStrokeColor="indigo-600"/>
         </li>
       <li className="flex items-center mb-3 px-2 bg-magenta-100">
         fillColor="transparent" - <Icon name="arrow-outline-down" strokeColor="magenta-500" fillColor="transparent" className="ml-2" />
