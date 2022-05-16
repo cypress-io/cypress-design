@@ -1,0 +1,21 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+
+import { Spinner } from './Spinner'
+
+<h1>Spinner<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Spinner" component={Spinner} />
+
+<Canvas>
+  <Story name="Spinner">
+    <Spinner id="foo" />
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
