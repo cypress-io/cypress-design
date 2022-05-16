@@ -15,7 +15,7 @@ import flat from 'flat';
 const brandPalettes = {
   primary: ['teal', 'jade', 'gray'],
   secondary: ['purple', 'orange', 'red', 'indigo'],
-  tertiary: ['fuchsia', 'yellow', 'green', 'magenta'],
+  tertiary: ['fuchsia', 'green', 'magenta'],
   neutral: ['black', 'white'],
 };
 
