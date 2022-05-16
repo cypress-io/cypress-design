@@ -3,7 +3,7 @@ import styles from './Spinner.module.scss'
 
 export const Spinner: React.FC = () => {
   return (
-    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+    <svg width="48" height="48" viewBox="0 0 48 48" fill="none" className={styles.spinner} xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true">
       <defs>
         <mask id="y_and_circle">
