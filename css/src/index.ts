@@ -1,4 +1,5 @@
-import VitePlugin, { type UserOptions } from 'vite-plugin-windicss';
+import type { UserOptions } from 'vite-plugin-windicss';
+import VitePlugin from 'vite-plugin-windicss';
 import WebpackPlugin from 'windicss-webpack-plugin';
 import windiConfig from './windi.config';
 
