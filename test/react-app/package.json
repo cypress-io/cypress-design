@@ -8,11 +8,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cypress-design/react-icon": "^0.0.0",
     "@cypress-design/react-checkbox": "^0.1.0",
     "react": "*",
     "react-dom": "*"
   },
   "devDependencies": {
+    "@cypress-design/css": "^0.1.0",
     "@types/react": "*",
     "@types/react-dom": "*",
     "@vitejs/plugin-react": "^1.3.0",

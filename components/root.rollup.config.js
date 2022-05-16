@@ -18,5 +18,5 @@ export default ({ input }) => ({
     },
   ],
   plugins: [resolve(), commonjs(), typescript()],
-  external: ['clsx', 'react'],
+  external: ['clsx', 'react', '@cypress-design/icon-registry'],
 });
