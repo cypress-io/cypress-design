@@ -18,6 +18,13 @@ export default ({ input, plugins = [] }) => ({
     },
   ],
 
-  plugins: [resolve(), commonjs(), typescript(), ...plugins],
+  plugins: [
+    resolve(),
+    commonjs(),
+    typescript({
+      tsconfig: './tsconfig.build.json',
+    }),
+    ...plugins,
+  ],
   external: ['clsx', 'react'],
 });

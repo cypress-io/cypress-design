@@ -6,6 +6,5 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node"
-  },
-  "files": ["./typings.d.ts"]
+  }
 }

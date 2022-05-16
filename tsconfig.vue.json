@@ -9,6 +9,5 @@
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationMap": true
-  },
-  "files": ["./typings.d.ts"]
+  }
 }
