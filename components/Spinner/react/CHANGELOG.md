@@ -1,2 +1,1 @@
-# @cypress-design/Spinner
-
+# @cypress-design/react-spinner
