@@ -10,12 +10,13 @@ export default (libConfig: LibraryOptions) =>
         ...libConfig,
       },
       rollupOptions: {
-        external: ['vue'],
+        external: ['vue', '@cypress-design/icon-registry'],
         output: {
           // Provide global variables to use in the UMD build
           // Add external deps here
           globals: {
             vue: 'Vue',
+            '@cypress-design/icon-registry': 'IconRegistry',
           },
         },
       },

@@ -17,7 +17,6 @@ export default ({ input, plugins = [] }) => ({
       sourcemap: true,
     },
   ],
-
   plugins: [
     resolve(),
     commonjs(),
@@ -28,5 +27,5 @@ export default ({ input, plugins = [] }) => ({
     }),
     ...plugins,
   ],
-  external: ['clsx', 'react'],
+  external: ['clsx', 'react', '@cypress-design/icon-registry'],
 });

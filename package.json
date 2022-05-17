@@ -11,13 +11,14 @@
     "components/*/react",
     "components/*/vue",
     "css",
+    "icon-registry",
     "storybook/*",
     "test/*"
   ],
   "scripts": {
     "cy": "cypress open --component",
     "cy:run": "cypress run --component",
-    "build:storybook": "yarn build:css && yarn build:storybook:intro --quiet && yarn build:storybook:react --quiet && yarn build:storybook:vue --quiet",
+    "build:storybook": "yarn build:icons && yarn build:css && yarn build:storybook:intro --quiet && yarn build:storybook:react --quiet && yarn build:storybook:vue --quiet",
     "build:storybook:intro": "yarn workspace storybook build",
     "build:storybook:react": "yarn workspace storybook-react build",
     "build:storybook:vue": "yarn workspace storybook-vue build",
@@ -27,7 +28,8 @@
     "storybook:react": "yarn workspace storybook-react start --no-open",
     "storybook:vue": "yarn workspace storybook-vue start --no-open",
     "build:css": "yarn workspace @cypress-design/css build",
-    "postinstall": "yarn build:css",
+    "build:icons": "yarn workspace @cypress-design/icon-registry build && yarn workspace @cypress-design/react-icon build:codegen && yarn workspace @cypress-design/vue-icon build:codegen",
+    "postinstall": "yarn build:css && yarn build:icons",
     "new:component": "hygen component new"
   },
   "dependencies": {
@@ -42,7 +44,7 @@
     "@vitejs/plugin-vue-jsx": "^1.3.9",
     "@vue/tsconfig": "^0.1.3",
     "concurrently": "^7.1.0",
-    "cypress": "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-b9af1054a860aea35ec0d6e935174f5a50a0bbf6/cypress.tgz",
+    "cypress": "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-fec27a0be952c91b96f3b9b5efd5fe7488312fc4/cypress.tgz",
     "execa": "^6.1.0",
     "hygen": "^6.2.0",
     "prettier": "^2.6.2",

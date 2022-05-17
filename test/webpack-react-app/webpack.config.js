@@ -1,4 +1,5 @@
 const path = require('path');
+const { CyCSSWebpackPlugin } = require('@cypress-design/css');
 
 const config = {
   entry: ['react-hot-loader/patch', './src/index.tsx'],
@@ -18,6 +19,10 @@ const config = {
         loader: 'ts-loader',
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ],
   },
   devServer: {
@@ -26,11 +31,18 @@ const config = {
     },
   },
   resolve: {
-    extensions: ['.tsx', '.ts', '.js'],
+    extensions: ['.tsx', '.ts', '.js', '.css'],
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
   },
+  plugins: [
+    CyCSSWebpackPlugin({
+      scan: {
+        include: ['src/**/*.@(tsx|ts|js)'],
+      },
+    }),
+  ],
 };
 
 module.exports = config;

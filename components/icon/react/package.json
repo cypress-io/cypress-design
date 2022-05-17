@@ -1,0 +1,30 @@
+{
+  "name": "@cypress-design/react-icon",
+  "version": "0.0.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:codegen && yarn build:module && yarn build:types",
+    "build:codegen": "node ./generate-icons.js",
+    "build:module": "rollup -c ./rollup.config.js",
+    "build:types": "tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cypress-design/icon-registry": "^0.0.0"
+  },
+  "devDependencies": {
+    "camelcase": "^6.3.0",
+    "dedent": "^0.7.0"
+  },
+  "license": "MIT"
+}
