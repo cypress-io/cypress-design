@@ -1,5 +1,19 @@
 # @cypress-design/css
 
+## 0.2.0
+
+### Minor Changes
+
+- [#10](https://github.com/cypress-io/cypress-design/pull/10) [`e20eea8`](https://github.com/cypress-io/cypress-design/commit/e20eea84375b7f4bd3a15a80fce3bdbfcb327981) Thanks [@elevatebart](https://github.com/elevatebart)! - - added icons secondary color classes to the safelist
+  - added transparent & current icon colors to the safelist
+  - rename and update color variables:
+    - customColors -> cyColors : contains all the colors of the official Cypress palette
+    - cyColors -> semanticColors : contains semanticly meaningful colors. Examples: warning, success, error, etc.
+
+### Patch Changes
+
+- [#11](https://github.com/cypress-io/cypress-design/pull/11) [`b4f81f0`](https://github.com/cypress-io/cypress-design/commit/b4f81f065ddb523731ed60f43e3d20b71090a783) Thanks [@mapsandapps](https://github.com/mapsandapps)! - **chore**: Remove yellow - no longer in figma
+
 ## 0.1.1
 
 ### Patch Changes
