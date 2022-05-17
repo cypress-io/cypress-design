@@ -16,12 +16,12 @@ module.exports = {
       return {
         react: {
           title: 'React',
-          url: 'http://localhost:6008',
+          url: 'http://localhost:9995',
           expanded: true,
         },
         vue: {
           title: 'Vue',
-          url: 'http://localhost:6007',
+          url: 'http://localhost:9996',
           expanded: true,
         },
       };

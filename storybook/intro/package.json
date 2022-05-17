@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "build": "build-storybook --output-dir ../dist --quiet",
-    "start": "start-storybook -p 6006"
+    "start": "start-storybook -p 9997"
   },
   "dependencies": {
     "react": "*",
