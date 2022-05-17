@@ -73,7 +73,9 @@ module.exports = {
     config.plugins.push(
       CyCSSWebpackPlugin({
         scan: {
-          include: [path.resolve(__dirname, '../stories/**/*.stories.mdx')],
+          include: [
+            path.resolve(__dirname, '../stories/**/*.stories.@(mdx,tsx)'),
+          ],
         },
       })
     );
