@@ -15,6 +15,17 @@
     "./style.css": {
       "import": "./dist/style.css",
       "require": "./dist/style.css"
+    },
+    "./sfc": {
+      "import": "./Spinner.vue",
+      "require": "./Spinner.vue"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "sfc": [
+        "Spinner.vue"
+      ]
     }
   },
   "scripts": {

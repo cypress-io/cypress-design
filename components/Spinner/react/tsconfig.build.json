@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./Spinner.tsx", "./index.ts", "./*.d.ts"],
+  "include": ["./Spinner.tsx", "./index.ts", "./css-modules.d.ts"],
   "compilerOptions": {
     "outDir": "dist"
   }

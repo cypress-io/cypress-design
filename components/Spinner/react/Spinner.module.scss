@@ -2,12 +2,6 @@
   stroke-dasharray: 30 115;
   stroke-dashoffset: 145;
   animation: dash linear 1s infinite;
-  @apply stroke-jade-300;
-}
-
-.spinner>path,
-.spinner>rect {
-  @apply fill-gray-1000;
 }
 
 @keyframes dash {
