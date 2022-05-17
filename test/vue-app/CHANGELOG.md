@@ -1,5 +1,12 @@
 # @cypress-design/test-vue-app
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`9dd20f3`](https://github.com/cypress-io/cypress-design/commit/9dd20f325e7332f8c9c6c1d2fefda76d2a7b8c27)]:
+  - @cypress-design/vue-spinner@0.0.1
+
 ## 0.0.2
 
 ### Patch Changes

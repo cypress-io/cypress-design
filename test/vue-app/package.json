@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/test-vue-app",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,7 @@
   "dependencies": {
     "@cypress-design/vue-checkbox": "^0.1.0",
     "@cypress-design/vue-icon": "^0.1.0",
-    "@cypress-design/vue-spinner": "^0.0.0",
+    "@cypress-design/vue-spinner": "^0.0.1",
     "vue": "^3.2.33"
   },
   "devDependencies": {
