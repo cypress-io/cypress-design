@@ -74,7 +74,8 @@ module.exports = {
       CyCSSWebpackPlugin({
         scan: {
           include: [
-            path.resolve(__dirname, '../stories/**/*.stories.@(mdx|tsx)'),
+            path.resolve(__dirname, '../stories/intro/*.stories.mdx'),
+            path.resolve(__dirname, '../stories/src/*.tsx'),
           ],
         },
       })
