@@ -10,7 +10,8 @@ function getConfig(options: UserOptions) {
     : scan.include
     ? [scan.include]
     : [];
-  const out = {
+
+  return {
     config: windiConfig,
     ...options,
     scan: {
@@ -21,8 +22,6 @@ function getConfig(options: UserOptions) {
       ],
     },
   };
-  console.log({ scan: out.scan });
-  return out;
 }
 
 export const CyCSSVitePlugin = (options: UserOptions = {}) =>
