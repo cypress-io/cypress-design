@@ -1,0 +1,36 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+
+import { Spinner } from './Spinner'
+
+<h1>Spinner<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Spinner" component={Spinner} />
+
+<Canvas>
+  <Story name="Spinner">
+    <Spinner />
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+## Usage
+
+```tsx
+import Spinner from '@cypress-design/react-spinner';
+
+export default () => (
+  <div className="flex flex-col items-center justify-center gap-12px h-100vh">
+    <Spinner />
+    <h2 className="text-gray-700 text-size-16px leading-24px">
+      Initializing something really important...
+    </h2>
+  </div>
+);
+```
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>

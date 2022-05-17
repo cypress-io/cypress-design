@@ -100,7 +100,7 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
   };
 };
 
-function addIconUtilityClasses(theme) {
+function addIconUtilityClasses(theme: (key: string) => string) {
   return reduce(
     colors,
     (acc, variants, colorName) => {

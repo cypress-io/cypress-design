@@ -184,23 +184,26 @@ export const semanticColors = {
 } as const;
 
 // filter out this deprecated color to remove the annoying warning
-const FilteredColors = Object.keys(Colors).reduce((acc, key) => {
-  // TODO: should we maybe not include the default colors at all? (other than white & black)
-  // TODO: run `yarn windi` in frontend-shared to see if the other colors are used
-  if (
-    ![
-      'blueGray',
-      'coolGray',
-      'lightBlue',
-      'warmGray',
-      'trueGray',
-      'zink',
-    ].includes(key)
-  ) {
-    acc[key] = Colors[key];
-  }
+const FilteredColors = Object.keys(Colors).reduce(
+  (acc: Record<string, string | Record<string, string>>, key) => {
+    // TODO: should we maybe not include the default colors at all? (other than white & black)
+    // TODO: run `yarn windi` in frontend-shared to see if the other colors are used
+    if (
+      ![
+        'blueGray',
+        'coolGray',
+        'lightBlue',
+        'warmGray',
+        'trueGray',
+        'zink',
+      ].includes(key)
+    ) {
+      acc[key] = Colors[key as keyof typeof Colors];
+    }
 
-  return acc;
-}, {});
+    return acc;
+  },
+  {}
+);
 
 export const colors = { ...FilteredColors, ...semanticColors, ...cyColors };

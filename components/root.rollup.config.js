@@ -2,7 +2,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 
-export default ({ input }) => ({
+export default ({ input, plugins = [] }) => ({
   input,
   output: [
     {
@@ -17,6 +17,6 @@ export default ({ input }) => ({
       sourcemap: true,
     },
   ],
-  plugins: [resolve(), commonjs(), typescript()],
+  plugins: [resolve(), commonjs(), typescript(), ...plugins],
   external: ['clsx', 'react', '@cypress-design/icon-registry'],
 });

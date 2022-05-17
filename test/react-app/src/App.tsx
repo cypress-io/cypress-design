@@ -2,6 +2,7 @@ import { useState } from 'react';
 import logo from './logo.svg';
 import Checkbox from '@cypress-design/react-checkbox';
 import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon';
+import Spinner from '@cypress-design/react-spinner';
 import './App.css';
 
 function App() {
@@ -12,7 +13,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
+        <p className="text-jade-500">Hello Vite + React!</p>
         <p>
           <button type="button" onClick={() => setCount((count) => count + 1)}>
             count is: {count}
@@ -46,7 +47,8 @@ function App() {
             modelValue={isChecked}
           />
         </p>
-        <IconActionQuestionMarkCircle />
+        <Spinner />
+        <IconActionQuestionMarkCircle strokeColor="jade-800" fillColor="jade-500"/>
       </header>
     </div>
   );

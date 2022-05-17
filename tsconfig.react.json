@@ -4,7 +4,7 @@
     "noImplicitAny": false,
     "lib": ["es2017", "dom"],
     "strict": true,
-    "skipLibCheck": true
-  },
-  "files": ["./typings.d.ts"]
+    "skipLibCheck": true,
+    "moduleResolution": "node"
+  }
 }

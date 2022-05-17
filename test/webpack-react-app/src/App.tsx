@@ -3,6 +3,7 @@ import { FunctionComponent, useState } from 'react';
 import { hot } from 'react-hot-loader/root';
 import Checkbox from '@cypress-design/react-checkbox';
 import Icon from '@cypress-design/react-icon';
+import Spinner from '@cypress-design/react-spinner';
 
 interface Props {
   name: string;
@@ -29,6 +30,7 @@ const App: FunctionComponent<Props> = ({ name }) => {
         secondaryStrokeColor="red-500"
         size="48"
       />
+      <Spinner />
     </>
   );
 };

@@ -1,0 +1,21 @@
+.spinner circle {
+  stroke-dasharray: 30 115;
+  stroke-dashoffset: 145;
+  animation: dash linear 1s infinite;
+}
+
+@keyframes dash {
+  20% {
+    stroke-dasharray: 45 100;
+  }
+
+  67% {
+    stroke-dasharray: 10 135;
+    stroke-dashoffset: 50;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+    stroke-dasharray: 30 115;
+  }
+}
