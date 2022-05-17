@@ -49,14 +49,6 @@ export default defineConfig({
   ],
   shortcuts,
   extract: {
-    // accepts globs and file paths relative to project root
-    include: [
-      'index.html',
-      '**/*.{vue,html,tsx}',
-      path.resolve(__dirname, '../frontend-shared/**/*.{vue,html,tsx,svg}'),
-      path.resolve(__dirname, '../app/**/*.{vue,html,tsx,svg}'),
-      path.resolve(__dirname, '../launchpad/**/*.{vue,html,tsx,svg}'),
-    ],
     exclude: ['node_modules/**/*', '.git/**/*'],
   },
 });
