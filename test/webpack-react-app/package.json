@@ -8,6 +8,7 @@
   "dependencies": {
     "@cypress-design/react-checkbox": "^0.1.0",
     "@cypress-design/react-icon": "^0.0.0",
+    "@cypress-design/react-spinner": "^0.0.0",
     "react": "*",
     "react-dom": "*",
     "react-hot-loader": "^4.13.0"

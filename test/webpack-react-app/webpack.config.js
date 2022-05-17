@@ -39,7 +39,10 @@ const config = {
   plugins: [
     CyCSSWebpackPlugin({
       scan: {
-        include: ['src/**/*.@(tsx|ts|js)'],
+        include: [
+          'src/**/*.@(tsx|ts|js)',
+          '../../components/*/react/dist/*.@(js|css)',
+        ],
       },
     }),
   ],

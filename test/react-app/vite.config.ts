@@ -9,7 +9,10 @@ export default defineConfig({
     react(),
     CyCSSVitePlugin({
       scan: {
-        include: ['/src/**/*.@(tsx|ts)'],
+        include: [
+          'src/**/*.@(tsx|ts)',
+          '../../components/*/react/dist/*.@(js|css)',
+        ],
       },
     }),
   ],
