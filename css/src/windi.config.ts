@@ -1,4 +1,5 @@
 import { defineConfig } from 'windicss/helpers';
+// @ts-ignore
 import InteractionVariants from '@windicss/plugin-interaction-variants';
 import { IconDuotoneColorsPlugin } from './icon-color-plugins';
 import { safelist } from './safelist';
