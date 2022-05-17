@@ -184,8 +184,8 @@ export const semanticColors = {
 } as const;
 
 // filter out this deprecated color to remove the annoying warning
-const FilteredColors = Object.entries(Colors).reduce(
-  (acc: Record<string, string | Record<string, string>>, [key, color]) => {
+const FilteredColors = Object.keys(Colors).reduce(
+  (acc: Record<string, string | Record<string, string>>, key) => {
     // TODO: should we maybe not include the default colors at all? (other than white & black)
     // TODO: run `yarn windi` in frontend-shared to see if the other colors are used
     if (
@@ -198,7 +198,7 @@ const FilteredColors = Object.entries(Colors).reduce(
         'zink',
       ].includes(key)
     ) {
-      acc[key] = color;
+      acc[key] = Colors[key as keyof typeof Colors];
     }
 
     return acc;
