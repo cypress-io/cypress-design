@@ -31,7 +31,7 @@ For more info, check-out the Icon component documentation on the framework you a
 <Canvas>
   <Story name="Icons">
     {() => {
-        const colors = ['blue', 'jade', 'red', 'indigo', 'purple', 'gray'];
+        const colors = ['<default>', 'blue', 'jade', 'red', 'indigo', 'purple', 'gray'];
         const [strokeColor, setStrokeColor] = useState({label:'teal', value:'teal'});
         const [fillColor, setFillColor] = useState({label:'jade', value:'jade'});
         const [secondaryStrokeColor, setSecondaryStrokeColor] = useState({label:'indigo', value:'indigo'});
@@ -42,32 +42,37 @@ For more info, check-out the Icon component documentation on the framework you a
               }));
         return (<>
           <h3 className="text-lg border-b-1 border-gray-300 pb-1">Use the dropdowns below to customize the colors of the icons</h3>
-          <div className={`flex items-center border-b-1 border-gray-300 p-3 text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
-            strokeColor
-            <Select 
-              defaultValue={strokeColor} 
-              className="ml-2 mr-4" 
-              onChange={setStrokeColor} 
-              options={colorOptions} 
-            />
-            fillColor
-            <Select
-              defaultValue={fillColor} 
-              className="mx-2 mr-4" 
-              onChange={setFillColor} 
-              options={colorOptions} />
-            secondaryStrokeColor
-            <Select
-              defaultValue={secondaryStrokeColor} 
-              className="mx-2 mr-4" 
-              onChange={setSecondaryStrokeColor} 
-              options={colorOptions} />
-            secondaryFillColor
-            <Select
-              defaultValue={secondaryFillColor} 
-              className="mx-2" 
-              onChange={setSecondaryFillColor} 
-              options={colorOptions} />
+          <div className={`flex items-center justify-evenly border-b-1 border-gray-300 p-3 text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
+            <div className="w-1/4">
+              strokeColor
+              <Select 
+                defaultValue={strokeColor} 
+                className="ml-2 mr-4" 
+                onChange={setStrokeColor} 
+                options={colorOptions} 
+              />
+            </div><div className="w-1/4">
+              fillColor
+              <Select
+                defaultValue={fillColor} 
+                className="mx-2 mr-4" 
+                onChange={setFillColor} 
+                options={colorOptions} />
+            </div><div className="w-1/4">
+              secondaryStrokeColor
+              <Select
+                defaultValue={secondaryStrokeColor} 
+                className="mx-2 mr-4" 
+                onChange={setSecondaryStrokeColor} 
+                options={colorOptions} />
+            </div><div className="w-1/4">
+              secondaryFillColor
+              <Select
+                defaultValue={secondaryFillColor} 
+                className="mx-2" 
+                onChange={setSecondaryFillColor} 
+                options={colorOptions} />
+            </div>
           </div>
           <div>
             {Object.keys(iconsMetadata).map((iconName) => {
@@ -80,10 +85,10 @@ For more info, check-out the Icon component documentation on the framework you a
                       <Icon 
                         name={iconName} 
                         size={size} 
-                        strokeColor={`${strokeColor.value}-400`} 
-                        fillColor={`${fillColor.value}-50`} 
-                        secondaryStrokeColor={`${secondaryStrokeColor.value}-400`}
-                        secondaryFillColor={`${secondaryFillColor.value}-50`}
+                        strokeColor={strokeColor.value === '<default>' ? undefined : `${strokeColor.value}-400`} 
+                        fillColor={fillColor.value === '<default>' ? undefined : `${fillColor.value}-50`} 
+                        secondaryStrokeColor={secondaryStrokeColor.value === '<default>' ? undefined : `${secondaryStrokeColor.value}-400`}
+                        secondaryFillColor={secondaryFillColor.value === '<default>' ? undefined : `${secondaryFillColor.value}-50`}
                         className="m-2"/>
                       <div className="text-xs text-gray-600">{size}</div>
                     </div>
