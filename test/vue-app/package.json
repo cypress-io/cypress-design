@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/test-vue-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -10,11 +10,11 @@
   },
   "dependencies": {
     "@cypress-design/vue-checkbox": "^0.1.0",
-    "@cypress-design/vue-icon": "^0.0.0",
+    "@cypress-design/vue-icon": "^0.1.0",
     "vue": "^3.2.33"
   },
   "devDependencies": {
-    "@cypress-design/css": "^0.1.0",
+    "@cypress-design/css": "^0.2.0",
     "@types/node": "^16.11.27",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vue/tsconfig": "^0.1.3",
