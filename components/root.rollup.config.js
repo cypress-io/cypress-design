@@ -23,6 +23,8 @@ export default ({ input, plugins = [] }) => ({
     commonjs(),
     typescript({
       tsconfig: './tsconfig.build.json',
+      declaration: false,
+      declarationMap: false,
     }),
     ...plugins,
   ],
