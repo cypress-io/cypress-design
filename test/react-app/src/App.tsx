@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import logo from './logo.svg';
 import Checkbox from '@cypress-design/react-checkbox';
-import { IconCircleBgQuestionMark } from '@cypress-design/react-icon';
+import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon';
 import './App.css';
 
 function App() {
@@ -46,8 +46,8 @@ function App() {
             modelValue={isChecked}
           />
         </p>
+        <IconActionQuestionMarkCircle />
       </header>
-      <IconCircleBgQuestionMark />
     </div>
   );
 }
