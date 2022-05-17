@@ -10,14 +10,19 @@ function getConfig(options: UserOptions) {
     : scan.include
     ? [scan.include]
     : [];
-  return {
+  const out = {
     config: windiConfig,
     ...options,
     scan: {
       ...(scan || {}),
-      include: [...include, 'node_modules/@cypress-design/*/dist/*.@(js|css)'],
+      include: [
+        ...include,
+        '**/node_modules/@cypress-design/*/dist/*.@(js|css)',
+      ],
     },
   };
+  console.log({ scan: out.scan });
+  return out;
 }
 
 export const CyCSSVitePlugin = (options: UserOptions = {}) =>
