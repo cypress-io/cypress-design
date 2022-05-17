@@ -3,7 +3,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.
 ---
 /// <reference types="cypress" />
 
-import React from 'react';
+import * as React from 'react';
 import { mount } from 'cypress/react';
 import { <%= h.inflection.camelize(name, false) %> } from './<%= h.inflection.camelize(name, false) %>';
 
