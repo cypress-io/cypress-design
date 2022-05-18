@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.3.0
+
+### Minor Changes
+
+- [`d19cf7b`](https://github.com/cypress-io/cypress-design/commit/d19cf7b882c35aef7b1ce2d3b7105ae727b1d2ab) Thanks [@elevatebart](https://github.com/elevatebart)! - add boxShadow-dropdown utility class to the css config
+
 ## 0.2.0
 
 ### Minor Changes
