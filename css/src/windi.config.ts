@@ -5,7 +5,6 @@ import { IconDuotoneColorsPlugin } from './icon-color-plugins';
 import { safelist } from './safelist';
 import { colors } from './colors';
 import { shortcuts } from './shortcuts';
-import * as path from 'path';
 
 export default defineConfig({
   // This adds !important to all utility classes.
@@ -23,6 +22,9 @@ export default defineConfig({
       colors,
       cursor: {
         'ew-resize': 'ew-resize',
+      },
+      boxShadow: {
+        dropdown: '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
       },
     },
   },
