@@ -8,6 +8,8 @@
 import createPlugin from 'windicss/plugin';
 import { reduce, kebabCase, isObject } from 'lodash';
 import { colors } from './colors';
+import { DefaultExtractor } from 'vite-plugin-windicss';
+import { Extractor } from 'windicss/types/interfaces';
 
 interface RuleConfig {
   name: string;
@@ -157,3 +159,49 @@ export const IconDuotoneColorsPlugin = createPlugin(
     addUtilities(addIconUtilityClasses(theme));
   }
 );
+
+const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
+  fillColor: (attrValue: string) => `icon-light-${attrValue}`,
+  strokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
+  secondaryFillColor: (attrValue: string) =>
+    `icon-light-secondary-${attrValue}`,
+  secondaryStrokeColor: (attrValue: string) =>
+    `icon-dark-secondary-${attrValue}`,
+} as const;
+
+function isIconAttribute(
+  attrName: string
+): attrName is keyof typeof ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR {
+  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName);
+}
+
+/**
+ * transforms the attributes of icons into classes
+ * to be kept in the windicss css file after purgecss
+ */
+export const IconExtractor: Extractor = {
+  extensions: ['vue', 'js', 'ts', 'tsx'],
+  extractor: (code, id) => {
+    const { tags, classes = [], attributes } = DefaultExtractor(code, id);
+
+    const additionalColorClasses =
+      attributes?.names.reduce((set, attrName, index) => {
+        if (isIconAttribute(attrName)) {
+          set.add(
+            ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+              attributes.values[index]
+            )
+          );
+        }
+        return set;
+      }, new Set<string>()) ?? new Set<string>();
+
+    return {
+      tags,
+      get classes() {
+        return [...classes, ...Array.from(additionalColorClasses)];
+      },
+      attributes,
+    };
+  },
+};
