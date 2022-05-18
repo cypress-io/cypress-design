@@ -21,9 +21,11 @@
   "files": [
     "dist"
   ],
+  "dependencies": {
+    "camelcase": "^6.3.0"
+  },
   "devDependencies": {
     "@cypress-design/css": "^0.2.0",
-    "camelcase": "^6.3.0",
     "dedent": "^0.7.0",
     "globby": "^13.1.1",
     "svg-to-ts": "^8.6.1"
