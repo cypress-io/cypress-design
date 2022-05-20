@@ -1,0 +1,7 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": ["./Card.tsx", "./index.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+  }
+}

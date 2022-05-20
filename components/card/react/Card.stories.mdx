@@ -1,0 +1,37 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+
+import { Card } from './Card'
+
+<h1>Card<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Card" component={Card} />
+
+## Basic
+
+<Canvas>
+  <Story name="Card">
+    {{
+      template: `<div className="card">hello</div>`,
+    }}
+  </Story>
+</Canvas>
+
+## With drop shadow
+
+This variant should only be used on the marketing site.
+
+<Canvas>
+  <Story name="Drop shadow (marketing site only)">
+    {{
+      template: `<div className="card shadow-marketing-card">hello</div>`,
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
