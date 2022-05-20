@@ -3,5 +3,6 @@
   "include": ["./*.vue", "./index.ts"],
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "../",
   }
 }

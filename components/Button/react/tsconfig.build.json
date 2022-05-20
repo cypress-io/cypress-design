@@ -1,7 +1,8 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./Button.tsx", "./index.ts"],
+  "include": ["./Button.tsx", "./index.ts" , "../constants.ts"],
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "../",
   }
 }
