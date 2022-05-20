@@ -18,13 +18,15 @@ import { Button } from './Button'
   <Story name="Button">
     <div>
       {Object.keys(VariantClassesTable).map(variant => {
-          return <div className="flex items-center">
+          return <div className="flex items-center border-b-1 border-gray-100 hover:bg-orange-50">
+            <h3 className="w-30 text-right">{variant}</h3>
             {Object.keys(SizeClassesTable).map(size => {
-              return <div className="w-90 h-20 flex items-center justify-center">
-                <Button variant={variant} size={size} >
-                  {variant} - {size}
-                </Button>
-              </div>
+              return <div className="w-50 h-20 flex items-center justify-center">
+                  <span className="text-gray-500 text-sm mr-4">{size}</span>
+                  <Button variant={variant} size={size} >
+                    Button
+                  </Button>
+                </div>
             })}
           </div>
       })}
