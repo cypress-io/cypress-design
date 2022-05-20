@@ -45,7 +45,7 @@
     "@vue/tsconfig": "^0.1.3",
     "axe-core": "^4.4.2",
     "concurrently": "^7.1.0",
-    "cypress": "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-80434056884ccb4cfa75783f8ea934e832a9b3f2/cypress.tgz",
+    "cypress": "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-d335f5cd8a0d244ada59892c41af51c66c44463f/cypress.tgz",
     "cypress-axe": "^0.14.0",
     "execa": "^6.1.0",
     "hygen": "^6.2.0",

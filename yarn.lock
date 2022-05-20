@@ -5919,9 +5919,9 @@ cypress-axe@^0.14.0:
   resolved "https://registry.yarnpkg.com/cypress-axe/-/cypress-axe-0.14.0.tgz#5f5e70fb36b8cb3ba73a8ba01e9262ff1268d5e2"
   integrity sha512-7Rdjnko0MjggCmndc1wECAkvQBIhuy+DRtjF7bd5YPZRFvubfMNvrxfqD8PWQmxm7MZE0ffS4Xr43V6ZmvLopg==
 
-"cypress@https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-80434056884ccb4cfa75783f8ea934e832a9b3f2/cypress.tgz":
+"cypress@https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-d335f5cd8a0d244ada59892c41af51c66c44463f/cypress.tgz":
   version "10.0.0"
-  resolved "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-80434056884ccb4cfa75783f8ea934e832a9b3f2/cypress.tgz#3a8ad51b25f91bf11ac980cee9bbe5055f96b14d"
+  resolved "https://cdn.cypress.io/beta/npm/10.0.0/darwin-x64/10.0-release-d335f5cd8a0d244ada59892c41af51c66c44463f/cypress.tgz#1c40f3b4b91ee04f46e38b3503ffc56d2d4561e1"
   dependencies:
     "@cypress/request" "^2.88.10"
     "@cypress/xvfb" "^1.2.4"
