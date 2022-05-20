@@ -1,0 +1,39 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md?raw"
+
+import Button from './Button.vue'
+
+<h1>Button<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Button" component={Button} parameters={{
+    design: {
+      type: "figma",
+      url: 'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=4273%3A8225',
+    }
+  }} />
+
+<Canvas>
+  <Story name="Button">
+    {{
+      template: `<div>
+        <div class="flex items-center" v-for="variant in ['primary', 'secondary', 'tertiary', 
+            'outline', 'pending', 'link', 'text',
+            'danger', 'warning', 'info']"> 
+          <div class="w-90 h-20 flex items-center justify-center" v-for="size in ['sm', 'md', 'lg', 'lg-wide']">
+            <Button :variant="variant" :size="size" class="m-16px">
+              {{ variant }} - {{ size }}
+            </Button>
+          </div>
+        </div>
+      </div>`,
+      components: { Button }
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
