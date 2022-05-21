@@ -1,7 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
 import { version } from "./package.json"
 import changelog from "./CHANGELOG.md?raw"
-import { SizeClassesTable, VariantClassesTable } from '../constants';
 
 import Button from './Button.vue'
 
@@ -15,26 +14,7 @@ import Button from './Button.vue'
   }} />
 
 <Canvas>
-  <Story name="Button">
-    {() => ({
-      template: `<div>
-        <div class="flex items-center border-b-1 border-gray-100 hover:bg-orange-50" v-for="(_, variant) of VariantClassesTable" :key="variant"> 
-          <h3 className="w-30 text-right">{{ variant }}</h3>
-          <div class="w-90 h-20 flex items-center justify-center" v-for="(_, size) of SizeClassesTable" :key="size">
-            <span class="text-gray-500 text-sm mr-4">{{ size }}</span>
-            <Button :variant="variant" :size="size" class="m-16px">
-              Button
-            </Button>
-          </div>
-        </div>
-      </div>`,
-      components: { Button },
-      data: () => ({
-        SizeClassesTable,
-        VariantClassesTable
-      })
-    })}
-  </Story>
+  <Story id="button--sample"></Story>
 </Canvas>
 
 <ArgsTable />

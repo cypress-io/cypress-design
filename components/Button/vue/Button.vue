@@ -1,6 +1,7 @@
 <template>
-  <button class="border rounded flex outline-none leading-20px text-14px gap-8px items-center"
-    :class="[VariantClassesTable[variant], SizeClassesTable[size]]" :disabled="disabled">
+  <button class="border rounded rounded-4px flex items-center transition duration-150 hocus:ring-2"
+    :class="[VariantClassesTable[(disabled && !['secondary', 'link'].includes(variant)) ? 'disabled' : variant], SizeClassesTable[size]]"
+    :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -18,7 +19,7 @@ withDefaults(
   }>(),
   {
     variant: 'primary',
-    size: 'md',
+    size: '32',
     disabled: false,
   }
 );
