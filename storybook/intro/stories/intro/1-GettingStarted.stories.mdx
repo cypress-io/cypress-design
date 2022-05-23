@@ -1,0 +1,79 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+
+import Icon from '@cypress-design/react-icon'
+
+# Cypress Design System
+
+<Meta
+  title="Getting Started"
+/>
+
+**Cypress Design System** is an open source tool for building webapps, websites and electron applications with the Cypress branding and design. 
+It provides a set of organized components, patterns & practices that work as the foundation for our application development.
+
+🚧 It is and will stay a work in progress. 🚧
+
+If you find something wrong, even something small, please [create an issue in clickup](https://app.clickup.com/18033298/v/l/6-158440124-1?pr=32482250).<br/>
+The Design Engineering team will answer and prioritize it as fast as we can.
+
+You can also [open a Pull Request](https://github.com/cypress-io/cypress-design/compare) without asking for permission.
+We will review it as a priority.
+
+All design system packages are published to the `@cypress-design` npm organization/registry. 
+
+## Installing CSS
+
+Every component is styled using a utility first CSS framework: WindiCSS.
+Install it in your project to render them properly.
+
+First, install the CSS package in your dev dependencies:
+
+```
+yarn add -D @cypress-design/css
+```
+
+Then add the plugin to your bundler configuration:
+
+### Webpack
+
+```js
+const { CyCSSWebpackPlugin } = require('@cypress-design/css');
+
+module.exports = {
+  plugins: [
+    CyCSSWebpackPlugin({
+      scan: {
+        include: [
+          'src/**/*.@(tsx|ts|js|vue)',
+        ],
+      },
+    }),
+  ],
+};
+```
+
+### Vite
+
+```js
+import { defineConfig } from 'vite'
+import { CyCSSVitePlugin } from '@cypress-design/css'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    CyCSSVitePlugin({
+      scan: {
+        include: ['/src/**/*.@(tsx|ts|js|vue)'],
+      },
+    }),
+  ],
+});
+```
+
+> **NOTE**: Add your html page and all your react and vue component files to the `scan.include` array. 
+> This helps WindiCSS determine which class to include in the final generated CSS.
+
+
+## components
+
+Each component is its own package. 
