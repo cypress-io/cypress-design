@@ -8,7 +8,7 @@ import Spinner from './Spinner.vue'
 
 <Meta title="Spinner" component={Spinner} />
 
-<Canvas>
+<Canvas withSource="none">
   <Story name="Spinner">
     {{
       template: `<Spinner />`,
@@ -17,12 +17,10 @@ import Spinner from './Spinner.vue'
   </Story>
 </Canvas>
 
-<ArgsTable />
-
 ## Usage
 You can either use the default spinner and import the styles manually.
 
-```vue
+```html
 <script setup>
 import Spinner from '@cypress-design/vue-spinner';
 import '@cypress-design/vue-spinner/styles.css';
