@@ -13,7 +13,7 @@ export const Sample = ({ disabled = false }: { disabled?:boolean } = {}) => <div
             <h3 class="text-right">{variant}</h3>
             {(Object.keys(SizeClassesTable) as ButtonSizes[]).reverse().map(size => {
               return <div class="flex items-center justify-center">
-                  <span class="text-gray-500 text-sm mr-4">{size}</span>
+                  <span class="text-gray-700 text-sm mr-4">{size}</span>
                   <Button variant={variant} size={size} disabled={disabled}>
                     Button
                   </Button>

@@ -1,4 +1,4 @@
 {
   "extends": "../../../tsconfig.react.json",
-  "include": ["*.tsx", "*.ts", "../constants.ts"]
+  "include": ["*.tsx", "*.ts", "../constants.ts", "../../../cypress/support/*.ts"]
 }
