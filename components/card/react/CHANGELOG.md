@@ -1,2 +1,0 @@
-# @cypress-design/react-card
-

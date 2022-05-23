@@ -1,17 +1,9 @@
 # Card
 
-## Summary
+## Usage
 
-Describe your component here.
+There is no card component, only a CSS class
 
-## install
-
-```bash
-npm install @cypress-design/vue-card
-```
-
-or with yarn
-
-```bash
-yarn add @cypress-design/vue-card
+```tsx
+<div class="card">hello</div>
 ```

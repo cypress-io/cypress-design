@@ -1,8 +1,6 @@
 import { Canvas, Meta, Story, Description } from '@storybook/addon-docs'
-import { version } from "./package.json"
-import changelog from "./CHANGELOG.md?raw"
 
-<h1>Card<span className="text-lg font-normal"> - v{version}</span></h1>
+<h1>Card<span className="text-lg font-normal"></span></h1>
 
 <Meta title="Card" />
 
@@ -27,7 +25,3 @@ This variant should only be used on the marketing site.
     }}
   </Story>
 </Canvas>
-
-<Description>
-  {changelog.replace(/^# .+/, '## Changelog')}
-</Description>

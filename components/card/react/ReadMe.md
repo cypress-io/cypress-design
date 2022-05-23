@@ -1,17 +1,9 @@
 # Card
 
-## Summary
+## Usage
 
-Describe your component here.
+There is no card component, only a CSS class
 
-## install
-
-```bash
-npm install @cypress-design/react-card
-```
-
-or with yarn
-
-```bash
-yarn add @cypress-design/react-card
+```tsx
+<div className="card">hello</div>
 ```

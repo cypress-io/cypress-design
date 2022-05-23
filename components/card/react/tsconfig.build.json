@@ -1,7 +1,0 @@
-{
-  "extends": "../../../tsconfig.react.build.json",
-  "include": ["./index.ts"],
-  "compilerOptions": {
-    "outDir": "dist"
-  }
-}
