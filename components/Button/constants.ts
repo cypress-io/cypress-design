@@ -3,17 +3,11 @@ export const VariantClassesTable = {
   secondary:
     'border-gray-200 bg-white text-indigo-500 hocus:ring-gray-50 disabled:text-gray-500',
   tertiary: 'border-indigo-50 bg-indigo-50 text-indigo-500 hocus-default',
-  'jade-200': 'border-jade-200 bg-jade-200 text-teal-600 hocus:ring-jade-5',
   confirm: 'border-jade-500 bg-jade-500 text-white hocus-secondary',
-  'teal-500': 'border-teal-500 bg-teal-500 text-white hocus:ring-teal-100',
   primary: 'border-indigo-500 bg-indigo-500 text-white hocus-default',
-  'purple-500':
-    'border-purple-500 bg-purple-500 text-white hocus:ring-purple-100',
   caution:
     'border-red-500 bg-red-500 text-white hocus:ring-2 hocus:ring-red-200',
   disabled: 'border-gray-500 bg-gray-500 text-white',
-  'gray-800': 'border-gray-800 bg-gray-800 text-white hocus:ring-gray-200',
-  'gray-1000': 'border-transparent bg-gray-1000 text-white hocus:ring-gray-300',
 } as const;
 
 export const SizeClassesTable = {
