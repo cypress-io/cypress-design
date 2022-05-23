@@ -25,5 +25,10 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  cy.checkA11y();
+  cy.checkA11y({
+    runOnly: {
+      type: 'tag',
+      values: ['wcag21aa'],
+    },
+  });
 });
