@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue';
-import { Sample } from './Button.stories';
+import ButtonStory from './Button.rootstory';
 
 describe('<Button />', {viewportHeight:600, viewportWidth:1000}, () => {
   it('renders variants disabled', () => {

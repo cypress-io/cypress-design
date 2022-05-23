@@ -1,13 +1,7 @@
 import Button from './Button.vue';
 import { SizeClassesTable, VariantClassesTable, type ButtonSizes, type ButtonVariants } from '../constants';
 
-export default {
-  title: 'Button',
-  component: Button,
-};
-
-
-export const Sample = ({ disabled = false }: { disabled?:boolean } = {}) => <div class="flex flex-row flex-wrap gap-3 justify-center">
+export default ({ disabled = false }: { disabled?:boolean } = {}) => <div class="flex flex-row flex-wrap gap-3 justify-center">
     {(Object.keys(VariantClassesTable) as ButtonVariants[]).map((variant) => {
           return <div class="flex flex-col items-center gap-3 justify-center mt-4">
             <h3 class="text-right">{variant}</h3>

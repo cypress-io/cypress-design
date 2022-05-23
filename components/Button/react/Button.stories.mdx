@@ -3,6 +3,7 @@ import { version } from "./package.json"
 import changelog from "./CHANGELOG.md"
 
 import { Button } from './Button'
+import ButtonStory from './Button.rootstory'
 
 <h1>Button<span className="text-lg font-normal"> - v{version}</span></h1>
 
@@ -13,8 +14,9 @@ import { Button } from './Button'
     }
   }} />
 
-<Canvas>
-  <Story id="button--sample">
+<Canvas withSource="none">
+  <Story name="Button">
+    <ButtonStory />
   </Story>
 </Canvas>
 
