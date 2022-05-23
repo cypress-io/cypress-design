@@ -7,16 +7,15 @@ import changelog from "./CHANGELOG.md?raw"
 
 import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.camelize(name, false) %>.vue'
 
-<h1><%= h.inflection.camelize(name, false) %><span className="text-lg font-normal"> - v{version}</span></h1>
+import <%= h.inflection.camelize(name, false) %>Story from './<%= h.inflection.camelize(name, false) %>.rootstory';
 
-<Meta title="<%= h.inflection.camelize(name, false) %>" component={<%= h.inflection.camelize(name, false) %>} />
+<h1>Component Name<span className="text-lg font-normal"> - v{version}</span></h1>
 
-<Canvas>
-  <Story name="<%= h.inflection.camelize(name, false) %>">
-    {{
-      template: `<<%= h.inflection.camelize(name, false) %> id="foo" />`,
-      components: { <%= h.inflection.camelize(name, false) %> }
-    }}
+<Meta title="Component Name" component={<%= h.inflection.camelize(name, false) %>} />
+
+<Canvas withSource="none">
+  <Story name="Component Name">
+    {<%= h.inflection.camelize(name, false) %>Story()}
   </Story>
 </Canvas>
 
@@ -25,3 +24,4 @@ import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.cameli
 <Description>
   {changelog.replace(/^# .+/, '## Changelog')}
 </Description>
+
