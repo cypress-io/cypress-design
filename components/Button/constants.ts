@@ -18,6 +18,9 @@ export const SizeClassesTable = {
   '48': 'px-20px py-12px text-16px leading-24px',
 } as const;
 
+export const StaticClasses =
+  'border rounded rounded-4px flex items-center transition duration-150 enabled:hover:ring-2 enabled:focus:ring-2 disabled:cursor-not-allowed';
+
 export type ButtonSizes = keyof typeof SizeClassesTable;
 
 export type ButtonVariants = keyof typeof VariantClassesTable;

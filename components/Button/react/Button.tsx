@@ -1,6 +1,7 @@
 import clsx from 'clsx';
 import * as React from 'react';
-import { ButtonSizes, ButtonVariants, SizeClassesTable, VariantClassesTable } from '../constants';
+import type { ButtonSizes, ButtonVariants } from '../constants';
+import { SizeClassesTable, VariantClassesTable, StaticClasses } from '../constants';
 
 export interface ButtonProps {
   variant?: ButtonVariants;
@@ -21,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({
   const finalDisabled = disabled || variant === 'disabled';
   return (
     <button className={clsx(
-      "border rounded flex outline-none leading-20px text-14px gap-8px items-center disabled:cursor-not-allowed", 
+      StaticClasses, 
       VariantClassesTable[finalVariant], 
       SizeClassesTable[size],
       className)} 
