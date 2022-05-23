@@ -42,8 +42,9 @@ For more info, check-out the Icon component documentation on the framework you a
               }));
         return (<>
           <h3 className="text-lg border-b-1 border-gray-300 pb-1">Use the dropdowns below to customize the colors of the icons</h3>
-          <div className={`flex items-center justify-evenly border-b-1 border-gray-300 p-3 text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
-            <div className="w-1/4">
+          <div className="flex border-b-1 border-gray-300">
+            <div className={`p-3 w-1/2 flex items-center justify-evenly text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
+              <div className="w-1/2">
               strokeColor
               <Select 
                 defaultValue={strokeColor} 
@@ -51,27 +52,30 @@ For more info, check-out the Icon component documentation on the framework you a
                 onChange={setStrokeColor} 
                 options={colorOptions} 
               />
-            </div><div className="w-1/4">
-              fillColor
-              <Select
-                defaultValue={fillColor} 
-                className="mx-2 mr-4" 
-                onChange={setFillColor} 
-                options={colorOptions} />
-            </div><div className="w-1/4">
-              secondaryStrokeColor
-              <Select
-                defaultValue={secondaryStrokeColor} 
-                className="mx-2 mr-4" 
-                onChange={setSecondaryStrokeColor} 
-                options={colorOptions} />
-            </div><div className="w-1/4">
-              secondaryFillColor
-              <Select
-                defaultValue={secondaryFillColor} 
-                className="mx-2" 
-                onChange={setSecondaryFillColor} 
-                options={colorOptions} />
+              </div><div className="w-1/2">
+                fillColor
+                <Select
+                  defaultValue={fillColor} 
+                  className="mx-2 mr-4" 
+                  onChange={setFillColor} 
+                  options={colorOptions} />
+              </div>
+            </div><div className={`p-3 w-1/2 flex items-center justify-evenly text-${secondaryStrokeColor.value}-600 bg-${secondaryFillColor.value}-50`}>
+              <div className="w-1/2">
+                secondaryStrokeColor
+                <Select
+                  defaultValue={secondaryStrokeColor} 
+                  className="mx-2 mr-4" 
+                  onChange={setSecondaryStrokeColor} 
+                  options={colorOptions} />
+              </div><div className="w-1/2">
+                secondaryFillColor
+                <Select
+                  defaultValue={secondaryFillColor} 
+                  className="mx-2" 
+                  onChange={setSecondaryFillColor} 
+                  options={colorOptions} />
+              </div>
             </div>
           </div>
           <div>
