@@ -26,7 +26,11 @@ module.exports = {
                 __dirname,
                 '../../../components/*/vue/*.stories.@(mdx|tsx)'
               ),
-              path.resolve(__dirname, '../../../components/*/vue/*.vue'),
+              path.resolve(
+                __dirname,
+                '../../../components/*/vue/*.@(vue|ts|tsx)'
+              ),
+              path.resolve(__dirname, '../../../components/*/*.ts'),
             ],
           },
         }),
