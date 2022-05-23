@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 0.2.0
+
+### Minor Changes
+
+- [`efb31b3`](https://github.com/cypress-io/cypress-design/commit/efb31b35d9c84b922a20ae46afa583f0b5849b41) Thanks [@elevatebart](https://github.com/elevatebart)! - Export the WindiColor and iconId types
+
+### Patch Changes
+
+- Updated dependencies [[`efb31b3`](https://github.com/cypress-io/cypress-design/commit/efb31b35d9c84b922a20ae46afa583f0b5849b41)]:
+  - @cypress-design/icon-registry@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
