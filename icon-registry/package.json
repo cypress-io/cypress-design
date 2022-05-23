@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/icon-registry",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "All svg files to be exposed to the Icon component",
   "main": "dist/cjs/index.js",
   "types": "dist/types/index.d.ts",
