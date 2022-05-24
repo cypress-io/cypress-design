@@ -16,6 +16,9 @@ const hocusDefault = focusDefault.replace(/focus:/g, 'hocus:');
 const focusWithinDefault = focusDefault.replace(/focus:/g, 'focus-within:');
 
 export const shortcuts = {
+  card:
+    'bg-white border rounded cursor-pointer block border-gray-100 w-full ' +
+    hocusDefault,
   'default-ring': focusDefault.replace(/focus:/g, ''),
   'hocus-within-default': focusDefault.replace(/focus:/g, 'hocus-within:'),
   'hocus-default': hocusDefault,

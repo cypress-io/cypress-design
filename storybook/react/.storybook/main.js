@@ -21,6 +21,7 @@ module.exports = {
               '../../../components/*/react/*.stories.@(mdx|tsx)'
             ),
             path.resolve(__dirname, '../../../components/*/react/*.tsx'),
+            path.resolve(__dirname, '../../../components/*/*.ts'),
           ],
         },
       })
