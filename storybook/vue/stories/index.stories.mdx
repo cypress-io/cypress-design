@@ -1,0 +1,44 @@
+import { useEffect, useState } from 'react';
+import { Meta } from '@storybook/addon-docs';
+import comps from './component-list';
+
+<Meta
+  title="Index"
+/>
+
+<div>
+  <table class="w-200">
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+      <th>Version</th>
+      <th>Links</th>
+    </tr>
+    {(() => {
+      debugger;
+      return Object.values(comps).map(({default: pkg}) => {
+        const name = pkg.name.replace('@cypress-design/vue-', '')
+        return (<tr>
+          <td>
+            <a href={`/docs/vue_${name}--${name}`}>
+              {name}
+            </a>
+          </td>
+          <td>
+            {pkg.description}
+          </td>
+          <td>
+            <a href={`https://www.npmjs.com/package/${pkg.name}`}>
+              {pkg.version}
+            </a>
+          </td>
+          <td>
+            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${name}/vue`}>
+              Github
+            </a>
+          </td>
+        </tr>)
+      })
+    })()}
+  </table>
+</div>

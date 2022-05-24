@@ -1,0 +1,44 @@
+import { useEffect, useState } from 'react';
+import { Meta } from '@storybook/addon-docs';
+
+<Meta
+  title="Index"
+/>
+
+<div>
+  <table class="w-200">
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+      <th>Version</th>
+      <th>Links</th>
+    </tr>
+    {(() => {
+      const components = require.context('../../../components/', true, /react\/package\.json$/)
+      return components.keys().map((key) => {
+        const pkg = components(key)
+        const name = pkg.name.replace('@cypress-design/react-', '')
+        return (<tr>
+          <td>
+            <a href={`/docs/react_${name}--${name}`}>
+              {name}
+            </a>
+          </td>
+          <td>
+            {pkg.description}
+          </td>
+          <td>
+            <a href={`https://www.npmjs.com/package/${pkg.name}`}>
+              {pkg.version}
+            </a>
+          </td>
+          <td>
+            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${name}/react`}>
+              Github
+            </a>
+          </td>
+        </tr>)
+      })
+    })()}
+  </table>
+</div>

@@ -4,7 +4,10 @@ const path = require('path');
 const vueJsx = require('@vitejs/plugin-vue-jsx').default;
 
 module.exports = {
-  stories: ['../../../components/*/vue/*.stories.@(mdx|tsx)'],
+  stories: [
+    '../**/*.stories.@(mdx|tsx)',
+    '../../../components/*/vue/*.stories.@(mdx|tsx)',
+  ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -31,6 +34,7 @@ module.exports = {
                 '../../../components/*/vue/*.@(vue|ts|tsx)'
               ),
               path.resolve(__dirname, '../../../components/*/*.ts'),
+              path.resolve(__dirname, '../stories/**/*.mdx'),
             ],
           },
         }),
