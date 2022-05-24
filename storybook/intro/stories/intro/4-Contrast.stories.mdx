@@ -25,7 +25,7 @@ Note: All evaluations assume full opacity.
 
 <Canvas>
   <div>
-    {() => {
+    {(() => {
       {
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
@@ -55,6 +55,6 @@ Note: All evaluations assume full opacity.
           </div>
         </>
       );
-    }}
+    })()}
   </div>
 </Canvas>
