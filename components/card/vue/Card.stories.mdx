@@ -1,0 +1,32 @@
+import { Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+
+# Card
+
+<Meta title="Card" parameters={{
+  design: {
+    type: "figma",
+    url: 'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=970%3A9736',
+  }
+}} />
+
+## Basic
+
+<Canvas>
+  <Story name="Card">
+    {{
+      template: `<div class="card">hello</div>`,
+    }}
+  </Story>
+</Canvas>
+
+## With drop shadow
+
+This variant should only be used on the marketing site.
+
+<Canvas>
+  <Story name="Drop shadow (marketing site only)">
+    {{
+      template: `<div class="card shadow-marketing-card">hello</div>`,
+    }}
+  </Story>
+</Canvas>
