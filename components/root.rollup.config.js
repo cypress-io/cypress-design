@@ -17,6 +17,15 @@ export default ({ input, plugins = [] }) => ({
       sourcemap: true,
     },
   ],
-  plugins: [resolve(), commonjs(), typescript(), ...plugins],
+  plugins: [
+    resolve(),
+    commonjs(),
+    typescript({
+      tsconfig: './tsconfig.build.json',
+      declaration: false,
+      declarationMap: false,
+    }),
+    ...plugins,
+  ],
   external: ['clsx', 'react', '@cypress-design/icon-registry'],
 });

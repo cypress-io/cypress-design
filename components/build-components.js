@@ -1,5 +1,5 @@
 /**
- * Build every package in the directory `components`
+ * Build every public package in the directory `components`
  * This script needs to run before we can publish components
  */
 
@@ -18,6 +18,10 @@ async function build() {
   packages
     .filter((p) => workspaces[p].location.startsWith('components'))
     .map(async (p) => {
+      const packageJson = require(`../${workspaces[p].location}/package.json`)
+      // if the package is private, do not build
+      if (packageJson.private) return
+
       const command = `yarn workspace ${p} build ${args.join(' ')}`;
       const { stdout } = await execaCommand(command);
       console.log(command);
