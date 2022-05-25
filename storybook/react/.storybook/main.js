@@ -2,7 +2,10 @@ const { CyCSSWebpackPlugin } = require('@cypress-design/css');
 const path = require('path');
 
 module.exports = {
-  stories: ['../../../components/*/react/*.stories.@(mdx|tsx)'],
+  stories: [
+    '../**/*.stories.@(mdx|tsx)',
+    '../../../components/*/react/*.stories.@(mdx|tsx)',
+  ],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -22,10 +25,12 @@ module.exports = {
             ),
             path.resolve(__dirname, '../../../components/*/react/*.tsx'),
             path.resolve(__dirname, '../../../components/*/*.ts'),
+            path.resolve(__dirname, '../stories/**/*.mdx'),
           ],
         },
       })
     );
+    config.resolve.extensions.push('.json');
     return config;
   },
 };
