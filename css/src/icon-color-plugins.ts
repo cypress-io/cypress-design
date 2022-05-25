@@ -160,7 +160,7 @@ export const IconDuotoneColorsPlugin = createPlugin(
   }
 )
 
-const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
+export const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
   fillColor: (attrValue: string) => `icon-light-${attrValue}`,
   strokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
   secondaryFillColor: (attrValue: string) =>
