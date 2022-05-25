@@ -6,21 +6,36 @@ import { Meta } from '@storybook/addon-docs';
 
 # Cypress Design System
 
-<p class="text-xl">
+<p className="text-2xl max-w-200">
   Welcome to the Cypress UI toolkit documentation. <br/>
   It will help you build apps & websites respecting Cypress branding guidelines.<br/>
   It provides a set of components and utilities for both React and Vue, tried and tested with Vite and Webpack.
 </p>
 
-<ul>
-  <li>
-    <a class="text-l" href="/docs/install--page">Read the install documentation</a>
-  </li>
-  <li>
-    <a href="/docs/react_index--page" class="text-l">See components for React</a>
-  </li>
-  <li>
-    <a href="/docs/vue_index--page" class="text-l">See components for Vue</a>
-  </li>
+<ul className="list-none p-0 flex flex-col gap-4 my-10 max-w-200">
+  {
+    [{
+      title: 'Read the install documentation',
+      href: '/docs/install--page',
+      logo: require('../../../logos/vite.svg')
+    },
+    {
+      title: 'See components for React',
+      href: '/docs/react_index--page',
+      logo: require('../../../logos/react.svg')
+    },
+    {
+      title: 'See components for Vue',
+      href: '/docs/vue_index--page',
+      logo: require('../../../logos/vue.svg')
+    }].map(({ title, href, logo }) => (
+      <li>
+        <a className="text-xl block p-4 border border-gray-200 rounded flex items-center hover:bg-indigo-50" href={href}>
+          <img src={logo} className="w-8 m-4"/>
+          <span className="flex-1">{title}</span>
+        </a>
+      </li>
+    ))
+  }
 </ul>
 
