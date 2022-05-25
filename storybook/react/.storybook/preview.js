@@ -1,4 +1,4 @@
-import 'windi.css';
+import 'windi.css'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -11,7 +11,8 @@ export const parameters = {
   options: {
     storySort: {
       method: 'alphabetical',
+      order: ['Index', '*'],
     },
   },
   viewMode: 'docs',
-};
+}

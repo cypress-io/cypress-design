@@ -6,7 +6,7 @@ import { BrandColors } from '../src/color';
 # Brand Colors
 
 <Meta
-  title="Intro/Color"
+  title="Color"
   component={BrandColors}
   parameters={{ info: { disable: true } }}
 />
@@ -22,10 +22,8 @@ The **primary colors** are used frequently as the base colors for establishing t
 
 The **tertiary colors are reserved for generated content** such as syntax highlighting in code, or charts with large amounts of data points. In general, these colors should only be used when absolutely necessary.
 
-<Canvas>
-  <Story name="Color">
-    <BrandColors />
-  </Story>
+<Canvas withSource="none">
+  <BrandColors />
 </Canvas>
 
 ## JS variables

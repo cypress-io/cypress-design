@@ -1,8 +1,8 @@
-import { defineConfig } from 'cypress';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import sucrase from '@rollup/plugin-sucrase';
-import { CyCSSVitePlugin } from '@cypress-design/css';
+import { defineConfig } from 'cypress'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import sucrase from '@rollup/plugin-sucrase'
+import { CyCSSVitePlugin } from '@cypress-design/css'
 
 export default defineConfig({
   projectId: '89d3nq',
@@ -43,4 +43,4 @@ export default defineConfig({
       },
     },
   },
-});
+})

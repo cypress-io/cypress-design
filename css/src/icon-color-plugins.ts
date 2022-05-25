@@ -5,17 +5,17 @@
  * It works by adding utility classes and specific selectors
  */
 
-import createPlugin from 'windicss/plugin';
-import { reduce, kebabCase, isObject } from 'lodash';
-import { colors } from './colors';
-import { DefaultExtractor } from 'vite-plugin-windicss';
-import { Extractor } from 'windicss/types/interfaces';
+import createPlugin from 'windicss/plugin'
+import { reduce, kebabCase, isObject } from 'lodash'
+import { colors } from './colors'
+import { DefaultExtractor } from 'vite-plugin-windicss'
+import { Extractor } from 'windicss/types/interfaces'
 
 interface RuleConfig {
-  name: string;
-  theme?: (key: string) => string;
-  weight?: string;
-  color?: string;
+  name: string
+  theme?: (key: string) => string
+  weight?: string
+  color?: string
 }
 
 const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
@@ -23,20 +23,20 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
     ? color
     : weight
     ? theme?.(`colors.${name}.${weight}`)
-    : theme?.(`colors.${name}`);
+    : theme?.(`colors.${name}`)
   let [lightKey, darkKey, secondaryLightKey, secondaryDarkKey] = [
     `.icon-light-${name}`,
     `.icon-dark-${name}`,
     `.icon-light-secondary-${name}`,
     `.icon-dark-secondary-${name}`,
-  ];
+  ]
 
   // transparent, black, and white
   if (weight) {
-    lightKey += `-${weight}`;
-    darkKey += `-${weight}`;
-    secondaryLightKey += `-${weight}`;
-    secondaryDarkKey += `-${weight}`;
+    lightKey += `-${weight}`
+    darkKey += `-${weight}`
+    secondaryLightKey += `-${weight}`
+    secondaryDarkKey += `-${weight}`
   }
 
   return {
@@ -99,18 +99,18 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
         stroke: resolvedColor,
       },
     },
-  };
-};
+  }
+}
 
 function addIconUtilityClasses(theme: (key: string) => string) {
   return reduce(
     colors,
     (acc, variants, colorName) => {
       // lightGray => light-gray
-      const name = kebabCase(colorName);
+      const name = kebabCase(colorName)
 
       // Collect the classes we're going to add to the windicss class registry
-      let additionalClasses = {};
+      let additionalClasses = {}
 
       // There are both nested and not-nested colors (e.g. black, white)
       if (isObject(variants)) {
@@ -118,15 +118,15 @@ function addIconUtilityClasses(theme: (key: string) => string) {
         additionalClasses = reduce(
           variants,
           (variantAcc, _, weight) => {
-            const rules = makeRuleForClass({ name, theme, weight });
+            const rules = makeRuleForClass({ name, theme, weight })
 
-            return { ...variantAcc, ...rules };
+            return { ...variantAcc, ...rules }
           },
           {}
-        );
+        )
       } else {
         // single values like black, white
-        additionalClasses = makeRuleForClass({ name, theme });
+        additionalClasses = makeRuleForClass({ name, theme })
       }
 
       // Output is an object where each new class is a key
@@ -143,22 +143,22 @@ function addIconUtilityClasses(theme: (key: string) => string) {
        *  }
        * }
        */
-      return { ...acc, ...additionalClasses };
+      return { ...acc, ...additionalClasses }
     },
     {
       // These technically aren't under "colors"
       ...makeRuleForClass({ name: 'transparent', color: 'transparent' }),
       ...makeRuleForClass({ name: 'current', color: 'currentColor' }),
     }
-  );
+  )
 }
 
 export const IconDuotoneColorsPlugin = createPlugin(
   ({ theme, addUtilities }) => {
     // @ts-ignore - dunno
-    addUtilities(addIconUtilityClasses(theme));
+    addUtilities(addIconUtilityClasses(theme))
   }
-);
+)
 
 const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
   fillColor: (attrValue: string) => `icon-light-${attrValue}`,
@@ -167,12 +167,12 @@ const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
     `icon-light-secondary-${attrValue}`,
   secondaryStrokeColor: (attrValue: string) =>
     `icon-dark-secondary-${attrValue}`,
-} as const;
+} as const
 
 function isIconAttribute(
   attrName: string
 ): attrName is keyof typeof ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR {
-  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName);
+  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
 }
 
 /**
@@ -182,7 +182,7 @@ function isIconAttribute(
 export const IconExtractor: Extractor = {
   extensions: ['vue', 'js', 'ts', 'tsx'],
   extractor: (code, id) => {
-    const { tags, classes = [], attributes } = DefaultExtractor(code, id);
+    const { tags, classes = [], attributes } = DefaultExtractor(code, id)
 
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
@@ -191,17 +191,17 @@ export const IconExtractor: Extractor = {
             ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
               attributes.values[index]
             )
-          );
+          )
         }
-        return set;
-      }, new Set<string>()) ?? new Set<string>();
+        return set
+      }, new Set<string>()) ?? new Set<string>()
 
     return {
       tags,
       get classes() {
-        return [...classes, ...Array.from(additionalColorClasses)];
+        return [...classes, ...Array.from(additionalColorClasses)]
       },
       attributes,
-    };
+    }
   },
-};
+}

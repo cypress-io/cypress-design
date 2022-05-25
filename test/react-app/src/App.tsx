@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import logo from './logo.svg';
-import Checkbox from '@cypress-design/react-checkbox';
-import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon';
-import Spinner from '@cypress-design/react-spinner';
-import './App.css';
+import { useState } from 'react'
+import logo from './logo.svg'
+import Checkbox from '@cypress-design/react-checkbox'
+import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon'
+import Spinner from '@cypress-design/react-spinner'
+import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [isChecked, setChecked] = useState(false);
+  const [count, setCount] = useState(0)
+  const [isChecked, setChecked] = useState(false)
 
   return (
     <div className="App">
@@ -48,10 +48,13 @@ function App() {
           />
         </p>
         <Spinner />
-        <IconActionQuestionMarkCircle strokeColor="jade-800" fillColor="jade-500"/>
+        <IconActionQuestionMarkCircle
+          strokeColor="jade-800"
+          fillColor="jade-500"
+        />
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

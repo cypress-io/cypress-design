@@ -11,7 +11,7 @@ import { brandColorways } from '../src/color.tsx';
 
 # Contrast
 
-<Meta title="Intro/Contrast" />
+<Meta title="Contrast" />
 
 The below widget allows you to calculate which of our brand colors meet accessibility criteria of AA or AAA when displayed on any background color. The collapsed table all the way at the bottom displays the exact contrast ratio for all colors. [See WebAIM for more info about contrast accessibility and contrast ratios.](https://webaim.org/articles/contrast/)
 
@@ -23,9 +23,9 @@ If you're building something using colors outside our brand colors, please check
 
 Note: All evaluations assume full opacity.
 
-<Canvas>
-  <Story name="Contrast">
-    {() => {
+<Canvas withSource="none">
+  <div>
+    {(() => {
       {
         /* NOTE: if you put any empty lines in here, it will break: https://github.com/storybookjs/storybook/issues/9602#issuecomment-581021436 */
       }
@@ -39,8 +39,7 @@ Note: All evaluations assume full opacity.
       const onChange = (selection) => {
         setBackgroundColor(selection);
       };
-      return (
-        <div>
+      return (<>
           <div className="border-jade-400 border-2 mb-8">
             <p className="m-4">Choose background color</p>
             <Select
@@ -54,8 +53,8 @@ Note: All evaluations assume full opacity.
             <Contrast background={backgroundColor} colors={colors} colorways={brandColorways} />
             <ContrastFullTable background={backgroundColor} colors={colors} />
           </div>
-        </div>
+        </>
       );
-    }}
-  </Story>
+    })()}
+  </div>
 </Canvas>

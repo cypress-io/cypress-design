@@ -1,25 +1,25 @@
-import chroma from 'chroma-js';
-import React, { FunctionComponent } from 'react';
-import { map, round } from 'lodash';
-import { ColorsItem, contrastingTextColor } from './contrast';
+import chroma from 'chroma-js'
+import React, { FunctionComponent } from 'react'
+import { map, round } from 'lodash'
+import { ColorsItem, contrastingTextColor } from './contrast'
 
 type ContrastFullTableProps = {
-  background: { value: string; label: string };
-  colors: object;
-};
+  background: { value: string; label: string }
+  colors: object
+}
 
 export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
   background,
   colors,
 }) => {
-  const headerTextColor = contrastingTextColor(background.value);
+  const headerTextColor = contrastingTextColor(background.value)
 
   const colorsList: ColorsItem[] = map(colors, (color) => {
-    const ratio = chroma.contrast(color.hex, background.value);
+    const ratio = chroma.contrast(color.hex, background.value)
     const largeContrast =
-      ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
+      ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible'
     const normalContrast =
-      ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
+      ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible'
 
     return {
       hex: color.hex,
@@ -27,8 +27,8 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
       ratio,
       largeContrast,
       normalContrast,
-    };
-  });
+    }
+  })
 
   return (
     <details className="border rounded p-2 mt-8">
@@ -67,5 +67,5 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
         </tbody>
       </table>
     </details>
-  );
-};
+  )
+}

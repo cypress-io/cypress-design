@@ -1,0 +1,73 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta
+  title="Install"
+/>
+
+# Install
+
+## Components Packages
+
+Each component is its own package. 
+
+To install the button component in a react project, run the following command:
+
+```
+yarn add @cypress-design/react-button --save
+```
+
+Each component is versionned separately so if we need an urgent fix, we don't get blocked by non-working other components and we can deliver.
+
+## Install CSS Utility
+
+Every component is styled using a utility first CSS framework: WindiCSS.
+Install it in your project to render the components properly.
+
+To do that, follow the two steps below:
+
+1. Install the CSS package in your dev dependencies:
+
+```
+yarn add -D @cypress-design/css
+```
+
+2. Add the plugin to your bundler configuration:
+
+### Webpack
+
+```js
+const { CyCSSWebpackPlugin } = require('@cypress-design/css');
+
+module.exports = {
+  plugins: [
+    CyCSSWebpackPlugin({
+      scan: {
+        include: [
+          'src/**/*.@(tsx|ts|js|vue)',
+        ],
+      },
+    }),
+  ],
+};
+```
+
+### Vite
+
+```js
+import { defineConfig } from 'vite'
+import { CyCSSVitePlugin } from '@cypress-design/css'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    CyCSSVitePlugin({
+      scan: {
+        include: ['/src/**/*.@(tsx|ts|js|vue)'],
+      },
+    }),
+  ],
+});
+```
+
+> **NOTE**: Add your html page and all your react and vue component files to the `scan.include` array. 
+> This helps WindiCSS determine which class to include in the final generated CSS.

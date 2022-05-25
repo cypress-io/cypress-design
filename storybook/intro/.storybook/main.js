@@ -1,7 +1,7 @@
-const { CyCSSWebpackPlugin, colors } = require('@cypress-design/css');
-const { map, reduce, kebabCase } = require('lodash');
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CyCSSWebpackPlugin, colors } = require('@cypress-design/css')
+const { map, reduce, kebabCase } = require('lodash')
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   stories: ['../stories/**/*.stories.mdx'],
@@ -24,7 +24,7 @@ module.exports = {
           url: 'http://localhost:9996',
           expanded: true,
         },
-      };
+      }
     }
     return {
       react: {
@@ -37,7 +37,7 @@ module.exports = {
         url: '/vue',
         expanded: true,
       },
-    };
+    }
   },
   managerWebpack: (config) => {
     config.module.rules = [
@@ -54,7 +54,7 @@ module.exports = {
         },
       },
       ...config.module.rules,
-    ];
+    ]
 
     config.plugins.push(
       new CopyWebpackPlugin({
@@ -65,9 +65,9 @@ module.exports = {
           },
         ],
       })
-    );
+    )
 
-    return config;
+    return config
   },
   webpackFinal: async (config) => {
     config.plugins.push(
@@ -81,12 +81,12 @@ module.exports = {
         safelist: reduce(
           { ...colors, transparent: { ONLY: true }, current: { ONLY: true } },
           (acc, variants, colorName) => {
-            const name = kebabCase(colorName);
+            const name = kebabCase(colorName)
 
             return `${acc}
             ${map(variants, (_, k) => {
-              if (k === 'DEFAULT') return ``;
-              const variantName = k === 'ONLY' ? name : `${name}-${k}`;
+              if (k === 'DEFAULT') return ``
+              const variantName = k === 'ONLY' ? name : `${name}-${k}`
               return `
                 bg-${variantName}
                 text-${variantName}
@@ -95,12 +95,12 @@ module.exports = {
                 icon-light-${variantName}
                 icon-dark-${variantName}
                 icon-light-secondary-${variantName}
-                icon-dark-secondary-${variantName}`;
-            }).join(' ')}`;
+                icon-dark-secondary-${variantName}`
+            }).join(' ')}`
           }
         ),
       })
-    );
-    return config;
+    )
+    return config
   },
-};
+}
