@@ -13,7 +13,7 @@ export interface ButtonProps {
 
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
-  size = 'md',
+  size = '32',
   disabled = false,
   className,
   children
