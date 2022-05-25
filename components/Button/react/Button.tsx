@@ -15,18 +15,23 @@ export interface ButtonProps {
   children?: React.ReactNode
 }
 
-export const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<
+  ButtonProps & React.HTMLProps<HTMLButtonElement>
+> = ({
   variant = 'primary',
   size = '32',
   disabled = false,
   className,
   children,
+  ...rest
 }) => {
   const finalVariant =
     disabled && !['secondary', 'link'].includes(variant) ? 'disabled' : variant
   const finalDisabled = disabled || variant === 'disabled'
   return (
     <button
+      {...rest}
+      type="button"
       className={clsx(
         StaticClasses,
         VariantClassesTable[finalVariant],
