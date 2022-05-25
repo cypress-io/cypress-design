@@ -1,4 +1,4 @@
-import 'virtual:windi.css';
+import 'virtual:windi.css'
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -14,4 +14,4 @@ export const parameters = {
       order: ['Index', '*'],
     },
   },
-};
+}

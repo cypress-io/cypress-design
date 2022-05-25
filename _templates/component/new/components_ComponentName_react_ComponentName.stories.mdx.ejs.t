@@ -8,12 +8,12 @@ import <%= h.inflection.camelize(name, false) %>Story from './<%= h.inflection.c
 
 import { <%= h.inflection.camelize(name, false) %> } from './<%= h.inflection.camelize(name, false) %>'
 
-<h1>Component Name<span className="text-lg font-normal"> - v{version}</span></h1>
+<h1><%= h.inflection.camelize(name, false) %><span className="text-lg font-normal"> - v{version}</span></h1>
 
-<Meta title="Component Name" component={<%= h.inflection.camelize(name, false) %>} />
+<Meta title="<%= h.inflection.camelize(name, false) %>" component={<%= h.inflection.camelize(name, false) %>} />
 
 <Canvas withSource="none">
-  <Story name="Component Name">
+  <Story name="<%= h.inflection.camelize(name, false) %>">
     <<%= h.inflection.camelize(name, false) %>Story />
   </Story>
 </Canvas>

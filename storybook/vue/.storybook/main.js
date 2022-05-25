@@ -1,7 +1,7 @@
-const { mergeConfig } = require('vite');
-const { CyCSSVitePlugin } = require('@cypress-design/css');
-const path = require('path');
-const vueJsx = require('@vitejs/plugin-vue-jsx').default;
+const { mergeConfig } = require('vite')
+const { CyCSSVitePlugin } = require('@cypress-design/css')
+const path = require('path')
+const vueJsx = require('@vitejs/plugin-vue-jsx').default
 
 module.exports = {
   stories: [
@@ -42,6 +42,6 @@ module.exports = {
         vueJsx(),
       ],
       base: '/vue/',
-    });
+    })
   },
-};
+}
