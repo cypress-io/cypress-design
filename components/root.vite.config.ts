@@ -1,5 +1,5 @@
-import { defineConfig, type LibraryOptions } from 'vite';
-import vue from '@vitejs/plugin-vue';
+import { defineConfig, type LibraryOptions } from 'vite'
+import vue from '@vitejs/plugin-vue'
 
 export default (libConfig: LibraryOptions) =>
   defineConfig({
@@ -22,4 +22,4 @@ export default (libConfig: LibraryOptions) =>
       },
     },
     plugins: [vue()],
-  });
+  })

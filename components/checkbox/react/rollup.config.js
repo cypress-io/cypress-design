@@ -1,3 +1,3 @@
-import rootRollupConfig from '../../root.rollup.config';
+import rootRollupConfig from '../../root.rollup.config'
 
-export default rootRollupConfig({ input: './index.ts' });
+export default rootRollupConfig({ input: './index.ts' })

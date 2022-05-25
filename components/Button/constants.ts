@@ -8,7 +8,7 @@ export const VariantClassesTable = {
   caution:
     'border-red-500 bg-red-500 text-white hocus:ring-2 hocus:ring-red-200',
   disabled: 'border-gray-500 bg-gray-500 text-white',
-} as const;
+} as const
 
 export const SizeClassesTable = {
   '20': 'px-4px py-0 text-14px leading-20px',
@@ -16,11 +16,11 @@ export const SizeClassesTable = {
   '32': 'px-12px py-6px text-14px leading-20px',
   '40': 'px-16px py-8px text-16px leading-24px',
   '48': 'px-20px py-12px text-16px leading-24px',
-} as const;
+} as const
 
 export const StaticClasses =
-  'border rounded rounded-4px flex items-center transition duration-150 enabled:hover:ring-2 enabled:focus:ring-2 disabled:cursor-not-allowed';
+  'border rounded rounded-4px flex items-center transition duration-150 enabled:hover:ring-2 enabled:focus:ring-2 disabled:cursor-not-allowed'
 
-export type ButtonSizes = keyof typeof SizeClassesTable;
+export type ButtonSizes = keyof typeof SizeClassesTable
 
-export type ButtonVariants = keyof typeof VariantClassesTable;
+export type ButtonVariants = keyof typeof VariantClassesTable

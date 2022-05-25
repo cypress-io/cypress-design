@@ -1,10 +1,10 @@
-import { defineConfig } from 'windicss/helpers';
+import { defineConfig } from 'windicss/helpers'
 // @ts-ignore
-import InteractionVariants from '@windicss/plugin-interaction-variants';
-import { IconDuotoneColorsPlugin } from './icon-color-plugins';
-import { safelist } from './safelist';
-import { colors } from './colors';
-import { shortcuts } from './shortcuts';
+import InteractionVariants from '@windicss/plugin-interaction-variants'
+import { IconDuotoneColorsPlugin } from './icon-color-plugins'
+import { safelist } from './safelist'
+import { colors } from './colors'
+import { shortcuts } from './shortcuts'
 
 export default defineConfig({
   // This adds !important to all utility classes.
@@ -55,4 +55,4 @@ export default defineConfig({
   extract: {
     exclude: ['node_modules/**/*', '.git/**/*'],
   },
-});
+})

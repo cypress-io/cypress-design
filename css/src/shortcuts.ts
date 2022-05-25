@@ -7,13 +7,13 @@
  */
 
 const focusDefault =
-  'outline-none focus:border focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 focus:outline-transparent transition duration-150 disabled:hover:ring-0 disabled:hover:border-transparent';
+  'outline-none focus:border focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 focus:outline-transparent transition duration-150 disabled:hover:ring-0 disabled:hover:border-transparent'
 
 // Usually what you want
-const hocusDefault = focusDefault.replace(/focus:/g, 'hocus:');
+const hocusDefault = focusDefault.replace(/focus:/g, 'hocus:')
 
 // If you want to control a parent card when an inner button is in focus
-const focusWithinDefault = focusDefault.replace(/focus:/g, 'focus-within:');
+const focusWithinDefault = focusDefault.replace(/focus:/g, 'focus-within:')
 
 export const shortcuts = {
   card:
@@ -27,4 +27,4 @@ export const shortcuts = {
   'hocus-link-default': 'focus:outline-transparent hocus:underline',
   'hocus-error': hocusDefault.replace(/indigo/g, 'error'),
   'hocus-secondary': hocusDefault.replace(/indigo/g, 'jade'),
-};
+}

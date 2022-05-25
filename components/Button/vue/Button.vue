@@ -1,19 +1,29 @@
 <template>
-  <button :class="[StaticClasses, VariantClassesTable[finalVariant], SizeClassesTable[size]]" :disabled="finalDisabled">
+  <button
+    :class="[
+      StaticClasses,
+      VariantClassesTable[finalVariant],
+      SizeClassesTable[size],
+    ]"
+    :disabled="finalDisabled"
+  >
     <slot />
   </button>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { VariantClassesTable, SizeClassesTable, StaticClasses } from '../constants';
-import type { ButtonSizes, ButtonVariants } from '../constants';
-
+import { computed } from 'vue'
+import {
+  VariantClassesTable,
+  SizeClassesTable,
+  StaticClasses,
+} from '../constants'
+import type { ButtonSizes, ButtonVariants } from '../constants'
 
 const props = withDefaults(
   defineProps<{
-    variant?: ButtonVariants,
-    size?: ButtonSizes,
+    variant?: ButtonVariants
+    size?: ButtonSizes
     disabled?: boolean
   }>(),
   {
@@ -21,8 +31,14 @@ const props = withDefaults(
     size: '32',
     disabled: false,
   }
-);
+)
 
-const finalVariant = computed(() => (props.disabled && !['secondary', 'link'].includes(props.variant)) ? 'disabled' : props.variant)
-const finalDisabled = computed(() => props.disabled || props.variant === 'disabled');
+const finalVariant = computed(() =>
+  props.disabled && !['secondary', 'link'].includes(props.variant)
+    ? 'disabled'
+    : props.variant
+)
+const finalDisabled = computed(
+  () => props.disabled || props.variant === 'disabled'
+)
 </script>

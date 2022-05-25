@@ -1,3 +1,3 @@
-const comps = import.meta.globEager('../../../components/*/vue/package.json');
+const comps = import.meta.globEager('../../../components/*/vue/package.json')
 
-export default comps;
+export default comps

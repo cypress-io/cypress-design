@@ -1,28 +1,28 @@
-import chroma from 'chroma-js';
-import React, { FunctionComponent } from 'react';
-import { filter, find, map, startsWith } from 'lodash';
+import chroma from 'chroma-js'
+import React, { FunctionComponent } from 'react'
+import { filter, find, map, startsWith } from 'lodash'
 
 export const contrastingTextColor = (color: string) => {
-  const ratioToBlack = chroma.contrast(color, 'black');
-  const ratioToWhite = chroma.contrast(color, 'white');
+  const ratioToBlack = chroma.contrast(color, 'black')
+  const ratioToWhite = chroma.contrast(color, 'white')
 
-  return ratioToBlack > ratioToWhite ? 'black' : 'white';
-};
+  return ratioToBlack > ratioToWhite ? 'black' : 'white'
+}
 
 export type ColorsItem = {
-  name: string;
-  hex: string;
-  ratio: number;
-  largeContrast: 'AAA' | 'AA' | 'Not legible';
-  normalContrast: 'AAA' | 'AA' | 'Not legible';
-  value?: string;
-  label?: string;
-};
+  name: string
+  hex: string
+  ratio: number
+  largeContrast: 'AAA' | 'AA' | 'Not legible'
+  normalContrast: 'AAA' | 'AA' | 'Not legible'
+  value?: string
+  label?: string
+}
 
 type ColorwayProps = {
-  colors: ColorsItem[];
-  size: 'normal' | 'large';
-};
+  colors: ColorsItem[]
+  size: 'normal' | 'large'
+}
 
 const TextColorway: FunctionComponent<ColorwayProps> = ({ colors, size }) => {
   return (
@@ -35,26 +35,26 @@ const TextColorway: FunctionComponent<ColorwayProps> = ({ colors, size }) => {
                 {color[`${size}Contrast`]}: text-{color.name}
               </span>
             </div>
-          );
+          )
         }
 
         return (
           <div style={{ color: color.hex }} key={color.name}>
             {color[`${size}Contrast`]}: text-{color.name}
           </div>
-        );
+        )
       })}
     </>
-  );
-};
+  )
+}
 
 type CellProps = {
-  size: 'large' | 'normal';
+  size: 'large' | 'normal'
   /** background is a hex value */
-  background: { value: string; label: string };
-  colors: ColorsItem[];
-  colorway: string;
-};
+  background: { value: string; label: string }
+  colors: ColorsItem[]
+  colorway: string
+}
 
 const Cell: FunctionComponent<CellProps> = ({
   size = 'normal',
@@ -62,14 +62,14 @@ const Cell: FunctionComponent<CellProps> = ({
   colors,
   colorway,
 }) => {
-  const headerTextClass = size === 'normal' ? '' : 'text-2xl';
+  const headerTextClass = size === 'normal' ? '' : 'text-2xl'
 
   // make a list of the compliant colors
   // AAA first, then AA
   const compliantColors: ColorsItem[] = [
     ...filter(colors, [`${size}Contrast`, 'AAA']),
     ...filter(colors, [`${size}Contrast`, 'AA']),
-  ];
+  ]
 
   return (
     <div
@@ -100,14 +100,14 @@ const Cell: FunctionComponent<CellProps> = ({
 
       <TextColorway colors={compliantColors} size={size} />
     </div>
-  );
-};
+  )
+}
 
 type ContrastProps = {
-  background: { value: string; label: string };
-  colors: { hex: string; name: string }[];
-  colorways: string[];
-};
+  background: { value: string; label: string }
+  colors: { hex: string; name: string }[]
+  colorways: string[]
+}
 
 export const Contrast: FunctionComponent<ContrastProps> = ({
   background,
@@ -115,11 +115,11 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
   colorways,
 }) => {
   const colorAttributes: ColorsItem[] = map(colors, (color) => {
-    const ratio = chroma.contrast(color.hex, background.value);
+    const ratio = chroma.contrast(color.hex, background.value)
     const largeContrast =
-      ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible';
+      ratio >= 4.5 ? 'AAA' : ratio >= 3 ? 'AA' : 'Not legible'
     const normalContrast =
-      ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible';
+      ratio >= 7.1 ? 'AAA' : ratio >= 4.5 ? 'AA' : 'Not legible'
 
     return {
       name: color.name,
@@ -129,8 +129,8 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
       normalContrast,
       value: color.hex,
       label: color.hex,
-    };
-  });
+    }
+  })
 
   return (
     <>
@@ -146,7 +146,7 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
         {colorways.map((colorway) => {
           const colors = filter(colorAttributes, (color) =>
             startsWith(color.name, colorway)
-          );
+          )
 
           return (
             <Cell
@@ -156,7 +156,7 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
               background={background}
               size="normal"
             />
-          );
+          )
         })}
       </div>
       <h2 className="py-4 text-2xl">
@@ -175,8 +175,8 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
               : colorway === 'white'
               ? [find(colorAttributes, ['name', 'white'])]
               : filter(colorAttributes, (color) => {
-                  return startsWith(color.name, colorway);
-                });
+                  return startsWith(color.name, colorway)
+                })
 
           return (
             <Cell
@@ -186,9 +186,9 @@ export const Contrast: FunctionComponent<ContrastProps> = ({
               background={background}
               size="large"
             />
-          );
+          )
         })}
       </div>
     </>
-  );
-};
+  )
+}
