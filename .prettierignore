@@ -1,4 +1,11 @@
 # Ignore artifacts:
 dist
+
+# avoid dependencies
 node_modules
-**/*.mdx
+
+# mdx is sensistive to spacing in storybook
+**/*.stories.mdx
+
+# we don't want frontmatter to be changed by prettier
+.changeset/*.md
