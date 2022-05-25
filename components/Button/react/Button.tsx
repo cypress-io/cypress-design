@@ -19,7 +19,7 @@ export const Button: React.FC<
   ButtonProps & React.HTMLProps<HTMLButtonElement>
 > = ({
   variant = 'primary',
-  size = 'md',
+  size = '32',
   disabled = false,
   className,
   children,

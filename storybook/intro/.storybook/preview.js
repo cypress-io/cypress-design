@@ -9,4 +9,9 @@ export const parameters = {
     },
   },
   viewMode: 'docs',
+  options: {
+    storySort: {
+      order: ['Get Started', 'Install'],
+    },
+  },
 };

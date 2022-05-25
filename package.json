@@ -18,10 +18,11 @@
   "scripts": {
     "cy": "cypress open --component",
     "cy:run": "cypress run --component",
-    "build:storybook": "yarn build:icons && yarn build:css && yarn build:storybook:intro --quiet && yarn build:storybook:react --quiet && yarn build:storybook:vue --quiet",
+    "build:storybook": "yarn build:icons && yarn build:css && yarn build:storybook:intro --quiet && yarn build:storybook:react --quiet && yarn build:storybook:vue --quiet && yarn fix:storybook:order ./dist/react/stories.json && yarn fix:storybook:order ./dist/vue/stories.json",
     "build:storybook:intro": "yarn workspace storybook build",
     "build:storybook:react": "yarn workspace storybook-react build",
     "build:storybook:vue": "yarn workspace storybook-vue build",
+    "fix:storybook:order": "node ./storybook/fixStoriesOrder.js",
     "build:components": "node components/build-components.js",
     "start": "concurrently yarn:storybook:*",
     "storybook:intro": "yarn workspace storybook start",
