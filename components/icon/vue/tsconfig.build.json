@@ -2,6 +2,6 @@
   "extends": "../../../tsconfig.vue.json",
   "include": ["./*.vue", "./index.ts"],
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "dist"
   }
 }

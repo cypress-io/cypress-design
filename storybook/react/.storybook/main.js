@@ -1,5 +1,5 @@
-const { CyCSSWebpackPlugin } = require('@cypress-design/css');
-const path = require('path');
+const { CyCSSWebpackPlugin } = require('@cypress-design/css')
+const path = require('path')
 
 module.exports = {
   stories: [
@@ -29,8 +29,8 @@ module.exports = {
           ],
         },
       })
-    );
-    config.resolve.extensions.push('.json');
-    return config;
+    )
+    config.resolve.extensions.push('.json')
+    return config
   },
-};
+}

@@ -1,4 +1,4 @@
-const extractBodyPlugin = require('./extractBodyPlugin');
+const extractBodyPlugin = require('./extractBodyPlugin')
 
 module.exports = {
   plugins: [
@@ -7,4 +7,4 @@ module.exports = {
     },
     extractBodyPlugin,
   ],
-};
+}

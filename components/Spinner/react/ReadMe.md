@@ -19,7 +19,7 @@ yarn add @cypress-design/react-spinner
 ## Usage
 
 ```tsx
-import Spinner from '@cypress-design/react-spinner';
+import Spinner from '@cypress-design/react-spinner'
 
 export default () => (
   <div className="flex flex-col items-center justify-center gap-12px h-100vh">
@@ -28,5 +28,5 @@ export default () => (
       Initializing something really important...
     </h2>
   </div>
-);
+)
 ```

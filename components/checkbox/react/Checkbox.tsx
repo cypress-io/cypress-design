@@ -1,14 +1,14 @@
-import clsx from 'clsx';
-import * as React from 'react';
-import type { FunctionComponent, HTMLProps, ReactNode } from 'react';
+import clsx from 'clsx'
+import * as React from 'react'
+import type { FunctionComponent, HTMLProps, ReactNode } from 'react'
 
 export interface CheckboxProps
   extends Omit<HTMLProps<HTMLDivElement>, 'label'> {
-  id?: string;
-  modelValue: boolean;
-  onChange: () => void;
-  state?: 'success' | 'danger' | 'default';
-  label?: ReactNode;
+  id?: string
+  modelValue: boolean
+  onChange: () => void
+  state?: 'success' | 'danger' | 'default'
+  label?: ReactNode
 }
 
 // TODO: how do you disable it? does it work?
@@ -21,7 +21,10 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   ...rest
 }) => {
   return (
-    <div {...rest} className={clsx(rest.className, "relative flex items-center")}>
+    <div
+      {...rest}
+      className={clsx(rest.className, 'relative flex items-center')}
+    >
       <div className="flex items-center h-5">
         <input
           id={id}
@@ -55,7 +58,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         </label>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Checkbox;
+export default Checkbox

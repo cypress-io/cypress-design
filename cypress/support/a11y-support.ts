@@ -1,7 +1,7 @@
-import 'cypress-axe';
+import 'cypress-axe'
 
 beforeEach(() => {
-  cy.injectAxe();
+  cy.injectAxe()
   cy.configureAxe({
     rules: [
       {
@@ -21,8 +21,8 @@ beforeEach(() => {
         enabled: false,
       },
     ],
-  });
-});
+  })
+})
 
 afterEach(() => {
   cy.checkA11y(null, {
@@ -30,5 +30,5 @@ afterEach(() => {
       type: 'tag',
       values: ['wcag21aa'],
     },
-  });
-});
+  })
+})

@@ -1,18 +1,18 @@
-import clsx from 'clsx';
-import * as React from 'react';
-import type { ButtonSizes, ButtonVariants } from '../constants';
+import clsx from 'clsx'
+import * as React from 'react'
+import type { ButtonSizes, ButtonVariants } from '../constants'
 import {
   SizeClassesTable,
   VariantClassesTable,
   StaticClasses,
-} from '../constants';
+} from '../constants'
 
 export interface ButtonProps {
-  variant?: ButtonVariants;
-  size?: ButtonSizes;
-  disabled?: boolean;
-  className?: string;
-  children?: React.ReactNode;
+  variant?: ButtonVariants
+  size?: ButtonSizes
+  disabled?: boolean
+  className?: string
+  children?: React.ReactNode
 }
 
 export const Button: React.FC<
@@ -26,8 +26,8 @@ export const Button: React.FC<
   ...rest
 }) => {
   const finalVariant =
-    disabled && !['secondary', 'link'].includes(variant) ? 'disabled' : variant;
-  const finalDisabled = disabled || variant === 'disabled';
+    disabled && !['secondary', 'link'].includes(variant) ? 'disabled' : variant
+  const finalDisabled = disabled || variant === 'disabled'
   return (
     <button
       {...rest}
@@ -42,7 +42,7 @@ export const Button: React.FC<
     >
       {children}
     </button>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

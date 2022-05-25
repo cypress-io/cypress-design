@@ -1,12 +1,12 @@
 /// <reference types="cypress" />
 
-import { ref } from 'vue';
-import { mount } from 'cypress/vue';
-import Checkbox from './Checkbox.vue';
+import { ref } from 'vue'
+import { mount } from 'cypress/vue'
+import Checkbox from './Checkbox.vue'
 
 describe('<Checkbox />', () => {
   it('renders', () => {
-    const value = ref(true);
+    const value = ref(true)
 
     mount(() => (
       <Checkbox
@@ -18,6 +18,6 @@ describe('<Checkbox />', () => {
           Show the welcome guide when opening Cypress.
         </span>
       </Checkbox>
-    ));
-  });
-});
+    ))
+  })
+})

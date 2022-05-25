@@ -1,9 +1,7 @@
 ---
 to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.camelize(name, false) %>.tsx
 ---
-import cs from 'clsx';
 import * as React from 'react';
-import type { FunctionComponent } from 'react';
 import clsx from 'clsx';
 
 const styles: Record<string, string> = {};
@@ -14,7 +12,7 @@ export interface <%= h.inflection.camelize(name, false) %>Props {
   className?: string;
 }
 
-export const <%= h.inflection.camelize(name, false) %>: FunctionComponent<<%= h.inflection.camelize(name, false) %>Props> = ({
+export const <%= h.inflection.camelize(name, false) %>: React.FC<<%= h.inflection.camelize(name, false) %>Props> = ({
   id,
   label,
   className,
