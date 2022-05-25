@@ -20,7 +20,7 @@ Then, add the plugins to your bundler
 
 ```js
 // webpack.config.js
-import { CyCSSWebpackPlugin } from '@cypress-design/css';
+import { CyCSSWebpackPlugin } from '@cypress-design/css'
 
 export default (config) => ({
   // the rest of the webpack config...
@@ -28,7 +28,7 @@ export default (config) => ({
     //...
     CyCSSWebpackPlugin(),
   ],
-});
+})
 ```
 
 See [the css package ReadMe](./css/) for more options

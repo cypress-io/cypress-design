@@ -1,6 +1,6 @@
-import { colors as designColors } from '@cypress-design/css/dist/colors';
-import React, { FunctionComponent } from 'react';
-import { contrastingTextColor } from './contrast';
+import { colors as designColors } from '@cypress-design/css/dist/colors'
+import React, { FunctionComponent } from 'react'
+import { contrastingTextColor } from './contrast'
 import {
   filter,
   flatten,
@@ -9,48 +9,48 @@ import {
   startCase,
   startsWith,
   values,
-} from 'lodash';
-import flat from 'flat';
+} from 'lodash'
+import flat from 'flat'
 
 const brandPalettes = {
   primary: ['teal', 'jade', 'gray'],
   secondary: ['purple', 'orange', 'red', 'indigo'],
   tertiary: ['fuchsia', 'green', 'magenta'],
   neutral: ['black', 'white'],
-};
+}
 
-export const brandColorways = flatten(values(brandPalettes));
+export const brandColorways = flatten(values(brandPalettes))
 
-const namedColors = pick(designColors, brandColorways);
+const namedColors = pick(designColors, brandColorways)
 
 const colorsObject = flat(namedColors, {
   delimiter: '-',
-});
+})
 
 type Color = {
-  hex: string;
-  name: string;
-};
+  hex: string
+  name: string
+}
 
 export const colors: Color[] = Object.keys(colorsObject).map((name) => {
   return {
     name,
     hex: colorsObject[name],
-  };
-});
+  }
+})
 
 const colorsForColorway = (colorway) => {
   return filter(colors, (color) => {
-    return startsWith(color.name, colorway);
-  });
-};
+    return startsWith(color.name, colorway)
+  })
+}
 
 interface ColorTileProps {
-  color: Color;
+  color: Color
 }
 
 export const ColorTile: FunctionComponent<ColorTileProps> = ({ color }) => {
-  const textColor = contrastingTextColor(color.hex);
+  const textColor = contrastingTextColor(color.hex)
   return (
     <>
       <div className={`inline-block relative h-24 bg-${color.name}`}>
@@ -67,8 +67,8 @@ export const ColorTile: FunctionComponent<ColorTileProps> = ({ color }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export const BrandColors: FunctionComponent = () => {
   return (
@@ -77,7 +77,11 @@ export const BrandColors: FunctionComponent = () => {
         <div key={paletteName} className="mb-8">
           <h3 className="text-2xl flex items-end gap-2">
             {startCase(paletteName)}
-            {paletteName === 'tertiary' && <p className="text-sm text-gray-500">(Use only for generated content)</p>}
+            {paletteName === 'tertiary' && (
+              <p className="text-sm text-gray-500">
+                (Use only for generated content)
+              </p>
+            )}
           </h3>
           {brandPalettes[paletteName].map((colorway) => {
             return (
@@ -86,10 +90,10 @@ export const BrandColors: FunctionComponent = () => {
                   <ColorTile key={i} color={color} />
                 ))}
               </div>
-            );
+            )
           })}
         </div>
       ))}
     </div>
-  );
-};
+  )
+}

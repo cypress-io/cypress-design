@@ -1,6 +1,6 @@
 // NOTE: All the colors in this file are also temporarily stored in packages/reporter/src/lib/variables.scss, for use in the reporter. If you change any here, please also change them there.
 
-import Colors from 'windicss/colors';
+import Colors from 'windicss/colors'
 
 export const cyColors = {
   jade: {
@@ -133,7 +133,7 @@ export const cyColors = {
     900: '#490435',
     1000: '#420333',
   },
-} as const;
+} as const
 
 export const semanticColors = {
   // TODO: are these actual concepts from the design system?
@@ -181,7 +181,7 @@ export const semanticColors = {
     ...cyColors.gray,
     DEFAULT: cyColors.gray[600],
   },
-} as const;
+} as const
 
 // filter out this deprecated color to remove the annoying warning
 const FilteredColors = Object.keys(Colors).reduce(
@@ -198,12 +198,12 @@ const FilteredColors = Object.keys(Colors).reduce(
         'zink',
       ].includes(key)
     ) {
-      acc[key] = Colors[key as keyof typeof Colors];
+      acc[key] = Colors[key as keyof typeof Colors]
     }
 
-    return acc;
+    return acc
   },
   {}
-);
+)
 
-export const colors = { ...FilteredColors, ...semanticColors, ...cyColors };
+export const colors = { ...FilteredColors, ...semanticColors, ...cyColors }

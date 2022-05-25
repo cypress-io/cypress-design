@@ -1,6 +1,6 @@
-const { CyCSSWebpackPlugin } = require('@cypress-design/css');
-const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CyCSSWebpackPlugin } = require('@cypress-design/css')
+const path = require('path')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   stories: ['../stories/**/*.stories.mdx'],
@@ -24,7 +24,7 @@ module.exports = {
           url: 'http://localhost:9996',
           expanded: true,
         },
-      };
+      }
     }
     return {
       react: {
@@ -37,7 +37,7 @@ module.exports = {
         url: '/vue',
         expanded: true,
       },
-    };
+    }
   },
   managerWebpack: (config) => {
     config.module.rules = [
@@ -54,7 +54,7 @@ module.exports = {
         },
       },
       ...config.module.rules,
-    ];
+    ]
 
     config.plugins.push(
       new CopyWebpackPlugin({
@@ -65,9 +65,9 @@ module.exports = {
           },
         ],
       })
-    );
+    )
 
-    return config;
+    return config
   },
   webpackFinal: async (config) => {
     config.plugins.push(
@@ -79,7 +79,7 @@ module.exports = {
           ],
         },
       })
-    );
-    return config;
+    )
+    return config
   },
-};
+}

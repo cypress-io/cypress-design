@@ -1,9 +1,12 @@
-import * as React from 'react';
-import type { FunctionComponent, SVGProps } from 'react';
-import { compileIcon } from '@cypress-design/icon-registry';
-import type { IconProps } from '@cypress-design/icon-registry';
+import * as React from 'react'
+import type { FunctionComponent, SVGProps } from 'react'
+import { compileIcon } from '@cypress-design/icon-registry'
+import type { IconProps } from '@cypress-design/icon-registry'
 
-type SVGPropsWithoutColorsOrSize = Omit<React.SVGProps<SVGSVGElement>, 'fill' | 'stroke' | 'fillColor' | 'strokeColor' | 'size' >
+type SVGPropsWithoutColorsOrSize = Omit<
+  React.SVGProps<SVGSVGElement>,
+  'fill' | 'stroke' | 'fillColor' | 'strokeColor' | 'size'
+>
 
 export const Icon: FunctionComponent<
   IconProps & SVGPropsWithoutColorsOrSize
@@ -11,8 +14,8 @@ export const Icon: FunctionComponent<
   return React.createElement(
     'svg',
     compileReactIconProperties(compileIcon(props))
-  );
-};
+  )
+}
 
 export const compileReactIconProperties = ({
   body,
@@ -24,13 +27,13 @@ export const compileReactIconProperties = ({
   secondaryFillColor,
   ...attributes
 }: {
-  body: string;
-  compiledClasses: string[];
-  size: string;
-  strokeColor?;
-  fillColor?;
-  secondaryStrokeColor?;
-  secondaryFillColor?;
+  body: string
+  compiledClasses: string[]
+  size: string
+  strokeColor?
+  fillColor?
+  secondaryStrokeColor?
+  secondaryFillColor?
 } & SVGPropsWithoutColorsOrSize) => {
   const componentProps = {
     width: size,
@@ -40,14 +43,14 @@ export const compileReactIconProperties = ({
       __html: body,
     },
     ...attributes, // add all standard attributes back to the svg tag
-  };
+  }
   if (attributes.className) {
-    compiledClasses.push(attributes.className);
+    compiledClasses.push(attributes.className)
   }
   if (compiledClasses.length) {
-    componentProps.className = compiledClasses.join(' ');
+    componentProps.className = compiledClasses.join(' ')
   }
-  return componentProps;
-};
+  return componentProps
+}
 
-export default Icon;
+export default Icon

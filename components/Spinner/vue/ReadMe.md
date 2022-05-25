@@ -22,8 +22,8 @@ You can either use the default spinner and import the styles manually.
 
 ```vue
 <script setup>
-import Spinner from '@cypress-design/vue-spinner';
-import '@cypress-design/vue-spinner/styles.css';
+import Spinner from '@cypress-design/vue-spinner'
+import '@cypress-design/vue-spinner/styles.css'
 </script>
 
 <template>
@@ -42,7 +42,7 @@ import '@cypress-design/vue-spinner/styles.css';
 
 ```vue
 <script setup>
-import Spinner from '@cypress-design/vue-spinner/sfc';
+import Spinner from '@cypress-design/vue-spinner/sfc'
 </script>
 
 <template>

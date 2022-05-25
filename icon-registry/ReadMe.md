@@ -26,17 +26,17 @@ import {
   iconsMetadata,
   compileIcon,
   getComponentAttributes,
-} from '@cypress-design/icon-registry';
+} from '@cypress-design/icon-registry'
 
 iconSet.forEach((icon) => {
   // `icon.name` contains "book-code-x16"
   // since we mostly need the rooId we can extract it from the name
-  const [rootId] = icon.name.split('_x');
+  const [rootId] = icon.name.split('_x')
   // these information sets are intended to be used in a template or a render function
   console.log({
     body: icon.data,
     metaData: icons[rootId],
-  });
+  })
 
   const { size, compiledClasses, body } = compileIcon({
     name: rootId,
@@ -44,11 +44,11 @@ iconSet.forEach((icon) => {
     // colors from the windicss set of colors
     strokeColor: 'red-600',
     fillColor: 'amber-300',
-  });
+  })
   // size: the size of the icon with the default value if possible,
   // compiledClasses: all css classes that we will hav to add to our SVG element becaus eof the color passed,
   // body: the interior of the SVG element between the opening and closing SVG tags,
-});
+})
 ```
 
 ## Build
@@ -59,23 +59,23 @@ Sample:
 
 ```ts
 // lists all the colors available from windi classes
-export type WindiColors = 'jade-200' | 'jade-300' | 'red-200' | 'red-300';
+export type WindiColors = 'jade-200' | 'jade-300' | 'red-200' | 'red-300'
 
 export type IconProps =
   | IconActionDeleteCircleProps
-  | IconTestingTypeComponentProps;
+  | IconTestingTypeComponentProps
 // | ...
 
 interface IconActionDeleteCircleProps {
-  name: 'action-delete-circle';
-  color?: keyof typeof colors;
+  name: 'action-delete-circle'
+  color?: keyof typeof colors
 }
 
 interface IconTestingTypeComponentProps {
-  name: 'testing-type-component';
-  size?: 16 | 24 | 64 | 120;
-  color?: keyof typeof colors;
-  bgColor?: keyof typeof colors;
+  name: 'testing-type-component'
+  size?: 16 | 24 | 64 | 120
+  color?: keyof typeof colors
+  bgColor?: keyof typeof colors
 }
 
 //...
