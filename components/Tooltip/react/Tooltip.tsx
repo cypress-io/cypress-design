@@ -1,14 +1,14 @@
-import cs from 'clsx';
-import * as React from 'react';
-import type { FunctionComponent } from 'react';
-import clsx from 'clsx';
+import cs from 'clsx'
+import * as React from 'react'
+import type { FunctionComponent } from 'react'
+import clsx from 'clsx'
 
-const styles: Record<string, string> = {};
+const styles: Record<string, string> = {}
 
 export interface TooltipProps {
-  id: string;
-  label?: string;
-  className?: string;
+  id: string
+  label?: string
+  className?: string
 }
 
 export const Tooltip: FunctionComponent<TooltipProps> = ({
@@ -18,10 +18,10 @@ export const Tooltip: FunctionComponent<TooltipProps> = ({
 }) => {
   return (
     <div id={id} className={clsx('bg-jade-100', className)}>
-      <label>{ label }</label>
+      <label>{label}</label>
       Render Function for Tooltip
     </div>
-  );
-};
+  )
+}
 
-export default Tooltip;
+export default Tooltip
