@@ -18,5 +18,8 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@floating-ui/dom": "^0.5.1"
+  }
 }
