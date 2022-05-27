@@ -19,7 +19,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "clsx": "*"
+    "clsx": "*",
+    "@floating-ui/react-dom-interactions": "^0.6.1"
   },
   "license": "MIT"
 }
