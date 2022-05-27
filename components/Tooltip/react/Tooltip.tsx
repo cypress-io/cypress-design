@@ -31,7 +31,7 @@ const ROTATE_MAP = {
 
 export const Tooltip: React.FC<TooltipProps> = ({
   placement,
-  color,
+  color = 'light',
   className,
   children,
   popper,
@@ -97,7 +97,11 @@ export const Tooltip: React.FC<TooltipProps> = ({
             },
           })}
           className={clsx(
-            'bg-white rounded shadow shadow-gray-100 border border-gray-100 p-8px text-16px leading-24px min-w-160px text-center'
+            'rounded shadow border p-8px text-16px leading-24px min-w-160px text-center',
+            [
+              color === 'dark' && 'bg-gray-900 shadow-gray-800 border-gray-800',
+              color === 'light' && 'bg-white shadow-gray-100 border-gray-100',
+            ]
           )}
         >
           <svg
@@ -105,23 +109,24 @@ export const Tooltip: React.FC<TooltipProps> = ({
             viewBox="0 0 24 12"
             width="24"
             height="12"
-            className="absolute stroke-gray-100 fill-white"
+            className={clsx('absolute', {
+              'stroke-gray-800 fill-gray-900': color === 'dark',
+              'stroke-gray-100 fill-white': color === 'light',
+            })}
             style={{
               transform: `rotate(${arrowRotate}deg)`,
-              filter: `drop-shadow(0 -2px 1px rgba(225, 227, 237, .5))`,
+              filter:
+                placementSide === 'bottom'
+                  ? undefined
+                  : color === 'dark'
+                  ? 'drop-shadow(0 0 2px rgba(30, 30, 30, 1))'
+                  : 'drop-shadow(0 -1px 1px rgba(225, 227, 237, 1))',
               [arrowXRule]: `${arrowX ?? -17}px`,
               [arrowYRule]: `${arrowY ?? -11}px`,
             }}
             fill="none"
           >
-            <line
-              x1="0"
-              y1="11.5"
-              x2="22"
-              y2="11.5"
-              stroke="white"
-              stroke-width="2"
-            />
+            <rect x="0" y="10" width="24" height="2" strokeWidth="0" />
             <path d="M 0 10.5 C 6 10.5 9 3 12 3 C 15 3 18 10.5 24 10.5" />
           </svg>
           {popper}
