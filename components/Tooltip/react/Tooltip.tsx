@@ -23,10 +23,10 @@ export interface TooltipProps {
 }
 
 const ROTATE_MAP = {
-  top: 180,
-  right: 270,
-  bottom: 0,
-  left: 90,
+  bottom: 180,
+  left: 270,
+  top: 0,
+  right: 90,
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
@@ -106,7 +106,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         >
           <svg
             ref={arrowRef}
-            viewBox="0 0 24 12"
+            viewBox="0 0 48 24"
             width="24"
             height="12"
             className={clsx('absolute', {
@@ -120,14 +120,17 @@ export const Tooltip: React.FC<TooltipProps> = ({
                   ? undefined
                   : color === 'dark'
                   ? 'drop-shadow(0 0 2px rgba(30, 30, 30, 1))'
-                  : 'drop-shadow(0 -1px 1px rgba(225, 227, 237, 1))',
+                  : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
               [arrowXRule]: `${arrowX ?? -17}px`,
               [arrowYRule]: `${arrowY ?? -11}px`,
             }}
             fill="none"
           >
-            <rect x="0" y="10" width="24" height="2" strokeWidth="0" />
-            <path d="M 0 10.5 C 6 10.5 9 3 12 3 C 15 3 18 10.5 24 10.5" />
+            <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+            <path
+              d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+              stroke-width="2"
+            />
           </svg>
           {popper}
         </div>
