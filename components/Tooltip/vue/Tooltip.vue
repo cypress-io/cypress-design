@@ -5,16 +5,20 @@
     </div>
     <div role="tooltip" ref="tooltip"
       :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined"
-      class="absolute bg-white rounded shadow shadow-gray-100 border border-gray-100 p-8px text-16px leading-24px min-w-160px text-center"
-      :class="{
+      class="absolute rounded shadow border p-8px text-16px leading-24px min-w-160px text-center" :class="{
         'hidden group-hover:block': positionComputed,
-        '-top-10000px': !positionComputed
+        '-top-10000px': !positionComputed,
+        'bg-white border-gray-100 shadow-gray-100': props.color === 'light',
+        'bg-gray-900 shadow-gray-800 border-gray-800': props.color === 'dark',
       }">
-      <svg ref="arrowRef" viewBox="0 0 24 12" width="24" height="12" class="absolute stroke-gray-100 fill-white"
-        :style="`transform: rotate(${arrowRotate}deg); filter: drop-shadow(0 -2px 1px rgba(225, 227, 237, .5));${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
+      <svg ref="arrowRef" viewBox="0 0 48 24" width="24" height="12" class="absolute" :class="{
+        'stroke-gray-100 fill-white': props.color === 'light',
+        'stroke-gray-800 fill-gray-900': props.color === 'dark',
+      }"
+        :style="`transform: rotate(${arrowRotate}deg); filter: ${dropShadowFilter};${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
         fill="none">
-        <line x1="0" y1="11.5" x2="22" y2="11.5" stroke="white" stroke-width="2" />
-        <path d="M 0 10.5 C 6 10.5 9 3 12 3 C 15 3 18 10.5 24 10.5" />
+        <rect x=" 0" y="0" width="48" height="4" stroke-width="0" />
+        <path d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3" stroke-width="2" />
       </svg>
       <slot name="popper" />
     </div>
@@ -47,17 +51,14 @@ const arrowRotate = ref(0)
 const arrowXRule: Ref<'left' | 'right'> = ref('left')
 const arrowYRule: Ref<'top' | 'bottom'> = ref('top')
 const positionComputed = ref(false)
+const dropShadowFilter: Ref<string | undefined> = ref(undefined)
+const placementSideFinal = ref(props.placement)
 
 const ROTATE_MAP = {
-  top: 180,
-  right: 270,
-  bottom: 0,
-  left: 90
-}
-
-const COLOR_MAP = {
-  light: '#fff',
-  dark: '#000'
+  bottom: 180,
+  left: 270,
+  top: 0,
+  right: 90
 }
 
 async function placeTooltip() {
@@ -75,6 +76,12 @@ async function placeTooltip() {
   const placementSide = placement.split('-')[0] as Side
   arrowRotate.value = ROTATE_MAP[placementSide]
 
+  dropShadowFilter.value = placementSide === 'bottom'
+    ? undefined
+    : props.color === 'dark'
+      ? 'drop-shadow(0 0 2px rgba(30, 30, 30, 1))'
+      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
+
   if (arrowX && arrowY) {
     arrowLeft.value = arrowX
     arrowTop.value = arrowY
@@ -87,10 +94,11 @@ async function placeTooltip() {
     arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
   } else if (arrowY) {
     arrowTop.value = arrowY
-    arrowLeft.value = -11
+    arrowLeft.value = -17
     arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
     arrowYRule.value = 'top'
   }
   positionComputed.value = true
+  placementSideFinal.value = placementSide
 }
 </script>
