@@ -10,7 +10,12 @@ import { <%= h.inflection.camelize(name, false) %> } from './<%= h.inflection.ca
 
 <h1><%= h.inflection.camelize(name, false) %><span className="text-lg font-normal"> - v{version}</span></h1>
 
-<Meta title="<%= h.inflection.camelize(name, false) %>" component={<%= h.inflection.camelize(name, false) %>} />
+<Meta title="<%= h.inflection.camelize(name, false) %>" component={<%= h.inflection.camelize(name, false) %>} parameters={{
+    design: {
+      type: "figma",
+      url: null,
+    }
+  }}  />
 
 <Canvas withSource="none">
   <Story name="<%= h.inflection.camelize(name, false) %>">
