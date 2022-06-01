@@ -62,7 +62,7 @@ const ROTATE_MAP = {
   left: 270,
   top: 0,
   right: 90
-}
+} as const
 
 async function placeTooltip() {
   if (!reference.value || !tooltip.value || !arrowRef.value) return
@@ -79,11 +79,9 @@ async function placeTooltip() {
   const placementSide = placement.split('-')[0] as Side
   arrowRotate.value = ROTATE_MAP[placementSide]
 
-  dropShadowFilter.value = placementSide === 'bottom'
+  dropShadowFilter.value = placementSide === 'bottom' || props.color === 'dark'
     ? undefined
-    : props.color === 'dark'
-      ? 'drop-shadow(0 0 2px rgba(30, 30, 30, 1))'
-      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
+    : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
 
   if (arrowX && arrowY) {
     arrowLeft.value = arrowX

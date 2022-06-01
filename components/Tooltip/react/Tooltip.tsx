@@ -125,10 +125,8 @@ export const Tooltip: React.FC<TooltipProps> = ({
               style={{
                 transform: `rotate(${arrowRotate}deg)`,
                 filter:
-                  placementSide === 'bottom'
+                  placementSide === 'bottom' || color === 'dark'
                     ? undefined
-                    : color === 'dark'
-                    ? 'drop-shadow(0 0 2px rgba(30, 30, 30, 1))'
                     : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
                 [arrowXRule]: `${arrowX ?? 0}px`,
                 [arrowYRule]: `${arrowY ?? 6}px`,
