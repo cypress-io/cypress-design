@@ -12,13 +12,11 @@ export interface <%= h.inflection.camelize(name, false) %>Props {
   className?: string
 }
 
-export const <%= h.inflection.camelize(name, false) %>: React.FC<<%= h.inflection.camelize(name, false) %>Props> = ({
-  id,
-  label,
-  className,
-}) => {
+export const <%= h.inflection.camelize(name, false) %>: React.FC<
+  <%= h.inflection.camelize(name, false) %>Props & React.HTMLProps<HTMLDivElement>
+> = ({ id, label, className, ...rest }) => {
   return (
-    <div id={id} className={clsx('bg-jade-100', className)}>
+    <div {...rest} id={id} className={clsx('bg-jade-100', className)}>
       <label>{label}</label>
       Render Function for <%= h.inflection.camelize(name, false) %>
     </div>
