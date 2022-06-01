@@ -11,13 +11,13 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.ca
 <script lang="ts" setup>
 withDefaults(
   defineProps<{
-    id: string;
-    label?: string;
-    class?: string;
+    id: string
+    label?: string
+    class?: string
   }>(),
   {
     label: undefined,
     class: undefined,
   }
-);
+)
 </script>

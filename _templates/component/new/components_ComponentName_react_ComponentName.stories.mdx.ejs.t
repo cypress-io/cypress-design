@@ -4,7 +4,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.
 import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
 import { version } from "./package.json"
 import changelog from "./CHANGELOG.md"
-import <%= h.inflection.camelize(name, false) %>Story from './<%= h.inflection.camelize(name, false) %>.rootstory';
+import <%= h.inflection.camelize(name, false) %>Story from './<%= h.inflection.camelize(name, false) %>.rootstory'
 
 import { <%= h.inflection.camelize(name, false) %> } from './<%= h.inflection.camelize(name, false) %>'
 
