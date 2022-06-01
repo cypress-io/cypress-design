@@ -16,7 +16,7 @@ import <%= h.inflection.camelize(name, false) %>Story from './<%= h.inflection.c
       type: "figma",
       url: null,
     }
-  }}  />
+  }} />
 
 <Canvas withSource="none">
   <Story name="<%= h.inflection.camelize(name, false) %>">
