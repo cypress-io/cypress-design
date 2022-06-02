@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import {
   Placement,
   offset,

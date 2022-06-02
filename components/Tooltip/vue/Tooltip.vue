@@ -1,37 +1,38 @@
 <template>
-  <div class="group" @focus="placeTooltip">
-    <div ref="reference" @mouseover="placeTooltip">
-      <slot />
-    </div>
-    <div role="tooltip" ref="tooltip"
-      :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined" class="absolute p-16px"
-      :class="{
-        'hidden group-hover:block group-focus:block': positionComputed,
-        '-top-10000px invisible': !positionComputed,
-      }">
-      <div class="rounded shadow border p-8px text-16px leading-24px min-w-160px text-center" :class="{
-        'bg-white border-gray-100 shadow-gray-100': props.color === 'light',
-        'bg-gray-900 shadow-gray-800 border-gray-800': props.color === 'dark',
-      }">
-        <svg ref="arrowRef" viewBox="0 0 48 24" width="24" height="12" class="absolute" :class="{
-          'stroke-gray-100 fill-white': props.color === 'light',
-          'stroke-gray-800 fill-gray-900': props.color === 'dark',
-        }"
-          :style="`transform: rotate(${arrowRotate}deg); filter: ${dropShadowFilter};${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
-          fill="none">
-          <rect x=" 0" y="0" width="48" height="4" stroke-width="0" />
-          <path d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3" stroke-width="2" />
-        </svg>
-        <slot name="popper" />
+  <div class="group" ref="reference" @mouseover="placeTooltip" @focus="placeTooltip" @blur="show = false"
+    @mouseout="show = false">
+    <slot />
+    <teleport to="#portal-target">
+      <div @mouseover="tooltipHovered = true" @mouseout="tooltipHovered = false" role="tooltip" ref="tooltip"
+        :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined"
+        class="absolute p-16px" :class="{
+          'invisible': positionComputed && !show && !tooltipHovered,
+          '-top-10000px invisible': !positionComputed,
+        }">
+        <div class="rounded shadow border p-8px text-16px leading-24px min-w-160px text-center" :class="{
+          'bg-white border-gray-100 shadow-gray-100': props.color === 'light',
+          'bg-gray-900 shadow-gray-800 border-gray-800': props.color === 'dark',
+        }">
+          <svg ref="arrowRef" viewBox="0 0 48 24" width="24" height="12" class="absolute" :class="{
+            'stroke-gray-100 fill-white': props.color === 'light',
+            'stroke-gray-800 fill-gray-900': props.color === 'dark',
+          }"
+            :style="`transform: rotate(${arrowRotate}deg); filter: ${dropShadowFilter};${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
+            fill="none">
+            <rect x=" 0" y="0" width="48" height="4" stroke-width="0" />
+            <path d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3" stroke-width="2" />
+          </svg>
+          <slot name="popper" />
+        </div>
       </div>
-    </div>
+    </teleport>
   </div>
 </template>
 
 <script lang="ts" setup>
 import type { Placement, Side } from '@floating-ui/dom';
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom';
-import { ref, type Ref } from 'vue';
+import { ref, type Ref, onBeforeMount } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -39,10 +40,11 @@ const props = withDefaults(
     color?: 'light' | 'dark'
   }>(),
   {
-    color: 'light'
+    color: 'light',
   }
 )
 
+const portalTarget: Ref<HTMLElement | null> = ref(null)
 const reference: Ref<HTMLElement | null> = ref(null)
 const tooltip: Ref<HTMLElement | null> = ref(null)
 const arrowRef: Ref<HTMLElement | null> = ref(null)
@@ -56,6 +58,8 @@ const arrowYRule: Ref<'top' | 'bottom'> = ref('top')
 const positionComputed = ref(false)
 const dropShadowFilter: Ref<string | undefined> = ref(undefined)
 const placementSideFinal = ref(props.placement)
+const show = ref(false)
+const tooltipHovered = ref(false)
 
 const ROTATE_MAP = {
   bottom: 180,
@@ -64,13 +68,27 @@ const ROTATE_MAP = {
   right: 90
 } as const
 
+onBeforeMount(async () => {
+  await getTarget()
+})
+
+async function getTarget() {
+  let portalTargetLocal = document.getElementById("portal-target")
+  if (!portalTargetLocal) {
+    portalTargetLocal = document.createElement("div");
+    portalTargetLocal.id = "portal-target";
+    document.body.appendChild(portalTargetLocal)
+  }
+  portalTarget.value = portalTargetLocal
+}
+
 async function placeTooltip() {
   if (!reference.value || !tooltip.value || !arrowRef.value) return
   const { x, y, placement, middlewareData: { arrow: { x: arrowX, y: arrowY } = {} }, } = await computePosition(reference.value, tooltip.value, {
     placement: props.placement,
     middleware: [
       flip(),
-      offset(16),
+      offset(0),
       arrow({ element: arrowRef.value, padding: 8 })
     ],
   })
@@ -101,5 +119,7 @@ async function placeTooltip() {
   }
   positionComputed.value = true
   placementSideFinal.value = placementSide
+
+  show.value = true
 }
 </script>
