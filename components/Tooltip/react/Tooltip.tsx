@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import * as React from 'react'
+import * as ReactDOM from 'react-dom'
 import {
   Placement,
   offset,
@@ -13,6 +14,7 @@ import {
   useRole,
   useDismiss,
   safePolygon,
+  FloatingPortal,
 } from '@floating-ui/react-dom-interactions'
 
 export interface TooltipProps {
@@ -36,6 +38,19 @@ export const Tooltip: React.FC<
 > = ({ placement, color = 'light', className, children, popper, ...rest }) => {
   const arrowRef = React.useRef(null)
   const [open, setOpen] = React.useState(false)
+
+  const [container] = React.useState(() => {
+    // This will be executed only on the initial render
+    // https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
+    return document.createElement('div')
+  })
+
+  React.useEffect(() => {
+    document.body.appendChild(container)
+    return () => {
+      document.body.removeChild(container)
+    }
+  }, [])
 
   const {
     x,
@@ -92,59 +107,63 @@ export const Tooltip: React.FC<
       >
         {children}
       </div>
-      {open && (
-        <div
-          {...getFloatingProps({
-            ref: floating,
-            className: 'Tooltip',
-            style: {
-              position: strategy,
-              top: y ?? '',
-              left: x ?? '',
-              padding: '16px',
-            },
-          })}
-        >
+      <FloatingPortal>
+        {open && (
           <div
-            className={clsx(
-              'rounded shadow border p-8px text-16px leading-24px min-w-160px text-center',
-              [
-                color === 'dark' &&
-                  'bg-gray-900 shadow-gray-800 border-gray-800',
-                color === 'light' && 'bg-white shadow-gray-100 border-gray-100',
-              ]
-            )}
+            {...getFloatingProps({
+              ref: floating,
+              className: 'Tooltip',
+              style: {
+                position: strategy,
+                top: y ?? '',
+                left: x ?? '',
+                padding: '16px',
+              },
+            })}
           >
-            <svg
-              ref={arrowRef}
-              viewBox="0 0 48 24"
-              width="24"
-              height="12"
-              className={clsx('absolute', {
-                'stroke-gray-800 fill-gray-900': color === 'dark',
-                'stroke-gray-100 fill-white': color === 'light',
-              })}
-              style={{
-                transform: `rotate(${arrowRotate}deg)`,
-                filter:
-                  placementSide === 'bottom' || color === 'dark'
-                    ? undefined
-                    : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                [arrowXRule]: `${arrowX ?? 0}px`,
-                [arrowYRule]: `${arrowY ?? 6}px`,
-              }}
-              fill="none"
+            <div
+              className={clsx(
+                'rounded shadow border p-8px text-16px leading-24px min-w-160px text-center',
+                [
+                  color === 'dark' &&
+                    'bg-gray-900 shadow-gray-800 border-gray-800',
+                  color === 'light' &&
+                    'bg-white shadow-gray-100 border-gray-100',
+                  (!x || !y) && 'invisible',
+                ]
+              )}
             >
-              <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
-              <path
-                d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-                stroke-width="2"
-              />
-            </svg>
-            {popper}
+              <svg
+                ref={arrowRef}
+                viewBox="0 0 48 24"
+                width="24"
+                height="12"
+                className={clsx('absolute', [
+                  color === 'dark' && 'stroke-gray-800 fill-gray-900',
+                  color === 'light' && 'stroke-gray-100 fill-white',
+                ])}
+                style={{
+                  transform: `rotate(${arrowRotate}deg)`,
+                  filter:
+                    placementSide === 'bottom' || color === 'dark'
+                      ? undefined
+                      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
+                  [arrowXRule]: `${arrowX ?? 0}px`,
+                  [arrowYRule]: `${arrowY ?? 6}px`,
+                }}
+                fill="none"
+              >
+                <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+                <path
+                  d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+                  stroke-width="2"
+                />
+              </svg>
+              {popper}
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </FloatingPortal>
     </>
   )
 }

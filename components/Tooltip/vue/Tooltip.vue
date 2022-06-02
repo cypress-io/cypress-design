@@ -1,13 +1,13 @@
 <template>
-  <div class="group">
+  <div class="group" @focus="placeTooltip">
     <div ref="reference" @mouseover="placeTooltip">
       <slot />
     </div>
     <div role="tooltip" ref="tooltip"
       :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined" class="absolute p-16px"
       :class="{
-        'hidden group-hover:block': positionComputed,
-        '-top-10000px': !positionComputed,
+        'hidden group-hover:block group-focus:block': positionComputed,
+        '-top-10000px invisible': !positionComputed,
       }">
       <div class="rounded shadow border p-8px text-16px leading-24px min-w-160px text-center" :class="{
         'bg-white border-gray-100 shadow-gray-100': props.color === 'light',
