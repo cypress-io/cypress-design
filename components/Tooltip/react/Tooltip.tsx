@@ -19,6 +19,7 @@ export interface TooltipProps {
   placement?: Placement
   color?: 'light' | 'dark'
   className?: string
+  tabIndex?: number | string
   children?: React.ReactNode
   popper?: React.ReactNode
 }
@@ -30,13 +31,9 @@ const ROTATE_MAP = {
   right: 90,
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({
-  placement,
-  color = 'light',
-  className,
-  children,
-  popper,
-}) => {
+export const Tooltip: React.FC<
+  TooltipProps & React.HTMLProps<HTMLDivElement>
+> = ({ placement, color = 'light', className, children, popper, ...rest }) => {
   const arrowRef = React.useRef(null)
   const [open, setOpen] = React.useState(false)
 
@@ -87,7 +84,12 @@ export const Tooltip: React.FC<TooltipProps> = ({
 
   return (
     <>
-      <div {...getReferenceProps()} ref={reference} className={className}>
+      <div
+        {...getReferenceProps()}
+        ref={reference}
+        className={className}
+        {...rest}
+      >
         {children}
       </div>
       {open && (
