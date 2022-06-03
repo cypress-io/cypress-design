@@ -9,15 +9,16 @@ export interface CheckboxProps
   onChange: () => void
   state?: 'success' | 'danger' | 'default'
   label?: ReactNode
+  disabled?: boolean
 }
 
-// TODO: how do you disable it? does it work?
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id = crypto.randomUUID(),
   modelValue,
   onChange,
   state = 'default',
   label,
+  disabled,
   ...rest
 }) => {
   return (
@@ -46,6 +47,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
               : ''
           }`}
           onChange={onChange}
+          disabled={disabled}
         />
       </div>
       <div className="ml-2 text-16px leading-normal">
