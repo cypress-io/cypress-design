@@ -6,10 +6,11 @@ type CheckboxColor = 'red' | 'indigo' | 'jade'
 const props = withDefaults(
   defineProps<{
     id?: string
-    modelValue: boolean
+    modelValue?: boolean
     color?: CheckboxColor
     label?: string
     disabled?: boolean
+    checked?: boolean
   }>(),
   {
     id: crypto.randomUUID(),

@@ -6,7 +6,7 @@ import { IconCheckmarkSmall } from '@cypress-design/react-icon'
 export interface CheckboxProps
   extends Omit<HTMLProps<HTMLLabelElement>, 'label' | 'onChange'> {
   id?: string
-  modelValue: boolean
+  checked: boolean
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   color?: 'indigo' | 'red' | 'jade'
   label?: ReactNode
@@ -15,17 +15,17 @@ export interface CheckboxProps
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id = crypto.randomUUID(),
-  modelValue,
+  checked = false,
   onChange,
   color = 'indigo',
   label,
   disabled,
   ...rest
 }) => {
-  const [checked, setChecked] = React.useState(modelValue)
+  const [localChecked, setChecked] = React.useState(checked)
 
   function onChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setChecked(!checked)
+    setChecked(!localChecked)
     onChange(event)
   }
 
@@ -42,14 +42,14 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         type="checkbox"
         onChange={onChangeInput}
         disabled={disabled}
-        checked={modelValue}
+        checked={localChecked}
       />
       <span
         className={clsx([
           `block border-1 rounded h-16px w-16px flex items-center text-white`,
           disabled
             ? 'border-gray-200 bg-gray-100'
-            : checked
+            : localChecked
             ? {
                 'border-indigo-500 bg-indigo-400': color === 'indigo',
                 'border-jade-500 bg-jade-400': color === 'jade',
@@ -58,7 +58,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
             : 'border-gray-200 bg-white',
         ])}
       >
-        {checked && (
+        {localChecked && (
           <IconCheckmarkSmall strokeColor="white" className="-m-1px" />
         )}
       </span>
