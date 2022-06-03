@@ -1,59 +1,61 @@
-<template>
-  <div class="relative flex items-center">
-    <div class="flex items-center h-5">
-      <input
-        :id="id"
-        :checked="modelValue"
-        :aria-describedby="`${id}-description`"
-        :name="id"
-        type="checkbox"
-        class="border-1 rounded border-gray-200 bg-white h-4 w-4 text-indigo-500 disabled:bg-gray-100 checked:bg-indigo-500"
-        :class="{
-          'text-indigo-500 checked:border-indigo-300 checked:bg-indigo-600 checked:text-indigo-600':
-            state === 'default',
-          'checked:border-jade-300 checked:bg-jade-600 checked:text-jade-600':
-            state === 'success',
-          'checked:border-red-300 checked:bg-red-600 checked:text-red-600':
-            state === 'danger',
-        }"
-        @click="updated()"
-      />
-    </div>
-    <div class="ml-2 text-16px leading-normal">
-      <slot name="label">
-        <label
-          v-if="label"
-          :for="id"
-          class="disabled:text-gray-500 text-gray-800 font-light select-none"
-        >
-          {{ label }}
-        </label>
-      </slot>
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
-type InputState = 'success' | 'danger' | 'default'
+import { ref, computed } from 'vue'
+import { IconCheckmarkSmall } from '@cypress-design/vue-icon'
+type CheckboxColor = 'red' | 'indigo' | 'jade'
 
 const props = withDefaults(
   defineProps<{
-    id: string
+    id?: string
     modelValue: boolean
-    state?: InputState
+    color?: CheckboxColor
     label?: string
+    disabled?: boolean
   }>(),
   {
-    state: 'default',
-    label: undefined,
+    id: crypto.randomUUID(),
+    color: 'indigo',
   }
 )
+
+const checked = ref(props.modelValue)
 
 const emit = defineEmits<{
   (event: 'update:modelValue', value: boolean): void
 }>()
 
 function updated() {
-  emit('update:modelValue', !props.modelValue)
+  checked.value = !checked.value
+  emit('update:modelValue', !checked.value)
 }
+
+const checkboxClasses = computed(() => [
+  'block border-1 rounded h-16px w-16px flex items-center text-white',
+  props.disabled
+    ? 'border-gray-200 bg-gray-100'
+    : checked.value
+      ? {
+        'border-indigo-500 bg-indigo-400': props.color === 'indigo',
+        'border-jade-500 bg-jade-400': props.color === 'jade',
+        'border-red-500 bg-red-400': props.color === 'red',
+      }
+      : 'border-gray-200 bg-white']
+)
+
 </script>
+
+<template>
+  <label class="relative flex items-center">
+
+    <input :id="id" class="absolute inset-0 w-0 h-0 opacity-0" :name="id" type="checkbox" @change="updated"
+      :disabled="props.disabled" :checked="modelValue" />
+    <span :class="checkboxClasses">
+      <IconCheckmarkSmall v-if="checked" strokeColor="white" class="-m-1px" />
+    </span>
+    <slot name="label">
+      <span v-if="label"
+        :class="['block ml-2 text-16px leading-normal font-light select-none', disabled ? 'text-gray-500' : 'text-gray-800']">
+        {{ label }}
+      </span>
+    </slot>
+  </label>
+</template>

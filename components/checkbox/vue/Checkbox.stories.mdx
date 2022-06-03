@@ -1,14 +1,15 @@
 import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
 import { version } from "./package.json"
-import changelog from "./CHANGELOG.md"
+import changelog from "./CHANGELOG.md?raw"
 
-import { Checkbox } from './Checkbox'
+import Checkbox from './Checkbox.vue'
 
 <h1>Checkbox<span className="text-lg font-normal"> - v{version}</span></h1>
 
 <Meta title="Checkbox" component={Checkbox}
   argTypes={{
     color: {
+      options: ['indigo', 'red', 'jade'],
       control: {
         type: 'select',
       },
@@ -23,16 +24,21 @@ import { Checkbox } from './Checkbox'
 
 <Canvas>
   <Story name="Checkbox">
-    {args => 
-    (<>
-      <Checkbox  {...args} modelValue={true} label="Checked"  />
-      <br />
-      <Checkbox  {...args} modelValue={false} label="Unchecked" />
-      <br />
-      <Checkbox  {...args} modelValue={true} disabled label="Disabled & checked" />
-      <br />
-      <Checkbox  {...args} modelValue={false} disabled label="Disabled & unchecked" />
-    </>)}
+    {({ color }) => ({ 
+      template: `
+        <Checkbox :modelValue="true" label="Checked" :color="color"/>
+        <br />
+        <Checkbox :modelValue="false" label="Unchecked" :color="color"/>
+        <br />
+        <Checkbox :modelValue="true" disabled label="Disabled & checked" :color="color"/>
+        <br />
+        <Checkbox :modelValue="false" disabled label="Disabled & unchecked" :color="color"/>
+      `,
+      components: { Checkbox },
+      data: () => ({
+        color
+      })
+    })}
   </Story>
 </Canvas>
 
