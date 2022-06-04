@@ -5,6 +5,7 @@ import { Checkbox } from './Checkbox'
 describe('Checkbox', () => {
   it('renders', () => {
     let isChecked = true
+    debugger
 
     mount(
       <Checkbox
