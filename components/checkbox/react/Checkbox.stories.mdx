@@ -21,7 +21,7 @@ import { Checkbox } from './Checkbox'
     }
   }} />
 
-<Canvas>
+<Canvas withSource="none">
   <Story name="Checkbox">
     {args => 
     (<>
@@ -37,6 +37,30 @@ import { Checkbox } from './Checkbox'
 </Canvas>
 
 <ArgsTable />
+
+## Usage
+
+Install the component
+
+```
+yarn add @cypress-design/react-checkbox
+```
+
+In the script, import the component
+
+```js
+import Checkbox from '@cypress-design/react-checkbox'
+```
+
+then in your render function, use it
+
+```jsx
+export const MyComp = () => {
+  return (<div>
+    <Checkbox checked={checked} label="Checked" color="indigo" onChange={setChecked}/>
+  </div>)
+}
+```
 
 <Description>
   {changelog.replace(/^# .+/, '## Changelog')}

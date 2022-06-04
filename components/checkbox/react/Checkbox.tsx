@@ -44,6 +44,9 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         disabled={disabled}
         checked={localChecked}
       />
+      {localChecked && (
+        <IconCheckmarkSmall strokeColor="white" className="absolute" />
+      )}
       <span
         className={clsx([
           `block border-1 rounded h-16px w-16px flex items-center text-white`,
@@ -57,11 +60,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
               }
             : 'border-gray-200 bg-white',
         ])}
-      >
-        {localChecked && (
-          <IconCheckmarkSmall strokeColor="white" className="-m-1px" />
-        )}
-      </span>
+      />
       {label && (
         <span
           className={clsx([
