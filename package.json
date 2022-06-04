@@ -30,7 +30,7 @@
     "storybook:vue": "yarn workspace storybook-vue start --no-open",
     "build:css": "yarn workspace @cypress-design/css build",
     "build:icons": "yarn workspace @cypress-design/icon-registry build && yarn workspace @cypress-design/react-icon build:codegen && yarn workspace @cypress-design/vue-icon build:codegen",
-    "postinstall": "yarn build:css && yarn build:icons",
+    "postinstall": "husky install && yarn build:css && yarn build:icons",
     "new:component": "hygen component new"
   },
   "devDependencies": {
@@ -53,6 +53,7 @@
     "eslint": "^8.17.0",
     "eslint-plugin-no-only-tests": "^2.6.0",
     "execa": "^6.1.0",
+    "husky": "^8.0.1",
     "hygen": "^6.2.0",
     "lint-staged": ">=10",
     "prettier": "^2.6.2",
@@ -60,8 +61,7 @@
     "typescript": "~4.6.3",
     "vite": "^2.9.1",
     "vue-eslint-parser": "^9.0.2",
-    "vue-tsc": "^0.33.9",
-    "yorkie": "^2.0.0"
+    "vue-tsc": "^0.33.9"
   },
   "lint-staged": {
     "*.{js,ts,jsx,tsx,vue}": "eslint --cache --fix",
