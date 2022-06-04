@@ -6,18 +6,45 @@ import Checkbox from './Checkbox.vue'
 
 describe('<Checkbox />', () => {
   it('renders', () => {
-    const value = ref(true)
+    mount(() => {
+      return (
+        <Checkbox
+          label="Welcome guide settings"
+          id="welcome-opt-out"
+          checked
+          class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+        />
+      )
+    })
 
-    mount(() => (
-      <Checkbox
-        label="Welcome guide settings"
-        id="welcome-opt-out"
-        modelValue={value.value}
-      >
-        <span class="text-gray-800 font-light">
-          Show the welcome guide when opening Cypress.
-        </span>
-      </Checkbox>
-    ))
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('Welcome guide settings').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+  })
+
+  it('renders vModel', () => {
+    const isChecked = ref(false)
+    mount(() => {
+      return (
+        <div>
+          <Checkbox
+            label="Welcome guide settings"
+            vModel={isChecked.value}
+            class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+          />
+          <div
+            class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+            data-cy="result"
+          >
+            isChecked = {isChecked.value.toString()}
+          </div>
+        </div>
+      )
+    })
+
+    cy.get('[data-cy="result"]').should('contain', 'isChecked = false')
+    cy.contains('Welcome guide settings').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.get('[data-cy="result"]').should('contain', 'isChecked = true')
   })
 })

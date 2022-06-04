@@ -18,22 +18,22 @@ const props = withDefaults(
   }
 )
 
-const checked = ref(props.modelValue)
+const localChecked = ref(props.modelValue || props.checked)
 
 const emit = defineEmits<{
   (event: 'update:modelValue', value: boolean): void
 }>()
 
 function updated() {
-  checked.value = !checked.value
-  emit('update:modelValue', !checked.value)
+  localChecked.value = !localChecked.value
+  emit('update:modelValue', localChecked.value)
 }
 
 const checkboxClasses = computed(() => [
   'block border-1 rounded h-16px w-16px flex items-center text-white',
   props.disabled
     ? 'border-gray-200 bg-gray-100'
-    : checked.value
+    : localChecked.value
       ? {
         'border-indigo-500 bg-indigo-400': props.color === 'indigo',
         'border-jade-500 bg-jade-400': props.color === 'jade',
@@ -46,11 +46,10 @@ const checkboxClasses = computed(() => [
 
 <template>
   <label class="relative flex items-center">
-
     <input :id="id" class="absolute inset-0 w-0 h-0 opacity-0" :name="id" type="checkbox" @change="updated"
-      :disabled="props.disabled" :checked="modelValue" />
+      :disabled="props.disabled" :checked="localChecked" />
     <span :class="checkboxClasses">
-      <IconCheckmarkSmall v-if="checked" strokeColor="white" class="-m-1px" />
+      <IconCheckmarkSmall v-if="localChecked" strokeColor="white" class="-m-1px" />
     </span>
     <slot name="label">
       <span v-if="label"

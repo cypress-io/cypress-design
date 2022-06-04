@@ -26,13 +26,13 @@ import Checkbox from './Checkbox.vue'
   <Story name="Checkbox">
     {({ color }) => ({ 
       template: `
-        <Checkbox :modelValue="true" label="Checked" :color="color"/>
+        <Checkbox checked label="Checked" :color="color"/>
         <br />
-        <Checkbox :modelValue="false" label="Unchecked" :color="color"/>
+        <Checkbox label="Unchecked" :color="color"/>
         <br />
-        <Checkbox :modelValue="true" disabled label="Disabled & checked" :color="color"/>
+        <Checkbox chedked disabled label="Disabled & checked" :color="color"/>
         <br />
-        <Checkbox :modelValue="false" disabled label="Disabled & unchecked" :color="color"/>
+        <Checkbox disabled label="Disabled & unchecked" :color="color"/>
       `,
       components: { Checkbox },
       data: () => ({
