@@ -30,10 +30,10 @@
     "storybook:vue": "yarn workspace storybook-vue start --no-open",
     "build:css": "yarn workspace @cypress-design/css build",
     "build:icons": "yarn workspace @cypress-design/icon-registry build && yarn workspace @cypress-design/react-icon build:codegen && yarn workspace @cypress-design/vue-icon build:codegen",
-    "postinstall": "husky install && yarn build:css && yarn build:icons",
+    "postinstall": "yarn husky install && yarn build:css && yarn build:icons",
     "new:component": "hygen component new"
   },
-  "devDependencies": {
+  "dependencies": {
     "@changesets/changelog-github": "^0.4.4",
     "@changesets/cli": "^2.22.0",
     "@cypress/vite-dev-server": "^2.2.2",
