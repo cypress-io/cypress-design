@@ -19,7 +19,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
     return acc
   }, {})
   return dedent`
-  export const Icon${pascalCaseName} = (props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
+  export const Icon${pascalCaseName} = (props: SVGAttributes & Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
     const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ ...(props as any), availableSizes: ${JSON.stringify(
       iconMetadata.availableSizes
     )} })
@@ -45,7 +45,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 writeFile(`
 import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties } from './Icon'
-import { h } from 'vue'
+import { h, type SVGAttributes } from 'vue'
 
 ${iconsComponents.join('\n\n\n')}
 `)
