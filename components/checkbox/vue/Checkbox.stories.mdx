@@ -22,7 +22,7 @@ import Checkbox from './Checkbox.vue'
     }
   }} />
 
-<Canvas>
+<Canvas withSource="none">
   <Story name="Checkbox">
     {({ color }) => ({ 
       template: `
@@ -43,6 +43,32 @@ import Checkbox from './Checkbox.vue'
 </Canvas>
 
 <ArgsTable />
+
+## Usage
+
+Install the component
+
+```
+yarn add @cypress-design/vue-checkbox
+```
+
+In the script, import the component
+
+```js
+import Checkbox from '@cypress-design/vue-checkbox'
+```
+
+then in the template, use it
+
+```html
+<Checkbox checked label="Checked" color="indigo"/>
+```
+
+or with the v-model
+
+```html
+<Checkbox v-model="checked" label="Checked" color="indigo"/>
+```
 
 <Description>
   {changelog.replace(/^# .+/, '## Changelog')}

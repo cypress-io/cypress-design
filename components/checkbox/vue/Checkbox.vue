@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { IconCheckmarkSmall } from '@cypress-design/vue-icon'
+
+
 type CheckboxColor = 'red' | 'indigo' | 'jade'
 
 const props = withDefaults(
@@ -30,7 +32,7 @@ function updated() {
 }
 
 const checkboxClasses = computed(() => [
-  'block border-1 rounded h-16px w-16px flex items-center text-white',
+  'block border-1 rounded h-16px w-16px',
   props.disabled
     ? 'border-gray-200 bg-gray-100'
     : localChecked.value
@@ -48,9 +50,8 @@ const checkboxClasses = computed(() => [
   <label class="relative flex items-center">
     <input :id="id" class="absolute inset-0 w-0 h-0 opacity-0" :name="id" type="checkbox" @change="updated"
       :disabled="props.disabled" :checked="localChecked" />
-    <span :class="checkboxClasses">
-      <IconCheckmarkSmall v-if="localChecked" strokeColor="white" class="-m-1px" />
-    </span>
+    <IconCheckmarkSmall v-if="localChecked" strokeColor="white" class="absolute" />
+    <span :class="checkboxClasses" />
     <slot name="label">
       <span v-if="label"
         :class="['block ml-2 text-16px leading-normal font-light select-none', disabled ? 'text-gray-500' : 'text-gray-800']">
