@@ -13,7 +13,7 @@
           'bg-white border-gray-100 shadow-gray-100': props.color === 'light',
           'bg-gray-900 shadow-gray-800 border-gray-800': props.color === 'dark',
         }">
-          <svg ref="arrowRef" viewBox="0 0 48 24" width="24" height="12" class="absolute" :class="{
+          <svg ref="arrowRef" viewBox="0 0 48 48" width="24" height="24" class="absolute" :class="{
             'stroke-gray-100 fill-white': props.color === 'light',
             'stroke-gray-800 fill-gray-900': props.color === 'dark',
           }"
@@ -89,7 +89,7 @@ async function placeTooltip() {
     middleware: [
       flip(),
       offset(0),
-      arrow({ element: arrowRef.value, padding: 8 })
+      arrow({ element: arrowRef.value, padding: 24 })
     ],
   })
   left.value = x
@@ -108,12 +108,12 @@ async function placeTooltip() {
     arrowYRule.value = 'top'
   } else if (arrowX) {
     arrowLeft.value = arrowX
-    arrowTop.value = 6
+    arrowTop.value = -6
     arrowXRule.value = 'left'
     arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
   } else if (arrowY) {
     arrowTop.value = arrowY
-    arrowLeft.value = 0
+    arrowLeft.value = -6
     arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
     arrowYRule.value = 'top'
   }

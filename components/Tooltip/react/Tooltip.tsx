@@ -64,7 +64,7 @@ export const Tooltip: React.FC<
     placement,
     open,
     onOpenChange: setOpen,
-    middleware: [flip(), offset(0), arrow({ element: arrowRef, padding: 8 })],
+    middleware: [flip(), offset(0), arrow({ element: arrowRef, padding: 24 })],
     whileElementsMounted: autoUpdate,
   })
 
@@ -120,6 +120,32 @@ export const Tooltip: React.FC<
               },
             })}
           >
+            <svg
+              ref={arrowRef}
+              viewBox="0 0 48 48"
+              width="24"
+              height="24"
+              className={clsx('absolute', [
+                color === 'dark' && 'stroke-gray-800 fill-gray-900',
+                color === 'light' && 'stroke-gray-100 fill-white',
+              ])}
+              style={{
+                transform: `rotate(${arrowRotate}deg)`,
+                filter:
+                  placementSide === 'bottom' || color === 'dark'
+                    ? undefined
+                    : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
+                [arrowXRule]: `${arrowX ?? -6}px`,
+                [arrowYRule]: `${arrowY ?? -6}px`,
+              }}
+              fill="none"
+            >
+              <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+              <path
+                d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+                stroke-width="2"
+              />
+            </svg>
             <div
               className={clsx(
                 'rounded shadow border p-8px text-16px leading-24px min-w-160px text-center',
@@ -132,32 +158,6 @@ export const Tooltip: React.FC<
                 ]
               )}
             >
-              <svg
-                ref={arrowRef}
-                viewBox="0 0 48 24"
-                width="24"
-                height="12"
-                className={clsx('absolute', [
-                  color === 'dark' && 'stroke-gray-800 fill-gray-900',
-                  color === 'light' && 'stroke-gray-100 fill-white',
-                ])}
-                style={{
-                  transform: `rotate(${arrowRotate}deg)`,
-                  filter:
-                    placementSide === 'bottom' || color === 'dark'
-                      ? undefined
-                      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                  [arrowXRule]: `${arrowX ?? 0}px`,
-                  [arrowYRule]: `${arrowY ?? 6}px`,
-                }}
-                fill="none"
-              >
-                <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
-                <path
-                  d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-                  stroke-width="2"
-                />
-              </svg>
               {popper}
             </div>
           </div>
