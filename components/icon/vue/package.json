@@ -24,7 +24,9 @@
   },
   "devDependencies": {
     "camelcase": "^6.3.0",
-    "dedent": "^0.7.0"
+    "dedent": "^0.7.0",
+    "vite": "*",
+    "vue-tsc": "*"
   },
   "license": "MIT"
 }

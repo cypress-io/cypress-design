@@ -18,5 +18,9 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
+  "devDependencies": {
+    "vite": "*",
+    "vue-tsc": "*"
+  },
   "license": "MIT"
 }

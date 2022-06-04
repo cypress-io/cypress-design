@@ -6,7 +6,6 @@
   "repository": "https://github.com/cypress-io/design-system.git",
   "author": "Bart Ledoux <ledouxb@gmail.com>",
   "license": "MIT",
-  "private": true,
   "workspaces": [
     "components/*/react",
     "components/*/vue",
@@ -23,7 +22,7 @@
     "build:storybook:react": "yarn workspace storybook-react build",
     "build:storybook:vue": "yarn workspace storybook-vue build",
     "fix:storybook:order": "node ./storybook/fixStoriesOrder.js",
-    "build:components": "node components/build-components.js",
+    "build:components": "yarn workspaces foreach --no-private -pvt run build",
     "start": "concurrently yarn:storybook:*",
     "storybook:intro": "yarn workspace storybook start",
     "storybook:react": "yarn workspace storybook-react start --no-open",
