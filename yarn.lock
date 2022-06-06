@@ -1977,6 +1977,9 @@ __metadata:
   dependencies:
     "@floating-ui/react-dom-interactions": ^0.6.1
     clsx: "*"
+    postcss: ^8.4.13
+    rollup-plugin-postcss: ^4.0.2
+    sass: ^1.51.0
   languageName: unknown
   linkType: soft
 
@@ -2095,6 +2098,8 @@ __metadata:
   resolution: "@cypress-design/vue-tooltip@workspace:components/Tooltip/vue"
   dependencies:
     "@floating-ui/dom": ^0.5.1
+    vite: "*"
+    vue-tsc: "*"
   languageName: unknown
   linkType: soft
 

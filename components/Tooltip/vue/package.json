@@ -21,5 +21,9 @@
   "license": "MIT",
   "dependencies": {
     "@floating-ui/dom": "^0.5.1"
+  },
+  "devDependencies": {
+    "vite": "*",
+    "vue-tsc": "*"
   }
 }
