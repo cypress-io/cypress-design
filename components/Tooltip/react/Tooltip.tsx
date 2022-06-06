@@ -70,9 +70,7 @@ export const Tooltip: React.FC<
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
-      handleClose: safePolygon({
-        restMs: 50,
-      }),
+      handleClose: safePolygon(),
     }),
     useFocus(context),
     useRole(context, { role: 'tooltip' }),
@@ -111,7 +109,6 @@ export const Tooltip: React.FC<
           <div
             {...getFloatingProps({
               ref: floating,
-              className: 'Tooltip',
               style: {
                 position: strategy,
                 top: y ?? '',
