@@ -13,6 +13,7 @@ export const compileVueIconProperties = ({
   fillColor,
   secondaryStrokeColor,
   secondaryFillColor,
+  class: className,
   ...attributes
 }: SVGAttributes & {
   body: string
@@ -29,9 +30,6 @@ export const compileVueIconProperties = ({
     fill: 'none',
     innerHTML: body,
     ...attributes, // add all standard attributes back to the svg tag
-  }
-  if (attributes.class) {
-    compiledClasses.push(attributes.class)
   }
   if (compiledClasses.length) {
     componentProps.class = compiledClasses.join(' ')
