@@ -23,7 +23,7 @@
     "build:storybook:vue": "yarn workspace storybook-vue build",
     "fix:storybook:order": "node ./storybook/fixStoriesOrder.js",
     "build:components": "yarn workspaces foreach --no-private -pvt run build",
-    "start": "concurrently yarn:storybook:*",
+    "start": "yarn concurrently \"yarn:storybook:*\"",
     "storybook:intro": "yarn workspace storybook start",
     "storybook:react": "yarn workspace storybook-react start --no-open",
     "storybook:vue": "yarn workspace storybook-vue start --no-open",
