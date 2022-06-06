@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * Build every public package in the directory `components`
  * This script needs to run before we can publish components
