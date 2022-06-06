@@ -10,10 +10,14 @@ describe('Checkbox', () => {
       <Checkbox
         label="Welcome guide settings"
         id="welcome-opt-out"
-        modelValue={isChecked}
+        checked={isChecked}
         onChange={() => (isChecked = !isChecked)}
-        className="m-2 px-2 py-1 outline outline-gray-300"
+        className="m-2 px-2 py-1 border-1 border-gray-300 rounded"
       />
     )
+
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('Welcome guide settings').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
   })
 })
