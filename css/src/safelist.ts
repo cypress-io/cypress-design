@@ -10,7 +10,13 @@ const textSafelist = ['xs', 'sm', 'lg', 'xl', '2xl', '3xl', '4xl', '5xl', '6xl']
   .map((v) => `text-${v}`)
   .join(' ')
 const colorSafelist = reduce(
-  { ...colors, transparent: { ONLY: true }, current: { ONLY: true } },
+  {
+    ...colors,
+    transparent: { ONLY: true },
+    current: { ONLY: true },
+    white: { ONLY: true },
+    black: { ONLY: true },
+  },
   (acc, variants, colorName) => {
     const name = kebabCase(colorName)
 

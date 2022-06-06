@@ -1,6 +1,6 @@
 {
-  "name": "@cypress-design/react-checkbox",
-  "version": "0.1.0",
+  "name": "@cypress-design/react-tooltip",
+  "version": "0.0.0",
   "files": [
     "*"
   ],
@@ -19,8 +19,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "*",
-    "clsx": "*"
+    "clsx": "*",
+    "@floating-ui/react-dom-interactions": "^0.6.1"
   },
   "license": "MIT"
 }

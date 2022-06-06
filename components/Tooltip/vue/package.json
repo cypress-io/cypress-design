@@ -1,6 +1,6 @@
 {
-  "name": "@cypress-design/react-checkbox",
-  "version": "0.1.0",
+  "name": "@cypress-design/vue-tooltip",
+  "version": "0.0.0",
   "files": [
     "*"
   ],
@@ -15,12 +15,11 @@
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "rollup -c ./rollup.config.js",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:module": "yarn vite build",
+    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
+  "license": "MIT",
   "dependencies": {
-    "@cypress-design/react-icon": "*",
-    "clsx": "*"
-  },
-  "license": "MIT"
+    "@floating-ui/dom": "^0.5.1"
+  }
 }
