@@ -18,7 +18,7 @@ export interface ButtonProps {
 export const Button: React.FC<
   ButtonProps & React.HTMLProps<HTMLButtonElement>
 > = ({
-  variant = 'primary',
+  variant = 'indigo-dark',
   size = '32',
   disabled = false,
   className,
@@ -26,7 +26,7 @@ export const Button: React.FC<
   ...rest
 }) => {
   const finalVariant =
-    disabled && !['secondary', 'link'].includes(variant) ? 'disabled' : variant
+    disabled && !['outline-light', 'link'].includes(variant) ? 'disabled' : variant
   const finalDisabled = disabled || variant === 'disabled'
   return (
     <button
