@@ -1,12 +1,6 @@
-import clsx from 'clsx'
 import * as React from 'react'
 import StatusIcon from './StatusIcon'
-// import type { StatusIconProps } from './StatusIcon'
-import { sizes, statuses, variants } from '../constants'
-// import type { ButtonSizes, ButtonVariants } from '../constants'
-
-console.log('hello')
-// console.log(StatusIconProps)
+import { sizes, statuses } from '../constants'
 
 export default () => (
   <table className="w-full">
@@ -32,15 +26,16 @@ export default () => (
         <th className="border-b" />
       </tr>
     </thead>
-    {/* FIXME: i think keys are still wrong: check errors */}
     <tbody>
       {Object.keys(statuses).map((status) => {
+        const statusInfo = statuses[status]
+
         return (
           <tr key={status}>
             <td className="align-top py-8 border-y">
-              {statuses[status].link ? (
+              {statusInfo.link ? (
                 <a
-                  href={statuses[status].link}
+                  href={statusInfo.link}
                   className="text-indigo-500 underline"
                   target="_blank"
                 >
@@ -51,7 +46,7 @@ export default () => (
               )}
             </td>
             <td className="py-8 border-y">
-              {statuses[status].variants.map((variant) => {
+              {statusInfo.variants.map((variant) => {
                 return (
                   <span key={`${status}-${variant}`} className="block">
                     {variant}
@@ -63,7 +58,7 @@ export default () => (
             {sizes.map((size) => {
               return (
                 <td key={`${status}-${size}`} className="py-8 border-y">
-                  {statuses[status].variants.map((variant) => {
+                  {statusInfo.variants.map((variant) => {
                     return (
                       <span key={`${status}-${size}-${variant}`}>
                         <StatusIcon
@@ -78,7 +73,7 @@ export default () => (
                 </td>
               )
             })}
-            <td className="align-top py-8 border-y">{statuses[status].use}</td>
+            <td className="align-top py-8 border-y">{statusInfo.use}</td>
           </tr>
         )
       })}

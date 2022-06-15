@@ -1,18 +1,18 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { statuses } from '../constants'
-import type { Status } from '../constants'
+import type { Size, Variant } from '../constants'
 
 export interface StatusIconProps {
-  size?: '4' | '8' | '12' | '16' | '24' // TODO: can we combine this with constants array?
+  size?: Size
   /**
     If there is no status provided, a placeholder icon will be shown
   */
-  status?: Status
+  status?: keyof typeof statuses | null | undefined
   /**
    * If a status doesn't have an icon for that variant, it will default to one it does have
    */
-  variant?: 'outline' | 'simple' | 'solid'
+  variant?: Variant
 }
 
 export const StatusIcon: React.FC<
@@ -47,9 +47,6 @@ export const StatusIcon: React.FC<
       }-${getDisplayVariant()}_x${size}.svg`)}
     />
   )
-  {
-    /* {status} {size} provided: {variant} calculated: {iconVariant} */
-  }
 }
 
 export default StatusIcon
