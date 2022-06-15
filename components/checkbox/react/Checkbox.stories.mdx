@@ -6,29 +6,61 @@ import { Checkbox } from './Checkbox'
 
 <h1>Checkbox<span className="text-lg font-normal"> - v{version}</span></h1>
 
-<Meta title="Checkbox" component={Checkbox} />
-
-<Canvas>
-  <Story name="Checkbox" parameters={{
-    controls: { hideNoControlsWarning: true },
+<Meta title="Checkbox" component={Checkbox}
+  argTypes={{
+    color: {
+      control: {
+        type: 'select',
+      },
+    },
+  }}
+  parameters={{
     design: {
       type: "figma",
       url: 'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=1027%3A9825',
     }
-  }}>
-    <>
-      <Checkbox modelValue={true} label="Checked" />
+  }} />
+
+<Canvas withSource="none">
+  <Story name="Checkbox">
+    {args => 
+    (<>
+      <Checkbox  {...args} checked label="Checked"  />
       <br />
-      <Checkbox modelValue={false} label="Unchecked" />
+      <Checkbox  {...args} label="Unchecked" />
       <br />
-      <Checkbox modelValue={true} disabled label="Disabled & checked" />
+      <Checkbox  {...args} checked disabled label="Disabled & checked" />
       <br />
-      <Checkbox modelValue={false} disabled label="Disabled & unchecked" />
-    </>
+      <Checkbox  {...args} disabled label="Disabled & unchecked" />
+    </>)}
   </Story>
 </Canvas>
 
 <ArgsTable />
+
+## Usage
+
+Install the component
+
+```
+yarn add @cypress-design/react-checkbox
+```
+
+In the script, import the component
+
+```js
+import Checkbox from '@cypress-design/react-checkbox'
+```
+
+then in your render function, use it
+
+```jsx
+export const MyComp = () => {
+  return (<div>
+    <Checkbox checked={checked} label="Checked" color="indigo" onChange={setChecked}/>
+  </div>)
+}
+```
 
 <Description>
   {changelog.replace(/^# .+/, '## Changelog')}

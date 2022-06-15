@@ -1,5 +1,15 @@
 # @cypress-design/css
 
+## 0.4.0
+
+### Minor Changes
+
+- [#23](https://github.com/cypress-io/cypress-design/pull/23) [`977825c`](https://github.com/cypress-io/cypress-design/commit/977825c3bb9c2f10085cd8caa4315a625499b783) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Add CSS shortcut and shadow for Card
+
+### Patch Changes
+
+- [#33](https://github.com/cypress-io/cypress-design/pull/33) [`5f9cf10`](https://github.com/cypress-io/cypress-design/commit/5f9cf10ff4709fcd7d322c2dc5dbc676473b433e) Thanks [@elevatebart](https://github.com/elevatebart)! - add icon-dark-white to safelist
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-checkbox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "files": [
     "*"
   ],
@@ -19,6 +19,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "license": "MIT"

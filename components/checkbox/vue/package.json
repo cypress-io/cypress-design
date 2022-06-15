@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-checkbox",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "files": [
     "*"
   ],
@@ -17,6 +17,9 @@
     "build": "yarn build:module && yarn build:types",
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cypress-design/vue-icon": "*"
   },
   "license": "MIT"
 }

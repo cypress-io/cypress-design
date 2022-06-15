@@ -1,0 +1,43 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+import TooltipStory from './Tooltip.rootstory';
+
+import { Tooltip } from './Tooltip'
+
+<h1>Tooltip<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta 
+  title="Tooltip" 
+  component={ Tooltip } 
+  argTypes={{
+    color: {
+      control: { type: 'select' },
+    },
+    placement: {
+      control: { type: 'select' },
+    },
+  }}
+  parameters={{
+    design: {
+      type: "figma",
+      url: 'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=893%3A0',
+    }
+  }}
+/>
+
+A tooltip is used to provide more information to help a user complete a task.
+
+<Canvas withSource="none">
+  <Story name="Tooltip">
+    {(args) => {
+      return <TooltipStory {...args} />
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>

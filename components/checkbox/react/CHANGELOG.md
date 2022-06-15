@@ -1,5 +1,16 @@
 # @cypress-design/react-checkbox
 
+## 0.2.0
+
+### Minor Changes
+
+- [#33](https://github.com/cypress-io/cypress-design/pull/33) [`5f9cf10`](https://github.com/cypress-io/cypress-design/commit/5f9cf10ff4709fcd7d322c2dc5dbc676473b433e) Thanks [@elevatebart](https://github.com/elevatebart)! - fix design and api of checkboxes
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypress-design/react-icon@0.2.1
+
 ## 0.1.0
 
 ### Minor Changes
