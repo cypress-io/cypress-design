@@ -1,9 +1,9 @@
 export const VariantClassesTable = {
-  link: 'border-transparent text-indigo-600 hover:underline disabled:text-gray-500 ring-transparent',
+  link: 'border-transparent text-indigo-600 hover:underline disabled:text-gray-500 disabled:no-underline ring-transparent',
   'outline-light':
-    'border-gray-100 text-indigo-500 hocus:border-gray-200 hocus:ring-gray-50 disabled:text-gray-500',
+    'border-gray-100 text-indigo-500 hocus:border-gray-200 disabled:border-gray-100 hocus:ring-gray-50 disabled:text-gray-500',
   'outline-dark':
-    'border-white/20 text-white hocus:border-white/60 hocus:ring-white/20 disabled:text-white/50',
+    'border-white/20 text-white hocus:border-white/60 hocus:ring-white/20 disabled:border-white/20 disabled:text-white/50',
   white:
     'border-gray-100 bg-white text-indigo-500 hocus:border-gray-200 hocus:ring-gray-50 disabled:text-gray-500',
   'indigo-light':
