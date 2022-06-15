@@ -1,0 +1,5 @@
+<svg width="4" height="4" viewBox="0 0 4 4" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="2" cy="2" r="1.5" fill="#C5C9FD" stroke="#6470F3">
+  <animate attributeName="fill" values="#C5C9FD;#6470F3;#C5C9FD" dur="1.5s" repeatCount="indefinite" />
+</circle>
+</svg>

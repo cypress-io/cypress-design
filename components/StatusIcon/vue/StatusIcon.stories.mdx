@@ -1,0 +1,29 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md?raw"
+
+import StatusIcon from './StatusIcon.vue'
+
+import StatusIconStory from './StatusIcon.rootstory'
+
+<h1>StatusIcon<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="StatusIcon" component={StatusIcon} parameters={{
+    design: {
+      type: "figma",
+      url: null,
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="StatusIcon">
+    {StatusIconStory()}
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
+

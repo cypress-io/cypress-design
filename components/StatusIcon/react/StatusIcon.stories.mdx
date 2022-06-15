@@ -1,0 +1,83 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+import StatusIconStory from './StatusIcon.rootstory'
+
+import { StatusIcon } from './StatusIcon'
+
+<h1>StatusIcon<span className="text-lg font-normal"> - v{version}</span></h1>
+
+TODO: duplicate this in vue story
+
+There is <a href="https://on.cypress.io/writing-and-organizing-tests" target="_blank">info in the docs</a> about what these statuses mean. The terminology can be a bit confusing, particularly around <a href="https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Pending" target="_blank">pending</a> and <a href="https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Skipped" target="_blank">skipped</a> test results.
+
+Runs, specs, and groups have one and only one of the following status: RUNNING, ERRORED, FAILED, TIMEDOUT, NOTESTS, PASSED, OVERLIMIT, or CANCELLED
+
+Specs can also have status UNCLAIMED
+
+Test results have one and only one of the following statuses: RUNNING, PENDING, SKIPPED, FAILED, PASSED, TIMEDOUT, ERRORED, or CANCELLED
+
+<Meta title="StatusIcon" component={StatusIcon} parameters={{
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=6814%3A10841",
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="StatusIcon">
+    <StatusIconStory />
+  </Story>
+</Canvas>
+
+## Basic use
+
+<Canvas>
+  <Story name="Basic use">
+    <StatusIcon
+      status="failed"
+      size="16"
+      variant="simple"
+    />
+  </Story>
+</Canvas>
+
+## Any variant
+
+Not all statuses have unique icons for each variant. But if you pass any variant of the icon, and it will default to one that is available for that status.
+
+As an example, if you pass `variant="simple"` with `status="errored"`, it will default to the solid variant, since the errored status has no simple variant available.
+
+<Canvas>
+  <Story name="Any variant">
+    <StatusIcon
+      status="errored"
+      size="16"
+      variant="simple"
+    />
+  </Story>
+</Canvas>
+
+## Placeholder
+
+The placeholder icon appears if you pass a falsy status or no status at all.
+
+<Canvas>
+  <Story name="Placeholder">
+    <StatusIcon
+      status={null}
+      size="16"
+      variant="simple"
+    />
+    <StatusIcon
+      size="16"
+      variant="simple"
+    />
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
