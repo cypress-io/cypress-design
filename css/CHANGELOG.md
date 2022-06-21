@@ -1,5 +1,12 @@
 # @cypress-design/css
 
+## 0.4.1
+
+### Patch Changes
+
+- [#20](https://github.com/cypress-io/cypress-design/pull/20) [`14dd0f5`](https://github.com/cypress-io/cypress-design/commit/14dd0f5b8e37882cbf7def1bcf0ce013241e39fb) Thanks [@elevatebart](https://github.com/elevatebart)! - To avoid having every color in the universe in the **safelist**, add the IconExtractor.
+  Also, remove the entire safelist from the css plugins windi config.
+
 ## 0.4.0
 
 ### Minor Changes

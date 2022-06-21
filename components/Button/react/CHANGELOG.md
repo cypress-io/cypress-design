@@ -1,5 +1,13 @@
 # @cypress-design/react-button
 
+## 0.2.0
+
+### Minor Changes
+
+- [#35](https://github.com/cypress-io/cypress-design/pull/35) [`f68c0ed`](https://github.com/cypress-io/cypress-design/commit/f68c0ed63022f367e5859a61392539f75c3452b6) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Renamed button types and added a new variant.
+
+* [#38](https://github.com/cypress-io/cypress-design/pull/38) [`ff7a75a`](https://github.com/cypress-io/cypress-design/commit/ff7a75aa44f6452e9041b9ec8e1d9c499106fcf1) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Add new button variants and update disabled styles
+
 ## 0.1.0
 
 ### Minor Changes
