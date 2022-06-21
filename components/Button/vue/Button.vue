@@ -27,14 +27,15 @@ const props = withDefaults(
     disabled?: boolean
   }>(),
   {
-    variant: 'primary',
+    variant: 'indigo-dark',
     size: '32',
     disabled: false,
   }
 )
 
 const finalVariant = computed(() =>
-  props.disabled && !['secondary', 'link'].includes(props.variant)
+  props.disabled &&
+  !['outline-dark', 'outline-light', 'link'].includes(props.variant)
     ? 'disabled'
     : props.variant
 )

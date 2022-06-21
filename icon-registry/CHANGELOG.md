@@ -1,5 +1,15 @@
 # @cypress-design/icon-registry
 
+## 0.3.0
+
+### Minor Changes
+
+- [#29](https://github.com/cypress-io/cypress-design/pull/29) [`69b3327`](https://github.com/cypress-io/cypress-design/commit/69b332757ba3b73d0ae881c5959daa7a2e644fe0) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Add several icons
+
+### Patch Changes
+
+- [#33](https://github.com/cypress-io/cypress-design/pull/33) [`5f9cf10`](https://github.com/cypress-io/cypress-design/commit/5f9cf10ff4709fcd7d322c2dc5dbc676473b433e) Thanks [@elevatebart](https://github.com/elevatebart)! - allow color white & black to be used for icons
+
 ## 0.2.0
 
 ### Minor Changes

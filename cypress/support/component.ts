@@ -22,4 +22,9 @@ import './commands'
 import 'virtual:windi.css'
 import './a11y-support'
 
-Cypress.on('uncaught:exception', err => !err.message.includes('ResizeObserver loop limit exceeded'))
+import 'cypress-real-events/support'
+
+Cypress.on(
+  'uncaught:exception',
+  (err) => !err.message.includes('ResizeObserver loop limit exceeded')
+)
