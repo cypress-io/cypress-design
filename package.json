@@ -69,5 +69,8 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "cypress-real-events": "^1.7.0"
   }
 }
