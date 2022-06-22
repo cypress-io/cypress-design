@@ -47,17 +47,19 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <div className={clsx(notRounded && 'rounded', 'overflow-hidden')}>
       <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
-        {!noIcon && Icon ? (
+        {!noIcon && Icon && (
           <Icon className="m-4px mr-8px" {...typeClasses.iconProps} />
-        ) : null}
+        )}
         <div className="flex-1">{title}</div>
-        <button
-          className="m-4px ml-8px h-16px"
-          onClick={onDismiss}
-          aria-label="Dismiss"
-        >
-          {onDismiss && <IconActionDeleteLarge />}
-        </button>
+        {onDismiss && (
+          <button
+            className="m-4px ml-8px h-16px"
+            onClick={onDismiss}
+            aria-label="Dismiss"
+          >
+            <IconActionDeleteLarge />
+          </button>
+        )}
       </div>
       {children && (
         <div className={clsx('p-16px', typeClasses.bodyClass)}>{children}</div>

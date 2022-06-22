@@ -1,4 +1,4 @@
-import type { WindiColor } from '@cypress-design/vue-icon'
+import type { WindiColor } from '@cypress-design/icon-registry'
 
 export type AlertStatus = 'info' | 'success' | 'error' | 'warning'
 

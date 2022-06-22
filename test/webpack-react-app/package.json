@@ -9,8 +9,8 @@
     "@cypress-design/react-checkbox": "^0.2.0",
     "@cypress-design/react-icon": "^0.2.1",
     "@cypress-design/react-spinner": "^0.0.1",
-    "react": "*",
-    "react-dom": "*",
+    "react": "17",
+    "react-dom": "17",
     "react-hot-loader": "^4.13.0"
   },
   "devDependencies": {
@@ -19,8 +19,8 @@
     "@babel/preset-react": "^7.16.7",
     "@cypress-design/css": "^0.4.0",
     "@hot-loader/react-dom": "^17.0.2+4.13.0",
-    "@types/react": "*",
-    "@types/react-dom": "*",
+    "@types/react": "17",
+    "@types/react-dom": "17",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "style-loader": "^3.3.1",
