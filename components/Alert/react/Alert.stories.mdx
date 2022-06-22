@@ -1,0 +1,27 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+import AlertStory from './Alert.rootstory'
+
+import { Alert } from './Alert'
+
+<h1>Alert<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Alert" component={Alert} parameters={{
+    design: {
+      type: "figma",
+      url: null,
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="Alert">
+    <AlertStory />
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
