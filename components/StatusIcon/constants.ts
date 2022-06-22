@@ -1,4 +1,12 @@
-export const statuses = {
+export type StatusInfo = {
+  iconName: string
+  color: string
+  iconSpin: boolean
+  variants: string[]
+  use: string
+}
+
+export const statuses: StatusInfo[] = {
   running: {
     iconName: 'running',
     color: 'indigo-400',
@@ -88,6 +96,22 @@ export const statuses = {
     use: 'Test results',
     link: 'https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Pending',
   },
+}
+
+// TODO: write a test for what these should default to
+// TODO: write a test that loading should spin, the others should not, and loading x4 should not spin
+export const getDisplayVariant = (statusInfo, size, variant) => {
+  if (size === '4' || size === '8' || size === '12') {
+    // there's only one variant of small ones: return the default
+    return statusInfo.variants[0]
+  }
+
+  if (statusInfo.variants?.includes(variant)) {
+    return variant
+  }
+
+  // if the requested variant isn't an option, default to the first one in the variants list
+  return statusInfo.variants[0]
 }
 
 export const sizes = ['4', '8', '12', '16', '24'] as const
