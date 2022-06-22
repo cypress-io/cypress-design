@@ -26,7 +26,7 @@ export default () => (
     <Alert type="success" dismissible title="Success with body">
       Success body
     </Alert>
-    <Alert type="warning" title="Warning" />
+    <Alert type="warning" title="Warning" notRounded />
     <Alert type="error" title="Error" dismissible class="text-justify">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim

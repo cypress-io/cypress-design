@@ -19,6 +19,7 @@ export interface AlertProps {
   onDismiss?: () => void
   noIcon?: boolean
   notRounded?: boolean
+  dismissible?: boolean
   children?: React.ReactNode
 }
 
@@ -28,6 +29,7 @@ export const Alert: React.FC<AlertProps> = ({
   onDismiss,
   noIcon,
   notRounded,
+  dismissible,
   title,
   details,
   children,
@@ -45,13 +47,13 @@ export const Alert: React.FC<AlertProps> = ({
   const [detailsExpanded, setDetailsExpanded] = React.useState(false)
 
   return (
-    <div className={clsx(notRounded && 'rounded', 'overflow-hidden')}>
+    <div className={clsx(!notRounded && 'rounded', 'overflow-hidden')}>
       <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
         {!noIcon && Icon && (
           <Icon className="m-4px mr-8px" {...typeClasses.iconProps} />
         )}
         <div className="flex-1">{title}</div>
-        {onDismiss && (
+        {dismissible && (
           <button
             className="m-4px ml-8px h-16px"
             onClick={onDismiss}
@@ -78,7 +80,7 @@ export const Alert: React.FC<AlertProps> = ({
           >
             <IconChevronDownSmall
               className={clsx(
-                'm-4px',
+                'm-4px ml-0',
                 !detailsExpanded && 'transform -rotate-90'
               )}
               {...typeClasses.iconChevronProps}

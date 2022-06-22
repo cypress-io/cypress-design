@@ -14,7 +14,7 @@
     </div>
     <div v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
       <button class="flex" :class="typeClasses.detailsHeaderClass" @click="detailsExpanded = !detailsExpanded">
-        <component :is="typeIcons.chevron" class="m-4px" :class="!detailsExpanded ? 'transform -rotate-90' : ''" />
+        <component :is="typeIcons.chevron" class="m-4px ml-0" :class="!detailsExpanded ? 'transform -rotate-90' : ''" />
         {{ props.detailsTitle }}
       </button>
       <div v-if="detailsExpanded" class="mt-8px">
