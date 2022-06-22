@@ -16,11 +16,21 @@ export default () => (
             culpa qui officia deserunt mollit anim id est laborum.
           </div>
         ),
-        details: () => <div>coco</div>,
+        details: () => (
+          <div>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
+            eget lacinia odio sem nec elit. Donec ullamcorper nulla non metus
+            auctor fringilla. Fusce dapibus, tellus ac cursus commodo, tortor
+            mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          </div>
+        ),
       }}
     </Alert>
     <Alert type="success" dismissible>
-      Success
+      {{
+        default: () => 'Success with body',
+        body: () => 'Success body',
+      }}
     </Alert>
     <Alert type="warning">Warning</Alert>
     <Alert type="error" dismissible class="text-justify">

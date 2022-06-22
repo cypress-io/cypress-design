@@ -44,7 +44,6 @@ function App() {
             label="Sample"
             checked={isChecked}
             onChange={() => setChecked(!isChecked)}
-            modelValue={isChecked}
           />
         </p>
         <Spinner />
