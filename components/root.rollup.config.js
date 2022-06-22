@@ -10,11 +10,19 @@ export default ({ input, plugins = [] }) => ({
       format: 'cjs',
       exports: 'auto',
       sourcemap: true,
+      sourcemapPathTransform: (sourcePath) =>
+        sourcePath.includes('node_modules')
+          ? sourcePath
+          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
     },
     {
       file: './dist/index.es.js',
       format: 'esm',
       sourcemap: true,
+      sourcemapPathTransform: (sourcePath) =>
+        sourcePath.includes('node_modules')
+          ? sourcePath
+          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
     },
   ],
   plugins: [
@@ -24,6 +32,7 @@ export default ({ input, plugins = [] }) => ({
       tsconfig: './tsconfig.build.json',
       declaration: false,
       declarationMap: false,
+      sourceMap: true,
     }),
     ...plugins,
   ],
