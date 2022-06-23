@@ -55,11 +55,11 @@ const typeClasses = computed(() => {
   return alertClasses[props.type]
 })
 
-let timeout: NodeJS.Timeout | undefined
+let timeout: number | undefined
 
 onMounted(() => {
   if (props.duration) {
-    timeout = setTimeout(dismiss, props.duration)
+    timeout = setTimeout(dismiss, props.duration) as any
   }
 })
 

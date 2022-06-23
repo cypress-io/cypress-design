@@ -69,7 +69,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
   React.useEffect(() => {
     if (onDismiss && duration && !durationTimeout) {
       setDismissed(false)
-      const timeout = setTimeout(dismiss, duration)
+      const timeout = setTimeout(dismiss, duration) as any
       setDurationTimeout(timeout)
     }
     return clearDurationTimeout
