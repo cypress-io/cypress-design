@@ -61,7 +61,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
         >
           <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
             {!noIcon && Icon && (
-              <Icon className="m-4px mr-8px" {...typeClasses.iconProps} />
+              <Icon className="my-4px mr-8px" {...typeClasses.iconProps} />
             )}
             <div className="flex-1">{title}</div>
             {dismissible && (
@@ -96,7 +96,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
               >
                 <IconChevronDownSmall
                   className={clsx(
-                    'm-4px ml-0',
+                    'my-4px mr-8px',
                     !detailsExpanded && 'transform -rotate-90'
                   )}
                   {...typeClasses.iconChevronProps}
