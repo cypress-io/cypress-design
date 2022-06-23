@@ -5,7 +5,7 @@
       <div class="flex-1 font-medium">
         <slot />
       </div>
-      <button class="m-4px ml-8px h-16px" @click="dismissed = true; emit('dismiss')" aria-label="Dismiss">
+      <button class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
         <IconActionDeleteLarge v-if="dismissible" />
       </button>
     </div>
@@ -27,12 +27,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, h, type FunctionalComponent, ref } from 'vue'
+import { computed, useSlots, h, type FunctionalComponent, ref, onMounted } from 'vue'
 import {
   IconChevronDownSmall, IconActionDeleteLarge,
   IconWarningCircle, IconCheckmarkOutline,
 } from '@cypress-design/vue-icon'
-import { alertClasses, type AlertStatus } from '../constants'
+import { alertClasses, type AlertType } from '../constants'
 
 const detailsExpanded = ref(false)
 const dismissed = ref(false)
@@ -40,11 +40,12 @@ const dismissed = ref(false)
 const slots = useSlots()
 
 const props = withDefaults(defineProps<{
-  type?: AlertStatus
+  type?: AlertType
   detailsTitle?: string
   dismissible?: boolean
   noIcon?: boolean
   notRounded?: boolean
+  duration?: number
 }>(), {
   type: 'info',
   detailsTitle: 'Additional details',
@@ -53,6 +54,23 @@ const props = withDefaults(defineProps<{
 const typeClasses = computed(() => {
   return alertClasses[props.type]
 })
+
+let timeout: NodeJS.Timeout | undefined
+
+onMounted(() => {
+  if (props.duration) {
+    timeout = setTimeout(dismiss, props.duration)
+  }
+})
+
+function dismiss() {
+  dismissed.value = true
+  emit('dismiss')
+  if (timeout) {
+    clearTimeout(timeout)
+    timeout = undefined
+  }
+}
 
 const typeIcons = computed(() => {
   const icons = {

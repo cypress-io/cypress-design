@@ -6,13 +6,13 @@ import {
   IconWarningCircle,
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
-import type { AlertStatus } from '../constants'
+import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
 
 const dummyComp: React.FC = () => <div>Dummy</div>
 
 export interface AlertProps {
-  type?: AlertStatus
+  type?: AlertType
   title: React.ReactNode
   detailsTitle?: string
   details?: React.ReactNode
@@ -20,6 +20,7 @@ export interface AlertProps {
   noIcon?: boolean
   notRounded?: boolean
   dismissible?: boolean
+  duration?: number
 }
 
 export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
@@ -33,6 +34,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
   details,
   children,
   className,
+  duration,
   ...rest
 }) => {
   const typeClasses = alertClasses[type]
@@ -47,9 +49,35 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
 
   const [detailsExpanded, setDetailsExpanded] = React.useState(false)
   const [dismissed, setDismissed] = React.useState(false)
+  const [durationTimeout, setDurationTimeout] = React.useState<
+    number | undefined
+  >(undefined)
+
+  function clearDurationTimeout() {
+    if (durationTimeout) {
+      clearTimeout(durationTimeout)
+      setDurationTimeout(undefined)
+    }
+  }
+
+  function dismiss() {
+    setDismissed(true)
+    onDismiss && onDismiss()
+    clearDurationTimeout()
+  }
+
+  React.useEffect(() => {
+    if (onDismiss && duration && !durationTimeout) {
+      setDismissed(false)
+      const timeout = setTimeout(dismiss, duration)
+      setDurationTimeout(timeout)
+    }
+    return clearDurationTimeout
+  })
 
   return (
     <>
+      {JSON.stringify(durationTimeout)}
       {dismissed ? null : (
         <div
           className={clsx(
@@ -67,10 +95,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
             {dismissible && (
               <button
                 className="m-4px ml-8px h-16px"
-                onClick={() => {
-                  setDismissed(true)
-                  onDismiss && onDismiss()
-                }}
+                onClick={dismiss}
                 aria-label="Dismiss"
               >
                 <IconActionDeleteLarge />

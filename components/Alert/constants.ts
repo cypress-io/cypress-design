@@ -1,6 +1,6 @@
 import type { WindiColor } from '@cypress-design/icon-registry'
 
-export type AlertStatus = 'info' | 'success' | 'error' | 'warning'
+export type AlertType = 'info' | 'success' | 'error' | 'warning'
 
 export type AlertClasses = {
   headerClass: string
@@ -15,7 +15,7 @@ export type AlertClasses = {
   }
 }
 
-export const alertClasses: Record<AlertStatus, AlertClasses> = {
+export const alertClasses: Record<AlertType, AlertClasses> = {
   info: {
     headerClass: 'text-indigo-700 bg-indigo-100',
     bodyClass: 'bg-indigo-50 text-indigo-500',
