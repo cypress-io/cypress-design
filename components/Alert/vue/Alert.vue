@@ -55,7 +55,7 @@ const slots = useSlots()
 
 const emit = defineEmits<{
   /**
-   * clicking on the dismiss button or dismissed after a timeout
+   * Clicking on the dismiss button or dismissed after a timeout
    */
   (event: 'dismiss'): void,
 }>()
