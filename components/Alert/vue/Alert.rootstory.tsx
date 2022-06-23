@@ -71,6 +71,7 @@ export default () => ({
           <Alert
             duration={5000}
             onDismiss={() => (displayTimedAlert.value = false)}
+            dismissible
           >
             Wait 5 seconds please
           </Alert>

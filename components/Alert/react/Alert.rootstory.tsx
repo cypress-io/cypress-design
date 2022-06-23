@@ -69,6 +69,7 @@ export default () => {
           title="Wait 5 seconds please"
           duration={5000}
           onDismiss={() => setDisplayTimedAlert(false)}
+          dismissible
         />
       ) : null}
       <Alert type="success" dismissible title="Success with body">

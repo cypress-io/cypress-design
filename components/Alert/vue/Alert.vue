@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, h, type FunctionalComponent, ref, onMounted } from 'vue'
+import { computed, useSlots, h, type FunctionalComponent, ref, onMounted, onUnmounted } from 'vue'
 import {
   IconChevronDownSmall, IconActionDeleteLarge,
   IconWarningCircle, IconCheckmarkOutline,
@@ -60,6 +60,12 @@ let timeout: NodeJS.Timeout | undefined
 onMounted(() => {
   if (props.duration) {
     timeout = setTimeout(dismiss, props.duration)
+  }
+})
+
+onUnmounted(() => {
+  if (timeout) {
+    clearTimeout(timeout)
   }
 })
 
