@@ -1,11 +1,11 @@
 <template>
-  <div class="overflow-hidden" :class="props.notRounded ? undefined : 'rounded'">
+  <div v-if="!dismissed" class="overflow-hidden" :class="props.notRounded ? undefined : 'rounded'">
     <div class="flex p-16px" :class="typeClasses.headerClass">
-      <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" class="m-4px mr-8px" />
-      <div class="flex-1">
+      <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" class="my-4px mr-8px" />
+      <div class="flex-1 font-medium">
         <slot />
       </div>
-      <button class="m-4px ml-8px h-16px" @click="emit('dismiss')" aria-label="Dismiss">
+      <button class="m-4px ml-8px h-16px" @click="dismissed = true; emit('dismiss')" aria-label="Dismiss">
         <IconActionDeleteLarge v-if="dismissible" />
       </button>
     </div>
@@ -13,8 +13,10 @@
       <slot name="body" />
     </div>
     <div v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
-      <button class="flex" :class="typeClasses.detailsHeaderClass" @click="detailsExpanded = !detailsExpanded">
-        <component :is="typeIcons.chevron" class="m-4px ml-0" :class="!detailsExpanded ? 'transform -rotate-90' : ''" />
+      <button class="flex font-medium" :class="typeClasses.detailsHeaderClass"
+        @click="detailsExpanded = !detailsExpanded">
+        <component :is="typeIcons.chevron" class="my-4px mr-8px"
+          :class="!detailsExpanded ? 'transform -rotate-90' : ''" />
         {{ props.detailsTitle }}
       </button>
       <div v-if="detailsExpanded" class="mt-8px">
@@ -33,6 +35,7 @@ import {
 import { alertClasses, type AlertStatus } from '../constants'
 
 const detailsExpanded = ref(false)
+const dismissed = ref(false)
 
 const slots = useSlots()
 
@@ -52,10 +55,7 @@ const typeClasses = computed(() => {
 })
 
 const typeIcons = computed(() => {
-  const icons: Record<AlertStatus, {
-    icon?: FunctionalComponent,
-    chevron?: FunctionalComponent
-  }> = {
+  const icons = {
     info: {},
     error: {
       icon: () => h(IconWarningCircle, alertClasses[props.type].iconProps),
@@ -67,7 +67,10 @@ const typeIcons = computed(() => {
       icon: () => h(IconCheckmarkOutline, alertClasses[props.type].iconProps),
     },
   }
-  const icon = icons[props.type]
+  const icon: {
+    icon?: FunctionalComponent,
+    chevron?: FunctionalComponent
+  } = icons[props.type]
   icon.chevron = () => h(IconChevronDownSmall, alertClasses[props.type].iconChevronProps)
 
   return icon

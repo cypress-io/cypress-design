@@ -20,10 +20,9 @@ export interface AlertProps {
   noIcon?: boolean
   notRounded?: boolean
   dismissible?: boolean
-  children?: React.ReactNode
 }
 
-export const Alert: React.FC<AlertProps> = ({
+export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
   type = 'info',
   detailsTitle = 'Additional details',
   onDismiss,
@@ -33,6 +32,8 @@ export const Alert: React.FC<AlertProps> = ({
   title,
   details,
   children,
+  className,
+  ...rest
 }) => {
   const typeClasses = alertClasses[type]
   const Icon =
@@ -45,52 +46,69 @@ export const Alert: React.FC<AlertProps> = ({
       : undefined
 
   const [detailsExpanded, setDetailsExpanded] = React.useState(false)
+  const [dismissed, setDismissed] = React.useState(false)
 
   return (
-    <div className={clsx(!notRounded && 'rounded', 'overflow-hidden')}>
-      <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
-        {!noIcon && Icon && (
-          <Icon className="m-4px mr-8px" {...typeClasses.iconProps} />
-        )}
-        <div className="flex-1">{title}</div>
-        {dismissible && (
-          <button
-            className="m-4px ml-8px h-16px"
-            onClick={onDismiss}
-            aria-label="Dismiss"
-          >
-            <IconActionDeleteLarge />
-          </button>
-        )}
-      </div>
-      {children && (
-        <div className={clsx('p-16px', typeClasses.bodyClass)}>{children}</div>
-      )}
-      {details && (
+    <>
+      {dismissed ? null : (
         <div
           className={clsx(
-            'p-16px border-t-1',
-            typeClasses.bodyClass,
-            typeClasses.borderClass
+            !notRounded && 'rounded',
+            'overflow-hidden',
+            className
           )}
+          {...rest}
         >
-          <button
-            className={clsx('flex', typeClasses.detailsHeaderClass)}
-            onClick={() => setDetailsExpanded(!detailsExpanded)}
-          >
-            <IconChevronDownSmall
+          <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
+            {!noIcon && Icon && (
+              <Icon className="m-4px mr-8px" {...typeClasses.iconProps} />
+            )}
+            <div className="flex-1">{title}</div>
+            {dismissible && (
+              <button
+                className="m-4px ml-8px h-16px"
+                onClick={() => {
+                  setDismissed(true)
+                  onDismiss && onDismiss()
+                }}
+                aria-label="Dismiss"
+              >
+                <IconActionDeleteLarge />
+              </button>
+            )}
+          </div>
+          {children && (
+            <div className={clsx('p-16px', typeClasses.bodyClass)}>
+              {children}
+            </div>
+          )}
+          {details && (
+            <div
               className={clsx(
-                'm-4px ml-0',
-                !detailsExpanded && 'transform -rotate-90'
+                'p-16px border-t-1',
+                typeClasses.bodyClass,
+                typeClasses.borderClass
               )}
-              {...typeClasses.iconChevronProps}
-            />
-            {detailsTitle}
-          </button>
-          {detailsExpanded && <div className="mt-8px">{details}</div>}
+            >
+              <button
+                className={clsx('flex', typeClasses.detailsHeaderClass)}
+                onClick={() => setDetailsExpanded(!detailsExpanded)}
+              >
+                <IconChevronDownSmall
+                  className={clsx(
+                    'm-4px ml-0',
+                    !detailsExpanded && 'transform -rotate-90'
+                  )}
+                  {...typeClasses.iconChevronProps}
+                />
+                {detailsTitle}
+              </button>
+              {detailsExpanded && <div className="mt-8px">{details}</div>}
+            </div>
+          )}
         </div>
       )}
-    </div>
+    </>
   )
 }
 

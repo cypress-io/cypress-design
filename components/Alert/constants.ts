@@ -25,7 +25,7 @@ export const alertClasses: Record<AlertStatus, AlertClasses> = {
     iconChevronProps: { strokeColor: 'indigo-300' },
   },
   warning: {
-    headerClass: 'text-orange-600 bg-orange-100',
+    headerClass: 'text-orange-700 bg-orange-100',
     bodyClass: 'bg-orange-50 text-orange-500',
     borderClass: 'border-orange-100',
     detailsHeaderClass: 'text-orange-600',
@@ -35,7 +35,7 @@ export const alertClasses: Record<AlertStatus, AlertClasses> = {
     iconChevronProps: { strokeColor: 'orange-300' },
   },
   error: {
-    headerClass: 'text-red-600 bg-red-100',
+    headerClass: 'text-red-700 bg-red-100',
     bodyClass: 'bg-red-50 text-red-500',
     borderClass: 'border-red-100',
     detailsHeaderClass: 'text-red-600',
@@ -45,7 +45,7 @@ export const alertClasses: Record<AlertStatus, AlertClasses> = {
     iconChevronProps: { strokeColor: 'red-300' },
   },
   success: {
-    headerClass: 'text-jade-600 bg-jade-100',
+    headerClass: 'text-jade-700 bg-jade-100',
     bodyClass: 'bg-jade-50 text-jade-500',
     borderClass: 'border-jade-100',
     detailsHeaderClass: 'text-jade-600',
