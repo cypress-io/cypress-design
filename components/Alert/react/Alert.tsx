@@ -12,14 +12,41 @@ import { alertClasses } from '../constants'
 const dummyComp: React.FC = () => <div>Dummy</div>
 
 export interface AlertProps {
-  type?: AlertType
+  /**
+   * Title of the alert
+   */
   title: React.ReactNode
-  detailsTitle?: string
+  /**
+   * Color scheme
+   */
+  type?: AlertType
+  /**
+   * Togglable additional details
+   */
   details?: React.ReactNode
-  onDismiss?: () => void
-  noIcon?: boolean
-  notRounded?: boolean
+  /**
+   * If details are provided,text used in the toggle button
+   */
+  detailsTitle?: string
+  /**
+   * Show the dismiss button
+   */
   dismissible?: boolean
+  /**
+   * When clicking on the dismiss button, this function will be called
+   */
+  onDismiss?: () => void
+  /**
+   * When an icon is displayed by default, use this to remove it
+   */
+  noIcon?: boolean
+  /**
+   * If you need square corners
+   */
+  notRounded?: boolean
+  /**
+   * Dismiss the alert after a delay (in ms)
+   */
   duration?: number
 }
 

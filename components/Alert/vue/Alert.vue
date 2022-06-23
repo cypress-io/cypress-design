@@ -3,6 +3,9 @@
     <div class="flex p-16px" :class="typeClasses.headerClass">
       <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" class="my-4px mr-8px" />
       <div class="flex-1 font-medium">
+        {{// @slot title of the alert
+            ''
+        }}
         <slot />
       </div>
       <button class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
@@ -10,6 +13,9 @@
       </button>
     </div>
     <div v-if="slots.body" class="p-16px" :class="typeClasses.bodyClass">
+      {{// @slot body/details of the alert
+          ''
+      }}
       <slot name="body" />
     </div>
     <div v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
@@ -20,6 +26,9 @@
         {{ props.detailsTitle }}
       </button>
       <div v-if="detailsExpanded" class="mt-8px">
+        {{// @slot Togglable additional details
+            ''
+        }}
         <slot name="details" />
       </div>
     </div>
@@ -39,12 +48,37 @@ const dismissed = ref(false)
 
 const slots = useSlots()
 
+const emit = defineEmits<{
+  /**
+   * clicking on the dismiss button or dismissed after a timeout
+   */
+  (event: 'dismiss'): void,
+}>()
+
 const props = withDefaults(defineProps<{
+  /**
+   * Color scheme
+   */
   type?: AlertType
+  /**
+   * If details are provided,text used in the toggle button
+   */
   detailsTitle?: string
+  /**
+   * Show the dismiss button
+   */
   dismissible?: boolean
+  /**
+   * When an icon is displayed by default, use this to remove it
+   */
   noIcon?: boolean
+  /**
+   * If you need square corners
+   */
   notRounded?: boolean
+  /**
+   * Dismiss the alert after a delay (in ms)
+   */
   duration?: number
 }>(), {
   type: 'info',
@@ -99,8 +133,4 @@ const typeIcons = computed(() => {
 
   return icon
 })
-
-const emit = defineEmits<{
-  (event: 'dismiss'): void,
-}>()
 </script>
