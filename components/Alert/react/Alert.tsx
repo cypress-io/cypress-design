@@ -63,7 +63,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
             {!noIcon && Icon && (
               <Icon className="my-4px mr-8px" {...typeClasses.iconProps} />
             )}
-            <div className="flex-1">{title}</div>
+            <div className="flex-1 font-medium">{title}</div>
             {dismissible && (
               <button
                 className="m-4px ml-8px h-16px"
@@ -91,7 +91,10 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
               )}
             >
               <button
-                className={clsx('flex', typeClasses.detailsHeaderClass)}
+                className={clsx(
+                  'flex font-medium',
+                  typeClasses.detailsHeaderClass
+                )}
                 onClick={() => setDetailsExpanded(!detailsExpanded)}
               >
                 <IconChevronDownSmall

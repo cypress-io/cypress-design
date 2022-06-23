@@ -3,12 +3,15 @@ import Alert from './Alert.vue'
 
 export default () => (
   <div class="flex flex-col p-4 gap-16px">
-    <Alert type="error" detailsTitle="Stack Trace">
+    <Alert type="error" detailsTitle="Stack trace">
       {{
         default: () => 'Spec not found',
         body: () => (
           <>
-            There is no spec matching the following location: path/to/spec.cy.js
+            There is no spec matching the following location:
+            <code class="bg-red-100 m-8px rounded p-2px">
+              path/to/spec.cy.js
+            </code>
             <br />
             <br />
             It is possible that the file has since been moved or deleted. Please

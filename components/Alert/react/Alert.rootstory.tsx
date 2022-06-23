@@ -6,7 +6,8 @@ export default () => (
   <div className="flex flex-col p-4 gap-16px">
     <Alert
       type="error"
-      title="Error with body"
+      title="Spec not found"
+      detailsTitle="Stack trace"
       details={
         <pre className="bg-white rounded border border-red-500 px-16px py-8px">
           {dedent`Uncaught Error: Error occurred in defineConfig()
@@ -45,7 +46,8 @@ export default () => (
         </pre>
       }
     >
-      There is no spec matching the following location: path/to/spec.cy.js
+      There is no spec matching the following location:
+      <code className="bg-red-100 m-8px rounded p-2px">path/to/spec.cy.js</code>
       <br />
       <br />
       It is possible that the file has since been moved or deleted. Please
@@ -55,15 +57,18 @@ export default () => (
       Success body
     </Alert>
     <Alert type="warning" title="Warning" notRounded />
-    <Alert type="error" title="Error" dismissible>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    <Alert
+      type="error"
+      dismissible
+      className="text-justify"
+      title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
       veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
       commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
       velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum.
-    </Alert>
+      est laborum."
+    />
     <Alert type="info" title="Info" />
   </div>
 )
