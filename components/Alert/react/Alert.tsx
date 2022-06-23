@@ -7,9 +7,7 @@ import {
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
 import type { AlertType } from '../constants'
-import { alertClasses } from '../constants'
-
-const dummyComp: React.FC = () => <div>Dummy</div>
+import { alertClasses, type AlertClasses } from '../constants'
 
 export interface AlertProps {
   /**
@@ -48,6 +46,10 @@ export interface AlertProps {
    * Dismiss the alert after a delay (in ms)
    */
   duration?: number
+  /**
+   * Replace the default left icon
+   */
+  customIcon?: React.FC<AlertClasses['iconProps'] & { className?: string }>
 }
 
 export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
@@ -62,11 +64,12 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
   children,
   className,
   duration,
+  customIcon,
   ...rest
 }) => {
   const typeClasses = alertClasses[type]
   const Icon =
-    type === 'error'
+    customIcon || type === 'error'
       ? IconWarningCircle
       : type === 'warning'
       ? IconWarningCircle

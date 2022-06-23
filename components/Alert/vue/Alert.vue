@@ -1,7 +1,12 @@
 <template>
   <div v-if="!dismissed" class="overflow-hidden" :class="props.notRounded ? undefined : 'rounded'">
     <div class="flex p-16px" :class="typeClasses.headerClass">
-      <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" class="my-4px mr-8px" />
+      {{// @slot replace the default left icon here
+          ''
+      }}
+      <slot name="icon">
+        <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" class="my-4px mr-8px" />
+      </slot>
       <div class="flex-1 font-medium">
         {{// @slot title of the alert
             ''
