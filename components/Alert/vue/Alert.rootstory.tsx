@@ -61,7 +61,10 @@ export default () => ({
             ),
           }}
         </Alert>
-        <button onClick={() => (displayTimedAlert.value = true)}>
+        <button
+          class="border rounded p-8px"
+          onClick={() => (displayTimedAlert.value = true)}
+        >
           open alert for 5 seconds
         </button>
         {displayTimedAlert.value && (

@@ -58,7 +58,10 @@ export default () => {
         It is possible that the file has since been moved or deleted. Please
         choose from the list of specs below
       </Alert>
-      <button onClick={() => setDisplayTimedAlert(true)}>
+      <button
+        className="border rounded p-8px"
+        onClick={() => setDisplayTimedAlert(true)}
+      >
         open alert for 5 seconds
       </button>
       {displayTimedAlert ? (

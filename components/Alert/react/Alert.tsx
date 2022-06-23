@@ -77,7 +77,6 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
 
   return (
     <>
-      {JSON.stringify(durationTimeout)}
       {dismissed ? null : (
         <div
           className={clsx(
