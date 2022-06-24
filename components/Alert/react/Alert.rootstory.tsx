@@ -1,5 +1,6 @@
 import * as React from 'react'
 import * as dedent from 'dedent'
+import { IconArrowRight } from '@cypress-design/react-icon'
 import Alert from './Alert'
 
 export default () => {
@@ -11,8 +12,9 @@ export default () => {
         type="error"
         title="Spec not found"
         detailsTitle="Stack trace"
+        data-cy="alert-1"
         details={
-          <pre className="bg-white rounded border border-red-500 px-16px py-8px">
+          <pre className="bg-white rounded border border-red-500 px-16px py-8px overflow-x-auto">
             {dedent`Uncaught Error: Error occurred in defineConfig()
             Trace: add called with  2 and 3
                 at sum (/home/dev/Documents/stacktrace.js:2:13)
@@ -70,15 +72,22 @@ export default () => {
           duration={5000}
           onDismiss={() => setDisplayTimedAlert(false)}
           dismissible
+          data-cy="alert-2"
         />
       ) : null}
-      <Alert type="success" dismissible title="Success with body">
+      <Alert
+        type="success"
+        dismissible
+        title="Success with body"
+        data-cy="alert-3"
+      >
         Success body
       </Alert>
       <Alert type="warning" title="Warning" notRounded />
       <Alert
         type="error"
         dismissible
+        data-cy="alert-4"
         className="text-justify"
         title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
       tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -89,6 +98,7 @@ export default () => {
       est laborum."
       />
       <Alert type="info" title="Info" />
+      <Alert type="info" title="Info" customIcon={IconArrowRight} />
     </div>
   )
 }

@@ -21,6 +21,8 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     bodyClass: 'bg-indigo-50 text-indigo-500',
     borderClass: 'border-indigo-100',
     detailsHeaderClass: 'text-indigo-600',
+    // <for-windi strokeColor="indigo-500"/>
+    iconProps: { strokeColor: 'indigo-500' },
     // <for-windi strokeColor="indigo-300"/>
     iconChevronProps: { strokeColor: 'indigo-300' },
   },

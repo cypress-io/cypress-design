@@ -1,16 +1,12 @@
 <template>
   <div v-if="!dismissed" class="overflow-hidden" :class="props.notRounded ? undefined : 'rounded'">
     <div class="flex p-16px" :class="typeClasses.headerClass">
-      {{// @slot replace the default left icon here
-          ''
-      }}
-      <slot name="icon">
-        <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" class="my-4px mr-8px" />
+      <!-- @slot replace the default left icon here -->
+      <slot name="icon" v-bind="computedIconProps">
+        <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" v-bind="computedIconProps" />
       </slot>
       <div class="flex-1 font-medium">
-        {{// @slot title of the alert
-            ''
-        }}
+        <!-- @slot title of the alert -->
         <slot />
       </div>
       <button class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
@@ -18,9 +14,7 @@
       </button>
     </div>
     <div v-if="slots.body" class="p-16px" :class="typeClasses.bodyClass">
-      {{// @slot body/details of the alert
-          ''
-      }}
+      <!-- @slot body/details of the alert -->
       <slot name="body" />
     </div>
     <div v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
@@ -31,9 +25,7 @@
         {{ props.detailsTitle }}
       </button>
       <div v-if="detailsExpanded" class="mt-8px">
-        {{// @slot Togglable additional details
-            ''
-        }}
+        <!--@slot Togglable additional details-->
         <slot name="details" />
       </div>
     </div>
@@ -118,17 +110,24 @@ function dismiss() {
   }
 }
 
+const computedIconProps = computed(() => {
+  return {
+    ...alertClasses[props.type].iconProps,
+    class: 'my-4px mr-8px'
+  }
+})
+
 const typeIcons = computed(() => {
   const icons = {
     info: {},
     error: {
-      icon: () => h(IconWarningCircle, alertClasses[props.type].iconProps),
+      icon: () => h(IconWarningCircle, computedIconProps.value),
     },
     warning: {
-      icon: () => h(IconWarningCircle, alertClasses[props.type].iconProps),
+      icon: () => h(IconWarningCircle, computedIconProps.value),
     },
     success: {
-      icon: () => h(IconCheckmarkOutline, alertClasses[props.type].iconProps),
+      icon: () => h(IconCheckmarkOutline, computedIconProps.value),
     },
   }
   const icon: {

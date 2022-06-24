@@ -1,3 +1,4 @@
+import { IconArrowRight } from '@cypress-design/vue-icon'
 import dedent from 'dedent'
 import { ref } from 'vue'
 import Alert from './Alert.vue'
@@ -7,7 +8,7 @@ export default (() => ({
     const displayTimedAlert = ref(false)
     return () => (
       <div class="flex flex-col p-4 gap-16px">
-        <Alert type="error" detailsTitle="Stack trace">
+        <Alert type="error" detailsTitle="Stack trace" data-cy="alert-1">
           {{
             default: () => 'Spec not found',
             body: () => (
@@ -23,7 +24,7 @@ export default (() => ({
               </>
             ),
             details: () => (
-              <pre class="bg-white rounded border border-red-500 px-16px py-8px">
+              <pre class="bg-white rounded border border-red-500 px-16px py-8px overflow-x-auto">
                 {dedent`Uncaught Error: Error occurred in defineConfig()
             Trace: add called with  2 and 3
                 at sum (/home/dev/Documents/stacktrace.js:2:13)
@@ -72,11 +73,12 @@ export default (() => ({
             duration={5000}
             onDismiss={() => (displayTimedAlert.value = false)}
             dismissible
+            data-cy="alert-2"
           >
             Wait 5 seconds please
           </Alert>
         )}
-        <Alert type="success" dismissible>
+        <Alert type="success" dismissible data-cy="alert-3">
           {{
             default: () => 'Success with body',
             body: () => 'Success body',
@@ -85,7 +87,7 @@ export default (() => ({
         <Alert type="warning" not-rounded>
           Warning
         </Alert>
-        <Alert type="error" dismissible class="text-justify">
+        <Alert type="error" dismissible class="text-justify" data-cy="alert-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
           minim veniam, quis nostrud exercitation ullamco laboris nisi ut
@@ -95,6 +97,12 @@ export default (() => ({
           culpa qui officia deserunt mollit anim id est laborum.
         </Alert>
         <Alert type="info">Info</Alert>
+        <Alert type="info">
+          {{
+            default: () => 'Info',
+            icon: (props: any) => <IconArrowRight {...props} />,
+          }}
+        </Alert>
       </div>
     )
   },

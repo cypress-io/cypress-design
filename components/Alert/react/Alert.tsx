@@ -5,6 +5,7 @@ import {
   IconActionDeleteLarge,
   IconWarningCircle,
   IconCheckmarkOutline,
+  WindiColor,
 } from '@cypress-design/react-icon'
 import type { AlertType, AlertClasses } from '../constants'
 import { alertClasses } from '../constants'
@@ -49,7 +50,7 @@ export interface AlertProps {
   /**
    * Replace the default left icon
    */
-  customIcon?: React.FC<AlertClasses['iconProps'] & { className?: string }>
+  customIcon?: React.FC<React.SVGProps<SVGSVGElement>>
 }
 
 export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
@@ -69,13 +70,14 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
 }) => {
   const typeClasses = alertClasses[type]
   const Icon =
-    customIcon || type === 'error'
+    customIcon ??
+    (type === 'error'
       ? IconWarningCircle
       : type === 'warning'
       ? IconWarningCircle
       : type === 'success'
       ? IconCheckmarkOutline
-      : undefined
+      : undefined)
 
   const [detailsExpanded, setDetailsExpanded] = React.useState(false)
   const [dismissed, setDismissed] = React.useState(false)
