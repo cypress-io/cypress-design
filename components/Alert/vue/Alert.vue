@@ -46,7 +46,8 @@ import {
   IconChevronDownSmall, IconActionDeleteLarge,
   IconWarningCircle, IconCheckmarkOutline,
 } from '@cypress-design/vue-icon'
-import { alertClasses, type AlertType } from '../constants'
+import type { AlertType } from '../constants'
+import { alertClasses } from '../constants'
 
 const detailsExpanded = ref(false)
 const dismissed = ref(false)

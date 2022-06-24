@@ -6,8 +6,8 @@ import {
   IconWarningCircle,
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
-import type { AlertType } from '../constants'
-import { alertClasses, type AlertClasses } from '../constants'
+import type { AlertType, AlertClasses } from '../constants'
+import { alertClasses } from '../constants'
 
 export interface AlertProps {
   /**
