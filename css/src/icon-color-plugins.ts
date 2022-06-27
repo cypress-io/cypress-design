@@ -187,11 +187,21 @@ export const IconExtractor: Extractor = {
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
         if (isIconAttribute(attrName)) {
-          set.add(
-            ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
-              attributes.values[index]
-            )
-          )
+          const attrValueClasses =
+            attributes.values[index].match(/[a-z]+-\d+/g) || []
+          attrValueClasses.forEach((value) => {
+            // first, check that the color is valid
+            const [hue, weight] = value.split('-')
+            const hueObject = (colors as any)[hue]
+            if (!hueObject) {
+              return
+            }
+            if (!hueObject[parseInt(weight, 10)]) {
+              return
+            }
+            // if it checks out, add the class to the set
+            set.add(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](value))
+          })
         }
         return set
       }, new Set<string>()) ?? new Set<string>()
