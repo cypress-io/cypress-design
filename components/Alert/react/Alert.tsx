@@ -120,7 +120,10 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
         >
           <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
             {!noIcon && Icon && (
-              <Icon className="my-4px mr-8px" {...typeClasses.iconProps} />
+              <Icon
+                className="my-4px mr-8px"
+                strokeColor={typeClasses.iconColor}
+              />
             )}
             <div className="flex-1 font-medium">{title}</div>
             {dismissible && (
@@ -129,7 +132,9 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                 onClick={dismiss}
                 aria-label="Dismiss"
               >
-                <IconActionDeleteLarge />
+                <IconActionDeleteLarge
+                  strokeColor={alertClasses[type].iconCloseColor}
+                />
               </button>
             )}
           </div>
@@ -139,14 +144,14 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
             </div>
           )}
           {details && (
-            <div
+            <details
               className={clsx(
-                'p-16px border-t-1',
+                'p-16px border-t-1 cursor-pointer',
                 typeClasses.bodyClass,
                 typeClasses.borderClass
               )}
             >
-              <button
+              <summary
                 className={clsx(
                   'flex font-medium',
                   typeClasses.detailsHeaderClass
@@ -158,12 +163,12 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                     'my-4px mr-8px',
                     !detailsExpanded && 'transform -rotate-90'
                   )}
-                  {...typeClasses.iconChevronProps}
+                  strokeColor={typeClasses.iconChevronColor}
                 />
                 {detailsTitle}
-              </button>
-              {detailsExpanded && <div className="mt-8px">{details}</div>}
-            </div>
+              </summary>
+              <div className="mt-8px">{details}</div>
+            </details>
           )}
         </div>
       )}

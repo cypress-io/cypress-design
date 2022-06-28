@@ -3,37 +3,35 @@
     <div class="flex p-16px" :class="typeClasses.headerClass">
       <!-- @slot replace the default left icon here -->
       <slot name="icon" v-bind="computedIconProps">
-        <component v-if="!props.noIcon && typeIcons.icon" :is="typeIcons.icon" v-bind="computedIconProps" />
+        <component v-if="!props.noIcon && icon" :is="icon" v-bind="computedIconProps" />
       </slot>
       <div class="flex-1 font-medium">
         <!-- @slot title of the alert -->
         <slot />
       </div>
       <button class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
-        <IconActionDeleteLarge v-if="dismissible" />
+        <IconActionDeleteLarge v-if="dismissible" :stroke-color="alertClasses[props.type].iconCloseColor" />
       </button>
     </div>
     <div v-if="slots.body" class="p-16px" :class="typeClasses.bodyClass">
       <!-- @slot body/details of the alert -->
       <slot name="body" />
     </div>
-    <div v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
-      <button class="flex font-medium" :class="typeClasses.detailsHeaderClass"
-        @click="detailsExpanded = !detailsExpanded">
-        <component :is="typeIcons.chevron" class="my-4px mr-8px"
-          :class="!detailsExpanded ? 'transform -rotate-90' : ''" />
+    <details v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
+      <summary class="flex font-medium cursor-pointer" :class="typeClasses.detailsHeaderClass">
+        <IconChevronDownSmall :stroke-color="alertClasses[props.type].iconChevronColor" class="icon my-4px mr-8px" />
         {{ props.detailsTitle }}
-      </button>
-      <div v-if="detailsExpanded" class="mt-8px">
+      </summary>
+      <div class="mt-8px">
         <!--@slot Togglable additional details-->
         <slot name="details" />
       </div>
-    </div>
+    </details>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, h, type FunctionalComponent, ref, onMounted, onUnmounted } from 'vue'
+import { computed, useSlots, h, type FunctionalComponent, ref, onMounted, onUnmounted, type ComputedRef } from 'vue'
 import {
   IconChevronDownSmall, IconActionDeleteLarge,
   IconWarningCircle, IconCheckmarkOutline,
@@ -41,7 +39,6 @@ import {
 import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
 
-const detailsExpanded = ref(false)
 const dismissed = ref(false)
 
 const slots = useSlots()
@@ -112,30 +109,34 @@ function dismiss() {
 
 const computedIconProps = computed(() => {
   return {
-    ...alertClasses[props.type].iconProps,
+    strokeColor: alertClasses[props.type].iconColor,
     class: 'my-4px mr-8px'
   }
 })
 
-const typeIcons = computed(() => {
-  const icons = {
-    info: {},
-    error: {
-      icon: () => h(IconWarningCircle, computedIconProps.value),
-    },
-    warning: {
-      icon: () => h(IconWarningCircle, computedIconProps.value),
-    },
-    success: {
-      icon: () => h(IconCheckmarkOutline, computedIconProps.value),
-    },
+const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
+  switch (props.type) {
+    case 'info':
+      return null;
+    case 'success':
+      return () => h(IconCheckmarkOutline, computedIconProps.value)
+    case 'warning':
+      return () => h(IconWarningCircle, computedIconProps.value)
+    case 'error':
+      return () => h(IconWarningCircle, computedIconProps.value)
+    default:
+      return null;
   }
-  const icon: {
-    icon?: FunctionalComponent,
-    chevron?: FunctionalComponent
-  } = icons[props.type]
-  icon.chevron = () => h(IconChevronDownSmall, alertClasses[props.type].iconChevronProps)
-
-  return icon
 })
+
 </script>
+
+<style scoped>
+details summary .icon {
+  transform: rotate(-90deg);
+}
+
+details[open] summary .icon {
+  transform: rotate(0);
+}
+</style>
