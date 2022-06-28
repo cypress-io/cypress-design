@@ -173,20 +173,25 @@ const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
 
 const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
   string,
-  (attrValue: string) => string
+  (attrValue: string, hasGroupProp: boolean) => string
 > = {}
 
 prefixes.forEach((prefix) => {
   Object.entries(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).forEach(
     ([root, value]) => {
       ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] = (
-        attrValue
+        attrValue,
+        hasGroupProp
       ) => {
         if (!prefix.length) {
           return value(attrValue)
         }
         // add the hover: or focus: prefix
         const normalClass = `${prefix}:${value(attrValue)}`
+
+        if (!hasGroupProp) {
+          return normalClass
+        }
 
         // always keep the group-focus and group-hover classes
         return `${normalClass} group-${normalClass}`
@@ -224,6 +229,9 @@ export const IconExtractor: Extractor = {
   extractor: (code, id) => {
     const { tags, classes = [], attributes } = DefaultExtractor(code, id)
 
+    const hasAGroupAttribute =
+      attributes?.names.includes('interactiveColorsOnGroup') ?? false
+
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
         if (isIconAttribute(attrName)) {
@@ -233,7 +241,12 @@ export const IconExtractor: Extractor = {
             // first, check that the color is valid
             if (isValidWindiColor(value)) {
               // if it checks out, add the class to the set
-              set.add(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](value))
+              set.add(
+                ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+                  value,
+                  hasAGroupAttribute
+                )
+              )
             }
           })
         }
