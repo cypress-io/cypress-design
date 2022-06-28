@@ -32,7 +32,7 @@ export const getComponentAttributes = ({
 }: {
   size: string
   availableSizes: readonly string[]
-  interactiveColorsOnGroup: boolean
+  interactiveColorsOnGroup?: boolean
 } & OpenIconProps) => {
   const sizeWithDefault =
     size ??
@@ -68,12 +68,17 @@ export const getComponentAttributes = ({
         : ''
 
       const groupPrefix =
-        interactiveColorsOnGroup && prefixClass.length ? 'group-' : ''
+        interactiveColorsOnGroup !== undefined &&
+        interactiveColorsOnGroup !== false &&
+        prefixClass.length
+          ? 'group-'
+          : ''
 
       const finalClass = `${groupPrefix}${prefixClass}icon-${colorClass}${secondaryClass}-${colorValue}`
+
       return finalClass
     })
-    .filter(Boolean)
+    .filter((cl): cl is string => cl !== false)
 
   return { compiledClasses, sizeWithDefault }
 }

@@ -162,7 +162,7 @@ export const IconDuotoneColorsPlugin = createPlugin(
 
 const prefixes = ['', 'hover', 'focus', 'hocus'] as const
 
-export const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
+const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
   FillColor: (attrValue: string) => `icon-light-${attrValue}`,
   StrokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
   SecondaryFillColor: (attrValue: string) =>
@@ -194,6 +194,8 @@ prefixes.forEach((prefix) => {
     }
   )
 })
+
+export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR }
 
 function isIconAttribute(
   attrName: string

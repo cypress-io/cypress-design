@@ -13,18 +13,22 @@ export const compileVueIconProperties = ({
   body,
   compiledClasses,
   size,
-  strokeColor,
-  fillColor,
-  secondaryStrokeColor,
-  secondaryFillColor,
   class: className,
+  interactiveColorsOnGroup,
   ...attributes
 }: OpenIconProps &
   SVGAttributes & {
     body: string
     compiledClasses: string[]
     size: string
+    interactiveColorsOnGroup?: boolean
   }) => {
+  Object.keys(attributes).forEach((key) => {
+    if (key.endsWith('Color')) {
+      // @ts-ignore
+      delete attributes[key]
+    }
+  })
   const componentProps: any = {
     width: size,
     height: size,
