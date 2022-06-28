@@ -167,7 +167,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                 />
                 {detailsTitle}
               </summary>
-              <div className="mt-8px">{details}</div>
+              <div className="mt-16px">{details}</div>
             </details>
           )}
         </div>

@@ -22,7 +22,7 @@
         <IconChevronDownSmall :strokeColor="typeClasses.iconChevronColor" class="icon my-4px mr-8px" />
         {{ props.detailsTitle }}
       </summary>
-      <div class="mt-8px">
+      <div class="mt-16px">
         <!--@slot Togglable additional details-->
         <slot name="details" />
       </div>
