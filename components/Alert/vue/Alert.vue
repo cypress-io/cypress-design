@@ -10,7 +10,7 @@
         <slot />
       </div>
       <button class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
-        <IconActionDeleteLarge v-if="dismissible" :stroke-color="alertClasses[props.type].iconCloseColor" />
+        <IconActionDeleteLarge v-if="dismissible" :stroke-color="typeClasses.iconCloseColor" />
       </button>
     </div>
     <div v-if="slots.body" class="p-16px" :class="typeClasses.bodyClass">
@@ -19,7 +19,7 @@
     </div>
     <details v-if="slots.details" class="p-16px border-t-1" :class="[typeClasses.bodyClass, typeClasses.borderClass]">
       <summary class="flex font-medium cursor-pointer" :class="typeClasses.detailsHeaderClass">
-        <IconChevronDownSmall :stroke-color="alertClasses[props.type].iconChevronColor" class="icon my-4px mr-8px" />
+        <IconChevronDownSmall :strokeColor="typeClasses.iconChevronColor" class="icon my-4px mr-8px" />
         {{ props.detailsTitle }}
       </summary>
       <div class="mt-8px">

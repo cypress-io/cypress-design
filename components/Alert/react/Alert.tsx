@@ -133,7 +133,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                 aria-label="Dismiss"
               >
                 <IconActionDeleteLarge
-                  strokeColor={alertClasses[type].iconCloseColor}
+                  strokeColor={typeClasses.iconCloseColor}
                 />
               </button>
             )}
