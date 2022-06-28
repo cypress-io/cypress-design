@@ -2,6 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { getDisplayVariant, statuses } from '../constants'
 import type { Size, Variant } from '../constants'
+import Icon, { SVGPropsWithoutColorsOrSize } from '@cypress-design/react-icon'
 
 export interface StatusIconProps {
   size?: Size
@@ -16,21 +17,20 @@ export interface StatusIconProps {
 }
 
 export const StatusIcon: React.FC<
-  StatusIconProps & React.HTMLProps<HTMLImageElement>
+  StatusIconProps & SVGPropsWithoutColorsOrSize
 > = ({ size = '24', status, variant = 'simple', ...rest }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
   return (
-    <img
+    <Icon
       {...rest}
       className={clsx('inline-block', rest.className, {
         'animate-spin': statusInfo.iconSpin && size !== '4',
       })}
-      src={require(`../img/${statusInfo.iconName}-${getDisplayVariant(
-        statusInfo,
-        size,
-        variant
-      )}_x${size}.svg`)}
+      name={
+        statusInfo.iconName + '-' + getDisplayVariant(statusInfo, size, variant)
+      }
+      size={size}
     />
   )
 }
