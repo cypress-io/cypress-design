@@ -87,6 +87,7 @@ export default (() => ({
         <Alert type="warning" not-rounded>
           Warning
         </Alert>
+        <Alert type="neutral">Neutral</Alert>
         <Alert type="error" dismissible class="text-justify" data-cy="alert-4">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad

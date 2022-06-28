@@ -84,6 +84,7 @@ export default () => {
         Success body
       </Alert>
       <Alert type="warning" title="Warning" notRounded />
+      <Alert type="neutral" title="Neutral" />
       <Alert
         type="error"
         dismissible

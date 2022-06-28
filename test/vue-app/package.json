@@ -12,6 +12,7 @@
     "@cypress-design/vue-checkbox": "^0.2.0",
     "@cypress-design/vue-icon": "^0.3.0",
     "@cypress-design/vue-spinner": "^0.0.1",
+    "@cypress-design/vue-alert": "^0.0.0",
     "vue": "^3.2.33"
   },
   "devDependencies": {

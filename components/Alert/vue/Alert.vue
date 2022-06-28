@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!dismissed" class="overflow-hidden" :class="props.notRounded ? undefined : 'rounded'">
+  <div v-if="!dismissed" class="overflow-hidden text-left" :class="props.notRounded ? undefined : 'rounded'">
     <div class="flex p-16px" :class="typeClasses.headerClass">
       <!-- @slot replace the default left icon here -->
       <slot name="icon" v-bind="computedIconProps">
@@ -9,8 +9,8 @@
         <!-- @slot title of the alert -->
         <slot />
       </div>
-      <button class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
-        <IconActionDeleteLarge v-if="dismissible" :stroke-color="typeClasses.iconCloseColor" />
+      <button v-if="dismissible" class="m-4px ml-8px h-16px" @click="dismiss" aria-label="Dismiss">
+        <IconActionDeleteLarge :stroke-color="typeClasses.iconCloseColor" />
       </button>
     </div>
     <div v-if="slots.body" class="p-16px" :class="typeClasses.bodyClass">

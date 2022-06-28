@@ -113,7 +113,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
         <div
           className={clsx(
             !notRounded && 'rounded',
-            'overflow-hidden',
+            'overflow-hidden text-left',
             className
           )}
           {...rest}

@@ -14,15 +14,15 @@ export type AlertClasses = {
 
 export const alertClasses: Record<AlertType, AlertClasses> = {
   neutral: {
-    headerClass: 'text-gray-700 bg-gray-100',
+    headerClass: 'text-gray-800 bg-gray-100',
     bodyClass: 'bg-gray-50 text-gray-500',
     borderClass: 'border-gray-100',
     detailsHeaderClass: 'text-gray-600',
-    // <for-windi strokeColor="gray-600"/>
+    /* <windi-keep strokeColor="gray-600"/> */
     iconCloseColor: 'gray-600',
-    // <for-windi strokeColor="gray-500"/>
+    /* <windi-keep strokeColor="gray-500"/> */
     iconColor: 'gray-500',
-    // <for-windi strokeColor="gray-300"/>
+    /* <windi-keep strokeColor="gray-300"/> */
     iconChevronColor: 'gray-300',
   },
   info: {
@@ -30,11 +30,11 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     bodyClass: 'bg-indigo-50 text-indigo-500',
     borderClass: 'border-indigo-100',
     detailsHeaderClass: 'text-indigo-600',
-    // <for-windi strokeColor="indigo-500"/>
+    /* <windi-keep strokeColor="indigo-500"/> */
     iconCloseColor: 'indigo-500',
-    // <for-windi strokeColor="indigo-500"/>
+    /* <windi-keep strokeColor="indigo-500"/> */
     iconColor: 'indigo-500',
-    // <for-windi strokeColor="indigo-300"/>
+    /* <windi-keep strokeColor="indigo-300"/> */
     iconChevronColor: 'indigo-300',
   },
   warning: {
@@ -42,11 +42,11 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     bodyClass: 'bg-orange-50 text-orange-500',
     borderClass: 'border-orange-100',
     detailsHeaderClass: 'text-orange-600',
-    // <for-windi strokeColor="orange-500"/>
+    /* <windi-keep strokeColor="orange-500"/> */
     iconCloseColor: 'orange-500',
-    // <for-windi strokeColor="orange-500"/>
-    iconColor: 'orange-500',
-    // <for-windi strokeColor="orange-300"/>
+    /* <windi-keep strokeColor="orange-400"/> */
+    iconColor: 'orange-400',
+    /* <windi-keep strokeColor="orange-300"/> */
     iconChevronColor: 'orange-300',
   },
   error: {
@@ -54,11 +54,11 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     bodyClass: 'bg-red-50 text-red-500',
     borderClass: 'border-red-100',
     detailsHeaderClass: 'text-red-600',
-    // <for-windi strokeColor="red-500"/>
+    /* <windi-keep strokeColor="red-500"/> */
     iconCloseColor: 'red-500',
-    // <for-windi strokeColor="red-500"/>
-    iconColor: 'red-500',
-    // <for-windi strokeColor="red-300"/>
+    /* <windi-keep strokeColor="red-400"/> */
+    iconColor: 'red-400',
+    /* <windi-keep strokeColor="red-300"/> */
     iconChevronColor: 'red-300',
   },
   success: {
@@ -66,11 +66,11 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     bodyClass: 'bg-jade-50 text-jade-600',
     borderClass: 'border-jade-100',
     detailsHeaderClass: 'text-jade-600',
-    // <for-windi strokeColor="jade-600"/>
+    /* <windi-keep strokeColor="jade-600"/> */
     iconCloseColor: 'jade-600',
-    // <for-windi strokeColor="jade-500"/>
+    /* <windi-keep strokeColor="jade-500"/> */
     iconColor: 'jade-500',
-    // <for-windi strokeColor="jade-300"/>
+    /* <windi-keep strokeColor="jade-300"/> */
     iconChevronColor: 'jade-300',
   },
 }

@@ -15,7 +15,10 @@ export default defineConfig({
     vue(),
     CyCSSVitePlugin({
       scan: {
-        include: ['/src/**/*.@(vue|tsx|ts)'],
+        include: [
+          '/src/**/*.@(vue|tsx|ts)',
+          '../../components/*/vue/dist/*.@(js|css)',
+        ],
       },
     }),
   ],
