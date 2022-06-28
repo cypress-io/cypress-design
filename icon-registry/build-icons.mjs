@@ -102,17 +102,22 @@ async function ensureDistExist() {
   }
 }
 
+const prefixes = ['', 'hover', 'focus', 'hocus']
+const ColorRoots = [
+  'StrokeColor',
+  'FillColor',
+  'SecondaryStrokeColor',
+  'SecondaryFillColor',
+]
+
 async function generateIndex(iconsObjectUnique) {
   const indexFileContent = iconsObjectUnique
     .map((icon) => {
       // prettier-ignore
       return dedent`
       '${icon.snakeCaseName}': {
-          availableSizes: ['${icon.availableSizes.join('\', \'')}'],
-          hasFillColor: ${JSON.stringify(icon.hasFillColor)},
-          hasStrokeColor: ${JSON.stringify(icon.hasStrokeColor)},
-          hasSecondaryFillColor: ${JSON.stringify(icon.hasSecondaryFillColor)},
-          hasSecondaryStrokeColor: ${JSON.stringify(icon.hasSecondaryStrokeColor)},
+          availableSizes: ['${icon.availableSizes.join('\',\'')}'], ${ColorRoots.map((colorRoot) => `
+          has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}
       }`;
     })
     .join(',\n')
@@ -142,11 +147,12 @@ async function generateIndex(iconsObjectUnique) {
         return dedent`
         export interface ${icon.interfaceName} {
             name: '${icon.snakeCaseName}';
-            size?: '${icon.availableSizes.join('\' | \'')}';${icon.hasStrokeColor ? `
-            strokeColor?: WindiColor;`: ''}${icon.hasFillColor ? `
-            fillColor?: WindiColor;` : ''}${icon.hasSecondaryStrokeColor ? `
-            secondaryStrokeColor?: WindiColor;` : ''}${icon.hasSecondaryFillColor ? `
-            secondaryFillColor?: WindiColor;` : ''}
+            size?: '${icon.availableSizes.join('\' | \'')}';
+            interactiveColorsOnGroup?: boolean;
+            ${prefixes.map(prefix => 
+              ColorRoots.map(root => icon[`has${root}`] ? `${camelCase(`${prefix}${root}`)}?: WindiColor;
+            ` : false
+            ).filter(Boolean).join('')).join('')}
         }`;
       } else {
         // if not, we need to generate the type definition for each size
@@ -156,11 +162,12 @@ async function generateIndex(iconsObjectUnique) {
           return `
           export interface ${icon.interfaceName}X${size} {
               name: '${icon.snakeCaseName}';
-              size?: '${size}';${(icon.hasStrokeColor && icon.hasStrokeColor?.indexOf(size) > -1) ? `
-              strokeColor?: WindiColor;`: ''}${(icon.hasFillColor && icon.hasFillColor?.indexOf(size) > -1) ? `
-              fillColor?: WindiColor;` : ''}${(icon.hasSecondaryStrokeColor && icon.hasSecondaryStrokeColor?.indexOf(size) > -1) ? `
-              secondaryStrokeColor?: WindiColor;` : ''}${(icon.hasSecondaryFillColor && icon.hasSecondaryFillColor?.indexOf(size) > -1) ? `
-              secondaryFillColor?: WindiColor;` : ''}
+              size?: '${size}';
+              interactiveColorsOnGroup?: boolean;
+              ${prefixes.map(prefix => 
+                ColorRoots.map(root => icon[`has${root}`] && icon[`has${root}`]?.indexOf(size) > -1 ? `${camelCase(`${prefix}${root}`)}?: WindiColor;
+              ` : false
+              ).filter(Boolean).join('')).join('')}
           }`
         })
 
@@ -202,6 +209,19 @@ async function generateIndex(iconsObjectUnique) {
     .join(' | ')}
 
   ${typesFileContent}
+
+  export interface OpenIconProps {
+    ${prefixes
+      .map((prefix) =>
+        ColorRoots.map(
+          (root) => `${camelCase(`${prefix}${root}`)}?: WindiColor;
+    `
+        )
+          .filter(Boolean)
+          .join('')
+      )
+      .join('')}
+  }
     `
   )
 }

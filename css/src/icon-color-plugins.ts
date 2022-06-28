@@ -6,7 +6,7 @@
  */
 
 import createPlugin from 'windicss/plugin'
-import { reduce, kebabCase, isObject } from 'lodash'
+import { reduce, kebabCase, isObject, camelCase } from 'lodash'
 import { colors } from './colors'
 import { DefaultExtractor } from 'vite-plugin-windicss'
 import { Extractor } from 'windicss/types/interfaces'
@@ -160,19 +160,57 @@ export const IconDuotoneColorsPlugin = createPlugin(
   }
 )
 
-export const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
-  fillColor: (attrValue: string) => `icon-light-${attrValue}`,
-  strokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
-  secondaryFillColor: (attrValue: string) =>
+const prefixes = ['', 'hover', 'focus', 'hocus'] as const
+
+export const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
+  FillColor: (attrValue: string) => `icon-light-${attrValue}`,
+  StrokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
+  SecondaryFillColor: (attrValue: string) =>
     `icon-light-secondary-${attrValue}`,
-  secondaryStrokeColor: (attrValue: string) =>
+  SecondaryStrokeColor: (attrValue: string) =>
     `icon-dark-secondary-${attrValue}`,
 } as const
+
+const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
+  string,
+  (attrValue: string) => string
+> = {}
+
+prefixes.forEach((prefix) => {
+  Object.entries(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).forEach(
+    ([root, value]) => {
+      ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] = (
+        attrValue
+      ) => {
+        if (!prefix.length) {
+          return value(attrValue)
+        }
+        // add the hover: or focus: prefix
+        const normalClass = `${prefix}:${value(attrValue)}`
+
+        // always keep the group-focus and group-hover classes
+        return `${normalClass} group-${normalClass}`
+      }
+    }
+  )
+})
 
 function isIconAttribute(
   attrName: string
 ): attrName is keyof typeof ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR {
   return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
+}
+
+function isValidWindiColor(value: string) {
+  const [hue, weight] = value.split('-')
+  const hueObject = (colors as any)[hue]
+  if (!hueObject) {
+    return false
+  }
+  if (!hueObject[parseInt(weight, 10)]) {
+    return false
+  }
+  return true
 }
 
 /**
@@ -191,16 +229,10 @@ export const IconExtractor: Extractor = {
             attributes.values[index].match(/[a-z]+-\d+/g) || []
           attrValueClasses.forEach((value) => {
             // first, check that the color is valid
-            const [hue, weight] = value.split('-')
-            const hueObject = (colors as any)[hue]
-            if (!hueObject) {
-              return
+            if (isValidWindiColor(value)) {
+              // if it checks out, add the class to the set
+              set.add(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](value))
             }
-            if (!hueObject[parseInt(weight, 10)]) {
-              return
-            }
-            // if it checks out, add the class to the set
-            set.add(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](value))
           })
         }
         return set
