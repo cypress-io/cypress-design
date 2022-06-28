@@ -15,8 +15,8 @@
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+    "build:module": "rollup -c ./rollup.config.js",
+    "build:types": "vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
     "@cypress-design/vue-icon": "*"
