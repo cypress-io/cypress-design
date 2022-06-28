@@ -48,7 +48,7 @@ function App() {
         </p>
         <Spinner />
         <IconActionQuestionMarkCircle
-          strokeColor="jade-800"
+          strokeColor={isChecked ? 'jade-800' : 'jade-500'}
           fillColor="jade-500"
         />
       </header>
