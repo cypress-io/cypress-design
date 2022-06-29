@@ -1,9 +1,11 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import vue from '@vitejs/plugin-vue'
+import postcss from 'rollup-plugin-postcss'
 
-export default ({ input, plugins = [] }) => ({
-  input,
+export default {
+  input: './index.ts',
   output: [
     {
       file: './dist/index.umd.js',
@@ -13,7 +15,7 @@ export default ({ input, plugins = [] }) => ({
       sourcemapPathTransform: (sourcePath) =>
         sourcePath.includes('node_modules')
           ? sourcePath
-          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
+          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../vue/$1`),
     },
     {
       file: './dist/index.es.js',
@@ -22,19 +24,25 @@ export default ({ input, plugins = [] }) => ({
       sourcemapPathTransform: (sourcePath) =>
         sourcePath.includes('node_modules')
           ? sourcePath
-          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
+          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../vue/$1`),
     },
   ],
   plugins: [
     resolve(),
     commonjs(),
+    vue(),
+    postcss(),
     typescript({
       tsconfig: './tsconfig.build.json',
+      include: ['./*.ts', '../*.ts', './*.vue'],
       declaration: false,
       declarationMap: false,
       sourceMap: true,
     }),
-    ...plugins,
   ],
-  external: ['clsx', 'react', '@cypress-design/icon-registry'],
-})
+  external: [
+    'vue',
+    '@cypress-design/icon-registry',
+    '@cypress-design/vue-icon',
+  ],
+}

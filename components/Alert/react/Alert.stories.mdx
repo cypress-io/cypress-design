@@ -1,0 +1,88 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+import AlertStory from './Alert.rootstory'
+
+import { Alert } from './Alert'
+
+<h1>Alert<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Alert" component={Alert} parameters={{
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=1035%3A9923",
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="Alert">
+    <AlertStory />
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+## Usage
+
+The simplest is to use with plain text. The only prop that is required is the `title`. By default, type is `info`.
+
+```jsx
+import Alert from '@cypress-design/react-alert'
+
+export const AlertComp = () => {
+  return <Alert type="error" title="This is an info message" />
+}
+```
+
+One can also have rich text in both the title and the body.
+
+```jsx
+import Alert from '@cypress-design/react-alert'
+
+export const AlertComp = () => {
+  return (
+    <Alert
+      title={
+        <>
+          This is an <code>info</code> message
+        </>
+      }
+    >
+      <p>This is the body of the alert.</p>
+    </Alert>
+  )
+}
+```
+
+If you want the alert to be dismissible, you can add the `dismissible` prop. Don't forget to add the `onDismiss` prop to handle the dismiss event.
+
+```jsx
+import Alert from '@cypress-design/react-alert'
+
+export const AlertComp = () => {
+  const [dismissed, setDismissed] = React.useState(false)
+  return (
+    {!dismissed && (<Alert
+      title="This is an info message"
+      dismissible
+      onDismiss={() => setDismissed(true)}
+    />)}
+  )
+}
+```
+
+You can also remove the rounded corners and the icon of the alert by adding the `notRounded` and `noIcon` props.
+
+```jsx
+import Alert from '@cypress-design/react-alert'
+
+export const AlertComp = () => {
+  return (
+    <Alert type="warning" title="This is an info message" notRounded noIcon />
+  )
+}
+```
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>

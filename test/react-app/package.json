@@ -11,13 +11,13 @@
     "@cypress-design/react-checkbox": "^0.2.0",
     "@cypress-design/react-icon": "^0.2.1",
     "@cypress-design/react-spinner": "^0.0.1",
-    "react": "*",
-    "react-dom": "*"
+    "react": "18",
+    "react-dom": "18"
   },
   "devDependencies": {
     "@cypress-design/css": "^0.4.0",
-    "@types/react": "*",
-    "@types/react-dom": "*",
+    "@types/react": "18",
+    "@types/react-dom": "18",
     "@vitejs/plugin-react": "^1.3.0",
     "typescript": "^4.6.3",
     "vite": "^2.9.5"
