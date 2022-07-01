@@ -165,6 +165,31 @@ function addIconUtilityClasses(theme: (key: string) => string) {
 export const IconDuotoneColorsPlugin = createPlugin(
   ({ theme, addUtilities, addVariant }) => {
     addUtilities(addIconUtilityClasses(theme as any))
+    /**
+     * Adding the class `hover:icon-light-red-500` to will not
+     * apply the color to the icon when hovered. Instead,
+     * it will apply the color to the icon when each path is hovered.
+     * This is not the behavior we expect.
+     *
+     * `hover-icon:icon-light-red-500` will move the pseudo class to
+     * the icon itself (cf the unit test result).
+     *
+     * With `hover:icon-light-red-500`, windi yields
+     *
+     * ```
+     * .icon-light-red-500 > *[fill]:hover{
+     *  fill: resolvedColor
+     * }
+     * ```
+     *
+     * and with `hover-icon` instead of `hover`, it yields
+     *
+     * ```
+     * .icon-light-red-500:hover > *[fill]{
+     *  fill: resolvedColor
+     * }
+     * ```
+     */
     addVariant('hover-icon', ({ modifySelectors }) => {
       return modifySelectors(({ className }) => {
         return `.${className}:hover`
