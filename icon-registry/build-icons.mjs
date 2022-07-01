@@ -22,6 +22,19 @@ const propsRE = {
   hasSecondaryFillColor: /icon-light-secondary/,
 }
 
+const propDescriptions = {
+  StrokeColor: 'Color of the stroke',
+  FillColor: 'Color of the fill',
+  SecondaryStrokeColor: 'Color of the secondary stroke',
+  SecondaryFillColor: 'Color of the secondary fill',
+}
+
+const prefixDescriptions = {
+  hover: (root) => `${root} when hovered`,
+  focus: (root) => `${root} when focused`,
+  hocus: (root) => `${root} when both focused and hovered`,
+}
+
 const props = Object.keys(propsRE)
 
 async function getIcons() {
@@ -145,14 +158,13 @@ async function generateIndex(iconsObjectUnique) {
       if (isUnique) {
         // prettier-ignore
         return dedent`
-        export interface ${icon.interfaceName} {
+        export interface ${icon.interfaceName} 
+            extends ${['RootIconProps', ...prefixes.map(prefix => 
+              ColorRoots.map(root => icon[`has${root}`] ? `
+            Has${camelCase(`${prefix}${root}`, { pascalCase: true })}` : false
+            ).filter(Boolean).join(',')).filter(p => p.length)].join(',')} {
             name: '${icon.snakeCaseName}';
             size?: '${icon.availableSizes.join('\' | \'')}';
-            interactiveColorsOnGroup?: boolean;
-            ${prefixes.map(prefix => 
-              ColorRoots.map(root => icon[`has${root}`] ? `${camelCase(`${prefix}${root}`)}?: WindiColor;
-            ` : false
-            ).filter(Boolean).join('')).join('')}
         }`;
       } else {
         // if not, we need to generate the type definition for each size
@@ -160,13 +172,15 @@ async function generateIndex(iconsObjectUnique) {
         const sizeInterfaces = icon.availableSizes.map((size) => {
           // prettier-ignore
           return `
-          export interface ${icon.interfaceName}X${size} {
+          export interface ${icon.interfaceName}X${size} 
+              extends ${['RootIconProps', ...prefixes.map(prefix => 
+                ColorRoots.map(root => icon[`has${root}`] ? `
+              Has${camelCase(`${prefix}${root}`, { pascalCase: true })}` : false
+              ).filter(Boolean).join(',')).filter(p => p.length)].join(',')} {
               name: '${icon.snakeCaseName}';
-              size?: '${size}';
-              interactiveColorsOnGroup?: boolean;
-              ${prefixes.map(prefix => 
-                ColorRoots.map(root => icon[`has${root}`] && icon[`has${root}`]?.indexOf(size) > -1 ? `${camelCase(`${prefix}${root}`)}?: WindiColor;
-              ` : false
+              size?: '${size}';${prefixes.map(prefix => 
+                ColorRoots.map(root => icon[`has${root}`] && icon[`has${root}`]?.indexOf(size) > -1 ? `
+              ${camelCase(`${prefix}${root}`)}?: WindiColor;` : false
               ).filter(Boolean).join('')).join('')}
           }`
         })
@@ -203,6 +217,44 @@ async function generateIndex(iconsObjectUnique) {
   export var iconsMetadata = {
     ${indexFileContent}
   } as const;
+
+  interface RootIconProps {
+    /**
+     * Identifier for the icon
+     */
+    name: string;
+    /**
+     * Size of the icons canvas (in px)
+     */
+    size?: string;
+    /**
+     * Should the interactive variants hover and focus 
+     * be applied on the icon itself or the parent group
+     */
+    interactiveColorsOnGroup?: boolean;
+  }
+  
+  ${prefixes
+    // propDescriptions / prefixDescriptions
+    .map((prefix) =>
+      ColorRoots.map(
+        (root) => dedent`
+      interface Has${camelCase(`${prefix}${root}`, { pascalCase: true })} {
+          /**
+           * ${
+             prefix
+               ? prefixDescriptions[prefix](propDescriptions[root])
+               : propDescriptions[root]
+           }
+           */
+          ${camelCase(`${prefix}${root}`)}?: WindiColor;
+      }
+      `
+      )
+        .filter(Boolean)
+        .join('\n\n')
+    )
+    .join('\n\n')}
     
   export type IconProps = ${iconsObjectUnique
     .map((icon) => icon.interfaceName)
@@ -214,7 +266,8 @@ async function generateIndex(iconsObjectUnique) {
     ${prefixes
       .map((prefix) =>
         ColorRoots.map(
-          (root) => `${camelCase(`${prefix}${root}`)}?: WindiColor;
+          (root) =>
+            `${camelCase(`${prefix}${root}`)}?: WindiColor;
     `
         )
           .filter(Boolean)
