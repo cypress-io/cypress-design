@@ -171,10 +171,10 @@ export const IconDuotoneColorsPlugin = createPlugin(
      * it will apply the color to the icon when each path is hovered.
      * This is not the behavior we expect.
      *
-     * `hover-icon:icon-light-red-500` will move the pseudo class to
+     * `icon-hover:icon-light-red-500` will move the pseudo class to
      * the icon itself (cf the unit test result).
      *
-     * With `hover:icon-light-red-500`, windi yields
+     * With `icon-hover:icon-light-red-500`, windiCSS yields
      *
      * ```
      * .icon-light-red-500 > *[fill]:hover{
@@ -182,7 +182,7 @@ export const IconDuotoneColorsPlugin = createPlugin(
      * }
      * ```
      *
-     * and with `hover-icon` instead of `hover`, it yields
+     * and with `icon-hover` instead of `hover`, it yields
      *
      * ```
      * .icon-light-red-500:hover > *[fill]{
@@ -190,17 +190,17 @@ export const IconDuotoneColorsPlugin = createPlugin(
      * }
      * ```
      */
-    addVariant('hover-icon', ({ modifySelectors }) => {
+    addVariant('icon-hover', ({ modifySelectors }) => {
       return modifySelectors(({ className }) => {
         return `.${className}:hover`
       })
     })
-    addVariant('focus-icon', ({ modifySelectors }) => {
+    addVariant('icon-focus', ({ modifySelectors }) => {
       return modifySelectors(({ className }) => {
         return `.${className}:focus`
       })
     })
-    addVariant('hocus-icon', ({ modifySelectors }) => {
+    addVariant('icon-hocus', ({ modifySelectors }) => {
       return modifySelectors(({ className }) => {
         return `.${className}:hover, .${className}:focus`
       })
@@ -234,8 +234,8 @@ prefixes.forEach((prefix) => {
         if (!prefix.length) {
           return value(attrValue)
         }
-        // add the hover: or focus: prefix
-        const normalClass = `${prefix}-icon:${value(attrValue)}`
+        // add the icon-hover: or icon-focus: prefix
+        const normalClass = `icon-${prefix}:${value(attrValue)}`
 
         if (!hasGroupProp) {
           return normalClass

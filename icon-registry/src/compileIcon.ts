@@ -59,7 +59,7 @@ export const getComponentAttributes = ({
         ? '-secondary'
         : ''
 
-      const prefixPseudoClass = lowerCaseColor.includes('hover')
+      const pseudoClass = lowerCaseColor.includes('hover')
         ? 'hover'
         : lowerCaseColor.includes('focus')
         ? 'focus'
@@ -67,14 +67,12 @@ export const getComponentAttributes = ({
         ? 'hocus'
         : ''
 
-      const prefix =
-        interactiveColorsOnGroup !== undefined &&
-        interactiveColorsOnGroup !== false &&
-        prefixPseudoClass.length
-          ? `group-${prefixPseudoClass}:`
-          : prefixPseudoClass.length
-          ? `${prefixPseudoClass}-icon:`
-          : ''
+      const prefix = pseudoClass.length
+        ? interactiveColorsOnGroup !== undefined &&
+          interactiveColorsOnGroup !== false
+          ? `group-${pseudoClass}:`
+          : `icon-${pseudoClass}:`
+        : ''
 
       const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${colorWeight}`
 
