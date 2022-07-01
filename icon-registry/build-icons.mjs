@@ -213,24 +213,10 @@ async function generateIndex(iconsObjectUnique) {
     }, [])
     .join(`' | '`)}';
   
-  export interface OpenIconProps {${prefixes
-    .map((prefix) =>
-      ColorRoots.map(
-        (root) => ` 
-    /**
-     * ${
-       prefix
-         ? prefixDescriptions[prefix](propDescriptions[root])
-         : propDescriptions[root]
-     }
-     */   
-    ${camelCase(`${prefix}${root}`)}?: WindiColor;`
-      )
-        .filter(Boolean)
-        .join('')
-    )
-    .join('')}
-}
+  export interface OpenIconProps 
+    extends RootIconProps, ${ColorRoots.map(
+      (root) => `Has${camelCase(`${root}`, { pascalCase: true })}`
+    ).join(', ')}{}
 
   interface RootIconProps {
     /**
@@ -242,8 +228,9 @@ async function generateIndex(iconsObjectUnique) {
      */
     size?: string;
     /**
-     * Should the interactive variants hover and focus 
-     * be applied on the icon itself or the parent group
+     * Should the interactive variants \`hover\` and \`focus\` 
+     * be applied on the icon itself or on the parent 
+     * group defined in windiCSS
      */
     interactiveColorsOnGroup?: boolean;
   }
