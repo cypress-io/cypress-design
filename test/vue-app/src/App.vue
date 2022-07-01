@@ -14,7 +14,7 @@ const checked = ref(false)
     <p v-if="checked">Checked</p>
     <IconObjectBookCode size="48" :strokeColor="checked ? 'indigo-600' : 'red-300'" fillColor="indigo-300"
       hoverFillColor="red-300" />
-    <Icon name="object-book" strokeColor="jade-500" size="24" hoverStrokeColor="indigo-500" />
+    <Icon name="object-book" strokeColor="jade-500" size="24" hoverStrokeColor="red-500" />
     <Alert type="error">
       Error
     </Alert>
