@@ -235,14 +235,14 @@ prefixes.forEach((prefix) => {
           return value(attrValue)
         }
         // add the icon-hover: or icon-focus: prefix
-        const normalClass = `icon-${prefix}:${value(attrValue)}`
+        const normalClass = `${prefix}:${value(attrValue)}`
 
         if (!hasGroupProp) {
-          return normalClass
+          return prefix.length ? `icon-${normalClass}` : normalClass
         }
 
         // always keep the group-focus and group-hover classes
-        return `${normalClass} group-${normalClass}`
+        return `icon-${normalClass} group-${normalClass}`
       }
     }
   )
