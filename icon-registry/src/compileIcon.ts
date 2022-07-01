@@ -47,8 +47,8 @@ export const getComponentAttributes = ({
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(colors)
     .map((color) => {
-      const colorValue = colors[color]
-      if (!colorValue) {
+      const colorWeight = colors[color]
+      if (!colorWeight) {
         return false
       }
       const lowerCaseColor = color.toLowerCase()
@@ -59,22 +59,24 @@ export const getComponentAttributes = ({
         ? '-secondary'
         : ''
 
-      const prefixClass = lowerCaseColor.includes('hover')
-        ? 'hover:'
+      const prefixPseudoClass = lowerCaseColor.includes('hover')
+        ? 'hover'
         : lowerCaseColor.includes('focus')
-        ? 'focus:'
+        ? 'focus'
         : lowerCaseColor.includes('hocus')
-        ? 'hocus:'
+        ? 'hocus'
         : ''
 
-      const groupPrefix =
+      const prefix =
         interactiveColorsOnGroup !== undefined &&
         interactiveColorsOnGroup !== false &&
-        prefixClass.length
-          ? 'group-'
+        prefixPseudoClass.length
+          ? `group-${prefixPseudoClass}:`
+          : prefixPseudoClass.length
+          ? `${prefixPseudoClass}-icon:`
           : ''
 
-      const finalClass = `${groupPrefix}${prefixClass}icon-${colorClass}${secondaryClass}-${colorValue}`
+      const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${colorWeight}`
 
       return finalClass
     })

@@ -9,7 +9,7 @@ import createPlugin from 'windicss/plugin'
 import { reduce, kebabCase, isObject, camelCase } from 'lodash'
 import { colors } from './colors'
 import { DefaultExtractor } from 'vite-plugin-windicss'
-import { Extractor } from 'windicss/types/interfaces'
+import { DeepNestObject, Extractor } from 'windicss/types/interfaces'
 
 interface RuleConfig {
   name: string
@@ -18,7 +18,12 @@ interface RuleConfig {
   color?: string
 }
 
-const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
+const makeRuleForClass = ({
+  name,
+  theme,
+  weight,
+  color,
+}: RuleConfig): DeepNestObject => {
   const resolvedColor = color
     ? color
     : weight
@@ -30,6 +35,10 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
     `.icon-light-secondary-${name}`,
     `.icon-dark-secondary-${name}`,
   ]
+
+  if (!resolvedColor) {
+    return {}
+  }
 
   // transparent, black, and white
   if (weight) {
@@ -154,9 +163,23 @@ function addIconUtilityClasses(theme: (key: string) => string) {
 }
 
 export const IconDuotoneColorsPlugin = createPlugin(
-  ({ theme, addUtilities }) => {
-    // @ts-ignore - dunno
-    addUtilities(addIconUtilityClasses(theme))
+  ({ theme, addUtilities, addVariant }) => {
+    addUtilities(addIconUtilityClasses(theme as any))
+    addVariant('hover-icon', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:hover`
+      })
+    })
+    addVariant('focus-icon', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:focus`
+      })
+    })
+    addVariant('hocus-icon', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:hover, .${className}:focus`
+      })
+    })
   }
 )
 
@@ -187,7 +210,7 @@ prefixes.forEach((prefix) => {
           return value(attrValue)
         }
         // add the hover: or focus: prefix
-        const normalClass = `${prefix}:${value(attrValue)}`
+        const normalClass = `${prefix}-icon:${value(attrValue)}`
 
         if (!hasGroupProp) {
           return normalClass
