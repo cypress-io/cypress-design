@@ -16,7 +16,7 @@ export const compileVueIconProperties = ({
   class: className,
   interactiveColorsOnGroup,
   ...attributes
-}: OpenIconProps &
+}: Omit<OpenIconProps, 'name'> &
   SVGAttributes & {
     body: string
     compiledClasses: string[]
