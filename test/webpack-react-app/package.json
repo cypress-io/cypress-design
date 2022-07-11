@@ -1,14 +1,14 @@
 {
   "name": "@cypress-design/test-webpack-react-app",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "dev": "webpack serve --hot --mode development"
   },
   "dependencies": {
-    "@cypress-design/react-checkbox": "^0.2.0",
-    "@cypress-design/react-icon": "^0.2.1",
-    "@cypress-design/react-spinner": "^0.0.1",
+    "@cypress-design/react-checkbox": "^0.2.1",
+    "@cypress-design/react-icon": "^0.3.0",
+    "@cypress-design/react-spinner": "^0.0.2",
     "react": "17",
     "react-dom": "17",
     "react-hot-loader": "^4.13.0"
@@ -17,7 +17,7 @@
     "@babel/core": "^7.17.9",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
-    "@cypress-design/css": "^0.4.0",
+    "@cypress-design/css": "^0.5.0",
     "@hot-loader/react-dom": "^17.0.2+4.13.0",
     "@types/react": "17",
     "@types/react-dom": "17",
