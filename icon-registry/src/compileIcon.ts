@@ -1,4 +1,4 @@
-import { type IconProps, iconsMetadata } from './icons'
+import { type IconProps, type OpenIconProps, iconsMetadata } from './icons'
 import { iconSet } from './iconsList'
 import camelCase from 'camelcase'
 
@@ -27,18 +27,13 @@ export const compileIcon = (props: IconProps) => {
 export const getComponentAttributes = ({
   size,
   availableSizes,
-  strokeColor,
-  fillColor,
-  secondaryStrokeColor,
-  secondaryFillColor,
+  interactiveColorsOnGroup,
+  ...colors
 }: {
   size: string
   availableSizes: readonly string[]
-  strokeColor?: string
-  fillColor?: string
-  secondaryStrokeColor?: string
-  secondaryFillColor?: string
-}) => {
+  interactiveColorsOnGroup?: boolean
+} & OpenIconProps) => {
   const sizeWithDefault =
     size ??
     (availableSizes.length >= 1
@@ -50,12 +45,40 @@ export const getComponentAttributes = ({
   // TODO: when all icons are converted to using the design system,
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
-  const compiledClasses = [
-    strokeColor && `icon-dark-${strokeColor}`,
-    fillColor && `icon-light-${fillColor}`,
-    secondaryStrokeColor && `icon-dark-secondary-${secondaryStrokeColor}`,
-    secondaryFillColor && `icon-light-secondary-${secondaryFillColor}`,
-  ].filter(Boolean)
+  const compiledClasses = Object.keys(colors)
+    .map((color) => {
+      const colorWeight = colors[color]
+      if (!colorWeight) {
+        return false
+      }
+      const lowerCaseColor = color.toLowerCase()
+      const colorClass = lowerCaseColor.includes('strokecolor')
+        ? 'dark'
+        : 'light'
+      const secondaryClass = lowerCaseColor.includes('secondary')
+        ? '-secondary'
+        : ''
+
+      const pseudoClass = lowerCaseColor.includes('hover')
+        ? 'hover'
+        : lowerCaseColor.includes('focus')
+        ? 'focus'
+        : lowerCaseColor.includes('hocus')
+        ? 'hocus'
+        : ''
+
+      const prefix = pseudoClass.length
+        ? interactiveColorsOnGroup !== undefined &&
+          interactiveColorsOnGroup !== false
+          ? `group-${pseudoClass}:`
+          : `icon-${pseudoClass}:`
+        : ''
+
+      const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${colorWeight}`
+
+      return finalClass
+    })
+    .filter((cl): cl is string => cl !== false)
 
   return { compiledClasses, sizeWithDefault }
 }

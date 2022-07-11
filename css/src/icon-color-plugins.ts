@@ -6,10 +6,10 @@
  */
 
 import createPlugin from 'windicss/plugin'
-import { reduce, kebabCase, isObject } from 'lodash'
+import { reduce, kebabCase, isObject, camelCase } from 'lodash'
 import { colors } from './colors'
 import { DefaultExtractor } from 'vite-plugin-windicss'
-import { Extractor } from 'windicss/types/interfaces'
+import { DeepNestObject, Extractor } from 'windicss/types/interfaces'
 
 interface RuleConfig {
   name: string
@@ -18,7 +18,12 @@ interface RuleConfig {
   color?: string
 }
 
-const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
+const makeRuleForClass = ({
+  name,
+  theme,
+  weight,
+  color,
+}: RuleConfig): DeepNestObject => {
   const resolvedColor = color
     ? color
     : weight
@@ -30,6 +35,10 @@ const makeRuleForClass = ({ name, theme, weight, color }: RuleConfig) => {
     `.icon-light-secondary-${name}`,
     `.icon-dark-secondary-${name}`,
   ]
+
+  if (!resolvedColor) {
+    return {}
+  }
 
   // transparent, black, and white
   if (weight) {
@@ -154,25 +163,109 @@ function addIconUtilityClasses(theme: (key: string) => string) {
 }
 
 export const IconDuotoneColorsPlugin = createPlugin(
-  ({ theme, addUtilities }) => {
-    // @ts-ignore - dunno
-    addUtilities(addIconUtilityClasses(theme))
+  ({ theme, addUtilities, addVariant }) => {
+    addUtilities(addIconUtilityClasses(theme as any))
+    /**
+     * Adding the class `hover:icon-light-red-500` to will not
+     * apply the color to the icon when hovered. Instead,
+     * it will apply the color to the icon when each path is hovered.
+     * This is not the behavior we expect.
+     *
+     * `icon-hover:icon-light-red-500` will move the pseudo class to
+     * the icon itself (cf the unit test result).
+     *
+     * With `icon-hover:icon-light-red-500`, windiCSS yields
+     *
+     * ```
+     * .icon-light-red-500 > *[fill]:hover{
+     *  fill: resolvedColor
+     * }
+     * ```
+     *
+     * and with `icon-hover` instead of `hover`, it yields
+     *
+     * ```
+     * .icon-light-red-500:hover > *[fill]{
+     *  fill: resolvedColor
+     * }
+     * ```
+     */
+    addVariant('icon-hover', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:hover`
+      })
+    })
+    addVariant('icon-focus', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:focus`
+      })
+    })
+    addVariant('icon-hocus', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:hover, .${className}:focus`
+      })
+    })
   }
 )
 
-export const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = {
-  fillColor: (attrValue: string) => `icon-light-${attrValue}`,
-  strokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
-  secondaryFillColor: (attrValue: string) =>
+const prefixes = ['', 'hover', 'focus', 'hocus'] as const
+
+const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
+  FillColor: (attrValue: string) => `icon-light-${attrValue}`,
+  StrokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
+  SecondaryFillColor: (attrValue: string) =>
     `icon-light-secondary-${attrValue}`,
-  secondaryStrokeColor: (attrValue: string) =>
+  SecondaryStrokeColor: (attrValue: string) =>
     `icon-dark-secondary-${attrValue}`,
 } as const
+
+const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
+  string,
+  (attrValue: string, hasGroupProp: boolean) => string
+> = {}
+
+prefixes.forEach((prefix) => {
+  Object.entries(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).forEach(
+    ([root, value]) => {
+      ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] = (
+        attrValue,
+        hasGroupProp
+      ) => {
+        if (!prefix.length) {
+          return value(attrValue)
+        }
+        // add the icon-hover: or icon-focus: prefix
+        const normalClass = `${prefix}:${value(attrValue)}`
+
+        if (!hasGroupProp) {
+          return prefix.length ? `icon-${normalClass}` : normalClass
+        }
+
+        // always keep the group-focus and group-hover classes
+        return `icon-${normalClass} group-${normalClass}`
+      }
+    }
+  )
+})
+
+export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR }
 
 function isIconAttribute(
   attrName: string
 ): attrName is keyof typeof ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR {
   return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
+}
+
+function isValidWindiColor(value: string) {
+  const [hue, weight] = value.split('-')
+  const hueObject = (colors as any)[hue]
+  if (!hueObject) {
+    return false
+  }
+  if (!hueObject[parseInt(weight, 10)]) {
+    return false
+  }
+  return true
 }
 
 /**
@@ -184,6 +277,9 @@ export const IconExtractor: Extractor = {
   extractor: (code, id) => {
     const { tags, classes = [], attributes } = DefaultExtractor(code, id)
 
+    const hasAGroupAttribute =
+      attributes?.names.includes('interactiveColorsOnGroup') ?? false
+
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
         if (isIconAttribute(attrName)) {
@@ -191,16 +287,15 @@ export const IconExtractor: Extractor = {
             attributes.values[index].match(/[a-z]+-\d+/g) || []
           attrValueClasses.forEach((value) => {
             // first, check that the color is valid
-            const [hue, weight] = value.split('-')
-            const hueObject = (colors as any)[hue]
-            if (!hueObject) {
-              return
+            if (isValidWindiColor(value)) {
+              // if it checks out, add the class to the set
+              set.add(
+                ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+                  value,
+                  hasAGroupAttribute
+                )
+              )
             }
-            if (!hueObject[parseInt(weight, 10)]) {
-              return
-            }
-            // if it checks out, add the class to the set
-            set.add(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](value))
           })
         }
         return set
