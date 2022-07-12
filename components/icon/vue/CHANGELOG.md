@@ -1,5 +1,41 @@
 # @cypress-design/vue-icon
 
+## 0.4.0
+
+### Minor Changes
+
+- [#41](https://github.com/cypress-io/cypress-design/pull/41) [`4259026`](https://github.com/cypress-io/cypress-design/commit/4259026314464260e89bcd88690c8a60ad2f0459) Thanks [@elevatebart](https://github.com/elevatebart)! - ## New syntaxes to add dynamic icon colors
+
+  ### With a prefix focus/hover
+
+  ```html
+  <IconBook
+    size="16"
+    strokeColor="blue-600"
+    hoverStrokeColor="jade-600"
+    focusStrokeColor="jade-900"
+  />
+  ```
+
+  ### With the same prefix acting on a group
+
+  ```html
+  <button class="group">
+    <IconBook
+      size="16"
+      strokeColor="blue-600"
+      hoverStrokeColor="jade-600"
+      focusStrokeColor="jade-900"
+      interactiveColorsOnGroup
+    />Read
+  </button>
+  ```
+
+### Patch Changes
+
+- Updated dependencies [[`4259026`](https://github.com/cypress-io/cypress-design/commit/4259026314464260e89bcd88690c8a60ad2f0459)]:
+  - @cypress-design/icon-registry@0.4.0
+
 ## 0.3.0
 
 ### Minor Changes

@@ -1,5 +1,40 @@
 # @cypress-design/css
 
+## 0.5.0
+
+### Minor Changes
+
+- [#41](https://github.com/cypress-io/cypress-design/pull/41) [`4259026`](https://github.com/cypress-io/cypress-design/commit/4259026314464260e89bcd88690c8a60ad2f0459) Thanks [@elevatebart](https://github.com/elevatebart)! - ## New syntaxes to add dynamic icon colors
+
+  ### With a prefix focus/hover
+
+  ```html
+  <IconBook
+    size="16"
+    strokeColor="blue-600"
+    hoverStrokeColor="jade-600"
+    focusStrokeColor="jade-900"
+  />
+  ```
+
+  ### With the same prefix acting on a group
+
+  ```html
+  <button class="group">
+    <IconBook
+      size="16"
+      strokeColor="blue-600"
+      hoverStrokeColor="jade-600"
+      focusStrokeColor="jade-900"
+      interactiveColorsOnGroup
+    />Read
+  </button>
+  ```
+
+### Patch Changes
+
+- [`4af3ea0`](https://github.com/cypress-io/cypress-design/commit/4af3ea08b8e172d328c11b64764631e85ffe0c07) Thanks [@elevatebart](https://github.com/elevatebart)! - allow for v-bind/calculated icon colors
+
 ## 0.4.1
 
 ### Patch Changes
