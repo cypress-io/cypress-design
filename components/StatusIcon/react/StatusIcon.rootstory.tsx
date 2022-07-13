@@ -1,4 +1,5 @@
 import * as React from 'react'
+import clsx from 'clsx'
 import StatusIcon from './StatusIcon'
 import { sizes, statuses } from '../constants'
 
@@ -14,16 +15,16 @@ export default () => (
         <th className="text-left">Used for</th>
       </tr>
       <tr key="h1">
-        <th className="border-b" />
-        <th className="border-b" />
+        <th />
+        <th />
         {sizes.map((size) => {
           return (
-            <th key={`heading-${size}`} className="border-b text-left">
+            <th key={`heading-${size}`} className="text-left">
               {size}
             </th>
           )
         })}
-        <th className="border-b" />
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -31,50 +32,50 @@ export default () => (
         const statusInfo = statuses[status]
 
         return (
-          <tr key={status}>
-            <td className="align-top py-8 border-y">
-              {statusInfo.link ? (
-                <a
-                  href={statusInfo.link}
-                  className="text-indigo-500 underline"
-                  target="_blank"
-                >
-                  {status}
-                </a>
-              ) : (
-                status
-              )}
-            </td>
-            <td className="py-8 border-y">
-              {statusInfo.variants.map((variant) => {
-                return (
-                  <span key={`${status}-${variant}`} className="block">
-                    {variant}
-                  </span>
-                )
-              })}
-            </td>
-
-            {sizes.map((size) => {
+          <>
+            {Object.keys(statusInfo.variants).map((variant, i) => {
               return (
-                <td key={`${status}-${size}`} className="py-8 border-y">
-                  {statusInfo.variants.map((variant) => {
+                <tr
+                  className={clsx(i === 0 && 'border-t')}
+                  key={`${status}-${variant}`}
+                >
+                  {i === 0 ? (
+                    <td>
+                      {statusInfo.link ? (
+                        <a
+                          href={statusInfo.link}
+                          className="text-indigo-500 underline"
+                          target="_blank"
+                        >
+                          {status}
+                        </a>
+                      ) : (
+                        status
+                      )}
+                    </td>
+                  ) : (
+                    <td />
+                  )}
+
+                  <td>{variant}</td>
+                  {sizes.map((size) => {
                     return (
-                      <span key={`${status}-${size}-${variant}`}>
+                      <td key={`${status}-${size}-${variant}`} className="py-2">
                         <StatusIcon
                           status={status}
                           size={size}
                           variant={variant}
                         />
-                        <br />
-                      </span>
+                      </td>
                     )
                   })}
-                </td>
+                  <td className="align-top py-2">
+                    {i === 0 ? statusInfo.use : ''}
+                  </td>
+                </tr>
               )
             })}
-            <td className="align-top py-8 border-y">{statusInfo.use}</td>
-          </tr>
+          </>
         )
       })}
     </tbody>

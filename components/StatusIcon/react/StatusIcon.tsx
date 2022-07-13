@@ -1,8 +1,8 @@
 import * as React from 'react'
-import clsx from 'clsx'
 import { getDisplayVariant, statuses } from '../constants'
 import type { Size, Variant } from '../constants'
-import Icon, { SVGPropsWithoutColorsOrSize } from '@cypress-design/react-icon'
+import { type SVGPropsWithoutColorsOrSize } from '@cypress-design/react-icon'
+import { compileReactIconProperties } from '@cypress-design/react-icon/Icon'
 
 export interface StatusIconProps {
   size?: Size
@@ -19,19 +19,22 @@ export interface StatusIconProps {
 export const StatusIcon: React.FC<
   StatusIconProps & SVGPropsWithoutColorsOrSize
 > = ({ size = '24', status, variant = 'simple', ...rest }) => {
+  // TODO: how to handle `rest`? make sure SVGPropsWithoutColorsOrSize is right
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
-  return (
-    <Icon
-      {...rest}
-      className={clsx('inline-block', rest.className, {
-        'animate-spin': statusInfo.iconSpin && size !== '4',
-      })}
-      name={
-        statusInfo.iconName + '-' + getDisplayVariant(statusInfo, size, variant)
-      }
-      size={size}
-    />
+  const icon = statusInfo.variants[getDisplayVariant(statusInfo, variant)][size]
+
+  const classes = `inline-block ${rest.className || ''} ${
+    statusInfo.iconSpin && size !== '4' ? 'animate-spin' : ''
+  }`
+
+  return React.createElement(
+    'svg',
+    compileReactIconProperties({
+      body: icon.data,
+      compiledClasses: [classes],
+      size,
+    })
   )
 }
 
