@@ -9,3 +9,6 @@ node_modules
 
 # we don't want frontmatter to be changed by prettier
 .changeset/*.md
+
+# do not format the CODEOWNERS file
+.github/CODEOWNERS

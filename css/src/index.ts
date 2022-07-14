@@ -31,3 +31,5 @@ export const CyCSSWebpackPlugin = (options: UserOptions) =>
   new WebpackPlugin(getConfig(options))
 
 export * from './colors'
+
+export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR } from './icon-color-plugins'

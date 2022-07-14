@@ -1,4 +1,8 @@
-import { type IconProps, compileIcon } from '@cypress-design/icon-registry'
+import {
+  type IconProps,
+  type OpenIconProps,
+  compileIcon,
+} from '@cypress-design/icon-registry'
 import { h, type SVGAttributes } from 'vue'
 
 export default (props: IconProps & Omit<SVGAttributes, 'name'>) => {
@@ -9,21 +13,22 @@ export const compileVueIconProperties = ({
   body,
   compiledClasses,
   size,
-  strokeColor,
-  fillColor,
-  secondaryStrokeColor,
-  secondaryFillColor,
   class: className,
+  interactiveColorsOnGroup,
   ...attributes
-}: SVGAttributes & {
-  body: string
-  compiledClasses: string[]
-  size: string
-  strokeColor?: string
-  fillColor?: string
-  secondaryStrokeColor?: string
-  secondaryFillColor?: string
-}) => {
+}: Omit<OpenIconProps, 'name'> &
+  SVGAttributes & {
+    body: string
+    compiledClasses: string[]
+    size: string
+    interactiveColorsOnGroup?: boolean
+  }) => {
+  Object.keys(attributes).forEach((key) => {
+    if (key.endsWith('Color')) {
+      // @ts-ignore
+      delete attributes[key]
+    }
+  })
   const componentProps: any = {
     width: size,
     height: size,

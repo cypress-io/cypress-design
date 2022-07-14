@@ -1,0 +1,76 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md?raw"
+
+import Alert from './Alert.vue'
+
+import AlertStory from './Alert.rootstory'
+
+<h1>Alert<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Alert" component={Alert} parameters={{
+    design: {
+      type: "figma",
+      url: "https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=1035%3A9923",
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="Alert">
+    {AlertStory()}
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+## Usage
+
+The simplest is to use with plain text. By default, type is `info`.
+
+```vue
+<script setup>
+import Alert from '@cypress-design/vue-alert'
+</script>
+<template>
+  <Alert type="error">Great Scott!!</Alert>
+</template>
+```
+
+One can also have rich text in both the title and the body.
+
+```vue
+<template>
+  <Alert>
+    This is an <code>info</code> message
+    <template #body>
+      <p>This is the body of the alert.</p>
+    </template>
+  </Alert>
+</template>
+```
+
+If you want the alert to be dismissible, you can add the `dismissible` prop. Don't forget to add the `@dismiss` prop to handle the dismiss event.
+
+```vue
+<template>
+  <Alert
+    title="This is an info message"
+    dismissible
+    @dismiss="() => setDismissed(true)"
+  />
+</template>
+```
+
+You can also remove the rounded corners and the icon of the alert by adding the `notRounded` and the `noIcon` props.
+
+```vue
+<template>
+  <Alert type="warning" title="This is an info message" notRounded noIcon />
+</template>
+```
+
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
+

@@ -26,7 +26,9 @@ export const Button: React.FC<
   ...rest
 }) => {
   const finalVariant =
-    disabled && !['outline-light', 'link'].includes(variant) ? 'disabled' : variant
+    disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
+      ? 'disabled'
+      : variant
   const finalDisabled = disabled || variant === 'disabled'
   return (
     <button

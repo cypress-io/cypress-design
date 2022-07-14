@@ -4,7 +4,7 @@
 
 Use the `<icon>` component to display an icon from the cypress figma library.
 
-### Usage
+## Usage
 
 2 methods exist to load this component:
 
@@ -37,6 +37,46 @@ import Icon from @cypress-design/vue-icon
 </script>
 <template>
   <Icon name="book-code" />
+</template>
+```
+
+Should you need to change the color of the icon on `hover` or `focus` prefix the props with these words.
+
+Here, the `strokeColor` will change on hover from indigo to jade
+
+```vue
+<script setup>
+import { IconBook } from '@cypress-design/vue-icon'
+</script>
+<template>
+  <button>
+    <IconBook
+      size="16"
+      strokeColor="blue-600"
+      hoverStrokeColor="jade-600"
+    />Read
+  </button>
+</template>
+```
+
+If you need the `hover` or `focus` effect to be triggered on the parent group, use `interactiveColorsOnGroup`.
+This prop will change all the pseudo prefixes to be group focused instead of triggered by the icon itself.
+
+To achieve the same goal, in WindiCSS, we would use `group-hover:` instead of `hover:`.
+
+```vue
+<script setup>
+import { IconBook } from '@cypress-design/vue-icon'
+</script>
+<template>
+  <button class="group hover:text-jade-800">
+    <IconBook
+      size="16"
+      strokeColor="blue-600"
+      hoverStrokeColor="jade-600"
+      interactiveColorsOnGroup
+    />Read
+  </button>
 </template>
 ```
 

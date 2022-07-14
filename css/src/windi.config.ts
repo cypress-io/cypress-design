@@ -1,8 +1,7 @@
 import { defineConfig } from 'windicss/helpers'
 // @ts-ignore
 import InteractionVariants from '@windicss/plugin-interaction-variants'
-import { IconDuotoneColorsPlugin } from './icon-color-plugins'
-import { safelist } from './safelist'
+import { IconDuotoneColorsPlugin, IconExtractor } from './icon-color-plugins'
 import { colors } from './colors'
 import { shortcuts } from './shortcuts'
 
@@ -29,7 +28,6 @@ export default defineConfig({
       },
     },
   },
-  safelist,
   variants: {
     // What's hocus?
     // Hocus is a portmanteau of hover + focus. This is useful because
@@ -54,5 +52,6 @@ export default defineConfig({
   shortcuts,
   extract: {
     exclude: ['node_modules/**/*', '.git/**/*'],
+    extractors: [IconExtractor],
   },
 })

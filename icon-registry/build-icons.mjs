@@ -22,6 +22,19 @@ const propsRE = {
   hasSecondaryFillColor: /icon-light-secondary/,
 }
 
+const propDescriptions = {
+  StrokeColor: 'Color of the stroke',
+  FillColor: 'Color of the fill',
+  SecondaryStrokeColor: 'Color of the secondary stroke',
+  SecondaryFillColor: 'Color of the secondary fill',
+}
+
+const prefixDescriptions = {
+  hover: (root) => `${root} when hovered`,
+  focus: (root) => `${root} when focused`,
+  hocus: (root) => `${root} when both focused and hovered`,
+}
+
 const props = Object.keys(propsRE)
 
 async function getIcons() {
@@ -102,17 +115,22 @@ async function ensureDistExist() {
   }
 }
 
+const prefixes = ['', 'hover', 'focus', 'hocus']
+const ColorRoots = [
+  'StrokeColor',
+  'FillColor',
+  'SecondaryStrokeColor',
+  'SecondaryFillColor',
+]
+
 async function generateIndex(iconsObjectUnique) {
   const indexFileContent = iconsObjectUnique
     .map((icon) => {
       // prettier-ignore
       return dedent`
       '${icon.snakeCaseName}': {
-          availableSizes: ['${icon.availableSizes.join('\', \'')}'],
-          hasFillColor: ${JSON.stringify(icon.hasFillColor)},
-          hasStrokeColor: ${JSON.stringify(icon.hasStrokeColor)},
-          hasSecondaryFillColor: ${JSON.stringify(icon.hasSecondaryFillColor)},
-          hasSecondaryStrokeColor: ${JSON.stringify(icon.hasSecondaryStrokeColor)},
+          availableSizes: ['${icon.availableSizes.join('\',\'')}'], ${ColorRoots.map((colorRoot) => `
+          has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}
       }`;
     })
     .join(',\n')
@@ -140,13 +158,14 @@ async function generateIndex(iconsObjectUnique) {
       if (isUnique) {
         // prettier-ignore
         return dedent`
-        export interface ${icon.interfaceName} {
+        export interface ${icon.interfaceName} 
+            extends ${['RootIconProps', ...ColorRoots.map(root => 
+              icon[`has${root}`] 
+                ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
+                : false
+            ).filter(Boolean)].join(', ')} {
             name: '${icon.snakeCaseName}';
-            size?: '${icon.availableSizes.join('\' | \'')}';${icon.hasStrokeColor ? `
-            strokeColor?: WindiColor;`: ''}${icon.hasFillColor ? `
-            fillColor?: WindiColor;` : ''}${icon.hasSecondaryStrokeColor ? `
-            secondaryStrokeColor?: WindiColor;` : ''}${icon.hasSecondaryFillColor ? `
-            secondaryFillColor?: WindiColor;` : ''}
+            size?: '${icon.availableSizes.join('\' | \'')}';
         }`;
       } else {
         // if not, we need to generate the type definition for each size
@@ -154,13 +173,14 @@ async function generateIndex(iconsObjectUnique) {
         const sizeInterfaces = icon.availableSizes.map((size) => {
           // prettier-ignore
           return `
-          export interface ${icon.interfaceName}X${size} {
+          export interface ${icon.interfaceName}X${size} 
+              extends ${['RootIconProps', ...ColorRoots.map(root => 
+                icon[`has${root}`] && (icon[`has${root}`].indexOf(size) > -1) 
+                  ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
+                  : false
+              ).filter(Boolean)].join(', ')} {
               name: '${icon.snakeCaseName}';
-              size?: '${size}';${(icon.hasStrokeColor && icon.hasStrokeColor?.indexOf(size) > -1) ? `
-              strokeColor?: WindiColor;`: ''}${(icon.hasFillColor && icon.hasFillColor?.indexOf(size) > -1) ? `
-              fillColor?: WindiColor;` : ''}${(icon.hasSecondaryStrokeColor && icon.hasSecondaryStrokeColor?.indexOf(size) > -1) ? `
-              secondaryStrokeColor?: WindiColor;` : ''}${(icon.hasSecondaryFillColor && icon.hasSecondaryFillColor?.indexOf(size) > -1) ? `
-              secondaryFillColor?: WindiColor;` : ''}
+              size?: '${size}';
           }`
         })
 
@@ -192,16 +212,59 @@ async function generateIndex(iconsObjectUnique) {
       return [].concat(acc, completeColors)
     }, [])
     .join(`' | '`)}';
+  
+  export interface OpenIconProps 
+    extends RootIconProps, ${ColorRoots.map(
+      (root) => `Has${camelCase(`${root}`, { pascalCase: true })}`
+    ).join(', ')}{}
 
-  export var iconsMetadata = {
-    ${indexFileContent}
-  } as const;
+  interface RootIconProps {
+    /**
+     * Identifier for the icon
+     */
+    name: string;
+    /**
+     * Size of the icons canvas (in px)
+     */
+    size?: string;
+    /**
+     * Should the interactive variants \`hover\` and \`focus\` 
+     * be applied on the icon itself or on the parent 
+     * group defined in windiCSS
+     */
+    interactiveColorsOnGroup?: boolean;
+  }
+  
+  ${ColorRoots.map(
+    (root) =>
+      dedent`
+        interface Has${camelCase(`${root}`, { pascalCase: true })} {${prefixes
+        .map(
+          (prefix) => `  
+            /**
+             * ${
+               prefix
+                 ? prefixDescriptions[prefix](propDescriptions[root])
+                 : propDescriptions[root]
+             }
+             */
+            ${camelCase(`${prefix}${root}`)}?: WindiColor;`
+        )
+        .filter(Boolean)
+        .join('')}
+        }`
+  ).join('\n\n')}
     
   export type IconProps = ${iconsObjectUnique
     .map((icon) => icon.interfaceName)
     .join(' | ')}
 
   ${typesFileContent}
+
+  export var iconsMetadata = {
+    ${indexFileContent}
+  } as const;
+
     `
   )
 }

@@ -34,7 +34,8 @@ const props = withDefaults(
 )
 
 const finalVariant = computed(() =>
-  props.disabled && !['outline-light', 'link'].includes(props.variant)
+  props.disabled &&
+  !['outline-dark', 'outline-light', 'link'].includes(props.variant)
     ? 'disabled'
     : props.variant
 )

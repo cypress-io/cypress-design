@@ -7,8 +7,8 @@
     "start": "start-storybook -p 9997"
   },
   "dependencies": {
-    "react": "*",
-    "react-dom": "*"
+    "react": "17",
+    "react-dom": "17"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",

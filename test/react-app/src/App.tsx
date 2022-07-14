@@ -44,12 +44,11 @@ function App() {
             label="Sample"
             checked={isChecked}
             onChange={() => setChecked(!isChecked)}
-            modelValue={isChecked}
           />
         </p>
         <Spinner />
         <IconActionQuestionMarkCircle
-          strokeColor="jade-800"
+          strokeColor={isChecked ? 'jade-800' : 'jade-500'}
           fillColor="jade-500"
         />
       </header>
