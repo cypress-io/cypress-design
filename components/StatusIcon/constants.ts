@@ -346,7 +346,7 @@ export const statuses = {
     use: 'Test results',
     link: 'https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Pending',
   },
-} as const
+}
 
 export const getDisplayVariant = (statusInfo, variant) => {
   if (statusInfo.variants[variant]) {
@@ -356,13 +356,3 @@ export const getDisplayVariant = (statusInfo, variant) => {
   // if the requested variant isn't an option, use the default
   return statusInfo.defaultVariant
 }
-
-export const sizes = ['4', '8', '12', '16', '24'] as const
-
-export type Status = keyof typeof statuses
-
-export type Size = typeof sizes[number]
-
-export const variants = ['simple', 'solid', 'outline']
-
-export type Variant = typeof variants[number]

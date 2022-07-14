@@ -2,6 +2,7 @@ import { useState } from 'react'
 import logo from './logo.svg'
 import Checkbox from '@cypress-design/react-checkbox'
 import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon'
+import StatusIcon from '@cypress-design/react-statusicon'
 import Spinner from '@cypress-design/react-spinner'
 import './App.css'
 
@@ -47,6 +48,7 @@ function App() {
           />
         </p>
         <Spinner />
+        <StatusIcon status="failed" variant="solid" size="16" />
         <IconActionQuestionMarkCircle
           strokeColor={isChecked ? 'jade-800' : 'jade-500'}
           fillColor="jade-500"

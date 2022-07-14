@@ -1,11 +1,10 @@
 import * as React from 'react'
+import { SVGProps } from 'react'
 import { getDisplayVariant, statuses } from '../constants'
-import type { Size, Variant } from '../constants'
-import { type SVGPropsWithoutColorsOrSize } from '@cypress-design/react-icon'
-import { compileReactIconProperties } from '@cypress-design/react-icon/Icon'
+import { compileReactIconProperties } from '@cypress-design/react-icon'
 
-export interface StatusIconProps {
-  size?: Size
+export type StatusIconProps = {
+  size?: '4' | '8' | '12' | '16' | '24'
   /**
     If there is no status provided, a placeholder icon will be shown
   */
@@ -13,13 +12,12 @@ export interface StatusIconProps {
   /**
    * If a status doesn't have an icon for that variant, it will default to one it does have
    */
-  variant?: Variant
+  variant?: 'simple' | 'solid' | 'outline'
 }
 
 export const StatusIcon: React.FC<
-  StatusIconProps & SVGPropsWithoutColorsOrSize
+  StatusIconProps & SVGProps<SVGSVGElement>
 > = ({ size = '24', status, variant = 'simple', ...rest }) => {
-  // TODO: how to handle `rest`? make sure SVGPropsWithoutColorsOrSize is right
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
   const icon = statusInfo.variants[getDisplayVariant(statusInfo, variant)][size]
