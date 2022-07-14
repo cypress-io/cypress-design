@@ -28,6 +28,7 @@ export const getComponentAttributes = ({
   size,
   availableSizes,
   interactiveColorsOnGroup,
+  name, // not used, just removed from colors
   ...colors
 }: {
   size: string
@@ -47,11 +48,11 @@ export const getComponentAttributes = ({
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(colors)
     .map((color) => {
-      const colorWeight = colors[color]
-      if (!colorWeight) {
+      const weightedColor = colors[color]
+      if (!weightedColor) {
         return false
       }
-      const lowerCaseColor = color.toLowerCase()
+      const lowerCaseColor = color.toLowerCase().replace(/-/g, '')
       const colorClass = lowerCaseColor.includes('strokecolor')
         ? 'dark'
         : 'light'

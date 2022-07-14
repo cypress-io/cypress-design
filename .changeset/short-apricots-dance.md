@@ -1,5 +1,7 @@
 ---
 '@cypress-design/css': minor
+'@cypress-design/vue-icon': minor
+'@cypress-design/icon-registry': minor
 ---
 
-take into account kebabCased attributes in the icons plugin
+take into account kebab-cased attributes in the icons plugin

@@ -24,7 +24,7 @@ export const compileVueIconProperties = ({
     interactiveColorsOnGroup?: boolean
   }) => {
   Object.keys(attributes).forEach((key) => {
-    if (key.endsWith('Color')) {
+    if (key.toLowerCase().endsWith('color')) {
       // @ts-ignore
       delete attributes[key]
     }
