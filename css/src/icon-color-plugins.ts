@@ -227,23 +227,22 @@ const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
 prefixes.forEach((prefix) => {
   Object.entries(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).forEach(
     ([root, value]) => {
-      ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] = (
-        attrValue,
-        hasGroupProp
-      ) => {
-        if (!prefix.length) {
-          return value(attrValue)
-        }
-        // add the icon-hover: or icon-focus: prefix
-        const normalClass = `${prefix}:${value(attrValue)}`
+      ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] =
+        ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[kebabCase(`${prefix}${root}`)] =
+          (attrValue, hasGroupProp) => {
+            if (!prefix.length) {
+              return value(attrValue)
+            }
+            // add the icon-hover: or icon-focus: prefix
+            const normalClass = `${prefix}:${value(attrValue)}`
 
-        if (!hasGroupProp) {
-          return prefix.length ? `icon-${normalClass}` : normalClass
-        }
+            if (!hasGroupProp) {
+              return prefix.length ? `icon-${normalClass}` : normalClass
+            }
 
-        // always keep the group-focus and group-hover classes
-        return `icon-${normalClass} group-${normalClass}`
-      }
+            // always keep the group-focus and group-hover classes
+            return `icon-${normalClass} group-${normalClass}`
+          }
     }
   )
 })
