@@ -1,9 +1,5 @@
-import {
-  type IconProps,
-  type OpenIconProps,
-  iconsMetadata,
-  WindiColor,
-} from './icons'
+import type { OpenIconProps, IconProps } from './icons'
+import { iconsMetadata, WindiColor } from './icons'
 import { iconSet } from './iconsList'
 import camelCase from 'camelcase'
 

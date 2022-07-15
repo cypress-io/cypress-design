@@ -45,7 +45,8 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 writeFile(`
 import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties } from './Icon'
-import { h, type SVGAttributes } from 'vue'
+import type { SVGAttributes } from 'vue'
+import { h } from 'vue'
 
 ${iconsComponents.join('\n\n\n')}
 `)

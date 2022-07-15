@@ -15,6 +15,7 @@ const props = withDefaults(
     checked?: boolean
   }>(),
   {
+    // @ts-ignore
     id: crypto.randomUUID(),
     color: 'indigo',
   }
