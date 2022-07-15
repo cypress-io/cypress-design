@@ -29,17 +29,18 @@ export const compileIcon = (props: IconProps) => {
   }
 }
 
-export const getComponentAttributes = ({
-  size,
-  availableSizes,
-  interactiveColorsOnGroup,
-  name, // not used, just removed from colors
-  ...colors
-}: {
-  size: string
-  availableSizes: readonly string[]
-  interactiveColorsOnGroup?: boolean
-} & OpenIconProps) => {
+export const getComponentAttributes = (
+  props: {
+    availableSizes: readonly string[]
+  } & OpenIconProps
+) => {
+  const {
+    size,
+    availableSizes,
+    interactiveColorsOnGroup,
+    name, // not used, just removed from colors
+    ...others
+  } = props
   const sizeWithDefault =
     size ??
     (availableSizes.length >= 1
@@ -48,11 +49,21 @@ export const getComponentAttributes = ({
         : availableSizes[0]
       : '')
 
+  const protectedInteractiveColorsOnGroup =
+    interactiveColorsOnGroup === undefined
+      ? others['interactive-colors-on-group']
+      : interactiveColorsOnGroup
+
+  const colors = others
+
   // TODO: when all icons are converted to using the design system,
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(colors)
     .map((color: WindiColor) => {
+      if ((color as any) === 'interactive-colors-on-group') {
+        return false
+      }
       const weightedColor = colors[color]
       if (!weightedColor) {
         return false
@@ -74,8 +85,8 @@ export const getComponentAttributes = ({
         : ''
 
       const prefix = pseudoClass.length
-        ? interactiveColorsOnGroup !== undefined &&
-          interactiveColorsOnGroup !== false
+        ? protectedInteractiveColorsOnGroup !== undefined &&
+          protectedInteractiveColorsOnGroup !== false
           ? `group-${pseudoClass}:`
           : `icon-${pseudoClass}:`
         : ''

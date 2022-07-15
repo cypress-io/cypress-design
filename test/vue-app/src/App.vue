@@ -9,13 +9,13 @@ const checked = ref(false)
 </script>
 
 <template>
-  <div style="width: 500px; text-align: center; margin: auto">
+  <div style="width: 500px; text-align: center; margin: auto" class="group">
     <Checkbox v-model="checked" label="Checkbox" id="Sample" />
     <p v-if="checked">Checked</p>
     <IconObjectBookCode size="48" :stroke-color="checked ? 'indigo-600' : 'red-300'" fill-color="indigo-300"
-      hover-fill-color="red-300" />
+      hover-fill-color="red-300" interactive-colors-on-group />
     <Icon name="object-book" strokeColor="jade-500" size="24" hoverStrokeColor="red-500" />
-    <Alert type="error">
+    <Alert type="error" disabled>
       Error
     </Alert>
     <Spinner />

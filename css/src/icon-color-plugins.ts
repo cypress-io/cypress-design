@@ -277,7 +277,9 @@ export const IconExtractor: Extractor = {
     const { tags, classes = [], attributes } = DefaultExtractor(code, id)
 
     const hasAGroupAttribute =
-      attributes?.names.includes('interactiveColorsOnGroup') ?? false
+      code.includes('interactiveColorsOnGroup') ||
+      // With vuejs templates, sometimes the attributes are hyphenated
+      code.includes('interactive-colors-on-group')
 
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
