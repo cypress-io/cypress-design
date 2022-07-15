@@ -5,6 +5,7 @@ import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon'
 import StatusIcon from '@cypress-design/react-statusicon'
 import Spinner from '@cypress-design/react-spinner'
 import './App.css'
+import { SimpleStatusIcon } from '@cypress-design/react-statusicon'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -48,7 +49,8 @@ function App() {
           />
         </p>
         <Spinner />
-        <StatusIcon status="failed" variant="solid" size="16" />
+        <StatusIcon status="failed" variant="simple" size="16" />
+        <SimpleStatusIcon status="failed" size="16" />
         <IconActionQuestionMarkCircle
           strokeColor={isChecked ? 'jade-800' : 'jade-500'}
           fillColor="jade-500"

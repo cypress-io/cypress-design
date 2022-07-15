@@ -1,7 +1,9 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import StatusIcon from './StatusIcon'
-import { sizes, statuses } from '../constants'
+import { statuses } from '../constants'
+
+const sizes = ['4', '8', '12', '16', '24']
 
 export default () => (
   <table className="w-full">
@@ -33,7 +35,7 @@ export default () => (
 
         return (
           <>
-            {Object.keys(statusInfo.variants).map((variant, i) => {
+            {statusInfo.variants.map((variant, i) => {
               return (
                 <tr
                   className={clsx(i === 0 && 'border-t')}

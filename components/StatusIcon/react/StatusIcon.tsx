@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
-import { getDisplayVariant, statuses } from '../constants'
-import { compileReactIconProperties } from '@cypress-design/react-icon'
+import { statuses } from '../constants'
+import OutlineStatusIcon from './OutlineStatusIcon'
+import SimpleStatusIcon from './SimpleStatusIcon'
+import SolidStatusIcon from './SolidStatusIcon'
 
 export type StatusIconProps = {
   size?: '4' | '8' | '12' | '16' | '24'
@@ -12,28 +14,21 @@ export type StatusIconProps = {
   /**
    * If a status doesn't have an icon for that variant, it will default to one it does have
    */
-  variant?: 'simple' | 'solid' | 'outline'
+  variant?: 'outline' | 'simple' | 'solid'
 }
 
 export const StatusIcon: React.FC<
   StatusIconProps & SVGProps<SVGSVGElement>
 > = ({ size = '24', status, variant = 'simple', ...rest }) => {
-  const statusInfo = status ? statuses[status] : statuses.placeholder
+  if (variant === 'outline') {
+    return <OutlineStatusIcon size={size} status={status} {...rest} />
+  }
 
-  const icon = statusInfo.variants[getDisplayVariant(statusInfo, variant)][size]
+  if (variant === 'simple') {
+    return <SimpleStatusIcon size={size} status={status} {...rest} />
+  }
 
-  const classes = `inline-block ${rest.className || ''} ${
-    statusInfo.iconSpin && size !== '4' ? 'animate-spin' : ''
-  }`
-
-  return React.createElement(
-    'svg',
-    compileReactIconProperties({
-      body: icon.data,
-      compiledClasses: [classes],
-      size,
-    })
-  )
+  return <SolidStatusIcon size={size} status={status} {...rest} />
 }
 
 export default StatusIcon
