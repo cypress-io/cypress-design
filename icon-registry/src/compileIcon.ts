@@ -1,4 +1,9 @@
-import { type IconProps, type OpenIconProps, iconsMetadata } from './icons'
+import {
+  type IconProps,
+  type OpenIconProps,
+  iconsMetadata,
+  WindiColor,
+} from './icons'
 import { iconSet } from './iconsList'
 import camelCase from 'camelcase'
 
@@ -47,7 +52,7 @@ export const getComponentAttributes = ({
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(colors)
-    .map((color) => {
+    .map((color: WindiColor) => {
       const weightedColor = colors[color]
       if (!weightedColor) {
         return false
@@ -75,7 +80,7 @@ export const getComponentAttributes = ({
           : `icon-${pseudoClass}:`
         : ''
 
-      const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${colorWeight}`
+      const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${weightedColor}`
 
       return finalClass
     })
