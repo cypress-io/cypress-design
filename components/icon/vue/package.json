@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "files": [
     "*"
   ],
@@ -20,7 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.4.1"
+    "@cypress-design/icon-registry": "^0.4.2"
   },
   "devDependencies": {
     "camelcase": "^6.3.0",
