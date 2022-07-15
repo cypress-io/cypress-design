@@ -38,6 +38,19 @@ export const SizeClassesTable = {
 export const StaticClasses =
   'border rounded rounded-4px flex font-medium items-center transition duration-150 enabled:hover:ring-2 enabled:focus:ring-2 disabled:cursor-not-allowed'
 
-export type ButtonSizes = keyof typeof SizeClassesTable
-
-export type ButtonVariants = keyof typeof VariantClassesTable
+export interface ButtonProps {
+  /**
+   * Visual variant to display the button
+   * It will pick colors for font background and border)
+   */
+  variant?: keyof typeof VariantClassesTable
+  /**
+   * Size of the button
+   */
+  size?: keyof typeof SizeClassesTable
+  /**
+   * Is the button clickable and active?
+   * Note that `variant="disabled"` will also set this
+   */
+  disabled?: boolean
+}

@@ -5,12 +5,30 @@ import { IconCheckmarkSmall } from '@cypress-design/react-icon'
 
 export interface CheckboxProps
   extends Omit<HTMLProps<HTMLLabelElement>, 'label' | 'onChange'> {
+  /**
+   * A unique identifier for the checkbox on the whole page.
+   * It will be used to give match label with input for a11y.
+   */
   id?: string
-  checked: boolean
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  color?: 'indigo' | 'red' | 'jade'
-  label?: ReactNode
+  /**
+   * Is the checkbox checked when it is first rendered.
+   */
+  checked?: boolean
+  /**
+   * The color of the background in the checkbox.
+   * The checkmark will always be white.
+   */
+  color?: 'red' | 'indigo' | 'jade'
+  /**
+   * If the checkbox is disabled, it will not be clickable.
+   */
   disabled?: boolean
+  /**
+   * Label for the checkbox.
+   * It is very important to set this to make the checkbox accessible.
+   */
+  label?: ReactNode
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({

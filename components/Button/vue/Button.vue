@@ -1,12 +1,9 @@
 <template>
-  <button
-    :class="[
-      StaticClasses,
-      VariantClassesTable[finalVariant],
-      SizeClassesTable[size],
-    ]"
-    :disabled="finalDisabled"
-  >
+  <button :class="[
+    StaticClasses,
+    VariantClassesTable[finalVariant],
+    SizeClassesTable[size],
+  ]" :disabled="finalDisabled">
     <slot />
   </button>
 </template>
@@ -18,14 +15,10 @@ import {
   SizeClassesTable,
   StaticClasses,
 } from '../constants'
-import type { ButtonSizes, ButtonVariants } from '../constants'
+import type { ButtonProps } from '../constants'
 
 const props = withDefaults(
-  defineProps<{
-    variant?: ButtonVariants
-    size?: ButtonSizes
-    disabled?: boolean
-  }>(),
+  defineProps<ButtonProps>(),
   {
     variant: 'indigo-dark',
     size: '32',
@@ -35,7 +28,7 @@ const props = withDefaults(
 
 const finalVariant = computed(() =>
   props.disabled &&
-  !['outline-dark', 'outline-light', 'link'].includes(props.variant)
+    !['outline-dark', 'outline-light', 'link'].includes(props.variant)
     ? 'disabled'
     : props.variant
 )
