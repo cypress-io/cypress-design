@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 0.4.1
+
+### Patch Changes
+
+- [`c339ddd`](https://github.com/cypress-io/cypress-design/commit/c339dddb8347ceccdb497a0c2a4dfa3b52947114) Thanks [@elevatebart](https://github.com/elevatebart)! - take into account kebab-cased attributes in the icons plugin
+
+- Updated dependencies [[`c339ddd`](https://github.com/cypress-io/cypress-design/commit/c339dddb8347ceccdb497a0c2a4dfa3b52947114)]:
+  - @cypress-design/icon-registry@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes
