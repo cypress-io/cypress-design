@@ -31,7 +31,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, h, type FunctionalComponent, ref, onMounted, onUnmounted, type ComputedRef } from 'vue'
+import type { FunctionalComponent, ComputedRef } from 'vue';
+import { computed, useSlots, h, ref, onMounted, onUnmounted } from 'vue'
 import {
   IconChevronDownSmall, IconActionDeleteLarge,
   IconWarningCircle, IconCheckmarkOutline,

@@ -1,9 +1,7 @@
-import {
-  type IconProps,
-  type OpenIconProps,
-  compileIcon,
-} from '@cypress-design/icon-registry'
-import { h, type SVGAttributes } from 'vue'
+import type { IconProps, OpenIconProps } from '@cypress-design/icon-registry'
+import { compileIcon } from '@cypress-design/icon-registry'
+import type { SVGAttributes } from 'vue'
+import { h } from 'vue'
 
 export default (props: IconProps & Omit<SVGAttributes, 'name'>) => {
   return h('svg', compileVueIconProperties(compileIcon(props)))

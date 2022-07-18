@@ -1,14 +1,16 @@
 const path = require('path')
 const dedent = require('dedent')
 const { promises: fs } = require('fs')
-const camelcase = require('camelcase')
 const { iconsMetadata, iconSet } = require('@cypress-design/icon-registry')
+const { camelCase, startCase } = require('lodash')
+
+const pascalCase = (str) => startCase(camelCase(str)).replace(/ /g, '')
 
 const iconsComponents = Object.keys(iconsMetadata).map((name) => {
-  const pascalCaseName = camelcase(name, { pascalCase: true })
+  const pascalCaseName = pascalCase(name)
   const iconMetadata = iconsMetadata[name]
   const availableIds = iconMetadata.availableSizes.map(
-    (size) => `${camelcase(name)}X${size}`
+    (size) => `${camelCase(name)}X${size}`
   )
 
   const iconBodies = iconSet.reduce((acc, icon) => {
@@ -45,7 +47,8 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 writeFile(`
 import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties } from './Icon'
-import { h, type SVGAttributes } from 'vue'
+import type { SVGAttributes } from 'vue'
+import { h } from 'vue'
 
 ${iconsComponents.join('\n\n\n')}
 `)

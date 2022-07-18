@@ -1,5 +1,23 @@
 # @cypress-design/vue-icon
 
+## 0.4.2
+
+### Patch Changes
+
+- [`e3eb9c7`](https://github.com/cypress-io/cypress-design/commit/e3eb9c7fee2d7a6e0a773e85ed4b73be04d83587) Thanks [@elevatebart](https://github.com/elevatebart)! - downgrade typescript to 4.4 for compat with app
+
+- Updated dependencies [[`e3eb9c7`](https://github.com/cypress-io/cypress-design/commit/e3eb9c7fee2d7a6e0a773e85ed4b73be04d83587)]:
+  - @cypress-design/icon-registry@0.4.2
+
+## 0.4.1
+
+### Patch Changes
+
+- [`c339ddd`](https://github.com/cypress-io/cypress-design/commit/c339dddb8347ceccdb497a0c2a4dfa3b52947114) Thanks [@elevatebart](https://github.com/elevatebart)! - take into account kebab-cased attributes in the icons plugin
+
+- Updated dependencies [[`c339ddd`](https://github.com/cypress-io/cypress-design/commit/c339dddb8347ceccdb497a0c2a4dfa3b52947114)]:
+  - @cypress-design/icon-registry@0.4.1
+
 ## 0.4.0
 
 ### Minor Changes

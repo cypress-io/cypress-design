@@ -32,6 +32,7 @@ export interface CheckboxProps
 }
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
+  // @ts-ignore
   id = crypto.randomUUID(),
   checked = false,
   onChange,

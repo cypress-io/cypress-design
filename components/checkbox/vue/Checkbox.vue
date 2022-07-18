@@ -30,6 +30,7 @@ const props = withDefaults(
     label?: string
   }>(),
   {
+    // @ts-ignore
     id: crypto.randomUUID(),
     color: 'indigo',
   }
