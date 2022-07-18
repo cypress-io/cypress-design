@@ -37,7 +37,13 @@ import { ref, onBeforeMount } from 'vue';
 
 const props = withDefaults(
   defineProps<{
+    /**
+     * Where the tooltip should be placed relative to the target.
+     */
     placement?: Placement
+    /**
+     * background color of the tooltip.
+     */
     color?: 'light' | 'dark'
   }>(),
   {
