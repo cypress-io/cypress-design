@@ -58,3 +58,9 @@ export interface ButtonProps {
    */
   disabled?: boolean
 }
+
+export const ButtonPropsList: Record<keyof ButtonProps, any> = {
+  variant: String,
+  size: String,
+  disabled: Boolean,
+}
