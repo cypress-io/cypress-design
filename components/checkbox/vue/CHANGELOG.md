@@ -1,5 +1,11 @@
 # @cypress-design/vue-checkbox
 
+## 0.3.0
+
+### Minor Changes
+
+- [#44](https://github.com/cypress-io/cypress-design/pull/44) [`2fdaf6b`](https://github.com/cypress-io/cypress-design/commit/2fdaf6be6f81a2a851761258347ed213577c5b26) Thanks [@elevatebart](https://github.com/elevatebart)! - Add missing descriptions of props in button, tooltip, checkbox
+
 ## 0.2.1
 
 ### Patch Changes
