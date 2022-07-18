@@ -23,6 +23,7 @@ import 'virtual:windi.css'
 import './a11y-support'
 
 import 'cypress-real-events/support'
+import 'cypress-real-events'
 
 Cypress.on(
   'uncaught:exception',

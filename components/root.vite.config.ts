@@ -1,4 +1,5 @@
-import { defineConfig, type LibraryOptions } from 'vite'
+import type { LibraryOptions } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 export default (libConfig: LibraryOptions) =>

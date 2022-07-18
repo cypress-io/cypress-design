@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
-import Button from './Button.vue'
+import Button from './Button'
 import ButtonStory from './Button.rootstory'
 
 describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
