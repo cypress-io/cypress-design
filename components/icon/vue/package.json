@@ -23,7 +23,8 @@
     "@cypress-design/icon-registry": "^0.4.2"
   },
   "devDependencies": {
-    "camelcase": "^6.3.0",
+    "@types/lodash": "^4.14.182",
+    "lodash": "^4.17.21",
     "dedent": "^0.7.0"
   },
   "license": "MIT"
