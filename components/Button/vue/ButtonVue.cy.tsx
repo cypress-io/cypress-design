@@ -1,9 +1,17 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
-import Button from './Button.vue'
+import Button from './Button'
 import ButtonStory from './Button.rootstory'
 
 describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
+  it('playground', () => {
+    mount(() => (
+      <div class="p-5">
+        <Button variant="jade-dark">Check it</Button>
+      </div>
+    ))
+  })
+
   it('renders variants disabled', () => {
     mount(() => ButtonStory({ disabled: true }))
     cy.get('button').first().as('firstButton')

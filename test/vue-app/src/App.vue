@@ -4,6 +4,7 @@ import Checkbox from '@cypress-design/vue-checkbox'
 import Icon, { IconObjectBookCode } from '@cypress-design/vue-icon'
 import Alert from '@cypress-design/vue-alert'
 import Spinner from '@cypress-design/vue-spinner/sfc'
+import Button from '@cypress-design/vue-button'
 
 const checked = ref(false)
 </script>
@@ -19,5 +20,6 @@ const checked = ref(false)
       Error
     </Alert>
     <Spinner />
+    <Button variant="jade-dark">Button</Button>
   </div>
 </template>

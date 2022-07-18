@@ -1,22 +1,19 @@
 import clsx from 'clsx'
 import * as React from 'react'
-import type { ButtonSizes, ButtonVariants } from '../constants'
+import type { ButtonProps } from '../constants'
 import {
   SizeClassesTable,
   VariantClassesTable,
   StaticClasses,
 } from '../constants'
 
-export interface ButtonProps {
-  variant?: ButtonVariants
-  size?: ButtonSizes
-  disabled?: boolean
+export interface ButtonPropsJsx extends ButtonProps {
   className?: string
   children?: React.ReactNode
 }
 
 export const Button: React.FC<
-  ButtonProps & React.HTMLProps<HTMLButtonElement>
+  ButtonPropsJsx & React.HTMLProps<HTMLButtonElement>
 > = ({
   variant = 'indigo-dark',
   size = '32',
