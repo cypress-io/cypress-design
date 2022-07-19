@@ -1,5 +1,12 @@
 # @cypress-design/test-react-app
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`2fdaf6b`](https://github.com/cypress-io/cypress-design/commit/2fdaf6be6f81a2a851761258347ed213577c5b26)]:
+  - @cypress-design/react-checkbox@0.3.0
+
 ## 0.0.6
 
 ### Patch Changes
