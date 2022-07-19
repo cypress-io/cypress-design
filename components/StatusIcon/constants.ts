@@ -1,4 +1,6 @@
 // import type { SVGAttributes } from 'vue'
+import { compileReactIconProperties } from '@cypress-design/react-icon'
+import { string } from 'prop-types'
 
 type Variant = 'outline' | 'simple' | 'solid'
 
@@ -101,12 +103,17 @@ export type VariantStatusIconProps = {
   status?: keyof typeof statuses | null | undefined
 }
 
-export const getComponentProps: any = (
-  statuses: Record<string, IconSet>,
-  status: keyof typeof statuses | null | undefined,
-  attributes: any, // TODO:
+export const compileVueStatusIconProperties: any = ({
+  statuses,
+  status,
+  attributes,
+  size,
+}: {
+  statuses: Record<string, IconSet>
+  status: keyof typeof statuses | null | undefined
+  attributes: any // TODO:
   size: '4' | '8' | '12' | '16' | '24'
-) => {
+}) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
   const icon = statusInfo[`size${size}Icon`]
@@ -130,4 +137,30 @@ export const getComponentProps: any = (
     ...attributes, // add all standard attributes back to the svg tag
   }
   return componentProps
+}
+
+export const compileReactStatusIconProperties = ({
+  status,
+  statuses,
+  className,
+  size,
+}: {
+  status: keyof typeof statuses | null | undefined
+  statuses: Record<string, IconSet>
+  className: string | undefined
+  size: '4' | '8' | '12' | '16' | '24'
+}) => {
+  const statusInfo = status ? statuses[status] : statuses.placeholder
+
+  const icon = statusInfo[`size${size}Icon`]
+
+  const classes = `inline-block ${className || ''} ${
+    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
+  }`
+
+  return compileReactIconProperties({
+    body: icon.data,
+    compiledClasses: [classes],
+    size,
+  })
 }

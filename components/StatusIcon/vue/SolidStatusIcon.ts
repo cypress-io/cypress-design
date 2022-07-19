@@ -1,7 +1,10 @@
 import { h, type SVGAttributes } from 'vue'
-import { type VariantStatusIconProps, getComponentProps } from '../constants'
+import {
+  type VariantStatusIconProps,
+  compileVueStatusIconProperties,
+} from '../constants'
 
-import { statuses } from '../simple-imports'
+import { statuses } from '../solid-imports'
 
 export default (props: SVGAttributes & VariantStatusIconProps) => {
   return h('svg', compileVueIconProperties(props))
@@ -12,5 +15,5 @@ export const compileVueIconProperties = ({
   status,
   ...attributes
 }: SVGAttributes & VariantStatusIconProps) => {
-  return getComponentProps(statuses, status, attributes, size)
+  return compileVueStatusIconProperties({ statuses, status, attributes, size })
 }

@@ -1,25 +1,20 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
-import { compileReactIconProperties } from '@cypress-design/react-icon'
-import { statuses } from '../outline-imports'
-import { type VariantStatusIconProps } from '../constants'
+import { statuses } from '../simple-imports'
+import {
+  type VariantStatusIconProps,
+  compileReactStatusIconProperties,
+} from '../constants'
 
 export const SimpleStatusIcon: React.FC<
   VariantStatusIconProps & SVGProps<SVGSVGElement>
 > = ({ size = '24', status = 'placeholder', ...rest }) => {
-  const statusInfo = status ? statuses[status] : statuses.placeholder
-
-  const icon = statusInfo[`size${size}Icon`]
-
-  const classes = `inline-block ${rest.className || ''} ${
-    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
-  }`
-
   return React.createElement(
     'svg',
-    compileReactIconProperties({
-      body: icon.data,
-      compiledClasses: [classes],
+    compileReactStatusIconProperties({
+      status,
+      statuses,
+      className: rest.className,
       size,
     })
   )

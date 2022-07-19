@@ -19,7 +19,6 @@ import OutlineStatusIcon from './OutlineStatusIcon'
 import SimpleStatusIcon from './SimpleStatusIcon'
 import SolidStatusIcon from './SolidStatusIcon'
 
-// TODO:
 const props = withDefaults(
   defineProps<{
     size?: '4' | '8' | '12' | '16' | '24'
