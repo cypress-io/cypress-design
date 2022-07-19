@@ -1,18 +1,11 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
 import { compileReactIconProperties } from '@cypress-design/react-icon'
-import { statuses } from '../simple-imports'
-
-export type SimpleStatusIconProps = {
-  size?: '4' | '8' | '12' | '16' | '24'
-  /**
-    If there is no status provided, a placeholder icon will be shown
-  */
-  status?: keyof typeof statuses | null | undefined
-}
+import { statuses } from '../outline-imports'
+import { type VariantStatusIconProps } from '../constants'
 
 export const SimpleStatusIcon: React.FC<
-  SimpleStatusIconProps & SVGProps<SVGSVGElement>
+  VariantStatusIconProps & SVGProps<SVGSVGElement>
 > = ({ size = '24', status = 'placeholder', ...rest }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 

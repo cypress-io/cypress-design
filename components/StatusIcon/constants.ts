@@ -1,3 +1,5 @@
+// import type { SVGAttributes } from 'vue'
+
 type Variant = 'outline' | 'simple' | 'solid'
 
 type StatusInfo = {
@@ -87,4 +89,45 @@ export const statuses: Record<string, StatusInfo> = {
     link: 'https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Pending',
     variants: ['outline'],
   },
+}
+
+export type statusTypes = keyof typeof statuses
+
+export type VariantStatusIconProps = {
+  size?: '4' | '8' | '12' | '16' | '24'
+  /**
+    If there is no status provided, a placeholder icon will be shown
+  */
+  status?: keyof typeof statuses | null | undefined
+}
+
+export const getComponentProps: any = (
+  statuses: Record<string, IconSet>,
+  status: keyof typeof statuses | null | undefined,
+  attributes: any, // TODO:
+  size: '4' | '8' | '12' | '16' | '24'
+) => {
+  const statusInfo = status ? statuses[status] : statuses.placeholder
+
+  const icon = statusInfo[`size${size}Icon`]
+
+  const classes = `inline-block ${attributes.class || ''} ${
+    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
+  }`
+
+  Object.keys(attributes).forEach((key) => {
+    if (key.endsWith('Color')) {
+      // @ts-ignore
+      delete attributes[key]
+    }
+  })
+  const componentProps: any = {
+    width: size,
+    height: size,
+    fill: 'none',
+    innerHTML: icon.data,
+    class: classes,
+    ...attributes, // add all standard attributes back to the svg tag
+  }
+  return componentProps
 }
