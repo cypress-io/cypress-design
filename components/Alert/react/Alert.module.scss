@@ -1,0 +1,13 @@
+details.detailsBlock {
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary .icon {
+    transform: rotate(-90deg);
+  }
+
+  &[open] summary .icon {
+    transform: rotate(0);
+  }
+}
