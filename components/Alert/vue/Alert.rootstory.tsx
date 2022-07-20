@@ -3,7 +3,7 @@ import dedent from 'dedent'
 import { ref } from 'vue'
 import Alert from './Alert.vue'
 
-export default (() => ({
+export default () => ({
   setup() {
     const displayTimedAlert = ref(false)
     return () => (
@@ -107,4 +107,4 @@ export default (() => ({
       </div>
     )
   },
-}))()
+})

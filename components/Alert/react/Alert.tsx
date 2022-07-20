@@ -5,10 +5,10 @@ import {
   IconActionDeleteLarge,
   IconWarningCircle,
   IconCheckmarkOutline,
-  WindiColor,
 } from '@cypress-design/react-icon'
-import type { AlertType, AlertClasses } from '../constants'
+import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
+import styles from './Alert.module.scss'
 
 export interface AlertProps {
   /**
@@ -148,7 +148,8 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
               className={clsx(
                 'p-16px border-t-1 cursor-pointer',
                 typeClasses.bodyClass,
-                typeClasses.borderClass
+                typeClasses.borderClass,
+                styles.detailsBlock
               )}
             >
               <summary

@@ -133,6 +133,10 @@ const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
 </script>
 
 <style scoped>
+details :deep(summary::-webkit-details-marker) {
+  display: none;
+}
+
 details summary .icon {
   transform: rotate(-90deg);
 }
