@@ -79,7 +79,6 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
       ? IconCheckmarkOutline
       : undefined)
 
-  const [detailsExpanded, setDetailsExpanded] = React.useState(false)
   const [dismissed, setDismissed] = React.useState(false)
   const [durationTimeout, setDurationTimeout] = React.useState<
     number | undefined
@@ -157,13 +156,9 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                   'flex font-medium',
                   typeClasses.detailsHeaderClass
                 )}
-                onClick={() => setDetailsExpanded(!detailsExpanded)}
               >
                 <IconChevronDownSmall
-                  className={clsx(
-                    'my-4px mr-8px',
-                    !detailsExpanded && 'transform -rotate-90'
-                  )}
+                  className={clsx('my-4px mr-8px', styles.icon)}
                   strokeColor={typeClasses.iconChevronColor}
                 />
                 {detailsTitle}
