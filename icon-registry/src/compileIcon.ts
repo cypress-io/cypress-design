@@ -1,11 +1,6 @@
 import { camelCase } from 'lodash'
-import {
-  OpenIconProps,
-  IconProps,
-  WindiColor,
-  ICON_COLOR_PROP_NAMES,
-} from './icons'
-import { iconsMetadata } from './icons'
+import type { OpenIconProps, IconProps, WindiColor } from './icons'
+import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
 
 export const compileIcon = (props: IconProps) => {
