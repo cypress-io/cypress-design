@@ -2,22 +2,138 @@ import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-do
 import { version } from "./package.json"
 import changelog from "./CHANGELOG.md?raw"
 
-import StatusIcon from './StatusIcon.vue'
-
 import StatusIconStory from './StatusIcon.rootstory'
+import { statuses } from '../constants'
+
+import { OutlineStatusIcon, SimpleStatusIcon, SolidStatusIcon, StatusIcon } from '@cypress-design/vue-statusicon'
 
 <h1>StatusIcon<span className="text-lg font-normal"> - v{version}</span></h1>
 
-<Meta title="StatusIcon" component={StatusIcon} parameters={{
+There is <a href="https://on.cypress.io/writing-and-organizing-tests" target="_blank">info in the docs</a> about what these statuses mean. The terminology can be a bit confusing, particularly around <a href="https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Pending" target="_blank">pending</a> and <a href="https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Skipped" target="_blank">skipped</a> test results.
+
+Runs, specs, and groups have one and only one of the following status: RUNNING, ERRORED, FAILED, TIMEDOUT, NOTESTS, PASSED, OVERLIMIT, or CANCELLED
+
+Specs can also have status UNCLAIMED
+
+Test results have one and only one of the following statuses: RUNNING, PENDING, SKIPPED, FAILED, PASSED, TIMEDOUT, ERRORED, or CANCELLED
+
+<Meta
+  title="StatusIcon"
+  component={StatusIcon}
+  parameters={{
     design: {
       type: "figma",
-      url: null,
+      url: "https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=6814%3A10841",
     }
+  }}
+  argTypes={{
+    size: {
+      control: { type: 'select' },
+      defaultValue: '16'
+    },
+    status: {
+      control: { type: 'select' },
+      options: Object.keys(statuses),
+      defaultValue: 'failed'
+    },
+    variant: {
+      control: { type: 'select' },
+      defaultValue: 'simple'
+    },
   }} />
 
 <Canvas withSource="none">
   <Story name="StatusIcon">
     {StatusIconStory()}
+  </Story>
+</Canvas>
+
+## Basic use
+
+```jsx
+import { StatusIcon } from '@cypress-design/vue-statusicon'
+
+<StatusIcon status="failed" size="16" variant="simple" />
+```
+
+<Canvas>
+  <Story name="Basic use">
+    {(args) => (
+      {
+        components: { StatusIcon },
+        data() {
+          return { args }
+        },
+        template: `<StatusIcon v-bind="this.args" />`,
+      }
+    )}
+  </Story>
+</Canvas>
+
+Not all statuses have unique icons for each variant. But if you pass any variant of the icon, it will default to one that is available for that status.
+
+As an example, if you pass `variant="simple"` with `status="errored"`, it will default to the solid variant, since the errored status has no simple variant available.
+
+<Canvas>
+  <Story name="Any variant">
+    {{
+      template: `<StatusIcon status="errored" size="16" variant="simple" />`,
+      components: { StatusIcon }
+    }}
+  </Story>
+</Canvas>
+
+## Tree-shakable
+
+If you want to avoid loading all the icon variants, you may use each variant separately.
+
+```jsx
+import { OutlineStatusIcon } from '@cypress-design/react-statusicon'
+
+<OutlineStatusIcon status="failed" size="16" />
+```
+
+<Canvas>
+  <Story name="Tree-shakable">
+    {{
+      template: `
+        <OutlineStatusIcon
+          status="failed"
+          size="16"
+        />
+        <SimpleStatusIcon
+          status="failed"
+          size="16"
+        />
+        <SolidStatusIcon
+          status="failed"
+          size="16"
+        />`,
+        components: { OutlineStatusIcon, SimpleStatusIcon, SolidStatusIcon }
+    }}
+  </Story>
+</Canvas>
+
+## Placeholder
+
+The placeholder icon appears if you pass a falsy status or no status at all.
+
+<Canvas>
+  <Story name="Placeholder">
+    {{
+      template: `
+        <StatusIcon
+          :status="null"
+          size="16"
+          variant="simple"
+        />
+        <StatusIcon
+          size="16"
+          variant="simple"
+        />
+      `,
+      components: { StatusIcon }
+    }}
   </Story>
 </Canvas>
 
