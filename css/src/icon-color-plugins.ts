@@ -255,7 +255,12 @@ function isIconAttribute(
   return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
 }
 
+const ADDITIONAL_COLORS = ['white', 'black', 'transparent', 'current']
+
 function isValidWindiColor(value: string) {
+  if (ADDITIONAL_COLORS.includes(value)) {
+    return true
+  }
   const [hue, weight] = value.split('-')
   const hueObject = (colors as any)[hue]
   if (!hueObject) {
@@ -284,20 +289,21 @@ export const IconExtractor: Extractor = {
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
         if (isIconAttribute(attrName)) {
-          const attrValueClasses =
-            attributes.values[index].match(/[a-z]+-\d+/g) || []
-          attrValueClasses.forEach((value) => {
-            // first, check that the color is valid
-            if (isValidWindiColor(value)) {
-              // if it checks out, add the class to the set
-              set.add(
-                ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
-                  value,
-                  hasAGroupAttribute
-                )
+          const rawValue = attributes.values[index]
+          const checkedValue =
+            ADDITIONAL_COLORS.includes(rawValue) || /[a-z]+-\d+/.test(rawValue)
+              ? rawValue
+              : undefined
+          // first, check that the color is valid
+          if (checkedValue && isValidWindiColor(checkedValue)) {
+            // if it checks out, add the class to the set
+            set.add(
+              ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+                checkedValue,
+                hasAGroupAttribute
               )
-            }
-          })
+            )
+          }
         }
         return set
       }, new Set<string>()) ?? new Set<string>()
