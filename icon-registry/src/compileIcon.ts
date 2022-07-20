@@ -1,6 +1,11 @@
 import { camelCase } from 'lodash'
-import type { OpenIconProps, IconProps } from './icons'
-import { iconsMetadata, WindiColor } from './icons'
+import {
+  OpenIconProps,
+  IconProps,
+  WindiColor,
+  ICON_COLOR_PROP_MANES,
+} from './icons'
+import { iconsMetadata } from './icons'
 import { iconSet } from './iconsList'
 
 export const compileIcon = (props: IconProps) => {
@@ -56,10 +61,8 @@ export const getComponentAttributes = (
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(colors)
+    .filter((attrName) => ICON_COLOR_PROP_MANES.includes(attrName))
     .map((color: WindiColor) => {
-      if ((color as any) === 'interactive-colors-on-group') {
-        return false
-      }
       const weightedColor = colors[color]
       if (!weightedColor) {
         return false
@@ -91,7 +94,6 @@ export const getComponentAttributes = (
 
       return finalClass
     })
-    .filter((cl): cl is string => cl !== false)
 
   return { compiledClasses, sizeWithDefault }
 }
