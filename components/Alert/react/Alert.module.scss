@@ -5,6 +5,7 @@ details.detailsBlock {
 
   summary .icon {
     transform: rotate(-90deg);
+    transition: transform 0.2s;
   }
 
   &[open] summary .icon {

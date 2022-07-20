@@ -139,6 +139,7 @@ details :deep(summary::-webkit-details-marker) {
 
 details summary .icon {
   transform: rotate(-90deg);
+  transition: transform 0.2s;
 }
 
 details[open] summary .icon {
