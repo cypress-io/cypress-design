@@ -205,7 +205,7 @@ async function generateIndex(iconsObjectUnique) {
   /**
    * All possible prop names for icon colors
    */
-  export const ICON_COLOR_PROP_MANES = ${JSON.stringify(
+  export const ICON_COLOR_PROP_NAMES = ${JSON.stringify(
     Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR)
   )}
 

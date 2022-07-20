@@ -3,7 +3,7 @@ import {
   OpenIconProps,
   IconProps,
   WindiColor,
-  ICON_COLOR_PROP_MANES,
+  ICON_COLOR_PROP_NAMES,
 } from './icons'
 import { iconsMetadata } from './icons'
 import { iconSet } from './iconsList'
@@ -59,7 +59,7 @@ export const getComponentAttributes = (
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(otherProps)
-    .filter((attrName) => ICON_COLOR_PROP_MANES.includes(attrName))
+    .filter((attrName) => ICON_COLOR_PROP_NAMES.includes(attrName))
     .map((colorAttrName: string) => {
       const color: WindiColor = otherProps[colorAttrName]
       const lowerCaseColor = color.toLowerCase().replace(/-/g, '')
