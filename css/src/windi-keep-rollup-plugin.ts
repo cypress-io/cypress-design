@@ -4,7 +4,8 @@ import {
   createUtils,
   getDefaultExtractors,
 } from 'vite-plugin-windicss'
-import { IconExtractor, windiConfig } from '@cypress-design/css'
+import { IconExtractor } from './icon-color-plugins'
+import windiConfig from './windi.config'
 import dedent from 'dedent'
 
 export default function WindiKeepRollupPlugin(): Plugin {
@@ -21,11 +22,8 @@ export default function WindiKeepRollupPlugin(): Plugin {
     name: 'cypress-design:windicss-class-inliner',
     enforce: 'pre',
     apply: 'build',
-    async configResolved(_config) {
-      // viteConfig = _config
-    },
     async transform(code, id) {
-      if (id.endsWith('.vue') || id.endsWith('.jsx') || id.endsWith('.scss')) {
+      if (/\.{vue|jsx|tsx|scss}$/.test(id)) {
         // Add the windicss class names to the set
         const { classes } = await applyExtractors(code, id, [
           ...getDefaultExtractors(),

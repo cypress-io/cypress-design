@@ -33,9 +33,6 @@ export const CyCSSWebpackPlugin = (options: UserOptions) =>
 
 export * from './colors'
 
-export { windiConfig }
+export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR } from './icon-color-plugins'
 
-export {
-  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
-  IconExtractor,
-} from './icon-color-plugins'
+export { default as WindiKeepRollupPlugin } from './windi-keep-rollup-plugin'

@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import { WindiKeepRollupPlugin } from '@cypress-design/css'
 
 export default ({ input, plugins = [] }) => ({
   input,
@@ -26,6 +27,7 @@ export default ({ input, plugins = [] }) => ({
     },
   ],
   plugins: [
+    WindiKeepRollupPlugin(),
     resolve(),
     commonjs(),
     typescript({

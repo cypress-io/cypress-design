@@ -1,7 +1,7 @@
 import type { LibraryOptions } from 'vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import WindiKeepRollupPlugin from './windi-keep-rollup-plugin'
+import { WindiKeepRollupPlugin } from '@cypress-design/css'
 
 export default (libConfig: LibraryOptions) =>
   defineConfig({
