@@ -1,6 +1,7 @@
 import type { LibraryOptions } from 'vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import WindiKeepRollupPlugin from './windi-keep-rollup-plugin'
 
 export default (libConfig: LibraryOptions) =>
   defineConfig({
@@ -22,5 +23,5 @@ export default (libConfig: LibraryOptions) =>
         },
       },
     },
-    plugins: [vue()],
+    plugins: [WindiKeepRollupPlugin(), vue()],
   })
