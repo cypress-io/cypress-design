@@ -1,10 +1,8 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
 import { statuses } from '../outline-imports'
-import {
-  type VariantStatusIconProps,
-  compileReactStatusIconProperties,
-} from '../constants'
+import { compileReactStatusIconProperties } from '../constants'
+import type { VariantStatusIconProps } from '../constants'
 
 export const OutlineStatusIcon: React.FC<
   VariantStatusIconProps & SVGProps<SVGSVGElement>
