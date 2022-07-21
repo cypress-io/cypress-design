@@ -227,23 +227,22 @@ const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
 prefixes.forEach((prefix) => {
   Object.entries(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).forEach(
     ([root, value]) => {
-      ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] = (
-        attrValue,
-        hasGroupProp
-      ) => {
-        if (!prefix.length) {
-          return value(attrValue)
-        }
-        // add the icon-hover: or icon-focus: prefix
-        const normalClass = `${prefix}:${value(attrValue)}`
+      ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] =
+        ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[kebabCase(`${prefix}${root}`)] =
+          (attrValue, hasGroupProp) => {
+            if (!prefix.length) {
+              return value(attrValue)
+            }
+            // add the icon-hover: or icon-focus: prefix
+            const normalClass = `${prefix}:${value(attrValue)}`
 
-        if (!hasGroupProp) {
-          return prefix.length ? `icon-${normalClass}` : normalClass
-        }
+            if (!hasGroupProp) {
+              return prefix.length ? `icon-${normalClass}` : normalClass
+            }
 
-        // always keep the group-focus and group-hover classes
-        return `icon-${normalClass} group-${normalClass}`
-      }
+            // always keep the group-focus and group-hover classes
+            return `icon-${normalClass} group-${normalClass}`
+          }
     }
   )
 })
@@ -256,7 +255,12 @@ function isIconAttribute(
   return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
 }
 
+const ADDITIONAL_COLORS = ['white', 'black', 'transparent', 'current']
+
 function isValidWindiColor(value: string) {
+  if (ADDITIONAL_COLORS.includes(value)) {
+    return true
+  }
   const [hue, weight] = value.split('-')
   const hueObject = (colors as any)[hue]
   if (!hueObject) {
@@ -278,25 +282,28 @@ export const IconExtractor: Extractor = {
     const { tags, classes = [], attributes } = DefaultExtractor(code, id)
 
     const hasAGroupAttribute =
-      attributes?.names.includes('interactiveColorsOnGroup') ?? false
+      code.includes('interactiveColorsOnGroup') ||
+      // With vuejs templates, sometimes the attributes are hyphenated
+      code.includes('interactive-colors-on-group')
 
     const additionalColorClasses =
       attributes?.names.reduce((set, attrName, index) => {
         if (isIconAttribute(attrName)) {
-          const attrValueClasses =
-            attributes.values[index].match(/[a-z]+-\d+/g) || []
-          attrValueClasses.forEach((value) => {
-            // first, check that the color is valid
-            if (isValidWindiColor(value)) {
-              // if it checks out, add the class to the set
-              set.add(
-                ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
-                  value,
-                  hasAGroupAttribute
-                )
+          const rawValue = attributes.values[index]
+          const checkedValue =
+            ADDITIONAL_COLORS.includes(rawValue) || /[a-z]+-\d+/.test(rawValue)
+              ? rawValue
+              : undefined
+          // first, check that the color is valid
+          if (checkedValue && isValidWindiColor(checkedValue)) {
+            // if it checks out, add the class to the set
+            set.add(
+              ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+                checkedValue,
+                hasAGroupAttribute
               )
-            }
-          })
+            )
+          }
         }
         return set
       }, new Set<string>()) ?? new Set<string>()

@@ -17,11 +17,20 @@ import {
 } from '@floating-ui/react-dom-interactions'
 
 export interface TooltipProps {
+  /**
+   * Where the tooltip should be placed relative to the target.
+   */
   placement?: Placement
+  /**
+   * background color of the tooltip.
+   */
   color?: 'light' | 'dark'
   className?: string
   tabIndex?: number | string
   children?: React.ReactNode
+  /**
+   * The content of the tooltip.
+   */
   popper?: React.ReactNode
 }
 

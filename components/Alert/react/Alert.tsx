@@ -5,10 +5,10 @@ import {
   IconActionDeleteLarge,
   IconWarningCircle,
   IconCheckmarkOutline,
-  WindiColor,
 } from '@cypress-design/react-icon'
-import type { AlertType, AlertClasses } from '../constants'
+import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
+import styles from './Alert.module.scss'
 
 export interface AlertProps {
   /**
@@ -79,7 +79,6 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
       ? IconCheckmarkOutline
       : undefined)
 
-  const [detailsExpanded, setDetailsExpanded] = React.useState(false)
   const [dismissed, setDismissed] = React.useState(false)
   const [durationTimeout, setDurationTimeout] = React.useState<
     number | undefined
@@ -148,7 +147,8 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
               className={clsx(
                 'p-16px border-t-1 cursor-pointer',
                 typeClasses.bodyClass,
-                typeClasses.borderClass
+                typeClasses.borderClass,
+                styles.detailsBlock
               )}
             >
               <summary
@@ -156,13 +156,9 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                   'flex font-medium',
                   typeClasses.detailsHeaderClass
                 )}
-                onClick={() => setDetailsExpanded(!detailsExpanded)}
               >
                 <IconChevronDownSmall
-                  className={clsx(
-                    'my-4px mr-8px',
-                    !detailsExpanded && 'transform -rotate-90'
-                  )}
+                  className={clsx('my-4px mr-8px', styles.icon)}
                   strokeColor={typeClasses.iconChevronColor}
                 />
                 {detailsTitle}

@@ -30,7 +30,7 @@ export const compileReactIconProperties = ({
   interactiveColorsOnGroup?: boolean
 } & SVGPropsWithoutColorsOrSize) => {
   Object.keys(attributes).forEach((key) => {
-    if (key.endsWith('Color')) {
+    if (key.toLowerCase().endsWith('color')) {
       // @ts-ignore
       delete attributes[key]
     }

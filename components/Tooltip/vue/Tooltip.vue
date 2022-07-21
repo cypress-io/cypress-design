@@ -32,11 +32,18 @@
 <script lang="ts" setup>
 import type { Placement, Side } from '@floating-ui/dom';
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom';
-import { ref, type Ref, onBeforeMount } from 'vue';
+import type { Ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 
 const props = withDefaults(
   defineProps<{
+    /**
+     * Where the tooltip should be placed relative to the target.
+     */
     placement?: Placement
+    /**
+     * background color of the tooltip.
+     */
     color?: 'light' | 'dark'
   }>(),
   {

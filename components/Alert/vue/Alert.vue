@@ -31,7 +31,8 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, useSlots, h, type FunctionalComponent, ref, onMounted, onUnmounted, type ComputedRef } from 'vue'
+import type { FunctionalComponent, ComputedRef } from 'vue';
+import { computed, useSlots, h, ref, onMounted, onUnmounted } from 'vue'
 import {
   IconChevronDownSmall, IconActionDeleteLarge,
   IconWarningCircle, IconCheckmarkOutline,
@@ -132,8 +133,13 @@ const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
 </script>
 
 <style scoped>
+details :deep(summary::-webkit-details-marker) {
+  display: none;
+}
+
 details summary .icon {
   transform: rotate(-90deg);
+  transition: transform 0.2s;
 }
 
 details[open] summary .icon {

@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/css",
-  "version": "0.5.0",
+  "version": "0.5.2",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "@windicss/plugin-interaction-variants": "^1.0.0",
+    "lodash": "^4.17.21",
     "vite-plugin-windicss": "^1.8.4",
     "windicss": "^3.5.1",
     "windicss-webpack-plugin": "^1.6.10"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.182",
-    "lodash": "^4.17.21",
-    "typescript": "4.6.3",
+    "typescript": "4.4.4",
     "webpack": "4",
     "color-string": "1.9.0"
   },

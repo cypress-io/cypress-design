@@ -2,19 +2,35 @@
 import { ref, computed } from 'vue'
 import { IconCheckmarkSmall } from '@cypress-design/vue-icon'
 
-
-type CheckboxColor = 'red' | 'indigo' | 'jade'
-
 const props = withDefaults(
   defineProps<{
+    /**
+     * A unique identifier for the checkbox on the whole page.
+     * It will be used to give match label with input for a11y.
+     */
     id?: string
-    modelValue?: boolean
-    color?: CheckboxColor
-    label?: string
-    disabled?: boolean
+    /**
+     * Is the checkbox checked when it is first rendered.
+     */
     checked?: boolean
+    /**
+     * The color of the background in the checkbox.
+     * The checkmark will always be white.
+     */
+    color?: 'red' | 'indigo' | 'jade'
+    /**
+     * If the checkbox is disabled, it will not be clickable.
+     */
+    disabled?: boolean
+    modelValue?: boolean
+    /**
+     * Label for the checkbox. 
+     * It is very important to set this to make the checkbox accessible.
+     */
+    label?: string
   }>(),
   {
+    // @ts-ignore
     id: crypto.randomUUID(),
     color: 'indigo',
   }

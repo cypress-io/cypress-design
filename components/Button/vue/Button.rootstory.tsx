@@ -1,11 +1,7 @@
 import clsx from 'clsx'
-import Button from './Button.vue'
-import {
-  SizeClassesTable,
-  VariantClassesTable,
-  type ButtonSizes,
-  type ButtonVariants,
-} from '../constants'
+import Button from './Button'
+import type { ButtonSizes, ButtonVariants } from '../constants'
+import { SizeClassesTable, VariantClassesTable } from '../constants'
 
 export default ({ disabled = false }: { disabled?: boolean } = {}) => (
   <div class="flex flex-row flex-wrap gap-3 justify-center">
