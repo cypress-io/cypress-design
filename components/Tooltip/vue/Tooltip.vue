@@ -10,10 +10,10 @@
           '-top-10000px invisible': !positionComputed,
         }">
         <div class="rounded shadow border p-8px text-16px leading-24px min-w-160px text-center" :class="{
-          'bg-white border-gray-100 shadow-gray-100': props.color === 'light',
-          'bg-gray-900 shadow-gray-800 border-gray-800': props.color === 'dark',
+          'bg-white text-gray-900 border-gray-100 shadow-gray-100': props.color === 'light',
+          'bg-gray-900 text-white shadow-gray-800 border-gray-800': props.color === 'dark',
         }">
-          <svg ref="arrowRef" viewBox="0 0 48 48" width="24" height="24" class="absolute" :class="{
+          <svg ref="arrowRef" viewBox="0 0 48 48" width="24" height="24" class="absolute z-10" :class="{
             'stroke-gray-100 fill-white': props.color === 'light',
             'stroke-gray-800 fill-gray-900': props.color === 'dark',
           }"
