@@ -57,7 +57,7 @@ export const getComponentAttributes = (
     .filter((attrName) => ICON_COLOR_PROP_NAMES.includes(attrName))
     .map((colorAttrName: string) => {
       const color: WindiColor = otherProps[colorAttrName]
-      const lowerCaseColor = color.toLowerCase().replace(/-/g, '')
+      const lowerCaseColor = colorAttrName.toLowerCase().replace(/-/g, '')
       const colorClass = lowerCaseColor.includes('strokecolor')
         ? 'dark'
         : 'light'
