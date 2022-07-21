@@ -51,7 +51,6 @@ export default defineConfig({
   ],
   shortcuts,
   extract: {
-    exclude: ['node_modules/**/*', '.git/**/*'],
     extractors: [IconExtractor],
   },
 })

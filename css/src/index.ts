@@ -18,7 +18,8 @@ function getConfig(options: UserOptions) {
       ...(scan || {}),
       include: [
         ...include,
-        '**/node_modules/@cypress-design/*/dist/*.@(js|css)',
+        '../../node_modules/@cypress-design/*/dist/*.@(js|css)',
+        './node_modules/@cypress-design/*/dist/*.@(js|css)',
       ],
     },
   }
@@ -33,3 +34,5 @@ export const CyCSSWebpackPlugin = (options: UserOptions) =>
 export * from './colors'
 
 export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR } from './icon-color-plugins'
+
+export { default as WindiKeepRollupPlugin } from './windi-keep-rollup-plugin'
