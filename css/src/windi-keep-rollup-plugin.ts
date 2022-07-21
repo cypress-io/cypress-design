@@ -23,12 +23,13 @@ export default function WindiKeepRollupPlugin(): Plugin {
     enforce: 'pre',
     apply: 'build',
     async transform(code, id) {
-      if (/\.{vue|jsx|tsx|scss}$/.test(id)) {
-        // Add the windicss class names to the set
+      if (/\.(vue|jsx|tsx|ts)$/.test(id)) {
+        // extract all potential classes from the file
         const { classes } = await applyExtractors(code, id, [
           ...getDefaultExtractors(),
           IconExtractor,
         ])
+        // Add all potential windi class names to the set
         classes?.forEach((className) => classSet.add(className))
       }
     },
