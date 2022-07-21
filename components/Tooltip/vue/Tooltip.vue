@@ -1,12 +1,11 @@
 <template>
-  <div class="group" ref="reference" @mouseover="placeTooltip" @focus="placeTooltip" @blur="show = false"
-    @mouseout="show = false">
+  <div ref="reference" @mouseover="placeTooltip" @focus="placeTooltip" @blur="show = false" @mouseout="show = false">
     <slot />
     <teleport to="#portal-target">
-      <div @mouseover="tooltipHovered = true" @mouseout="tooltipHovered = false" role="tooltip" ref="tooltip"
-        :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined"
+      <div v-if="!disabled" @mouseover="tooltipHovered = true" @mouseout="tooltipHovered = false" role="tooltip"
+        ref="tooltip" :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined"
         class="absolute p-16px" :class="{
-          'invisible': positionComputed && !show && !tooltipHovered,
+          'invisible': !show && positionComputed && !tooltipHovered,
           '-top-10000px invisible': !positionComputed,
         }">
         <div class="rounded shadow border p-8px text-16px leading-24px min-w-160px text-center" :class="{
@@ -45,6 +44,11 @@ const props = withDefaults(
      * background color of the tooltip.
      */
     color?: 'light' | 'dark'
+    /**
+     * Disable the tooltip.
+     * This hides the popper and makes the tooltip inactive.
+     */
+    disabled?: boolean
   }>(),
   {
     color: 'light',
@@ -90,7 +94,7 @@ async function getTarget() {
 }
 
 async function placeTooltip() {
-  if (!reference.value || !tooltip.value || !arrowRef.value) return
+  if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value) return
   const { x, y, placement, middlewareData: { arrow: { x: arrowX, y: arrowY } = {} }, } = await computePosition(reference.value, tooltip.value, {
     placement: props.placement,
     middleware: [
