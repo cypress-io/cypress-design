@@ -3,7 +3,7 @@ import type { FunctionComponent, SVGProps } from 'react'
 import { compileIcon } from '@cypress-design/icon-registry'
 import type { IconProps } from '@cypress-design/icon-registry'
 
-export type SVGPropsWithoutColorsOrSize = Omit<
+type SVGPropsWithoutColorsOrSize = Omit<
   SVGProps<SVGSVGElement>,
   'fill' | 'stroke' | 'fillColor' | 'strokeColor' | 'size'
 >

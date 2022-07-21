@@ -1,8 +1,7 @@
-import { h, type SVGAttributes } from 'vue'
-import {
-  type VariantStatusIconProps,
-  compileVueStatusIconProperties,
-} from '../constants'
+import { h } from 'vue'
+import type { SVGAttributes } from 'vue'
+import { compileVueStatusIconProperties } from '../constants'
+import type { VariantStatusIconProps } from '../constants'
 
 import { statuses } from '../simple-imports'
 

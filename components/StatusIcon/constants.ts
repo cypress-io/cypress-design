@@ -1,6 +1,4 @@
-// import type { SVGAttributes } from 'vue'
 import { compileReactIconProperties } from '@cypress-design/react-icon'
-import { string } from 'prop-types'
 
 type Variant = 'outline' | 'simple' | 'solid'
 
@@ -111,7 +109,7 @@ export const compileVueStatusIconProperties: any = ({
 }: {
   statuses: Record<string, IconSet>
   status: keyof typeof statuses | null | undefined
-  attributes: any // TODO:
+  attributes: any
   size: '4' | '8' | '12' | '16' | '24'
 }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
