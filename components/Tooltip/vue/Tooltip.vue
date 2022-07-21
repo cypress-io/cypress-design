@@ -1,5 +1,5 @@
 <template>
-  <div class="group" ref="reference" @mouseover="placeTooltip" @focus="placeTooltip" @blur="show = false"
+  <div ref="referenceWrapper" @mouseover="placeTooltip" @focus="placeTooltip" @blur="show = false"
     @mouseout="show = false">
     <slot />
     <teleport to="#portal-target">
@@ -33,7 +33,7 @@
 import type { Placement, Side } from '@floating-ui/dom';
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom';
 import type { Ref } from 'vue';
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, computed } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -52,7 +52,7 @@ const props = withDefaults(
 )
 
 const portalTarget: Ref<HTMLElement | null> = ref(null)
-const reference: Ref<HTMLElement | null> = ref(null)
+const referenceWrapper: Ref<HTMLElement | null> = ref(null)
 const tooltip: Ref<HTMLElement | null> = ref(null)
 const arrowRef: Ref<HTMLElement | null> = ref(null)
 const left = ref(0)
@@ -88,6 +88,13 @@ async function getTarget() {
   }
   portalTarget.value = portalTargetLocal
 }
+
+const reference = computed(() => {
+  if ((referenceWrapper.value?.children.length || 0) > 1) {
+    throw new Error("Tooltip can only be applied to a single element")
+  }
+  return referenceWrapper.value?.children[0]
+})
 
 async function placeTooltip() {
   if (!reference.value || !tooltip.value || !arrowRef.value) return
