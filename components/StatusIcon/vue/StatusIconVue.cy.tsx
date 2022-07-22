@@ -67,11 +67,11 @@ describe('StatusIcon', () => {
     })
   })
 
-  it('displays a placeholder icon if null status is passed', () => {
+  it('displays a placeholder icon if undefined status is passed', () => {
     mount(() => {
       return (
         <div>
-          <StatusIcon variant="simple" size="16" status={null} />
+          <StatusIcon variant="simple" size="16" status={undefined} />
           <StatusIcon variant="simple" size="16" status="placeholder" />
         </div>
       )

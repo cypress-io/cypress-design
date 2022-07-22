@@ -1,10 +1,11 @@
-type Variant = 'outline' | 'simple' | 'solid'
+export type Variant = 'outline' | 'simple' | 'solid'
+export type Size = '4' | '8' | '12' | '16' | '24'
 
 type StatusInfo = {
   color: string
   link?: string
   use: string
-  variants: Variant[]
+  variants: readonly Variant[]
 }
 
 export type IconContents = {
@@ -21,7 +22,10 @@ export type IconSet = {
   size24Icon: IconContents
 }
 
-export const statuses: Record<string, StatusInfo> = {
+/**
+ * This "const" is used to create the list of statuses
+ */
+const constStatuses = {
   running: {
     color: 'indigo-400',
     use: 'Runs, specs, groups, test results',
@@ -87,76 +91,19 @@ export const statuses: Record<string, StatusInfo> = {
     link: 'https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests#Pending',
     variants: ['outline'],
   },
-}
+} as const
 
-export type statusTypes = keyof typeof statuses
+export type statusTypes = keyof typeof constStatuses
+
+/**
+ * The status we have here, allow us to check the validity of the constant
+ */
+export const statuses: Record<statusTypes, StatusInfo> = constStatuses
 
 export type VariantStatusIconProps = {
-  size?: '4' | '8' | '12' | '16' | '24'
+  size: Size
   /**
     If there is no status provided, a placeholder icon will be shown
   */
   status?: keyof typeof statuses | null | undefined
-}
-
-export const compileVueStatusIconProperties: any = ({
-  statuses,
-  status,
-  attributes,
-  size,
-}: {
-  statuses: Record<string, IconSet>
-  status: keyof typeof statuses | null | undefined
-  attributes: any
-  size: '4' | '8' | '12' | '16' | '24'
-}) => {
-  const statusInfo = status ? statuses[status] : statuses.placeholder
-
-  const icon = statusInfo[`size${size}Icon`]
-
-  const classes = `inline-block ${attributes.class || ''} ${
-    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
-  }`
-
-  Object.keys(attributes).forEach((key) => {
-    if (key.endsWith('Color')) {
-      // @ts-ignore
-      delete attributes[key]
-    }
-  })
-  const componentProps: any = {
-    width: size,
-    height: size,
-    fill: 'none',
-    innerHTML: icon.data,
-    class: classes,
-    ...attributes, // add all standard attributes back to the svg tag
-  }
-  return componentProps
-}
-
-export const compileReactStatusIconProperties = ({
-  status,
-  statuses,
-  className,
-  size,
-}: {
-  status: keyof typeof statuses | null | undefined
-  statuses: Record<string, IconSet>
-  className: string | undefined
-  size: '4' | '8' | '12' | '16' | '24'
-}) => {
-  const statusInfo = status ? statuses[status] : statuses.placeholder
-
-  const icon = statusInfo[`size${size}Icon`]
-
-  const classes = `inline-block ${className || ''} ${
-    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
-  }`
-
-  return {
-    body: icon.data,
-    compiledClasses: [classes],
-    size,
-  }
 }
