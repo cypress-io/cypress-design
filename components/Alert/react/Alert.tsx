@@ -6,7 +6,7 @@ import {
   IconWarningCircle,
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
-import type { AlertType } from '../constants'
+import { AlertSize, AlertType, sizeClassesMap } from '../constants'
 import { alertClasses } from '../constants'
 import styles from './Alert.module.scss'
 
@@ -19,6 +19,11 @@ export interface AlertProps {
    * Color scheme
    */
   type?: AlertType
+  /**
+   * Height of the title zone of the alert
+   * when there is only one line of text
+   */
+  size?: AlertSize
   /**
    * Togglable additional details
    */
@@ -53,8 +58,11 @@ export interface AlertProps {
   customIcon?: React.FC<React.SVGProps<SVGSVGElement>>
 }
 
-export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
+export const Alert: React.FC<
+  Omit<React.HTMLProps<HTMLDivElement>, 'size'> & AlertProps
+> = ({
   type = 'info',
+  size = '56',
   detailsTitle = 'Additional details',
   onDismiss,
   noIcon,
@@ -91,6 +99,8 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
     }
   }
 
+  const sizeClasses = sizeClassesMap[size]
+
   function dismiss() {
     setDismissed(true)
     onDismiss && onDismiss()
@@ -113,11 +123,18 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
           className={clsx(
             !notRounded && 'rounded',
             'overflow-hidden text-left',
+            sizeClasses.text,
             className
           )}
           {...rest}
         >
-          <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
+          <div
+            className={clsx(
+              typeClasses.headerClass,
+              sizeClasses.padding,
+              'flex'
+            )}
+          >
             {!noIcon && Icon && (
               <Icon
                 className="my-4px mr-8px"
