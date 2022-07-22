@@ -1,5 +1,3 @@
-import { compileReactIconProperties } from '@cypress-design/react-icon'
-
 type Variant = 'outline' | 'simple' | 'solid'
 
 type StatusInfo = {
@@ -156,9 +154,9 @@ export const compileReactStatusIconProperties = ({
     statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
   }`
 
-  return compileReactIconProperties({
+  return {
     body: icon.data,
     compiledClasses: [classes],
     size,
-  })
+  }
 }
