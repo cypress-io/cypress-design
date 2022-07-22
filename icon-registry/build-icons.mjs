@@ -226,10 +226,12 @@ async function generateIndex(iconsObjectUnique) {
     }, [])
     .join(`' | '`)}';
   
-  export interface OpenIconProps 
-    extends RootIconProps, ${ColorRoots.map(
+  export interface OpenIconProps extends RootIconProps, ColorIconProps {}
+
+  export interface ColorIconProps
+    extends ${ColorRoots.map(
       (root) => `Has${camelCase(`${root}`, { pascalCase: true })}`
-    ).join(', ')}{}
+    ).join(', ')} {}
 
   interface RootIconProps {
     /**

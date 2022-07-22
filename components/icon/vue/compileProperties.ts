@@ -1,17 +1,21 @@
-import type { ColorIconProps } from '@cypress-design/icon-registry'
+import type { OpenIconProps } from '@cypress-design/icon-registry'
 import { ICON_COLOR_PROP_NAMES } from '@cypress-design/icon-registry'
+import type { SVGAttributes } from 'vue'
 
-export const compileReactIconProperties = ({
+export const compileVueIconProperties = ({
   body,
   compiledClasses,
   size,
+  class: className,
+  interactiveColorsOnGroup,
   ...attributes
-}: {
-  body: string
-  compiledClasses: string[]
-  size: string
-} & ColorIconProps &
-  React.SVGProps<SVGSVGElement>) => {
+}: Omit<OpenIconProps, 'name'> &
+  SVGAttributes & {
+    body: string
+    compiledClasses: string[]
+    size: string
+    interactiveColorsOnGroup?: boolean
+  }) => {
   const filteredAttributes = Object.keys(attributes).reduce(
     (newAttributes, attrName) => {
       if (!ICON_COLOR_PROP_NAMES.includes(attrName)) {
@@ -22,20 +26,16 @@ export const compileReactIconProperties = ({
     },
     {} as Record<string, any>
   )
+
   const componentProps: any = {
     width: size,
     height: size,
     fill: 'none',
-    dangerouslySetInnerHTML: {
-      __html: body,
-    },
+    innerHTML: body,
     ...filteredAttributes, // add all standard attributes back to the svg tag
   }
-  if (attributes.className) {
-    compiledClasses.push(attributes.className)
-  }
   if (compiledClasses.length) {
-    componentProps.className = compiledClasses.join(' ')
+    componentProps.class = compiledClasses.join(' ')
   }
   return componentProps
 }
