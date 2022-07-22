@@ -1,5 +1,16 @@
 # @cypress-design/vue-checkbox
 
+## 0.4.0
+
+### Minor Changes
+
+- [#51](https://github.com/cypress-io/cypress-design/pull/51) [`ccd8f9a`](https://github.com/cypress-io/cypress-design/commit/ccd8f9a8feb624c0a52deaa9754c76969f43fc1e) Thanks [@elevatebart](https://github.com/elevatebart)! - in the build asset, add a comment containing all used windicss classes in the component
+
+### Patch Changes
+
+- Updated dependencies [[`ccd8f9a`](https://github.com/cypress-io/cypress-design/commit/ccd8f9a8feb624c0a52deaa9754c76969f43fc1e), [`43b53eb`](https://github.com/cypress-io/cypress-design/commit/43b53eb6bd10111629239a87374cfcc894eda0e3)]:
+  - @cypress-design/vue-icon@0.5.0
+
 ## 0.3.0
 
 ### Minor Changes

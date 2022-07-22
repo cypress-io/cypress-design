@@ -1,5 +1,14 @@
 # @cypress-design/test-webpack-react-app
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`ccd8f9a`](https://github.com/cypress-io/cypress-design/commit/ccd8f9a8feb624c0a52deaa9754c76969f43fc1e), [`43b53eb`](https://github.com/cypress-io/cypress-design/commit/43b53eb6bd10111629239a87374cfcc894eda0e3)]:
+  - @cypress-design/react-spinner@0.1.0
+  - @cypress-design/react-checkbox@0.4.0
+  - @cypress-design/react-icon@0.4.0
+
 ## 0.0.7
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @cypress-design/icon-registry
 
+## 0.5.0
+
+### Minor Changes
+
+- [#52](https://github.com/cypress-io/cypress-design/pull/52) [`43b53eb`](https://github.com/cypress-io/cypress-design/commit/43b53eb6bd10111629239a87374cfcc894eda0e3) Thanks [@mapsandapps](https://github.com/mapsandapps)! - New icons for statuses
+
+### Patch Changes
+
+- [#49](https://github.com/cypress-io/cypress-design/pull/49) [`31aaa18`](https://github.com/cypress-io/cypress-design/commit/31aaa182c8cd415f2884289144f504183e5ab418) Thanks [@elevatebart](https://github.com/elevatebart)! - avoid picking up class/className in icon color classes
+
 ## 0.4.2
 
 ### Patch Changes
