@@ -10,5 +10,5 @@ export default ({
   status = 'placeholder',
   ...props
 }: SVGAttributes & VariantStatusIconProps) => {
-  return h('svg', compileProps({ size, ...props, statuses }))
+  return h('svg', compileProps({ size, status, ...props, statuses }))
 }
