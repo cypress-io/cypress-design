@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./StatusIcon.tsx", "./index.ts", "../constants.ts"],
+  "include": ["./StatusIcon.tsx", "./*.ts", "../constants.ts"],
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "../"
