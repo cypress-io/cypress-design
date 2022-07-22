@@ -2,20 +2,19 @@ export const compileReactIconProperties = ({
   body,
   compiledClasses,
   size,
-  strokeColor,
-  fillColor,
-  secondaryStrokeColor,
-  secondaryFillColor,
   ...attributes
 }: {
   body: string
   compiledClasses: string[]
   size: string
-  strokeColor?
-  fillColor?
-  secondaryStrokeColor?
-  secondaryFillColor?
 } & React.SVGProps<SVGSVGElement>) => {
+  Object.keys(attributes).forEach((key) => {
+    if (key.toLowerCase().endsWith('color')) {
+      // @ts-ignore
+      delete attributes[key]
+    }
+  })
+
   const componentProps: any = {
     width: size,
     height: size,
