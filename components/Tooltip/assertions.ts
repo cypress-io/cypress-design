@@ -20,4 +20,11 @@ export default function assertions(mountStory: (options?: any) => void): void {
       cy.contains(`Popover (${placement})`).should('be.visible')
     })
   })
+
+  it('renders disabled', () => {
+    mountStory({ disabled: true })
+
+    cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
+    cy.contains('Popover').should('not.to.exist')
+  })
 }
