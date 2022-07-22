@@ -102,7 +102,9 @@ export const Tooltip: React.FC<
     useDismiss(context),
   ])
 
-  const placementSide = calculatedPlacement.split('-')[0]
+  const placementSide = calculatedPlacement.split(
+    '-'
+  )[0] as keyof typeof ROTATE_MAP
   const arrowRotate = ROTATE_MAP[placementSide]
 
   let arrowXRule = 'left',
