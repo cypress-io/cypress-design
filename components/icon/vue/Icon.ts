@@ -1,50 +1,9 @@
-import {
-  IconProps,
-  ICON_COLOR_PROP_NAMES,
-  OpenIconProps,
-} from '@cypress-design/icon-registry'
+import type { IconProps } from '@cypress-design/icon-registry'
 import { compileIcon } from '@cypress-design/icon-registry'
 import type { SVGAttributes } from 'vue'
 import { h } from 'vue'
+import { compileVueIconProperties } from './compileProperties'
 
 export default (props: IconProps & Omit<SVGAttributes, 'name'>) => {
   return h('svg', compileVueIconProperties(compileIcon(props)))
-}
-
-export const compileVueIconProperties = ({
-  body,
-  compiledClasses,
-  size,
-  class: className,
-  interactiveColorsOnGroup,
-  ...attributes
-}: Omit<OpenIconProps, 'name'> &
-  SVGAttributes & {
-    body: string
-    compiledClasses: string[]
-    size: string
-    interactiveColorsOnGroup?: boolean
-  }) => {
-  const filteredAttributes = Object.keys(attributes).reduce(
-    (newAttributes, attrName) => {
-      if (!ICON_COLOR_PROP_NAMES.includes(attrName)) {
-        newAttributes[attrName] =
-          attributes[attrName as keyof typeof attributes]
-      }
-      return newAttributes
-    },
-    {} as Record<string, any>
-  )
-
-  const componentProps: any = {
-    width: size,
-    height: size,
-    fill: 'none',
-    innerHTML: body,
-    ...filteredAttributes, // add all standard attributes back to the svg tag
-  }
-  if (compiledClasses.length) {
-    componentProps.class = compiledClasses.join(' ')
-  }
-  return componentProps
 }
