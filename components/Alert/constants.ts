@@ -2,27 +2,6 @@ import type { WindiColor } from '@cypress-design/icon-registry'
 
 export type AlertType = 'info' | 'success' | 'error' | 'warning' | 'neutral'
 
-export const sizeClassesMap = {
-  '32': {
-    text: 'text-16px leading-24px',
-    padding: 'p-16px',
-  },
-  '40': {
-    text: 'text-16px leading-24px',
-    padding: 'p-16px',
-  },
-  '48': {
-    text: 'text-16px leading-24px',
-    padding: 'p-16px',
-  },
-  '56': {
-    text: 'text-16px leading-24px',
-    padding: 'p-16px',
-  },
-} as const
-
-export type AlertSize = keyof typeof sizeClassesMap
-
 export type AlertClasses = {
   headerClass: string
   bodyClass: string
