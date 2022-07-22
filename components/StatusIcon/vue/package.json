@@ -19,7 +19,8 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.4.2"
+    "@cypress-design/icon-registry": "^0.4.2",
+    "@cypress-design/vue-icon": "^0.4.2"
   },
   "license": "MIT"
 }

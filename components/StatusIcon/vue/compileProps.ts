@@ -1,26 +1,28 @@
 import type { IconSet, VariantStatusIconProps } from '../constants'
-import { compileReactIconProperties } from '@cypress-design/react-icon'
+import { compileVueIconProperties } from '@cypress-design/vue-icon'
 
 export const compileProps = ({
   status,
   statuses,
-  className,
   size,
+  ...attributes
 }: VariantStatusIconProps & {
   statuses: Record<string, IconSet>
-  className: string | undefined
+  [attributes: string]: any
 }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
   const icon = statusInfo[`size${size}Icon`]
 
-  const classes = `inline-block ${className || ''} ${
-    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
-  }`
+  const compiledClasses = [
+    'inline-block',
+    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : '',
+  ]
 
-  return compileReactIconProperties({
-    body: icon.data,
-    compiledClasses: [classes],
+  return compileVueIconProperties({
+    compiledClasses,
     size,
+    body: icon.data,
+    ...attributes,
   })
 }
