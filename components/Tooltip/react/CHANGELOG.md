@@ -1,5 +1,14 @@
 # @cypress-design/react-tooltip
 
+## 0.2.0
+
+### Minor Changes
+
+- [#53](https://github.com/cypress-io/cypress-design/pull/53) [`a9a616b`](https://github.com/cypress-io/cypress-design/commit/a9a616bc4684252fcd71e4a82d2141bdfbea32bc) Thanks [@elevatebart](https://github.com/elevatebart)! - - add a default font color when light and dark mode are used
+  - add disabled prop to tooltip
+
+* [#51](https://github.com/cypress-io/cypress-design/pull/51) [`ccd8f9a`](https://github.com/cypress-io/cypress-design/commit/ccd8f9a8feb624c0a52deaa9754c76969f43fc1e) Thanks [@elevatebart](https://github.com/elevatebart)! - in the build asset, add a comment containing all used windicss classes in the component
+
 ## 0.1.0
 
 ### Minor Changes

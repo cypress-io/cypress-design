@@ -1,5 +1,15 @@
 # @cypress-design/css
 
+## 0.6.0
+
+### Minor Changes
+
+- [#51](https://github.com/cypress-io/cypress-design/pull/51) [`ccd8f9a`](https://github.com/cypress-io/cypress-design/commit/ccd8f9a8feb624c0a52deaa9754c76969f43fc1e) Thanks [@elevatebart](https://github.com/elevatebart)! - expose a rollup plugin to list all used windi classes at the boootom of the component
+
+### Patch Changes
+
+- [#47](https://github.com/cypress-io/cypress-design/pull/47) [`8994dbf`](https://github.com/cypress-io/cypress-design/commit/8994dbf14ac80a2326d3b5947942e7c1ac2efa9a) Thanks [@elevatebart](https://github.com/elevatebart)! - detect transparent, white, black, and current colors in the purgecss plugin
+
 ## 0.5.2
 
 ### Patch Changes
