@@ -5,10 +5,12 @@ export default ({
   color = 'light',
   placement,
   tabIndex,
+  disabled,
 }: {
   color?: 'light' | 'dark'
   placement?: Placement
   tabIndex?: number
+  disabled?: boolean
 } = {}) => (
   <div class="center flex flex-col items-center gap-20">
     <Tooltip
@@ -16,6 +18,7 @@ export default ({
       placement={placement}
       color={color}
       tabIndex={tabIndex}
+      disabled={disabled}
     >
       {{
         default: () => <div>Hover Me (dynamic: {placement?.toString()})</div>,
@@ -29,6 +32,7 @@ export default ({
           placement={placement}
           color={color}
           tabIndex={tabIndex}
+          disabled={disabled}
         >
           {{
             default: () => <div>Hover Me ({placement})</div>,

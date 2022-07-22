@@ -5,10 +5,12 @@ import Tooltip from './Tooltip'
 export default ({
   color = 'light',
   placement,
+  disabled,
   tabIndex,
 }: {
   color?: 'light' | 'dark'
   placement?: Placement
+  disabled?: boolean
   tabIndex?: number
 } = {}) => (
   <div className="center flex flex-col items-center gap-20">
@@ -18,6 +20,7 @@ export default ({
       color={color}
       placement={placement}
       tabIndex={tabIndex}
+      disabled={disabled}
     >
       <div>Hover Me (dynamic: {placement?.toString()})</div>
     </Tooltip>
@@ -29,6 +32,7 @@ export default ({
           key={placement}
           color={color}
           tabIndex={tabIndex}
+          disabled={disabled}
           popper={
             <div className="bg-jade-200 text-gray-800 p-4">
               Popover ({placement})

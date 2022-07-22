@@ -32,6 +32,11 @@ export interface TooltipProps {
    * The content of the tooltip.
    */
   popper?: React.ReactNode
+  /**
+   * Disable the tooltip.
+   * This hides the popper and makes the tooltip inactive.
+   */
+  disabled?: boolean
 }
 
 const ROTATE_MAP = {
@@ -43,7 +48,15 @@ const ROTATE_MAP = {
 
 export const Tooltip: React.FC<
   TooltipProps & React.HTMLProps<HTMLDivElement>
-> = ({ placement, color = 'light', className, children, popper, ...rest }) => {
+> = ({
+  placement,
+  color = 'light',
+  className,
+  children,
+  popper,
+  disabled,
+  ...rest
+}) => {
   const arrowRef = React.useRef(null)
   const [open, setOpen] = React.useState(false)
 
@@ -80,8 +93,11 @@ export const Tooltip: React.FC<
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       handleClose: safePolygon(),
+      enabled: !disabled,
     }),
-    useFocus(context),
+    useFocus(context, {
+      enabled: !disabled,
+    }),
     useRole(context, { role: 'tooltip' }),
     useDismiss(context),
   ])
@@ -114,7 +130,7 @@ export const Tooltip: React.FC<
         {children}
       </div>
       <FloatingPortal>
-        {open && (
+        {open && !disabled && (
           <div
             {...getFloatingProps({
               ref: floating,
