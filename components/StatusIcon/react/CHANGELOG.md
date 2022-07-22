@@ -1,0 +1,2 @@
+# @cypress-design/react-statusicon
+
