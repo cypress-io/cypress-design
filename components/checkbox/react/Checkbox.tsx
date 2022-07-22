@@ -4,12 +4,16 @@ import type { FunctionComponent, HTMLProps, ReactNode } from 'react'
 import { IconCheckmarkSmall } from '@cypress-design/react-icon'
 
 export interface CheckboxProps
-  extends Omit<HTMLProps<HTMLLabelElement>, 'label' | 'onChange'> {
+  extends Omit<HTMLProps<HTMLDivElement>, 'label' | 'onChange' | 'name'> {
   /**
    * A unique identifier for the checkbox on the whole page.
    * It will be used to give match label with input for a11y.
    */
   id?: string
+  /**
+   * Name attribute of the <input type="checkbox"/>.
+   */
+  name?: string
   /**
    * Is the checkbox checked when it is first rendered.
    */
@@ -31,14 +35,21 @@ export interface CheckboxProps
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
+const uid = () =>
+  String(Date.now().toString(32) + Math.random().toString(16)).replace(
+    /\./g,
+    ''
+  )
+
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
-  // @ts-ignore
-  id = crypto.randomUUID(),
+  id = uid(),
   checked = false,
   onChange,
   color = 'indigo',
   label,
   disabled,
+  className,
+  name,
   ...rest
 }) => {
   const [localChecked, setChecked] = React.useState(checked)
@@ -49,15 +60,12 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   }
 
   return (
-    <label
-      {...rest}
-      className={clsx(rest.className, 'relative flex items-center')}
-    >
+    <div className={clsx(className, 'relative flex items-center')} {...rest}>
       <input
         id={id}
         className="absolute inset-0 w-0 h-0 opacity-0"
         aria-describedby={`${id}-description`}
-        name={id}
+        name={name || id}
         type="checkbox"
         onChange={onChangeInput}
         disabled={disabled}
@@ -80,17 +88,19 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
             : 'border-gray-200 bg-white',
         ])}
       />
-      {label && (
-        <span
-          className={clsx([
-            disabled ? 'text-gray-500' : 'text-gray-800',
-            'block ml-2 text-16px leading-normal font-light select-none',
-          ])}
-        >
-          {label}
-        </span>
-      )}
-    </label>
+      <label htmlFor={id}>
+        {label && (
+          <span
+            className={clsx([
+              disabled ? 'text-gray-500' : 'text-gray-800',
+              'block ml-2 text-16px leading-normal font-light select-none',
+            ])}
+          >
+            {label}
+          </span>
+        )}
+      </label>
+    </div>
   )
 }
 
