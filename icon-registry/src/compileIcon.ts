@@ -1,6 +1,6 @@
 import { camelCase } from 'lodash'
-import type { OpenIconProps, IconProps } from './icons'
-import { iconsMetadata, WindiColor } from './icons'
+import type { OpenIconProps, IconProps, WindiColor } from './icons'
+import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
 
 export const compileIcon = (props: IconProps) => {
@@ -35,7 +35,7 @@ export const getComponentAttributes = (
     availableSizes,
     interactiveColorsOnGroup,
     name, // not used, just removed from colors
-    ...others
+    ...otherProps
   } = props
   const sizeWithDefault =
     size ??
@@ -47,24 +47,17 @@ export const getComponentAttributes = (
 
   const protectedInteractiveColorsOnGroup =
     interactiveColorsOnGroup === undefined
-      ? others['interactive-colors-on-group']
+      ? otherProps['interactive-colors-on-group']
       : interactiveColorsOnGroup
-
-  const colors = others
 
   // TODO: when all icons are converted to using the design system,
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
-  const compiledClasses = Object.keys(colors)
-    .map((color: WindiColor) => {
-      if ((color as any) === 'interactive-colors-on-group') {
-        return false
-      }
-      const weightedColor = colors[color]
-      if (!weightedColor) {
-        return false
-      }
-      const lowerCaseColor = color.toLowerCase().replace(/-/g, '')
+  const compiledClasses = Object.keys(otherProps)
+    .filter((attrName) => ICON_COLOR_PROP_NAMES.includes(attrName))
+    .map((colorAttrName: string) => {
+      const color: WindiColor = otherProps[colorAttrName]
+      const lowerCaseColor = colorAttrName.toLowerCase().replace(/-/g, '')
       const colorClass = lowerCaseColor.includes('strokecolor')
         ? 'dark'
         : 'light'
@@ -87,11 +80,10 @@ export const getComponentAttributes = (
           : `icon-${pseudoClass}:`
         : ''
 
-      const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${weightedColor}`
+      const finalClass = `${prefix}icon-${colorClass}${secondaryClass}-${color}`
 
       return finalClass
     })
-    .filter((cl): cl is string => cl !== false)
 
   return { compiledClasses, sizeWithDefault }
 }
