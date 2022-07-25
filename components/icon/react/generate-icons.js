@@ -48,7 +48,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
 writeFile(`
 import * as iconsRegistry from '@cypress-design/icon-registry'
-import { compileReactIconProperties } from './Icon'
+import { compileReactIconProperties } from './compileProperties'
 import * as React from 'react';
 
 ${iconsComponents.join('\n\n\n')}
