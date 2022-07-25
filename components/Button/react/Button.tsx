@@ -13,7 +13,7 @@ export interface ButtonPropsJsx extends ButtonProps {
 }
 
 export const Button: React.FC<
-  ButtonPropsJsx & React.HTMLProps<HTMLButtonElement>
+  ButtonPropsJsx & Omit<React.HTMLProps<HTMLButtonElement>, 'size'>
 > = ({
   variant = 'indigo-dark',
   size = '32',
