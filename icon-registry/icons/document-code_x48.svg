@@ -7,7 +7,7 @@
 42.5523 8.44772 43 9 43H39C39.5523 43 40 42.5523 40 42V13.8284C40 13.5398
 39.9376 13.2577 39.8204 13M32 5.17964C32.216 5.27792 32.4148 5.41477
 32.5858 5.58578L39.4142 12.4142C39.5852 12.5852 39.7221 12.784 39.8204
-13M32 5.17964V13H39.8204" stroke="#1B1E2E" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+13M32 5.17964V13H39.8204" stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
   <path d="M43 40C43 43.3137 40.3137 46 37 46C33.6863 46 31 43.3137 31 40C31
 36.6863 33.6863 34 37 34C40.3137 34 43 36.6863 43 40Z" class="icon-light-secondary" fill="#A3E7CB" />
   <path d="M37 38V40M37 42V40M37 40H39H35M43 40C43 43.3137 40.3137 46 37
