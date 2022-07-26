@@ -38,7 +38,7 @@ const props = withDefaults(
      */
     placement?: Placement
     /**
-     * background color of the tooltip.
+     * Background color of the tooltip.
      */
     color?: 'light' | 'dark'
     /**
