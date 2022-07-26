@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.6.0
+
+### Minor Changes
+
+- [#59](https://github.com/cypress-io/cypress-design/pull/59) [`25c6260`](https://github.com/cypress-io/cypress-design/commit/25c62605be573dafafff090b47fb80091b35aea4) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Standardize default colors of icon-dark and icon-light
+
 ## 0.5.0
 
 ### Minor Changes
