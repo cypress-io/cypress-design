@@ -1,5 +1,11 @@
 # @cypress-design/vue-tooltip
 
+## 0.3.0
+
+### Minor Changes
+
+- [#58](https://github.com/cypress-io/cypress-design/pull/58) [`ee05fa5`](https://github.com/cypress-io/cypress-design/commit/ee05fa5bf0caddf16521636ce7a26a19a5103025) Thanks [@elevatebart](https://github.com/elevatebart)! - Add interactive & forcePlacement props
+
 ## 0.2.0
 
 ### Minor Changes
