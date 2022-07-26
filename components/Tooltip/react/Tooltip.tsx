@@ -41,6 +41,10 @@ export interface TooltipProps {
    * If true, the tooltip will be hidden when hovering the popper/tooltip
    */
   interactive?: boolean
+  /**
+   * If set, the tooltip will always respect the given placement
+   */
+  forcePlacement?: boolean
 }
 
 const ROTATE_MAP = {
@@ -60,6 +64,7 @@ export const Tooltip: React.FC<
   popper,
   disabled,
   interactive,
+  forcePlacement,
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
@@ -91,7 +96,16 @@ export const Tooltip: React.FC<
     placement,
     open,
     onOpenChange: setOpen,
-    middleware: [flip(), offset(0), arrow({ element: arrowRef, padding: 24 })],
+    middleware: [
+      forcePlacement
+        ? {
+            name: 'no-flip',
+            fn: (obj) => obj,
+          }
+        : flip(),
+      offset(0),
+      arrow({ element: arrowRef, padding: 24 }),
+    ],
     whileElementsMounted: autoUpdate,
   })
 

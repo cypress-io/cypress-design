@@ -50,6 +50,10 @@ const props = withDefaults(
      * If true, the tooltip will be hidden when hovering the popper/tooltip
      */
     interactive?: boolean
+    /**
+     * If set, the tooltip will always respect the given placement
+     */
+    forcePlacement?: boolean
   }>(),
   {
     color: 'light',
@@ -110,17 +114,27 @@ const colors = computed(() => {
       }
     default:
       return {}
-
   }
-
 })
 
 async function placeTooltip() {
   if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value) return
-  const { x, y, placement, middlewareData: { arrow: { x: arrowX, y: arrowY } = {} }, } = await computePosition(reference.value, tooltip.value, {
+  const { x,
+    y,
+    placement,
+    middlewareData: {
+      arrow: {
+        x: arrowX,
+        y: arrowY
+      } = {}
+    },
+  } = await computePosition(reference.value, tooltip.value, {
     placement: props.placement,
     middleware: [
-      flip(),
+      props.forcePlacement ? {
+        name: 'no-flip',
+        fn: (obj) => (obj),
+      } : flip(),
       offset(0),
       arrow({ element: arrowRef.value, padding: 24 })
     ],
