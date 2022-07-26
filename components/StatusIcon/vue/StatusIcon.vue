@@ -5,13 +5,12 @@
 </template>
 
 <script lang="ts" setup>
-// @ts-ignore
 import type { Size, statusTypes, Variant } from '../constants'
 import OutlineStatusIcon from './OutlineStatusIcon'
 import SimpleStatusIcon from './SimpleStatusIcon'
 import SolidStatusIcon from './SolidStatusIcon'
 
-const props = withDefaults(
+withDefaults(
   defineProps<{
     /**
      * The size of the icon's canvas, in pixels.

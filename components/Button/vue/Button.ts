@@ -7,7 +7,7 @@ import {
 } from '../constants'
 import type { ButtonProps } from '../constants'
 
-const Button = defineComponent<ButtonProps>(function (props, { slots }) {
+const Button = defineComponent((props: ButtonProps, { slots }) => {
   const { variant = 'indigo-dark', size = '32', disabled = false } = props
 
   const finalVariant = computed(() =>
