@@ -5,7 +5,7 @@
       <div v-if="!disabled" @mouseover="tooltipHovered = true" @mouseout="tooltipHovered = false" role="tooltip"
         ref="tooltip" :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined"
         class="absolute p-16px" :class="{
-          'invisible': !show && positionComputed && !(tooltipHovered && isInteractive),
+          'invisible': !show && positionComputed && !(tooltipHovered && interactive),
           '-top-10000px invisible': !positionComputed,
         }">
         <div class="rounded shadow border" :class="[colors.background, colors.block]">
@@ -49,7 +49,7 @@ const props = withDefaults(
     /**
      * If true, the tooltip will be hidden when hovering the popper/tooltip
      */
-    isInteractive?: boolean
+    interactive?: boolean
   }>(),
   {
     color: 'light',

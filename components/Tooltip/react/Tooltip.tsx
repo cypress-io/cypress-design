@@ -37,6 +37,10 @@ export interface TooltipProps {
    * This hides the popper and makes the tooltip inactive.
    */
   disabled?: boolean
+  /**
+   * If true, the tooltip will be hidden when hovering the popper/tooltip
+   */
+  interactive?: boolean
 }
 
 const ROTATE_MAP = {
@@ -55,6 +59,7 @@ export const Tooltip: React.FC<
   children,
   popper,
   disabled,
+  interactive,
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
@@ -92,7 +97,7 @@ export const Tooltip: React.FC<
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
-      handleClose: safePolygon(),
+      handleClose: interactive ? safePolygon() : undefined,
       enabled: !disabled,
     }),
     useFocus(context, {
