@@ -25,6 +25,26 @@ export default ({
         popper: () => <div class="bg-jade-200 p-4">Popover</div>,
       }}
     </Tooltip>
+    <Tooltip
+      class="bg-red-200 p-4 w-1/2"
+      popper={
+        <div class="h-200px flex items-center justify-center">Popover</div>
+      }
+      color={color}
+      placement="top"
+      forcePlacement
+    >
+      <div>Force Placement to the top</div>
+    </Tooltip>
+    <Tooltip
+      class="bg-red-200 p-4 w-1/2"
+      popper={<div>Popover</div>}
+      color={color}
+      placement={placement}
+      interactive
+    >
+      <div>Interactive {placement?.toString()}</div>
+    </Tooltip>
     {(['top', 'right', 'bottom', 'left', 'top-start'] as const).map(
       (placement) => (
         <Tooltip
