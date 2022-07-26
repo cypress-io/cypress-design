@@ -1,5 +1,17 @@
 # @cypress-design/icon-registry
 
+## 0.5.0
+
+### Minor Changes
+
+- [#52](https://github.com/cypress-io/cypress-design/pull/52) [`43b53eb`](https://github.com/cypress-io/cypress-design/commit/43b53eb6bd10111629239a87374cfcc894eda0e3) Thanks [@mapsandapps](https://github.com/mapsandapps)! - New icons for statuses
+
+### Patch Changes
+
+- [#49](https://github.com/cypress-io/cypress-design/pull/49) [`31aaa18`](https://github.com/cypress-io/cypress-design/commit/31aaa182c8cd415f2884289144f504183e5ab418) Thanks [@elevatebart](https://github.com/elevatebart)! - avoid picking up class/className in icon color classes
+
+* [#56](https://github.com/cypress-io/cypress-design/pull/56) [`0866c65`](https://github.com/cypress-io/cypress-design/commit/0866c654f24c36951c98468d789462748606b428) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: avoid using `delete` to avoid memory leaks
+
 ## 0.4.2
 
 ### Patch Changes
