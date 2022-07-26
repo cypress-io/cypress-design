@@ -24,6 +24,26 @@ export default ({
     >
       <div>Hover Me (dynamic: {placement?.toString()})</div>
     </Tooltip>
+    <Tooltip
+      className="bg-red-200 p-4 w-1/2"
+      popper={
+        <div className="h-200px flex items-center justify-center">Popover</div>
+      }
+      color={color}
+      placement="top"
+      forcePlacement
+    >
+      <div>Force Placement to the top</div>
+    </Tooltip>
+    <Tooltip
+      className="bg-red-200 p-4 w-1/2"
+      popper={<div>Popover</div>}
+      color={color}
+      placement={placement}
+      interactive
+    >
+      <div>Interactive {placement?.toString()}</div>
+    </Tooltip>
     {(['top', 'right', 'bottom', 'left', 'top-start'] as const).map(
       (placement) => (
         <Tooltip
