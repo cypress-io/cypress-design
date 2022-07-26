@@ -121,6 +121,27 @@ export const Tooltip: React.FC<
     arrowYRule = 'top'
   }
 
+  const getColors = () => {
+    switch (color) {
+      case 'light':
+        return {
+          svg: 'stroke-gray-100 fill-white',
+          block: 'text-gray-900 border-gray-100 shadow-gray-100',
+          background: 'bg-white',
+        }
+      case 'dark':
+        return {
+          svg: 'stroke-gray-800 fill-gray-900',
+          block: 'text-white shadow-gray-800 border-gray-800',
+          background: 'bg-gray-900',
+        }
+      default:
+        return {}
+    }
+  }
+
+  const colors = getColors()
+
   return (
     <>
       <div
@@ -144,45 +165,44 @@ export const Tooltip: React.FC<
               },
             })}
           >
-            <svg
-              ref={arrowRef}
-              viewBox="0 0 48 48"
-              width="24"
-              height="24"
-              className={clsx('absolute', [
-                color === 'dark' && 'stroke-gray-800 fill-gray-900',
-                color === 'light' && 'stroke-gray-100 fill-white',
-              ])}
-              style={{
-                transform: `rotate(${arrowRotate}deg)`,
-                filter:
-                  placementSide === 'bottom' || color === 'dark'
-                    ? undefined
-                    : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                [arrowXRule]: `${arrowX ?? -6}px`,
-                [arrowYRule]: `${arrowY ?? -6}px`,
-              }}
-              fill="none"
-            >
-              <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
-              <path
-                d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-                stroke-width="2"
-              />
-            </svg>
             <div
-              className={clsx(
-                'rounded shadow border p-8px text-16px leading-24px min-w-160px text-center',
-                [
-                  color === 'dark' &&
-                    'bg-gray-900 shadow-gray-800 border-gray-800',
-                  color === 'light' &&
-                    'bg-white shadow-gray-100 border-gray-100',
-                  (!x || !y) && 'invisible',
-                ]
-              )}
+              className={clsx('rounded shadow border', [
+                colors.background,
+                colors.block,
+                (!x || !y) && 'invisible',
+              ])}
             >
-              {popper}
+              <svg
+                ref={arrowRef}
+                viewBox="0 0 48 48"
+                width="24"
+                height="24"
+                className={clsx('absolute z-10', colors.svg)}
+                style={{
+                  transform: `rotate(${arrowRotate}deg)`,
+                  filter:
+                    placementSide === 'bottom' || color === 'dark'
+                      ? undefined
+                      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
+                  [arrowXRule]: `${arrowX ?? -6}px`,
+                  [arrowYRule]: `${arrowY ?? -6}px`,
+                }}
+                fill="none"
+              >
+                <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+                <path
+                  d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+                  strokeWidth="2"
+                />
+              </svg>
+              <div
+                className={clsx(
+                  'rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20',
+                  colors.background
+                )}
+              >
+                {popper}
+              </div>
             </div>
           </div>
         )}
