@@ -3,4 +3,4 @@
 '@cypress-design/vue-tooltip': minor
 ---
 
-add interactive prop
+Add interactive & forcePlacement props
