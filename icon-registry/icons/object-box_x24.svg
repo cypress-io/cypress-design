@@ -17,5 +17,5 @@
 2.26982L3.51436 6.71427C3.35682 6.80179 3.22897 6.92828 3.14014 7.07789M12
 21.8561C11.8327 21.8561 11.6654 21.8141 11.5144 21.7302L3.51436
 17.2858C3.19689 17.1094 3 16.7748 3 16.4116V7.58843C3 7.40548 3.04997
-7.22977 3.14014 7.07789" stroke="#1B1E2E" stroke-width="2" stroke-linecap="round" class="icon-dark" stroke-linejoin="round" />
+7.22977 3.14014 7.07789" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-dark" stroke-linejoin="round" />
 </svg>
