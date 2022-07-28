@@ -44,12 +44,12 @@ export type ButtonVariants = keyof typeof VariantClassesTable
 
 export interface ButtonProps {
   /**
-   * Visual variant to display the button
-   * It will pick colors for font background and border)
+   * Visual variant to display the button;
+   * It will pick colors for font, background and border.
    */
   variant?: ButtonVariants
   /**
-   * Size of the button
+   * Size (height) of the button (in pixels)
    */
   size?: ButtonSizes
   /**
