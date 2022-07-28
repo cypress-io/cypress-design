@@ -1,5 +1,11 @@
 # @cypress-design/react-checkbox
 
+## 0.4.1
+
+### Patch Changes
+
+- [`2afa4d5`](https://github.com/cypress-io/cypress-design/commit/2afa4d54a2373692f82bee35ae40446bc9bb3f91) Thanks [@elevatebart](https://github.com/elevatebart)! - avoid duplicate ids in checkboxes
+
 ## 0.4.0
 
 ### Minor Changes
