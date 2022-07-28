@@ -42,9 +42,7 @@ For more info, check-out the Icon component documentation on the framework you a
               label: name,
             }));
       const [iconsMatchingSearch, setIconsMatchingSearch] = useState(iconsMetadata)
-      const [searchInput, setSearchInput] = useState('')
-      const searchItems = (searchValue) => {
-        setSearchInput(searchValue)
+      const searchIcons = (searchValue) => {
         if (searchValue.length < 1) {
           setIconsMatchingSearch(iconsMetadata)
           return
@@ -54,11 +52,11 @@ For more info, check-out the Icon component documentation on the framework you a
         }))
       }
       return (<>
-        <label for="icon-search">Search icons by name: </label>
+        <label htmlFor="icon-search">Search icons by name: </label>
         <input type="text"
           name="icon-search"
           className="border border-indigo-500 rounded mb-2 px-1"
-          onChange={(e) => searchItems(e.target.value)}
+          onChange={(e) => searchIcons(e.target.value)}
         />
         <h3 className="text-lg border-b-1 border-gray-300 pb-1">Use the dropdowns below to customize the colors of the icons</h3>
         <div className="flex border-b-1 border-gray-300 flex-wrap">
