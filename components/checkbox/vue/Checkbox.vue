@@ -1,9 +1,16 @@
 <script lang="ts">
-function uid() {
-  return String(Date.now().toString(32) + Math.random().toString(16)).replace(
+const idSet = new Set<string>()
+
+function getUid(shift: number = 0): string {
+  const uid = String((Date.now() + shift).toString(32) + Math.random().toString(16)).replace(
     /\./g,
     ''
   )
+  if (idSet.has(uid)) {
+    return getUid(shift + 1)
+  }
+  idSet.add(uid)
+  return uid
 }
 </script>
 
@@ -43,7 +50,7 @@ const props = withDefaults(
     label?: string
   }>(),
   {
-    id: uid(),
+    id: getUid(),
     color: 'indigo',
   }
 )

@@ -35,14 +35,21 @@ export interface CheckboxProps
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const uid = () =>
-  String(Date.now().toString(32) + Math.random().toString(16)).replace(
-    /\./g,
-    ''
-  )
+const idSet = new Set<string>()
+
+function getUid(shift: number = 0): string {
+  const uid = String(
+    (Date.now() + shift).toString(32) + Math.random().toString(16)
+  ).replace(/\./g, '')
+  if (idSet.has(uid)) {
+    return getUid(shift + 1)
+  }
+  idSet.add(uid)
+  return uid
+}
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
-  id = uid(),
+  id = getUid(),
   checked = false,
   onChange,
   color = 'indigo',
