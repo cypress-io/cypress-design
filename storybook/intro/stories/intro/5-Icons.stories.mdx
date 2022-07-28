@@ -1,10 +1,11 @@
+import { pickBy } from 'lodash';
 import { useState } from 'react';
 import Select from 'react-select';
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs';
 import { iconsMetadata } from '@cypress-design/icon-registry';
 import LinkTo from '@storybook/addon-links/react';
 
-import Icon from '@cypress-design/react-icon'
+import Icon from '@cypress-design/react-icon';
 
 # Icons
 
@@ -40,7 +41,25 @@ For more info, check-out the Icon component documentation on the framework you a
               value: name,
               label: name,
             }));
+      const [iconsMatchingSearch, setIconsMatchingSearch] = useState(iconsMetadata)
+      const [searchInput, setSearchInput] = useState('')
+      const searchItems = (searchValue) => {
+        setSearchInput(searchValue)
+        if (searchValue.length < 1) {
+          setIconsMatchingSearch(iconsMetadata)
+          return
+        }
+        setIconsMatchingSearch(pickBy(iconsMetadata, (value, key) => {
+          return key.includes(searchValue)
+        }))
+      }
       return (<>
+        <label for="icon-search">Search icons by name: </label>
+        <input type="text"
+          name="icon-search"
+          className="border border-indigo-500 rounded mb-2 px-1"
+          onChange={(e) => searchItems(e.target.value)}
+        />
         <h3 className="text-lg border-b-1 border-gray-300 pb-1">Use the dropdowns below to customize the colors of the icons</h3>
         <div className="flex border-b-1 border-gray-300 flex-wrap">
           <div className={`p-3 w-full md:w-1/2 flex items-center justify-evenly text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
@@ -79,8 +98,8 @@ For more info, check-out the Icon component documentation on the framework you a
           </div>
         </div>
         <div>
-          {Object.keys(iconsMetadata).map((iconName) => {
-            const meta = iconsMetadata[iconName]
+          {Object.keys(iconsMatchingSearch).map((iconName) => {
+            const meta = iconsMatchingSearch[iconName]
             return <div key={iconName} className="flex align-center items-end border-b border-gray-300 pb-2 pt-4">
               <div className="w-60 text-right mr-4">{iconName}</div>
               {meta.availableSizes.map((size) => {
