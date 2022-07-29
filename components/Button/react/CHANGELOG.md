@@ -1,5 +1,13 @@
 # @cypress-design/react-button
 
+## 0.4.1
+
+### Patch Changes
+
+- [`7c0d4be`](https://github.com/cypress-io/cypress-design/commit/7c0d4bede2e1c0a126c754e603b2ab8a4e5cbc76) Thanks [@elevatebart](https://github.com/elevatebart)! - Update some props descriptions
+  - size should be described as height.
+  - The sentence for variants wew mashing together.
+
 ## 0.4.0
 
 ### Minor Changes
