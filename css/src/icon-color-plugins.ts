@@ -205,7 +205,8 @@ export const IconDuotoneColorsPlugin = createPlugin(
         return `.${className}:hover, .${className}:focus`
       })
     })
-  }
+  },
+  { name: 'cypress-icon-duotone-colors' }
 )
 
 const prefixes = ['', 'hover', 'focus', 'hocus'] as const
