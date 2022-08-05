@@ -1,5 +1,12 @@
 # @cypress-design/css
 
+## 0.6.1
+
+### Patch Changes
+
+- [#64](https://github.com/cypress-io/cypress-design/pull/64) [`6f4f64b`](https://github.com/cypress-io/cypress-design/commit/6f4f64be15016f7ff16a6b8221708686f2dca3ca) Thanks [@elevatebart](https://github.com/elevatebart)! - - remove dependency of @cypress-design/css to `dedent`
+  - merge the windicss config passed to plugins with the default config
+
 ## 0.6.0
 
 ### Minor Changes
