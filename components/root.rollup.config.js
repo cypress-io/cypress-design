@@ -17,7 +17,7 @@ export default ({ input, plugins = [] }) => ({
           : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
     },
     {
-      file: './dist/index.es.js',
+      file: './dist/index.es.mjs',
       format: 'esm',
       sourcemap: true,
       sourcemapPathTransform: (sourcePath) =>
