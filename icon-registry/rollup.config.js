@@ -11,9 +11,6 @@ export default {
       exports: 'auto',
       sourcemap: true,
       name: 'CypressIconRegistry',
-      globals: {
-        lodash: 'lodash',
-      },
     },
     {
       file: './dist/index.es.mjs',
@@ -32,5 +29,4 @@ export default {
       outDir: './dist',
     }),
   ],
-  external: ['lodash'],
 }

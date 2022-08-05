@@ -23,14 +23,12 @@
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
   "devDependencies": {
-    "@types/lodash": "^4.14.182",
+    "@types/lodash.camelcase": "^4.3.7",
     "@cypress-design/css": "^0.6.0",
     "dedent": "^0.7.0",
     "globby": "^13.1.1",
+    "lodash.camelcase": "^4.3.0",
     "svg-to-ts": "^8.6.1"
   },
   "svg-to-ts": {

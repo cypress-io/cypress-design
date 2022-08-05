@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash'
+import camelCase from 'lodash.camelcase'
 import type { OpenIconProps, IconProps, WindiColor } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
