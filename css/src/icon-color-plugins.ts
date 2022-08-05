@@ -205,7 +205,8 @@ export const IconDuotoneColorsPlugin = createPlugin(
         return `.${className}:hover, .${className}:focus`
       })
     })
-  }
+  },
+  { name: 'cypress-icon-duotone-colors' }
 )
 
 const prefixes = ['', 'hover', 'focus', 'hocus'] as const
@@ -277,7 +278,7 @@ function isValidWindiColor(value: string) {
  * to be kept in the windicss css file after purgecss
  */
 export const IconExtractor: Extractor = {
-  extensions: ['vue', 'js', 'ts', 'tsx'],
+  extensions: ['vue', 'js', 'ts', 'tsx', 'astro'],
   extractor: (code, id) => {
     const { tags, classes = [], attributes } = DefaultExtractor(code, id)
 
