@@ -6,7 +6,6 @@ import {
 } from 'vite-plugin-windicss'
 import { IconExtractor } from './icon-color-plugins'
 import windiConfig from './windi.config'
-import dedent from 'dedent'
 
 export default function WindiKeepRollupPlugin(): Plugin {
   const classSet = new Set<string>()
@@ -39,9 +38,7 @@ export default function WindiKeepRollupPlugin(): Plugin {
       await utils.ensureInit()
       const { success } = utils.processor.interpret([...classSet].join(' '))
       if (chunk?.type === 'chunk') {
-        chunk.code += dedent`
-        /* <windicss-keep class="${success.join(' ')}"> */
-        \n`
+        chunk.code += `\n/* <windicss-keep class="${success.join(' ')}"> */\n`
       }
     },
   }

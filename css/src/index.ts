@@ -3,6 +3,7 @@ import type { UserOptions } from 'vite-plugin-windicss'
 import VitePlugin from 'vite-plugin-windicss'
 import WebpackPlugin from 'windicss-webpack-plugin'
 import windiConfig from './windi.config'
+import { merge } from 'lodash'
 
 function getConfig(options: UserOptions) {
   const scan = typeof options.scan === 'boolean' ? {} : options.scan ?? {}
@@ -17,8 +18,8 @@ function getConfig(options: UserOptions) {
   )
 
   return {
-    config: windiConfig,
     ...options,
+    config: merge(windiConfig, options.config),
     scan: {
       ...(scan || {}),
       include: [
