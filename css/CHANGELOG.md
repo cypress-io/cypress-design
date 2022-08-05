@@ -1,5 +1,12 @@
 # @cypress-design/css
 
+## 0.6.2
+
+### Patch Changes
+
+- [#66](https://github.com/cypress-io/cypress-design/pull/66) [`cd5ac31`](https://github.com/cypress-io/cypress-design/commit/cd5ac31fe2fac20be16139f0673af3c4338f49bb) Thanks [@elevatebart](https://github.com/elevatebart)! - - Add astro compatibility
+  - Fix config merge (lodash is messing up with arrays)
+
 ## 0.6.1
 
 ### Patch Changes
