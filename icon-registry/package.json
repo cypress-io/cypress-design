@@ -2,33 +2,33 @@
   "name": "@cypress-design/icon-registry",
   "version": "0.6.0",
   "description": "All svg files to be exposed to the Icon component",
-  "main": "dist/cjs/index.js",
-  "types": "dist/types/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.mjs",
+  "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js"
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "license": "MIT",
   "scripts": {
-    "build:lib": "tsc -p tsconfig.json",
-    "build:libcjs": "tsc -p tsconfig.json --module commonjs --outDir \"dist/cjs\" --declaration false --declarationMap false --declarationDir null",
+    "build:lib": "rollup -c ./rollup.config.js",
+    "build:types": "tsc -p . --outDir ./dist --noEmit false --emitDeclarationOnly",
     "build:icons": "node ./build-icons.mjs",
     "build:svg": "svg-to-ts-files",
-    "build": "yarn build:icons && yarn build:svg && yarn build:lib && yarn build:libcjs"
+    "build": "yarn build:icons && yarn build:svg && yarn build:lib && yarn build:types"
   },
   "files": [
     "dist"
   ],
-  "dependencies": {
-    "lodash": "^4.17.21"
-  },
   "devDependencies": {
-    "@types/lodash": "^4.14.182",
+    "@types/lodash.camelcase": "^4.3.7",
     "@cypress-design/css": "^0.6.0",
     "dedent": "^0.7.0",
     "globby": "^13.1.1",
+    "lodash.camelcase": "^4.3.0",
     "svg-to-ts": "^8.6.1"
   },
   "svg-to-ts": {

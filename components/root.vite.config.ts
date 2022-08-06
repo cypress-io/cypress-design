@@ -8,7 +8,8 @@ export default (libConfig: LibraryOptions) =>
     build: {
       sourcemap: true,
       lib: {
-        fileName: (format) => `index.${format}.js`,
+        fileName: (format) =>
+          `index.${format === 'es' ? 'es.mjs' : `${format}.js`}`,
         ...libConfig,
       },
       rollupOptions: {

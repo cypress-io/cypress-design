@@ -1,7 +1,6 @@
 {
   "include": ["src/**/*.ts"],
   "compilerOptions": {
-    "outDir": "dist/esm",
     "target": "ES2015",
     "module": "esnext",
     "moduleResolution": "node",
@@ -10,6 +9,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "declarationMap": true,
-    "declarationDir": "dist/types"
+    "noEmit": true
   }
 }

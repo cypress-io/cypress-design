@@ -30,6 +30,11 @@ module.exports = {
         },
       })
     )
+    // allow support for mjs module in webpack
+    config.module.rules.push({
+      type: 'javascript/auto',
+      test: /.+\.mjs$/,
+    })
     config.resolve.extensions.push('.json')
     return config
   },
