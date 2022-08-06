@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-statusicon",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "files": [
     "*"
   ],
@@ -19,8 +19,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.6.0",
-    "@cypress-design/react-icon": "^0.4.1",
+    "@cypress-design/icon-registry": "^0.6.1",
+    "@cypress-design/react-icon": "^0.4.2",
     "clsx": "*"
   },
   "license": "MIT"

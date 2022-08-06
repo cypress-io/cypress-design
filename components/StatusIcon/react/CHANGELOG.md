@@ -1,5 +1,15 @@
 # @cypress-design/react-statusicon
 
+## 0.0.3
+
+### Patch Changes
+
+- [#68](https://github.com/cypress-io/cypress-design/pull/68) [`8c577fb`](https://github.com/cypress-io/cypress-design/commit/8c577fb0c6a0411cf8218dfe78281834df3d6f13) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: publish `.mjs` files for esm intead of `.js`
+
+- Updated dependencies [[`8c577fb`](https://github.com/cypress-io/cypress-design/commit/8c577fb0c6a0411cf8218dfe78281834df3d6f13)]:
+  - @cypress-design/react-icon@0.4.2
+  - @cypress-design/icon-registry@0.6.1
+
 ## 0.0.2
 
 ### Patch Changes
