@@ -101,6 +101,13 @@ module.exports = {
         ),
       })
     )
+    config.module.rules.push(
+      // allow support for mjs module in webpack
+      {
+        type: 'javascript/auto',
+        test: /.+\.mjs$/,
+      }
+    )
     return config
   },
 }
