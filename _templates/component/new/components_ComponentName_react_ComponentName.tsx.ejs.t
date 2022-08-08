@@ -3,8 +3,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.
 ---
 import * as React from 'react'
 import clsx from 'clsx'
-
-const styles: Record<string, string> = {}
+import { SharedSettings } from '../constants'
 
 export interface <%= h.inflection.camelize(name, false) %>Props {
   id: string
@@ -19,6 +18,7 @@ export const <%= h.inflection.camelize(name, false) %>: React.FC<
     <div {...rest} id={id} className={clsx('bg-jade-100', className)}>
       <label>{label}</label>
       Render Function for <%= h.inflection.camelize(name, false) %>
+      <p>{SharedSettings.foo}</p>
     </div>
   )
 }

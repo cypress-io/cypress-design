@@ -9,6 +9,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.ca
 </template>
 
 <script lang="ts" setup>
+import { SharedSettings } from '../constants';
+
 withDefaults(
   defineProps<{
     id: string
