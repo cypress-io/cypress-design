@@ -8,11 +8,11 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
     "*"
   ],
   "typings": "./dist/index.d.ts",
+  "module": "./dist/index.es.mjs",
   "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.js",
   "exports": {
     ".": {
-      "import": "./dist/index.es.js",
+      "import": "./dist/index.es.mjs",
       "require": "./dist/index.umd.js"
     }
   },
