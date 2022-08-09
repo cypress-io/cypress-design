@@ -7,7 +7,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
   "files": [
     "*"
   ],
-  "typings": "./dist/index.d.ts",
+  "typings": "./dist/vue/index.d.ts",
   "module": "./dist/index.es.mjs",
   "main": "./dist/index.umd.js",
   "exports": {

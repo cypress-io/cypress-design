@@ -3,4 +3,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.ca
 ---
 import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.camelize(name, false) %>.vue'
 
-export default () => <<%= h.inflection.camelize(name, false) %> id="foo" />
+export default (options: { id?: string }) => {
+  const { id = 'foo', ...rest } = options
+  return <<%= h.inflection.camelize(name, false) %> id={id} {...rest} />
+}
