@@ -57,10 +57,14 @@ export interface ButtonProps {
    * Note that `variant="disabled"` will also set this
    */
   disabled?: boolean
-}
-
-export const ButtonPropsList: Record<keyof ButtonProps, any> = {
-  variant: String,
-  size: String,
-  disabled: Boolean,
+  /**
+   * When provided, renders the button as a link, with
+   * its href attribute set to the given value.
+   */
+  href?: string
+  /**
+   * When provided together with a href property, determines where to open the linked URL.
+   * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target for significance of values.
+   */
+  target?: '_self' | '_blank' | '_parent' | '_top'
 }

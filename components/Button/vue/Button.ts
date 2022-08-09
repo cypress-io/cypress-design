@@ -3,12 +3,16 @@ import {
   VariantClassesTable,
   SizeClassesTable,
   StaticClasses,
-  ButtonPropsList,
 } from '../constants'
 import type { ButtonProps } from '../constants'
 
 const Button = defineComponent((props: ButtonProps, { slots }) => {
-  const { variant = 'indigo-dark', size = '32', disabled = false } = props
+  const {
+    variant = 'indigo-dark',
+    size = '32',
+    disabled = false,
+    ...rest
+  } = props
 
   const finalVariant = computed(() =>
     disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
@@ -19,8 +23,10 @@ const Button = defineComponent((props: ButtonProps, { slots }) => {
 
   return () =>
     h(
-      'button',
+      props.href ? 'a' : 'button',
       {
+        // type: props.href ? undefined : 'button',
+        ...rest,
         class: [
           StaticClasses,
           VariantClassesTable[finalVariant.value],
@@ -32,6 +38,8 @@ const Button = defineComponent((props: ButtonProps, { slots }) => {
     )
 })
 
-Button.props = ButtonPropsList
+// NOTE: this allows vue to use the props as props instead of attributes
+// Without it, size, variant and disabled are used in the DOM as attributes
+Button.props = ['variant', 'size', 'disabled']
 
 export default Button
