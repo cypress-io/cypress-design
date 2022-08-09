@@ -4,4 +4,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.
 import * as React from 'react'
 import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.camelize(name, false) %>'
 
-export default () => <<%= h.inflection.camelize(name, false) %> id="foo" />
+export default (options: { id?: string }) => {
+  const { id = 'foo', ...rest } = options
+  return <<%= h.inflection.camelize(name, false) %> id={id} {...rest} />
+}
