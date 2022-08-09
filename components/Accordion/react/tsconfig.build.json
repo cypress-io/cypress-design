@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": [
+    "./Accordion.tsx",
+    "./index.ts",
+    "./css-modules.d.ts",
+    "../constants.ts"
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "../"
+  }
+}

@@ -1,0 +1,28 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+import AccordionStory from './Accordion.rootstory'
+import { FIGMA_URL } from '../constants'
+
+import { Accordion } from './Accordion'
+
+<h1>Accordion<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Accordion" component={Accordion} parameters={{
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="Accordion">
+    <AccordionStory />
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
