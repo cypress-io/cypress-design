@@ -22,6 +22,30 @@ import AccordionStory from './Accordion.rootstory'
   </Story>
 </Canvas>
 
+### Without separator
+
+<Canvas withSource="none">
+  <Story name="Accordion - No Separator">
+    {AccordionStory({separator:false})}
+  </Story>
+</Canvas>
+
+### Without description
+
+<Canvas withSource="none">
+  <Story name="Accordion - No Description">
+    {AccordionStory({description:undefined})}
+  </Story>
+</Canvas>
+
+### Open by default
+
+<Canvas withSource="none">
+  <Story name="Accordion - open">
+    {AccordionStory({open:true})}
+  </Story>
+</Canvas>
+
 <ArgsTable />
 
 <Description>
