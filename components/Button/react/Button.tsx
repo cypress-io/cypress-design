@@ -36,6 +36,7 @@ export const Button: React.FC<ReactButtonProps> = ({
     // @ts-ignore
     <Comp
       {...rest}
+      href={href}
       type={href ? undefined : 'button'}
       className={clsx(
         StaticClasses,
