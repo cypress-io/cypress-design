@@ -8,7 +8,6 @@ import {
 } from '@cypress-design/react-icon'
 import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
-import styles from './Alert.module.scss'
 
 export interface AlertProps {
   /**
@@ -147,18 +146,17 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
               className={clsx(
                 'p-16px border-t-1 cursor-pointer',
                 typeClasses.bodyClass,
-                typeClasses.borderClass,
-                styles.detailsBlock
+                typeClasses.borderClass
               )}
             >
               <summary
                 className={clsx(
-                  'flex font-medium',
+                  'flex font-medium details-none rotate-90 open:rotate-0',
                   typeClasses.detailsHeaderClass
                 )}
               >
                 <IconChevronDownSmall
-                  className={clsx('my-4px mr-8px', styles.icon)}
+                  className="my-4px mr-8px"
                   strokeColor={typeClasses.iconChevronColor}
                 />
                 {detailsTitle}
