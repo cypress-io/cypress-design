@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.5.0
+
+### Minor Changes
+
+- [#72](https://github.com/cypress-io/cypress-design/pull/72) [`a6d5d4b`](https://github.com/cypress-io/cypress-design/commit/a6d5d4b0fe3ec10c7b4b98bcd28785f3139a6322) Thanks [@elevatebart](https://github.com/elevatebart)! - add href & target props to link buttons
+
 ## 0.4.2
 
 ### Patch Changes
