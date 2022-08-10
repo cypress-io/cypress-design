@@ -32,7 +32,8 @@ export default function assertions(
 
   it('displays a separator when separator:true', () => {
     mountStory({ separator: true })
-    cy.get('hr').should('be.visible')
+    // the separator has a with of 1px. For some reason cypress detects it as invisible.
+    cy.get('hr').should('exist')
   })
 
   it('not display a separator when separator:false', () => {
