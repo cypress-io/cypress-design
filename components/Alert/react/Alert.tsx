@@ -107,8 +107,8 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
   }, [])
 
   React.useEffect(() => {
-    if (detailsRef.current && detailsRef.current) {
-      new DetailsAnimation(detailsRef.current, detailsRef.current)
+    if (detailsRef.current && contentRef.current) {
+      new DetailsAnimation(detailsRef.current, contentRef.current)
     }
   }, [])
 
@@ -162,18 +162,18 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
             >
               <summary
                 className={clsx(
-                  'flex font-medium details-none transition transform rotate-90 open:rotate-0',
+                  'flex font-medium details-none',
                   typeClasses.detailsHeaderClass
                 )}
               >
                 <IconChevronDownSmall
-                  className="my-4px mr-8px"
+                  className="my-4px mr-8px transition transform -rotate-90 open:rotate-0"
                   strokeColor={typeClasses.iconChevronColor}
                 />
                 {detailsTitle}
               </summary>
               <div ref={contentRef}>
-                <div className="mt-16px">{details}</div>
+                <div className="mt-16px">{details}</div>{' '}
               </div>
             </details>
           )}

@@ -42,7 +42,7 @@
       >
         <IconChevronDownSmall
           :strokeColor="typeClasses.iconChevronColor"
-          class="icon my-4px mr-8px transition transform rotate-90 open:rotate-0"
+          class="icon my-4px mr-8px transition transform -rotate-90 open:rotate-0"
         />
         {{ props.detailsTitle }}
       </summary>
