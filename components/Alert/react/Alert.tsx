@@ -6,6 +6,7 @@ import {
   IconWarningCircle,
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
+import { DetailsAnimation } from '@cypress-design/details-animation'
 import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
 
@@ -103,7 +104,16 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
       setDurationTimeout(timeout)
     }
     return clearDurationTimeout
-  })
+  }, [])
+
+  React.useEffect(() => {
+    if (detailsRef.current && detailsRef.current) {
+      new DetailsAnimation(detailsRef.current, detailsRef.current)
+    }
+  }, [])
+
+  const detailsRef = React.useRef(null)
+  const contentRef = React.useRef(null)
 
   return (
     <>
@@ -148,6 +158,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                 typeClasses.bodyClass,
                 typeClasses.borderClass
               )}
+              ref={detailsRef}
             >
               <summary
                 className={clsx(
@@ -161,7 +172,9 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
                 />
                 {detailsTitle}
               </summary>
-              <div className="mt-16px">{details}</div>
+              <div ref={contentRef}>
+                <div className="mt-16px">{details}</div>
+              </div>
             </details>
           )}
         </div>

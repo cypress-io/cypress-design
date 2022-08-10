@@ -33,6 +33,7 @@
     <details
       v-if="slots.details"
       class="p-16px border-t-1"
+      ref="detailsRef"
       :class="[typeClasses.bodyClass, typeClasses.borderClass]"
     >
       <summary
@@ -45,9 +46,11 @@
         />
         {{ props.detailsTitle }}
       </summary>
-      <div class="mt-16px">
-        <!--@slot Togglable additional details-->
-        <slot name="details" />
+      <div ref="contentRef">
+        <div class="mt-16px">
+          <!--@slot Togglable additional details-->
+          <slot name="details" />
+        </div>
       </div>
     </details>
   </div>
@@ -62,6 +65,7 @@ import {
   IconWarningCircle,
   IconCheckmarkOutline,
 } from '@cypress-design/vue-icon'
+import { DetailsAnimation } from '@cypress-design/details-animation'
 import type { AlertType } from '../constants'
 import { alertClasses } from '../constants'
 
@@ -109,6 +113,9 @@ const props = withDefaults(
   }
 )
 
+const detailsRef = ref(null)
+const contentRef = ref(null)
+
 const typeClasses = computed(() => {
   return alertClasses[props.type]
 })
@@ -118,6 +125,12 @@ let timeout: number | undefined
 onMounted(() => {
   if (props.duration) {
     timeout = setTimeout(dismiss, props.duration) as any
+  }
+})
+
+onMounted(() => {
+  if (detailsRef.value && contentRef.value) {
+    new DetailsAnimation(detailsRef.value, contentRef.value)
   }
 })
 
