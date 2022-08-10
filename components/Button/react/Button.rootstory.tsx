@@ -4,7 +4,11 @@ import Button from './Button'
 import { SizeClassesTable, VariantClassesTable } from '../constants'
 import type { ButtonSizes, ButtonVariants } from '../constants'
 
-export default ({ disabled = false }: { disabled?: boolean } = {}) => (
+export default ({
+  disabled = false,
+  href,
+  onClick,
+}: { disabled?: boolean; href?: string; onClick?: () => void } = {}) => (
   <div className="flex flex-row flex-wrap gap-2 justify-center">
     {(Object.keys(VariantClassesTable) as ButtonVariants[]).map((variant) => {
       return (
@@ -28,7 +32,13 @@ export default ({ disabled = false }: { disabled?: boolean } = {}) => (
                   >
                     {size}
                   </span>
-                  <Button variant={variant} size={size} disabled={disabled}>
+                  <Button
+                    variant={variant}
+                    size={size}
+                    disabled={disabled}
+                    href={href}
+                    onClick={onClick}
+                  >
                     Button
                   </Button>
                 </div>

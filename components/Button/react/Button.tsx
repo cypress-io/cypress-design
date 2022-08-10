@@ -12,12 +12,16 @@ export interface ButtonPropsJsx extends ButtonProps {
   children?: React.ReactNode
 }
 
-export const Button: React.FC<
-  ButtonPropsJsx & Omit<React.HTMLProps<HTMLButtonElement>, 'size'>
-> = ({
+type ReactButtonProps = ButtonPropsJsx &
+  (ButtonPropsJsx extends React.HTMLProps<HTMLAnchorElement>
+    ? React.HTMLProps<HTMLAnchorElement>
+    : Omit<React.HTMLProps<HTMLButtonElement>, 'size'>)
+
+export const Button: React.FC<ReactButtonProps> = ({
   variant = 'indigo-dark',
   size = '32',
   disabled = false,
+  href,
   className,
   children,
   ...rest
@@ -27,10 +31,13 @@ export const Button: React.FC<
       ? 'disabled'
       : variant
   const finalDisabled = disabled || variant === 'disabled'
+  const Comp = href ? 'a' : 'button'
   return (
-    <button
+    // @ts-ignore
+    <Comp
       {...rest}
-      type="button"
+      href={href}
+      type={href ? undefined : 'button'}
       className={clsx(
         StaticClasses,
         VariantClassesTable[finalVariant],
@@ -40,7 +47,7 @@ export const Button: React.FC<
       disabled={finalDisabled}
     >
       {children}
-    </button>
+    </Comp>
   )
 }
 
