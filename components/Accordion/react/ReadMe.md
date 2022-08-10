@@ -2,7 +2,7 @@
 
 ## Summary
 
-Collapsible component with a header and a body
+Collapsible component with a header and a body.
 
 ## install
 
@@ -29,6 +29,7 @@ import Accordion from '@cypress-design/react-accordion'
   description="Vestibulum id ligula porta felis euismod semper. Nulla... "
   separator
   open
+  fullWidthContent
 >
   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
   nemo minus, sapiente magni ...

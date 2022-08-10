@@ -16,19 +16,49 @@ import AccordionStory from './Accordion.rootstory'
     }
   }} />
 
+  
+### Usage
+
+```tsx
+import Accordion from '@cypress-design/vue-accordion'
+```
+
 <Canvas withSource="none">
   <Story name="Accordion">
     {AccordionStory()}
   </Story>
 </Canvas>
 
+```html
+<Accordion
+  :icon="IconActionQuestionMarkCircle"
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
+  separator
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
+  nemo minus, sapiente magni ...
+</Accordion>
+```
+
 ### Without separator
 
 <Canvas withSource="none">
-  <Story name="Accordion - No Separator">
+  <Story name="No Separator">
     {AccordionStory({separator:false})}
   </Story>
 </Canvas>
+
+```html
+<Accordion
+  :icon="IconActionQuestionMarkCircle"
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
+  nemo minus, sapiente magni ...
+</Accordion>
+```
 
 ### Without description
 
@@ -38,6 +68,18 @@ import AccordionStory from './Accordion.rootstory'
   </Story>
 </Canvas>
 
+```html
+<Accordion
+  :icon="IconActionQuestionMarkCircle"
+  title="Accordion Title"
+  separator
+  open
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
+  nemo minus, sapiente magni ...
+</Accordion>
+```
+
 ### Open by default
 
 <Canvas withSource="none">
@@ -45,6 +87,19 @@ import AccordionStory from './Accordion.rootstory'
     {AccordionStory({open:true})}
   </Story>
 </Canvas>
+
+```html
+<Accordion
+  :icon="IconActionQuestionMarkCircle"
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
+  separator
+  open
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
+  nemo minus, sapiente magni ...
+</Accordion>
+```
 
 <ArgsTable />
 

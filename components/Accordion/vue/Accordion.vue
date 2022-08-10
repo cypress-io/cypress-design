@@ -31,6 +31,7 @@
       />
     </summary>
     <div ref="content" :class="CssClasses.contentWrapper">
+      <!-- @slot expandable body of the collapsible accordion -->
       <slot v-if="fullWidthContent" />
       <div v-else :class="CssClasses.content">
         <slot />
@@ -40,22 +41,43 @@
 </template>
 
 <script lang="ts" setup>
-import { AccordionProps, CssClasses } from '../constants'
+import { CssClasses } from '../constants'
 import { AccordionAnimation } from '../accordion-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { FunctionalComponent, onMounted, ref, SVGAttributes } from 'vue'
 
-export interface AccordionPropsVue extends AccordionProps {
+const props = defineProps<{
+  /**
+   * Main indigo title.
+   * [NOTE] It's color and font can be customized using `titleClassName`.
+   */
   title: string
+  /**
+   * Second line in the heading.
+   */
   description?: string
-  separator?: boolean
-  titleClassName?: string
-  descriptionClassName?: string
+  /**
+   * Icon to be displayed on the left of the the heading.
+   */
   icon?: FunctionalComponent<SVGAttributes>
+  /**
+   * Should we add a vertical separator between the icon and the text.
+   */
+  separator?: boolean
+  /**
+   * Change the font and color of the heading title
+   */
+  titleClassName?: string
+  /**
+   * Change the font and color of the heading description
+   */
+  descriptionClassName?: string
+  /**
+   * When using content that needs ti be edge to edge,
+   * removes the content wrapper from the content.
+   */
   fullWidthContent?: boolean
-}
-
-const props = defineProps<AccordionPropsVue>()
+}>()
 
 const content = ref(null)
 const details = ref(null)
