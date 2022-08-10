@@ -162,7 +162,7 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
             >
               <summary
                 className={clsx(
-                  'flex font-medium details-none rotate-90 open:rotate-0',
+                  'flex font-medium details-none transition transform rotate-90 open:rotate-0',
                   typeClasses.detailsHeaderClass
                 )}
               >
