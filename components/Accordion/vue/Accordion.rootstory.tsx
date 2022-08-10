@@ -10,6 +10,7 @@ export default (options: AccordionStoryOptions = {}) => {
     separator = true,
     open = false,
     fullWidthContent = false,
+    headingClassName,
   } = options
 
   return (
@@ -21,6 +22,7 @@ export default (options: AccordionStoryOptions = {}) => {
         icon={icon}
         open={open}
         fullWidthContent={fullWidthContent}
+        headingClassName={headingClassName}
       >
         <p data-cy="content">
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore

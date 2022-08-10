@@ -11,6 +11,7 @@ export default (options: AccordionStoryOptions = {}) => {
     separator = true,
     open = false,
     fullWidthContent = false,
+    headingClassName,
     ...rest
   } = options
   return (
@@ -22,6 +23,7 @@ export default (options: AccordionStoryOptions = {}) => {
         separator={separator}
         open={open}
         fullWidthContent={fullWidthContent}
+        headingClassName={headingClassName}
         {...rest}
       >
         <p data-cy="content">
