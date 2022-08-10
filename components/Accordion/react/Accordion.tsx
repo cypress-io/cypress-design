@@ -17,6 +17,7 @@ export const Accordion: React.FC<
   icon: Icon,
   separator = false,
   children,
+  headingClassName,
   titleClassName,
   descriptionClassName,
   fullWidthContent,
@@ -31,13 +32,19 @@ export const Accordion: React.FC<
   }, [])
   return (
     <details {...rest} className={clsx(rest.className)} ref={details}>
-      <summary className={clsx('flex items-center', CssClasses.summary)}>
+      <summary
+        className={clsx(
+          'flex items-center',
+          CssClasses.summary,
+          headingClassName ?? CssClasses.summaryColor
+        )}
+      >
         {Icon && <Icon className={CssClasses.icon} />}
         {Icon && separator && <hr className={CssClasses.separator} />}
         <div className="flex-grow pr-16px">
           <div
             className={clsx(
-              titleClassName ? titleClassName : CssClasses.summaryTitleColor,
+              titleClassName ?? CssClasses.summaryTitleColor,
               CssClasses.summaryTitle
             )}
           >
@@ -46,10 +53,8 @@ export const Accordion: React.FC<
           {description && (
             <div
               className={clsx(
-                descriptionClassName
-                  ? descriptionClassName
-                  : CssClasses.summaryDescriptionColor,
-                CssClasses.summaryDescription
+                CssClasses.summaryDescription,
+                descriptionClassName ?? CssClasses.summaryDescriptionColor
               )}
             >
               {description}
