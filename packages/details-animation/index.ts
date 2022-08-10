@@ -32,10 +32,17 @@ export class DetailsAnimation {
   summary: HTMLElement | null
   content: HTMLElement
   animation: Animation | null
-  duration: number = 200
+  animationOptions: number | KeyframeAnimationOptions = {
+    duration: 200,
+    easing: 'ease-out',
+  }
   isClosing: boolean
   isExpanding: boolean
-  constructor(el: HTMLDetailsElement, content: HTMLElement, duration?: number) {
+  constructor(
+    el: HTMLDetailsElement,
+    content: HTMLElement,
+    options?: number | KeyframeAnimationOptions
+  ) {
     // Store the <details> element
     this.el = el
     // Store the <summary> element
@@ -49,7 +56,10 @@ export class DetailsAnimation {
     this.isClosing = false
     // Store if the element is expanding
     this.isExpanding = false
-    this.duration = duration ?? this.duration
+    this.animationOptions =
+      options !== undefined
+        ? Object.assign({}, this.animationOptions, options)
+        : this.animationOptions
     // Detect user clicks on the summary element
     this.summary?.addEventListener('click', (e) => this.onClick(e))
   }
@@ -89,10 +99,7 @@ export class DetailsAnimation {
         // Set the keyframes from the startHeight to endHeight
         height: [startHeight, endHeight],
       },
-      {
-        duration: this.duration,
-        easing: 'ease-out',
-      }
+      this.animationOptions
     )
 
     // When the animation is complete, call onAnimationFinish()
@@ -132,10 +139,7 @@ export class DetailsAnimation {
         // Set the keyframes from the startHeight to endHeight
         height: [startHeight, endHeight],
       },
-      {
-        duration: this.duration,
-        easing: 'ease-out',
-      }
+      this.animationOptions
     )
     // When the animation is complete, call onAnimationFinish()
     this.animation.onfinish = () => this.onAnimationFinish(true)
