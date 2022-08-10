@@ -13,5 +13,38 @@ export const CssClasses = {
   content: 'px-24px py-16px',
 }
 
+export interface AccordionProps {
+  /**
+   * Main indigo title.
+   * [NOTE] It's color and font can be customized using `titleClassName`.
+   */
+  title: string
+  /**
+   * Second line in the heading.
+   */
+  description?: string
+  /**
+   * Icon to be displayed on the left of the the heading.
+   */
+  icon?: any
+  /**
+   * Should we add a vertical separator between the icon and the text.
+   */
+  separator?: boolean
+  /**
+   * Change the font and color of the heading title
+   */
+  titleClassName?: string
+  /**
+   * Change the font and color of the heading description
+   */
+  descriptionClassName?: string
+  /**
+   * When using content that needs ti be edge to edge,
+   * removes the content wrapper from the content.
+   */
+  fullWidthContent?: boolean
+}
+
 export const FIGMA_URL =
   'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=2232%3A3477'

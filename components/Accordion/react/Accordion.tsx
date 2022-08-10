@@ -1,24 +1,16 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { CssClasses } from '../constants'
+import type { AccordionProps } from '../constants'
 import { AccordionAnimation } from '../accordion-animation'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 
-export interface AccordionProps {
-  title: string
-  description?: string
-  /**
-   * Icon on the left of the heading
-   */
+export interface AccordionPropsReact extends AccordionProps {
   icon?: React.FC<React.SVGProps<SVGSVGElement>>
-  separator?: boolean
-  titleClassName?: string
-  descriptionClassName?: string
-  fullWidthContent?: boolean
 }
 
 export const Accordion: React.FC<
-  AccordionProps & React.HTMLProps<HTMLDetailsElement>
+  AccordionPropsReact & React.HTMLProps<HTMLDetailsElement>
 > = ({
   title,
   description,

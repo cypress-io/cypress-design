@@ -40,12 +40,12 @@
 </template>
 
 <script lang="ts" setup>
-import { CssClasses } from '../constants'
+import { AccordionProps, CssClasses } from '../constants'
 import { AccordionAnimation } from '../accordion-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { FunctionalComponent, onMounted, ref, SVGAttributes } from 'vue'
 
-const props = defineProps<{
+export interface AccordionPropsVue extends AccordionProps {
   title: string
   description?: string
   separator?: boolean
@@ -53,7 +53,9 @@ const props = defineProps<{
   descriptionClassName?: string
   icon?: FunctionalComponent<SVGAttributes>
   fullWidthContent?: boolean
-}>()
+}
+
+const props = defineProps<AccordionPropsVue>()
 
 const content = ref(null)
 const details = ref(null)
