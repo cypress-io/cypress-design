@@ -14,6 +14,7 @@ export interface AccordionProps {
   separator?: boolean
   titleClassName?: string
   descriptionClassName?: string
+  fullWidthContent?: boolean
 }
 
 export const Accordion: React.FC<
@@ -26,6 +27,7 @@ export const Accordion: React.FC<
   children,
   titleClassName,
   descriptionClassName,
+  fullWidthContent,
   ...rest
 }) => {
   const details = React.useRef(null)
@@ -39,7 +41,7 @@ export const Accordion: React.FC<
     <details {...rest} className={clsx(rest.className)} ref={details}>
       <summary className={clsx('flex items-center', CssClasses.summary)}>
         {Icon && <Icon className={CssClasses.icon} />}
-        {separator && <div className={CssClasses.separator} />}
+        {separator && <hr className={CssClasses.separator} />}
         <div className="flex-grow pr-16px">
           <div
             className={clsx(
@@ -68,7 +70,11 @@ export const Accordion: React.FC<
         />
       </summary>
       <div ref={content} className={CssClasses.contentWrapper}>
-        <div className={CssClasses.content}>{children}</div>
+        {fullWidthContent ? (
+          <>{children}</>
+        ) : (
+          <div className={CssClasses.content}>{children}</div>
+        )}
       </div>
     </details>
   )

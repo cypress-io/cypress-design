@@ -2,7 +2,7 @@
   <details ref="details">
     <summary class="flex items-center" :class="CssClasses.summary">
       <Icon v-if="props.icon" :class="CssClasses.icon" />
-      <div v-if="separator" :class="CssClasses.separator" />
+      <hr v-if="separator" :class="CssClasses.separator" />
       <div class="flex-grow pr-16px">
         <div
           :class="[
@@ -31,7 +31,8 @@
       />
     </summary>
     <div ref="content" :class="CssClasses.contentWrapper">
-      <div :class="CssClasses.content">
+      <slot v-if="fullWidthContent" />
+      <div v-else :class="CssClasses.content">
         <slot />
       </div>
     </div>
@@ -51,6 +52,7 @@ const props = defineProps<{
   titleClassName?: string
   descriptionClassName?: string
   icon?: FunctionalComponent<SVGAttributes>
+  fullWidthContent?: boolean
 }>()
 
 const content = ref(null)
