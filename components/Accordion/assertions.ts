@@ -14,18 +14,18 @@ export default function assertions(
 ): void {
   it('opens when clicking on the heading', () => {
     mountStory()
-    cy.get('details').click()
+    cy.get('details summary').click()
 
     cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
   })
 
   it('closes when clicking again on details', () => {
     mountStory()
-    cy.get('details').click()
+    cy.get('details summary').click()
 
     cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
 
-    cy.get('details').click()
+    cy.get('details summary').click()
 
     cy.contains('Lorem ipsum, dolor sit amet').should('not.be.visible')
   })
@@ -44,7 +44,7 @@ export default function assertions(
   it('have no padding when fullwidth', () => {
     mountStory({ fullWidthContent: true })
 
-    cy.get('details').click()
+    cy.get('details summary').click()
 
     cy.get('[data-cy="content"]').parent().should('have.css', 'padding', '0px')
   })
