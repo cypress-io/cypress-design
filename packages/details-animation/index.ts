@@ -27,7 +27,7 @@ function getHiddenHeight(el: HTMLElement, width: number): number | null {
  * Thank you Louis Hoebregts
  * https://css-tricks.com/how-to-animate-the-details-element-using-waapi/
  */
-export class AccordionAnimation {
+export class DetailsAnimation {
   el: HTMLDetailsElement
   summary: HTMLElement | null
   content: HTMLElement

@@ -17,6 +17,7 @@ export default (libConfig: LibraryOptions) =>
           'vue',
           '@cypress-design/icon-registry',
           '@cypress-design/icon',
+          '@cypress-design/details-animation',
         ],
         output: {
           // Provide global variables to use in the UMD build
@@ -25,6 +26,7 @@ export default (libConfig: LibraryOptions) =>
             vue: 'Vue',
             '@cypress-design/icon-registry': 'CyIconRegistry',
             '@cypress-design/icon': 'CyIcon',
+            '@cypress-design/details-animation': 'CyDetailsAnimation',
           },
         },
       },

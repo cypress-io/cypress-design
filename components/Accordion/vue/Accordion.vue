@@ -42,7 +42,7 @@
 
 <script lang="ts" setup>
 import { CssClasses } from '../constants'
-import { AccordionAnimation } from '../accordion-animation'
+import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { FunctionalComponent, onMounted, ref, SVGAttributes } from 'vue'
 
@@ -84,7 +84,7 @@ const details = ref(null)
 
 onMounted(function () {
   if (details.value && content.value) {
-    new AccordionAnimation(details.value, content.value)
+    new DetailsAnimation(details.value, content.value)
   }
 })
 

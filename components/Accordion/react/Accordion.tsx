@@ -2,7 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { CssClasses } from '../constants'
 import type { AccordionProps } from '../constants'
-import { AccordionAnimation } from '../accordion-animation'
+import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 
 export interface AccordionPropsReact extends AccordionProps {
@@ -26,7 +26,7 @@ export const Accordion: React.FC<
   const content = React.useRef(null)
   React.useEffect(() => {
     if (details.current && content.current) {
-      new AccordionAnimation(details.current, content.current)
+      new DetailsAnimation(details.current, content.current)
     }
   }, [])
   return (

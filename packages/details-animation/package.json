@@ -1,10 +1,10 @@
 {
-  "name": "@cypress-design/react-accordion",
+  "name": "@cypress-design/details-animation",
   "version": "0.0.0",
   "files": [
     "*"
   ],
-  "typings": "./dist/react/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "module": "./dist/index.es.mjs",
   "main": "./dist/index.umd.js",
   "exports": {
@@ -16,12 +16,7 @@
   "scripts": {
     "build": "yarn build:module && yarn build:types",
     "build:module": "rollup -c ./rollup.config.js",
-    "build:types": "tsc --project ./tsconfig.build.json"
-  },
-  "dependencies": {
-    "clsx": "*",
-    "@cypress-design/details-animation": "*",
-    "@cypress-design/react-icon": "*"
+    "build:types": "tsc --project ./tsconfig.json"
   },
   "license": "MIT"
 }
