@@ -22,9 +22,11 @@ export default (options: AccordionStoryOptions = {}) => {
         open={open}
         fullWidthContent={fullWidthContent}
       >
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore
-        omnis nemo minus, sapiente magni laudantium eligendi modi deserunt ea
-        non iure consequatur sed id quidem! Ad.
+        <p data-cy="content">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore
+          omnis nemo minus, sapiente magni laudantium eligendi modi deserunt ea
+          non iure consequatur sed id quidem! Ad.
+        </p>
       </Accordion>
     </div>
   )
