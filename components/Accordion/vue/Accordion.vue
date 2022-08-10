@@ -2,7 +2,7 @@
   <details ref="details">
     <summary class="flex items-center" :class="CssClasses.summary">
       <Icon v-if="props.icon" :class="CssClasses.icon" />
-      <hr v-if="separator" :class="CssClasses.separator" />
+      <hr v-if="props.icon && separator" :class="CssClasses.separator" />
       <div class="flex-grow pr-16px">
         <div
           :class="[

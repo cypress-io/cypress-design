@@ -16,11 +16,43 @@ import { Accordion } from './Accordion'
     }
   }} />
 
+### Usage
+
+```tsx
+import Accordion from '@cypress-design/react-accordion'
+```
+
 <Canvas withSource="none">
   <Story name="Accordion">
     <AccordionStory />
   </Story>
 </Canvas>
+
+```tsx
+<Accordion 
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title" 
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  separator
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Minimal
+
+<Canvas withSource="none">
+  <Story name="Minimal">
+    <AccordionStory description={null} icon={null} />
+  </Story>
+</Canvas>
+
+
+```tsx
+<Accordion title="Accordion Title">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
 
 ### Without separator
 
@@ -30,6 +62,16 @@ import { Accordion } from './Accordion'
   </Story>
 </Canvas>
 
+```tsx
+<Accordion
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title" 
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
 ### Without description
 
 <Canvas withSource="none">
@@ -37,6 +79,16 @@ import { Accordion } from './Accordion'
     <AccordionStory description={null} />
   </Story>
 </Canvas>
+
+```tsx
+<Accordion
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title"
+  separator
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
 
 ### Open by default
 
@@ -46,11 +98,19 @@ import { Accordion } from './Accordion'
   </Story>
 </Canvas>
 
-<ArgsTable />
+```tsx
+<Accordion 
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title" 
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  separator
+  open
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
 
-<Description>
-  {readMe.replace(/^# .+/, '')}
-</Description>
+<ArgsTable />
 
 <Description>
   {changelog.replace(/^# .+/, '## Changelog')}

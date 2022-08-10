@@ -33,7 +33,7 @@ export const Accordion: React.FC<
     <details {...rest} className={clsx(rest.className)} ref={details}>
       <summary className={clsx('flex items-center', CssClasses.summary)}>
         {Icon && <Icon className={CssClasses.icon} />}
-        {separator && <hr className={CssClasses.separator} />}
+        {Icon && separator && <hr className={CssClasses.separator} />}
         <div className="flex-grow pr-16px">
           <div
             className={clsx(
