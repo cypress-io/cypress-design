@@ -23,6 +23,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/details-animation": "*",
     "@cypress-design/vue-icon": "*"
   },
   "license": "MIT"
