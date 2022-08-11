@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-button",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "files": [
     "*"
   ],
