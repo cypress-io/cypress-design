@@ -4,7 +4,7 @@ export const CssClasses = {
     'details-none min-h-65px py-12px card open:rounded-b-none px-24px flex items-center',
   summaryColor: 'bg-white',
   summaryTitle: 'text-18px leading-28px font-medium',
-  summaryTitleColor: 'text-indigo-500 hover:text-indigo-600',
+  summaryTitleColor: 'text-indigo-500',
   summaryDescription: 'text-14px leading-20px font-normal',
   summaryDescriptionColor: 'text-gray-700',
   icon: 'mr-24px flex-shrink-0',
