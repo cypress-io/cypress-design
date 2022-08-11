@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.7.0
+
+### Minor Changes
+
+- [#74](https://github.com/cypress-io/cypress-design/pull/74) [`6d8b6fd`](https://github.com/cypress-io/cypress-design/commit/6d8b6fd763b0389d748884c35f4ff6dd73724977) Thanks [@elevatebart](https://github.com/elevatebart)! - add all the plugins for details
+
 ## 0.6.2
 
 ### Patch Changes
