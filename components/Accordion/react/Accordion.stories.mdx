@@ -1,0 +1,117 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md"
+import readMe from "./ReadMe.md"
+import AccordionStory from './Accordion.rootstory'
+import { FIGMA_URL } from '../constants'
+
+import { Accordion } from './Accordion'
+
+<h1>Accordion<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Accordion" component={Accordion} parameters={{
+    design: {
+      type: "figma",
+      url: FIGMA_URL,
+    }
+  }} />
+
+### Usage
+
+```tsx
+import Accordion from '@cypress-design/react-accordion'
+```
+
+<Canvas withSource="none">
+  <Story name="Accordion">
+    <AccordionStory />
+  </Story>
+</Canvas>
+
+```tsx
+<Accordion 
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title" 
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  separator
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Minimal
+
+<Canvas withSource="none">
+  <Story name="Minimal">
+    <AccordionStory description={null} icon={null} />
+  </Story>
+</Canvas>
+
+
+```tsx
+<Accordion title="Accordion Title">
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Without separator
+
+<Canvas withSource="none">
+  <Story name="No Separator">
+    <AccordionStory separator={false} />
+  </Story>
+</Canvas>
+
+```tsx
+<Accordion
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title" 
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Without description
+
+<Canvas withSource="none">
+  <Story name="No Description">
+    <AccordionStory description={null} />
+  </Story>
+</Canvas>
+
+```tsx
+<Accordion
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title"
+  separator
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Open by default
+
+<Canvas withSource="none">
+  <Story name="Open">
+    <AccordionStory open />
+  </Story>
+</Canvas>
+
+```tsx
+<Accordion 
+  icon={IconActionQuestionMarkCircle}
+  title="Accordion Title" 
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  separator
+  open
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>

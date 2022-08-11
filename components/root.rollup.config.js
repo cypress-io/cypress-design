@@ -38,5 +38,10 @@ export default ({ input, plugins = [] }) => ({
     }),
     ...plugins,
   ],
-  external: ['clsx', 'react', '@cypress-design/icon-registry'],
+  external: [
+    'clsx',
+    'react',
+    '@cypress-design/icon-registry',
+    '@cypress-design/details-animation',
+  ],
 })

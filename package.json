@@ -10,6 +10,7 @@
   "workspaces": [
     "components/*/react",
     "components/*/vue",
+    "packages/*",
     "css",
     "icon-registry",
     "storybook/*",
@@ -31,7 +32,8 @@
     "storybook:vue": "yarn workspace storybook-vue start --no-open",
     "build:css": "yarn workspace @cypress-design/css build",
     "build:icons": "yarn workspace @cypress-design/icon-registry build && yarn workspace @cypress-design/react-icon build:codegen && yarn workspace @cypress-design/vue-icon build:codegen",
-    "postinstall": "yarn husky install && yarn build:css && yarn build:icons",
+    "build:animation": "yarn workspace @cypress-design/details-animation build",
+    "postinstall": "yarn husky install && yarn build:css && yarn build:icons && yarn build:animation",
     "new:component": "hygen component new"
   },
   "dependencies": {

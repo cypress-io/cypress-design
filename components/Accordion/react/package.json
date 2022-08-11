@@ -1,12 +1,12 @@
 {
-  "name": "@cypress-design/react-alert",
-  "version": "0.1.1",
+  "name": "@cypress-design/react-accordion",
+  "version": "0.0.0",
   "files": [
     "*"
   ],
   "typings": "./dist/react/index.d.ts",
-  "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
@@ -19,14 +19,9 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "clsx": "*",
     "@cypress-design/details-animation": "*",
-    "@cypress-design/react-icon": "*",
-    "clsx": "*"
-  },
-  "devDependencies": {
-    "postcss": "^8.4.13",
-    "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.51.0"
+    "@cypress-design/react-icon": "*"
   },
   "license": "MIT"
 }

@@ -3,6 +3,7 @@ import { defineConfig } from 'windicss/helpers'
 import PluginInteractionVariants from '@windicss/plugin-interaction-variants'
 import PluginFilters from 'windicss/plugin/filters'
 import { IconDuotoneColorsPlugin, IconExtractor } from './icon-color-plugins'
+import DetailsOpenVariantPlugin from './details-open-variant-plugin'
 import { colors } from './colors'
 import { shortcuts } from './shortcuts'
 
@@ -49,7 +50,12 @@ export default defineConfig({
       'no-hover',
     ],
   },
-  plugins: [IconDuotoneColorsPlugin, PluginInteractionVariants, PluginFilters],
+  plugins: [
+    IconDuotoneColorsPlugin,
+    PluginInteractionVariants,
+    DetailsOpenVariantPlugin,
+    PluginFilters,
+  ],
   shortcuts,
   extract: {
     extractors: [IconExtractor],
