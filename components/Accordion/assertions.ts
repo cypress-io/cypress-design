@@ -7,6 +7,7 @@ export interface AccordionStoryOptions {
   separator?: boolean
   open?: boolean
   fullWidthContent?: boolean
+  headingClassName?: string
 }
 
 export default function assertions(
@@ -36,16 +37,22 @@ export default function assertions(
     cy.get('hr').should('exist')
   })
 
-  it('not display a separator when separator:false', () => {
+  it('does not display a separator when separator:false', () => {
     mountStory({ separator: false })
     cy.get('hr').should('not.exist')
   })
 
-  it('have no padding when fullwidth', () => {
+  it('has no padding when fullwidth', () => {
     mountStory({ fullWidthContent: true })
 
     cy.get('details summary').click()
 
     cy.get('[data-cy="content"]').parent().should('have.css', 'padding', '0px')
+  })
+
+  it('takes on the css class passed to headingClassName', () => {
+    mountStory({ headingClassName: 'bg-gray-50' })
+
+    cy.get('details summary').should('have.class', 'bg-gray-50')
   })
 }

@@ -1,5 +1,11 @@
 # @cypress-design/react-checkbox
 
+## 0.4.3
+
+### Patch Changes
+
+- [#71](https://github.com/cypress-io/cypress-design/pull/71) [`379079e`](https://github.com/cypress-io/cypress-design/commit/379079e08802b6c3fae243925e3b9e8881e8ef54) Thanks [@elevatebart](https://github.com/elevatebart)! - allow users to click the checkbox instead of the label
+
 ## 0.4.2
 
 ### Patch Changes

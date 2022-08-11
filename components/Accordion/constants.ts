@@ -2,6 +2,7 @@ export const CssClasses = {
   details: '',
   summary:
     'details-none min-h-65px py-12px card open:rounded-b-none px-24px flex items-center',
+  summaryColor: 'bg-white',
   summaryTitle: 'text-18px leading-28px font-medium',
   summaryTitleColor: 'text-indigo-500',
   summaryDescription: 'text-14px leading-20px font-normal',
@@ -16,7 +17,7 @@ export const CssClasses = {
 export interface AccordionProps {
   /**
    * Main indigo title.
-   * [NOTE] It's color and font can be customized using `titleClassName`.
+   * > [NOTE] It's color and font can be customized using `titleClassName`.
    */
   title: string
   /**
@@ -39,6 +40,11 @@ export interface AccordionProps {
    * Change the font and color of the heading description
    */
   descriptionClassName?: string
+  /**
+   * Additional classes to add to the header of the accordion
+   * > [NOTE] useful to change the background color of the header
+   */
+  headingClassName?: string
   /**
    * When using content that needs ti be edge to edge,
    * removes the content wrapper from the content.

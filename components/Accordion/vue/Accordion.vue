@@ -1,6 +1,9 @@
 <template>
   <details ref="details">
-    <summary class="flex items-center" :class="CssClasses.summary">
+    <summary
+      class="flex items-center"
+      :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
+    >
       <Icon v-if="props.icon" :class="CssClasses.icon" />
       <hr v-if="props.icon && separator" :class="CssClasses.separator" />
       <div class="flex-grow pr-16px">
@@ -15,10 +18,8 @@
         <div
           v-if="description"
           :class="[
-            descriptionClassName
-              ? descriptionClassName
-              : CssClasses.summaryDescriptionColor,
             CssClasses.summaryDescription,
+            descriptionClassName ?? CssClasses.summaryDescriptionColor,
           ]"
         >
           {{ description }}
@@ -72,6 +73,11 @@ const props = defineProps<{
    * Change the font and color of the heading description
    */
   descriptionClassName?: string
+  /**
+   * Additional classes to add to the header of the accordion
+   * > [NOTE] useful to change the background color of the header
+   */
+  headingClassName?: string
   /**
    * When using content that needs ti be edge to edge,
    * removes the content wrapper from the content.
