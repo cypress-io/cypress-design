@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.7.0
+
+### Minor Changes
+
+- [#77](https://github.com/cypress-io/cypress-design/pull/77) [`2008ebd`](https://github.com/cypress-io/cypress-design/commit/2008ebdef09ce917c97179ae305664171baa77ac) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Add new icons needed for marketing site
+
 ## 0.6.1
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @cypress-design/test-vue-app
 
+## 0.0.11
+
+### Patch Changes
+
+- Updated dependencies [[`2008ebd`](https://github.com/cypress-io/cypress-design/commit/2008ebdef09ce917c97179ae305664171baa77ac)]:
+  - @cypress-design/vue-icon@0.6.0
+
 ## 0.0.10
 
 ### Patch Changes
