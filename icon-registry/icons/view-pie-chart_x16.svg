@@ -1,0 +1,4 @@
+<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 1C11.866 1 15 4.13401 15 8H8V1Z" fill="#D0D2E0" class="icon-light"/>
+<path d="M15 8C15 11.866 11.866 15 8 15C6.067 15 4.317 14.2165 3.05025 12.9497M15 8C15 4.13401 11.866 1 8 1M15 8H8M8 1C6.067 1 4.317 1.7835 3.05025 3.05025C1.7835 4.317 1 6.067 1 8C1 9.933 1.7835 11.683 3.05025 12.9497M8 1V8M3.05025 12.9497L8 8" stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
