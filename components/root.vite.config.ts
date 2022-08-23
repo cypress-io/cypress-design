@@ -7,6 +7,7 @@ import { WindiKeepRollupPlugin } from '@cypress-design/css'
 export default (libConfig: LibraryOptions) =>
   defineConfig({
     build: {
+      minify: false,
       sourcemap: true,
       lib: {
         fileName: (format) =>

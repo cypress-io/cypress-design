@@ -12,6 +12,9 @@ export default defineConfig({
       framework: 'vue',
       bundler: 'vite',
       viteConfig: {
+        build: {
+          minify: false,
+        },
         plugins: [
           vue(),
           vueJsx({
