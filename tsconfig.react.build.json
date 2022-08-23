@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.react.json",
   "compilerOptions": {
+    "target": "es5",
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationMap": true

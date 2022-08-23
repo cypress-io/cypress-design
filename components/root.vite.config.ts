@@ -7,6 +7,7 @@ export default (libConfig: LibraryOptions) =>
   defineConfig({
     build: {
       sourcemap: true,
+      target: 'es5',
       lib: {
         fileName: (format) =>
           `index.${format === 'es' ? 'es.mjs' : `${format}.js`}`,
