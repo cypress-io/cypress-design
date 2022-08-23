@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import babel from '@rollup/plugin-babel'
 import { WindiKeepRollupPlugin } from '@cypress-design/css'
 
 export default ({ input, plugins = [] }) => ({
@@ -35,6 +36,22 @@ export default ({ input, plugins = [] }) => ({
       declaration: false,
       declarationMap: false,
       sourceMap: true,
+    }),
+    babel({
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            corejs: 3,
+            useBuiltIns: 'usage',
+            targets: {
+              chrome: '64',
+              edge: '79',
+              firefox: '86',
+            },
+          },
+        ],
+      ],
     }),
     ...plugins,
   ],

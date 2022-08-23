@@ -1,13 +1,13 @@
 import type { LibraryOptions } from 'vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import babel from '@rollup/plugin-babel'
 import { WindiKeepRollupPlugin } from '@cypress-design/css'
 
 export default (libConfig: LibraryOptions) =>
   defineConfig({
     build: {
       sourcemap: true,
-      target: 'es5',
       lib: {
         fileName: (format) =>
           `index.${format === 'es' ? 'es.mjs' : `${format}.js`}`,
@@ -30,6 +30,24 @@ export default (libConfig: LibraryOptions) =>
             '@cypress-design/details-animation': 'CyDetailsAnimation',
           },
         },
+        plugins: [
+          babel({
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  corejs: 3,
+                  useBuiltIns: 'usage',
+                  targets: {
+                    chrome: '64',
+                    edge: '79',
+                    firefox: '86',
+                  },
+                },
+              ],
+            ],
+          }) as any,
+        ],
       },
     },
     plugins: [WindiKeepRollupPlugin(), vue()],

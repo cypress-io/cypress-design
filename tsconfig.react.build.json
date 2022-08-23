@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.react.json",
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "declaration": true,
     "emitDeclarationOnly": true,
     "declarationMap": true
