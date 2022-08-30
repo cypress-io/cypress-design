@@ -4,6 +4,7 @@ export interface AccordionStoryOptions {
   title?: string
   description?: string
   icon?: any
+  iconEl?: any
   separator?: boolean
   open?: boolean
   fullWidthContent?: boolean
@@ -54,5 +55,12 @@ export default function assertions(
     mountStory({ headingClassName: 'bg-gray-50' })
 
     cy.get('details summary').should('have.class', 'bg-gray-50')
+  })
+
+  it('should not show a separator if no icon is provided', () => {
+    mountStory({ separator: true, icon: null })
+
+    cy.get('details summary').contains('Accordion Title')
+    cy.get('details summary hr').should('not.exist')
   })
 }

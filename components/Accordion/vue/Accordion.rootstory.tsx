@@ -7,6 +7,7 @@ export default (options: AccordionStoryOptions = {}) => {
     title = 'Accordion Title',
     description = 'Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla.',
     icon = IconActionQuestionMarkCircle,
+    iconEl,
     separator = true,
     open = false,
     fullWidthContent = false,
@@ -24,11 +25,23 @@ export default (options: AccordionStoryOptions = {}) => {
         fullWidthContent={fullWidthContent}
         headingClassName={headingClassName}
       >
-        <p data-cy="content">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore
-          omnis nemo minus, sapiente magni laudantium eligendi modi deserunt ea
-          non iure consequatur sed id quidem! Ad.
-        </p>
+        {{
+          default: () => (
+            <p data-cy="content">
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio
+              dolore omnis nemo minus, sapiente magni laudantium eligendi modi
+              deserunt ea non iure consequatur sed id quidem! Ad.
+            </p>
+          ),
+          iconEl: iconEl
+            ? () => (
+                <IconActionQuestionMarkCircle
+                  strokeColor="red-600"
+                  fillColor="red-50"
+                />
+              )
+            : null,
+        }}
       </Accordion>
     </div>
   )

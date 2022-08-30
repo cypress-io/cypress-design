@@ -4,8 +4,14 @@
       class="flex items-center"
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
-      <Icon v-if="props.icon" :class="CssClasses.icon" />
-      <hr v-if="props.icon && separator" :class="CssClasses.separator" />
+      <span v-if="slots.iconEl" :class="CssClasses.icon">
+        <slot name="iconEl" />
+      </span>
+      <Icon v-else-if="props.icon" :class="CssClasses.icon" />
+      <hr
+        v-if="(props.icon || slots.iconEl) && separator"
+        :class="CssClasses.separator"
+      />
       <div class="flex-grow pr-16px">
         <div
           :class="[
@@ -45,12 +51,20 @@
 import { CssClasses } from '../constants'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
-import { FunctionalComponent, onMounted, ref, SVGAttributes } from 'vue'
+import {
+  FunctionalComponent,
+  SVGAttributes,
+  onMounted,
+  ref,
+  useSlots,
+} from 'vue'
+
+const slots = useSlots()
 
 const props = defineProps<{
   /**
    * Main indigo title.
-   * [NOTE] It's color and font can be customized using `titleClassName`.
+   * [NOTE] Its color and font can be customized using `titleClassName`.
    */
   title: string
   /**
@@ -58,7 +72,7 @@ const props = defineProps<{
    */
   description?: string
   /**
-   * Icon to be displayed on the left of the the heading.
+   * Icon to be displayed on the left of the the heading. Overridden by the iconEl slot, if one is provided.
    */
   icon?: FunctionalComponent<SVGAttributes>
   /**
