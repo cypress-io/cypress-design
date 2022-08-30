@@ -4,9 +4,11 @@
       class="flex items-center"
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
-      <slot name="iconEl">
-        <Icon :class="CssClasses.icon" />
-      </slot>
+      <span :class="CssClasses.icon">
+        <slot name="iconEl">
+          <Icon />
+        </slot>
+      </span>
       <hr
         v-if="(props.icon || slots.iconEl) && separator"
         :class="CssClasses.separator"
