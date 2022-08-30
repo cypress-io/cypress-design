@@ -1,5 +1,11 @@
 # @cypress-design/vue-spinner
 
+## 0.1.2
+
+### Patch Changes
+
+- [#82](https://github.com/cypress-io/cypress-design/pull/82) [`eb73717`](https://github.com/cypress-io/cypress-design/commit/eb73717a551485a9350d7914d61f5fcefbad7a3b) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: set colors in spinner through normal classes instead of `@apply` to avoid having to compile the css using windi.
+
 ## 0.1.1
 
 ### Patch Changes
