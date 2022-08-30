@@ -6,7 +6,14 @@ import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 
 export interface AccordionPropsReact extends AccordionProps {
+  /**
+   * Icon to be displayed on the left of the the heading. Overridden by the iconEl prop, if both are provided.
+   */
   icon?: React.FC<React.SVGProps<SVGSVGElement>>
+  /**
+   * Element to be displayed on the left of the the heading. Overrides the icon prop, if both are provided.
+   */
+  iconEl?: React.ReactNode
 }
 
 export const Accordion: React.FC<
@@ -15,6 +22,7 @@ export const Accordion: React.FC<
   title,
   description,
   icon: Icon,
+  iconEl,
   separator = false,
   children,
   headingClassName,
@@ -39,8 +47,13 @@ export const Accordion: React.FC<
           headingClassName ?? CssClasses.summaryColor
         )}
       >
-        {Icon && <Icon className={CssClasses.icon} />}
-        {Icon && separator && <hr className={CssClasses.separator} />}
+        {Boolean(iconEl) && <span className={CssClasses.icon}>{iconEl}</span>}
+
+        {Icon && !iconEl && <Icon className={CssClasses.icon} />}
+
+        {(Icon || iconEl) && separator && (
+          <hr className={CssClasses.separator} />
+        )}
         <div className="flex-grow pr-16px">
           <div
             className={clsx(

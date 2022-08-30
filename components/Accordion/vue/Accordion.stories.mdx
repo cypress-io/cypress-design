@@ -6,6 +6,7 @@ import { FIGMA_URL } from '../constants'
 import Accordion from './Accordion.vue'
 
 import AccordionStory from './Accordion.rootstory'
+import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 
 <h1>Accordion<span className="text-lg font-normal"> - v{version}</span></h1>
 
@@ -98,6 +99,34 @@ import Accordion from '@cypress-design/vue-accordion'
 >
   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
   nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Icon slot
+
+If you need classes or props for your icon, you can pass it in via the `iconEl` slot instead of the `icon` prop.
+
+<Canvas withSource="none">
+  <Story name="Icon slot">
+    {AccordionStory({iconEl: true})}
+  </Story>
+</Canvas>
+
+```html
+<Accordion
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
+  separator
+  open
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis
+  nemo minus, sapiente magni ...
+  <template #iconEl>
+    <IconActionQuestionMarkCircle
+      strokeColor="jade-600"
+      fillColor="jade-50"
+    />
+  </template>
 </Accordion>
 ```
 

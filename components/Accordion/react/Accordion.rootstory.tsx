@@ -8,6 +8,7 @@ export default (options: AccordionStoryOptions = {}) => {
     title = 'Accordion Title',
     description = 'Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla.',
     icon = IconActionQuestionMarkCircle,
+    iconEl,
     separator = true,
     open = false,
     fullWidthContent = false,
@@ -19,7 +20,8 @@ export default (options: AccordionStoryOptions = {}) => {
       <Accordion
         title={title}
         description={description}
-        icon={icon}
+        icon={iconEl ? null : icon}
+        iconEl={iconEl}
         separator={separator}
         open={open}
         fullWidthContent={fullWidthContent}

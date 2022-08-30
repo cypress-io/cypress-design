@@ -6,6 +6,7 @@ import AccordionStory from './Accordion.rootstory'
 import { FIGMA_URL } from '../constants'
 
 import { Accordion } from './Accordion'
+import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon'
 
 <h1>Accordion<span className="text-lg font-normal"> - v{version}</span></h1>
 
@@ -29,10 +30,10 @@ import Accordion from '@cypress-design/react-accordion'
 </Canvas>
 
 ```tsx
-<Accordion 
+<Accordion
   icon={IconActionQuestionMarkCircle}
-  title="Accordion Title" 
-  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
   separator
 >
   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
@@ -65,8 +66,8 @@ import Accordion from '@cypress-design/react-accordion'
 ```tsx
 <Accordion
   icon={IconActionQuestionMarkCircle}
-  title="Accordion Title" 
-  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
 >
   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
 </Accordion>
@@ -99,10 +100,34 @@ import Accordion from '@cypress-design/react-accordion'
 </Canvas>
 
 ```tsx
-<Accordion 
+<Accordion
   icon={IconActionQuestionMarkCircle}
-  title="Accordion Title" 
-  description="Vestibulum id ligula porta felis euismod semper. Nulla... " 
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
+  separator
+  open
+>
+  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio dolore omnis nemo minus, sapiente magni ...
+</Accordion>
+```
+
+### Icon as element
+
+If you need classes or props for your icon, you can pass it in as an element with props.
+
+<Canvas withSource="none">
+  <Story name="Icon as element">
+    <AccordionStory iconEl={<IconActionQuestionMarkCircle strokeColor="red-600" fillColor="red-50" />} />
+  </Story>
+</Canvas>
+
+```tsx
+<Accordion
+  iconEl={
+    <IconActionQuestionMarkCircle strokeColor="red-600" fillColor="red-50" />
+  }
+  title="Accordion Title"
+  description="Vestibulum id ligula porta felis euismod semper. Nulla... "
   separator
   open
 >
