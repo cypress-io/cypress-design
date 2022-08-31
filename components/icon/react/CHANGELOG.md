@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.7.0
+
+### Minor Changes
+
+- [#85](https://github.com/cypress-io/cypress-design/pull/85) [`8efe2d0`](https://github.com/cypress-io/cypress-design/commit/8efe2d078edef4bf597ef7894f0c1112f37cc0ed) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Add icons needed for the marketing site
+
+### Patch Changes
+
+- Updated dependencies [[`8efe2d0`](https://github.com/cypress-io/cypress-design/commit/8efe2d078edef4bf597ef7894f0c1112f37cc0ed)]:
+  - @cypress-design/icon-registry@0.9.0
+
 ## 0.6.0
 
 ### Minor Changes
