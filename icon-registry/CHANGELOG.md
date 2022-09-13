@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.10.0
+
+### Minor Changes
+
+- [#87](https://github.com/cypress-io/cypress-design/pull/87) [`f527129`](https://github.com/cypress-io/cypress-design/commit/f5271294ffd1fd392dd82dd9402d9a6d9f7e3145) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Adds download icon
+
 ## 0.9.0
 
 ### Minor Changes
