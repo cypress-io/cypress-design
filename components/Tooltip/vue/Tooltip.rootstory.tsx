@@ -22,28 +22,32 @@ export default ({
     >
       {{
         default: () => <div>Hover Me (dynamic: {placement?.toString()})</div>,
-        popper: () => <div class="bg-jade-200 p-4">Popover</div>,
+        popper: () => <div class="bg-jade-200 p-4">PopovDyn</div>,
       }}
     </Tooltip>
     <Tooltip
       class="bg-red-200 p-4 w-1/2"
-      popper={
-        <div class="h-200px flex items-center justify-center">Popover</div>
-      }
       color={color}
       placement="top"
       forcePlacement
     >
-      <div>Force Placement to the top</div>
+      {{
+        default: () => <div>Force Placement to the top</div>,
+        popper: () => (
+          <div class="h-200px flex items-center justify-center">Popov</div>
+        ),
+      }}
     </Tooltip>
     <Tooltip
       class="bg-red-200 p-4 w-1/2"
-      popper={<div>Popover</div>}
       color={color}
       placement={placement}
       interactive
     >
-      <div>Interactive {placement?.toString()}</div>
+      {{
+        default: () => <div>Interactive {placement?.toString()}</div>,
+        popper: () => <div>PopovInt</div>,
+      }}
     </Tooltip>
     {(['top', 'right', 'bottom', 'left', 'top-start'] as const).map(
       (placement) => (

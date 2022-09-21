@@ -5,18 +5,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     mountStory()
 
     cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
-    cy.contains('Popover').should('be.visible')
-    ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
-      cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
-      cy.contains(`Popover (${placement})`).should('be.visible')
-    })
-  })
-
-  it('renders dark', () => {
-    mountStory({ color: 'dark' })
-
-    cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
-    cy.contains('Popover').should('be.visible')
+    cy.contains('PopovDyn').should('be.visible')
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
@@ -27,6 +16,17 @@ export default function assertions(mountStory: (options?: any) => void): void {
     mountStory({ disabled: true })
 
     cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
-    cy.contains('Popover').should('not.to.exist')
+    cy.contains('PopovDyn').should('not.to.exist')
+  })
+
+  it('renders dark', () => {
+    mountStory({ color: 'dark' })
+
+    cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
+    cy.contains('PopovDyn').should('be.visible')
+    ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
+      cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
+      cy.contains(`Popover (${placement})`).should('be.visible')
+    })
   })
 }

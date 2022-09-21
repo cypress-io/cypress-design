@@ -144,14 +144,14 @@ export const Tooltip: React.FC<
     switch (color) {
       case 'light':
         return {
-          svg: 'stroke-gray-100 fill-white',
-          block: 'text-gray-900 border-gray-100 shadow-gray-100',
+          svg: 'stroke-none fill-white',
+          block: 'text-gray-900 shadow-gray-100 border-transparent ',
           background: 'bg-white',
         }
       case 'dark':
         return {
-          svg: 'stroke-gray-800 fill-gray-900',
-          block: 'text-white shadow-gray-800 border-gray-800',
+          svg: 'stroke-none fill-gray-900',
+          block: 'text-white shadow-gray-800 border-transparent',
           background: 'bg-gray-900',
         }
       default:
@@ -201,7 +201,7 @@ export const Tooltip: React.FC<
                   transform: `rotate(${arrowRotate}deg)`,
                   filter:
                     placementSide === 'bottom' || color === 'dark'
-                      ? undefined
+                      ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
                       : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
                   [arrowXRule]: `${arrowX ?? -6}px`,
                   [arrowYRule]: `${arrowY ?? -6}px`,

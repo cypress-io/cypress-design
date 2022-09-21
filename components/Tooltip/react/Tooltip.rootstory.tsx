@@ -16,7 +16,7 @@ export default ({
   <div className="center flex flex-col items-center gap-20">
     <Tooltip
       className="bg-red-200 p-4 w-1/2"
-      popper={<div className="bg-jade-200 text-gray-800 p-4">Popover</div>}
+      popper={<div className="bg-jade-200 text-gray-800 p-4">PopovDyn</div>}
       color={color}
       placement={placement}
       tabIndex={tabIndex}
@@ -27,7 +27,7 @@ export default ({
     <Tooltip
       className="bg-red-200 p-4 w-1/2"
       popper={
-        <div className="h-200px flex items-center justify-center">Popover</div>
+        <div className="h-200px flex items-center justify-center">Popov</div>
       }
       color={color}
       placement="top"
@@ -37,7 +37,7 @@ export default ({
     </Tooltip>
     <Tooltip
       className="bg-red-200 p-4 w-1/2"
-      popper={<div>Popover</div>}
+      popper={<div>PopovInt</div>}
       color={color}
       placement={placement}
       interactive
