@@ -1,22 +1,62 @@
 <template>
-  <div ref="reference" @mouseover="placeTooltip" @focus="placeTooltip" @blur="show = false" @mouseout="show = false">
+  <div
+    ref="reference"
+    @mouseover="placeTooltip"
+    @focus="placeTooltip"
+    @blur="show = false"
+    @mouseout="show = false"
+  >
     <slot />
     <teleport to="#portal-target">
-      <div v-if="!disabled" @mouseover="tooltipHovered = true" @mouseout="tooltipHovered = false" role="tooltip"
-        ref="tooltip" :style="positionComputed ? `top:${top}px!important;left:${left}px!important;` : undefined"
-        class="absolute p-16px" :class="{
-          'invisible': !show && positionComputed && !(tooltipHovered && interactive),
+      <div
+        v-if="!disabled"
+        @mouseover="tooltipHovered = true"
+        @mouseout="tooltipHovered = false"
+        role="tooltip"
+        ref="tooltip"
+        :style="
+          positionComputed
+            ? `top:${top}px!important;left:${left}px!important;`
+            : undefined
+        "
+        class="absolute p-16px"
+        :class="{
+          invisible:
+            !show && positionComputed && !(tooltipHovered && interactive),
           '-top-10000px invisible': !positionComputed,
-        }">
-        <div class="rounded shadow border" :class="[colors.background, colors.block]">
-          <svg ref="arrowRef" viewBox="0 0 48 48" width="24" height="24" class="absolute z-10" :class="colors.svg"
+        }"
+      >
+        <div
+          class="rounded shadow border"
+          :class="[colors.background, colors.block]"
+        >
+          <svg
+            ref="arrowRef"
+            viewBox="0 0 48 48"
+            width="24"
+            height="24"
+            class="absolute z-10"
+            :class="colors.svg"
             :style="`transform: rotate(${arrowRotate}deg); filter: ${dropShadowFilter};${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
-            fill="none">
-            <rect x="0" y="-4" width="48" height="8" stroke-width="0" stroke-color="red" />
-            <path d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3" stroke-width="2" />
+            fill="none"
+          >
+            <rect
+              x="0"
+              y="-4"
+              width="48"
+              height="8"
+              stroke-width="0"
+              stroke-color="red"
+            />
+            <path
+              d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+              stroke-width="2"
+            />
           </svg>
-          <div class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
-            :class="colors.background">
+          <div
+            class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
+            :class="colors.background"
+          >
             <slot name="popper" />
           </div>
         </div>
@@ -26,10 +66,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { Placement, Side } from '@floating-ui/dom';
-import { computePosition, flip, offset, arrow } from '@floating-ui/dom';
-import type { Ref } from 'vue';
-import { computed, ref, onBeforeMount } from 'vue';
+import type { Placement, Side } from '@floating-ui/dom'
+import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
+import type { Ref } from 'vue'
+import { computed, ref, onBeforeMount } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -81,7 +121,7 @@ const ROTATE_MAP = {
   bottom: 180,
   left: 270,
   top: 0,
-  right: 90
+  right: 90,
 } as const
 
 onBeforeMount(async () => {
@@ -89,10 +129,10 @@ onBeforeMount(async () => {
 })
 
 async function getTarget() {
-  let portalTargetLocal = document.getElementById("portal-target")
+  let portalTargetLocal = document.getElementById('portal-target')
   if (!portalTargetLocal) {
-    portalTargetLocal = document.createElement("div");
-    portalTargetLocal.id = "portal-target";
+    portalTargetLocal = document.createElement('div')
+    portalTargetLocal.id = 'portal-target'
     document.body.appendChild(portalTargetLocal)
   }
   portalTarget.value = portalTargetLocal
@@ -102,14 +142,14 @@ const colors = computed(() => {
   switch (props.color) {
     case 'light':
       return {
-        svg: 'stroke-gray-100 fill-white',
-        block: 'text-gray-900 border-gray-100 shadow-gray-100',
+        svg: 'stroke-none fill-white',
+        block: 'text-gray-900 shadow-gray-100 border-transparent',
         background: 'bg-white',
       }
     case 'dark':
       return {
-        svg: 'stroke-gray-800 fill-gray-900',
-        block: 'text-white shadow-gray-800 border-gray-800',
+        svg: 'stroke-none fill-gray-900',
+        block: 'text-white shadow-gray-800 border-transparent',
         background: 'bg-gray-900',
       }
     default:
@@ -118,25 +158,24 @@ const colors = computed(() => {
 })
 
 async function placeTooltip() {
-  if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value) return
-  const { x,
+  if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value)
+    return
+  const {
+    x,
     y,
     placement,
-    middlewareData: {
-      arrow: {
-        x: arrowX,
-        y: arrowY
-      } = {}
-    },
+    middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
   } = await computePosition(reference.value, tooltip.value, {
     placement: props.placement,
     middleware: [
-      props.forcePlacement ? {
-        name: 'no-flip',
-        fn: (obj) => (obj),
-      } : flip(),
+      props.forcePlacement
+        ? {
+            name: 'no-flip',
+            fn: (obj) => obj,
+          }
+        : flip(),
       offset(0),
-      arrow({ element: arrowRef.value, padding: 24 })
+      arrow({ element: arrowRef.value, padding: 24 }),
     ],
   })
   left.value = x
@@ -144,9 +183,10 @@ async function placeTooltip() {
   const placementSide = placement.split('-')[0] as Side
   arrowRotate.value = ROTATE_MAP[placementSide]
 
-  dropShadowFilter.value = placementSide === 'bottom' || props.color === 'dark'
-    ? undefined
-    : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
+  dropShadowFilter.value =
+    placementSide === 'bottom' || props.color === 'dark'
+      ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
+      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
 
   if (arrowX && arrowY) {
     arrowLeft.value = arrowX
