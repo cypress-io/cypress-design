@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 0.3.2
+
+### Patch Changes
+
+- [#89](https://github.com/cypress-io/cypress-design/pull/89) [`eb1c9a6`](https://github.com/cypress-io/cypress-design/commit/eb1c9a6ea0fc2ceb4b506fa73f77d1245d2967bc) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: remove border of tooltips (never been in designs)
+
 ## 0.3.1
 
 ### Patch Changes
