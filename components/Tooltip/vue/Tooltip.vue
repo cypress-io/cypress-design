@@ -182,15 +182,13 @@ async function placeTooltip() {
             fn: (obj) => obj,
           }
         : flip(),
-      offset(0),
+      offset(props.interactive ? 0 : 16),
       arrow({ element: arrowRef.value, padding: 24 }),
     ],
   })
   const placementSide = placement.split('-')[0] as Side
-  left.value =
-    x + (props.interactive ? 0 : placement.includes('right') ? 16 : -16)
-  top.value =
-    y + (props.interactive ? 0 : placement.includes('bottom') ? 16 : -16)
+  left.value = x
+  top.value = y
   arrowRotate.value = ROTATE_MAP[placementSide]
 
   dropShadowFilter.value =
@@ -199,18 +197,18 @@ async function placeTooltip() {
       : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
 
   if (arrowX && arrowY) {
-    arrowLeft.value = arrowX + (props.interactive ? 0 : 16)
-    arrowTop.value = arrowY + (props.interactive ? 0 : -16)
+    arrowLeft.value = arrowX
+    arrowTop.value = arrowY
     arrowXRule.value = 'left'
     arrowYRule.value = 'top'
   } else if (arrowX) {
-    arrowLeft.value = arrowX + (props.interactive ? 0 : 16)
-    arrowTop.value = 6 + (props.interactive ? 0 : -16)
+    arrowLeft.value = arrowX
+    arrowTop.value = props.interactive ? 6 : -10
     arrowXRule.value = 'left'
     arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
   } else if (arrowY) {
-    arrowTop.value = arrowY + (props.interactive ? 0 : 16)
-    arrowLeft.value = 6 + (props.interactive ? 0 : -16)
+    arrowTop.value = arrowY + 4
+    arrowLeft.value = props.interactive ? 0 : -16
     arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
     arrowYRule.value = 'top'
   }
