@@ -1,5 +1,6 @@
 <template>
   <div
+    v-bind="$attrs"
     ref="reference"
     @mouseover="placeTooltip"
     @focus="placeTooltip"
@@ -24,10 +25,10 @@
       :class="[
         {
           invisible:
-            !show && positionComputed && !(tooltipHovered && interactive),
+            !show && positionComputed && !(tooltipHovered && props.interactive),
           '-top-10000px invisible': !positionComputed,
         },
-        interactive ? 'p-16px' : 'm-16px',
+        props.interactive ? 'p-16px' : undefined,
       ]"
     >
       <div
@@ -185,9 +186,11 @@ async function placeTooltip() {
       arrow({ element: arrowRef.value, padding: 24 }),
     ],
   })
-  left.value = x
-  top.value = y
   const placementSide = placement.split('-')[0] as Side
+  left.value =
+    x + (props.interactive ? 0 : placement.includes('right') ? 16 : -16)
+  top.value =
+    y + (props.interactive ? 0 : placement.includes('bottom') ? 16 : -16)
   arrowRotate.value = ROTATE_MAP[placementSide]
 
   dropShadowFilter.value =
@@ -196,18 +199,18 @@ async function placeTooltip() {
       : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
 
   if (arrowX && arrowY) {
-    arrowLeft.value = arrowX
-    arrowTop.value = arrowY
+    arrowLeft.value = arrowX + (props.interactive ? 0 : 16)
+    arrowTop.value = arrowY + (props.interactive ? 0 : -16)
     arrowXRule.value = 'left'
     arrowYRule.value = 'top'
   } else if (arrowX) {
-    arrowLeft.value = arrowX
-    arrowTop.value = -6
+    arrowLeft.value = arrowX + (props.interactive ? 0 : 16)
+    arrowTop.value = -6 + (props.interactive ? 0 : -16)
     arrowXRule.value = 'left'
     arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
   } else if (arrowY) {
-    arrowTop.value = arrowY
-    arrowLeft.value = -6
+    arrowTop.value = arrowY + (props.interactive ? 0 : 16)
+    arrowLeft.value = -6 + (props.interactive ? 0 : -16)
     arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
     arrowYRule.value = 'top'
   }
