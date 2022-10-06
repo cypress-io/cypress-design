@@ -103,7 +103,7 @@ export const Tooltip: React.FC<
             fn: (obj) => obj,
           }
         : flip(),
-      offset(0),
+      offset(interactive ? 0 : 16),
       arrow({ element: arrowRef, padding: 24 }),
     ],
     whileElementsMounted: autoUpdate,
@@ -180,7 +180,7 @@ export const Tooltip: React.FC<
                 position: strategy,
                 top: y ?? '',
                 left: x ?? '',
-                ...(interactive ? { padding: '16px' } : { margin: '16px' }),
+                ...(interactive ? { padding: '16px' } : {}),
               },
             })}
           >
@@ -193,9 +193,9 @@ export const Tooltip: React.FC<
             >
               <svg
                 ref={arrowRef}
-                viewBox="0 0 48 48"
+                viewBox="0 0 48 24"
                 width="24"
-                height="24"
+                height="12"
                 className={clsx('absolute z-10', colors.svg)}
                 style={{
                   transform: `rotate(${arrowRotate}deg)`,
@@ -203,8 +203,10 @@ export const Tooltip: React.FC<
                     placementSide === 'bottom' || color === 'dark'
                       ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
                       : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                  [arrowXRule]: `${arrowX ?? -6}px`,
-                  [arrowYRule]: `${arrowY ?? -6}px`,
+                  [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
+                  [arrowYRule]: `${
+                    arrowY ? arrowY + 6 : interactive ? 6 : -10
+                  }px`,
                 }}
                 fill="none"
               >
