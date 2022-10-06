@@ -20,11 +20,14 @@
             : undefined
         "
         class="absolute p-16px"
-        :class="{
-          invisible:
-            !show && positionComputed && !(tooltipHovered && interactive),
-          '-top-10000px invisible': !positionComputed,
-        }"
+        :class="[
+          {
+            invisible:
+              !show && positionComputed && !(tooltipHovered && interactive),
+            '-top-10000px invisible': !positionComputed,
+          },
+          interactive ? 'p-16px' : 'm-16px',
+        ]"
       >
         <div
           class="rounded shadow border"
@@ -37,7 +40,11 @@
             height="24"
             class="absolute z-10"
             :class="colors.svg"
-            :style="`transform: rotate(${arrowRotate}deg); filter: ${dropShadowFilter};${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
+            :style="`
+              transform: rotate(${arrowRotate}deg); 
+              filter: ${dropShadowFilter};
+              ${arrowYRule}:${arrowTop}px!important;
+              ${arrowXRule}:${arrowLeft}px!important;`"
             fill="none"
           >
             <rect

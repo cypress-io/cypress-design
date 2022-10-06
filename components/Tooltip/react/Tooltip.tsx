@@ -180,7 +180,7 @@ export const Tooltip: React.FC<
                 position: strategy,
                 top: y ?? '',
                 left: x ?? '',
-                padding: '16px',
+                ...(interactive ? { padding: '16px' } : { margin: '16px' }),
               },
             })}
           >
