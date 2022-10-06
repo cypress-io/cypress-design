@@ -19,7 +19,7 @@
             ? `top:${top}px!important;left:${left}px!important;`
             : undefined
         "
-        class="absolute p-16px"
+        class="absolute"
         :class="[
           {
             invisible:
