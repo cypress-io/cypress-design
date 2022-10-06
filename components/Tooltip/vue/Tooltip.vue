@@ -7,69 +7,69 @@
     @mouseout="show = false"
   >
     <slot />
-    <teleport to="#portal-target">
+  </div>
+  <teleport to="#portal-target">
+    <div
+      v-if="!disabled"
+      @mouseover="tooltipHovered = true"
+      @mouseout="tooltipHovered = false"
+      role="tooltip"
+      ref="tooltip"
+      :style="
+        positionComputed
+          ? `top:${top}px!important;left:${left}px!important;`
+          : undefined
+      "
+      class="absolute"
+      :class="[
+        {
+          invisible:
+            !show && positionComputed && !(tooltipHovered && interactive),
+          '-top-10000px invisible': !positionComputed,
+        },
+        interactive ? 'p-16px' : 'm-16px',
+      ]"
+    >
       <div
-        v-if="!disabled"
-        @mouseover="tooltipHovered = true"
-        @mouseout="tooltipHovered = false"
-        role="tooltip"
-        ref="tooltip"
-        :style="
-          positionComputed
-            ? `top:${top}px!important;left:${left}px!important;`
-            : undefined
-        "
-        class="absolute"
-        :class="[
-          {
-            invisible:
-              !show && positionComputed && !(tooltipHovered && interactive),
-            '-top-10000px invisible': !positionComputed,
-          },
-          interactive ? 'p-16px' : 'm-16px',
-        ]"
+        class="rounded shadow border"
+        :class="[colors.background, colors.block]"
       >
-        <div
-          class="rounded shadow border"
-          :class="[colors.background, colors.block]"
-        >
-          <svg
-            ref="arrowRef"
-            viewBox="0 0 48 48"
-            width="24"
-            height="24"
-            class="absolute z-10"
-            :class="colors.svg"
-            :style="`
+        <svg
+          ref="arrowRef"
+          viewBox="0 0 48 48"
+          width="24"
+          height="24"
+          class="absolute z-10"
+          :class="colors.svg"
+          :style="`
               transform: rotate(${arrowRotate}deg); 
               filter: ${dropShadowFilter};
               ${arrowYRule}:${arrowTop}px!important;
               ${arrowXRule}:${arrowLeft}px!important;`"
-            fill="none"
-          >
-            <rect
-              x="0"
-              y="-4"
-              width="48"
-              height="8"
-              stroke-width="0"
-              stroke-color="red"
-            />
-            <path
-              d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-              stroke-width="2"
-            />
-          </svg>
-          <div
-            class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
-            :class="colors.background"
-          >
-            <slot name="popper" />
-          </div>
+          fill="none"
+        >
+          <rect
+            x="0"
+            y="-4"
+            width="48"
+            height="8"
+            stroke-width="0"
+            stroke-color="red"
+          />
+          <path
+            d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+            stroke-width="2"
+          />
+        </svg>
+        <div
+          class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
+          :class="colors.background"
+        >
+          <slot name="popper" />
         </div>
       </div>
-    </teleport>
-  </div>
+    </div>
+  </teleport>
 </template>
 
 <script lang="ts" setup>
