@@ -1,5 +1,6 @@
 <template>
   <div
+    v-bind="$attrs"
     ref="reference"
     @mouseover="placeTooltip"
     @focus="placeTooltip"
@@ -7,62 +8,69 @@
     @mouseout="show = false"
   >
     <slot />
-    <teleport to="#portal-target">
-      <div
-        v-if="!disabled"
-        @mouseover="tooltipHovered = true"
-        @mouseout="tooltipHovered = false"
-        role="tooltip"
-        ref="tooltip"
-        :style="
-          positionComputed
-            ? `top:${top}px!important;left:${left}px!important;`
-            : undefined
-        "
-        class="absolute p-16px"
-        :class="{
+  </div>
+  <teleport to="#portal-target">
+    <div
+      v-if="!disabled"
+      @mouseover="tooltipHovered = true"
+      @mouseout="tooltipHovered = false"
+      role="tooltip"
+      ref="tooltip"
+      :style="
+        positionComputed
+          ? `top:${top}px!important;left:${left}px!important;`
+          : undefined
+      "
+      class="absolute"
+      :class="[
+        {
           invisible:
-            !show && positionComputed && !(tooltipHovered && interactive),
+            !show && positionComputed && !(tooltipHovered && props.interactive),
           '-top-10000px invisible': !positionComputed,
-        }"
+        },
+        props.interactive ? 'p-16px' : undefined,
+      ]"
+    >
+      <div
+        class="rounded shadow border"
+        :class="[colors.background, colors.block]"
       >
-        <div
-          class="rounded shadow border"
-          :class="[colors.background, colors.block]"
+        <svg
+          ref="arrowRef"
+          viewBox="0 0 48 24"
+          width="24"
+          height="12"
+          class="absolute z-10"
+          :class="colors.svg"
+          :style="`
+              transform: rotate(${arrowRotate}deg); 
+              filter: ${dropShadowFilter};
+              ${arrowYRule}:${arrowTop}px!important;
+              ${arrowXRule}:${arrowLeft}px!important;`"
+          fill="none"
         >
-          <svg
-            ref="arrowRef"
-            viewBox="0 0 48 48"
-            width="24"
-            height="24"
-            class="absolute z-10"
-            :class="colors.svg"
-            :style="`transform: rotate(${arrowRotate}deg); filter: ${dropShadowFilter};${arrowYRule}:${arrowTop}px!important;${arrowXRule}:${arrowLeft}px!important;`"
-            fill="none"
-          >
-            <rect
-              x="0"
-              y="-4"
-              width="48"
-              height="8"
-              stroke-width="0"
-              stroke-color="red"
-            />
-            <path
-              d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-              stroke-width="2"
-            />
-          </svg>
-          <div
-            class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
-            :class="colors.background"
-          >
-            <slot name="popper" />
-          </div>
+          <rect
+            x="0"
+            y="-4"
+            width="48"
+            height="8"
+            stroke-width="0"
+            stroke-color="red"
+          />
+          <path
+            d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+            stroke-width="2"
+          />
+        </svg>
+        <div
+          class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
+          :class="colors.background"
+        >
+          <slot name="popper" />
         </div>
       </div>
-    </teleport>
-  </div>
+    </div>
+  </teleport>
 </template>
 
 <script lang="ts" setup>
@@ -174,13 +182,13 @@ async function placeTooltip() {
             fn: (obj) => obj,
           }
         : flip(),
-      offset(0),
+      offset(props.interactive ? 0 : 16),
       arrow({ element: arrowRef.value, padding: 24 }),
     ],
   })
+  const placementSide = placement.split('-')[0] as Side
   left.value = x
   top.value = y
-  const placementSide = placement.split('-')[0] as Side
   arrowRotate.value = ROTATE_MAP[placementSide]
 
   dropShadowFilter.value =
@@ -195,12 +203,12 @@ async function placeTooltip() {
     arrowYRule.value = 'top'
   } else if (arrowX) {
     arrowLeft.value = arrowX
-    arrowTop.value = -6
+    arrowTop.value = props.interactive ? 6 : -10
     arrowXRule.value = 'left'
     arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
   } else if (arrowY) {
-    arrowTop.value = arrowY
-    arrowLeft.value = -6
+    arrowTop.value = arrowY + 4
+    arrowLeft.value = props.interactive ? 0 : -16
     arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
     arrowYRule.value = 'top'
   }
