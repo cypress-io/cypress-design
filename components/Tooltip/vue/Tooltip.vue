@@ -37,9 +37,9 @@
       >
         <svg
           ref="arrowRef"
-          viewBox="0 0 48 48"
+          viewBox="0 0 48 24"
           width="24"
-          height="24"
+          height="12"
           class="absolute z-10"
           :class="colors.svg"
           :style="`
@@ -205,12 +205,12 @@ async function placeTooltip() {
     arrowYRule.value = 'top'
   } else if (arrowX) {
     arrowLeft.value = arrowX + (props.interactive ? 0 : 16)
-    arrowTop.value = -6 + (props.interactive ? 0 : -16)
+    arrowTop.value = 6 + (props.interactive ? 0 : -16)
     arrowXRule.value = 'left'
     arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
   } else if (arrowY) {
     arrowTop.value = arrowY + (props.interactive ? 0 : 16)
-    arrowLeft.value = -6 + (props.interactive ? 0 : -16)
+    arrowLeft.value = 6 + (props.interactive ? 0 : -16)
     arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
     arrowYRule.value = 'top'
   }

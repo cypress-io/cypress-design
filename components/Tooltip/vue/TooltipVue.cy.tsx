@@ -11,21 +11,4 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   }
 
   assertions(mountStory)
-
-  it('does not blink', () => {
-    mount(() => (
-      <div class="h-400px flex items-center justify-center">
-        <Tooltip placement="top-end" interactive>
-          {{
-            default: () => (
-              <button class="cursor-default">
-                <IconActionQuestionMarkCircle />
-              </button>
-            ),
-            popper: () => <div class="bg-jade-200 p-4">Popov Blinky</div>,
-          }}
-        </Tooltip>
-      </div>
-    ))
-  })
 })
