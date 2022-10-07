@@ -1,5 +1,11 @@
 # @cypress-design/vue-tooltip
 
+## 0.3.3
+
+### Patch Changes
+
+- [#91](https://github.com/cypress-io/cypress-design/pull/91) [`d716000`](https://github.com/cypress-io/cypress-design/commit/d7160002406e8801fb1a77e57c39b61a1215c18a) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: avoid blinky tooltips [for website](https://github.com/cypress-io/cypress.io/issues/247)
+
 ## 0.3.2
 
 ### Patch Changes

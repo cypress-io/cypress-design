@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.9.0
+
+### Minor Changes
+
+- [#92](https://github.com/cypress-io/cypress-design/pull/92) [`3e8ad91`](https://github.com/cypress-io/cypress-design/commit/3e8ad912e5b793fc2cfff5bcb8d9bce94c1210fc) Thanks [@elevatebart](https://github.com/elevatebart)! - Add an icon for the website, e2e solid 24
+
+### Patch Changes
+
+- Updated dependencies [[`3e8ad91`](https://github.com/cypress-io/cypress-design/commit/3e8ad912e5b793fc2cfff5bcb8d9bce94c1210fc)]:
+  - @cypress-design/icon-registry@0.11.0
+
 ## 0.8.0
 
 ### Minor Changes
