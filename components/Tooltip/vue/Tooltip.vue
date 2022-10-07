@@ -77,7 +77,7 @@
 import type { Placement, Side } from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
 import type { Ref } from 'vue'
-import { computed, ref, onBeforeMount } from 'vue'
+import { watch, computed, ref, onBeforeMount } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -164,6 +164,15 @@ const colors = computed(() => {
       return {}
   }
 })
+
+watch(
+  () => props.interactive,
+  () => {
+    if (show.value) {
+      placeTooltip()
+    }
+  }
+)
 
 async function placeTooltip() {
   if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value)
