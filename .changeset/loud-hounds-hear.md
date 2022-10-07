@@ -4,4 +4,4 @@
 '@cypress-design/vue-icon': minor
 ---
 
-add an icon for the website, e2e solid 24 and one for the app pending-12
+Add an icon for the website, e2e solid 24
