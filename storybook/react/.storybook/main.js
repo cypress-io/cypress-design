@@ -13,7 +13,7 @@ module.exports = {
     'storybook-addon-designs',
   ],
   features: { buildStoriesJson: true },
-  framework: '@storybook/react',
+  framework: '@storybook/react-webpack5',
   webpackFinal: (config) => {
     config.plugins.push(
       CyCSSWebpackPlugin({

@@ -14,10 +14,7 @@ module.exports = {
     'storybook-addon-designs',
   ],
   features: { buildStoriesJson: true },
-  framework: '@storybook/vue3',
-  core: {
-    builder: '@storybook/builder-vite',
-  },
+  framework: '@storybook/vue3-vite',
   async viteFinal(config, { configType }) {
     // return the customized config
     return mergeConfig(config, {

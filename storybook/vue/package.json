@@ -3,21 +3,21 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "start": "start-storybook -p 9996",
-    "build": "build-storybook --quiet --output-dir ../dist/vue",
+    "start": "storybook dev -p 9996",
+    "build": "storybook build --quiet --output-dir ../dist/vue",
     "postbuild": "copyfiles metadata.json ../dist/vue/"
   },
   "dependencies": {
+    "storybook": "^7.0.0-alpha.34",
     "vue": "^3.2.31"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
-    "@storybook/addon-actions": "^6.5.7",
-    "@storybook/addon-essentials": "^6.5.7",
-    "@storybook/addon-links": "^6.5.7",
-    "@storybook/builder-vite": "^0.1.29",
-    "@storybook/manager-webpack4": "^6.5.7",
-    "@storybook/vue3": "^6.5.7",
+    "@storybook/addon-actions": "^7.0.0-alpha.34",
+    "@storybook/addon-essentials": "^7.0.0-alpha.34",
+    "@storybook/addon-links": "^7.0.0-alpha.34",
+    "@storybook/vue3": "^7.0.0-alpha.34",
+    "@storybook/vue3-vite": "^7.0.0-alpha.34",
     "@types/node": "^16.11.26",
     "babel-loader": "^8.2.4",
     "copyfiles": "^2.4.1",

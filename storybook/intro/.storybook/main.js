@@ -10,7 +10,7 @@ module.exports = {
     '@storybook/addon-essentials',
     'storybook-addon-designs',
   ],
-  framework: '@storybook/react',
+  framework: '@storybook/react-webpack5',
   refs: (config, { configType }) => {
     if (configType === 'DEVELOPMENT') {
       return {

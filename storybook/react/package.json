@@ -4,21 +4,23 @@
   "version": "0.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "start-storybook -p 9995",
-    "build": "build-storybook --output-dir ../dist/react",
+    "start": "storybook dev -p 9995",
+    "build": "storybook build --output-dir ../dist/react",
     "postbuild": "copyfiles metadata.json ../dist/react/"
   },
   "dependencies": {
     "react": "17",
-    "react-dom": "17"
+    "react-dom": "17",
+    "storybook": "^7.0.0-alpha.34"
   },
   "devDependencies": {
     "@babel/core": "^7.17.9",
-    "@storybook/addon-actions": "^6.5.7",
-    "@storybook/addon-essentials": "^6.5.7",
-    "@storybook/addon-links": "^6.5.7",
+    "@storybook/addon-actions": "^7.0.0-alpha.34",
+    "@storybook/addon-essentials": "^7.0.0-alpha.34",
+    "@storybook/addon-links": "^7.0.0-alpha.34",
     "@storybook/preset-scss": "^1.0.3",
-    "@storybook/react": "^6.5.7",
+    "@storybook/react": "^7.0.0-alpha.34",
+    "@storybook/react-webpack5": "^7.0.0-alpha.34",
     "chroma-js": "^2.4.2",
     "copyfiles": "^2.4.1",
     "css-loader": "5",
