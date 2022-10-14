@@ -1,5 +1,19 @@
 # @cypress-design/test-react-app
 
+## 0.0.14
+
+### Patch Changes
+
+- Updated dependencies [[`40da4a4`](https://github.com/cypress-io/cypress-design/commit/40da4a4b4e9210c1ff1c526eed0b74f77df10d55)]:
+  - @cypress-design/react-icon@0.10.0
+
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`3e8ad91`](https://github.com/cypress-io/cypress-design/commit/3e8ad912e5b793fc2cfff5bcb8d9bce94c1210fc)]:
+  - @cypress-design/react-icon@0.9.0
+
 ## 0.0.12
 
 ### Patch Changes

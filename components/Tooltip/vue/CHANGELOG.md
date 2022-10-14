@@ -1,5 +1,17 @@
 # @cypress-design/vue-tooltip
 
+## 0.3.4
+
+### Patch Changes
+
+- [#94](https://github.com/cypress-io/cypress-design/pull/94) [`874d7b9`](https://github.com/cypress-io/cypress-design/commit/874d7b9f7f3c03b83082b3aaa6fca894ba2197e3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: when changing the interactivity of a tooltip, it must be updated
+
+## 0.3.3
+
+### Patch Changes
+
+- [#91](https://github.com/cypress-io/cypress-design/pull/91) [`d716000`](https://github.com/cypress-io/cypress-design/commit/d7160002406e8801fb1a77e57c39b61a1215c18a) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: avoid blinky tooltips [for website](https://github.com/cypress-io/cypress.io/issues/247)
+
 ## 0.3.2
 
 ### Patch Changes

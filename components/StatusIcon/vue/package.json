@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-statusicon",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "files": [
     "*"
   ],
@@ -19,8 +19,8 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.10.0",
-    "@cypress-design/vue-icon": "^0.9.0"
+    "@cypress-design/icon-registry": "^0.12.0",
+    "@cypress-design/vue-icon": "^0.11.0"
   },
   "license": "MIT"
 }
