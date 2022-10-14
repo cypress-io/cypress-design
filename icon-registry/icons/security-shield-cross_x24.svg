@@ -1,0 +1,6 @@
+<svg viewBox="0 0 24 24" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <path d="M12 2C12 2 8 5 3 5V10H12V2Z" fill="#D0D2E0" class="icon-light"/>
+  <path d="M3 16C4 20.5 12 22 12 22V10H3V16Z" fill="#D0D2E0" class="icon-light"/>
+  <path d="M12 22C12 22 20 20.5 21 16V10M12 22C12 22 4 20.5 3 16V10M12 22V10M12 2C12 2 8 5 3 5V10M12 2C12 2 16 5 21 5V10M12 2V10M21 10H12M3 10H12" stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

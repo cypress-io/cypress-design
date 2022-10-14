@@ -15,4 +15,7 @@ Add missing general icons to the list
 - Star 16 + 24
 - Heart 16 + 24
 
+### Security
+- Shield 16 + 24
+
 Also, remove a FIXME in the testing-type icon
