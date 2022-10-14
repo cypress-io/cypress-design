@@ -1,5 +1,34 @@
 # @cypress-design/vue-icon
 
+## 0.11.0
+
+### Minor Changes
+
+- [#96](https://github.com/cypress-io/cypress-design/pull/96) [`40da4a4`](https://github.com/cypress-io/cypress-design/commit/40da4a4b4e9210c1ff1c526eed0b74f77df10d55) Thanks [@elevatebart](https://github.com/elevatebart)! - Add missing general icons to the list
+
+  ### General
+
+  - chat-bubble 16px
+  - 1X 16px
+  - handle vertical 16px
+
+  ### Shapes
+
+  - Lighting 16 + 24
+  - Star 16 + 24
+  - Heart 16 + 24
+
+  ### Security
+
+  - Shield 16 + 24
+
+  Also, remove a FIXME in the testing-type icon
+
+### Patch Changes
+
+- Updated dependencies [[`40da4a4`](https://github.com/cypress-io/cypress-design/commit/40da4a4b4e9210c1ff1c526eed0b74f77df10d55)]:
+  - @cypress-design/icon-registry@0.12.0
+
 ## 0.10.0
 
 ### Minor Changes
