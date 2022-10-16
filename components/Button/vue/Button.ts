@@ -3,11 +3,18 @@ import {
   VariantClassesTable,
   SizeClassesTable,
   StaticClasses,
+  DefaultSize,
+  DefaultVariant,
 } from '../constants'
 import type { ButtonProps } from '../constants'
 
 const Button = defineComponent((props: ButtonProps, { slots }) => {
-  const { variant = 'indigo-dark', size = '32', disabled = false, href } = props
+  const {
+    variant = DefaultVariant,
+    size = DefaultSize,
+    disabled = false,
+    href,
+  } = props
 
   const finalVariant = computed(() =>
     disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
