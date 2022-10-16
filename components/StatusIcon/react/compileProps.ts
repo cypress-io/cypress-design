@@ -1,5 +1,7 @@
 import type { IconSet, VariantStatusIconProps } from '../constants'
+import { statuses as StatusForColor } from '../constants'
 import { compileReactIconProperties } from '@cypress-design/react-icon'
+import { getComponentAttributes } from '@cypress-design/icon-registry'
 
 export const compileProps = ({
   status,
@@ -12,15 +14,25 @@ export const compileProps = ({
 }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
-  const icon = statusInfo[`size${size}Icon`]
+  const iconInfo = status ? StatusForColor[status] : StatusForColor.placeholder
+
+  const { data: iconData, name } = statusInfo[`size${size}Icon`]
 
   const classes = `inline-block ${className || ''} ${
-    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
+    iconInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
   }`
 
+  const { compiledClasses } = getComponentAttributes({
+    name,
+    strokeColor: iconInfo.color,
+    size,
+    availableSizes: [size],
+    fillColor: iconInfo.secondaryColor,
+  })
+
   return compileReactIconProperties({
-    body: icon.data,
-    compiledClasses: [classes],
+    body: iconData,
+    compiledClasses: [...compiledClasses, classes],
     size,
   })
 }

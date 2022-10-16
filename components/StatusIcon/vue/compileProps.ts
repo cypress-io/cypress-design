@@ -1,5 +1,7 @@
 import type { IconSet, VariantStatusIconProps } from '../constants'
+import { statuses as StatusForColor } from '../constants'
 import { compileVueIconProperties } from '@cypress-design/vue-icon'
+import { getComponentAttributes } from '@cypress-design/icon-registry'
 
 export const compileProps = ({
   status,
@@ -12,17 +14,27 @@ export const compileProps = ({
 }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
-  const icon = statusInfo[`size${size}Icon`]
+  const iconInfo = status ? StatusForColor[status] : StatusForColor.placeholder
 
-  const compiledClasses = [
+  const { data: iconData, name } = statusInfo[`size${size}Icon`]
+
+  const classes = [
     'inline-block',
-    statusInfo.shouldSpin && size !== '4' ? 'animate-spin' : '',
+    iconInfo.shouldSpin && size !== '4' ? 'animate-spin' : '',
   ]
 
-  return compileVueIconProperties({
-    compiledClasses,
+  const { compiledClasses } = getComponentAttributes({
+    name,
+    strokeColor: iconInfo.color,
     size,
-    body: icon.data,
+    availableSizes: [size],
+    fillColor: iconInfo.secondaryColor,
+  })
+
+  return compileVueIconProperties({
+    compiledClasses: [...compiledClasses, ...classes],
+    size,
+    body: iconData,
     ...attributes,
   })
 }
