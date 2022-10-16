@@ -49,7 +49,6 @@ import {
 
 export const statuses: Record<string, IconSet> = {
   running: {
-    shouldSpin: true,
     size4Icon: cyStatusRunningSimpleX4,
     size8Icon: cyStatusRunningSimpleX8,
     size12Icon: cyStatusRunningOutlineX12,
@@ -57,7 +56,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusRunningOutlineX24,
   },
   passed: {
-    shouldSpin: false,
     size4Icon: cyStatusPassedSimpleX4,
     size8Icon: cyStatusPassedSimpleX8,
     size12Icon: cyStatusPassedSimpleX12,
@@ -65,7 +63,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusPassedSimpleX24,
   },
   failed: {
-    shouldSpin: false,
     size4Icon: cyStatusFailedSimpleX4,
     size8Icon: cyStatusFailedSimpleX8,
     size12Icon: cyStatusFailedSimpleX12,
@@ -73,7 +70,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusFailedSimpleX24,
   },
   unclaimed: {
-    shouldSpin: false,
     size4Icon: cyStatusQueuedSimpleX4,
     size8Icon: cyStatusQueuedSimpleX8,
     size12Icon: cyStatusQueuedOutlineX12,
@@ -81,7 +77,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusQueuedOutlineX24,
   },
   placeholder: {
-    shouldSpin: false,
     size4Icon: cyStatusPlaceholderSimpleX4,
     size8Icon: cyStatusPlaceholderSimpleX8,
     size12Icon: cyStatusPlaceholderSolidX12,
@@ -89,7 +84,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusPlaceholderSolidX24,
   },
   cancelled: {
-    shouldSpin: false,
     size4Icon: cyStatusCancelledSimpleX4,
     size8Icon: cyStatusCancelledSimpleX8,
     size12Icon: cyStatusCancelledSolidX12,
@@ -97,7 +91,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusCancelledSolidX24,
   },
   noTests: {
-    shouldSpin: false,
     size4Icon: cyStatusCancelledSimpleX4,
     size8Icon: cyStatusCancelledSimpleX8,
     size12Icon: cyStatusCancelledSolidX12,
@@ -105,7 +98,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusCancelledSolidX24,
   },
   errored: {
-    shouldSpin: false,
     size4Icon: cyStatusErroredSimpleX4,
     size8Icon: cyStatusErroredSimpleX8,
     size12Icon: cyStatusErroredSolidX12,
@@ -113,7 +105,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusErroredSolidX24,
   },
   timedOut: {
-    shouldSpin: false,
     size4Icon: cyStatusErroredSimpleX4,
     size8Icon: cyStatusErroredSimpleX8,
     size12Icon: cyStatusErroredSolidX12,
@@ -121,7 +112,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusErroredSolidX24,
   },
   overLimit: {
-    shouldSpin: false,
     size4Icon: cyStatusErroredSimpleX4,
     size8Icon: cyStatusErroredSimpleX8,
     size12Icon: cyStatusErroredSolidX12,
@@ -129,7 +119,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusErroredSolidX24,
   },
   skipped: {
-    shouldSpin: false,
     size4Icon: cyStatusSkippedSimpleX4,
     size8Icon: cyStatusSkippedSimpleX8,
     size12Icon: cyStatusSkippedOutlineX12,
@@ -137,7 +126,6 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusSkippedOutlineX24,
   },
   pending: {
-    shouldSpin: false,
     size4Icon: cyStatusPendingSimpleX4,
     size8Icon: cyStatusPendingSimpleX8,
     size12Icon: cyStatusPendingOutlineX12,
