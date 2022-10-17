@@ -1,6 +1,10 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { CssClasses } from '../constants'
+import {
+  IconChevronLeftLarge,
+  IconChevronRightLarge,
+} from '@cypress-design/react-icon'
 
 export interface CarouselProps {
   children: React.ReactNode
@@ -43,13 +47,13 @@ export const Carousel: React.FC<
         ref={prevButton}
         className={clsx(CssClasses.navigationPrev, CssClasses.navigation)}
       >
-        &laquo;
+        <IconChevronLeftLarge strokeColor="gray-700" className="" />
       </div>
       <div
         ref={nextButton}
         className={clsx(CssClasses.navigationNext, CssClasses.navigation)}
       >
-        &raquo;
+        <IconChevronRightLarge strokeColor="gray-700" className="ml-2px" />
       </div>
       <ul ref={slidesEl} className={CssClasses.slides}>
         {React.Children.map(children, (child) => (
