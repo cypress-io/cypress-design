@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.12.1
+
+### Patch Changes
+
+- [#98](https://github.com/cypress-io/cypress-design/pull/98) [`f41d962`](https://github.com/cypress-io/cypress-design/commit/f41d962b3331767e89a74f0dc6ba207b11ff6226) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: status colors should be in status icons
+
 ## 0.12.0
 
 ### Minor Changes

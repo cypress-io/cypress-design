@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.4.1
+
+### Patch Changes
+
+- [#99](https://github.com/cypress-io/cypress-design/pull/99) [`3425e66`](https://github.com/cypress-io/cypress-design/commit/3425e662490e898c6baf6b2d70972726297a4cea) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: update defaults for button
+
 ## 0.4.0
 
 ### Minor Changes
