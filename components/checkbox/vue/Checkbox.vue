@@ -60,7 +60,7 @@ function updated() {
 }
 
 const checkboxClasses = computed(() => [
-  'block border-1 rounded h-16px w-16px',
+  'block border-1 border-solid rounded h-16px w-16px',
   props.disabled
     ? 'border-gray-200 bg-gray-100'
     : localChecked.value
