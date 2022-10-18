@@ -92,11 +92,11 @@ export const statuses: Record<string, IconSet> = {
     size24Icon: cyStatusCancelledSolidX24,
   },
   noTests: {
-    size4Icon: cyStatusCancelledSimpleX4,
-    size8Icon: cyStatusCancelledSimpleX8,
-    size12Icon: cyStatusCancelledSolidX12,
-    size16Icon: cyStatusCancelledSolidX16,
-    size24Icon: cyStatusCancelledSolidX24,
+    size4Icon: cyStatusErroredSimpleX4,
+    size8Icon: cyStatusErroredSimpleX8,
+    size12Icon: cyStatusErroredSolidX12,
+    size16Icon: cyStatusErroredSolidX16,
+    size24Icon: cyStatusErroredSolidX24,
   },
   errored: {
     size4Icon: cyStatusErroredSimpleX4,

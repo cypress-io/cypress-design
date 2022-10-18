@@ -70,8 +70,8 @@ const constStatuses = {
     variants: ['outline', 'solid'],
   },
   noTests: {
-    // <windi-keep strokeColor="gray-400" />
-    color: 'gray-400',
+    // <windi-keep strokeColor="orange-400" />
+    color: 'orange-400',
     use: 'Runs, specs, groups',
     variants: ['outline', 'solid'],
   },
