@@ -6,4 +6,4 @@
 '@cypress-design/vue-icon': patch
 ---
 
-Fix some icon colors
+Change the status icon for noTests; fix some icon colors
