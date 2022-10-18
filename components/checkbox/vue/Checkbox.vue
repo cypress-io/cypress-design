@@ -74,7 +74,7 @@ const checkboxClasses = computed(() => [
 </script>
 
 <template>
-  <div class="relative flex items-center">
+  <span class="block relative flex items-center">
     <input
       :id="id"
       class="absolute inset-0 w-0 h-0 opacity-0"
@@ -103,5 +103,5 @@ const checkboxClasses = computed(() => [
         </span>
       </slot>
     </label>
-  </div>
+  </span>
 </template>
