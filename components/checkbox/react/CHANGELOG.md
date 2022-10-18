@@ -1,5 +1,11 @@
 # @cypress-design/react-checkbox
 
+## 0.4.4
+
+### Patch Changes
+
+- [#101](https://github.com/cypress-io/cypress-design/pull/101) [`1630e4c`](https://github.com/cypress-io/cypress-design/commit/1630e4c4200944cf6414cee9e92dcce6b4d8a576) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Fix styles for Checkbox
+
 ## 0.4.3
 
 ### Patch Changes
