@@ -1,5 +1,7 @@
 <svg viewBox="0 0 24 24" fill="none"
   xmlns="http://www.w3.org/2000/svg">
   <circle cx="12" cy="12" r="9" stroke="#E1E3ED" stroke-width="2" class="icon-light"/>
-  <path d="M11.9999 2.99888C16.893 2.99273 21.0165 7.12415 20.9977 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-dark"/>
+  <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" stroke-dasharray="15 42" stroke-linecap="round" stroke-linejoin="round" class="icon-dark">
+    <animate attributeName="stroke-dashoffset" values="57;0" dur="1s" repeatCount="indefinite" />
+  </circle>
 </svg>
