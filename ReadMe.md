@@ -6,7 +6,7 @@
 
 The storybooks on this repo are published after any commit to the main branch to
 
-https://cypress-design.vercel.app
+https://design.cypress.io
 
 ### Install windicss
 

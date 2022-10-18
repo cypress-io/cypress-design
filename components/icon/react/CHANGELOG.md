@@ -1,5 +1,43 @@
 # @cypress-design/react-icon
 
+## 0.10.1
+
+### Patch Changes
+
+- [#98](https://github.com/cypress-io/cypress-design/pull/98) [`f41d962`](https://github.com/cypress-io/cypress-design/commit/f41d962b3331767e89a74f0dc6ba207b11ff6226) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: status colors should be in status icons
+
+- Updated dependencies [[`f41d962`](https://github.com/cypress-io/cypress-design/commit/f41d962b3331767e89a74f0dc6ba207b11ff6226)]:
+  - @cypress-design/icon-registry@0.12.1
+
+## 0.10.0
+
+### Minor Changes
+
+- [#96](https://github.com/cypress-io/cypress-design/pull/96) [`40da4a4`](https://github.com/cypress-io/cypress-design/commit/40da4a4b4e9210c1ff1c526eed0b74f77df10d55) Thanks [@elevatebart](https://github.com/elevatebart)! - Add missing general icons to the list
+
+  ### General
+
+  - chat-bubble 16px
+  - 1X 16px
+  - handle vertical 16px
+
+  ### Shapes
+
+  - Lighting 16 + 24
+  - Star 16 + 24
+  - Heart 16 + 24
+
+  ### Security
+
+  - Shield 16 + 24
+
+  Also, remove a FIXME in the testing-type icon
+
+### Patch Changes
+
+- Updated dependencies [[`40da4a4`](https://github.com/cypress-io/cypress-design/commit/40da4a4b4e9210c1ff1c526eed0b74f77df10d55)]:
+  - @cypress-design/icon-registry@0.12.0
+
 ## 0.9.0
 
 ### Minor Changes
