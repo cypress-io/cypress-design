@@ -10,24 +10,6 @@ describe('StatusIcon', () => {
     mount(<StatusIconStory />)
   })
 
-  it('running icon spins', () => {
-    mount(<StatusIcon variant="simple" size="16" status="running" />)
-
-    cy.get('svg').should('have.class', 'animate-spin')
-  })
-
-  it('small running icon does not spin', () => {
-    mount(<StatusIcon variant="simple" size="4" status="running" />)
-
-    cy.get('svg').should('not.have.class', 'animate-spin')
-  })
-
-  it('other icons do not spin', () => {
-    mount(<StatusIcon variant="simple" size="16" status="passed" />)
-
-    cy.get('svg').should('not.have.class', 'animate-spin')
-  })
-
   it('defaults to a variant that exists if the one provided does not exist', () => {
     mount(
       <div>

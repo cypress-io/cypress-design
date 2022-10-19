@@ -60,7 +60,10 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   }
 
   return (
-    <div className={clsx(className, 'relative flex items-center')} {...rest}>
+    <span
+      className={clsx(className, 'block relative flex items-center')}
+      {...rest}
+    >
       <input
         id={id}
         className="absolute inset-0 w-0 h-0 opacity-0"
@@ -101,7 +104,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
           </span>
         )}
       </label>
-    </div>
+    </span>
   )
 }
 

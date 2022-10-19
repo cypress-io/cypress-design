@@ -18,9 +18,7 @@ export const compileProps = ({
 
   const { data: iconData, name } = statusInfo[`size${size}Icon`]
 
-  const classes = `inline-block ${className || ''} ${
-    iconInfo.shouldSpin && size !== '4' ? 'animate-spin' : ''
-  }`
+  const classes = `inline-block ${className || ''}`
 
   const { compiledClasses } = getComponentAttributes({
     name,

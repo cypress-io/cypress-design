@@ -49,7 +49,13 @@ function App() {
           />
         </p>
         <Spinner />
-        <StatusIcon status="failed" variant="simple" size="16" />
+        <table>
+          <tbody>
+            <td className="py-2">
+              <StatusIcon status="running" variant="outline" size="16" />
+            </td>
+          </tbody>
+        </table>
         <SimpleStatusIcon status="failed" size="16" />
         <IconActionQuestionMarkCircle
           strokeColor={isChecked ? 'jade-800' : 'jade-500'}

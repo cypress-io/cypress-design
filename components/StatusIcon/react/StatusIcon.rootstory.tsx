@@ -30,9 +30,7 @@ export default () => (
       </tr>
     </thead>
     <tbody>
-      {Object.keys(statuses).map((status) => {
-        const statusInfo = statuses[status]
-
+      {Object.entries(statuses).map(([status, statusInfo]) => {
         return (
           <>
             {statusInfo.variants.map((variant, i) => {
@@ -64,8 +62,8 @@ export default () => (
                     return (
                       <td key={`${status}-${size}-${variant}`} className="py-2">
                         <StatusIcon
-                          status={status}
-                          size={size}
+                          status={status as any}
+                          size={size as any}
                           variant={variant}
                         />
                       </td>

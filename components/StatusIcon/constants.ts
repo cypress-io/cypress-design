@@ -8,7 +8,6 @@ type StatusInfo = {
   use: string
   variants: readonly Variant[]
   secondaryColor?: WindiColor
-  shouldSpin?: boolean
 }
 
 export type IconContents = {
@@ -35,7 +34,6 @@ const constStatuses = {
     variants: ['outline'],
     // <windi-keep fillColor="gray-100" />
     secondaryColor: 'gray-100',
-    shouldSpin: true,
   },
   passed: {
     // <windi-keep strokeColor="jade-400" />
