@@ -1,5 +1,19 @@
 # @cypress-design/react-statusicon
 
+## 0.1.0
+
+### Minor Changes
+
+- [#105](https://github.com/cypress-io/cypress-design/pull/105) [`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30) Thanks [@elevatebart](https://github.com/elevatebart)! - move animation of running status to SMIL
+
+### Patch Changes
+
+- [#103](https://github.com/cypress-io/cypress-design/pull/103) [`e82d8cb`](https://github.com/cypress-io/cypress-design/commit/e82d8cb60882a379d89f86d1ff7b8f1d5b56ce66) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Change the status icon for noTests; fix some icon colors
+
+- Updated dependencies [[`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`e82d8cb`](https://github.com/cypress-io/cypress-design/commit/e82d8cb60882a379d89f86d1ff7b8f1d5b56ce66)]:
+  - @cypress-design/react-icon@0.11.0
+  - @cypress-design/icon-registry@0.13.0
+
 ## 0.0.10
 
 ### Patch Changes
