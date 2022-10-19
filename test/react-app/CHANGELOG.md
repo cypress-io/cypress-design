@@ -1,5 +1,13 @@
 # @cypress-design/test-react-app
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies [[`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`e82d8cb`](https://github.com/cypress-io/cypress-design/commit/e82d8cb60882a379d89f86d1ff7b8f1d5b56ce66)]:
+  - @cypress-design/react-checkbox@0.4.5
+  - @cypress-design/react-icon@0.11.0
+
 ## 0.0.14
 
 ### Patch Changes

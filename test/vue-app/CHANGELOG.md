@@ -1,5 +1,13 @@
 # @cypress-design/test-vue-app
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [[`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`e82d8cb`](https://github.com/cypress-io/cypress-design/commit/e82d8cb60882a379d89f86d1ff7b8f1d5b56ce66)]:
+  - @cypress-design/vue-checkbox@0.4.5
+  - @cypress-design/vue-icon@0.12.0
+
 ## 0.0.16
 
 ### Patch Changes

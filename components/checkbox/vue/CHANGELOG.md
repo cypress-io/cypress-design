@@ -1,5 +1,14 @@
 # @cypress-design/vue-checkbox
 
+## 0.4.5
+
+### Patch Changes
+
+- [#105](https://github.com/cypress-io/cypress-design/pull/105) [`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30) Thanks [@elevatebart](https://github.com/elevatebart)! - checkbox should not contain a div to be added inside an inline only tag (<p>)
+
+- Updated dependencies [[`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`e82d8cb`](https://github.com/cypress-io/cypress-design/commit/e82d8cb60882a379d89f86d1ff7b8f1d5b56ce66)]:
+  - @cypress-design/vue-icon@0.12.0
+
 ## 0.4.4
 
 ### Patch Changes
