@@ -8,13 +8,20 @@ import {
 
 export interface CarouselProps {
   children: React.ReactNode
-  hasPagination?: boolean
+  hasNavigationControls?: boolean
+  hasPaginationControls?: boolean
   height?: number
 }
 
 export const Carousel: React.FC<
   CarouselProps & React.HTMLProps<HTMLDivElement>
-> = ({ children, hasPagination, height, ...rest }) => {
+> = ({
+  children,
+  hasNavigationControls,
+  hasPaginationControls,
+  height,
+  ...rest
+}) => {
   const slidesEl = React.useRef<HTMLUListElement | null>(null)
   const slideEl = React.useRef<HTMLLIElement | null>(null)
   const prevButton = React.useRef<HTMLDivElement | null>(null)
@@ -61,18 +68,25 @@ export const Carousel: React.FC<
         className={CssClasses.carousel}
         style={{ height: height ? `${height}px` : 'auto' }}
       >
-        <div
-          ref={prevButton}
-          className={clsx(CssClasses.navigationPrev, CssClasses.navigation)}
-        >
-          <IconChevronLeftLarge strokeColor="gray-700" className="" />
-        </div>
-        <div
-          ref={nextButton}
-          className={clsx(CssClasses.navigationNext, CssClasses.navigation)}
-        >
-          <IconChevronRightLarge strokeColor="gray-700" className="ml-2px" />
-        </div>
+        {hasNavigationControls && (
+          <>
+            <div
+              ref={prevButton}
+              className={clsx(CssClasses.navigationPrev, CssClasses.navigation)}
+            >
+              <IconChevronLeftLarge strokeColor="gray-700" className="" />
+            </div>
+            <div
+              ref={nextButton}
+              className={clsx(CssClasses.navigationNext, CssClasses.navigation)}
+            >
+              <IconChevronRightLarge
+                strokeColor="gray-700"
+                className="ml-2px"
+              />
+            </div>
+          </>
+        )}
         <ul ref={slidesEl} className={CssClasses.slides}>
           {React.Children.map(children, (child) => (
             <li ref={slideEl} className={CssClasses.slide}>
@@ -81,7 +95,7 @@ export const Carousel: React.FC<
           ))}
         </ul>
       </div>
-      {hasPagination && (
+      {hasPaginationControls && (
         <ul className={CssClasses.pagination}>
           {React.Children.map(children, (child, i) => (
             <li

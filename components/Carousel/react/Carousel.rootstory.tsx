@@ -18,7 +18,12 @@ export default (options: { id?: string }) => {
         <img src="http://placekitten.com/g/300/300" alt="kitten" />
         <img src="http://placekitten.com/g/200/500" alt="kitten" />
       </Carousel>
-      <Carousel {...rest} hasPagination height={150}>
+      <Carousel
+        {...rest}
+        hasNavigationControls
+        hasPaginationControls
+        height={150}
+      >
         <img src="http://placekitten.com/g/400/300" alt="kitten" />
         <div className="h-200px w-300px bg-gray-900" />
       </Carousel>
