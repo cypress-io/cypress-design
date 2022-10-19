@@ -1,5 +1,11 @@
 # @cypress-design/react-statusicon
 
+## 0.1.1
+
+### Patch Changes
+
+- [#106](https://github.com/cypress-io/cypress-design/pull/106) [`271af48`](https://github.com/cypress-io/cypress-design/commit/271af48c5ed9bc4004a60e5cfef871e614ced4e2) Thanks [@mapsandapps](https://github.com/mapsandapps)! - Fix types file location
+
 ## 0.1.0
 
 ### Minor Changes
