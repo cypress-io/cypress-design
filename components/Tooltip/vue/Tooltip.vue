@@ -141,6 +141,10 @@ async function getTarget() {
   if (!portalTargetLocal) {
     portalTargetLocal = document.createElement('div')
     portalTargetLocal.id = 'portal-target'
+    portalTargetLocal.style.position = 'absolute'
+    portalTargetLocal.style.top = '0'
+    portalTargetLocal.style.left = '0'
+    portalTargetLocal.style.zIndex = '10000'
     document.body.appendChild(portalTargetLocal)
   }
   portalTarget.value = portalTargetLocal
