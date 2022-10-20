@@ -8,8 +8,17 @@ import {
 
 export interface CarouselProps {
   children: React.ReactNode
+  /**
+   * Show left and right arrows on sides of carousel
+   */
   hasNavigationControls?: boolean
+  /**
+   * Show dots for pagination at bottom of carousel
+   */
   hasPaginationControls?: boolean
+  /**
+   * The height of the carousel; defaults to the height of the content
+   */
   height?: number
 }
 
@@ -63,7 +72,7 @@ export const Carousel: React.FC<
   })
 
   return (
-    <div>
+    <div {...rest}>
       <div
         className={CssClasses.carousel}
         style={{ height: height ? `${height}px` : 'auto' }}
