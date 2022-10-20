@@ -31,13 +31,13 @@ export const Carousel: React.FC<
   const slideCount: number = React.Children.count(children)
 
   const scrollToSlide = (slideIndex: number) => {
-    setCurrentSlide(slideIndex)
     const nextSlideIndex =
       slideIndex < 0
         ? slideCount - 1
         : slideIndex >= slideCount
         ? 0
         : slideIndex
+    setCurrentSlide(nextSlideIndex)
 
     if (slideWidth && slidesEl.current) {
       slidesEl.current.scrollLeft = nextSlideIndex * slideWidth
