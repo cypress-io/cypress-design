@@ -1,5 +1,11 @@
 # @cypress-design/vue-tooltip
 
+## 0.3.5
+
+### Patch Changes
+
+- [#108](https://github.com/cypress-io/cypress-design/pull/108) [`e96e536`](https://github.com/cypress-io/cypress-design/commit/e96e536a8fb7b8e0ddcf3cf22555c689073f8b58) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: tooltip portal's z-index
+
 ## 0.3.4
 
 ### Patch Changes
