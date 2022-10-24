@@ -1,0 +1,11 @@
+<svg viewBox="0 0 16 16" fill="none"
+  xmlns="http://www.w3.org/2000/svg">
+  <path d="M3 3H6V6H3V3Z" fill="#D0D2E0" class="icon-light"/>
+  <path d="M3 10H6V13H3V10Z" fill="#D0D2E0" class="icon-light"/>
+  <path d="M10 3H13V6H10V3Z" fill="#D0D2E0" class="icon-light"/>
+  <path d="M10 10H13V13H10V10Z" fill="#D0D2E0" class="icon-light"/>
+  <path d="M3 3H6V6H3V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" class="icon-dark" />
+  <path d="M3 10H6V13H3V10Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" class="icon-dark" />
+  <path d="M10 3H13V6H10V3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" class="icon-dark" />
+  <path d="M10 10H13V13H10V10Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" class="icon-dark" />
+</svg>
