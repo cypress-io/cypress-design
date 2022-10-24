@@ -25,6 +25,7 @@ export const compileReactIconProperties = ({
   const componentProps: any = {
     width: size,
     height: size,
+    viewBox: `0 0 ${size} ${size}`,
     fill: 'none',
     dangerouslySetInnerHTML: {
       __html: body,

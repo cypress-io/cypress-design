@@ -30,6 +30,7 @@ export const compileVueIconProperties = ({
   const componentProps: any = {
     width: size,
     height: size,
+    viewBox: `0 0 ${size} ${size}`,
     fill: 'none',
     innerHTML: body,
     ...filteredAttributes, // add all standard attributes back to the svg tag
