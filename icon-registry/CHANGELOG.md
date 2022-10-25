@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.14.0
+
+### Minor Changes
+
+- [#110](https://github.com/cypress-io/cypress-design/pull/110) [`5a1b046`](https://github.com/cypress-io/cypress-design/commit/5a1b046b4e13234f83f7b88ed4acbc95064fbaca) Thanks [@elevatebart](https://github.com/elevatebart)! - add general grid icons + icon folder dark small
+
 ## 0.13.0
 
 ### Minor Changes
