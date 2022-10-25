@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 0.11.1
+
+### Patch Changes
+
+- [#110](https://github.com/cypress-io/cypress-design/pull/110) [`5a1b046`](https://github.com/cypress-io/cypress-design/commit/5a1b046b4e13234f83f7b88ed4acbc95064fbaca) Thanks [@elevatebart](https://github.com/elevatebart)! - add viewBox to icon so they can be custom resized when necessary
+
+- Updated dependencies [[`5a1b046`](https://github.com/cypress-io/cypress-design/commit/5a1b046b4e13234f83f7b88ed4acbc95064fbaca)]:
+  - @cypress-design/icon-registry@0.14.0
+
 ## 0.11.0
 
 ### Minor Changes
