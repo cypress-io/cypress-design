@@ -1,5 +1,11 @@
 # @cypress-design/vue-checkbox
 
+## 0.4.6
+
+### Patch Changes
+
+- [#112](https://github.com/cypress-io/cypress-design/pull/112) [`d229b48`](https://github.com/cypress-io/cypress-design/commit/d229b48a3806a882abe83c9ebf9c32ed18d2c47f) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: when label is too big avoid checkbox shrinking
+
 ## 0.4.5
 
 ### Patch Changes
