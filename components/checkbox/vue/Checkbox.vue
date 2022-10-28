@@ -95,7 +95,7 @@ const checkboxClasses = computed(() => [
         <span
           v-if="label"
           :class="[
-            'ml-2 text-16px leading-normal font-light select-none',
+            'ml-8px text-16px leading-24px font-light select-none',
             disabled ? 'text-gray-500' : 'text-gray-800',
           ]"
         >
