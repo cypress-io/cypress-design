@@ -39,6 +39,19 @@ describe('<Checkbox />', () => {
     cy.get('input[type="checkbox"]').should('not.be.checked')
   })
 
+  it('keeps its width when label is long', () => {
+    mount(() => {
+      return (
+        <Checkbox
+          label="lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+          id="lorem-checkbox"
+        />
+      )
+    })
+
+    cy.get('label span:first-child').invoke('outerWidth').should('equal', 16)
+  })
+
   it('renders vModel', () => {
     const isChecked = ref(false)
     mount(() => {
