@@ -7,7 +7,14 @@ import {
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
 import { DetailsAnimation } from '@cypress-design/details-animation'
-import type { AlertType } from '../constants'
+import {
+  AlertSize,
+  alertSizesClasses,
+  AlertType,
+  defaultAlertSize,
+  defaultAlertTitle,
+  defaultAlertType,
+} from '../constants'
 import { alertClasses } from '../constants'
 
 export interface AlertProps {
@@ -51,11 +58,17 @@ export interface AlertProps {
    * Replace the default left icon
    */
   customIcon?: React.FC<React.SVGProps<SVGSVGElement>>
+  /**
+   * Size of the alert
+   */
+  size?: AlertSize
 }
 
-export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
-  type = 'info',
-  detailsTitle = 'Additional details',
+export const Alert: React.FC<
+  AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size'>
+> = ({
+  type = defaultAlertType,
+  detailsTitle = defaultAlertTitle,
   onDismiss,
   noIcon,
   notRounded,
@@ -66,9 +79,11 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
   className,
   duration,
   customIcon,
+  size = defaultAlertSize,
   ...rest
 }) => {
   const typeClasses = alertClasses[type]
+  const sizeClasses = alertSizesClasses[size]
   const Icon =
     customIcon ??
     (type === 'error'
@@ -126,7 +141,13 @@ export const Alert: React.FC<AlertProps & React.HTMLProps<HTMLDivElement>> = ({
           )}
           {...rest}
         >
-          <div className={clsx(typeClasses.headerClass, 'flex p-16px')}>
+          <div
+            className={clsx(
+              typeClasses.headerClass,
+              'flex p-16px',
+              sizeClasses
+            )}
+          >
             {!noIcon && Icon && (
               <Icon
                 className="my-4px mr-8px"
