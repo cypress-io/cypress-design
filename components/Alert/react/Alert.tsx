@@ -7,7 +7,14 @@ import {
   IconCheckmarkOutline,
 } from '@cypress-design/react-icon'
 import { DetailsAnimation } from '@cypress-design/details-animation'
-import { AlertSizes, alertSizesClasses, AlertType } from '../constants'
+import {
+  AlertSize,
+  alertSizesClasses,
+  AlertType,
+  defaultAlertSize,
+  defaultAlertTitle,
+  defaultAlertType,
+} from '../constants'
 import { alertClasses } from '../constants'
 
 export interface AlertProps {
@@ -54,14 +61,14 @@ export interface AlertProps {
   /**
    * Size of the alert
    */
-  size?: AlertSizes
+  size?: AlertSize
 }
 
 export const Alert: React.FC<
   AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size'>
 > = ({
-  type = 'info',
-  detailsTitle = 'Additional details',
+  type = defaultAlertType,
+  detailsTitle = defaultAlertTitle,
   onDismiss,
   noIcon,
   notRounded,
@@ -72,7 +79,7 @@ export const Alert: React.FC<
   className,
   duration,
   customIcon,
-  size = 'md',
+  size = defaultAlertSize,
   ...rest
 }) => {
   const typeClasses = alertClasses[type]

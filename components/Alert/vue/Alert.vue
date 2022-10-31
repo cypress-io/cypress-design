@@ -8,7 +8,14 @@ import {
   IconCheckmarkOutline,
 } from '@cypress-design/vue-icon'
 import { DetailsAnimation } from '@cypress-design/details-animation'
-import { AlertSizes, alertSizesClasses, AlertType } from '../constants'
+import {
+  AlertSize,
+  alertSizesClasses,
+  AlertType,
+  defaultAlertSize,
+  defaultAlertTitle,
+  defaultAlertType,
+} from '../constants'
 import { alertClasses } from '../constants'
 
 const dismissed = ref(false)
@@ -51,12 +58,12 @@ const props = withDefaults(
     /**
      * Size of the alert
      */
-    size?: AlertSizes
+    size?: AlertSize
   }>(),
   {
-    type: 'info',
-    detailsTitle: 'Additional details',
-    size: 'md',
+    type: defaultAlertType,
+    detailsTitle: defaultAlertTitle,
+    size: defaultAlertSize,
   }
 )
 

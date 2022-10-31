@@ -8,7 +8,8 @@ export const alertSizesClasses = {
   lg: 'p-16px leading-24px text-16px',
 } as const
 
-export type AlertSizes = keyof typeof alertSizesClasses
+export type AlertSize = keyof typeof alertSizesClasses
+export const defaultAlertSize: AlertSize = 'lg'
 
 export type AlertClasses = {
   headerClass: string
@@ -82,3 +83,7 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     iconChevronColor: 'jade-300',
   },
 }
+
+export const defaultAlertType: AlertType = 'info'
+
+export const defaultAlertTitle = 'Additional details'
