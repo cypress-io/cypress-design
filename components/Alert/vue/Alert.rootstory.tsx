@@ -1,11 +1,11 @@
 import { IconArrowRight } from '@cypress-design/vue-icon'
 import dedent from 'dedent'
-import { defineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import Alert from './Alert.vue'
 
-export default defineComponent(() => {
+export default () => {
   const displayTimedAlert = ref(false)
-  return () => (
+  return (
     <div class="flex flex-col p-4 gap-16px">
       <Alert type="error" detailsTitle="Stack trace" data-cy="alert-1">
         {{
@@ -121,4 +121,4 @@ export default defineComponent(() => {
       ))}
     </div>
   )
-})
+}
