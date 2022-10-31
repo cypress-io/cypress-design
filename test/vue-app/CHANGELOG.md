@@ -1,5 +1,12 @@
 # @cypress-design/test-vue-app
 
+## 0.0.18
+
+### Patch Changes
+
+- Updated dependencies [[`2a6597c`](https://github.com/cypress-io/cypress-design/commit/2a6597c16efc05ffe4ec51ab19cd2d7836a24c5c)]:
+  - @cypress-design/vue-alert@0.2.0
+
 ## 0.0.17
 
 ### Patch Changes

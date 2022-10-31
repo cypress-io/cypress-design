@@ -1,5 +1,11 @@
 # @cypress-design/vue-alert
 
+## 0.2.0
+
+### Minor Changes
+
+- [#114](https://github.com/cypress-io/cypress-design/pull/114) [`2a6597c`](https://github.com/cypress-io/cypress-design/commit/2a6597c16efc05ffe4ec51ab19cd2d7836a24c5c) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: add sizes to alerts
+
 ## 0.1.2
 
 ### Patch Changes
