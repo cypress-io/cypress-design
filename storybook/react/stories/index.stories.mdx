@@ -22,6 +22,7 @@ import { Meta } from '@storybook/addon-docs';
       return components.keys().map((key) => {
         const pkg = components(key)
         const name = pkg.name.replace('@cypress-design/react-', '')
+        const docsPath = key.replace('/package.json', '')
         return (<tr>
           <td>
             <a href={`/docs/react_${name}--${name}`}>
@@ -37,7 +38,7 @@ import { Meta } from '@storybook/addon-docs';
             </a>
           </td>
           <td>
-            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${name}/react`}>
+            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${docsPath}`}>
               Github
             </a>
           </td>
