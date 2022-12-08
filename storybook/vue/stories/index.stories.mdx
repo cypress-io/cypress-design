@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Meta } from '@storybook/addon-docs';
-import comps, {capName} from './component-list';
+import comps, {capitalizedComponentNameMap} from './component-list';
 import vueLogo from '../../logos/vue.svg?url'
 
 <Meta
@@ -36,7 +36,7 @@ import vueLogo from '../../logos/vue.svg?url'
             </a>
           </td>
           <td>
-            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${capName[name]}/vue`}>
+            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${capitalizedComponentNameMap[name]}/vue`}>
               Github
             </a>
           </td>
