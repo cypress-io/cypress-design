@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/icon-registry",
-  "version": "0.14.0",
+  "version": "0.15.0",
   "description": "All svg files to be exposed to the Icon component",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.mjs",

@@ -1,5 +1,18 @@
 # @cypress-design/react-icon
 
+## 0.12.0
+
+### Minor Changes
+
+- [#117](https://github.com/cypress-io/cypress-design/pull/117) [`c9a1ffa`](https://github.com/cypress-io/cypress-design/commit/c9a1ffa06027e11e34bbd0c10a242155458052b3) Thanks [@elevatebart](https://github.com/elevatebart)! - Add action-play-video icons
+
+* [#119](https://github.com/cypress-io/cypress-design/pull/119) [`3663e3b`](https://github.com/cypress-io/cypress-design/commit/3663e3badccf0f3db69e62d71178387c12d52d70) Thanks [@amehta265](https://github.com/amehta265)! - feat: Adding size 16 browser and operating system icons
+
+### Patch Changes
+
+- Updated dependencies [[`c9a1ffa`](https://github.com/cypress-io/cypress-design/commit/c9a1ffa06027e11e34bbd0c10a242155458052b3), [`3663e3b`](https://github.com/cypress-io/cypress-design/commit/3663e3badccf0f3db69e62d71178387c12d52d70)]:
+  - @cypress-design/icon-registry@0.15.0
+
 ## 0.11.1
 
 ### Patch Changes

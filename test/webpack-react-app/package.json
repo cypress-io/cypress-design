@@ -1,13 +1,13 @@
 {
   "name": "@cypress-design/test-webpack-react-app",
   "private": true,
-  "version": "0.0.15",
+  "version": "0.0.16",
   "scripts": {
     "dev": "webpack serve --hot --mode development"
   },
   "dependencies": {
     "@cypress-design/react-checkbox": "^0.4.5",
-    "@cypress-design/react-icon": "^0.11.0",
+    "@cypress-design/react-icon": "^0.12.0",
     "@cypress-design/react-spinner": "^0.1.0",
     "react": "17",
     "react-dom": "17",
