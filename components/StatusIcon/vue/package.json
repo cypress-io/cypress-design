@@ -10,7 +10,8 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.umd.js",
+      "types": "./dist/StatusIcon/vue/index.d.ts"
     }
   },
   "scripts": {
