@@ -1,5 +1,11 @@
 # @cypress-design/vue-statusicon
 
+## 0.1.4
+
+### Patch Changes
+
+- [#120](https://github.com/cypress-io/cypress-design/pull/120) [`09d62b5`](https://github.com/cypress-io/cypress-design/commit/09d62b5281bc4a587995bc48f6053d70375c2e07) Thanks [@elevatebart](https://github.com/elevatebart)! - publish the types with the right root
+
 ## 0.1.3
 
 ### Patch Changes
