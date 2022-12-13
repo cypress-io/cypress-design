@@ -4,9 +4,9 @@
   "files": [
     "./dist/*"
   ],
-  "typings": "./dist/StatusIcon/vue/index.d.ts",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.mjs",
+  "typings": "dist/StatusIcon/vue/index.d.ts",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.mjs",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
