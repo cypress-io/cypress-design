@@ -97,15 +97,24 @@ In the new directory, you will find a React and a Vuejs version to complete. Eac
 
 ### Adding a new icon
 
-New icons should be added to the `icon-registry/icons` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `technology-debugger_x24.svg`.
+New icons should be added to the `icon-registry/icons` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `object-bug_x24.svg`.
+
+When grabbing the icon from Figma, make sure the width and height of the icon is equal to its name (e.g. `x24` icons should be 24x24px). If it isn't, try going up a layer in Figma.
+
+The name and size should match what's shown in Figma.
+
+![image](copy-svg.png)
 
 Once added, the svg attributes should be tweaked so as to integrate with the icon generation tooling.
 
 - Replace main color with `currentColor`
 - Add `class="icon-dark"` to paths that are dark, generally the strokes
 - Add `class="icon-light"` to paths that are light, generally the fills
+- Remove the `width` and `height` attributes of the SVG
 
 To verify that the icon is properly hooked up, run `yarn start` and navigate to the `icons` page. Search for your icon and tweak the colors. If you need to adjust the attributes you can run `yarn build:icons` and storybook will update with the latest changes.
+
+When an icon is added or updated, the changeset for both the '@cypress-design/react-icon' and '@cypress-design/vue-icon' packages should include a minor version bump.
 
 ### Updating the component generator
 
