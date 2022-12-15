@@ -1,5 +1,12 @@
 # @cypress-design/test-webpack-react-app
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [[`f40b190`](https://github.com/cypress-io/cypress-design/commit/f40b1902c3ee4d0b4b34e6f46b1ddc4254d94083)]:
+  - @cypress-design/react-icon@0.13.0
+
 ## 0.0.16
 
 ### Patch Changes
