@@ -95,6 +95,18 @@ The system will ask you to provide the name of the component and generate all th
 
 In the new directory, you will find a React and a Vuejs version to complete. Each framework folder will also contain a stories file.
 
+### Adding a new icon
+
+New icons should be added to the `icon-registry/icons` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `technology-debugger_x24.svg`.
+
+Once added, the svg attributes should be tweaked so as to integrate with the icon generation tooling.
+
+- Replace main color with `currentColor`
+- Add `class="icon-dark"` to paths that are dark, generally the strokes
+- Add `class="icon-light"` to paths that are light, generally the fills
+
+To verify that the icon is properly hooked up, run `yarn start` and navigate to the `icons` page. Search for your icon and tweak the colors. If you need to adjust the attributes you can run `yarn build:icons` and storybook will update with the latest changes.
+
 ### Updating the component generator
 
 When you use the `yarn new:component` command, the template used is called a generator. It could be useful to update it from time to time if the standards change.
