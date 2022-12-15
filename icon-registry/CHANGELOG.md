@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.16.0
+
+### Minor Changes
+
+- [#125](https://github.com/cypress-io/cypress-design/pull/125) [`f40b190`](https://github.com/cypress-io/cypress-design/commit/f40b1902c3ee4d0b4b34e6f46b1ddc4254d94083) Thanks [@elevatebart](https://github.com/elevatebart)! - Update debug icon
+
 ## 0.15.0
 
 ### Minor Changes
