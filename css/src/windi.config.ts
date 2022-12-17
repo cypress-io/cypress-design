@@ -34,22 +34,6 @@ export default defineConfig({
       },
     },
   },
-  variants: {
-    // What's hocus?
-    // Hocus is a portmanteau of hover + focus. This is useful because
-    // many of our styles are the same for both hover and focus.
-    backgroundColor: [
-      'group-focus-within',
-      'group-focus-visible',
-      'group-active',
-      'group-visited',
-      'group-disabled',
-      'hocus',
-      'group-hocus',
-      'can-hover',
-      'no-hover',
-    ],
-  },
   plugins: [
     IconDuotoneColorsPlugin,
     PluginInteractionVariants,
