@@ -2,9 +2,9 @@ import { defineConfig } from 'windicss/helpers'
 // @ts-ignore
 import PluginInteractionVariants from '@windicss/plugin-interaction-variants'
 import PluginFilters from 'windicss/plugin/filters'
+import theme from './theme.config'
 import { IconDuotoneColorsPlugin, IconExtractor } from './icon-color-plugins'
 import DetailsOpenVariantPlugin from './details-open-variant-plugin'
-import { colors } from './colors'
 import { shortcuts } from './shortcuts'
 
 // give the plugins a name for debugging purposes
@@ -15,25 +15,7 @@ export default defineConfig({
   // This adds !important to all utility classes.
   // https://csswizardry.com/2016/05/the-importance-of-important/
   important: true,
-  theme: {
-    extend: {
-      borderRadius: {
-        DEFAULT: '4px',
-        md: '4px',
-      },
-      fontFamily: {
-        mono: '"Fira Code", monospace',
-      },
-      colors,
-      cursor: {
-        'ew-resize': 'ew-resize',
-      },
-      boxShadow: {
-        dropdown: '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
-        'marketing-card': '0 2px 12px 0 rgba(0, 0, 0, 0.06)',
-      },
-    },
-  },
+  theme,
   plugins: [
     IconDuotoneColorsPlugin,
     PluginInteractionVariants,
