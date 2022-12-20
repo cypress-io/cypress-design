@@ -5,6 +5,7 @@ module.exports = {
     {
       name: 'preset-default',
     },
+    'prefixIds',
     extractBodyPlugin,
   ],
 }
