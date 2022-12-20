@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.16.1
+
+### Patch Changes
+
+- [`0e6a3cb`](https://github.com/cypress-io/cypress-design/commit/0e6a3cb5eba893283c01decebf386f4c5fbf0c21) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: avoid clash of ids in svgs
+
 ## 0.16.0
 
 ### Minor Changes
