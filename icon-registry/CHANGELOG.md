@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.16.2
+
+### Patch Changes
+
+- [#127](https://github.com/cypress-io/cypress-design/pull/127) [`d2c1baa`](https://github.com/cypress-io/cypress-design/commit/d2c1baa18305a81dba66200aae7a5929e9e36dbf) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: remove svg icon classes
+
 ## 0.16.1
 
 ### Patch Changes
