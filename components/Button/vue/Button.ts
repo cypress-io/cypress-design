@@ -14,6 +14,7 @@ const Button = defineComponent((props: ButtonProps, { slots }) => {
     size = DefaultSize,
     disabled = false,
     href,
+    type = 'button',
   } = props
 
   const finalVariant = computed(() =>
@@ -27,7 +28,7 @@ const Button = defineComponent((props: ButtonProps, { slots }) => {
     h(
       href ? 'a' : 'button',
       {
-        // type: props.href ? undefined : 'button',
+        ...(props.href ? {} : { type }),
         href,
         class: [
           StaticClasses,

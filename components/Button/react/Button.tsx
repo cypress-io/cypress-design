@@ -24,6 +24,7 @@ export const Button: React.FC<ReactButtonProps> = ({
   href,
   className,
   children,
+  type = 'button',
   ...rest
 }) => {
   const finalVariant =
@@ -33,11 +34,11 @@ export const Button: React.FC<ReactButtonProps> = ({
   const finalDisabled = disabled || variant === 'disabled'
   const Comp = href ? 'a' : 'button'
   return (
-    // @ts-ignore
+    // @ts-expect-error
     <Comp
+      {...(href ? {} : { type })}
       {...rest}
       href={href}
-      type={href ? undefined : 'button'}
       className={clsx(
         StaticClasses,
         VariantClassesTable[finalVariant],
