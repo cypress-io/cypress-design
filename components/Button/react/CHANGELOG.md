@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.6.0
+
+### Minor Changes
+
+- [#131](https://github.com/cypress-io/cypress-design/pull/131) [`4ddfa9a`](https://github.com/cypress-io/cypress-design/commit/4ddfa9a1f4d40080064c099d2abab8aa47d955df) Thanks [@elevatebart](https://github.com/elevatebart)! - add type prop to the button component
+
 ## 0.5.1
 
 ### Patch Changes
