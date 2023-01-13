@@ -42,7 +42,6 @@ export const Accordion: React.FC<
     <details {...rest} className={clsx(rest.className)} ref={details}>
       <summary
         className={clsx(
-          'flex items-center',
           CssClasses.summary,
           headingClassName ?? CssClasses.summaryColor
         )}

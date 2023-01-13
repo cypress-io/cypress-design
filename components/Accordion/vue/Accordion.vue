@@ -1,7 +1,6 @@
 <template>
   <details ref="details">
     <summary
-      class="flex items-center"
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
       <span :class="CssClasses.icon">
