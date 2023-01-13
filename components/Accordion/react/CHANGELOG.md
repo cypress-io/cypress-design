@@ -1,5 +1,11 @@
 # @cypress-design/react-accordion
 
+## 0.1.1
+
+### Patch Changes
+
+- [#133](https://github.com/cypress-io/cypress-design/pull/133) [`73250a9`](https://github.com/cypress-io/cypress-design/commit/73250a9d65a890e4be74009978214f49c64e9fce) Thanks [@elevatebart](https://github.com/elevatebart)! - remove duplicate classes on the summary
+
 ## 0.1.0
 
 ### Minor Changes
