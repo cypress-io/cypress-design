@@ -1,7 +1,7 @@
 export const CssClasses = {
   details: '',
   summary:
-    'details-none min-h-65px py-12px card open:rounded-b-none px-24px flex flex-row items-center',
+    'details-none min-h-65px py-12px card open:rounded-b-none px-24px flex flex-row flex-nowrap items-center',
   summaryColor: 'bg-white',
   summaryTitle: 'text-18px leading-28px font-medium',
   summaryTitleColor: 'text-indigo-500',
