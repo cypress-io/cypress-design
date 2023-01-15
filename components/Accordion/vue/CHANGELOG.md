@@ -1,5 +1,11 @@
 # @cypress-design/vue-accordion
 
+## 0.1.2
+
+### Patch Changes
+
+- [`68718d5`](https://github.com/cypress-io/cypress-design/commit/68718d5b75ac8affec83d3af3c849c8288282aa3) Thanks [@elevatebart](https://github.com/elevatebart)! - add flex-nowrap to accomodate safari 14 (on percy)
+
 ## 0.1.1
 
 ### Patch Changes
