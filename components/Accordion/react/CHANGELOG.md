@@ -1,5 +1,11 @@
 # @cypress-design/react-accordion
 
+## 0.1.5
+
+### Patch Changes
+
+- [`e590bdc`](https://github.com/cypress-io/cypress-design/commit/e590bdc4a1f076e00fd1c5d41c461880fbff53d1) Thanks [@elevatebart](https://github.com/elevatebart)! - ci: add changeset
+
 ## 0.1.4
 
 ### Patch Changes
