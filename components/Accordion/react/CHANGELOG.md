@@ -1,5 +1,11 @@
 # @cypress-design/react-accordion
 
+## 0.1.3
+
+### Patch Changes
+
+- [`6cece49`](https://github.com/cypress-io/cypress-design/commit/6cece49fc60db7046df81a3f77e9a696326e55a9) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: adapt accordion to safari 14
+
 ## 0.1.2
 
 ### Patch Changes
