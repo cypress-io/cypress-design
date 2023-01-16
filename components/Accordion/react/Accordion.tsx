@@ -46,37 +46,39 @@ export const Accordion: React.FC<
           headingClassName ?? CssClasses.summaryColor
         )}
       >
-        {Boolean(iconEl) && <span className={CssClasses.icon}>{iconEl}</span>}
+        <div className={CssClasses.summaryDiv}>
+          {Boolean(iconEl) && <span className={CssClasses.icon}>{iconEl}</span>}
 
-        {Icon && !iconEl && <Icon className={CssClasses.icon} />}
+          {Icon && !iconEl && <Icon className={CssClasses.icon} />}
 
-        {(Icon || iconEl) && separator && (
-          <hr className={CssClasses.separator} />
-        )}
-        <div className="flex-grow pr-16px">
-          <div
-            className={clsx(
-              titleClassName ?? CssClasses.summaryTitleColor,
-              CssClasses.summaryTitle
-            )}
-          >
-            {title}
-          </div>
-          {description && (
+          {(Icon || iconEl) && separator && (
+            <hr className={CssClasses.separator} />
+          )}
+          <div className="flex-grow pr-16px">
             <div
               className={clsx(
-                CssClasses.summaryDescription,
-                descriptionClassName ?? CssClasses.summaryDescriptionColor
+                titleClassName ?? CssClasses.summaryTitleColor,
+                CssClasses.summaryTitle
               )}
             >
-              {description}
+              {title}
             </div>
-          )}
+            {description && (
+              <div
+                className={clsx(
+                  CssClasses.summaryDescription,
+                  descriptionClassName ?? CssClasses.summaryDescriptionColor
+                )}
+              >
+                {description}
+              </div>
+            )}
+          </div>
+          <IconChevronDownSmall
+            strokeColor="gray-300"
+            className={clsx('open:icon-dark-gray-500', CssClasses.chevron)}
+          />
         </div>
-        <IconChevronDownSmall
-          strokeColor="gray-300"
-          className={clsx('open:icon-dark-gray-500', CssClasses.chevron)}
-        />
       </summary>
       <div ref={content} className={CssClasses.contentWrapper}>
         {fullWidthContent ? (
