@@ -1,5 +1,11 @@
 # @cypress-design/react-accordion
 
+## 0.1.4
+
+### Patch Changes
+
+- [`7840495`](https://github.com/cypress-io/cypress-design/commit/78404955f8fe1f644a53fe087a9cfa02e7088fce) Thanks [@elevatebart](https://github.com/elevatebart)! - restore the original height of the block
+
 ## 0.1.3
 
 ### Patch Changes
