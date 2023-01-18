@@ -1,5 +1,23 @@
 # @cypress-design/vue-accordion
 
+## 0.1.5
+
+### Patch Changes
+
+- [`e590bdc`](https://github.com/cypress-io/cypress-design/commit/e590bdc4a1f076e00fd1c5d41c461880fbff53d1) Thanks [@elevatebart](https://github.com/elevatebart)! - ci: add changeset
+
+## 0.1.4
+
+### Patch Changes
+
+- [`7840495`](https://github.com/cypress-io/cypress-design/commit/78404955f8fe1f644a53fe087a9cfa02e7088fce) Thanks [@elevatebart](https://github.com/elevatebart)! - restore the original height of the block
+
+## 0.1.3
+
+### Patch Changes
+
+- [`6cece49`](https://github.com/cypress-io/cypress-design/commit/6cece49fc60db7046df81a3f77e9a696326e55a9) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: adapt accordion to safari 14
+
 ## 0.1.2
 
 ### Patch Changes

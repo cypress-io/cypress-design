@@ -3,39 +3,41 @@
     <summary
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
-      <span :class="CssClasses.icon">
-        <slot name="iconEl">
-          <Icon />
-        </slot>
-      </span>
-      <hr
-        v-if="(props.icon || slots.iconEl) && separator"
-        :class="CssClasses.separator"
-      />
-      <div class="flex-grow pr-16px">
-        <div
-          :class="[
-            titleClassName ? titleClassName : CssClasses.summaryTitleColor,
-            CssClasses.summaryTitle,
-          ]"
-        >
-          {{ title }}
+      <div :class="CssClasses.summaryDiv">
+        <span :class="CssClasses.icon">
+          <slot name="iconEl">
+            <Icon />
+          </slot>
+        </span>
+        <hr
+          v-if="(props.icon || slots.iconEl) && separator"
+          :class="CssClasses.separator"
+        />
+        <div class="flex-grow pr-16px">
+          <div
+            :class="[
+              titleClassName ? titleClassName : CssClasses.summaryTitleColor,
+              CssClasses.summaryTitle,
+            ]"
+          >
+            {{ title }}
+          </div>
+          <div
+            v-if="description"
+            :class="[
+              CssClasses.summaryDescription,
+              descriptionClassName ?? CssClasses.summaryDescriptionColor,
+            ]"
+          >
+            {{ description }}
+          </div>
         </div>
-        <div
-          v-if="description"
-          :class="[
-            CssClasses.summaryDescription,
-            descriptionClassName ?? CssClasses.summaryDescriptionColor,
-          ]"
-        >
-          {{ description }}
-        </div>
+        <IconChevronDownSmall
+          strokeColor="gray-300"
+          class="open:icon-dark-gray-500"
+          :class="CssClasses.chevron"
+        />
       </div>
-      <IconChevronDownSmall
-        strokeColor="gray-300"
-        class="open:icon-dark-gray-500"
-        :class="CssClasses.chevron"
-      />
     </summary>
     <div ref="content" :class="CssClasses.contentWrapper">
       <!-- @slot expandable body of the collapsible accordion -->
