@@ -171,63 +171,65 @@ export const Tooltip: React.FC<
       >
         {children}
       </div>
-      <FloatingPortal>
-        {open && !disabled && (
-          <div
-            {...getFloatingProps({
-              ref: floating,
-              style: {
-                position: strategy,
-                top: y ?? '',
-                left: x ?? '',
-                ...(interactive ? { padding: '16px' } : {}),
-              },
-            })}
-          >
+      {disabled ? null : (
+        <FloatingPortal>
+          {open && (
             <div
-              className={clsx('rounded shadow border', [
-                colors.background,
-                colors.block,
-                (!x || !y) && 'invisible',
-              ])}
+              {...getFloatingProps({
+                ref: floating,
+                style: {
+                  position: strategy,
+                  top: y ?? '',
+                  left: x ?? '',
+                  ...(interactive ? { padding: '16px' } : {}),
+                },
+              })}
             >
-              <svg
-                ref={arrowRef}
-                viewBox="0 0 48 24"
-                width="24"
-                height="12"
-                className={clsx('absolute z-10', colors.svg)}
-                style={{
-                  transform: `rotate(${arrowRotate}deg)`,
-                  filter:
-                    placementSide === 'bottom' || color === 'dark'
-                      ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
-                      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                  [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
-                  [arrowYRule]: `${
-                    arrowY ? arrowY + 6 : interactive ? 6 : -10
-                  }px`,
-                }}
-                fill="none"
-              >
-                <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
-                <path
-                  d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-                  strokeWidth="2"
-                />
-              </svg>
               <div
-                className={clsx(
-                  'rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20',
-                  colors.background
-                )}
+                className={clsx('rounded shadow border', [
+                  colors.background,
+                  colors.block,
+                  (!x || !y) && 'invisible',
+                ])}
               >
-                {popper}
+                <svg
+                  ref={arrowRef}
+                  viewBox="0 0 48 24"
+                  width="24"
+                  height="12"
+                  className={clsx('absolute z-10', colors.svg)}
+                  style={{
+                    transform: `rotate(${arrowRotate}deg)`,
+                    filter:
+                      placementSide === 'bottom' || color === 'dark'
+                        ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
+                        : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
+                    [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
+                    [arrowYRule]: `${
+                      arrowY ? arrowY + 6 : interactive ? 6 : -10
+                    }px`,
+                  }}
+                  fill="none"
+                >
+                  <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+                  <path
+                    d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+                    strokeWidth="2"
+                  />
+                </svg>
+                <div
+                  className={clsx(
+                    'rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20',
+                    colors.background
+                  )}
+                >
+                  {popper}
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </FloatingPortal>
+          )}
+        </FloatingPortal>
+      )}
     </>
   )
 }
