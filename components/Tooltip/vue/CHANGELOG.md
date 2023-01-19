@@ -1,5 +1,11 @@
 # @cypress-design/vue-tooltip
 
+## 0.3.6
+
+### Patch Changes
+
+- [#141](https://github.com/cypress-io/cypress-design/pull/141) [`3dd9145`](https://github.com/cypress-io/cypress-design/commit/3dd9145cfe74a9a24a13bbd5d15edb95391aa4d0) Thanks [@elevatebart](https://github.com/elevatebart)! - avoid ssr mismatches by not rendering the portal when disabled
+
 ## 0.3.5
 
 ### Patch Changes
