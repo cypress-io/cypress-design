@@ -9,9 +9,8 @@
   >
     <slot />
   </div>
-  <teleport to="#portal-target">
+  <teleport v-if="!disabled" to="#portal-target">
     <div
-      v-if="!disabled"
       @mouseover="tooltipHovered = true"
       @mouseout="tooltipHovered = false"
       role="tooltip"
