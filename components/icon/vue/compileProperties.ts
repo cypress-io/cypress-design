@@ -18,7 +18,7 @@ export const compileVueIconProperties = ({
   }) => {
   const filteredAttributes = Object.keys(attributes).reduce(
     (newAttributes, attrName) => {
-      if (!ICON_COLOR_PROP_NAMES.includes(attrName)) {
+      if (!ICON_COLOR_PROP_NAMES.includes(attrName) && attrName !== 'name') {
         newAttributes[attrName] =
           attributes[attrName as keyof typeof attributes]
       }
