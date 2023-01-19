@@ -1,5 +1,11 @@
 # @cypress-design/react-icon
 
+## 0.14.1
+
+### Patch Changes
+
+- [#137](https://github.com/cypress-io/cypress-design/pull/137) [`70cf026`](https://github.com/cypress-io/cypress-design/commit/70cf026b1def90390e8e0573c38656040d6bb168) Thanks [@elevatebart](https://github.com/elevatebart)! - remove name from icon (not html5 valid)
+
 ## 0.14.0
 
 ### Minor Changes
