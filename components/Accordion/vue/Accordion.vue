@@ -9,7 +9,7 @@
             <Icon />
           </slot>
         </span>
-        <hr
+        <span
           v-if="(props.icon || slots.iconEl) && separator"
           :class="CssClasses.separator"
         />

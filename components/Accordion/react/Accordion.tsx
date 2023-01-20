@@ -52,7 +52,7 @@ export const Accordion: React.FC<
           {Icon && !iconEl && <Icon className={CssClasses.icon} />}
 
           {(Icon || iconEl) && separator && (
-            <hr className={CssClasses.separator} />
+            <span className={CssClasses.separator} />
           )}
           <span className="flex-grow pr-16px">
             <span
