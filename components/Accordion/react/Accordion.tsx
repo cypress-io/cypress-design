@@ -46,7 +46,7 @@ export const Accordion: React.FC<
           headingClassName ?? CssClasses.summaryColor
         )}
       >
-        <div className={CssClasses.summaryDiv}>
+        <span className={CssClasses.summaryDiv}>
           {Boolean(iconEl) && <span className={CssClasses.icon}>{iconEl}</span>}
 
           {Icon && !iconEl && <Icon className={CssClasses.icon} />}
@@ -54,31 +54,31 @@ export const Accordion: React.FC<
           {(Icon || iconEl) && separator && (
             <hr className={CssClasses.separator} />
           )}
-          <div className="flex-grow pr-16px">
-            <div
+          <span className="flex-grow pr-16px">
+            <span
               className={clsx(
                 titleClassName ?? CssClasses.summaryTitleColor,
                 CssClasses.summaryTitle
               )}
             >
               {title}
-            </div>
+            </span>
             {description && (
-              <div
+              <span
                 className={clsx(
                   CssClasses.summaryDescription,
                   descriptionClassName ?? CssClasses.summaryDescriptionColor
                 )}
               >
                 {description}
-              </div>
+              </span>
             )}
-          </div>
+          </span>
           <IconChevronDownSmall
             strokeColor="gray-300"
             className={clsx('open:icon-dark-gray-500', CssClasses.chevron)}
           />
-        </div>
+        </span>
       </summary>
       <div ref={content} className={CssClasses.contentWrapper}>
         {fullWidthContent ? (
