@@ -1,5 +1,11 @@
 # @cypress-design/vue-accordion
 
+## 0.1.7
+
+### Patch Changes
+
+- [`ff54d5c`](https://github.com/cypress-io/cypress-design/commit/ff54d5c098bec93083b9c2ecc84439a0d3878f56) Thanks [@elevatebart](https://github.com/elevatebart)! - fix hr into span
+
 ## 0.1.6
 
 ### Patch Changes
