@@ -6,7 +6,7 @@
       <span :class="CssClasses.summaryDiv">
         <span :class="CssClasses.icon">
           <slot name="iconEl">
-            <Icon />
+            <Icon v-if="props.icon" />
           </slot>
         </span>
         <span
