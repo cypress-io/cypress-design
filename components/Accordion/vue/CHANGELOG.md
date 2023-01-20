@@ -1,5 +1,11 @@
 # @cypress-design/vue-accordion
 
+## 0.1.8
+
+### Patch Changes
+
+- [`6ec15ab`](https://github.com/cypress-io/cypress-design/commit/6ec15ab28355dac5cb0fbc55397f192a3fd68e19) Thanks [@elevatebart](https://github.com/elevatebart)! - avoid warnings on accordions when no icon
+
 ## 0.1.7
 
 ### Patch Changes
