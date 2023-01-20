@@ -1,5 +1,11 @@
 # @cypress-design/vue-accordion
 
+## 0.1.6
+
+### Patch Changes
+
+- [`34a646b`](https://github.com/cypress-io/cypress-design/commit/34a646bbb5ae613d3ede0f63ac62c8a6bf31dd82) Thanks [@elevatebart](https://github.com/elevatebart)! - replace div with spans inside summary for html5 validation
+
 ## 0.1.5
 
 ### Patch Changes
