@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 0.16.0
+
+### Minor Changes
+
+- [`92c1c4a`](https://github.com/cypress-io/cypress-design/commit/92c1c4a3e4494f8ec6c81ed7570d862b1b36dde1) Thanks [@elevatebart](https://github.com/elevatebart)! - add smartpphone icon
+
+### Patch Changes
+
+- Updated dependencies [[`92c1c4a`](https://github.com/cypress-io/cypress-design/commit/92c1c4a3e4494f8ec6c81ed7570d862b1b36dde1)]:
+  - @cypress-design/icon-registry@0.18.0
+
 ## 0.15.1
 
 ### Patch Changes
