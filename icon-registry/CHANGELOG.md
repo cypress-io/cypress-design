@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.19.0
+
+### Minor Changes
+
+- [`e4a1573`](https://github.com/cypress-io/cypress-design/commit/e4a15730ca59d7ba85ba04b9d39ac6f0e0dfb249) Thanks [@elevatebart](https://github.com/elevatebart)! - add rocket icon
+
 ## 0.18.0
 
 ### Minor Changes
