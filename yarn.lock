@@ -1369,6 +1369,23 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@cypress-design/icon-registry@^0.16.2":
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/@cypress-design/icon-registry/-/icon-registry-0.16.2.tgz#2e0826a1b038c39b846a47bd61f8a14893606500"
+  integrity sha512-dRBWs1WenhZqWoDutfoUocOk9rrsXCcBBvhM+Fe0rLKTKwnEkz4ucobKYPozHZP8g/ab0dRC+SRnLhTPSw/jAg==
+
+"@cypress-design/vue-button@^0.4.0":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@cypress-design/vue-button/-/vue-button-0.4.1.tgz#7c605c9604f101acc22ad54930de695933eef07b"
+  integrity sha512-bT9m2eAPyvroIkQvMGq2VnG1WgbDiS1PJEF5AijTuipL8mzuDArR5UN5ALoykWonIgnPS96KYw2tJEn29UyjqA==
+
+"@cypress-design/vue-icon@^0.14.0":
+  version "0.14.2"
+  resolved "https://registry.yarnpkg.com/@cypress-design/vue-icon/-/vue-icon-0.14.2.tgz#0730f980b4183e3abf891133da3c3e36b4af19ae"
+  integrity sha512-GzdP7b6S/kDVTW9C+b7IrN6OXvpYbd7HUu/5WkmSVLfRWW5fuOru4yJiB6hJT8vBd9NhFsiCdN9HROTSaCfQwg==
+  dependencies:
+    "@cypress-design/icon-registry" "^0.16.2"
+
 "@cypress/request@^2.88.10":
   version "2.88.10"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.10.tgz#b66d76b07f860d3a4b8d7a0604d020c662752cce"
