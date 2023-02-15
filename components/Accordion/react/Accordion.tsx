@@ -42,42 +42,43 @@ export const Accordion: React.FC<
     <details {...rest} className={clsx(rest.className)} ref={details}>
       <summary
         className={clsx(
-          'flex items-center',
           CssClasses.summary,
           headingClassName ?? CssClasses.summaryColor
         )}
       >
-        {Boolean(iconEl) && <span className={CssClasses.icon}>{iconEl}</span>}
+        <span className={CssClasses.summaryDiv}>
+          {Boolean(iconEl) && <span className={CssClasses.icon}>{iconEl}</span>}
 
-        {Icon && !iconEl && <Icon className={CssClasses.icon} />}
+          {Icon && !iconEl && <Icon className={CssClasses.icon} />}
 
-        {(Icon || iconEl) && separator && (
-          <hr className={CssClasses.separator} />
-        )}
-        <div className="flex-grow pr-16px">
-          <div
-            className={clsx(
-              titleClassName ?? CssClasses.summaryTitleColor,
-              CssClasses.summaryTitle
-            )}
-          >
-            {title}
-          </div>
-          {description && (
-            <div
+          {(Icon || iconEl) && separator && (
+            <span className={CssClasses.separator} />
+          )}
+          <span className="flex-grow pr-16px">
+            <span
               className={clsx(
-                CssClasses.summaryDescription,
-                descriptionClassName ?? CssClasses.summaryDescriptionColor
+                titleClassName ?? CssClasses.summaryTitleColor,
+                CssClasses.summaryTitle
               )}
             >
-              {description}
-            </div>
-          )}
-        </div>
-        <IconChevronDownSmall
-          strokeColor="gray-300"
-          className={clsx('open:icon-dark-gray-500', CssClasses.chevron)}
-        />
+              {title}
+            </span>
+            {description && (
+              <span
+                className={clsx(
+                  CssClasses.summaryDescription,
+                  descriptionClassName ?? CssClasses.summaryDescriptionColor
+                )}
+              >
+                {description}
+              </span>
+            )}
+          </span>
+          <IconChevronDownSmall
+            strokeColor="gray-300"
+            className={clsx('open:icon-dark-gray-500', CssClasses.chevron)}
+          />
+        </span>
       </summary>
       <div ref={content} className={CssClasses.contentWrapper}>
         {fullWidthContent ? (

@@ -71,4 +71,8 @@ export interface ButtonProps {
    * @see https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a#attr-target for significance of values.
    */
   target?: '_self' | '_blank' | '_parent' | '_top'
+  /**
+   * Type attribute of the button (only used when href is not set)
+   */
+  type?: 'button' | 'submit' | 'reset'
 }

@@ -1,44 +1,45 @@
 <template>
-  <details ref="details">
+  <details ref="$details">
     <summary
-      class="flex items-center"
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
-      <span :class="CssClasses.icon">
-        <slot name="iconEl">
-          <Icon />
-        </slot>
+      <span :class="CssClasses.summaryDiv">
+        <span :class="CssClasses.icon">
+          <slot name="iconEl">
+            <Icon v-if="props.icon" />
+          </slot>
+        </span>
+        <span
+          v-if="(props.icon || slots.iconEl) && separator"
+          :class="CssClasses.separator"
+        />
+        <span class="flex-grow pr-16px">
+          <span
+            :class="[
+              titleClassName ? titleClassName : CssClasses.summaryTitleColor,
+              CssClasses.summaryTitle,
+            ]"
+          >
+            {{ title }}
+          </span>
+          <span
+            v-if="description"
+            :class="[
+              CssClasses.summaryDescription,
+              descriptionClassName ?? CssClasses.summaryDescriptionColor,
+            ]"
+          >
+            {{ description }}
+          </span>
+        </span>
+        <IconChevronDownSmall
+          strokeColor="gray-300"
+          class="open:icon-dark-gray-500"
+          :class="CssClasses.chevron"
+        />
       </span>
-      <hr
-        v-if="(props.icon || slots.iconEl) && separator"
-        :class="CssClasses.separator"
-      />
-      <div class="flex-grow pr-16px">
-        <div
-          :class="[
-            titleClassName ? titleClassName : CssClasses.summaryTitleColor,
-            CssClasses.summaryTitle,
-          ]"
-        >
-          {{ title }}
-        </div>
-        <div
-          v-if="description"
-          :class="[
-            CssClasses.summaryDescription,
-            descriptionClassName ?? CssClasses.summaryDescriptionColor,
-          ]"
-        >
-          {{ description }}
-        </div>
-      </div>
-      <IconChevronDownSmall
-        strokeColor="gray-300"
-        class="open:icon-dark-gray-500"
-        :class="CssClasses.chevron"
-      />
     </summary>
-    <div ref="content" :class="CssClasses.contentWrapper">
+    <div ref="$content" :class="CssClasses.contentWrapper">
       <!-- @slot expandable body of the collapsible accordion -->
       <slot v-if="fullWidthContent" />
       <div v-else :class="CssClasses.content">
@@ -100,12 +101,12 @@ const props = defineProps<{
   fullWidthContent?: boolean
 }>()
 
-const content = ref(null)
-const details = ref(null)
+const $content = ref(null)
+const $details = ref(null)
 
 onMounted(function () {
-  if (details.value && content.value) {
-    new DetailsAnimation(details.value, content.value)
+  if ($details.value && $content.value) {
+    new DetailsAnimation($details.value, $content.value)
   }
 })
 

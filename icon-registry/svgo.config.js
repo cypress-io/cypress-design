@@ -5,6 +5,12 @@ module.exports = {
     {
       name: 'preset-default',
     },
+    {
+      name: 'prefixIds',
+      params: {
+        prefixClassNames: false,
+      },
+    },
     extractBodyPlugin,
   ],
 }

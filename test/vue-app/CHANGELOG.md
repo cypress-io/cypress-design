@@ -1,5 +1,33 @@
 # @cypress-design/test-vue-app
 
+## 0.0.24
+
+### Patch Changes
+
+- Updated dependencies [[`e4a1573`](https://github.com/cypress-io/cypress-design/commit/e4a15730ca59d7ba85ba04b9d39ac6f0e0dfb249)]:
+  - @cypress-design/vue-icon@0.17.0
+
+## 0.0.23
+
+### Patch Changes
+
+- Updated dependencies [[`92c1c4a`](https://github.com/cypress-io/cypress-design/commit/92c1c4a3e4494f8ec6c81ed7570d862b1b36dde1)]:
+  - @cypress-design/vue-icon@0.16.0
+
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`4ddfa9a`](https://github.com/cypress-io/cypress-design/commit/4ddfa9a1f4d40080064c099d2abab8aa47d955df)]:
+  - @cypress-design/vue-button@0.5.0
+
+## 0.0.21
+
+### Patch Changes
+
+- Updated dependencies [[`761dcda`](https://github.com/cypress-io/cypress-design/commit/761dcdad11b986cee6d47451dc7980090a9301b0)]:
+  - @cypress-design/vue-icon@0.15.0
+
 ## 0.0.20
 
 ### Patch Changes

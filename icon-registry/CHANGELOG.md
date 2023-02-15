@@ -1,5 +1,35 @@
 # @cypress-design/icon-registry
 
+## 0.19.0
+
+### Minor Changes
+
+- [`e4a1573`](https://github.com/cypress-io/cypress-design/commit/e4a15730ca59d7ba85ba04b9d39ac6f0e0dfb249) Thanks [@elevatebart](https://github.com/elevatebart)! - add rocket icon
+
+## 0.18.0
+
+### Minor Changes
+
+- [`92c1c4a`](https://github.com/cypress-io/cypress-design/commit/92c1c4a3e4494f8ec6c81ed7570d862b1b36dde1) Thanks [@elevatebart](https://github.com/elevatebart)! - add smartpphone icon
+
+## 0.17.0
+
+### Minor Changes
+
+- [#129](https://github.com/cypress-io/cypress-design/pull/129) [`761dcda`](https://github.com/cypress-io/cypress-design/commit/761dcdad11b986cee6d47451dc7980090a9301b0) Thanks [@mike-plummer](https://github.com/mike-plummer)! - New `technology-dashboard-running` icon
+
+## 0.16.2
+
+### Patch Changes
+
+- [#127](https://github.com/cypress-io/cypress-design/pull/127) [`d2c1baa`](https://github.com/cypress-io/cypress-design/commit/d2c1baa18305a81dba66200aae7a5929e9e36dbf) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: remove svg icon classes
+
+## 0.16.1
+
+### Patch Changes
+
+- [`0e6a3cb`](https://github.com/cypress-io/cypress-design/commit/0e6a3cb5eba893283c01decebf386f4c5fbf0c21) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: avoid clash of ids in svgs
+
 ## 0.16.0
 
 ### Minor Changes
