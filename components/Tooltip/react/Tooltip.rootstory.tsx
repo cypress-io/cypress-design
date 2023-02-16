@@ -27,7 +27,7 @@ export default ({
     <Tooltip
       className="bg-red-200 p-4 w-1/2"
       popper={
-        <div className="h-200px flex items-center justify-center">Popov</div>
+        <div className="h-[200px] flex items-center justify-center">Popov</div>
       }
       color={color}
       placement="top"

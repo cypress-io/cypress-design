@@ -12,8 +12,9 @@
         <span
           v-if="(props.icon || slots.iconEl) && separator"
           :class="CssClasses.separator"
+          aria-role="separator"
         />
-        <span class="flex-grow pr-16px">
+        <span class="flex-grow pr-[16px]">
           <span
             :class="[
               titleClassName ? titleClassName : CssClasses.summaryTitleColor,

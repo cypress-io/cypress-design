@@ -25,9 +25,9 @@
         {
           invisible:
             !show && positionComputed && !(tooltipHovered && props.interactive),
-          '-top-10000px invisible': !positionComputed,
+          '-top-[10000px] invisible': !positionComputed,
         },
-        props.interactive ? 'p-16px' : undefined,
+        props.interactive ? 'p-[16px]' : undefined,
       ]"
     >
       <div
@@ -62,7 +62,7 @@
           />
         </svg>
         <div
-          class="rounded text-16px leading-24px min-w-160px text-center p-8px relative z-20"
+          class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
           :class="colors.background"
         >
           <slot name="popper" />
