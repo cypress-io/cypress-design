@@ -43,7 +43,7 @@ jobs:
         with:
           component: true
           record: true
-          command-prefix: 'yarn percy exec --parallel -- --'
+          command-prefix: 'yarn percy exec --parallel -- '
           browser: chrome
         env:
           # Recommended: pass the GitHub token lets this action correctly
