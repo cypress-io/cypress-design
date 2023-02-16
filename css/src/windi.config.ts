@@ -3,9 +3,10 @@ import { defineConfig } from 'windicss/helpers'
 import PluginInteractionVariants from '@windicss/plugin-interaction-variants'
 import PluginFilters from 'windicss/plugin/filters'
 import theme from './theme.config'
-import { IconDuotoneColorsPlugin, IconExtractor } from './icon-color-plugins'
+import { IconDuotoneColorsPlugin } from './icon-color-plugins'
 import DetailsOpenVariantPlugin from './details-open-variant-plugin'
 import { shortcuts } from './shortcuts'
+import { IconExtractor } from './icon-extractor'
 
 // give the plugins a name for debugging purposes
 PluginInteractionVariants.config = { name: 'windi-interaction-variants' }

@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import { tailwindPlugin } from './shortcuts'
+import iconPlugin from './tw-icon-plugin'
 import theme from './theme.config'
 
 function defineConfig(config: Config['theme']) {
@@ -8,5 +9,5 @@ function defineConfig(config: Config['theme']) {
 
 export default defineConfig({
   theme,
-  plugins: [tailwindPlugin],
+  plugins: [tailwindPlugin, iconPlugin],
 })
