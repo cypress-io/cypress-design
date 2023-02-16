@@ -8,10 +8,10 @@ test('should generate correct css', () => {
   })
   const result = processor.interpret('pb-[10px] open:pb-[20px] details-none')
   expect(result.styleSheet.build()).toMatchInlineSnapshot(`
-    ".pb-[10px] {
+    ".pb-\\\\[10px\\\\] {
       padding-bottom: 10px;
     }
-    .open\\\\:pb-[20px][open], details[open] .open\\\\:pb-[20px] {
+    .open\\\\:pb-\\\\[20px\\\\][open], details[open] .open\\\\:pb-\\\\[20px\\\\] {
       padding-bottom: 20px;
     }
     .details-none::-webkit-details-marker {
