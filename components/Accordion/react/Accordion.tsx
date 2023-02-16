@@ -54,7 +54,7 @@ export const Accordion: React.FC<
           {(Icon || iconEl) && separator && (
             <span className={CssClasses.separator} />
           )}
-          <span className="flex-grow pr-16px">
+          <span className="flex-grow pr-[16px]">
             <span
               className={clsx(
                 titleClassName ?? CssClasses.summaryTitleColor,

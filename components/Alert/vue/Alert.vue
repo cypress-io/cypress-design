@@ -106,7 +106,7 @@ function dismiss() {
 const computedIconProps = computed(() => {
   return {
     strokeColor: alertClasses[props.type].iconColor,
-    class: 'my-4px mr-8px',
+    class: 'my-[4px] mr-[8px]',
   }
 })
 
@@ -151,20 +151,20 @@ const sizeClasses = computed(() => {
       </div>
       <button
         v-if="dismissible"
-        class="m-4px ml-8px h-16px"
+        class="m-[4px] ml-[8px] h-[16px]"
         @click="dismiss"
         aria-label="Dismiss"
       >
         <IconActionDeleteLarge :stroke-color="typeClasses.iconCloseColor" />
       </button>
     </div>
-    <div v-if="slots.body" class="p-16px" :class="typeClasses.bodyClass">
+    <div v-if="slots.body" class="p-[16px]" :class="typeClasses.bodyClass">
       <!-- @slot body/details of the alert -->
       <slot name="body" />
     </div>
     <details
       v-if="slots.details"
-      class="p-16px border-t-1"
+      class="p-[16px] border-t-1"
       ref="detailsRef"
       :class="[typeClasses.bodyClass, typeClasses.borderClass]"
     >
@@ -174,7 +174,7 @@ const sizeClasses = computed(() => {
       >
         <IconChevronDownSmall
           :strokeColor="typeClasses.iconChevronColor"
-          class="icon my-4px mr-8px transition transform -rotate-90 open:rotate-0"
+          class="icon my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
         />
         {{ props.detailsTitle }}
       </summary>

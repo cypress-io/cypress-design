@@ -2,10 +2,10 @@ import type { WindiColor } from '@cypress-design/icon-registry'
 
 export type AlertType = 'info' | 'success' | 'error' | 'warning' | 'neutral'
 export const alertSizesClasses = {
-  xs: 'py-4px px-8px leading-22px text-14px',
-  sm: 'py-8px px-12px leading-22px text-14px',
-  md: 'py-12px px-16px leading-24px text-16px',
-  lg: 'p-16px leading-24px text-16px',
+  xs: 'py-[4px] px-[8px] leading-[22px] text-[14px]',
+  sm: 'py-[8px] px-[12px] leading-[22px] text-[14px]',
+  md: 'py-[12px] px-[16px] leading-[24px] text-[16px]',
+  lg: 'p-[16px] leading-[24px] text-[16px]',
 } as const
 
 export type AlertSize = keyof typeof alertSizesClasses
