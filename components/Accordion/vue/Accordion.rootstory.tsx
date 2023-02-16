@@ -15,7 +15,7 @@ export default (options: AccordionStoryOptions = {}) => {
   } = options
 
   return (
-    <div className="m-16px">
+    <div className="m-[16px]">
       <Accordion
         title={title}
         separator={separator}

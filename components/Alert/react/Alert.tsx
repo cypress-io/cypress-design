@@ -144,20 +144,20 @@ export const Alert: React.FC<
           <div
             className={clsx(
               typeClasses.headerClass,
-              'flex p-16px',
+              'flex p-[16px]',
               sizeClasses
             )}
           >
             {!noIcon && Icon && (
               <Icon
-                className="my-4px mr-8px"
+                className="my-[4px] mr-[8px]"
                 strokeColor={typeClasses.iconColor}
               />
             )}
             <div className="flex-1 font-medium">{title}</div>
             {dismissible && (
               <button
-                className="m-4px ml-8px h-16px"
+                className="m-[4px] ml-[8px] h-[16px]"
                 onClick={dismiss}
                 aria-label="Dismiss"
               >
@@ -168,14 +168,14 @@ export const Alert: React.FC<
             )}
           </div>
           {children && (
-            <div className={clsx('p-16px', typeClasses.bodyClass)}>
+            <div className={clsx('p-[16px]', typeClasses.bodyClass)}>
               {children}
             </div>
           )}
           {details && (
             <details
               className={clsx(
-                'p-16px border-t-1 cursor-pointer',
+                'p-[16px] border-t-1 cursor-pointer',
                 typeClasses.bodyClass,
                 typeClasses.borderClass
               )}
@@ -188,13 +188,13 @@ export const Alert: React.FC<
                 )}
               >
                 <IconChevronDownSmall
-                  className="my-4px mr-8px transition transform -rotate-90 open:rotate-0"
+                  className="my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
                   strokeColor={typeClasses.iconChevronColor}
                 />
                 {detailsTitle}
               </summary>
               <div ref={contentRef}>
-                <div className="mt-16px">{details}</div>{' '}
+                <div className="mt-[16px]">{details}</div>{' '}
               </div>
             </details>
           )}
