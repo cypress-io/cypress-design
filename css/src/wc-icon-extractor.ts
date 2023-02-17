@@ -31,13 +31,11 @@ export const IconExtractor: Extractor = {
               : undefined
           // first, check that the color is valid
           if (checkedValue && isValidWindiColor(checkedValue)) {
-            // if it checks out, add the class to the set
-            set.add(
-              ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
-                checkedValue,
-                hasAGroupAttribute
-              )
-            )
+            // if it checks out, add the classes to the set
+            ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+              checkedValue,
+              hasAGroupAttribute
+            ).forEach((className) => set.add(className))
           }
         }
         return set

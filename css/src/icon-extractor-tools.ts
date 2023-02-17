@@ -14,7 +14,7 @@ const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
 
 const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
   string,
-  (attrValue: string, hasGroupProp: boolean) => string
+  (attrValue: string, hasGroupProp: boolean) => string[]
 > = {}
 
 prefixes.forEach((prefix) => {
@@ -24,17 +24,17 @@ prefixes.forEach((prefix) => {
         ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[kebabCase(`${prefix}${root}`)] =
           (attrValue, hasGroupProp) => {
             if (!prefix.length) {
-              return value(attrValue)
+              return [value(attrValue)]
             }
             // add the icon-hover: or icon-focus: prefix
             const normalClass = `${prefix}:${value(attrValue)}`
 
             if (!hasGroupProp) {
-              return prefix.length ? `icon-${normalClass}` : normalClass
+              return prefix.length ? [`icon-${normalClass}`] : [normalClass]
             }
 
             // always keep the group-focus and group-hover classes
-            return `icon-${normalClass} group-${normalClass}`
+            return [`icon-${normalClass}`, `group-${normalClass}`]
           }
     }
   )

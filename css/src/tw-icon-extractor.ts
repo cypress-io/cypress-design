@@ -1,3 +1,4 @@
+import { camelCase } from 'lodash'
 import {
   ADDITIONAL_COLORS,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
@@ -9,7 +10,7 @@ import defaultExtractor from './tw-default-extractor'
 export function getHtmlAttributes(line: string) {
   const attributes = line.match(/(\w+)=["']?([^"']*)["']?/g)
   if (!attributes) return null
-  const names = attributes.map((attr) => attr.split('=')[0])
+  const names = attributes.map((attr) => camelCase(attr.split('=')[0]))
   const values = attributes.map((attr) =>
     attr.split('=')[1].replace(/['"]/g, '')
   )
@@ -26,7 +27,7 @@ export const IconExtractor = (line: string): string[] => {
   const classes = defaultExtractorFun(line)
   const htmlAttributes = getHtmlAttributes(line)
 
-  const additionalColorClasses =
+  const additionalColorClasses = Array.from(
     htmlAttributes?.names.reduce((set, attrName, index) => {
       if (isIconAttribute(attrName)) {
         const rawValue = htmlAttributes.values[index]
@@ -37,16 +38,15 @@ export const IconExtractor = (line: string): string[] => {
         // first, check that the color is valid
         if (checkedValue && isValidWindiColor(checkedValue)) {
           // if it checks out, add the class to the set
-          set.add(
-            ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
-              checkedValue,
-              true
-            )
-          )
+          ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
+            checkedValue,
+            true
+          ).forEach((className) => set.add(className))
         }
       }
       return set
     }, new Set<string>()) ?? new Set<string>()
+  )
 
-  return [...classes, ...Array.from(additionalColorClasses)]
+  return [...classes, ...additionalColorClasses]
 }

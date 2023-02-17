@@ -17,38 +17,39 @@ function toColorValue(maybeFunction: ((param: {}) => string) | string) {
 }
 
 export default plugin(({ matchComponents, addVariant, theme }) => {
-  const iconVariants = [
+  const iconColorTriggers = [
     'icon-light',
     'icon-dark',
     'icon-light-secondary',
     'icon-dark-secondary',
   ]
 
-  iconVariants.forEach((variant) => {
+  iconColorTriggers.forEach((trigger) => {
     const comp: Record<string, (value: string) => any> = {
-      [variant]: (value: string) => [
+      [trigger]: (value: string) => [
         {
-          [` > [fill].${variant}`]: {
+          [` > *[fill].${trigger}`]: {
             fill: toColorValue(value),
           },
         },
         {
-          [` > [stroke].${variant}`]: {
+          [` > *[stroke].${trigger}`]: {
             stroke: toColorValue(value),
           },
         },
         {
-          [` > [stroke][fill].${variant}-fill`]: {
+          [` > *[stroke][fill].${trigger}-fill`]: {
             fill: toColorValue(value),
           },
         },
         {
-          [` > [stroke][fill].${variant}-stroke`]: {
+          [` > *[stroke][fill].${trigger}-stroke`]: {
             stroke: toColorValue(value),
           },
         },
       ],
     }
+
     matchComponents(comp, {
       values: flattenColorPalette(theme('fill')),
       type: ['color', 'any'],
