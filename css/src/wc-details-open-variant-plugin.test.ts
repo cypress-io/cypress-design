@@ -1,6 +1,6 @@
 import { Processor } from 'windicss/lib'
 import { test, expect } from 'vitest'
-import DetailsOpenVariantPlugin from './details-open-variant-plugin'
+import DetailsOpenVariantPlugin from './wc-details-open-variant-plugin'
 
 test('should generate correct css', () => {
   const processor = new Processor({

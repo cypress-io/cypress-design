@@ -4,7 +4,7 @@ import PluginInteractionVariants from '@windicss/plugin-interaction-variants'
 import PluginFilters from 'windicss/plugin/filters'
 import theme from './theme.config'
 import { IconDuotoneColorsPlugin } from './wc-icon-plugins'
-import DetailsOpenVariantPlugin from './details-open-variant-plugin'
+import DetailsOpenVariantPlugin from './wc-details-open-variant-plugin'
 import { shortcuts } from './shortcuts'
 import { IconExtractor } from './wc-icon-extractor'
 

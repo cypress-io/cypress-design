@@ -20,10 +20,11 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     color: 'indigo' | 'error' | 'jade'
   ): RecursiveKeyValuePair {
     return {
-      outline: 'transparent',
       borderWidth: theme('borderWidth.DEFAULT'),
       borderColor: theme(`borderColor.${color}.300`),
       boxShadow: `0 0 0 2px ${theme(`boxShadow.${color}.100`)}`,
+      transition: 'all 150ms ease-in-out',
+      outline: '2px solid transparent',
       ['&:disabled']: {
         boxShadow: 'none',
         borderColor: 'transparent',
@@ -46,7 +47,15 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
   }
 
   addComponents({
-    '.card': makeFocusDefaultObject(['focus']),
+    '.card': {
+      background: 'white',
+      border: `1px solid ${theme('colors.gray.100')}`,
+      borderRadius: theme('borderRadius.DEFAULT'),
+      cursor: 'pointer',
+      display: 'block',
+      width: '100%',
+      ...makeFocusDefaultObject(['hover', 'focus']),
+    },
     '.default-ring': defaultRing('indigo'),
     '.hocus-within-default': makeFocusDefaultObject(['hover', 'focus-within']),
     '.hocus-default': makeFocusDefaultObject(['hover', 'focus']),
