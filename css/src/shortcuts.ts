@@ -39,7 +39,7 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
       outline: 'none',
       transition: 'all 150ms ease-in-out',
       ...variants.reduce((acc, variant) => {
-        acc[`${variant}:&`] = defaultRing(color)
+        acc[`&:${variant}`] = defaultRing(color)
         return acc
       }, {} as RecursiveKeyValuePair),
     }
@@ -53,11 +53,11 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     '.focus-within-default': makeFocusDefaultObject(['focus-within']),
     '.focus-default': makeFocusDefaultObject(['focus']),
     '.hocus-link-default': {
-      'focus:&': {
+      '&:focus': {
         outline: 'transparent',
         textDecoration: 'underline',
       },
-      'hover:&': {
+      '&:hover': {
         textDecoration: 'underline',
       },
     },

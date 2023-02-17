@@ -14,11 +14,12 @@ const checked = ref(false)
 </script>
 
 <template>
-  <div style="width: 500px; text-align: center; margin: auto" class="group">
+  <div class="group w-[500px] text-center mx-auto">
     <Checkbox v-model="checked" label="Checkbox" id="Sample" />
     <p v-if="checked">Checked</p>
     <IconObjectBookCode
       size="48"
+      class="icon-dark-red-300"
       :stroke-color="checked ? 'indigo-600' : 'red-300'"
       fill-color="indigo-300"
       hover-fill-color="red-300"
