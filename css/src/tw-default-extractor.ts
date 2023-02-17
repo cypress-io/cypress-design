@@ -179,7 +179,8 @@ function clipAtBalancedParens(input: string) {
     }
 
     // We've finished balancing the brackets but there still may be characters that can be included
-    // For example in the class `text-[#336699]/[.35]`
+    // For example in the class `text-
+    // [#336699]/[.35]` (on two lines to avoid being recognized by windi)
     // The depth goes to `0` at the closing `]` but goes up again at the `[`
 
     // If we're at zero and encounter a non-class character then we clip the class there
