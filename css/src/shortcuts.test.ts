@@ -13,7 +13,7 @@ it('generates icon classes', async () => {
   let config = {
     content: [
       {
-        raw: `<div class="hocus-within-default"></div>`,
+        raw: `<div class="hocus-within-default default-ring"></div>`,
       },
     ],
     corePlugins: {
@@ -23,25 +23,38 @@ it('generates icon classes', async () => {
   }
   const output = await run('@tailwind components', config)
   expect(output.css).toMatchInlineSnapshot(`
-    ".hocus-within-default {
+    ".default-ring {
+        border-width: 1px;
+        border-color: #a5b4fc;
+        box-shadow: 0 0 0 2px undefined;
+        transition: all 150ms ease-in-out;
+        outline: 2px solid transparent;
+    }
+    .default-ring:disabled {
+        box-shadow: none;
+        border-color: transparent;
+    }
+    .hocus-within-default {
         outline: none;
         transition: all 150ms ease-in-out;
     }
     .hocus-within-default:hover {
-        outline: transparent;
         border-width: 1px;
         border-color: #a5b4fc;
         box-shadow: 0 0 0 2px undefined;
+        transition: all 150ms ease-in-out;
+        outline: 2px solid transparent;
     }
     .hocus-within-default:hover:disabled {
         box-shadow: none;
         border-color: transparent;
     }
     .hocus-within-default:focus-within {
-        outline: transparent;
         border-width: 1px;
         border-color: #a5b4fc;
         box-shadow: 0 0 0 2px undefined;
+        transition: all 150ms ease-in-out;
+        outline: 2px solid transparent;
     }
     .hocus-within-default:focus-within:disabled {
         box-shadow: none;
