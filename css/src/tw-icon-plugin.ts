@@ -1,5 +1,4 @@
 import plugin from 'tailwindcss/plugin'
-import { CSSRuleObject } from 'tailwindcss/types/config'
 
 const flattenColorPalette = (colors: any): Record<string, string> =>
   Object.assign(
