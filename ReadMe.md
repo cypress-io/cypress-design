@@ -162,8 +162,10 @@ To run in CLI, run `yarn workspace components cypress:run`.
 ## Structure
 
 - [components](./components/) A collection of components for building Cypress applications and websites.
+- [packages](./packages/) Some packages do not fit in css or in components but are used in multiple components. They are here.
 - [css](./css/) What you need to install a pre-configured version of WindiCSS in a Cypress project.
 - [icon-registry](./icon-registry/) contains the list of all the svg icons available in the vue-icon and react-icon components.
 - [storybook-vue](./storybook-vue/) The configuration of a storybook to showcase and work on the vue components.
 - [storybook-react](./storybook-react/) The same as above but for React components.
 - [test](./test/) A sanity check to see if the components we build are actually working with a real setup.
+
