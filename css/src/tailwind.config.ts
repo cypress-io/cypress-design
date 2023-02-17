@@ -15,7 +15,7 @@ export default (fileGlobs: string[] = []) => {
       extract: ['vue', 'js', 'ts', 'tsx', 'astro'].reduce((acc, ext) => {
         acc[ext] = IconExtractor
         return acc
-      }, {} as Record<string, (content: string, id?: string) => string[]>),
+      }, {} as Record<string, (content: string) => string[]>),
     },
     theme,
     plugins: [tailwindPlugin, iconPlugin],
