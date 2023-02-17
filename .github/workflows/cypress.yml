@@ -37,7 +37,17 @@ jobs:
       - name: Run Unit Tests
         run: yarn test
 
-      - name: Cypress Run
-        run: yarn cypress run --component --record --key ${{ secrets.CYPRESS_RECORD_KEY }}
+      # run cypress component tests
+      - name: Cypress run CT
+        uses: cypress-io/github-action@v5
+        with:
+          component: true
+          record: true
+          command-prefix: 'yarn percy exec --parallel -- '
+          browser: chrome
         env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

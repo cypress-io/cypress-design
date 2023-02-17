@@ -34,7 +34,7 @@ export default ({
       {{
         default: () => <div>Force Placement to the top</div>,
         popper: () => (
-          <div class="h-200px flex items-center justify-center">Popov</div>
+          <div class="h-[200px] flex items-center justify-center">Popov</div>
         ),
       }}
     </Tooltip>
