@@ -8,7 +8,7 @@ import {
 import defaultExtractor from './tw-default-extractor'
 
 export function getHtmlAttributes(line: string) {
-  const attributes = line.match(/(\w+)=["']?([^"']*)["']?/g)
+  const attributes = line.match(/([\w-]+)=["']?([^"']*)["']?/g)
   if (!attributes) return null
   const names = attributes.map((attr) => camelCase(attr.split('=')[0]))
   const values = attributes.map((attr) =>
