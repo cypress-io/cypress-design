@@ -9,22 +9,22 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@cypress-design/vue-button": "^0.5.0",
-		"@cypress-design/vue-checkbox": "^0.4.5",
-		"@cypress-design/vue-icon": "^0.17.0",
-		"@cypress-design/vue-spinner": "^0.1.0",
-		"@cypress-design/vue-alert": "^0.2.0",
+		"@cypress-design/vue-button": "*",
+		"@cypress-design/vue-checkbox": "*",
+		"@cypress-design/vue-icon": "*",
+		"@cypress-design/vue-spinner": "*",
+		"@cypress-design/vue-alert": "*",
 		"autoprefixer": "^10.4.13",
 		"postcss": "^8.4.21",
 		"tailwindcss": "^3.2.7",
-		"vue": "^3.2.33"
+		"vue": "^3.2.31"
 	},
 	"devDependencies": {
-		"@cypress-design/css": "^0.7.0",
+		"@cypress-design/css": "*",
 		"@vue/tsconfig": "^0.1.3",
-		"@vitejs/plugin-vue": "^4.0.0",
+		"@vitejs/plugin-vue": "^2.3.1",
 		"typescript": "^4.9.3",
-		"vite": "^4.1.2",
+		"vite": "^3.0.4",
 		"vue-tsc": "^1.0.24"
 	}
 }
