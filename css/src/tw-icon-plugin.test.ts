@@ -27,76 +27,76 @@ it('generates icon classes', async () => {
   const output = await run('@tailwind components', config)
 
   expect(output.css).toMatchInlineSnapshot(`
-    ".icon-light-teal-50 > [fill].icon-light {
+    ".icon-light-teal-50 > *[fill].icon-light {
         fill: #f0fdfa
     }
-    .icon-light-teal-50 > [stroke].icon-light {
+    .icon-light-teal-50 > *[stroke].icon-light {
         stroke: #f0fdfa
     }
-    .icon-light-teal-50 > [stroke][fill].icon-light-fill {
+    .icon-light-teal-50 > *[stroke][fill].icon-light-fill {
         fill: #f0fdfa
     }
-    .icon-light-teal-50 > [stroke][fill].icon-light-stroke {
+    .icon-light-teal-50 > *[stroke][fill].icon-light-stroke {
         stroke: #f0fdfa
     }
-    .icon-dark-teal-400 > [fill].icon-dark {
+    .icon-dark-teal-400 > *[fill].icon-dark {
         fill: #2dd4bf
     }
-    .icon-dark-teal-400 > [stroke].icon-dark {
+    .icon-dark-teal-400 > *[stroke].icon-dark {
         stroke: #2dd4bf
     }
-    .icon-dark-teal-400 > [stroke][fill].icon-dark-fill {
+    .icon-dark-teal-400 > *[stroke][fill].icon-dark-fill {
         fill: #2dd4bf
     }
-    .icon-dark-teal-400 > [stroke][fill].icon-dark-stroke {
+    .icon-dark-teal-400 > *[stroke][fill].icon-dark-stroke {
         stroke: #2dd4bf
     }
-    .icon-light-secondary-indigo-50 > [fill].icon-light-secondary {
+    .icon-light-secondary-indigo-50 > *[fill].icon-light-secondary {
         fill: #eef2ff
     }
-    .icon-light-secondary-indigo-50 > [stroke].icon-light-secondary {
+    .icon-light-secondary-indigo-50 > *[stroke].icon-light-secondary {
         stroke: #eef2ff
     }
-    .icon-light-secondary-indigo-50 > [stroke][fill].icon-light-secondary-fill {
+    .icon-light-secondary-indigo-50 > *[stroke][fill].icon-light-secondary-fill {
         fill: #eef2ff
     }
-    .icon-light-secondary-indigo-50 > [stroke][fill].icon-light-secondary-stroke {
+    .icon-light-secondary-indigo-50 > *[stroke][fill].icon-light-secondary-stroke {
         stroke: #eef2ff
     }
-    .icon-dark-secondary-indigo-400 > [fill].icon-dark-secondary {
+    .icon-dark-secondary-indigo-400 > *[fill].icon-dark-secondary {
         fill: #818cf8
     }
-    .icon-dark-secondary-indigo-400 > [stroke].icon-dark-secondary {
+    .icon-dark-secondary-indigo-400 > *[stroke].icon-dark-secondary {
         stroke: #818cf8
     }
-    .icon-dark-secondary-indigo-400 > [stroke][fill].icon-dark-secondary-fill {
+    .icon-dark-secondary-indigo-400 > *[stroke][fill].icon-dark-secondary-fill {
         fill: #818cf8
     }
-    .icon-dark-secondary-indigo-400 > [stroke][fill].icon-dark-secondary-stroke {
+    .icon-dark-secondary-indigo-400 > *[stroke][fill].icon-dark-secondary-stroke {
         stroke: #818cf8
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > [fill].icon-light {
+    .group:hover .group-hover\\\\:icon-light-red-400 > *[fill].icon-light {
         fill: #f87171
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > [stroke].icon-light {
+    .group:hover .group-hover\\\\:icon-light-red-400 > *[stroke].icon-light {
         stroke: #f87171
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > [stroke][fill].icon-light-fill {
+    .group:hover .group-hover\\\\:icon-light-red-400 > *[stroke][fill].icon-light-fill {
         fill: #f87171
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > [stroke][fill].icon-light-stroke {
+    .group:hover .group-hover\\\\:icon-light-red-400 > *[stroke][fill].icon-light-stroke {
         stroke: #f87171
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > [fill].icon-dark {
+    .icon-hover\\\\:icon-dark-teal-900:hover > *[fill].icon-dark {
         fill: #134e4a
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > [stroke].icon-dark {
+    .icon-hover\\\\:icon-dark-teal-900:hover > *[stroke].icon-dark {
         stroke: #134e4a
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > [stroke][fill].icon-dark-fill {
+    .icon-hover\\\\:icon-dark-teal-900:hover > *[stroke][fill].icon-dark-fill {
         fill: #134e4a
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > [stroke][fill].icon-dark-stroke {
+    .icon-hover\\\\:icon-dark-teal-900:hover > *[stroke][fill].icon-dark-stroke {
         stroke: #134e4a
     }"
   `)
