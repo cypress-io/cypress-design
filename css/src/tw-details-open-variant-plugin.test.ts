@@ -34,21 +34,21 @@ it('generates icon classes', async () => {
     .details-none::-webkit-details-marker {
         display: none
     }
-    .open\\\\:bg-teal-300[open] {
-        --tw-bg-opacity: 1;
-        background-color: rgb(94 234 212 / var(--tw-bg-opacity))
-    }
     .open\\\\:bg-indigo-300[open] {
         --tw-bg-opacity: 1;
         background-color: rgb(165 180 252 / var(--tw-bg-opacity))
     }
-    details[open] .open\\\\:bg-teal-300 {
+    .open\\\\:bg-teal-300[open] {
         --tw-bg-opacity: 1;
         background-color: rgb(94 234 212 / var(--tw-bg-opacity))
     }
     details[open] .open\\\\:bg-indigo-300 {
         --tw-bg-opacity: 1;
         background-color: rgb(165 180 252 / var(--tw-bg-opacity))
+    }
+    details[open] .open\\\\:bg-teal-300 {
+        --tw-bg-opacity: 1;
+        background-color: rgb(94 234 212 / var(--tw-bg-opacity))
     }"
   `)
 })
