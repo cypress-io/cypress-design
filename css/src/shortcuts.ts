@@ -12,9 +12,6 @@ interface RecursiveKeyValuePair {
  * outline with that, do border-transparent for the non-hocus state.
  */
 
-const focusDefault =
-  'outline-none focus:border focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 focus:outline-transparent transition duration-150 disabled:hover:ring-0 disabled:hover:border-transparent'
-
 export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
   function defaultRing(
     color: 'indigo' | 'error' | 'jade'
@@ -22,7 +19,7 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     return {
       borderWidth: theme('borderWidth.DEFAULT'),
       borderColor: theme(`borderColor.${color}.300`),
-      boxShadow: `0 0 0 2px ${theme(`boxShadow.${color}.100`)}`,
+      boxShadow: `0 0 0 2px ${theme(`colors.${color}.100`)}`,
       transition: 'all 150ms ease-in-out',
       outline: '2px solid transparent',
       ['&:disabled']: {
@@ -39,17 +36,16 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     return {
       outline: 'none',
       transition: 'all 150ms ease-in-out',
-      ...variants.reduce((acc, variant) => {
-        acc[`&:${variant}`] = defaultRing(color)
-        return acc
-      }, {} as RecursiveKeyValuePair),
+      [variants.map((variant) => `&:${variant}`).join(',')]: defaultRing(color),
     }
   }
 
   addComponents({
     '.card': {
       background: 'white',
-      border: `1px solid ${theme('colors.gray.100')}`,
+      borderWidth: theme('borderWidth.DEFAULT'),
+      borderStyle: 'solid',
+      borderColor: theme('colors.gray.100'),
       borderRadius: theme('borderRadius.DEFAULT'),
       cursor: 'pointer',
       display: 'block',
@@ -74,6 +70,12 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     '.hocus-secondary': makeFocusDefaultObject(['hover', 'focus'], 'jade'),
   })
 })
+
+const focusDefault =
+  'outline-none' +
+  'focus:border focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 focus:outline-transparent' +
+  'transition duration-150' +
+  'disabled:hover:ring-0 disabled:hover:border-transparent'
 
 // Usually what you want
 const hocusDefault = focusDefault.replace(/focus:/g, 'hocus:')
