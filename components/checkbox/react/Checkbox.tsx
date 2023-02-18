@@ -81,7 +81,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         )}
         <span
           className={clsx([
-            `block border-1 border-solid rounded h-[16px] w-[16px] flex flex-shrink-0 items-center text-white`,
+            `block border border-solid rounded h-[16px] w-[16px] flex flex-shrink-0 items-center text-white`,
             disabled
               ? 'border-gray-200 bg-gray-100'
               : localChecked

@@ -1,0 +1,47 @@
+import { useEffect, useState } from 'react';
+import { Meta } from '@storybook/addon-docs';
+import comps, {capitalizedComponentNameMap} from './component-list';
+import vueLogo from '../../logos/vue.svg?url'
+
+<Meta
+  title="Index"
+/>
+
+<div>
+  <h1 className="flex items-center mb-10">
+    <img src={vueLogo} className="w-10 m-4"/>
+    <span>Vue components</span>
+  </h1>
+  <table class="w-full">
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+      <th>Version</th>
+      <th>Links</th>
+    </tr>
+    {(() => Object.values(comps).map(({default: pkg}) => {
+        const name = pkg.name.replace('@cypress-design/vue-', '')
+        return (<tr>
+          <td>
+            <a href={`/docs/vue_${name}--${name}`}>
+              {name}
+            </a>
+          </td>
+          <td>
+            {pkg.description}
+          </td>
+          <td>
+            <a href={`https://www.npmjs.com/package/${pkg.name}`}>
+              {pkg.version}
+            </a>
+          </td>
+          <td>
+            <a href={`https://github.com/cypress-io/cypress-design/tree/main/components/${capitalizedComponentNameMap[name]}/vue`}>
+              Github
+            </a>
+          </td>
+        </tr>)
+      })
+    )()}
+  </table>
+</div>
