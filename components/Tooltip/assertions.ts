@@ -6,9 +6,11 @@ export default function assertions(mountStory: (options?: any) => void): void {
 
     cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
     cy.contains('PopovDyn').should('be.visible')
+    cy.percySnapshot()
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
+      cy.percySnapshot(placement)
     })
   })
 
@@ -24,9 +26,11 @@ export default function assertions(mountStory: (options?: any) => void): void {
 
     cy.contains('[tabindex="1"]', 'Hover Me (dynamic: )').focus()
     cy.contains('PopovDyn').should('be.visible')
+    cy.percySnapshot()
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
+      cy.percySnapshot(placement)
     })
   })
 }

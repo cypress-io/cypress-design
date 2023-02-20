@@ -7,6 +7,7 @@ import StatusIconStory from './StatusIcon.rootstory'
 describe('StatusIcon', () => {
   it('renders', () => {
     mount(StatusIconStory)
+    cy.percySnapshot()
   })
 
   it('defaults to a variant that exists if the one provided does not exist', () => {
