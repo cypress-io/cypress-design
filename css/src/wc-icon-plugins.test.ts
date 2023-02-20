@@ -1,6 +1,6 @@
 import { Processor } from 'windicss/lib'
 import { test, expect } from 'vitest'
-import { IconDuotoneColorsPlugin } from './icon-color-plugins'
+import { IconDuotoneColorsPlugin } from './wc-icon-plugins'
 
 test('should generate correct css', () => {
   const processor = new Processor({

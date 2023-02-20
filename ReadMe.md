@@ -168,4 +168,3 @@ To run in CLI, run `yarn workspace components cypress:run`.
 - [storybook-vue](./storybook-vue/) The configuration of a storybook to showcase and work on the vue components.
 - [storybook-react](./storybook-react/) The same as above but for React components.
 - [test](./test/) A sanity check to see if the components we build are actually working with a real setup.
-
