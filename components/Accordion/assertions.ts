@@ -63,4 +63,33 @@ export default function assertions(
     cy.get('details summary').contains('Accordion Title')
     cy.get('details summary hr').should('not.exist')
   })
+
+  describe('snapshots', () => {
+    it('default', () => {
+      mountStory()
+      cy.percySnapshot()
+    })
+
+    it('no separator', () => {
+      mountStory({ separator: false })
+      cy.percySnapshot()
+    })
+
+    it('blue', () => {
+      mountStory({ headingClassName: 'bg-indigo-500' })
+      cy.percySnapshot()
+    })
+
+    it('fullWidthContent', () => {
+      mountStory({ fullWidthContent: true })
+      cy.percySnapshot()
+    })
+
+    it('open', () => {
+      mountStory()
+      cy.get('details summary').click()
+      cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
+      cy.percySnapshot()
+    })
+  })
 }
