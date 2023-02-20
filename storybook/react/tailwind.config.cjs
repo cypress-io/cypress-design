@@ -6,11 +6,10 @@ module.exports = {
   content: {
     files: [
       './index.html',
-      './stories/**/*.@(js|ts|tsx|mdx|vue)',
-      '../../components/*/vue/dist/*.@(js|css)',
-      '../../components/*/vue/**/*.@(mdx|tsx)',
+      './stories/**/*.@(ts|tsx|mdx)',
+      '../../components/*/react/**/*.@(mdx|tsx|ts|css|js|jsx)',
     ],
-    extract: ['vue', 'js', 'css', 'tsx', 'mdx'].reduce(
+    extract: ['jsx', 'tsx', 'mdx'].reduce(
       (acc, ext) => ({ ...acc, [ext]: cypressCSS.TailwindIconExtractor }),
       {}
     ),
