@@ -24,11 +24,6 @@ module.exports = {
           url: 'http://localhost:9996',
           expanded: true,
         },
-        vueTailwind: {
-          title: 'Vue Tailwind',
-          url: 'http://localhost:9994',
-          expanded: true,
-        },
       }
     }
     return {
@@ -40,11 +35,6 @@ module.exports = {
       vue: {
         title: 'Vue',
         url: '/vue',
-        expanded: true,
-      },
-      vueTailwind: {
-        title: 'Vue Tailwind',
-        url: '/vue-tailwind',
         expanded: true,
       },
     }
