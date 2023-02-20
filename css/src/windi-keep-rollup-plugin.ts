@@ -4,7 +4,7 @@ import {
   createUtils,
   getDefaultExtractors,
 } from 'vite-plugin-windicss'
-import { IconExtractor } from './icon-color-plugins'
+import { IconExtractor } from './wc-icon-extractor'
 import windiConfig from './windi.config'
 
 export default function WindiKeepRollupPlugin(): Plugin {

@@ -27,6 +27,8 @@ export default function assertions(
 
     cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
 
+    cy.wait(10)
+
     cy.get('details summary').click()
 
     cy.contains('Lorem ipsum, dolor sit amet').should('not.be.visible')
