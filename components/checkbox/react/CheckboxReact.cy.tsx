@@ -17,8 +17,10 @@ describe('Checkbox', () => {
     )
 
     cy.get('input[type="checkbox"]').should('be.checked')
+    cy.percySnapshot()
     cy.contains('Welcome guide settings').click()
     cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.percySnapshot()
   })
 
   it('changes when checkbox is clicked', () => {
@@ -47,6 +49,8 @@ describe('Checkbox', () => {
         onChange={() => {}}
       />
     )
+
+    cy.percySnapshot()
 
     cy.get('label span:first-child').invoke('outerWidth').should('equal', 16)
   })

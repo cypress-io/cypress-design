@@ -1,4 +1,10 @@
 {
   "extends": "../../../tsconfig.vue.json",
-  "include": ["*.vue", "*.ts", "*.tsx"]
+  "include": [
+    "*.vue",
+    "*.ts",
+    "*.tsx",
+    "../*.ts",
+    "../../../cypress/support/*.ts"
+  ]
 }
