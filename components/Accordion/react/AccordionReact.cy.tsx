@@ -33,8 +33,6 @@ describe('Accordion', () => {
         }
       ></Accordion>
     ).get('[data-cy=icon-element]')
-
-    cy.percySnapshot()
   })
 
   it('when passed both icon and iconEl, iconEl overrides icon', () => {

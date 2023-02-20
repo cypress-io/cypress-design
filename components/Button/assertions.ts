@@ -1,6 +1,14 @@
 /// <reference types="cypress" />
 
-export default function assertions(mountStory: (options?: any) => void): void {
+export interface ButtonStoryOptions {
+  disabled?: boolean
+  onClick?: () => void
+  href?: string
+}
+
+export default function assertions(
+  mountStory: (options?: ButtonStoryOptions) => void
+): void {
   it('renders variants disabled', () => {
     mountStory({ disabled: true })
     cy.get('button').first().as('firstButton')
@@ -18,6 +26,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
       'text-decoration-line',
       'underline'
     )
+    cy
   })
 
   it('renders variants', () => {
@@ -37,6 +46,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
       'text-decoration-line',
       'underline'
     )
+    cy.percySnapshot()
   })
 
   it('is clickable', () => {
