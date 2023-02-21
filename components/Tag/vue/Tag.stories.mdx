@@ -1,0 +1,29 @@
+import { ArgsTable, Canvas, Meta, Story, Description } from '@storybook/addon-docs'
+import { version } from "./package.json"
+import changelog from "./CHANGELOG.md?raw"
+
+import Tag from './Tag.vue'
+
+import TagStory from './Tag.rootstory'
+
+<h1>Tag<span className="text-lg font-normal"> - v{version}</span></h1>
+
+<Meta title="Tag" component={Tag} parameters={{
+    design: {
+      type: "figma",
+      url: null,
+    }
+  }} />
+
+<Canvas withSource="none">
+  <Story name="Tag">
+    {TagStory()}
+  </Story>
+</Canvas>
+
+<ArgsTable />
+
+<Description>
+  {changelog.replace(/^# .+/, '## Changelog')}
+</Description>
+
