@@ -8,6 +8,7 @@ module.exports = {
       './index.html',
       './stories/**/*.@(ts|tsx|mdx)',
       '../../components/*/react/**/*.@(mdx|tsx|ts|css|js|jsx)',
+      '../../components/*/*.ts',
     ],
     extract: ['jsx', 'tsx', 'mdx'].reduce(
       (acc, ext) => ({ ...acc, [ext]: cypressCSS.TailwindIconExtractor }),

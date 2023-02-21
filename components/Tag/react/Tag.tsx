@@ -5,19 +5,20 @@ import { ColorClasses, SharedSettings, SizeClasses } from '../constants'
 export interface TagProps {
   size: keyof typeof SizeClasses
   color: keyof typeof ColorClasses
+  dark?: boolean
   children: React.ReactNode
   className?: string
 }
 
 export const Tag: React.FC<
   TagProps & Omit<React.HTMLProps<HTMLSpanElement>, 'size'>
-> = ({ className, children, size, color, ...rest }) => {
+> = ({ className, children, size, color, dark, ...rest }) => {
   return (
     <span
       {...rest}
       className={clsx(
         SizeClasses[size],
-        ColorClasses[color],
+        ColorClasses[color][dark ? 'dark' : 'default'],
         SharedSettings.classes,
         className
       )}

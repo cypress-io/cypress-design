@@ -4,7 +4,7 @@ import * as React from 'react'
 import { SizeClasses, ColorClasses } from '../constants'
 
 export default () => (
-  <div className="flex flex-row flex-wrap gap-3 justify-center">
+  <div className="flex flex-row flex-wrap gap-3 justify-center items-start">
     {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
       (size) => {
         return (
@@ -14,18 +14,24 @@ export default () => (
             )}
           >
             <h3 className="text-right">{size}</h3>
-            {(Object.keys(ColorClasses) as Array<keyof typeof ColorClasses>)
-              .reverse()
-              .map((color) => {
-                return (
+            {(
+              Object.keys(ColorClasses) as Array<keyof typeof ColorClasses>
+            ).map((color) => {
+              return (
+                <>
                   <div className="flex items-center justify-center">
-                    <span className={'text-sm mr-4'}>{color}</span>
                     <Tag size={size} color={color}>
-                      {'{Tag}'}
+                      {`{Tag}`}
                     </Tag>
                   </div>
-                )
-              })}
+                  <div className="flex items-center justify-center">
+                    <Tag size={size} color={color} dark>
+                      {`{Tag}`}
+                    </Tag>
+                  </div>
+                </>
+              )
+            })}
           </div>
         )
       }

@@ -1,6 +1,10 @@
 <template>
   <span
-    :class="[SharedSettings.classes, ColorClasses[color], SizeClasses[size]]"
+    :class="[
+      SharedSettings.classes,
+      ColorClasses[color][dark ? 'dark' : 'default'],
+      SizeClasses[size],
+    ]"
   >
     <slot />
   </span>
@@ -12,5 +16,6 @@ import { ColorClasses, SharedSettings, SizeClasses } from '../constants'
 defineProps<{
   size: keyof typeof SizeClasses
   color: keyof typeof ColorClasses
+  dark?: boolean
 }>()
 </script>

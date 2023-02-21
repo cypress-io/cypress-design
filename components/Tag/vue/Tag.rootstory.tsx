@@ -17,12 +17,18 @@ export default () => (
               .reverse()
               .map((color) => {
                 return (
-                  <div class="flex items-center justify-center">
-                    <span class={'text-sm mr-4'}>{color}</span>
-                    <Tag size={size} color={color}>
-                      {'{Tag}'}
-                    </Tag>
-                  </div>
+                  <>
+                    <div class="flex items-center justify-center">
+                      <Tag size={size} color={color}>
+                        {`{Tag}`}
+                      </Tag>
+                    </div>
+                    <div class="flex items-center justify-center">
+                      <Tag size={size} color={color} dark>
+                        {`{Tag}`}
+                      </Tag>
+                    </div>
+                  </>
                 )
               })}
           </div>
