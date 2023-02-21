@@ -10,7 +10,7 @@ export default () => (
         return (
           <div
             className={clsx(
-              'flex flex-col items-center gap-3 justify-center mt-4 p-4 bg-white rounded-lg'
+              'flex flex-col items-center gap-3 justify-center my-4 p-4 bg-white rounded-lg'
             )}
           >
             <h3 className="text-right">{size}</h3>
