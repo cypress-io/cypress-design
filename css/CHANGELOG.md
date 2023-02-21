@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.8.0
+
+### Minor Changes
+
+- [#149](https://github.com/cypress-io/cypress-design/pull/149) [`ead3725`](https://github.com/cypress-io/cypress-design/commit/ead3725ff4ab36abab60e2ea412d36de3e893452) Thanks [@elevatebart](https://github.com/elevatebart)! - add tailwindconfig preset
+
 ## 0.7.0
 
 ### Minor Changes

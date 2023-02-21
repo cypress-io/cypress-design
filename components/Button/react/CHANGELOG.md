@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.7.0
+
+### Minor Changes
+
+- [#151](https://github.com/cypress-io/cypress-design/pull/151) [`8b0e735`](https://github.com/cypress-io/cypress-design/commit/8b0e7356eb64a6b3583d3486dda8ecbb11c34cca) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: use clases compatible with both windi and tailwind
+
 ## 0.6.0
 
 ### Minor Changes
