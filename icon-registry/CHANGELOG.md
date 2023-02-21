@@ -1,5 +1,15 @@
 # @cypress-design/icon-registry
 
+## 0.20.0
+
+### Minor Changes
+
+- [#154](https://github.com/cypress-io/cypress-design/pull/154) [`106b61a`](https://github.com/cypress-io/cypress-design/commit/106b61a97888f956a4c9d235fde5efb4243e1445) Thanks [@ZachJW34](https://github.com/ZachJW34)! - add tassel icon
+
+### Patch Changes
+
+- [`7b4f416`](https://github.com/cypress-io/cypress-design/commit/7b4f4162a0d150aa8cab7ec239faebb58c39464d) Thanks [@elevatebart](https://github.com/elevatebart)! - fix secondary color of object book
+
 ## 0.19.0
 
 ### Minor Changes

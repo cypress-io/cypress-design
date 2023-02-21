@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/icon-registry",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "description": "All svg files to be exposed to the Icon component",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.mjs",
@@ -25,7 +25,7 @@
   ],
   "devDependencies": {
     "@types/lodash.camelcase": "^4.3.7",
-    "@cypress-design/css": "^0.7.0",
+    "@cypress-design/css": "^0.8.0",
     "dedent": "^0.7.0",
     "globby": "^13.1.1",
     "lodash.camelcase": "^4.3.0",

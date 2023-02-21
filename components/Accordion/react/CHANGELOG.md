@@ -1,5 +1,16 @@
 # @cypress-design/react-accordion
 
+## 0.2.0
+
+### Minor Changes
+
+- [#151](https://github.com/cypress-io/cypress-design/pull/151) [`8b0e735`](https://github.com/cypress-io/cypress-design/commit/8b0e7356eb64a6b3583d3486dda8ecbb11c34cca) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: use clases compatible with both windi and tailwind
+
+### Patch Changes
+
+- Updated dependencies [[`106b61a`](https://github.com/cypress-io/cypress-design/commit/106b61a97888f956a4c9d235fde5efb4243e1445), [`7b4f416`](https://github.com/cypress-io/cypress-design/commit/7b4f4162a0d150aa8cab7ec239faebb58c39464d)]:
+  - @cypress-design/react-icon@0.17.0
+
 ## 0.1.7
 
 ### Patch Changes
