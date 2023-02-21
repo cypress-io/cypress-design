@@ -11,6 +11,9 @@
 			"import": "./dist/index.es.mjs",
 			"require": "./dist/index.cjs.js",
 			"types": "./dist/index.d.ts"
+		},
+		"./package.json": {
+			"require": "./package.json"
 		}
 	},
 	"scripts": {
