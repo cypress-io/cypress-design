@@ -1,13 +1,13 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import { dependencies } from './package.json'
 
 export default {
   input: './src/index.ts',
   output: [
     {
       file: './dist/index.cjs.js',
-      inlineDynamicImports: true,
       format: 'commonjs',
       exports: 'auto',
       sourcemap: true,
@@ -15,14 +15,11 @@ export default {
     {
       file: './dist/index.es.mjs',
       format: 'esm',
-      inlineDynamicImports: true,
       sourcemap: true,
     },
   ],
   plugins: [
-    resolve({
-      preferBuiltins: true,
-    }),
+    resolve(),
     commonjs(),
     typescript({
       tsconfig: './tsconfig.build.json',
@@ -32,4 +29,5 @@ export default {
       outDir: './dist',
     }),
   ],
+  external: Object.keys(dependencies),
 }
