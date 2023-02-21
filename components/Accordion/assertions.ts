@@ -23,11 +23,12 @@ export default function assertions(
 
   it('closes when clicking again on details', () => {
     mountStory()
+    cy.wait(50) // react is slow to respond for some reason
     cy.get('details summary').click()
 
     cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
 
-    cy.wait(10)
+    cy.wait(50) // react is slow to respond for some reason
 
     cy.get('details summary').click()
 
