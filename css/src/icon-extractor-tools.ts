@@ -1,4 +1,4 @@
-import { camelCase, kebabCase } from 'lodash'
+import { camelCase, kebabCase } from 'lodash-es'
 import { colors } from './colors'
 
 const prefixes = ['', 'hover', 'focus', 'hocus'] as const

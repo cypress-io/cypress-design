@@ -6,7 +6,7 @@
  */
 
 import createPlugin from 'windicss/plugin'
-import { reduce, kebabCase, isObject } from 'lodash'
+import { reduce, kebabCase, isObject } from 'lodash-es'
 import { colors } from './colors'
 import { DeepNestObject } from 'windicss/types/interfaces'
 

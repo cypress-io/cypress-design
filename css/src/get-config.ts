@@ -1,5 +1,5 @@
 import * as path from 'path'
-import { mergeWith } from 'lodash'
+import { mergeWith } from 'lodash-es'
 import { UserOptions } from 'vite-plugin-windicss'
 import windiConfig from './windi.config'
 

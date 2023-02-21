@@ -7,10 +7,11 @@ export default {
   input: './src/index.ts',
   output: [
     {
-      file: './dist/index.cjs.js',
-      format: 'commonjs',
+      file: './dist/index.umd.js',
+      format: 'umd',
       exports: 'auto',
       sourcemap: true,
+      name: 'CypressCSS',
     },
     {
       file: './dist/index.es.mjs',

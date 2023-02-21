@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash'
+import { camelCase } from 'lodash-es'
 import {
   ADDITIONAL_COLORS,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
