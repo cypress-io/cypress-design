@@ -1,8 +1,9 @@
-const cypressCSS = require('@cypress-design/css')
+// @ts-check
+import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css'
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  presets: [cypressCSS.TailwindConfig()],
+export default {
+  presets: [TailwindConfig()],
   content: {
     files: [
       './index.html',
@@ -11,7 +12,7 @@ module.exports = {
       '../../components/*/vue/**/*.@(mdx|tsx)',
     ],
     extract: ['vue', 'js', 'css', 'tsx', 'mdx'].reduce(
-      (acc, ext) => ({ ...acc, [ext]: cypressCSS.TailwindIconExtractor }),
+      (acc, ext) => ({ ...acc, [ext]: TailwindIconExtractor }),
       {}
     ),
   },
