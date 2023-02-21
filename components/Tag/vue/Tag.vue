@@ -1,9 +1,9 @@
 <template>
   <span
     :class="[
-      SharedSettings.classes,
-      ColorClasses[color][dark ? 'dark' : 'default'],
       SizeClasses[size],
+      ColorClasses[color][dark ? 'dark' : 'default'],
+      SharedSettings.classes,
     ]"
   >
     <slot />

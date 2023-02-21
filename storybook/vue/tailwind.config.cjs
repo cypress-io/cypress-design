@@ -6,7 +6,7 @@ module.exports = {
   content: {
     files: [
       './index.html',
-      './stories/**/*.@(js|ts|tsx|mdx|vue)',
+      './stories/*.@(js|ts|tsx|mdx|vue)',
       '../../components/*/vue/dist/*.@(js|css)',
       '../../components/*/vue/**/*.@(mdx|tsx)',
       '../../components/*/*.ts',

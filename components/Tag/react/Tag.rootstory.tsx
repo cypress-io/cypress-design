@@ -4,13 +4,13 @@ import * as React from 'react'
 import { SizeClasses, ColorClasses } from '../constants'
 
 export default () => (
-  <div className="flex flex-row flex-wrap gap-3 justify-center items-start">
+  <div className="flex flex-row flex-wrap gap-6 justify-center items-start bg-gray-700">
     {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
       (size) => {
         return (
           <div
             className={clsx(
-              'flex flex-col items-center gap-3 justify-center mt-4 p-2'
+              'flex flex-col items-center gap-3 justify-center mt-4 p-4 bg-white rounded-lg'
             )}
           >
             <h3 className="text-right">{size}</h3>

@@ -3,13 +3,13 @@ import Tag from './Tag.vue'
 import { SizeClasses, ColorClasses } from '../constants'
 
 export default () => (
-  <div class="flex flex-row flex-wrap gap-3 justify-center">
+  <div class="flex flex-row flex-wrap gap-6 justify-center items-start bg-gray-700">
     {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
       (size) => {
         return (
           <div
             class={clsx(
-              'flex flex-col items-center gap-3 justify-center mt-4 p-2'
+              'flex flex-col items-center gap-3 justify-center mt-4 p-4 bg-white rounded-lg'
             )}
           >
             <h3 class="text-right">{size}</h3>

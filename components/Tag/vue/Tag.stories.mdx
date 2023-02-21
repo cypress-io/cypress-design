@@ -11,12 +11,21 @@ import TagStory from './Tag.rootstory'
 <Meta title="Tag" component={Tag} parameters={{
     design: {
       type: "figma",
-      url: null,
+      url: "https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x?node-id=1950%3A2659&t=FgOv61yDdRRHIuW9-4",
     }
   }} />
 
 <Canvas withSource="none">
   <Story name="Tag">
+    {(() => ({
+			components: { Tag }, 
+			template:`<Tag color="jade" size="24">Ambassadors</Tag>`
+		}))()}
+  </Story>
+</Canvas>
+
+<Canvas withSource="none">
+  <Story name="All Tags">
     {TagStory()}
   </Story>
 </Canvas>
