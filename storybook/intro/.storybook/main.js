@@ -46,6 +46,22 @@ module.exports = {
     }
   },
   managerWebpack: (config) => {
+    config.module.rules = [
+      {
+        test: /\.(js|mjs|jsx|ts|tsx)$/,
+        use: {
+          // without this, storybook composition only works if the external storybook(s) are launched before the primary one
+          // https://github.com/storybookjs/storybook/issues/13650#issuecomment-773375007
+          loader: 'string-replace-loader',
+          options: {
+            search: /"type": "unknown"/g,
+            replace: () => '"type": "server-checked"',
+          },
+        },
+      },
+      ...config.module.rules,
+    ]
+
     config.plugins.push(
       new CopyWebpackPlugin({
         patterns: [
