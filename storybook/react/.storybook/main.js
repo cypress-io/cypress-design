@@ -27,7 +27,9 @@ module.exports = {
       type: 'javascript/auto',
       test: /.+\.mjs$/,
     })
+
     config.resolve.extensions.push('.json')
+
     return config
   },
 }

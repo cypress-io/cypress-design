@@ -4,13 +4,11 @@ const { TailwindConfig, TailwindIconExtractor } = require('@cypress-design/css')
 module.exports = {
   presets: [TailwindConfig()],
   content: {
-    files: [
-      './stories/**/*.@(ts|tsx|mdx)',
-      '../../components/*/react/**/*.@(mdx|tsx|ts|css|js|jsx)',
-    ],
+    files: ['./stories/**/*.@(ts|tsx|mdx)'],
     extract: ['jsx', 'tsx', 'mdx'].reduce(
       (acc, ext) => ({ ...acc, [ext]: TailwindIconExtractor }),
       {}
     ),
   },
+  safelist: [],
 }
