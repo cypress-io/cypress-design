@@ -1,4 +1,4 @@
-import { camelCase } from 'lodash-es'
+import _ from 'lodash'
 import {
   ADDITIONAL_COLORS,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
@@ -6,6 +6,8 @@ import {
   isValidWindiColor,
 } from './icon-extractor-tools'
 import defaultExtractor from './tw-default-extractor'
+
+const { camelCase } = _
 
 export function getHtmlAttributes(line: string) {
   const attributes = line.match(/([\w-]+)=["']?([^"']*)["']?/g)

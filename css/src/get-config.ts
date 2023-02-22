@@ -1,7 +1,9 @@
 import * as path from 'path'
-import { mergeWith } from 'lodash-es'
+import _ from 'lodash'
 import { UserOptions } from 'vite-plugin-windicss'
 import windiConfig from './windi.config'
+
+const { mergeWith } = _
 
 function customizer(objValue: any, srcValue: any) {
   if (Array.isArray(objValue) && Array.isArray(srcValue)) {
