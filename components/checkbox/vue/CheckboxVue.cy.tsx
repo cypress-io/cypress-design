@@ -12,7 +12,7 @@ describe('<Checkbox />', () => {
           label="Welcome guide settings"
           id="welcome-opt-out"
           checked
-          class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+          class="m-2 px-2 py-1 border border-gray-300 rounded"
         />
       )
     })
@@ -31,7 +31,7 @@ describe('<Checkbox />', () => {
           label="Welcome guide settings"
           id="welcome-opt-out"
           checked
-          class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+          class="m-2 px-2 py-1 border border-gray-300 rounded"
         />
       )
     })
@@ -69,10 +69,10 @@ describe('<Checkbox />', () => {
           <Checkbox
             label="Welcome guide settings"
             vModel={isChecked.value}
-            class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+            class="m-2 px-2 py-1 border border-gray-300 rounded"
           />
           <div
-            class="m-2 px-2 py-1 border-1 border-gray-300 rounded"
+            class="m-2 px-2 py-1 border border-gray-300 rounded"
             data-cy="result"
           >
             isChecked = {isChecked.value.toString()}
