@@ -76,7 +76,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
       />
       <label className="flex items-center" htmlFor={id}>
         {localChecked && (
-          // <windi-keep strokeColor="white"/>
+          // <tw-keep strokeColor="white"/>
           <IconCheckmarkSmall strokeColor="white" className="absolute" />
         )}
         <span
