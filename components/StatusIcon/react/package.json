@@ -1,27 +1,27 @@
 {
-  "name": "@cypress-design/react-statusicon",
-  "version": "0.2.4",
-  "files": [
-    "*"
-  ],
-  "typings": "./dist/react/index.d.ts",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js"
-    }
-  },
-  "scripts": {
-    "build": "yarn build:module && yarn build:types",
-    "build:module": "rollup -c ./rollup.config.js",
-    "build:types": "tsc --project ./tsconfig.build.json"
-  },
-  "dependencies": {
-    "@cypress-design/icon-registry": "^0.20.0",
-    "@cypress-design/react-icon": "^0.17.0",
-    "clsx": "*"
-  },
-  "license": "MIT"
+	"name": "@cypress-design/react-statusicon",
+	"version": "0.2.4",
+	"files": [
+		"*"
+	],
+	"typings": "./dist/react/index.d.ts",
+	"main": "./dist/index.umd.js",
+	"module": "./dist/index.es.mjs",
+	"exports": {
+		".": {
+			"import": "./dist/index.es.mjs",
+			"require": "./dist/index.umd.js"
+		}
+	},
+	"scripts": {
+		"build": "yarn build:module && yarn build:types",
+		"build:module": "rollup -c ./rollup.config.mjs",
+		"build:types": "tsc --project ./tsconfig.build.json"
+	},
+	"dependencies": {
+		"@cypress-design/icon-registry": "^0.20.0",
+		"@cypress-design/react-icon": "^0.17.0",
+		"clsx": "*"
+	},
+	"license": "MIT"
 }

@@ -1,9 +1,3 @@
-<template>
-  <OutlineStatusIcon v-if="variant === 'outline'" :size="size" :status="status" />
-  <SimpleStatusIcon v-else-if="variant === 'simple'" :size="size" :status="status" />
-  <SolidStatusIcon v-else :size="size" :status="status" />
-</template>
-
 <script lang="ts" setup>
 import type { Size, statusTypes, Variant } from '../constants'
 import OutlineStatusIcon from './OutlineStatusIcon'
@@ -32,3 +26,17 @@ withDefaults(
   }
 )
 </script>
+
+<template>
+  <OutlineStatusIcon
+    v-if="variant === 'outline'"
+    :size="size"
+    :status="status"
+  />
+  <SimpleStatusIcon
+    v-else-if="variant === 'simple'"
+    :size="size"
+    :status="status"
+  />
+  <SolidStatusIcon v-else :size="size" :status="status" />
+</template>

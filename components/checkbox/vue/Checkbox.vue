@@ -73,7 +73,7 @@ const checkboxClasses = computed(() => [
 </script>
 
 <template>
-  <span class="block relative flex items-center">
+  <span class="relative flex items-center">
     <input
       :id="id"
       class="absolute inset-0 w-0 h-0 opacity-0"
@@ -83,7 +83,7 @@ const checkboxClasses = computed(() => [
       :disabled="props.disabled"
       :checked="localChecked"
     />
-    <label className="flex items-center" :for="id">
+    <label class="flex items-center" :for="id">
       <IconCheckmarkSmall
         v-if="localChecked"
         strokeColor="white"
@@ -91,7 +91,7 @@ const checkboxClasses = computed(() => [
       />
       <span
         :class="checkboxClasses"
-        class="block border border-solid rounded h-[16px] w-[16px] flex-shrink-0"
+        class="flex items-center border border-solid rounded h-[16px] w-[16px] flex-shrink-0"
       />
       <slot name="label">
         <span

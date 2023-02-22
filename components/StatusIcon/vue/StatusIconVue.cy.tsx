@@ -5,11 +5,6 @@ import { SimpleStatusIcon, StatusIcon } from '@cypress-design/vue-statusicon'
 import StatusIconStory from './StatusIcon.rootstory'
 
 describe('StatusIcon', () => {
-  it('renders', () => {
-    mount(StatusIconStory)
-    cy.percySnapshot()
-  })
-
   it('defaults to a variant that exists if the one provided does not exist', () => {
     mount(() => {
       return (
@@ -59,5 +54,10 @@ describe('StatusIcon', () => {
     cy.then(function () {
       expect(this.firstIcon).to.eq(this.secondIcon)
     })
+  })
+
+  it('renders', () => {
+    mount(StatusIconStory)
+    cy.percySnapshot()
   })
 })

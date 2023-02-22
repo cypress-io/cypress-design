@@ -18,7 +18,7 @@ import { Meta } from '@storybook/addon-docs';
   Let's get coding! Here's how to start:
 </p>
 
-<ul className="list-none p-0 flex flex-col gap-4 my-10 max-w-200">
+<ul className="!list-none !p-0 flex flex-col gap-4 my-10 max-w-200">
   {
     [{
       title: 'Read the yarn/webpack/vite install documentation',
@@ -36,8 +36,8 @@ import { Meta } from '@storybook/addon-docs';
       logo: require('../../../logos/vue.svg')
     }].map(({ title, href, logo }) => (
       <li>
-        <a className="text-2xl block p-4 border border-gray-200 rounded flex items-center bg-white hover:bg-jade-50 transition" href={href}>
-          <img src={logo} className="w-8 m-4"/>
+        <a className="text-2xl block py-8 px-4 border border-gray-200 rounded flex items-center bg-white hover:bg-jade-50 transition" href={href}>
+          <img src={logo} className="w-8 mx-4"/>
           <span className="flex-1">{title}</span>
         </a>
       </li>

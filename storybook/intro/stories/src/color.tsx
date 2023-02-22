@@ -1,5 +1,6 @@
 import { colors as designColors } from '@cypress-design/css/dist/colors'
-import React, { FunctionComponent } from 'react'
+import type { FunctionComponent } from 'react'
+import * as React from 'react'
 import { contrastingTextColor } from './contrast'
 import {
   filter,

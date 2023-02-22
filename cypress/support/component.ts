@@ -15,11 +15,11 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+import '../../style.css'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import 'virtual:windi.css'
 import './a11y-support'
 
 import 'cypress-real-events/support'
