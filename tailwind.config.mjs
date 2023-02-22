@@ -5,8 +5,8 @@ import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css'
 export default {
   presets: [TailwindConfig()],
   content: {
-    files: ['./components/**/*.@(tsx|vue|ts|scss)'],
-    extract: ['vue', 'js', 'css', 'tsx', 'mdx'].reduce(
+    files: ['./components/**/*.@(tsx|vue|ts|scss|js|css)'],
+    extract: ['vue', 'jsx', 'tsx', 'ts'].reduce(
       (acc, ext) => ({ ...acc, [ext]: TailwindIconExtractor }),
       {}
     ),
