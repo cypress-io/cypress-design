@@ -1,7 +1,7 @@
-import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css'
+const { TailwindConfig, TailwindIconExtractor } = require('@cypress-design/css')
 
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   presets: [TailwindConfig()],
   content: {
     files: [
