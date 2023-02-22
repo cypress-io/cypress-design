@@ -1,5 +1,11 @@
 # @cypress-design/react-alert
 
+## 0.4.0
+
+### Minor Changes
+
+- [#156](https://github.com/cypress-io/cypress-design/pull/156) [`d6109ed`](https://github.com/cypress-io/cypress-design/commit/d6109ed5874bdccb3d9d9d3d9805ca4b1aa2895b) Thanks [@elevatebart](https://github.com/elevatebart)! - make css available as a esm
+
 ## 0.3.0
 
 ### Minor Changes
