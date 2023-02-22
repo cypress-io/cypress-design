@@ -6,9 +6,11 @@
  */
 
 import createPlugin from 'windicss/plugin'
-import { reduce, kebabCase, isObject } from 'lodash'
+import _ from 'lodash'
 import { colors } from './colors'
 import { DeepNestObject } from 'windicss/types/interfaces'
+
+const { reduce, kebabCase, isObject } = _
 
 interface RuleConfig {
   name: string

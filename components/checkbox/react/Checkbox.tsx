@@ -60,10 +60,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   }
 
   return (
-    <span
-      className={clsx(className, 'block relative flex items-center')}
-      {...rest}
-    >
+    <span className={clsx(className, 'relative flex items-center')} {...rest}>
       <input
         id={id}
         className="absolute inset-0 w-0 h-0 opacity-0"
@@ -76,12 +73,12 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
       />
       <label className="flex items-center" htmlFor={id}>
         {localChecked && (
-          // <windi-keep strokeColor="white"/>
+          // <tw-keep strokeColor="white"/>
           <IconCheckmarkSmall strokeColor="white" className="absolute" />
         )}
         <span
           className={clsx([
-            `block border border-solid rounded h-[16px] w-[16px] flex flex-shrink-0 items-center text-white`,
+            `border border-solid rounded h-[16px] w-[16px] flex flex-shrink-0 items-center text-white`,
             disabled
               ? 'border-gray-200 bg-gray-100'
               : localChecked

@@ -1,4 +1,3 @@
-const { CyCSSWebpackPlugin } = require('@cypress-design/css')
 const path = require('path')
 
 module.exports = {
@@ -28,7 +27,9 @@ module.exports = {
       type: 'javascript/auto',
       test: /.+\.mjs$/,
     })
+
     config.resolve.extensions.push('.json')
+
     return config
   },
 }

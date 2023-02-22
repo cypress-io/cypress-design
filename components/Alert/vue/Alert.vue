@@ -164,7 +164,7 @@ const sizeClasses = computed(() => {
     </div>
     <details
       v-if="slots.details"
-      class="p-[16px] border-t-1"
+      class="p-[16px] border-t border-t-1"
       ref="detailsRef"
       :class="[typeClasses.bodyClass, typeClasses.borderClass]"
     >

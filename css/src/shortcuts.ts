@@ -8,7 +8,7 @@ interface RecursiveKeyValuePair {
  * Our default hover/focus behavior for buttons and cards is an indigo
  * border that hovers in and out
  * Animations not working? Border looking a little off? Make sure that you
- * have border-1 set on the non-hocus state. If you *don't* want a gray
+ * have `border border-1` set on the non-hocus state. If you *don't* want a gray
  * outline with that, do border-transparent for the non-hocus state.
  */
 
