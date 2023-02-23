@@ -1,4 +1,6 @@
+import * as path from 'path'
 import type { Config } from 'tailwindcss'
+import resolvePkg from 'resolve-pkg'
 import { tailwindPlugin } from './shortcuts'
 import iconPlugin from './tw-icon-plugin'
 import { IconExtractor } from './tw-icon-extractor'
@@ -10,6 +12,18 @@ function defineConfig(config: Config) {
 }
 
 export default (fileGlobs: string[] = []) => {
+  const currentPackagePath = resolvePkg('@cypress-design/css')
+
+  if (currentPackagePath) {
+    fileGlobs.push(
+      path.resolve(
+        currentPackagePath,
+        '..', // remove css/ from path
+        '*/dist/*.@(js|css)' // look for all component files
+      )
+    )
+  }
+
   return defineConfig({
     content: {
       files: fileGlobs,
