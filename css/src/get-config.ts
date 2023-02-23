@@ -1,6 +1,7 @@
 import * as path from 'path'
 import _ from 'lodash'
 import { UserOptions } from 'vite-plugin-windicss'
+import resolvePkg from 'resolve-pkg'
 import windiConfig from './windi.config'
 
 const { mergeWith } = _
@@ -20,9 +21,7 @@ export function getConfig(options: UserOptions) {
     ? [scan.include]
     : []
 
-  const currentPackagePath = path.dirname(
-    require.resolve('@cypress-design/css/package.json')
-  )
+  const currentPackagePath = resolvePkg('@cypress-design/css')
 
   const config = mergeWith({}, windiConfig, options.config, customizer)
 
@@ -34,7 +33,7 @@ export function getConfig(options: UserOptions) {
       include: [
         ...include,
         path.resolve(
-          currentPackagePath,
+          currentPackagePath ?? '',
           '..', // remove css/ from path
           '*/dist/*.@(js|css)' // look for all component files
         ),
