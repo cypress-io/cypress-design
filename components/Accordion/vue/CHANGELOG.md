@@ -1,5 +1,11 @@
 # @cypress-design/vue-accordion
 
+## 0.2.1
+
+### Patch Changes
+
+- [`c798320`](https://github.com/cypress-io/cypress-design/commit/c798320236ec41a43eb74be80f407781e980aaf0) Thanks [@elevatebart](https://github.com/elevatebart)! - fix the aria-role of accordion separator
+
 ## 0.2.0
 
 ### Minor Changes

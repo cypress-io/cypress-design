@@ -1,5 +1,12 @@
 # @cypress-design/test-webpack-react-app
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`d6109ed`](https://github.com/cypress-io/cypress-design/commit/d6109ed5874bdccb3d9d9d3d9805ca4b1aa2895b)]:
+  - @cypress-design/react-spinner@0.3.0
+
 ## 0.0.21
 
 ### Patch Changes
