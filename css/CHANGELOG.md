@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.9.1
+
+### Patch Changes
+
+- [#159](https://github.com/cypress-io/cypress-design/pull/159) [`62bcb0d`](https://github.com/cypress-io/cypress-design/commit/62bcb0d6a95bd7cb015ab02d5c09873be84fa294) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: use a real package to resolve css
+
 ## 0.9.0
 
 ### Minor Changes
