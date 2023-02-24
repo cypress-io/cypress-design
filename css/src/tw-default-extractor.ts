@@ -18,7 +18,7 @@ export default function defaultExtractor() {
 }
 
 function* buildRegExps() {
-  let separator = '-'
+  let separator = ':'
 
   let utility = regex.any([
     // Arbitrary properties
