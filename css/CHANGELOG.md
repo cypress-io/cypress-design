@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.9.2
+
+### Patch Changes
+
+- [`951340c`](https://github.com/cypress-io/cypress-design/commit/951340cf12b066852274c4b2d7e294e7bf3106cb) Thanks [@elevatebart](https://github.com/elevatebart)! - fix tailwind config
+
 ## 0.9.1
 
 ### Patch Changes
