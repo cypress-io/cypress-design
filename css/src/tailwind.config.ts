@@ -1,11 +1,12 @@
 import * as path from 'path'
 import type { Config } from 'tailwindcss'
 import resolvePkg from 'resolve-pkg'
-import { tailwindPlugin } from './shortcuts'
+import { tailwindPlugin as shortcuts } from './shortcuts'
 import iconPlugin from './tw-icon-plugin'
 import { IconExtractor } from './tw-icon-extractor'
 import theme from './theme.config'
 import detailsOpenVariantPlugin from './tw-details-open-variant-plugin'
+import plugin from 'tailwindcss/plugin'
 
 function defineConfig(config: Config) {
   return config
@@ -33,6 +34,13 @@ export default (fileGlobs: string[] = []) => {
       }, {} as Record<string, (content: string) => string[]>),
     },
     theme,
-    plugins: [tailwindPlugin, iconPlugin, detailsOpenVariantPlugin],
+    plugins: [
+      shortcuts,
+      iconPlugin,
+      detailsOpenVariantPlugin,
+      plugin(({ addVariant }) => {
+        addVariant('hocus', ['&:focus', '&:hover'])
+      }),
+    ],
   })
 }
