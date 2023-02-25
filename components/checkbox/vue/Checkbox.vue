@@ -10,6 +10,7 @@ function uid() {
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { IconCheckmarkSmall } from '@cypress-design/vue-icon'
+import { CheckboxColors, Classes } from '../constants'
 
 const props = withDefaults(
   defineProps<{
@@ -59,45 +60,38 @@ function updated() {
   emit('update:modelValue', localChecked.value)
 }
 
-const checkboxClasses = computed(() => [
+const checkboxClasses = computed(() =>
   props.disabled
-    ? 'border-gray-200 bg-gray-100'
+    ? CheckboxColors.disabled
     : localChecked.value
-    ? {
-        'border-indigo-500 bg-indigo-400': props.color === 'indigo',
-        'border-jade-500 bg-jade-400': props.color === 'jade',
-        'border-red-500 bg-red-400': props.color === 'red',
-      }
-    : 'border-gray-200 bg-white',
-])
+    ? CheckboxColors[props.color]
+    : CheckboxColors.empty
+)
 </script>
 
 <template>
   <span class="relative flex items-center">
     <input
       :id="id"
-      class="absolute inset-0 w-0 h-0 opacity-0"
+      :class="Classes.hiddenInput"
       :name="name || id"
       type="checkbox"
       @change="updated"
       :disabled="props.disabled"
       :checked="localChecked"
     />
-    <label class="flex items-center" :for="id">
+    <label :class="Classes.labelTag" :for="id">
       <IconCheckmarkSmall
         v-if="localChecked"
         strokeColor="white"
         class="absolute"
       />
-      <span
-        :class="checkboxClasses"
-        class="flex items-center border border-solid rounded h-[16px] w-[16px] flex-shrink-0"
-      />
+      <span :class="[checkboxClasses, Classes.visibleCheckbox]" />
       <slot name="label">
         <span
           v-if="label"
           :class="[
-            'ml-[8px] text-[16px] leading-[24px] font-light select-none',
+            Classes.trueLabel,
             disabled ? 'text-gray-500' : 'text-gray-800',
           ]"
         >

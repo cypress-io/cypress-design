@@ -2,6 +2,7 @@ import clsx from 'clsx'
 import * as React from 'react'
 import type { FunctionComponent, HTMLProps, ReactNode } from 'react'
 import { IconCheckmarkSmall } from '@cypress-design/react-icon'
+import { CheckboxColors, Classes } from '../constants'
 
 export interface CheckboxProps
   extends Omit<HTMLProps<HTMLDivElement>, 'label' | 'onChange' | 'name'> {
@@ -60,10 +61,10 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   }
 
   return (
-    <span className={clsx(className, 'relative flex items-center')} {...rest}>
+    <span className={clsx(className, Classes.wrapper)} {...rest}>
       <input
         id={id}
-        className="absolute inset-0 w-0 h-0 opacity-0"
+        className={Classes.hiddenInput}
         aria-describedby={`${id}-description`}
         name={name || id}
         type="checkbox"
@@ -71,30 +72,26 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         disabled={disabled}
         checked={localChecked}
       />
-      <label className="flex items-center" htmlFor={id}>
+      <label className={Classes.labelTag} htmlFor={id}>
         {localChecked && (
           // <tw-keep strokeColor="white"/>
           <IconCheckmarkSmall strokeColor="white" className="absolute" />
         )}
         <span
           className={clsx([
-            `border border-solid rounded h-[16px] w-[16px] flex flex-shrink-0 items-center text-white`,
+            Classes.visibleCheckbox,
             disabled
-              ? 'border-gray-200 bg-gray-100'
+              ? CheckboxColors.disabled
               : localChecked
-              ? {
-                  'border-indigo-500 bg-indigo-400': color === 'indigo',
-                  'border-jade-500 bg-jade-400': color === 'jade',
-                  'border-red-500 bg-red-400': color === 'red',
-                }
-              : 'border-gray-200 bg-white',
+              ? CheckboxColors[color]
+              : CheckboxColors.empty,
           ])}
         />
         {label && (
           <span
             className={clsx([
               disabled ? 'text-gray-500' : 'text-gray-800',
-              'block ml-[8px] text-[16px] leading-[24px] font-light select-none',
+              Classes.trueLabel,
             ])}
           >
             {label}
