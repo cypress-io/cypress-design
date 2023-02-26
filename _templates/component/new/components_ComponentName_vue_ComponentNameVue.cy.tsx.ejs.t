@@ -1,5 +1,5 @@
 ---
-to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.camelize(name, false) %>.cy.tsx
+to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.camelize(name, false) %>Vue.cy.tsx
 ---
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'

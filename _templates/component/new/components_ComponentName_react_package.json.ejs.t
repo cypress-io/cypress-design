@@ -18,7 +18,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "rollup -c ./rollup.config.js",
+    "build:module": "rollup -c ./rollup.config.mjs",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {

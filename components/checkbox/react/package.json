@@ -1,12 +1,12 @@
 {
 	"name": "@cypress-design/react-checkbox",
-	"version": "0.5.0",
+	"version": "0.0.0",
 	"files": [
 		"*"
 	],
-	"typings": "./dist/index.d.ts",
-	"main": "./dist/index.umd.js",
+	"typings": "./dist/react/index.d.ts",
 	"module": "./dist/index.es.mjs",
+	"main": "./dist/index.umd.js",
 	"exports": {
 		".": {
 			"import": "./dist/index.es.mjs",
@@ -19,7 +19,6 @@
 		"build:types": "tsc --project ./tsconfig.build.json"
 	},
 	"dependencies": {
-		"@cypress-design/react-icon": "*",
 		"clsx": "*"
 	},
 	"license": "MIT"

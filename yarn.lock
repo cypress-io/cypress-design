@@ -1364,6 +1364,21 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@cypress-design/react-checkbox@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@cypress-design/react-checkbox/-/react-checkbox-0.5.0.tgz#3cdc52162d017c335021025a67a80f889e0baca7"
+  integrity sha512-ELY0rTYe1HrxaeX1jjD5kxBTTrjMWjvNKhI0CAEWClyUk1fvpfDIM8hHPJD0bkrGH8XUEVlQd730pzDsEBZSyw==
+  dependencies:
+    "@cypress-design/react-icon" "*"
+    clsx "*"
+
+"@cypress-design/vue-checkbox@*", "@cypress-design/vue-checkbox@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@cypress-design/vue-checkbox/-/vue-checkbox-0.5.0.tgz#0981a9a9d76a589ca8bc494ad1dfe27b24a7b4f6"
+  integrity sha512-+Ndg3hQEE39sKGCEXbtWDG2hBPLx+o5KErZibZmOGH2pELXIgGSAY28Rs2s6nUwA3uEmxOeU7ZqI2jaOwkou1A==
+  dependencies:
+    "@cypress-design/vue-icon" "*"
+
 "@cypress/request@^2.88.10":
   version "2.88.10"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.10.tgz#b66d76b07f860d3a4b8d7a0604d020c662752cce"

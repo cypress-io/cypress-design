@@ -1,5 +1,5 @@
 ---
-to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.camelize(name, false) %>.cy.tsx
+to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.camelize(name, false) %>React.cy.tsx
 ---
 /// <reference types="cypress" />
 
