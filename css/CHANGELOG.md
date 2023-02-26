@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.9.3
+
+### Patch Changes
+
+- [#162](https://github.com/cypress-io/cypress-design/pull/162) [`76d4e60`](https://github.com/cypress-io/cypress-design/commit/76d4e601687d28578cdee0ddc67cd04b286ae2c3) Thanks [@elevatebart](https://github.com/elevatebart)! - add hocus back to tailwind config
+
 ## 0.9.2
 
 ### Patch Changes
