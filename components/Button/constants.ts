@@ -1,36 +1,39 @@
 export const VariantClassesTable = {
-  link: 'border-transparent text-indigo-600 hover:underline disabled:text-gray-500 disabled:no-underline ring-transparent',
+  link: 'text-indigo-600 border-transparent hover:underline disabled:text-gray-500 disabled:no-underline enabled:hover:shadow-transparent ring-transparent',
+  // outline variants
   'outline-indigo':
-    'border-indigo-500 ring-offset-0 text-indigo-500 hover:ring-indigo-300/35 disabled:text-gray-500',
+    'border-indigo-500 text-indigo-500 enabled:hocus:shadow-indigo-300/[.35] disabled:text-gray-500 focus:ring-indigo-600',
   'outline-purple':
-    'border-purple-500 ring-offset-0 text-purple-500 hover:ring-purple-100 disabled:text-gray-500',
+    'text-purple-500 border-purple-500 enabled:hocus:shadow-purple-100 disabled:text-gray-500 focus:ring-purple-600',
   'outline-gray':
-    'border-gray-1000 ring-offset-0 text-gray-1000 hover:ring-gray-100 disabled:text-gray-500',
+    'text-gray-1000 border-gray-1000 enabled:hocus:shadow-gray-100 disabled:text-gray-500 focus:ring-gray-600',
   'outline-light':
-    'border-gray-100 ring-offset-0 text-indigo-500 hover:border-gray-200 disabled:border-gray-100 hover:ring-gray-50 disabled:text-gray-500',
+    'text-indigo-500 border-gray-100 hover:border-gray-200 disabled:border-gray-100 enabled:hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'outline-dark':
-    'border-white/20 ring-offset-0 text-white hover:border-white/60 hover:ring-white/20 disabled:border-white/20 disabled:text-white/50',
+    'text-white border-white/20 hover:border-white/60 enabled:hocus:shadow-white/20 disabled:border-white/20 disabled:text-white/50 focus:ring-gray-200',
+  // light variants
   white:
-    'border-gray-100 ring-offset-0 bg-white text-indigo-500 hover:border-gray-200 hover:ring-gray-50 disabled:text-gray-500',
+    'text-indigo-500 bg-white border-gray-100 hover:border-gray-200 enabled:hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'indigo-light':
-    'border-indigo-50 ring-offset-0 bg-indigo-50 text-indigo-500 hover:border-indigo-200 hover:ring-2 hover:ring-indigo-50',
-  'indigo-dark':
-    'border-indigo-500 ring-offset-0 bg-indigo-500 text-white hover:ring-2 hover:ring-indigo-100 focus:bg-indigo-600',
+    'text-indigo-500 bg-indigo-50 border-indigo-50 hover:border-indigo-200 enabled:hocus:shadow-indigo-50 focus:ring-indigo-100',
   'jade-light':
-    'border-transparent ring-offset-0 bg-jade-200 text-teal-600 hover:border-jade-300 hover:ring-2 hover:ring-jade-50',
+    'text-teal-600 bg-jade-200 border-transparent hover:border-jade-300 enabled:hocus:shadow-jade-50 focus:ring-jade-300',
+  // dark variants
   'jade-dark':
-    'border-jade-500 ring-offset-0 bg-jade-500 text-white hover:ring-2 hover:ring-jade-100',
+    'text-white bg-jade-500 border-jade-500 enabled:hocus:shadow-jade-100 focus:ring-jade-600',
+  'indigo-dark':
+    'text-white bg-indigo-500 border-indigo-500 enabled:hocus:shadow-indigo-100 focus:bg-indigo-600 focus:ring-indigo-600',
   'teal-dark':
-    'border-teal-500 ring-offset-0 bg-teal-500 text-white hover:ring-2 hover:ring-teal-100 focus:bg-teal-600',
+    'text-white bg-teal-500 border-teal-500 enabled:hocus:shadow-teal-100 focus:bg-teal-600 focus:ring-teal-600',
   'purple-dark':
-    'border-purple-500 ring-offset-0 bg-purple-500 text-white hover:ring-2 hover:ring-purple-100 focus:bg-purple-600',
+    'text-white bg-purple-500 border-purple-500 enabled:hocus:shadow-purple-100 focus:bg-purple-600 focus:ring-purple-600',
   'red-dark':
-    'border-red-500 ring-offset-0 bg-red-500 text-white hover:ring-2 hover:ring-red-100 focus:bg-red-600',
+    'text-white bg-red-500 border-red-500 enabled:hocus:shadow-red-100 focus:bg-red-600 focus:ring-red-600',
   'gray-dark':
-    'border-gray-800 ring-offset-0 bg-gray-800 text-white hover:ring-2 hover:ring-gray-100',
+    'text-white bg-gray-800 border-gray-800 enabled:hocus:shadow-gray-100 focus:ring-gray-800',
   'gray-darkest':
-    'border-gray-1000 ring-offset-0 bg-gray-1000 text-white hover:ring-2 hover:ring-gray-100',
-  disabled: 'border-gray-500 bg-gray-500 text-white',
+    'text-white bg-gray-1000 border-gray-1000 enabled:hocus:shadow-gray-100 focus:ring-gray-1000',
+  disabled: 'text-white bg-gray-500 border-gray-500',
 } as const
 
 export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
@@ -46,7 +49,7 @@ export const SizeClassesTable = {
 export const DefaultSize: keyof typeof SizeClassesTable = '40'
 
 export const StaticClasses =
-  'border rounded rounded-[4px] flex font-medium items-center transition duration-150 enabled:hover:ring-2 enabled:focus:ring-2 disabled:cursor-not-allowed'
+  'border rounded rounded-[4px] flex font-medium items-center transition duration-150 enabled:hover:shadow-ring-hover enabled:focus:shadow-ring-focus enabled:active:shadow-ring-focus disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
 
 export type ButtonSizes = keyof typeof SizeClassesTable
 

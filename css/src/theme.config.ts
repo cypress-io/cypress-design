@@ -21,7 +21,8 @@ export default defineTheme({
     boxShadow: {
       dropdown: '0 1px 3px 0 rgba(0, 0, 0, 0.2)',
       'marketing-card': '0 2px 12px 0 rgba(0, 0, 0, 0.06)',
-      ring: '0 0 0 3px rgba(0, 0, 0, 0.2)',
+      'ring-hover': '0 0 0 2px',
+      'ring-focus': '0 0 0 3px',
     },
   },
 })
