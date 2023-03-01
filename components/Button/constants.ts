@@ -22,15 +22,15 @@ export const VariantClassesTable = {
   'jade-dark':
     'text-white bg-jade-500 border-jade-500 enabled:hocus:shadow-jade-100 focus:ring-jade-600',
   'indigo-dark':
-    'text-white bg-indigo-500 border-indigo-500 enabled:hocus:shadow-indigo-100 focus:bg-indigo-600 focus:ring-indigo-600',
+    'text-white bg-indigo-500 border-indigo-500 enabled:hocus:shadow-indigo-100 focus:bg-indigo-600 focus:border-indigo-700 focus:ring-indigo-700',
   'teal-dark':
-    'text-white bg-teal-500 border-teal-500 enabled:hocus:shadow-teal-100 focus:bg-teal-600 focus:ring-teal-600',
+    'text-white bg-teal-500 border-teal-500 enabled:hocus:shadow-teal-100 focus:bg-teal-600 focus:border-teal-700 focus:ring-teal-700',
   'purple-dark':
-    'text-white bg-purple-500 border-purple-500 enabled:hocus:shadow-purple-100 focus:bg-purple-600 focus:ring-purple-600',
+    'text-white bg-purple-500 border-purple-500 enabled:hocus:shadow-purple-100 focus:bg-purple-600 focus:border-purple-700 focus:ring-purple-700',
   'red-dark':
-    'text-white bg-red-500 border-red-500 enabled:hocus:shadow-red-100 focus:bg-red-600 focus:ring-red-600',
+    'text-white bg-red-500 border-red-500 enabled:hocus:shadow-red-100 focus:bg-red-600 focus:border-red-700 focus:ring-red-700',
   'gray-dark':
-    'text-white bg-gray-800 border-gray-800 enabled:hocus:shadow-gray-100 focus:ring-gray-800',
+    'text-white bg-gray-800 border-gray-800 enabled:hocus:shadow-gray-100 focus:border-gray-800 focus:ring-gray-800',
   'gray-darkest':
     'text-white bg-gray-1000 border-gray-1000 enabled:hocus:shadow-gray-100 focus:ring-gray-1000',
   disabled: 'text-white bg-gray-500 border-gray-500',
