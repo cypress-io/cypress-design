@@ -70,7 +70,7 @@ export default () => (
                       </td>
                     )
                   })}
-                  <td className="align-top py-2">
+                  <td className="py-2 align-top">
                     {i === 0 ? statusInfo.use : ''}
                   </td>
                 </tr>

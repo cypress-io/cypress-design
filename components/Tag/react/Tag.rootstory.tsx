@@ -4,7 +4,7 @@ import * as React from 'react'
 import { SizeClasses, ColorClasses } from '../constants'
 
 export default () => (
-  <div className="flex flex-row flex-wrap gap-6 justify-center items-start bg-gray-700">
+  <div className="flex flex-row flex-wrap items-start justify-center bg-gray-700 gap-6">
     {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
       (size) => {
         return (

@@ -6,7 +6,7 @@ describe('Icon', () => {
   it('renders correctly', () => {
     mount(
       <ul className="m-4">
-        <li className="flex items-center mb-3 px-2">
+        <li className="flex items-center px-2 mb-3">
           fillColor="red-100" -{' '}
           <IconObjectBookCode
             fillColor="red-100"
@@ -16,7 +16,7 @@ describe('Icon', () => {
             secondaryStrokeColor="indigo-600"
           />
         </li>
-        <li className="flex items-center mb-3 px-2 bg-magenta-100">
+        <li className="flex items-center px-2 mb-3 bg-magenta-100">
           fillColor="transparent" -{' '}
           <Icon
             name="arrow-outline-down"
@@ -27,7 +27,7 @@ describe('Icon', () => {
         </li>
         <li className="flex items-center px-2">
           strokeColor="current" -{' '}
-          <button className="flex gap-2 items-center m-2 bg-jade-600 hover:bg-jade-800 text-white py-1 px-2 rounded">
+          <button className="flex items-center px-2 py-1 m-2 text-white rounded gap-2 bg-jade-600 hover:bg-jade-800">
             <Icon name="action-add-large" strokeColor="current" />
             Add a new icon
           </button>

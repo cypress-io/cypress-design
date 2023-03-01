@@ -12,7 +12,7 @@ describe('Checkbox', () => {
         id="welcome-opt-out"
         checked={isChecked}
         onChange={() => (isChecked = !isChecked)}
-        className="m-2 px-2 py-1 border border-gray-300 rounded"
+        className="px-2 py-1 m-2 border border-gray-300 rounded"
       />
     )
 
@@ -32,7 +32,7 @@ describe('Checkbox', () => {
         id="welcome-opt-out"
         checked={isChecked}
         onChange={() => (isChecked = !isChecked)}
-        className="m-2 px-2 py-1 border border-gray-300 rounded"
+        className="px-2 py-1 m-2 border border-gray-300 rounded"
       />
     )
 

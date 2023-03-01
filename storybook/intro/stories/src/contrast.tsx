@@ -73,7 +73,7 @@ const Cell: FunctionComponent<CellProps> = ({
 
   return (
     <div
-      className="border text-white p-4 grid-cols-1"
+      className="p-4 text-white border grid-cols-1"
       style={{ borderColor: contrastingTextColor(background.value) }}
     >
       <div
