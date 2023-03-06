@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 0.18.1
+
+### Patch Changes
+
+- [#165](https://github.com/cypress-io/cypress-design/pull/165) [`119430b`](https://github.com/cypress-io/cypress-design/commit/119430b2f150a8bcadbb5fcb059d64b6e61043b2) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - feat(icons): add google chrome beta browser icon
+
+- Updated dependencies [[`119430b`](https://github.com/cypress-io/cypress-design/commit/119430b2f150a8bcadbb5fcb059d64b6e61043b2)]:
+  - @cypress-design/icon-registry@0.20.1
+
 ## 0.18.0
 
 ### Minor Changes
