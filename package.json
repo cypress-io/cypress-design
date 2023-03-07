@@ -21,7 +21,7 @@
 		"cy": "cypress open --component",
 		"cy:run": "cypress run --component",
 		"test": "vitest",
-		"build:components": "node components/build-components.js",
+		"build:components": "node components/build-components.cjs",
 		"start": "concurrently \"vue-docgen --watch -c docgen.config.cjs\" \"vitepress dev docs\"",
 		"build:docs": "vue-docgen && vitepress build docs",
 		"build:css": "yarn workspace @cypress-design/css build",

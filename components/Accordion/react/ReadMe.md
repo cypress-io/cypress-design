@@ -22,9 +22,9 @@ yarn add @cypress-design/react-accordion
 import Accordion from '@cypress-design/react-accordion'
 ```
 
-```tsx
+```vue live
 <Accordion
-  icon={IconActionQuestionMarkCircle}
+  icon="{IconActionQuestionMarkCircle}"
   title="Accordion Title"
   description="Vestibulum id ligula porta felis euismod semper. Nulla... "
   separator
