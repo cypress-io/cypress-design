@@ -77,8 +77,6 @@ const error = ref()
   padding-top: 12px;
   padding-bottom: 0;
   white-space: pre-wrap;
-}
-.prism-editor__editor {
   font-family: 'Fira Code', monospace;
   line-height: var(--vp-code-line-height);
   font-size: var(--vp-code-font-size);
