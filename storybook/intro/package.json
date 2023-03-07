@@ -3,7 +3,7 @@
 	"private": true,
 	"version": "0.0.0",
 	"scripts": {
-		"build": "build-storybook --output-dir ../dist --quiet",
+		"build": "build-storybook --output-dir ../../docs/dist --quiet",
 		"start": "start-storybook -p 9997"
 	},
 	"dependencies": {
@@ -15,7 +15,7 @@
 		"@storybook/addon-actions": "^6.5.16",
 		"@storybook/addon-essentials": "^6.5.16",
 		"@storybook/addon-links": "^6.5.16",
-    "@storybook/addon-postcss": "^2.0.0",
+		"@storybook/addon-postcss": "^2.0.0",
 		"@storybook/react": "^6.5.7",
 		"chroma-js": "^2.4.2",
 		"copy-webpack-plugin": "^6.3.2",

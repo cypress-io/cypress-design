@@ -4,8 +4,8 @@
 	"version": "0.0.0",
 	"scripts": {
 		"start": "start-storybook -p 9996",
-		"build": "build-storybook --quiet --output-dir ../dist/vue",
-		"postbuild": "copyfiles metadata.json ../dist/vue/"
+		"build": "build-storybook --quiet --output-dir ../../docs/dist/vue",
+		"postbuild": "copyfiles metadata.json .--output-dir ../../docs/dist/vue/"
 	},
 	"dependencies": {
 		"vue": "^3.2.31"
