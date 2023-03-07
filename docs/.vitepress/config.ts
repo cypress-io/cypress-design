@@ -10,6 +10,7 @@ const sidebarComponents = globbySync('components/**/*.md', {
 
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
+  outDir: './dist',
   themeConfig: {
     sidebar: [
       {

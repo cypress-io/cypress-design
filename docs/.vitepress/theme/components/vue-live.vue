@@ -4,19 +4,21 @@
       <VueLivePreview
         v-if="lang === 'vue'"
         :requires="requires"
+        @detect-language="switchLanguage"
         :code="liveCode"
         @error="(e: any) => (error = e)"
         @success="error = undefined"
       />
       <pre v-else>
-				{{ liveCode }}
-			</pre
+						{{ liveCode }}
+					</pre
       >
     </div>
     <div class="editor code-block" :class="`language-${lang}`">
       <VueLiveEditor
         :code="liveCode"
         @change="(code) => (liveCode = code)"
+        :prism-lang="prismLang"
         :error="error"
       />
     </div>
@@ -37,6 +39,20 @@ const props = defineProps<{
 
 const liveCode = ref(props.code)
 const error = ref()
+
+const prismLang = ref<'html' | 'vsg'>('html')
+
+const LANG_TO_PRISM = {
+  vue: 'html',
+  vsg: 'vsg',
+} as const
+
+function switchLanguage(newLang: 'vue' | 'vsg') {
+  const newPrismLang = LANG_TO_PRISM[newLang]
+  if (prismLang.value !== newPrismLang) {
+    prismLang.value = newPrismLang
+  }
+}
 </script>
 
 <style scoped>
