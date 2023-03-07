@@ -5,8 +5,8 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "start-storybook -p 9995",
-		"build": "build-storybook --output-dir ../dist/react",
-		"postbuild": "copyfiles metadata.json ../dist/react/"
+		"build": "build-storybook --output-dir ../../docs/dist/react",
+		"postbuild": "copyfiles metadata.json --output-dir ../../docs/dist/react/"
 	},
 	"dependencies": {
 		"react": "17",
