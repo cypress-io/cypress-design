@@ -11,7 +11,13 @@ const path = require('path')
 var storiesFile = process.argv[2]
 
 async function fixStoriesOrder(storiesFile) {
-  const storiesFileFullPath = path.join(__dirname, storiesFile)
+  const storiesFileFullPath = path.join(
+    __dirname,
+    '..',
+    'docs',
+    'dist',
+    storiesFile
+  )
   const stories = JSON.parse(await fs.readFile(storiesFileFullPath, 'utf8'))
 
   const storiesKeys = Object.keys(stories.stories)
