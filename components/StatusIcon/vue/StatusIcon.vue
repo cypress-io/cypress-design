@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { Size, statusTypes, Variant } from '../constants'
-import OutlineStatusIcon from './OutlineStatusIcon'
-import SimpleStatusIcon from './SimpleStatusIcon'
-import SolidStatusIcon from './SolidStatusIcon'
+import OutlineStatusIcon from './_OutlineStatusIcon'
+import SimpleStatusIcon from './_SimpleStatusIcon'
+import SolidStatusIcon from './_SolidStatusIcon'
 
 withDefaults(
   defineProps<{
