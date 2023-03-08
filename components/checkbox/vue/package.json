@@ -18,6 +18,9 @@
 		"build:module": "yarn vite build",
 		"build:types": "yarn vue-tsc --project ./tsconfig.build.json"
 	},
+	"dependencies": {
+		"@cypress-design/react-icon": "*"
+	},
 	"devDependencies": {
 		"@cypress-design/css": "*"
 	},
