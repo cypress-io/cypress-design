@@ -9,7 +9,9 @@ import {
 } from '../constants'
 import type { ButtonProps } from '../constants'
 
-export default defineComponent<ButtonProps>({
+export default defineComponent({
+  emits: ['click'],
+  props: ['variant', 'size', 'disabled', 'href'] as any,
   setup(props: ButtonProps) {
     const {
       variant = DefaultVariant,
@@ -30,7 +32,7 @@ export default defineComponent<ButtonProps>({
     return {
       componentTag: computed(() => (href ? 'a' : 'button')),
       href,
-      buttonProps: {
+      buttonProps: reactive({
         ...attr,
         class: [
           StaticClasses,
@@ -38,7 +40,7 @@ export default defineComponent<ButtonProps>({
           SizeClassesTable[size],
         ],
         disabled: finalDisabled.value,
-      },
+      }),
     }
   },
 })
@@ -50,11 +52,11 @@ export default defineComponent<ButtonProps>({
     :href="href"
     :target="target"
     v-bind="buttonProps"
-    @click="$emit('click')"
+    @click="(...args) => $emit('click', ...args)"
   >
     <slot />
   </a>
-  <button v-bind="buttonProps" @click="$emit('click')">
+  <button v-bind="buttonProps" @click="(...args) => $emit('click', ...args)">
     <slot />
   </button>
 </template>
