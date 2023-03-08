@@ -1,3 +1,4 @@
+// @ts-check
 const { defaultTemplates } = require('vue-docgen-cli')
 
 const { renderTags, mdclean } = defaultTemplates
@@ -17,6 +18,7 @@ function lineTemplate(props) {
   return ret
 }
 
+/** @type typeof import('vue-docgen-cli').defaultTemplates.props */
 module.exports = function (props, opt) {
   return `
 ${opt?.isSubComponent || opt?.hasSubComponents ? '#' : ''}## Props

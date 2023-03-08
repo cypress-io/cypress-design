@@ -11153,10 +11153,10 @@ vue-docgen-api@^4.60.0:
     ts-map "^1.0.3"
     vue-inbrowser-compiler-independent-utils "^4.56.2"
 
-vue-docgen-cli@^4.61.0:
-  version "4.61.0"
-  resolved "https://registry.yarnpkg.com/vue-docgen-cli/-/vue-docgen-cli-4.61.0.tgz#d5776bef5b526ac44d6d40f2a514203ccf378611"
-  integrity sha512-tWJNBgxpVHSNuwFtZrAwAoXZyTT09+MXmmpgWaxbG+bQ/WgoZetTo/Ky5tlTolBulWk+pTrruTiczVNGt4FeFg==
+vue-docgen-cli@^4.61.1:
+  version "4.61.1"
+  resolved "https://registry.yarnpkg.com/vue-docgen-cli/-/vue-docgen-cli-4.61.1.tgz#463dd230de072127d2453f170545311d83e603de"
+  integrity sha512-m1AY8wfsdO8Xkm/A4UQ1wrot0PqQNRXNekd3Scgnw+eKoMEzbghuEloP5x1AjLnMd3iYKVl5DKzqaoTEsyqaJg==
   dependencies:
     chokidar "^3.5.1"
     globby "^10.0.2"
