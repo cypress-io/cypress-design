@@ -22,5 +22,8 @@
 		"clsx": "*",
 		"@floating-ui/react-dom-interactions": "^0.6.1"
 	},
+	"devDependencies": {
+		"@cypress-design/css": "*"
+	},
 	"license": "MIT"
 }

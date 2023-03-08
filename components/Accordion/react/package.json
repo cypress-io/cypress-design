@@ -23,5 +23,8 @@
 		"@cypress-design/details-animation": "*",
 		"@cypress-design/react-icon": "*"
 	},
+	"devDependencies": {
+		"@cypress-design/css": "*"
+	},
 	"license": "MIT"
 }

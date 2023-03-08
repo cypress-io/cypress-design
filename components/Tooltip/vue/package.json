@@ -1,25 +1,28 @@
 {
-  "name": "@cypress-design/vue-tooltip",
-  "version": "0.4.0",
-  "files": [
-    "*"
-  ],
-  "typings": "./dist/index.d.ts",
-  "main": "./dist/index.umd.js",
-  "module": "./dist/index.es.mjs",
-  "exports": {
-    ".": {
-      "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js"
-    }
-  },
-  "scripts": {
-    "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
-  },
-  "license": "MIT",
-  "dependencies": {
-    "@floating-ui/dom": "^0.5.1"
-  }
+	"name": "@cypress-design/vue-tooltip",
+	"version": "0.4.0",
+	"files": [
+		"*"
+	],
+	"typings": "./dist/index.d.ts",
+	"main": "./dist/index.umd.js",
+	"module": "./dist/index.es.mjs",
+	"exports": {
+		".": {
+			"import": "./dist/index.es.mjs",
+			"require": "./dist/index.umd.js"
+		}
+	},
+	"scripts": {
+		"build": "yarn build:module && yarn build:types",
+		"build:module": "yarn vite build",
+		"build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+	},
+	"dependencies": {
+		"@floating-ui/dom": "^0.5.1"
+	},
+	"devDependencies": {
+		"@cypress-design/css": "*"
+	},
+	"license": "MIT"
 }
