@@ -21,13 +21,10 @@
 		"cy": "cypress open --component",
 		"cy:run": "cypress run --component",
 		"test": "vitest",
-		"build:components": "turbo run build --filter=@cypress-design/vue-* --filter=@cypress-design/react-*",
+		"build:components": "turbo run build --filter=@cypress-design/*",
 		"start": "concurrently \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
 		"build:docs": "vue-docgen -c docs/docgen/docgen.config.cjs && yarn build:components && vitepress build docs",
-		"build:css": "yarn workspace @cypress-design/css build",
-		"build:icons": "yarn workspace @cypress-design/icon-registry build && yarn workspace @cypress-design/react-icon build:codegen && yarn workspace @cypress-design/vue-icon build:codegen",
-		"build:animation": "yarn workspace @cypress-design/details-animation build",
-		"postinstall": "yarn husky install && yarn build:css && yarn build:icons && yarn build:animation",
+		"postinstall": "yarn husky install",
 		"new:component": "hygen component new"
 	},
 	"dependencies": {

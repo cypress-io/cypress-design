@@ -1,5 +1,5 @@
 {
-	"name": "@cypress-design/test-vue-app",
+	"name": "@test/vue-app",
 	"version": "0.0.26",
 	"private": true,
 	"scripts": {

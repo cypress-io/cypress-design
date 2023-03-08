@@ -1,5 +1,5 @@
 {
-	"name": "@cypress-design/test-vue-app-tailwind",
+	"name": "@test/vue-app-tailwind",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
