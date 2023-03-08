@@ -4,6 +4,7 @@
       <VueLivePreview
         v-if="lang === 'vue'"
         :requires="requires"
+        :components="components"
         @detect-language="switchLanguage"
         :code="liveCode"
         @error="(e: any) => (error = e)"
@@ -35,6 +36,7 @@ const props = defineProps<{
   lang: string
   code: string
   requires?: Record<string, any>
+  components?: Record<string, any>
 }>()
 
 const liveCode = ref(props.code)

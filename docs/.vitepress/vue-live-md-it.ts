@@ -58,6 +58,7 @@ function addVueLive(md: any, opts: any) {
       lang="${langClean}" 
       :code="\`${codeClean}\`" 
       :requires="imports$${importMarker}"
+			:components="components$"
        />`
 
     importMarker++
