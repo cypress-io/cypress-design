@@ -2,7 +2,7 @@ import { getImports } from './getImports'
 
 let importMarker = 0
 
-function addVueLive(md: any, opts: any) {
+function addVueLive(md: any) {
   const fence = md.renderer.rules.fence
   md.renderer.rules.fence = (...args: any[]) => {
     const [tokens, idx, _, env] = args

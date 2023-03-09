@@ -63,6 +63,7 @@
 		"postcss": "^8.4.21",
 		"prettier": "^2.6.2",
 		"react-docgen-typescript": "^2.2.2",
+		"react-live-runner": "^1.0.4",
 		"rollup": "^2.75.7",
 		"rollup-plugin-postcss": "^4.0.2",
 		"rollup-plugin-sourcemaps": "^0.6.3",

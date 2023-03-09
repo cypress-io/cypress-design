@@ -1,36 +1,9 @@
-<template>
-  <div class="preview-code">
-    <div class="preview code-block">
-      <VueLivePreview
-        v-if="lang === 'vue'"
-        :requires="requires"
-        :components="components"
-        @detect-language="switchLanguage"
-        :code="liveCode"
-        @error="(e: any) => (error = e)"
-        @success="error = undefined"
-      />
-      <pre v-else>
-						{{ liveCode }}
-					</pre
-      >
-    </div>
-    <div class="editor code-block" :class="`language-${lang}`">
-      <VueLiveEditor
-        :code="liveCode"
-        @change="(code) => (liveCode = code)"
-        :prism-lang="prismLang"
-        :error="error"
-      />
-    </div>
-  </div>
-</template>
-
 <script lang="ts" setup>
 import 'prismjs/themes/prism-tomorrow.css'
 import 'vue-live/style.css'
 import { VueLiveEditor, VueLivePreview } from 'vue-live'
-import { ref } from 'vue'
+import { createRoot, ReactPreview } from './react-preview'
+import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   lang: string
@@ -55,7 +28,38 @@ function switchLanguage(newLang: 'vue' | 'vsg') {
     prismLang.value = newPrismLang
   }
 }
+
+const reactAppRoot$ = ref<HTMLDivElement>()
+onMounted(() => {
+  const root = createRoot(reactAppRoot$.value)
+  root.render(ReactPreview)
+})
 </script>
+
+<template>
+  <div class="preview-code">
+    <div class="preview code-block">
+      <VueLivePreview
+        v-if="lang === 'vue'"
+        :requires="requires"
+        :components="components"
+        @detect-language="switchLanguage"
+        :code="liveCode"
+        @error="(e: any) => (error = e)"
+        @success="error = undefined"
+      />
+      <div v-else v-once ref="reactAppRoot$">React app root</div>
+    </div>
+    <div class="editor code-block" :class="`language-${lang}`">
+      <VueLiveEditor
+        :code="liveCode"
+        @change="(code) => (liveCode = code)"
+        :prism-lang="prismLang"
+        :error="error"
+      />
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .preview-code {
