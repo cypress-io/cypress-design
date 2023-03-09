@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { VueLiveEditor, VueLivePreview } from 'vue-live'
 import { createElement, createRoot, ReactPreview } from './react-preview'
-import { onMounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'vue-live/style.css'
 
@@ -32,15 +32,33 @@ function switchLanguage(newLang: 'vue' | 'vsg') {
 const reactAppRoot$ = ref<HTMLDivElement>()
 onMounted(() => {
   if (reactAppRoot$.value) {
-    const root = createRoot(reactAppRoot$.value)
-    root.render(
-      createElement(ReactPreview, {
-        code: liveCode.value,
-        requires: props.requires,
-        components: props.components,
-      })
+    root.value = createRoot(reactAppRoot$.value)
+    renderReactApp(liveCode.value)
+
+    watch(
+      liveCode,
+      (code) => {
+        renderReactApp(code)
+      },
+      { immediate: true }
     )
   }
+})
+
+const root = ref<{ render: (el: any) => void } | null>(null)
+
+function renderReactApp(code: string) {
+  root.value?.render(
+    createElement(ReactPreview, {
+      code,
+      requires: props.requires,
+      components: props.components,
+    })
+  )
+}
+
+onUnmounted(() => {
+  root.value = null
 })
 </script>
 
