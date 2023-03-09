@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { VueLiveEditor, VueLivePreview } from 'vue-live'
+import { createElement, createRoot, ReactPreview } from './react-preview'
+import { onMounted, ref } from 'vue'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'vue-live/style.css'
-import { VueLiveEditor, VueLivePreview } from 'vue-live'
-import { createRoot, ReactPreview } from './react-preview'
-import { onMounted, ref } from 'vue'
 
 const props = defineProps<{
   lang: string
@@ -31,8 +31,16 @@ function switchLanguage(newLang: 'vue' | 'vsg') {
 
 const reactAppRoot$ = ref<HTMLDivElement>()
 onMounted(() => {
-  const root = createRoot(reactAppRoot$.value)
-  root.render(ReactPreview)
+  if (reactAppRoot$.value) {
+    const root = createRoot(reactAppRoot$.value)
+    root.render(
+      createElement(ReactPreview, {
+        code: liveCode.value,
+        requires: props.requires,
+        components: props.components,
+      })
+    )
+  }
 })
 </script>
 
@@ -40,7 +48,7 @@ onMounted(() => {
   <div class="preview-code">
     <div class="preview code-block">
       <VueLivePreview
-        v-if="lang === 'vue'"
+        v-if="props.lang === 'vue'"
         :requires="requires"
         :components="components"
         @detect-language="switchLanguage"
