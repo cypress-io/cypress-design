@@ -20,6 +20,7 @@ function lineTemplate(props) {
 
 /** @type typeof import('vue-docgen-cli').defaultTemplates.props */
 module.exports = function (props, opt) {
+  if (!props.length) return ''
   return `
 ${opt?.isSubComponent || opt?.hasSubComponents ? '#' : ''}## Props
 
