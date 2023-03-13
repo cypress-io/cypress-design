@@ -6,10 +6,11 @@ import 'prismjs/themes/prism-tomorrow.css'
 import 'vue-live/style.css'
 
 const props = defineProps<{
-  lang: string
+  framework: 'vue' | 'react'
   code: string
   requires?: Record<string, any>
   components?: Record<string, any>
+  jsx: boolean
 }>()
 
 const liveCode = ref(props.code)
@@ -66,22 +67,24 @@ onUnmounted(() => {
   <div class="preview-code">
     <div class="preview code-block">
       <VueLivePreview
-        v-if="props.lang === 'vue'"
+        v-if="props.framework === 'vue'"
         :requires="requires"
         :components="components"
-        @detect-language="switchLanguage"
         :code="liveCode"
+        :jsx="jsx"
+        @detect-language="switchLanguage"
         @error="(e: any) => (error = e)"
         @success="error = undefined"
       />
       <div v-else v-once ref="reactAppRoot$">React app root</div>
     </div>
-    <div class="editor code-block" :class="`language-${lang}`">
+    <div class="editor code-block" :class="`language-${props.framework}`">
       <VueLiveEditor
         :code="liveCode"
-        @change="(code) => (liveCode = code)"
         :prism-lang="prismLang"
         :error="error"
+        :jsx="jsx || props.framework === 'react'"
+        @change="(code) => (liveCode = code)"
       />
     </div>
   </div>

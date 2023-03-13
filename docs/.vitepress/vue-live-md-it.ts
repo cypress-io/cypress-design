@@ -4,8 +4,10 @@ let importMarker = 0
 
 function addVueLive(md: any) {
   const fence = md.renderer.rules.fence
+
   md.renderer.rules.fence = (...args: any[]) => {
     const [tokens, idx, _, env] = args
+
     const token: { info: string; content: string } = tokens[idx]
     const lang = token.info.trim()
 
@@ -48,14 +50,14 @@ function addVueLive(md: any) {
     }
 
     const langArray = lang.split(' ')
-    const langClean = langArray[0]
+    const framework = env.relativePath.split('/')[1] // components/vue/xxx.vue -> vue
     const codeClean = md.utils
       .escapeHtml(code)
       .replace(/\`/g, '\\`')
       .replace(/\$/g, '\\$')
     const jsx = langArray.length > 2 && langArray[1] === 'jsx' ? 'jsx ' : '' // to enable jsx, we want ```vue jsx live or ```jsx jsx live
     const markdownGenerated = `<vue-live ${jsx}
-      lang="${langClean}" 
+      framework="${framework}" 
       :code="\`${codeClean}\`" 
       :requires="imports$${importMarker}"
 			:components="components$"
