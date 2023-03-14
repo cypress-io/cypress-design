@@ -17,23 +17,27 @@ export const getImports = (
       return script?.imports || {}
     }
   } else {
-    const finalCode = transform(code, {
-      transforms: ['typescript', 'jsx'],
-    }).code
+    try {
+      const finalCode = transform(code, {
+        transforms: ['typescript', 'jsx'],
+      }).code
 
-    return parseImports(finalCode).reduce(
-      (acc, { moduleName, namedImports }) => {
-        namedImports.forEach(({ alias, name }) => {
-          acc[alias] = {
-            source: moduleName,
-            imported: name,
-          }
-        })
+      return parseImports(finalCode).reduce(
+        (acc, { moduleName, namedImports }) => {
+          namedImports.forEach(({ alias, name }) => {
+            acc[alias] = {
+              source: moduleName,
+              imported: name,
+            }
+          })
 
-        return acc
-      },
-      {} as Record<string, { source: string; imported: string }>
-    )
+          return acc
+        },
+        {} as Record<string, { source: string; imported: string }>
+      )
+    } catch (e) {
+      // eat the compile or parse error
+    }
   }
   return {}
 }
