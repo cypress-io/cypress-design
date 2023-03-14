@@ -1,3 +1,5 @@
+/// <reference types="vite/client" />
+
 declare module 'parse-static-imports' {
   export interface NamedImport {
     alias: string

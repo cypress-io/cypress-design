@@ -50,7 +50,7 @@ function addVueLive(md: any) {
     }
 
     const langArray = lang.split(' ')
-    const framework = env.relativePath.split('/')[1] // components/vue/xxx.vue -> vue
+    const framework = env.relativePath.split('/')[1] // components/vue/xxx.md -> vue
     const codeClean = md.utils
       .escapeHtml(code)
       .replace(/\`/g, '\\`')
