@@ -3,7 +3,8 @@ import { transform } from 'sucrase'
 import parseImports from 'parse-static-imports'
 
 export const getImports = (
-  code: string
+  code: string,
+  filePath: string
 ): Record<string, { source: string; imported: string }> => {
   if (/<\/script>/.test(code)) {
     const { descriptor, errors } = parse(code)
@@ -22,8 +23,8 @@ export const getImports = (
         transforms: ['typescript', 'jsx'],
       }).code
 
-      return parseImports(finalCode).reduce(
-        (acc, { moduleName, namedImports }) => {
+      const imports = parseImports(finalCode).reduce(
+        (acc, { moduleName, namedImports, defaultImport }) => {
           namedImports.forEach(({ alias, name }) => {
             acc[alias] = {
               source: moduleName,
@@ -31,10 +32,19 @@ export const getImports = (
             }
           })
 
+          if (defaultImport) {
+            acc[defaultImport] = {
+              source: moduleName,
+              imported: 'default',
+            }
+          }
+
           return acc
         },
         {} as Record<string, { source: string; imported: string }>
       )
+
+      return imports
     } catch (e) {
       // eat the compile or parse error
     }

@@ -39,13 +39,17 @@ export const ReactPreview = ({ code, requires, components }) => {
       {
         transforms: ['jsx', 'typescript', 'imports'],
         production: true,
+        enableLegacyTypeScriptModuleInterop: true,
       }
     )
-    const LivePreview = new Function(
-      'require',
-      'React',
-      `const exports = {};${compiledCode};return exports.default ?? exports`
-    )
+    const funCode = `"use strict";const exports = {};${compiledCode.replace(
+      /^"use strict";/g,
+      ''
+    )}
+		const keys = Object.keys(exports);
+		return exports.default ?? exports[keys[0]]`
+
+    const LivePreview = new Function('require', 'React', funCode)
     return createElement(LivePreview(require, React))
   }
 }

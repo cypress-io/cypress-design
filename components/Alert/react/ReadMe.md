@@ -25,7 +25,7 @@ yarn add @cypress-design/react-alert
 
 The simplest is to use with plain text. The only prop that is required is the `title`. By default, type is `info`.
 
-```jsx
+```jsx live
 import Alert from '@cypress-design/react-alert'
 
 export const AlertComp = () => {
@@ -35,7 +35,7 @@ export const AlertComp = () => {
 
 One can also have rich text in both the title and the body.
 
-```jsx
+```jsx live
 import Alert from '@cypress-design/react-alert'
 
 export const AlertComp = () => {
@@ -55,24 +55,26 @@ export const AlertComp = () => {
 
 If you want the alert to be dismissible, you can add the `dismissible` prop. Don't forget to add the `onDismiss` prop to handle the dismiss event.
 
-```jsx
+```jsx live
 import Alert from '@cypress-design/react-alert'
 
 export const AlertComp = () => {
   const [dismissed, setDismissed] = React.useState(false)
-  return (
-    {!dismissed && (<Alert
+  return dismissed ? (
+    <div>dismissed</div>
+  ) : (
+    <Alert
       title="This is an info message"
       dismissible
       onDismiss={() => setDismissed(true)}
-    />)}
+    />
   )
 }
 ```
 
 You can also remove the rounded corners and the icon of the alert by adding the `notRounded` and `noIcon` props.
 
-```jsx
+```jsx live
 import Alert from '@cypress-design/react-alert'
 
 export const AlertComp = () => {

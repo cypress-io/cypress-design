@@ -1,6 +1,7 @@
 import { getImports } from './getImports'
 
 let importMarker = 0
+const initializedPages = new Set<string>()
 
 function addVueLive(md: any) {
   const fence = md.renderer.rules.fence
@@ -25,20 +26,21 @@ function addVueLive(md: any) {
     // analyze code to find requires
     // put all requires into a "requires" object
     // add this as a prop
-    const imports = getImports(code)
+    const imports = getImports(code, env.relativePath)
     const requires = `${Object.entries(imports).map(([key, oneImport]) => {
-      return `import { ${oneImport.imported} as ${key} } from '${oneImport.source}';
+      return `import { ${oneImport.imported} as __imported_${key}_$${importMarker}__ } from '${oneImport.source}';
 			`
     })}
 		const imports$${importMarker} = {}
 		${Object.entries(imports).map(([key, oneImport]) => {
-      return `imports$${importMarker}['${oneImport.source}'] = { ${oneImport.imported}: ${key} };
+      return `imports$${importMarker}['${oneImport.source}'] = { ${oneImport.imported}: __imported_${key}_$${importMarker}__ };
 		`
     })}`
 
     const scriptBlock = env.sfcBlocks.scripts.find(
       (s: any) => s.type === 'script' && s.tagOpen.includes('setup')
     )
+
     if (!scriptBlock) {
       env.sfcBlocks.scripts.push({
         type: 'script',

@@ -81,7 +81,7 @@ onUnmounted(() => {
     <div class="editor code-block" :class="`language-${props.framework}`">
       <VueLiveEditor
         :code="liveCode"
-        :prism-lang="prismLang"
+        :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
         @change="(code) => (liveCode = code)"
