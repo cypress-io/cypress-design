@@ -49,7 +49,7 @@ const links = computed(() => ({
     <aside>
       <SideBar class="float-left" :framework="framework" />
     </aside>
-    <div class="max-w-[800px] mx-auto">
+    <div class="w-[800px] mx-auto">
       <CommonContent />
       <hr />
       <Content />

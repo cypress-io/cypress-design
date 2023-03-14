@@ -16,6 +16,10 @@ function addVueLive(md: any) {
       return fence(...args)
     }
 
+    const langArray = lang.split(' ')
+
+    const jsx = langArray.length > 2 && langArray[1] === 'jsx' ? 'jsx ' : '' // to enable jsx, we want ```vue jsx live or ```jsx jsx live
+
     const code = token.content
 
     // analyze code to find requires
@@ -49,13 +53,12 @@ function addVueLive(md: any) {
         scriptBlock.tagOpen + scriptBlock.contentStripped + scriptBlock.tagClose
     }
 
-    const langArray = lang.split(' ')
     const framework = env.relativePath.split('/')[1] // components/vue/xxx.md -> vue
     const codeClean = md.utils
       .escapeHtml(code)
       .replace(/\`/g, '\\`')
       .replace(/\$/g, '\\$')
-    const jsx = langArray.length > 2 && langArray[1] === 'jsx' ? 'jsx ' : '' // to enable jsx, we want ```vue jsx live or ```jsx jsx live
+
     const markdownGenerated = `<vue-live ${jsx}
       framework="${framework}" 
       :code="\`${codeClean}\`" 
