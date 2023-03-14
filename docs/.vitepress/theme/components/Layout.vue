@@ -41,16 +41,15 @@ const links = computed(() => ({
 </script>
 
 <template>
+  <header class="flex h-20 justify-center gap-4">
+    <a :href="links.react" class="p-4">react</a
+    ><a :href="links.vue" class="p-4">vue</a>
+  </header>
   <div class="flex min-h-full">
-    <header>
-      <a :href="links.react">react</a><a :href="links.vue">vue</a>
-    </header>
     <aside>
       <SideBar class="float-left" :framework="framework" />
     </aside>
     <div class="max-w-[800px] mx-auto">
-      <pre>{{ path }}</pre>
-      <pre>{{ commonPath }}</pre>
       <CommonContent />
       <hr />
       <Content />

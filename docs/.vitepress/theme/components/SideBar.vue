@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { IconChevronRightSmall } from '@cypress-design/vue-icon'
+
 const pages = {
   vue: import.meta.glob('../../../components/vue/*.md', {
     eager: true,
@@ -19,8 +21,15 @@ defineProps<{
 
 <template>
   <ul>
-    <li v-for="(page, p) of pages[framework]" :key="p">
-      <a :href="p.replace(/\.md$/, '')">{{ getPageName(p) }}</a>
+    <li>
+      <span class="flex items-center"
+        ><IconChevronRightSmall /> Components</span
+      >
+      <ul class="pl-6">
+        <li v-for="(page, p) of pages[framework]" :key="p">
+          <a :href="p.replace(/\.md$/, '')">{{ getPageName(p) }}</a>
+        </li>
+      </ul>
     </li>
   </ul>
 </template>
