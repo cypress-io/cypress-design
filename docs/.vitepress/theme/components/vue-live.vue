@@ -91,6 +91,9 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.editor.code-block {
+  @apply bg-gray-1000;
+}
 .preview-code {
   display: flex;
   flex-flow: column;
