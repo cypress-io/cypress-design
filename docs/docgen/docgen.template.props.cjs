@@ -3,7 +3,7 @@ const { defaultTemplates } = require('vue-docgen-cli')
 
 const { renderTags, mdclean } = defaultTemplates
 
-function lineTemplate(props) {
+function lineTemplate(props, supComponent) {
   let ret = ''
 
   props.forEach((pr) => {
@@ -13,19 +13,26 @@ function lineTemplate(props) {
     const n = pr.type?.name ?? ''
     const d = pr.defaultValue?.value ?? ''
 
-    ret += `| ${mdclean(p)} | ${mdclean(t)} | ${mdclean(n)} | ${mdclean(d)} |\n`
+    ret += `
+${supComponent ? '#' : ''}### ${mdclean(p)}
+
+**type** ${mdclean(n)}${d.length ? ` - **default**: ${mdclean(d)}` : ''}
+
+${mdclean(t)}
+
+`
   })
+
   return ret
 }
 
 /** @type typeof import('vue-docgen-cli').defaultTemplates.props */
 module.exports = function (props, opt) {
   if (!props.length) return ''
+  const supComponent = opt?.isSubComponent || opt?.hasSubComponents
   return `
-${opt?.isSubComponent || opt?.hasSubComponents ? '#' : ''}## Props
+${supComponent ? '#' : ''}## Props
 
-| Prop name     | Description | Type      | Default     |
-| ------------- | ----------- | --------- | ----------- |
-${lineTemplate(props)}
+${lineTemplate(props, supComponent)}
 `
 }

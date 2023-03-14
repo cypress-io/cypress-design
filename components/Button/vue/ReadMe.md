@@ -23,7 +23,7 @@ import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 
 <template>
   <Button>
-    <IconActionQuestionMarkCircle />
+    <IconActionQuestionMarkCircle class="mr-2" />
     Button
   </Button>
 </template>
