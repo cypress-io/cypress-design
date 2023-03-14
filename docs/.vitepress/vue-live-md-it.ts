@@ -33,7 +33,7 @@ function addVueLive(md: any) {
     })}
 		const imports$${importMarker} = {}
 		${Object.entries(imports).map(([key, oneImport]) => {
-      return `imports$${importMarker}['${oneImport.source}'] = { ${oneImport.imported}: __imported_${key}_$${importMarker}__ };
+      return `imports$${importMarker}['${oneImport.source}'] = { __esModule:true, ${oneImport.imported}: __imported_${key}_$${importMarker}__ };
 		`
     })}`
 

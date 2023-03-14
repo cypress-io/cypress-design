@@ -92,7 +92,7 @@ onUnmounted(() => {
 
 <style scoped>
 .editor.code-block {
-  @apply bg-gray-1000;
+  @apply bg-gray-1000 rounded-t-none rounded-b-md my-0;
 }
 .preview-code {
   display: flex;

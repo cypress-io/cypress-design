@@ -39,7 +39,6 @@ export const ReactPreview = ({ code, requires, components }) => {
       {
         transforms: ['jsx', 'typescript', 'imports'],
         production: true,
-        enableLegacyTypeScriptModuleInterop: true,
       }
     )
     const funCode = `"use strict";const exports = {};${compiledCode.replace(
