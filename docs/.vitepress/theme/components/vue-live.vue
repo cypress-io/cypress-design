@@ -10,7 +10,7 @@ const props = defineProps<{
   code: string
   requires?: Record<string, any>
   components?: Record<string, any>
-  jsx: boolean
+  jsx?: boolean
 }>()
 
 const liveCode = ref(props.code)

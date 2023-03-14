@@ -80,7 +80,7 @@
 		"vue-component-meta": "^1.2.0",
 		"vue-docgen-cli": "^4.61.2",
 		"vue-eslint-parser": "^9.0.2",
-		"vue-live": "^2.4.7",
+		"vue-live": "^2.4.8",
 		"vue-tsc": "^0.39.4"
 	},
 	"lint-staged": {

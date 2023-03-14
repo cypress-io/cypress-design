@@ -11225,19 +11225,19 @@ vue-inbrowser-compiler-independent-utils@^4.62.0:
   resolved "https://registry.yarnpkg.com/vue-inbrowser-compiler-independent-utils/-/vue-inbrowser-compiler-independent-utils-4.62.0.tgz#a4488c084d99a930b53a19468dd590bbfb5ea0dc"
   integrity sha512-Xj7phxND9kycttv1KxvzenyqdjVQLf8V5LDREO+x+2FwM99pKhUg2VoxPHlRKghcvOvBv9Fs1iaU9kJCl0DjbQ==
 
-vue-inbrowser-compiler-sucrase@^4.62.0:
-  version "4.62.0"
-  resolved "https://registry.yarnpkg.com/vue-inbrowser-compiler-sucrase/-/vue-inbrowser-compiler-sucrase-4.62.0.tgz#487fb9c1ca03ba503ab496b32a3093d5d00b1d92"
-  integrity sha512-i/04sJf6PhLQX7Q9orrz7j+8jz/6zNugkPZkTzDVyXT67QclXF7Rg6FcAh90pjfKGTUwsxLaXC9vOIh+ePvWbg==
+vue-inbrowser-compiler-sucrase@^4.62.1:
+  version "4.62.2"
+  resolved "https://registry.yarnpkg.com/vue-inbrowser-compiler-sucrase/-/vue-inbrowser-compiler-sucrase-4.62.2.tgz#4da407cea0fdb88ea672f5ca25a16c2a3d064cc8"
+  integrity sha512-73zEX6q9pnxDRcJ5oCqAHmjGn+8P2nvTY6V2eAYCyV0GnwUSehLT72vc8pOzS54YmT1lNCuP3KXbMBLOezQvFA==
   dependencies:
     "@babel/parser" "^7.13.12"
     camelcase "^5.3.1"
     detect-browser "^5.2.0"
     sucrase "3.29.0"
-    vue-inbrowser-compiler-utils "^4.62.0"
+    vue-inbrowser-compiler-utils "^4.62.1"
     walkes "^0.2.1"
 
-vue-inbrowser-compiler-utils@^4.62.0, vue-inbrowser-compiler-utils@^4.62.1:
+vue-inbrowser-compiler-utils@^4.62.1:
   version "4.62.1"
   resolved "https://registry.yarnpkg.com/vue-inbrowser-compiler-utils/-/vue-inbrowser-compiler-utils-4.62.1.tgz#c91ebcfc92afb32b9478ad38515cde6748c42dc7"
   integrity sha512-OBXww64WgfxgAwPalZHWAbrVqcAcmeZbsv74uaOL9eABUAKS6sXEbb+RjSXOjPsgfDONMg9zwCPiMOnPVRXlzQ==
@@ -11246,10 +11246,10 @@ vue-inbrowser-compiler-utils@^4.62.0, vue-inbrowser-compiler-utils@^4.62.1:
     vue-inbrowser-compiler-demi "^4.56.5"
     vue-inbrowser-compiler-independent-utils "^4.62.0"
 
-vue-live@^2.4.7:
-  version "2.4.7"
-  resolved "https://registry.yarnpkg.com/vue-live/-/vue-live-2.4.7.tgz#676867bee76dae2714fda6586964ba81d032ae40"
-  integrity sha512-zLuAGOFjRF+Uvrkje3LPdiV1qYTyvOQ+F622kjuwuXtdLJs8TyQdTYm5JFgd4gNsKg0qCbeQOMHT9s1aGxqTag==
+vue-live@^2.4.8:
+  version "2.4.8"
+  resolved "https://registry.yarnpkg.com/vue-live/-/vue-live-2.4.8.tgz#94185dae1175723ba13039a2d2c98a0ede39641a"
+  integrity sha512-eE4IBka1NFqEEqIQT/qutm8Nv1UB7HkWkzuWZKhiOCJ/FOdszhq+3x1o6ObhM+lqjROIZ8L3LnDduVT6LtZdig==
   dependencies:
     "@vue/compiler-core" "^3.2.47"
     "@vue/compiler-sfc" "^3.2.47"
@@ -11259,8 +11259,7 @@ vue-live@^2.4.7:
     debounce "^1.2.1"
     hash-sum "^2.0.0"
     prismjs "^1.29.0"
-    vue-inbrowser-compiler-sucrase "^4.62.0"
-    vue-inbrowser-compiler-utils "^4.62.1"
+    vue-inbrowser-compiler-sucrase "^4.62.1"
     vue-prism-editor "^2.0.0-alpha.2"
 
 vue-prism-editor@^2.0.0-alpha.2:
