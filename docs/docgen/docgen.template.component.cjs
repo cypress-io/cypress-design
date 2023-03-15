@@ -18,11 +18,5 @@ const components$ = { ${doc.displayName}: ${tempName} }
 </script>
 ${defaultTemplates
   .component(...args)
-  .replace(new RegExp(`# ${doc.displayName}`, 'g'), '')}
-
-<a href="vscode://file/${path.resolve(root, fileName)}">Component Source</a>
-<a href="vscode://file/${path.resolve(
-    root,
-    fileName.split('/').slice(0, -1).join('/')
-  )}/ReadMe.md">Component Docs</a>`
+  .replace(new RegExp(`# ${doc.displayName}`, 'g'), '')}`
 }

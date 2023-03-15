@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { useRouter } from 'vitepress'
 import { computed, h } from 'vue'
-import SideBar from './SideBar.vue'
+import FrameworkSwitch from './FrameworkSwitch.vue'
+import ComponentSideBar from './ComponentSideBar.vue'
 const { route } = useRouter()
 
-const path = computed(() => route.path)
+const routePath = computed(() => route.path)
 
 const Components = import.meta.glob('../../../../components/*/ReadMe.md', {
   eager: true,
@@ -16,11 +17,11 @@ const ComponentsLower = Object.entries(Components).reduce(
 )
 
 const framework = computed(() =>
-  path.value.includes('/react/') ? ('react' as const) : ('vue' as const)
+  routePath.value.includes('/react/') ? ('react' as const) : ('vue' as const)
 )
 
 const commonPath = computed(() =>
-  `../../../..${path.value
+  `../../../..${routePath.value
     .replace(/\.html$/, '')
     .replace(/\/(vue|react)/, '')}/ReadMe.md`.toLowerCase()
 )
@@ -29,45 +30,26 @@ const CommonContent = computed(
   () =>
     (
       ComponentsLower[commonPath.value] ?? {
-        default: { name: 'MissingCommon', render: () => h('div', 'no common') },
+        default: null,
       }
     ).default
 )
-
-const links = computed(() => ({
-  react: path.value.replace(/\/vue\//, '/react/'),
-  vue: path.value.replace(/\/react\//, '/vue/'),
-}))
 </script>
 
 <template>
-  <header class="flex h-20 justify-center gap-4">
-    <a
-      :href="links.react"
-      class="p-4"
-      :class="{
-        'text-gray-400': framework === 'react',
-        'text-gray-800': framework === 'vue',
-      }"
-      >React</a
-    ><a
-      :href="links.vue"
-      class="p-4"
-      :class="{
-        'text-gray-400': framework === 'vue',
-        'text-gray-800': framework === 'react',
-      }"
-      >Vue</a
-    >
+  <header class="flex h-20 justify-between items-center gap-4">
+    <a href="/"><img src="./logo.svg" class="h-[32px] mx-[32px]" /></a>
+    <FrameworkSwitch :framework="framework" :path="routePath" />
   </header>
   <div class="flex min-h-full">
     <aside>
-      <SideBar class="float-left" :framework="framework" />
+      <ComponentSideBar class="float-left" :framework="framework" />
     </aside>
     <div class="w-[800px] mx-auto">
-      <CommonContent />
-      <a :href="`vscode://file/${commonPath}`">edit common file</a>
-      <hr />
+      <template v-if="CommonContent">
+        <CommonContent />
+        <hr />
+      </template>
       <Content />
     </div>
   </div>
