@@ -1,5 +1,6 @@
 import { defineConfig } from 'vitepress'
 import vueLiveMd from './vue-live-md-it'
+import { resolve } from 'path'
 
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
@@ -11,10 +12,12 @@ export default defineConfig({
   },
   vite: {
     define: {
-      'import.meta.env.DEV_ABSOLUTE_PATH':
+      'import.meta.env.EDIT_ROOT':
         process.env.NODE_ENV === 'development'
-          ? JSON.stringify(__dirname)
-          : '""',
+          ? JSON.stringify(`vscode://file/${resolve(__dirname, '../../')}`)
+          : JSON.stringify(
+              `https://github.com/cypress-io/cypress-design/blob/main/`
+            ),
     },
   },
 })

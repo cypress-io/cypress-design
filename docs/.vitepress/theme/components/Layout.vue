@@ -21,21 +21,21 @@ const framework = computed(() =>
 )
 
 const commonPath = computed(() =>
-  `../../../..${routePath.value
-    .replace(/\.html$/, '')
-    .replace(/\/(vue|react)/, '')}/ReadMe.md`.toLowerCase()
+  routePath.value.replace(/\.html$/, '').replace(/\/(vue|react)/, '')
 )
+
+const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
 
 const CommonContent = computed(
   () =>
     (
-      ComponentsLower[commonPath.value] ?? {
+      ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`] ?? {
         default: null,
       }
     ).default
 )
 
-const root = import.meta.env.DEV_ABSOLUTE_PATH
+const editRoot = import.meta.env.EDIT_ROOT
 </script>
 
 <template>
@@ -43,24 +43,29 @@ const root = import.meta.env.DEV_ABSOLUTE_PATH
     <a href="/"><img src="./logo.svg" class="h-[32px] mx-[32px]" /></a>
     <FrameworkSwitch :framework="framework" :path="routePath" />
   </header>
-  <div class="flex min-h-full">
+  <div class="flex min-h-full pb-8">
     <aside>
       <ComponentSideBar class="float-left" :framework="framework" />
     </aside>
     <div class="w-[800px] mx-auto">
-      <a
-        v-if="root.length"
-        :href="`vscode://file/${root}/${commonPath.replace(
-          /^\.\.\/\.\.\//,
-          ''
-        )}`"
-      >
-        Edit Common</a
-      >
       <template v-if="CommonContent">
+        <a
+          v-if="editRoot"
+          :href="`${editRoot}${commonPathReadme}`"
+          class="float-right"
+        >
+          Edit Common</a
+        >
         <CommonContent />
         <hr />
       </template>
+      <a
+        v-if="editRoot"
+        :href="`${editRoot}${commonPath}/${framework}/ReadMe.md`"
+        class="float-right"
+      >
+        Edit ReadMe
+      </a>
       <Content />
     </div>
   </div>
