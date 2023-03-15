@@ -23,7 +23,7 @@
 		"test": "vitest",
 		"build:components": "turbo run build --filter=@cypress-design/*",
 		"start": "NODE_ENV=development concurrently \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
-		"build:docs": "vue-docgen -c docs/docgen/docgen.config.cjs && yarn build:components && vitepress build docs",
+		"build:docs": "GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) vue-docgen -c docs/docgen/docgen.config.cjs && yarn build:components && vitepress build docs",
 		"postinstall": "yarn husky install",
 		"new:component": "hygen component new"
 	},
