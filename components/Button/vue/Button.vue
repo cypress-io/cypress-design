@@ -47,16 +47,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <a
-    v-if="href"
-    :href="href"
-    :target="target"
-    v-bind="buttonProps"
-    @click="(...args) => $emit('click', ...args)"
-  >
+  <a v-if="href" :href="href" :target="target" v-bind="buttonProps">
     <slot />
   </a>
-  <button v-bind="buttonProps" @click="(...args) => $emit('click', ...args)">
+  <button v-else v-bind="buttonProps">
     <slot />
   </button>
 </template>
