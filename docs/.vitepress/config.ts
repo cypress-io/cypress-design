@@ -9,4 +9,12 @@ export default defineConfig({
       md.use(vueLiveMd)
     },
   },
+  vite: {
+    define: {
+      'import.meta.env.DEV_ABSOLUTE_PATH':
+        process.env.NODE_ENV === 'development'
+          ? JSON.stringify(__dirname)
+          : '""',
+    },
+  },
 })

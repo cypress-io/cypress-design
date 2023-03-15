@@ -34,6 +34,8 @@ const CommonContent = computed(
       }
     ).default
 )
+
+const root = import.meta.env.DEV_ABSOLUTE_PATH
 </script>
 
 <template>
@@ -46,6 +48,15 @@ const CommonContent = computed(
       <ComponentSideBar class="float-left" :framework="framework" />
     </aside>
     <div class="w-[800px] mx-auto">
+      <a
+        v-if="root.length"
+        :href="`vscode://file/${root}/${commonPath.replace(
+          /^\.\.\/\.\.\//,
+          ''
+        )}`"
+      >
+        Edit Common</a
+      >
       <template v-if="CommonContent">
         <CommonContent />
         <hr />
