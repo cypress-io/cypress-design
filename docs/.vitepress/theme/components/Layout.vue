@@ -23,6 +23,8 @@ const ComponentsLower = Object.entries(Components).reduce(
   {} as Record<string, any>
 )
 
+const hasFramework = computed(() => routePath.value.includes('/(react|vue)/'))
+
 const framework = computed(() =>
   routePath.value.includes('/react/')
     ? ('react' as const)
@@ -55,6 +57,16 @@ function switchFramework(fw: 'react' | 'vue') {
 }
 
 const editRoot = import.meta.env.EDIT_ROOT
+
+/**
+ * when no framework is specified, we use this url to edit the current document
+ */
+const editUrl = computed(() => {
+  if (!editRoot) return ''
+  const url = routePath.value.replace(/\.html$/, '.md').replace(/\/$/, '')
+  if (url.length) return `${editRoot}${url}`
+  return `${editRoot}/docs/index.md`
+})
 </script>
 
 <template>
@@ -84,18 +96,13 @@ const editRoot = import.meta.env.EDIT_ROOT
       </template>
       <template v-if="editRoot">
         <a
-          v-if="framework"
+          v-if="hasFramework"
           :href="`${editRoot}${commonPath}/${framework}/ReadMe.md`"
           class="float-right"
         >
           Edit {{ framework }} ReadMe
         </a>
-        <a
-          v-else
-          :href="`${editRoot}/docs/${routePath.replace(/\.html$/, '.md')}`"
-          class="float-right"
-          >Edit</a
-        >
+        <a v-else :href="editUrl" class="float-right">Edit</a>
       </template>
       <Content />
     </div>
