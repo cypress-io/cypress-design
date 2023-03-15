@@ -64,7 +64,7 @@ const editRoot = import.meta.env.EDIT_ROOT
         :href="`${editRoot}${commonPath}/${framework}/ReadMe.md`"
         class="float-right"
       >
-        Edit ReadMe
+        Edit {{ framework }} ReadMe
       </a>
       <Content />
     </div>
