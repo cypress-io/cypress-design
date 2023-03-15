@@ -1,9 +1,16 @@
 <script lang="ts" setup>
 import { useRouter } from 'vitepress'
-import { computed, h } from 'vue'
+import { computed, onMounted } from 'vue'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import ComponentSideBar from './ComponentSideBar.vue'
+import { useCookies } from '@vueuse/integrations/useCookies'
 const { route } = useRouter()
+
+const { set, get } = useCookies()
+
+const cookieFramework = computed(
+  () => get<'react' | 'vue'>('framework') || 'vue'
+)
 
 const routePath = computed(() => route.path)
 
@@ -17,8 +24,16 @@ const ComponentsLower = Object.entries(Components).reduce(
 )
 
 const framework = computed(() =>
-  routePath.value.includes('/react/') ? ('react' as const) : ('vue' as const)
+  routePath.value.includes('/react/')
+    ? ('react' as const)
+    : routePath.value.includes('/vue/')
+    ? ('vue' as const)
+    : cookieFramework.value
 )
+
+onMounted(() => {
+  switchFramework(framework.value)
+})
 
 const commonPath = computed(() =>
   routePath.value.replace(/\.html$/, '').replace(/\/(vue|react)/, '')
@@ -35,13 +50,21 @@ const CommonContent = computed(
     ).default
 )
 
+function switchFramework(fw: 'react' | 'vue') {
+  set('framework', fw)
+}
+
 const editRoot = import.meta.env.EDIT_ROOT
 </script>
 
 <template>
   <header class="flex h-20 justify-between items-center gap-4">
     <a href="/"><img src="./logo.svg" class="h-[32px] mx-[32px]" /></a>
-    <FrameworkSwitch :framework="framework" :path="routePath" />
+    <FrameworkSwitch
+      :framework="framework"
+      :path="routePath"
+      @switch="switchFramework"
+    />
   </header>
   <div class="flex min-h-full pb-8">
     <aside>
@@ -59,13 +82,21 @@ const editRoot = import.meta.env.EDIT_ROOT
         <CommonContent />
         <hr />
       </template>
-      <a
-        v-if="editRoot"
-        :href="`${editRoot}${commonPath}/${framework}/ReadMe.md`"
-        class="float-right"
-      >
-        Edit {{ framework }} ReadMe
-      </a>
+      <template v-if="editRoot">
+        <a
+          v-if="framework"
+          :href="`${editRoot}${commonPath}/${framework}/ReadMe.md`"
+          class="float-right"
+        >
+          Edit {{ framework }} ReadMe
+        </a>
+        <a
+          v-else
+          :href="`${editRoot}/docs/${routePath.replace(/\.html$/, '.md')}`"
+          class="float-right"
+          >Edit</a
+        >
+      </template>
       <Content />
     </div>
   </div>

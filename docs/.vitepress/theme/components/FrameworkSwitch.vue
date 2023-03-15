@@ -6,6 +6,10 @@ const props = defineProps<{
   path: string
 }>()
 
+const emit = defineEmits<{
+  (event: 'switch', framework: 'vue' | 'react'): void
+}>()
+
 const links = computed(() => ({
   react: {
     href: props.path.replace(/\/vue\//, '/react/'),
@@ -23,6 +27,7 @@ const links = computed(() => ({
     <a
       v-for="(link, key) in links"
       :key="key"
+      @click="emit('switch', key)"
       :href="link.href"
       class="p-4"
       :class="{
