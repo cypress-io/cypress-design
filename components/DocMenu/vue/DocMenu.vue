@@ -49,13 +49,18 @@ const open = ref(props.depth === 0)
       <li v-if="'href' in item" class="pl-[16px]">
         <a
           class="group relative inline-block py-[12px] leading-[20px] text-[14px] pl-[24px]"
+          :class="{
+            'text-indigo-500': item.active,
+          }"
           :href="item.href"
         >
           <div
-            class="hidden group-hover:block absolute h-full top-0 w-[4px] z-10 bg-gray-200 rounded-full"
+            class="hidden group-hover:block absolute h-full top-0 w-[4px] z-10 rounded-full"
             :class="{
               'left-[-18.5px]': depth === 0,
               'left-[-25.5px]': depth > 0,
+              'bg-gray-300': !item.active,
+              'bg-indigo-500': item.active,
             }"
           />
           {{ item.text }}

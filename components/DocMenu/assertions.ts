@@ -7,11 +7,11 @@ const menuItems = [
     text: 'Overview',
     items: [
       {
-        text: 'Item 1',
+        text: 'Overview Item 1',
         href: 'https://example.com',
       },
       {
-        text: 'Item 2',
+        text: 'Overview Item 2',
         href: 'https://example.com',
       },
     ],
@@ -46,6 +46,11 @@ const menuItems = [
         ],
       },
       {
+        text: 'AWS Authentication',
+        href: 'https://example.com',
+      },
+      {
+        active: true,
         text: 'Google Authentication',
         href: 'https://example.com',
       },
@@ -62,5 +67,10 @@ export default function assertions(
 ): void {
   it('renders', () => {
     mountStory(menuItems)
+  })
+
+  it('opens and closes the menu', () => {
+    mountStory(menuItems)
+    cy.findByRole('button', { name: 'Overview' }).click()
   })
 }

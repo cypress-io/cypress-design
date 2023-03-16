@@ -45,15 +45,22 @@ export const DocMenu: React.FC<DocMenuProps> = ({ group, depth = 0 }) => {
           'href' in item ? (
             <li className="pl-[16px]">
               <a
-                className="group relative inline-block py-[12px] leading-[20px] text-[14px] pl-[24px]"
+                className={clsx(
+                  'group relative inline-block py-[12px] leading-[20px] text-[14px] pl-[24px]',
+                  {
+                    'text-indigo-500': item.active,
+                  }
+                )}
                 href={item.href}
               >
                 <div
                   className={clsx(
-                    'hidden group-hover:block absolute h-full top-0 w-[4px] z-10 bg-gray-200 rounded-full',
+                    'absolute w-[4px] z-10 top-[5%] h-[90%] rounded-full',
                     {
                       'left-[-18.5px]': depth === 0,
                       'left-[-25.5px]': depth > 0,
+                      'hidden group-hover:block bg-gray-300': !item.active,
+                      'bg-indigo-500': item.active,
                     }
                   )}
                 />
