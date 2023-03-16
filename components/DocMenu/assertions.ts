@@ -69,8 +69,12 @@ export default function assertions(
     mountStory(menuItems)
   })
 
-  it('opens and closes the menu', () => {
+  it('closes the menu', () => {
     mountStory(menuItems)
-    cy.findByRole('button', { name: 'Overview' }).click()
+
+    cy.contains('Overview Item 1').should('be.visible')
+    cy.contains('button', 'Overview').click()
+
+    cy.contains('Overview Item 1').should('not.be.visible')
   })
 }
