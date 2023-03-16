@@ -19,22 +19,6 @@ const Components = import.meta.glob('../../../../components/*/ReadMe.md', {
   eager: true,
 })
 
-const docsPages = import.meta.glob('../../../*.md', {
-  eager: true,
-})
-
-const items = Object.keys(docsPages)
-  .map((p) => {
-    const route = p.replace(/^\.\.\/\.\.\/\.\.\//, '').replace(/\.md$/, '')
-    const name = route.split('/').pop() ?? ''
-    return {
-      text: name,
-      href: route,
-      active: route.includes(routePath.value),
-    }
-  })
-  .filter((p) => p.text.toLowerCase() !== 'index')
-
 const ComponentsLower = Object.entries(Components).reduce(
   (acc, [k, v]) => ({ ...acc, [k.toLowerCase()]: v }),
   {} as Record<string, any>
@@ -103,7 +87,7 @@ const editUrl = computed(() => {
   </header>
   <div class="flex min-h-full pb-8">
     <aside>
-      <CommonSidebar :items="items" />
+      <CommonSidebar :routePath="routePath" />
       <ComponentSideBar
         class="float-left"
         :framework="framework"
