@@ -29,7 +29,7 @@ const links = computed(() => ({
       :key="key"
       @click="emit('switch', key)"
       :href="link.href"
-      class="text-gray-700 relative font-secondary block text-[16px] leading-[24px] font-medium my-[8px] bg-gradient-to-r bg-bottom bg-no-repeat transition-all"
+      class="text-gray-700 relative font-secondary block text-[16px] leading-[24px] font-medium my-[8px] bg-gradient-to-r bg-bottom bg-no-repeat duration-300 transition-all"
       :class="{
         'from-gray-300 to-gray-300 bg-[length:100%_2px]': framework === key,
         'hover:from-jade-300 hover:to-jade-300  bg-[length:0_2px] hover:bg-[length:100%_2px]':

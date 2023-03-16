@@ -7,7 +7,7 @@ export default ({
   disabled = false,
   href,
 }: { disabled?: boolean; href?: string } = {}) => (
-  <div class="flex flex-row flex-wrap gap-3 justify-center">
+  <div class="flex flex-row flex-wrap justify-center gap-3">
     {(Object.keys(VariantClassesTable) as ButtonVariants[]).map((variant) => {
       return (
         <div

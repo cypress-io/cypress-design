@@ -32,7 +32,7 @@ const open = ref(props.depth === 0)
     <IconChevronDownSmall
       stroke-color="gray-400"
       :size="depth ? '8' : '16'"
-      class="absolute transform transition-transform left-0"
+      class="absolute left-0 transform transition-transform"
       :class="{
         'rotate-0': open,
         '-rotate-90': !open,

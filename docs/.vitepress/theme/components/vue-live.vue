@@ -11,6 +11,7 @@ const props = defineProps<{
   requires?: Record<string, any>
   components?: Record<string, any>
   jsx?: boolean
+  noEditor?: boolean
 }>()
 
 const liveCode = ref(props.code)
@@ -66,8 +67,11 @@ onUnmounted(() => {
 <template>
   <div class="preview-code">
     <div class="preview code-block">
+      <div v-if="props.framework === 'react'" v-once ref="reactAppRoot$">
+        React app root
+      </div>
       <VueLivePreview
-        v-if="props.framework === 'vue'"
+        v-else
         :requires="requires"
         :components="components"
         :code="liveCode"
@@ -76,9 +80,12 @@ onUnmounted(() => {
         @error="(e: any) => (error = e)"
         @success="error = undefined"
       />
-      <div v-else v-once ref="reactAppRoot$">React app root</div>
     </div>
-    <div class="editor code-block" :class="`language-${props.framework}`">
+    <div
+      v-if="!noEditor"
+      class="editor code-block"
+      :class="`language-${props.framework}`"
+    >
       <VueLiveEditor
         :code="liveCode"
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"

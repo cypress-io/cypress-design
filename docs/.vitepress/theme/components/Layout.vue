@@ -1,13 +1,16 @@
 <script lang="ts" setup>
-import { useRouter } from 'vitepress'
+import { useData, useRouter } from 'vitepress'
 import { computed, onMounted } from 'vue'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import ComponentSideBar from './ComponentSideBar.vue'
 import CommonSidebar from './CommonSidebar.vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
+import Button from '@cypress-design/vue-button'
 const { route } = useRouter()
 
 const { set, get } = useCookies()
+
+const { title } = useData()
 
 const cookieFramework = computed(
   () => get<'react' | 'vue'>('framework') || 'vue'
@@ -71,7 +74,9 @@ const editUrl = computed(() => {
 </script>
 
 <template>
-  <header class="flex h-[80px] justify-between items-center px-[32px]">
+  <header
+    class="flex h-[80px] justify-between items-center px-[32px] border-b border-gray-100"
+  >
     <a href="/">
       <picture>
         <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)" />
@@ -94,29 +99,38 @@ const editUrl = computed(() => {
         :currentPath="commonPath"
       />
     </aside>
-    <div class="w-[800px] mx-auto">
-      <template v-if="CommonContent">
-        <a
+    <div class="w-[800px] mx-auto mt-[24px]">
+      <div v-if="CommonContent" class="relative">
+        <Button
           v-if="editRoot"
+          variant="link"
           :href="`${editRoot}${commonPathReadme}`"
-          class="float-right"
+          class="absolute right-[8px] top-[8px] peer"
         >
-          Edit Common</a
+          Edit
+        </Button>
+        <div class="peer-hover:bg-gray-50 p-[8px] rounded">
+          <CommonContent />
+        </div>
+      </div>
+      <div class="relative">
+        <Button
+          v-if="editRoot"
+          :href="
+            hasFramework
+              ? `${editRoot}${commonPath}/${framework}/ReadMe.md`
+              : editUrl
+          "
+          variant="link"
+          class="absolute right-[8px] top-[8px] peer"
         >
-        <CommonContent />
-        <hr />
-      </template>
-      <template v-if="editRoot">
-        <a
-          v-if="hasFramework"
-          :href="`${editRoot}${commonPath}/${framework}/ReadMe.md`"
-          class="float-right"
-        >
-          Edit {{ framework }} ReadMe
-        </a>
-        <a v-else :href="editUrl" class="float-right">Edit</a>
-      </template>
-      <Content />
+          Edit
+        </Button>
+        <div class="peer-hover:bg-gray-50 p-[8px] rounded mt-8">
+          <h2 v-if="hasFramework" class="mt-0">{{ framework }}</h2>
+          <Content />
+        </div>
+      </div>
     </div>
     <aside>
       <div class="w-[200px]"></div>
@@ -144,16 +158,27 @@ div[class*='language-'] .lang {
   @apply text-gray-400 right-4 top-2 absolute;
 }
 
+h1,
+h2,
+h3 {
+  @apply font-semibold;
+}
+
+h2,
+h3 {
+  @apply mt-8;
+}
+
 h1 {
-  @apply text-3xl mt-8;
+  @apply text-3xl;
 }
 
 h2 {
-  @apply text-2xl mt-8;
+  @apply text-2xl;
 }
 
 h3 {
-  @apply text-xl mt-8;
+  @apply text-xl;
 }
 
 h1 .header-anchor,

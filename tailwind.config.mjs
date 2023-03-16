@@ -6,12 +6,12 @@ export default {
   presets: [TailwindConfig()],
   content: {
     files: [
-      './components/**/*.@(tsx|vue|ts|scss|js|css)',
+      './components/**/*.@(tsx|vue|ts|scss|js|css|md)',
       './docs/.vitepress/**/*.vue',
       './docs/docgen/*.cjs',
       './docs/**/*.md',
     ],
-    extract: ['vue', 'jsx', 'tsx', 'ts'].reduce(
+    extract: ['vue', 'jsx', 'tsx', 'ts', 'md'].reduce(
       (acc, ext) => ({ ...acc, [ext]: TailwindIconExtractor }),
       {}
     ),

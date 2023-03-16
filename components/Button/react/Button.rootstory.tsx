@@ -9,7 +9,7 @@ export default ({
   href,
   onClick,
 }: { disabled?: boolean; href?: string; onClick?: () => void } = {}) => (
-  <div className="flex flex-row flex-wrap gap-2 justify-center">
+  <div className="flex flex-row flex-wrap justify-center gap-2">
     {(Object.keys(VariantClassesTable) as ButtonVariants[]).map((variant) => {
       return (
         <div
