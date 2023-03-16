@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
-import { NavGroup } from '../constants'
+import { NavGroup, classes } from '../constants'
 
 export interface DocMenuProps {
   group: NavGroup
@@ -15,13 +15,10 @@ export const DocMenu: React.FC<DocMenuProps> = ({ group, depth = 0 }) => {
       {group.text ? (
         <button
           onClick={() => setOpen(!open)}
-          className={clsx(
-            'flex leading-[24px] py-[8px] items-center relative',
-            {
-              'leading-[24px] text-[16px] pl-[24px]': depth === 0,
-              'leading-[20px] text-[14px] pl-[40px]': depth,
-            }
-          )}
+          className={clsx(classes.button, {
+            'leading-[24px] text-[16px] pl-[24px]': depth === 0,
+            'leading-[20px] text-[14px] pl-[40px]': depth,
+          })}
         >
           <IconChevronDownSmall
             stroke-color="gray-400"

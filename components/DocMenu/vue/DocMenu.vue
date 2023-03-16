@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
-import type { NavGroup } from '../constants'
+import { NavGroup, classes } from '../constants'
 
 const props = withDefaults(
   defineProps<{
@@ -21,10 +21,13 @@ const open = ref(props.depth === 0)
     v-if="group.text"
     @click="open = !open"
     class="flex leading-[24px] py-[8px] items-center relative"
-    :class="{
-      'leading-[24px] text-[16px] pl-[24px]': depth === 0,
-      'leading-[20px] text-[14px] pl-[40px]': depth,
-    }"
+    :class="[
+      classes.button,
+      {
+        'leading-[24px] text-[16px] pl-[24px]': depth === 0,
+        'leading-[20px] text-[14px] pl-[40px]': depth,
+      },
+    ]"
   >
     <IconChevronDownSmall
       stroke-color="gray-400"

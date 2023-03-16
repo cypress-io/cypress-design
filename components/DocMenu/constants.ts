@@ -9,3 +9,7 @@ export interface NavGroup {
   active?: boolean
   items: (NavItemLink | NavGroup)[]
 }
+
+export const classes = {
+  button: 'flex leading-[24px] py-[8px] items-center relative',
+} as const

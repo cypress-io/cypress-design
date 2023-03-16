@@ -6,8 +6,12 @@
 				"^build"
 			],
 			"inputs": [
-				"*.@(vue|ts|tsx)",
-				"../*.ts"
+				"*.vue",
+				"*.tsx",
+				"*.ts",
+				"../constants.ts",
+				"!*.cy.tsx",
+				"!*.rootstory.tsx"
 			],
 			"outputs": [
 				"dist/**"
