@@ -55,11 +55,11 @@ const open = ref(props.depth === 0)
           :href="item.href"
         >
           <div
-            class="hidden group-hover:block absolute h-full top-0 w-[4px] z-10 rounded-full"
+            class="absolute h-[90%] top-[5%] w-[4px] z-10 rounded-full"
             :class="{
               'left-[-18.5px]': depth === 0,
               'left-[-25.5px]': depth > 0,
-              'bg-gray-300': !item.active,
+              'hidden group-hover:block bg-gray-300': !item.active,
               'bg-indigo-500': item.active,
             }"
           />
