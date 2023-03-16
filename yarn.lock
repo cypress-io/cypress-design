@@ -11273,10 +11273,10 @@ vue-inbrowser-compiler-utils@^4.62.1:
     vue-inbrowser-compiler-demi "^4.56.5"
     vue-inbrowser-compiler-independent-utils "^4.62.0"
 
-vue-live@^2.4.8:
-  version "2.4.8"
-  resolved "https://registry.yarnpkg.com/vue-live/-/vue-live-2.4.8.tgz#94185dae1175723ba13039a2d2c98a0ede39641a"
-  integrity sha512-eE4IBka1NFqEEqIQT/qutm8Nv1UB7HkWkzuWZKhiOCJ/FOdszhq+3x1o6ObhM+lqjROIZ8L3LnDduVT6LtZdig==
+vue-live@^2.4.9:
+  version "2.4.9"
+  resolved "https://registry.yarnpkg.com/vue-live/-/vue-live-2.4.9.tgz#d32eac5dd061145732f2c327cc351eb9f7bec5dc"
+  integrity sha512-/ZK8Mx6f/Dov/fawQo6/MV0/wQiFU7G2/LN8/oCnVJ/foRFHwSokrwAoDUxfhONWdjBRiwqc8fbKXQX9GA5VEw==
   dependencies:
     "@vue/compiler-core" "^3.2.47"
     "@vue/compiler-sfc" "^3.2.47"

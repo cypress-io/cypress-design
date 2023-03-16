@@ -27,7 +27,9 @@ const group = computed(() => {
       return {
         text: getPageName(p),
         href: p.replace(/\.md$/, ''),
-        active: p.replace(/\/(vue|react)/, '').includes(props.currentPath),
+        active:
+          props.currentPath.length > 1 &&
+          p.replace(/\/(vue|react)/, '').includes(props.currentPath),
       }
     }),
   }

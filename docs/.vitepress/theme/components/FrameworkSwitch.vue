@@ -23,7 +23,7 @@ const links = computed(() => ({
 </script>
 
 <template>
-  <div class="flex flex-1 justify-center gap-[32px]">
+  <div class="flex flex-1 justify-center gap-[48px]">
     <a
       v-for="(link, key) in links"
       :key="key"

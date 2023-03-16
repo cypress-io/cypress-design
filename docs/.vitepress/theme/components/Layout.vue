@@ -75,7 +75,7 @@ const editUrl = computed(() => {
 
 <template>
   <header
-    class="flex h-[80px] justify-between items-center px-[32px] border-b border-gray-100"
+    class="flex h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
   >
     <a href="/">
       <picture>
@@ -105,11 +105,11 @@ const editUrl = computed(() => {
           v-if="editRoot"
           variant="link"
           :href="`${editRoot}${commonPathReadme}`"
-          class="absolute right-[8px] top-[8px] peer"
+          class="absolute right-0 top-0 peer"
         >
           Edit
         </Button>
-        <div class="peer-hover:bg-gray-50 p-[8px] rounded">
+        <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded">
           <CommonContent />
         </div>
       </div>
@@ -122,12 +122,12 @@ const editUrl = computed(() => {
               : editUrl
           "
           variant="link"
-          class="absolute right-[8px] top-[8px] peer"
+          class="absolute right-0 top-0 peer"
         >
           Edit
         </Button>
-        <div class="peer-hover:bg-gray-50 p-[8px] rounded mt-8">
-          <h2 v-if="hasFramework" class="mt-0">{{ framework }}</h2>
+        <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded mt-8">
+          <h2 v-if="hasFramework" class="mt-0 capitalize">{{ framework }}</h2>
           <Content />
         </div>
       </div>

@@ -21,8 +21,6 @@ function addVueLive(md: any) {
 
     const jsx = langArray.length > 2 && langArray[1] === 'jsx' ? 'jsx ' : '' // to enable jsx, we want ```vue jsx live or ```jsx jsx live
 
-    const noEditor = langArray.includes('noEditor')
-
     const code = token.content
 
     // analyze code to find requires
@@ -67,7 +65,6 @@ function addVueLive(md: any) {
       framework="${framework}" 
       :code="\`${codeClean}\`" 
       :requires="imports$${importMarker}"
-			:no-editor="${noEditor}"
 			:components="components$"
        />`
 

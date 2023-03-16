@@ -71,7 +71,7 @@ const detailsRef = ref(null)
 const contentRef = ref(null)
 
 const typeClasses = computed(() => {
-  return alertClasses[props.type]
+  return alertClasses[props.type] ?? {}
 })
 
 let timeout: number | undefined
@@ -105,7 +105,7 @@ function dismiss() {
 
 const computedIconProps = computed(() => {
   return {
-    strokeColor: alertClasses[props.type].iconColor,
+    strokeColor: alertClasses[props.type]?.iconColor,
     class: 'my-[4px] mr-[8px]',
   }
 })
@@ -126,7 +126,7 @@ const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
 })
 
 const sizeClasses = computed(() => {
-  return alertSizesClasses[props.size]
+  return alertSizesClasses[props.size] ?? {}
 })
 </script>
 

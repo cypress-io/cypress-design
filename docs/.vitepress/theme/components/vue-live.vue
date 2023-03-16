@@ -11,7 +11,6 @@ const props = defineProps<{
   requires?: Record<string, any>
   components?: Record<string, any>
   jsx?: boolean
-  noEditor?: boolean
 }>()
 
 const liveCode = ref(props.code)
@@ -32,7 +31,9 @@ function switchLanguage(newLang: 'vue' | 'vsg') {
 }
 
 const reactAppRoot$ = ref<HTMLDivElement>()
+
 onMounted(() => {
+  liveCode.value = props.code
   if (reactAppRoot$.value) {
     root.value = createRoot(reactAppRoot$.value)
     renderReactApp(liveCode.value)
@@ -47,7 +48,10 @@ onMounted(() => {
   }
 })
 
-const root = ref<{ render: (el: any) => void } | null>(null)
+const root = ref<{
+  render: (el: any) => void
+  unmount: () => void
+} | null>(null)
 
 function renderReactApp(code: string) {
   root.value?.render(
@@ -60,7 +64,7 @@ function renderReactApp(code: string) {
 }
 
 onUnmounted(() => {
-  root.value = null
+  root.value?.unmount()
 })
 </script>
 
@@ -71,7 +75,7 @@ onUnmounted(() => {
         React app root
       </div>
       <VueLivePreview
-        v-else
+        v-if="props.framework !== 'react'"
         :requires="requires"
         :components="components"
         :code="liveCode"
@@ -81,17 +85,13 @@ onUnmounted(() => {
         @success="error = undefined"
       />
     </div>
-    <div
-      v-if="!noEditor"
-      class="editor code-block"
-      :class="`language-${props.framework}`"
-    >
+    <div class="editor code-block" :class="`language-${props.framework}`">
       <VueLiveEditor
         :code="liveCode"
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
-        @change="(code) => (liveCode = code)"
+        @change="(newCode) => (liveCode = newCode)"
       />
     </div>
   </div>
