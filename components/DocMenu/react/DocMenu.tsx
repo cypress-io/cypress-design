@@ -16,8 +16,8 @@ export const DocMenu: React.FC<DocMenuProps> = ({ group, depth = 0 }) => {
         <button
           onClick={() => setOpen(!open)}
           className={clsx(classes.button, {
-            'leading-[24px] text-[16px] pl-[24px]': depth === 0,
-            'leading-[20px] text-[14px] pl-[40px]': depth,
+            [classes.topButton]: depth === 0,
+            [classes.leafButton]: depth,
           })}
         >
           <IconChevronDownSmall

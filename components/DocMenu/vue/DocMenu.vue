@@ -24,8 +24,8 @@ const open = ref(props.depth === 0)
     :class="[
       classes.button,
       {
-        'leading-[24px] text-[16px] pl-[24px]': depth === 0,
-        'leading-[20px] text-[14px] pl-[40px]': depth,
+        [classes.topButton]: depth === 0,
+        [classes.leafButton]: depth,
       },
     ]"
   >
