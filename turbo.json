@@ -5,6 +5,10 @@
 			"dependsOn": [
 				"^build"
 			],
+			"inputs": [
+				"*.@(vue|ts|tsx)",
+				"../*.ts"
+			],
 			"outputs": [
 				"dist/**"
 			]
