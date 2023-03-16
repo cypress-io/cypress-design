@@ -23,7 +23,7 @@ const ComponentsLower = Object.entries(Components).reduce(
   {} as Record<string, any>
 )
 
-const hasFramework = computed(() => routePath.value.includes('/(react|vue)/'))
+const hasFramework = computed(() => /\/(react|vue)\//.test(routePath.value))
 
 const framework = computed(() =>
   routePath.value.includes('/react/')
@@ -71,7 +71,12 @@ const editUrl = computed(() => {
 
 <template>
   <header class="flex h-20 justify-between items-center gap-4">
-    <a href="/"><img src="./logo.svg" class="h-[32px] mx-[32px]" /></a>
+    <a href="/">
+      <picture>
+        <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)" />
+        <img src="./logo.svg" class="h-[32px] mx-[32px]" />
+      </picture>
+    </a>
     <FrameworkSwitch
       :framework="framework"
       :path="routePath"

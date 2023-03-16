@@ -23,16 +23,17 @@ const links = computed(() => ({
 </script>
 
 <template>
-  <div class="flex flex-1 justify-center">
+  <div class="flex flex-1 justify-center gap-[32px]">
     <a
       v-for="(link, key) in links"
       :key="key"
       @click="emit('switch', key)"
       :href="link.href"
-      class="p-4"
+      class="text-gray-700 relative font-secondary block text-[16px] leading-[24px] font-medium my-[8px] bg-gradient-to-r bg-bottom bg-no-repeat transition-all"
       :class="{
-        'text-gray-400': framework === key,
-        'text-gray-800': framework !== key,
+        'from-gray-300 to-gray-300 bg-[length:100%_2px]': framework === key,
+        'hover:from-jade-300 hover:to-jade-300  bg-[length:0_2px] hover:bg-[length:100%_2px]':
+          framework !== key,
       }"
     >
       {{ link.name }}
