@@ -65,7 +65,7 @@ const editRoot = import.meta.env.EDIT_ROOT
 const editUrl = computed(() => {
   if (!editRoot) return ''
   const url = routePath.value.replace(/\.html$/, '.md').replace(/\/$/, '')
-  if (url.length) return `${editRoot}${url}`
+  if (url.length) return `${editRoot}/docs${url}`
   return `${editRoot}/docs/index.md`
 })
 </script>
