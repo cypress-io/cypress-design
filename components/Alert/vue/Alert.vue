@@ -105,7 +105,7 @@ function dismiss() {
 
 const computedIconProps = computed(() => {
   return {
-    strokeColor: alertClasses[props.type]?.iconColor,
+    strokeColor: typeClasses.value.iconColor,
     class: 'my-[4px] mr-[8px]',
   }
 })
