@@ -3,6 +3,7 @@ import { useRouter } from 'vitepress'
 import { computed, onMounted } from 'vue'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import ComponentSideBar from './ComponentSideBar.vue'
+import CommonSidebar from './CommonSidebar.vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 const { route } = useRouter()
 
@@ -17,6 +18,22 @@ const routePath = computed(() => route.path)
 const Components = import.meta.glob('../../../../components/*/ReadMe.md', {
   eager: true,
 })
+
+const docsPages = import.meta.glob('../../../*.md', {
+  eager: true,
+})
+
+const items = Object.keys(docsPages)
+  .map((p) => {
+    const route = p.replace(/^\.\.\/\.\.\/\.\.\//, '').replace(/\.md$/, '')
+    const name = route.split('/').pop() ?? ''
+    return {
+      text: name,
+      href: route,
+      active: route.includes(routePath.value),
+    }
+  })
+  .filter((p) => p.text.toLowerCase() !== 'index')
 
 const ComponentsLower = Object.entries(Components).reduce(
   (acc, [k, v]) => ({ ...acc, [k.toLowerCase()]: v }),
@@ -70,11 +87,11 @@ const editUrl = computed(() => {
 </script>
 
 <template>
-  <header class="flex h-20 justify-between items-center gap-4">
+  <header class="flex h-[80px] justify-between items-center px-[32px]">
     <a href="/">
       <picture>
         <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)" />
-        <img src="./logo.svg" class="h-[32px] mx-[32px]" />
+        <img src="./logo.svg" class="h-[32px] mr-[32px]" />
       </picture>
     </a>
     <FrameworkSwitch
@@ -82,10 +99,16 @@ const editUrl = computed(() => {
       :path="routePath"
       @switch="switchFramework"
     />
+    <div class="w-[150px]" />
   </header>
   <div class="flex min-h-full pb-8">
     <aside>
-      <ComponentSideBar class="float-left" :framework="framework" />
+      <CommonSidebar :items="items" />
+      <ComponentSideBar
+        class="float-left"
+        :framework="framework"
+        :currentPath="commonPath"
+      />
     </aside>
     <div class="w-[800px] mx-auto">
       <template v-if="CommonContent">
@@ -111,6 +134,9 @@ const editUrl = computed(() => {
       </template>
       <Content />
     </div>
+    <aside>
+      <div class="w-[200px]"></div>
+    </aside>
   </div>
 </template>
 

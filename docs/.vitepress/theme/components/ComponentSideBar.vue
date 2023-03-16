@@ -1,35 +1,43 @@
 <script lang="ts" setup>
-import { IconChevronDownSmall } from '@cypress-design/vue-icon'
+import DocMenu from '@cypress-design/vue-docmenu'
+import { computed } from 'vue'
 
 const pages = {
   vue: import.meta.glob('../../../components/vue/*.md', {
     eager: true,
-  }),
+  }) as any,
   react: import.meta.glob('../../../components/react/*.md', {
     eager: true,
-  }),
+  }) as any,
 }
 
 const getPageName = (p: string) => {
   return p.split('/').pop()?.replace(/\.md$/, '') ?? ''
 }
 
-defineProps<{
+const props = defineProps<{
   framework: 'vue' | 'react'
+  currentPath: string
 }>()
+
+const group = computed(() => {
+  return {
+    text: 'Components',
+    items: Object.keys(pages[props.framework]).map((p) => {
+      return {
+        text: getPageName(p),
+        href: p.replace(/\.md$/, ''),
+        active: p.replace(/\/(vue|react)/, '').includes(props.currentPath),
+      }
+    }),
+  }
+})
 </script>
 
 <template>
-  <ul>
+  <ul class="pl-[32px] w-[250px]">
     <li>
-      <span class="flex items-center">
-        <IconChevronDownSmall class="mx-2" />Components
-      </span>
-      <ul class="pl-10">
-        <li v-for="(page, p) of pages[framework]" :key="p">
-          <a :href="p.replace(/\.md$/, '')">{{ getPageName(p) }}</a>
-        </li>
-      </ul>
+      <DocMenu :group="group" />
     </li>
   </ul>
 </template>

@@ -5,7 +5,7 @@ export interface NavItemLink {
 }
 
 export interface NavGroup {
-  text: string
+  text?: string
   active?: boolean
   items: (NavItemLink | NavGroup)[]
 }

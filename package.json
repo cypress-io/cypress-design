@@ -32,6 +32,7 @@
 		"@changesets/cli": "^2.22.0",
 		"@cypress-design/css": "*",
 		"@cypress-design/react-icon": "*",
+		"@cypress-design/vue-docmenu": "*",
 		"@cypress-design/vue-icon": "*",
 		"@cypress/vite-dev-server": "^2.2.2",
 		"@percy/cli": "1.18.0",
