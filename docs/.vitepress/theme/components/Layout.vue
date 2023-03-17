@@ -10,8 +10,6 @@ const { route } = useRouter()
 
 const { set, get } = useCookies()
 
-const { title } = useData()
-
 const cookieFramework = computed(
   () => get<'react' | 'vue'>('framework') || 'vue'
 )
@@ -91,7 +89,7 @@ const editUrl = computed(() => {
     <div class="w-[150px]" />
   </header>
   <div class="flex min-h-full pb-8">
-    <aside>
+    <aside class="py-[32px]">
       <CommonSidebar :routePath="routePath" />
       <ComponentSideBar
         class="float-left"
@@ -103,6 +101,7 @@ const editUrl = computed(() => {
       <div v-if="CommonContent" class="relative">
         <Button
           v-if="editRoot"
+          :key="commonPathReadme"
           variant="link"
           :href="`${editRoot}${commonPathReadme}`"
           class="absolute right-0 top-0 peer"
@@ -116,6 +115,7 @@ const editUrl = computed(() => {
       <div class="relative">
         <Button
           v-if="editRoot"
+          :key="`${commonPath}/${framework}`"
           :href="
             hasFramework
               ? `${editRoot}${commonPath}/${framework}/ReadMe.md`
