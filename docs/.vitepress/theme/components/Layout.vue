@@ -122,7 +122,7 @@ const editUrl = computed(() => {
               : editUrl
           "
           variant="link"
-          class="absolute right-0 top-0 peer"
+          class="absolute right-0 top-0 z-10 peer"
         >
           Edit
         </Button>
