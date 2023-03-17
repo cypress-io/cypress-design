@@ -3,7 +3,7 @@ import Tag from './Tag.vue'
 import { SizeClasses, ColorClasses } from '../constants'
 
 export default () => (
-  <div class="flex flex-row flex-wrap gap-6 justify-center items-start bg-gray-700">
+  <div class="flex flex-row flex-wrap items-start justify-center bg-gray-700 gap-6">
     {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
       (size) => {
         return (

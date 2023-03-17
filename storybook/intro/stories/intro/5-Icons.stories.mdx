@@ -55,11 +55,11 @@ For more info, check-out the Icon component documentation on the framework you a
         <label htmlFor="icon-search">Search icons by name: </label>
         <input type="text"
           name="icon-search"
-          className="border border-indigo-500 rounded mb-2 px-1"
+          className="px-1 mb-2 border border-indigo-500 rounded"
           onChange={(e) => searchIcons(e.target.value)}
         />
-        <h3 className="text-lg border-b-1 border-gray-300 pb-1">Use the dropdowns below to customize the colors of the icons</h3>
-        <div className="flex border-b-1 border-gray-300 flex-wrap">
+        <h3 className="pb-1 text-lg border-gray-300 border-b-1">Use the dropdowns below to customize the colors of the icons</h3>
+        <div className="flex flex-wrap border-gray-300 border-b-1">
           <div className={`p-3 w-full md:w-1/2 flex items-center justify-evenly text-${strokeColor.value}-600 bg-${fillColor.value}-50`}>
             <div className="w-1/2">
             strokeColor
@@ -98,11 +98,11 @@ For more info, check-out the Icon component documentation on the framework you a
         <div>
           {Object.keys(iconsMatchingSearch).map((iconName) => {
             const meta = iconsMatchingSearch[iconName]
-            return <div key={iconName} className="flex align-center items-end border-b border-gray-300 pb-2 pt-4">
-              <div className="w-60 text-right mr-4">{iconName}</div>
+            return <div key={iconName} className="flex items-end pt-4 pb-2 border-b border-gray-300 align-center">
+              <div className="mr-4 text-right w-60">{iconName}</div>
               {meta.availableSizes.map((size) => {
-                return (<div key={`${iconName}_${size}`} className="mr-8 flex">
-                  <div className="mr-2 text-center pb-1 align-bottom">
+                return (<div key={`${iconName}_${size}`} className="flex mr-8">
+                  <div className="pb-1 mr-2 text-center align-bottom">
                     <Icon 
                       name={iconName} 
                       size={size} 

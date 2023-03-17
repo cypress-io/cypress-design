@@ -76,7 +76,7 @@ export const BrandColors: FunctionComponent = () => {
     <div className="w-full">
       {Object.keys(brandPalettes).map((paletteName) => (
         <div key={paletteName} className="mb-8">
-          <h3 className="text-2xl flex items-end gap-2">
+          <h3 className="flex items-end text-2xl gap-2">
             {startCase(paletteName)}
             {paletteName === 'tertiary' && (
               <p className="text-sm text-gray-500">

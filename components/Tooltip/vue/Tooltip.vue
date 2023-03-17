@@ -31,7 +31,7 @@
       ]"
     >
       <div
-        class="rounded shadow border"
+        class="border rounded shadow"
         :class="[colors.background, colors.block]"
       >
         <svg

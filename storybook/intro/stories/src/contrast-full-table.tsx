@@ -31,8 +31,8 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
   })
 
   return (
-    <details className="border rounded p-2 mt-8">
-      <summary className="cursor-pointer list-item font-bold">
+    <details className="p-2 mt-8 border rounded">
+      <summary className="font-bold cursor-pointer list-item">
         Full table
       </summary>
       <h2 className="py-4 text-2xl">Background Color: {background.label}</h2>
@@ -44,10 +44,10 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
             >
               Color
             </th>
-            <th className="border px-2 py-1">Color</th>
-            <th className="border px-2 py-1">Large Text</th>
-            <th className="border px-2 py-1">Normal Text</th>
-            <th className="border px-2 py-1">Ratio</th>
+            <th className="px-2 py-1 border">Color</th>
+            <th className="px-2 py-1 border">Large Text</th>
+            <th className="px-2 py-1 border">Normal Text</th>
+            <th className="px-2 py-1 border">Ratio</th>
           </tr>
         </thead>
         <tbody>
@@ -58,10 +58,10 @@ export const ContrastFullTable: FunctionComponent<ContrastFullTableProps> = ({
               >
                 {color.name}
               </th>
-              <td className="border px-2 py-1">{color.name}</td>
-              <td className="border px-2 py-1">{color.largeContrast}</td>
-              <td className="border px-2 py-1">{color.normalContrast}</td>
-              <td className="border px-2 py-1">{round(color.ratio, 2)}</td>
+              <td className="px-2 py-1 border">{color.name}</td>
+              <td className="px-2 py-1 border">{color.largeContrast}</td>
+              <td className="px-2 py-1 border">{color.normalContrast}</td>
+              <td className="px-2 py-1 border">{round(color.ratio, 2)}</td>
             </tr>
           ))}
         </tbody>

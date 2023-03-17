@@ -13,10 +13,10 @@ export default ({
   disabled?: boolean
   tabIndex?: number
 } = {}) => (
-  <div className="center flex flex-col items-center gap-20">
+  <div className="flex flex-col items-center center gap-20">
     <Tooltip
-      className="bg-red-200 p-4 w-1/2"
-      popper={<div className="bg-jade-200 text-gray-800 p-4">PopovDyn</div>}
+      className="w-1/2 p-4 bg-red-200"
+      popper={<div className="p-4 text-gray-800 bg-jade-200">PopovDyn</div>}
       color={color}
       placement={placement}
       tabIndex={tabIndex}
@@ -25,7 +25,7 @@ export default ({
       <div>Hover Me (dynamic: {placement?.toString()})</div>
     </Tooltip>
     <Tooltip
-      className="bg-red-200 p-4 w-1/2"
+      className="w-1/2 p-4 bg-red-200"
       popper={
         <div className="h-[200px] flex items-center justify-center">Popov</div>
       }
@@ -36,7 +36,7 @@ export default ({
       <div>Force Placement to the top</div>
     </Tooltip>
     <Tooltip
-      className="bg-red-200 p-4 w-1/2"
+      className="w-1/2 p-4 bg-red-200"
       popper={<div>PopovInt</div>}
       color={color}
       placement={placement}
@@ -47,14 +47,14 @@ export default ({
     {(['top', 'right', 'bottom', 'left', 'top-start'] as const).map(
       (placement) => (
         <Tooltip
-          className="bg-indigo-200 p-4 w-1/2"
+          className="w-1/2 p-4 bg-indigo-200"
           placement={placement}
           key={placement}
           color={color}
           tabIndex={tabIndex}
           disabled={disabled}
           popper={
-            <div className="bg-jade-200 text-gray-800 p-4">
+            <div className="p-4 text-gray-800 bg-jade-200">
               Popover ({placement})
             </div>
           }
