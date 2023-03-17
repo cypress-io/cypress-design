@@ -5,7 +5,7 @@ import Accordion from '@cypress-design/vue-accordion'
 
 # Accordion
 
-<div class="bg-gray-50 rounded py-[16px] px-[24px] my-[24px]">
+<div class="bg-gray-50 rounded p-[16px] my-[24px]">
 	<Accordion
 		:icon="IconActionQuestionMarkCircle"
 		title="Accordion Title"
