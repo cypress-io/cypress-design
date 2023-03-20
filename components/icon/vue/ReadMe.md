@@ -14,12 +14,13 @@ The recommended:
 - Complete proper TS validation of all props inline
 - No auto-importation of the component in the template
 
-```vue
+```vue live
 <script setup>
-import { IconBookCode } from @cypress-design/vue-icon
+import { IconObjectBookCode } from '@cypress-design/vue-icon'
 </script>
+
 <template>
-  <IconBookCode />
+  <IconObjectBookCode />
 </template>
 ```
 
@@ -31,12 +32,13 @@ The simplest:
 - It use TypeScript to validate sizes and colors but with a twist:
   - If the size of the icon is not available for the icon selected and is available for another, the error will appear on the icon component instead of on the size prop.
 
-```vue
+```vue live
 <script setup>
-import Icon from @cypress-design/vue-icon
+import Icon from '@cypress-design/vue-icon'
 </script>
+
 <template>
-  <Icon name="book-code" />
+  <Icon name="object-book-code" />
 </template>
 ```
 
@@ -44,13 +46,14 @@ Should you need to change the color of the icon on `hover` or `focus` prefix the
 
 Here, the `strokeColor` will change on hover from indigo to jade
 
-```vue
+```vue live
 <script setup>
-import { IconBook } from '@cypress-design/vue-icon'
+import { IconObjectBook } from '@cypress-design/vue-icon'
 </script>
+
 <template>
-  <button>
-    <IconBook
+  <button class="flex items-center gap-[8px]">
+    <IconObjectBook
       size="16"
       strokeColor="blue-600"
       hoverStrokeColor="jade-600"
@@ -64,13 +67,14 @@ This prop will change all the pseudo prefixes to be group focused instead of tri
 
 To achieve the same goal, in WindiCSS, we would use `group-hover:` instead of `hover:`.
 
-```vue
+```vue live
 <script setup>
-import { IconBook } from '@cypress-design/vue-icon'
+import { IconObjectBook } from '@cypress-design/vue-icon'
 </script>
+
 <template>
-  <button class="group hover:text-jade-800">
-    <IconBook
+  <button class="group hover:text-jade-800 flex items-center gap-[8px]">
+    <IconObjectBook
       size="16"
       strokeColor="blue-600"
       hoverStrokeColor="jade-600"
