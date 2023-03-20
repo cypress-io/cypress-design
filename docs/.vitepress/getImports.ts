@@ -1,4 +1,4 @@
-import { parse, compileScript } from '@vue/compiler-sfc'
+import { parse } from '@vue/compiler-sfc'
 import { transform } from 'sucrase'
 import { parse as esParse } from 'es-module-lexer/js'
 
@@ -18,20 +18,23 @@ export function parseImports(code: string) {
         let importClauseString = code
           .substring(
             statementStartIndex + `import`.length,
-            moduleSpecifierEndIndexExclusive
+            moduleSpecifierStartIndex - 1
           )
           .trim()
+
+        console.log({ importClauseString })
         if (importClauseString.endsWith(`from`)) {
           importClauseString = importClauseString.substring(
             0,
             importClauseString.length - `from`.length
           )
         } else {
-          acc['_'] = {
-            source: code.substring(
-              moduleSpecifierStartIndex,
-              moduleSpecifierEndIndexExclusive
-            ),
+          const source = code.substring(
+            moduleSpecifierStartIndex,
+            moduleSpecifierEndIndexExclusive
+          )
+          acc[source] = {
+            source,
           }
         }
 

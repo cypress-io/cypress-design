@@ -21,9 +21,6 @@ describe('parseImports', () => {
           "imported": "IconActionOther",
           "source": "@cypress-design/vue-icon",
         },
-        "_": {
-          "source": "@cypress-design/vue-icon",
-        },
       }
     `)
   })
@@ -35,7 +32,7 @@ describe('parseImports', () => {
     const imps = parseImports(code)
     expect(imps).toMatchInlineSnapshot(`
       {
-        "_": {
+        "@cypress-design/vue-icon/style.css": {
           "source": "@cypress-design/vue-icon/style.css",
         },
       }
@@ -59,9 +56,6 @@ describe('getImports', () => {
         },
         "LocalIconOther": {
           "imported": "IconActionOther",
-          "source": "@cypress-design/vue-icon",
-        },
-        "_": {
           "source": "@cypress-design/vue-icon",
         },
       }
@@ -103,9 +97,6 @@ describe('getImports', () => {
         "LocalIconOther": {
           "imported": "IconActionOther",
           "source": "@cypress-design/vue-icon",
-        },
-        "_": {
-          "source": "./babar",
         },
       }
     `)
