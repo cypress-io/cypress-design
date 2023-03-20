@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { useData, useRouter } from 'vitepress'
+import { useRouter } from 'vitepress'
 import { computed, onMounted } from 'vue'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import ComponentSideBar from './ComponentSideBar.vue'
 import CommonSidebar from './CommonSidebar.vue'
+import ReactIcon from './react.svg'
+import VueIcon from './vue.svg'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
 const { route } = useRouter()
@@ -127,7 +129,16 @@ const editUrl = computed(() => {
           Edit
         </Button>
         <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded mt-8">
-          <h2 v-if="hasFramework" class="mt-0 capitalize">{{ framework }}</h2>
+          <h2
+            v-if="hasFramework"
+            class="mt-0 capitalize flex items-center gap-[16px]"
+          >
+            {{ framework }}
+            <img
+              width="24"
+              :src="framework === 'react' ? ReactIcon : VueIcon"
+            />
+          </h2>
           <Content />
         </div>
       </div>

@@ -25,17 +25,21 @@ To know what colors you can customize, look for the letters near the icons.
 
 For more info, check-out the Icon component documentation on the framework you are using.
 
-<ul>
-  <li><a href="/components/react/icon">React</a></li>
-  <li><a href="/components/vue/icon">Vue</a></li>
+<ul class="flex justify-center items-center h-[64px]">
+  <li>
+		<Button variant="link" href="/components/react/icon">React</Button>
+	</li>
+  <li>
+		<Button variant="link" href="/components/vue/icon">Vue</Button>
+	</li>
 </ul>
 
 <div class="bg-gray-50 rounded p-[16px] my-[24px]">
 	<div class="bg-white py-[16px]">
-		<div class="min-h-[48px] mt-[16px] gap-x-[16px] flex items-end" v-for="meta, iconName of iconsMetadata" :key="iconName">
+		<div class="mt-[16px] gap-x-[16px] flex items-end" v-for="meta, iconName of iconsMetadata" :key="iconName">
 			<p class="text-[16px] whitespace-nowrap overflow-hidden w-[250px] text-right">{{ iconName }}</p>
-			<div v-for="size in meta.availableSizes" :key="size" class="flex gap-[8px]">
-				<div class="border-l pl-[4px] py-[4px] border-gray-300 min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end">
+			<div v-for="size in meta.availableSizes" :key="size" class="flex gap-[8px] items-end">
+				<div class="border-l pl-[4px] py-[4px] border-gray-300 min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end min-h-[96px]">
 					<Icon :name="iconName" :size="size" />
 					<p class="text-gray-500 text-[12px]">{{ size }}</p>
 				</div>

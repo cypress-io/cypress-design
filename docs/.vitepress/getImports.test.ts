@@ -1,5 +1,47 @@
 import { describe, it, expect } from 'vitest'
-import { getImports } from './getImports'
+import { getImports, parseImports } from './getImports'
+
+describe('parseImports', () => {
+  it('should return an array of imports', async () => {
+    const code = `
+		import Icon, { IconActionQuestionMarkCircle as LocalIcon, IconActionOther as LocalIconOther } from "@cypress-design/vue-icon";
+		`
+    const imports = parseImports(code)
+    expect(imports).toMatchInlineSnapshot(`
+      {
+        "Icon": {
+          "imported": "default",
+          "source": "@cypress-design/vue-icon",
+        },
+        "LocalIcon": {
+          "imported": "IconActionQuestionMarkCircle",
+          "source": "@cypress-design/vue-icon",
+        },
+        "LocalIconOther": {
+          "imported": "IconActionOther",
+          "source": "@cypress-design/vue-icon",
+        },
+        "_": {
+          "source": "@cypress-design/vue-icon",
+        },
+      }
+    `)
+  })
+
+  it('should return independent imports', async () => {
+    const code = `
+		import "@cypress-design/vue-icon/style.css";
+		`
+    const imps = parseImports(code)
+    expect(imps).toMatchInlineSnapshot(`
+      {
+        "_": {
+          "source": "@cypress-design/vue-icon/style.css",
+        },
+      }
+    `)
+  })
+})
 
 describe('getImports', () => {
   it('should return an array of imports', async () => {
@@ -8,7 +50,7 @@ describe('getImports', () => {
 		import { IconActionQuestionMarkCircle as LocalIcon, IconActionOther as LocalIconOther } from "@cypress-design/vue-icon";
 		</script>
 			`
-    const imports = await getImports(code)
+    const imports = getImports(code)
     expect(imports).toMatchInlineSnapshot(`
       {
         "LocalIcon": {
@@ -51,10 +93,6 @@ describe('getImports', () => {
     const imports = await getImports(code)
     expect(imports).toMatchInlineSnapshot(`
       {
-        "": {
-          "imported": "",
-          "source": "@cypress-design/vue-icon",
-        },
         "Babar": {
           "imported": "Babar",
           "source": "./babar",
@@ -70,6 +108,9 @@ describe('getImports', () => {
         "LocalIconOther": {
           "imported": "IconActionOther",
           "source": "@cypress-design/vue-icon",
+        },
+        "_": {
+          "source": "./babar",
         },
       }
     `)
