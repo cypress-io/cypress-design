@@ -55,18 +55,13 @@ describe('getImports', () => {
       {
         "LocalIcon": {
           "imported": "IconActionQuestionMarkCircle",
-          "isFromSetup": true,
-          "isType": false,
-          "isUsedInTemplate": true,
-          "local": "LocalIcon",
           "source": "@cypress-design/vue-icon",
         },
         "LocalIconOther": {
           "imported": "IconActionOther",
-          "isFromSetup": true,
-          "isType": false,
-          "isUsedInTemplate": true,
-          "local": "LocalIconOther",
+          "source": "@cypress-design/vue-icon",
+        },
+        "_": {
           "source": "@cypress-design/vue-icon",
         },
       }
