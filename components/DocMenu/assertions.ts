@@ -4,6 +4,10 @@ import type { NavGroup } from './constants'
 
 const menuItems = [
   {
+    text: 'Get Started',
+    href: 'https://example.com',
+  },
+  {
     text: 'Overview',
     items: [
       {

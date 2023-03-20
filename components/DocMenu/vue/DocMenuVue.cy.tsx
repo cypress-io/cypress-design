@@ -5,8 +5,8 @@ import type { NavGroup } from '../constants'
 import DocMenuStory from './DocMenu.rootstory'
 
 describe('<DocMenu/>', () => {
-  function mountStory(groups: NavGroup[] = []) {
-    mount(() => <DocMenuStory groups={groups} />)
+  function mountStory(items: NavGroup[] = []) {
+    mount(() => <DocMenuStory items={items} />)
   }
   assertions(mountStory)
 })

@@ -1,14 +1,6 @@
-import type { NavGroup } from '../constants'
+import type { NavGroup, NavItemLink } from '../constants'
 import DocMenu from './DocMenu.vue'
 
-export default ({ groups }: { groups: NavGroup[] }) => {
-  return (
-    <ul class="pl-[24px]">
-      <li>
-        {groups.map((group) => (
-          <DocMenu group={group} />
-        ))}
-      </li>
-    </ul>
-  )
+export default ({ items }: { items: (NavGroup | NavItemLink)[] }) => {
+  return <DocMenu items={items} />
 }

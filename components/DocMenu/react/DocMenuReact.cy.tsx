@@ -7,8 +7,8 @@ import assertions from '../assertions'
 import { NavGroup } from '../constants'
 
 describe('<DocMenu/>', () => {
-  function mountStory(groups: NavGroup[] = []) {
-    mount(<DocMenuStory groups={groups} />)
+  function mountStory(items: NavGroup[] = []) {
+    mount(<DocMenuStory items={items} />)
   }
   assertions(mountStory)
 })

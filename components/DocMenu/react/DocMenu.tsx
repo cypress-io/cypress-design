@@ -1,77 +1,28 @@
 import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
-import { NavGroup, classes } from '../constants'
+import { NavGroup, classes, NavItemLink } from '../constants'
+import { DocLink } from './DocLink'
+import { DocGroup } from './DocGroup'
 
 export interface DocMenuProps {
-  group: NavGroup
+  items: (NavGroup | NavItemLink)[]
   depth?: number
 }
 
-export const DocMenu: React.FC<DocMenuProps> = ({ group, depth = 0 }) => {
-  const [open, setOpen] = React.useState(depth === 0)
+export const DocMenu: React.FC<DocMenuProps> = ({ items }) => {
   return (
-    <>
-      {group.text ? (
-        <button
-          onClick={() => setOpen(!open)}
-          className={clsx(classes.button, {
-            [classes.topButton]: depth === 0,
-            [classes.leafButton]: depth,
-          })}
-        >
-          <IconChevronDownSmall
-            stroke-color="gray-400"
-            size={depth ? '8' : '16'}
-            className={clsx('absolute transform transition-transform left-0', {
-              'rotate-0': open,
-              '-rotate-90': !open,
-              'ml-[16px]': depth,
-            })}
-          />
-          {group.text}
-        </button>
-      ) : null}
-      <ul
-        className={clsx('ml-[7px]', {
-          'border-l border-gray-100': depth === 0,
-          hidden: !open,
-        })}
-      >
-        {group.items.map((item) =>
-          'href' in item ? (
-            <li className="pl-[16px]">
-              <a
-                className={clsx(
-                  'group relative inline-block py-[12px] leading-[20px] text-[14px] pl-[24px]',
-                  {
-                    'text-indigo-500': item.active,
-                  }
-                )}
-                href={item.href}
-              >
-                <div
-                  className={clsx(
-                    'absolute w-[4px] z-10 top-[5%] h-[90%] rounded-full',
-                    {
-                      'left-[-18.5px]': depth === 0,
-                      'left-[-25.5px]': depth > 0,
-                      'hidden group-hover:block bg-gray-300': !item.active,
-                      'bg-indigo-500': item.active,
-                    }
-                  )}
-                />
-                {item.text}
-              </a>
-            </li>
-          ) : (
-            <li>
-              <DocMenu group={item} depth={depth + 1} />
-            </li>
-          )
-        )}
-      </ul>
-    </>
+    <ul className="pl-[16px]">
+      {items.map((item) =>
+        'href' in item ? (
+          <DocLink item={item} />
+        ) : (
+          <li>
+            <DocGroup group={item} />
+          </li>
+        )
+      )}
+    </ul>
   )
 }
 
