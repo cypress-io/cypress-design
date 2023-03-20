@@ -22,7 +22,6 @@ export function parseImports(code: string) {
           )
           .trim()
 
-        console.log({ importClauseString })
         if (importClauseString.endsWith(`from`)) {
           importClauseString = importClauseString.substring(
             0,
