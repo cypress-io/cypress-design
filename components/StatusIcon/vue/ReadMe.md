@@ -20,7 +20,7 @@ yarn add @cypress-design/vue-statusicon
 
 The simple way of using the StatusIcon component
 
-```vue
+```vue live
 <script setup>
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 </script>
@@ -32,7 +32,7 @@ import { StatusIcon } from '@cypress-design/vue-statusicon'
 
 The tree-shakable way (more optimized)
 
-```vue
+```vue live
 <script setup>
 import { SolidStatusIcon } from '@cypress-design/vue-statusicon'
 </script>
