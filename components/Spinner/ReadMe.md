@@ -1,4 +1,13 @@
+<script lang="ts" setup>
+import '@cypress-design/vue-spinner/style.css'
+import Spinner from '@cypress-design/vue-spinner'
+</script>
+
 # Spinner
+
+<div class="bg-gray-50 rounded p-[16px] my-[24px]">
+	<Spinner/>
+</div>
 
 The spinner component is used to indicate that an operation is in progress.
 
