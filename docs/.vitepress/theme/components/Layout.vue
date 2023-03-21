@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import { onContentUpdated, useRouter } from 'vitepress'
-import { computed, onMounted, shallowRef, watch } from 'vue'
+import { computed, onMounted, shallowRef, watch, ref, nextTick } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import DocMenu from '@cypress-design/vue-docmenu'
 import Button from '@cypress-design/vue-button'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import { getHeaders } from '../utils/outline'
-const { route, go } = useRouter()
+const router = useRouter()
 
 const { set, get } = useCookies()
 
@@ -15,7 +15,22 @@ const cookieFramework = computed(
   () => get<'react' | 'vue'>('framework') || 'vue'
 )
 
-const routePath = computed(() => route.path)
+const saveScroll = ref(0)
+
+/**
+ * keep scroll when switching framework
+ */
+router.onAfterRouteChanged = async (to) => {
+  console.log('onAfterRouteChanged', { to, saveScroll: saveScroll.value })
+  if (to.includes('/components/') && saveScroll.value) {
+    nextTick(() => {
+      window.scrollTo(0, saveScroll.value)
+      saveScroll.value = 0
+    })
+  }
+}
+
+const routePath = computed(() => router.route.path)
 
 const framework = computed(() =>
   routePath.value.includes('/react/')
@@ -33,7 +48,7 @@ watch(
       !path.includes('/react/') &&
       !path.includes('/vue/')
     ) {
-      go(path.replace('/components/', `/components/${framework.value}/`))
+      router.go(path.replace('/components/', `/components/${framework.value}/`))
     }
   },
   { immediate: true }
@@ -76,6 +91,7 @@ const CommonContent = computed(
 )
 
 function switchFramework(fw: 'react' | 'vue') {
+  saveScroll.value = window.scrollY
   set('framework', fw)
 }
 
@@ -125,7 +141,9 @@ const editUrl = computed(() => {
         >
           Edit
         </Button>
-        <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded">
+        <div
+          class="peer-hover:bg-gray-50/50 py-[4px] mt-[24px] p-[8px] rounded"
+        >
           <CommonContent />
         </div>
       </div>
@@ -156,7 +174,7 @@ const editUrl = computed(() => {
     </main>
     <aside>
       <div class="w-[300px]">
-        <DocMenu :items="headers" class="fixed top-[70px] pl-[24px]" />
+        <DocMenu :items="headers" class="fixed top-[70px]" />
       </div>
     </aside>
   </div>
