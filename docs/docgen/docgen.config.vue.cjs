@@ -22,7 +22,7 @@ module.exports = defineConfig({
         const exportNames = checker.getExportNames(componentPath)
         resolve(
           exportNames.map((exportName) => {
-            const meta = checker.getComponentMeta(componentPath)
+            const meta = checker.getComponentMeta(componentPath, exportName)
 
             const nonGlobalProps = meta.props.filter((prop) => !prop.global)
 
