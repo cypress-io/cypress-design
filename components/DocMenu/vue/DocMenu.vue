@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { NavGroup, NavItemLink } from '../constants'
-import DocGroup from './DocGroup.vue'
-import DocLink from './DocLink.vue'
+import DocGroup from './_DocGroup.vue'
+import DocLink from './_DocLink.vue'
 
 defineProps<{
   items: (NavItemLink | NavGroup)[]

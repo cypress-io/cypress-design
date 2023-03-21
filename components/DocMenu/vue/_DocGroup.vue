@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '../constants'
-import DocLink from './DocLink.vue'
+import DocLink from './_DocLink.vue'
 import DocMenu from './DocMenu.vue'
 
 const props = withDefaults(

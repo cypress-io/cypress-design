@@ -2,7 +2,7 @@ import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
 import { NavGroup, classes } from '../constants'
-import { DocLink } from './DocLink'
+import { DocLink } from './_DocLink'
 
 export interface DocGroupProps {
   group: NavGroup

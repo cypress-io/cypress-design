@@ -2,8 +2,8 @@ import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
 import { NavGroup, classes, NavItemLink } from '../constants'
-import { DocLink } from './DocLink'
-import { DocGroup } from './DocGroup'
+import { DocLink } from './_DocLink'
+import { DocGroup } from './_DocGroup'
 
 export interface DocMenuProps {
   items: (NavGroup | NavItemLink)[]
