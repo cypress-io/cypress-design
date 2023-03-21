@@ -1,5 +1,3 @@
-printenv
-git status
-GIT_BRANCH=$(git branch --show-current)
+export GIT_BRANCH=$VERCEL_GIT_COMMIT_REF
 echo "Building docs for branch $GIT_BRANCH"
 yarn vitepress build docs

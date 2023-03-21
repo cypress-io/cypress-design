@@ -24,7 +24,7 @@
 		"build:components": "turbo run build --filter=@cypress-design/*",
 		"dev": "yarn start",
 		"start": "NODE_ENV=development concurrently \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
-		"build:docs": "vue-docgen -c docs/docgen/docgen.config.cjs && yarn build:components && ./build-vitepress.sh",
+		"build:docs": "vue-docgen -c docs/docgen/docgen.config.cjs && yarn build:components && ./vercel-build-docs.sh",
 		"postinstall": "yarn husky install",
 		"new:component": "hygen component new"
 	},
