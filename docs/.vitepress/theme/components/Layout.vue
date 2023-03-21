@@ -145,6 +145,7 @@ const editUrl = computed(() => {
         </Button>
         <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded mt-8">
           <FrameworkSwitch
+            v-if="hasFramework"
             :framework="framework"
             :path="routePath"
             @switch="switchFramework"
