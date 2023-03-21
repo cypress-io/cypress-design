@@ -18,7 +18,26 @@ const getPageName = (p: string) => {
 const props = defineProps<{
   framework: 'vue' | 'react'
   currentPath: string
+  routePath: string
 }>()
+
+const docsPages = import.meta.glob('../../../*.md', {
+  eager: true,
+})
+
+const items = computed(() =>
+  Object.keys(docsPages)
+    .map((p) => {
+      const route = p.replace(/^\.\.\/\.\.\/\.\./, '').replace(/\.md$/, '')
+
+      return {
+        text: route.split('/').pop()?.replace(/-/g, ' ') ?? '',
+        href: route,
+        active: props.routePath.includes(route),
+      }
+    })
+    .filter((p) => p.text.toLowerCase() !== 'index')
+)
 
 const group = computed(() => {
   return {
@@ -37,9 +56,5 @@ const group = computed(() => {
 </script>
 
 <template>
-  <ul class="pl-[32px] w-[250px]">
-    <li>
-      <DocMenu :group="group" />
-    </li>
-  </ul>
+  <DocMenu :items="[...items, group]" class="w-[250px]" />
 </template>

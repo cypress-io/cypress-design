@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import { useRouter } from 'vitepress'
-import { computed, onMounted } from 'vue'
+import { onContentUpdated, useRouter } from 'vitepress'
+import { computed, onMounted, shallowRef } from 'vue'
+import { useCookies } from '@vueuse/integrations/useCookies'
+import DocMenu from '@cypress-design/vue-docmenu'
+import Button from '@cypress-design/vue-button'
 import FrameworkSwitch from './FrameworkSwitch.vue'
-import ComponentSideBar from './ComponentSideBar.vue'
-import CommonSidebar from './CommonSidebar.vue'
+import Sidebar from './Sidebar.vue'
 import ReactIcon from './react.svg'
 import VueIcon from './vue.svg'
-import { useCookies } from '@vueuse/integrations/useCookies'
-import Button from '@cypress-design/vue-button'
+import { getHeaders } from '../utils/outline'
 const { route } = useRouter()
 
 const { set, get } = useCookies()
@@ -36,6 +37,12 @@ const framework = computed(() =>
     ? ('vue' as const)
     : cookieFramework.value
 )
+
+const headers = shallowRef<any>([])
+
+onContentUpdated(() => {
+  headers.value = getHeaders(2)
+})
 
 onMounted(() => {
   switchFramework(framework.value)
@@ -92,14 +99,13 @@ const editUrl = computed(() => {
   </header>
   <div class="flex min-h-full pb-8">
     <aside class="py-[32px]">
-      <CommonSidebar :routePath="routePath" />
-      <ComponentSideBar
-        class="float-left"
+      <Sidebar
         :framework="framework"
         :currentPath="commonPath"
+        :routePath="routePath"
       />
     </aside>
-    <div class="w-[800px] mx-auto mt-[24px]">
+    <main class="w-[800px] mx-auto mt-[24px]">
       <div v-if="CommonContent" class="relative">
         <Button
           v-if="editRoot"
@@ -142,9 +148,11 @@ const editUrl = computed(() => {
           <Content />
         </div>
       </div>
-    </div>
+    </main>
     <aside>
-      <div class="w-[200px]"></div>
+      <div class="w-[200px]">
+        <DocMenu :items="headers" class="fixed top-[70px] pl-[24px]" />
+      </div>
     </aside>
   </div>
 </template>

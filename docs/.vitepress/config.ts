@@ -6,6 +6,7 @@ const branch = process.env.GIT_BRANCH || 'main'
 
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
+  title: 'Cypress Design System',
   outDir: './dist',
   markdown: {
     config(md) {
