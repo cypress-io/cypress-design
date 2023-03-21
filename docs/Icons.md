@@ -3,6 +3,8 @@ import {ref} from 'vue';
 import { iconsMetadata } from '@cypress-design/icon-registry';
 import Icon from '@cypress-design/vue-icon';
 import Button from '@cypress-design/vue-button';
+import { upperFirst, camelCase } from 'lodash'
+
 
 const colors = ['<default>', 'blue', 'jade', 'red', 'indigo', 'purple', 'gray'];
 const strokeColor = ref({label:'teal', value:'teal'});
@@ -37,7 +39,7 @@ For more info, check-out the Icon component documentation on the framework you a
 <div class="bg-gray-50 rounded p-[16px] my-[24px]">
 	<div class="bg-white py-[16px]">
 		<div class="mt-[16px] gap-x-[16px] flex items-end" v-for="meta, iconName of iconsMetadata" :key="iconName">
-			<p class="text-[16px] whitespace-nowrap overflow-hidden w-[250px] text-right">{{ iconName }}</p>
+			<p class="text-[16px] whitespace-nowrap overflow-hidden w-[250px] text-right">{{ iconName }}<br/>&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</p>
 			<div v-for="size in meta.availableSizes" :key="size" class="flex gap-[8px] items-end">
 				<div class="border-l pl-[4px] py-[4px] border-gray-300 min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end min-h-[96px]">
 					<Icon :name="iconName" :size="size" />

@@ -155,7 +155,7 @@ const editUrl = computed(() => {
       </div>
     </main>
     <aside>
-      <div class="w-[200px]">
+      <div class="w-[300px]">
         <DocMenu :items="headers" class="fixed top-[70px] pl-[24px]" />
       </div>
     </aside>
