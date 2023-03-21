@@ -6,8 +6,6 @@ import DocMenu from '@cypress-design/vue-docmenu'
 import Button from '@cypress-design/vue-button'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
-import ReactIcon from './react.svg'
-import VueIcon from './vue.svg'
 import { getHeaders } from '../utils/outline'
 const { route, go } = useRouter()
 
@@ -104,11 +102,7 @@ const editUrl = computed(() => {
         <img src="./logo.svg" class="h-[32px] mr-[32px]" />
       </picture>
     </a>
-    <FrameworkSwitch
-      :framework="framework"
-      :path="routePath"
-      @switch="switchFramework"
-    />
+
     <div class="w-[150px]" />
   </header>
   <div class="h-[72px]" />
@@ -150,16 +144,11 @@ const editUrl = computed(() => {
           Edit
         </Button>
         <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded mt-8">
-          <h2
-            v-if="hasFramework"
-            class="mt-0 capitalize flex items-center gap-[16px]"
-          >
-            {{ framework }}
-            <img
-              width="24"
-              :src="framework === 'react' ? ReactIcon : VueIcon"
-            />
-          </h2>
+          <FrameworkSwitch
+            :framework="framework"
+            :path="routePath"
+            @switch="switchFramework"
+          />
           <Content />
         </div>
       </div>
