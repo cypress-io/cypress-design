@@ -108,6 +108,7 @@ onUnmounted(() => {
   overflow: hidden;
   border: 1px solid #e2e2e2;
   margin-top: 24px;
+  margin-bottom: 24px;
 }
 .vp-doc .preview-code .code-block {
   flex-grow: 1;
