@@ -1,36 +1,39 @@
 export const VariantClassesTable = {
-  link: 'border-transparent text-indigo-600 hover:underline disabled:text-gray-500 disabled:no-underline ring-transparent',
-  'outline-indigo':
-    'border-indigo-500 text-indigo-500 hocus:ring-indigo-300/35 disabled:text-gray-500',
-  'outline-purple':
-    'border-purple-500 text-purple-500 hocus:ring-purple-100 disabled:text-gray-500',
-  'outline-gray':
-    'border-gray-1000 text-gray-1000 hocus:ring-gray-100 disabled:text-gray-500',
-  'outline-light':
-    'border-gray-100 text-indigo-500 hocus:border-gray-200 disabled:border-gray-100 hocus:ring-gray-50 disabled:text-gray-500',
-  'outline-dark':
-    'border-white/20 text-white hocus:border-white/60 hocus:ring-white/20 disabled:border-white/20 disabled:text-white/50',
+  link: 'text-indigo-600 border-transparent ring-transparent hover:underline disabled:text-gray-500 disabled:no-underline enabled:hocus:shadow-transparent focus-visible:ring-gray-100 focus-visible:underline',
   white:
-    'border-gray-100 bg-white text-indigo-500 hocus:border-gray-200 hocus:ring-gray-50 disabled:text-gray-500',
+    'text-indigo-500 bg-white border-gray-100 hover:border-gray-200 enabled:hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
+  disabled: 'text-white bg-gray-500 border-gray-500',
+  // outline variants
+  'outline-indigo':
+    'border-indigo-500 text-indigo-500 enabled:hocus:shadow-indigo-300/[.35] disabled:text-gray-500 focus:ring-indigo-600',
+  'outline-purple':
+    'text-purple-500 border-purple-500 enabled:hocus:shadow-purple-100 disabled:text-gray-500 focus:ring-purple-600',
+  'outline-gray':
+    'text-gray-1000 border-gray-1000 enabled:hocus:shadow-gray-100 disabled:text-gray-500 focus:ring-gray-1000',
+  'outline-light':
+    'text-indigo-500 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 enabled:hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
+  'outline-dark':
+    'text-white border-white/20 hocus:border-white/60 enabled:hocus:shadow-white/20 disabled:border-white/20 disabled:text-white/50 focus:ring-gray-200',
+  // light variants
   'indigo-light':
-    'border-indigo-50 bg-indigo-50 text-indigo-500 hocus:border-indigo-200 hocus:ring-2 hocus:ring-indigo-50',
-  'indigo-dark':
-    'border-indigo-500 bg-indigo-500 text-white hocus:ring-2 hocus:ring-indigo-100 focus:bg-indigo-600',
+    'text-indigo-500 bg-indigo-50 border-indigo-50 hocus:border-indigo-200 enabled:hocus:shadow-indigo-50 focus:ring-transparent',
   'jade-light':
-    'border-transparent bg-jade-200 text-teal-600 hocus:border-jade-300 hocus:ring-2 hocus:ring-jade-50',
+    'text-teal-600 bg-jade-200 border-transparent hocus:border-jade-300 enabled:hocus:shadow-jade-50 focus:ring-transparent',
+  // dark variants
   'jade-dark':
-    'border-jade-500 bg-jade-500 text-white hocus:ring-2 hocus:ring-jade-100',
+    'text-white bg-jade-500 border-jade-500 enabled:hocus:shadow-jade-100 focus:ring-transparent focus:border-jade-600 focus:bg-jade-600',
+  'indigo-dark':
+    'text-white bg-indigo-500 border-indigo-500 enabled:hocus:shadow-indigo-100 focus:bg-indigo-600 focus:border-indigo-600 focus:ring-transparent',
   'teal-dark':
-    'border-teal-500 bg-teal-500 text-white hocus:ring-2 hocus:ring-teal-100 focus:bg-teal-600',
+    'text-white bg-teal-500 border-teal-500 enabled:hocus:shadow-teal-100 focus:bg-teal-600 focus:bg-teal-600 focus:border-teal-600 focus:ring-transparent',
   'purple-dark':
-    'border-purple-500 bg-purple-500 text-white hocus:ring-2 hocus:ring-purple-100 focus:bg-purple-600',
+    'text-white bg-purple-500 border-purple-500 enabled:hocus:shadow-purple-100 focus:bg-purple-600 focus:border-purple-600 focus:ring-transparent',
   'red-dark':
-    'border-red-500 bg-red-500 text-white hocus:ring-2 hocus:ring-red-100 focus:bg-red-600',
+    'text-white bg-red-500 border-red-500 enabled:hocus:shadow-red-100 focus:bg-red-600 focus:border-red-600 focus:ring-transparent',
   'gray-dark':
-    'border-gray-800 bg-gray-800 text-white hocus:ring-2 hocus:ring-gray-100',
+    'text-white bg-gray-800 border-gray-800 enabled:hocus:shadow-gray-100 focus:bg-gray-900 focus:border-gray-900 focus:ring-transparent',
   'gray-darkest':
-    'border-gray-1000 bg-gray-1000 text-white hocus:ring-2 hocus:ring-gray-100',
-  disabled: 'border-gray-500 bg-gray-500 text-white',
+    'text-white bg-gray-1000 border-gray-1000 enabled:hocus:shadow-gray-100 focus:bg-gray-900 focus:border-gray-900 focus:ring-transparent',
 } as const
 
 export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
@@ -46,7 +49,7 @@ export const SizeClassesTable = {
 export const DefaultSize: keyof typeof SizeClassesTable = '40'
 
 export const StaticClasses =
-  'border rounded rounded-[4px] flex font-medium items-center transition duration-150 enabled:hover:ring-2 enabled:focus:ring-2 disabled:cursor-not-allowed'
+  'border rounded rounded-[4px] flex font-medium items-center transition duration-150 enabled:hover:shadow-ring-hover enabled:focus:shadow-ring-focus enabled:active:shadow-ring-focus disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
 
 export type ButtonSizes = keyof typeof SizeClassesTable
 
