@@ -9,7 +9,7 @@ import Icon from '@cypress-design/react-icon'
 
 export const MyButtonWithIcon = () => {
   return (
-    <button class="flex items-center gap-[8px] p-[8px] border-1 border-red-500">
+    <button className="flex items-center gap-[8px] p-[8px] border-1 border-red-500">
       <Icon
         name="object-book"
         size="16"
