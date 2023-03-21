@@ -4,10 +4,10 @@ import Checkbox from '@cypress-design/vue-checkbox'
 
 # Checkbox
 
-<div class="bg-gray-50 rounded p-[16px] my-[24px]">
+<DemoWrapper>
 	<Checkbox label="Option #1" name="example" />
 	<Checkbox label="Option #2" name="example" />
-</div>
+</DemoWrapper>
 
 The checkbox component is used to allow the user to select one or more options from a list.
 

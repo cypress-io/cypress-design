@@ -1,4 +1,12 @@
+<script lang="ts" setup>
+import Tag from '@cypress-design/vue-tag'
+</script>
+
 # Tag
+
+<DemoWrapper>
+	<Tag color="jade">Tag</Tag>
+</DemoWrapper>
 
 The tag component is used to display a label.
 

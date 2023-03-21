@@ -1,4 +1,17 @@
+<script lang="ts" setup>
+import StatusIcon from '@cypress-design/vue-statusicon'
+</script>
+
 # StatusIcon
+
+<DemoWrapper>
+	<div class="flex gap-[16px]">
+		<StatusIcon status="success" variant="solid"/>
+		<StatusIcon status="warning" variant="solid"/>
+		<StatusIcon status="error" variant="solid"/>
+		<StatusIcon status="info" variant="solid"/>
+	</div>
+</DemoWrapper>
 
 The status icon component is used to display a status icon.
 

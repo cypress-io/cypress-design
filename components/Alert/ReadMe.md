@@ -4,14 +4,14 @@ import Alert from '@cypress-design/vue-alert'
 
 # Alert
 
-<div class="bg-gray-50 rounded p-[16px] my-[24px]">
+<DemoWrapper>
 	<Alert>
 		This is an <code>info</code> message
 		<template #body>
 			<p>This is the body of the alert.</p>
 		</template>
 	</Alert>
-</div>
+</DemoWrapper>
 
 The alert component is used to display a message to the user. It can be used to display a success, warning or error message.
 

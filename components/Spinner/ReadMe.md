@@ -5,9 +5,9 @@ import Spinner from '@cypress-design/vue-spinner'
 
 # Spinner
 
-<div class="bg-gray-50 rounded p-[16px] my-[24px]">
+<DemoWrapper>
 	<Spinner/>
-</div>
+</DemoWrapper>
 
 The spinner component is used to indicate that an operation is in progress.
 

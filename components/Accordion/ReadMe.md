@@ -5,7 +5,7 @@ import Accordion from '@cypress-design/vue-accordion'
 
 # Accordion
 
-<div class="bg-gray-50 rounded p-[16px] my-[24px]">
+<DemoWrapper>
 	<Accordion
 		:icon="IconActionQuestionMarkCircle"
 		title="Accordion Title"
@@ -20,7 +20,7 @@ import Accordion from '@cypress-design/vue-accordion'
 			Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		</p>
 	</Accordion>
-</div>
+</DemoWrapper>
 
 The Accordion component is a container that can be expanded or collapsed by clicking on its header. It is useful to display content which is not immediately relevant to the user.
 

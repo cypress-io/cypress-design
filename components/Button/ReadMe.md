@@ -4,11 +4,11 @@ import Button from '@cypress-design/vue-button'
 
 # Button
 
-<div class="bg-gray-50 rounded p-[16px] my-[24px]">
+<DemoWrapper>
 	<Button>
 		Submit Form
 	</Button>
-</div>
+</DemoWrapper>
 
 The button component is used to trigger an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
 
