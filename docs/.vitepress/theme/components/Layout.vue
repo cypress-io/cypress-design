@@ -9,7 +9,6 @@ import Sidebar from './SideBar.vue'
 import ReactIcon from './react.svg'
 import VueIcon from './vue.svg'
 import { getHeaders } from '../utils/outline'
-import {} from 'fs'
 const { route, go } = useRouter()
 
 const { set, get } = useCookies()
@@ -224,5 +223,9 @@ h3 .header-anchor {
 h2:hover .header-anchor,
 h3:hover .header-anchor {
   @apply inline-block;
+}
+
+main .header-anchor:after {
+  content: '#';
 }
 </style>

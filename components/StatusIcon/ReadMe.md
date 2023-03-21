@@ -1,15 +1,15 @@
 <script lang="ts" setup>
-import StatusIcon from '@cypress-design/vue-statusicon'
+import { StatusIcon } from '@cypress-design/vue-statusicon'
 </script>
 
 # StatusIcon
 
 <DemoWrapper>
 	<div class="flex gap-[16px]">
-		<StatusIcon status="success" variant="solid"/>
-		<StatusIcon status="warning" variant="solid"/>
-		<StatusIcon status="error" variant="solid"/>
-		<StatusIcon status="info" variant="solid"/>
+		<StatusIcon status="passed" />
+		<StatusIcon status="cancelled" />
+		<StatusIcon status="errored" />
+		<StatusIcon status="running" />
 	</div>
 </DemoWrapper>
 

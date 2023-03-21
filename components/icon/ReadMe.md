@@ -6,7 +6,7 @@ import Icon from '@cypress-design/vue-icon'
 # Icon
 
 <DemoWrapper>
-	<div class="grid grid-cols-4 bg-white gap-[8px] justify-items-center items-center h-[200px] overflow-auto py-[16px]">
+	<div class="grid grid-cols-4 bg-white dark:bg-gray-700 gap-[8px] justify-items-center items-center h-[200px] overflow-auto py-[16px]">
 		<div class="h-[48px] text-center flex flex-col items-center justify-end gap-[8px]" v-for="icon, iconName of iconsMetadata" :key="iconName">
 			<Icon :name="iconName" />
 			<p class="text-[10px] whitespace-nowrap overflow-hidden">{{ iconName }}</p>

@@ -4,12 +4,12 @@ import Tooltip from '@cypress-design/vue-tooltip'
 
 # Tooltip
 
-<div class="bg-gray-50 rounded py-[16px] px-[24px] my-[24px]">
+<DemoWrapper>
 	<Tooltip tabIndex="0" class="inline-block">
 		<span>Focus me</span>
 		<template #popper>Extra information</template>
 	</Tooltip>
-</div>
+</DemoWrapper>
 
 ## Figma
 

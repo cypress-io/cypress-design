@@ -128,6 +128,12 @@ onUnmounted(() => {
   padding: 12px;
 }
 
+@media (prefers-color-scheme: dark) {
+  .preview-code .preview {
+    background-color: rgb(29, 29, 29);
+  }
+}
+
 .preview-code :deep(.prism-editor-wrapper) {
   color: white;
   padding: 0;
