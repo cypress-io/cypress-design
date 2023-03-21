@@ -96,7 +96,7 @@ const editUrl = computed(() => {
 
 <template>
   <header
-    class="flex h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
+    class="flex fixed z-50 w-full bg-white dark:bg-gray-800 h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
   >
     <a href="/">
       <picture>
@@ -111,6 +111,7 @@ const editUrl = computed(() => {
     />
     <div class="w-[150px]" />
   </header>
+  <div class="h-[72px]" />
   <div class="flex min-h-full pb-8">
     <aside class="py-[32px]">
       <Sidebar
