@@ -41,6 +41,12 @@
 
       // No `ScriptHost` because Vue 3 dropped support for IE
     ],
-    "types": []
-  }
+    "types": [],
+    "composite": true
+  },
+  "include": [
+    "components/*/vue/*.ts",
+    "components/*/vue/*.tsx",
+    "components/*/vue/*.vue"
+  ]
 }

@@ -17,9 +17,14 @@
   "include": [
     "docs/.vitepress/**/*.d.ts",
     "docs/.vitepress/**/*.ts",
-    "docs/.vitepress/**/*.vue",
-    "components/*/vue/**/*.vue",
-    "components/*/vue/**/*.ts",
-    "components/*/vue/**/*.tsx"
+    "docs/.vitepress/**/*.vue"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.react.json"
+    },
+    {
+      "path": "./tsconfig.vue.json"
+    }
   ]
 }
