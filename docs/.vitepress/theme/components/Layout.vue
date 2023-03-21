@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { onContentUpdated, useRouter } from 'vitepress'
-import { computed, onMounted, shallowRef } from 'vue'
+import { computed, onMounted, shallowRef, watch } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import DocMenu from '@cypress-design/vue-docmenu'
 import Button from '@cypress-design/vue-button'
@@ -9,7 +9,8 @@ import Sidebar from './Sidebar.vue'
 import ReactIcon from './react.svg'
 import VueIcon from './vue.svg'
 import { getHeaders } from '../utils/outline'
-const { route } = useRouter()
+import {} from 'fs'
+const { route, go } = useRouter()
 
 const { set, get } = useCookies()
 
@@ -18,6 +19,28 @@ const cookieFramework = computed(
 )
 
 const routePath = computed(() => route.path)
+
+const framework = computed(() =>
+  routePath.value.includes('/react/')
+    ? ('react' as const)
+    : routePath.value.includes('/vue/')
+    ? ('vue' as const)
+    : cookieFramework.value
+)
+
+watch(
+  routePath,
+  (path) => {
+    if (
+      path.includes('/components/') &&
+      !path.includes('/react/') &&
+      !path.includes('/vue/')
+    ) {
+      go(path.replace('/components/', `/components/${framework.value}/`))
+    }
+  },
+  { immediate: true }
+)
 
 const Components = import.meta.glob('../../../../components/*/ReadMe.md', {
   eager: true,
@@ -29,14 +52,6 @@ const ComponentsLower = Object.entries(Components).reduce(
 )
 
 const hasFramework = computed(() => /\/(react|vue)\//.test(routePath.value))
-
-const framework = computed(() =>
-  routePath.value.includes('/react/')
-    ? ('react' as const)
-    : routePath.value.includes('/vue/')
-    ? ('vue' as const)
-    : cookieFramework.value
-)
 
 const headers = shallowRef<any>([])
 
