@@ -22,17 +22,19 @@ export const DocLink: React.FC<DocLinkProps> = ({ item, depth = -1 }) => {
         })}
         href={item.href}
       >
-        <div
-          className={clsx(
-            'absolute w-[4px] z-10 top-[5%] h-[90%] rounded-full',
-            {
-              'left-[-18.5px]': depth === 0,
-              'left-[-25.5px]': depth > 0,
-              'hidden group-hover:block bg-gray-300': !item.active,
-              'bg-indigo-500': item.active,
-            }
-          )}
-        />
+        {depth >= 0 ? (
+          <div
+            className={clsx(
+              'absolute w-[4px] z-10 top-[5%] h-[90%] rounded-full',
+              {
+                'left-[-18.5px]': depth === 0,
+                'left-[-25.5px]': depth > 0,
+                'hidden group-hover:block bg-gray-300': !item.active,
+                'bg-indigo-500': item.active,
+              }
+            )}
+          />
+        ) : null}
         {item.text}
       </a>
     </li>

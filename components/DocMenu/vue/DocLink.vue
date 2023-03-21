@@ -28,6 +28,7 @@ withDefaults(
       :href="item.href"
     >
       <div
+        v-if="depth >= 0"
         class="absolute h-[90%] top-[5%] w-[4px] z-10 rounded-full"
         :class="{
           'left-[-18.5px]': depth === 0,
