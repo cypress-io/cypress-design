@@ -1,5 +1,29 @@
 # @cypress-design/vue-icon
 
+## 0.19.2
+
+### Patch Changes
+
+- [`bfb6a6b`](https://github.com/cypress-io/cypress-design/commit/bfb6a6b2753d461ffb5b58d926a2f83f4f8e92f3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix colors again (forgot fill)
+
+- Updated dependencies [[`bfb6a6b`](https://github.com/cypress-io/cypress-design/commit/bfb6a6b2753d461ffb5b58d926a2f83f4f8e92f3)]:
+  - @cypress-design/icon-registry@0.20.4
+
+## 0.19.1
+
+### Patch Changes
+
+- [`250bbae`](https://github.com/cypress-io/cypress-design/commit/250bbae4415fe0d5a825ab1bb8d2432a80e0db05) Thanks [@elevatebart](https://github.com/elevatebart)! - fix colors of new image icon
+
+- Updated dependencies [[`250bbae`](https://github.com/cypress-io/cypress-design/commit/250bbae4415fe0d5a825ab1bb8d2432a80e0db05)]:
+  - @cypress-design/icon-registry@0.20.3
+
+## 0.19.0
+
+### Minor Changes
+
+- [`d6fd350`](https://github.com/cypress-io/cypress-design/commit/d6fd350232984e5eff26c76ca29e235c58da0982) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver icons after icon registry was released
+
 ## 0.18.1
 
 ### Patch Changes

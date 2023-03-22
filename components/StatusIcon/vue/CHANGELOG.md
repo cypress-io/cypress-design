@@ -1,5 +1,21 @@
 # @cypress-design/vue-statusicon
 
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`d6fd350`](https://github.com/cypress-io/cypress-design/commit/d6fd350232984e5eff26c76ca29e235c58da0982)]:
+  - @cypress-design/vue-icon@0.19.0
+
+## 0.2.5
+
+### Patch Changes
+
+- [#164](https://github.com/cypress-io/cypress-design/pull/164) [`4fd951a`](https://github.com/cypress-io/cypress-design/commit/4fd951a39335900da2508beef9b3565a6f8f9518) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: update active buttons borders
+
+- Updated dependencies [[`6f83f1a`](https://github.com/cypress-io/cypress-design/commit/6f83f1a427fc536d3dd7f8ad2e907716e6c7f833)]:
+  - @cypress-design/icon-registry@0.20.2
+
 ## 0.2.4
 
 ### Patch Changes

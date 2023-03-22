@@ -1,5 +1,23 @@
 # @cypress-design/icon-registry
 
+## 0.20.4
+
+### Patch Changes
+
+- [`bfb6a6b`](https://github.com/cypress-io/cypress-design/commit/bfb6a6b2753d461ffb5b58d926a2f83f4f8e92f3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix colors again (forgot fill)
+
+## 0.20.3
+
+### Patch Changes
+
+- [`250bbae`](https://github.com/cypress-io/cypress-design/commit/250bbae4415fe0d5a825ab1bb8d2432a80e0db05) Thanks [@elevatebart](https://github.com/elevatebart)! - fix colors of new image icon
+
+## 0.20.2
+
+### Patch Changes
+
+- [#169](https://github.com/cypress-io/cypress-design/pull/169) [`6f83f1a`](https://github.com/cypress-io/cypress-design/commit/6f83f1a427fc536d3dd7f8ad2e907716e6c7f833) Thanks [@elevatebart](https://github.com/elevatebart)! - add missing icons
+
 ## 0.20.1
 
 ### Patch Changes
