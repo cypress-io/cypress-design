@@ -8,6 +8,7 @@
     "../../../cypress/support/*.ts"
   ],
   "compilerOptions": {
+    "rootDir": "../",
     "types": []
   }
 }
