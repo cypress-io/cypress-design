@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.20.4
+
+### Patch Changes
+
+- [`bfb6a6b`](https://github.com/cypress-io/cypress-design/commit/bfb6a6b2753d461ffb5b58d926a2f83f4f8e92f3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix colors again (forgot fill)
+
 ## 0.20.3
 
 ### Patch Changes
