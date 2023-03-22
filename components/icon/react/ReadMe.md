@@ -1,5 +1,17 @@
 # Icon
 
+## install
+
+```bash
+npm install @cypress-design/react-icon
+```
+
+or with yarn
+
+```bash
+yarn add @cypress-design/react-icon
+```
+
 ## Usage
 
 The simple way using the Icon component
@@ -76,16 +88,4 @@ export const MyButtonWithIcon = () => {
     </button>
   )
 }
-```
-
-## install
-
-```bash
-npm install @cypress-design/react-icon
-```
-
-or with yarn
-
-```bash
-yarn add @cypress-design/react-icon
 ```

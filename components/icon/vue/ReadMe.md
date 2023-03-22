@@ -1,8 +1,16 @@
 # Icon
 
-## Summary
+## Install
 
-Use the `<icon>` component to display an icon from the cypress figma library.
+```bash
+npm install @cypress-design/vue-icon
+```
+
+or with yarn
+
+```bash
+yarn add @cypress-design/vue-icon
+```
 
 ## Usage
 
@@ -82,16 +90,4 @@ import { IconObjectBook } from '@cypress-design/vue-icon'
     />Read
   </button>
 </template>
-```
-
-## install
-
-```bash
-npm install @cypress-design/vue-icon
-```
-
-or with yarn
-
-```bash
-yarn add @cypress-design/vue-icon
 ```
