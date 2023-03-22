@@ -1,5 +1,11 @@
 # @cypress-design/vue-icon
 
+## 0.19.0
+
+### Minor Changes
+
+- [`d6fd350`](https://github.com/cypress-io/cypress-design/commit/d6fd350232984e5eff26c76ca29e235c58da0982) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver icons after icon registry was released
+
 ## 0.18.1
 
 ### Patch Changes

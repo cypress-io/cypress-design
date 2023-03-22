@@ -1,5 +1,11 @@
 # @cypress-design/react-icon
 
+## 0.18.0
+
+### Minor Changes
+
+- [`d6fd350`](https://github.com/cypress-io/cypress-design/commit/d6fd350232984e5eff26c76ca29e235c58da0982) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver icons after icon registry was released
+
 ## 0.17.2
 
 ### Patch Changes
