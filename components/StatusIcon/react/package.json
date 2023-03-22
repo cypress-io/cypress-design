@@ -1,6 +1,6 @@
 {
 	"name": "@cypress-design/react-statusicon",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"files": [
 		"*"
 	],
@@ -20,7 +20,7 @@
 	},
 	"dependencies": {
 		"@cypress-design/icon-registry": "^0.20.2",
-		"@cypress-design/react-icon": "^0.17.2",
+		"@cypress-design/react-icon": "^0.18.0",
 		"clsx": "*"
 	},
 	"license": "MIT"
