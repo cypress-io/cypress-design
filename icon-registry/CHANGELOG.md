@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.20.2
+
+### Patch Changes
+
+- [#169](https://github.com/cypress-io/cypress-design/pull/169) [`6f83f1a`](https://github.com/cypress-io/cypress-design/commit/6f83f1a427fc536d3dd7f8ad2e907716e6c7f833) Thanks [@elevatebart](https://github.com/elevatebart)! - add missing icons
+
 ## 0.20.1
 
 ### Patch Changes
