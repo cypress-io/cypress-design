@@ -18,7 +18,7 @@
     // Required in Vite
     "isolatedModules": true,
     // Enforce using `import type` instead of `import` for types
-    "importsNotUsedAsValues": "error",
+    // "verbatimModuleSyntax": true,
 
     // Recommended
     "esModuleInterop": true,
