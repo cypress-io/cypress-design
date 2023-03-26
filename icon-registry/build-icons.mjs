@@ -284,4 +284,7 @@ async function generateIndex(iconsObjectUnique) {
   )
 }
 
-getIcons()
+getIcons().then(() => {
+  console.log('Icons generated')
+  process.exit(0)
+})
