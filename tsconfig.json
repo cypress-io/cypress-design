@@ -17,7 +17,9 @@
   "include": [
     "docs/.vitepress/**/*.d.ts",
     "docs/.vitepress/**/*.ts",
-    "docs/.vitepress/**/*.vue"
+    "docs/.vitepress/**/*.vue",
+    "components/**/vite.config.ts",
+    "components/root.vite.config.ts"
   ],
   "references": [
     {
