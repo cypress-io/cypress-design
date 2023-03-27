@@ -12,7 +12,7 @@ defineProps<{
   <ul class="pl-[16px] py-[16px]">
     <template v-for="item in items">
       <DocLink v-if="'href' in item" :item="item" />
-      <li v-else>
+      <li v-else class="relative">
         <DocGroup :group="item" :depth="0" />
       </li>
     </template>

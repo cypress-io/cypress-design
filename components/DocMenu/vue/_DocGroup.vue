@@ -43,16 +43,29 @@ const open = ref(props.depth === 0)
     />
     {{ group.text }}
   </button>
+  <div
+    v-if="
+      depth >= 0 &&
+      open &&
+      group.items.some((item) => 'href' in item && item.active)
+    "
+    class="absolute h-[36px] left-[6px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300"
+    :style="{
+      top: `${
+        group.items.findIndex((item) => 'href' in item && item.active) * 44 + 42
+      }px`,
+    }"
+  />
   <ul
     v-show="open"
-    class="ml-[7px]"
+    class="ml-[7.5px]"
     :class="{
       'border-l border-gray-100': depth === 0,
     }"
   >
     <template v-for="item in group.items">
       <DocLink v-if="'href' in item" :item="item" :depth="depth" />
-      <li v-else>
+      <li class="relative" v-else>
         <DocGroup :group="item" :depth="depth + 1" />
       </li>
     </template>
