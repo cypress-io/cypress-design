@@ -5,18 +5,18 @@ import type { NavGroup, NavItemLink } from './constants'
 const menuItems = [
   {
     text: 'Get Started',
-    href: 'https://example.com',
+    href: '#',
   },
   {
     text: 'Overview',
     items: [
       {
         text: 'Overview Item 1',
-        href: 'https://example.com',
+        href: '#',
       },
       {
         text: 'Overview Item 2',
-        href: 'https://example.com',
+        href: '#',
       },
     ],
   },
@@ -25,11 +25,11 @@ const menuItems = [
     items: [
       {
         text: 'Item 1',
-        href: 'https://example.com',
+        href: '#',
       },
       {
         text: 'Item 2',
-        href: 'https://example.com',
+        href: '#',
       },
     ],
   },
@@ -41,26 +41,41 @@ const menuItems = [
         items: [
           {
             text: 'Item 1',
-            href: 'https://example.com',
+            href: '#',
+          },
+          {
+            text: 'partition under the quick brown fox jumps over the lazy dog',
+            items: [
+              {
+                text: 'Item 1',
+                href: '#',
+                active: true,
+              },
+              {
+                text: 'Item 2',
+                href: '#',
+              },
+            ],
           },
           {
             text: 'Item 2',
-            href: 'https://example.com',
+            href: '#',
+            active: true,
           },
         ],
       },
       {
         text: 'AWS Authentication',
-        href: 'https://example.com',
+        href: '#',
       },
       {
         active: true,
         text: 'Google Authentication',
-        href: 'https://example.com',
+        href: '#',
       },
       {
         text: 'Okta Authentication',
-        href: 'https://example.com',
+        href: '#',
       },
     ],
   },
@@ -80,5 +95,14 @@ export default function assertions(
     cy.contains('button', 'Overview').click()
 
     cy.contains('Overview Item 1').should('not.be.visible')
+  })
+
+  it('keeps track of active values', () => {
+    mountStory(menuItems)
+
+    cy.contains('Introduction').click()
+    cy.contains('over the lazy').click()
+
+    cy.contains('Google Authentication').should('be.visible').click()
   })
 }

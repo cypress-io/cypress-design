@@ -29,10 +29,11 @@ withDefaults(
     >
       <div
         v-if="depth >= 0"
-        class="absolute h-[90%] top-[5%] w-[4px] z-10 rounded-full hidden"
+        class="absolute h-[80%] top-[10%] w-[4px] z-10 rounded-full hidden"
         :class="{
           'left-[-18.5px]': depth === 0,
-          'left-[-25.5px]': depth > 0,
+          'left-[-26px]': depth === 1,
+          'left-[-33.5px]': depth === 2,
           'group-hover:block bg-gray-300': !item.active,
         }"
       />
