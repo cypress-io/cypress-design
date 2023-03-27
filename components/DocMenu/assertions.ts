@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import type { NavGroup } from './constants'
+import type { NavGroup, NavItemLink } from './constants'
 
 const menuItems = [
   {
@@ -64,10 +64,10 @@ const menuItems = [
       },
     ],
   },
-]
+] satisfies (NavItemLink | NavGroup)[]
 
 export default function assertions(
-  mountStory: (options?: NavGroup[]) => void
+  mountStory: (options?: (NavItemLink | NavGroup)[]) => void
 ): void {
   it('renders', () => {
     mountStory(menuItems)
