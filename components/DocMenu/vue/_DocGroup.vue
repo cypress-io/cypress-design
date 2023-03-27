@@ -15,6 +15,8 @@ const props = withDefaults(
   }
 )
 
+const open = ref(props.depth === 0)
+
 const $groups = ref<(typeof DocGroup)[]>([])
 
 const height = computed(() => {
@@ -26,43 +28,30 @@ const height = computed(() => {
     : 0
 })
 
-const open = ref(props.depth === 0)
-
-const activeIndex = computed(() => {
-  const index = props.group.items.findIndex(
-    (item) => 'href' in item && item.active
-  )
-  return index
-})
-
-// get the number of groups to analyze
-const numberOfGroups = computed(() => {
-  return props.group.items.filter(
-    (item, index) => !('href' in item) && index < activeIndex.value
-  ).length
-})
-
-const topDiscreet = computed(() => {
-  let _numberOfGroups = numberOfGroups.value
-  // if there is any open group before the active element
-  // compensate for the height
-  const groupHeight = $groups.value?.reduce((acc, group) => {
-    if (_numberOfGroups < -1) return acc
-    _numberOfGroups--
-    return acc + group.height
-  }, 0)
-
-  return activeIndex.value + groupHeight
-})
-
-const top = computed(() => {
-  return topDiscreet.value * 44 + 48
-})
-
 defineExpose<{
   height: Ref<number>
 }>({
   height,
+})
+
+const activeMarkerTop = computed(() => {
+  const activeIndex = props.group.items.findIndex(
+    (item) => 'href' in item && item.active
+  )
+
+  // how many groups are before the active element?
+  let numberOfGroups = props.group.items.filter(
+    (item, index) => !('href' in item) && index < activeIndex
+  ).length
+
+  // if there is any open group before the active element
+  // compensate for the height
+  const groupHeight = $groups.value?.reduce((acc, group) => {
+    if (numberOfGroups < -1) return acc
+    numberOfGroups--
+    return acc + group.height
+  }, 0)
+  return (activeIndex + groupHeight) * 44
 })
 </script>
 
@@ -70,7 +59,6 @@ defineExpose<{
   <button
     v-if="group.text"
     @click="open = !open"
-    class="flex leading-[24px] py-[10px] items-center relative w-full"
     :class="[
       classes.button,
       {
@@ -97,9 +85,9 @@ defineExpose<{
       open &&
       group.items.some((item) => 'href' in item && item.active)
     "
-    class="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px]"
+    class="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[48px]"
     :style="{
-      top: `${top}px`,
+      top: `${activeMarkerTop}px`,
       left: `-${depth === 0 ? 0 : depth * 7.5 + 1}px`,
     }"
   />

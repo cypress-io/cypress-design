@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { NavGroup, NavItemLink } from '../constants'
+import { NavGroup, NavItemLink, classes } from '../constants'
 import DocGroup from './_DocGroup.vue'
 import DocLink from './_DocLink.vue'
 
@@ -9,7 +9,7 @@ defineProps<{
 </script>
 
 <template>
-  <ul class="pl-[16px] py-[16px]">
+  <ul :class="classes.docMenu">
     <template v-for="item in items">
       <DocLink v-if="'href' in item" :item="item" />
       <li v-else class="relative">

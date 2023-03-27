@@ -1,6 +1,4 @@
 import * as React from 'react'
-import { IconChevronDownSmall } from '@cypress-design/react-icon'
-import clsx from 'clsx'
 import { NavGroup, classes, NavItemLink } from '../constants'
 import { DocLink } from './_DocLink'
 import { DocGroup } from './_DocGroup'
@@ -12,12 +10,12 @@ export interface DocMenuProps {
 
 export const DocMenu: React.FC<DocMenuProps> = ({ items }) => {
   return (
-    <ul className="pl-[16px]">
+    <ul className={classes.docMenu}>
       {items.map((item) =>
         'href' in item ? (
           <DocLink item={item} />
         ) : (
-          <li>
+          <li className="relative">
             <DocGroup group={item} />
           </li>
         )

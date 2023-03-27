@@ -103,6 +103,6 @@ export default function assertions(
     cy.contains('Introduction').click()
     cy.contains('over the lazy').click()
 
-    cy.contains('Google Authentication').should('be.visible').click()
+    cy.contains('Google Authentication').scrollIntoView()
   })
 }

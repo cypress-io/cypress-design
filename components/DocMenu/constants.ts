@@ -11,7 +11,8 @@ export interface NavGroup {
 }
 
 export const classes = {
-  button: 'flex leading-[24px] py-[8px] items-center relative',
+  docMenu: 'pl-[16px] py-[16px]',
+  button: 'flex leading-[24px] py-[10px] items-center relative w-full',
   topButton: 'leading-[24px] text-[16px] pl-[24px] font-medium',
   leafButton: 'leading-[20px] text-[14px] pl-[40px]',
 } as const
