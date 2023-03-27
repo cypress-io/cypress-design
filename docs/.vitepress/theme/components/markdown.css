@@ -1,0 +1,57 @@
+div[class*='language-'] {
+  @apply bg-gray-1000 rounded-lg my-4 relative;
+}
+
+div[class*='language-'] pre {
+  @apply m-0 py-5;
+}
+div[class*='language-'] code {
+  @apply px-6 min-w-full block;
+}
+
+div[class*='language-'] > button.copy {
+  @apply right-4 top-2 absolute;
+}
+
+div[class*='language-'] .lang {
+  @apply text-gray-400 right-4 top-2 absolute;
+}
+
+h1,
+h2,
+h3 {
+  font-family: 'Poppins';
+  @apply font-semibold;
+}
+
+h2,
+h3 {
+  @apply mt-8;
+}
+
+h1 {
+  @apply text-3xl;
+}
+
+h2 {
+  @apply text-2xl;
+}
+
+h3 {
+  @apply text-xl;
+}
+
+h1 .header-anchor,
+h2 .header-anchor,
+h3 .header-anchor {
+  @apply hidden;
+}
+
+h2:hover .header-anchor,
+h3:hover .header-anchor {
+  @apply inline-block;
+}
+
+main .header-anchor:after {
+  content: '#';
+}
