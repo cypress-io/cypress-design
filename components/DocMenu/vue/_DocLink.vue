@@ -34,7 +34,7 @@ withDefaults(
           'group-hover:block bg-gray-300': !item.active,
         }"
         :style="{
-          left: `-${18.5 + depth * 7.5}px)`,
+          left: `-${18.5 + depth * 7.5}px`,
         }"
       />
       {{ item.text }}
