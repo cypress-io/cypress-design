@@ -1,15 +1,32 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { NavItemLink } from '../constants'
+import { satisfies } from 'semver'
 
 export interface DocLinkProps {
   item: NavItemLink
   depth?: number
+  onActive?: (top: number) => void
 }
 
-export const DocLink: React.FC<DocLinkProps> = ({ item, depth = -1 }) => {
+export const DocLink: React.FC<DocLinkProps> = ({
+  item,
+  depth = -1,
+  onActive,
+}) => {
+  const activeLIRef = React.useRef<HTMLLIElement>(null)
+
+  // on mount, if the item is active,
+  // send the top position to the parent
+  React.useEffect(() => {
+    if (item.active) {
+      onActive?.(activeLIRef?.current?.offsetTop || 0)
+    }
+  }, [])
+
   return (
     <li
+      ref={activeLIRef}
       className={clsx({
         'pl-[16px]': depth >= 0,
       })}

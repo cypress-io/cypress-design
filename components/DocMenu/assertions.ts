@@ -44,7 +44,7 @@ const menuItems = [
             href: '#',
           },
           {
-            text: 'partition under the quick brown fox jumps over the lazy dog',
+            text: 'sub menu',
             items: [
               {
                 text: 'Item 1',
@@ -101,7 +101,7 @@ export default function assertions(
     mountStory(menuItems)
 
     cy.contains('Introduction').click()
-    cy.contains('over the lazy').click()
+    cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()
   })

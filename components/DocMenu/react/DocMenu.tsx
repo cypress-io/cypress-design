@@ -3,8 +3,10 @@ import { NavGroup, classes, NavItemLink } from '../constants'
 import { DocLink } from './_DocLink'
 import { DocGroup } from './_DocGroup'
 
+export type NavItem = NavGroup | NavItemLink
+
 export interface DocMenuProps {
-  items: (NavGroup | NavItemLink)[]
+  items: NavItem[]
   depth?: number
 }
 

@@ -1,27 +1,52 @@
 import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
-import { NavGroup, classes } from '../constants'
+import { NavGroup, classes, NavItemLink } from '../constants'
 import { DocLink } from './_DocLink'
+import { NavItem } from './DocMenu'
+import react from '.'
 
 export interface DocGroupProps {
   group: NavGroup
   depth?: number
-  onToggle?: (open: boolean) => void
+  setHeight?: (height: number) => void
 }
 
 export const DocGroup: React.FC<DocGroupProps> = ({
   group,
   depth = 0,
-  onToggle,
+  setHeight,
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
+  const [itemsHeights, setItemsHeights] = React.useState<number[]>(
+    Array(group.items.length).fill(1)
+  )
+
+  React.useEffect(() => {
+    setHeight?.(open ? itemsHeights.reduce((a, b) => a + b, 1) : 1)
+  }, [itemsHeights, open])
 
   const [top, setTop] = React.useState(0)
 
+  React.useEffect(() => {
+    const activeItem = group.items.findIndex(
+      (item) => 'href' in item && item.active
+    )
+    if (activeItem >= 0) {
+      setTop(itemsHeights.slice(0, activeItem).reduce((a, b) => a + b, 1) * 44)
+    }
+  }, [itemsHeights])
+
   function toggleMenu(open: boolean) {
     setOpen(open)
-    onToggle?.(open)
+  }
+
+  function onSetHeight(index: number, height: number) {
+    setItemsHeights((prev) => {
+      const newHeights = [...prev]
+      newHeights[index] = height
+      return newHeights
+    })
   }
 
   return (
@@ -65,10 +90,19 @@ export const DocGroup: React.FC<DocGroupProps> = ({
       >
         {group.items.map((item, index) =>
           'href' in item ? (
-            <DocLink key={index} item={item} depth={depth} />
+            <DocLink
+              key={index}
+              item={item}
+              depth={depth}
+              onActive={(top) => setTop(top)}
+            />
           ) : (
             <li key={index} className="relative">
-              <DocGroup group={item} depth={depth + 1} />
+              <DocGroup
+                group={item}
+                depth={depth + 1}
+                setHeight={(height) => onSetHeight(index, height)}
+              />
             </li>
           )
         )}
