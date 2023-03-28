@@ -25,14 +25,14 @@ export const DocLink: React.FC<DocLinkProps> = ({ item, depth = -1 }) => {
         {depth >= 0 ? (
           <div
             className={clsx(
-              'absolute w-[4px] z-10 top-[5%] h-[90%] rounded-full hidden',
+              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
               {
-                'left-[-18.5px]': depth === 0,
-                'left-[-26px]': depth === 1,
-                'left-[-33.5px]': depth === 2,
                 'group-hover:block bg-gray-300': !item.active,
               }
             )}
+            style={{
+              left: `-${18.5 + depth * 8}px`,
+            }}
           />
         ) : null}
         {item.text}

@@ -31,10 +31,10 @@ withDefaults(
         v-if="depth >= 0"
         class="absolute h-[80%] top-[10%] w-[4px] z-10 rounded-full hidden"
         :class="{
-          'left-[-18.5px]': depth === 0,
-          'left-[-26px]': depth === 1,
-          'left-[-33.5px]': depth === 2,
           'group-hover:block bg-gray-300': !item.active,
+        }"
+        :style="{
+          left: `-${18.5 + depth * 7.5}px)`,
         }"
       />
       {{ item.text }}
