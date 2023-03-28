@@ -17,38 +17,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
 
-  const [openSubGroups, setOpenSubGroups] = React.useState<boolean[]>(
-    Array().fill(false)
-  )
-
-  function setOpenGroup(index: number, open: boolean) {
-    setOpenSubGroups((prev) => {
-      const next = [...prev]
-      next[index] = open
-      return next
-    })
-  }
-
-  function calculateTop(): number {
-    const activeIndex = group.items.findIndex(
-      (item) => 'href' in item && item.active
-    )
-
-    // if there is any open group before the active element
-    // compensate for the height
-    const groupHeight = group.items.reduce((acc, group, index) => {
-      if (index >= activeIndex) return acc
-      if ('items' in group && openSubGroups[index]) {
-        return acc + group.items.length
-      }
-      return acc
-    }, 0)
-
-    // number of items before active element + compensation for open groups
-    return (activeIndex + groupHeight) * 44
-  }
-
-  const top = calculateTop()
+  const [top, setTop] = React.useState(0)
 
   function toggleMenu(open: boolean) {
     setOpen(open)
@@ -81,29 +50,25 @@ export const DocGroup: React.FC<DocGroupProps> = ({
       open &&
       group.items.some((item) => 'href' in item && item.active) ? (
         <div
-          className="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[48px]"
+          className="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[4px]"
           style={{
             top: `${top}px`,
-            left: `-${depth === 0 ? 0 : depth * 7.5 + 1}px`,
+            left: `${depth === 0 ? 0.5 : -(depth * 8) - 0.5}px`,
           }}
         />
       ) : null}
       <ul
-        className={clsx('ml-[7px]', {
+        className={clsx('ml-[8px]', {
           'border-l border-gray-100': depth === 0,
           hidden: !open,
         })}
       >
         {group.items.map((item, index) =>
           'href' in item ? (
-            <DocLink item={item} depth={depth} />
+            <DocLink key={index} item={item} depth={depth} />
           ) : (
-            <li className="relative">
-              <DocGroup
-                group={item}
-                depth={depth + 1}
-                onToggle={(open) => setOpenGroup(index, open)}
-              />
+            <li key={index} className="relative">
+              <DocGroup group={item} depth={depth + 1} />
             </li>
           )
         )}

@@ -11,11 +11,11 @@ export interface DocMenuProps {
 export const DocMenu: React.FC<DocMenuProps> = ({ items }) => {
   return (
     <ul className={classes.docMenu}>
-      {items.map((item) =>
+      {items.map((item, index) =>
         'href' in item ? (
-          <DocLink item={item} />
+          <DocLink key={index} item={item} />
         ) : (
-          <li className="relative">
+          <li key={index} className="relative">
             <DocGroup group={item} />
           </li>
         )
