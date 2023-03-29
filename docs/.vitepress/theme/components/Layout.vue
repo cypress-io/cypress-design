@@ -195,10 +195,17 @@ const mobileMenuOpen = ref(false)
     </main>
     <aside class="hidden xl:block">
       <div class="w-[300px]">
-        <DocMenu
-          :items="headers"
+        <div
+          v-if="headers.length"
           class="fixed top-[72px] mt-[48px] border-solid border-l border-gray-1000/07"
-        />
+        >
+          <header
+            class="ml-[32px] uppercase text-gray-500 mt-0 mb-[8px] text-[14px] leading-[20px]"
+          >
+            Contents
+          </header>
+          <DocMenu :items="headers" class="ml-[8px]" />
+        </div>
       </div>
     </aside>
   </div>
