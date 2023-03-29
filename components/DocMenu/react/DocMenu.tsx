@@ -7,12 +7,12 @@ export type NavItem = NavGroup | NavItemLink
 
 export interface DocMenuProps {
   items: NavItem[]
-  depth?: number
+  className?: string
 }
 
-export const DocMenu: React.FC<DocMenuProps> = ({ items }) => {
+export const DocMenu: React.FC<DocMenuProps> = ({ items, className }) => {
   return (
-    <ul className={classes.docMenu}>
+    <ul className={className}>
       {items.map((item, index) =>
         'href' in item ? (
           <DocLink key={index} item={item} />
