@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { nextTick } from 'process'
 import { ref } from 'vue'
 import { Tab, classes } from '../constants'
 
