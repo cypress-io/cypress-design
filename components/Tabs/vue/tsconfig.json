@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.vue.json",
+	"compilerOptions": {
+    "rootDir": "../"
+  },
+  "include": [
+    "*.vue",
+    "*.ts",
+    "*.tsx",
+    "../*.ts",
+    "../../../cypress/support/*.ts"
+  ]
+}
