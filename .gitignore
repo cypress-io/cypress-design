@@ -108,3 +108,5 @@ dist
 storybook-static
 
 cypress/videos
+
+storybook
