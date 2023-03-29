@@ -137,7 +137,7 @@ const mobileMenuOpen = ref(false)
       class="fixed w-screen h-screen top-0 left-0 bg-gray-900/70 z-10 md:hidden"
       @click="mobileMenuOpen = false"
     />
-    <div class="w-[250px] hidden md:block" />
+    <div class="w-[250px] hidden md:block flex-shrink-0" />
     <aside
       class="fixed py-[32px] bg-white z-50 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
       :class="{
@@ -193,7 +193,7 @@ const mobileMenuOpen = ref(false)
         </div>
       </div>
     </main>
-    <aside class="hidden md:block">
+    <aside class="hidden xl:block">
       <div class="w-[300px]">
         <DocMenu
           :items="headers"

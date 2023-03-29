@@ -3,6 +3,11 @@ const { defaultTemplates } = require('vue-docgen-cli')
 
 const { renderTags, mdclean } = defaultTemplates
 
+/**
+ *
+ * @param {Array<import('vue-docgen-api').PropDescriptor>} props
+ * @param {boolean} supComponent
+ */
 function lineTemplate(props, supComponent) {
   let ret = ''
 
