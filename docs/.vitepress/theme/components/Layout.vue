@@ -136,9 +136,10 @@ const mobileMenuOpen = ref(false)
       v-if="mobileMenuOpen"
       class="fixed w-screen h-screen top-0 left-0 bg-gray-900/70 z-10 md:hidden"
       @click="mobileMenuOpen = false"
-    ></div>
+    />
+    <div class="w-[250px] hidden md:block" />
     <aside
-      class="fixed py-[32px] md:static bg-white z-50 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
+      class="fixed py-[32px] bg-white z-50 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
       :class="{
         '-translate-x-full md:translate-x-0': !mobileMenuOpen,
       }"
@@ -194,7 +195,10 @@ const mobileMenuOpen = ref(false)
     </main>
     <aside class="hidden md:block">
       <div class="w-[300px]">
-        <DocMenu :items="headers" class="fixed top-[70px]" />
+        <DocMenu
+          :items="headers"
+          class="fixed top-[72px] mt-[48px] border-solid border-l border-gray-1000/07"
+        />
       </div>
     </aside>
   </div>

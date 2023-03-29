@@ -56,5 +56,8 @@ const group = computed(() => {
 </script>
 
 <template>
-  <DocMenu :items="[...items, group]" class="w-[250px]" />
+  <DocMenu
+    :items="[...items, group]"
+    class="pl-[16px] md:py-[16px] w-[250px]"
+  />
 </template>

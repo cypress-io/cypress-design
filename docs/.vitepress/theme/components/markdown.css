@@ -10,7 +10,15 @@ div[class*='language-'] code {
 }
 
 div[class*='language-'] > button.copy {
-  @apply right-4 top-2 absolute;
+  @apply right-2 top-2 absolute;
+}
+
+div[class*='language-']:hover > button.copy {
+  @apply z-10 bg-gray-800 text-gray-100 h-[48px] w-[48px] rounded;
+}
+
+div[class*='language-']:hover > button.copy:before {
+  content: '📋';
 }
 
 div[class*='language-'] .lang {
