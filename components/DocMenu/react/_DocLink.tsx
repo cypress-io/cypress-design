@@ -1,7 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { NavItemLink } from '../constants'
-import { satisfies } from 'semver'
 
 export interface DocLinkProps {
   item: NavItemLink

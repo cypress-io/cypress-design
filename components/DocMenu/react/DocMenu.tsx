@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { NavGroup, classes, NavItemLink } from '../constants'
+import { NavGroup, NavItemLink } from '../constants'
 import { DocLink } from './_DocLink'
 import { DocGroup } from './_DocGroup'
 
