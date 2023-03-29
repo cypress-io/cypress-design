@@ -3,7 +3,7 @@ div[class*='language-'] {
 }
 
 div[class*='language-'] pre {
-  @apply m-0 py-5;
+  @apply m-0 py-5 grid overflow-auto;
 }
 div[class*='language-'] code {
   @apply px-6 min-w-full block;

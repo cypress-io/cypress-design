@@ -6,6 +6,7 @@ import { computed, onMounted, shallowRef, watch, ref, nextTick } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import DocMenu from '@cypress-design/vue-docmenu'
 import Button from '@cypress-design/vue-button'
+import { IconMenuHamburger } from '@cypress-design/vue-icon'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import { getHeaders } from '../utils/outline'
@@ -108,31 +109,48 @@ const editUrl = computed(() => {
   if (url.length) return `${editRoot}/docs${url}`
   return `${editRoot}/docs/index.md`
 })
+
+const mobileMenuOpen = ref(false)
 </script>
 
 <template>
   <header
-    class="flex fixed z-50 w-full bg-white dark:bg-gray-800 h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
+    class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-800 h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
   >
+    <button
+      @click="mobileMenuOpen = true"
+      class="md:hidden absolute left-[16px]"
+    >
+      <IconMenuHamburger />
+    </button>
     <a href="/">
       <picture>
         <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)" />
-        <img src="./logo.svg" class="h-[32px] mr-[32px]" />
+        <img src="./logo.svg" class="h-[32px] md:mr-[32px]" />
       </picture>
     </a>
-
-    <div class="w-[150px]" />
   </header>
   <div class="h-[72px]" />
   <div class="flex min-h-full pb-8">
-    <aside class="py-[32px]">
+    <div
+      v-if="mobileMenuOpen"
+      class="fixed w-screen h-screen top-0 left-0 bg-gray-900/70 z-10 md:hidden"
+      @click="mobileMenuOpen = false"
+    ></div>
+    <aside
+      class="fixed py-[32px] md:static bg-white z-50 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
+      :class="{
+        '-translate-x-full md:translate-x-0': !mobileMenuOpen,
+      }"
+    >
       <Sidebar
         :framework="framework"
         :currentPath="commonPath"
         :routePath="routePath"
+        @click="mobileMenuOpen = false"
       />
     </aside>
-    <main class="w-[800px] mx-auto mt-[24px]">
+    <main class="w-[800px] mx-[16px] md:mx-auto md:mt-[24px]">
       <div v-if="CommonContent" class="relative">
         <Button
           v-if="editRoot"
@@ -174,7 +192,7 @@ const editUrl = computed(() => {
         </div>
       </div>
     </main>
-    <aside>
+    <aside class="hidden md:block">
       <div class="w-[300px]">
         <DocMenu :items="headers" class="fixed top-[70px]" />
       </div>
