@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { nextTick } from 'process'
 import { ref } from 'vue'
 import { Tab, classes } from '../constants'
 
@@ -6,11 +7,27 @@ const props = defineProps<{
   tabs: Tab[]
 }>()
 
+const $tab = ref<HTMLButtonElement[]>()
+
 const emit = defineEmits<{
   (event: 'change', tab: Tab): void
 }>()
 
 const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
+
+function navigate(shift: number) {
+  const shiftedIndex =
+    props.tabs.findIndex((tab) => tab.id === activeId.value) + shift
+  const nextIndex =
+    shiftedIndex < 0
+      ? props.tabs.length - 1
+      : shiftedIndex >= props.tabs.length
+      ? 0
+      : shiftedIndex
+  activeId.value = props.tabs[nextIndex].id
+  $tab.value?.[nextIndex]?.focus()
+  emit('change', props.tabs[nextIndex])
+}
 </script>
 
 <template>
@@ -18,7 +35,9 @@ const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
     <button
       v-for="tab in tabs"
       :key="tab.id"
+      ref="$tab"
       role="tab"
+      :tabindex="tab.id === activeId ? undefined : -1"
       :class="[
         classes.button,
         {
@@ -32,6 +51,8 @@ const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
           emit('change', tab)
         }
       "
+      @keyup.left="navigate(-1)"
+      @keyup.right="navigate(1)"
     >
       {{ tab.label }}
     </button>
