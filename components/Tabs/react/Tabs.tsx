@@ -1,15 +1,17 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, classes } from '../constants'
+import { Tab, classesMap } from '../constants'
 
 export interface TabsProps {
   tabs: Tab[]
+  type?: keyof typeof classesMap
   onChange?: (tab: Tab) => void
 }
 
 export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   tabs,
   onChange,
+  type = 'default',
   ...rest
 }) => {
   const [activeId, setActiveId] = React.useState(
@@ -17,6 +19,35 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   )
 
   const $tab = React.useRef<HTMLButtonElement[]>([])
+
+  const [activeMarkerStyle, setActiveMarkerStyle] = React.useState({
+    left: 0,
+    width: 30,
+    transitionProperty: 'none',
+  })
+
+  React.useEffect(() => {
+    const activeTab = tabs.findIndex((tab) => tab.id === activeId)
+    if (activeTab > -1) {
+      const activeTabEl = $tab.current?.[activeTab]
+      if (activeTabEl) {
+        setActiveMarkerStyle({
+          ...activeMarkerStyle,
+          left: activeTabEl.offsetLeft,
+          width: activeTabEl.offsetWidth,
+        })
+        if (activeMarkerStyle.transitionProperty === 'none') {
+          setTimeout(() => {
+            setActiveMarkerStyle({
+              left: activeTabEl.offsetLeft,
+              width: activeTabEl.offsetWidth,
+              transitionProperty: 'left, width',
+            })
+          }, 10)
+        }
+      }
+    }
+  }, [activeId])
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift
@@ -31,11 +62,14 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     onChange?.(tabs[nextIndex])
   }
 
+  const classes = classesMap[type]
+
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
       {tabs.map((tab, index) => {
         return (
           <button
+            key={tab.id}
             role="tab"
             className={clsx([
               classes.button,
@@ -62,6 +96,16 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
           </button>
         )
       })}
+      <div
+        key="active-marker"
+        className={clsx(classes.activeMarker, classes.activeMarkerColor)}
+        style={activeMarkerStyle}
+      />
+      <div
+        key="active-marker-blend"
+        className={clsx(classes.activeMarker, classes.activeMarkerBlender)}
+        style={activeMarkerStyle}
+      />
     </div>
   )
 }

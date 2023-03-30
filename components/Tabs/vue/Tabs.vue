@@ -1,10 +1,16 @@
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { Tab, classes } from '../constants'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { Tab, classesMap } from '../constants'
 
-const props = defineProps<{
-  tabs: Tab[]
-}>()
+const props = withDefaults(
+  defineProps<{
+    tabs: Tab[]
+    type?: keyof typeof classesMap
+  }>(),
+  {
+    type: 'default',
+  }
+)
 
 const $tab = ref<HTMLButtonElement[]>()
 
@@ -13,6 +19,40 @@ const emit = defineEmits<{
 }>()
 
 const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
+
+const activeMarkerStyle = ref({
+  left: '0',
+  width: '30px',
+  transitionProperty: 'none',
+})
+
+onMounted(() => {
+  watch(
+    activeId,
+    (id) => {
+      const activeIndex = props.tabs.findIndex((tab) => tab.id === id)
+      if (activeIndex > -1) {
+        const activeTab = $tab.value?.[activeIndex]
+        if (activeTab) {
+          activeMarkerStyle.value = {
+            ...activeMarkerStyle.value,
+            left: `${activeTab.offsetLeft}px`,
+            width: `${activeTab.offsetWidth}px`,
+          }
+        }
+      }
+    },
+    { immediate: true }
+  )
+
+  // Only start animation after the first render
+  setTimeout(() => {
+    activeMarkerStyle.value = {
+      ...activeMarkerStyle.value,
+      transitionProperty: 'all',
+    }
+  }, 10)
+})
 
 function navigate(shift: number) {
   const shiftedIndex =
@@ -27,6 +67,10 @@ function navigate(shift: number) {
   $tab.value?.[nextIndex]?.focus()
   emit('change', props.tabs[nextIndex])
 }
+
+const classes = computed(() => {
+  return classesMap[props.type]
+})
 </script>
 
 <template>
@@ -55,5 +99,13 @@ function navigate(shift: number) {
     >
       {{ tab.label }}
     </button>
+    <div
+      :class="[classes.activeMarker, classes.activeMarkerColor]"
+      :style="activeMarkerStyle"
+    />
+    <div
+      :class="[classes.activeMarker, classes.activeMarkerBlender]"
+      :style="activeMarkerStyle"
+    />
   </div>
 </template>
