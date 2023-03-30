@@ -21,30 +21,28 @@ export const classesMap = {
   },
   'underline-small': {
     wrapper:
-      'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
+      'p-[4px] inline-flex gap-[8px] rounded border-b border-gray-100 text-gray-700 relative',
     button:
-      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium',
-    active: 'text-gray-1000 relative z-20',
-    inActive: 'hover:bg-gray-50',
+      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium relative',
+    active: 'text-gray-900 z-20',
+    inActive:
+      'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
     activeMarker:
-      'absolute bottom-[4px] top-[4px] rounded z-10 duration-300 ease-in-out bg-indigo-500 hue-rotate-180 brightness-200 saturate-150',
-    activeMarkerColor:
-      'bg-indigo-500 hue-rotate-180 brightness-200 saturate-150',
-    activeMarkerBlender:
-      'absolute bottom-[4px] top-[4px] rounded z-30 duration-300 ease-in-out bg-white mix-blend-difference pointer-events-none',
+      'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
+    activeMarkerColor: 'bg-indigo-500',
+    activeMarkerBlender: 'hidden',
   },
   'underline-large': {
     wrapper:
-      'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
+      'p-[4px] inline-flex gap-[8px] rounded border-b border-gray-100 text-gray-700 relative',
     button:
-      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium',
-    active: 'text-gray-1000 relative z-20',
-    inActive: 'hover:bg-gray-50',
+      'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium relative',
+    active: 'text-gray-900 z-20',
+    inActive:
+      'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
     activeMarker:
-      'absolute bottom-[4px] top-[4px] rounded z-10 duration-300 ease-in-out bg-indigo-500 hue-rotate-180 brightness-200 saturate-150',
-    activeMarkerColor:
-      'bg-indigo-500 hue-rotate-180 brightness-200 saturate-150',
-    activeMarkerBlender:
-      'absolute bottom-[4px] top-[4px] rounded z-30 duration-300 ease-in-out bg-white mix-blend-difference pointer-events-none',
+      'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
+    activeMarkerColor: 'bg-indigo-500',
+    activeMarkerBlender: 'hidden',
   },
 } as const
