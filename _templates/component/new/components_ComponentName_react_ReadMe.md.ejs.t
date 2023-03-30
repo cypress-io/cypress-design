@@ -7,7 +7,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/ReadMe.md
 
 Describe your component here.
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-<%= name.toLowerCase() %>

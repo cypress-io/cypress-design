@@ -15,7 +15,7 @@ export const comp = () => (
 )
 ```
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-tooltip

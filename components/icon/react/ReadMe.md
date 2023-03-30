@@ -1,6 +1,6 @@
 # Icon
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-icon

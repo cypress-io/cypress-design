@@ -4,7 +4,7 @@
 
 Collapsible component with a header and a body.
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-accordion

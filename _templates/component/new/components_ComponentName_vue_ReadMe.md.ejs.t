@@ -7,7 +7,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/ReadMe.md
 
 Describe your component here.
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/vue-<%= name.toLowerCase() %>

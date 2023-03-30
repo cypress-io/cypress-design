@@ -4,7 +4,7 @@
 
 Spinner/loader branded to cypress colors.
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-spinner

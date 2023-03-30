@@ -14,7 +14,7 @@ To allow focus, one has to add `tabIndex="0"` to the Tooltip element.
 </Tooltip>
 ```
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/vue-tooltip

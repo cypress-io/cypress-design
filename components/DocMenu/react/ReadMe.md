@@ -4,7 +4,7 @@
 
 Describe your component here.
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-docmenu

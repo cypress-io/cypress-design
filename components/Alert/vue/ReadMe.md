@@ -9,7 +9,7 @@ Examples:
 - To attract attention to a specific note on the page.
 - To inform the user of a change in the system.
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/vue-alert
