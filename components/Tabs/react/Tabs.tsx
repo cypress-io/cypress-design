@@ -92,7 +92,25 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
               }
             }}
           >
-            {tab.label}
+            <>
+              {() => {
+                const IconBefore = tab.iconBefore ?? tab.icon
+                return IconBefore ? (
+                  <IconBefore
+                    className="mr-[8px]"
+                    size={type !== 'underline-large' ? '24' : '16'}
+                  />
+                ) : null
+              }}
+              {tab.label}
+              {tab.tag ? <div className={classes.tag}>{tab.tag}</div> : null}
+              {tab.iconAfter ? (
+                <tab.iconAfter
+                  className="ml-[8px]"
+                  size={type !== 'underline-large' ? '24' : '16'}
+                />
+              ) : null}
+            </>
           </button>
         )
       })}

@@ -2,6 +2,10 @@ export interface Tab {
   id: string
   label: string
   active?: boolean
+  icon?: any
+  iconAfter?: any
+  iconBefore?: any
+  tag?: string
 }
 
 export const classesMap = {
@@ -18,6 +22,7 @@ export const classesMap = {
       'bg-indigo-500 hue-rotate-180 brightness-200 saturate-150 z-10',
     activeMarkerBlender:
       'z-30 bg-white mix-blend-difference pointer-events-none',
+    tag: '',
   },
   'underline-small': {
     wrapper:
@@ -31,6 +36,7 @@ export const classesMap = {
       'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
     activeMarkerColor: 'bg-indigo-500',
     activeMarkerBlender: 'hidden',
+    tag: 'ml-[8px] px-[4px] bg-indigo-300/20 rounded text-gray-500 text-[12px] leading-[16px]',
   },
   'underline-large': {
     wrapper:
@@ -44,5 +50,6 @@ export const classesMap = {
       'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
     activeMarkerColor: 'bg-indigo-500',
     activeMarkerBlender: 'hidden',
+    tag: '',
   },
 } as const

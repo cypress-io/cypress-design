@@ -100,7 +100,20 @@ const classes = computed(() => {
       @keyup.left="navigate(-1)"
       @keyup.right="navigate(1)"
     >
+      <component
+        v-if="tab.iconBefore ?? tab.icon"
+        :is="tab.iconBefore ?? tab.icon"
+        class="mr-[8px]"
+        :size="props.type === 'underline-large' ? '24' : '16'"
+      />
       {{ tab.label }}
+      <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
+      <component
+        v-if="tab.iconAfter"
+        :is="tab.iconAfter"
+        class="ml-[8px]"
+        :size="props.type === 'underline-large' ? '24' : '16'"
+      />
     </button>
     <div
       :class="[classes.activeMarker, classes.activeMarkerColor]"
