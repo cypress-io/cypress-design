@@ -32,12 +32,11 @@ const saveScroll = ref(0)
  * keep scroll when switching framework
  */
 router.onAfterRouteChanged = async (to) => {
-  console.log('onAfterRouteChanged', { to, saveScroll: saveScroll.value })
   if (to.includes('/components/') && saveScroll.value) {
-    nextTick(() => {
+    setTimeout(() => {
       window.scrollTo(0, saveScroll.value)
       saveScroll.value = 0
-    })
+    }, 10)
   }
 }
 
