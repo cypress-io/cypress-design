@@ -22,7 +22,7 @@
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "^0.18.0"
+    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }
