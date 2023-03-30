@@ -18,5 +18,8 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
+  "devDependencies": {
+    "@cypress-design/css": "*"
+  },
   "license": "MIT"
 }
