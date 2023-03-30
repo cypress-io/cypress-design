@@ -10,7 +10,7 @@ export const classesMap = {
       'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
     button:
       'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium',
-    active: 'text-gray-1000 relative z-20',
+    active: 'text-black relative z-20',
     inActive: 'hover:bg-gray-50',
     activeMarker:
       'absolute bottom-[4px] top-[4px] rounded  duration-300 ease-in-out',

@@ -24,5 +24,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
   "dependencies": {
     "clsx": "*"
   },
+  "devDependencies": {
+    "@cypress-design/css": "^0.18.0"
+  },
   "license": "MIT"
 }

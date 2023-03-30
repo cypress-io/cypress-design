@@ -21,5 +21,8 @@
   "dependencies": {
     "clsx": "*"
   },
+  "devDependencies": {
+    "@cypress-design/css": "^0.18.0"
+  },
   "license": "MIT"
 }
