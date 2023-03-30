@@ -8,7 +8,6 @@ import {
   shallowRef,
   watch,
   ref,
-  nextTick,
   defineAsyncComponent,
 } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
@@ -27,18 +26,6 @@ const cookieFramework = computed(
 )
 
 const saveScroll = ref(0)
-
-/**
- * keep scroll when switching framework
- */
-router.onAfterRouteChanged = async (to) => {
-  if (to.includes('/components/') && saveScroll.value) {
-    setTimeout(() => {
-      window.scrollTo(0, saveScroll.value)
-      saveScroll.value = 0
-    }, 10)
-  }
-}
 
 const routePath = computed(() => router.route.path)
 
@@ -99,6 +86,12 @@ const CommonContent = computed(() => {
 function switchFramework(fw: 'react' | 'vue') {
   saveScroll.value = window.scrollY
   set('framework', fw)
+  router.go(routePath.value.replace(/\/(react|vue)\//, `/${fw}/`)).then(() => {
+    setTimeout(() => {
+      window.scrollTo(0, saveScroll.value)
+      saveScroll.value = 0
+    }, 10)
+  })
 }
 
 const editRoot = import.meta.env.EDIT_ROOT
