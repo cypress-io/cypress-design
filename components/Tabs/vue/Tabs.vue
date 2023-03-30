@@ -69,7 +69,10 @@ function navigate(shift: number) {
 }
 
 const classes = computed(() => {
-  return classesMap[props.type]
+  if (props.type in classesMap) {
+    return classesMap[props.type]
+  }
+  return classesMap.default
 })
 </script>
 

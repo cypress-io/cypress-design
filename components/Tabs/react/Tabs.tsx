@@ -62,7 +62,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     onChange?.(tabs[nextIndex])
   }
 
-  const classes = classesMap[type]
+  const classes = type in classesMap ? classesMap[type] : classesMap.default
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
