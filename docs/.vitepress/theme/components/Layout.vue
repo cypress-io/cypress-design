@@ -2,7 +2,15 @@
 import './markdown.css'
 import './fonts/fonts.css'
 import { onContentUpdated, useRouter } from 'vitepress'
-import { computed, onMounted, shallowRef, watch, ref, nextTick } from 'vue'
+import {
+  computed,
+  onMounted,
+  shallowRef,
+  watch,
+  ref,
+  nextTick,
+  defineAsyncComponent,
+} from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import DocMenu from '@cypress-design/vue-docmenu'
 import Button from '@cypress-design/vue-button'
@@ -57,9 +65,7 @@ watch(
   { immediate: true }
 )
 
-const Components = import.meta.glob('../../../../components/*/ReadMe.md', {
-  eager: true,
-})
+const Components = import.meta.glob('../../../../components/*/ReadMe.md')
 
 const ComponentsLower = Object.entries(Components).reduce(
   (acc, [k, v]) => ({ ...acc, [k.toLowerCase()]: v }),
@@ -84,14 +90,12 @@ const commonPath = computed(() =>
 
 const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
 
-const CommonContent = computed(
-  () =>
-    (
-      ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`] ?? {
-        default: null,
-      }
-    ).default
-)
+const CommonContent = computed(() => {
+  const CommonContentOrUndefined =
+    ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`]
+  if (!CommonContentOrUndefined) return undefined
+  return defineAsyncComponent(CommonContentOrUndefined)
+})
 
 function switchFramework(fw: 'react' | 'vue') {
   saveScroll.value = window.scrollY
