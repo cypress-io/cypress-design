@@ -1,12 +1,14 @@
-export interface NavItemLink {
+export interface NavItemBase {
   text: string
-  href: string
+  href?: string
   active?: boolean
 }
 
-export interface NavGroup {
-  text?: string
-  active?: boolean
+export interface NavItemLink extends NavItemBase {
+  href: string
+}
+
+export interface NavGroup extends NavItemBase {
   items: (NavItemLink | NavGroup)[]
 }
 

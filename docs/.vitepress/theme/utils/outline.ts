@@ -1,8 +1,7 @@
 import { NavItemLink, NavGroup } from '@cypress-design/vue-docmenu'
-import { DefaultTheme } from 'vitepress/theme'
 
-export function getHeaders(range: DefaultTheme.Config['outline']) {
-  const headers = [...document.querySelectorAll('main h2,h3,h4,h5,h6')]
+export function getHeaders(range: [number, number]) {
+  const headers = [...document.querySelectorAll('main h2,main h3')]
     .filter((el) => el.id && el.hasChildNodes())
     .map((el) => {
       const level = Number(el.tagName[1])
@@ -10,7 +9,6 @@ export function getHeaders(range: DefaultTheme.Config['outline']) {
         text: serializeHeader(el),
         href: '#' + el.id,
         level,
-        items: [],
       }
     })
 
@@ -35,34 +33,19 @@ function serializeHeader(h: Element): string {
   return ret.trim()
 }
 
-export interface NavGroupExtended extends NavGroup {
+export interface NavLinkExtended extends NavItemLink {
   level: number
-  items: (NavGroupExtended | NavItemLink)[]
 }
 
 export function resolveHeaders(
-  headers: NavGroupExtended[],
-  range?: DefaultTheme.Config['outline']
-): NavGroupExtended[] {
-  if (range === false) {
-    return []
-  }
-
-  const levelsRange =
-    (typeof range === 'object' && !Array.isArray(range)
-      ? range.level
-      : range) || 2
-
-  const [high, low]: [number, number] =
-    typeof levelsRange === 'number'
-      ? [levelsRange, levelsRange]
-      : levelsRange === 'deep'
-      ? [2, 6]
-      : levelsRange
+  headers: NavLinkExtended[],
+  range: [number, number] = [2, 3]
+) {
+  const [high, low] = range
 
   headers = headers.filter((h) => h.level >= high && h.level <= low)
 
-  const ret: NavGroupExtended[] = []
+  const ret: (NavGroup | NavItemLink)[] = []
   outer: for (let i = 0; i < headers.length; i++) {
     const cur = headers[i]
     if (i === 0) {
@@ -71,7 +54,11 @@ export function resolveHeaders(
       for (let j = i - 1; j >= 0; j--) {
         const prev = headers[j]
         if (prev.level < cur.level) {
-          prev.items.push(cur)
+          const prevGroup = prev as unknown as NavGroup
+          if (!prevGroup.items) {
+            prevGroup.items = []
+          }
+          prevGroup.items.push(cur)
           continue outer
         }
       }

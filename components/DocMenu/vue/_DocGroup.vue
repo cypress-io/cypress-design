@@ -8,6 +8,7 @@ import DocGroup from './_DocGroup.vue'
 const props = withDefaults(
   defineProps<{
     group: NavGroup
+    collapsible: boolean
     depth?: number
   }>(),
   {
@@ -58,7 +59,13 @@ const activeMarkerTop = computed(() => {
 <template>
   <button
     v-if="group.text"
-    @click="open = !open"
+    @click="
+      () => {
+        if (collapsible) {
+          open = !open
+        }
+      }
+    "
     :class="[
       classes.button,
       {
@@ -81,6 +88,7 @@ const activeMarkerTop = computed(() => {
   </button>
   <div
     v-if="
+      collapsible &&
       depth >= 0 &&
       open &&
       group.items.some((item) => 'href' in item && item.active)
@@ -95,14 +103,19 @@ const activeMarkerTop = computed(() => {
     v-show="open"
     class="ml-[7.5px]"
     :class="{
-      'border-l border-gray-100': depth === 0,
+      'border-l border-gray-100': depth === 0 && collapsible,
     }"
   >
     <template v-for="item in group.items">
-      <DocLink v-if="'href' in item" :item="item" :depth="depth" />
-      <li class="relative" v-else>
-        <DocGroup ref="$groups" :group="item" :depth="depth + 1" />
+      <li class="relative" v-if="'items' in item">
+        <DocGroup
+          ref="$groups"
+          :group="item"
+          :depth="depth + 1"
+          :collapsible="collapsible"
+        />
       </li>
+      <DocLink v-else :item="item" :depth="depth" />
     </template>
   </ul>
 </template>

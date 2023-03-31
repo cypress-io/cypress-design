@@ -9706,14 +9706,14 @@ rollup-pluginutils@^2.8.2:
   dependencies:
     estree-walker "^0.6.1"
 
-rollup@^2.79.1:
+rollup@^2.75.7, rollup@^2.79.1:
   version "2.79.1"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.79.1.tgz#bedee8faef7c9f93a2647ac0108748f497f081c7"
   integrity sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==
   optionalDependencies:
     fsevents "~2.3.2"
 
-rollup@^3.10.0, rollup@^3.18.0, rollup@^3.20.2:
+rollup@^3.10.0, rollup@^3.18.0:
   version "3.20.2"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.20.2.tgz#f798c600317f216de2e4ad9f4d9ab30a89b690ff"
   integrity sha512-3zwkBQl7Ai7MFYQE0y1MeQ15+9jsi7XxfrqwTb/9EK8D9C9+//EBR4M+CuA1KODRaNbFez/lWxA5vhEGZp4MUg==
@@ -11028,10 +11028,10 @@ typescript@4.4.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.4.4.tgz#2cd01a1a1f160704d3101fd5a58ff0f9fcb8030c"
   integrity sha512-DqGhF5IKoBl8WNf8C1gu8q0xZSInh9j1kJJMqT3a94w1JzVaBU4EXOSMrz9yDqMT0xt3selp83fuFMQ0uzv6qA==
 
-typescript@5.0.2:
-  version "5.0.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.2.tgz#891e1a90c5189d8506af64b9ef929fca99ba1ee5"
-  integrity sha512-wVORMBGO/FAs/++blGNeAVdbNKtIh1rbBL2EyQ1+J9lClJ93KiiKe8PmFIVdXhHcyv44SL9oglmfeSsndo0jRw==
+typescript@5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.0.3.tgz#fe976f0c826a88d0a382007681cbb2da44afdedf"
+  integrity sha512-xv8mOEDnigb/tN9PSMTwSEqAnUvkoXMQlicOb0IUVDBSQCgBSaAAROUZYy2IcUy5qU6XajK5jjjO7TMWqBTKZA==
 
 typescript@^3.7.2:
   version "3.9.10"
@@ -11417,10 +11417,10 @@ vue-docgen-api@^4.64.1:
     ts-map "^1.0.3"
     vue-inbrowser-compiler-independent-utils "^4.64.1"
 
-vue-docgen-cli@^4.65.1:
-  version "4.65.1"
-  resolved "https://registry.yarnpkg.com/vue-docgen-cli/-/vue-docgen-cli-4.65.1.tgz#6b7eddc6b034945c9c37804300b1ae0e989b1027"
-  integrity sha512-gCWPjBSM8FmzyTLgNqAQGZyPaGxqiIrmOLxgD/iVpqu3CBLw8aZadC0jxFIUqxLVDrFqJ1UOYkSSsX8UKviqIw==
+vue-docgen-cli@^4.65.2:
+  version "4.65.2"
+  resolved "https://registry.yarnpkg.com/vue-docgen-cli/-/vue-docgen-cli-4.65.2.tgz#204573bd8743b2eb78f438117f23e796a72d4ab4"
+  integrity sha512-UzS/XF8COEUgGjXgM/NmLS6x9gznIvnM4lx8sShaTPnce+6CubT/w7GxnUNQ2Jl2mFcDFrryKBIgL85bXG0RBg==
   dependencies:
     chokidar "^3.5.1"
     globby "^11.1.0"

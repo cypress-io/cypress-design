@@ -5,21 +5,25 @@ import { DocGroup } from './_DocGroup'
 
 export type NavItem = NavGroup | NavItemLink
 
-export interface DocMenuProps {
+export interface DocMenuProps extends React.HTMLAttributes<HTMLUListElement> {
   items: NavItem[]
-  className?: string
+  collapsible?: boolean
 }
 
-export const DocMenu: React.FC<DocMenuProps> = ({ items, className }) => {
+export const DocMenu: React.FC<DocMenuProps> = ({
+  items,
+  collapsible = true,
+  ...rest
+}) => {
   return (
-    <ul className={className}>
+    <ul {...rest}>
       {items.map((item, index) =>
-        'href' in item ? (
-          <DocLink key={index} item={item} />
-        ) : (
+        'items' in item ? (
           <li key={index} className="relative">
-            <DocGroup group={item} />
+            <DocGroup group={item} collapsible={collapsible} />
           </li>
+        ) : (
+          <DocLink key={index} item={item} />
         )
       )}
     </ul>

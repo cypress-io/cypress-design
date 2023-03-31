@@ -1,22 +1,14 @@
 <script lang="ts" setup>
 import './markdown.css'
 import './fonts/fonts.css'
-import { onContentUpdated, useRouter } from 'vitepress'
-import {
-  computed,
-  onMounted,
-  shallowRef,
-  watch,
-  ref,
-  defineAsyncComponent,
-} from 'vue'
+import { useRouter } from 'vitepress'
+import { computed, onMounted, watch, ref, defineAsyncComponent } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
-import DocMenu from '@cypress-design/vue-docmenu'
 import Button from '@cypress-design/vue-button'
 import { IconMenuHamburger } from '@cypress-design/vue-icon'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
-import { getHeaders } from '../utils/outline'
+import DocsOutline from './DocsOutline.vue'
 const router = useRouter()
 
 const { set, get } = useCookies()
@@ -59,12 +51,6 @@ const ComponentsLower = Object.entries(Components).reduce(
 )
 
 const hasFramework = computed(() => /\/(react|vue)\//.test(routePath.value))
-
-const headers = shallowRef<any>([])
-
-onContentUpdated(() => {
-  headers.value = getHeaders(2)
-})
 
 onMounted(() => {
   switchFramework(framework.value)
@@ -191,17 +177,7 @@ const mobileMenuOpen = ref(false)
     </main>
     <aside class="hidden xl:block">
       <div class="w-[300px]">
-        <div
-          v-if="headers.length"
-          class="fixed top-[72px] mt-[48px] border-solid border-l border-gray-1000/07"
-        >
-          <header
-            class="ml-[32px] uppercase text-gray-500 mt-0 mb-[8px] text-[14px] leading-[20px]"
-          >
-            Contents
-          </header>
-          <DocMenu :items="headers" class="ml-[8px]" />
-        </div>
+        <DocsOutline />
       </div>
     </aside>
   </div>
