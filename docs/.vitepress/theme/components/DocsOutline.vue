@@ -9,7 +9,7 @@ type NavItems = (NavGroup | NavItemLink)[]
 const headers = ref<NavItems>([])
 
 onContentUpdated(() => {
-  headers.value = getHeaders([2, 3])
+  headers.value = getHeaders([2, 2])
 })
 
 function throttleAndDebounce(fn: () => void, delay: number): () => void {
