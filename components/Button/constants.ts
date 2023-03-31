@@ -49,7 +49,9 @@ export const SizeClassesTable = {
 export const DefaultSize: keyof typeof SizeClassesTable = '40'
 
 export const StaticClasses =
-  'border rounded rounded-[4px] flex font-medium items-center transition duration-150 enabled:hover:shadow-ring-hover enabled:focus:shadow-ring-focus enabled:active:shadow-ring-focus disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
+  'border rounded rounded-[4px] flex font-medium items-center transition duration-150' +
+  'hover:shadow-ring-hover focus:shadow-ring-focus active:shadow-ring-focus disabled:hover:shadow-none disabled:focus:shadow-none disabled:active:shadow-none' +
+  'disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
 
 export type ButtonSizes = keyof typeof SizeClassesTable
 
