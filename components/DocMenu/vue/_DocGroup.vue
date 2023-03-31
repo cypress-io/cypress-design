@@ -54,18 +54,15 @@ const activeMarkerTop = computed(() => {
   }, 0)
   return (activeIndex + groupHeight) * 44
 })
+
+const Head = computed(() =>
+  props.collapsible ? 'button' : props.group.href ? 'a' : 'div'
+)
 </script>
 
 <template>
-  <button
-    v-if="group.text"
-    @click="
-      () => {
-        if (collapsible) {
-          open = !open
-        }
-      }
-    "
+  <component
+    :is="Head"
     :class="[
       classes.button,
       {
@@ -73,9 +70,17 @@ const activeMarkerTop = computed(() => {
         [classes.leafButton]: depth,
       },
     ]"
+    :href="props.group.href"
+    @click="
+      () => {
+        if (collapsible) {
+          open = !open
+        }
+      }
+    "
   >
     <IconChevronDownSmall
-      v-if="collapsible"
+      v-if="props.collapsible"
       stroke-color="gray-400"
       :size="depth ? '8' : '16'"
       class="absolute left-0 transform transition-transform"
@@ -86,10 +91,10 @@ const activeMarkerTop = computed(() => {
       }"
     />
     {{ group.text }}
-  </button>
+  </component>
   <div
     v-if="
-      collapsible &&
+      props.collapsible &&
       depth >= 0 &&
       open &&
       group.items.some((item) => 'href' in item && item.active)
@@ -104,7 +109,7 @@ const activeMarkerTop = computed(() => {
     v-show="open"
     class="ml-[7.5px]"
     :class="{
-      'border-l border-gray-100': depth === 0 && collapsible,
+      'border-l border-gray-100': depth === 0 && props.collapsible,
     }"
   >
     <template v-for="item in group.items">
@@ -113,7 +118,7 @@ const activeMarkerTop = computed(() => {
           ref="$groups"
           :group="item"
           :depth="depth + 1"
-          :collapsible="collapsible"
+          :collapsible="props.collapsible"
         />
       </li>
       <DocLink v-else :item="item" :depth="depth" />

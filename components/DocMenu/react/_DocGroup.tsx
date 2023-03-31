@@ -52,33 +52,31 @@ export const DocGroup: React.FC<DocGroupProps> = ({
     })
   }
 
+  const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
+
   return (
     <>
-      {group.text ? (
-        <button
-          onClick={() => toggleMenu(!open)}
-          className={clsx(classes.button, {
-            [classes.topButton]: depth === 0,
-            [classes.leafButton]: depth,
-          })}
-        >
-          {collapsible ? (
-            <IconChevronDownSmall
-              stroke-color="gray-400"
-              size={depth ? '8' : '16'}
-              className={clsx(
-                'absolute transform transition-transform left-0',
-                {
-                  'rotate-0': open,
-                  '-rotate-90': !open,
-                  'ml-[16px]': depth,
-                }
-              )}
-            />
-          ) : null}
-          {group.text}
-        </button>
-      ) : null}
+      <Head
+        onClick={() => toggleMenu(!open)}
+        href={group.href}
+        className={clsx(classes.button, {
+          [classes.topButton]: depth === 0,
+          [classes.leafButton]: depth,
+        })}
+      >
+        {collapsible ? (
+          <IconChevronDownSmall
+            stroke-color="gray-400"
+            size={depth ? '8' : '16'}
+            className={clsx('absolute transform transition-transform left-0', {
+              'rotate-0': open,
+              '-rotate-90': !open,
+              'ml-[16px]': depth,
+            })}
+          />
+        ) : null}
+        {group.text}
+      </Head>
       {collapsible &&
       depth >= 0 &&
       open &&
