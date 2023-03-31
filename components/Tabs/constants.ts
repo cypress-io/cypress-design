@@ -13,7 +13,7 @@ export const classesMap = {
     wrapper:
       'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
     button:
-      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium',
+      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap',
     active: 'text-black relative z-20',
     inActive: 'hover:bg-gray-50',
     activeMarker:
@@ -28,7 +28,7 @@ export const classesMap = {
     wrapper:
       'p-[4px] flex gap-[8px] rounded border-b border-gray-100 text-gray-700 relative px-[16px]',
     button:
-      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium relative',
+      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
     active: 'text-gray-900 z-20',
     inActive:
       'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
@@ -42,7 +42,7 @@ export const classesMap = {
     wrapper:
       'p-[4px] flex gap-[8px] rounded border-b border-gray-100 text-gray-700 relative px-[16px]',
     button:
-      'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium relative',
+      'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative',
     active: 'text-gray-900 z-20',
     inActive:
       'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
