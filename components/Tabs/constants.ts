@@ -26,7 +26,7 @@ export const classesMap = {
   },
   'underline-small': {
     wrapper:
-      'p-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 relative px-[16px]',
+      'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 relative',
     button:
       'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
     active: 'text-gray-900 z-20',
@@ -40,7 +40,7 @@ export const classesMap = {
   },
   'underline-large': {
     wrapper:
-      'p-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 relative px-[16px]',
+      'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 relative',
     button:
       'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative',
     active: 'text-gray-900 z-20',
