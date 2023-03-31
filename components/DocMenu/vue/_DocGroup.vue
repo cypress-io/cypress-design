@@ -75,6 +75,7 @@ const activeMarkerTop = computed(() => {
     ]"
   >
     <IconChevronDownSmall
+      v-if="collapsible"
       stroke-color="gray-400"
       :size="depth ? '8' : '16'"
       class="absolute left-0 transform transition-transform"
