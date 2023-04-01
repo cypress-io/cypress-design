@@ -1,47 +1,47 @@
 {
-	"name": "@cypress-design/css",
-	"version": "0.9.4",
-	"main": "./dist/index.cjs.js",
-	"module": "./dist/index.es.mjs",
-	"types": "./dist/index.d.ts",
-	"files": [
-		"dist",
-		"src"
-	],
-	"exports": {
-		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.cjs.js",
-			"types": "./dist/index.d.ts"
-		},
-		"./package.json": {
-			"require": "./package.json"
-		},
-		"./dist/colors": {
-			"require": "./dist/colors.js",
-			"types": "./dist/colors.d.ts"
-		}
-	},
-	"scripts": {
-		"build": "yarn build:types && yarn build:lib && yarn build:colors",
-		"build:types": "tsc -p . --noEmit false --emitDeclarationOnly",
-		"build:colors": "tsc -p ./tsconfig.colors.build.json",
-		"build:lib": "rollup -c ./rollup.config.js"
-	},
-	"dependencies": {
-		"@windicss/plugin-interaction-variants": "^1.0.0",
-		"lodash": "^4.17.21",
-		"resolve-pkg": "^2.0.0",
-		"tailwindcss": "^3.2.4",
-		"vite-plugin-windicss": "^1.8.4",
-		"windicss": "^3.5.1",
-		"windicss-webpack-plugin": "^1.6.10"
-	},
-	"devDependencies": {
-		"@types/lodash": "^4.14.191",
-		"typescript": "4.4.4",
-		"webpack": "4",
-		"color-string": "1.9.0"
-	},
-	"license": "MIT"
+  "name": "@cypress-design/css",
+  "version": "0.9.4",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./package.json": {
+      "require": "./package.json"
+    },
+    "./dist/colors": {
+      "require": "./dist/colors.js",
+      "types": "./dist/colors.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:types && yarn build:lib && yarn build:colors",
+    "build:types": "tsc -p . --noEmit false --emitDeclarationOnly",
+    "build:colors": "tsc -p ./tsconfig.colors.build.json",
+    "build:lib": "rollup -c ./rollup.config.js"
+  },
+  "dependencies": {
+    "@windicss/plugin-interaction-variants": "^1.0.0",
+    "lodash": "^4.17.21",
+    "resolve-pkg": "^2.0.0",
+    "tailwindcss": "^3.2.4",
+    "vite-plugin-windicss": "^1.8.10",
+    "windicss": "^3.5.6",
+    "windicss-webpack-plugin": "^1.7.8"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "typescript": "4.4.4",
+    "webpack": "4",
+    "color-string": "1.9.0"
+  },
+  "license": "MIT"
 }
