@@ -31,6 +31,7 @@ const links = computed(() => [
 
 <template>
   <Tabs
+    class="px-[16px]"
     type="underline-large"
     :tabs="links"
     @change="(tab) => emit('switch', tab.id as any)"
