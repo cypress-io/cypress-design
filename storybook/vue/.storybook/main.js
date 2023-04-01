@@ -1,4 +1,5 @@
 const { mergeConfig } = require('vite')
+const { CyCSSVitePlugin } = require('@cypress-design/css')
 const path = require('path')
 const vueJsx = require('@vitejs/plugin-vue-jsx').default
 
@@ -21,6 +22,22 @@ module.exports = {
     // return the customized config
     return mergeConfig(config, {
       plugins: [
+        CyCSSVitePlugin({
+          scan: {
+            include: [
+              path.resolve(
+                __dirname,
+                '../../../components/*/vue/*.stories.@(mdx|tsx)'
+              ),
+              path.resolve(
+                __dirname,
+                '../../../components/*/vue/*.@(vue|ts|tsx)'
+              ),
+              path.resolve(__dirname, '../../../components/*/*.ts'),
+              path.resolve(__dirname, '../stories/**/*.mdx'),
+            ],
+          },
+        }),
         // add management of jsx files
         vueJsx(),
       ],
