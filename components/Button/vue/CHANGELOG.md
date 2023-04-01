@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.7.2
+
+### Patch Changes
+
+- [#173](https://github.com/cypress-io/cypress-design/pull/173) [`c832f2e`](https://github.com/cypress-io/cypress-design/commit/c832f2ee505895f0e21d56884bf0197ae048981d) Thanks [@elevatebart](https://github.com/elevatebart)! - fix button link hover
+
 ## 0.7.1
 
 ### Patch Changes

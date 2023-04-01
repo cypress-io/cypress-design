@@ -1,25 +1,25 @@
 {
-	"name": "@cypress-design/vue-button",
-	"version": "0.7.1",
-	"files": [
-		"*"
-	],
-	"typings": "./dist/vue/index.d.ts",
-	"main": "./dist/index.umd.js",
-	"module": "./dist/index.es.mjs",
-	"exports": {
-		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.umd.js"
-		}
-	},
-	"scripts": {
-		"build": "yarn build:module && yarn build:types",
-		"build:module": "yarn vite build",
-		"build:types": "yarn vue-tsc --project ./tsconfig.build.json"
-	},
-	"devDependencies": {
-		"@cypress-design/css": "*"
-	},
-	"license": "MIT"
+  "name": "@cypress-design/vue-button",
+  "version": "0.7.2",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/vue/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "yarn vite build",
+    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@cypress-design/css": "*"
+  },
+  "license": "MIT"
 }
