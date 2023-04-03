@@ -4,6 +4,7 @@ import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css'
 /** @type {import('tailwindcss').Config} */
 export default {
   presets: [TailwindConfig()],
+  darkMode: 'class',
   content: {
     files: [
       './components/**/*.@(tsx|vue|ts|scss|js|css|md)',
