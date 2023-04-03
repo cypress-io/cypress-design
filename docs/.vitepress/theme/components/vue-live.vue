@@ -123,7 +123,7 @@ onUnmounted(() => {
   white-space: pre-wrap;
 }
 .preview-code .preview {
-  background-color: rgb(249, 245, 245);
+  @apply bg-indigo-50 dark:bg-gray-900;
   box-sizing: border-box;
   padding: 12px;
 }

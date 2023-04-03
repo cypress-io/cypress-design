@@ -154,7 +154,7 @@ const toggle = useAppearance(isDark)
           Edit
         </Button>
         <div
-          class="peer-hover:bg-gray-50/50 py-[4px] mt-[24px] p-[8px] rounded"
+          class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] mt-[24px] p-[8px] rounded"
         >
           <CommonContent />
         </div>
@@ -173,7 +173,9 @@ const toggle = useAppearance(isDark)
         >
           Edit
         </Button>
-        <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded mt-8">
+        <div
+          class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] p-[8px] rounded mt-8"
+        >
           <FrameworkSwitch
             v-if="hasFramework"
             :framework="framework"

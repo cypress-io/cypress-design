@@ -8,9 +8,9 @@ For accessibility, it also triggers on focus.
 To allow focus, one has to add `tabIndex="0"` to the Tooltip element.
 
 ```vue live
-<Tooltip tabIndex="0">
+<Tooltip class="inline-block" tabIndex="0">
 	<span>Focus me</span>
-	<template #popper> </template>
+	<template #popper>More info</template>
 </Tooltip>
 ```
 
