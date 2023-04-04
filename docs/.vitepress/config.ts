@@ -7,6 +7,8 @@ const branch = process.env.GIT_BRANCH || 'main'
 
 const fallbackPreference = 'auto'
 
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
+
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
   title: 'Cypress Design System',
@@ -33,12 +35,12 @@ export default defineConfig({
   ],
   vite: {
     define: {
-      'import.meta.env.EDIT_ROOT':
-        process.env.NODE_ENV === 'development'
-          ? JSON.stringify(`vscode://file/${resolve(__dirname, '../../')}`)
-          : JSON.stringify(
-              `https://github.com/cypress-io/cypress-design/blob/${branch}/`
-            ),
+      'import.meta.env.EDIT_ROOT_LOCAL': JSON.stringify(
+        `vscode://file/${resolve(__dirname, '../../')}`
+      ),
+      'import.meta.env.EDIT_ROOT_GITHUB': JSON.stringify(
+        `https://github.com/cypress-io/cypress-design/blob/${branch}/`
+      ),
     },
   },
 })

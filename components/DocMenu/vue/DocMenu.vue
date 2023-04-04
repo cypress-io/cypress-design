@@ -15,7 +15,7 @@ withDefaults(
 </script>
 
 <template>
-  <ul>
+  <ul class="overflow-y-hidden">
     <template v-for="item in items">
       <li v-if="'items' in item" class="relative">
         <DocGroup :group="item" :depth="0" :collapsible="collapsible" />

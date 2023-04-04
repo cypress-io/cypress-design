@@ -57,10 +57,18 @@ yarn add @cypress-design/vue-docmenu
               text: 'Item 2',
               href: '#',
             },
+            {
+              text: 'Item 3',
+              href: '#',
+            },
+            {
+              text: 'Item 4',
+              href: '#',
+            },
           ],
         },
         {
-          text: 'Item 2',
+          text: 'Item 5',
           href: '#',
           active: true,
         },

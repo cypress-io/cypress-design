@@ -92,7 +92,7 @@ const checkboxClasses = computed(() =>
           v-if="label"
           :class="[
             Classes.trueLabel,
-            disabled ? 'text-gray-500' : 'text-gray-800',
+            disabled ? 'text-gray-500' : 'text-gray-800 dark:text-gray-200',
           ]"
         >
           {{ label }}

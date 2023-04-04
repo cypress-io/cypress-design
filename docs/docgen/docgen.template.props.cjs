@@ -46,9 +46,15 @@ ${await lineTemplate(props, supComponent)}
 
 async function renderType(type) {
   if (type.schema) {
-    return `<code>${await renderComplexTypes(type.schema)}</code>`
+    return `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">${await renderComplexTypes(
+      type.schema
+    )}</code>`
   }
-  return `<code>${mdclean(type?.name).replace(/\\\|/g, '|')}</code>` ?? ''
+  return (
+    `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">${mdclean(
+      type?.name
+    ).replace(/\\\|/g, '|')}</code>` ?? ''
+  )
 }
 
 /**

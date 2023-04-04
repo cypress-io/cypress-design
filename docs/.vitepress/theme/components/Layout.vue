@@ -95,7 +95,10 @@ function switchFramework(fw: 'react' | 'vue') {
   })
 }
 
-const editRoot = import.meta.env.EDIT_ROOT
+const editRoot =
+  import.meta.env.MODE === 'development'
+    ? import.meta.env.EDIT_ROOT_LOCAL
+    : import.meta.env.EDIT_ROOT_GITHUB
 
 /**
  * when no framework is specified, we use this url to edit the current document
@@ -103,7 +106,7 @@ const editRoot = import.meta.env.EDIT_ROOT
 const editUrl = computed(() => {
   if (!editRoot) return ''
   const url = routePath.value.replace(/\.html$/, '.md').replace(/\/$/, '')
-  if (url.length) return `${editRoot}/docs${url}`
+  if (url.length) return `${editRoot}docs${url}`
   return `${editRoot}/docs/index.md`
 })
 
