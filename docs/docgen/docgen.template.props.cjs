@@ -78,7 +78,6 @@ function renderComplexTypes(schema) {
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
-    console.log(code)
     return `<Tooltip class="inline-block" interactive><code>${schema.type}</code><template #popper><div class="text-left"><pre>${code}</pre></div></template></Tooltip>`
   }
   return `
