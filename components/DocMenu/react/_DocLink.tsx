@@ -32,7 +32,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
     >
       <a
         className={clsx('group relative inline-block pl-[24px]', {
-          'text-indigo-500': item.active,
+          'text-indigo-500 dark:text-indigo-200': item.active,
           'py-[8px] text-[16px] leading-[24px]': depth < 0,
           'py-[12px] leading-[20px] text-[14px]': depth >= 0,
         })}
