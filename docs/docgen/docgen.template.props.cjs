@@ -21,8 +21,8 @@ async function lineTemplate(props, supComponent) {
       return `
 ${supComponent ? '#' : ''}### ${mdclean(p)}
 
-<p><em>type</em> ${n}${pr.required ? ` (optional)` : ''}${
-        d.length ? ` - <em>default</em>: <code>${mdclean(d)}</code>` : ''
+<p><b>type</b> ${n}${pr.required ? ` (optional)` : ''}${
+        d.length ? ` - <b>default</b>: <code>${mdclean(d)}</code>` : ''
       }</p>
 
 ${mdclean(t)}
@@ -65,7 +65,7 @@ let highlighter = null
 async function renderComplexTypes(schema, subType) {
   if (!highlighter) {
     highlighter = await shiki.getHighlighter({
-      theme: 'min-light',
+      theme: 'github-light',
     })
   }
   if (typeof schema === 'string') {
@@ -92,7 +92,7 @@ async function renderComplexTypes(schema, subType) {
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
-    return `<Tooltip class="inline-block" interactive>${
+    return `<Tooltip class="inline-block align-middle" interactive>${
       schema.type
     }<template #popper><div class="text-left">${highlighter.codeToHtml(code, {
       lang: 'ts',

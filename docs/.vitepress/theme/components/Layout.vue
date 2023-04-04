@@ -5,7 +5,10 @@ import { useRouter } from 'vitepress'
 import { computed, onMounted, watch, ref, defineAsyncComponent } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
-import { IconMenuHamburger } from '@cypress-design/vue-icon'
+import {
+  IconMenuHamburger,
+  IconSocialGithubSolid,
+} from '@cypress-design/vue-icon'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import DocsOutline from './DocsOutline.vue'
@@ -119,10 +122,17 @@ const mobileMenuOpen = ref(false)
       <IconMenuHamburger />
     </button>
     <a href="/">
-      <picture>
-        <source srcset="./logo-dark.svg" media="(prefers-color-scheme: dark)" />
-        <img src="./logo.svg" class="h-[32px] md:mr-[32px]" />
-      </picture>
+      <img src="./logo.svg" class="h-[32px] md:mr-[32px] dark:hidden" />
+      <img
+        src="./logo-dark.svg"
+        class="h-[32px] md:mr-[32px] hidden dark:inline-block"
+      />
+    </a>
+    <a
+      href="https://github.com/cypress-io/cypress-design"
+      class="dark:hover:text-indigo-300 hover:text-indigo-500"
+    >
+      <IconSocialGithubSolid class="w-[32px] h-[32px]" />
     </a>
   </header>
   <div class="h-[72px]" />
