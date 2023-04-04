@@ -108,6 +108,7 @@ const mobileMenuOpen = ref(false)
 </script>
 
 <template>
+  <DarkModeSwitch class="fixed bottom-[32px] right-[32px]" />
   <header
     class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-800 h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
   >
@@ -123,7 +124,6 @@ const mobileMenuOpen = ref(false)
         <img src="./logo.svg" class="h-[32px] md:mr-[32px]" />
       </picture>
     </a>
-    <DarkModeSwitch />
   </header>
   <div class="h-[72px]" />
   <div class="flex min-h-full pb-8">

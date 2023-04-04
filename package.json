@@ -92,6 +92,9 @@
     "*.{js,ts,jsx,tsx,vue}": "eslint --cache --fix",
     "*.{js,ts,jsx,tsx,vue,css,md}": "prettier --write"
   },
+  "nohoist": [
+    "@cypress-design/vue-*"
+  ],
   "gitHooks": {
     "pre-commit": "lint-staged"
   }
