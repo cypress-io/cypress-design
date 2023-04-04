@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { onMounted, ref, Ref, watch } from 'vue'
+import { nextTick, onMounted, ref, Ref, watch } from 'vue'
 import { onContentUpdated } from 'vitepress'
 import DocMenu, { NavGroup, NavItemLink } from '@cypress-design/vue-docmenu'
 import { getHeaders } from '../utils/outline'
@@ -19,6 +19,9 @@ onContentUpdated(() => {
     (mounted) => {
       if (mounted) {
         headers.value = getHeaders([2, 3])
+        nextTick(() => {
+          setActiveHeader()
+        })
         stopWatch()
       }
     }
@@ -60,7 +63,7 @@ function setHeaderActiveStatus(headers: Ref<NavItems>, activeHref: string) {
   })
 }
 
-const handleScroll = throttleAndDebounce(() => {
+function setActiveHeader() {
   const allHeadings = Array.from(document.querySelectorAll('main h2,main h3'))
 
   // get all html heading elements visible in the current viewport
@@ -99,14 +102,16 @@ const handleScroll = throttleAndDebounce(() => {
       }
       return acc
     },
-    { distance: Infinity, heading: null } as { distance: number; heading: any }
+    { distance: -Infinity, heading: null } as { distance: number; heading: any }
   )
 
   const activeId = closestHeading.heading?.id
 
   // set the active state of the heading we found
   setHeaderActiveStatus(headers, `#${activeId}`)
-}, 100)
+}
+
+const handleScroll = throttleAndDebounce(setActiveHeader, 100)
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
