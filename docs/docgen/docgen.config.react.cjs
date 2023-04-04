@@ -49,6 +49,7 @@ module.exports = defineConfig({
               name: pkey,
               description: pp.description,
               type: pp.type,
+              required: pp.required,
               defaultValue: pp.defaultValue,
             }
             acc.push(propType)

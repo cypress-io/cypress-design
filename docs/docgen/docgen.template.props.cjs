@@ -48,7 +48,7 @@ async function renderType(type) {
   if (type.schema) {
     return `<code>${await renderComplexTypes(type.schema)}</code>`
   }
-  return `<code>${mdclean(type?.name).replace(/\\|/g, '|')}</code>` ?? ''
+  return `<code>${mdclean(type?.name).replace(/\\\|/g, '|')}</code>` ?? ''
 }
 
 /**
