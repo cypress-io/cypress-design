@@ -35,6 +35,7 @@
     "@cypress-design/react-icon": "*",
     "@cypress-design/vue-docmenu": "*",
     "@cypress-design/vue-icon": "*",
+    "@cypress-design/vue-tooltip": "*",
     "@cypress/vite-dev-server": "^5.0.5",
     "@percy/cli": "1.21.0",
     "@percy/cypress": "3.1.2",

@@ -18,9 +18,16 @@ function defineSlot(slot) {
 /**
  * Renders a string representation of the type of a prop
  * @param {import('vue-component-meta').PropertyMeta} p
- * @returns {string}
+ * @returns {{ name: string, schema?: any }}
  */
 function renderType(p) {
+  const nonUndefinedType = p.type.replace(' | undefined', '')
+
+  // avoid passing the schema for primitive types
+  if (['boolean', 'number', 'string'].includes(nonUndefinedType)) {
+    return { name: nonUndefinedType }
+  }
+
   if (typeof p.schema !== 'string') {
     // if it's an enum, render it as a union type
     if (
@@ -29,13 +36,20 @@ function renderType(p) {
       p.schema.schema.length
     ) {
       // remove undefined from enum values
-      return p.schema.schema
-        .filter((v) => v !== 'undefined')
-        .map((v) => v)
-        .join(' | ')
+      const values = p.schema.schema.filter((v) => v !== 'undefined')
+
+      // serialize the values
+      if (!values.some((v) => typeof v !== 'string')) {
+        return { name: values.join(' | ') }
+      }
+
+      if (values.length === 1) {
+        return { name: nonUndefinedType, schema: values[0] }
+      }
     }
   }
-  return p.type
+
+  return { name: nonUndefinedType, schema: p.schema }
 }
 
 /**
@@ -51,7 +65,7 @@ function extractBindings(schema) {
     return Object.keys(schema.schema).map((k) => {
       return {
         title: k,
-        type: { name: renderType(schema.schema[k]) },
+        type: renderType(schema.schema[k]),
       }
     })
   }
@@ -80,9 +94,7 @@ module.exports = defineConfig({
           ? nonGlobalProps.map((p) => {
               return {
                 ...p,
-                type: {
-                  name: renderType(p),
-                },
+                type: renderType(p),
                 tags: p.tags.reduce((acc, t) => {
                   acc[t.name] = [{ title: t.name, content: t.text }]
                   return acc
