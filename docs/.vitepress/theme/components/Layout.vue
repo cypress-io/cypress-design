@@ -9,7 +9,7 @@ import { IconMenuHamburger } from '@cypress-design/vue-icon'
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import DocsOutline from './DocsOutline.vue'
-import { useAppearance } from '../utils/useAppearance'
+import DarkModeSwitch from './DarkModeSwitch.vue'
 const router = useRouter()
 
 const { set, get } = useCookies()
@@ -94,8 +94,6 @@ const editUrl = computed(() => {
 })
 
 const mobileMenuOpen = ref(false)
-const isDark = ref(false)
-const toggle = useAppearance(isDark)
 </script>
 
 <template>
@@ -114,12 +112,7 @@ const toggle = useAppearance(isDark)
         <img src="./logo.svg" class="h-[32px] md:mr-[32px]" />
       </picture>
     </a>
-    <button @click="toggle">
-      <span :class="{ underline: isDark }">dark</span>/<span
-        :class="{ underline: !isDark }"
-        >light</span
-      >
-    </button>
+    <DarkModeSwitch />
   </header>
   <div class="h-[72px]" />
   <div class="flex min-h-full pb-8">

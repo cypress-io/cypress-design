@@ -1,7 +1,30 @@
 /// @ts-check
 const { defineConfig } = require('vue-docgen-cli')
-const { parse } = require('react-docgen-typescript')
+const { withCustomConfig } = require('react-docgen-typescript')
 const path = require('path')
+
+const tsconfigPath = path.resolve(
+  __dirname,
+  '..',
+  '..',
+  './tsconfig.react.json'
+)
+const parser = withCustomConfig(tsconfigPath, {
+  shouldRemoveUndefinedFromOptional: true,
+  shouldIncludePropTagMap: true,
+
+  propFilter: (prop) => {
+    if (prop.declarations !== undefined && prop.declarations.length > 0) {
+      const isNodeModules = prop.declarations.some((declaration) => {
+        return declaration.fileName.includes('node_modules')
+      })
+
+      return !isNodeModules
+    }
+
+    return true
+  },
+})
 
 module.exports = defineConfig({
   components: './*/react/[A-Z][A-Za-z0-9-]+\\.@(tsx|ts)',
@@ -10,7 +33,7 @@ module.exports = defineConfig({
     return path.join(outDir, 'react', name.replace(/\.(tsx|ts)$/, '.md'))
   },
   propsParser(componentPath) {
-    const props = parse(componentPath, {})
+    const props = parser.parse(componentPath)
     const propsAdapted = props.map((p) => {
       /** @type import('vue-docgen-api').ComponentDoc */
       const mp = {
@@ -21,9 +44,6 @@ module.exports = defineConfig({
             acc,
             [pkey, pp]
           ) => {
-            if (/node_modules/.test(pp.parent?.fileName || '')) {
-              return acc
-            }
             /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number] */
             const propType = {
               name: pkey,

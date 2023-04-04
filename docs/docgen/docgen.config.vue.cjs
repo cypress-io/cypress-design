@@ -28,27 +28,6 @@ function renderType(p) {
     return { name: nonUndefinedType }
   }
 
-  if (typeof p.schema !== 'string') {
-    // if it's an enum, render it as a union type
-    if (
-      p.schema.kind === 'enum' &&
-      typeof p.schema.schema !== 'string' &&
-      p.schema.schema.length
-    ) {
-      // remove undefined from enum values
-      const values = p.schema.schema.filter((v) => v !== 'undefined')
-
-      // serialize the values
-      if (!values.some((v) => typeof v !== 'string')) {
-        return { name: values.join(' | ') }
-      }
-
-      if (values.length === 1) {
-        return { name: nonUndefinedType, schema: values[0] }
-      }
-    }
-  }
-
   return { name: nonUndefinedType, schema: p.schema }
 }
 

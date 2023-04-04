@@ -1,5 +1,6 @@
 // @ts-check
 const { defaultTemplates } = require('vue-docgen-cli')
+const shiki = require('shiki')
 
 const { renderTags, mdclean } = defaultTemplates
 
@@ -8,68 +9,81 @@ const { renderTags, mdclean } = defaultTemplates
  * @param {Array<import('vue-docgen-api').PropDescriptor>} props
  * @param {boolean} supComponent
  */
-function lineTemplate(props, supComponent) {
-  let ret = ''
+async function lineTemplate(props, supComponent) {
+  const retArray = await Promise.all(
+    props.map(async (pr) => {
+      const p = pr.name
+      let t = pr.description ?? ''
+      t += renderTags(pr.tags)
+      const n = await renderType(pr.type)
+      const d = pr.defaultValue?.value ?? ''
 
-  props.forEach((pr) => {
-    const p = pr.name
-    let t = pr.description ?? ''
-    t += renderTags(pr.tags)
-    const n = renderType(pr.type)
-    const d = pr.defaultValue?.value ?? ''
-
-    ret += `
+      return `
 ${supComponent ? '#' : ''}### ${mdclean(p)}
 
 <p><em>type</em> ${n}${
-      d.length ? ` - <em>default</em>: <code>${mdclean(d)}</code>` : ''
-    }</p>
+        d.length ? ` - <em>default</em>: <code>${mdclean(d)}</code>` : ''
+      }</p>
 
 ${mdclean(t)}
 
 `
-  })
+    })
+  )
 
-  return ret
+  return retArray.join('')
 }
 
-module.exports = function renderProp(props, opt) {
+module.exports = async function renderProp(props, opt) {
   if (!props.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents
   return `
 ${supComponent ? '#' : ''}## Props
 
-${lineTemplate(props, supComponent)}
+${await lineTemplate(props, supComponent)}
 `
 }
 
-function renderType(type) {
+async function renderType(type) {
   if (type.schema) {
-    return renderComplexTypes(type.schema)
+    return `<code>${await renderComplexTypes(type.schema)}</code>`
   }
   return `<code>${mdclean(type?.name)}</code>` ?? ''
 }
 
 /**
+ * @type {import('shiki').Highlighter | null}
+ */
+let highlighter = null
+
+/**
  *
  * @param {any} schema
- * @returns {string}
+ * @param {boolean} [subType]
+ * @returns {Promise<string>}
  */
-function renderComplexTypes(schema) {
+async function renderComplexTypes(schema, subType) {
+  if (!highlighter) {
+    highlighter = await shiki.getHighlighter({
+      theme: 'nord',
+    })
+  }
   if (typeof schema === 'string') {
-    return undefined
+    if (schema === 'undefined') return undefined
+    return schema
   }
   if (schema.kind === 'enum') {
-    return `(${schema.schema
-      .map((v) => renderComplexTypes(v))
-      .filter((v) => v)
-      .join(' | ')})`
+    const values = await Promise.all(
+      schema.schema.map((v) => renderComplexTypes(v, true))
+    )
+    const filteredValues = values.filter((v) => v).join(' | ')
+    return subType ? `(${filteredValues})` : filteredValues
   }
   if (schema.kind === 'event') {
     return undefined
   }
   if (schema.kind === 'array') {
-    return `${renderComplexTypes(schema.schema[0])}[]`
+    return `${await renderComplexTypes(schema.schema[0], true)}[]`
   }
   if (schema.kind === 'object') {
     const obj = Object.values(schema.schema).map((value) =>
@@ -78,7 +92,11 @@ function renderComplexTypes(schema) {
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
-    return `<Tooltip class="inline-block" interactive><code>${schema.type}</code><template #popper><div class="text-left"><pre>${code}</pre></div></template></Tooltip>`
+    return `<Tooltip class="inline-block" interactive>${
+      schema.type
+    }<template #popper><div class="text-left">${highlighter.codeToHtml(code, {
+      lang: 'ts',
+    })}</div></template></Tooltip>`
   }
   return `
   \`\`\`
