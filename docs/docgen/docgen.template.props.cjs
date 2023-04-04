@@ -65,7 +65,7 @@ let highlighter = null
 async function renderComplexTypes(schema, subType) {
   if (!highlighter) {
     highlighter = await shiki.getHighlighter({
-      theme: 'nord',
+      theme: 'light-plus',
     })
   }
   if (typeof schema === 'string') {
