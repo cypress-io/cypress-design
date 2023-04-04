@@ -21,6 +21,9 @@ export function useAppearance(checked: Ref<boolean>) {
     }
   }
 
+  // set switch value from local storage
+  mainIsDark.value = isDark
+
   function toggle() {
     setClass((isDark = !isDark))
     userPreference = isDark
