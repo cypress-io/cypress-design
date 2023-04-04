@@ -1,10 +1,11 @@
-import { Ref } from 'vue'
+import { Ref, ref } from 'vue'
 import * as VitePress from 'vitepress'
 
 export const APPEARANCE_KEY = 'cypress-design-system-appearance'
 
-export function useAppearance(checked: Ref<boolean>) {
-  if (!VitePress.useData) return () => {}
+export function useAppearance() {
+  const checked = ref(false)
+  if (!VitePress.useData) return { toggle: () => {}, checked }
   const { site, isDark: mainIsDark } = VitePress.useData()
 
   const query = window.matchMedia('(prefers-color-scheme: dark)')
@@ -22,7 +23,7 @@ export function useAppearance(checked: Ref<boolean>) {
   }
 
   // set switch value from local storage
-  mainIsDark.value = isDark
+  checked.value = isDark
 
   function toggle() {
     setClass((isDark = !isDark))
@@ -58,5 +59,5 @@ export function useAppearance(checked: Ref<boolean>) {
     document.head.removeChild(css)
   }
 
-  return toggle
+  return { toggle, checked }
 }
