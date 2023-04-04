@@ -65,7 +65,7 @@ let highlighter = null
 async function renderComplexTypes(schema, subType) {
   if (!highlighter) {
     highlighter = await shiki.getHighlighter({
-      theme: 'light-plus',
+      theme: 'min-light',
     })
   }
   if (typeof schema === 'string') {
@@ -107,5 +107,14 @@ async function renderComplexTypes(schema, subType) {
 
 function renderObjectType(value) {
   const type = value.type.replace(' | undefined', '')
-  return `\t${value.name}${value.required ? '' : '?'}: ${type},`
+  const description = value.description?.length
+    ? /\n/.test(value.description)
+      ? `\t/**\n\t * ${value.description.replace(
+          /(\n\r?)/g,
+          '$1\t * '
+        )}\n\t */\n`
+      : `\t/** ${value.description} */\n`
+    : ''
+
+  return `${description}\t${value.name}${value.required ? '' : '?'}: ${type},`
 }

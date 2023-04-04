@@ -1,9 +1,26 @@
 export interface Tab {
   id: string
+  /**
+   * The label of the tab
+   */
   label: string
+  /**
+   * is the tab active
+   * (multiple tabs can be active at the same time)
+   */
   active?: boolean
+  /**
+   * icon on the left side of the label
+   */
   icon?: any
+  /**
+   * icon on the right side of the label
+   */
   iconAfter?: any
+  /**
+   * icon on the left side of the label
+   * (overrides icon prop)
+   */
   iconBefore?: any
   tag?: string
 }
