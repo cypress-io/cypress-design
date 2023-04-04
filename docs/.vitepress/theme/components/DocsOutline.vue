@@ -1,15 +1,28 @@
 <script lang="ts" setup>
-import { onMounted, ref, Ref } from 'vue'
+import { onMounted, ref, Ref, watch } from 'vue'
 import { onContentUpdated } from 'vitepress'
 import DocMenu, { NavGroup, NavItemLink } from '@cypress-design/vue-docmenu'
 import { getHeaders } from '../utils/outline'
+import {} from 'fs'
 
 type NavItems = (NavGroup | NavItemLink)[]
 
 const headers = ref<NavItems>([])
 
+const props = defineProps<{
+  commonContentMounted: boolean
+}>()
+
 onContentUpdated(() => {
-  headers.value = getHeaders([2, 2])
+  const stopWatch = watch(
+    () => props.commonContentMounted,
+    (mounted) => {
+      if (mounted) {
+        headers.value = getHeaders([2, 3])
+        stopWatch()
+      }
+    }
+  )
 })
 
 function throttleAndDebounce(fn: () => void, delay: number): () => void {

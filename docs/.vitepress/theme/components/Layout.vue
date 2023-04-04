@@ -62,12 +62,23 @@ const commonPath = computed(() =>
 )
 
 const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
+const commonContentMounted = ref(false)
 
 const CommonContent = computed(() => {
   const CommonContentOrUndefined =
     ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`]
   if (!CommonContentOrUndefined) return undefined
-  return defineAsyncComponent(CommonContentOrUndefined)
+  return defineAsyncComponent(() => {
+    commonContentMounted.value = false
+    return CommonContentOrUndefined()
+      .then((c: any) => c.default)
+      .then((c: any) => ({
+        ...c,
+        mounted: () => {
+          commonContentMounted.value = true
+        },
+      }))
+  })
 })
 
 function switchFramework(fw: 'react' | 'vue') {
@@ -181,7 +192,7 @@ const mobileMenuOpen = ref(false)
     </main>
     <aside class="hidden xl:block">
       <div class="w-[300px]">
-        <DocsOutline />
+        <DocsOutline :common-content-mounted="commonContentMounted" />
       </div>
     </aside>
   </div>
