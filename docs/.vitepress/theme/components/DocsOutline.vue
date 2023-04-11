@@ -9,24 +9,12 @@ type NavItems = (NavGroup | NavItemLink)[]
 
 const headers = ref<NavItems>([])
 
-const props = defineProps<{
-  commonContentMounted: boolean
-}>()
-
-onContentUpdated(() => {
-  const stopWatch = watch(
-    () => props.commonContentMounted,
-    (mounted) => {
-      if (mounted) {
-        headers.value = getHeaders([2, 3])
-        nextTick(() => {
-          setActiveHeader()
-        })
-        stopWatch()
-      }
-    }
-  )
-})
+function update() {
+  headers.value = getHeaders([2, 3])
+  nextTick(() => {
+    setActiveHeader()
+  })
+}
 
 function throttleAndDebounce(fn: () => void, delay: number): () => void {
   let timeoutId: NodeJS.Timeout
@@ -115,6 +103,10 @@ const handleScroll = throttleAndDebounce(setActiveHeader, 100)
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
+})
+
+defineExpose({
+  update,
 })
 </script>
 

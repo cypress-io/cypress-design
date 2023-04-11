@@ -66,27 +66,24 @@ const commonPath = computed(() =>
 )
 
 const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
-const commonContentMounted = ref(false)
+
+const $outline = ref<typeof DocsOutline | null>(null)
 
 const CommonContent = computed(() => {
   const CommonContentOrUndefined =
     ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`]
   if (!CommonContentOrUndefined) {
-    commonContentMounted.value = false
     // force update of the Page contents side bar
-    nextTick(() => {
-      commonContentMounted.value = true
-    })
+    $outline.value?.update()
     return undefined
   }
   return defineAsyncComponent(() => {
-    commonContentMounted.value = false
     return CommonContentOrUndefined()
       .then((c: any) => c.default)
       .then((c: any) => ({
         ...c,
         mounted: () => {
-          commonContentMounted.value = true
+          $outline.value?.update()
         },
       }))
   })
@@ -213,7 +210,7 @@ const mobileMenuOpen = ref(false)
     </main>
     <aside class="hidden xl:block">
       <div class="w-[300px]">
-        <DocsOutline :common-content-mounted="commonContentMounted" />
+        <DocsOutline ref="$outline" />
       </div>
     </aside>
   </div>
