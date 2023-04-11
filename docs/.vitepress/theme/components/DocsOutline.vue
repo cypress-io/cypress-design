@@ -16,6 +16,8 @@ function update() {
   })
 }
 
+onContentUpdated(update)
+
 function throttleAndDebounce(fn: () => void, delay: number): () => void {
   let timeoutId: NodeJS.Timeout
   let called = false
