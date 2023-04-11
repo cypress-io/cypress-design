@@ -13,6 +13,7 @@ import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import DocsOutline from './DocsOutline.vue'
 import DarkModeSwitch from './DarkModeSwitch.vue'
+import { nextTick } from 'process'
 const router = useRouter()
 
 const { set, get } = useCookies()
@@ -70,7 +71,14 @@ const commonContentMounted = ref(false)
 const CommonContent = computed(() => {
   const CommonContentOrUndefined =
     ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`]
-  if (!CommonContentOrUndefined) return undefined
+  if (!CommonContentOrUndefined) {
+    commonContentMounted.value = false
+    // force update of the Page contents side bar
+    nextTick(() => {
+      commonContentMounted.value = true
+    })
+    return undefined
+  }
   return defineAsyncComponent(() => {
     commonContentMounted.value = false
     return CommonContentOrUndefined()
