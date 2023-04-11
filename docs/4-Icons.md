@@ -39,9 +39,9 @@ For more info, check-out the Icon component documentation on the framework you a
 	</li>
 </ul>
 
-<div class="bg-gray-50 rounded p-[16px] my-[24px]">
-	<input type="search" v-model="search" placeholder="Search Icons" class="border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded w-full bg-white"/>
-	<div class="bg-white py-[16px]">
+<div class="bg-gray-50 dark:bg-gray-800 rounded p-[16px] my-[24px]">
+	<input type="search" v-model="search" placeholder="Search Icons" class="border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded w-full bg-white dark:bg-gray-900"/>
+	<div class="bg-white py-[16px] dark:bg-gray-900">
 		<template v-for="meta, iconName of iconsMetadata" :key="iconName">
 			<div class="mt-[16px] gap-x-[16px] flex items-end" v-if="search.length ? iconName.includes(search) : true" >
 				<p class="text-[16px] whitespace-nowrap overflow-hidden w-[250px] text-right">

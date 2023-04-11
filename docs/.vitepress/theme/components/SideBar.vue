@@ -31,7 +31,12 @@ const items = computed(() =>
       const route = p.replace(/^\.\.\/\.\.\/\.\./, '').replace(/\.md$/, '')
 
       return {
-        text: route.split('/').pop()?.replace(/-/g, ' ') ?? '',
+        text:
+          route
+            .split('/')
+            .pop()
+            ?.replace(/^\d+-(\w)/g, '$1')
+            .replace(/-/g, ' ') ?? '',
         href: route,
         active: props.routePath.includes(route),
       }
