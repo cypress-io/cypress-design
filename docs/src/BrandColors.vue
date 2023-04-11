@@ -53,11 +53,17 @@ const colorsForColorway = (colorway: string) => {
       :key="paletteName"
       class="mb-8"
     >
-      <h3 class="flex items-end text-2xl gap-2">
+      <h3 :id="paletteName" class="flex items-end text-xl gap-2">
         {{ startCase(paletteName) }}
         <p v-if="paletteName === 'tertiary'" class="text-sm text-gray-500">
           (Use only for generated content)
         </p>
+        <a
+          class="header-anchor"
+          :href="`#${paletteName}`"
+          :aria-label="`Permalink to &quot;${paletteName}&quot;`"
+          >​</a
+        >
       </h3>
       <div
         class="grid grid-rows-[repeat(11,minmax(0,1fr))] grid-flow-col gap-x-[8px] my-[16px]"
