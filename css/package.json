@@ -18,14 +18,14 @@
       "require": "./package.json"
     },
     "./dist/colors": {
-      "require": "./dist/colors.js",
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
     }
   },
   "scripts": {
-    "build": "yarn build:types && yarn build:lib && yarn build:colors",
+    "build": "yarn build:types && yarn build:lib",
     "build:types": "tsc -p . --noEmit false --emitDeclarationOnly",
-    "build:colors": "tsc -p ./tsconfig.colors.build.json",
     "build:lib": "rollup -c ./rollup.config.mjs"
   },
   "dependencies": {

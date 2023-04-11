@@ -18,6 +18,7 @@
     "docs/.vitepress/**/*.d.ts",
     "docs/.vitepress/**/*.ts",
     "docs/.vitepress/**/*.vue",
+    "docs/src/**/*.vue",
     "components/**/vite.config.ts",
     "components/root.vite.config.ts"
   ],
