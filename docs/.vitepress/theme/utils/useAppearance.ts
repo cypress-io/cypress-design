@@ -1,11 +1,12 @@
-import { Ref, ref } from 'vue'
+import { ref } from 'vue'
 import * as VitePress from 'vitepress'
 
 export const APPEARANCE_KEY = 'cypress-design-system-appearance'
 
 export function useAppearance() {
   const checked = ref(false)
-  if (!VitePress.useData) return { toggle: () => {}, checked }
+  if (!VitePress.useData || typeof window === 'undefined')
+    return { toggle: () => {}, checked }
   const { site, isDark: mainIsDark } = VitePress.useData()
 
   const query = window.matchMedia('(prefers-color-scheme: dark)')
