@@ -1,49 +1,49 @@
 {
-	"name": "@cypress-design/icon-registry",
-	"version": "0.20.4",
-	"description": "All svg files to be exposed to the Icon component",
-	"main": "dist/index.umd.js",
-	"module": "dist/index.es.mjs",
-	"types": "dist/index.d.ts",
-	"exports": {
-		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.umd.js",
-			"types": "./dist/index.d.ts"
-		}
-	},
-	"license": "MIT",
-	"scripts": {
-		"build:lib": "rollup -c ./rollup.config.mjs",
-		"build:types": "tsc -p . --outDir ./dist --noEmit false --emitDeclarationOnly",
-		"build:icons": "node ./build-icons.mjs",
-		"build:svg": "svg-to-ts-files",
-		"build": "yarn build:svg && yarn build:icons && yarn build:lib && yarn build:types"
-	},
-	"files": [
-		"dist"
-	],
-	"devDependencies": {
-		"@types/lodash.camelcase": "^4.3.7",
-		"@cypress-design/css": "^0.9.4",
-		"dedent": "^0.7.0",
-		"globby": "^13.1.1",
-		"lodash.camelcase": "^4.3.0",
-		"svg-to-ts": "^8.6.1"
-	},
-	"svg-to-ts": {
-		"srcFiles": [
-			"./icons/*.svg"
-		],
-		"interfaceName": "CyIcon",
-		"outputDirectory": "./src",
-		"typeName": "cyIcon",
-		"barrelFileName": "iconsList",
-		"prefix": "cy",
-		"modelFileName": "icon.model",
-		"iconsFolderName": "iconsData",
-		"completeIconSetName": "iconSet",
-		"exportCompleteIconSet": true,
-		"delimiter": "CAMEL"
-	}
+  "name": "@cypress-design/icon-registry",
+  "version": "0.20.4",
+  "description": "All svg files to be exposed to the Icon component",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.es.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "license": "MIT",
+  "scripts": {
+    "build:lib": "rollup -c ./rollup.config.mjs",
+    "build:types": "tsc -p . --outDir ./dist --noEmit false --emitDeclarationOnly",
+    "build:icons": "node ./build-icons.mjs",
+    "build:svg": "svg-to-ts-files",
+    "build": "yarn build:svg && yarn build:icons && yarn build:lib && yarn build:types"
+  },
+  "files": [
+    "dist"
+  ],
+  "devDependencies": {
+    "@types/lodash.camelcase": "^4.3.7",
+    "@cypress-design/css": "^0.9.4",
+    "dedent": "^0.7.0",
+    "globby": "^13.1.4",
+    "lodash.camelcase": "^4.3.0",
+    "svg-to-ts": "^10.0.0"
+  },
+  "svg-to-ts": {
+    "srcFiles": [
+      "./icons/*.svg"
+    ],
+    "interfaceName": "CyIcon",
+    "outputDirectory": "./src",
+    "typeName": "cyIcon",
+    "barrelFileName": "iconsList",
+    "prefix": "cy",
+    "modelFileName": "icon.model",
+    "iconsFolderName": "iconsData",
+    "completeIconSetName": "iconSet",
+    "exportCompleteIconSet": true,
+    "delimiter": "CAMEL"
+  }
 }
