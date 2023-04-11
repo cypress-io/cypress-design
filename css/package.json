@@ -18,7 +18,7 @@
       "require": "./package.json"
     },
     "./dist/colors": {
-      "import": "./dist/index.es.mjs",
+      "import": "./dist/colors.es.mjs",
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
     }
