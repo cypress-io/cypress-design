@@ -1,8 +1,10 @@
 <script lang="ts" setup>
 import { colors as designColors } from '@cypress-design/css/dist/colors'
-import { filter, flatten, pick, startCase, startsWith, values } from 'lodash'
+import _ from 'lodash'
 import flat from 'flat'
 import chroma from 'chroma-js'
+
+const { filter, flatten, pick, startCase, startsWith, values } = _
 
 function contrastingTextColor(color: string) {
   const ratioToBlack = chroma.contrast(color, 'black')
