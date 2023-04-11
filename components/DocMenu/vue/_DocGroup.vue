@@ -121,7 +121,7 @@ const Head = computed(() =>
           :collapsible="props.collapsible"
         />
       </li>
-      <DocLink v-else :item="item" :depth="depth" />
+      <DocLink v-else :item="item" :depth="depth" :collapsible="collapsible" />
     </template>
   </ul>
 </template>

@@ -23,7 +23,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
             <DocGroup group={item} collapsible={collapsible} />
           </li>
         ) : (
-          <DocLink key={index} item={item} />
+          <DocLink key={index} item={item} collapsible={collapsible} />
         )
       )}
     </ul>

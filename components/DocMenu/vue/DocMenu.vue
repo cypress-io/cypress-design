@@ -20,7 +20,7 @@ withDefaults(
       <li v-if="'items' in item" class="relative">
         <DocGroup :group="item" :depth="0" :collapsible="collapsible" />
       </li>
-      <DocLink v-else :item="item" />
+      <DocLink v-else :item="item" :collapsible="collapsible" />
     </template>
   </ul>
 </template>

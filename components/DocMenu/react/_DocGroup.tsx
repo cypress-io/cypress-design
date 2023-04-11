@@ -109,6 +109,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
             <DocLink
               key={index}
               item={item}
+              collapsible={collapsible}
               depth={depth}
               onActive={(top) => setActiveTop(top)}
             />

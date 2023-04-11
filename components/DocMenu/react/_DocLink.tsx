@@ -4,12 +4,14 @@ import { NavItemLink } from '../constants'
 
 export interface DocLinkProps {
   item: NavItemLink
+  collapsible: boolean
   depth?: number
   onActive?: (top: number) => void
 }
 
 export const DocLink: React.FC<DocLinkProps> = ({
   item,
+  collapsible,
   depth = -1,
   onActive,
 }) => {
@@ -43,7 +45,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
             className={clsx(
               'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
               {
-                'group-hover:block bg-gray-300': !item.active,
+                'group-hover:block bg-gray-300': !item.active && collapsible,
               }
             )}
             style={{

@@ -5,6 +5,7 @@ withDefaults(
   defineProps<{
     item: NavItemLink
     depth?: number
+    collapsible: boolean
   }>(),
   {
     depth: -1,
@@ -31,7 +32,7 @@ withDefaults(
         v-if="depth >= 0"
         class="absolute h-[80%] top-[10%] w-[4px] z-10 rounded-full hidden"
         :class="{
-          'group-hover:block bg-gray-300': !item.active,
+          'group-hover:block bg-gray-300': !item.active && collapsible,
         }"
         :style="{
           left: `-${18.5 + depth * 7.5}px`,
