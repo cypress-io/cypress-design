@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.9.5
+
+### Patch Changes
+
+- [#175](https://github.com/cypress-io/cypress-design/pull/175) [`9d60ce9`](https://github.com/cypress-io/cypress-design/commit/9d60ce9f12498de31771371a631c0b84f43220e5) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: shadow of hover buttons did not have the proper color
+
 ## 0.9.4
 
 ### Patch Changes
