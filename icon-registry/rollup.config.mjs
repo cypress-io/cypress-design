@@ -23,10 +23,8 @@ export default {
     commonjs(),
     typescript({
       tsconfig: './tsconfig.json',
-      sourceMap: true,
       declaration: false,
       declarationMap: false,
-      outDir: './dist',
     }),
   ],
 }
