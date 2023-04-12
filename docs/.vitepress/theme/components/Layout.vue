@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import 'virtual:windi.css'
 import './markdown.css'
 import './fonts/fonts.css'
 import { useRouter } from 'vitepress'
@@ -149,7 +150,7 @@ const mobileMenuOpen = ref(false)
     />
     <div class="w-[250px] hidden md:block flex-shrink-0" />
     <aside
-      class="fixed py-[32px] bg-white dark:bg-gray-900 z-50 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
+      class="fixed py-[32px] bg-white dark:bg-gray-900 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
       :class="{
         '-translate-x-full md:translate-x-0': !mobileMenuOpen,
       }"
