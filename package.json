@@ -86,6 +86,7 @@
     "vitest": "^0.30.1",
     "vue": "3.2.47",
     "vue-component-meta": "^1.2.0",
+    "vue-docgen-api": "^4.64.1",
     "vue-docgen-cli": "^4.66.0",
     "vue-eslint-parser": "^9.1.1",
     "vue-live": "^2.4.10",

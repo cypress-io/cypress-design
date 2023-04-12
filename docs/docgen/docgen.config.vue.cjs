@@ -1,5 +1,6 @@
 /// @ts-check
 const { defineConfig } = require('vue-docgen-cli')
+const { parseMulti } = require('vue-docgen-api')
 const path = require('path')
 
 const { createComponentMetaChecker } = require('vue-component-meta')
@@ -57,60 +58,70 @@ module.exports = defineConfig({
     const name = componentPath.split('/').pop() || 'unknown'
     return path.join(outDir, 'vue', name.replace(/\.(vue|ts)$/, '.md'))
   },
-  propsParser(componentPath, _, event) {
+  propsParser: async function (componentPath, _, event) {
     if (event === 'add') {
       checker.reload()
     }
     const exportNames = checker.getExportNames(componentPath)
-    return Promise.resolve(
-      exportNames.map((exportName) => {
-        const meta = checker.getComponentMeta(componentPath, exportName)
+    const docs = await parseMulti(componentPath).catch(() => [])
+    return exportNames.map((exportName) => {
+      const meta = checker.getComponentMeta(componentPath, exportName)
 
-        const nonGlobalProps = meta.props.filter((prop) => !prop.global)
+      const docgen = docs.find((d) => d.exportName === exportName)
 
-        // massage the output of meta to match the docgen format
-        const props = nonGlobalProps.length
-          ? nonGlobalProps.map((p) => {
-              return {
-                ...p,
-                type: renderType(p),
-                tags: p.tags.reduce((acc, t) => {
-                  acc[t.name] = [{ title: t.name, content: t.text }]
-                  return acc
-                }, {}),
-              }
-            })
-          : undefined
+      const nonGlobalProps = meta.props.filter((prop) => !prop.global)
 
-        const slots = meta.slots.length
-          ? meta.slots.map((s) => {
-              return defineSlot({
+      // massage the output of meta to match the docgen format
+      const props = nonGlobalProps.length
+        ? nonGlobalProps.map((p) => {
+            return {
+              ...p,
+              type: renderType(p),
+              tags: p.tags.reduce((acc, t) => {
+                acc[t.name] = [{ title: t.name, content: t.text }]
+                return acc
+              }, {}),
+            }
+          })
+        : undefined
+
+      const slots = meta.slots.length
+        ? meta.slots.map((s) => {
+            const slot = docgen.slots.find((d) => d.name === s.name)
+            return (
+              slot ??
+              defineSlot({
                 name: s.name,
                 description: s.description,
                 bindings: extractBindings(s.schema),
               })
-            })
-          : undefined
+            )
+          })
+        : undefined
 
-        const events = meta.events.length
-          ? meta.events.map((s) => ({
-              name: s.name,
-            }))
-          : undefined
+      const events = meta.events.length
+        ? meta.events.map((e) => {
+            const event = docgen.events.find((d) => d.name === e.name)
+            return (
+              event ?? {
+                name: e.name,
+              }
+            )
+          })
+        : undefined
 
-        return {
-          props,
-          slots,
-          events,
-          displayName:
-            componentPath
-              .split('/')
-              .pop()
-              ?.replace(/\.(ts|js|vue)/, '') || 'unknown',
-          exportName,
-          tags: {},
-        }
-      })
-    )
+      return {
+        props,
+        slots,
+        events,
+        displayName:
+          componentPath
+            .split('/')
+            .pop()
+            ?.replace(/\.(ts|js|vue)/, '') || 'unknown',
+        exportName,
+        tags: {},
+      }
+    })
   },
 })
