@@ -63,3 +63,28 @@ export default defineConfig({
 
 > **NOTE**: Add your html page and all your react and vue component files to the `scan.include` array.
 > This helps WindiCSS determine which class to include in the final generated CSS.
+
+### TailwindCSS
+
+```js
+const cypressCSS = require('@cypress-design/css')
+
+// simplest way
+module.exports = cypressCSS.TailwindConfig([
+  './index.html',
+  './src/**/*.{vue,js,ts,jsx,tsx}',
+])
+
+// tailwind way, more control
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  presets: [cypressCSS.TailwindConfig()],
+  content: {
+    files: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+    extract: ['vue', 'js', 'tsx'].reduce((acc, ext) => {
+      acc[ext] = cypressCSS.TailwindIconExtractor
+      return acc
+    }, {}),
+  },
+}
+```
