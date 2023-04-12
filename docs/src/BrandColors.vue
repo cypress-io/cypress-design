@@ -19,6 +19,10 @@ const brandPalettes = {
   tertiary: ['fuchsia', 'green', 'magenta'],
 }
 
+defineProps<{
+  palette: keyof typeof brandPalettes
+}>()
+
 const brandColorways = flatten(values(brandPalettes))
 
 const namedColors = pick(designColors, brandColorways)
@@ -49,43 +53,23 @@ const colorsForColorway = (colorway: string) => {
 </script>
 
 <template>
-  <div class="w-full">
-    <div
-      v-for="(palette, paletteName) of brandPalettes"
-      :key="paletteName"
-      class="mb-8"
-    >
-      <h3 :id="paletteName" class="flex items-end text-xl gap-2">
-        {{ startCase(paletteName) }}
-        <p v-if="paletteName === 'tertiary'" class="text-sm text-gray-500">
-          (Use only for generated content)
-        </p>
-        <a
-          class="header-anchor"
-          :href="`#${paletteName}`"
-          :aria-label="`Permalink to &quot;${paletteName}&quot;`"
-          >​</a
-        >
-      </h3>
+  <div
+    class="grid grid-rows-[repeat(11,minmax(0,1fr))] grid-flow-col gap-x-[8px] my-[16px]"
+  >
+    <template v-for="colorway of brandPalettes[palette]" :key="colorway">
       <div
-        class="grid grid-rows-[repeat(11,minmax(0,1fr))] grid-flow-col gap-x-[8px] my-[16px]"
+        v-for="(color, i) of colorsForColorway(colorway)"
+        :key="i"
+        class="relative h-16"
+        :class="`bg-${color.name} text-${color.textColor}`"
       >
-        <template v-for="colorway of palette" :key="colorway">
-          <div
-            v-for="(color, i) of colorsForColorway(colorway)"
-            :key="i"
-            class="relative h-16"
-            :class="`bg-${color.name} text-${color.textColor}`"
-          >
-            <div class="mx-2 my-1 text-md">
-              {{ color.name }}
-            </div>
-            <div class="absolute bottom-2 inset-x-2 text-sm text-right">
-              {{ color.hex }}
-            </div>
-          </div>
-        </template>
+        <div class="mx-2 my-1 text-md">
+          {{ color.name }}
+        </div>
+        <div class="absolute bottom-2 inset-x-2 text-sm text-right">
+          {{ color.hex }}
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>

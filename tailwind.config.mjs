@@ -16,18 +16,20 @@ const safeColors = reduce(
     const colorVariants = map(variants, (_, k) => {
       if (k === 'DEFAULT') return []
       const variantName = k === 'ONLY' ? name : `${name}-${k}`
-      return [
-        `bg-${variantName}`,
-        `text-${variantName}`,
-        `icon-light-${variantName}`,
-        `icon-dark-${variantName}`,
-        `icon-light-secondary-${variantName}`,
-        `icon-dark-secondary-${variantName}`,
-        `hover-icon-light-${variantName}`,
-        `hover-icon-dark-${variantName}`,
-        `hover-icon-light-secondary-${variantName}`,
-        `hover-icon-dark-secondary-${variantName}`,
-      ]
+      const iconColor = ['', 'hover-'].reduce((acc, prefix) => {
+        const withSecondaryDerivatives = ['', '-secondary'].reduce(
+          (acc, suffix) => {
+            acc.push(`${prefix}icon-light${suffix}-${variantName}`)
+            acc.push(`${prefix}icon-dark${suffix}-${variantName}`)
+            return acc
+          },
+          []
+        )
+        acc.push(...withSecondaryDerivatives)
+        return acc
+      }, [])
+
+      return [`bg-${variantName}`, `text-${variantName}`, ...iconColor]
     })
 
     colorVariants.forEach((variant) => {

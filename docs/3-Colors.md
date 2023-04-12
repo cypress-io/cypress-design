@@ -15,7 +15,19 @@ The **primary colors** are used frequently as the base colors for establishing t
 
 The **tertiary colors are reserved for generated content** such as syntax highlighting in code, or charts with large amounts of data points. In general, these colors should only be used when absolutely necessary.
 
-<BrandColors />
+### Primary
+
+<BrandColors palette="primary" />
+
+### Secondary
+
+<BrandColors palette="secondary" />
+
+### Tertiary
+
+> Use only for generated content
+
+<BrandColors palette="tertiary" />
 
 ## JS variables
 
