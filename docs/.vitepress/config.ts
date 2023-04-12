@@ -69,9 +69,6 @@ export default defineConfig({
           extractors: [
             {
               extractor: (...args) => {
-                if (args[1] && /\.vue$/.test(args[1])) {
-                  console.log('extracting vue file', args[1])
-                }
                 return WindiIconExtractor.extractor(...args)
               },
               extensions: [...WindiIconExtractor.extensions, 'md'],
