@@ -34,9 +34,9 @@ export const classesMap = {
     active: 'text-black relative z-20',
     inActive: 'hover:bg-gray-50',
     activeMarker:
-      'absolute bottom-[4px] top-[4px] rounded  duration-300 ease-in-out',
+      'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
     activeMarkerColor:
-      'bg-indigo-500 hue-rotate-180 brightness-200 saturate-150 z-10',
+      'bg-indigo-500 filter hue-rotate-180 brightness-200 saturate-150 z-10',
     activeMarkerBlender:
       'z-30 bg-white mix-blend-difference pointer-events-none',
     tag: '',
