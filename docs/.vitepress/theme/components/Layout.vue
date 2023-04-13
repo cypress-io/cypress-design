@@ -117,7 +117,7 @@ const mobileMenuOpen = ref(false)
 </script>
 
 <template>
-  <DarkModeSwitch class="fixed bottom-[32px] right-[32px]" />
+  <DarkModeSwitch class="fixed z-50 bottom-[32px] right-[32px]" />
   <header
     class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-1000 h-[72px] justify-between items-center px-[24px] md:px-[32px] border-b border-gray-100 dark:border-gray-50/07"
   >
