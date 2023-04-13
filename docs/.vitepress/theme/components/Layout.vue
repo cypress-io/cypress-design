@@ -119,7 +119,7 @@ const mobileMenuOpen = ref(false)
 <template>
   <DarkModeSwitch class="fixed bottom-[32px] right-[32px]" />
   <header
-    class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-800 h-[72px] justify-between items-center px-[32px] border-b border-gray-100"
+    class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-1000 h-[72px] justify-between items-center px-[32px] border-b border-gray-100 dark:border-gray-50/07"
   >
     <button
       @click="mobileMenuOpen = true"
@@ -134,12 +134,13 @@ const mobileMenuOpen = ref(false)
         class="h-[32px] md:mr-[32px] hidden dark:inline-block"
       />
     </a>
-    <a
+    <Button
       href="https://github.com/cypress-io/cypress-design"
-      class="dark:hover:text-indigo-300 hover:text-indigo-500"
+      variant="outline-light"
+      class="text-indigo-500 !bg-gray-50 !dark:bg-gray-900 !rounded-full !dark:border-gray-50/07 !dark:hover:border-gray-50/20 !dark:hover:shadow-gray-50/07"
     >
-      <IconSocialGithubSolid class="w-[32px] h-[32px]" />
-    </a>
+      <IconSocialGithubSolid />
+    </Button>
   </header>
   <div class="h-[72px]" />
   <div class="flex min-h-full pb-8">
@@ -150,7 +151,7 @@ const mobileMenuOpen = ref(false)
     />
     <div class="w-[250px] hidden md:block flex-shrink-0" />
     <aside
-      class="fixed py-[32px] bg-white dark:bg-gray-900 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto"
+      class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r-1 border-gray-100 dark:border-gray-50/07"
       :class="{
         '-translate-x-full md:translate-x-0': !mobileMenuOpen,
       }"
