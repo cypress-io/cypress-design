@@ -15,9 +15,9 @@ withDefaults(
 </script>
 
 <template>
-  <ul class="overflow-y-hidden">
+  <ul class="overflow-y-hidden list-none p-0">
     <template v-for="item in items">
-      <li v-if="'items' in item" class="relative">
+      <li v-if="'items' in item" class="relative list-none p-0">
         <DocGroup :group="item" :depth="0" :collapsible="collapsible" />
       </li>
       <DocLink v-else :item="item" :collapsible="collapsible" />

@@ -1,8 +1,8 @@
 .markdown {
   div[class*='language-'] {
-    @apply bg-gray-1000 dark:bg-gray-900 rounded-lg my-4 relative;
+    @apply bg-gray-1000 dark:bg-gray-900 rounded-lg my-4 relative py-4;
     pre {
-      @apply m-0 py-5 overflow-auto;
+      @apply overflow-auto;
     }
     code {
       @apply px-6 min-w-full block;
@@ -70,12 +70,13 @@
   }
 
   ul {
-    @apply pl-6 list-disc py-2;
+    padding: 8px 0 8px 24px;
+    @apply list-disc;
     li {
       &::marker {
         @apply text-indigo-500;
       }
-      @apply text-gray-900;
+      @apply text-initial;
     }
   }
 

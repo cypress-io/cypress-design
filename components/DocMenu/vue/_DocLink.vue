@@ -15,6 +15,7 @@ withDefaults(
 
 <template>
   <li
+    class="list-none p-0"
     :class="{
       'pl-[16px]': depth >= 0,
     }"

@@ -107,13 +107,13 @@ const Head = computed(() =>
   />
   <ul
     v-show="open"
-    class="ml-[7.5px]"
+    class="list-none p-0 ml-[7.5px]"
     :class="{
       'border-l border-gray-100': depth === 0 && props.collapsible,
     }"
   >
     <template v-for="item in group.items">
-      <li class="relative" v-if="'items' in item">
+      <li class="relative list-none p-0" v-if="'items' in item">
         <DocGroup
           ref="$groups"
           :group="item"

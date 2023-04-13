@@ -100,17 +100,17 @@ function copyCode() {
       />
     </div>
     <div class="editor code-block" :class="`language-${props.framework}`">
-      <button
-        class="copy"
-        :class="{ copied: copiedSuccess }"
-        @click="copyCode"
-      ></button>
       <VueLiveEditor
         :code="liveCode"
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
         @change="(newCode) => (liveCode = newCode)"
+      />
+      <button
+        class="copy"
+        :class="{ copied: copiedSuccess }"
+        @click="copyCode"
       />
     </div>
   </div>
@@ -123,11 +123,8 @@ function copyCode() {
 .preview-code {
   display: flex;
   flex-flow: column;
-  border-radius: 6px;
   overflow: hidden;
-  border: 1px solid #e2e2e2;
-  margin-top: 24px;
-  margin-bottom: 24px;
+  @apply rounded-lg my-[24px] border border-gray-100 dark:border-gray-700;
 }
 .vp-doc .preview-code .code-block {
   flex-grow: 1;
@@ -141,10 +138,14 @@ function copyCode() {
   border-radius: 0;
   white-space: pre-wrap;
 }
+
+.preview-code .editor {
+  @apply py-0;
+}
+
 .preview-code .preview {
-  @apply bg-indigo-50 dark:bg-gray-900;
   box-sizing: border-box;
-  padding: 12px;
+  @apply bg-indigo-50 dark:bg-gray-800 p-[12px];
 }
 
 @media (prefers-color-scheme: dark) {
