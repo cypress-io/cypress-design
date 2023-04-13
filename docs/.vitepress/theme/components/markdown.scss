@@ -1,0 +1,92 @@
+.markdown {
+  div[class*='language-'] {
+    @apply bg-gray-1000 dark:bg-gray-900 rounded-lg my-4 relative;
+    pre {
+      @apply m-0 py-5 overflow-auto;
+    }
+    code {
+      @apply px-6 min-w-full block;
+    }
+    .lang {
+      @apply text-gray-400 right-4 top-2 absolute;
+    }
+    & > button.copy {
+      @apply right-2 top-2 absolute z-10 bg-gray-800 text-gray-100 h-[48px] px-[16px] rounded hidden;
+      &:before {
+        content: '📋 copy';
+        @apply whitespace-nowrap;
+      }
+    }
+    & > button.copy.copied {
+      @apply transition transition-opacity duration-2000 ease-in-out opacity-0;
+      &:before {
+        content: '✅ copied';
+        @apply whitespace-nowrap;
+      }
+    }
+    &:hover > button.copy,
+    & > button.copy.copied {
+      @apply block;
+    }
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: 'Poppins';
+    @apply font-semibold;
+  }
+
+  h2,
+  h3 {
+    @apply mt-8;
+  }
+
+  h1 {
+    @apply text-3xl;
+  }
+
+  h2 {
+    @apply text-2xl;
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h1 .header-anchor,
+  h2 .header-anchor,
+  h3 .header-anchor {
+    @apply hidden;
+  }
+
+  h2:hover .header-anchor,
+  h3:hover .header-anchor {
+    @apply inline-block;
+  }
+
+  .header-anchor:after {
+    content: '#';
+  }
+
+  ul {
+    @apply pl-6 list-disc py-2;
+    li {
+      &::marker {
+        @apply text-indigo-500;
+      }
+      @apply text-gray-900;
+    }
+  }
+
+  blockquote {
+    @apply bg-gray-50 dark:bg-gray-900 py-[8px] px-[16px] border-l-[2px] border-l-gray-[4px] my-4 relative;
+  }
+
+  code {
+    @apply bg-gray-100 dark:bg-gray-900 px-[8px] py-[2px] rounded;
+  }
+  pre > code {
+    @apply bg-transparent;
+  }
+}

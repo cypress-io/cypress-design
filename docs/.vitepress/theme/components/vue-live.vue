@@ -66,6 +66,20 @@ function renderReactApp(code: string) {
 onUnmounted(() => {
   root.value?.unmount()
 })
+
+const copiedSuccess = ref(false)
+function copyCode() {
+  const el = document.createElement('textarea')
+  el.value = liveCode.value
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+  copiedSuccess.value = true
+  setTimeout(() => {
+    copiedSuccess.value = false
+  }, 1000)
+}
 </script>
 
 <template>
@@ -86,6 +100,11 @@ onUnmounted(() => {
       />
     </div>
     <div class="editor code-block" :class="`language-${props.framework}`">
+      <button
+        class="copy"
+        :class="{ copied: copiedSuccess }"
+        @click="copyCode"
+      ></button>
       <VueLiveEditor
         :code="liveCode"
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"

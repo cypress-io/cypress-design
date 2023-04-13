@@ -33,7 +33,9 @@ The **tertiary colors are reserved for generated content** such as syntax highli
 
 If needed, you can import colors by using
 
-`import { colors } from '@cypress-design/css'`
+```js
+import { colors } from '@cypress-design/css'
+```
 
 and then use them as e.g. `colors.jade[400]`, `colors.indigo[700]`
 

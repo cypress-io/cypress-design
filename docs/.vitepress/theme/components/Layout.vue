@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import 'virtual:windi.css'
-import './markdown.css'
+import './markdown.scss'
 import './fonts/fonts.css'
 import { useRouter } from 'vitepress'
 import { computed, onMounted, watch, ref, defineAsyncComponent } from 'vue'
@@ -174,7 +174,7 @@ const mobileMenuOpen = ref(false)
         <div
           class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] mt-[24px] p-[8px] rounded"
         >
-          <CommonContent />
+          <CommonContent class="markdown" />
         </div>
       </div>
       <div class="relative">
@@ -200,7 +200,7 @@ const mobileMenuOpen = ref(false)
             :path="routePath"
             @switch="switchFramework"
           />
-          <Content />
+          <Content class="markdown" />
         </div>
       </div>
     </main>
