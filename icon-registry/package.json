@@ -14,11 +14,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "build:lib": "rollup -c ./rollup.config.js",
-    "build:types": "tsc -p . --outDir ./dist --noEmit false --emitDeclarationOnly",
+    "build:lib": "rollup -c ./rollup.config.mjs",
+    "build:types": "tsc -p . --emitDeclarationOnly",
     "build:icons": "node ./build-icons.mjs",
     "build:svg": "svg-to-ts-files",
-    "build": "yarn build:icons && yarn build:svg && yarn build:lib && yarn build:types"
+    "build": "yarn build:svg && yarn build:icons && echo 'Waiting for build:svg...' && await timeout 10000 && yarn build:lib && yarn build:types"
   },
   "files": [
     "dist"
@@ -27,9 +27,10 @@
     "@types/lodash.camelcase": "^4.3.7",
     "@cypress-design/css": "^0.9.4",
     "dedent": "^0.7.0",
-    "globby": "^13.1.1",
+    "globby": "^13.1.4",
     "lodash.camelcase": "^4.3.0",
-    "svg-to-ts": "^8.6.1"
+    "svg-to-ts": "^10.0.0",
+    "wait-cli": "^1.0.0"
   },
   "svg-to-ts": {
     "srcFiles": [

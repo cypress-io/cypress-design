@@ -1,0 +1,127 @@
+<script lang="ts" setup>
+import { computed, Ref, ref } from 'vue'
+import { IconChevronDownSmall } from '@cypress-design/vue-icon'
+import { NavGroup, classes } from '../constants'
+import DocLink from './_DocLink.vue'
+import DocGroup from './_DocGroup.vue'
+
+const props = withDefaults(
+  defineProps<{
+    group: NavGroup
+    collapsible: boolean
+    depth?: number
+  }>(),
+  {
+    depth: 0,
+  }
+)
+
+const open = ref(props.depth === 0)
+
+const $groups = ref<(typeof DocGroup)[]>([])
+
+const height = computed(() => {
+  return $groups.value && open.value
+    ? $groups.value.reduce(
+        (acc, { height: h }) => acc + h,
+        props.group.items.length
+      )
+    : 0
+})
+
+defineExpose<{
+  height: Ref<number>
+}>({
+  height,
+})
+
+const activeMarkerTop = computed(() => {
+  const activeIndex = props.group.items.findIndex(
+    (item) => 'href' in item && item.active
+  )
+
+  // how many groups are before the active element?
+  let numberOfGroups = props.group.items.filter(
+    (item, index) => !('href' in item) && index < activeIndex
+  ).length
+
+  // if there is any open group before the active element
+  // compensate for the height
+  const groupHeight = $groups.value?.reduce((acc, group) => {
+    if (numberOfGroups < -1) return acc
+    numberOfGroups--
+    return acc + group.height
+  }, 0)
+  return (activeIndex + groupHeight) * 44
+})
+
+const Head = computed(() =>
+  props.collapsible ? 'button' : props.group.href ? 'a' : 'div'
+)
+</script>
+
+<template>
+  <component
+    :is="Head"
+    :class="[
+      classes.button,
+      {
+        [classes.topButton]: depth === 0,
+        [classes.leafButton]: depth,
+      },
+    ]"
+    :href="props.group.href"
+    @click="
+      () => {
+        if (collapsible) {
+          open = !open
+        }
+      }
+    "
+  >
+    <IconChevronDownSmall
+      v-if="props.collapsible"
+      stroke-color="gray-400"
+      :size="depth ? '8' : '16'"
+      class="absolute left-0 transform transition-transform"
+      :class="{
+        'rotate-0': open,
+        '-rotate-90': !open,
+        'ml-[16px]': depth,
+      }"
+    />
+    {{ group.text }}
+  </component>
+  <div
+    v-if="
+      props.collapsible &&
+      depth >= 0 &&
+      open &&
+      group.items.some((item) => 'href' in item && item.active)
+    "
+    class="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[48px]"
+    :style="{
+      top: `${activeMarkerTop}px`,
+      left: `-${depth === 0 ? 0 : depth * 7.5 + 1}px`,
+    }"
+  />
+  <ul
+    v-show="open"
+    class="list-none p-0 ml-[7.5px]"
+    :class="{
+      'border-l border-gray-100': depth === 0 && props.collapsible,
+    }"
+  >
+    <template v-for="item in group.items">
+      <li class="relative list-none p-0" v-if="'items' in item">
+        <DocGroup
+          ref="$groups"
+          :group="item"
+          :depth="depth + 1"
+          :collapsible="props.collapsible"
+        />
+      </li>
+      <DocLink v-else :item="item" :depth="depth" :collapsible="collapsible" />
+    </template>
+  </ul>
+</template>

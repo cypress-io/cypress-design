@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Icon, { IconObjectBookCode } from './index'
-import { mount } from 'cypress/react'
+import { mount } from 'cypress/react18'
 
 describe('Icon', () => {
   it('renders correctly', () => {

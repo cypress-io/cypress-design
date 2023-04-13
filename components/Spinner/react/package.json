@@ -19,9 +19,10 @@
 		"build:types": "tsc --project ./tsconfig.build.json"
 	},
 	"devDependencies": {
+		"@cypress-design/css": "*",
 		"postcss": "^8.4.21",
 		"rollup-plugin-postcss": "^4.0.2",
-		"sass": "^1.51.0"
+		"sass": "^1.61.0"
 	},
 	"license": "MIT"
 }

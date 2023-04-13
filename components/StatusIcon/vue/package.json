@@ -20,8 +20,11 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.20.2",
-    "@cypress-design/vue-icon": "^0.19.0"
+    "@cypress-design/icon-registry": "^0.20.0",
+    "@cypress-design/vue-icon": "*"
+  },
+  "devDependencies": {
+    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }

@@ -23,5 +23,8 @@
 		"@cypress-design/react-icon": "^0.18.0",
 		"clsx": "*"
 	},
+	"devDependencies": {
+		"@cypress-design/css": "*"
+	},
 	"license": "MIT"
 }

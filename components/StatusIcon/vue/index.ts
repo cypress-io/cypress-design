@@ -1,5 +1,5 @@
 export { default as StatusIcon } from './StatusIcon.vue'
-export { default as OutlineStatusIcon } from './OutlineStatusIcon'
-export { default as SimpleStatusIcon } from './SimpleStatusIcon'
-export { default as SolidStatusIcon } from './SolidStatusIcon'
+export { default as OutlineStatusIcon } from './_OutlineStatusIcon'
+export { default as SimpleStatusIcon } from './_SimpleStatusIcon'
+export { default as SolidStatusIcon } from './_SolidStatusIcon'
 export type { statusTypes as StatusType } from '../constants'

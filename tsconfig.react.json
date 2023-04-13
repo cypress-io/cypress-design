@@ -4,6 +4,8 @@
     "lib": ["es2017", "dom"],
     "strict": true,
     "skipLibCheck": true,
-    "moduleResolution": "node"
-  }
+    "moduleResolution": "node",
+    "composite": true
+  },
+  "include": ["components/*/react/**/*.tsx", "components/*/react/**/*.ts"]
 }

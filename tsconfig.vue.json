@@ -18,7 +18,7 @@
     // Required in Vite
     "isolatedModules": true,
     // Enforce using `import type` instead of `import` for types
-    "importsNotUsedAsValues": "error",
+    // "verbatimModuleSyntax": true,
 
     // Recommended
     "esModuleInterop": true,
@@ -41,6 +41,12 @@
 
       // No `ScriptHost` because Vue 3 dropped support for IE
     ],
-    "types": []
-  }
+    "types": [],
+    "composite": true
+  },
+  "include": [
+    "components/*/vue/*.ts",
+    "components/*/vue/*.tsx",
+    "components/*/vue/*.vue"
+  ]
 }

@@ -1,0 +1,172 @@
+<script lang="ts" setup>
+import { VueLiveEditor, VueLivePreview } from 'vue-live'
+import { createElement, createRoot, ReactPreview } from './react-preview'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import 'prismjs/themes/prism-tomorrow.css'
+import 'vue-live/style.css'
+
+const props = defineProps<{
+  framework: 'vue' | 'react'
+  code: string
+  requires?: Record<string, any>
+  components?: Record<string, any>
+  jsx?: boolean
+}>()
+
+const liveCode = ref(props.code)
+const error = ref()
+
+const prismLang = ref<'html' | 'vsg'>('html')
+
+const LANG_TO_PRISM = {
+  vue: 'html',
+  vsg: 'vsg',
+} as const
+
+function switchLanguage(newLang: 'vue' | 'vsg') {
+  const newPrismLang = LANG_TO_PRISM[newLang]
+  if (prismLang.value !== newPrismLang) {
+    prismLang.value = newPrismLang
+  }
+}
+
+const reactAppRoot$ = ref<HTMLDivElement>()
+
+onMounted(() => {
+  liveCode.value = props.code
+  if (reactAppRoot$.value) {
+    root.value = createRoot(reactAppRoot$.value)
+    renderReactApp(liveCode.value)
+
+    watch(
+      liveCode,
+      (code) => {
+        renderReactApp(code)
+      },
+      { immediate: true }
+    )
+  }
+})
+
+const root = ref<{
+  render: (el: any) => void
+  unmount: () => void
+} | null>(null)
+
+function renderReactApp(code: string) {
+  root.value?.render(
+    createElement(ReactPreview, {
+      code,
+      requires: props.requires,
+      components: props.components,
+    })
+  )
+}
+
+onUnmounted(() => {
+  root.value?.unmount()
+})
+
+const copiedSuccess = ref(false)
+function copyCode() {
+  const el = document.createElement('textarea')
+  el.value = liveCode.value
+  document.body.appendChild(el)
+  el.select()
+  document.execCommand('copy')
+  document.body.removeChild(el)
+  copiedSuccess.value = true
+  setTimeout(() => {
+    copiedSuccess.value = false
+  }, 1000)
+}
+</script>
+
+<template>
+  <div class="preview-code">
+    <div class="preview code-block">
+      <div v-if="props.framework === 'react'" v-once ref="reactAppRoot$">
+        React app root
+      </div>
+      <VueLivePreview
+        v-if="props.framework !== 'react'"
+        :requires="requires"
+        :components="components"
+        :code="liveCode"
+        :jsx="jsx"
+        @detect-language="switchLanguage"
+        @error="(e: any) => (error = e)"
+        @success="error = undefined"
+      />
+    </div>
+    <div class="editor code-block" :class="`language-${props.framework}`">
+      <VueLiveEditor
+        :code="liveCode"
+        :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
+        :error="error"
+        :jsx="jsx || props.framework === 'react'"
+        @change="(newCode) => (liveCode = newCode)"
+      />
+      <button
+        class="copy"
+        :class="{ copied: copiedSuccess }"
+        @click="copyCode"
+      />
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.editor.code-block {
+  @apply bg-gray-1000 rounded-t-none rounded-b-md my-0;
+}
+.preview-code {
+  display: flex;
+  flex-flow: column;
+  overflow: hidden;
+  @apply rounded-lg my-[24px] border border-gray-100 dark:border-gray-700;
+}
+.vp-doc .preview-code .code-block {
+  flex-grow: 1;
+  border-radius: 0;
+  margin: 0;
+}
+
+.preview-code .editor pre {
+  margin: 0;
+  box-sizing: border-box;
+  border-radius: 0;
+  white-space: pre-wrap;
+}
+
+.preview-code .editor {
+  @apply py-0;
+}
+
+.preview-code .preview {
+  box-sizing: border-box;
+  @apply bg-indigo-50 dark:bg-gray-800 p-[12px];
+}
+
+@media (prefers-color-scheme: dark) {
+  .preview-code .preview {
+    background-color: rgb(29, 29, 29);
+  }
+}
+
+.preview-code :deep(.prism-editor-wrapper) {
+  color: white;
+  padding: 0;
+}
+
+.preview-code :deep(.prism-editor-wrapper .prism-editor__textarea),
+.preview-code :deep(.prism-editor-wrapper .prism-editor__editor) {
+  padding: 16px;
+  padding-top: 12px;
+  padding-bottom: 0;
+  white-space: pre-wrap;
+  font-family: 'Fira Code', monospace;
+  line-height: var(--vp-code-line-height);
+  font-size: var(--vp-code-font-size);
+}
+</style>

@@ -82,8 +82,8 @@ export const Alert: React.FC<
   size = defaultAlertSize,
   ...rest
 }) => {
-  const typeClasses = alertClasses[type]
-  const sizeClasses = alertSizesClasses[size]
+  const typeClasses = alertClasses[type] ?? {}
+  const sizeClasses = alertSizesClasses[size] ?? {}
   const Icon =
     customIcon ??
     (type === 'error'

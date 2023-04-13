@@ -7,19 +7,14 @@ For accessibility, it also triggers on focus.
 
 To allow focus, one has to add `tabIndex="0"` to the Tooltip element.
 
-```vue
-<script setup>
-import Tooltip from '@cypress-design/vue-tooltip'
-</script>
-<template>
-  <Tooltip tabIndex="0">
-    <span>Focus me</span>
-    <template #popper> </template>
-  </Tooltip>
-</template>
+```vue live
+<Tooltip class="inline-block" tabIndex="0">
+	<span>Focus me</span>
+	<template #popper>More info</template>
+</Tooltip>
 ```
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/vue-tooltip

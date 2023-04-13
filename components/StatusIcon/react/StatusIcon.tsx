@@ -2,9 +2,9 @@ import * as React from 'react'
 import { SVGProps } from 'react'
 import type { Variant, Size } from '../constants'
 import { statuses } from '../constants'
-import OutlineStatusIcon from './OutlineStatusIcon'
-import SimpleStatusIcon from './SimpleStatusIcon'
-import SolidStatusIcon from './SolidStatusIcon'
+import OutlineStatusIcon from './_OutlineStatusIcon'
+import SimpleStatusIcon from './_SimpleStatusIcon'
+import SolidStatusIcon from './_SolidStatusIcon'
 
 export type StatusIconProps = {
   /**

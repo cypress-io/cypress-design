@@ -7,15 +7,15 @@ For accessibility, it also triggers on focus.
 
 To allow focus, one has to add `tabIndex="0"` to the Tooltip element.
 
-```jsx
-const comp = () => (
-  <Tooltip tabIndex="0">
+```jsx live
+export const comp = () => (
+  <Tooltip tabIndex="0" popper={<b>popper</b>}>
     <span>Focus me</span>
   </Tooltip>
 )
 ```
 
-## install
+## Install
 
 ```bash
 npm install @cypress-design/react-tooltip

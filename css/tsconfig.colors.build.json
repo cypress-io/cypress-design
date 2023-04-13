@@ -1,7 +1,0 @@
-{
-  "extends": "./tsconfig.json",
-  "include": ["src/colors.ts"],
-  "compilerOptions": {
-    "target": "ES5"
-  }
-}

@@ -1,17 +1,29 @@
 # Icon
 
+## Install
+
+```bash
+npm install @cypress-design/react-icon
+```
+
+or with yarn
+
+```bash
+yarn add @cypress-design/react-icon
+```
+
 ## Usage
 
 The simple way using the Icon component
 
-```tsx
-import { Icon } from '@cypress-design/react-icon'
+```tsx live
+import Icon from '@cypress-design/react-icon'
 
 export const MyButtonWithIcon = () => {
   return (
-    <button>
+    <button className="flex items-center gap-[8px] p-[8px] border-1 border-red-500">
       <Icon
-        name="book"
+        name="object-book"
         size="16"
         strokeColor="blue-600"
         fillColor="red-200"
@@ -25,14 +37,12 @@ export const MyButtonWithIcon = () => {
 
 The tree-shakable way (more optimized)
 
-```tsx
-import { IconBook } from '@cypress-design/react-icon'
+```tsx live
+import { IconObjectBook } from '@cypress-design/react-icon'
 
 export const MyButtonWithIcon = () => {
   return (
-    <button>
-      <IconBook size="16" strokeColor="indigo-600" fillColor="red-200" />
-    </button>
+    <IconObjectBook size="16" strokeColor="indigo-600" fillColor="red-200" />
   )
 }
 ```
@@ -41,13 +51,13 @@ Should you need to change the color of the icon on `hover` or `focus` prefix the
 
 Here, the `strokeColor` will change on hover from indigo to jade
 
-```tsx
-import { IconBook } from '@cypress-design/react-icon'
+```tsx live
+import { IconObjectBook } from '@cypress-design/react-icon'
 
 export const MyButtonWithIcon = () => {
   return (
     <button>
-      <IconBook
+      <IconObjectBook
         size="16"
         strokeColor="indigo-600"
         hoverStrokeColor="jade-600"
@@ -62,14 +72,14 @@ This prop will change all the pseudo prefixes to be group focused instead of tri
 
 To achieve the same goal, in WindiCSS, we would use `group-hover:` instead of `hover:`.
 
-```tsx
-import { IconBook } from '@cypress-design/react-icon'
+```tsx live
+import { IconObjectBook } from '@cypress-design/react-icon'
 
 export const MyButtonWithIcon = () => {
   return (
-    <button className="group hover:text-jade-800">
-      <IconBook
-        size="16"
+    <button className="flex items-center gap-[8px] group hover:text-jade-800">
+      <IconObjectBook
+        size="48"
         strokeColor="indigo-600"
         hoverStrokeColor="jade-600"
         interactiveColorsOnGroup
@@ -78,16 +88,4 @@ export const MyButtonWithIcon = () => {
     </button>
   )
 }
-```
-
-## install
-
-```bash
-npm install @cypress-design/react-icon
-```
-
-or with yarn
-
-```bash
-yarn add @cypress-design/react-icon
 ```

@@ -1,7 +1,15 @@
 import * as React from 'react'
 import styles from './Spinner.module.scss'
 
+function uid() {
+  return String(Date.now().toString(32) + Math.random().toString(16)).replace(
+    /\./g,
+    ''
+  )
+}
+
 export const Spinner: React.FC = () => {
+  const id = uid()
   return (
     <svg
       width="48"
@@ -13,7 +21,7 @@ export const Spinner: React.FC = () => {
       aria-hidden="true"
     >
       <defs>
-        <mask id="y_and_circle">
+        <mask id={id}>
           <path
             d="M37.3061 16.0737L32.658 27.8353L27.979 16.0737H24.1514L30.7133 32.1268L26.0446 43.449L25.828 43.963C25.6788 44.3224 25.3533 44.5752 24.9776 44.6273C24.6537 44.6423 24.3277 44.65 24 44.65C23.9323 44.65 23.8647 44.6497 23.7972 44.649C12.4859 44.5402 3.35 35.337 3.35 24C3.35 12.5953 12.5953 3.35 24 3.35C35.4047 3.35 44.65 12.5953 44.65 24C44.65 32.5719 39.4271 39.924 31.99 43.0474L30.7772 45.9958C30.5987 46.43 30.3755 46.8377 30.1141 47.2142C40.4075 44.5105 48 35.1419 48 24C48 10.7452 37.2548 0 24 0C10.7452 0 0 10.7452 0 24C0 37.1872 10.6357 47.8902 23.7972 47.9992C23.8247 47.9994 25.0196 47.9794 25.0177 47.9794C26.736 47.9075 28.2717 46.8308 28.9276 45.235L29.4694 43.9179L40.9228 16.0737H37.3061Z"
             fill="white"
@@ -30,7 +38,7 @@ export const Spinner: React.FC = () => {
         y="0"
         width="48"
         height="48"
-        mask="url(#y_and_circle)"
+        mask={`url(#${id})`}
         className="fill-gray-1000"
       />
       <circle
@@ -38,7 +46,7 @@ export const Spinner: React.FC = () => {
         cy="24"
         r="23"
         strokeWidth="5"
-        mask="url(#y_and_circle)"
+        mask={`url(#${id})`}
         className="stroke-jade-300"
       />
     </svg>

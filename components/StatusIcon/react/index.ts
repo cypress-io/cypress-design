@@ -1,5 +1,5 @@
 export { default } from './StatusIcon'
-export { OutlineStatusIcon } from './OutlineStatusIcon'
-export { SimpleStatusIcon } from './SimpleStatusIcon'
-export { SolidStatusIcon } from './SolidStatusIcon'
+export { OutlineStatusIcon } from './_OutlineStatusIcon'
+export { SimpleStatusIcon } from './_SimpleStatusIcon'
+export { SolidStatusIcon } from './_SolidStatusIcon'
 export type { statusTypes as StatusType } from '../constants'

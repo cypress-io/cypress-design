@@ -9,6 +9,6 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "declarationMap": true,
-    "noEmit": true
+    "outDir": "dist"
   }
 }

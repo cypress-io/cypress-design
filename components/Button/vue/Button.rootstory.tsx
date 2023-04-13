@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Button from './Button'
+import Button from './Button.vue'
 import type { ButtonSizes, ButtonVariants } from '../constants'
 import { SizeClassesTable, VariantClassesTable } from '../constants'
 

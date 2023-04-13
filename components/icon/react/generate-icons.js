@@ -56,7 +56,7 @@ ${iconsComponents.join('\n\n\n')}
 
 async function writeFile(fileContents) {
   await fs.writeFile(
-    path.resolve(__dirname, './TreeShakableIcons.ts'),
+    path.resolve(__dirname, './_TreeShakableIcons.ts'),
     fileContents,
     'utf-8'
   )

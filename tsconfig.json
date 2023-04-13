@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM", "dom.iterable"],
+    "skipLibCheck": true,
+    "noEmit": true,
+    "types": []
+  },
+  "include": [
+    "docs/.vitepress/**/*.d.ts",
+    "docs/.vitepress/**/*.ts",
+    "docs/.vitepress/**/*.vue",
+    "docs/src/**/*.vue",
+    "components/**/vite.config.ts",
+    "components/root.vite.config.ts"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.react.json"
+    },
+    {
+      "path": "./tsconfig.vue.json"
+    }
+  ]
+}
