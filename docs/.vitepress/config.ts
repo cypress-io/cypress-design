@@ -5,16 +5,17 @@ import {
   colors,
 } from '@cypress-design/css'
 import { resolve } from 'path'
-
 import _ from 'lodash'
-
-const { kebabCase, map, reduce } = _
-
+import { globbySync } from 'globby'
 import vueLiveMd from './vue-live-md-it'
 import { APPEARANCE_KEY } from './theme/utils/useDarkMode'
 
+const { kebabCase, map, reduce } = _
+
+// get the branch from vercel's build context
 const branch = process.env.GIT_BRANCH || 'main'
 
+// default dark mode preference to system preference
 const fallbackPreference = 'auto'
 
 // https://vitepress.vuejs.org/config/app-configs
@@ -41,6 +42,16 @@ export default defineConfig({
     `,
     ],
   ],
+  rewrites: {
+    ...globbySync(['*.md'], { cwd: resolve(__dirname, '..') }).reduce(
+      (acc, path) => {
+        acc[path] = path.replace(/^\d+-/, '')
+        return acc
+      },
+      {} as Record<string, string>
+    ),
+    '1-Getting-Started.md': 'index.md',
+  },
   vite: {
     define: {
       'import.meta.env.EDIT_ROOT_LOCAL': JSON.stringify(
