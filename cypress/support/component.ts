@@ -16,7 +16,6 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 import 'virtual:windi.css'
-import '../../style.css'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
