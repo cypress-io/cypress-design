@@ -119,14 +119,8 @@ const mobileMenuOpen = ref(false)
 <template>
   <DarkModeSwitch class="fixed bottom-[32px] right-[32px]" />
   <header
-    class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-1000 h-[72px] justify-between items-center px-[32px] border-b border-gray-100 dark:border-gray-50/07"
+    class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-1000 h-[72px] justify-between items-center px-[24px] md:px-[32px] border-b border-gray-100 dark:border-gray-50/07"
   >
-    <button
-      @click="mobileMenuOpen = true"
-      class="md:hidden absolute left-[16px]"
-    >
-      <IconMenuHamburger />
-    </button>
     <a href="/">
       <img src="./logo.svg" class="h-[32px] md:mr-[32px] dark:hidden" />
       <img
@@ -137,10 +131,13 @@ const mobileMenuOpen = ref(false)
     <Button
       href="https://github.com/cypress-io/cypress-design"
       variant="outline-light"
-      class="text-indigo-500 !bg-gray-50 !dark:bg-gray-900 !rounded-full !dark:border-gray-50/07 !dark:hover:border-gray-50/20 !dark:hover:shadow-gray-50/07"
+      class="fixed bottom-[34px] right-[116px] md:static text-indigo-500 !bg-gray-50 !dark:bg-gray-900 !rounded-full !dark:border-gray-50/07 !dark:hover:border-gray-50/20 !dark:hover:shadow-gray-50/07"
     >
       <IconSocialGithubSolid />
     </Button>
+    <button @click="mobileMenuOpen = true" class="md:hidden">
+      <IconMenuHamburger />
+    </button>
   </header>
   <div class="h-[72px]" />
   <div class="flex min-h-full pb-8">
@@ -153,7 +150,7 @@ const mobileMenuOpen = ref(false)
     <aside
       class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r-1 border-gray-100 dark:border-gray-50/07"
       :class="{
-        '-translate-x-full md:translate-x-0': !mobileMenuOpen,
+        'transform -translate-x-full md:translate-x-0': !mobileMenuOpen,
       }"
     >
       <Sidebar
