@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { IconShapeSunLong } from '@cypress-design/vue-icon'
-import { useAppearance } from '../utils/useAppearance'
+import { useDarkMode } from '../utils/useDarkMode'
 import { IconShapeMoonCrescent } from '@cypress-design/vue-icon'
 
-const { toggle, checked } = useAppearance()
+const { toggle, checked } = useDarkMode()
 </script>
 
 <template>
