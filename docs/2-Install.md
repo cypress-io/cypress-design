@@ -66,16 +66,37 @@ export default defineConfig({
 
 ### TailwindCSS
 
-```js
-const cypressCSS = require('@cypress-design/css')
+If windicss is installed, uninstall it first:
 
-// simplest way
-module.exports = cypressCSS.TailwindConfig([
+- remove the custom imports for windi `import 'virtual:windi.css'`
+- remove the plugin from webpack or from vite config
+
+Install tailwind: Follow [the tailwind docs](https://tailwindcss.com/docs/installation/using-postcss) 
+
+Finally update your tailwind config file.
+
+#### The simplest way
+
+This config is less verbose but only allows you to customize the files scanned.
+
+```js
+// tailwind.config.cjs
+const { TailwindConfig } = require('@cypress-design/css')
+
+module.exports = TailwindConfig([
   './index.html',
   './src/**/*.{vue,js,ts,jsx,tsx}',
 ])
+```
 
-// tailwind way, more control
+#### The explicit way
+
+If you plan on configuring
+
+```js
+// tailwind.config.cjs
+const cypressCSS = require('@cypress-design/css')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   presets: [cypressCSS.TailwindConfig()],
@@ -87,4 +108,3 @@ module.exports = {
     }, {}),
   },
 }
-```
