@@ -11,7 +11,7 @@ import _ from 'lodash'
 const { kebabCase, map, reduce } = _
 
 import vueLiveMd from './vue-live-md-it'
-import { APPEARANCE_KEY } from './theme/utils/useAppearance'
+import { APPEARANCE_KEY } from './theme/utils/useDarkMode'
 
 const branch = process.env.GIT_BRANCH || 'main'
 
