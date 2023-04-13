@@ -27,7 +27,7 @@ import '@cypress-design/vue-spinner/styles.css'
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-12px h-100vh">
+  <div class="flex flex-col items-center justify-center gap-12px h-[20vh]">
     <Spinner />
     <h2 class="text-gray-700 text-size-16px leading-24px">
       Initializing something really important...
@@ -46,7 +46,7 @@ import Spinner from '@cypress-design/vue-spinner/sfc'
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-12px h-100vh">
+  <div class="flex flex-col items-center justify-center gap-12px h-[20vh]">
     <Spinner />
     <h2 class="text-gray-700 text-size-16px leading-24px">
       Initializing something really important...
