@@ -90,14 +90,14 @@ export const DocGroup: React.FC<DocGroupProps> = ({
         />
       ) : null}
       <ul
-        className={clsx('ml-[8px]', {
+        className={clsx('ml-[8px] list-none p-0', {
           'border-l border-gray-100': depth === 0 && collapsible,
           hidden: !open,
         })}
       >
         {group.items.map((item, index) =>
           'items' in item ? (
-            <li key={index} className="relative">
+            <li key={index} className="relative list-none p-0">
               <DocGroup
                 group={item}
                 depth={depth + 1}

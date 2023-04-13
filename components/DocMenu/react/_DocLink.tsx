@@ -28,7 +28,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
   return (
     <li
       ref={activeLIRef}
-      className={clsx({
+      className={clsx('list-none p-0', {
         'pl-[16px]': depth >= 0,
       })}
     >
