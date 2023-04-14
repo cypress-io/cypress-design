@@ -2,18 +2,18 @@
 
 ---
 
+![](./.vitepress/theme/components/meadow-logo.png)
+
 The Cypress design system is the whole system of:
 
-- **Storybook instances** with stories that document the behavior of components.
 - **Figma files** that specify the behavior of components organized by initiative or location in the app.
 - **Design tokens** (a special type of variables) that specify font size, line height, color, etc.
 - **Components** that are pre-built to design system standards (eg. with accessibility review.)
+- **Documentation** This site!
 
-## Cross-platform Storybook
+## Documentation
 
-_The main place to see the core components, in code._
-
-📖 [design.cypress.io](https://design.cypress.io/ 'https://design.cypress.io/')
+_This is main place to see our core components, in code._
 
 Used by Website, App, Cloud, and Documentation
 
