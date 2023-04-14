@@ -37,7 +37,7 @@ const items = computed(() =>
             .pop()
             ?.replace(/^\d+-(\w)/g, '$1')
             .replace(/-/g, ' ') ?? '',
-        href: route,
+        href: route.replace(/^\d+-(\w)/g, '$1'),
         active: props.routePath.includes(route),
       }
     })
