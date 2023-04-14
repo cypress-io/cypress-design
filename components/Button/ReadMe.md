@@ -6,8 +6,8 @@ import { VariantClassesTable, SizeClassesTable } from './constants'
 # Button
 
 <DemoWrapper>
-  <div class="grid grid-cols-4 gap-x-[16px] gap-y-[32px]">
-    <div v-for="(_,variant) in VariantClassesTable" class="py-[16px] flex flex-col items-center gap-[16px]" :class="{'bg-gray-900 text-white':variant === 'outline-dark'}">
+  <div class="flex flex-wrap justify-between gap-[16px]">
+    <div v-for="(_,variant) in VariantClassesTable" class="p-[16px] flex flex-col items-center gap-[16px]" :class="{'bg-gray-900 text-white':variant === 'outline-dark'}">
       <div class="flex gap-[8px]" v-for="(_,size) in SizeClassesTable">
         {{ size }}
         <Button :variant="variant" :size="size">
