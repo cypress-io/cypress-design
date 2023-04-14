@@ -43,7 +43,7 @@ import {
       class="p-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
       :class="{
         'bg-gray-1000 text-white': variant === 'outline-dark',
-        'bg-white': variant !== 'outline-dark',
+        'bg-white text-gray-900': variant !== 'outline-dark',
       }"
     >
       {{ variant }}
