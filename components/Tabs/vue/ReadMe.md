@@ -1,9 +1,5 @@
 # Tabs
 
-## Summary
-
-Describe your component here.
-
 ## Install
 
 ```bash

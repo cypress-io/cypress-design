@@ -3,10 +3,6 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/ReadMe.md
 ---
 # <%= h.inflection.camelize(name, false) %>
 
-## Summary
-
-Describe your component here.
-
 ## Install
 
 ```bash
