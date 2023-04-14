@@ -25,6 +25,8 @@ import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 </template>
 ```
 
+## Possible variants
+
 ```vue live
 <script lang="ts" setup>
 import {
@@ -35,20 +37,22 @@ import {
 </script>
 
 <template>
-  <div class="flex flex-wrap justify-center gap-[16px]">
+  <div class="flex flex-wrap justify-stretch gap-[8px]">
     <div
       v-for="(_, variant) in VariantClassesTable"
-      class="p-[16px] flex flex-col items-center gap-[16px]"
-      :class="{ 'bg-gray-900 text-white': variant === 'outline-dark' }"
+      class="p-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
+      :class="{
+        'bg-gray-1000 text-white': variant === 'outline-dark',
+        'bg-white': variant !== 'outline-dark',
+      }"
     >
+      {{ variant }}
       <div
         class="flex gap-[8px] items-center"
         v-for="(_, size) in SizeClassesTable"
       >
         {{ size }}
-        <Button :variant="variant" :size="size">
-          {{ variant }}
-        </Button>
+        <Button :variant="variant" :size="size"> Button </Button>
       </div>
     </div>
   </div>
