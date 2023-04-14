@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import DocMenu from '@cypress-design/vue-docmenu'
 import { computed } from 'vue'
+import { getDocsPages } from '../utils/docsPages'
 
 const pages = {
   vue: import.meta.glob('../../../components/vue/*.md', {
@@ -21,33 +22,9 @@ const props = defineProps<{
   routePath: string
 }>()
 
-const docsPages = import.meta.glob('../../../*.md', {
-  eager: true,
-})
+const rp = computed(() => props.routePath)
 
-const items = computed(() =>
-  Object.keys(docsPages)
-    .map((p) => {
-      const route = p
-        .replace(/^\.\.\/\.\.\/\.\./, '')
-        .replace(/\.md$/, '')
-        .replace(/\/\d+-(\w)/g, '\/$1')
-
-      return {
-        text:
-          route
-            .split('/')
-            .pop()
-            ?.replace(/^\d+-(\w)/g, '$1')
-            .replace(/-/g, ' ') ?? '',
-        href: route.replace('Getting-Started', ''),
-        active:
-          props.routePath.includes(route) ||
-          (props.routePath === '/' && route === '/Getting-Started'),
-      }
-    })
-    .filter((p) => p.text.toLowerCase() !== 'index')
-)
+const { items } = getDocsPages(rp)
 
 const group = computed(() => {
   return {
