@@ -1,21 +1,21 @@
 {
 	"name": "@test/react-app",
 	"private": true,
-	"version": "0.0.23",
+	"version": "0.1.0",
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
 		"preview": "vite preview"
 	},
 	"dependencies": {
-		"@cypress-design/react-checkbox": "^0.5.0",
-		"@cypress-design/react-icon": "^0.18.0",
-		"@cypress-design/react-spinner": "^0.3.0",
+		"@cypress-design/react-checkbox": "^0.2.0",
+		"@cypress-design/react-icon": "^0.19.0",
+		"@cypress-design/react-spinner": "^0.4.0",
 		"react": "18",
 		"react-dom": "18"
 	},
 	"devDependencies": {
-		"@cypress-design/css": "^0.9.0",
+		"@cypress-design/css": "^0.10.0",
 		"@types/react": "18",
 		"@types/react-dom": "18",
 		"@vitejs/plugin-react": "^3.1.0",

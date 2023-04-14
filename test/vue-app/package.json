@@ -1,6 +1,6 @@
 {
 	"name": "@cypress-design/test-vue-app",
-	"version": "0.0.27",
+	"version": "0.1.0",
 	"private": true,
 	"scripts": {
 		"dev": "vite",
@@ -9,15 +9,15 @@
 		"typecheck": "vue-tsc --noEmit"
 	},
 	"dependencies": {
-		"@cypress-design/vue-button": "^0.7.0",
-		"@cypress-design/vue-checkbox": "^0.1.0",
-		"@cypress-design/vue-icon": "^0.19.0",
-		"@cypress-design/vue-spinner": "^0.2.0",
-		"@cypress-design/vue-alert": "^0.3.0",
+		"@cypress-design/vue-button": "^0.8.0",
+		"@cypress-design/vue-checkbox": "^0.2.0",
+		"@cypress-design/vue-icon": "^0.20.0",
+		"@cypress-design/vue-spinner": "^0.3.0",
+		"@cypress-design/vue-alert": "^0.4.0",
 		"vue": "^3.2.47"
 	},
 	"devDependencies": {
-		"@cypress-design/css": "^0.9.3",
+		"@cypress-design/css": "^0.10.0",
 		"@types/node": "^18.15.11",
 		"@vitejs/plugin-vue": "^4.1.0",
 		"@vue/tsconfig": "^0.1.3",

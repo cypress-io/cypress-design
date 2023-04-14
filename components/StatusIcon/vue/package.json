@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-statusicon",
-  "version": "0.2.6",
+  "version": "0.3.0",
   "files": [
     "./dist/*"
   ],
@@ -20,7 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.20.0",
+    "@cypress-design/icon-registry": "^0.21.0",
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
