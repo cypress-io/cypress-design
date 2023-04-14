@@ -28,7 +28,10 @@ const docsPages = import.meta.glob('../../../*.md', {
 const items = computed(() =>
   Object.keys(docsPages)
     .map((p) => {
-      const route = p.replace(/^\.\.\/\.\.\/\.\./, '').replace(/\.md$/, '')
+      const route = p
+        .replace(/^\.\.\/\.\.\/\.\./, '')
+        .replace(/\.md$/, '')
+        .replace(/\/\d+-(\w)/g, '\/$1')
 
       return {
         text:
@@ -37,8 +40,10 @@ const items = computed(() =>
             .pop()
             ?.replace(/^\d+-(\w)/g, '$1')
             .replace(/-/g, ' ') ?? '',
-        href: route.replace(/^\d+-(\w)/g, '$1'),
-        active: props.routePath.includes(route),
+        href: route.replace('Getting-Started', ''),
+        active:
+          props.routePath.includes(route) ||
+          (props.routePath === '/' && route === '/Getting-Started'),
       }
     })
     .filter((p) => p.text.toLowerCase() !== 'index')
