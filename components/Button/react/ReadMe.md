@@ -12,6 +12,17 @@ or with yarn
 yarn add @cypress-design/react-button
 ```
 
+```jsx live
+import { IconActionPower } from '@cypress-design/react-icon'
+import Button from '@cypress-design/react-button'
+export default () => (
+  <Button>
+    <IconActionPower class="mr-2" />
+    Button
+  </Button>
+)
+```
+
 ## Possible variants
 
 ```tsx live
