@@ -1,5 +1,18 @@
 # @cypress-design/react-icon
 
+## 0.19.0
+
+### Minor Changes
+
+- [#167](https://github.com/cypress-io/cypress-design/pull/167) [`18399c7`](https://github.com/cypress-io/cypress-design/commit/18399c72a52288c67af0935384430d4e4cd24251) Thanks [@elevatebart](https://github.com/elevatebart)! - add icons shape pieces of heaven (sun & moon)
+
+- [#178](https://github.com/cypress-io/cypress-design/pull/178) [`d0de778`](https://github.com/cypress-io/cypress-design/commit/d0de77843adb87d8f4804219c6dca8f45b15c650) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver new docs and improved components
+
+### Patch Changes
+
+- Updated dependencies [[`18399c7`](https://github.com/cypress-io/cypress-design/commit/18399c72a52288c67af0935384430d4e4cd24251), [`d0de778`](https://github.com/cypress-io/cypress-design/commit/d0de77843adb87d8f4804219c6dca8f45b15c650)]:
+  - @cypress-design/icon-registry@0.21.0
+
 ## 0.18.2
 
 ### Patch Changes
