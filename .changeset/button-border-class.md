@@ -3,4 +3,4 @@
 '@cypress-design/vue-button': patch
 ---
 
-fix docs and one class
+fix: docs and add border-solid to prevent button from getting debordered
