@@ -1,5 +1,7 @@
 # Elements of the Cypress Design System
 
+### Codename "Meadow"
+
 ---
 
 ![](./.vitepress/theme/components/meadow-logo.png)
@@ -48,7 +50,7 @@ _New supplemental documentation and guidelines. (Early roll-out.)_
 
 ## FAQ
 
-**Why do we have multiple Storybook instances, which one should I use?**\
+**Why do we have multiple Storybook instances, which one should I use?**
 Cypress works on different platforms and has different generations of work. Prefer the new cross-platform Storybook.
 
 **Why do we have multiple Figma files?**

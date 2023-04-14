@@ -4,5 +4,7 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "spellright.language": ["en"],
+  "spellright.documentTypes": ["latex", "plaintext"]
 }

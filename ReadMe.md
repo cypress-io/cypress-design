@@ -8,9 +8,15 @@ The storybooks on this repo are published after any commit to the main branch to
 
 https://design.cypress.io
 
-### Install windicss
+### I want to run this site locally
 
-First install the css package
+```bash
+yarn && yarn build:components && yarn start
+```
+
+### I want to create a new component
+
+Install windicss CSS support.
 
 ```bash
 npm install --save-dev @cypress-design/css
@@ -33,7 +39,7 @@ export default (config) => ({
 
 See [the css package ReadMe](./css/) for more options
 
-### Install each component independently
+### I want to install each component independently
 
 To make sure each component fix is never blocked by an ongoing refactoring, we decided to publish each component as its own package.
 
