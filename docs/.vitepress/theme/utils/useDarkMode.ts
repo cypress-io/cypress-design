@@ -1,7 +1,7 @@
 import { Ref, ref } from 'vue'
 import * as VitePress from 'vitepress'
 
-export const APPEARANCE_KEY = 'cypress-design-system-appearance'
+export const APPEARANCE_KEY = 'vitepress-theme-appearance'
 
 export function useDarkMode(): { toggle: () => void; isDark: Ref<boolean> } {
   const isDark = ref(false)
@@ -29,7 +29,7 @@ export function useDarkMode(): { toggle: () => void; isDark: Ref<boolean> } {
 
   function toggle() {
     setClass((_isDark = !_isDark))
-    userPreference = isDark
+    userPreference = _isDark
       ? query.matches
         ? 'auto'
         : 'dark'

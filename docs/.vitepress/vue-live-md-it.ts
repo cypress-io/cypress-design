@@ -42,8 +42,10 @@ function addVueLive(md: any) {
         if (!oneImport.imported) {
           return `imports$${importMarker}['${oneImport.source}'] = { __esModule:true, _: {} };`
         }
-        return `imports$${importMarker}['${oneImport.source}'] = { __esModule:true, ${oneImport.imported}: __imported_${key}_$${importMarker}__ };
-		`
+        return [
+          `imports$${importMarker}['${oneImport.source}'] = imports$${importMarker}['${oneImport.source}'] ?? { __esModule:true, _: {} };`,
+          `imports$${importMarker}['${oneImport.source}'].${oneImport.imported} = __imported_${key}_$${importMarker}__ ;`,
+        ].join('')
       })
       .join('')}`
 

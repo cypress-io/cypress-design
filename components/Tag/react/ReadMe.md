@@ -1,9 +1,5 @@
 # Tag
 
-## Summary
-
-Describe your component here.
-
 ## Install
 
 ```bash

@@ -1343,21 +1343,6 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
-"@cypress-design/react-checkbox@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@cypress-design/react-checkbox/-/react-checkbox-0.5.0.tgz#3cdc52162d017c335021025a67a80f889e0baca7"
-  integrity sha512-ELY0rTYe1HrxaeX1jjD5kxBTTrjMWjvNKhI0CAEWClyUk1fvpfDIM8hHPJD0bkrGH8XUEVlQd730pzDsEBZSyw==
-  dependencies:
-    "@cypress-design/react-icon" "*"
-    clsx "*"
-
-"@cypress-design/react-icon@^0.17.0":
-  version "0.17.2"
-  resolved "https://registry.yarnpkg.com/@cypress-design/react-icon/-/react-icon-0.17.2.tgz#826771ca7354918c78705d4117394ac40287a7c2"
-  integrity sha512-51tpw+u+OeOXNSKKOW1RXHfPKLZd0qnVB0e3TYjvMEEzBxsqhf4V/omwv9zhh8tM4LV6fuEWDk3r00c8AdA1kA==
-  dependencies:
-    "@cypress-design/icon-registry" "^0.20.2"
-
 "@cypress/request@^2.88.10":
   version "2.88.11"
   resolved "https://registry.yarnpkg.com/@cypress/request/-/request-2.88.11.tgz#5a4c7399bc2d7e7ed56e92ce5acb620c8b187047"
