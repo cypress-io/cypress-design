@@ -2,6 +2,7 @@ import * as React from 'react'
 import { NavGroup, NavItemLink } from '../constants'
 import { DocLink } from './_DocLink'
 import { DocGroup } from './_DocGroup'
+import clsx from 'clsx'
 
 export type NavItem = NavGroup | NavItemLink
 
@@ -16,10 +17,10 @@ export const DocMenu: React.FC<DocMenuProps> = ({
   ...rest
 }) => {
   return (
-    <ul {...rest}>
+    <ul {...rest} className={clsx('list-none p-0', rest.className)}>
       {items.map((item, index) =>
         'items' in item ? (
-          <li key={index} className="relative">
+          <li key={index} className="relative list-none p-0">
             <DocGroup group={item} collapsible={collapsible} />
           </li>
         ) : (

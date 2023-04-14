@@ -1,33 +1,34 @@
-import { ref } from 'vue'
+import { Ref, ref } from 'vue'
 import * as VitePress from 'vitepress'
 
 export const APPEARANCE_KEY = 'cypress-design-system-appearance'
 
-export function useDarkMode() {
-  const checked = ref(false)
+export function useDarkMode(): { toggle: () => void; isDark: Ref<boolean> } {
+  const isDark = ref(false)
   if (!VitePress.useData || typeof window === 'undefined')
-    return { toggle: () => {}, checked }
+    return { toggle: () => {}, isDark }
   const { site, isDark: mainIsDark } = VitePress.useData()
 
   const query = window.matchMedia('(prefers-color-scheme: dark)')
   const classList = document.documentElement.classList
   let userPreference = localStorage.getItem(APPEARANCE_KEY)
-  let isDark =
+  let _isDark =
     (site.value.appearance === 'dark' && userPreference == null) ||
     (userPreference === 'auto' || userPreference == null
       ? query.matches
       : userPreference === 'dark')
+
   query.onchange = (e) => {
     if (userPreference === 'auto') {
-      setClass((isDark = e.matches))
+      setClass((_isDark = e.matches))
     }
   }
 
   // set switch value from local storage
-  checked.value = isDark
+  isDark.value = _isDark
 
   function toggle() {
-    setClass((isDark = !isDark))
+    setClass((_isDark = !_isDark))
     userPreference = isDark
       ? query.matches
         ? 'auto'
@@ -36,13 +37,13 @@ export function useDarkMode() {
       ? 'light'
       : 'auto'
     localStorage.setItem(APPEARANCE_KEY, userPreference)
-    mainIsDark.value = isDark
+    mainIsDark.value = _isDark
   }
 
   function setClass(dark: boolean): void {
-    checked.value = dark
+    isDark.value = dark
     classList[dark ? 'add' : 'remove']('dark')
   }
 
-  return { toggle, checked }
+  return { toggle, isDark }
 }
