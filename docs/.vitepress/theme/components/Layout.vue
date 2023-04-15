@@ -14,6 +14,7 @@ import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import DocsOutline from './DocsOutline.vue'
 import DarkModeSwitch from './DarkModeSwitch.vue'
+import EditButton from './EditButton.vue'
 const router = useRouter()
 
 const { set, get } = useCookies()
@@ -98,21 +99,6 @@ function switchFramework(fw: 'react' | 'vue') {
   })
 }
 
-const editRoot =
-  import.meta.env.MODE === 'development'
-    ? import.meta.env.EDIT_ROOT_LOCAL
-    : import.meta.env.EDIT_ROOT_GITHUB
-
-/**
- * when no framework is specified, we use this url to edit the current document
- */
-const editUrl = computed(() => {
-  if (!editRoot) return ''
-  const url = routePath.value.replace(/\.html$/, '.md').replace(/\/$/, '')
-  if (url.length) return `${editRoot}docs${url}`
-  return `${editRoot}/docs/index.md`
-})
-
 const mobileMenuOpen = ref(false)
 </script>
 
@@ -162,15 +148,12 @@ const mobileMenuOpen = ref(false)
     </aside>
     <main class="w-[800px] mx-[16px] md:mx-auto md:mt-[24px]">
       <div v-if="CommonContent" class="relative">
-        <Button
-          v-if="editRoot"
+        <EditButton
           :key="commonPathReadme"
-          variant="link"
-          :href="`${editRoot}${commonPathReadme}`"
-          class="absolute right-0 top-0 peer"
-        >
-          Edit
-        </Button>
+          :commonPath="commonPath"
+          :commonPathReadme="commonPathReadme"
+          common
+        />
         <div
           class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] mt-[24px] p-[8px] rounded"
         >
@@ -178,19 +161,12 @@ const mobileMenuOpen = ref(false)
         </div>
       </div>
       <div class="relative">
-        <Button
-          v-if="editRoot"
+        <EditButton
           :key="`${commonPath}/${framework}`"
-          :href="
-            hasFramework
-              ? `${editRoot}${commonPath}/${framework}/ReadMe.md`
-              : editUrl
-          "
-          variant="link"
-          class="absolute right-0 top-0 z-10 peer"
-        >
-          Edit
-        </Button>
+          :commonPath="commonPath"
+          :commonPathReadme="commonPathReadme"
+          :framework="hasFramework ? framework : undefined"
+        />
         <div
           class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] p-[8px] rounded mt-8"
         >
