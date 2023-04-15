@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.9.1
+
+### Patch Changes
+
+- [#179](https://github.com/cypress-io/cypress-design/pull/179) [`bf827c3`](https://github.com/cypress-io/cypress-design/commit/bf827c326bd7f3a5ec6c9328c0f27f593111bcf3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: docs and add border-solid to prevent button from getting debordered
+
 ## 0.9.0
 
 ### Minor Changes
