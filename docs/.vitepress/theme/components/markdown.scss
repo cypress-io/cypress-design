@@ -32,37 +32,38 @@
 
   h1,
   h2,
-  h3 {
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Poppins';
-    @apply font-semibold;
-  }
-
-  h2,
-  h3 {
-    @apply mt-8;
+    @apply font-semibold mb-2;
+    .header-anchor {
+      @apply hidden;
+    }
+    &:hover .header-anchor {
+      @apply inline-block;
+    }
   }
 
   h1 {
-    @apply text-3xl;
+    @apply mb-8 text-3xl;
   }
 
   h2 {
-    @apply text-2xl;
+    @apply mt-8 text-2xl;
   }
 
   h3 {
-    @apply text-xl;
+    @apply mt-8 text-xl;
   }
 
-  h1 .header-anchor,
-  h2 .header-anchor,
-  h3 .header-anchor {
-    @apply hidden;
+  h4 {
+    @apply mt-6 text-lg;
   }
 
-  h2:hover .header-anchor,
-  h3:hover .header-anchor {
-    @apply inline-block;
+  h5 {
+    @apply mt-4 text-lg;
   }
 
   .header-anchor:after {
