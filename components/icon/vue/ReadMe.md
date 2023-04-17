@@ -14,13 +14,15 @@ yarn add @cypress-design/vue-icon
 
 ## Usage
 
+### Import
+
 2 methods exist to load this component:
 
-The recommended:
+Use named imports of each icon you plan on using.
+I **recommend** this method because:
 
-- Tree shakable
-- Complete proper TS validation of all props inline
-- No auto-importation of the component in the template
+- It's tree shakable: Only the icons you use will end up in your bundle
+- You get TS validation of color props: if a color is not available, squigles will appear in your editor
 
 ```vue live
 <script setup>
@@ -32,12 +34,17 @@ import { IconObjectBookCode } from '@cypress-design/vue-icon'
 </template>
 ```
 
-The simplest:
+Import the default `Icon` component and pass the name of the icon. It can be useful but you should avoid it in production unless you know what you are doing.
+
+It has advantages:
 
 - Allows for quick browsing of the available icons right in the template
 - Allows passing ids around and delegating color and size until the implementation.
+
+But drawbacks too:
+
 - it prevents tree shaking.
-- It use TypeScript to validate sizes and colors but with a twist:
+- It uses TypeScript to check sizes and colors but with a twist:
   - If the size of the icon is not available for the icon selected and is available for another, the error will appear on the icon component instead of on the size prop.
 
 ```vue live
@@ -49,6 +56,8 @@ import Icon from '@cypress-design/vue-icon'
   <Icon name="object-book-code" />
 </template>
 ```
+
+### Colors
 
 Should you need to change the color of the icon on `hover` or `focus` prefix the props with these words.
 
@@ -91,3 +100,115 @@ import { IconObjectBook } from '@cypress-design/vue-icon'
   </button>
 </template>
 ```
+
+<!-- props are hardcoded here since volar (vue-component-meta) breaks before getting to generate a proper doc for it -->
+
+## Props
+
+### size
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">"4" | "8" | "12" | "16" | "20" | "24" | "48" | "64"</code></p>
+
+Size of the icons canvas (in px)
+
+### interactiveColorsOnGroup
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">boolean</code> (optional)</p>
+
+Should the interactive variants `hover` and `focus`<br/>be applied on the icon itself or on the parent<br/>group defined in windiCSS
+
+### strokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the stroke
+
+### hoverStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the stroke when hovered
+
+### focusStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the stroke when focused
+
+### hocusStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the stroke when both focused and hovered
+
+### fillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the fill
+
+### hoverFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the fill when hovered
+
+### focusFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the fill when focused
+
+### hocusFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the fill when both focused and hovered
+
+### secondaryStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary stroke
+
+### hoverSecondaryStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary stroke when hovered
+
+### focusSecondaryStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary stroke when focused
+
+### hocusSecondaryStrokeColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary stroke when both focused and hovered
+
+### secondaryFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary fill
+
+### hoverSecondaryFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary fill when hovered
+
+### focusSecondaryFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary fill when focused
+
+### hocusSecondaryFillColor
+
+<p><b>type</b> <code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">WindiColor</code> (optional)</p>
+
+Color of the secondary fill when both focused and hovered
