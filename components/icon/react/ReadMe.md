@@ -35,7 +35,9 @@ export const MyButtonWithIcon = () => {
 }
 ```
 
-The tree-shakable way (more optimized)
+We can also import each icon components separately. When we use named imports, the results becomes tree-shakable (more optimized).
+This means that the final bundle will not contain any of the unused icons code.
+Only imported icons will end up in your app or website js.
 
 ```tsx live
 import { IconObjectBook } from '@cypress-design/react-icon'
