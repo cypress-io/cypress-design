@@ -40,6 +40,10 @@ export default (fileGlobs: string[] = []) => {
       detailsOpenVariantPlugin,
       plugin(({ addVariant }) => {
         addVariant('hocus', ['&:focus', '&:hover'])
+        addVariant('group-hocus', [
+          ':merge(.group):focus &',
+          ':merge(.group):hover &',
+        ])
       }),
     ],
   })
