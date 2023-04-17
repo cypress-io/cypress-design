@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.11.0
+
+### Minor Changes
+
+- [`aa1368e`](https://github.com/cypress-io/cypress-design/commit/aa1368ef543a71d6a8b7ac94762474c852e8ec96) Thanks [@elevatebart](https://github.com/elevatebart)! - add group-hocus to variants
+
 ## 0.10.0
 
 ### Minor Changes

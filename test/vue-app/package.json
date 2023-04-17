@@ -17,7 +17,7 @@
 		"vue": "^3.2.47"
 	},
 	"devDependencies": {
-		"@cypress-design/css": "^0.10.0",
+		"@cypress-design/css": "^0.11.0",
 		"@types/node": "^18.15.11",
 		"@vitejs/plugin-vue": "^4.1.0",
 		"@vue/tsconfig": "^0.1.3",
