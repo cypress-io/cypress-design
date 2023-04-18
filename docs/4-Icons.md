@@ -52,27 +52,25 @@ For more info, check-out the Icon component documentation on the framework you a
 <div class="bg-gray-50 dark:bg-gray-800 rounded p-[16px] my-[24px]">
 	<input type="search" v-model="search" placeholder="Search Icons" class="border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded w-full bg-white dark:bg-gray-900"/>
 	<div v-for="icons, groupName of groupedIconsMetadata" class="bg-white py-[16px] dark:bg-gray-900 mb-[16px]">
-    <h2 :id="groupName" class="text-[24px] text-center mb-[16px] capitalize">
+    <h2 :id="groupName" class="text-[24px] text-center mb-[16px] mt-0 capitalize">
       {{ groupName }}
       <a class="header-anchor absolute ml-[8px]" :href="`#${groupName}`">&ZeroWidthSpace;</a>
     </h2>
-    <div class="flex flex-wrap gap-x-[24px]">
-      <div v-for="meta, iconName of icons" :key="iconName" class="mt-[16px] gap-x-[16px] flex items-end" >
-        <p class="text-[16px] flex-shrink-0 whitespace-nowrap overflow-hidden w-[250px] text-right">
-          <span class="block mb-[8px]">{{ iconName }}</span>
-          <span class="block">&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</span>
-        </p>
-        <div v-for="size in meta.availableSizes" :key="size" class="flex gap-[8px] items-end">
-          <div class="border-l pl-[4px] py-[4px] border-gray-300 min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end">
-            <Icon :name="iconName" :size="size" />
-            <p class="text-gray-500 text-[12px]">{{ size }}</p>
-          </div>
-          <div :key="`${iconName}_${size}`" class="text-center text-teal-500">
-            <div v-if="meta.hasStrokeColor && meta.hasStrokeColor.includes(size)">s</div>
-            <div v-if="meta.hasFillColor && meta.hasFillColor.includes(size)">f</div>
-            <div v-if="meta.hasSecondaryStrokeColor && meta.hasSecondaryStrokeColor.includes(size)">s+</div>
-            <div v-if="meta.hasSecondaryFillColor && meta.hasSecondaryFillColor.includes(size)">f+</div>
-          </div>
+    <div v-for="meta, iconName of icons" :key="iconName" class="mt-[16px] gap-x-[16px] flex items-end max-w-[500px] mx-auto" >
+      <p class="text-[16px] flex-shrink-0 whitespace-nowrap overflow-hidden w-[250px] text-right">
+        <span class="block mb-[8px]">{{ iconName }}</span>
+        <span class="block">&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</span>
+      </p>
+      <div v-for="size in meta.availableSizes" :key="size" class="flex gap-[8px] items-end">
+        <div class="border-l pl-[4px] py-[4px] border-gray-300 min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end">
+          <Icon :name="iconName" :size="size" />
+          <p class="text-gray-500 text-[12px]">{{ size }}</p>
+        </div>
+        <div :key="`${iconName}_${size}`" class="text-center text-teal-500">
+          <div v-if="meta.hasStrokeColor && meta.hasStrokeColor.includes(size)">s</div>
+          <div v-if="meta.hasFillColor && meta.hasFillColor.includes(size)">f</div>
+          <div v-if="meta.hasSecondaryStrokeColor && meta.hasSecondaryStrokeColor.includes(size)">s+</div>
+          <div v-if="meta.hasSecondaryFillColor && meta.hasSecondaryFillColor.includes(size)">f+</div>
         </div>
       </div>
     </div>
