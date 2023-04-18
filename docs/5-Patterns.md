@@ -11,7 +11,14 @@ A collection of techniques which are neither simple variables (`colors.gray[400]
 
 Cypress design system has configuration available for a grid that can appear at multiple sizes depending on which breakpoints you are within.
 
-<!-- How do we share grid styles?  -->
-<!-- Are we tailwind compatible? -->
-<!-- Cloud uses Bootstrap, should we convert? -->
-<!-- The grid is a 12 column grid, and the breakpoints are defined in the `breakpoints` token. -->
+Example implementation from Tailwind [columns documentation](https://tailwindcss.com/docs/columns):
+
+```jsx
+<div class="gap-8 columns-3 ...">
+  <img class="w-full aspect-video ..." src="..." />
+  <img class="w-full aspect-square ..." src="..." />
+  <!-- ... -->
+</div>
+```
+
+We can use the Tailwind `columns` system to implement Figma page layouts that are specified with a grid.
