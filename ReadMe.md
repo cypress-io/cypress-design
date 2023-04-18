@@ -14,32 +14,9 @@ https://design.cypress.io
 yarn && yarn build:components && yarn start
 ```
 
-### I want to create a new component
+See [the css package ReadMe](./css/) for more options.
 
-Install windicss CSS support.
-
-```bash
-npm install --save-dev @cypress-design/css
-```
-
-Then, add the plugins to your bundler
-
-```js
-// webpack.config.js
-import { CyCSSWebpackPlugin } from '@cypress-design/css'
-
-export default (config) => ({
-  // the rest of the webpack config...
-  plugins: [
-    //...
-    CyCSSWebpackPlugin(),
-  ],
-})
-```
-
-See [the css package ReadMe](./css/) for more options
-
-### I want to install each component independently
+### I want to install a component
 
 To make sure each component fix is never blocked by an ongoing refactoring, we decided to publish each component as its own package.
 
@@ -61,33 +38,28 @@ npm install @cypress-design/react-button
 
 See [the component ReadMe](./components/) for the list of available components and [the docs](https://cypress-design.vercel.app) for their usage
 
-## Contributing
+### I want to create a new component
 
-### Running storybook
-
-Open all the storybooks with this command
+Install a Cypress CSS support package.
 
 ```bash
-yarn start
+npm install --save-dev @cypress-design/css
 ```
 
-This will start all 3 storybooks.
+Then, add the plugins to your bundler
 
-There are 3 storybooks running on this repo.
+```js
+// webpack.config.js
+import { CyCSSWebpackPlugin } from '@cypress-design/css'
 
-- [Intro](./storybook/intro/), contains all the common facts Colors, voice & tone, contrast information and how to use the component libraries
-- [React](./storybook/react/), contains all the components usable in a react app
-- [Vue](./storybook/vue/), documents the same components in a vue app
-
-The 3 storybooks are linked using [storybook composition](https://storybook.js.org/docs/react/sharing/storybook-composition).
-
-If you only want to run vue storybook, run the command below. Use the same fashion if you want to only run react.
-
-```bash
-yarn storybook:vue
+export default (config) => ({
+  // the rest of the webpack config...
+  plugins: [
+    //...
+    CyCSSWebpackPlugin(),
+  ],
+})
 ```
-
-### Create a new component
 
 Using [hygen](https://hygen.io) we can scaffold all the tooling needed for a new components.
 
@@ -101,7 +73,7 @@ The system will ask you to provide the name of the component and generate all th
 
 In the new directory, you will find a React and a Vuejs version to complete. Each framework folder will also contain a stories file.
 
-### Adding a new icon
+### I want to add a new icon
 
 New icons should be added to the `icon-registry/icons` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `object-bug_x24.svg`.
 
@@ -122,7 +94,7 @@ To verify that the icon is properly hooked up, run `yarn start` and navigate to 
 
 When an icon is added or updated, the changeset for both the '@cypress-design/react-icon' and '@cypress-design/vue-icon' packages should include a minor version bump.
 
-### Updating the component generator
+### I need to update the component generator
 
 When you use the `yarn new:component` command, the template used is called a generator. It could be useful to update it from time to time if the standards change.
 
@@ -159,7 +131,7 @@ rm -f hygen-create.json
 
 Finally, you should see the `prompt.js` file has been moved. Revert that change before committing.
 
-### Running tests
+### I want to run tests
 
 To run in open mode, run `yarn workspace components cypress:open`.
 

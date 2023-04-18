@@ -71,7 +71,7 @@ If windicss is installed, uninstall it first:
 - remove the custom imports for windi `import 'virtual:windi.css'`
 - remove the plugin from webpack or from vite config
 
-Install tailwind: Follow [the tailwind docs](https://tailwindcss.com/docs/installation/using-postcss) 
+Install tailwind: Follow [the tailwind docs](https://tailwindcss.com/docs/installation/using-postcss)
 
 Finally update your tailwind config file.
 
@@ -108,3 +108,4 @@ module.exports = {
     }, {}),
   },
 }
+```

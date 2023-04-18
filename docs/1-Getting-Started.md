@@ -1,7 +1,5 @@
 # Elements of the Cypress Design System
 
-### Codename "Meadow"
-
 ---
 
 ![](./.vitepress/theme/components/meadow-logo.png)
@@ -13,7 +11,7 @@ The Cypress design system is the whole system of:
 - **Components** that are pre-built to design system standards (eg. with accessibility review.)
 - **Documentation** This site!
 
-## Documentation
+## The new design system: cypress-design
 
 _This is main place to see our core components, in code._
 
@@ -48,22 +46,9 @@ _New supplemental documentation and guidelines. (Early roll-out.)_
 - Spacing
 - ...etc.
 
-## FAQ
+## Cloud-design Storybook
 
-**Why do we have multiple Storybook instances, which one should I use?**
-Cypress works on different platforms and has different generations of work. Prefer the new cross-platform Storybook.
+- Legacy cloud-design Storybook: [cloud-design.cypress.io](https://cloud-design.cypress.io/ 'https://cloud-design.cypress.io/')
+- Uses legacy Bootstrap 3 with SCSS
 
-**Why do we have multiple Figma files?**
-
-The Cypress universe has a lot of UI, and most of it is in Figma. We have a lot of files but they are organized consistently:
-
-- by initiative (during design, purple files)
-- by area of the app (during development, green files)
-
-## Cloud-only system
-
-- Storybook: [cloud-design.cypress.io](https://cloud-design.cypress.io/ 'https://cloud-design.cypress.io/')
-- The legacy cloud-only "design system"
-- Uses Bootstrap 3 with SCSS
-
-⚠️ Stable, but not specified in in Figma
+⚠️ Cloud-design is overall stable, but not clearly specified in in Figma.
