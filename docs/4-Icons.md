@@ -42,10 +42,10 @@ For more info, check-out the Icon component documentation on the framework you a
 
 <ul class="flex justify-center items-center h-[64px]">
   <li class="list-none">
-		<Button variant="link" href="/components/react/icon">React</Button>
+		<Button variant="link" href="/components/react/Icon.html">React</Button>
 	</li>
   <li class="list-none">
-		<Button variant="link" href="/components/vue/icon">Vue</Button>
+		<Button variant="link" href="/components/vue/Icon.html">Vue</Button>
 	</li>
 </ul>
 
