@@ -76,7 +76,7 @@ export default defineConfig({
       },
       config: {
         safelist: safeColors(),
-        // important: false,
+        important: false,
         extract: {
           extractors: [
             {
