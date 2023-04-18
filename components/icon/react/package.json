@@ -24,7 +24,7 @@
 	},
 	"devDependencies": {
 		"@cypress-design/css": "*",
-		"@types/lodash": "^4.14.192",
+		"@types/lodash": "^4.14.194",
 		"lodash": "^4.17.21",
 		"dedent": "^0.7.0"
 	},
