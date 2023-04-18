@@ -52,7 +52,7 @@ For more info, check-out the Icon component documentation on the framework you a
 <div class="bg-gray-50 dark:bg-gray-800 rounded p-[16px] my-[24px]">
 	<input type="search" v-model="search" placeholder="Search Icons" class="border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded w-full bg-white dark:bg-gray-900"/>
 	<div v-for="icons, groupName of groupedIconsMetadata" class="bg-white py-[16px] dark:bg-gray-900 mb-[16px]">
-    <h2 :id="groupName" class="text-[24px] text-center mb-[16px] mt-0 capitalize">
+    <h2 :id="groupName" class="text-[24px] text-center mb-[16px] !mt-0 capitalize">
       {{ groupName }}
       <a class="header-anchor absolute ml-[8px]" :href="`#${groupName}`">&ZeroWidthSpace;</a>
     </h2>
