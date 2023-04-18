@@ -2,14 +2,23 @@
 
 ---
 
-![](./.vitepress/theme/components/meadow-logo.png)
+#### Design System
 
-The Cypress design system is the whole system of:
+Common dictionary definition:
 
-- **Figma files** that specify the behavior of components organized by initiative or location in the app.
-- **Design tokens** (a special type of variables) that specify font size, line height, color, etc.
-- **Components** that are pre-built to design system standards (eg. with accessibility review.)
-- **Documentation** This site!
+de•sign sys•tem: a set of rules that define how a product looks and works based on brand guidelines.
+
+More broadly it is a "system" in the sense of:
+
+- a "system of collaboration" (assisting handoff and precision among designers, developers, product managers, etc.)
+- a "system of components" that work together
+- a "systematic" workflow (holistic, repeatable process)
+
+More specifically Cypress design system contains:
+
+- **Components in Code** that are pre-built to design system standards (eg. with accessibility review.)
+- **Designs in Figma** that specify the behavior of components organized by initiative or location in the app.
+- **Guidelines that clarify patterns of use** such as this site!
 
 ## The new design system: cypress-design
 
