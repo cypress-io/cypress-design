@@ -1,5 +1,4 @@
 import DefaultTheme from 'vitepress/theme'
-import 'tailwindcss/tailwind.css'
 import Tooltip from '@cypress-design/vue-tooltip'
 import './theme.css'
 import VueLiveWithLayout from './components/vue-live.vue'

@@ -28,6 +28,10 @@
     & > button.copy.copied {
       @apply block;
     }
+
+    pre[class*='language-'] {
+      @apply bg-gray-1000 dark:bg-gray-900 p-0 m-0;
+    }
   }
 
   h1,
