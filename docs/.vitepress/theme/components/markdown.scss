@@ -28,10 +28,6 @@
     & > button.copy.copied {
       @apply block;
     }
-
-    pre[class*='language-'] {
-      @apply bg-gray-1000 dark:bg-gray-900 p-0 m-0;
-    }
   }
 
   h1,
@@ -85,6 +81,13 @@
     }
   }
 
+  .vue-live,
+  .demo-wrapper {
+    ul {
+      padding: initial;
+    }
+  }
+
   blockquote {
     @apply bg-gray-50 dark:bg-gray-900 py-[8px] px-[16px] border-l-[2px] border-l-gray-[4px] my-4 relative;
   }
@@ -100,6 +103,16 @@
     @apply text-indigo-500 dark:text-indigo-300;
     &:hover {
       @apply underline;
+    }
+  }
+
+  .vue-live,
+  .demo-wrapper {
+    a {
+      color: initial;
+      &:hover {
+        text-decoration: initial;
+      }
     }
   }
 }

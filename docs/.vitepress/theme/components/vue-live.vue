@@ -83,8 +83,8 @@ function copyCode() {
 </script>
 
 <template>
-  <div class="preview-code">
-    <div class="preview code-block">
+  <div class="vue-live vue-live-preview-code">
+    <div class="vue-live-preview vue-live-block">
       <div v-if="props.framework === 'react'" v-once ref="reactAppRoot$">
         React app root
       </div>
@@ -99,7 +99,10 @@ function copyCode() {
         @success="error = undefined"
       />
     </div>
-    <div class="editor code-block" :class="`language-${props.framework}`">
+    <div
+      class="vue-live-editor vue-live-block"
+      :class="`language-${props.framework}`"
+    >
       <VueLiveEditor
         :code="liveCode"
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
@@ -117,50 +120,50 @@ function copyCode() {
 </template>
 
 <style scoped>
-.editor.code-block {
+.vue-live-editor.vue-live-block {
   @apply bg-gray-1000 rounded-t-none rounded-b-md my-0;
 }
-.preview-code {
+.vue-live-preview-code {
   display: flex;
   flex-flow: column;
   overflow: hidden;
   @apply rounded-lg my-[24px] border border-gray-100 dark:border-gray-700;
 }
-.vp-doc .preview-code .code-block {
+.vp-doc .vue-live-preview-code .vue-live-block {
   flex-grow: 1;
   border-radius: 0;
   margin: 0;
 }
 
-.preview-code .editor pre {
+.vue-live-preview-code .vue-live-editor pre {
   margin: 0;
   box-sizing: border-box;
   border-radius: 0;
   white-space: pre-wrap;
 }
 
-.preview-code .editor {
+.vue-live-preview-code .vue-live-editor {
   @apply py-0;
 }
 
-.preview-code .preview {
+.vue-live-preview-code .vue-live-preview {
   box-sizing: border-box;
   @apply bg-indigo-50 dark:bg-gray-800 p-[12px];
 }
 
 @media (prefers-color-scheme: dark) {
-  .preview-code .preview {
+  .vue-live-preview-code .vue-live-preview {
     background-color: rgb(29, 29, 29);
   }
 }
 
-.preview-code :deep(.prism-editor-wrapper) {
+.vue-live-preview-code :deep(.prism-editor-wrapper) {
   color: white;
   padding: 0;
 }
 
-.preview-code :deep(.prism-editor-wrapper .prism-editor__textarea),
-.preview-code :deep(.prism-editor-wrapper .prism-editor__editor) {
+.vue-live-preview-code :deep(.prism-editor-wrapper .prism-editor__textarea),
+.vue-live-preview-code :deep(.prism-editor-wrapper .prism-editor__editor) {
   padding: 16px;
   padding-top: 12px;
   padding-bottom: 0;
