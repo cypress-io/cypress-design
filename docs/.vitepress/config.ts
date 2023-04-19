@@ -61,6 +61,7 @@ export default defineConfig({
         `https://github.com/cypress-io/cypress-design/blob/${branch}/`
       ),
     },
+    // @ts-expect-error
     plugins: CyCSSVitePlugin({
       scan: {
         include: [
