@@ -54,7 +54,7 @@ const colorsForColorway = (colorway: string) => {
 
 <template>
   <div
-    class="grid grid-rows-[repeat(11,minmax(0,1fr))] grid-flow-col gap-x-[8px] my-[16px]"
+    class="grid md:grid-rows-[repeat(11,minmax(0,1fr))] md:grid-flow-col gap-x-[8px] my-[16px]"
   >
     <template v-for="colorway of brandPalettes[palette]" :key="colorway">
       <div

@@ -1,14 +1,41 @@
 .markdown {
-  div[class*='language-'] {
-    @apply bg-gray-1000 dark:bg-gray-900 rounded-lg my-4 relative py-4;
-    pre {
-      @apply overflow-auto;
-    }
+  [class*='language-'] {
+    @apply bg-gray-1000 dark:bg-gray-900 md:rounded-lg my-4 relative py-4 overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none;
+    pre,
     code {
-      @apply px-6 min-w-full block;
+      direction: ltr;
+      text-align: left;
+      white-space: pre;
+      word-spacing: normal;
+      word-break: normal;
+      word-wrap: normal;
+      tab-size: 4;
+      hyphens: none;
     }
-    .lang {
-      @apply text-gray-400 right-4 top-2 absolute;
+
+    pre {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+
+    code {
+      display: block;
+      padding: 0 24px;
+      width: fit-content;
+      min-width: 100%;
+      transition: color 0.5s;
+    }
+    > span.lang {
+      position: absolute;
+      top: 2px;
+      right: 8px;
+      z-index: 2;
+      font-size: 12px;
+      font-weight: 500;
+      transition: color 0.4s, opacity 0.4s;
     }
     & > button.copy {
       @apply right-2 top-2 absolute z-10 bg-gray-800 text-gray-100 h-[44px] px-[16px] rounded hidden;
