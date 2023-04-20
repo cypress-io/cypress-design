@@ -1,12 +1,15 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import Icon from '@cypress-design/vue-icon'
 import _ from 'lodash'
 
+const IconAny = Icon as any
+
 const { upperFirst, camelCase } = _
 
 const search = ref('')
+const $searchInput = ref<HTMLInputElement>()
 
 const groupedIconsMetadata = computed(() =>
   Object.entries(iconsMetadata).reduce((acc, [iconName, iconMeta]) => {
@@ -22,12 +25,13 @@ const groupedIconsMetadata = computed(() =>
 </script>
 
 <template>
-  <div class="bg-gray-50 dark:bg-gray-800 rounded p-[16px] my-[24px]">
+  <div class="bg-gray-50 dark:bg-gray-800 rounded p-[16px] my-[24px] relative">
     <input
+      ref="$searchInput"
       type="search"
       v-model="search"
       placeholder="Search Icons"
-      class="border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded w-full bg-white dark:bg-gray-900"
+      class="w-full border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded bg-white dark:bg-gray-900"
     />
     <div
       v-for="(icons, groupName) of groupedIconsMetadata"
@@ -43,23 +47,34 @@ const groupedIconsMetadata = computed(() =>
         >
       </h2>
       <div
+        class="flex"
         :class="{
-          'flex flex-wrap px-[24px] gap-[16px]': !search.length,
+          'max-w-full flex-wrap px-[24px] gap-x-[16px]': !search.length,
+          'flex-col items-start': search.length,
         }"
       >
         <button
           v-for="(meta, iconName) of icons"
           :key="iconName"
-          class="mt-[16px] gap-x-[16px] flex items-end mx-auto"
+          class="mt-[16px] gap-x-[16px] flex flex-wrap items-end mx-auto overflow-hidden bg-indigo-50 dark:bg-gray-800"
           :class="{
-            'max-w-[500px]': search.length,
-            'bg-indigo-50 rounded py-[8px]': !search.length,
+            'w-[calc(100%-32px)] mx-[16px] px-[8px] pb-[4px] rounded lg:w-[600px] md:flex-nowrap justify-end md:justify-start':
+              search.length,
+            'rounded py-[8px] justify-center': !search.length,
           }"
-          @click="search = iconName"
+          @click="
+            () => {
+              search = iconName
+              $searchInput?.focus()
+            }
+          "
         >
           <p
-            v-if="search.length"
-            class="text-[16px] flex-shrink-0 whitespace-nowrap overflow-hidden w-[250px] text-right py-[4px]"
+            class="text-[16px] flex-shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
+            :class="{
+              'w-full text-left md:text-right md:w-[250px]': search.length,
+              hidden: !search.length,
+            }"
           >
             <span class="block mb-[8px]">{{ iconName }}</span>
             <span class="block"
@@ -75,10 +90,10 @@ const groupedIconsMetadata = computed(() =>
               class="pl-[4px] py-[4px] min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end"
               :class="{
                 'border-l border-gray-300': search.length,
-                'w-[150px]': !search.length,
+                'w-[146px]': !search.length,
               }"
             >
-              <Icon :name="iconName" :size="size" />
+              <IconAny :name="iconName" :size="size" />
               <p class="text-gray-500 text-[12px]">
                 <span v-if="!search.length">{{
                   iconName.slice(groupName.length + 1)
