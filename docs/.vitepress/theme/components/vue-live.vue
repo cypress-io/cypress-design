@@ -151,10 +151,8 @@ function copyCode() {
   @apply bg-indigo-50 dark:bg-gray-800 p-[12px];
 }
 
-@media (prefers-color-scheme: dark) {
-  .vue-live-preview-code .vue-live-preview {
-    background-color: rgb(29, 29, 29);
-  }
+html.dark .vue-live-preview-code .vue-live-preview {
+  @apply bg-gray-800;
 }
 
 .vue-live-preview-code :deep(.prism-editor-wrapper) {
