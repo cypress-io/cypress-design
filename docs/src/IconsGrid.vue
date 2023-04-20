@@ -3,6 +3,7 @@ import { ref, computed, nextTick } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import Icon from '@cypress-design/vue-icon'
 import _ from 'lodash'
+import CopyButton from './CopyButton.vue'
 
 const IconAny = Icon as any
 
@@ -53,7 +54,7 @@ const groupedIconsMetadata = computed(() =>
           'flex-col items-start': search.length,
         }"
       >
-        <button
+        <div
           v-for="(meta, iconName) of icons"
           :key="iconName"
           class="mt-[16px] gap-x-[16px] flex flex-wrap items-end mx-auto overflow-hidden bg-indigo-50 dark:bg-gray-800"
@@ -62,12 +63,6 @@ const groupedIconsMetadata = computed(() =>
               search.length,
             'rounded py-[8px] justify-center': !search.length,
           }"
-          @click="
-            () => {
-              search = iconName
-              $searchInput?.focus()
-            }
-          "
         >
           <p
             class="text-[16px] flex-shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
@@ -76,24 +71,41 @@ const groupedIconsMetadata = computed(() =>
               hidden: !search.length,
             }"
           >
-            <span class="block mb-[8px]">{{ iconName }}</span>
-            <span class="block"
-              >&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</span
+            <span
+              class="flex items-center justify-end mb-[8px] gap-x-[8px] group"
+              ><CopyButton :text="iconName" />{{ iconName }}</span
+            >
+            <span class="flex items-center justify-end gap-x-[8px] group"
+              ><CopyButton
+                :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
+              />&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</span
             >
           </p>
           <div
             v-for="size in meta.availableSizes"
             :key="size"
-            class="flex gap-[8px] items-end"
+            class="flex gap-[8px] items-end group"
           >
             <div
-              class="pl-[4px] py-[4px] min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end"
+              class="py-[4px] min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end"
               :class="{
-                'border-l border-gray-300': search.length,
-                'w-[146px]': !search.length,
+                'pl-[4px] border-l border-gray-300': search.length,
+                'px-[8px] md:px-[4px] md:w-[164px]': !search.length,
               }"
             >
               <IconAny :name="iconName" :size="size" />
+              <button
+                v-if="!search.length"
+                class="text-indigo-500 inline text-[12px] invisible group-hover:visible"
+                @click="
+                  () => {
+                    $searchInput?.focus()
+                    search = iconName
+                  }
+                "
+              >
+                focus
+              </button>
               <p class="text-gray-500 text-[12px]">
                 <span v-if="!search.length">{{
                   iconName.slice(groupName.length + 1)
@@ -132,7 +144,7 @@ const groupedIconsMetadata = computed(() =>
               </div>
             </div>
           </div>
-        </button>
+        </div>
       </div>
     </div>
   </div>
