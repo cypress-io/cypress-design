@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.8.2
+
+### Patch Changes
+
+- [`7f3e216`](https://github.com/cypress-io/cypress-design/commit/7f3e2162430bfc83dff8eca471c39780b40ea57e) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: allow @click on button
+
 ## 0.8.1
 
 ### Patch Changes
