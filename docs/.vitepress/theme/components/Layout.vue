@@ -86,7 +86,7 @@ const CommonContent = computed(() => {
         },
       }))
   })
-})
+}) as any
 
 function switchFramework(fw: 'react' | 'vue') {
   saveScroll.value = window.scrollY
@@ -108,9 +108,9 @@ const mobileMenuOpen = ref(false)
     class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-1000 h-[72px] justify-between items-center px-[24px] md:px-[32px] border-b border-gray-100 dark:border-gray-50/07"
   >
     <a href="/">
-      <img src="./logo.svg" class="h-[32px] md:mr-[32px] dark:hidden" />
+      <img src="../assets/logo.svg" class="h-[32px] md:mr-[32px] dark:hidden" />
       <img
-        src="./logo-dark.svg"
+        src="../assets/logo-dark.svg"
         class="h-[32px] md:mr-[32px] hidden dark:inline-block"
       />
     </a>
