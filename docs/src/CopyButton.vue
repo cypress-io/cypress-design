@@ -23,10 +23,12 @@ function copyCode(text: string) {
 <template>
   <button
     v-if="!copiedSuccess"
-    class="invisible group-hover:visible text-indigo-500 text-[12px]"
+    class="invisible group-hover:visible text-indigo-500 text-[12px] w-[32px]"
     @click="(e) => copyCode(text)"
   >
     copy
   </button>
-  <span v-else class="text-green-500 text-[12px]">copied</span>
+  <span v-else class="text-green-500 text-[12px] inline-block w-[32px]"
+    >copied</span
+  >
 </template>
