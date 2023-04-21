@@ -45,7 +45,7 @@ const groupedIconsMetadata = computed(() =>
         class="flex"
         :class="{
           'max-w-full flex-wrap px-[24px] gap-[16px]': !search.length,
-          'flex-col items-start': search.length,
+          'flex-col items-start gap-[8px]': search.length,
         }"
       >
         <IconButton

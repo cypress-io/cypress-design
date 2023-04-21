@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, nextTick, ref } from 'vue'
-import Icon from '@cypress-design/vue-icon'
+import Icon, { IconActionDeleteMedium } from '@cypress-design/vue-icon'
 import _ from 'lodash'
 import CopyButton from './CopyButton.vue'
 
@@ -63,16 +63,25 @@ const $button = ref<HTMLDivElement>()
   />
   <div
     ref="$button"
-    class="gap-x-[16px] flex flex-wrap items-end mx-auto overflow-hidden bg-indigo-50 dark:bg-gray-800"
+    class="gap-x-[16px] flex flex-wrap overflow-hidden bg-indigo-50 dark:bg-gray-800"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] rounded md:flex-nowrap justify-end md:justify-start':
         focused,
       'rounded py-[8px] justify-center': !focused,
-      'absolute left-[64px] right-[64px] z-20 w-auto': localFocused,
-      'w-[calc(100%-32px)] lg:w-[700px]': !localFocused && focused,
+      'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0':
+        localFocused,
+      'w-[calc(100%-32px)] lg:w-[700px] mx-auto items-end':
+        !localFocused && focused,
     }"
     :style="localFocused ? buttonStyle : undefined"
   >
+    <button
+      v-if="localFocused"
+      class="absolute top-[4px] right-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500 dark:hover:border-gray-500"
+      @click="localFocused = false"
+    >
+      <IconActionDeleteMedium />
+    </button>
     <p
       class="text-[16px] flex-shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
       :class="{
@@ -80,10 +89,10 @@ const $button = ref<HTMLDivElement>()
         hidden: !focused,
       }"
     >
-      <span class="flex items-center justify-end mb-[8px] gap-x-[8px] group"
+      <span class="flex items-center md:justify-end mb-[8px] gap-x-[8px] group"
         ><CopyButton :text="iconName" /><code>{{ iconName }}</code></span
       >
-      <span class="flex items-center justify-end gap-x-[8px] group"
+      <span class="flex items-center md:justify-end gap-x-[8px] group"
         ><CopyButton
           :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
         /><code>&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code></span
