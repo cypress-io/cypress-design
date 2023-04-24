@@ -35,10 +35,15 @@
       z-index: 2;
       font-size: 12px;
       font-weight: 500;
-      transition: color 0.4s, opacity 0.4s;
+      transition: color 2s, opacity 0.4s;
+      @apply text-gray-600;
+    }
+    &:hover > span.lang {
+      transition-duration: 0ms;
+      @apply text-gray-400 opacity-100;
     }
     & > button.copy {
-      @apply right-2 top-2 absolute z-10 bg-gray-800 text-gray-100 h-10 px-4 rounded hidden;
+      @apply right-3 top-3 absolute z-10 bg-gray-800/70 text-gray-100 h-8 px-3 rounded hidden;
       &:before {
         content: '📋 copy';
         @apply whitespace-nowrap;
@@ -98,8 +103,7 @@
   }
 
   ul {
-    padding: 8px 0 8px 24px;
-    @apply list-disc;
+    @apply list-disc py-2 pl-6;
     li {
       &::marker {
         @apply text-indigo-500;
@@ -116,11 +120,11 @@
   }
 
   blockquote {
-    @apply bg-gray-50 dark:bg-gray-900 py-[8px] px-[16px] border-l-[2px] border-l-gray-[4px] my-4 relative;
+    @apply bg-gray-50 dark:bg-gray-900 py-2 px-4 border-l-[2px] border-l-gray-[4px] my-4 relative;
   }
 
   code {
-    @apply bg-gray-100 dark:bg-gray-900 px-[8px] py-[2px] rounded;
+    @apply bg-gray-100 dark:bg-gray-900 px-2 py-[2px] rounded;
   }
   pre > code {
     @apply bg-transparent;
