@@ -57,7 +57,7 @@ function extractBindings(schema) {
  * @param {import('vue-component-meta').EventMeta['schema'][number]} p
  * @returns {import('vue-docgen-api').EventDescriptor['properties'][number] & { schema?: any }}
  */
-function renderEventType(p) {
+function renderEventProperty(p) {
   if (typeof p === 'string') {
     return { type: { names: [p] }, name: p }
   }
@@ -72,7 +72,11 @@ function renderEventType(p) {
   return {
     type: { names: [serializedType] },
     name: serializedType,
-    schema: p.schema,
+    schema: {
+      kind: 'object',
+      type: serializedType,
+      schema: p.schema,
+    },
   }
 }
 
@@ -126,9 +130,17 @@ module.exports = defineConfig({
       const events = meta.events.length
         ? meta.events.map((e) => {
             const event = docgen.events.find((d) => d.name === e.name)
+
+            const typeArray =
+              e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
             return {
               ...event,
-              properties: e.schema.map((s) => renderEventType(s)),
+              properties: e.schema.map((s, i) => {
+                return {
+                  name: typeArray[i]?.split(':')[0].trim(),
+                  type: renderEventProperty(s),
+                }
+              }),
             }
           })
         : undefined
