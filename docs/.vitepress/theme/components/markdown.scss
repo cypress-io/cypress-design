@@ -38,7 +38,7 @@
       transition: color 0.4s, opacity 0.4s;
     }
     & > button.copy {
-      @apply right-2 top-2 absolute z-10 bg-gray-800 text-gray-100 h-[44px] px-[16px] rounded hidden;
+      @apply right-2 top-2 absolute z-10 bg-gray-800 text-gray-100 h-10 px-4 rounded hidden;
       &:before {
         content: '📋 copy';
         @apply whitespace-nowrap;

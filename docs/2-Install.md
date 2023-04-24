@@ -6,7 +6,7 @@ Each component is its own package.
 
 To install the button component in a react project, run the following command:
 
-```
+```bash
 yarn add @cypress-design/react-button --save
 ```
 
@@ -14,14 +14,14 @@ Each component is versionned separately so if we need an urgent fix, we don't ge
 
 ## Install CSS Utility
 
-Every component is styled using a utility first CSS framework: WindiCSS.
+Every component is styled using a utility first CSS framework: TailwindCSS.
 Install it in your project to render the components properly.
 
 To do that, follow the two steps below:
 
 1. Install the CSS package in your dev dependencies:
 
-```
+```bash
 yarn add -D @cypress-design/css
 ```
 
@@ -71,7 +71,7 @@ If windicss is installed, uninstall it first:
 - remove the custom imports for windi `import 'virtual:windi.css'`
 - remove the plugin from webpack or from vite config
 
-Install tailwind: Follow [the tailwind docs](https://tailwindcss.com/docs/installation/using-postcss) 
+Install tailwind: Follow [the tailwind docs](https://tailwindcss.com/docs/installation/using-postcss)
 
 Finally update your tailwind config file.
 
@@ -108,3 +108,4 @@ module.exports = {
     }, {}),
   },
 }
+```
