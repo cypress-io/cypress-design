@@ -21,7 +21,7 @@ async function lineTemplate(props, supComponent) {
       return `
 ${supComponent ? '#' : ''}### ${mdclean(p)}
 
-<p><b>type</b> ${n}${!pr.required ? ` (optional)` : ''}${
+<p><b>type</b> ${n}${pr.required ? ` *required` : ''}${
         d.length ? ` - <b>default</b>: <code>${mdclean(d)}</code>` : ''
       }</p>
 
