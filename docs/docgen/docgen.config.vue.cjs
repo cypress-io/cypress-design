@@ -104,6 +104,13 @@ module.exports = defineConfig({
             const event = docgen.events.find((d) => d.name === e.name)
             return (
               event ?? {
+                description: event.description,
+                type: {
+                  names: e.type
+                    .replace(/^\[/, '')
+                    .replace(/\]$/, '')
+                    .split(','),
+                },
                 name: e.name,
               }
             )
