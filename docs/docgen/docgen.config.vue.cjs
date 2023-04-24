@@ -52,6 +52,30 @@ function extractBindings(schema) {
   return undefined
 }
 
+/**
+ * Renders a string representation of the type of a prop
+ * @param {import('vue-component-meta').EventMeta['schema'][number]} p
+ * @returns {import('vue-docgen-api').EventDescriptor['properties'][number] & { schema?: any }}
+ */
+function renderEventType(p) {
+  if (typeof p === 'string') {
+    return { type: { names: [p] }, name: p }
+  }
+
+  const serializedType = p.type
+
+  // avoid passing the schema for primitive types
+  if (['boolean', 'number', 'string'].includes(serializedType)) {
+    return { type: { names: [serializedType] }, name: serializedType }
+  }
+
+  return {
+    type: { names: [serializedType] },
+    name: serializedType,
+    schema: p.schema,
+  }
+}
+
 module.exports = defineConfig({
   components: './*/vue/[A-Z]*.@(vue|ts)',
   getDestFile: (componentPath, { outDir }) => {
@@ -102,18 +126,10 @@ module.exports = defineConfig({
       const events = meta.events.length
         ? meta.events.map((e) => {
             const event = docgen.events.find((d) => d.name === e.name)
-            return (
-              event ?? {
-                description: event.description,
-                type: {
-                  names: e.type
-                    .replace(/^\[/, '')
-                    .replace(/\]$/, '')
-                    .split(','),
-                },
-                name: e.name,
-              }
-            )
+            return {
+              ...event,
+              properties: e.schema.map((s) => renderEventType(s)),
+            }
           })
         : undefined
 
