@@ -14,11 +14,13 @@ yarn add @cypress-design/vue-tabs
 
 ### Usage
 
-```tsx live
-<Tabs :tabs="[
-    { id: 'ov', label: 'Overview', active:true },
+```vue live
+<Tabs
+  :tabs="[
+    { id: 'ov', label: 'Overview', active: true },
     { id: 'cl', label: 'Command Log' },
-    { id: 'err', label: 'Errors' },
+    { id: 'err', label: 'Errors', href: 'https://www.cypress.io' },
     { id: 'reco', label: 'Recommendations' },
-  ]"/>
+  ]"
+/>
 ```

@@ -76,9 +76,11 @@ const classes = computed(() => {
 
 <template>
   <div role="tablist" :class="classes.wrapper">
-    <button
+    <component
       v-for="tab in tabs"
       :key="tab.id"
+      :is="tab.href ? 'a' : 'button'"
+      :href="tab.href"
       ref="$tab"
       role="tab"
       :tabindex="tab.id === activeId ? undefined : -1"
@@ -91,7 +93,9 @@ const classes = computed(() => {
         },
       ]"
       @click="
-        () => {
+        (e: MouseEvent) => {
+          if(e.ctrlKey || e.metaKey) return
+          e.preventDefault()
           activeId = tab.id
           emit('change', tab)
         }
@@ -117,7 +121,7 @@ const classes = computed(() => {
         v-if="tab.id === activeId && !activeMarkerStyle"
         :class="classes.activeMarkerStatic"
       />
-    </button>
+    </component>
     <template v-if="activeMarkerStyle">
       <div
         :class="[classes.activeMarker, classes.activeMarkerColor]"

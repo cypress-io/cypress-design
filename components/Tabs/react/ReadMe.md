@@ -20,7 +20,7 @@ export default () => (
     tabs={[
       { id: 'ov', label: 'Overview', active: true },
       { id: 'cl', label: 'Command Log' },
-      { id: 'err', label: 'Errors' },
+      { id: 'err', label: 'Errors', href: 'https://www.cypress.io' },
       { id: 'reco', label: 'Recommendations' },
     ]}
   />

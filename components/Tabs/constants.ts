@@ -23,6 +23,11 @@ export interface Tab {
    */
   iconBefore?: any
   tag?: string
+  /**
+   * allows for tabs to be links as well
+   * NOTE: the link will be prevented from navigating. It is only there for accessibility, semantics, SEO and right click -> open in new tab
+   */
+  href?: string
 }
 
 export const classesMap = {

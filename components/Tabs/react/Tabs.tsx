@@ -19,7 +19,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     tabs.find((tab) => tab.active)?.id
   )
 
-  const $tab = React.useRef<HTMLButtonElement[]>([])
+  const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
   const [activeMarkerStyle, setActiveMarkerStyle] = React.useState<{
     left?: string
@@ -60,10 +60,12 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
       {tabs.map((tab, index) => {
+        const ButtonTag = tab.href ? 'a' : 'button'
         return (
-          <button
+          <ButtonTag
             key={tab.id}
             role="tab"
+            href={tab.href}
             className={clsx([
               classes.button,
               {
@@ -72,9 +74,11 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 [classes.inActive]: tab.id !== activeId,
               },
             ])}
-            ref={(el) => (el ? ($tab.current[index] = el) : null)}
+            ref={(el: any) => (el ? ($tab.current[index] = el) : null)}
             tabIndex={tab.id === activeId ? undefined : -1}
-            onClick={() => {
+            onClick={(e) => {
+              if (e.ctrlKey || e.metaKey) return
+              e.preventDefault()
               setActiveId(tab.id)
               onChange?.(tab)
             }}
@@ -108,7 +112,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             {tab.id === activeId && !activeMarkerStyle.left ? (
               <div className={classes.activeMarkerStatic} />
             ) : null}
-          </button>
+          </ButtonTag>
         )
       })}
       <div
