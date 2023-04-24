@@ -8,9 +8,9 @@ import { IconActionPlayVideo, IconActionRecord, IconDeviceLaptop, IconGeneralCro
 <DemoWrapper>
   <p>default</p>
 	<Tabs :tabs="[
-    { id: 'ov', label: 'Overview', active:true },
+    { id: 'ov', label: 'Overview' },
     { id: 'cl', label: 'Command Log' },
-    { id: 'err', label: 'Errors' },
+    { id: 'err', label: 'Errors', active:true},
     { id: 'reco', label: 'Recommendations' },
   ]"/>
   <div class="h-[24px]"/>
