@@ -14,17 +14,18 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   type = 'default',
   ...rest
 }) => {
+  const [mounted, setMounted] = React.useState(false)
   const [activeId, setActiveId] = React.useState(
     tabs.find((tab) => tab.active)?.id
   )
 
-  const $tab = React.useRef<HTMLButtonElement[]>([])
+  const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
-  const [activeMarkerStyle, setActiveMarkerStyle] = React.useState({
-    left: 0,
-    width: 30,
-    transitionProperty: 'none',
-  })
+  const [activeMarkerStyle, setActiveMarkerStyle] = React.useState<{
+    left?: string
+    width?: string
+    transitionProperty?: string
+  }>({})
 
   React.useEffect(() => {
     const activeTab = tabs.findIndex((tab) => tab.id === activeId)
@@ -32,21 +33,13 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       const activeTabEl = $tab.current?.[activeTab]
       if (activeTabEl) {
         setActiveMarkerStyle({
-          ...activeMarkerStyle,
-          left: activeTabEl.offsetLeft,
-          width: activeTabEl.offsetWidth,
+          left: `${activeTabEl.offsetLeft}px`,
+          width: `${activeTabEl.offsetWidth}px`,
+          transitionProperty: 'left, width',
         })
-        if (activeMarkerStyle.transitionProperty === 'none') {
-          setTimeout(() => {
-            setActiveMarkerStyle({
-              left: activeTabEl.offsetLeft,
-              width: activeTabEl.offsetWidth,
-              transitionProperty: 'left, width',
-            })
-          }, 10)
-        }
       }
     }
+    setMounted(true)
   }, [activeId])
 
   function navigate(shift: number) {
@@ -67,20 +60,25 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
       {tabs.map((tab, index) => {
+        const ButtonTag = tab.href ? 'a' : 'button'
         return (
-          <button
+          <ButtonTag
             key={tab.id}
             role="tab"
+            href={tab.href}
             className={clsx([
               classes.button,
               {
+                [classes.activeStatic]: tab.id === activeId && !mounted,
                 [classes.active]: tab.id === activeId,
                 [classes.inActive]: tab.id !== activeId,
               },
             ])}
-            ref={(el) => (el ? ($tab.current[index] = el) : null)}
+            ref={(el: any) => (el ? ($tab.current[index] = el) : null)}
             tabIndex={tab.id === activeId ? undefined : -1}
-            onClick={() => {
+            onClick={(e) => {
+              if (e.ctrlKey || e.metaKey) return
+              e.preventDefault()
               setActiveId(tab.id)
               onChange?.(tab)
             }}
@@ -111,7 +109,10 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 />
               ) : null}
             </>
-          </button>
+            {tab.id === activeId && !activeMarkerStyle.left ? (
+              <div className={classes.activeMarkerStatic} />
+            ) : null}
+          </ButtonTag>
         )
       })}
       <div

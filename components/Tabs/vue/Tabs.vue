@@ -20,11 +20,9 @@ const emit = defineEmits<{
 
 const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
 
-const activeMarkerStyle = ref({
-  left: '0',
-  width: '30px',
-  transitionProperty: 'none',
-})
+const activeMarkerStyle = ref<
+  { left?: string; width?: string; transitionProperty?: string } | undefined
+>()
 
 onMounted(() => {
   watch(
@@ -46,12 +44,12 @@ onMounted(() => {
   )
 
   // Only start animation after the first render
-  setTimeout(() => {
+  nextTick(() => {
     activeMarkerStyle.value = {
       ...activeMarkerStyle.value,
-      transitionProperty: 'all',
+      transitionProperty: 'left, width',
     }
-  }, 10)
+  })
 })
 
 function navigate(shift: number) {
@@ -78,21 +76,26 @@ const classes = computed(() => {
 
 <template>
   <div role="tablist" :class="classes.wrapper">
-    <button
+    <component
       v-for="tab in tabs"
       :key="tab.id"
+      :is="tab.href ? 'a' : 'button'"
+      :href="tab.href"
       ref="$tab"
       role="tab"
       :tabindex="tab.id === activeId ? undefined : -1"
       :class="[
         classes.button,
         {
+          [classes.activeStatic]: tab.id === activeId && !activeMarkerStyle,
           [classes.active]: tab.id === activeId,
           [classes.inActive]: tab.id !== activeId,
         },
       ]"
       @click="
-        () => {
+        (e: MouseEvent) => {
+          if(e.ctrlKey || e.metaKey) return
+          e.preventDefault()
           activeId = tab.id
           emit('change', tab)
         }
@@ -114,14 +117,20 @@ const classes = computed(() => {
         class="ml-[8px]"
         :size="props.type === 'underline-large' ? '24' : '16'"
       />
-    </button>
-    <div
-      :class="[classes.activeMarker, classes.activeMarkerColor]"
-      :style="activeMarkerStyle"
-    />
-    <div
-      :class="[classes.activeMarker, classes.activeMarkerBlender]"
-      :style="activeMarkerStyle"
-    />
+      <div
+        v-if="tab.id === activeId && !activeMarkerStyle"
+        :class="classes.activeMarkerStatic"
+      />
+    </component>
+    <template v-if="activeMarkerStyle">
+      <div
+        :class="[classes.activeMarker, classes.activeMarkerColor]"
+        :style="activeMarkerStyle"
+      />
+      <div
+        :class="[classes.activeMarker, classes.activeMarkerBlender]"
+        :style="activeMarkerStyle"
+      />
+    </template>
   </div>
 </template>

@@ -111,7 +111,7 @@
   .vue-live,
   .demo-wrapper {
     ul {
-      padding: initial;
+      padding: unset;
     }
   }
 
@@ -136,9 +136,9 @@
   .vue-live,
   .demo-wrapper {
     a {
-      color: initial;
+      color: unset;
       &:hover {
-        text-decoration: initial;
+        text-decoration: unset;
       }
     }
   }
