@@ -3,34 +3,19 @@ import { transform as sucrase } from 'sucrase'
 export { createRoot } from 'react-dom/client'
 export { createElement }
 
-export const ReactPreview = ({ code, requires, components }) => {
-  const require = (name) => {
-    if (requires[name]) {
-      return requires[name]
-    }
-    if (name.startsWith('$')) {
-      const componentQuery = name.slice(1)
-      if (components[componentQuery]) {
-        return components[componentQuery]
-      }
-    }
-    throw new Error(`[react-preview] Cannot find module '${name}'`)
-  }
-
+function getComponentCode(code, components) {
   const isPureJSX = code.trim().startsWith('<')
   if (isPureJSX) {
-    code = `
-		${Object.keys(components)
-      .map((comp) => `import ${comp} from '$${comp}'`)
-      .join('\n')}
-		return () => (${code})`
-    const { code: compiledCode } = sucrase(code, {
+    const compCode = `
+  ${Object.keys(components)
+    .map((comp) => `import ${comp} from '$${comp}'`)
+    .join('\n')}
+  return () => (${code})`
+
+    return sucrase(compCode, {
       transforms: ['jsx', 'typescript', 'imports'],
       production: true,
-    })
-    const LivePreview = new Function('require', 'React', compiledCode)
-
-    return createElement(LivePreview(require, React))
+    }).code
   } else {
     const { code: compiledCode } = sucrase(
       `${Object.keys(components)
@@ -45,10 +30,31 @@ export const ReactPreview = ({ code, requires, components }) => {
       /^"use strict";/g,
       ''
     )}
-		const keys = Object.keys(exports);
-		return exports.default ?? exports[keys[0]]`
-
-    const LivePreview = new Function('require', 'React', funCode)
-    return createElement(LivePreview(require, React))
+  const keys = Object.keys(exports);
+  return exports.default ?? exports[keys[0]]`
+    return funCode
   }
+}
+
+export const ReactPreview = ({ code, requires, components }) => {
+  const require = (name) => {
+    if (requires[name]) {
+      return requires[name]
+    }
+    if (name.startsWith('$')) {
+      const componentQuery = name.slice(1)
+      if (components[componentQuery]) {
+        return components[componentQuery]
+      }
+    }
+    throw new Error(`[react-preview] Cannot find module '${name}'`)
+  }
+
+  const LivePreview = new Function(
+    'require',
+    'React',
+    getComponentCode(code, components)
+  )
+
+  return createElement(LivePreview(require, React))
 }
