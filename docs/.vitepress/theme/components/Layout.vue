@@ -3,7 +3,7 @@ import 'virtual:windi.css'
 import './markdown.scss'
 import './fonts/fonts.css'
 import { useRouter } from 'vitepress'
-import { computed, onMounted, watch, ref, defineAsyncComponent } from 'vue'
+import { computed, onMounted, watch, ref, defineAsyncComponent, h } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
 import {
@@ -70,21 +70,32 @@ const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
 
 const $outline = ref<typeof DocsOutline | null>(null)
 
+const $common = ref<typeof CommonContent | null>(null)
+const commonHeight = ref('0')
 const CommonContent = computed(() => {
   const CommonContentOrUndefined =
     ComponentsLower[`../../../..${commonPathReadme.value.toLowerCase()}`]
   if (!CommonContentOrUndefined) {
     return undefined
   }
-  return defineAsyncComponent(() => {
-    return CommonContentOrUndefined()
-      .then((c: any) => c.default)
-      .then((c: any) => ({
-        ...c,
-        mounted: () => {
-          $outline.value?.update()
-        },
-      }))
+  return defineAsyncComponent({
+    loadingComponent: () =>
+      h('div', {
+        style: { height: commonHeight.value },
+      }),
+    // Delay before showing the loading component. Default: 200ms.
+    delay: 0,
+    loader: () => {
+      return CommonContentOrUndefined()
+        .then((c: any) => c.default)
+        .then((c: any) => ({
+          ...c,
+          mounted: () => {
+            $outline.value?.update()
+            commonHeight.value = $common.value?.$el.clientHeight + 'px'
+          },
+        }))
+    },
   })
 }) as any
 
@@ -157,7 +168,7 @@ const mobileMenuOpen = ref(false)
         <div
           class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] mt-[24px] p-[8px] rounded"
         >
-          <CommonContent class="markdown" />
+          <CommonContent ref="$common" class="markdown" />
         </div>
       </div>
       <div class="relative">
