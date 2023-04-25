@@ -116,14 +116,10 @@ module.exports = defineConfig({
       const slots = meta.slots.length
         ? meta.slots.map((s) => {
             const slot = docgen.slots.find((d) => d.name === s.name)
-            return (
-              slot ??
-              defineSlot({
-                name: s.name,
-                description: s.description,
-                bindings: extractBindings(s.schema),
-              })
-            )
+            return {
+              ...slot,
+              bindings: extractBindings(s.schema),
+            }
           })
         : undefined
 
