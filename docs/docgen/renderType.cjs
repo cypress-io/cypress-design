@@ -43,9 +43,9 @@ async function renderComplexTypes(schema, subType) {
       schema.schema.map((v) => renderComplexTypes(v, true))
     )
     const filteredValues = values.filter((v) => v)
-    const overflow = filteredValues.length > 9
+    const overflow = filteredValues.length > 12
     const inlineValues = overflow
-      ? [...filteredValues.slice(0, 8), '...']
+      ? [...filteredValues.slice(0, 11), '...']
       : filteredValues
     const serializedInlineValues = inlineValues.join(' | ')
     const serializedInlineValuesWrapped = subType
@@ -54,7 +54,10 @@ async function renderComplexTypes(schema, subType) {
     return overflow
       ? await makeTooltip(
           serializedInlineValuesWrapped,
-          `type ${schema.type} = ${filteredValues.join(' | ')}`
+          `type ${schema.type.replace(
+            ' | undefined',
+            ''
+          )} = ${filteredValues.join(' | ')}`
         )
       : serializedInlineValuesWrapped
   }
@@ -101,10 +104,10 @@ async function makeTooltip(content, popperCode) {
     })
   }
 
-  return `<Tooltip class="inline-block align-middle" interactive>${content}<template #popper><div class="text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
+  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
     popperCode,
     {
       lang: 'ts',
     }
-  )}</div></template></Tooltip>`
+  )}</span></template></Tooltip>`
 }

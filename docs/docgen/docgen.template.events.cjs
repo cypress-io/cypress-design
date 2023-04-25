@@ -35,6 +35,7 @@ async function lineTemplate(event, supComponent) {
           async function (prop) {
             return {
               name: prop.name,
+              description: prop.description,
               type: await renderType(prop.type),
             }
           }
@@ -45,14 +46,27 @@ async function lineTemplate(event, supComponent) {
       return `
 ${supComponent ? '#' : ''}### ${mdclean(name)}
 
-<p><b>Properties</b>
-<br/> 
-${properties
-  .map((p) => `<b>${p.name}</b><br/> <b>type</b>: ${p.type}`)
-  .join('\n\n\n')}
-</p>
-
 ${mdclean(t)}
+
+${
+  properties.length
+    ? `
+${supComponent ? '#' : ''}#### Properties
+
+${properties
+  .map(
+    (p) => `
+${supComponent ? '#' : ''}##### \`${mdclean(p.name)}\`
+
+${p.description ? mdclean(p.description) : ''}
+<div><b>type</b>: ${p.type ? p.type : ''}</div>
+
+`
+  )
+  .join('')}
+  `
+    : ''
+}
 
 `
     })
