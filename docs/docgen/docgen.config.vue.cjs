@@ -52,6 +52,34 @@ function extractBindings(schema) {
   return undefined
 }
 
+/**
+ * Renders a string representation of the type of a prop
+ * @param {import('vue-component-meta').EventMeta['schema'][number]} p
+ * @returns {import('vue-docgen-api').EventDescriptor['properties'][number] & { schema?: any }}
+ */
+function renderEventProperty(p) {
+  if (typeof p === 'string') {
+    return { type: { names: [p] }, name: p }
+  }
+
+  const serializedType = p.type
+
+  // avoid passing the schema for primitive types
+  if (['boolean', 'number', 'string'].includes(serializedType)) {
+    return { type: { names: [serializedType] }, name: serializedType }
+  }
+
+  return {
+    type: { names: [serializedType] },
+    name: serializedType,
+    schema: {
+      kind: 'object',
+      type: serializedType,
+      schema: p.schema,
+    },
+  }
+}
+
 module.exports = defineConfig({
   components: './*/vue/[A-Z]*.@(vue|ts)',
   getDestFile: (componentPath, { outDir }) => {
@@ -88,25 +116,28 @@ module.exports = defineConfig({
       const slots = meta.slots.length
         ? meta.slots.map((s) => {
             const slot = docgen.slots.find((d) => d.name === s.name)
-            return (
-              slot ??
-              defineSlot({
-                name: s.name,
-                description: s.description,
-                bindings: extractBindings(s.schema),
-              })
-            )
+            return {
+              ...slot,
+              bindings: extractBindings(s.schema),
+            }
           })
         : undefined
 
       const events = meta.events.length
         ? meta.events.map((e) => {
             const event = docgen.events.find((d) => d.name === e.name)
-            return (
-              event ?? {
-                name: e.name,
-              }
-            )
+
+            const typeArray =
+              e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
+            return {
+              ...event,
+              properties: e.schema.map((s, i) => {
+                return {
+                  name: typeArray[i]?.split(':')[0].trim(),
+                  type: renderEventProperty(s),
+                }
+              }),
+            }
           })
         : undefined
 

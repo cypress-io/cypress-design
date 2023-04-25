@@ -91,11 +91,11 @@
   }
 
   h4 {
-    @apply mt-6 text-lg;
+    @apply ml-2 mt-6 text-lg text-jade-500 dark:text-jade-200;
   }
 
   h5 {
-    @apply mt-4 text-lg;
+    @apply ml-4 mt-4 text-md text-jade-300 dark:text-jade-400;
   }
 
   .header-anchor:after {
@@ -146,4 +146,9 @@
       }
     }
   }
+}
+
+.shiki-tooltip > pre {
+  white-space: pre-wrap;
+  min-width: 40vw;
 }
