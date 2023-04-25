@@ -101,7 +101,7 @@ const $button = ref<HTMLDivElement>()
     <button
       v-for="size in meta.availableSizes"
       :key="size"
-      class="flex gap-[8px] items-end group"
+      class="flex gap-[8px] items-end"
       @click="focus()"
     >
       <div
