@@ -6,6 +6,12 @@ import IconButton from './IconButton.vue'
 const search = ref('')
 const $searchInput = ref<HTMLInputElement>()
 
+const anyIconFound = computed(() => {
+  return Object.keys(iconsMetadata).some((iconName) =>
+    iconName.includes(search.value)
+  )
+})
+
 const groupedIconsMetadata = computed(() =>
   Object.entries(iconsMetadata).reduce((acc, [iconName, iconMeta]) => {
     if (search.value && !iconName.includes(search.value)) return acc
@@ -28,13 +34,16 @@ const groupedIconsMetadata = computed(() =>
       placeholder="Search Icons"
       class="w-full border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded bg-white dark:bg-gray-900"
     />
+    <div v-if="!anyIconFound">
+      <p class="text-center text-gray-500 dark:text-gray-400">No icons found</p>
+    </div>
     <div
       v-for="(icons, groupName) of groupedIconsMetadata"
       class="bg-white py-[16px] dark:bg-gray-900 mb-[16px]"
     >
       <h2
         :id="groupName"
-        class="text-[24px] text-center mb-[16px] !mt-0 capitalize"
+        class="text-[24px] text-center !mb-4 !mt-0 capitalize"
       >
         {{ groupName }}
         <a class="header-anchor absolute ml-[8px]" :href="`#${groupName}`"

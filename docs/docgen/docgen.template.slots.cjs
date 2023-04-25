@@ -52,7 +52,7 @@ ${bindings
     (p) => `
 ##### ${p.name}
 
-<div class="ml-4">${p.type}</div>
+<div>${p.type}</div>
 `
   )
   .join('\n')}
