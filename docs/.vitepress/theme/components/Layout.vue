@@ -3,7 +3,15 @@ import 'virtual:windi.css'
 import './markdown.scss'
 import './fonts/fonts.css'
 import { useRouter } from 'vitepress'
-import { computed, onMounted, watch, ref, defineAsyncComponent, h } from 'vue'
+import {
+  computed,
+  onMounted,
+  watch,
+  ref,
+  defineAsyncComponent,
+  h,
+  nextTick,
+} from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
 import {
@@ -43,7 +51,13 @@ watch(
       !path.includes('/react/') &&
       !path.includes('/vue/')
     ) {
-      router.go(path.replace('/components/', `/components/${framework.value}/`))
+      const frameworkUrl = path.replace(
+        '/components/',
+        `/components/${framework.value}/`
+      )
+      nextTick(() => {
+        router.go(frameworkUrl)
+      })
     }
   },
   { immediate: true }
