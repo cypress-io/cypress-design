@@ -42,7 +42,11 @@ ${supComponent ? '#' : ''}### ${mdclean(name)}
 
 ${mdclean(t)}
 
-#### Properties
+${
+  bindings.length
+    ? `
+#### Bindings
+
 ${bindings
   .map(
     (p) => `
@@ -53,6 +57,8 @@ ${bindings
   )
   .join('\n')}
 `
+    : ''
+}`
     })
   )
 
