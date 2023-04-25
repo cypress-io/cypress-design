@@ -135,6 +135,9 @@
     &:hover {
       @apply underline;
     }
+    &.header-anchor:hover {
+      @apply no-underline;
+    }
   }
 
   .vue-live,
