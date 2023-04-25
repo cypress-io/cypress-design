@@ -98,10 +98,11 @@ const $button = ref<HTMLDivElement>()
         /><code>&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code></span
       >
     </p>
-    <div
+    <button
       v-for="size in meta.availableSizes"
       :key="size"
       class="flex gap-[8px] items-end group"
+      @click="focus()"
     >
       <div
         class="py-[4px] min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end"
@@ -111,13 +112,6 @@ const $button = ref<HTMLDivElement>()
         }"
       >
         <IconAny :name="iconName" :size="size" />
-        <button
-          v-if="!focused"
-          class="text-indigo-500 inline text-[12px] invisible group-hover:visible"
-          @click="focus()"
-        >
-          show me code
-        </button>
         <p class="text-gray-500 text-[12px]">
           <span v-if="!focused">{{
             iconName.slice(groupName.length + 1)
@@ -153,6 +147,6 @@ const $button = ref<HTMLDivElement>()
           f+
         </div>
       </div>
-    </div>
+    </button>
   </div>
 </template>

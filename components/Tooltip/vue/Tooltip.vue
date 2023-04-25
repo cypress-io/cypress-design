@@ -7,6 +7,7 @@
     @blur="show = false"
     @mouseout="show = false"
   >
+    <!-- @slot element to hover on to open the tooltip -->
     <slot />
   </div>
   <teleport v-if="!disabled" to="#portal-target">
@@ -65,6 +66,7 @@
           class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
           :class="colors.background"
         >
+          <!-- @slot content of the tooltip -->
           <slot name="popper" />
         </div>
       </div>
