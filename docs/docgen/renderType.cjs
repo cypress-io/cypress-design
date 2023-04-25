@@ -11,7 +11,7 @@ const { mdclean } = defaultTemplates
  */
 module.exports = async function renderType(type) {
   if (type.schema) {
-    return `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">${await renderComplexTypes(
+    return `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px] inline-block">${await renderComplexTypes(
       type.schema
     )}</code>`
   }
@@ -34,12 +34,6 @@ let highlighter = null
  * @returns {Promise<string>}
  */
 async function renderComplexTypes(schema, subType) {
-  if (!highlighter) {
-    highlighter = await shiki.getHighlighter({
-      theme: 'github-light',
-    })
-  }
-
   if (typeof schema === 'string') {
     if (schema === 'undefined') return undefined
     return schema
@@ -48,8 +42,21 @@ async function renderComplexTypes(schema, subType) {
     const values = await Promise.all(
       schema.schema.map((v) => renderComplexTypes(v, true))
     )
-    const filteredValues = values.filter((v) => v).join(' | ')
-    return subType ? `(${filteredValues})` : filteredValues
+    const filteredValues = values.filter((v) => v)
+    const overflow = filteredValues.length > 9
+    const inlineValues = overflow
+      ? [...filteredValues.slice(0, 8), '...']
+      : filteredValues
+    const serializedInlineValues = inlineValues.join(' | ')
+    const serializedInlineValuesWrapped = subType
+      ? `(${serializedInlineValues})`
+      : serializedInlineValues
+    return overflow
+      ? await makeTooltip(
+          serializedInlineValuesWrapped,
+          `type ${schema.type} = ${filteredValues.join(' | ')}`
+        )
+      : serializedInlineValuesWrapped
   }
   if (schema.kind === 'event') {
     return undefined
@@ -64,14 +71,7 @@ async function renderComplexTypes(schema, subType) {
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
-    return `<Tooltip class="inline-block align-middle" interactive>${
-      schema.type
-    }<template #popper><div class="text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
-      code,
-      {
-        lang: 'ts',
-      }
-    )}</div></template></Tooltip>`
+    return await makeTooltip(schema.type, code)
   }
   return `
   \`\`\`
@@ -92,4 +92,19 @@ function renderObjectType(value) {
     : ''
 
   return `${description}\t${value.name}${value.required ? '' : '?'}: ${type},`
+}
+
+async function makeTooltip(content, popperCode) {
+  if (!highlighter) {
+    highlighter = await shiki.getHighlighter({
+      theme: 'github-light',
+    })
+  }
+
+  return `<Tooltip class="inline-block align-middle" interactive>${content}<template #popper><div class="text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
+    popperCode,
+    {
+      lang: 'ts',
+    }
+  )}</div></template></Tooltip>`
 }
