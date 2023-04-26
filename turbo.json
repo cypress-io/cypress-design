@@ -12,7 +12,6 @@
         "*.tsx",
         "*.ts",
         "src/*.ts",
-        "../constants.ts",
         "!*.cy.tsx",
         "!*.rootstory.tsx"
       ],
