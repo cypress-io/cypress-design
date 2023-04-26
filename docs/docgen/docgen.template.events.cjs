@@ -56,7 +56,7 @@ ${supComponent ? '#' : ''}#### Properties
 ${properties
   .map(
     (p) => `
-${supComponent ? '#' : ''}##### \`${mdclean(p.name)}\`
+${supComponent ? '#' : ''}##### ${mdclean(p.name)}
 
 ${p.description ? mdclean(p.description) : ''}
 <div><b>type</b>: ${p.type ? p.type : ''}</div>

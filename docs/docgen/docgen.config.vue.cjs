@@ -113,30 +113,35 @@ module.exports = defineConfig({
           })
         : undefined
 
-      const slots = meta.slots.length
-        ? meta.slots.map((s) => {
-            const slot = docgen.slots.find((d) => d.name === s.name)
-            return {
-              ...slot,
-              bindings: extractBindings(s.schema),
-            }
-          })
-        : undefined
-
       const events = meta.events.length
         ? meta.events.map((e) => {
-            const event = docgen.events.find((d) => d.name === e.name)
+            const event = docgen.events.find((d) => d.name === e.name) ?? {}
 
             const typeArray =
               e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
             return {
               ...event,
               properties: e.schema.map((s, i) => {
+                const name = typeArray[i]?.split(':')[0].trim()
+                const propDef = event.properties?.find(
+                  (p) => p.name === name
+                ) ?? { name }
+
                 return {
-                  name: typeArray[i]?.split(':')[0].trim(),
+                  ...propDef,
                   type: renderEventProperty(s),
                 }
               }),
+            }
+          })
+        : undefined
+
+      const slots = meta.slots.length
+        ? meta.slots.map((s) => {
+            const slot = docgen.slots.find((d) => d.name === s.name)
+            return {
+              ...slot,
+              bindings: extractBindings(s.schema),
             }
           })
         : undefined

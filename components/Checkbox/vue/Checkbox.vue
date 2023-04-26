@@ -52,6 +52,10 @@ const props = withDefaults(
 const localChecked = ref(props.modelValue || props.checked)
 
 const emit = defineEmits<{
+  /**
+   * Fired when the checkbox changes value
+   * @arg value - The next value of the checkbox
+   */
   (event: 'update:modelValue', value: boolean): void
 }>()
 
