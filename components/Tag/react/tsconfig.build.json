@@ -3,6 +3,6 @@
   "include": ["./Tag.tsx", "./index.ts", "../constants.ts"],
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "../"
+    "rootDir": "./"
   }
 }
