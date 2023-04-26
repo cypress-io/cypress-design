@@ -1,0 +1,30 @@
+{
+  "name": "@cypress-design/react-checkbox",
+  "version": "0.2.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/react/index.d.ts",
+  "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "rollup -c ./rollup.config.mjs",
+    "build:types": "tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cypress-design/react-icon": "*",
+    "clsx": "*"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-checkbox": "*",
+    "@cypress-design/css": "*"
+  },
+  "license": "MIT"
+}
