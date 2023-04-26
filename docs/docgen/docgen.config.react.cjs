@@ -38,25 +38,18 @@ module.exports = defineConfig({
       /** @type import('vue-docgen-api').ComponentDoc */
       const mp = {
         displayName: p.displayName,
-        props: Object.entries(p.props).reduce(
-          (
-            /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']> */
-            acc,
-            [pkey, pp]
-          ) => {
-            /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number] */
-            const propType = {
-              name: pkey,
-              description: pp.description,
-              type: pp.type,
-              required: pp.required,
-              defaultValue: pp.defaultValue,
-            }
-            acc.push(propType)
-            return acc
-          },
-          []
-        ),
+        props: Object.entries(p.props).reduce((acc, [pkey, pp]) => {
+          /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number] */
+          const propType = {
+            name: pkey,
+            description: pp.description,
+            type: pp.type,
+            required: pp.required,
+            defaultValue: pp.defaultValue,
+          }
+          acc.push(propType)
+          return acc
+        }, []),
         exportName: p.displayName,
         tags: Object.entries(p.tags || {}).reduce((acc, [k, v]) => {
           acc[k] = [{ title: k, content: v }]
