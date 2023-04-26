@@ -35,20 +35,25 @@ function renderType(p) {
 /**
  *
  * @param {import('vue-component-meta').SlotMeta['schema']} schema
+ * @param {import('vue-docgen-api').SlotDescriptor['bindings']} bindings
  * @returns {import('vue-docgen-api').SlotDescriptor['bindings']}
  */
-function extractBindings(schema) {
+function extractBindings(schema, bindings) {
   if (typeof schema === 'string') {
     return undefined
   }
+
   if (schema.kind === 'object') {
-    return Object.keys(schema.schema).map((k) => {
+    console.log({ bindings })
+    return Object.keys(schema.schema).map((title) => {
+      const binding = bindings?.find((b) => b.title === title) ?? { title }
       return {
-        title: k,
-        type: renderType(schema.schema[k]),
+        ...binding,
+        type: renderType(schema.schema[title]),
       }
     })
   }
+
   return undefined
 }
 
@@ -137,11 +142,12 @@ module.exports = defineConfig({
         : undefined
 
       const slots = meta.slots.length
-        ? meta.slots.map((s) => {
-            const slot = docgen.slots.find((d) => d.name === s.name)
+        ? meta.slots.map(({ name, schema }) => {
+            const slot = docgen.slots.find((d) => d.name === name) ?? { name }
+            console.log({ name, slot, bindings: slot?.bindings })
             return {
               ...slot,
-              bindings: extractBindings(s.schema),
+              bindings: extractBindings(schema, slot?.bindings),
             }
           })
         : undefined

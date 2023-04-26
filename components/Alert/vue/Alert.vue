@@ -137,7 +137,11 @@ const sizeClasses = computed(() => {
     :class="props.notRounded ? undefined : 'rounded'"
   >
     <div class="flex" :class="[typeClasses.headerClass, sizeClasses]">
-      <!-- @slot replace the default left icon here -->
+      <!--
+        @slot replace the default left icon here
+        @binding strokeColor - a windicolor that to be passed to `strokeColor`
+        @binding class - the class this icon should have (for utility css purposes)
+			-->
       <slot name="icon" v-bind="computedIconProps">
         <component
           v-if="!props.noIcon && icon"
