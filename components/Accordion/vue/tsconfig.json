@@ -7,8 +7,8 @@
     "../*.ts",
     "../../../cypress/support/*.ts"
   ],
+  "exclude": ["vite.config.ts"],
   "compilerOptions": {
-    "rootDir": "../",
     "types": []
   }
 }

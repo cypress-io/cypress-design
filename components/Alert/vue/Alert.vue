@@ -15,8 +15,8 @@ import {
   defaultAlertSize,
   defaultAlertTitle,
   defaultAlertType,
-} from '../constants'
-import { alertClasses } from '../constants'
+  alertClasses,
+} from '@cypress-design/constants-alert'
 
 const dismissed = ref(false)
 

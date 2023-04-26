@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import AccordionStory from './Accordion.rootstory'
-import assertions from '../assertions'
+import assertions from '@cypress-design/core-accordion/assertions'
 import Accordion from './Accordion'
 import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon'
 

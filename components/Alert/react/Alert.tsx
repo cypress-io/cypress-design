@@ -14,8 +14,8 @@ import {
   defaultAlertSize,
   defaultAlertTitle,
   defaultAlertType,
-} from '../constants'
-import { alertClasses } from '../constants'
+  alertClasses,
+} from '@cypress-design/constants-alert'
 
 export interface AlertProps {
   /**

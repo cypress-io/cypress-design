@@ -17,7 +17,7 @@ export const CssClasses = {
 export interface AccordionProps {
   /**
    * Main indigo title.
-   * > [NOTE] Its color and font can be customized using `titleClassName`.
+   * [NOTE] Its color and font can be customized using `titleClassName`.
    */
   title: string
   /**
