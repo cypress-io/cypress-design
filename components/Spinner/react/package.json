@@ -1,28 +1,29 @@
 {
-	"name": "@cypress-design/react-spinner",
-	"version": "0.4.0",
-	"files": [
-		"*"
-	],
-	"typings": "./dist/index.d.ts",
-	"main": "./dist/index.umd.js",
-	"module": "./dist/index.es.mjs",
-	"exports": {
-		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.umd.js"
-		}
-	},
-	"scripts": {
-		"build": "yarn build:module && yarn build:types",
-		"build:module": "rollup -c ./rollup.config.mjs",
-		"build:types": "tsc --project ./tsconfig.build.json"
-	},
-	"devDependencies": {
-		"@cypress-design/css": "*",
-		"postcss": "^8.4.22",
-		"rollup-plugin-postcss": "^4.0.2",
-		"sass": "^1.62.0"
-	},
-	"license": "MIT"
+  "name": "@cypress-design/react-spinner",
+  "version": "0.4.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "rollup -c ./rollup.config.mjs",
+    "build:types": "tsc --project ./tsconfig.build.json"
+  },
+  "devDependencies": {
+    "@cypress-design/css": "*",
+    "postcss": "^8.4.22",
+    "rollup-plugin-postcss": "^4.0.2",
+    "sass": "^1.62.0"
+  },
+  "license": "MIT"
 }
