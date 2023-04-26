@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
-import { statuses } from '../outline-imports'
+import { outline } from '@cypress-design/constants-statusicon'
 import type { VariantStatusIconProps } from '../constants'
 import { compileProps } from './compileProps'
 
@@ -11,7 +11,7 @@ export const OutlineStatusIcon: React.FC<
     ...rest,
     ...compileProps({
       status,
-      statuses,
+      statuses: outline.statuses,
       className: rest.className,
       size,
     }),

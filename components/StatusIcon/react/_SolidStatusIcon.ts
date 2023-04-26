@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { SVGProps } from 'react'
-import { statuses } from '../solid-imports'
-import type { VariantStatusIconProps } from '../constants'
+import { solid } from '@cypress-design/constants-statusicon'
+import type { VariantStatusIconProps } from '@cypress-design/constants-statusicon'
 import { compileProps } from './compileProps'
 
 export const SolidStatusIcon: React.FC<
@@ -11,7 +11,7 @@ export const SolidStatusIcon: React.FC<
     ...rest,
     ...compileProps({
       status,
-      statuses,
+      statuses: solid.statuses,
       className: rest.className,
       size,
     }),

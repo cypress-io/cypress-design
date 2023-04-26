@@ -1,8 +1,8 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./Tabs.tsx", "./index.ts", "../constants.ts"],
+  "include": ["./Tabs.tsx", "./index.ts"],
   "compilerOptions": {
     "outDir": "dist",
-    "rootDir": "../"
+    "rootDir": "./"
   }
 }

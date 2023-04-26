@@ -1,6 +1,10 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { ColorClasses, SharedSettings, SizeClasses } from '../constants'
+import {
+  ColorClasses,
+  SharedSettings,
+  SizeClasses,
+} from '@cypress-design/constants-tag'
 
 export interface TagProps {
   size: keyof typeof SizeClasses

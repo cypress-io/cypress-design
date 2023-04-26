@@ -19,6 +19,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "devDependencies": {
+    "@cypress-design/constants-tabs": "*",
     "@cypress-design/css": "*"
   },
   "license": "MIT"

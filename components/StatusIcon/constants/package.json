@@ -1,0 +1,23 @@
+{
+  "name": "@cypress-design/constants-statusicon",
+  "private": true,
+  "version": "0.3.0",
+  "files": [
+    "*"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "devDependencies": {
+    "@cypress-design/icon-registry": "^0.21.0"
+  },
+  "license": "MIT"
+}

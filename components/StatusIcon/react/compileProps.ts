@@ -1,5 +1,8 @@
-import type { IconSet, VariantStatusIconProps } from '../constants'
-import { statuses as StatusForColor } from '../constants'
+import type {
+  IconSet,
+  VariantStatusIconProps,
+} from '@cypress-design/constants-statusicon'
+import { statuses as StatusForColor } from '@cypress-design/constants-statusicon'
 import { compileReactIconProperties } from '@cypress-design/react-icon'
 import { getComponentAttributes } from '@cypress-design/icon-registry'
 
