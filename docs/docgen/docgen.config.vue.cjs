@@ -44,7 +44,6 @@ function extractBindings(schema, bindings) {
   }
 
   if (schema.kind === 'object') {
-    console.log({ bindings })
     return Object.keys(schema.schema).map((title) => {
       const binding = bindings?.find((b) => b.title === title) ?? { title }
       return {
@@ -144,7 +143,6 @@ module.exports = defineConfig({
       const slots = meta.slots.length
         ? meta.slots.map(({ name, schema }) => {
             const slot = docgen.slots.find((d) => d.name === name) ?? { name }
-            console.log({ name, slot, bindings: slot?.bindings })
             return {
               ...slot,
               bindings: extractBindings(schema, slot?.bindings),
