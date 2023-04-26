@@ -1,0 +1,17 @@
+tasks:
+  build:
+    command: moon node run-script build
+    deps:
+    - ^:build
+    inputs:
+    - tsconfig.json
+    - tsconfig.build.json
+    - '*.vue'
+    - '*.tsx'
+    - '*.ts'
+    - src/*.ts
+    - '!*.cy.tsx'
+    - '!*.rootstory.tsx'
+    outputs:
+    - dist/**/*
+    platform: node

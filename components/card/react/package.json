@@ -1,9 +1,12 @@
 {
-	"name": "@cypress-design/react-card",
-	"private": true,
-	"version": "0.2.0",
-	"devDependencies": {
-		"@cypress-design/css": "*"
-	},
-	"license": "MIT"
+  "name": "@cypress-design/react-card",
+  "private": true,
+  "version": "0.2.0",
+  "scripts": {
+    "build": "echo 'No build script'"
+  },
+  "devDependencies": {
+    "@cypress-design/css": "*"
+  },
+  "license": "MIT"
 }
