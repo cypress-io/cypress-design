@@ -25,7 +25,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "^0.18.0"
+    "@cypress-design/constants-<%= name.toLowerCase() %>": "*",
+    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }

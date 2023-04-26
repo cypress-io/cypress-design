@@ -3,7 +3,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.
 ---
 import * as React from 'react'
 import clsx from 'clsx'
-import { SharedSettings } from '../constants'
+import { SharedSettings } from '@cypress-design/constants-<%= name.toLowerCase() %>'
 
 export interface <%= h.inflection.camelize(name, false) %>Props {
   id: string
