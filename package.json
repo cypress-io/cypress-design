@@ -100,5 +100,9 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
+  },
+  "packageManager": "",
+  "engines": {
+    "node": "16.18.0"
   }
 }

@@ -18,7 +18,7 @@
     "build:types": "tsc -p . --emitDeclarationOnly",
     "build:icons": "node ./build-icons.mjs",
     "build:svg": "svg-to-ts-files",
-    "build": "yarn build:svg && yarn build:icons && echo 'Waiting for build:svg...' && await timeout 10000 && yarn build:lib && yarn build:types"
+    "build": "yarn build:svg && yarn build:icons && echo 'Waiting for build:svg...' && await timeout 5000 && yarn build:lib && yarn build:types"
   },
   "files": [
     "dist"

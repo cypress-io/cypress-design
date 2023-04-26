@@ -21,9 +21,9 @@
   },
   "devDependencies": {
     "@cypress-design/css": "*",
-    "postcss": "^8.4.22",
+    "postcss": "^8.4.23",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.62.0"
+    "sass": "^1.62.1"
   },
   "license": "MIT"
 }
