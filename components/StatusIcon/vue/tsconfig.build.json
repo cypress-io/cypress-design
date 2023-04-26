@@ -1,8 +1,10 @@
 {
   "extends": "../../../tsconfig.vue.json",
-  "include": ["./*.vue", "./*.ts", "../constants.ts"],
+  "include": ["./*.vue", "./*.ts"],
+  "exclude": ["./vite.config.ts"],
   "compilerOptions": {
     "outDir": "dist",
+    "rootDir": "./",
     "composite": false
   }
 }

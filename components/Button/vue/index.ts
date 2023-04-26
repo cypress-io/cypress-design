@@ -1,2 +1,5 @@
 export { default } from './Button.vue'
-export { VariantClassesTable, SizeClassesTable } from '../constants'
+export {
+  VariantClassesTable,
+  SizeClassesTable,
+} from '@cypress-design/constants-button'
