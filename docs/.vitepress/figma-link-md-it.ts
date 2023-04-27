@@ -2,8 +2,6 @@ function addFigmaLink(md: any) {
   // Remember old renderer, if overridden, or proxy to default renderer
   var defaultRender = md.renderer.rules.link_open
 
-  console.log({ defaultRender })
-
   md.renderer.rules.link_open = function (...args: any[]) {
     const [tokens, idx] = args
     const openLinkTagToken = tokens[idx]
@@ -11,6 +9,7 @@ function addFigmaLink(md: any) {
     if (textToken?.type === 'text' && textToken.content.startsWith('figma::')) {
       textToken.content = textToken.content.replace(/^figma::/, '')
       openLinkTagToken.attrPush(['class', 'figma-link'])
+      openLinkTagToken.attrPush(['title', `View ${textToken.content} in Figma`])
     }
 
     // pass token to default renderer.
