@@ -24,7 +24,7 @@
     "build:components": "turbo run build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/constants-*\"",
     "dev": "yarn start",
     "start": "NODE_ENV=development concurrently \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
-    "build:docs": "vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
+    "build:docs": "node docs/scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
     "postinstall": "yarn husky install && yarn build:components",
     "new:component": "hygen component new"
   },
