@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, classesMap } from '../constants'
+import { Tab, classesMap } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
   tabs: Tab[]

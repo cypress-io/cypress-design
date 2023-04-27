@@ -83,7 +83,7 @@
   }
 
   h2 {
-    @apply mt-10 text-3xl text-gray-900 dark:text-gray-100;
+    @apply mt-10 text-3xl text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800 pb-2;
   }
 
   h3 {
@@ -91,11 +91,11 @@
   }
 
   h4 {
-    @apply mt-1 text-md text-gray-500 dark:text-gray-300;
+    @apply mt-2 text-md text-gray-500 dark:text-gray-300;
   }
 
   h5 {
-    @apply mt-4 text-md text-gray-300 dark:text-gray-400;
+    @apply mt-0 text-md text-gray-300 dark:text-gray-400;
   }
 
   .header-anchor:after {
@@ -124,7 +124,7 @@
   }
 
   code {
-    @apply bg-gray-100 dark:bg-gray-900 px-2 py-[2px] rounded;
+    @apply bg-gray-100 dark:bg-gray-900 px-2 py-[2px] rounded my-2;
   }
   pre > code {
     @apply bg-transparent;

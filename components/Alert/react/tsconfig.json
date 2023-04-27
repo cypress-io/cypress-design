@@ -3,10 +3,5 @@
   "compilerOptions": {
     "rootDir": "../"
   },
-  "include": [
-    "*.tsx",
-    "*.ts",
-    "../constants.ts",
-    "../../../cypress/support/*.ts"
-  ]
+  "include": ["*.tsx", "*.ts", "../../../cypress/support/*.ts"]
 }

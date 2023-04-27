@@ -11,6 +11,7 @@
   "workspaces": [
     "components/*/react",
     "components/*/vue",
+    "components/*/constants",
     "packages/*",
     "css",
     "icon-registry",

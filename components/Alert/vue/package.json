@@ -1,33 +1,35 @@
 {
-	"name": "@cypress-design/vue-alert",
-	"version": "0.4.0",
-	"files": [
-		"*"
-	],
-	"typings": "./dist/vue/index.d.ts",
-	"main": "./dist/index.umd.js",
-	"module": "./dist/index.es.mjs",
-	"exports": {
-		".": {
-			"import": "./dist/index.es.mjs",
-			"require": "./dist/index.umd.js"
-		},
-		"./style": {
-			"import": "./dist/style.css",
-			"require": "./dist/style.css"
-		}
-	},
-	"scripts": {
-		"build": "yarn build:module && yarn build:types",
-		"build:module": "yarn vite build",
-		"build:types": "yarn vue-tsc --project ./tsconfig.build.json"
-	},
-	"dependencies": {
-		"@cypress-design/details-animation": "*",
-		"@cypress-design/vue-icon": "*"
-	},
-	"devDependencies": {
-		"@cypress-design/css": "*"
-	},
-	"license": "MIT"
+  "name": "@cypress-design/vue-alert",
+  "version": "0.4.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./style": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "yarn vite build",
+    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cypress-design/details-animation": "*",
+    "@cypress-design/vue-icon": "*"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-alert": "*",
+    "@cypress-design/css": "*"
+  },
+  "license": "MIT"
 }

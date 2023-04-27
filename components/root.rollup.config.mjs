@@ -11,19 +11,11 @@ export default ({ input, plugins = [] }) => ({
       format: 'cjs',
       exports: 'auto',
       sourcemap: true,
-      sourcemapPathTransform: (sourcePath) =>
-        sourcePath.includes('node_modules')
-          ? sourcePath
-          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
     },
     {
       file: './dist/index.es.mjs',
       format: 'esm',
       sourcemap: true,
-      sourcemapPathTransform: (sourcePath) =>
-        sourcePath.includes('node_modules')
-          ? sourcePath
-          : sourcePath.replace(/^\.\.\/\.\.\/(\w)/, `../../react/$1`),
     },
   ],
   plugins: [

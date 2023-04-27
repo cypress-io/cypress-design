@@ -4,7 +4,6 @@
     "target": "es6",
     "moduleResolution": "node",
     "declaration": true,
-    "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "declarationMap": true,

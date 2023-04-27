@@ -2,6 +2,7 @@
   "extends": "../../../tsconfig.react.build.json",
   "include": ["./Tooltip.tsx", "./index.ts"],
   "compilerOptions": {
+    "sourceRoot": "./",
     "outDir": "dist"
   }
 }

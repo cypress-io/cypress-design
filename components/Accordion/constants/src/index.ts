@@ -17,7 +17,7 @@ export const CssClasses = {
 export interface AccordionProps {
   /**
    * Main indigo title.
-   * > [NOTE] Its color and font can be customized using `titleClassName`.
+   * [NOTE] Its color and font can be customized using `titleClassName`.
    */
   title: string
   /**
@@ -51,6 +51,3 @@ export interface AccordionProps {
    */
   fullWidthContent?: boolean
 }
-
-export const FIGMA_URL =
-  'https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=2232%3A3477'

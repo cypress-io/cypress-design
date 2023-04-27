@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { Tab, classesMap } from '../constants'
+import { Tab, classesMap } from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
   defineProps<{

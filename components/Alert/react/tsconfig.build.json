@@ -7,7 +7,7 @@
     "./css-modules.d.ts"
   ],
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "../"
+    "sourceRoot": "./",
+    "outDir": "dist"
   }
 }

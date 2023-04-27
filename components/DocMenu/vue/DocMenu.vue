@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { NavGroup, NavItemLink } from '../constants'
+import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
 import DocGroup from './_DocGroup.vue'
 import DocLink from './_DocLink.vue'
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { NavGroup, NavItemLink } from '../constants'
+import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
 import { DocLink } from './_DocLink'
 import { DocGroup } from './_DocGroup'
 import clsx from 'clsx'

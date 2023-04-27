@@ -1,11 +1,13 @@
 import clsx from 'clsx'
 import * as React from 'react'
-import { ButtonProps, DefaultSize, DefaultVariant } from '../constants'
 import {
+  ButtonProps,
+  DefaultSize,
+  DefaultVariant,
   SizeClassesTable,
   VariantClassesTable,
   StaticClasses,
-} from '../constants'
+} from '@cypress-design/constants-button'
 
 export interface ButtonPropsJsx extends ButtonProps {
   className?: string

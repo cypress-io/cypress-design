@@ -23,7 +23,7 @@ describe('<Accordion/>', () => {
   }
 
   it('can be passed an icon as a prop', () => {
-    mount(Accordion, {
+    mount(Accordion as any, {
       props: {
         title: 'hi',
         icon: IconActionQuestionMarkCircle,
@@ -32,7 +32,7 @@ describe('<Accordion/>', () => {
   })
 
   it('can be passed an icon as an element', () => {
-    mount(Accordion, {
+    mount(Accordion as any, {
       slots,
       props: {
         title: 'hi',
@@ -41,7 +41,7 @@ describe('<Accordion/>', () => {
   })
 
   it('when passed both icon and iconEl, iconEl overrides icon', () => {
-    mount(Accordion, {
+    mount(Accordion as any, {
       icon: IconActionQuestionMarkCircle,
       slots,
       props: {

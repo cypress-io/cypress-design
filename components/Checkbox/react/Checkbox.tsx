@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import * as React from 'react'
 import type { FunctionComponent, HTMLProps, ReactNode } from 'react'
 import { IconCheckmarkSmall } from '@cypress-design/react-icon'
-import { CheckboxColors, Classes } from '../constants'
+import { CheckboxColors, Classes } from '@cypress-design/constants-checkbox'
 
 export interface CheckboxProps
   extends Omit<HTMLProps<HTMLDivElement>, 'label' | 'onChange' | 'name'> {
