@@ -3,11 +3,21 @@ import VitePlugin from 'vite-plugin-windicss'
 import WebpackPlugin from 'windicss-webpack-plugin'
 import { getConfig } from './get-config'
 
-export const CyCSSVitePlugin = (options: UserOptions = {}) =>
-  VitePlugin(getConfig(options))
+export const CyCSSVitePlugin = (options: UserOptions = {}) => {
+  const VitePluginCJS = VitePlugin as any
+  if (typeof VitePluginCJS.default === 'function') {
+    return VitePluginCJS.default(getConfig(options))
+  }
+  return VitePlugin(getConfig(options))
+}
 
-export const CyCSSWebpackPlugin = (options: UserOptions) =>
-  new WebpackPlugin(getConfig(options))
+export const CyCSSWebpackPlugin = (options: UserOptions) => {
+  const WebpackPluginCJS = VitePlugin as any
+  if (typeof WebpackPluginCJS.default === 'function') {
+    return WebpackPluginCJS.default(getConfig(options))
+  }
+  return new WebpackPlugin(getConfig(options))
+}
 
 export * from './colors'
 

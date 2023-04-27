@@ -10,7 +10,7 @@ function uid() {
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { IconCheckmarkSmall } from '@cypress-design/vue-icon'
-import { CheckboxColors, Classes } from '../constants'
+import { CheckboxColors, Classes } from '@cypress-design/constants-checkbox'
 
 const props = withDefaults(
   defineProps<{
@@ -52,6 +52,10 @@ const props = withDefaults(
 const localChecked = ref(props.modelValue || props.checked)
 
 const emit = defineEmits<{
+  /**
+   * Fired when the checkbox changes value
+   * @arg value - The next value of the checkbox
+   */
   (event: 'update:modelValue', value: boolean): void
 }>()
 

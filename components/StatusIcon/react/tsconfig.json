@@ -1,12 +1,8 @@
 {
   "extends": "../../../tsconfig.react.json",
   "compilerOptions": {
-    "rootDir": "../"
+    "sourceRoot": "./",
+    "outDir": "dist"
   },
-  "include": [
-    "*.tsx",
-    "*.ts",
-    "../constants.ts",
-    "../../../cypress/support/*.ts"
-  ]
+  "include": ["*.tsx", "*.ts", "../../../cypress/support/*.ts"]
 }

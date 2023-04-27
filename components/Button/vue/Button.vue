@@ -6,8 +6,9 @@ import {
   StaticClasses,
   DefaultSize,
   DefaultVariant,
-} from '../constants'
-import type { ButtonProps } from '../constants'
+} from '@cypress-design/constants-button'
+
+import type { ButtonProps } from '@cypress-design/constants-button'
 
 export default defineComponent({
   emits: ['click'],

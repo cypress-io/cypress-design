@@ -1,7 +1,7 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { CssClasses } from '../constants'
-import type { AccordionProps } from '../constants'
+import { CssClasses } from '@cypress-design/constants-accordion'
+import type { AccordionProps } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 

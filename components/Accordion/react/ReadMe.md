@@ -1,9 +1,5 @@
 # Accordion
 
-## Summary
-
-Collapsible component with a header and a body.
-
 ## Install
 
 ```bash

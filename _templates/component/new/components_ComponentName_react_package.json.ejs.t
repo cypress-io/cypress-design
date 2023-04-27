@@ -7,7 +7,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
   "files": [
     "*"
   ],
-  "typings": "./dist/react/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "module": "./dist/index.es.mjs",
   "main": "./dist/index.umd.js",
   "exports": {
@@ -25,7 +25,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "^0.18.0"
+    "@cypress-design/constants-<%= name.toLowerCase() %>": "*",
+    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }

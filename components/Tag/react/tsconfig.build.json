@@ -2,7 +2,7 @@
   "extends": "../../../tsconfig.react.build.json",
   "include": ["./Tag.tsx", "./index.ts", "../constants.ts"],
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "../"
+    "sourceRoot": "./",
+    "outDir": "dist"
   }
 }

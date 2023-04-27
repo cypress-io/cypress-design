@@ -4,14 +4,14 @@
   "files": [
     "./dist/*"
   ],
-  "typings": "dist/StatusIcon/vue/index.d.ts",
+  "typings": "dist/index.d.ts",
   "main": "dist/index.umd.js",
   "module": "dist/index.es.mjs",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
       "require": "./dist/index.umd.js",
-      "types": "./dist/StatusIcon/vue/index.d.ts"
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -24,6 +24,7 @@
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-statusicon": "*",
     "@cypress-design/css": "*"
   },
   "license": "MIT"

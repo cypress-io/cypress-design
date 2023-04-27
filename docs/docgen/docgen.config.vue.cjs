@@ -35,20 +35,24 @@ function renderType(p) {
 /**
  *
  * @param {import('vue-component-meta').SlotMeta['schema']} schema
+ * @param {import('vue-docgen-api').SlotDescriptor['bindings']} bindings
  * @returns {import('vue-docgen-api').SlotDescriptor['bindings']}
  */
-function extractBindings(schema) {
+function extractBindings(schema, bindings) {
   if (typeof schema === 'string') {
     return undefined
   }
+
   if (schema.kind === 'object') {
-    return Object.keys(schema.schema).map((k) => {
+    return Object.keys(schema.schema).map((title) => {
+      const binding = bindings?.find((b) => b.title === title) ?? { title }
       return {
-        title: k,
-        type: renderType(schema.schema[k]),
+        ...binding,
+        type: renderType(schema.schema[title]),
       }
     })
   }
+
   return undefined
 }
 
@@ -113,30 +117,35 @@ module.exports = defineConfig({
           })
         : undefined
 
-      const slots = meta.slots.length
-        ? meta.slots.map((s) => {
-            const slot = docgen.slots.find((d) => d.name === s.name)
-            return {
-              ...slot,
-              bindings: extractBindings(s.schema),
-            }
-          })
-        : undefined
-
       const events = meta.events.length
         ? meta.events.map((e) => {
-            const event = docgen.events.find((d) => d.name === e.name)
+            const event = docgen.events.find((d) => d.name === e.name) ?? {}
 
             const typeArray =
               e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
             return {
               ...event,
               properties: e.schema.map((s, i) => {
+                const name = typeArray[i]?.split(':')[0].trim()
+                const propDef = event.properties?.find(
+                  (p) => p.name === name
+                ) ?? { name }
+
                 return {
-                  name: typeArray[i]?.split(':')[0].trim(),
+                  ...propDef,
                   type: renderEventProperty(s),
                 }
               }),
+            }
+          })
+        : undefined
+
+      const slots = meta.slots.length
+        ? meta.slots.map(({ name, schema }) => {
+            const slot = docgen.slots.find((d) => d.name === name) ?? { name }
+            return {
+              ...slot,
+              bindings: extractBindings(schema, slot?.bindings),
             }
           })
         : undefined

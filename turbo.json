@@ -1,21 +1,23 @@
 {
-	"$schema": "https://turborepo.org/schema.json",
-	"pipeline": {
-		"build": {
-			"dependsOn": [
-				"^build"
-			],
-			"inputs": [
-				"*.vue",
-				"*.tsx",
-				"*.ts",
-				"../constants.ts",
-				"!*.cy.tsx",
-				"!*.rootstory.tsx"
-			],
-			"outputs": [
-				"dist/**"
-			]
-		}
-	}
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "tsconfig.json",
+        "tsconfig.build.json",
+        "*.vue",
+        "*.tsx",
+        "*.ts",
+        "src/*.ts",
+        "!*.cy.tsx",
+        "!*.rootstory.tsx"
+      ],
+      "outputs": [
+        "dist/**"
+      ]
+    }
+  }
 }

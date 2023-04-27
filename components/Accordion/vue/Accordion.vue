@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts" setup>
-import { CssClasses } from '../constants'
+import { CssClasses } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import {

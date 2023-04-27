@@ -11,6 +11,8 @@ import <%= h.inflection.camelize(name, false) %> from '@cypress-design/vue-<%= n
 	<div>Demo Here</div>
 </DemoWrapper>
 
+[figma::<%= h.inflection.camelize(name, false) %>](https://www.figma.com/example)
+
 ## Summary
 
 Describe your component here.

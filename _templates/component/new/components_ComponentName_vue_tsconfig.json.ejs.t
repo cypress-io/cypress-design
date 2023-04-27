@@ -4,7 +4,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/tsconfig.json
 {
   "extends": "../../../tsconfig.vue.json",
 	"compilerOptions": {
-    "rootDir": "../"
+    "rootDir": "../../../"
   },
   "include": [
     "*.vue",
