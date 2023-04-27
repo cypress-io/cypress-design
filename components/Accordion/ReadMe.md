@@ -5,8 +5,6 @@ import Accordion from '@cypress-design/vue-accordion'
 
 # Accordion
 
-[figma::Accordion](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?node-id=2232-3477&t=Q3qySwk0qxyTEsyw-4)
-
 <DemoWrapper>
 	<Accordion
 		:icon="IconActionQuestionMarkCircle"
@@ -26,6 +24,4 @@ import Accordion from '@cypress-design/vue-accordion'
 
 The Accordion component is a container that can be expanded or collapsed by clicking on its header. It is useful to display content which is not immediately relevant to the user.
 
-## Figma Link
-
-[Figma Design System v1.x: Accordion](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=2232-3446&t=31Ux0Tiv1c3LsT2Q-11)
+[figma::Accordion](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?node-id=2232-3477&t=Q3qySwk0qxyTEsyw-4)
