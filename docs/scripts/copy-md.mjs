@@ -1,4 +1,5 @@
 // copies all readme files from components to docs
+// to allow sharing without framework
 import { resolve, join } from 'path'
 import { promises as fs } from 'fs'
 import { globby } from 'globby'
