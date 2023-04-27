@@ -19,11 +19,50 @@ Install it in your project to render the components properly.
 
 To do that, follow the two steps below:
 
-### Install :
+1. Install the CSS package in your dev dependencies:
 
 ```bash
 yarn add -D @cypress-design/css
 ```
+
+2. Add the plugin to your bundler configuration:
+
+### Webpack
+
+```js
+const { CyCSSWebpackPlugin } = require('@cypress-design/css')
+
+module.exports = {
+  plugins: [
+    CyCSSWebpackPlugin({
+      scan: {
+        include: ['src/**/*.@(tsx|ts|js|vue)'],
+      },
+    }),
+  ],
+}
+```
+
+### Vite
+
+```js
+import { defineConfig } from 'vite'
+import { CyCSSVitePlugin } from '@cypress-design/css'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    CyCSSVitePlugin({
+      scan: {
+        include: ['/src/**/*.@(tsx|ts|js|vue)'],
+      },
+    }),
+  ],
+})
+```
+
+> **NOTE**: Add your html page and all your react and vue component files to the `scan.include` array.
+> This helps WindiCSS determine which class to include in the final generated CSS.
 
 ### TailwindCSS
 
@@ -70,44 +109,3 @@ module.exports = {
   },
 }
 ```
-
-### Install WindiCSS (deprecated)
-
-2. Add the plugin to your bundler configuration:
-
-### Webpack
-
-```js
-const { CyCSSWebpackPlugin } = require('@cypress-design/css')
-
-module.exports = {
-  plugins: [
-    CyCSSWebpackPlugin({
-      scan: {
-        include: ['src/**/*.@(tsx|ts|js|vue)'],
-      },
-    }),
-  ],
-}
-```
-
-### Vite
-
-```js
-import { defineConfig } from 'vite'
-import { CyCSSVitePlugin } from '@cypress-design/css'
-
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    CyCSSVitePlugin({
-      scan: {
-        include: ['/src/**/*.@(tsx|ts|js|vue)'],
-      },
-    }),
-  ],
-})
-```
-
-> **NOTE**: Add your html page and all your react and vue component files to the `scan.include` array.
-> This helps WindiCSS determine which class to include in the final generated CSS.

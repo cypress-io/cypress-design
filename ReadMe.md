@@ -4,35 +4,36 @@
 
 ### See the docs
 
-The documentation website for this repo is published after each commit to the main branch.
+The storybooks on this repo are published after any commit to the main branch to
 
-You can find the last published version at https://design.cypress.io
+https://design.cypress.io
 
-### Install the CSS package
+### Install windicss
 
-First install the css package, tailwind and autoprefixer
+First install the css package
 
 ```bash
-npm install --save-dev @cypress-design/css tailwindcss autoprefixer
+npm install --save-dev @cypress-design/css
 ```
 
-Then configure your tailwind.config.cjs using the following template
+Then, add the plugins to your bundler
 
 ```js
-// tailwind.config.cjs
-const { TailwindConfig } = require('@cypress-design/css')
+// webpack.config.js
+import { CyCSSWebpackPlugin } from '@cypress-design/css'
 
-module.exports = TailwindConfig([
-  './index.html',
-  './src/**/*.{vue,js,ts,jsx,tsx}',
-])
+export default (config) => ({
+  // the rest of the webpack config...
+  plugins: [
+    //...
+    CyCSSWebpackPlugin(),
+  ],
+})
 ```
 
-Check it out in the docs [here](./css)
+See [the css package ReadMe](./css/) for more options
 
 ### Install each component independently
-
-Components need the css package to work properly. Make sure you have fully setup the `@cypress-design/css` before installing any component.
 
 To make sure each component fix is never blocked by an ongoing refactoring, we decided to publish each component as its own package.
 
@@ -56,18 +57,29 @@ See [the component ReadMe](./components/) for the list of available components a
 
 ## Contributing
 
-### Running the docs locally
+### Running storybook
+
+Open all the storybooks with this command
 
 ```bash
-yarn && yarn start
+yarn start
 ```
 
-This will:
+This will start all 3 storybooks.
 
-- install all dependencies if anything is missing
-- build all the components, specially the ones needed for the docs
-- start the docs website locally
-- give you a link to open in your browser.
+There are 3 storybooks running on this repo.
+
+- [Intro](./storybook/intro/), contains all the common facts Colors, voice & tone, contrast information and how to use the component libraries
+- [React](./storybook/react/), contains all the components usable in a react app
+- [Vue](./storybook/vue/), documents the same components in a vue app
+
+The 3 storybooks are linked using [storybook composition](https://storybook.js.org/docs/react/sharing/storybook-composition).
+
+If you only want to run vue storybook, run the command below. Use the same fashion if you want to only run react.
+
+```bash
+yarn storybook:vue
+```
 
 ### Create a new component
 
@@ -139,13 +151,13 @@ rm -rf components/ComponentName
 rm -f hygen-create.json
 ```
 
-Finally, you should see the `prompt.js` file has been removed. Revert that change before committing.
+Finally, you should see the `prompt.js` file has been moved. Revert that change before committing.
 
 ### Running tests
 
-To run in open mode, run `yarn cy`.
+To run in open mode, run `yarn workspace components cypress:open`.
 
-To run in CLI, run `yarn cypress run --components`.
+To run in CLI, run `yarn workspace components cypress:run`.
 
 ## Structure
 
@@ -153,6 +165,6 @@ To run in CLI, run `yarn cypress run --components`.
 - [packages](./packages/) Some packages do not fit in css or in components but are used in multiple components. They are here.
 - [css](./css/) What you need to install a pre-configured version of WindiCSS in a Cypress project.
 - [icon-registry](./icon-registry/) contains the list of all the svg icons available in the vue-icon and react-icon components.
-- [docs](./docs/) the docs website.
-- [docs/.vitepress/theme](./docs/.vitepress/theme) where you will find all the components and the assets used in the docs website but not published to NPM.
-- [test](./test/) Some sample test projects. We use them as sanity checks to see if the components we build are actually working with a real setup.
+- [storybook-vue](./storybook-vue/) The configuration of a storybook to showcase and work on the vue components.
+- [storybook-react](./storybook-react/) The same as above but for React components.
+- [test](./test/) A sanity check to see if the components we build are actually working with a real setup.
