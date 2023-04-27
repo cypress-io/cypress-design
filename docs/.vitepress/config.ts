@@ -28,6 +28,7 @@ export default defineConfig({
     },
   },
   head: [
+    ['link', { rel: 'shortcut icon', href: '/assets/favicon.ico' }],
     [
       'script',
       { id: 'check-dark-light' },
@@ -61,7 +62,6 @@ export default defineConfig({
         `https://github.com/cypress-io/cypress-design/blob/${branch}/`
       ),
     },
-    // @ts-expect-error
     plugins: CyCSSVitePlugin({
       scan: {
         include: [
