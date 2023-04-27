@@ -151,15 +151,15 @@
   }
 
   .figma-link {
-    background: url(../assets/Figma-logo.svg) no-repeat 8px center;
+    background: url(../assets/Figma-logo.svg) no-repeat 14px center;
     background-size: auto 50%;
-    @apply text-gray-900 dark:text-gray-300 border py-2 pr-3 pl-7 border-gray-100 rounded;
+    @apply inline-block mt-6 text-gray-900 dark:text-gray-300 border py-2 pr-4 pl-10 border-gray-100 rounded;
     &:hover {
-      @apply bg-indigo-50 no-underline;
+      @apply bg-indigo-50 dark:bg-gray-800/50 no-underline;
     }
     &:after {
       content: '↗️';
-      @apply ml-2;
+      @apply ml-2 text-gray-500 font-bold;
     }
   }
 }
