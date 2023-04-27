@@ -53,6 +53,15 @@ export default defineConfig({
   },
   head: [['link', { rel: 'shortcut icon', href: 'favicon.ico' }]],
   rewrites: {
+    ...globbySync(['components/*/*.md'], {
+      cwd: resolve(__dirname, '../../'),
+    }).reduce((acc, path) => {
+      acc[resolve(__dirname, '../../', path)] = path.replace(
+        /\/ReadMe\.md$/i,
+        '.md'
+      )
+      return acc
+    }, {} as Record<string, string>),
     ...globbySync(['*.md'], { cwd: resolve(__dirname, '..') }).reduce(
       (acc, path) => {
         acc[path] = path.replace(/^\d+-/, '')
