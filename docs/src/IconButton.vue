@@ -38,10 +38,12 @@ function focus() {
     width: `${$button.value?.offsetWidth}px`,
     left: `${$button.value?.offsetLeft}px`,
   }
+
   buttonStyle.value = {
     top: `${($button.value?.offsetTop ?? 0) + 4}px`,
     height: `${($button.value?.offsetHeight ?? 0) - 8}px`,
   }
+
   nextTick(() => {
     localFocused.value = true
   })
@@ -61,24 +63,26 @@ const $button = ref<HTMLDivElement>()
     class="bg-indigo-500 rounded"
     :style="placeholderStyle"
   />
-  <div
+
+  <button
     ref="$button"
     class="gap-x-[16px] flex flex-wrap overflow-hidden bg-indigo-50 dark:bg-gray-800"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] rounded md:flex-nowrap justify-end md:justify-start':
         focused,
       'rounded py-[8px] justify-center': !focused,
-      'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0':
+      'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0 transition-transform':
         localFocused,
       'w-[calc(100%-32px)] lg:w-[700px] mx-auto items-end':
         !localFocused && focused,
     }"
+    @click="focus()"
     :style="localFocused ? buttonStyle : undefined"
   >
     <button
       v-if="localFocused"
       class="absolute top-[4px] right-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500 dark:hover:border-gray-500"
-      @click="localFocused = false"
+      @click.stop="localFocused = false"
     >
       <IconActionDeleteMedium />
     </button>
@@ -98,11 +102,10 @@ const $button = ref<HTMLDivElement>()
         /><code>&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code></span
       >
     </p>
-    <button
+    <div
       v-for="size in meta.availableSizes"
       :key="size"
       class="flex gap-[8px] items-end"
-      @click="focus()"
     >
       <div
         class="py-[4px] min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end"
@@ -112,7 +115,7 @@ const $button = ref<HTMLDivElement>()
         }"
       >
         <IconAny :name="iconName" :size="size" />
-        <p class="text-gray-500 text-[12px]">
+        <p class="text-gray-500 text-[12px] mt-1">
           <span v-if="!focused">{{
             iconName.slice(groupName.length + 1)
           }}</span>
@@ -147,6 +150,6 @@ const $button = ref<HTMLDivElement>()
           f+
         </div>
       </div>
-    </button>
-  </div>
+    </div>
+  </button>
 </template>
