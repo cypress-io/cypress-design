@@ -8,6 +8,7 @@ import { resolve } from 'path'
 import _ from 'lodash'
 import { globbySync } from 'globby'
 import vueLiveMd from './vue-live-md-it'
+import figmaLinkMd from './figma-link-md-it'
 import { APPEARANCE_KEY } from './theme/utils/useDarkMode'
 
 const { kebabCase, map, reduce } = _
@@ -25,6 +26,7 @@ export default defineConfig({
   markdown: {
     config(md) {
       md.use(vueLiveMd)
+      md.use(figmaLinkMd)
     },
   },
   head: [

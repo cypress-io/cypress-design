@@ -1,7 +1,6 @@
 import { getImports } from './getImports'
 
 let importMarker = 0
-const initializedPages = new Set<string>()
 
 function addVueLive(md: any) {
   const fence = md.renderer.rules.fence
@@ -85,10 +84,10 @@ function addVueLive(md: any) {
   }
 }
 
-// Dirty hack to make `import anchor from 'markdown-it-anchor'` work with
+// Dirty hack to make `import X from 'markdown-it-X'` work with
 // TypeScript which doesn't support the `module` field of `package.json` and
 // will always get the CommonJS version which otherwise wouldn't have a
-// `default` key, resulting in markdown-it-anchor being undefined when being
+// `default` key, resulting in markdown-it-X being undefined when being
 // imported that way.
 addVueLive.default = addVueLive
 
