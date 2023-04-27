@@ -26,6 +26,8 @@
       padding: 0 24px;
       width: fit-content;
       min-width: 100%;
+      margin: 0;
+      white-space: pre-wrap;
       transition: color 0.5s;
     }
     & > span.lang {
