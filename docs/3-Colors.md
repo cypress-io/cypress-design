@@ -39,7 +39,7 @@ import { colors } from '@cypress-design/css'
 
 and then use them as e.g. `colors.jade[400]`, `colors.indigo[700]`
 
-CSS is generally prefered over this approach, but this can be useful in situations where using CSS would be irrelevant or overly complicated.
+CSS is generally preferred over this approach, but this can be useful in situations where using CSS would be irrelevant or overly complicated.
 
 For example, as a prop for a component:
 
