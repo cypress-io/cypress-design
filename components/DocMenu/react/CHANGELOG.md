@@ -1,5 +1,18 @@
 # @cypress-design/react-docmenu
 
+## 0.2.0
+
+### Minor Changes
+
+- [#196](https://github.com/cypress-io/cypress-design/pull/196) [`fc6d9e4`](https://github.com/cypress-io/cypress-design/commit/fc6d9e4fedcc01fa8e01b868b0fa66d8895c37d0) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: avoid constants relative imports
+
+### Patch Changes
+
+- [#203](https://github.com/cypress-io/cypress-design/pull/203) [`68f7726`](https://github.com/cypress-io/cypress-design/commit/68f77266223181ef479dc7ff77f8a7d32f3e5766) Thanks [@elevatebart](https://github.com/elevatebart)! - allow groups to be active
+
+- Updated dependencies [[`fc6d9e4`](https://github.com/cypress-io/cypress-design/commit/fc6d9e4fedcc01fa8e01b868b0fa66d8895c37d0)]:
+  - @cypress-design/react-icon@0.20.0
+
 ## 0.1.0
 
 ### Minor Changes
