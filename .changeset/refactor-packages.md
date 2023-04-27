@@ -29,6 +29,7 @@
 '@cypress-design/vue-tabs': minor
 '@cypress-design/vue-icon': minor
 '@cypress-design/vue-tag': minor
+'@cypress-design/css': minor
 ---
 
 refactor: avoid constants relative imports
