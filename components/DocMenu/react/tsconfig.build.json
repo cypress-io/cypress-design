@@ -2,7 +2,7 @@
   "extends": "../../../tsconfig.react.build.json",
   "include": ["./DocMenu.tsx", "./index.ts"],
   "compilerOptions": {
-    "outDir": "dist",
-    "rootDir": "./"
+    "sourceRoot": "./",
+    "outDir": "dist"
   }
 }

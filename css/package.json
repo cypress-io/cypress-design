@@ -25,7 +25,7 @@
   },
   "scripts": {
     "build": "yarn build:types && yarn build:lib",
-    "build:types": "tsc -p . --noEmit false --emitDeclarationOnly",
+    "build:types": "tsc -p ./tsconfig.build.json --noEmit false --emitDeclarationOnly",
     "build:lib": "rollup -c ./rollup.config.mjs"
   },
   "dependencies": {
