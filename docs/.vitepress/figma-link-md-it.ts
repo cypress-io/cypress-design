@@ -7,9 +7,11 @@ function addFigmaLink(md: any) {
     const openLinkTagToken = tokens[idx]
     const textToken = tokens[idx + 1]
     if (textToken?.type === 'text' && textToken.content.startsWith('figma::')) {
-      textToken.content = textToken.content.replace(/^figma::/, '')
+      textToken.content = `Open "${textToken.content.replace(
+        /^figma::/,
+        ''
+      )}" in Figma`
       openLinkTagToken.attrPush(['class', 'figma-link'])
-      openLinkTagToken.attrPush(['title', `View ${textToken.content} in Figma`])
     }
 
     // pass token to default renderer.
