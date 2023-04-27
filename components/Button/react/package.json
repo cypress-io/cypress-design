@@ -20,10 +20,10 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-button": "*",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-button": "*",
     "@cypress-design/css": "*"
   },
   "license": "MIT"

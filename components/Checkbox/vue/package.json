@@ -20,10 +20,10 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-checkbox": "*",
     "@cypress-design/react-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-checkbox": "*",
     "@cypress-design/css": "*"
   },
   "license": "MIT"

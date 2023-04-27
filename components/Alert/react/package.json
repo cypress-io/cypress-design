@@ -20,12 +20,12 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-alert": "*",
     "@cypress-design/details-animation": "*",
     "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-alert": "*",
     "@cypress-design/css": "*",
     "postcss": "^8.4.22",
     "rollup-plugin-postcss": "^4.0.2",

@@ -20,11 +20,9 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-docmenu": "*",
     "@cypress-design/react-icon": "*",
     "clsx": "*"
-  },
-  "devDependencies": {
-    "@cypress-design/constants-docmenu": "*"
   },
   "license": "MIT"
 }

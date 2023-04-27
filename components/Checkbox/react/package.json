@@ -20,11 +20,11 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-checkbox": "*",
     "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-checkbox": "*",
     "@cypress-design/css": "*"
   },
   "license": "MIT"
