@@ -1,5 +1,11 @@
 # @cypress-design/react-checkbox
 
+## 0.3.1
+
+### Patch Changes
+
+- [`63ea78a`](https://github.com/cypress-io/cypress-design/commit/63ea78af2062fd5e3fb8c61fa4bcf85fd95e803b) Thanks [@elevatebart](https://github.com/elevatebart)! - add constants package to dependencies
+
 ## 0.3.0
 
 ### Minor Changes
