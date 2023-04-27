@@ -1,4 +1,4 @@
-import { defineConfig } from 'vitepress'
+import { HeadConfig, defineConfig } from 'vitepress'
 import {
   CyCSSVitePlugin,
   WindiIconExtractor,
@@ -9,7 +9,6 @@ import _ from 'lodash'
 import { globbySync } from 'globby'
 import vueLiveMd from './vue-live-md-it'
 import figmaLinkMd from './figma-link-md-it'
-import { APPEARANCE_KEY } from './theme/utils/useDarkMode'
 
 const { kebabCase, map, reduce } = _
 
@@ -22,6 +21,7 @@ const fallbackPreference = 'auto'
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
   title: 'Cypress Design System',
+  description: 'The documentation website for building UI at Cypress',
   outDir: './dist',
   markdown: {
     config(md) {
@@ -29,22 +29,29 @@ export default defineConfig({
       md.use(figmaLinkMd)
     },
   },
-  head: [
-    ['link', { rel: 'shortcut icon', href: '/assets/favicon.ico' }],
-    [
-      'script',
-      { id: 'check-dark-light' },
-      `
-      ;(() => {
-        const preference = localStorage.getItem('${APPEARANCE_KEY}') || '${fallbackPreference}'
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        if (!preference || preference === 'auto' ? prefersDark : preference === 'dark') {
-          document.documentElement.classList.add('dark')
-        }
-      })()
-    `,
-    ],
-  ],
+  transformHead: ({ pageData }) => {
+    const head: HeadConfig[] = []
+
+    if (pageData.frontmatter.title) {
+      head.push([
+        'meta',
+        { property: 'og:title', content: pageData.frontmatter.title },
+      ])
+    }
+
+    if (pageData.frontmatter.description) {
+      head.push([
+        'meta',
+        {
+          property: 'og:description',
+          content: pageData.frontmatter.description,
+        },
+      ])
+    }
+
+    return head
+  },
+  head: [['link', { rel: 'shortcut icon', href: 'favicon.ico' }]],
   rewrites: {
     ...globbySync(['*.md'], { cwd: resolve(__dirname, '..') }).reduce(
       (acc, path) => {

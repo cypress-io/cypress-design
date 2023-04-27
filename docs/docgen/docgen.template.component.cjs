@@ -9,6 +9,14 @@ module.exports = function (...args) {
   const tempName = `__${doc.displayName}__`
 
   return `
+---
+title: ${doc.displayName}
+${
+  doc.description?.length
+    ? `
+description: ${doc.description}`
+    : ''
+}---
 <script lang="ts" setup>
 import { ${
     doc.exportName
