@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, Ref, ref } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
-import { NavGroup, classes } from '../constants'
+import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocLink from './_DocLink.vue'
 import DocGroup from './_DocGroup.vue'
 
@@ -18,7 +18,7 @@ const props = withDefaults(
 
 const open = ref(props.depth === 0)
 
-const $groups = ref<(typeof DocGroup)[]>([])
+const $groups = ref<{ height: number }[]>([])
 
 const height = computed(() => {
   return $groups.value && open.value
@@ -68,6 +68,7 @@ const Head = computed(() =>
       {
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
+        'text-indigo-500 dark:text-indigo-200': props.group.active,
       },
     ]"
     :href="props.group.href"
@@ -113,7 +114,7 @@ const Head = computed(() =>
     }"
   >
     <template v-for="item in group.items">
-      <li class="relative list-none p-0" v-if="'items' in item">
+      <li class="relative list-none p-0" v-if="item && 'items' in item">
         <DocGroup
           ref="$groups"
           :group="item"

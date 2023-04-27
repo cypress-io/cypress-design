@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { Size, statusTypes, Variant } from '../constants'
+import type {
+  Size,
+  statusTypes,
+  Variant,
+} from '@cypress-design/constants-statusicon'
 import OutlineStatusIcon from './_OutlineStatusIcon'
 import SimpleStatusIcon from './_SimpleStatusIcon'
 import SolidStatusIcon from './_SolidStatusIcon'

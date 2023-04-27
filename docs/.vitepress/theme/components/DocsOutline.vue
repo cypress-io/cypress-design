@@ -5,9 +5,9 @@ import DocMenu, { NavGroup, NavItemLink } from '@cypress-design/vue-docmenu'
 import { getHeaders } from '../utils/outline'
 import {} from 'fs'
 
-type NavItems = (NavGroup | NavItemLink)[]
+type NavItem = NavGroup | NavItemLink
 
-const headers = ref<NavItems>([])
+const headers = ref<NavItem[]>([])
 
 function update() {
   headers.value = getHeaders([2, 3])
@@ -39,10 +39,10 @@ function throttleAndDebounce(fn: () => void, delay: number): () => void {
   }
 }
 
-function setHeaderActiveStatus(headers: Ref<NavItems>, activeHref: string) {
+function setHeaderActiveStatus(headers: Ref<NavItem[]>, activeHref: string) {
   headers.value.forEach((header) => {
     if ('items' in header) {
-      header.items.forEach((item) => {
+      header.items.forEach((item: NavItem) => {
         if ('href' in item) {
           item.active = item.href === activeHref
         }
@@ -66,7 +66,7 @@ function setActiveHeader() {
   if (visibleHeadings.length) {
     headers.value.forEach((header) => {
       if ('items' in header) {
-        header.items.forEach((item) => {
+        header.items.forEach((item: NavItem) => {
           if ('href' in item) {
             item.active = visibleHeadings.some(
               (heading) => `#${heading.id}` === item.href

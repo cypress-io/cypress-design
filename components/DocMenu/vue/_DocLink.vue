@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { NavItemLink } from '../constants'
+import type { NavItemLink } from '@cypress-design/constants-docmenu'
 
 withDefaults(
   defineProps<{
