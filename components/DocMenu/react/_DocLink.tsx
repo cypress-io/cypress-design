@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { NavItemLink } from '../constants'
+import { NavItemLink } from '@cypress-design/constants-docmenu'
 
 export interface DocLinkProps {
   item: NavItemLink

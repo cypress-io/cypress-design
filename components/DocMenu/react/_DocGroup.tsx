@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
-import { NavGroup, classes } from '../constants'
+import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import { DocLink } from './_DocLink'
 
 export interface DocGroupProps {
@@ -60,6 +60,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
         onClick={() => toggleMenu(!open)}
         href={group.href}
         className={clsx(classes.button, {
+          'text-indigo-500 dark:text-indigo-200': group.active,
           [classes.topButton]: depth === 0,
           [classes.leafButton]: depth,
         })}
