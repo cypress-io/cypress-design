@@ -4,7 +4,7 @@ import {
   WindiIconExtractor,
   colors,
 } from '@cypress-design/css'
-import { join, resolve } from 'path'
+import { resolve } from 'path'
 import _ from 'lodash'
 import { globbySync } from 'globby'
 import vueLiveMd from './vue-live-md-it'
