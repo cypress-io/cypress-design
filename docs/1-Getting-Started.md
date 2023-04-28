@@ -1,3 +1,8 @@
+---
+title: Cypress Design System
+titleTemplate: Cypress Design System
+---
+
 # Cypress Design System
 
 ---

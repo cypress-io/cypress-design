@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { nextTick, onMounted, ref, Ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, Ref, watch } from 'vue'
 import { onContentUpdated } from 'vitepress'
 import DocMenu, { NavGroup, NavItemLink } from '@cypress-design/vue-docmenu'
 import { getHeaders } from '../utils/outline'
@@ -73,11 +73,10 @@ function setActiveHeader() {
             )
           }
         })
-      } else {
-        header.active = visibleHeadings.some(
-          (heading) => `#${heading.id}` === header.href
-        )
       }
+      header.active = visibleHeadings.some(
+        (heading) => `#${heading.id}` === header.href
+      )
     })
     return
   }
