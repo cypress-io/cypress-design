@@ -1,11 +1,6 @@
 # Tooltip
 
-## Summary
-
-Use the tooltip component to display a message when the user hovers over an element.
-For accessibility, it also triggers on focus.
-
-To allow focus, one has to add `tabIndex="0"` to the Tooltip element.
+> tip: To allow focus, one has to add `tabIndex="0"` to the Tooltip element.
 
 ```vue live
 <Tooltip class="inline-block" tabIndex="0">

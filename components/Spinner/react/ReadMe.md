@@ -1,9 +1,5 @@
 # Spinner
 
-## Summary
-
-Spinner/loader branded to cypress colors.
-
 ## Install
 
 ```bash
@@ -18,7 +14,7 @@ yarn add @cypress-design/react-spinner
 
 ## Usage
 
-```tsx
+```tsx live
 import Spinner from '@cypress-design/react-spinner'
 
 export default () => (

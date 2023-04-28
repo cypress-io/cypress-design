@@ -1,9 +1,5 @@
 # StatusIcon
 
-## Summary
-
-The icons that get displayed to represent run, spec, group, and test result statuses.
-
 ## Install
 
 ```bash

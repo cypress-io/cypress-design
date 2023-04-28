@@ -1,9 +1,5 @@
 # Spinner
 
-## Summary
-
-Spinner/loader branded to cypress colors.
-
 ## Install
 
 ```bash

@@ -19,7 +19,7 @@ Install it in your project to render the components properly.
 
 To do that, follow the two steps below:
 
-### Install :
+### Install
 
 ```bash
 yarn add -D @cypress-design/css

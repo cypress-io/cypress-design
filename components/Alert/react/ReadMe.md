@@ -1,14 +1,5 @@
 # Alert
 
-## Summary
-
-Use the alert when you need a banner of some kind.
-Examples:
-
-- To give temporary information to the user.
-- To attract attention to a specific note on the page.
-- To inform the user of a change in the system.
-
 ## Install
 
 ```bash

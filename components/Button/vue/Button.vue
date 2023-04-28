@@ -11,7 +11,11 @@ import {
 import type { ButtonProps } from '@cypress-design/constants-button'
 
 export default defineComponent({
-  emits: ['click'],
+  emits: {
+    click($event: MouseEvent) {
+      return !!$event
+    },
+  },
   props: ['variant', 'size', 'disabled', 'href'] as any,
   setup(props: ButtonProps) {
     const {
