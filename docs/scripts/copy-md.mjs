@@ -1,5 +1,11 @@
-// copies all readme files from components to docs
-// to allow sharing without framework
+/**
+ * Object: When one shares https://design.cypress.io/components/Alert one should not get a 404
+ *
+ * since we only aim to generate those pages to avoid 404 when sharing links
+ * we only need to copy metadata. the rest of the readme is not as useful.
+ * Since we import components in those readmes,
+ * it would even be prone to error to copy their content.
+ */
 import { resolve, dirname } from 'path'
 import { promises as fs } from 'fs'
 import { globby } from 'globby'
@@ -25,5 +31,5 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
       return fs.writeFile(resolve(__dirname, '..', dest), fileContents, 'utf8')
     })
   )
-  console.log('Copied all component readmes to docs')
+  console.log('Generated all component readmes to docs')
 })()
