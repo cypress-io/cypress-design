@@ -1,6 +1,6 @@
 // copies all readme files from components to docs
 // to allow sharing without framework
-import { resolve, join } from 'path'
+import { resolve, dirname } from 'path'
 import { promises as fs } from 'fs'
 import { globby } from 'globby'
 import * as url from 'url'
@@ -26,6 +26,10 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
       console.log({ source, dest })
       // read the source file
       const fileContents = await fs.readFile(source, 'utf8')
+
+      // create the destination directory
+      const destDir = dirname(resolve(__dirname, '..', dest))
+      await fs.mkdir(destDir, { recursive: true })
 
       // write the file to the docs folder
       return fs.writeFile(resolve(__dirname, '..', dest), fileContents, 'utf8')
