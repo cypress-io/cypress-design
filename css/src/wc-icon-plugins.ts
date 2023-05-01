@@ -201,6 +201,11 @@ export const IconDuotoneColorsPlugin = createPlugin(
         return `.${className}:focus`
       })
     })
+    addVariant('icon-focus-within', ({ modifySelectors }) => {
+      return modifySelectors(({ className }) => {
+        return `.${className}:focus-within`
+      })
+    })
     addVariant('icon-hocus', ({ modifySelectors }) => {
       return modifySelectors(({ className }) => {
         return `.${className}:hover, .${className}:focus`

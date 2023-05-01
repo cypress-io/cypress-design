@@ -5,25 +5,19 @@
  */
 
 import { fileURLToPath } from 'url'
+import { COLOR_PREFIXES } from '@cypress-design/css'
 import * as path from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
 import { promises as fs } from 'fs'
 import camelCase from 'camelcase'
+import _ from 'lodash'
 import dedent from 'dedent'
 import {
   cyColors,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
 } from '@cypress-design/css'
-
-const propsRE = {
-  hasStrokeColor: /icon-dark/,
-  hasFillColor: /icon-light/,
-  hasSecondaryStrokeColor: /icon-dark-secondary/,
-  hasSecondaryFillColor: /icon-light-secondary/,
-}
 
 const propDescriptions = {
   StrokeColor: 'Color of the stroke',
@@ -32,9 +26,20 @@ const propDescriptions = {
   SecondaryFillColor: 'Color of the secondary fill',
 }
 
+const ColorRoots = Object.keys(propDescriptions)
+
+const propsRE = ColorRoots.reduce((acc, colorRoot) => {
+  acc[`has${_.upperFirst(colorRoot)}`] = new RegExp(
+    // remove the -color suffix & make it kebab case
+    _.kebabCase(colorRoot.slice(0, -5))
+  )
+  return acc
+}, {})
+
 const prefixDescriptions = {
   hover: (root) => `${root} when hovered`,
   focus: (root) => `${root} when focused`,
+  'focus-within': (root) => `${root} when focus is set within`,
   hocus: (root) => `${root} when both focused and hovered`,
 }
 
@@ -117,14 +122,6 @@ async function ensureDistExist() {
     }
   }
 }
-
-const prefixes = ['', 'hover', 'focus', 'hocus']
-const ColorRoots = [
-  'StrokeColor',
-  'FillColor',
-  'SecondaryStrokeColor',
-  'SecondaryFillColor',
-]
 
 async function generateIndex(iconsObjectUnique) {
   const indexFileContent = iconsObjectUnique
@@ -253,18 +250,19 @@ async function generateIndex(iconsObjectUnique) {
   ${ColorRoots.map(
     (root) =>
       dedent`
-        interface Has${camelCase(`${root}`, { pascalCase: true })} {${prefixes
-        .map(
-          (prefix) => `  
+        interface Has${camelCase(`${root}`, {
+          pascalCase: true,
+        })} {${COLOR_PREFIXES.map(
+        (prefix) => `  
             /**
              * ${
                prefix
-                 ? prefixDescriptions[prefix](propDescriptions[root])
+                 ? prefixDescriptions[prefix]?.(propDescriptions[root])
                  : propDescriptions[root]
              }
              */
             ${camelCase(`${prefix}${root}`)}?: WindiColor;`
-        )
+      )
         .filter(Boolean)
         .join('')}
         }`
