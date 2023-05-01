@@ -7,6 +7,7 @@ import { CyCSSVitePlugin } from '@cypress-design/css'
 export default defineConfig({
   projectId: '89d3nq',
   fixturesFolder: false,
+
   component: {
     devServer: {
       framework: 'vue',
@@ -37,6 +38,12 @@ export default defineConfig({
           }),
         ],
       },
+    },
+  },
+
+  e2e: {
+    setupNodeEvents(on, config) {
+      // implement node event listeners here
     },
   },
 })
