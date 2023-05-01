@@ -67,7 +67,7 @@ const $button = ref<HTMLDivElement>()
   />
   <button
     ref="$button"
-    class="gap-x-[16px] flex flex-wrap overflow-hidden bg-indigo-50 dark:bg-gray-800"
+    class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 dark:bg-gray-800 min-h-[72px]"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] rounded md:flex-nowrap justify-end md:justify-start':
         focused,
@@ -77,8 +77,8 @@ const $button = ref<HTMLDivElement>()
       'w-[calc(100%-32px)] lg:w-[700px] mx-auto items-end':
         !localFocused && focused,
     }"
-    @click="focus()"
     :style="localFocused ? buttonStyle : undefined"
+    @click="!focused ? focus() : undefined"
   >
     <button
       v-if="localFocused"
@@ -95,12 +95,16 @@ const $button = ref<HTMLDivElement>()
       }"
     >
       <span class="flex items-center md:justify-end mb-[8px] gap-x-[8px] group"
-        ><CopyButton :text="iconName" /><code>{{ iconName }}</code></span
+        ><CopyButton :text="iconName" /><code class="!m-0">{{
+          iconName
+        }}</code></span
       >
       <span class="flex items-center md:justify-end gap-x-[8px] group"
         ><CopyButton
           :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
-        /><code>&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code></span
+        /><code class="!m-0"
+          >&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code
+        ></span
       >
     </p>
     <div
