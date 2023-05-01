@@ -24,7 +24,7 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
       const fileContents = `# ${dest.split('/').pop()?.slice(0, -3)}\n`
 
       // create the destination directory
-      const destFullPath = resolve(__dirname, 'docs', dest)
+      const destFullPath = resolve(__dirname, '..', 'docs', dest)
       const destDir = dirname(destFullPath)
       await fs.mkdir(destDir, { recursive: true })
 
