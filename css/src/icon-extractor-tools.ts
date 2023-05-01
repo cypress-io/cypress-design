@@ -1,15 +1,7 @@
 import _ from 'lodash'
-import { colors } from './colors'
+import { COLOR_PREFIXES, colors } from './colors'
 
 const { camelCase, kebabCase } = _
-
-export const COLOR_PREFIXES = [
-  'hover',
-  'focus',
-  'focus-within',
-  'hocus',
-  '',
-] as const
 
 const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
   FillColor: (attrValue: string) => `icon-light-${attrValue}`,

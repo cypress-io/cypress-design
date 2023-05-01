@@ -2,6 +2,14 @@
 
 import Colors from 'windicss/colors'
 
+export const COLOR_PREFIXES = [
+  'hover',
+  'focus',
+  'focus-within',
+  'hocus',
+  '',
+] as const
+
 export const cyColors = {
   jade: {
     50: '#E4FBF2',

@@ -23,7 +23,6 @@ export * from './colors'
 
 export {
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
-  COLOR_PREFIXES,
   ADDITIONAL_COLORS,
 } from './icon-extractor-tools'
 
