@@ -28,13 +28,12 @@ const propDescriptions = {
 
 const ColorRoots = Object.keys(propDescriptions)
 
-const propsRE = ColorRoots.reduce((acc, colorRoot) => {
-  acc[`has${_.upperFirst(colorRoot)}`] = new RegExp(
-    // remove the -color suffix & make it kebab case
-    _.kebabCase(colorRoot.slice(0, -5))
-  )
-  return acc
-}, {})
+const propsRE = {
+  hasStrokeColor: /icon-dark/,
+  hasFillColor: /icon-light/,
+  hasSecondaryStrokeColor: /icon-dark-secondary/,
+  hasSecondaryFillColor: /icon-light-secondary/,
+}
 
 const prefixDescriptions = {
   hover: (root) => `${root} when hovered`,

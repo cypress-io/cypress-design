@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { computed, nextTick, ref } from 'vue'
-import Icon, { IconActionDeleteMedium } from '@cypress-design/vue-icon'
+import { IconActionDeleteMedium } from '@cypress-design/vue-icon'
 import _ from 'lodash'
 import CopyButton from './CopyButton.vue'
+import IconSized from './IconSized.vue'
 
 const { upperFirst, camelCase } = _
 
@@ -16,8 +17,6 @@ const props = defineProps<{
 const localFocused = ref(false)
 
 const focused = computed(() => props.focused || localFocused.value)
-
-const IconAny = Icon as any
 
 const placeholderStyle = ref({
   width: '1px',
@@ -69,7 +68,7 @@ const $button = ref<HTMLDivElement>()
     ref="$button"
     class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 dark:bg-gray-800 min-h-[72px]"
     :class="{
-      'mx-[16px] px-[8px] pb-[4px] rounded md:flex-nowrap justify-end md:justify-start':
+      'mx-[16px] px-[8px] pb-[4px] rounded md:flex-nowrap justify-end md:justify-start !cursor-default':
         focused,
       'rounded py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors':
         !focused,
@@ -108,54 +107,14 @@ const $button = ref<HTMLDivElement>()
         ></span
       >
     </p>
-    <div
+    <IconSized
       v-for="size in meta.availableSizes"
       :key="size"
-      class="flex gap-[8px] items-end"
-    >
-      <div
-        class="py-[4px] min-w-[32px] flex flex-col items-center gap-x-[16px] gap-y-[4px] justify-end"
-        :class="{
-          'pl-[4px] border-l border-gray-300': focused,
-          'px-[8px] md:px-[4px] md:w-[164px]': !focused,
-        }"
-      >
-        <IconAny :name="iconName" :size="size" />
-        <p class="text-gray-500 text-[12px] mt-1">
-          <span v-if="!focused">{{
-            iconName.slice(groupName.length + 1)
-          }}</span>
-          {{ size }}
-        </p>
-      </div>
-      <div
-        v-if="focused"
-        :key="`${iconName}_${size}`"
-        class="text-center text-teal-500"
-      >
-        <div v-if="meta.hasStrokeColor && meta.hasStrokeColor.includes(size)">
-          s
-        </div>
-        <div v-if="meta.hasFillColor && meta.hasFillColor.includes(size)">
-          f
-        </div>
-        <div
-          v-if="
-            meta.hasSecondaryStrokeColor &&
-            meta.hasSecondaryStrokeColor.includes(size)
-          "
-        >
-          s+
-        </div>
-        <div
-          v-if="
-            meta.hasSecondaryFillColor &&
-            meta.hasSecondaryFillColor.includes(size)
-          "
-        >
-          f+
-        </div>
-      </div>
-    </div>
+      :focused="focused"
+      :iconName="iconName"
+      :groupName="groupName"
+      :size="size"
+      :meta="meta"
+    />
   </button>
 </template>
