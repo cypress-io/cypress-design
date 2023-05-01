@@ -12,7 +12,7 @@ export const CyCSSVitePlugin = (options: UserOptions = {}) => {
 }
 
 export const CyCSSWebpackPlugin = (options: UserOptions) => {
-  const WebpackPluginCJS = VitePlugin as any
+  const WebpackPluginCJS = WebpackPlugin as any
   if (typeof WebpackPluginCJS.default === 'function') {
     return WebpackPluginCJS.default(getConfig(options))
   }

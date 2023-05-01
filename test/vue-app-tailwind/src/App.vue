@@ -37,10 +37,7 @@ const checked = ref(false)
     <Accordion title="hi">
       hello
       <template #iconEl>
-        <IconActionQuestionMarkCircle
-          strokeColor="jade-600"
-          fillColor="jade-50"
-        />
+        <IconActionQuestionMarkCircle fillColor="jade-50" />
       </template>
     </Accordion>
   </div>
