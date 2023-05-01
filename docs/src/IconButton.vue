@@ -71,7 +71,8 @@ const $button = ref<HTMLDivElement>()
     :class="{
       'mx-[16px] px-[8px] pb-[4px] rounded md:flex-nowrap justify-end md:justify-start':
         focused,
-      'rounded py-[8px] justify-center': !focused,
+      'rounded py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors':
+        !focused,
       'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0 transition-transform':
         localFocused,
       'w-[calc(100%-32px)] lg:w-[700px] mx-auto items-end':
