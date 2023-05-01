@@ -12,6 +12,8 @@
         "*.tsx",
         "*.ts",
         "src/*.ts",
+        "src/*.mjs",
+        "src/*.js",
         "!*.cy.tsx",
         "!*.rootstory.tsx"
       ],
