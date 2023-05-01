@@ -3,6 +3,7 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import sucrase from '@rollup/plugin-sucrase'
 import { CyCSSVitePlugin } from '@cypress-design/css'
+import createBundler from '@bahmutov/cypress-esbuild-preprocessor'
 
 export default defineConfig({
   projectId: '89d3nq',
@@ -43,5 +44,8 @@ export default defineConfig({
 
   e2e: {
     baseUrl: 'http://localhost:5173/',
+    setupNodeEvents(on, config) {
+      on('file:preprocessor', createBundler())
+    },
   },
 })

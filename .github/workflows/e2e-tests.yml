@@ -36,18 +36,16 @@ jobs:
         run: |
           set -e
 
-          # Loop through each subdirectory and run "yarn build"
-          for dir in test/* ; do
-            echo "Building $dir..."
-            yarn run --cwd=$dir build
-          done
-
-      - name: Test each test project dev mode
-        run: |
-          set -e
+          # Define the ANSI escape code for blue text
+          BLUE='\033[0;34m'
+          NC='\033[0m' # No Color
 
           # Loop through each subdirectory and run "yarn build"
           for dir in test/* ; do
-            echo "Testing Dir $dir..."
-            yarn start-server-and-test "yarn --cwd=$dir dev" http://localhost:5173 'yarn cypress run --e2e'
+            echo "--------"
+            echo "Building ${BLUE}$dir${NC}..."
+            npx start-server-and-test -- "yarn --cwd=$dir dev" http://localhost:5173 'yarn cypress run --e2e'
+            npx start-server-and-test -- "yarn --cwd=$dir build && yarn vite preview $dir --port=5173" http://localhost:5173 'yarn cypress run --e2e'
+            echo " "
+            echo " "
           done
