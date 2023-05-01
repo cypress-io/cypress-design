@@ -3,9 +3,9 @@
 import Colors from 'windicss/colors'
 
 export const COLOR_PREFIXES = [
+  'focus-within',
   'hover',
   'focus',
-  'focus-within',
   'hocus',
   '',
 ] as const

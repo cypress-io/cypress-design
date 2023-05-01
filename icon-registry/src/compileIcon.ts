@@ -68,7 +68,7 @@ export const getComponentAttributes = (
 
       const pseudoClass = COLOR_PREFIXES.reduce((state, sta) => {
         if (state.length) return state
-        return lowerCaseColor.includes(sta) ? sta : ''
+        return lowerCaseColor.includes(sta.replace(/-/g, '')) ? sta : ''
       }, '')
 
       const prefix = pseudoClass.length
