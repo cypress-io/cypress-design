@@ -4,18 +4,28 @@ import { Tab, classesMap } from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
   defineProps<{
+    /**
+     * The tabs to display
+     */
     tabs: Tab[]
-    type?: keyof typeof classesMap
+    /**
+     * Appearance of tabs
+     */
+    variant?: keyof typeof classesMap
   }>(),
   {
-    type: 'default',
+    variant: 'default',
   }
 )
 
 const $tab = ref<HTMLButtonElement[]>()
 
 const emit = defineEmits<{
-  (event: 'change', tab: Tab): void
+  /**
+   * A tab is changed
+   * @param tab new tab selected
+   */
+  (event: 'switch', tab: Tab): void
 }>()
 
 const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
@@ -63,12 +73,12 @@ function navigate(shift: number) {
       : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
   $tab.value?.[nextIndex]?.focus()
-  emit('change', props.tabs[nextIndex])
+  emit('switch', props.tabs[nextIndex])
 }
 
 const classes = computed(() => {
-  if (props.type in classesMap) {
-    return classesMap[props.type]
+  if (props.variant in classesMap) {
+    return classesMap[props.variant]
   }
   return classesMap.default
 })
@@ -97,7 +107,7 @@ const classes = computed(() => {
           if(e.ctrlKey || e.metaKey) return
           e.preventDefault()
           activeId = tab.id
-          emit('change', tab)
+          emit('switch', tab)
         }
       "
       @keyup.left="navigate(-1)"
@@ -107,7 +117,7 @@ const classes = computed(() => {
         v-if="tab.iconBefore ?? tab.icon"
         :is="tab.iconBefore ?? tab.icon"
         class="mr-[8px]"
-        :size="props.type === 'underline-large' ? '24' : '16'"
+        :size="props.variant === 'underline-large' ? '24' : '16'"
       />
       {{ tab.label }}
       <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
@@ -115,7 +125,7 @@ const classes = computed(() => {
         v-if="tab.iconAfter"
         :is="tab.iconAfter"
         class="ml-[8px]"
-        :size="props.type === 'underline-large' ? '24' : '16'"
+        :size="props.variant === 'underline-large' ? '24' : '16'"
       />
       <div
         v-if="tab.id === activeId && !activeMarkerStyle"

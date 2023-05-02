@@ -4,24 +4,24 @@ import { Tab, classesMap } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
   /**
-   * Array of tabs
+   * The tabs to display
    */
   tabs: Tab[]
   /**
-   * Appearance of tabs (should be called variant)
+   * Appearance of tabs
    */
-  type?: keyof typeof classesMap
+  variant?: keyof typeof classesMap
   /**
    * Callback when tab is changed
-   * @param tab
+   * @param tab new tab selected
    */
-  onChange?: (tab: Tab) => void
+  onSwitch?: (tab: Tab) => void
 }
 
 export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   tabs,
-  onChange,
-  type = 'default',
+  onSwitch,
+  variant = 'default',
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
@@ -62,10 +62,11 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
         : shiftedIndex
     setActiveId(tabs[nextIndex].id)
     $tab.current?.[nextIndex]?.focus()
-    onChange?.(tabs[nextIndex])
+    onSwitch?.(tabs[nextIndex])
   }
 
-  const classes = type in classesMap ? classesMap[type] : classesMap.default
+  const classes =
+    variant in classesMap ? classesMap[variant] : classesMap.default
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
@@ -90,7 +91,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
               setActiveId(tab.id)
-              onChange?.(tab)
+              onSwitch?.(tab)
             }}
             onKeyUp={(e) => {
               if (e.key === 'ArrowRight') {
@@ -106,7 +107,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 return IconBefore ? (
                   <IconBefore
                     className="mr-[8px]"
-                    size={type !== 'underline-large' ? '24' : '16'}
+                    size={variant !== 'underline-large' ? '24' : '16'}
                   />
                 ) : null
               }}
@@ -115,7 +116,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
               {tab.iconAfter ? (
                 <tab.iconAfter
                   className="ml-[8px]"
-                  size={type !== 'underline-large' ? '24' : '16'}
+                  size={variant !== 'underline-large' ? '24' : '16'}
                 />
               ) : null}
             </>

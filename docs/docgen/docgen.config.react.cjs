@@ -15,7 +15,7 @@ const parser = withCustomConfig(tsconfigPath, {
 
   propFilter: (prop) => {
     if (prop.declarations !== undefined && prop.declarations.length > 0) {
-      const isNodeModules = prop.declarations.some((declaration) => {
+      const isNodeModules = prop.declarations.every((declaration) => {
         return declaration.fileName.includes('node_modules')
       })
 
