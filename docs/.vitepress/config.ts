@@ -104,7 +104,12 @@ export default defineConfig({
 
 function safeColors() {
   return reduce(
-    { ...colors, transparent: { ONLY: true }, current: { ONLY: true } },
+    {
+      ...colors,
+      transparent: { ONLY: true },
+      current: { ONLY: true },
+      white: { ONLY: true },
+    },
     (acc, variants, colorName) => {
       const name = kebabCase(colorName)
 

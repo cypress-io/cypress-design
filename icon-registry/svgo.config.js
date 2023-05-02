@@ -1,4 +1,4 @@
-const extractBodyPlugin = require('./extractBodyPlugin')
+const extractBodyPlugin = require('./svgo-plugins/extractBodyPlugin')
 
 module.exports = {
   plugins: [

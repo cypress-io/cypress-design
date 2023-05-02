@@ -21,14 +21,21 @@ function copyCode(text: string) {
 </script>
 
 <template>
-  <button
-    v-if="!copiedSuccess"
-    class="invisible group-hover:visible text-indigo-500 text-[12px] w-[32px]"
-    @click="(e) => copyCode(text)"
-  >
-    copy
-  </button>
-  <span v-else class="text-green-500 text-[12px] inline-block w-[32px]"
-    >copied</span
-  >
+  <div class="relative">
+    <button
+      class="invisible group-hover:visible text-indigo-500 text-[12px] w-[32px]"
+      :class="{
+        'opacity-0': copiedSuccess,
+        'opacity-100': !copiedSuccess,
+      }"
+      @click="() => copyCode(text)"
+    >
+      copy
+    </button>
+    <span
+      v-if="copiedSuccess"
+      class="text-green-500 text-[12px] inline-block w-[40px] absolute right-0 top-1"
+      >copied</span
+    >
+  </div>
 </template>
