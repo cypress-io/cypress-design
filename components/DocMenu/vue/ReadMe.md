@@ -15,7 +15,7 @@ yarn add @cypress-design/vue-docmenu
 ## Usage
 
 ```ts
-import Checkbox from '@cypress-design/vue-checkbox'
+import DocMenu from '@cypress-design/vue-docmenu'
 ```
 
 ```vue live

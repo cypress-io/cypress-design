@@ -15,7 +15,7 @@ yarn add @cypress-design/react-docmenu
 ## Usage
 
 ```ts
-import Checkbox from '@cypress-design/react-checkbox'
+import DocMenu from '@cypress-design/react-docmenu'
 ```
 
 ```tsx live
