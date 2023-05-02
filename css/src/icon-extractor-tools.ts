@@ -1,9 +1,7 @@
 import _ from 'lodash'
-import { colors } from './colors'
+import { COLOR_PREFIXES, colors } from './colors'
 
 const { camelCase, kebabCase } = _
-
-const prefixes = ['', 'hover', 'focus', 'hocus'] as const
 
 const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
   FillColor: (attrValue: string) => `icon-light-${attrValue}`,
@@ -19,7 +17,7 @@ const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
   (attrValue: string, hasGroupProp: boolean) => string[]
 > = {}
 
-prefixes.forEach((prefix) => {
+COLOR_PREFIXES.forEach((prefix) => {
   Object.entries(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).forEach(
     ([root, value]) => {
       ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[camelCase(`${prefix}${root}`)] =

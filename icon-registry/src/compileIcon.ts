@@ -1,4 +1,5 @@
 import camelCase from 'lodash.camelcase'
+import { COLOR_PREFIXES } from '@cypress-design/css/dist/colors'
 import type { OpenIconProps, IconProps, WindiColor } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
@@ -65,13 +66,10 @@ export const getComponentAttributes = (
         ? '-secondary'
         : ''
 
-      const pseudoClass = lowerCaseColor.includes('hover')
-        ? 'hover'
-        : lowerCaseColor.includes('focus')
-        ? 'focus'
-        : lowerCaseColor.includes('hocus')
-        ? 'hocus'
-        : ''
+      const pseudoClass = COLOR_PREFIXES.reduce((state, sta) => {
+        if (state.length) return state
+        return lowerCaseColor.includes(sta.replace(/-/g, '')) ? sta : ''
+      }, '')
 
       const prefix = pseudoClass.length
         ? protectedInteractiveColorsOnGroup !== undefined &&

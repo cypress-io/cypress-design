@@ -21,7 +21,10 @@ export const CyCSSWebpackPlugin = (options: UserOptions) => {
 
 export * from './colors'
 
-export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR } from './icon-extractor-tools'
+export {
+  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
+  ADDITIONAL_COLORS,
+} from './icon-extractor-tools'
 
 export { default as WindiKeepRollupPlugin } from './windi-keep-rollup-plugin'
 export { default as TailwindConfig } from './tailwind.config'
