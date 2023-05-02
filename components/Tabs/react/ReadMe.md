@@ -12,7 +12,11 @@ or with yarn
 yarn add @cypress-design/react-tabs
 ```
 
-### Usage
+## Usage
+
+```ts
+import Tabs from '@cypress-design/react-tabs'
+```
 
 ```tsx live
 export default () => (

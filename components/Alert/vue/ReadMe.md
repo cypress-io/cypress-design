@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-alert
 
 ## Usage
 
+```ts
+import Alert from '@cypress-design/vue-alert'
+```
+
 The simplest is to use with plain text. By default, type is `info`.
 
 ```vue live

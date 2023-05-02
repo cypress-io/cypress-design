@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-button
 
 ## Usage
 
+```ts
+import Button from '@cypress-design/vue-button'
+```
+
 ```vue live
 <script lang="ts" setup>
 import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'

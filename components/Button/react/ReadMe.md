@@ -14,6 +14,10 @@ yarn add @cypress-design/react-button
 
 ## Usage
 
+```ts
+import Button from '@cypress-design/react-button'
+```
+
 ```jsx live
 import { IconActionPower } from '@cypress-design/react-icon'
 import Button from '@cypress-design/react-button'

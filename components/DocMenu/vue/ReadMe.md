@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-docmenu
 
 ## Usage
 
+```ts
+import Checkbox from '@cypress-design/vue-checkbox'
+```
+
 ```vue live
 <DocMenu
   :items="[

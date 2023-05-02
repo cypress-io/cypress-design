@@ -12,6 +12,12 @@ or with yarn
 yarn add @cypress-design/react-docmenu
 ```
 
+## Usage
+
+```ts
+import Checkbox from '@cypress-design/react-checkbox'
+```
+
 ```tsx live
 <DocMenu
   items={[
