@@ -32,4 +32,4 @@ jobs:
           CI: true
 
       - name: Build each test project
-        run: ./test/test-all-packages.sh
+        run: ./test/test-all-projects.sh
