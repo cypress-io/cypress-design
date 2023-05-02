@@ -24,5 +24,9 @@
         "dist/**"
       ]
     }
-  }
+  },
+  "globalDependencies": [
+    "tsconfig.json",
+    "tsconfig.*.json"
+  ]
 }
