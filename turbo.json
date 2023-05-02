@@ -12,6 +12,8 @@
         "*.tsx",
         "*.mjs",
         "*.ts",
+        "extractBodyPlugin.js",
+        "*.config.js",
         "src/*.ts",
         "src/*.mjs",
         "src/*.js",
