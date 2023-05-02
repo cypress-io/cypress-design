@@ -15,6 +15,7 @@ const props = defineProps<{
 }>()
 
 const localFocused = ref(false)
+const overlay = ref(false)
 
 const focused = computed(() => props.focused || localFocused.value)
 
@@ -40,10 +41,13 @@ watch(localFocused, (value) => {
       transform: 'none',
       transition: 'none',
     }
+
+    overlay.value = false
   }
 })
 
 function focus() {
+  overlay.value = true
   const buttonWidth = $button.value?.offsetWidth ?? 0
   const buttonLeft = $button.value?.offsetLeft ?? 0
 
@@ -73,7 +77,7 @@ function focus() {
         transition: 'transform 0.15s linear',
         transform: 'none',
       }
-    }, 50)
+    }, 0)
   })
 }
 
@@ -83,8 +87,12 @@ const $button = ref<HTMLDivElement>()
 
 <template>
   <div
-    v-if="localFocused"
-    class="absolute w-full h-full top-0 left-0 z-10 bg-gray-500/70"
+    v-if="overlay"
+    class="absolute w-full h-full top-0 left-0 z-10 bg-gray-500 transition transition-opacity"
+    :class="{
+      'opacity-0': buttonStyle.transition === 'none',
+      'opacity-70': buttonStyle.transition !== 'none',
+    }"
     @click="localFocused = false"
   />
   <div
