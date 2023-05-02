@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.13.0
+
+### Minor Changes
+
+- [#207](https://github.com/cypress-io/cypress-design/pull/207) [`bc28be1`](https://github.com/cypress-io/cypress-design/commit/bc28be1760cf7183bbfb6d66f5362ad10ce22d34) Thanks [@elevatebart](https://github.com/elevatebart)! - add focus-within to each icon
+
 ## 0.12.0
 
 ### Minor Changes
