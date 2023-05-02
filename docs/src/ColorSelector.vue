@@ -20,13 +20,19 @@ function emitValue(event: Event) {
       class="absolute opacity-0 left-0 right-0 top-0 bottom-0 cursor-pointer"
       @change="emitValue"
     >
-      <option value="indigo-500">indigo</option>
-      <option value="jade-500">jade</option>
-      <option value="red-500">red</option>
-      <option value="purple-500">purple</option>
+      <option value="indigo-300">indigo</option>
+      <option value="jade-300">jade</option>
+      <option value="red-300">red</option>
+      <option value="purple-300">purple</option>
       <option value="white">white</option>
-      <option value="black">black</option>
+      <option value="gray-1000">black</option>
     </select>
-    <div><slot /></div>
+    <div>
+      <slot /><span
+        class="ml-1 w-2 h-2 inline-block"
+        :class="`bg-${modelValue}`"
+      >
+      </span>
+    </div>
   </div>
 </template>
