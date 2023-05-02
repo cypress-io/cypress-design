@@ -72,6 +72,7 @@ function focus() {
   nextTick(() => {
     localFocused.value = true
     setTimeout(() => {
+      $closeButton.value?.focus()
       buttonStyle.value = {
         ...buttonStyle.value,
         transition: 'transform 0.15s linear',
@@ -81,7 +82,12 @@ function focus() {
   })
 }
 
+const IconButtonTag = computed(() => {
+  return focused ? 'div' : 'button'
+})
+
 const $button = ref<HTMLDivElement>()
+const $closeButton = ref<HTMLButtonElement>()
 // <tw-include class="grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4"/>
 </script>
 
@@ -100,8 +106,9 @@ const $button = ref<HTMLDivElement>()
     class="bg-indigo-500 rounded"
     :style="placeholderStyle"
   />
-  <button
+  <IconButtonTag
     ref="$button"
+    tabindex="0"
     class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 dark:bg-gray-800 min-h-[72px] rounded"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] md:flex-nowrap justify-end md:justify-start !cursor-default':
@@ -115,9 +122,11 @@ const $button = ref<HTMLDivElement>()
     }"
     :style="localFocused ? buttonStyle : undefined"
     @click="!focused ? focus() : undefined"
+    @keyup.escape="localFocused = false"
   >
     <button
       v-if="localFocused"
+      ref="$closeButton"
       class="absolute top-[4px] right-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500 dark:hover:border-gray-500"
       @click.stop="localFocused = false"
     >
@@ -127,7 +136,7 @@ const $button = ref<HTMLDivElement>()
     <p
       class="text-[16px] flex-shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
       :class="{
-        'w-full text-left md:text-right md:w-auto md:min-w-[300px]': focused,
+        'w-full text-left md:text-right md:w-auto md:min-w-[350px]': focused,
         hidden: !focused,
       }"
     >
@@ -147,7 +156,10 @@ const $button = ref<HTMLDivElement>()
 
     <div
       class="flex-grow grid gap-[16px] transition-all duration-1000"
-      :class="`grid-cols-${Math.min(meta.availableSizes.length, 4)}`"
+      :class="{
+        [`grid-cols-${Math.min(meta.availableSizes.length, 4)}`]: !focused,
+        [`grid-cols-5 justify-items-center`]: focused,
+      }"
     >
       <IconSized
         v-for="size in meta.availableSizes"
@@ -159,5 +171,5 @@ const $button = ref<HTMLDivElement>()
         :meta="meta"
       />
     </div>
-  </button>
+  </IconButtonTag>
 </template>

@@ -28,7 +28,7 @@ function emitValue(event: Event) {
       <option value="white">white</option>
       <option value="gray-1000">black</option>
     </select>
-    <div>
+    <div class="whitespace-nowrap">
       <slot /><span
         class="ml-1 w-2 h-2 inline-block"
         :class="`bg-${modelValue}`"

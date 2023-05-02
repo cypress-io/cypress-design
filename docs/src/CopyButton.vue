@@ -28,7 +28,7 @@ function copyCode(text: string) {
         'opacity-0': copiedSuccess,
         'opacity-100': !copiedSuccess,
       }"
-      @click="() => copyCode(text)"
+      @click.stop="() => copyCode(text)"
     >
       copy
     </button>
