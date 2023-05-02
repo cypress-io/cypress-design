@@ -141,12 +141,14 @@ const $closeButton = ref<HTMLButtonElement>()
       }"
     >
       <span class="flex items-center md:justify-end mb-[8px] gap-x-[8px] group"
-        ><CopyButton :text="iconName" /><code class="!m-0">{{
-          iconName
-        }}</code></span
+        ><CopyButton class="hidden md:block" :text="iconName" /><code
+          class="!m-0"
+          >{{ iconName }}</code
+        ></span
       >
       <span class="flex items-center md:justify-end gap-x-[8px] group"
         ><CopyButton
+          class="hidden md:block"
           :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
         /><code class="!m-0"
           >&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code
