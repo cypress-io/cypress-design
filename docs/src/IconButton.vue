@@ -159,8 +159,8 @@ const $closeButton = ref<HTMLButtonElement>()
     <div
       class="flex-grow grid gap-[16px] transition-all duration-1000"
       :class="{
-        [`grid-cols-${Math.min(meta.availableSizes.length, 4)}`]: !focused,
-        [`grid-cols-5 justify-items-center`]: focused,
+        [`grid-cols-${Math.min(meta.availableSizes.length, 4)}`]: !localFocused,
+        [`grid-cols-5 justify-items-center`]: localFocused,
       }"
     >
       <IconSized
