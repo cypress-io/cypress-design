@@ -83,7 +83,7 @@ function focus() {
 }
 
 const IconButtonTag = computed(() => {
-  return focused ? 'div' : 'button'
+  return focused.value ? 'div' : 'button'
 })
 
 const $button = ref<HTMLDivElement>()
