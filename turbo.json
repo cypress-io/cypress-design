@@ -12,6 +12,7 @@
         "*.tsx",
         "*.mjs",
         "*.ts",
+        "svgo-plugins/*.js",
         "src/*.ts",
         "src/*.mjs",
         "src/*.js",
