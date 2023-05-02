@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": "../"
   },
+  "exclude": ["vite.config.ts"],
   "include": [
     "*.vue",
     "*.ts",

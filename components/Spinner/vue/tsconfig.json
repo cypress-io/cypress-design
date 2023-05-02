@@ -1,4 +1,5 @@
 {
   "extends": "../../../tsconfig.vue.json",
+  "exclude": ["vite.config.ts"],
   "include": ["*.vue", "*.ts", "*.tsx"]
 }

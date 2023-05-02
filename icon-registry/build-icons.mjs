@@ -28,13 +28,12 @@ const propDescriptions = {
 
 const ColorRoots = Object.keys(propDescriptions)
 
-const propsRE = ColorRoots.reduce((acc, colorRoot) => {
-  acc[`has${_.upperFirst(colorRoot)}`] = new RegExp(
-    // remove the -color suffix & make it kebab case
-    _.kebabCase(colorRoot.slice(0, -5))
-  )
-  return acc
-}, {})
+const propsRE = {
+  hasStrokeColor: /icon-dark/,
+  hasFillColor: /icon-light/,
+  hasSecondaryStrokeColor: /icon-dark-secondary/,
+  hasSecondaryFillColor: /icon-light-secondary/,
+}
 
 const prefixDescriptions = {
   hover: (root) => `${root} when hovered`,
@@ -52,16 +51,16 @@ async function getIcons() {
   const iconsObject = await Promise.all(
     icons.map(async (icon) => {
       const iconName = icon.replace(/.svg$/, '')
-      const [snakeCaseName, size] = iconName.split('_x')
+      const [kebabCaseName, size] = iconName.split('_x')
       const svgContent = await fs.readFile(
         path.join(__dirname, './icons', icon),
         'utf8'
       )
       const iconMeta = {
-        interfaceName: `Icon${camelCase(snakeCaseName, {
+        interfaceName: `Icon${camelCase(kebabCaseName, {
           pascalCase: true,
         })}Props`,
-        snakeCaseName,
+        kebabCaseName,
         size,
         ...props.reduce((acc, prop) => {
           acc[prop] = propsRE[prop].test(svgContent)
@@ -128,7 +127,7 @@ async function generateIndex(iconsObjectUnique) {
     .map((icon) => {
       // prettier-ignore
       return dedent`
-      '${icon.snakeCaseName}': {
+      '${icon.kebabCaseName}': {
           availableSizes: ['${icon.availableSizes.join('\',\'')}'], ${ColorRoots.map((colorRoot) => `
           has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}
       }`;
@@ -164,7 +163,7 @@ async function generateIndex(iconsObjectUnique) {
                 ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
                 : false
             ).filter(Boolean)].join(', ')} {
-            name: '${icon.snakeCaseName}';
+            name: '${icon.kebabCaseName}';
             size?: '${icon.availableSizes.join('\' | \'')}';
         }`;
       } else {
@@ -179,7 +178,7 @@ async function generateIndex(iconsObjectUnique) {
                   ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
                   : false
               ).filter(Boolean)].join(', ')} {
-              name: '${icon.snakeCaseName}';
+              name: '${icon.kebabCaseName}';
               size?: '${size}';
           }`
         })
