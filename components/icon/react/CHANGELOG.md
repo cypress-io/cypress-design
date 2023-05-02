@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.21.0
+
+### Minor Changes
+
+- [#207](https://github.com/cypress-io/cypress-design/pull/207) [`bc28be1`](https://github.com/cypress-io/cypress-design/commit/bc28be1760cf7183bbfb6d66f5362ad10ce22d34) Thanks [@elevatebart](https://github.com/elevatebart)! - add focus-within to each icon
+
+### Patch Changes
+
+- Updated dependencies [[`bc28be1`](https://github.com/cypress-io/cypress-design/commit/bc28be1760cf7183bbfb6d66f5362ad10ce22d34)]:
+  - @cypress-design/icon-registry@0.22.0
+
 ## 0.20.0
 
 ### Minor Changes
