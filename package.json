@@ -23,6 +23,7 @@
     "test": "vitest",
     "build:components": "turbo run build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/constants-*\"",
     "dev": "yarn start",
+    "docs": "yarn start",
     "start": "NODE_ENV=development concurrently \"node ./scripts/watch-constants.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
     "build:docs": "node scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
     "postinstall": "yarn husky install && yarn build:components",

@@ -26,8 +26,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
+      - name: Remove Postinstall Script
+        run: npm pkg set scripts.postinstall="echo no-postinstall"
+
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
+        run: yarn install --frozen-lockfile
         env:
           CI: true
 
