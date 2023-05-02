@@ -3,8 +3,18 @@ import clsx from 'clsx'
 import { Tab, classesMap } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
+  /**
+   * Array of tabs
+   */
   tabs: Tab[]
+  /**
+   * Appearance of tabs (should be called variant)
+   */
   type?: keyof typeof classesMap
+  /**
+   * Callback when tab is changed
+   * @param tab
+   */
   onChange?: (tab: Tab) => void
 }
 
