@@ -20,6 +20,7 @@ function emitValue(event: Event) {
       class="absolute opacity-0 left-0 right-0 top-0 bottom-0 cursor-pointer"
       @change="emitValue"
     >
+      <option></option>
       <option value="indigo-300">indigo</option>
       <option value="jade-300">jade</option>
       <option value="red-300">red</option>
