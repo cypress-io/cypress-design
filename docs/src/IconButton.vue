@@ -82,10 +82,6 @@ function focus() {
   })
 }
 
-const IconButtonTag = computed(() => {
-  return focused.value ? 'div' : 'button'
-})
-
 const $button = ref<HTMLDivElement>()
 const $closeButton = ref<HTMLButtonElement>()
 // <tw-include class="grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4"/>
@@ -106,14 +102,14 @@ const $closeButton = ref<HTMLButtonElement>()
     class="bg-indigo-500 rounded"
     :style="placeholderStyle"
   />
-  <IconButtonTag
+  <div
     ref="$button"
     tabindex="0"
     class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 dark:bg-gray-800 min-h-[72px] rounded"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] md:flex-nowrap justify-end md:justify-start !cursor-default':
         focused,
-      'py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors':
+      'py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors cursor-pointer':
         !focused,
       'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0':
         localFocused,
@@ -173,5 +169,5 @@ const $closeButton = ref<HTMLButtonElement>()
         :meta="meta"
       />
     </div>
-  </IconButtonTag>
+  </div>
 </template>
