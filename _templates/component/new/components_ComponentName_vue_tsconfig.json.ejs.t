@@ -6,6 +6,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/tsconfig.json
 	"compilerOptions": {
     "rootDir": "../../../"
   },
+  "exclude": ["vite.config.ts"],
   "include": [
     "*.vue",
     "*.ts",
