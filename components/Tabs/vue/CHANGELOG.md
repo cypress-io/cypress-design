@@ -1,5 +1,11 @@
 # @cypress-design/vue-tabs
 
+## 0.4.0
+
+### Minor Changes
+
+- [`a724d05`](https://github.com/cypress-io/cypress-design/commit/a724d05975922ab94180125375f3842793b848ba) Thanks [@elevatebart](https://github.com/elevatebart)! - rename prop variant + add prop docs
+
 ## 0.3.1
 
 ### Patch Changes
