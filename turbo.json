@@ -10,6 +10,7 @@
         "tsconfig.build.json",
         "*.vue",
         "*.tsx",
+        "*.mjs",
         "*.ts",
         "src/*.ts",
         "src/*.mjs",
