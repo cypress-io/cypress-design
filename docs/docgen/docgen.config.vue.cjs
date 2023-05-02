@@ -85,7 +85,7 @@ function renderEventProperty(p) {
 }
 
 module.exports = defineConfig({
-  components: './*/vue/[A-Z]*.@(vue|ts)',
+  components: './*/vue/[A-Z]*.{vue,ts}',
   getDestFile: (componentPath, { outDir }) => {
     const name = componentPath.split('/').pop() || 'unknown'
     return path.join(outDir, 'vue', name.replace(/\.(vue|ts)$/, '.md'))
