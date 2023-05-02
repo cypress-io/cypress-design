@@ -18,7 +18,6 @@ const App: FunctionComponent<Props> = ({ name }) => {
         label="Sample"
         checked={isChecked}
         onChange={() => setChecked(!isChecked)}
-        modelValue={isChecked}
       />
       <Icon
         name="object-book-code"
