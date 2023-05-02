@@ -5,25 +5,19 @@
  */
 
 import { fileURLToPath } from 'url'
+import { COLOR_PREFIXES } from '@cypress-design/css'
 import * as path from 'path'
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
 import { promises as fs } from 'fs'
 import camelCase from 'camelcase'
+import _ from 'lodash'
 import dedent from 'dedent'
 import {
   cyColors,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
 } from '@cypress-design/css'
-
-const propsRE = {
-  hasStrokeColor: /icon-dark/,
-  hasFillColor: /icon-light/,
-  hasSecondaryStrokeColor: /icon-dark-secondary/,
-  hasSecondaryFillColor: /icon-light-secondary/,
-}
 
 const propDescriptions = {
   StrokeColor: 'Color of the stroke',
@@ -32,9 +26,19 @@ const propDescriptions = {
   SecondaryFillColor: 'Color of the secondary fill',
 }
 
+const ColorRoots = Object.keys(propDescriptions)
+
+const propsRE = {
+  hasStrokeColor: /icon-dark/,
+  hasFillColor: /icon-light/,
+  hasSecondaryStrokeColor: /icon-dark-secondary/,
+  hasSecondaryFillColor: /icon-light-secondary/,
+}
+
 const prefixDescriptions = {
   hover: (root) => `${root} when hovered`,
   focus: (root) => `${root} when focused`,
+  'focus-within': (root) => `${root} when focus is set within`,
   hocus: (root) => `${root} when both focused and hovered`,
 }
 
@@ -47,16 +51,16 @@ async function getIcons() {
   const iconsObject = await Promise.all(
     icons.map(async (icon) => {
       const iconName = icon.replace(/.svg$/, '')
-      const [snakeCaseName, size] = iconName.split('_x')
+      const [kebabCaseName, size] = iconName.split('_x')
       const svgContent = await fs.readFile(
         path.join(__dirname, './icons', icon),
         'utf8'
       )
       const iconMeta = {
-        interfaceName: `Icon${camelCase(snakeCaseName, {
+        interfaceName: `Icon${camelCase(kebabCaseName, {
           pascalCase: true,
         })}Props`,
-        snakeCaseName,
+        kebabCaseName,
         size,
         ...props.reduce((acc, prop) => {
           acc[prop] = propsRE[prop].test(svgContent)
@@ -118,20 +122,12 @@ async function ensureDistExist() {
   }
 }
 
-const prefixes = ['', 'hover', 'focus', 'hocus']
-const ColorRoots = [
-  'StrokeColor',
-  'FillColor',
-  'SecondaryStrokeColor',
-  'SecondaryFillColor',
-]
-
 async function generateIndex(iconsObjectUnique) {
   const indexFileContent = iconsObjectUnique
     .map((icon) => {
       // prettier-ignore
       return dedent`
-      '${icon.snakeCaseName}': {
+      '${icon.kebabCaseName}': {
           availableSizes: ['${icon.availableSizes.join('\',\'')}'], ${ColorRoots.map((colorRoot) => `
           has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}
       }`;
@@ -167,7 +163,7 @@ async function generateIndex(iconsObjectUnique) {
                 ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
                 : false
             ).filter(Boolean)].join(', ')} {
-            name: '${icon.snakeCaseName}';
+            name: '${icon.kebabCaseName}';
             size?: '${icon.availableSizes.join('\' | \'')}';
         }`;
       } else {
@@ -182,7 +178,7 @@ async function generateIndex(iconsObjectUnique) {
                   ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
                   : false
               ).filter(Boolean)].join(', ')} {
-              name: '${icon.snakeCaseName}';
+              name: '${icon.kebabCaseName}';
               size?: '${size}';
           }`
         })
@@ -253,18 +249,19 @@ async function generateIndex(iconsObjectUnique) {
   ${ColorRoots.map(
     (root) =>
       dedent`
-        interface Has${camelCase(`${root}`, { pascalCase: true })} {${prefixes
-        .map(
-          (prefix) => `  
+        interface Has${camelCase(`${root}`, {
+          pascalCase: true,
+        })} {${COLOR_PREFIXES.map(
+        (prefix) => `  
             /**
              * ${
                prefix
-                 ? prefixDescriptions[prefix](propDescriptions[root])
+                 ? prefixDescriptions[prefix]?.(propDescriptions[root])
                  : propDescriptions[root]
              }
              */
             ${camelCase(`${prefix}${root}`)}?: WindiColor;`
-        )
+      )
         .filter(Boolean)
         .join('')}
         }`

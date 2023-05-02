@@ -27,15 +27,18 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile --ignore-engines
+        run: yarn install --frozen-lockfile --ignore-engines --ignore-scripts
         env:
           CI: true
+
+      - name: Run Unit Tests
+        run: yarn test
 
       - name: Build Components
         run: yarn run build:components
 
-      - name: Run Unit Tests
-        run: yarn test
+      - name: Check global types
+        run: yarn vue-tsc --noEmit
 
       # run cypress component tests
       - name: Cypress run CT

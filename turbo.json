@@ -10,8 +10,12 @@
         "tsconfig.build.json",
         "*.vue",
         "*.tsx",
+        "*.mjs",
         "*.ts",
+        "svgo-plugins/*.js",
         "src/*.ts",
+        "src/*.mjs",
+        "src/*.js",
         "!*.cy.tsx",
         "!*.rootstory.tsx"
       ],
@@ -19,5 +23,9 @@
         "dist/**"
       ]
     }
-  }
+  },
+  "globalDependencies": [
+    "tsconfig.json",
+    "tsconfig.*.json"
+  ]
 }

@@ -58,5 +58,6 @@ export default plugin(({ matchComponents, addVariant, theme }) => {
 
   addVariant('icon-hover', '&:hover')
   addVariant('icon-focus', '&:focus')
+  addVariant('icon-focus-within', '&:focus-within')
   addVariant('icon-hocus', ['&:focus', '&:hover'])
 })

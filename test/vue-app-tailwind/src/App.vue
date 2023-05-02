@@ -5,6 +5,7 @@ import Checkbox from '@cypress-design/vue-checkbox'
 import Icon, {
   IconActionQuestionMarkCircle,
   IconObjectBookCode,
+  IconObjectMagnifyingGlass,
 } from '@cypress-design/vue-icon'
 import Alert from '@cypress-design/vue-alert'
 import Spinner from '@cypress-design/vue-spinner/sfc'
@@ -37,11 +38,16 @@ const checked = ref(false)
     <Accordion title="hi">
       hello
       <template #iconEl>
-        <IconActionQuestionMarkCircle
-          strokeColor="jade-600"
-          fillColor="jade-50"
-        />
+        <IconActionQuestionMarkCircle fillColor="jade-50" />
       </template>
     </Accordion>
+    <div class="group p-4 bg-jade-50">
+      <IconObjectMagnifyingGlass
+        interactive-colors-on-group
+        strokeColor="jade-600"
+        fillColor="jade-50"
+        focus-within-stroke-color="red-500"
+      /><input />
+    </div>
   </div>
 </template>

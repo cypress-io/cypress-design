@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-checkbox": "*",
-    "@cypress-design/react-icon": "*"
+    "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
     "@cypress-design/css": "*"

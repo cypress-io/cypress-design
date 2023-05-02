@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "types": ["cypress"],
+    "sourceMap": true,
+    "strict": true,
+    "noEmit": true
+  },
+  "include": ["support/**/*.ts", "e2e/**/*.ts"]
+}
