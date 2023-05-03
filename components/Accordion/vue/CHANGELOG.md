@@ -1,5 +1,14 @@
 # @cypress-design/vue-accordion
 
+## 0.4.2
+
+### Patch Changes
+
+- [`08ba16d`](https://github.com/cypress-io/cypress-design/commit/08ba16da4a8663676ee96ac4950938857bd0d9a3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix wind-keep plugin
+
+- Updated dependencies [[`08ba16d`](https://github.com/cypress-io/cypress-design/commit/08ba16da4a8663676ee96ac4950938857bd0d9a3)]:
+  - @cypress-design/vue-icon@0.22.1
+
 ## 0.4.1
 
 ### Patch Changes
