@@ -8,7 +8,11 @@ describe('<Tabs/>', () => {
   function mountStory(
     options: { tabs: Tab[]; variant?: keyof typeof variants } = { tabs: [] }
   ) {
-    mount(() => <Tabs {...options} />)
+    mount(() => (
+      <div class="m-4">
+        <Tabs {...options} />
+      </div>
+    ))
   }
   assertions(mountStory)
 })

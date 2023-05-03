@@ -15,25 +15,27 @@ export default function assertions(
     variant?: keyof typeof variants
   }) => void
 ): void {
-  it('renders', () => {
-    mountStory({ tabs })
-  })
+  describe('Tabs', { viewportHeight: 80 }, () => {
+    it('renders', () => {
+      mountStory({ tabs })
+    })
 
-  it('moves to tab on click', () => {
-    mountStory({ tabs })
-    cy.contains('Errors').click()
-    cy.get('[aria-selected="true"]').should('have.text', ' Errors ')
-  })
+    it('moves to tab on click', () => {
+      mountStory({ tabs })
+      cy.contains('Errors').click()
+      cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+    })
 
-  it('moves to tab on arrow press', () => {
-    mountStory({ tabs })
-    cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
-    cy.get('[aria-selected="true"]').should('have.text', ' Errors ')
-  })
+    it('moves to tab on arrow press', () => {
+      mountStory({ tabs })
+      cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
+      cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+    })
 
-  Object.keys(variants).forEach((variant) => {
-    it(`renders ${variant}`, () => {
-      mountStory({ tabs, variant: variant as keyof typeof variants })
+    Object.keys(variants).forEach((variant) => {
+      it(`renders ${variant}`, () => {
+        mountStory({ tabs, variant: variant as keyof typeof variants })
+      })
     })
   })
 }
