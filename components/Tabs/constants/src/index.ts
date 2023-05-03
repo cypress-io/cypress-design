@@ -60,7 +60,7 @@ export const classesMap = {
     activeMarker:
       'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
     activeMarkerColor: 'z-10 bg-gray-800',
-    activeMarkerBlender: 'z-30 mix-blend-overlay',
+    activeMarkerBlender: 'z-30 mix-blend-overlay pointer-events-none',
     activeMarkerStatic:
       'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
     tag: '',
@@ -76,7 +76,7 @@ export const classesMap = {
     activeMarker:
       'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
     activeMarkerColor: 'z-10 bg-gray-800',
-    activeMarkerBlender: 'z-30 mix-blend-overlay',
+    activeMarkerBlender: 'z-30 mix-blend-overlay pointer-events-none',
     activeMarkerStatic:
       'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
     tag: '',
