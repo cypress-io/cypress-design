@@ -19,6 +19,18 @@ export default function assertions(
     mountStory({ tabs })
   })
 
+  it('moves to tab on click', () => {
+    mountStory({ tabs })
+    cy.contains('Errors').click()
+    cy.get('[aria-selected="true"]').should('have.text', ' Errors ')
+  })
+
+  it('moves to tab on arrow press', () => {
+    mountStory({ tabs })
+    cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
+    cy.get('[aria-selected="true"]').should('have.text', ' Errors ')
+  })
+
   Object.keys(variants).forEach((variant) => {
     it(`renders ${variant}`, () => {
       mountStory({ tabs, variant: variant as keyof typeof variants })

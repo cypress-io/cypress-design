@@ -2,12 +2,15 @@
 
 import * as React from 'react'
 import { mount } from 'cypress/react18'
-import TabsStory from './Tabs.rootstory'
+import Tabs from './Tabs'
+import type { Tab, variants } from '../constants'
 import assertions from '../assertions'
 
 describe('Tabs', () => {
-  function mountStory(options: Parameters<typeof TabsStory>[0] = { tabs: [] }) {
-    mount(<TabsStory {...options} />)
+  function mountStory(
+    options: { tabs: Tab[]; variant?: keyof typeof variants } = { tabs: [] }
+  ) {
+    mount(<Tabs {...options} />)
   }
   assertions(mountStory)
 })

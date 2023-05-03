@@ -90,6 +90,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             ])}
             ref={(el: any) => (el ? ($tab.current[index] = el) : null)}
             tabIndex={tab.id === activeId ? undefined : -1}
+            aria-selected={tab.id === activeId ? true : undefined}
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
