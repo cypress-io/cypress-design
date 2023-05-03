@@ -13,6 +13,22 @@ import { IconActionPlayVideo, IconActionRecord, IconDeviceLaptop, IconGeneralCro
     { id: 'err', label: 'Errors', active:true},
     { id: 'reco', label: 'Recommendations' },
   ]"/>
+  <div class="h-[20px]"/>
+  <p>dark-small</p>
+  <Tabs variant="dark-small" :tabs="[
+    { id: 'ov', label: 'Overview', icon: IconActionPlayVideo, active: true },
+    { id: 'cl', label: 'Command Log', icon: IconActionRecord },
+    { id: 'err', label: 'Errors', iconAfter: IconSecurityLockLocked, tag: '13' },
+    { id: 'reco', label: 'Recommendations', icon: IconGeneralCrosshairs },
+  ]"/>
+  <div class="h-[24px]"/>
+  <p>dark-default</p>
+  <Tabs variant="dark-default" :tabs="[
+    { id: 'ov', label: 'Overview', icon: IconActionPlayVideo, active: true },
+    { id: 'cl', label: 'Command Log', icon: IconActionRecord },
+    { id: 'err', label: 'Errors', iconAfter: IconSecurityLockLocked, tag: '13' },
+    { id: 'reco', label: 'Recommendations', icon: IconGeneralCrosshairs },
+  ]"/>
   <div class="h-[24px]"/>
   <p>underline-small</p>
   <Tabs variant="underline-small" :tabs="[

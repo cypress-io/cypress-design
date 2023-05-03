@@ -49,6 +49,42 @@ export const classesMap = {
       'bg-indigo-500 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
     tag: '',
   },
+  'dark-small': {
+    wrapper:
+      'p-[4px] inline-flex gap-[4px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative',
+    button:
+      'flex items-center px-[8px] h-[20px] leading-[16px] text-[12px] rounded font-medium whitespace-nowrap',
+    active: 'text-black relative z-20',
+    activeStatic: '!text-white',
+    inActive: 'hover:bg-gray-900',
+    activeMarker:
+      'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
+    activeMarkerColor:
+      'bg-gray-800 filter hue-rotate-180 brightness-200 saturate-150 z-10',
+    activeMarkerBlender:
+      'z-30 bg-white mix-blend-difference pointer-events-none',
+    activeMarkerStatic:
+      'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
+    tag: '',
+  },
+  'dark-default': {
+    wrapper:
+      'p-[4px] inline-flex gap-[8px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative',
+    button:
+      'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap',
+    active: 'text-black relative z-20',
+    activeStatic: '!text-white',
+    inActive: 'hover:bg-gray-900',
+    activeMarker:
+      'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
+    activeMarkerColor:
+      'bg-gray-800 filter hue-rotate-180 brightness-200 saturate-150 z-10',
+    activeMarkerBlender:
+      'z-30 bg-white mix-blend-difference pointer-events-none',
+    activeMarkerStatic:
+      'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
+    tag: '',
+  },
   'underline-small': {
     wrapper:
       'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
