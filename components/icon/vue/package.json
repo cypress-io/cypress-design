@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "0.22.0",
+  "version": "0.22.1",
   "files": [
     "*"
   ],

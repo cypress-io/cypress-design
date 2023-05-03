@@ -1,5 +1,11 @@
 # @cypress-design/react-tag
 
+## 0.3.2
+
+### Patch Changes
+
+- [`08ba16d`](https://github.com/cypress-io/cypress-design/commit/08ba16da4a8663676ee96ac4950938857bd0d9a3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix wind-keep plugin
+
 ## 0.3.1
 
 ### Patch Changes

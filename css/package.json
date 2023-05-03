@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/css",
-  "version": "0.13.0",
+  "version": "0.13.1",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.mjs",
   "types": "./dist/index.d.ts",
