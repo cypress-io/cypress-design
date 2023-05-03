@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { Tab, classesMap } from '@cypress-design/constants-tabs'
+import { Tab, variants } from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
   defineProps<{
@@ -11,7 +11,7 @@ const props = withDefaults(
     /**
      * Appearance of tabs
      */
-    variant?: keyof typeof classesMap
+    variant?: keyof typeof variants
   }>(),
   {
     variant: 'default',
@@ -77,10 +77,17 @@ function navigate(shift: number) {
 }
 
 const classes = computed(() => {
-  if (props.variant in classesMap) {
-    return classesMap[props.variant]
+  if (props.variant in variants) {
+    return variants[props.variant].classes
   }
-  return classesMap.default
+  return variants.default.classes
+})
+
+const iconProps = computed(() => {
+  if (props.variant in variants) {
+    return variants[props.variant].icon
+  }
+  return variants.default.icon
 })
 </script>
 
@@ -116,16 +123,16 @@ const classes = computed(() => {
       <component
         v-if="tab.iconBefore ?? tab.icon"
         :is="tab.iconBefore ?? tab.icon"
+        v-bind="iconProps"
         class="mr-[8px]"
-        :size="props.variant === 'underline-large' ? '24' : '16'"
       />
       {{ tab.label }}
       <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
       <component
         v-if="tab.iconAfter"
         :is="tab.iconAfter"
+        v-bind="iconProps"
         class="ml-[8px]"
-        :size="props.variant === 'underline-large' ? '24' : '16'"
       />
       <div
         v-if="tab.id === activeId && !activeMarkerStyle"

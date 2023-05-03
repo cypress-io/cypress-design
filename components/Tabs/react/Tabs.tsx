@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, classesMap } from '@cypress-design/constants-tabs'
+import { Tab, variants } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
   /**
@@ -10,7 +10,7 @@ export interface TabsProps {
   /**
    * Appearance of tabs
    */
-  variant?: keyof typeof classesMap
+  variant?: keyof typeof variants
   /**
    * Callback when tab is changed
    * @param tab new tab selected
@@ -66,7 +66,10 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   }
 
   const classes =
-    variant in classesMap ? classesMap[variant] : classesMap.default
+    variant in variants ? variants[variant].classes : variants.default.classes
+
+  const iconProps =
+    variant in variants ? variants[variant].icon : variants.default.icon
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
@@ -105,19 +108,13 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
               {() => {
                 const IconBefore = tab.iconBefore ?? tab.icon
                 return IconBefore ? (
-                  <IconBefore
-                    className="mr-[8px]"
-                    size={variant !== 'underline-large' ? '24' : '16'}
-                  />
+                  <IconBefore {...iconProps} className="mr-[8px]" />
                 ) : null
               }}
               {tab.label}
               {tab.tag ? <div className={classes.tag}>{tab.tag}</div> : null}
               {tab.iconAfter ? (
-                <tab.iconAfter
-                  className="ml-[8px]"
-                  size={variant !== 'underline-large' ? '24' : '16'}
-                />
+                <tab.iconAfter {...iconProps} className="ml-[8px]" />
               ) : null}
             </>
             {tab.id === activeId && !activeMarkerStyle.left ? (
