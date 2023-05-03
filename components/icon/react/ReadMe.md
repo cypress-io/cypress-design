@@ -14,6 +14,10 @@ yarn add @cypress-design/react-icon
 
 ## Usage
 
+```ts
+import Icon from '@cypress-design/react-icon'
+```
+
 The simple way using the Icon component
 
 ```tsx live

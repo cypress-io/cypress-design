@@ -11,3 +11,9 @@ or with yarn
 ```bash
 yarn add @cypress-design/vue-tag
 ```
+
+## Usage
+
+```ts
+import Tag from '@cypress-design/vue-tag'
+```

@@ -14,6 +14,10 @@ yarn add @cypress-design/react-alert
 
 ## Usage
 
+```ts
+import Alert from '@cypress-design/react-alert'
+```
+
 The simplest is to use with plain text. The only prop that is required is the `title`. By default, type is `info`.
 
 ```jsx live

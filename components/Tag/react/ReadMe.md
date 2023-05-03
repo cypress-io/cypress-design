@@ -11,3 +11,9 @@ or with yarn
 ```bash
 yarn add @cypress-design/react-tag
 ```
+
+## Usage
+
+```ts
+import Tag from '@cypress-design/react-tag'
+```

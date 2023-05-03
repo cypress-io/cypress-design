@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-icon
 
 ## Usage
 
+```ts
+import Icon from '@cypress-design/vue-icon'
+```
+
 ### Import
 
 2 methods exist to load this component:

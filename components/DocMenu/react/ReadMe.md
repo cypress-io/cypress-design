@@ -12,6 +12,12 @@ or with yarn
 yarn add @cypress-design/react-docmenu
 ```
 
+## Usage
+
+```ts
+import DocMenu from '@cypress-design/react-docmenu'
+```
+
 ```tsx live
 <DocMenu
   items={[

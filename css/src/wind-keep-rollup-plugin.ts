@@ -22,7 +22,10 @@ export default function WindiKeepRollupPlugin(): Plugin {
     enforce: 'pre',
     apply: 'build',
     async transform(code, id) {
-      if (/\.(vue|jsx|tsx|ts)$/.test(id)) {
+      if (
+        /\.(vue|jsx|tsx|ts)$/.test(id) ||
+        /constants\/dist\/.+\.js$/.test(id)
+      ) {
         // extract all potential classes from the file
         const { classes } = await applyExtractors(code, id, [
           ...getDefaultExtractors(),
@@ -38,7 +41,7 @@ export default function WindiKeepRollupPlugin(): Plugin {
       await utils.ensureInit()
       const { success } = utils.processor.interpret([...classSet].join(' '))
       if (chunk?.type === 'chunk') {
-        chunk.code += `\n/* <windicss-keep class="${success.join(' ')}"> */\n`
+        chunk.code += `\n/* <wind-keep class="${success.join(' ')}"> */\n`
       }
     },
   }
