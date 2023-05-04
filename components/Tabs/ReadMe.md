@@ -22,8 +22,8 @@ import { IconActionPlayVideo, IconActionRecord, IconDeviceLaptop, IconGeneralCro
     { id: 'reco', label: 'Recommendations', icon: IconGeneralCrosshairs },
   ]"/>
   <div class="h-[24px]"/>
-  <p>dark-default</p>
-  <Tabs variant="dark-default" :tabs="[
+  <p>dark-large</p>
+  <Tabs variant="dark-large" :tabs="[
     { id: 'ov', label: 'Overview', icon: IconActionPlayVideo, active: true },
     { id: 'cl', label: 'Command Log', icon: IconActionRecord },
     { id: 'err', label: 'Errors', iconAfter: IconSecurityLockLocked, tag: '13' },
