@@ -12,4 +12,12 @@ module.exports = {
     'no-only-tests/no-only-tests': 'error',
     'no-unused-vars': 'off',
   },
+  overrides: [
+    {
+      files: ['packages/cypress-design-eslint-plugin/**/*.js'],
+      env: {
+        node: true,
+      },
+    },
+  ],
 }
