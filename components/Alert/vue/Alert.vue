@@ -199,8 +199,11 @@ const sizeClasses = computed(() => {
         </div>
       </div>
     </details>
-    <div v-if="$slots.footer" :class="[variantClasses.bodyClass]" />
-    <!--@slot A box to add buttons or additional content -->
-    <slot name="footer" />
+    <template v-if="$slots.footer">
+      <div :class="variantClasses.bodyClass">
+        <!--@slot A box to add buttons or additional content -->
+        <slot name="footer" />
+      </div>
+    </template>
   </div>
 </template>
