@@ -11,10 +11,10 @@ import { DetailsAnimation } from '@cypress-design/details-animation'
 import {
   AlertSize,
   alertSizesClasses,
-  AlertType,
+  AlertVariant,
   defaultAlertSize,
   defaultAlertTitle,
-  defaultAlertType,
+  defaultAlertVariant,
   alertClasses,
 } from '@cypress-design/constants-alert'
 
@@ -34,7 +34,12 @@ const props = withDefaults(
     /**
      * Color scheme
      */
-    type?: AlertType
+    variant?: AlertVariant
+    /**
+     * Color scheme
+     * @deprecated use `variant` instead
+     */
+    type?: AlertVariant
     /**
      * If details are provided,text used in the toggle button
      */
@@ -61,7 +66,7 @@ const props = withDefaults(
     size?: AlertSize
   }>(),
   {
-    type: defaultAlertType,
+    type: defaultAlertVariant,
     detailsTitle: defaultAlertTitle,
     size: defaultAlertSize,
   }

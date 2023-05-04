@@ -10,10 +10,10 @@ import { DetailsAnimation } from '@cypress-design/details-animation'
 import {
   AlertSize,
   alertSizesClasses,
-  AlertType,
+  AlertVariant,
   defaultAlertSize,
   defaultAlertTitle,
-  defaultAlertType,
+  defaultAlertVariant,
   alertClasses,
 } from '@cypress-design/constants-alert'
 
@@ -25,7 +25,12 @@ export interface AlertProps {
   /**
    * Color scheme
    */
-  type?: AlertType
+  variant?: AlertVariant
+  /**
+   * Color scheme
+   * @deprecated Use `variant` instead
+   */
+  type?: AlertVariant
   /**
    * Togglable additional details
    */
@@ -67,7 +72,7 @@ export interface AlertProps {
 export const Alert: React.FC<
   AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size'>
 > = ({
-  type = defaultAlertType,
+  variant = defaultAlertVariant,
   detailsTitle = defaultAlertTitle,
   onDismiss,
   noIcon,
@@ -82,15 +87,15 @@ export const Alert: React.FC<
   size = defaultAlertSize,
   ...rest
 }) => {
-  const typeClasses = alertClasses[type] ?? {}
+  const typeClasses = alertClasses[variant] ?? {}
   const sizeClasses = alertSizesClasses[size] ?? {}
   const Icon =
     customIcon ??
-    (type === 'error'
+    (variant === 'error'
       ? IconWarningCircle
-      : type === 'warning'
+      : variant === 'warning'
       ? IconWarningCircle
-      : type === 'success'
+      : variant === 'success'
       ? IconCheckmarkOutline
       : undefined)
 

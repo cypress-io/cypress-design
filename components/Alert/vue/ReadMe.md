@@ -26,7 +26,7 @@ import Alert from '@cypress-design/vue-alert'
 </script>
 
 <template>
-  <Alert type="error">Great Scott!!</Alert>
+  <Alert variant="error">Great Scott!!</Alert>
 </template>
 ```
 
@@ -58,7 +58,13 @@ const dismissed = false
 You can also remove the rounded corners and the icon of the alert by adding the `notRounded` and the `noIcon` props.
 
 ```jsx live
-<Alert type="warning" notRounded noIcon>
+<Alert variant="warning" notRounded noIcon>
+  Look at my corners
+</Alert>
+```
+
+```jsx live
+<Alert variant="clear" notRounded noIcon>
   Look at my corners
 </Alert>
 ```

@@ -1,6 +1,12 @@
 import type { WindiColor } from '@cypress-design/icon-registry'
 
-export type AlertType = 'info' | 'success' | 'error' | 'warning' | 'neutral'
+export type AlertVariant =
+  | 'info'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'neutral'
+  | 'clear'
 export const alertSizesClasses = {
   xs: 'py-[4px] px-[8px] leading-[22px] text-[14px]',
   sm: 'py-[8px] px-[12px] leading-[22px] text-[14px]',
@@ -21,7 +27,7 @@ export type AlertClasses = {
   iconChevronColor: WindiColor
 }
 
-export const alertClasses: Record<AlertType, AlertClasses> = {
+export const alertClasses: Record<AlertVariant, AlertClasses> = {
   neutral: {
     headerClass: 'text-gray-800 bg-gray-100',
     bodyClass: 'bg-gray-50 text-gray-500',
@@ -82,8 +88,20 @@ export const alertClasses: Record<AlertType, AlertClasses> = {
     /* <tw-keep strokeColor="jade-300"/> */
     iconChevronColor: 'jade-300',
   },
+  clear: {
+    headerClass: 'text-jade-700 bg-jade-100',
+    bodyClass: 'bg-jade-50 text-jade-600',
+    borderClass: 'border-jade-100',
+    detailsHeaderClass: 'text-jade-600',
+    /* <tw-keep strokeColor="jade-600"/> */
+    iconCloseColor: 'jade-600',
+    /* <tw-keep strokeColor="jade-500"/> */
+    iconColor: 'jade-500',
+    /* <tw-keep strokeColor="jade-300"/> */
+    iconChevronColor: 'jade-300',
+  },
 }
 
-export const defaultAlertType: AlertType = 'info'
+export const defaultAlertVariant: AlertVariant = 'info'
 
 export const defaultAlertTitle = 'Additional details'

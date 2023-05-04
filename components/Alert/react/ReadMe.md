@@ -24,7 +24,7 @@ The simplest is to use with plain text. The only prop that is required is the `t
 import Alert from '@cypress-design/react-alert'
 
 export const AlertComp = () => {
-  return <Alert type="error" title="This is an info message" />
+  return <Alert variant="error" title="This is an info message" />
 }
 ```
 
@@ -74,7 +74,16 @@ import Alert from '@cypress-design/react-alert'
 
 export const AlertComp = () => {
   return (
-    <Alert type="warning" title="This is an info message" notRounded noIcon />
+    <Alert
+      variant="warning"
+      title="This is an info message"
+      notRounded
+      noIcon
+    />
   )
 }
+```
+
+```jsx live
+<Alert variant="clear" title="This is an info message" />
 ```
