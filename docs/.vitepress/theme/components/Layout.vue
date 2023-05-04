@@ -217,5 +217,5 @@ const { frontmatter } = useData()
       </aside>
     </div>
   </template>
-  <Content />
+  <Content v-else />
 </template>
