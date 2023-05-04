@@ -66,17 +66,22 @@ const props = withDefaults(
     size?: AlertSize
   }>(),
   {
+    variant: undefined,
     type: defaultAlertVariant,
     detailsTitle: defaultAlertTitle,
     size: defaultAlertSize,
   }
 )
 
+const variant = computed(() => {
+  return props.variant ?? props.type
+})
+
 const detailsRef = ref(null)
 const contentRef = ref(null)
 
 const typeClasses = computed(() => {
-  return alertClasses[props.type] ?? {}
+  return alertClasses[variant.value] ?? {}
 })
 
 let timeout: number | undefined
@@ -116,7 +121,7 @@ const computedIconProps = computed(() => {
 })
 
 const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
-  switch (props.type) {
+  switch (variant.value) {
     case 'info':
       return null
     case 'success':
