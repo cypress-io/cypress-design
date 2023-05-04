@@ -144,7 +144,7 @@ const sizeClasses = computed(() => {
   <div
     v-if="!dismissed"
     class="overflow-hidden text-left"
-    :class="props.notRounded ? undefined : 'rounded'"
+    :class="[typeClasses.wrapperClass, { rounded: !props.notRounded }]"
   >
     <div class="flex" :class="[typeClasses.headerClass, sizeClasses]">
       <!--
@@ -199,5 +199,8 @@ const sizeClasses = computed(() => {
         </div>
       </div>
     </details>
+    <div v-if="$slots.footer" :class="[typeClasses.bodyClass]" />
+    <!--@slot A box to add buttons or additional content -->
+    <slot name="footer" />
   </div>
 </template>

@@ -18,6 +18,7 @@ export type AlertSize = keyof typeof alertSizesClasses
 export const defaultAlertSize: AlertSize = 'lg'
 
 export type AlertClasses = {
+  wrapperClass?: string
   headerClass: string
   bodyClass: string
   borderClass: string
@@ -89,16 +90,17 @@ export const alertClasses: Record<AlertVariant, AlertClasses> = {
     iconChevronColor: 'jade-300',
   },
   clear: {
-    headerClass: 'text-jade-700 bg-jade-100',
-    bodyClass: 'bg-jade-50 text-jade-600',
-    borderClass: 'border-jade-100',
-    detailsHeaderClass: 'text-jade-600',
-    /* <tw-keep strokeColor="jade-600"/> */
-    iconCloseColor: 'jade-600',
-    /* <tw-keep strokeColor="jade-500"/> */
-    iconColor: 'jade-500',
-    /* <tw-keep strokeColor="jade-300"/> */
-    iconChevronColor: 'jade-300',
+    wrapperClass: 'border-gray-50 border',
+    headerClass: '',
+    bodyClass: 'border-gray-50 border-t',
+    borderClass: 'border-gray-50',
+    detailsHeaderClass: 'text-gray-700',
+    /* <tw-keep strokeColor="gray-600"/> */
+    iconCloseColor: 'gray-600',
+    /* <tw-keep strokeColor="gray-500"/> */
+    iconColor: 'gray-500',
+    /* <tw-keep strokeColor="gray-300"/> */
+    iconChevronColor: 'gray-300',
   },
 }
 
