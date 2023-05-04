@@ -27,12 +27,17 @@ The simplest is to use with plain text. By default, type is `info`.
 One can also have rich text in both the title and the body.
 
 ```jsx live
-<Alert>
-  This is an <code>info</code> message
-  <template #body>
-    <p>This is the body of the alert.</p>
-  </template>
-</Alert>
+<div class="bg-white m-4 p-4">
+  <Alert>
+    This is an <code>info</code> message
+    <template #body>
+      <p>This is the body of <b>the alert.</b></p>
+    </template>
+    <template #details>
+      <p>This is the details of the alert.</p>
+    </template>
+  </Alert>
+</div>
 ```
 
 If you want the alert to be dismissible, you can add the `dismissible` prop. Don't forget to add the `@dismiss` prop to handle the dismiss event.
@@ -59,12 +64,14 @@ You can also remove the rounded corners and the icon of the alert by adding the 
 
 ```vue live
 <script setup>
+import { ref } from 'vue'
 import Button from '@cypress-design/vue-button'
+const dismissed = ref(false)
 </script>
 
 <template>
   <div class="bg-white m-4 p-4">
-    <Alert variant="clear" dismissible>
+    <Alert variant="clear" dismissible @dismiss="dismissed = true">
       <svg
         width="16"
         height="16"
