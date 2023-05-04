@@ -1,5 +1,16 @@
 # @cypress-design/react-tabs
 
+## 0.5.0
+
+### Minor Changes
+
+- [#214](https://github.com/cypress-io/cypress-design/pull/214) [`319cf8c`](https://github.com/cypress-io/cypress-design/commit/319cf8c43ce9efa8c0f3d2cfc4f4c0039cddb385) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add dark variants to tabs
+
+### Patch Changes
+
+- Updated dependencies [[`319cf8c`](https://github.com/cypress-io/cypress-design/commit/319cf8c43ce9efa8c0f3d2cfc4f4c0039cddb385)]:
+  - @cypress-design/constants-tabs@0.2.0
+
 ## 0.4.1
 
 ### Patch Changes
