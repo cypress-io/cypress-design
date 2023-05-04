@@ -106,12 +106,12 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             }}
           >
             <>
-              {() => {
+              {(() => {
                 const IconBefore = tab.iconBefore ?? tab.icon
                 return IconBefore ? (
                   <IconBefore {...iconProps} className="mr-[8px]" />
                 ) : null
-              }}
+              })()}
               {tab.label}
               {tab.tag ? <div className={classes.tag}>{tab.tag}</div> : null}
               {tab.iconAfter ? (

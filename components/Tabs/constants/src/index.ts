@@ -56,6 +56,8 @@ export const variants = {
     },
     icon: {
       size: '16',
+      // <wind-keep fillColor="transparent"/>
+      fillColor: 'transparent',
     } satisfies IconProps,
   },
   'dark-small': {
