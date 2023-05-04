@@ -80,7 +80,7 @@ const variant = computed(() => {
 const detailsRef = ref(null)
 const contentRef = ref(null)
 
-const typeClasses = computed(() => {
+const variantClasses = computed(() => {
   return alertClasses[variant.value] ?? {}
 })
 
@@ -115,7 +115,7 @@ function dismiss() {
 
 const computedIconProps = computed(() => {
   return {
-    strokeColor: typeClasses.value.iconColor,
+    strokeColor: variantClasses.value.iconColor,
     class: 'my-[4px] mr-[8px]',
   }
 })
@@ -144,9 +144,9 @@ const sizeClasses = computed(() => {
   <div
     v-if="!dismissed"
     class="overflow-hidden text-left"
-    :class="[typeClasses.wrapperClass, { rounded: !props.notRounded }]"
+    :class="[variantClasses.wrapperClass, { rounded: !props.notRounded }]"
   >
-    <div class="flex" :class="[typeClasses.headerClass, sizeClasses]">
+    <div class="flex" :class="[variantClasses.headerClass, sizeClasses]">
       <!--
         @slot replace the default left icon here
         @binding strokeColor - a windicolor that to be passed to `strokeColor`
@@ -169,10 +169,10 @@ const sizeClasses = computed(() => {
         @click="dismiss"
         aria-label="Dismiss"
       >
-        <IconActionDeleteLarge :stroke-color="typeClasses.iconCloseColor" />
+        <IconActionDeleteLarge :stroke-color="variantClasses.iconCloseColor" />
       </button>
     </div>
-    <div v-if="slots.body" class="p-[16px]" :class="typeClasses.bodyClass">
+    <div v-if="slots.body" class="p-[16px]" :class="variantClasses.bodyClass">
       <!-- @slot body/details of the alert -->
       <slot name="body" />
     </div>
@@ -180,14 +180,14 @@ const sizeClasses = computed(() => {
       v-if="slots.details"
       class="p-[16px] border-t border-t-1"
       ref="detailsRef"
-      :class="[typeClasses.bodyClass, typeClasses.borderClass]"
+      :class="[variantClasses.bodyClass, variantClasses.borderClass]"
     >
       <summary
         class="flex font-medium cursor-pointer details-none"
-        :class="typeClasses.detailsHeaderClass"
+        :class="variantClasses.detailsHeaderClass"
       >
         <IconChevronDownSmall
-          :strokeColor="typeClasses.iconChevronColor"
+          :strokeColor="variantClasses.iconChevronColor"
           class="icon my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
         />
         {{ props.detailsTitle }}
@@ -199,7 +199,7 @@ const sizeClasses = computed(() => {
         </div>
       </div>
     </details>
-    <div v-if="$slots.footer" :class="[typeClasses.bodyClass]" />
+    <div v-if="$slots.footer" :class="[variantClasses.bodyClass]" />
     <!--@slot A box to add buttons or additional content -->
     <slot name="footer" />
   </div>

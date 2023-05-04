@@ -23,6 +23,10 @@ export interface AlertProps {
    */
   title: React.ReactNode
   /**
+   * Box at the bottom of the alert for buttons or links
+   */
+  footer: React.ReactNode
+  /**
    * Color scheme
    */
   variant?: AlertVariant
@@ -80,6 +84,7 @@ export const Alert: React.FC<
   notRounded,
   dismissible,
   title,
+  footer,
   details,
   children,
   className,
@@ -89,7 +94,7 @@ export const Alert: React.FC<
   ...rest
 }) => {
   variant = variant ?? type
-  const typeClasses = alertClasses[variant] ?? {}
+  const variantClasses = alertClasses[variant] ?? {}
   const sizeClasses = alertSizesClasses[size] ?? {}
   const Icon =
     customIcon ??
@@ -144,13 +149,14 @@ export const Alert: React.FC<
           className={clsx(
             !notRounded && 'rounded',
             'overflow-hidden text-left',
-            className
+            className,
+            variantClasses.wrapperClass
           )}
           {...rest}
         >
           <div
             className={clsx(
-              typeClasses.headerClass,
+              variantClasses.headerClass,
               'flex p-[16px]',
               sizeClasses
             )}
@@ -158,7 +164,7 @@ export const Alert: React.FC<
             {!noIcon && Icon && (
               <Icon
                 className="my-[4px] mr-[8px]"
-                strokeColor={typeClasses.iconColor}
+                strokeColor={variantClasses.iconColor}
               />
             )}
             <div className="flex-1 font-medium">{title}</div>
@@ -169,13 +175,13 @@ export const Alert: React.FC<
                 aria-label="Dismiss"
               >
                 <IconActionDeleteLarge
-                  strokeColor={typeClasses.iconCloseColor}
+                  strokeColor={variantClasses.iconCloseColor}
                 />
               </button>
             )}
           </div>
           {children && (
-            <div className={clsx('p-[16px]', typeClasses.bodyClass)}>
+            <div className={clsx('p-[16px]', variantClasses.bodyClass)}>
               {children}
             </div>
           )}
@@ -183,20 +189,20 @@ export const Alert: React.FC<
             <details
               className={clsx(
                 'p-[16px] border-t border-t-1 cursor-pointer',
-                typeClasses.bodyClass,
-                typeClasses.borderClass
+                variantClasses.bodyClass,
+                variantClasses.borderClass
               )}
               ref={detailsRef}
             >
               <summary
                 className={clsx(
                   'flex font-medium details-none',
-                  typeClasses.detailsHeaderClass
+                  variantClasses.detailsHeaderClass
                 )}
               >
                 <IconChevronDownSmall
                   className="my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
-                  strokeColor={typeClasses.iconChevronColor}
+                  strokeColor={variantClasses.iconChevronColor}
                 />
                 {detailsTitle}
               </summary>
@@ -205,6 +211,8 @@ export const Alert: React.FC<
               </div>
             </details>
           )}
+          {footer ? <div className={variantClasses.bodyClass} /> : undefined}
+          {footer}
         </div>
       )}
     </>

@@ -92,10 +92,6 @@ import Button from '@cypress-design/vue-button'
         without running your whole application. Generate the config in just a
         few clicks.
       </template>
-      <template #details>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum quos
-        quia, voluptatum, voluptatibus, quibusdam quod quae voluptates
-      </template>
       <template #footer>
         <div class="p-4 flex gap-4">
           <Button variant="outline-indigo" size="32">Quick setup</Button>
