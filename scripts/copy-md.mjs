@@ -13,6 +13,13 @@ import * as url from 'url'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
+async function createFileAndDirectory(dest, fileContents) {
+  const destFullPath = resolve(__dirname, '..', 'docs', dest)
+  const destDir = dirname(destFullPath)
+  await fs.mkdir(destDir, { recursive: true })
+  return fs.writeFile(destFullPath, fileContents, 'utf8')
+}
+
 ;(async () => {
   await Promise.all(
     (
@@ -20,16 +27,23 @@ const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
         cwd: resolve(__dirname, '../'),
       })
     ).map(async (path) => {
-      const dest = path.replace(/\/ReadMe\.md$/i, '.md')
-      const fileContents = `# ${dest.split('/').pop()?.slice(0, -3)}\n`
+      const fileContents = `---
+layout: none
+---
 
-      // create the destination directory
-      const destFullPath = resolve(__dirname, '..', 'docs', dest)
-      const destDir = dirname(destFullPath)
-      await fs.mkdir(destDir, { recursive: true })
+# ${path
+        .replace(/\/ReadMe\.md$/i, '')
+        .split('/')
+        .pop()}
+`
 
       // write the file to the docs folder
-      return fs.writeFile(destFullPath, fileContents, 'utf8')
+      return Promise.all([
+        createFileAndDirectory(
+          path.replace(/\/ReadMe\.md$/i, '.md'),
+          fileContents
+        ),
+      ])
     })
   )
   console.log('Generated all component readmes to docs')
