@@ -108,6 +108,7 @@ const dismissed = ref(false)
         </div>
       </template>
     </Alert>
+    <p v-if="dismissed">Alert dismissed</p>
   </div>
 </template>
 ```

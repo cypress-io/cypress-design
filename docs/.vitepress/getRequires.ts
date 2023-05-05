@@ -13,7 +13,9 @@ function capitalizeFirstLetter(string: string) {
  */
 export function getRequires(code: string, importMarker: number) {
   // first if we find a local component we redirect it to the code to allow hot reload
-  const imports = Object.entries(getImports(code))
+  const imports = Object.entries(getImports(code)).filter(
+    (e) => e[1].source !== 'vue'
+  )
 
   return `${imports
     .map(([key, oneImport]) => {
@@ -31,7 +33,7 @@ export function getRequires(code: string, importMarker: number) {
       return `import { ${oneImport.imported} as __imported_${key}_$${importMarker}__ } from '${source}';\n`
     })
     .join('')}
-const imports$${importMarker} = {}
+const imports$${importMarker} = {};
 ${imports
   .map(([key, oneImport]) => {
     if (!oneImport.imported) {
