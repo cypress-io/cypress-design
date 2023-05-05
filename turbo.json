@@ -26,7 +26,6 @@
   },
   "globalDependencies": [
     "tsconfig.json",
-    "tsconfig.*.json",
-    "package.json"
+    "tsconfig.*.json"
   ]
 }
