@@ -12,16 +12,12 @@ describe('getRequires', () => {
 		`
     const imports = getRequires(code, 42, ['Icon'], false)
     expect(imports).toMatchInlineSnapshot(`
-      "import { merge as __imported_merge_$42__ } from 'lodash';
-      import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '../../../components/Icon/vue/index.ts';
-      import { IconActionOther as __imported_LocalIconOther_$42__ } from '../../../components/Icon/vue/index.ts';
-      import { default as __imported_Icon_$42__ } from '../../../components/Icon/vue/index.ts';
+      "import { ref as __imported_ref_$42__ } from 'vue';
+      import { h as __imported_h_$42__ } from 'vue';
 
       const imports$42 = {};
-      imports$42['lodash'] = imports$42['lodash'] ?? { __esModule:true, _: {} };imports$42['lodash'].merge = __imported_merge_$42__ ;
-      imports$42['@cypress-design/vue-icon'] = imports$42['@cypress-design/vue-icon'] ?? { __esModule:true, _: {} };imports$42['@cypress-design/vue-icon'].IconActionQuestionMarkCircle = __imported_LocalIcon_$42__ ;
-      imports$42['@cypress-design/vue-icon'] = imports$42['@cypress-design/vue-icon'] ?? { __esModule:true, _: {} };imports$42['@cypress-design/vue-icon'].IconActionOther = __imported_LocalIconOther_$42__ ;
-      imports$42['@cypress-design/vue-icon'] = imports$42['@cypress-design/vue-icon'] ?? { __esModule:true, _: {} };imports$42['@cypress-design/vue-icon'].default = __imported_Icon_$42__ ;"
+      imports$42['vue'] = imports$42['vue'] ?? { __esModule:true, _: {} };imports$42['vue'].ref = __imported_ref_$42__ ;
+      imports$42['vue'] = imports$42['vue'] ?? { __esModule:true, _: {} };imports$42['vue'].h = __imported_h_$42__ ;"
     `)
   })
 
@@ -35,16 +31,12 @@ describe('getRequires', () => {
 		`
     const imports = getRequires(code, 42, ['Icon'], true)
     expect(imports).toMatchInlineSnapshot(`
-      "import { merge as __imported_merge_$42__ } from 'lodash';
-      import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '@cypress-design/vue-icon';
-      import { IconActionOther as __imported_LocalIconOther_$42__ } from '@cypress-design/vue-icon';
-      import { default as __imported_Icon_$42__ } from '@cypress-design/vue-icon';
+      "import { ref as __imported_ref_$42__ } from 'vue';
+      import { h as __imported_h_$42__ } from 'vue';
 
       const imports$42 = {};
-      imports$42['lodash'] = imports$42['lodash'] ?? { __esModule:true, _: {} };imports$42['lodash'].merge = __imported_merge_$42__ ;
-      imports$42['@cypress-design/vue-icon'] = imports$42['@cypress-design/vue-icon'] ?? { __esModule:true, _: {} };imports$42['@cypress-design/vue-icon'].IconActionQuestionMarkCircle = __imported_LocalIcon_$42__ ;
-      imports$42['@cypress-design/vue-icon'] = imports$42['@cypress-design/vue-icon'] ?? { __esModule:true, _: {} };imports$42['@cypress-design/vue-icon'].IconActionOther = __imported_LocalIconOther_$42__ ;
-      imports$42['@cypress-design/vue-icon'] = imports$42['@cypress-design/vue-icon'] ?? { __esModule:true, _: {} };imports$42['@cypress-design/vue-icon'].default = __imported_Icon_$42__ ;"
+      imports$42['vue'] = imports$42['vue'] ?? { __esModule:true, _: {} };imports$42['vue'].ref = __imported_ref_$42__ ;
+      imports$42['vue'] = imports$42['vue'] ?? { __esModule:true, _: {} };imports$42['vue'].h = __imported_h_$42__ ;"
     `)
   })
 })
