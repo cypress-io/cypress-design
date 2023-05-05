@@ -6,25 +6,48 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
-fs.rename(
-  path.resolve('./components/icon'),
-  path.resolve('./components/Icon2'),
-  (err) => {
+fs.readdir(
+  path.resolve('./components'),
+  { withFileTypes: true },
+  (err, files) => {
     if (err) {
       console.error(err)
     } else {
-      console.log('Directory renamed badly successfully')
-      fs.rename(
-        path.resolve('./components/Icon2'),
-        path.resolve('./components/Icon'),
-        (err) => {
-          if (err) {
-            console.error(err)
+      if (
+        !files.some((file) => {
+          if (file.isDirectory() && file.name === 'icon') {
+            return true
           } else {
-            console.log('Directory renamed fixed successfully')
+            return false
           }
-        }
-      )
+        })
+      ) {
+        console.log('Directory already renamed')
+        return
+      }
     }
+
+    fs.rename(
+      path.resolve('./components/icon'),
+      path.resolve('./components/Icon2'),
+      (err) => {
+        if (err) {
+          console.error(err)
+        } else {
+          console.log('Directory renamed badly successfully')
+          fs.rename(
+            path.resolve('./components/Icon2'),
+            path.resolve('./components/Icon'),
+            (err) => {
+              if (err) {
+                console.error(err)
+              } else {
+                console.log('Directory renamed fixed successfully')
+              }
+            }
+          )
+        }
+      }
+    )
   }
 )
