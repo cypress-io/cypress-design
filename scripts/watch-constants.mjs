@@ -9,13 +9,16 @@ const watcher = chokidar.watch(['./components/*/constants/src/**/*.ts'], {
   cwd,
 })
 
-const pathToTsc = resolve(__dirname, '..', 'node_modules/.bin/esbuild')
+const pathToESBuild = resolve(__dirname, '..', 'node_modules/.bin/esbuild')
+const pathToTsc = resolve(__dirname, '..', 'node_modules/.bin/tsc')
 
 watcher.on('change', async (file) => {
   console.log(`${file} changed`)
 
-  execa(
-    pathToTsc,
+  const cwd = resolve(dirname(file), '..')
+
+  await execa(
+    pathToESBuild,
     [
       'src/index.ts',
       '--allow-overwrite',
@@ -24,7 +27,12 @@ watcher.on('change', async (file) => {
     ],
     {
       stdio: 'inherit',
-      cwd: resolve(dirname(file), '..'),
+      cwd,
     }
   )
+
+  await execa(pathToTsc, ['--emitDeclarationOnly'], {
+    stdio: 'inherit',
+    cwd,
+  })
 })

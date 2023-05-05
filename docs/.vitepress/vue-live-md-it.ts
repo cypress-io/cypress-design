@@ -1,6 +1,10 @@
-import { getImports } from './getImports'
+import { readdirSync } from 'fs'
+import { resolve } from 'path'
+import { getRequires } from './getRequires'
 
 let importMarker = 0
+
+const componentDirectories = readdirSync(resolve(__dirname, '../../components'))
 
 function addVueLive(md: any) {
   const fence = md.renderer.rules.fence
@@ -22,32 +26,14 @@ function addVueLive(md: any) {
 
     const code = token.content
 
-    // analyze code to find requires
-    // put all requires into a "requires" object
-    // add this as a prop
-    const imports = getImports(code)
-    const requires = `${Object.entries(imports)
-      .map(([key, oneImport]) => {
-        if (!oneImport.imported) {
-          return ''
-        }
-        return `import { ${oneImport.imported} as __imported_${key}_$${importMarker}__ } from '${oneImport.source}';
-			`
-      })
-      .join('')}
-		const imports$${importMarker} = {}
-		${Object.entries(imports)
-      .map(([key, oneImport]) => {
-        if (!oneImport.imported) {
-          return `imports$${importMarker}['${oneImport.source}'] = { __esModule:true, _: {} };`
-        }
-        return [
-          `imports$${importMarker}['${oneImport.source}'] = imports$${importMarker}['${oneImport.source}'] ?? { __esModule:true, _: {} };`,
-          `imports$${importMarker}['${oneImport.source}'].${oneImport.imported} = __imported_${key}_$${importMarker}__ ;`,
-        ].join('')
-      })
-      .join('')}`
+    const isProduction = process.env.NODE_ENV === 'production'
 
+    const requires = getRequires(
+      code,
+      importMarker,
+      componentDirectories,
+      isProduction
+    )
     const scriptBlock = env.sfcBlocks.scripts.find(
       (s: any) => s.type === 'script' && s.tagOpen.includes('setup')
     )
