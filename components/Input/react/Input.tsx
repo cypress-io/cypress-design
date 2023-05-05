@@ -91,7 +91,11 @@ export const Input: React.FC<ReactInputProps> = ({
       )}
     >
       {Icon && (
-        <Icon className={IconStaticClasses} strokeColor={iconStrokeColor} />
+        <Icon
+          className={IconStaticClasses}
+          strokeColor={iconStrokeColor}
+          data-cy="text-input--search-icon"
+        />
       )}
       <input
         // unclear how to prevent the native [X] from showing
@@ -110,7 +114,7 @@ export const Input: React.FC<ReactInputProps> = ({
         </button>
       )}
       {searchResults && (
-        <p className={ResultStaticClass}>
+        <p data-cy="text-input--search-results" className={ResultStaticClass}>
           {searchResults.match} of {searchResults.total} {searchResults.entity}
         </p>
       )}
