@@ -23,7 +23,7 @@ import { IconActionPower } from '@cypress-design/react-icon'
 import Button from '@cypress-design/react-button'
 export default () => (
   <Button>
-    <IconActionPower class="mr-2" />
+    <IconActionPower className="mr-2" />
     Button
   </Button>
 )
@@ -48,10 +48,11 @@ export default () => {
             backgroundColor: variant === 'outline-dark' ? '#1a202c' : 'white',
             color: variant === 'outline-dark' ? 'white' : 'black',
           }}
+          key={variant}
         >
           {variant}
           {Object.keys(SizeClassesTable).map((size) => (
-            <div className="flex gap-[8px] items-center">
+            <div className="flex gap-[8px] items-center" key={size}>
               {size}
               <Button variant={variant} size={size}>
                 Button
