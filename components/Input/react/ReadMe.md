@@ -33,10 +33,11 @@ export const InputComp = () => {
   return (
     <Contrast>
       <Input
+        // size="32"
         // className=""
         // value={value}
-        // onChange={() => null}
-        // customIcon={IconComponent}
+        // onChange={(event) => null}
+        // customIcon={IconComponentVar}
         isSearch // adds MagnifyingGlass icon
         onReset={() => console.log('reset...')}
         placeholder="Search specs"
