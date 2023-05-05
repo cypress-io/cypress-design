@@ -100,7 +100,7 @@ export const AlertComp = () => (
             viewBox="0 0 16 16"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            class="mr-2 inline"
+            className="mr-2 inline"
           >
             <path
               d="M8 0L0.552002 2.656L1.688 12.504L8 16L14.312 12.504L15.448 2.656L8 0Z"
@@ -126,7 +126,7 @@ export const AlertComp = () => (
           <Button variant="link" size="32">
             Read our guides
           </Button>
-          <div class="flex-grow grow" />
+          <div className="flex-grow grow" />
           <Button variant="link" size="32">
             Give feedback
           </Button>
