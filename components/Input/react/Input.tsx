@@ -11,6 +11,7 @@ import {
   ResultStaticClass,
   StaticClasses,
   inputClasses,
+  StaticInputClasses,
 } from '@cypress-design/constants-input'
 import {
   IconObjectMagnifyingGlass,
@@ -25,8 +26,8 @@ export interface InputPropsJsx extends InputProps {
 
 type ReactInputProps = InputPropsJsx & React.HTMLProps<HTMLInputElement>
 
-// tbd: what is a better way of allowing the
-//  <input/> to propagate its focus state?
+// tbd: what is a better way of allowing the <input/>
+//  to propagate its focus state to siblings?
 const usePropagateFocusProps = () => {
   const [hasFocus, setHasFocus] = React.useState(false)
   const enableFocusStyle = React.useCallback(() => setHasFocus(true), [])
@@ -55,8 +56,8 @@ export const Input: React.FC<ReactInputProps> = ({
   searchResults,
   size = DefaultSize,
   variant = DefaultVariant,
-  onChange,
   onReset,
+  onChange,
   placeholder,
   disabled,
   value,
@@ -93,12 +94,14 @@ export const Input: React.FC<ReactInputProps> = ({
         <Icon className={IconStaticClasses} strokeColor={iconStrokeColor} />
       )}
       <input
-        type="text"
+        // unclear how to prevent the native [X] from showing
+        //  with tailwind, so only using "text" for now:
+        type="text" // tbd: support "search"
         value={value}
         disabled={finalIsDisabled}
         onChange={onChange}
         placeholder={placeholder}
-        className={clsx('w-[100%]')}
+        className={StaticInputClasses}
         {...propagateFocusProps}
       />
       {onReset && (
@@ -107,9 +110,9 @@ export const Input: React.FC<ReactInputProps> = ({
         </button>
       )}
       {searchResults && (
-        <div className={ResultStaticClass}>
+        <p className={ResultStaticClass}>
           {searchResults.match} of {searchResults.total} {searchResults.entity}
-        </div>
+        </p>
       )}
     </div>
   )

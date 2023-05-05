@@ -72,6 +72,7 @@ export const StaticClasses =
   'border border-solid rounded rounded-[4px] flex items-center font-medium transition duration-150 '
 export const ResultStaticClass =
   'whitespace-nowrap border-l-1 border-gray-100 ml-[16px] pl-[16px] '
+export const StaticInputClasses = 'clear-none w-[100%] '
 export const IconStaticClasses = 'mr-[8px] min-w-[16px] '
 export const ResetStaticClasses = 'ml-[8px] '
 
