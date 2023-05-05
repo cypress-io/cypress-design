@@ -1,9 +1,5 @@
 import { getImports } from './getImports'
 
-function capitalizeFirstLetter(string: string) {
-  return string.charAt(0).toUpperCase() + string.slice(1)
-}
-
 /**
  * Analyze code to find requires
  * put all requires into a "requires" object
@@ -19,8 +15,8 @@ export function getRequires(
 ) {
   // first if we find a local component we redirect it to the code to allow hot reload
   const imports = Object.entries(getImports(code)).filter(
-    // since vue is automatically imported by vue-live we remove it
-    (e) => e[1].source !== 'vue'
+    // since vue/react is automatically imported by vue-live we remove it
+    (e) => ['react', 'vue'].includes(e[1].source)
   )
 
   return `${imports
