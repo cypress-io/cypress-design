@@ -14,6 +14,7 @@ function capitalizeFirstLetter(string: string) {
 export function getRequires(code: string, importMarker: number) {
   // first if we find a local component we redirect it to the code to allow hot reload
   const imports = Object.entries(getImports(code)).filter(
+    // since vue is automatically imported by vue-live we remove it
     (e) => e[1].source !== 'vue'
   )
 
