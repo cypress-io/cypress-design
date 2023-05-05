@@ -88,7 +88,7 @@ export const AlertComp = () => {
 import Button from '@cypress-design/react-button'
 
 export const AlertComp = () => (
-  <div className="bg-white m-4 p-4">
+  <div className="bg-white p-4">
     <Alert
       variant="clear"
       dismissible

@@ -27,7 +27,7 @@ The simplest is to use with plain text. By default, type is `info`.
 One can also have rich text in both the title and the body.
 
 ```jsx live
-<div class="bg-white m-4 p-4">
+<div class="bg-white p-4">
   <Alert>
     This is an <code>info</code> message
     <template #body>
@@ -70,7 +70,7 @@ const dismissed = ref(false)
 </script>
 
 <template>
-  <div class="bg-white m-4 p-4">
+  <div class="bg-white p-4">
     <Alert variant="clear" dismissible @dismiss="dismissed = true">
       <svg
         width="16"
