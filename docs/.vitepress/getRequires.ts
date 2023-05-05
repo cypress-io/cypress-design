@@ -16,7 +16,7 @@ export function getRequires(
   // first if we find a local component we redirect it to the code to allow hot reload
   const imports = Object.entries(getImports(code)).filter(
     // since vue/react is automatically imported by vue-live we remove it
-    (e) => ['react', 'vue'].includes(e[1].source)
+    (e) => !['react', 'vue'].includes(e[1].source)
   )
 
   return `${imports
