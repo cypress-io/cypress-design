@@ -11,7 +11,11 @@ function capitalizeFirstLetter(string: string) {
  * @param code
  * @param importMarker
  */
-export function getRequires(code: string, importMarker: number) {
+export function getRequires(
+  code: string,
+  importMarker: number,
+  componentNames: string[]
+) {
   // first if we find a local component we redirect it to the code to allow hot reload
   const imports = Object.entries(getImports(code)).filter(
     // since vue is automatically imported by vue-live we remove it
@@ -27,9 +31,9 @@ export function getRequires(code: string, importMarker: number) {
         oneImport.source
       )
       const source = localImport
-        ? `../../../components/${capitalizeFirstLetter(localImport[2])}/${
-            localImport[1]
-          }/index.ts`
+        ? `../../../components/${componentNames.find(
+            (name) => name.toLowerCase() === localImport[2]
+          )}/${localImport[1]}/index.ts`
         : oneImport.source
       return `import { ${oneImport.imported} as __imported_${key}_$${importMarker}__ } from '${source}';\n`
     })

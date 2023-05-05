@@ -1,7 +1,10 @@
-import { getImports } from './getImports'
+import { readdirSync } from 'fs'
+import { resolve } from 'path'
 import { getRequires } from './getRequires'
 
 let importMarker = 0
+
+const componentDirectories = readdirSync(resolve(__dirname, '../../components'))
 
 function addVueLive(md: any) {
   const fence = md.renderer.rules.fence
@@ -23,7 +26,7 @@ function addVueLive(md: any) {
 
     const code = token.content
 
-    const requires = getRequires(code, importMarker)
+    const requires = getRequires(code, importMarker, componentDirectories)
     const scriptBlock = env.sfcBlocks.scripts.find(
       (s: any) => s.type === 'script' && s.tagOpen.includes('setup')
     )
