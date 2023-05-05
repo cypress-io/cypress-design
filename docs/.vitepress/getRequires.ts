@@ -14,7 +14,8 @@ function capitalizeFirstLetter(string: string) {
 export function getRequires(
   code: string,
   importMarker: number,
-  componentNames: string[]
+  componentNames: string[],
+  production: boolean
 ) {
   // first if we find a local component we redirect it to the code to allow hot reload
   const imports = Object.entries(getImports(code)).filter(
@@ -27,9 +28,10 @@ export function getRequires(
       if (!oneImport.imported) {
         return ''
       }
-      const localImport = /^@cypress-design\/(vue|react)-(\w+)$/.exec(
-        oneImport.source
-      )
+
+      const localImport = production
+        ? null
+        : /^@cypress-design\/(vue|react)-(\w+)$/.exec(oneImport.source)
       const source = localImport
         ? `../../../components/${componentNames.find(
             (name) => name.toLowerCase() === localImport[2]

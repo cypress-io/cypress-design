@@ -26,7 +26,14 @@ function addVueLive(md: any) {
 
     const code = token.content
 
-    const requires = getRequires(code, importMarker, componentDirectories)
+    const isProduction = process.env.NODE_ENV === 'production'
+
+    const requires = getRequires(
+      code,
+      importMarker,
+      componentDirectories,
+      isProduction
+    )
     const scriptBlock = env.sfcBlocks.scripts.find(
       (s: any) => s.type === 'script' && s.tagOpen.includes('setup')
     )
