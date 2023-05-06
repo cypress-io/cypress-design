@@ -18,46 +18,32 @@ export type InputVariants = keyof typeof VariantClassesTable
 
 type InputClasses = {
   icon: WindiColor
-  // input: string
-  // reset: string
-  // results: string
 }
+
 export const inputClasses: Record<InputVariants, InputClasses> = {
   default: {
+    // <wind-keep strokeColor="gray-800" focusWithinStrokeColor="gray-800" interactiveColorsOnGroup/>
     icon: 'gray-800',
-    // input: '',
-    // reset: '',
-    // results: '',
   },
   active: {
+    // <wind-keep strokeColor="indigo-500" focusWithinStrokeColor="indigo-500" interactiveColorsOnGroup/>
     icon: 'indigo-500',
-    // input: '',
-    // reset: '',
-    // results: '',
   },
   valid: {
+    // <wind-keep strokeColor="jade-500" focusWithinStrokeColor="jade-500" interactiveColorsOnGroup/>
     icon: 'jade-500',
-    // input: '',
-    // reset: '',
-    // results: '',
   },
   invalid: {
+    // <wind-keep strokeColor="red-500" focusWithinStrokeColor="red-500" interactiveColorsOnGroup/>
     icon: 'red-500',
-    // input: '',
-    // reset: '',
-    // results: '',
   },
   warning: {
+    // <wind-keep strokeColor="gray-800" focusWithinStrokeColor="gray-800" interactiveColorsOnGroup/>
     icon: 'gray-800',
-    // input: '',
-    // reset: '',
-    // results: '',
   },
   disabled: {
+    // <wind-keep strokeColor="gray-600" focusWithinStrokeColor="gray-600" interactiveColorsOnGroup/>
     icon: 'gray-600',
-    // input: '',
-    // reset: '',
-    // results: '',
   },
 } as const
 
