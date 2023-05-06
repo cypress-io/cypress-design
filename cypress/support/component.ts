@@ -15,7 +15,7 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
-import '../../style.css'
+import 'tailwindcss/tailwind.css'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
