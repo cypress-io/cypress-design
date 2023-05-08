@@ -70,7 +70,7 @@ const dismissed = ref(false)
 </script>
 
 <template>
-  <div class="bg-white p-4">
+  <div class="bg-white dark:bg-gray-800 p-4">
     <Alert variant="clear" dismissible @dismiss="dismissed = true">
       <svg
         width="16"

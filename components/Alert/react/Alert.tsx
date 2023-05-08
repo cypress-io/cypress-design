@@ -212,9 +212,7 @@ export const Alert: React.FC<
             </details>
           )}
           {footer ? (
-            <div className={clsx(variantClasses.bodyClass, 'h-0')}>
-              {footer}
-            </div>
+            <div className={variantClasses.bodyClass}>{footer}</div>
           ) : undefined}
         </div>
       )}
