@@ -85,13 +85,18 @@ export const AlertComp = () => {
 ```
 
 ```jsx live
+import { useState } from 'react'
 import Button from '@cypress-design/react-button'
 
-export const AlertComp = () => (
-  <div className="bg-white dark:bg-gray-800 p-4">
+export const AlertComp = () => {
+  const [dismissed, setDismissed] = useState(false)
+  return dismissed ? (
+    'Tips & Trick Dismissed'
+  ) : (
     <Alert
       variant="clear"
       dismissible
+      onDismiss={() => setDismissed(true)}
       title={
         <>
           <svg
@@ -136,6 +141,6 @@ export const AlertComp = () => (
       You can now use Cypress to develop and test individual components without
       running your whole application. Generate the config in just a few clicks.
     </Alert>
-  </div>
-)
+  )
+}
 ```

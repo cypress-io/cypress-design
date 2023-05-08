@@ -90,7 +90,7 @@ export const alertClasses: Record<AlertVariant, AlertClasses> = {
     iconChevronColor: 'jade-300',
   },
   clear: {
-    wrapperClass: 'border-gray-50 border',
+    wrapperClass: 'border-gray-50 bg-white border text-gray-700',
     headerClass: '',
     bodyClass: 'border-gray-50 border-t',
     borderClass: 'border-gray-50',
