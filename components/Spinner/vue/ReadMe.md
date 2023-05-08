@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-spinner
 
 ## Usage
 
+```ts
+import Spinner from '@cypress-design/vue-spinner'
+```
+
 You can either use the default spinner and import the styles manually.
 
 ```vue live

@@ -1,5 +1,28 @@
 # @cypress-design/react-tabs
 
+## 0.5.0
+
+### Minor Changes
+
+- [#214](https://github.com/cypress-io/cypress-design/pull/214) [`319cf8c`](https://github.com/cypress-io/cypress-design/commit/319cf8c43ce9efa8c0f3d2cfc4f4c0039cddb385) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add dark variants to tabs
+
+### Patch Changes
+
+- Updated dependencies [[`319cf8c`](https://github.com/cypress-io/cypress-design/commit/319cf8c43ce9efa8c0f3d2cfc4f4c0039cddb385)]:
+  - @cypress-design/constants-tabs@0.2.0
+
+## 0.4.1
+
+### Patch Changes
+
+- [`08ba16d`](https://github.com/cypress-io/cypress-design/commit/08ba16da4a8663676ee96ac4950938857bd0d9a3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix wind-keep plugin
+
+## 0.4.0
+
+### Minor Changes
+
+- [`a724d05`](https://github.com/cypress-io/cypress-design/commit/a724d05975922ab94180125375f3842793b848ba) Thanks [@elevatebart](https://github.com/elevatebart)! - rename prop variant + add prop docs
+
 ## 0.3.1
 
 ### Patch Changes

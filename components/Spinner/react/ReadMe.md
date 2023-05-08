@@ -14,6 +14,10 @@ yarn add @cypress-design/react-spinner
 
 ## Usage
 
+```ts
+import Spinner from '@cypress-design/react-spinner'
+```
+
 ```tsx live
 import Spinner from '@cypress-design/react-spinner'
 

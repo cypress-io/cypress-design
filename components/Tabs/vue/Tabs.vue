@@ -1,21 +1,31 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { Tab, classesMap } from '@cypress-design/constants-tabs'
+import { Tab, variants } from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
   defineProps<{
+    /**
+     * The tabs to display
+     */
     tabs: Tab[]
-    type?: keyof typeof classesMap
+    /**
+     * Appearance of tabs
+     */
+    variant?: keyof typeof variants
   }>(),
   {
-    type: 'default',
+    variant: 'default',
   }
 )
 
 const $tab = ref<HTMLButtonElement[]>()
 
 const emit = defineEmits<{
-  (event: 'change', tab: Tab): void
+  /**
+   * A tab is changed
+   * @param tab new tab selected
+   */
+  (event: 'switch', tab: Tab): void
 }>()
 
 const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
@@ -63,14 +73,21 @@ function navigate(shift: number) {
       : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
   $tab.value?.[nextIndex]?.focus()
-  emit('change', props.tabs[nextIndex])
+  emit('switch', props.tabs[nextIndex])
 }
 
 const classes = computed(() => {
-  if (props.type in classesMap) {
-    return classesMap[props.type]
+  if (props.variant in variants) {
+    return variants[props.variant].classes
   }
-  return classesMap.default
+  return variants.default.classes
+})
+
+const iconProps = computed(() => {
+  if (props.variant in variants) {
+    return variants[props.variant].icon
+  }
+  return variants.default.icon
 })
 </script>
 
@@ -84,6 +101,7 @@ const classes = computed(() => {
       ref="$tab"
       role="tab"
       :tabindex="tab.id === activeId ? undefined : -1"
+      :aria-selected="tab.id === activeId ? true : undefined"
       :class="[
         classes.button,
         {
@@ -97,7 +115,7 @@ const classes = computed(() => {
           if(e.ctrlKey || e.metaKey) return
           e.preventDefault()
           activeId = tab.id
-          emit('change', tab)
+          emit('switch', tab)
         }
       "
       @keyup.left="navigate(-1)"
@@ -106,16 +124,16 @@ const classes = computed(() => {
       <component
         v-if="tab.iconBefore ?? tab.icon"
         :is="tab.iconBefore ?? tab.icon"
+        v-bind="iconProps"
         class="mr-[8px]"
-        :size="props.type === 'underline-large' ? '24' : '16'"
       />
       {{ tab.label }}
       <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
       <component
         v-if="tab.iconAfter"
         :is="tab.iconAfter"
+        v-bind="iconProps"
         class="ml-[8px]"
-        :size="props.type === 'underline-large' ? '24' : '16'"
       />
       <div
         v-if="tab.id === activeId && !activeMarkerStyle"

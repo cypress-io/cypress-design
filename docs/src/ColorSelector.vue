@@ -15,7 +15,7 @@ function emitValue(event: Event) {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative leading-[20px] h-[20px]">
     <select
       class="absolute opacity-0 left-0 right-0 top-0 bottom-0 cursor-pointer"
       @change="emitValue"
@@ -28,7 +28,7 @@ function emitValue(event: Event) {
       <option value="white">white</option>
       <option value="gray-1000">black</option>
     </select>
-    <div>
+    <div class="whitespace-nowrap">
       <slot /><span
         class="ml-1 w-2 h-2 inline-block"
         :class="`bg-${modelValue}`"

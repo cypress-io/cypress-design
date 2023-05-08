@@ -15,6 +15,7 @@ const props = defineProps<{
 }>()
 
 const localFocused = ref(false)
+const overlay = ref(false)
 
 const focused = computed(() => props.focused || localFocused.value)
 
@@ -40,10 +41,13 @@ watch(localFocused, (value) => {
       transform: 'none',
       transition: 'none',
     }
+
+    overlay.value = false
   }
 })
 
 function focus() {
+  overlay.value = true
   const buttonWidth = $button.value?.offsetWidth ?? 0
   const buttonLeft = $button.value?.offsetLeft ?? 0
 
@@ -68,23 +72,29 @@ function focus() {
   nextTick(() => {
     localFocused.value = true
     setTimeout(() => {
+      $closeButton.value?.focus()
       buttonStyle.value = {
         ...buttonStyle.value,
         transition: 'transform 0.15s linear',
         transform: 'none',
       }
-    }, 50)
+    }, 0)
   })
 }
 
 const $button = ref<HTMLDivElement>()
+const $closeButton = ref<HTMLButtonElement>()
 // <tw-include class="grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4"/>
 </script>
 
 <template>
   <div
-    v-if="localFocused"
-    class="absolute w-full h-full top-0 left-0 z-10 bg-gray-500/70"
+    v-if="overlay"
+    class="absolute w-full h-full top-0 left-0 z-10 bg-gray-500 transition transition-opacity"
+    :class="{
+      'opacity-0': buttonStyle.transition === 'none',
+      'opacity-70': buttonStyle.transition !== 'none',
+    }"
     @click="localFocused = false"
   />
   <div
@@ -92,13 +102,14 @@ const $button = ref<HTMLDivElement>()
     class="bg-indigo-500 rounded"
     :style="placeholderStyle"
   />
-  <button
+  <div
     ref="$button"
+    tabindex="0"
     class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 dark:bg-gray-800 min-h-[72px] rounded"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] md:flex-nowrap justify-end md:justify-start !cursor-default':
         focused,
-      'py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors':
+      'py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors cursor-pointer':
         !focused,
       'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0':
         localFocused,
@@ -107,9 +118,11 @@ const $button = ref<HTMLDivElement>()
     }"
     :style="localFocused ? buttonStyle : undefined"
     @click="!focused ? focus() : undefined"
+    @keyup.escape="localFocused = false"
   >
     <button
       v-if="localFocused"
+      ref="$closeButton"
       class="absolute top-[4px] right-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500 dark:hover:border-gray-500"
       @click.stop="localFocused = false"
     >
@@ -119,17 +132,19 @@ const $button = ref<HTMLDivElement>()
     <p
       class="text-[16px] flex-shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
       :class="{
-        'w-full text-left md:text-right md:w-auto md:min-w-[300px]': focused,
+        'w-full text-left md:text-right md:w-auto md:min-w-[350px]': focused,
         hidden: !focused,
       }"
     >
       <span class="flex items-center md:justify-end mb-[8px] gap-x-[8px] group"
-        ><CopyButton :text="iconName" /><code class="!m-0">{{
-          iconName
-        }}</code></span
+        ><CopyButton class="hidden md:block" :text="iconName" /><code
+          class="!m-0"
+          >{{ iconName }}</code
+        ></span
       >
       <span class="flex items-center md:justify-end gap-x-[8px] group"
         ><CopyButton
+          class="hidden md:block"
           :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
         /><code class="!m-0"
           >&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code
@@ -139,7 +154,10 @@ const $button = ref<HTMLDivElement>()
 
     <div
       class="flex-grow grid gap-[16px] transition-all duration-1000"
-      :class="`grid-cols-${Math.min(meta.availableSizes.length, 4)}`"
+      :class="{
+        [`grid-cols-${Math.min(meta.availableSizes.length, 4)}`]: !localFocused,
+        [`grid-cols-5 justify-items-center`]: localFocused,
+      }"
     >
       <IconSized
         v-for="size in meta.availableSizes"
@@ -151,5 +169,5 @@ const $button = ref<HTMLDivElement>()
         :meta="meta"
       />
     </div>
-  </button>
+  </div>
 </template>

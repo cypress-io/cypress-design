@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { Tab } from './constants'
+import { variants, Tab } from './constants'
 
 const tabs = [
   { id: 'ov', label: 'Overview', active: true },
@@ -10,9 +10,32 @@ const tabs = [
 ]
 
 export default function assertions(
-  mountStory: (options?: { tabs: Tab[] }) => void
+  mountStory: (options?: {
+    tabs: Tab[]
+    variant?: keyof typeof variants
+  }) => void
 ): void {
-  it('renders', () => {
-    mountStory({ tabs })
+  describe('Tabs', { viewportHeight: 80 }, () => {
+    it('renders', () => {
+      mountStory({ tabs })
+    })
+
+    it('moves to tab on click', () => {
+      mountStory({ tabs })
+      cy.contains('Errors').click()
+      cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+    })
+
+    it('moves to tab on arrow press', () => {
+      mountStory({ tabs })
+      cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
+      cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+    })
+
+    Object.keys(variants).forEach((variant) => {
+      it(`renders ${variant}`, () => {
+        mountStory({ tabs, variant: variant as keyof typeof variants })
+      })
+    })
   })
 }

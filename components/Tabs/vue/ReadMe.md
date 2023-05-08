@@ -12,7 +12,11 @@ or with yarn
 yarn add @cypress-design/vue-tabs
 ```
 
-### Usage
+## Usage
+
+```ts
+import Tabs from '@cypress-design/vue-tabs'
+```
 
 ```vue live
 <Tabs

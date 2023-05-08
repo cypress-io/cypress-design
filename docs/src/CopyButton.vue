@@ -21,14 +21,14 @@ function copyCode(text: string) {
 </script>
 
 <template>
-  <div class="relative">
+  <span class="relative">
     <button
       class="invisible group-hover:visible text-indigo-500 text-[12px] w-[32px]"
       :class="{
         'opacity-0': copiedSuccess,
         'opacity-100': !copiedSuccess,
       }"
-      @click="() => copyCode(text)"
+      @click.stop="() => copyCode(text)"
     >
       copy
     </button>
@@ -37,5 +37,5 @@ function copyCode(text: string) {
       class="text-green-500 text-[12px] inline-block w-[40px] absolute right-0 top-1"
       >copied</span
     >
-  </div>
+  </span>
 </template>

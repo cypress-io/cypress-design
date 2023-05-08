@@ -15,7 +15,7 @@ const parser = withCustomConfig(tsconfigPath, {
 
   propFilter: (prop) => {
     if (prop.declarations !== undefined && prop.declarations.length > 0) {
-      const isNodeModules = prop.declarations.some((declaration) => {
+      const isNodeModules = prop.declarations.every((declaration) => {
         return declaration.fileName.includes('node_modules')
       })
 
@@ -27,7 +27,7 @@ const parser = withCustomConfig(tsconfigPath, {
 })
 
 module.exports = defineConfig({
-  components: './*/react/[A-Z][A-Za-z0-9-]+\\.@(tsx|ts)',
+  components: './*/react/[A-Z]*.tsx',
   getDestFile: (componentPath, { outDir }) => {
     const name = componentPath.split('/').pop() || 'unknown'
     return path.join(outDir, 'react', name.replace(/\.(tsx|ts)$/, '.md'))

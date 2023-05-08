@@ -1,6 +1,6 @@
 {
-  "name": "@cypress-design/react-icon",
-  "version": "0.21.0",
+  "name": "@cypress-design/vue-icon",
+  "version": "0.22.1",
   "files": [
     "*"
   ],
@@ -17,8 +17,8 @@
   "scripts": {
     "build": "yarn build:codegen && yarn build:module && yarn build:types",
     "build:codegen": "node ./generate-icons.js",
-    "build:module": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:module": "yarn vite build",
+    "build:types": "yarn tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
     "@cypress-design/icon-registry": "^0.22.0"

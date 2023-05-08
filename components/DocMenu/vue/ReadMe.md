@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-docmenu
 
 ## Usage
 
+```ts
+import DocMenu from '@cypress-design/vue-docmenu'
+```
+
 ```vue live
 <DocMenu
   :items="[

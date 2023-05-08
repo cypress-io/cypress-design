@@ -1,17 +1,27 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, classesMap } from '@cypress-design/constants-tabs'
+import { Tab, variants } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
+  /**
+   * The tabs to display
+   */
   tabs: Tab[]
-  type?: keyof typeof classesMap
-  onChange?: (tab: Tab) => void
+  /**
+   * Appearance of tabs
+   */
+  variant?: keyof typeof variants
+  /**
+   * Callback when tab is changed
+   * @param tab new tab selected
+   */
+  onSwitch?: (tab: Tab) => void
 }
 
 export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   tabs,
-  onChange,
-  type = 'default',
+  onSwitch,
+  variant = 'default',
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
@@ -52,10 +62,14 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
         : shiftedIndex
     setActiveId(tabs[nextIndex].id)
     $tab.current?.[nextIndex]?.focus()
-    onChange?.(tabs[nextIndex])
+    onSwitch?.(tabs[nextIndex])
   }
 
-  const classes = type in classesMap ? classesMap[type] : classesMap.default
+  const classes =
+    variant in variants ? variants[variant].classes : variants.default.classes
+
+  const iconProps =
+    variant in variants ? variants[variant].icon : variants.default.icon
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
@@ -76,11 +90,12 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             ])}
             ref={(el: any) => (el ? ($tab.current[index] = el) : null)}
             tabIndex={tab.id === activeId ? undefined : -1}
+            aria-selected={tab.id === activeId ? true : undefined}
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
               setActiveId(tab.id)
-              onChange?.(tab)
+              onSwitch?.(tab)
             }}
             onKeyUp={(e) => {
               if (e.key === 'ArrowRight') {
@@ -91,22 +106,16 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             }}
           >
             <>
-              {() => {
+              {(() => {
                 const IconBefore = tab.iconBefore ?? tab.icon
                 return IconBefore ? (
-                  <IconBefore
-                    className="mr-[8px]"
-                    size={type !== 'underline-large' ? '24' : '16'}
-                  />
+                  <IconBefore {...iconProps} className="mr-[8px]" />
                 ) : null
-              }}
+              })()}
               {tab.label}
               {tab.tag ? <div className={classes.tag}>{tab.tag}</div> : null}
               {tab.iconAfter ? (
-                <tab.iconAfter
-                  className="ml-[8px]"
-                  size={type !== 'underline-large' ? '24' : '16'}
-                />
+                <tab.iconAfter {...iconProps} className="ml-[8px]" />
               ) : null}
             </>
             {tab.id === activeId && !activeMarkerStyle.left ? (

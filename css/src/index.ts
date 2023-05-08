@@ -26,7 +26,7 @@ export {
   ADDITIONAL_COLORS,
 } from './icon-extractor-tools'
 
-export { default as WindiKeepRollupPlugin } from './windi-keep-rollup-plugin'
+export { default as WindKeepRollupPlugin } from './wind-keep-rollup-plugin'
 export { default as TailwindConfig } from './tailwind.config'
 export { IconExtractor as TailwindIconExtractor } from './tw-icon-extractor'
 export { IconExtractor as WindiIconExtractor } from './wc-icon-extractor'

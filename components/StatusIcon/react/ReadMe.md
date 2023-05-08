@@ -14,6 +14,10 @@ yarn add @cypress-design/react-statusicon
 
 ## Usage
 
+```ts
+import StatusIcon from '@cypress-design/react-statusicon'
+```
+
 The simple way of using the StatusIcon component
 
 ```tsx

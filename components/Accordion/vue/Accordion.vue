@@ -14,7 +14,7 @@
           :class="CssClasses.separator"
           role="separator"
         />
-        <span class="flex-grow pr-[16px]">
+        <span class="flex-grow grow pr-[16px]">
           <span
             :class="[
               titleClassName ? titleClassName : CssClasses.summaryTitleColor,
