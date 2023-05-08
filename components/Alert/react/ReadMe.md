@@ -124,14 +124,14 @@ export const AlertComp = () => {
         </>
       }
       footer={
-        <div className="p-4 flex gap-4">
+        <div className="p-4 flex flex-wrap overflow-x-hidden gap-4">
           <Button variant="outline-indigo" size="32">
             Quick setup
           </Button>
           <Button variant="link" size="32">
             Read our guides
           </Button>
-          <div className="flex-grow grow" />
+          <div className="md:flex-grow md:grow" />
           <Button variant="link" size="32">
             Give feedback
           </Button>
