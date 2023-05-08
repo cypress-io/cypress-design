@@ -162,9 +162,9 @@ const { frontmatter } = useData()
         class="fixed w-screen h-screen top-0 left-0 bg-gray-900/70 z-10 md:hidden"
         @click="mobileMenuOpen = false"
       />
-      <div class="w-[250px] hidden md:block flex-shrink-0" />
+      <div class="w-[250px] hidden md:block shrink-0" />
       <aside
-        class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r-1 border-gray-100 dark:border-gray-50/07"
+        class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r border-gray-100 dark:border-gray-50/07"
         :class="{
           'transform -translate-x-full md:translate-x-0': !mobileMenuOpen,
         }"
