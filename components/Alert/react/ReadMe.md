@@ -85,11 +85,11 @@ export const AlertComp = () => {
 ```
 
 ```jsx live
-import { useState } from 'react'
+import React from 'react'
 import Button from '@cypress-design/react-button'
 
 export const AlertComp = () => {
-  const [dismissed, setDismissed] = useState(false)
+  const [dismissed, setDismissed] = React.useState(false)
   return dismissed ? (
     'Tips & Trick Dismissed'
   ) : (
