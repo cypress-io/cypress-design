@@ -11,10 +11,10 @@ import { DetailsAnimation } from '@cypress-design/details-animation'
 import {
   AlertSize,
   alertSizesClasses,
-  AlertType,
+  AlertVariant,
   defaultAlertSize,
   defaultAlertTitle,
-  defaultAlertType,
+  defaultAlertVariant,
   alertClasses,
 } from '@cypress-design/constants-alert'
 
@@ -34,7 +34,12 @@ const props = withDefaults(
     /**
      * Color scheme
      */
-    type?: AlertType
+    variant?: AlertVariant
+    /**
+     * Color scheme
+     * @deprecated use `variant` instead
+     */
+    type?: AlertVariant
     /**
      * If details are provided,text used in the toggle button
      */
@@ -61,17 +66,22 @@ const props = withDefaults(
     size?: AlertSize
   }>(),
   {
-    type: defaultAlertType,
+    variant: undefined,
+    type: defaultAlertVariant,
     detailsTitle: defaultAlertTitle,
     size: defaultAlertSize,
   }
 )
 
+const variant = computed(() => {
+  return props.variant ?? props.type
+})
+
 const detailsRef = ref(null)
 const contentRef = ref(null)
 
-const typeClasses = computed(() => {
-  return alertClasses[props.type] ?? {}
+const variantClasses = computed(() => {
+  return alertClasses[variant.value] ?? {}
 })
 
 let timeout: number | undefined
@@ -105,13 +115,13 @@ function dismiss() {
 
 const computedIconProps = computed(() => {
   return {
-    strokeColor: typeClasses.value.iconColor,
+    strokeColor: variantClasses.value.iconColor,
     class: 'my-[4px] mr-[8px]',
   }
 })
 
 const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
-  switch (props.type) {
+  switch (variant.value) {
     case 'info':
       return null
     case 'success':
@@ -134,9 +144,9 @@ const sizeClasses = computed(() => {
   <div
     v-if="!dismissed"
     class="overflow-hidden text-left"
-    :class="props.notRounded ? undefined : 'rounded'"
+    :class="[variantClasses.wrapperClass, { rounded: !props.notRounded }]"
   >
-    <div class="flex" :class="[typeClasses.headerClass, sizeClasses]">
+    <div class="flex" :class="[variantClasses.headerClass, sizeClasses]">
       <!--
         @slot replace the default left icon here
         @binding strokeColor - a windicolor that to be passed to `strokeColor`
@@ -159,10 +169,10 @@ const sizeClasses = computed(() => {
         @click="dismiss"
         aria-label="Dismiss"
       >
-        <IconActionDeleteLarge :stroke-color="typeClasses.iconCloseColor" />
+        <IconActionDeleteLarge :stroke-color="variantClasses.iconCloseColor" />
       </button>
     </div>
-    <div v-if="slots.body" class="p-[16px]" :class="typeClasses.bodyClass">
+    <div v-if="slots.body" class="p-[16px]" :class="variantClasses.bodyClass">
       <!-- @slot body/details of the alert -->
       <slot name="body" />
     </div>
@@ -170,14 +180,14 @@ const sizeClasses = computed(() => {
       v-if="slots.details"
       class="p-[16px] border-t border-t-1"
       ref="detailsRef"
-      :class="[typeClasses.bodyClass, typeClasses.borderClass]"
+      :class="[variantClasses.bodyClass, variantClasses.borderClass]"
     >
       <summary
         class="flex font-medium cursor-pointer details-none"
-        :class="typeClasses.detailsHeaderClass"
+        :class="variantClasses.detailsHeaderClass"
       >
         <IconChevronDownSmall
-          :strokeColor="typeClasses.iconChevronColor"
+          :strokeColor="variantClasses.iconChevronColor"
           class="icon my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
         />
         {{ props.detailsTitle }}
@@ -189,5 +199,11 @@ const sizeClasses = computed(() => {
         </div>
       </div>
     </details>
+    <template v-if="$slots.footer">
+      <div :class="variantClasses.bodyClass">
+        <!--@slot A box to add buttons or additional content -->
+        <slot name="footer" />
+      </div>
+    </template>
   </div>
 </template>
