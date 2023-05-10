@@ -26,6 +26,17 @@ const parser = withCustomConfig(tsconfigPath, {
   },
 })
 
+function getTags(tags) {
+  return Object.entries(tags || {}).reduce(
+    /** @param {NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number]['tags']} acc */
+    (acc, [k, v]) => {
+      acc[k] = [{ title: k, content: v }]
+      return acc
+    },
+    {}
+  )
+}
+
 module.exports = defineConfig({
   components: './*/react/[A-Z]*.tsx',
   getDestFile: (componentPath, { outDir }) => {
@@ -46,15 +57,13 @@ module.exports = defineConfig({
             type: pp.type,
             required: pp.required,
             defaultValue: pp.defaultValue,
+            tags: getTags(pp.tags),
           }
           acc.push(propType)
           return acc
         }, []),
         exportName: p.displayName,
-        tags: Object.entries(p.tags || {}).reduce((acc, [k, v]) => {
-          acc[k] = [{ title: k, content: v }]
-          return acc
-        }, {}),
+        tags: getTags(p.tags),
       }
       return mp
     })
