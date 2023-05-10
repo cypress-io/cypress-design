@@ -19,6 +19,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/vue-icon": "*",
     "@cypress-design/constants-input": "*"
   },
   "license": "MIT"
