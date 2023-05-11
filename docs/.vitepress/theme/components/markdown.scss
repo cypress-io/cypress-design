@@ -1,4 +1,5 @@
 .markdown {
+  
   div[class*='language-'] {
     @apply bg-gray-1000 dark:bg-gray-900 md:rounded-lg my-4 relative py-4 overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none;
     pre,
@@ -140,6 +141,10 @@
     &.header-anchor:hover {
       @apply no-underline;
     }
+  }
+
+  hr {
+    @apply my-6;
   }
 
   .vue-live,
