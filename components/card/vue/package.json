@@ -1,9 +1,0 @@
-{
-	"name": "@cypress-design/vue-card",
-	"private": true,
-	"version": "0.2.0",
-	"devDependencies": {
-		"@cypress-design/css": "*"
-	},
-	"license": "MIT"
-}

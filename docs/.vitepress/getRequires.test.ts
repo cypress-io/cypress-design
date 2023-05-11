@@ -10,12 +10,18 @@ describe('getRequires', () => {
 		import Icon, { IconActionQuestionMarkCircle as LocalIcon, IconActionOther as LocalIconOther } from "@cypress-design/vue-icon";
     </script>
 		`
-    const imports = getRequires(code, 42, ['Icon'], false)
+    const imports = getRequires(
+      code,
+      42,
+      ['Icon'],
+      'components/vue/Accordion.md',
+      false
+    )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';
-      import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '../../../components/Icon/vue/index.ts';
-      import { IconActionOther as __imported_LocalIconOther_$42__ } from '../../../components/Icon/vue/index.ts';
-      import { default as __imported_Icon_$42__ } from '../../../components/Icon/vue/index.ts';
+      import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '../../../components/undefined/vue/index.ts';
+      import { IconActionOther as __imported_LocalIconOther_$42__ } from '../../../components/undefined/vue/index.ts';
+      import { default as __imported_Icon_$42__ } from '../../../components/undefined/vue/index.ts';
 
       const imports$42 = {};
       imports$42['lodash'] = imports$42['lodash'] ?? { __esModule:true, _: {} };imports$42['lodash'].merge = __imported_merge_$42__ ;
@@ -33,7 +39,13 @@ describe('getRequires', () => {
 		import Icon, { IconActionQuestionMarkCircle as LocalIcon, IconActionOther as LocalIconOther } from "@cypress-design/vue-icon";
     </script>
 		`
-    const imports = getRequires(code, 42, ['Icon'], true)
+    const imports = getRequires(
+      code,
+      42,
+      ['Icon'],
+      'components/vue/Accordion.md',
+      true
+    )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';
       import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '@cypress-design/vue-icon';

@@ -32,6 +32,7 @@ function addVueLive(md: any) {
       code,
       importMarker,
       componentDirectories,
+      env.relativePath,
       isProduction
     )
     const scriptBlock = env.sfcBlocks.scripts.find(

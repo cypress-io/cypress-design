@@ -126,6 +126,8 @@ function switchFramework(fw: 'react' | 'vue') {
 
 const mobileMenuOpen = ref(false)
 const { frontmatter } = useData()
+
+const Patterns = import.meta.glob('../../../patterns/*.md')
 </script>
 
 <template>
