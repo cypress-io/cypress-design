@@ -177,7 +177,7 @@ const Patterns = import.meta.glob('../../../patterns/*.md')
           @click="mobileMenuOpen = false"
         />
       </aside>
-      <main class="w-[800px] mx-[16px] md:mx-auto md:mt-[24px]">
+      <main class="w-[800px] mx-[32px] md:mx-auto md:mt-[24px]">
         <div v-if="CommonContent" class="relative">
           <EditButton
             :key="commonPathReadme"
