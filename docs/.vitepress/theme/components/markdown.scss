@@ -1,172 +1,173 @@
-.markdown {
-  
-  div[class*='language-'] {
-    @apply bg-gray-1000 dark:bg-gray-900 md:rounded-lg my-4 relative py-4 overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none;
-    pre,
-    code {
-      direction: ltr;
-      text-align: left;
-      white-space: pre;
-      word-spacing: normal;
-      word-break: normal;
-      word-wrap: normal;
-      tab-size: 4;
-      hyphens: none;
-    }
+@layer markdown {
+  .markdown {
+    div[class*='language-'] {
+      @apply bg-gray-1000 dark:bg-gray-900 md:rounded-lg my-4 relative py-4 overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none;
+      pre,
+      code {
+        direction: ltr;
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+        word-wrap: normal;
+        tab-size: 4;
+        hyphens: none;
+      }
 
-    pre {
-      position: relative;
-      z-index: 1;
-      margin: 0;
-      padding: 0;
-      background: transparent;
-    }
+      pre {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
 
-    code {
-      display: block;
-      padding: 0 24px;
-      width: fit-content;
-      min-width: 100%;
-      margin: 0;
-      white-space: pre-wrap;
-      transition: color 0.5s;
-    }
-    & > span.lang {
-      position: absolute;
-      top: 2px;
-      right: 8px;
-      z-index: 2;
-      font-size: 12px;
-      font-weight: 500;
-      transition: color 2s, opacity 0.4s;
-      @apply text-gray-600;
-    }
-    &:hover > span.lang {
-      transition-duration: 0ms;
-      @apply text-gray-400 opacity-100;
-    }
-    & > button.copy {
-      @apply right-3 top-3 absolute z-10 bg-gray-800/70 text-gray-100 h-8 px-3 rounded hidden;
-      &:before {
-        content: '📋 copy';
-        @apply whitespace-nowrap;
+      code {
+        display: block;
+        padding: 0 24px;
+        width: fit-content;
+        min-width: 100%;
+        margin: 0;
+        white-space: pre-wrap;
+        transition: color 0.5s;
+      }
+      & > span.lang {
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        z-index: 2;
+        font-size: 12px;
+        font-weight: 500;
+        transition: color 2s, opacity 0.4s;
+        @apply text-gray-600;
+      }
+      &:hover > span.lang {
+        transition-duration: 0ms;
+        @apply text-gray-400 opacity-100;
+      }
+      & > button.copy {
+        @apply right-3 top-3 absolute z-10 bg-gray-800/70 text-gray-100 h-8 px-3 rounded hidden;
+        &:before {
+          content: '📋 copy';
+          @apply whitespace-nowrap;
+        }
+      }
+      & > button.copy.copied {
+        @apply transition-opacity duration-[2000] ease-in-out opacity-0;
+        &:before {
+          content: '✅ copied';
+          @apply whitespace-nowrap;
+        }
+      }
+      &:hover > button.copy,
+      & > button.copy.copied {
+        @apply block;
       }
     }
-    & > button.copy.copied {
-      @apply transition-opacity duration-[2000] ease-in-out opacity-0;
-      &:before {
-        content: '✅ copied';
-        @apply whitespace-nowrap;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: 'Poppins';
+      @apply font-semibold mb-1;
+      .header-anchor {
+        @apply hidden;
+      }
+      &:hover .header-anchor {
+        @apply inline-block;
       }
     }
-    &:hover > button.copy,
-    & > button.copy.copied {
-      @apply block;
+
+    h1 {
+      @apply mb-8 text-4xl;
     }
-  }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: 'Poppins';
-    @apply font-semibold mb-1;
-    .header-anchor {
-      @apply hidden;
+    h2 {
+      @apply mt-10 text-3xl text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800 pb-2;
     }
-    &:hover .header-anchor {
-      @apply inline-block;
+
+    h3 {
+      @apply mt-4 text-xl text-gray-700 dark:text-gray-200;
     }
-  }
 
-  h1 {
-    @apply mb-8 text-4xl;
-  }
-
-  h2 {
-    @apply mt-10 text-3xl text-gray-900 dark:text-gray-100 border-b border-gray-100 dark:border-gray-800 pb-2;
-  }
-
-  h3 {
-    @apply mt-4 text-xl text-gray-700 dark:text-gray-200;
-  }
-
-  h4 {
-    @apply mt-2 text-base text-gray-500 dark:text-gray-300;
-  }
-
-  h5 {
-    @apply mt-0 text-base text-gray-300 dark:text-gray-400;
-  }
-
-  .header-anchor:after {
-    content: '#';
-  }
-
-  ul {
-    @apply list-disc py-2 pl-6;
-    li {
-      &::marker {
-        @apply text-indigo-500;
-      }
-      @apply text-[initial];
+    h4 {
+      @apply mt-2 text-base text-gray-500 dark:text-gray-300;
     }
-  }
 
-  .vue-live,
-  .demo-wrapper {
+    h5 {
+      @apply mt-0 text-base text-gray-300 dark:text-gray-400;
+    }
+
+    .header-anchor:after {
+      content: '#';
+    }
+
     ul {
-      padding: unset;
-    }
-  }
-
-  blockquote {
-    @apply bg-gray-50 dark:bg-gray-900 py-2 px-4 border-l-[4px] border-l-gray-500 my-4 relative;
-  }
-
-  code {
-    @apply bg-gray-100 dark:bg-gray-900 px-2 py-[2px] rounded my-2;
-  }
-  pre > code {
-    @apply bg-transparent;
-  }
-
-  a {
-    @apply text-indigo-500 dark:text-indigo-300;
-    &:hover {
-      @apply underline;
-    }
-    &.header-anchor:hover {
-      @apply no-underline;
-    }
-  }
-
-  hr {
-    @apply my-6;
-  }
-
-  .vue-live,
-  .demo-wrapper {
-    a {
-      color: unset;
-      &:hover {
-        text-decoration: unset;
+      @apply list-disc py-2 pl-6;
+      li {
+        &::marker {
+          @apply text-indigo-500;
+        }
+        @apply text-[initial];
       }
     }
-  }
 
-  .figma-link {
-    background: url(../assets/Figma-logo.svg) no-repeat 14px center;
-    background-size: auto 50%;
-    @apply inline-block mt-6 text-gray-900 dark:text-gray-300 border py-2 pr-4 pl-10 border-gray-100 dark:border-gray-800 rounded;
-    &:hover {
-      @apply bg-indigo-50 dark:bg-gray-800/50 no-underline;
+    .vue-live,
+    .demo-wrapper {
+      ul {
+        padding: unset;
+      }
     }
-    &:after {
-      content: '↗️';
-      @apply ml-2 text-gray-500 font-bold;
+
+    blockquote {
+      @apply bg-gray-50 dark:bg-gray-900 py-2 px-4 border-l-[4px] border-l-gray-500 my-4 relative;
+    }
+
+    code {
+      @apply bg-gray-100 dark:bg-gray-900 px-2 py-[2px] rounded my-2;
+    }
+    pre > code {
+      @apply bg-transparent;
+    }
+
+    a {
+      @apply text-indigo-500 dark:text-indigo-300;
+      &:hover {
+        @apply underline;
+      }
+      &.header-anchor:hover {
+        @apply no-underline;
+      }
+    }
+
+    hr {
+      @apply my-6;
+    }
+
+    .vue-live,
+    .demo-wrapper {
+      a {
+        color: unset;
+        &:hover {
+          text-decoration: unset;
+        }
+      }
+    }
+
+    .figma-link {
+      background: url(../assets/Figma-logo.svg) no-repeat 14px center;
+      background-size: auto 50%;
+      @apply inline-block mt-6 text-gray-900 dark:text-gray-300 border py-2 pr-4 pl-10 border-gray-100 dark:border-gray-800 rounded;
+      &:hover {
+        @apply bg-indigo-50 dark:bg-gray-800/50 no-underline;
+      }
+      &:after {
+        content: '↗️';
+        @apply ml-2 text-gray-500 font-bold;
+      }
     }
   }
 }

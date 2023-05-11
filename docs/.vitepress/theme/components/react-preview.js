@@ -7,6 +7,7 @@ function getComponentCode(code, components) {
   const isPureJSX = code.trim().startsWith('<')
   if (isPureJSX) {
     const compCode = `
+    import React from 'react'
   ${Object.keys(components)
     .map((comp) => `import ${comp} from '$${comp}'`)
     .join('\n')}

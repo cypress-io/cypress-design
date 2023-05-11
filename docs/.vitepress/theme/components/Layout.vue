@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import 'tailwindcss/tailwind.css'
 import './markdown.scss'
 import './fonts/fonts.css'
 import { useData, useRouter } from 'vitepress'
