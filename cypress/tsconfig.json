@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["ESNext"],
     "types": ["cypress"],
     "sourceMap": true,
     "strict": true,

@@ -1,9 +1,4 @@
 import { HeadConfig, defineConfig } from 'vitepress'
-import {
-  CyCSSVitePlugin,
-  WindiIconExtractor,
-  colors,
-} from '@cypress-design/css'
 import { resolve } from 'path'
 import _ from 'lodash'
 import { globbySync } from 'globby'
@@ -17,6 +12,8 @@ const branch = process.env.GIT_BRANCH || 'main'
 
 // default dark mode preference to system preference
 const fallbackPreference = 'auto'
+
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
@@ -70,75 +67,5 @@ export default defineConfig({
         `https://github.com/cypress-io/cypress-design/blob/${branch}/`
       ),
     },
-    plugins: CyCSSVitePlugin({
-      scan: {
-        include: [
-          resolve(
-            __dirname,
-            '../../components/**/*.{tsx,vue,ts,scss,js,css,md}'
-          ),
-          resolve(__dirname, './theme/**/*.vue'),
-          resolve(__dirname, '../src/**/*.vue'),
-          resolve(__dirname, '../docgen/*.cjs'),
-          resolve(__dirname, '../**/*.md'),
-        ],
-      },
-      config: {
-        safelist: safeColors(),
-        important: false,
-        extract: {
-          extractors: [
-            {
-              extractor: (...args) => {
-                return WindiIconExtractor.extractor(...args)
-              },
-              extensions: [...WindiIconExtractor.extensions, 'md'],
-            },
-          ],
-        },
-      },
-    }),
   },
 })
-
-function safeColors() {
-  return reduce(
-    {
-      ...colors,
-      transparent: { ONLY: true },
-      current: { ONLY: true },
-      white: { ONLY: true },
-    },
-    (acc, variants, colorName) => {
-      const name = kebabCase(colorName)
-
-      const colorVariants = map(variants, (_, k) => {
-        if (k === 'DEFAULT') return []
-        const variantName = k === 'ONLY' ? name : `${name}-${k}`
-        const iconColor = ['', 'hover-'].reduce((acc, prefix) => {
-          const withSecondaryDerivatives = ['', '-secondary'].reduce(
-            (acc, suffix) => {
-              acc.push(`${prefix}icon-light${suffix}-${variantName}`)
-              acc.push(`${prefix}icon-dark${suffix}-${variantName}`)
-              return acc
-            },
-            [] as string[]
-          )
-          acc.push(...withSecondaryDerivatives)
-          return acc
-        }, [] as string[])
-
-        return [`bg-${variantName}`, `text-${variantName}`, ...iconColor]
-      })
-
-      colorVariants.forEach((variant) => {
-        variant.forEach((v) => {
-          acc.push(v)
-        })
-      })
-
-      return acc
-    },
-    [] as string[]
-  )
-}
