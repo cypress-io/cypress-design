@@ -1,8 +1,6 @@
 import { Ref, computed } from 'vue'
 
-const docsPages = import.meta.glob('../../../*.md', {
-  eager: true,
-})
+const docsPages = import.meta.glob('../../../*.md')
 
 export function getDocsPages(routePath: Ref<string>) {
   const routeMap = Object.keys(docsPages).reduce((acc, p) => {

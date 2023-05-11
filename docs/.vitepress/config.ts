@@ -50,13 +50,12 @@ export default defineConfig({
   },
   head: [['link', { rel: 'shortcut icon', href: 'favicon.ico' }]],
   rewrites: {
-    ...globbySync(['*.md'], { cwd: resolve(__dirname, '..') }).reduce(
-      (acc, path) => {
-        acc[path] = path.replace(/^\d+-/, '')
-        return acc
-      },
-      {} as Record<string, string>
-    ),
+    ...globbySync(['*.md', 'patterns/*.md'], {
+      cwd: resolve(__dirname, '..'),
+    }).reduce((acc, path) => {
+      acc[path] = `/${path}`.replace(/\/\d+-/, '/').slice(1)
+      return acc
+    }, {} as Record<string, string>),
     '1-Getting-Started.md': 'index.md',
   },
   vite: {
