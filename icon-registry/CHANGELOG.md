@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.22.1
+
+### Patch Changes
+
+- [#226](https://github.com/cypress-io/cypress-design/pull/226) [`3412b32`](https://github.com/cypress-io/cypress-design/commit/3412b321283094df19e66f9c2fe37317fe810478) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - feat(icons): add technology git error icon
+
 ## 0.22.0
 
 ### Minor Changes
