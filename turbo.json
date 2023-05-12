@@ -12,10 +12,12 @@
         "*.tsx",
         "*.mjs",
         "*.ts",
+        "*.svg",
         "svgo-plugins/*.js",
         "src/*.ts",
         "src/*.mjs",
         "src/*.js",
+        "icons/*.svg",
         "!*.cy.tsx",
         "!*.rootstory.tsx"
       ],

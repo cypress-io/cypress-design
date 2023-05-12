@@ -4,11 +4,10 @@ import './theme.css'
 import VueLiveWithLayout from './components/vue-live.vue'
 import Layout from './components/Layout.vue'
 import DemoWrapper from './components/DemoWrapper.vue'
-import { defineComponent } from 'vue'
 
 export default {
   Layout: Layout as any,
-  NotFound: defineComponent(() => '404 - page not found'),
+  NotFound: (() => '404 - page not found') as any,
   enhanceApp({ app }) {
     app.component('VueLive', VueLiveWithLayout)
     app.component('Tooltip', Tooltip)

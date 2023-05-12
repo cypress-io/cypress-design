@@ -10,6 +10,7 @@ import {
   defineAsyncComponent,
   h,
   nextTick,
+  type Ref,
 } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
@@ -124,9 +125,7 @@ function switchFramework(fw: 'react' | 'vue') {
 }
 
 const mobileMenuOpen = ref(false)
-const { frontmatter } = useData()
-
-const Patterns = import.meta.glob('../../../patterns/*.md')
+const { frontmatter } = useData() as any
 </script>
 
 <template>
