@@ -53,6 +53,7 @@ export default defineComponent({
     return {
       componentTag: computed(() => (href ? 'a' : 'button')),
       href,
+      finalDisabled,
       buttonProps: reactive({
         ...attr,
         class: [
@@ -60,7 +61,7 @@ export default defineComponent({
           VariantClassesTable[finalVariant.value],
           SizeClassesTable[props.size],
         ],
-        disabled: finalDisabled.value,
+        disabled: finalDisabled,
       }),
     }
   },
