@@ -2,6 +2,7 @@
 
 export default function assertions(mountStory: (options?: any) => void): void {
   it('renders', () => {
-    mountStory()
+    mountStory({ title: 'Modal' })
+    cy.contains('Open Modal').click()
   })
 }
