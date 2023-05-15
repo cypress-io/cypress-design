@@ -27,4 +27,41 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
     cy.get('button').click().click().click().click()
     cy.get('[data-cy="counter"]').contains('4')
   })
+
+  it('responsively handles `disabled` changes', () => {
+    const disabled = ref(true)
+
+    mount({
+      render: () => (
+        <div>
+          <button
+            data-cy="toggle"
+            onClick={() => (disabled.value = !disabled.value)}
+          >
+            Toggle
+          </button>
+
+          <Button data-cy="ds-button" disabled={disabled.value}>
+            DS Button
+          </Button>
+          <button data-cy="html-button" disabled={disabled.value}>
+            Base HTML Button
+          </button>
+        </div>
+      ),
+    })
+
+    // HTML & DS Buttons start off disabled
+    cy.findByTestId('html-button').should('be.disabled')
+    cy.findByTestId('ds-button').should('be.disabled')
+
+    // Click toggle button to update `ref` for `disabled` state
+    cy.findByTestId('toggle').click()
+
+    // Base HTML button properly enables
+    cy.findByTestId('html-button').should('not.be.disabled')
+
+    // FAILS - DS Button stays disabled
+    cy.findByTestId('ds-button').should('not.be.disabled')
+  })
 })
