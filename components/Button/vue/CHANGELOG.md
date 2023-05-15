@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.9.3
+
+### Patch Changes
+
+- [#230](https://github.com/cypress-io/cypress-design/pull/230) [`9adf548`](https://github.com/cypress-io/cypress-design/commit/9adf5489f2528270310b5a2368609eac86ca33b4) Thanks [@elevatebart](https://github.com/elevatebart)! - make props reactive
+
 ## 0.9.2
 
 ### Patch Changes
