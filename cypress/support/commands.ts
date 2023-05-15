@@ -38,7 +38,7 @@
 import '@percy/cypress'
 
 // add testing library selectors
-import 'cypress-testing-library/add-commands'
+import '@testing-library/cypress/add-commands'
 
 // add cy.findByTestId command
 Cypress.Commands.add('findByTestId', (id) => {
