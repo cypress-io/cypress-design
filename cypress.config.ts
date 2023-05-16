@@ -2,7 +2,6 @@ import { defineConfig } from 'cypress'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import sucrase from '@rollup/plugin-sucrase'
-import { CyCSSVitePlugin } from '@cypress-design/css'
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor'
 
 export default defineConfig({
@@ -31,11 +30,6 @@ export default defineConfig({
             transforms: ['typescript', 'jsx'],
             include: ['**/*.tsx'],
             exclude: '**/vue/**/*',
-          }),
-          CyCSSVitePlugin({
-            scan: {
-              include: ['./components/**/*.@(tsx|vue|ts|scss|js|css|md)'],
-            },
           }),
         ],
       },

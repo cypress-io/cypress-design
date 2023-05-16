@@ -18,5 +18,8 @@ module.exports = defineConfig({
     slots,
   },
   ignore: ['**/*.rootstory.tsx', '**/*.cy.tsx', '**/node_modules/**/*'],
-  pages: [reactConfig, vueConfig],
+  pages: [
+    // reactConfig, // if it is on 2 lines it's easier to comment out
+    vueConfig, //
+  ],
 })

@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import 'virtual:windi.css'
-import './markdown.scss'
-import './fonts/fonts.css'
+import '../assets/markdown.scss'
+import '../assets/fonts/fonts.css'
 import { useData, useRouter } from 'vitepress'
 import {
   computed,
@@ -11,6 +10,7 @@ import {
   defineAsyncComponent,
   h,
   nextTick,
+  type Ref,
 } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
@@ -125,7 +125,7 @@ function switchFramework(fw: 'react' | 'vue') {
 }
 
 const mobileMenuOpen = ref(false)
-const { frontmatter } = useData()
+const { frontmatter } = useData() as any
 </script>
 
 <template>
@@ -162,9 +162,9 @@ const { frontmatter } = useData()
         class="fixed w-screen h-screen top-0 left-0 bg-gray-900/70 z-10 md:hidden"
         @click="mobileMenuOpen = false"
       />
-      <div class="w-[250px] hidden md:block flex-shrink-0" />
+      <div class="w-[250px] hidden md:block shrink-0" />
       <aside
-        class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r-1 border-gray-100 dark:border-gray-50/07"
+        class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r border-gray-100 dark:border-gray-50/07"
         :class="{
           'transform -translate-x-full md:translate-x-0': !mobileMenuOpen,
         }"
@@ -176,7 +176,7 @@ const { frontmatter } = useData()
           @click="mobileMenuOpen = false"
         />
       </aside>
-      <main class="w-[800px] mx-[16px] md:mx-auto md:mt-[24px]">
+      <main class="w-[800px] mx-[24px] xl:mx-auto md:mt-[24px]">
         <div v-if="CommonContent" class="relative">
           <EditButton
             :key="commonPathReadme"

@@ -43,6 +43,7 @@ export default () => {
     <div className="flex flex-wrap justify-stretch gap-[8px]">
       {Object.keys(VariantClassesTable).map((variant) => (
         <div
+          key={variant}
           className="px-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
           style={{
             backgroundColor: variant === 'outline-dark' ? '#1a202c' : 'white',

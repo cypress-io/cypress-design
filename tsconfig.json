@@ -12,9 +12,11 @@
     "lib": ["ESNext", "DOM", "dom.iterable"],
     "skipLibCheck": true,
     "noEmit": true,
+    "allowJs": true,
     "types": []
   },
   "include": [
+    "*.mjs",
     "docs/.vitepress/**/*.d.ts",
     "docs/.vitepress/**/*.ts",
     "docs/.vitepress/**/*.vue",

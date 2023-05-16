@@ -1,3 +1,11 @@
+@layer tailwind {
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+}
+
+@layer markdown, tailwind;
+
 .vp-doc .preview-code summary {
   margin: initial;
 }

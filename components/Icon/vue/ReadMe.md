@@ -105,7 +105,7 @@ import { IconObjectBook } from '@cypress-design/vue-icon'
 </template>
 ```
 
-<!-- props are hardcoded here since volar (vue-component-meta) breaks before getting to generate a proper doc for it -->
+<!-- We hardcode props docs here since volar (vue-component-meta) breaks before getting to generate a proper doc for it -->
 
 ## Props
 

@@ -36,3 +36,19 @@
 //   }
 // }
 import '@percy/cypress'
+
+// add testing library selectors
+import '@testing-library/cypress/add-commands'
+
+// add cy.findByTestId command
+Cypress.Commands.add('findByTestId', (id) => {
+  return cy.get(`[data-cy=${id}]`)
+})
+
+declare global {
+  namespace Cypress {
+    interface Chainable {
+      findByTestId(id: string): Chainable<JQuery<HTMLElement>>
+    }
+  }
+}
