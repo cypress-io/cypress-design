@@ -34,6 +34,9 @@ jobs:
         env:
           CI: true
 
+      - name: Lint all files
+        run: yarn eslint .
+
       - name: Run Unit Tests
         run: yarn test
 
