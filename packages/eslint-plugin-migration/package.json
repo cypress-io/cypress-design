@@ -1,5 +1,5 @@
 {
-  "name": "@cypress-design/eslint-plugin",
+  "name": "@cypress-design/eslint-plugin-migration",
   "version": "0.0.0",
   "description": "a plugin to help migration to @cypress-design",
   "keywords": [
@@ -37,5 +37,5 @@
   "peerDependencies": {
     "eslint": ">=7"
   },
-  "license": "ISC"
+  "license": "MIT"
 }

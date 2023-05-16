@@ -1,4 +1,4 @@
-# list the imports you want to warn on and the docs to fix it (`cypress-design-deprecate-imports`)
+# list the imports you want to warn on and the docs to fix it (`deprecate-imports`)
 
 Please describe the origin of the rule here.
 
