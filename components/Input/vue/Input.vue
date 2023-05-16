@@ -80,9 +80,8 @@ const Icon = computed(() =>
       type="text"
       :value="value"
       :disabled="finalIsDisabled"
-      :placeholder="placeholder"
       :class="StaticInputClasses"
-      @change="($event) => emit('change', $event.target.value)"
+      v-bind="$attrs"
     />
 
     <button
