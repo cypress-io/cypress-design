@@ -25,7 +25,7 @@ export function getRequires(
       if (!oneImport.imported) {
         return ''
       }
-      console.log(relativePath)
+
       const localImport =
         production || !/\/(vue|react)\/(\w+).md$/.test(relativePath)
           ? null
