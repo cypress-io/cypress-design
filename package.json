@@ -21,6 +21,7 @@
     "cy": "concurrently \"cypress open --component\" \"node ./scripts/watch-constants.mjs\"",
     "cy:run": "cypress run --component",
     "test": "vitest",
+    "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
     "build:components": "turbo run build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/constants-*\"",
     "dev": "yarn start",
     "docs": "yarn start",

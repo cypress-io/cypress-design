@@ -54,9 +54,7 @@ module.exports = {
     return {
       ImportDeclaration(node) {
         const importOptions = deprecatedImports.find((importToCheck) => {
-          if (node.source.value.includes(importToCheck.import)) {
-            return true
-          }
+          return node.source.value.includes(importToCheck.import)
         })
 
         if (!importOptions) {
