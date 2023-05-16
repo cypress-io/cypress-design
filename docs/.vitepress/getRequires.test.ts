@@ -19,9 +19,9 @@ describe('getRequires', () => {
     )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';
-      import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '../../../components/undefined/vue/index.ts';
-      import { IconActionOther as __imported_LocalIconOther_$42__ } from '../../../components/undefined/vue/index.ts';
-      import { default as __imported_Icon_$42__ } from '../../../components/undefined/vue/index.ts';
+      import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '../../../components/Icon/vue/index.ts';
+      import { IconActionOther as __imported_LocalIconOther_$42__ } from '../../../components/Icon/vue/index.ts';
+      import { default as __imported_Icon_$42__ } from '../../../components/Icon/vue/index.ts';
 
       const imports$42 = {};
       imports$42['lodash'] = imports$42['lodash'] ?? { __esModule:true, _: {} };imports$42['lodash'].merge = __imported_merge_$42__ ;
