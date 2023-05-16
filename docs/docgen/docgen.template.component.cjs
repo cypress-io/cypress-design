@@ -1,7 +1,4 @@
 // @ts-check
-const path = require('path')
-
-const root = path.resolve(__dirname, '../../components')
 
 /** @type typeof import('vue-docgen-cli').defaultTemplates.component */
 module.exports = function (...args) {

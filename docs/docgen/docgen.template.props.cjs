@@ -12,6 +12,7 @@ const { renderTags, mdclean } = defaultTemplates
 async function lineTemplate(props, supComponent) {
   const retArray = await Promise.all(
     props.map(async (pr) => {
+      if (pr.tags?.deprecated) return ''
       const p = pr.name
       let t = pr.description ?? ''
       t += renderTags(pr.tags)

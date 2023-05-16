@@ -1,12 +1,21 @@
-# @cypress-design/vue-icon
+# @cypress-design/react-icon
 
-## 0.22.1
+## 0.21.2
+
+### Patch Changes
+
+- [#226](https://github.com/cypress-io/cypress-design/pull/226) [`3412b32`](https://github.com/cypress-io/cypress-design/commit/3412b321283094df19e66f9c2fe37317fe810478) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - feat(icons): add technology git error icon
+
+- Updated dependencies [[`3412b32`](https://github.com/cypress-io/cypress-design/commit/3412b321283094df19e66f9c2fe37317fe810478)]:
+  - @cypress-design/icon-registry@0.22.1
+
+## 0.21.1
 
 ### Patch Changes
 
 - [`08ba16d`](https://github.com/cypress-io/cypress-design/commit/08ba16da4a8663676ee96ac4950938857bd0d9a3) Thanks [@elevatebart](https://github.com/elevatebart)! - fix wind-keep plugin
 
-## 0.22.0
+## 0.21.0
 
 ### Minor Changes
 
@@ -17,13 +26,13 @@
 - Updated dependencies [[`bc28be1`](https://github.com/cypress-io/cypress-design/commit/bc28be1760cf7183bbfb6d66f5362ad10ce22d34)]:
   - @cypress-design/icon-registry@0.22.0
 
-## 0.21.0
+## 0.20.0
 
 ### Minor Changes
 
 - [#196](https://github.com/cypress-io/cypress-design/pull/196) [`fc6d9e4`](https://github.com/cypress-io/cypress-design/commit/fc6d9e4fedcc01fa8e01b868b0fa66d8895c37d0) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: avoid constants relative imports
 
-## 0.20.0
+## 0.19.0
 
 ### Minor Changes
 
@@ -36,7 +45,7 @@
 - Updated dependencies [[`18399c7`](https://github.com/cypress-io/cypress-design/commit/18399c72a52288c67af0935384430d4e4cd24251), [`d0de778`](https://github.com/cypress-io/cypress-design/commit/d0de77843adb87d8f4804219c6dca8f45b15c650)]:
   - @cypress-design/icon-registry@0.21.0
 
-## 0.19.2
+## 0.18.2
 
 ### Patch Changes
 
@@ -45,7 +54,7 @@
 - Updated dependencies [[`bfb6a6b`](https://github.com/cypress-io/cypress-design/commit/bfb6a6b2753d461ffb5b58d926a2f83f4f8e92f3)]:
   - @cypress-design/icon-registry@0.20.4
 
-## 0.19.1
+## 0.18.1
 
 ### Patch Changes
 
@@ -54,13 +63,22 @@
 - Updated dependencies [[`250bbae`](https://github.com/cypress-io/cypress-design/commit/250bbae4415fe0d5a825ab1bb8d2432a80e0db05)]:
   - @cypress-design/icon-registry@0.20.3
 
-## 0.19.0
+## 0.18.0
 
 ### Minor Changes
 
 - [`d6fd350`](https://github.com/cypress-io/cypress-design/commit/d6fd350232984e5eff26c76ca29e235c58da0982) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver icons after icon registry was released
 
-## 0.18.1
+## 0.17.2
+
+### Patch Changes
+
+- [#164](https://github.com/cypress-io/cypress-design/pull/164) [`4fd951a`](https://github.com/cypress-io/cypress-design/commit/4fd951a39335900da2508beef9b3565a6f8f9518) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: update active buttons borders
+
+- Updated dependencies [[`6f83f1a`](https://github.com/cypress-io/cypress-design/commit/6f83f1a427fc536d3dd7f8ad2e907716e6c7f833)]:
+  - @cypress-design/icon-registry@0.20.2
+
+## 0.17.1
 
 ### Patch Changes
 
@@ -69,7 +87,7 @@
 - Updated dependencies [[`119430b`](https://github.com/cypress-io/cypress-design/commit/119430b2f150a8bcadbb5fcb059d64b6e61043b2)]:
   - @cypress-design/icon-registry@0.20.1
 
-## 0.18.0
+## 0.17.0
 
 ### Minor Changes
 
@@ -82,7 +100,7 @@
 - Updated dependencies [[`106b61a`](https://github.com/cypress-io/cypress-design/commit/106b61a97888f956a4c9d235fde5efb4243e1445), [`7b4f416`](https://github.com/cypress-io/cypress-design/commit/7b4f4162a0d150aa8cab7ec239faebb58c39464d)]:
   - @cypress-design/icon-registry@0.20.0
 
-## 0.17.0
+## 0.16.0
 
 ### Minor Changes
 
@@ -93,7 +111,7 @@
 - Updated dependencies [[`e4a1573`](https://github.com/cypress-io/cypress-design/commit/e4a15730ca59d7ba85ba04b9d39ac6f0e0dfb249)]:
   - @cypress-design/icon-registry@0.19.0
 
-## 0.16.0
+## 0.15.0
 
 ### Minor Changes
 
@@ -104,13 +122,13 @@
 - Updated dependencies [[`92c1c4a`](https://github.com/cypress-io/cypress-design/commit/92c1c4a3e4494f8ec6c81ed7570d862b1b36dde1)]:
   - @cypress-design/icon-registry@0.18.0
 
-## 0.15.1
+## 0.14.1
 
 ### Patch Changes
 
 - [#137](https://github.com/cypress-io/cypress-design/pull/137) [`70cf026`](https://github.com/cypress-io/cypress-design/commit/70cf026b1def90390e8e0573c38656040d6bb168) Thanks [@elevatebart](https://github.com/elevatebart)! - remove name from icon (not html5 valid)
 
-## 0.15.0
+## 0.14.0
 
 ### Minor Changes
 
@@ -121,7 +139,7 @@
 - Updated dependencies [[`761dcda`](https://github.com/cypress-io/cypress-design/commit/761dcdad11b986cee6d47451dc7980090a9301b0)]:
   - @cypress-design/icon-registry@0.17.0
 
-## 0.14.2
+## 0.13.2
 
 ### Patch Changes
 
@@ -130,7 +148,7 @@
 - Updated dependencies [[`d2c1baa`](https://github.com/cypress-io/cypress-design/commit/d2c1baa18305a81dba66200aae7a5929e9e36dbf)]:
   - @cypress-design/icon-registry@0.16.2
 
-## 0.14.1
+## 0.13.1
 
 ### Patch Changes
 
@@ -139,7 +157,7 @@
 - Updated dependencies [[`0e6a3cb`](https://github.com/cypress-io/cypress-design/commit/0e6a3cb5eba893283c01decebf386f4c5fbf0c21)]:
   - @cypress-design/icon-registry@0.16.1
 
-## 0.14.0
+## 0.13.0
 
 ### Minor Changes
 
@@ -150,7 +168,7 @@
 - Updated dependencies [[`f40b190`](https://github.com/cypress-io/cypress-design/commit/f40b1902c3ee4d0b4b34e6f46b1ddc4254d94083)]:
   - @cypress-design/icon-registry@0.16.0
 
-## 0.13.0
+## 0.12.0
 
 ### Minor Changes
 
@@ -163,7 +181,7 @@
 - Updated dependencies [[`c9a1ffa`](https://github.com/cypress-io/cypress-design/commit/c9a1ffa06027e11e34bbd0c10a242155458052b3), [`3663e3b`](https://github.com/cypress-io/cypress-design/commit/3663e3badccf0f3db69e62d71178387c12d52d70)]:
   - @cypress-design/icon-registry@0.15.0
 
-## 0.12.1
+## 0.11.1
 
 ### Patch Changes
 
@@ -172,7 +190,7 @@
 - Updated dependencies [[`5a1b046`](https://github.com/cypress-io/cypress-design/commit/5a1b046b4e13234f83f7b88ed4acbc95064fbaca)]:
   - @cypress-design/icon-registry@0.14.0
 
-## 0.12.0
+## 0.11.0
 
 ### Minor Changes
 
@@ -185,7 +203,7 @@
 - Updated dependencies [[`2f54f5b`](https://github.com/cypress-io/cypress-design/commit/2f54f5b867b60ba5ce2e40fd38870bd65187ba30), [`e82d8cb`](https://github.com/cypress-io/cypress-design/commit/e82d8cb60882a379d89f86d1ff7b8f1d5b56ce66)]:
   - @cypress-design/icon-registry@0.13.0
 
-## 0.11.1
+## 0.10.1
 
 ### Patch Changes
 
@@ -194,7 +212,7 @@
 - Updated dependencies [[`f41d962`](https://github.com/cypress-io/cypress-design/commit/f41d962b3331767e89a74f0dc6ba207b11ff6226)]:
   - @cypress-design/icon-registry@0.12.1
 
-## 0.11.0
+## 0.10.0
 
 ### Minor Changes
 
@@ -223,7 +241,7 @@
 - Updated dependencies [[`40da4a4`](https://github.com/cypress-io/cypress-design/commit/40da4a4b4e9210c1ff1c526eed0b74f77df10d55)]:
   - @cypress-design/icon-registry@0.12.0
 
-## 0.10.0
+## 0.9.0
 
 ### Minor Changes
 
@@ -234,7 +252,7 @@
 - Updated dependencies [[`3e8ad91`](https://github.com/cypress-io/cypress-design/commit/3e8ad912e5b793fc2cfff5bcb8d9bce94c1210fc)]:
   - @cypress-design/icon-registry@0.11.0
 
-## 0.9.0
+## 0.8.0
 
 ### Minor Changes
 
@@ -245,7 +263,7 @@
 - Updated dependencies [[`f527129`](https://github.com/cypress-io/cypress-design/commit/f5271294ffd1fd392dd82dd9402d9a6d9f7e3145)]:
   - @cypress-design/icon-registry@0.10.0
 
-## 0.8.0
+## 0.7.0
 
 ### Minor Changes
 
@@ -256,7 +274,7 @@
 - Updated dependencies [[`8efe2d0`](https://github.com/cypress-io/cypress-design/commit/8efe2d078edef4bf597ef7894f0c1112f37cc0ed)]:
   - @cypress-design/icon-registry@0.9.0
 
-## 0.7.0
+## 0.6.0
 
 ### Minor Changes
 
@@ -267,7 +285,7 @@
 - Updated dependencies [[`c0fce3f`](https://github.com/cypress-io/cypress-design/commit/c0fce3fac8ba37feadf648ac76e0e83b53e91cfc)]:
   - @cypress-design/icon-registry@0.8.0
 
-## 0.6.0
+## 0.5.0
 
 ### Minor Changes
 
@@ -278,7 +296,7 @@
 - Updated dependencies [[`2008ebd`](https://github.com/cypress-io/cypress-design/commit/2008ebdef09ce917c97179ae305664171baa77ac)]:
   - @cypress-design/icon-registry@0.7.0
 
-## 0.5.2
+## 0.4.2
 
 ### Patch Changes
 
@@ -287,14 +305,14 @@
 - Updated dependencies [[`8c577fb`](https://github.com/cypress-io/cypress-design/commit/8c577fb0c6a0411cf8218dfe78281834df3d6f13)]:
   - @cypress-design/icon-registry@0.6.1
 
-## 0.5.1
+## 0.4.1
 
 ### Patch Changes
 
 - Updated dependencies [[`25c6260`](https://github.com/cypress-io/cypress-design/commit/25c62605be573dafafff090b47fb80091b35aea4)]:
   - @cypress-design/icon-registry@0.6.0
 
-## 0.5.0
+## 0.4.0
 
 ### Minor Changes
 
@@ -309,25 +327,7 @@
 * Updated dependencies [[`31aaa18`](https://github.com/cypress-io/cypress-design/commit/31aaa182c8cd415f2884289144f504183e5ab418), [`0866c65`](https://github.com/cypress-io/cypress-design/commit/0866c654f24c36951c98468d789462748606b428), [`43b53eb`](https://github.com/cypress-io/cypress-design/commit/43b53eb6bd10111629239a87374cfcc894eda0e3)]:
   - @cypress-design/icon-registry@0.5.0
 
-## 0.4.2
-
-### Patch Changes
-
-- [`e3eb9c7`](https://github.com/cypress-io/cypress-design/commit/e3eb9c7fee2d7a6e0a773e85ed4b73be04d83587) Thanks [@elevatebart](https://github.com/elevatebart)! - downgrade typescript to 4.4 for compat with app
-
-- Updated dependencies [[`e3eb9c7`](https://github.com/cypress-io/cypress-design/commit/e3eb9c7fee2d7a6e0a773e85ed4b73be04d83587)]:
-  - @cypress-design/icon-registry@0.4.2
-
-## 0.4.1
-
-### Patch Changes
-
-- [`c339ddd`](https://github.com/cypress-io/cypress-design/commit/c339dddb8347ceccdb497a0c2a4dfa3b52947114) Thanks [@elevatebart](https://github.com/elevatebart)! - take into account kebab-cased attributes in the icons plugin
-
-- Updated dependencies [[`c339ddd`](https://github.com/cypress-io/cypress-design/commit/c339dddb8347ceccdb497a0c2a4dfa3b52947114)]:
-  - @cypress-design/icon-registry@0.4.1
-
-## 0.4.0
+## 0.3.0
 
 ### Minor Changes
 
@@ -360,14 +360,12 @@
 
 ### Patch Changes
 
+- [#39](https://github.com/cypress-io/cypress-design/pull/39) [`1b383f3`](https://github.com/cypress-io/cypress-design/commit/1b383f3d149948bf2cc062d3baa17d5ce032f07e) Thanks [@elevatebart](https://github.com/elevatebart)! - fix file path of sourcemaps
+
 - Updated dependencies [[`4259026`](https://github.com/cypress-io/cypress-design/commit/4259026314464260e89bcd88690c8a60ad2f0459)]:
   - @cypress-design/icon-registry@0.4.0
 
-## 0.3.0
-
-### Minor Changes
-
-- [#33](https://github.com/cypress-io/cypress-design/pull/33) [`5f9cf10`](https://github.com/cypress-io/cypress-design/commit/5f9cf10ff4709fcd7d322c2dc5dbc676473b433e) Thanks [@elevatebart](https://github.com/elevatebart)! - Allow vue icon to have a class
+## 0.2.1
 
 ### Patch Changes
 

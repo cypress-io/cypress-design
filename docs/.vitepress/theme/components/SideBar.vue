@@ -2,14 +2,11 @@
 import DocMenu from '@cypress-design/vue-docmenu'
 import { computed } from 'vue'
 import { getDocsPages } from '../utils/docsPages'
+import { getPatternPages } from '../utils/patternPages'
 
 const pages = {
-  vue: import.meta.glob('../../../components/vue/*.md', {
-    eager: true,
-  }) as any,
-  react: import.meta.glob('../../../components/react/*.md', {
-    eager: true,
-  }) as any,
+  vue: import.meta.glob('../../../components/vue/*.md'),
+  react: import.meta.glob('../../../components/react/*.md'),
 }
 
 const getPageName = (p: string) => {
@@ -24,9 +21,9 @@ const props = defineProps<{
 
 const rp = computed(() => props.routePath)
 
-const { items } = getDocsPages(rp)
+const { items: docsPages } = getDocsPages(rp)
 
-const group = computed(() => {
+const components = computed(() => {
   return {
     text: 'Components',
     items: Object.keys(pages[props.framework]).map((p) => {
@@ -40,11 +37,20 @@ const group = computed(() => {
     }),
   }
 })
+
+const { items: patterns } = getPatternPages(rp)
+
+const patternGroup = computed(() => {
+  return {
+    text: 'Patterns',
+    items: patterns.value,
+  }
+})
 </script>
 
 <template>
   <DocMenu
-    :items="[...items, group]"
+    :items="[...docsPages, components, patternGroup]"
     class="pl-[16px] md:py-[16px] w-[250px]"
   />
 </template>

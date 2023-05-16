@@ -167,7 +167,7 @@ html.dark .vue-live-preview-code .vue-live-preview {
   padding-bottom: 0;
   white-space: pre-wrap;
   font-family: 'Fira Code', monospace;
-  line-height: var(--vp-code-line-height);
-  font-size: var(--vp-code-font-size);
+  line-height: 1.3;
+  font-size: 0.875rem;
 }
 </style>

@@ -7,6 +7,7 @@ function getComponentCode(code, components) {
   const isPureJSX = code.trim().startsWith('<')
   if (isPureJSX) {
     const compCode = `
+    import React from 'react'
   ${Object.keys(components)
     .map((comp) => `import ${comp} from '$${comp}'`)
     .join('\n')}
@@ -26,7 +27,7 @@ function getComponentCode(code, components) {
         production: true,
       }
     )
-    const funCode = `"use strict";const exports = {};${compiledCode.replace(
+    const funCode = `"use strict";const exports = {};const React = require('react');${compiledCode.replace(
       /^"use strict";/g,
       ''
     )}
@@ -38,6 +39,7 @@ function getComponentCode(code, components) {
 
 export const ReactPreview = ({ code, requires, components }) => {
   const require = (name) => {
+    if (name === 'react') return React
     if (requires[name]) {
       return requires[name]
     }
@@ -52,9 +54,8 @@ export const ReactPreview = ({ code, requires, components }) => {
 
   const LivePreview = new Function(
     'require',
-    'React',
     getComponentCode(code, components)
   )
 
-  return createElement(LivePreview(require, React))
+  return createElement(LivePreview(require))
 }

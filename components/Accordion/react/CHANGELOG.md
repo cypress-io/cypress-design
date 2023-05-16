@@ -1,5 +1,11 @@
 # @cypress-design/react-accordion
 
+## 0.4.3
+
+### Patch Changes
+
+- [`4917933`](https://github.com/cypress-io/cypress-design/commit/4917933c82078090c7c29e94a090737e0427821d) Thanks [@elevatebart](https://github.com/elevatebart)! - make accordion compatible with tw
+
 ## 0.4.2
 
 ### Patch Changes
