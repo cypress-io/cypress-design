@@ -14,9 +14,43 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['packages/cypress-design-eslint-plugin/**/*.js'],
+      files: ['packages/eslint-plugin/**/*.js'],
       env: {
         node: true,
+      },
+    },
+    {
+      files: ['test/vue-app/src/*.{ts,vue}'],
+      plugins: ['@typescript-eslint', '@cypress-design'],
+      extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+      parser: 'vue-eslint-parser',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        sourceType: 'module',
+        extraFileExtensions: ['.vue'],
+        project: ['./test/vue-app/tsconfig.json'],
+      },
+      rules: {
+        '@cypress-design/deprecate-imports': [
+          'warn',
+          [
+            {
+              name: 'Button',
+              source: ['./invalid-path/*'],
+              docs: 'https://design.cypress.io/components/vue/Button',
+            },
+          ],
+        ],
+        '@cypress-design/deprecate-imports-again': [
+          'error',
+          [
+            {
+              name: 'Lodash',
+              source: 'lodash',
+              docs: 'https://design.cypress.io/components/vue/Button',
+            },
+          ],
+        ],
       },
     },
   ],

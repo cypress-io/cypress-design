@@ -21,6 +21,7 @@
     "update:eslint-docs": "eslint-doc-generator"
   },
   "dependencies": {
+    "minimatch": "^3.1.2",
     "requireindex": "^1.2.0"
   },
   "devDependencies": {

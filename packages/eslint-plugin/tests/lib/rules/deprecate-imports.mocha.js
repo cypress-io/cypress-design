@@ -25,8 +25,8 @@ const ruleTester = new RuleTester({
 const options = [
   [
     {
-      import: '@frontend-shared/components/Button.vue',
-      docLink: 'https://design.cypress.io/components/vue/Button',
+      source: '@frontend-shared/*/Button.vue',
+      docs: 'https://design.cypress.io/components/vue/Button',
     },
   ],
 ]

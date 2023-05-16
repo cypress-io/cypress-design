@@ -4,6 +4,8 @@
  */
 'use strict'
 
+const minimatch = require('minimatch')
+
 //------------------------------------------------------------------------------
 // Rule Definition
 //------------------------------------------------------------------------------
@@ -26,11 +28,20 @@ module.exports = {
           type: 'object',
           properties: {
             name: { type: 'string' },
-            message: { type: 'string' },
-            import: { type: 'string' },
-            docLink: { type: 'string' },
+            source: {
+              anyOf: [
+                {
+                  type: 'string',
+                },
+                {
+                  type: 'array',
+                  items: { type: 'string' },
+                },
+              ],
+            },
+            docs: { type: 'string' },
           },
-          required: ['import', 'docLink'],
+          additionalProperties: false,
         },
       },
     ], // Add a schema if the rule has options
@@ -40,6 +51,35 @@ module.exports = {
     // variables should be defined here
 
     const [deprecatedImports] = context.options
+
+    if (!deprecatedImports) {
+      throw new Error('No deprecated imports provided')
+    }
+
+    if (!Array.isArray(deprecatedImports)) {
+      throw new Error('Deprecated imports accepts an array of options ')
+    }
+
+    const emptyImport = deprecatedImports.find(
+      (importToCheck) => !importToCheck.source
+    )
+
+    if (emptyImport) {
+      throw new Error(
+        `No source provided for deprecated import ${JSON.stringify(
+          emptyImport
+        )}`
+      )
+    }
+
+    const deprecatedImportsWithArraySource = deprecatedImports.map(
+      (importToConvert) => {
+        if (typeof importToConvert.source === 'string') {
+          return { ...importToConvert, source: [importToConvert.source] }
+        }
+        return importToConvert
+      }
+    )
 
     //----------------------------------------------------------------------
     // Helpers
@@ -53,9 +93,13 @@ module.exports = {
 
     return {
       ImportDeclaration(node) {
-        const importOptions = deprecatedImports.find((importToCheck) => {
-          return node.source.value.includes(importToCheck.import)
-        })
+        const importOptions = deprecatedImportsWithArraySource.find(
+          (importToCheck) => {
+            return importToCheck.source.some((source) =>
+              minimatch(node.source.value, source)
+            )
+          }
+        )
 
         if (!importOptions) {
           return
@@ -67,8 +111,12 @@ module.exports = {
             `${
               importOptions.name ?? 'This component'
             } is deprecated as it does not use the design system.`,
-            `Use this doc to replace it with the design system version`,
-            `${importOptions.docLink}`,
+            ...(importOptions.docs
+              ? [
+                  `Use this doc to replace it with the design system version`,
+                  `${importOptions.docs}`,
+                ]
+              : []),
           ].join('\n'),
         })
       },
