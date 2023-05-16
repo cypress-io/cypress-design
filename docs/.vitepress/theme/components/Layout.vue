@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import './markdown.scss'
-import './fonts/fonts.css'
+import '../assets/markdown.scss'
+import '../assets/fonts/fonts.css'
 import { useData, useRouter } from 'vitepress'
 import {
   computed,
