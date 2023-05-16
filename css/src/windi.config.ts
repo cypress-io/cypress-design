@@ -1,5 +1,5 @@
 import { defineConfig } from 'windicss/helpers'
-// @ts-ignore
+// @ts-expect-error don't install types just for a test
 import PluginInteractionVariants from '@windicss/plugin-interaction-variants'
 import PluginFilters from 'windicss/plugin/filters'
 import theme from './theme.config'

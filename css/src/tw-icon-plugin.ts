@@ -12,7 +12,7 @@ const flattenColorPalette = (colors: any): Record<string, string> =>
     )
   )
 
-function toColorValue(maybeFunction: ((param: {}) => string) | string) {
+function toColorValue(maybeFunction: ((param: any) => string) | string) {
   return typeof maybeFunction === 'function' ? maybeFunction({}) : maybeFunction
 }
 

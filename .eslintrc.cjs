@@ -20,6 +20,19 @@ module.exports = {
       },
     },
     {
+      files: ['{packages,css,icon-registry}/**/*.{ts,tsx}'],
+      plugins: ['@typescript-eslint'],
+      extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        sourceType: 'module',
+        project: ['./tsconfig.json'],
+      },
+      env: {
+        node: true,
+      },
+    },
+    {
       files: ['components/*/react/*.{ts,tsx}'],
       plugins: ['@typescript-eslint'],
       extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],

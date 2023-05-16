@@ -45,7 +45,7 @@ export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR }
 export function isIconAttribute(
   attrName: string
 ): attrName is keyof typeof ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR {
-  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
+  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName] !== undefined
 }
 
 export const ADDITIONAL_COLORS = ['white', 'black', 'transparent', 'current']
