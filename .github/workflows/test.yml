@@ -38,7 +38,10 @@ jobs:
         run: yarn eslint .
       
       - name: Generate icon files
-        run: yarn turbo run build --filter=@cypress-design/css && yarn workspace @cypress-design/icon-registry run build:icons 
+        run: |
+          yarn turbo run build --filter=@cypress-design/css 
+          && yarn workspace @cypress-design/icon-registry run build:svg
+          && yarn workspace @cypress-design/icon-registry run build:icons 
 
       - name: Run Unit Tests
         run: yarn test
