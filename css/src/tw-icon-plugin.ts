@@ -1,4 +1,5 @@
 import plugin from 'tailwindcss/plugin'
+import { CSSRuleObject, KeyValuePair } from 'tailwindcss/types/config'
 
 const flattenColorPalette = (
   colors:
@@ -30,7 +31,10 @@ export default plugin(({ matchComponents, addVariant, theme }) => {
   ]
 
   iconColorTriggers.forEach((trigger) => {
-    const comp: Record<string, (value: string) => any> = {
+    const comp: KeyValuePair<
+      string,
+      (value: string, extra: { modifier: string | null }) => CSSRuleObject[]
+    > = {
       [trigger]: (value: string) => [
         {
           [` > *[fill].${trigger}`]: {
@@ -55,6 +59,7 @@ export default plugin(({ matchComponents, addVariant, theme }) => {
       ],
     }
 
+    // @ts-expect-error - matchComponents is not typed properly
     matchComponents(comp, {
       values: flattenColorPalette(theme('fill')),
       type: ['color', 'any'],
