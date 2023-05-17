@@ -55,7 +55,7 @@ export function isValidWindiColor(value: string) {
     return true
   }
   const [hue, weight] = value.split('-')
-  const hueObject = (colors as any)[hue]
+  const hueObject = (colors as Record<string, Record<number, string>>)[hue]
   if (!hueObject) {
     return false
   }

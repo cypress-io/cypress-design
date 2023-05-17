@@ -5,5 +5,10 @@ import type { SVGAttributes } from 'vue'
 import { compileVueIconProperties } from './compileProperties'
 
 export default (props: IconProps & Omit<SVGAttributes, 'name'>) => {
-  return h('svg', compileVueIconProperties(compileIcon(props)))
+  const { class: className, ...otherProps } = props
+  const properties = compileVueIconProperties(compileIcon(otherProps))
+  return h('svg', {
+    ...properties,
+    class: [className, properties.class],
+  })
 }

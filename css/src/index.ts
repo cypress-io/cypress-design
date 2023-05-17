@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UserOptions } from 'vite-plugin-windicss'
 import VitePlugin from 'vite-plugin-windicss'
 import WebpackPlugin from 'windicss-webpack-plugin'

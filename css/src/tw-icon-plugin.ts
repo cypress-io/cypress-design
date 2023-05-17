@@ -1,6 +1,11 @@
 import plugin from 'tailwindcss/plugin'
 
-const flattenColorPalette = (colors: any): Record<string, string> =>
+const flattenColorPalette = (
+  colors:
+    | Record<string, Record<string, string>>
+    | Record<string, string>
+    | undefined
+): Record<string, string> =>
   Object.assign(
     {},
     ...Object.entries(colors ?? {}).flatMap(([color, values]) =>
@@ -12,8 +17,8 @@ const flattenColorPalette = (colors: any): Record<string, string> =>
     )
   )
 
-function toColorValue(maybeFunction: ((param: any) => string) | string) {
-  return typeof maybeFunction === 'function' ? maybeFunction({}) : maybeFunction
+function toColorValue(maybeFunction: ((param: string) => string) | string) {
+  return typeof maybeFunction === 'function' ? maybeFunction('') : maybeFunction
 }
 
 export default plugin(({ matchComponents, addVariant, theme }) => {

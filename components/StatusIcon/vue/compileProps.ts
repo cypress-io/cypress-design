@@ -1,3 +1,4 @@
+import { SVGAttributes } from 'vue'
 import type {
   IconSet,
   VariantStatusIconProps,
@@ -13,18 +14,16 @@ export const compileProps = ({
   ...attributes
 }: VariantStatusIconProps & {
   statuses: Record<string, IconSet>
-  [attributes: string]: any
-}) => {
+} & Omit<SVGAttributes, 'name'>) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
   const iconInfo = status ? StatusForColor[status] : StatusForColor.placeholder
 
-  const { data: iconData, name } = statusInfo[`size${size}Icon`]
+  const { data: iconData } = statusInfo[`size${size}Icon`]
 
   const classes = ['inline-block']
 
   const { compiledClasses } = getComponentAttributes({
-    name,
     strokeColor: iconInfo.color,
     size,
     availableSizes: [size],
