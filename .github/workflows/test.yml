@@ -53,7 +53,10 @@ jobs:
         run: yarn run build:components
 
       - name: Check global types
-        run: yarn vue-tsc --noEmit
+        run: |
+          yarn vue-tsc --noEmit -p . 
+          yarn tsc --noEmit --project ./tsconfig.react.json
+          yarn vue-tsc --noEmit --project ./tsconfig.vue.json 
 
       # run cypress component tests
       - name: Cypress run CT

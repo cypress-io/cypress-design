@@ -47,6 +47,8 @@
   "include": [
     "components/*/vue/*.ts",
     "components/*/vue/*.tsx",
-    "components/*/vue/*.vue"
+    "components/*/vue/*.vue",
+    "components/*/assertions.ts",
+    "cypress/**/*.ts"
   ]
 }

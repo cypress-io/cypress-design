@@ -25,7 +25,7 @@ export interface AlertProps {
   /**
    * Box at the bottom of the alert for buttons or links
    */
-  footer: React.ReactNode
+  footer?: React.ReactNode
   /**
    * Color scheme
    */
