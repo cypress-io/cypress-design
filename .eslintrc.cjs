@@ -88,6 +88,13 @@ module.exports = {
         extraFileExtensions: ['.vue'],
         project: ['./test/vue-app/tsconfig.json'],
       },
+      settings: {
+        'import/resolver': {
+          typescript: {
+            project: ['./test/vue-app/tsconfig.json'],
+          },
+        },
+      },
       rules: {
         '@cypress-design/deprecate-imports': [
           'warn',

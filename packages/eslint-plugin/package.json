@@ -21,6 +21,7 @@
     "update:eslint-docs": "eslint-doc-generator"
   },
   "dependencies": {
+    "eslint-module-utils": "^2.8.0",
     "minimatch": "^3.1.2",
     "requireindex": "^1.2.0"
   },
@@ -36,7 +37,8 @@
     "node": "^14.17.0 || ^16.0.0 || >= 18.0.0"
   },
   "peerDependencies": {
-    "eslint": ">=7"
+    "eslint": ">=7",
+    "eslint-import-resolver-typescript": ">=2.0.0"
   },
   "license": "MIT"
 }

@@ -9,7 +9,7 @@ import Icon, {
 import Alert from '@cypress-design/vue-alert'
 import Spinner from '@cypress-design/vue-spinner/sfc'
 import Button from '@cypress-design/vue-button'
-import Button2 from './invalid-path/Button.vue'
+import Button2 from '@/invalid-path/Button.vue'
 
 const checked = ref(false)
 </script>

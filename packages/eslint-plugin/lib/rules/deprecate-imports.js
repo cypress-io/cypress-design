@@ -4,7 +4,7 @@
  */
 'use strict'
 
-const Module = require('module')
+const { default: resolve } = require('eslint-module-utils/resolve')
 const minimatch = require('minimatch')
 const path = require('path')
 
@@ -116,7 +116,7 @@ module.exports = {
 
     return {
       ImportDeclaration(node) {
-        const fullSource = getImportSourceFullPath(node)
+        const fullSource = resolve(node.source.value, context)
 
         if (!fullSource) {
           return
