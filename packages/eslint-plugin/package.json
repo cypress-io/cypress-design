@@ -22,15 +22,15 @@
   },
   "dependencies": {
     "eslint-module-utils": "^2.8.0",
-    "minimatch": "^3.1.2",
+    "minimatch": "^9.0.0",
     "requireindex": "^1.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.19.0",
-    "eslint-doc-generator": "^1.0.0",
-    "eslint-plugin-eslint-plugin": "^5.0.0",
+    "eslint": "^8.40.0",
+    "eslint-doc-generator": "^1.4.3",
+    "eslint-plugin-eslint-plugin": "^5.0.8",
     "eslint-plugin-node": "^11.1.0",
-    "mocha": "^10.0.0",
+    "mocha": "^10.2.0",
     "npm-run-all": "^4.1.5"
   },
   "engines": {
