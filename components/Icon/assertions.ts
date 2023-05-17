@@ -15,11 +15,11 @@ export default function assertions(mountStory: (options?: any) => void): void {
 
   it('should keep class', () => {
     mountStory({
-      class: 'm-20',
+      class: 'm-6',
       hoverStrokeColor: 'red-500',
       interactiveColorsOnGroup: true,
     })
-    cy.get('svg').should('have.class', 'm-20')
+    cy.get('svg').should('have.class', 'm-6')
   })
 
   it('should remove name', () => {
@@ -32,5 +32,19 @@ export default function assertions(mountStory: (options?: any) => void): void {
     cy.get('svg')
       .should('have.class', 'group-hover:icon-dark-red-500')
       .and('not.have.attr', 'name')
+  })
+
+  it('renders with interactiveColorsOnGroup & name', () => {
+    mountStory({
+      name: 'document-download',
+      'data-cy': 'icon',
+      size: '24',
+      class: 'm-6',
+      hoverStrokeColor: 'red-500',
+      interactiveColorsOnGroup: true,
+    })
+    cy.get('[data-cy="icon"]')
+      .should('have.class', 'group-hover:icon-dark-red-500')
+      .and('not.have.attr', 'interactiveColorsOnGroup')
   })
 }

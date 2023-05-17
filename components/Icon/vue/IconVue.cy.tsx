@@ -2,7 +2,7 @@ import assertions from '../assertions'
 import Icon, { IconDocumentBlank, IconObjectBookCode } from './index'
 import { mount } from 'cypress/vue'
 
-describe('Icon', () => {
+describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
   it('renders correctly', () => {
     mount(() => (
       <IconObjectBookCode
