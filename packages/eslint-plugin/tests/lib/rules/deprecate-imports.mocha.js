@@ -4,6 +4,8 @@
  */
 'use strict'
 
+const path = require('path')
+
 //------------------------------------------------------------------------------
 // Requirements
 //------------------------------------------------------------------------------
@@ -20,37 +22,44 @@ const ruleTester = new RuleTester({
     ecmaVersion: 6,
     sourceType: 'module',
   },
+  settings: {
+    'import/resolver': 'typescript',
+  },
 })
 
 const options = [
   [
     {
-      source: '@frontend-shared/*/Button.vue',
+      source: '**/deprecated*',
       docs: 'https://design.cypress.io/components/vue/Button',
     },
   ],
 ]
+
+const filename = path.join(__dirname, '..', '..', 'files', 'noop.js')
 
 ruleTester.run('deprecate-imports', rule, {
   valid: [
     {
       code: "import Button from '@cypress-design/vue-button'",
       options,
+      filename,
     },
   ],
   invalid: [
     {
-      code: "import Button from '@frontend-shared/components/Button.vue'",
+      code: "import Button from './deprecated-import.js'",
       errors: [
         {
           message: [
             'This component is deprecated as it does not use the design system.',
-            'Use this doc to replace it with the design system version',
+            'Use this doc to replace it with the official design system version',
             'https://design.cypress.io/components/vue/Button',
           ].join('\n'),
         },
       ],
       options,
+      filename,
     },
   ],
 })
