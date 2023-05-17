@@ -36,6 +36,9 @@ jobs:
 
       - name: Lint all files
         run: yarn eslint .
+      
+      - name: Generate icon files
+        run: yarn workspace @cypress-design/icon-registry run build:icons 
 
       - name: Run Unit Tests
         run: yarn test
