@@ -26,7 +26,6 @@ export interface TooltipProps {
    */
   color?: 'light' | 'dark'
   className?: string
-  tabIndex?: number | string
   children?: React.ReactNode
   /**
    * The content of the tooltip.

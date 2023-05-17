@@ -5,7 +5,7 @@ import assertions from '../assertions'
 
 describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   function mountStory(options: Parameters<typeof TooltipStory>[0] = {}) {
-    mount(() => <TooltipStory {...options} tabIndex={1} />)
+    mount(() => <TooltipStory {...options} tabindex={1} />)
   }
 
   assertions(mountStory)

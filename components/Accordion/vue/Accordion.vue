@@ -1,5 +1,5 @@
 <template>
-  <details ref="$details">
+  <details ref="$details" :open="open">
     <summary
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
@@ -51,9 +51,6 @@
 </template>
 
 <script lang="ts" setup>
-import { CssClasses } from '@cypress-design/constants-accordion'
-import { DetailsAnimation } from '@cypress-design/details-animation'
-import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import {
   FunctionalComponent,
   SVGAttributes,
@@ -61,6 +58,9 @@ import {
   ref,
   useSlots,
 } from 'vue'
+import { CssClasses } from '@cypress-design/constants-accordion'
+import { DetailsAnimation } from '@cypress-design/details-animation'
+import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 
 const slots = useSlots()
 
@@ -100,6 +100,7 @@ const props = defineProps<{
    * removes the content wrapper from the content.
    */
   fullWidthContent?: boolean
+  open?: boolean
 }>()
 
 const $content = ref(null)
