@@ -3,5 +3,5 @@
   "compilerOptions": {
     "rootDir": "../"
   },
-  "include": ["*.tsx", "*.ts"]
+  "include": ["*.tsx", "*.ts", "../assertions.ts"]
 }

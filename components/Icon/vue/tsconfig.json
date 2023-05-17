@@ -4,5 +4,5 @@
     "rootDir": "../"
   },
   "exclude": ["vite.config.ts"],
-  "include": ["*.vue", "*.ts", "*.tsx"]
+  "include": ["*.vue", "*.ts", "*.tsx", "../assertions.ts"]
 }

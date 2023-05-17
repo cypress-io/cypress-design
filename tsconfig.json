@@ -25,7 +25,9 @@
     "docs/.vitepress/**/*.vue",
     "docs/src/**/*.vue",
     "components/**/vite.config.ts",
-    "components/root.vite.config.ts"
+    "components/**/assertions.ts",
+    "components/root.vite.config.ts",
+    "cypress/support/**/*.ts"
   ],
   "references": [
     {

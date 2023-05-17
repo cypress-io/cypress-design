@@ -1,4 +1,5 @@
-import { IconObjectBookCode } from './index'
+import assertions from '../assertions'
+import Icon, { IconDocumentBlank, IconObjectBookCode } from './index'
 import { mount } from 'cypress/vue'
 
 describe('Icon', () => {
@@ -11,5 +12,12 @@ describe('Icon', () => {
         secondaryStrokeColor="indigo-600"
       />
     ))
+  })
+
+  assertions((props) => {
+    if (props.name) {
+      return mount(() => <Icon {...props} />)
+    }
+    mount(() => <IconDocumentBlank {...props} />)
   })
 })
