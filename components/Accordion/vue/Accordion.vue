@@ -1,5 +1,5 @@
 <template>
-  <details ref="$details" :open="open">
+  <details ref="$details">
     <summary
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
@@ -100,7 +100,6 @@ const props = defineProps<{
    * removes the content wrapper from the content.
    */
   fullWidthContent?: boolean
-  open?: boolean
 }>()
 
 const $content = ref(null)

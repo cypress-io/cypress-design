@@ -21,6 +21,7 @@ export default (options: AccordionStoryOptions = {}) => {
         separator={separator}
         description={description}
         icon={icon}
+        // @ts-expect-error volar is a little too strict for tsx html attributes. Only do this for tests
         open={open}
         fullWidthContent={fullWidthContent}
         headingClassName={headingClassName}
