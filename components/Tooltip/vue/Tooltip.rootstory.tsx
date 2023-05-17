@@ -17,7 +17,7 @@ export default ({
       class="w-1/2 p-4 bg-red-200"
       placement={placement}
       color={color}
-      tabIndex={tabIndex}
+      tabindex={tabIndex}
       disabled={disabled}
     >
       {{
@@ -55,7 +55,7 @@ export default ({
           class="w-1/2 p-4 bg-indigo-200"
           placement={placement}
           color={color}
-          tabIndex={tabIndex}
+          tabindex={tabIndex}
           disabled={disabled}
         >
           {{

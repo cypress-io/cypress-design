@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import StatusIcon from './StatusIcon.vue'
 import { statuses } from '../constants'
 
-const sizes = ['4', '8', '12', '16', '24']
+const sizes = ['4', '8', '12', '16', '24'] as const
 
 export default () => (
   <table class="w-full">
@@ -30,7 +30,7 @@ export default () => (
     </thead>
     <tbody>
       {Object.keys(statuses).map((status) => {
-        const statusInfo = statuses[status]
+        const statusInfo = statuses[status as keyof typeof statuses]
 
         return (
           <>
@@ -63,7 +63,7 @@ export default () => (
                     return (
                       <td key={`${status}-${size}-${variant}`} class="py-2">
                         <StatusIcon
-                          status={status}
+                          status={status as keyof typeof statuses}
                           size={size}
                           variant={variant}
                         />

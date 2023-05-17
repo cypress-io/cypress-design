@@ -77,33 +77,35 @@
 <script lang="ts" setup>
 import type { Placement, Side } from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
-import type { Ref } from 'vue'
+import type { HTMLAttributes, Ref } from 'vue'
 import { watch, computed, ref, onBeforeMount } from 'vue'
 
 const props = withDefaults(
-  defineProps<{
-    /**
-     * Where the tooltip should be placed relative to the target.
-     */
-    placement?: Placement
-    /**
-     * Background color of the tooltip.
-     */
-    color?: 'light' | 'dark'
-    /**
-     * Disable the tooltip.
-     * This hides the popper and makes the tooltip inactive.
-     */
-    disabled?: boolean
-    /**
-     * If true, the tooltip will be hidden when hovering the popper/tooltip
-     */
-    interactive?: boolean
-    /**
-     * If set, the tooltip will always respect the given placement
-     */
-    forcePlacement?: boolean
-  }>(),
+  defineProps<
+    {
+      /**
+       * Where the tooltip should be placed relative to the target.
+       */
+      placement?: Placement
+      /**
+       * Background color of the tooltip.
+       */
+      color?: 'light' | 'dark'
+      /**
+       * Disable the tooltip.
+       * This hides the popper and makes the tooltip inactive.
+       */
+      disabled?: boolean
+      /**
+       * If true, the tooltip will be hidden when hovering the popper/tooltip
+       */
+      interactive?: boolean
+      /**
+       * If set, the tooltip will always respect the given placement
+       */
+      forcePlacement?: boolean
+    } & HTMLAttributes
+  >(),
   {
     color: 'light',
   }
