@@ -4,7 +4,9 @@
  */
 'use strict'
 
+const Module = require('module')
 const minimatch = require('minimatch')
+const path = require('path')
 
 //------------------------------------------------------------------------------
 // Rule Definition
@@ -87,16 +89,43 @@ module.exports = {
 
     // any helper functions should go here or else delete this section
 
+    /**
+     * Resolves the full path of the import
+     * inspired by https://github.com/sindresorhus/resolve-from
+     */
+    function getImportSourceFullPath(node) {
+      if (node.source && node.source.value) {
+        try {
+          return Module._resolveFilename(node.source.value, {
+            id: context.physicalFilename,
+            filename: context.physicalFilename,
+            paths: Module._nodeModulePaths(
+              path.dirname(context.physicalFilename)
+            ),
+          })
+        } catch (e) {
+          return null
+        }
+      }
+      return null
+    }
+
     //----------------------------------------------------------------------
     // Public
     //----------------------------------------------------------------------
 
     return {
       ImportDeclaration(node) {
+        const fullSource = getImportSourceFullPath(node)
+
+        if (!fullSource) {
+          return
+        }
+
         const importOptions = deprecatedImportsWithArraySource.find(
           (importToCheck) => {
             return importToCheck.source.some((source) =>
-              minimatch(node.source.value, source)
+              minimatch(fullSource, source)
             )
           }
         )
@@ -113,7 +142,7 @@ module.exports = {
             } is deprecated as it does not use the design system.`,
             ...(importOptions.docs
               ? [
-                  `Use this doc to replace it with the design system version`,
+                  `Use this doc to replace it with the official design system version`,
                   `${importOptions.docs}`,
                 ]
               : []),

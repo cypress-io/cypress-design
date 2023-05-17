@@ -94,7 +94,7 @@ module.exports = {
           [
             {
               name: 'Button',
-              source: ['./invalid-path/*'],
+              source: ['**/invalid-path/*'],
               docs: 'https://design.cypress.io/components/vue/Button',
             },
           ],
