@@ -244,6 +244,8 @@ async function generateIndex(iconsObjectUnique) {
      * group defined in windiCSS
      */
     interactiveColorsOnGroup?: boolean;
+    
+    ['interactive-colors-on-group']?: boolean
   }
   
   ${ColorRoots.map(

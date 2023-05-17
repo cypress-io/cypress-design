@@ -1,6 +1,11 @@
 import camelCase from 'lodash.camelcase'
 import { COLOR_PREFIXES } from '@cypress-design/css/dist/colors'
-import type { OpenIconProps, IconProps, WindiColor } from './icons'
+import type {
+  OpenIconProps,
+  IconProps,
+  WindiColor,
+  ColorIconProps,
+} from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
 
@@ -62,7 +67,7 @@ export const getComponentAttributes = (
       )
     )
     .map((colorAttrName: string) => {
-      const color: WindiColor = otherProps[colorAttrName]
+      const color = otherProps[colorAttrName as keyof ColorIconProps]
       const lowerCaseColor = colorAttrName.toLowerCase().replace(/-/g, '')
       const colorClass = lowerCaseColor.includes('strokecolor')
         ? 'dark'
