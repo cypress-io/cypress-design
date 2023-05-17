@@ -3,7 +3,7 @@ import { compileIcon } from './compileIcon'
 
 vi.mock('@cypress-design/css/dist/colors', () => {
   return {
-    COLOR_PREFIXES: ['hover'],
+    COLOR_PREFIXES: ['hover', 'focus'],
   }
 })
 
@@ -41,10 +41,27 @@ describe('compileIcon', () => {
         size: '24',
         strokeColor: 'jade-500',
       }).compiledClasses
-    ).toMatchObject(['icon-hover:icon-dark-red-500', 'icon-dark-jade-500'])
+    ).toEqual(['icon-hover:icon-dark-red-500', 'icon-dark-jade-500'])
   })
 
-  it('should eliminate interactiveColorsOnGroup & class', () => {
+  it('should compile interactive classes on group when the flag is on', () => {
+    expect(
+      compileIcon({
+        name: 'object-book',
+        size: '24',
+        strokeColor: 'jade-500',
+        hoverStrokeColor: 'red-500',
+        focusStrokeColor: 'indigo-500',
+        interactiveColorsOnGroup: true,
+      }).compiledClasses
+    ).toEqual([
+      'icon-dark-jade-500',
+      'group-hover:icon-dark-red-500',
+      'group-focus:icon-dark-indigo-500',
+    ])
+  })
+
+  it('should eliminate interactiveColorsOnGroup', () => {
     expect(
       compileIcon({
         hoverStrokeColor: 'red-500',
@@ -53,6 +70,6 @@ describe('compileIcon', () => {
         strokeColor: 'jade-500',
         interactiveColorsOnGroup: true,
       })
-    ).not.toMatchObject({ interactiveColorsOnGroup: true })
+    ).not.toHaveProperty('interactiveColorsOnGroup')
   })
 })
