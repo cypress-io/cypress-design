@@ -36,7 +36,10 @@ jobs:
 
       - name: Lint all files
         run: yarn eslint .
-      
+
+      - name: Run Eslint Plugin Tests
+        run: yarn test:eslint-plugin      
+
       - name: Generate icon files
         run: |
           yarn turbo run build --filter=@cypress-design/css \
@@ -45,9 +48,6 @@ jobs:
 
       - name: Run Unit Tests
         run: yarn test
-
-      - name: Run Eslint Plugin Tests
-        run: yarn test:eslint-plugin
 
       - name: Build Components
         run: yarn run build:components
