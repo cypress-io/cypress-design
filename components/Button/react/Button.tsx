@@ -37,7 +37,7 @@ export const Button: React.FC<ReactButtonProps> = ({
   const finalDisabled = disabled || variant === 'disabled'
   const Comp = href ? 'a' : 'button'
   return (
-    // @ts-expect-error
+    // @ts-expect-error since the button cannot have an href, ts will complain
     <Comp
       {...(href ? {} : { type })}
       {...rest}

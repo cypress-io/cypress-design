@@ -165,7 +165,8 @@ function addIconUtilityClasses(theme: (key: string) => string) {
 
 export const IconDuotoneColorsPlugin = createPlugin(
   ({ theme, addUtilities, addVariant }) => {
-    addUtilities(addIconUtilityClasses(theme as any))
+    // @ts-expect-error - windicss types are wrong
+    addUtilities(addIconUtilityClasses(theme))
     /**
      * Adding the class `hover:icon-light-red-500` to will not
      * apply the color to the icon when hovered. Instead,

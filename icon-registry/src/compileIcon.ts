@@ -1,16 +1,19 @@
 import camelCase from 'lodash.camelcase'
 import { COLOR_PREFIXES } from '@cypress-design/css/dist/colors'
-import type { OpenIconProps, IconProps, WindiColor } from './icons'
+import type { OpenIconProps, ColorIconProps, IconProps } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
 
-export const compileIcon = (props: IconProps) => {
-  const { name } = props
+export const compileIcon = (
+  props: Omit<OpenIconProps, 'name'> & Pick<IconProps, 'name'>
+) => {
+  const { interactiveColorsOnGroup, name, ...cleanProps } = props
   const { availableSizes } = iconsMetadata[name]
 
   const { sizeWithDefault, compiledClasses } = getComponentAttributes({
-    ...(props as any),
+    ...cleanProps,
     availableSizes,
+    interactiveColorsOnGroup,
   })
 
   const nameWithSize = camelCase(`${name}_x${sizeWithDefault}`)
@@ -18,26 +21,24 @@ export const compileIcon = (props: IconProps) => {
   if (!iconData) {
     throw new Error(`icon '${name}' at size ${sizeWithDefault} not found`)
   }
-  return {
-    ...(props as any),
+
+  const compiledProps = {
+    ...cleanProps,
     size: sizeWithDefault,
     compiledClasses,
     body: iconData.data,
   }
+
+  return compiledProps
 }
 
 export const getComponentAttributes = (
   props: {
     availableSizes: readonly string[]
-  } & OpenIconProps
+  } & Omit<OpenIconProps, 'name'>
 ) => {
-  const {
-    size,
-    availableSizes,
-    interactiveColorsOnGroup,
-    name, // not used, just removed from colors
-    ...otherProps
-  } = props
+  const { size, availableSizes, interactiveColorsOnGroup, ...otherProps } =
+    props
   const sizeWithDefault =
     size ??
     (availableSizes.length >= 1
@@ -51,13 +52,19 @@ export const getComponentAttributes = (
       ? otherProps['interactive-colors-on-group']
       : interactiveColorsOnGroup
 
+  delete otherProps['interactive-colors-on-group']
+
   // TODO: when all icons are converted to using the design system,
   // replace dark by stroke and light by fill,
   // both here and in the windi plugins configs.
   const compiledClasses = Object.keys(otherProps)
-    .filter((attrName) => ICON_COLOR_PROP_NAMES.includes(attrName))
+    .filter((attrName) =>
+      ICON_COLOR_PROP_NAMES.includes(
+        attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
+      )
+    )
     .map((colorAttrName: string) => {
-      const color: WindiColor = otherProps[colorAttrName]
+      const color = otherProps[colorAttrName as keyof ColorIconProps]
       const lowerCaseColor = colorAttrName.toLowerCase().replace(/-/g, '')
       const colorClass = lowerCaseColor.includes('strokecolor')
         ? 'dark'

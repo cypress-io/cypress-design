@@ -47,5 +47,6 @@ module.exports = async function renderProp(props, opt) {
 ${supComponent ? '#' : ''}## Props
 
 ${await lineTemplate(props, supComponent)}
+---
 `
 }

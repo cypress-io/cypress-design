@@ -1,79 +1,3 @@
-<template>
-  <div
-    v-bind="$attrs"
-    ref="reference"
-    @mouseover="placeTooltip"
-    @focus="placeTooltip"
-    @blur="show = false"
-    @mouseout="show = false"
-  >
-    <!-- @slot element to hover on to open the tooltip -->
-    <slot />
-  </div>
-  <teleport v-if="!disabled" to="#portal-target">
-    <div
-      @mouseover="tooltipHovered = true"
-      @mouseout="tooltipHovered = false"
-      role="tooltip"
-      ref="tooltip"
-      :style="
-        positionComputed
-          ? `top:${top}px!important;left:${left}px!important;`
-          : undefined
-      "
-      class="absolute"
-      :class="[
-        {
-          invisible:
-            !show && positionComputed && !(tooltipHovered && props.interactive),
-          '-top-[10000px] invisible': !positionComputed,
-        },
-        props.interactive ? 'p-[16px]' : undefined,
-      ]"
-    >
-      <div
-        class="border rounded shadow"
-        :class="[colors.background, colors.block]"
-      >
-        <svg
-          ref="arrowRef"
-          viewBox="0 0 48 24"
-          width="24"
-          height="12"
-          class="absolute z-10"
-          :class="colors.svg"
-          :style="`
-              transform: rotate(${arrowRotate}deg); 
-              filter: ${dropShadowFilter};
-              ${arrowYRule}:${arrowTop}px!important;
-              ${arrowXRule}:${arrowLeft}px!important;`"
-          fill="none"
-        >
-          <rect
-            x="0"
-            y="-4"
-            width="48"
-            height="8"
-            stroke-width="0"
-            stroke-color="red"
-          />
-          <path
-            d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-            stroke-width="2"
-          />
-        </svg>
-        <div
-          class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
-          :class="colors.background"
-        >
-          <!-- @slot content of the tooltip -->
-          <slot name="popper" />
-        </div>
-      </div>
-    </div>
-  </teleport>
-</template>
-
 <script lang="ts" setup>
 import type { Placement, Side } from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
@@ -232,3 +156,81 @@ async function placeTooltip() {
   show.value = true
 }
 </script>
+
+<template>
+  <div
+    v-bind="$attrs"
+    ref="reference"
+    @mouseover="placeTooltip"
+    @focus="placeTooltip"
+    @blur="show = false"
+    @mouseout="show = false"
+  >
+    <!-- @slot element to hover on to open the tooltip -->
+    <slot />
+    <teleport v-if="!disabled" to="#portal-target">
+      <div
+        @mouseover="tooltipHovered = true"
+        @mouseout="tooltipHovered = false"
+        role="tooltip"
+        ref="tooltip"
+        :style="
+          positionComputed
+            ? `top:${top}px!important;left:${left}px!important;`
+            : undefined
+        "
+        class="absolute"
+        :class="[
+          {
+            invisible:
+              !show &&
+              positionComputed &&
+              !(tooltipHovered && props.interactive),
+            '-top-[10000px] invisible': !positionComputed,
+          },
+          props.interactive ? 'p-[16px]' : undefined,
+        ]"
+      >
+        <div
+          class="border rounded shadow"
+          :class="[colors.background, colors.block]"
+        >
+          <svg
+            ref="arrowRef"
+            viewBox="0 0 48 24"
+            width="24"
+            height="12"
+            class="absolute z-10"
+            :class="colors.svg"
+            :style="`
+              transform: rotate(${arrowRotate}deg); 
+              filter: ${dropShadowFilter};
+              ${arrowYRule}:${arrowTop}px!important;
+              ${arrowXRule}:${arrowLeft}px!important;`"
+            fill="none"
+          >
+            <rect
+              x="0"
+              y="-4"
+              width="48"
+              height="8"
+              stroke-width="0"
+              stroke-color="red"
+            />
+            <path
+              d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+              stroke-width="2"
+            />
+          </svg>
+          <div
+            class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
+            :class="colors.background"
+          >
+            <!-- @slot content of the tooltip -->
+            <slot name="popper" />
+          </div>
+        </div>
+      </div>
+    </teleport>
+  </div>
+</template>

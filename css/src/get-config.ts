@@ -6,7 +6,7 @@ import windiConfig from './windi.config'
 
 const { mergeWith } = _
 
-function customizer(objValue: any, srcValue: any) {
+function customizer(objValue: unknown, srcValue: unknown) {
   if (Array.isArray(objValue) && Array.isArray(srcValue)) {
     return objValue.concat(srcValue)
   }

@@ -15,12 +15,13 @@ export default (options: AccordionStoryOptions = {}) => {
   } = options
 
   return (
-    <div className="m-[16px]">
+    <div class="m-[16px]">
       <Accordion
         title={title}
         separator={separator}
         description={description}
         icon={icon}
+        // @ts-expect-error volar is a little too strict for tsx html attributes. Only do this for tests
         open={open}
         fullWidthContent={fullWidthContent}
         headingClassName={headingClassName}

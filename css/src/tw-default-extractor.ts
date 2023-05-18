@@ -1,7 +1,7 @@
 import * as regex from './tw-regex'
 
 export default function defaultExtractor() {
-  let patterns = Array.from(buildRegExps())
+  const patterns = Array.from(buildRegExps())
 
   /**
    * @param {string} content
@@ -9,7 +9,7 @@ export default function defaultExtractor() {
   return (content: string) => {
     let results: string[] = []
 
-    for (let pattern of patterns) {
+    for (const pattern of patterns) {
       results = [...results, ...(content.match(pattern) ?? [])]
     }
 
@@ -18,9 +18,9 @@ export default function defaultExtractor() {
 }
 
 function* buildRegExps() {
-  let separator = ':'
+  const separator = ':'
 
-  let utility = regex.any([
+  const utility = regex.any([
     // Arbitrary properties
     /\[[^\s:'"`]+:[^\s]+\]/,
 
@@ -55,26 +55,26 @@ function* buildRegExps() {
           ]),
 
           // Normal values w/o quotes — may include an opacity modifier
-          /[-\/][^\s'"`\\$={><]*/,
+          /[-/][^\s'"`\\$={><]*/,
         ])
       ),
     ]),
   ])
 
-  let variantPatterns = [
+  const variantPatterns = [
     // Without quotes
     regex.any([
       // This is here to provide special support for the `@` variant
       regex.pattern([/@\[[^\s"'`]+\](\/[^\s"'`]+)?/, separator]),
 
-      regex.pattern([/([^\s"'`\[\\]+-)?\[[^\s"'`]+\]/, separator]),
-      regex.pattern([/[^\s"'`\[\\]+/, separator]),
+      regex.pattern([/([^\s"'`[\\]+-)?\[[^\s"'`]+\]/, separator]),
+      regex.pattern([/[^\s"'`[\\]+/, separator]),
     ]),
 
     // With quotes allowed
     regex.any([
-      regex.pattern([/([^\s"'`\[\\]+-)?\[[^\s`]+\]/, separator]),
-      regex.pattern([/[^\s`\[\\]+/, separator]),
+      regex.pattern([/([^\s"'`[\\]+-)?\[[^\s`]+\]/, separator]),
+      regex.pattern([/[^\s`[\\]+/, separator]),
     ]),
   ]
 
@@ -106,8 +106,8 @@ function* buildRegExps() {
 
 // We want to capture any "special" characters
 // AND the characters immediately following them (if there is one)
-let SPECIALS = /([\[\]'"`])([^\[\]'"`])?/g
-let ALLOWED_CLASS_CHARACTERS = /[^"'`\s<>\]]+/
+const SPECIALS = /([[\]'"`])([^[\]'"`])?/g
+const ALLOWED_CLASS_CHARACTERS = /[^"'`\s<>\]]+/
 
 /**
  * Clips a string ensuring that parentheses, quotes, etc… are balanced
@@ -130,7 +130,7 @@ function clipAtBalancedParens(input: string) {
   }
 
   let depth = 0
-  let openStringTypes: string[] = []
+  const openStringTypes: string[] = []
 
   // Find all parens, brackets, quotes, etc
   // Stop when we end at a balanced pair
@@ -151,9 +151,9 @@ function clipAtBalancedParens(input: string) {
     )
   })
 
-  for (let match of matches) {
-    let char = match[0]
-    let inStringType = openStringTypes[openStringTypes.length - 1]
+  for (const match of matches) {
+    const char = match[0]
+    const inStringType = openStringTypes[openStringTypes.length - 1]
 
     if (char === inStringType) {
       openStringTypes.pop()

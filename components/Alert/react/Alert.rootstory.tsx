@@ -9,7 +9,7 @@ export default () => {
   return (
     <div className="flex flex-col p-4 gap-[16px]">
       <Alert
-        type="error"
+        variant="error"
         title="Spec not found"
         detailsTitle="Stack trace"
         data-cy="alert-1"
@@ -76,17 +76,17 @@ export default () => {
         />
       ) : null}
       <Alert
-        type="success"
+        variant="success"
         dismissible
         title="Success with body"
         data-cy="alert-3"
       >
         Success body
       </Alert>
-      <Alert type="warning" title="Warning" notRounded />
-      <Alert type="neutral" title="Neutral" />
+      <Alert variant="warning" title="Warning" notRounded />
+      <Alert variant="neutral" title="Neutral" />
       <Alert
-        type="error"
+        variant="error"
         dismissible
         data-cy="alert-4"
         className="text-justify"
@@ -98,13 +98,13 @@ export default () => {
       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
       est laborum."
       />
-      <Alert type="info" title="Info" />
-      <Alert type="info" title="Info" customIcon={IconArrowRight} />
+      <Alert variant="info" title="Info" />
+      <Alert variant="info" title="Info" customIcon={IconArrowRight} />
       {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
         <>
           <Alert
+            variant="error"
             title={`${size} - Lorem ipsum dolor sit amet`}
-            type="error"
             data-cy="alert-size"
             size={size}
           />
@@ -116,7 +116,7 @@ export default () => {
           velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
           cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
           est laborum."
-            type="error"
+            variant="error"
             data-cy="alert-size"
             size={size}
           />

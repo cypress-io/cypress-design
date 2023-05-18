@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, reactive, watch } from 'vue'
+import { computed, defineComponent, reactive } from 'vue'
 import {
   VariantClassesTable,
   SizeClassesTable,
@@ -38,6 +38,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { variant, size, disabled, href, type, ...attr } = props
 
     const finalVariant = computed(() =>

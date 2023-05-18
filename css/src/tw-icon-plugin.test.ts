@@ -10,7 +10,7 @@ function run(input: string, config: Config) {
 }
 
 it('generates icon classes', async () => {
-  let config = {
+  const config = {
     content: [
       {
         raw: `<svg width="48" height="48" viewBox="0 0 48 48" fill="none" class="m-2 icon-dark-teal-400 icon-light-teal-50 icon-dark-secondary-indigo-400 icon-light-secondary-indigo-50 icon-hover:icon-dark-teal-900 group-hover:icon-light-red-400">

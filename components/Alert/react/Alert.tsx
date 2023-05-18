@@ -25,7 +25,7 @@ export interface AlertProps {
   /**
    * Box at the bottom of the alert for buttons or links
    */
-  footer: React.ReactNode
+  footer?: React.ReactNode
   /**
    * Color scheme
    */
@@ -127,7 +127,7 @@ export const Alert: React.FC<
   React.useEffect(() => {
     if (onDismiss && duration && !durationTimeout) {
       setDismissed(false)
-      const timeout = setTimeout(dismiss, duration) as any
+      const timeout = setTimeout(dismiss, duration) as unknown as number
       setDurationTimeout(timeout)
     }
     return clearDurationTimeout

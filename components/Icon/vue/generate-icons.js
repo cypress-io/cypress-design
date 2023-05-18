@@ -22,9 +22,12 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   }, {})
   return dedent`
   export const Icon${pascalCaseName} = (props: SVGAttributes & Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
-    const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ ...(props as any), availableSizes: ${JSON.stringify(
-      iconMetadata.availableSizes
-    )} })
+    const { interactiveColorsOnGroup, name, ...cleanProps } = props
+    const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ 
+      ...cleanProps, 
+      availableSizes: ${JSON.stringify(iconMetadata.availableSizes)}, 
+      interactiveColorsOnGroup
+    })
     const iconBodies: Record<string, string> = ${JSON.stringify(
       iconBodies,
       null,
@@ -35,7 +38,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
       throw Error(\`Icon "${name}" is not available in size ${'$'}{size}\`)
     }
     return h('svg', compileVueIconProperties({
-      ...props,
+      ...cleanProps,
       size,
       body,
       compiledClasses

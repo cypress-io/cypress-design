@@ -20,7 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.2.6"
+    "@floating-ui/dom": "^1.2.8"
   },
   "devDependencies": {
     "@cypress-design/css": "*"

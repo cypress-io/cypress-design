@@ -22,6 +22,9 @@
       "require": "./Spinner.vue"
     }
   },
+  "browser": {
+    "./sfc": "Spinner.vue"
+  },
   "typesVersions": {
     "*": {
       "sfc": [
