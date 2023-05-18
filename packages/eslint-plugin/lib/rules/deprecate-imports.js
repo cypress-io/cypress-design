@@ -5,8 +5,7 @@
 'use strict'
 
 const { default: resolve } = require('eslint-module-utils/resolve')
-const minimatch = require('minimatch')
-const path = require('path')
+const { minimatch } = require('minimatch')
 
 //------------------------------------------------------------------------------
 // Rule Definition
@@ -88,27 +87,6 @@ module.exports = {
     //----------------------------------------------------------------------
 
     // any helper functions should go here or else delete this section
-
-    /**
-     * Resolves the full path of the import
-     * inspired by https://github.com/sindresorhus/resolve-from
-     */
-    function getImportSourceFullPath(node) {
-      if (node.source && node.source.value) {
-        try {
-          return Module._resolveFilename(node.source.value, {
-            id: context.physicalFilename,
-            filename: context.physicalFilename,
-            paths: Module._nodeModulePaths(
-              path.dirname(context.physicalFilename)
-            ),
-          })
-        } catch (e) {
-          return null
-        }
-      }
-      return null
-    }
 
     //----------------------------------------------------------------------
     // Public
