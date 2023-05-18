@@ -50,16 +50,19 @@ module.exports = defineConfig({
       const mp = {
         displayName: p.displayName,
         props: Object.entries(p.props).reduce((acc, [pkey, pp]) => {
-          /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number] */
-          const propType = {
-            name: pkey,
-            description: pp.description,
-            type: pp.type,
-            required: pp.required,
-            defaultValue: pp.defaultValue,
-            tags: getTags(pp.tags),
+          if (!pp.name.includes('-')) {
+            // ignore kebab-case props here only for compat
+            /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number] */
+            const propType = {
+              name: pkey,
+              description: pp.description,
+              type: pp.type,
+              required: pp.required,
+              defaultValue: pp.defaultValue,
+              tags: getTags(pp.tags),
+            }
+            acc.push(propType)
           }
-          acc.push(propType)
           return acc
         }, []),
         exportName: p.displayName,
