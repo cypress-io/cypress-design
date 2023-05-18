@@ -7,6 +7,7 @@ import Icon, {
   IconObjectBookCode,
 } from '@cypress-design/vue-icon'
 import Alert from '@cypress-design/vue-alert'
+// @ts-expect-error see this issue https://github.com/vuejs/language-tools/issues/1662
 import Spinner from '@cypress-design/vue-spinner/sfc'
 import Button from '@cypress-design/vue-button'
 import Button2 from '@/invalid-path/Button.vue'
