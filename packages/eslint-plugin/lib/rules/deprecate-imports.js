@@ -54,11 +54,15 @@ module.exports = {
     const [deprecatedImports] = context.options
 
     if (!deprecatedImports) {
-      throw new Error('No deprecated imports provided')
+      throw context.report({
+        message: 'No deprecated imports provided',
+      })
     }
 
     if (!Array.isArray(deprecatedImports)) {
-      throw new Error('Deprecated imports accepts an array of options ')
+      throw context.report({
+        message: 'Rule accepts an array of import definitions',
+      })
     }
 
     const emptyImport = deprecatedImports.find(
@@ -66,11 +70,11 @@ module.exports = {
     )
 
     if (emptyImport) {
-      throw new Error(
-        `No source provided for deprecated import ${JSON.stringify(
+      throw context.report({
+        message: `No source provided for deprecated import ${JSON.stringify(
           emptyImport
-        )}`
-      )
+        )}`,
+      })
     }
 
     const deprecatedImportsWithArraySource = deprecatedImports.map(
