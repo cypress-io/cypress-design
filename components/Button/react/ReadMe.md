@@ -49,10 +49,11 @@ export default () => {
             backgroundColor: variant === 'outline-dark' ? '#1a202c' : 'white',
             color: variant === 'outline-dark' ? 'white' : 'black',
           }}
+          key={variant}
         >
           {variant}
           {Object.keys(SizeClassesTable).map((size) => (
-            <div key={size} className="flex gap-[8px] items-center">
+            <div className="flex gap-[8px] items-center" key={size}>
               {size}
               <Button variant={variant} size={size}>
                 Button
