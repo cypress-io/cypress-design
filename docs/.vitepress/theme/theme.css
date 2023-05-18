@@ -1,15 +1,13 @@
+@layer base {
+  body {
+    @apply bg-white dark:bg-gray-1000 dark:text-white;
+  }
+}
+
 @layer tailwind {
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
 }
 
-@layer markdown, tailwind;
-
-.vp-doc .preview-code summary {
-  margin: initial;
-}
-
-body {
-  @apply bg-white dark:bg-gray-1000;
-}
+@layer base, markdown, tailwind;
