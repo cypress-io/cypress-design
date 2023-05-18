@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.vue.json",
+  "compilerOptions": {
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": false
+  }
+}

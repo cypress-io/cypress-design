@@ -2,7 +2,7 @@ import { test, expect } from 'vitest'
 import postcss from 'postcss'
 import tailwindcss, { Config } from 'tailwindcss'
 import { Processor } from 'windicss/lib'
-// @ts-ignore
+// @ts-expect-error don't install types just for a test
 import PluginInteractionVariants from '@windicss/plugin-interaction-variants'
 import { tailwindPlugin, shortcuts } from './shortcuts'
 
@@ -50,7 +50,7 @@ test('windi should generate correct css', () => {
 })
 
 test('tw generates shortcut classes', async () => {
-  let config = {
+  const config = {
     content: [
       {
         raw: `<div class="card"/>`,

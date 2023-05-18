@@ -6,12 +6,12 @@ export default ({
   color = 'light',
   placement,
   disabled,
-  tabIndex,
+  tabindex,
 }: {
   color?: 'light' | 'dark'
   placement?: Placement
   disabled?: boolean
-  tabIndex?: number
+  tabindex?: number
 } = {}) => (
   <div className="flex flex-col items-center center gap-20">
     <Tooltip
@@ -19,7 +19,7 @@ export default ({
       popper={<div className="p-4 text-gray-800 bg-jade-200">PopovDyn</div>}
       color={color}
       placement={placement}
-      tabIndex={tabIndex}
+      tabIndex={tabindex}
       disabled={disabled}
     >
       <div>Hover Me (dynamic: {placement?.toString()})</div>
@@ -51,7 +51,7 @@ export default ({
           placement={placement}
           key={placement}
           color={color}
-          tabIndex={tabIndex}
+          tabIndex={tabindex}
           disabled={disabled}
           popper={
             <div className="p-4 text-gray-800 bg-jade-200">

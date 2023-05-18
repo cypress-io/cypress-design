@@ -88,7 +88,7 @@ let timeout: number | undefined
 
 onMounted(() => {
   if (props.duration) {
-    timeout = setTimeout(dismiss, props.duration) as any
+    timeout = setTimeout(dismiss, props.duration)
   }
 })
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { UserOptions } from 'vite-plugin-windicss'
 import VitePlugin from 'vite-plugin-windicss'
 import WebpackPlugin from 'windicss-webpack-plugin'
@@ -16,7 +17,7 @@ export const CyCSSWebpackPlugin = (options: UserOptions) => {
   if (typeof WebpackPluginCJS.default === 'function') {
     return WebpackPluginCJS.default(getConfig(options))
   }
-  return new WebpackPlugin(getConfig(options))
+  return new WebpackPluginCJS(getConfig(options))
 }
 
 export * from './colors'

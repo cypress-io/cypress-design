@@ -10,7 +10,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
-      cy.percySnapshot(placement)
+      cy.percySnapshot(`tooltip-light-${placement}`)
     })
   })
 
@@ -30,7 +30,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
-      cy.percySnapshot(placement)
+      cy.percySnapshot(`tooltip-dark-${placement}`)
     })
   })
 }

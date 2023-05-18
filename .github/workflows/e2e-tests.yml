@@ -3,7 +3,7 @@ name: Build each test
 on: [push]
 
 jobs:
-  cypress-run:
+  build-projects:
     runs-on: ubuntu-latest
     steps:
       - name: Get Yarn cache path

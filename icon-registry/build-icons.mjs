@@ -203,7 +203,7 @@ async function generateIndex(iconsObjectUnique) {
    */
   export const ICON_COLOR_PROP_NAMES = ${JSON.stringify(
     Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR)
-  )}
+  )} as const
 
   /**
    * All possible values for icon colors
@@ -239,11 +239,11 @@ async function generateIndex(iconsObjectUnique) {
      */
     size?: string;
     /**
-     * Should the interactive variants \`hover\` and \`focus\` 
-     * be applied on the icon itself or on the parent 
-     * group defined in windiCSS
+     * Should the interactive variants \`hover\` and \`focus\` be applied on the icon itself or on the parent group
      */
     interactiveColorsOnGroup?: boolean;
+    
+    ['interactive-colors-on-group']?: boolean
   }
   
   ${ColorRoots.map(
@@ -282,6 +282,7 @@ async function generateIndex(iconsObjectUnique) {
 }
 
 getIcons().then(() => {
+  // eslint-disable-next-line no-console
   console.log('Icons generated')
   process.exit(0)
 })
