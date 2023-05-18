@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-statusicon",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "files": [
     "./dist/*"
   ],
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-statusicon": "*",
-    "@cypress-design/icon-registry": "^0.22.0",
+    "@cypress-design/icon-registry": "^0.22.2",
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {

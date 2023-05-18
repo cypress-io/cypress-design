@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/eslint-plugin",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "a plugin to help migration to @cypress-design",
   "keywords": [
     "eslint",
