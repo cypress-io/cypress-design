@@ -62,6 +62,7 @@ async function getIcons() {
         })}Props`,
         kebabCaseName,
         size,
+        defsIndex: svgContent.indexOf('<defs>'),
         ...props.reduce((acc, prop) => {
           acc[prop] = propsRE[prop].test(svgContent)
           return acc
@@ -72,11 +73,13 @@ async function getIcons() {
   )
   const iconsObjectSet = new Set()
   const iconsObjectUnique = iconsObject.reduce((acc, curr) => {
+    let iconMeta
     if (!iconsObjectSet.has(curr.interfaceName)) {
       iconsObjectSet.add(curr.interfaceName)
-      const iconMeta = {
+      iconMeta = {
         ...curr,
         availableSizes: [curr.size],
+        defs: {},
       }
       props.forEach((property) => {
         if (curr[property]) {
@@ -88,16 +91,21 @@ async function getIcons() {
       const index = acc.findIndex(
         (item) => item.interfaceName === curr.interfaceName
       )
-      acc[index].availableSizes.push(curr.size)
+      iconMeta = acc[index]
+      iconMeta.availableSizes.push(curr.size)
       props.forEach((property) => {
         if (curr[property]) {
-          if (acc[index][property]) {
-            acc[index][property].push(curr.size)
+          if (iconMeta[property]) {
+            iconMeta[property].push(curr.size)
           } else {
-            acc[index][property] = [curr.size]
+            iconMeta[property] = [curr.size]
           }
         }
       })
+    }
+
+    if (curr.defsIndex !== -1) {
+      iconMeta.defs[curr.size] = curr.defsIndex
     }
     return acc
   }, [])
@@ -109,7 +117,7 @@ async function getIcons() {
   })
 
   await ensureDistExist()
-  await generateIndex(iconsObjectUnique, iconsObject)
+  await generateIndex(iconsObjectUnique)
 }
 
 async function ensureDistExist() {
@@ -128,8 +136,9 @@ async function generateIndex(iconsObjectUnique) {
       // prettier-ignore
       return dedent`
       '${icon.kebabCaseName}': {
-          availableSizes: ['${icon.availableSizes.join('\',\'')}'], ${ColorRoots.map((colorRoot) => `
-          has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}
+          availableSizes: ['${icon.availableSizes.join("','")}'], ${ColorRoots.map((colorRoot) => `
+          has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}${icon.defs ? `,
+          defs: ${JSON.stringify(icon.defs)}`: ''}
       }`;
     })
     .join(',\n')

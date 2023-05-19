@@ -14,6 +14,7 @@ export const SimpleStatusIcon: React.FC<
       statuses: simple.statuses,
       className: rest.className,
       size,
+      variantName: 'simple',
     }),
   })
 }
