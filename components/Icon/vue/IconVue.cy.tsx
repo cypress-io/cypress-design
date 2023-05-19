@@ -1,5 +1,10 @@
 import assertions from '../assertions'
-import Icon, { IconDocumentBlank, IconObjectBookCode } from './index'
+import Icon, {
+  IconDocumentBlank,
+  IconObjectBookCode,
+  IconLogoTeams,
+  IconBrowserWebkit,
+} from './index'
 import { mount } from 'cypress/vue'
 
 describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
@@ -19,5 +24,14 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
       return mount(() => <Icon {...props} />)
     }
     mount(() => <IconDocumentBlank {...props} />)
+  })
+
+  it('renders multiple times an icon with defs', () => {
+    mount(() => (
+      <div class="grid grid-cols-3 m-2">
+        <IconBrowserWebkit class="w-16 h-16 hidden" />
+        <IconBrowserWebkit class="w-16 h-16" />
+      </div>
+    ))
   })
 })
