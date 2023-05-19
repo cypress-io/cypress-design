@@ -12,6 +12,12 @@ export default ({
 }: SVGAttributes & VariantStatusIconProps) => {
   return h(
     'svg',
-    compileProps({ size, status, ...props, statuses: solid.statuses })
+    compileProps({
+      size,
+      status,
+      ...props,
+      statuses: solid.statuses,
+      variantName: 'solid',
+    })
   )
 }

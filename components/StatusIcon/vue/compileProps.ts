@@ -11,9 +11,11 @@ export const compileProps = ({
   status,
   statuses,
   size,
+  variantName,
   ...attributes
 }: VariantStatusIconProps & {
   statuses: Record<string, IconSet>
+  variantName: string
 } & Omit<SVGAttributes, 'name'>) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
@@ -24,13 +26,14 @@ export const compileProps = ({
   const classes = ['inline-block']
 
   const { compiledClasses } = getComponentAttributes({
-    strokeColor: iconInfo.color,
     size,
     availableSizes: [size],
+    strokeColor: iconInfo.color,
     fillColor: iconInfo.secondaryColor,
   })
 
   return compileVueIconProperties({
+    name: `status_${status}_${size}_${variantName}`,
     compiledClasses: [...compiledClasses, ...classes],
     size,
     body: iconData,

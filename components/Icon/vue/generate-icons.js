@@ -16,42 +16,71 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   const iconBodies = iconSet.reduce((acc, icon) => {
     const sizeIndex = availableIds.indexOf(icon.name)
     if (sizeIndex > -1) {
-      acc[iconMetadata.availableSizes[sizeIndex]] = icon.data
+      const indexOfDefs = icon.data.indexOf('<defs>')
+      acc[iconMetadata.availableSizes[sizeIndex]] = {
+        body: indexOfDefs >= 0 ? icon.data.slice(0, indexOfDefs) : icon.data,
+        // avoid defs: undefined in final exported code
+        ...(indexOfDefs >= 0 ? { defs: icon.data.slice(indexOfDefs) } : {}),
+      }
     }
     return acc
   }, {})
+
   return dedent`
-  export const Icon${pascalCaseName} = (props: SVGAttributes & Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
-    const { interactiveColorsOnGroup, name, ...cleanProps } = props
-    const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({ 
-      ...cleanProps, 
-      availableSizes: ${JSON.stringify(iconMetadata.availableSizes)}, 
-      interactiveColorsOnGroup
-    })
-    const iconBodies: Record<string, string> = ${JSON.stringify(
+  export const Icon${pascalCaseName} = defineComponent((props: SVGAttributes & Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
+    const iconPropsStep = useIconProps(props, ${JSON.stringify(
       iconBodies,
       null,
       2
-    )}
-    const body = iconBodies[size]
-    if(!body){
-      throw Error(\`Icon "${name}" is not available in size ${'$'}{size}\`)
-    }
-    return h('svg', compileVueIconProperties({
-      ...cleanProps,
-      size,
-      body,
-      compiledClasses
-    }))
-  }
+    )}, ${JSON.stringify(iconMetadata.availableSizes)}, ${JSON.stringify(name)})
+
+    const iconProps = compileVueIconProperties(iconPropsStep)
+
+    return () => h('svg', iconProps.value)
+  },
+  // @ts-expect-error - vue types need an update 
+  __iconComponentOpts__)
   `
 })
 
 writeFile(`
+import { h, defineComponent, computed } from 'vue'
+import type { SVGAttributes } from 'vue'
 import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties } from './compileProperties'
-import type { SVGAttributes } from 'vue'
-import { h } from 'vue'
+
+const __iconComponentOpts__ = {
+  props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size'],
+} as const
+
+function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name'>, iconBodiesAndDefs: Record<string, {body: string, defs?: string}>, availableSizes: string[], name: string) {
+  return computed(() => {
+    const { interactiveColorsOnGroup, ...cleanProps } = props
+
+    const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({  
+      ...cleanProps,
+      availableSizes, 
+      interactiveColorsOnGroup,
+    })
+
+    
+
+    const { body, defs } = iconBodiesAndDefs[size] || {}
+    if(!body){
+      throw Error(\`Icon "${'$'}{name}" is not available in size ${'$'}{size}\`)
+    }
+    
+    return {
+      ...cleanProps,
+      name,
+      size,
+      body,
+      defs,
+      compiledClasses
+    }
+  })
+}
+
 
 ${iconsComponents.join('\n\n\n')}
 `)

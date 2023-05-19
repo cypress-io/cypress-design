@@ -27,7 +27,7 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
 
   it('renders multiple times an icon with defs', () => {
     mount(() => (
-      <div class="grid grid-cols-3 m-2">
+      <div class="p-2">
         <IconBrowserWebkit class="w-16 h-16 hidden" />
         <IconBrowserWebkit class="w-16 h-16" />
       </div>
