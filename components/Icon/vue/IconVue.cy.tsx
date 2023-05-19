@@ -2,7 +2,6 @@ import assertions from '../assertions'
 import Icon, {
   IconDocumentBlank,
   IconObjectBookCode,
-  IconLogoTeams,
   IconBrowserWebkit,
 } from './index'
 import { mount } from 'cypress/vue'
