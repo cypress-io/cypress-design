@@ -62,9 +62,7 @@ function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name
       availableSizes, 
       interactiveColorsOnGroup,
     })
-
     
-
     const { body, defs } = iconBodiesAndDefs[size] || {}
     if(!body){
       throw Error(\`Icon "${'$'}{name}" is not available in size ${'$'}{size}\`)
