@@ -19,7 +19,7 @@ module.exports = {
       description:
         'list the imports you want to warn on and the docs to fix it',
       recommended: false,
-      url: null, // URL to the documentation page for this rule
+      url: 'https://github.com/cypress-io/cypress-design/blob/main/packages/eslint-plugin/docs/rules/deprecate-imports.md', // URL to the documentation page for this rule
     },
     fixable: false, // Or `code` or `whitespace`
     schema: [
