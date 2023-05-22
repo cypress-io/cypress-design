@@ -36,7 +36,7 @@ const options = [
     {
       source: '**/old-design-system*',
       docs: 'https://design.cypress.io/components/vue/Alert',
-      specifiers: ['Alert'],
+      specifiers: ['Alert', 'default'],
     },
   ],
 ]
@@ -73,6 +73,20 @@ ruleTester.run('deprecate-imports', rule, {
     },
     {
       code: "import { Alert as Button, Tooltip } from './old-design-system.js'",
+      errors: [
+        {
+          message: [
+            'This component is deprecated as it does not use the design system.',
+            'Use this doc to replace it with the official design system version',
+            'https://design.cypress.io/components/vue/Alert',
+          ].join('\n'),
+        },
+      ],
+      options,
+      filename,
+    },
+    {
+      code: "import system from './old-design-system.js'",
       errors: [
         {
           message: [
