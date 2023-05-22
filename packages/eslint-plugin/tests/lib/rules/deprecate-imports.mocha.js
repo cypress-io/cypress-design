@@ -33,6 +33,11 @@ const options = [
       source: '**/deprecated*',
       docs: 'https://design.cypress.io/components/vue/Button',
     },
+    {
+      source: '**/old-design-system*',
+      docs: 'https://design.cypress.io/components/vue/Alert',
+      specifiers: ['Alert', 'default'],
+    },
   ],
 ]
 
@@ -42,6 +47,11 @@ ruleTester.run('deprecate-imports', rule, {
   valid: [
     {
       code: "import Button from '@cypress-design/vue-button'",
+      options,
+      filename,
+    },
+    {
+      code: "import { Tooltip as Alert, Checkbox } from './old-design-system.js'",
       options,
       filename,
     },
@@ -55,6 +65,34 @@ ruleTester.run('deprecate-imports', rule, {
             'This component is deprecated as it does not use the design system.',
             'Use this doc to replace it with the official design system version',
             'https://design.cypress.io/components/vue/Button',
+          ].join('\n'),
+        },
+      ],
+      options,
+      filename,
+    },
+    {
+      code: "import { Alert as Button, Tooltip } from './old-design-system.js'",
+      errors: [
+        {
+          message: [
+            'This component is deprecated as it does not use the design system.',
+            'Use this doc to replace it with the official design system version',
+            'https://design.cypress.io/components/vue/Alert',
+          ].join('\n'),
+        },
+      ],
+      options,
+      filename,
+    },
+    {
+      code: "import system from './old-design-system.js'",
+      errors: [
+        {
+          message: [
+            'This component is deprecated as it does not use the design system.',
+            'Use this doc to replace it with the official design system version',
+            'https://design.cypress.io/components/vue/Alert',
           ].join('\n'),
         },
       ],
