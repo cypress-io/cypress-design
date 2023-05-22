@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.24.0
+
+### Minor Changes
+
+- [#240](https://github.com/cypress-io/cypress-design/pull/240) [`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9) Thanks [@elevatebart](https://github.com/elevatebart)! - make 2 icons background transparent by default
+
 ## 0.23.0
 
 ### Minor Changes
