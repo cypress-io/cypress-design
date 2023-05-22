@@ -1,5 +1,11 @@
 # @cypress-design/eslint-plugin
 
+## 0.1.1
+
+### Patch Changes
+
+- [`3bbf95f`](https://github.com/cypress-io/cypress-design/commit/3bbf95fc1f4f07fd8726bffe0850b24a0969798f) Thanks [@elevatebart](https://github.com/elevatebart)! - allow multiple deprecated imports
+
 ## 0.1.0
 
 ### Minor Changes
