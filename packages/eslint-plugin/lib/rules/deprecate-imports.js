@@ -116,6 +116,34 @@ module.exports = {
           return
         }
 
+        if (importOptions.specifiers) {
+          const hasDefault = importOptions.specifiers.includes('default')
+          const invalidSpecifiers = node.specifiers.filter(
+            (specifier) =>
+              (hasDefault && specifier.type === 'ImportDefaultSpecifier') ||
+              importOptions.specifiers.includes(specifier.imported.name)
+          )
+          if (invalidSpecifiers.length) {
+            invalidSpecifiers.forEach((invalidSpecifier) => {
+              context.report({
+                node: invalidSpecifier,
+                message: [
+                  `${
+                    importOptions.name ?? 'This component'
+                  } is deprecated as it does not use the design system.`,
+                  ...(importOptions.docs
+                    ? [
+                        `Use this doc to replace it with the official design system version`,
+                        `${importOptions.docs}`,
+                      ]
+                    : []),
+                ].join('\n'),
+              })
+            })
+          }
+          return
+        }
+
         context.report({
           node: node.source,
           message: [
