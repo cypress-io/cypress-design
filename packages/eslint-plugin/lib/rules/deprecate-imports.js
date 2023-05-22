@@ -145,20 +145,22 @@ module.exports = {
           }
         }
 
-        if (importOptions.some((option) => option.specifiers.length)) {
+        if (importOptions.some((option) => option.specifiers?.length)) {
           return
         }
+
+        const [option] = importOptions
 
         context.report({
           node: node.source,
           message: [
             `${
-              importOptions[0].name ?? 'This component'
+              option.name ?? 'This component'
             } is deprecated as it does not use the design system.`,
-            ...(importOptions[0].docs
+            ...(option.docs
               ? [
                   `Use this doc to replace it with the official design system version`,
-                  `${importOptions[0].docs}`,
+                  `${option.docs}`,
                 ]
               : []),
           ].join('\n'),
