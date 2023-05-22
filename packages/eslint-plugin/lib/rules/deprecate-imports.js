@@ -117,7 +117,7 @@ module.exports = {
         }
 
         for (const option of importOptions) {
-          if (option.specifiers.length) {
+          if (option.specifiers?.length) {
             const hasDefault = option.specifiers.includes('default')
             const invalidSpecifiers = node.specifiers.filter(
               (specifier) =>
