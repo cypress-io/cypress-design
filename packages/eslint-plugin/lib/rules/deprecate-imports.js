@@ -104,7 +104,7 @@ module.exports = {
           return
         }
 
-        const importOptions = deprecatedImportsWithArraySource.find(
+        const importOptions = deprecatedImportsWithArraySource.filter(
           (importToCheck) => {
             return importToCheck.source.some((source) =>
               minimatch(fullSource, source)
@@ -112,35 +112,40 @@ module.exports = {
           }
         )
 
-        if (!importOptions) {
+        if (!importOptions.length) {
           return
         }
 
-        if (importOptions.specifiers) {
-          const hasDefault = importOptions.specifiers.includes('default')
-          const invalidSpecifiers = node.specifiers.filter(
-            (specifier) =>
-              (hasDefault && specifier.type === 'ImportDefaultSpecifier') ||
-              importOptions.specifiers.includes(specifier.imported.name)
-          )
-          if (invalidSpecifiers.length) {
-            invalidSpecifiers.forEach((invalidSpecifier) => {
-              context.report({
-                node: invalidSpecifier,
-                message: [
-                  `${
-                    importOptions.name ?? 'This component'
-                  } is deprecated as it does not use the design system.`,
-                  ...(importOptions.docs
-                    ? [
-                        `Use this doc to replace it with the official design system version`,
-                        `${importOptions.docs}`,
-                      ]
-                    : []),
-                ].join('\n'),
+        for (const option of importOptions) {
+          if (option.specifiers.length) {
+            const hasDefault = option.specifiers.includes('default')
+            const invalidSpecifiers = node.specifiers.filter(
+              (specifier) =>
+                (hasDefault && specifier.type === 'ImportDefaultSpecifier') ||
+                option.specifiers.includes(specifier.imported.name)
+            )
+            if (invalidSpecifiers.length) {
+              invalidSpecifiers.forEach((invalidSpecifier) => {
+                context.report({
+                  node: invalidSpecifier,
+                  message: [
+                    `${
+                      option.name ?? 'This component'
+                    } is deprecated as it does not use the design system.`,
+                    ...(option.docs
+                      ? [
+                          `Use this doc to replace it with the official design system version`,
+                          `${option.docs}`,
+                        ]
+                      : []),
+                  ].join('\n'),
+                })
               })
-            })
+            }
           }
+        }
+
+        if (importOptions.some((option) => option.specifiers.length)) {
           return
         }
 
@@ -148,12 +153,12 @@ module.exports = {
           node: node.source,
           message: [
             `${
-              importOptions.name ?? 'This component'
+              importOptions[0].name ?? 'This component'
             } is deprecated as it does not use the design system.`,
-            ...(importOptions.docs
+            ...(importOptions[0].docs
               ? [
                   `Use this doc to replace it with the official design system version`,
-                  `${importOptions.docs}`,
+                  `${importOptions[0].docs}`,
                 ]
               : []),
           ].join('\n'),
