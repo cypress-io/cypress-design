@@ -5,7 +5,7 @@ const renderType = require('./renderType.cjs')
 const { renderTags, mdclean } = defaultTemplates
 
 /**
- *
+ * Display one line per prop
  * @param {Array<import('vue-docgen-api').PropDescriptor>} props
  * @param {boolean} supComponent
  */

@@ -11,12 +11,12 @@ const { mdclean } = defaultTemplates
  */
 module.exports = async function renderType(type) {
   if (type.schema) {
-    return `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px] inline-block">${await renderComplexTypes(
+    return `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px] inline-block rounded">${await renderComplexTypes(
       type.schema
     )}</code>`
   }
   return (
-    `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">${mdclean(
+    `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px] rounded">${mdclean(
       type?.name
     ).replace(/\\\|/g, '|')}</code>` ?? ''
   )
