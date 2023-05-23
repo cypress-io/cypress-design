@@ -19,7 +19,7 @@ module.exports = {
       description:
         'list the imports you want to warn on and the docs to fix it',
       recommended: false,
-      url: null, // URL to the documentation page for this rule
+      url: 'https://github.com/cypress-io/cypress-design/blob/main/packages/eslint-plugin/docs/rules/deprecate-imports.md', // URL to the documentation page for this rule
     },
     fixable: false, // Or `code` or `whitespace`
     schema: [
@@ -104,7 +104,7 @@ module.exports = {
           return
         }
 
-        const importOptions = deprecatedImportsWithArraySource.find(
+        const importOptions = deprecatedImportsWithArraySource.filter(
           (importToCheck) => {
             return importToCheck.source.some((source) =>
               minimatch(fullSource, source)
@@ -112,20 +112,55 @@ module.exports = {
           }
         )
 
-        if (!importOptions) {
+        if (!importOptions.length) {
           return
         }
+
+        for (const option of importOptions) {
+          if (option.specifiers?.length) {
+            const hasDefault = option.specifiers.includes('default')
+            const invalidSpecifiers = node.specifiers.filter(
+              (specifier) =>
+                (hasDefault && specifier.type === 'ImportDefaultSpecifier') ||
+                option.specifiers.includes(specifier.imported.name)
+            )
+            if (invalidSpecifiers.length) {
+              invalidSpecifiers.forEach((invalidSpecifier) => {
+                context.report({
+                  node: invalidSpecifier,
+                  message: [
+                    `${
+                      option.name ?? 'This component'
+                    } is deprecated as it does not use the design system.`,
+                    ...(option.docs
+                      ? [
+                          `Use this doc to replace it with the official design system version`,
+                          `${option.docs}`,
+                        ]
+                      : []),
+                  ].join('\n'),
+                })
+              })
+            }
+          }
+        }
+
+        if (importOptions.some((option) => option.specifiers?.length)) {
+          return
+        }
+
+        const [option] = importOptions
 
         context.report({
           node: node.source,
           message: [
             `${
-              importOptions.name ?? 'This component'
+              option.name ?? 'This component'
             } is deprecated as it does not use the design system.`,
-            ...(importOptions.docs
+            ...(option.docs
               ? [
                   `Use this doc to replace it with the official design system version`,
-                  `${importOptions.docs}`,
+                  `${option.docs}`,
                 ]
               : []),
           ].join('\n'),

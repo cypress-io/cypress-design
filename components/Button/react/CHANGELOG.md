@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.11.0
+
+### Minor Changes
+
+- [#235](https://github.com/cypress-io/cypress-design/pull/235) [`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf) Thanks [@tbiethman](https://github.com/tbiethman)! - adding icons for branch review initiative
+
 ## 0.10.3
 
 ### Patch Changes

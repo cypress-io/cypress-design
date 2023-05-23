@@ -1,5 +1,23 @@
 # @cypress-design/vue-icon
 
+## 0.23.0
+
+### Minor Changes
+
+- [#240](https://github.com/cypress-io/cypress-design/pull/240) [`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9) Thanks [@elevatebart](https://github.com/elevatebart)! - make 2 icons background transparent by default
+
+### Patch Changes
+
+- Updated dependencies [[`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9)]:
+  - @cypress-design/icon-registry@0.24.0
+
+## 0.22.4
+
+### Patch Changes
+
+- Updated dependencies [[`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf)]:
+  - @cypress-design/icon-registry@0.23.0
+
 ## 0.22.3
 
 ### Patch Changes
