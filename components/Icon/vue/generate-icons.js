@@ -104,10 +104,10 @@ function hyperSVG(
     ? [
         h('svg', {
           innerHTML: defs.value,
+          height: 0,
+          width: 0,
+          style: 'position:absolute',
           class: [
-            'w-0',
-            'h-0',
-            'absolute',
             'pointer-events-none',
             'opacity-0',
           ],
