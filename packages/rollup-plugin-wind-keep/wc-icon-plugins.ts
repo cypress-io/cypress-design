@@ -7,7 +7,7 @@
 
 import createPlugin from 'windicss/plugin'
 import _ from 'lodash'
-import { colors } from './colors'
+import { colors } from '@cypress-design/css'
 import { DeepNestObject } from 'windicss/types/interfaces'
 
 const { reduce, kebabCase, isObject } = _

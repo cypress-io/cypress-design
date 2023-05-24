@@ -1,6 +1,6 @@
 // NOTE: All the colors in this file are also temporarily stored in packages/reporter/src/lib/variables.scss, for use in the reporter. If you change any here, please also change them there.
 
-import Colors from 'windicss/colors'
+import Colors from 'tailwindcss/colors'
 
 export const COLOR_PREFIXES = [
   'focus-within',

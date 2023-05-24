@@ -5,7 +5,7 @@ import {
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
   isIconAttribute,
   isValidWindiColor,
-} from './icon-extractor-tools'
+} from '@cypress-design/css/dist/icon-extractor-tools'
 
 /**
  * transforms the attributes of icons into classes

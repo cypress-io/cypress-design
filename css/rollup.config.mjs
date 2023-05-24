@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import JSON from '@rollup/plugin-json'
 import pkg from './package.json' assert { type: 'json' }
 
 const config = ({ input, outputFile, external }) => {
@@ -29,6 +30,7 @@ const config = ({ input, outputFile, external }) => {
         declarationMap: false,
         outDir: './dist',
       }),
+      JSON(),
     ],
     external,
   }
@@ -40,5 +42,10 @@ export default [
     outputFile: './dist/index',
     external: Object.keys(pkg.dependencies),
   }),
-  config({ input: './src/colors.ts', outputFile: './dist/colors' }),
+  ...['colors', 'icon-extractor-tools', 'theme.config'].map((name) =>
+    config({
+      input: `./src/${name}.ts`,
+      outputFile: `./dist/${name}`,
+    })
+  ),
 ]

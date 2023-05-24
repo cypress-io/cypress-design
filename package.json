@@ -36,6 +36,7 @@
     "@changesets/cli": "^2.26.1",
     "@cypress-design/css": "*",
     "@cypress-design/react-icon": "*",
+    "@cypress-design/rollup-plugin-wind-keep": "*",
     "@cypress-design/vue-docmenu": "*",
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-tooltip": "*",

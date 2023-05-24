@@ -1,6 +1,7 @@
 {
-  "name": "@cypress-design/react-statusicon",
-  "version": "0.4.5",
+  "name": "@cypress-design/rollup-plugin-wind-keep",
+  "private": true,
+  "version": "0.1.0",
   "files": [
     "*"
   ],
@@ -17,16 +18,15 @@
   "scripts": {
     "build": "yarn build:module && yarn build:types",
     "build:module": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:types": "tsc --project ./tsconfig.json"
   },
   "dependencies": {
-    "@cypress-design/constants-statusicon": "*",
-    "@cypress-design/react-icon": "^0.22.0",
-    "clsx": "*"
-  },
-  "devDependencies": {
-    "@cypress-design/css": "*",
-    "@cypress-design/rollup-plugin-wind-keep": "*"
+    "@cypress-design/css": "^0.13.2",
+    "@windicss/plugin-interaction-variants": "^1.0.0",
+    "@types/lodash": "^4.14.194",
+    "lodash": "^4.17.21",
+    "vite-plugin-windicss": "^1.9.0",
+    "windicss": "^3.5.6"
   },
   "license": "MIT"
 }

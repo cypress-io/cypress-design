@@ -9,6 +9,11 @@ import defaultExtractor from './tw-default-extractor'
 
 const { camelCase } = _
 
+/**
+ * Get all the html attributes from an html or a vue file line
+ * NOTE: If we find too many it's cool, they will be filtered.
+ * @param line
+ */
 export function getHtmlAttributes(line: string) {
   const attributes = line.match(/([\w-]+)=["']?([^"']*)["']?/g)
   if (!attributes) return null

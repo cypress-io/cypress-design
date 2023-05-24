@@ -23,7 +23,8 @@
     "@floating-ui/dom": "^1.2.8"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/css": "*",
+    "@cypress-design/rollup-plugin-wind-keep": "*"
   },
   "license": "MIT"
 }

@@ -24,7 +24,8 @@
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/css": "*",
+    "@cypress-design/rollup-plugin-wind-keep": "*"
   },
   "license": "MIT"
 }

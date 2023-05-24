@@ -24,7 +24,8 @@
     "@floating-ui/react-dom-interactions": "^0.6.1"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/css": "*",
+    "@cypress-design/rollup-plugin-wind-keep": "*"
   },
   "license": "MIT"
 }

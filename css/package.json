@@ -21,6 +21,16 @@
       "import": "./dist/colors.es.mjs",
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
+    },
+    "./dist/icon-extractor-tools": {
+      "import": "./dist/icon-extractor-tools.es.mjs",
+      "require": "./dist/icon-extractor-tools.cjs.js",
+      "types": "./dist/icon-extractor-tools.d.ts"
+    },
+    "./dist/theme.config": {
+      "import": "./dist/theme.config.es.mjs",
+      "require": "./dist/theme.config.cjs.js",
+      "types": "./dist/theme.config.d.ts"
     }
   },
   "scripts": {
@@ -29,18 +39,14 @@
     "build:lib": "rollup -c ./rollup.config.mjs"
   },
   "dependencies": {
-    "@windicss/plugin-interaction-variants": "^1.0.0",
     "lodash": "^4.17.21",
-    "resolve-pkg": "^2.0.0",
-    "tailwindcss": "^3.3.2",
-    "vite-plugin-windicss": "^1.9.0",
-    "windicss": "^3.5.6",
-    "windicss-webpack-plugin": "^1.7.8"
+    "resolve-pkg": "^2.0.0"
   },
   "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "@types/lodash": "^4.14.194",
+    "tailwindcss": "^3.3.2",
     "typescript": "5.0.4",
-    "webpack": "5",
     "color-string": "1.9.1"
   },
   "license": "MIT"

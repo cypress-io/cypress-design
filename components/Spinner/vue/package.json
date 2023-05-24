@@ -38,7 +38,8 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/css": "*",
+    "@cypress-design/rollup-plugin-wind-keep": "*"
   },
   "license": "MIT"
 }

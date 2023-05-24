@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@cypress-design/css": "*",
+    "@cypress-design/rollup-plugin-wind-keep": "*",
     "postcss": "^8.4.23",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.62.1"

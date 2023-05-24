@@ -1,10 +1,10 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import WindKeepRollupPlugin from '@cypress-design/rollup-plugin-wind-keep'
+import pkg from './package.json' assert { type: 'json' }
 
-export default ({ input, plugins = [] }) => ({
-  input,
+export default {
+  input: './index.ts',
   output: [
     {
       file: './dist/index.umd.js',
@@ -19,21 +19,14 @@ export default ({ input, plugins = [] }) => ({
     },
   ],
   plugins: [
-    WindKeepRollupPlugin(),
     resolve(),
     commonjs(),
     typescript({
-      tsconfig: './tsconfig.build.json',
+      tsconfig: './tsconfig.json',
       declaration: false,
       declarationMap: false,
       sourceMap: true,
     }),
-    ...plugins,
   ],
-  external: [
-    'clsx',
-    'react',
-    '@cypress-design/icon-registry',
-    '@cypress-design/details-animation',
-  ],
-})
+  external: Object.keys(pkg.dependencies),
+}
