@@ -11,7 +11,7 @@ export default defineComponent(
     status = 'placeholder',
     ...props
   }: SVGAttributes & VariantStatusIconProps) => {
-    const iconProps = compileProps({
+    const { componentProps } = compileProps({
       size,
       status,
       ...props,
@@ -19,7 +19,7 @@ export default defineComponent(
       variantName: 'solid',
     })
 
-    return () => h('svg', iconProps.value)
+    return () => h('svg', componentProps.value)
   },
   {
     props: ['size', 'status'],

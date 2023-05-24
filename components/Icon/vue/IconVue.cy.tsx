@@ -25,6 +25,15 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     mount(() => <IconDocumentBlank {...props} />)
   })
 
+  it('renders multiple times an icon with defs with the Icon comp', () => {
+    mount(() => (
+      <div class="p-2">
+        <Icon name="browser-webkit" class="w-16 h-16 hidden" />
+        <Icon name="browser-webkit" class="w-16 h-16" />
+      </div>
+    ))
+  })
+
   it('renders multiple times an icon with defs', () => {
     mount(() => (
       <div class="p-2">

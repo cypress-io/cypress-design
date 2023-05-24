@@ -27,16 +27,29 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   }, {})
 
   return dedent`
-  export const Icon${pascalCaseName} = defineComponent((props: SVGAttributes & Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'>) => {
+  let defsAlreadyLoaded${pascalCaseName} = false
+  export const Icon${pascalCaseName} = defineComponent((props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
+    class?: string
+  }, { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }) => {
     const iconPropsStep = useIconProps(props, ${JSON.stringify(
       iconBodies,
       null,
       2
     )}, ${JSON.stringify(iconMetadata.availableSizes)}, ${JSON.stringify(name)})
 
-    const iconProps = compileVueIconProperties(iconPropsStep)
+    const { componentProps, defs } = compileVueIconProperties(iconPropsStep)
 
-    return () => h('svg', iconProps.value)
+    const className = computed(() => props.class)
+
+    const shouldRenderDefs = computed(() => {
+      if (defs.value && defsAlreadyLoaded${pascalCaseName} === false) {
+        defsAlreadyLoaded${pascalCaseName} = true
+        return true
+      }
+      return false
+    })
+
+    return () => hyperSVG(componentProps, defs, shouldRenderDefs, className, attrs)
   },
   // @ts-expect-error - vue types need an update 
   __iconComponentOpts__)
@@ -45,12 +58,12 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
 writeFile(`
 import { h, defineComponent, computed } from 'vue'
-import type { SVGAttributes } from 'vue'
+import type { ComputedRef, SVGAttributes } from 'vue'
 import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties } from './compileProperties'
 
 const __iconComponentOpts__ = {
-  props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size'],
+  props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class'],
 } as const
 
 function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name'>, iconBodiesAndDefs: Record<string, {body: string, defs?: string}>, availableSizes: string[], name: string) {
@@ -77,6 +90,39 @@ function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name
       compiledClasses
     }
   })
+}
+
+function hyperSVG(
+    componentProps: ComputedRef<SVGAttributes>, 
+    defs: ComputedRef<string | undefined>, 
+    shouldRenderDefs: ComputedRef<boolean>, 
+    className: ComputedRef<string | undefined>, 
+    attrs: SVGAttributes,
+  ) {
+
+  return shouldRenderDefs.value && defs.value
+    ? [
+        h('svg', {
+          innerHTML: defs.value,
+          class: [
+            'w-0',
+            'h-0',
+            'absolute',
+            'pointer-events-none',
+            'opacity-0',
+          ],
+        }),
+        h('svg', {
+          ...attrs,
+          ...componentProps.value,
+          class: [className.value, componentProps.value.class],
+        }),
+      ]
+    : h('svg', {
+        ...attrs,
+        ...componentProps.value,
+        class: [className.value, componentProps.value.class],
+      })
 }
 
 

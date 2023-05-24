@@ -7,11 +7,14 @@ import { h, computed, defineComponent } from 'vue'
 import type { SVGAttributes } from 'vue'
 import { compileVueIconProperties } from './compileProperties'
 
+const defsAlreadyLoaded = new Set<string>()
+
 export default defineComponent(
   (
     // the OpenIconProps helps volar extract the documentation from the props
     // since the IconProps are more restrictive, it will not change the use behavior
-    props: OpenIconProps & Pick<IconProps, 'name'> & Omit<SVGAttributes, 'name'>
+    props: OpenIconProps & Pick<IconProps, 'name'> & { class?: string },
+    { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }
   ) => {
     const ret = computed(() => {
       const { class: className, ...otherProps } = props
@@ -19,15 +22,43 @@ export default defineComponent(
       return { className, iconProps }
     })
 
-    const properties = compileVueIconProperties(
+    const { componentProps, defs } = compileVueIconProperties(
       computed(() => ret.value.iconProps)
     )
 
-    return () =>
-      h('svg', {
-        ...properties.value,
-        class: [ret.value.className, properties.value.class],
-      })
+    const shouldRenderDefs = computed(() => {
+      if (defs.value && defsAlreadyLoaded.has(props.name) === false) {
+        defsAlreadyLoaded.add(defs.value)
+        return true
+      }
+      return false
+    })
+
+    return () => {
+      return shouldRenderDefs.value
+        ? [
+            h('svg', {
+              innerHTML: defs.value,
+              class: [
+                'w-0',
+                'h-0',
+                'absolute',
+                'pointer-events-none',
+                'opacity-0',
+              ],
+            }),
+            h('svg', {
+              ...attrs,
+              ...componentProps.value,
+              class: [ret.value.className, componentProps.value.class],
+            }),
+          ]
+        : h('svg', {
+            ...attrs,
+            ...componentProps.value,
+            class: [ret.value.className, componentProps.value.class],
+          })
+    }
   },
   {
     // @ts-expect-error - vue types need an update
@@ -36,6 +67,7 @@ export default defineComponent(
       'interactiveColorsOnGroup',
       'size',
       'name',
+      'class',
     ],
   }
 )

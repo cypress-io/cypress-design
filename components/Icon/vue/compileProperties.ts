@@ -1,6 +1,6 @@
 import type { OpenIconProps } from '@cypress-design/icon-registry'
 import { ICON_COLOR_PROP_NAMES } from '@cypress-design/icon-registry'
-import { Ref, computed, onMounted } from 'vue'
+import { Ref, computed } from 'vue'
 import type { SVGAttributes } from 'vue'
 
 export const compileVueIconProperties = (
@@ -64,23 +64,26 @@ export const compileVueIconProperties = (
     }
   })
 
-  onMounted(() => {
-    const { iconFileId, defs } = ret.value ?? {}
-    if (defs) {
-      if (document.querySelector(`[data-cy-svg-defs="${iconFileId}"]`)) {
-        return
-      }
-      const defsElement = document.createElementNS(
-        'http://www.w3.org/2000/svg',
-        'svg'
-      )
-      defsElement.setAttribute('data-cy-svg-defs', iconFileId)
-      defsElement.setAttribute('width', '0')
-      defsElement.setAttribute('height', '0')
-      defsElement.innerHTML = defs
-      document.body.appendChild(defsElement)
-    }
-  })
+  // onMounted(() => {
+  //   const { iconFileId, defs } = ret.value ?? {}
+  //   if (defs) {
+  //     if (document.querySelector(`[data-cy-svg-defs="${iconFileId}"]`)) {
+  //       return
+  //     }
+  //     const defsElement = document.createElementNS(
+  //       'http://www.w3.org/2000/svg',
+  //       'svg'
+  //     )
+  //     defsElement.setAttribute('data-cy-svg-defs', iconFileId)
+  //     defsElement.setAttribute('width', '0')
+  //     defsElement.setAttribute('height', '0')
+  //     defsElement.innerHTML = defs
+  //     document.body.appendChild(defsElement)
+  //   }
+  // })
 
-  return computed(() => ret.value.componentProps)
+  return {
+    componentProps: computed(() => ret.value.componentProps),
+    defs: computed(() => ret.value.defs),
+  }
 }
