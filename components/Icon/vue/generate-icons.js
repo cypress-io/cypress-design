@@ -27,7 +27,6 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   }, {})
 
   return dedent`
-  let defsAlreadyLoaded${pascalCaseName} = false
   export const Icon${pascalCaseName} = defineComponent((props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
     class?: string
   }, { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }) => {
@@ -39,17 +38,24 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
     const { componentProps, defs } = compileVueIconProperties(iconPropsStep)
 
-    const className = computed(() => props.class)
-
     const shouldRenderDefs = computed(() => {
-      if (defs.value && defsAlreadyLoaded${pascalCaseName} === false) {
-        defsAlreadyLoaded${pascalCaseName} = true
-        return true
-      }
+      if (defs.value)
+        if (defsAlreadyLoaded.has(${JSON.stringify(name)}) === true) {
+          if (typeof document !== 'undefined') {
+            return !document.querySelector(
+              '[data-cy-icon-unified-defs=${JSON.stringify(name)}]'
+            )
+          } else {
+            return false
+          }
+        } else {
+          defsAlreadyLoaded.add(${JSON.stringify(name)})
+          return true
+        }
       return false
     })
 
-    return () => hyperSVG(componentProps, defs, shouldRenderDefs, className, attrs)
+    return () => hyperSVG(componentProps, defs, shouldRenderDefs, attrs, props.class)
   },
   // @ts-expect-error - vue types need an update 
   __iconComponentOpts__)
@@ -96,8 +102,8 @@ function hyperSVG(
     componentProps: ComputedRef<SVGAttributes>, 
     defs: ComputedRef<string | undefined>, 
     shouldRenderDefs: ComputedRef<boolean>, 
-    className: ComputedRef<string | undefined>, 
     attrs: SVGAttributes,
+    className?: string, 
   ) {
 
   return shouldRenderDefs.value && defs.value
@@ -115,17 +121,17 @@ function hyperSVG(
         h('svg', {
           ...attrs,
           ...componentProps.value,
-          class: [className.value, componentProps.value.class],
+          class: [className, componentProps.value.class],
         }),
       ]
     : h('svg', {
         ...attrs,
         ...componentProps.value,
-        class: [className.value, componentProps.value.class],
+        class: [className, componentProps.value.class],
       })
 }
 
-
+const defsAlreadyLoaded = new Set<string>()
 ${iconsComponents.join('\n\n\n')}
 `)
 

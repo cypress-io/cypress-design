@@ -3,7 +3,14 @@ import {
   compileIcon,
 } from '@cypress-design/icon-registry'
 import type { OpenIconProps, IconProps } from '@cypress-design/icon-registry'
-import { h, computed, defineComponent } from 'vue'
+import {
+  h,
+  computed,
+  defineComponent,
+  onBeforeMount,
+  ref,
+  onUnmounted,
+} from 'vue'
 import type { SVGAttributes } from 'vue'
 import { compileVueIconProperties } from './compileProperties'
 
@@ -26,12 +33,24 @@ export default defineComponent(
       computed(() => ret.value.iconProps)
     )
 
-    const shouldRenderDefs = computed(() => {
-      if (defs.value && defsAlreadyLoaded.has(props.name) === false) {
-        defsAlreadyLoaded.add(defs.value)
-        return true
+    const shouldRenderDefs = ref(false)
+    onBeforeMount(() => {
+      const hasDocMarker =
+        // on SSR, we always want the first instance to come with the defs
+        typeof document === 'undefined' ||
+        // in interactive mode, the defs can be loaded, then removed, then loaded again
+        !document.querySelector(`[data-cy-icon-unified-defs="${props.name}"]`)
+      shouldRenderDefs.value =
+        !defsAlreadyLoaded.has(props.name) && hasDocMarker
+      if (hasDocMarker) {
+        defsAlreadyLoaded.add(props.name)
       }
-      return false
+    })
+
+    onUnmounted(() => {
+      if (shouldRenderDefs.value) {
+        defsAlreadyLoaded.delete(props.name)
+      }
     })
 
     return () => {
@@ -39,6 +58,7 @@ export default defineComponent(
         ? [
             h('svg', {
               innerHTML: defs.value,
+              'data-cy-icon-unified-defs': props.name,
               class: [
                 'w-0',
                 'h-0',
