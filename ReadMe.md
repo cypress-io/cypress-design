@@ -151,7 +151,7 @@ To run in CLI, run `yarn cypress run --components`.
 
 - [components](./components/) A collection of components for building Cypress applications and websites.
 - [packages](./packages/) Some packages do not fit in css or in components but are used in multiple components. They are here.
-- [css](./css/) What you need to install a pre-configured version of WindiCSS in a Cypress project.
+- [css](./css/) What you need to install a pre-configured tailwindCSS config in a Cypress project.
 - [icon-registry](./icon-registry/) contains the list of all the svg icons available in the vue-icon and react-icon components.
 - [docs](./docs/) the docs website.
 - [docs/.vitepress/theme](./docs/.vitepress/theme) where you will find all the components and the assets used in the docs website but not published to NPM.
