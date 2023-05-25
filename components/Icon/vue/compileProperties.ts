@@ -1,7 +1,51 @@
 import type { OpenIconProps } from '@cypress-design/icon-registry'
 import { ICON_COLOR_PROP_NAMES } from '@cypress-design/icon-registry'
-import { Ref, computed } from 'vue'
+import {
+  ComputedRef,
+  Ref,
+  computed,
+  onBeforeMount,
+  onUnmounted,
+  ref,
+} from 'vue'
 import type { SVGAttributes } from 'vue'
+
+const defsAlreadyLoaded = new Set<string>()
+
+export const useShouldRenderDefs = (
+  iconName: string,
+  defs: ComputedRef<string | undefined>
+) => {
+  const shouldRenderDefs = ref(false)
+  onBeforeMount(() => {
+    const hasDocMarker =
+      // on SSR, we always want the first instance to come with the defs
+      typeof document === 'undefined' ||
+      // in interactive mode, the defs can be loaded, then removed, then loaded again
+      !document.querySelector(`[data-cy-icon-unified-defs="${iconName}"]`)
+    shouldRenderDefs.value = !defsAlreadyLoaded.has(iconName) && hasDocMarker
+    if (hasDocMarker) {
+      defsAlreadyLoaded.add(iconName)
+    }
+  })
+
+  onUnmounted(() => {
+    if (shouldRenderDefs.value && defs.value) {
+      // to avoid ssr mismatch errors and jank
+      // add the defs inside an extra SVG and append it to the end of the body only when unmounting
+      const newDefs = document.createElementNS(
+        'http://www.w3.org/2000/svg',
+        'svg'
+      )
+      newDefs.setAttribute('width', '0')
+      newDefs.setAttribute('height', '0')
+      newDefs.style.position = 'absolute'
+      newDefs.innerHTML = defs.value
+      document.body.appendChild(newDefs)
+    }
+  })
+  return { shouldRenderDefs }
+}
 
 export const compileVueIconProperties = (
   opts: Ref<

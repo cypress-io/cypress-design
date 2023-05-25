@@ -12,9 +12,11 @@ import {
   onUnmounted,
 } from 'vue'
 import type { SVGAttributes } from 'vue'
-import { compileVueIconProperties } from './compileProperties'
-
-const defsAlreadyLoaded = new Set<string>()
+import {
+  compileVueIconProperties,
+  useShouldRenderDefs,
+} from './compileProperties'
+import { use } from 'chai'
 
 export default defineComponent(
   (
@@ -33,25 +35,7 @@ export default defineComponent(
       computed(() => ret.value.iconProps)
     )
 
-    const shouldRenderDefs = ref(false)
-    onBeforeMount(() => {
-      const hasDocMarker =
-        // on SSR, we always want the first instance to come with the defs
-        typeof document === 'undefined' ||
-        // in interactive mode, the defs can be loaded, then removed, then loaded again
-        !document.querySelector(`[data-cy-icon-unified-defs="${props.name}"]`)
-      shouldRenderDefs.value =
-        !defsAlreadyLoaded.has(props.name) && hasDocMarker
-      if (hasDocMarker) {
-        defsAlreadyLoaded.add(props.name)
-      }
-    })
-
-    onUnmounted(() => {
-      if (shouldRenderDefs.value) {
-        defsAlreadyLoaded.delete(props.name)
-      }
-    })
+    const { shouldRenderDefs } = useShouldRenderDefs(props.name, defs)
 
     return () => {
       return shouldRenderDefs.value

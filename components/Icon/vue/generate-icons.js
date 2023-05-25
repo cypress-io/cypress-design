@@ -38,22 +38,9 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
     const { componentProps, defs } = compileVueIconProperties(iconPropsStep)
 
-    const shouldRenderDefs = computed(() => {
-      if (defs.value)
-        if (defsAlreadyLoaded.has(${JSON.stringify(name)}) === true) {
-          if (typeof document !== 'undefined') {
-            return !document.querySelector(
-              '[data-cy-icon-unified-defs=${JSON.stringify(name)}]'
-            )
-          } else {
-            return false
-          }
-        } else {
-          defsAlreadyLoaded.add(${JSON.stringify(name)})
-          return true
-        }
-      return false
-    })
+    const { shouldRenderDefs } = useShouldRenderDefs(
+      ${JSON.stringify(name)},
+    defs)
 
     return () => hyperSVG(componentProps, defs, shouldRenderDefs, attrs, props.class)
   },
