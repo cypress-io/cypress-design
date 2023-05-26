@@ -3,7 +3,13 @@ import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import pkg from './package.json' assert { type: 'json' }
 
-const config = ({ input, outputFile, external }) => {
+const external = Object.keys(pkg.dependencies)
+
+const exports = Object.keys(pkg.exports)
+  .filter((r) => r !== '.' && !r.endsWith('.json'))
+  .map((r) => r.replace(/^\.\/dist\//, ''))
+
+const config = ({ input, outputFile }) => {
   return {
     input,
     output: [
@@ -38,7 +44,8 @@ export default [
   config({
     input: './src/index.ts',
     outputFile: './dist/index',
-    external: Object.keys(pkg.dependencies),
   }),
-  config({ input: './src/colors.ts', outputFile: './dist/colors' }),
+  ...exports.map((ex) => {
+    return config({ input: `./src/${ex}.ts`, outputFile: `./dist/${ex}` })
+  }),
 ]

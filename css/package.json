@@ -21,6 +21,11 @@
       "import": "./dist/colors.es.mjs",
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
+    },
+    "./dist/color-constants": {
+      "import": "./dist/color-constants.es.mjs",
+      "require": "./dist/color-constants.cjs.js",
+      "types": "./dist/color-constants.d.ts"
     }
   },
   "scripts": {
@@ -32,9 +37,7 @@
     "@windicss/plugin-interaction-variants": "^1.0.0",
     "lodash": "^4.17.21",
     "resolve-pkg": "^2.0.0",
-    "tailwindcss": "^3.3.2",
-    "vite-plugin-windicss": "^1.9.0",
-    "windicss": "^3.5.6"
+    "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.195",
