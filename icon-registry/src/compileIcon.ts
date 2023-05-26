@@ -1,5 +1,5 @@
 import camelCase from 'lodash.camelcase'
-import { COLOR_PREFIXES } from '@cypress-design/css/dist/colors'
+import { COLOR_PREFIXES } from '@cypress-design/css/dist/color-constants'
 import type { OpenIconProps, ColorIconProps, IconProps } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
@@ -56,12 +56,10 @@ export const getComponentAttributes = (
 
   // TODO: when all icons are converted to using the design system,
   // replace dark by stroke and light by fill,
-  // both here and in the windi plugins configs.
+  // both here and in the tailwind plugins configs.
   const compiledClasses = Object.keys(otherProps)
     .filter((attrName) =>
-      ICON_COLOR_PROP_NAMES.includes(
-        attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
-      )
+      (ICON_COLOR_PROP_NAMES as readonly string[]).includes(attrName)
     )
     .map((colorAttrName: string) => {
       const color = otherProps[colorAttrName as keyof ColorIconProps]

@@ -197,7 +197,7 @@ async function generateIndex(iconsObjectUnique) {
   const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = COLOR_PREFIXES.reduce(
     (acc, prefix) => {
       acc.push(
-        Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).reduce(
+        ...Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).reduce(
           (acc2, root) => {
             return [
               ...acc2,
