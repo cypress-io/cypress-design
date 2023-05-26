@@ -21,6 +21,11 @@
       "import": "./dist/colors.es.mjs",
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
+    },
+    "./dist/windi-keep-rollup-plugin": {
+      "import": "./dist/windi-keep-rollup-plugin.es.mjs",
+      "require": "./dist/windi-keep-rollup-plugin.cjs.js",
+      "types": "./dist/windi-keep-rollup-plugin.d.ts"
     }
   },
   "scripts": {
