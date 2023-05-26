@@ -1,7 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import { Plugin as TailwindKeepRollupPlugin } from '@cypress-design/rollup-plugin-tailwind-keep'
+import rollupPluginPackage from '@cypress-design/rollup-plugin-tailwind-keep'
+const { Plugin: TailwindKeepRollupPlugin } = rollupPluginPackage
 
 export default ({ input, plugins = [] }) => ({
   input,
