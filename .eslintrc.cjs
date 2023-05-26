@@ -14,6 +14,13 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['**/*.mjs'],
+      sourceType: 'module',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+      },
+    },
+    {
       files: ['packages/eslint-plugin/**/*.js'],
       env: {
         node: true,
