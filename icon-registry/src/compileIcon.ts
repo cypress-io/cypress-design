@@ -1,8 +1,10 @@
-import camelCase from 'lodash.camelcase'
+import _ from 'lodash'
 import { COLOR_PREFIXES } from '@cypress-design/css/dist/color-constants'
 import type { OpenIconProps, ColorIconProps, IconProps } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
+
+const camelCase = _.camelCase
 
 export const compileIcon = (
   props: Omit<OpenIconProps, 'name'> & Pick<IconProps, 'name'>
