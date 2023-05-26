@@ -8,5 +8,5 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
     mount(() => <TooltipStory {...options} tabindex={1} />)
   }
 
-  assertions(mountStory)
+  assertions(mountStory, 'vue')
 })
