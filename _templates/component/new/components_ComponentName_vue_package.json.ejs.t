@@ -24,5 +24,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
   "dependencies": {
     "@cypress-design/constants-<%= name.toLowerCase() %>": "*"
   },
+  "devDependencies": {
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
   "license": "MIT"
 }

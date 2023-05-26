@@ -26,7 +26,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }
