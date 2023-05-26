@@ -1,29 +1,30 @@
 {
   "name": "@cypress-design-test/vue-app",
-  "version": "0.1.4",
   "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview --port 5050",
-    "typecheck": "vue-tsc --noEmit"
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@cypress-design/vue-button": "^0.10.0",
-    "@cypress-design/vue-checkbox": "^0.3.0",
-    "@cypress-design/vue-icon": "^0.23.0",
-    "@cypress-design/vue-spinner": "^0.4.0",
-    "@cypress-design/vue-alert": "^0.5.0",
+    "@cypress-design/vue-button": "*",
+    "@cypress-design/vue-checkbox": "*",
+    "@cypress-design/vue-icon": "*",
+    "@cypress-design/vue-spinner": "*",
+    "@cypress-design/vue-alert": "*",
+    "autoprefixer": "^10.4.14",
+    "postcss": "^8.4.23",
+    "tailwindcss": "^3.3.2",
     "vue": "^3.3.4"
   },
   "devDependencies": {
-    "@cypress-design/css": "^0.13.0",
-    "@types/node": "^20.2.3",
-    "@vitejs/plugin-vue": "^4.2.3",
+    "@cypress-design/css": "*",
     "@vue/tsconfig": "^0.4.0",
-    "typescript": "~5.0.4",
+    "@vitejs/plugin-vue": "^4.2.3",
+    "typescript": "^5.0.4",
     "vite": "^4.3.8",
     "vue-tsc": "*"
-  },
-  "license": "MIT"
+  }
 }
