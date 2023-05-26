@@ -29,7 +29,7 @@
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

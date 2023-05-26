@@ -20,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "devDependencies": {
-    "@cypress-design/css": "*",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "postcss": "^8.4.23",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.62.1"
