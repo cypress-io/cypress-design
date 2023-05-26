@@ -5,19 +5,20 @@
  */
 
 import { fileURLToPath } from 'url'
-import { COLOR_PREFIXES } from '@cypress-design/css'
+import {
+  cyColors,
+  COLOR_PREFIXES,
+  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT,
+} from '@cypress-design/css/dist/color-constants'
 import * as path from 'path'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
 import { promises as fs } from 'fs'
-import camelCase from 'camelcase'
 import _ from 'lodash'
 import dedent from 'dedent'
-import {
-  cyColors,
-  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
-} from '@cypress-design/css'
+
+const { camelCase, kebabCase } = _
 
 const propDescriptions = {
   StrokeColor: 'Color of the stroke',
@@ -193,6 +194,25 @@ async function generateIndex(iconsObjectUnique) {
     })
     .join('\n\n')
 
+  const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = COLOR_PREFIXES.reduce(
+    (acc, prefix) => {
+      acc.push(
+        Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).reduce(
+          (acc2, root) => {
+            return [
+              ...acc2,
+              camelCase(`${prefix}${root}`),
+              kebabCase(`${prefix}${root}`),
+            ]
+          },
+          []
+        )
+      )
+      return acc
+    },
+    []
+  )
+
   await fs.writeFile(
     './src/icons.ts',
     dedent`
@@ -202,7 +222,7 @@ async function generateIndex(iconsObjectUnique) {
    * All possible prop names for icon colors
    */
   export const ICON_COLOR_PROP_NAMES = ${JSON.stringify(
-    Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR)
+    ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR
   )} as const
 
   /**
