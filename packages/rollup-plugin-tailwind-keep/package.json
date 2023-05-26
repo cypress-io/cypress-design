@@ -13,6 +13,6 @@
   "dependencies": {
     "@cypress-design/css": "0.13.2",
     "tailwindcss": "3.3.2",
-    "vite": "4.3.8"
+    "vite": "4.3.9"
   }
 }
