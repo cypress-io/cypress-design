@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-tag",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "files": [
     "*"
   ],
@@ -24,7 +24,7 @@
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

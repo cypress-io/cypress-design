@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-checkbox",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "files": [
     "*"
   ],
@@ -24,7 +24,7 @@
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

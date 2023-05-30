@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-alert",
-  "version": "0.5.4",
+  "version": "0.5.5",
   "files": [
     "*"
   ],
@@ -29,7 +29,7 @@
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

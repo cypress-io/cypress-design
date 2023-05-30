@@ -1,5 +1,14 @@
 # @cypress-design/vue-checkbox
 
+## 0.3.3
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+- Updated dependencies [[`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171)]:
+  - @cypress-design/vue-icon@0.23.1
+
 ## 0.3.2
 
 ### Patch Changes

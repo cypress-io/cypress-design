@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-statusicon",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "files": [
     "./dist/*"
   ],
@@ -25,7 +25,7 @@
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

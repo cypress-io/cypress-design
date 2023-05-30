@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
-export default function assertions(mountStory: (options?: any) => void): void {
+export default function assertions(
+  mountStory: (options?: any) => void,
+  fw: 'react' | 'vue'
+): void {
   it('renders', () => {
     mountStory()
 
@@ -10,7 +13,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
-      cy.percySnapshot(`tooltip-light-${placement}`)
+      cy.percySnapshot(`tooltip-light-${placement}-${fw}`)
     })
   })
 
@@ -30,7 +33,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
-      cy.percySnapshot(`tooltip-dark-${placement}`)
+      cy.percySnapshot(`tooltip-dark-${placement}-${fw}`)
     })
   })
 }

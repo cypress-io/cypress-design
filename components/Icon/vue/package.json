@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "0.23.0",
+  "version": "0.23.1",
   "files": [
     "*"
   ],
@@ -24,8 +24,8 @@
     "@cypress-design/icon-registry": "^0.24.0"
   },
   "devDependencies": {
-    "@cypress-design/css": "*",
-    "@types/lodash": "^4.14.194",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@types/lodash": "^4.14.195",
     "lodash": "^4.17.21",
     "dedent": "^0.7.0"
   },

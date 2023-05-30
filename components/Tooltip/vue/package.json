@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-tooltip",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "files": [
     "*"
   ],
@@ -23,7 +23,7 @@
     "@floating-ui/dom": "^1.2.8"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }
