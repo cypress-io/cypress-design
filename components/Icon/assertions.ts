@@ -7,8 +7,12 @@ export default function assertions(mountStory: (options?: any) => void): void {
   })
 
   it('renders with interactiveColorsOnGroup', () => {
-    mountStory({ hoverStrokeColor: 'red-500', interactiveColorsOnGroup: true })
-    cy.get('svg')
+    mountStory({
+      'data-cy': 'icon',
+      hoverStrokeColor: 'red-500',
+      interactiveColorsOnGroup: true,
+    })
+    cy.get('[data-cy="icon"]')
       .should('have.class', 'group-hover:icon-dark-red-500')
       .and('not.have.attr', 'interactiveColorsOnGroup')
   })
