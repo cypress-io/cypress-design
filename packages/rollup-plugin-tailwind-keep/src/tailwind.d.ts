@@ -1,5 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+declare module 'tailwindcss/lib/Context' {
+  export interface Context {
+    config: any
+  }
+}
+
 declare module 'tailwindcss/lib/lib/setupContextUtils.js' {
-  function createContext(config: any): any
+  import type { Context } from 'tailwindcss/lib/Context'
+  function createContext(config: any): Context
   export { createContext }
 }
 
@@ -9,6 +17,7 @@ declare module 'tailwindcss/lib/public/resolve-config.js' {
 }
 
 declare module 'tailwindcss/lib/lib/generateRules.js' {
-  function* resolveMatches(candidates: string, context: any): string[][]
+  import type { Context } from 'tailwindcss/lib/Context'
+  function* resolveMatches(candidates: string, context: Context): string[][]
   export { resolveMatches }
 }

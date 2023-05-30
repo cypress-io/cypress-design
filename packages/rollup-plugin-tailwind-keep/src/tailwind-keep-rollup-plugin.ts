@@ -1,9 +1,10 @@
 import type { Plugin } from 'vite'
+import { Context } from 'tailwindcss/lib/Context'
 import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css'
 
 export default function TailwindKeepRollupPlugin(): Plugin {
   const classSet = new Set<string>()
-  let context: any
+  let context: Context | undefined
   return {
     name: 'cypress-design:tailwind-class-inliner',
     enforce: 'pre',
@@ -33,6 +34,7 @@ export default function TailwindKeepRollupPlugin(): Plugin {
 
         // filter only the valid classes for the current processor
         candidates.forEach((c) => {
+          if (!context) throw new Error('Context is not defined')
           const utilities = Array.from(resolveMatches(c, context))
 
           if (utilities.length) {

@@ -1,4 +1,5 @@
 const extractBodyPlugin = require('./svgo-plugins/extractBodyPlugin')
+const moveDefsToEndPlugin = require('./svgo-plugins/moveDefsToEnd')
 
 module.exports = {
   plugins: [
@@ -11,6 +12,7 @@ module.exports = {
         prefixClassNames: false,
       },
     },
+    moveDefsToEndPlugin,
     extractBodyPlugin,
   ],
 }

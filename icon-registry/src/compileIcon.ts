@@ -24,14 +24,19 @@ export const compileIcon = (
     throw new Error(`icon '${name}' at size ${sizeWithDefault} not found`)
   }
 
-  const compiledProps = {
+  // SVGO always brings defs to the end of the file
+  // so we can split the file in two parts
+  // and use the first part as the body
+  const defsStart = iconData.data.indexOf('<defs>')
+
+  return {
     ...cleanProps,
+    name,
     size: sizeWithDefault,
     compiledClasses,
-    body: iconData.data,
+    body: defsStart >= 0 ? iconData.data.slice(0, defsStart) : iconData.data,
+    defs: defsStart >= 0 ? iconData.data.slice(defsStart) : undefined,
   }
-
-  return compiledProps
 }
 
 export const getComponentAttributes = (
@@ -60,8 +65,12 @@ export const getComponentAttributes = (
   // replace dark by stroke and light by fill,
   // both here and in the tailwind plugins configs.
   const compiledClasses = Object.keys(otherProps)
-    .filter((attrName) =>
-      (ICON_COLOR_PROP_NAMES as readonly string[]).includes(attrName)
+    .filter(
+      (attrName) =>
+        otherProps[attrName as keyof typeof otherProps] &&
+        ICON_COLOR_PROP_NAMES.includes(
+          attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
+        )
     )
     .map((colorAttrName: string) => {
       const color = otherProps[colorAttrName as keyof ColorIconProps]
