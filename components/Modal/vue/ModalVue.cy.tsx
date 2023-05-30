@@ -13,7 +13,12 @@ describe('<Modal/>', () => {
         <button onClick={() => (visibleModal.value = true)}>Open Modal</button>
         <div class="h-[900px] w-[50px] bg-red-200"></div>
         <Modal {...options} v-model={visibleModal.value}>
-          Contents of the modal
+          <p>
+            Contents of the modal: Lorem ipsum dolor sit amet consectetur
+            adipisicing elit. Id perspiciatis hic ad minima ex recusandae autem
+            incidunt, perferendis, illo voluptatum repudiandae iste voluptate
+            reiciendis quam officiis voluptas laboriosam eligendi explicabo!
+          </p>
         </Modal>
         <div id="modal-target"></div> {/* for portal */}
       </div>

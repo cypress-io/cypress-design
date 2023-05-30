@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-modal": "*",
+    "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
