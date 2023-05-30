@@ -19,12 +19,11 @@ export const compileProps = ({
 
   const iconInfo = status ? StatusForColor[status] : StatusForColor.placeholder
 
-  const { data: iconData, name } = statusInfo[`size${size}Icon`]
+  const { data: iconData } = statusInfo[`size${size}Icon`]
 
   const classes = `inline-block ${className || ''}`
 
   const { compiledClasses } = getComponentAttributes({
-    name,
     strokeColor: iconInfo.color,
     size,
     availableSizes: [size],

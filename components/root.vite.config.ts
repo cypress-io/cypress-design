@@ -1,7 +1,7 @@
 import type { LibraryOptions } from 'vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { WindKeepRollupPlugin } from '@cypress-design/css'
+import { Plugin as TailwindKeepRollupPlugin } from '@cypress-design/rollup-plugin-tailwind-keep'
 
 export default (libConfig: LibraryOptions) =>
   defineConfig({
@@ -31,5 +31,5 @@ export default (libConfig: LibraryOptions) =>
         },
       },
     },
-    plugins: [WindKeepRollupPlugin(), vue()],
+    plugins: [TailwindKeepRollupPlugin(), vue()],
   })

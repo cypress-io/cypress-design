@@ -88,7 +88,8 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 [classes.inActive]: tab.id !== activeId,
               },
             ])}
-            ref={(el: any) => (el ? ($tab.current[index] = el) : null)}
+            // @ts-expect-error React is incapable of typing this kind of ref so we do not add a type
+            ref={(el) => (el ? ($tab.current[index] = el) : null)}
             tabIndex={tab.id === activeId ? undefined : -1}
             aria-selected={tab.id === activeId ? true : undefined}
             onClick={(e) => {

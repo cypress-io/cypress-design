@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/css",
-  "version": "0.13.1",
+  "version": "0.13.3",
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.mjs",
   "types": "./dist/index.d.ts",
@@ -21,6 +21,11 @@
       "import": "./dist/colors.es.mjs",
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
+    },
+    "./dist/color-constants": {
+      "import": "./dist/color-constants.es.mjs",
+      "require": "./dist/color-constants.cjs.js",
+      "types": "./dist/color-constants.d.ts"
     }
   },
   "scripts": {
@@ -32,15 +37,11 @@
     "@windicss/plugin-interaction-variants": "^1.0.0",
     "lodash": "^4.17.21",
     "resolve-pkg": "^2.0.0",
-    "tailwindcss": "^3.3.1",
-    "vite-plugin-windicss": "^1.8.10",
-    "windicss": "^3.5.6",
-    "windicss-webpack-plugin": "^1.7.8"
+    "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.194",
+    "@types/lodash": "^4.14.195",
     "typescript": "5.0.4",
-    "webpack": "5",
     "color-string": "1.9.1"
   },
   "license": "MIT"

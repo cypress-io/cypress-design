@@ -4,6 +4,7 @@ import { mount } from 'cypress/vue'
 import assertions from '../assertions'
 import Button from './Button.vue'
 import ButtonStory from './Button.rootstory'
+import { cyDeviceLaptopX24 } from '@cypress-design/icon-registry'
 
 describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
   function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {
@@ -26,5 +27,70 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
     ))
     cy.get('button').click().click().click().click()
     cy.get('[data-cy="counter"]').contains('4')
+  })
+
+  it('responsively handles `disabled` changes', () => {
+    const disabled = ref(true)
+
+    mount({
+      render: () => (
+        <div>
+          <button
+            data-cy="toggle"
+            onClick={() => (disabled.value = !disabled.value)}
+          >
+            Toggle
+          </button>
+
+          <Button data-cy="ds-button" disabled={disabled.value}>
+            DS Button
+          </Button>
+          <button data-cy="html-button" disabled={disabled.value}>
+            Base HTML Button
+          </button>
+        </div>
+      ),
+    })
+
+    // HTML & DS Buttons start off disabled
+    cy.findByTestId('html-button').should('be.disabled')
+    cy.findByTestId('ds-button').should('be.disabled')
+
+    // Click toggle button to update `ref` for `disabled` state
+    cy.findByTestId('toggle').click()
+
+    // Base HTML button properly enables
+    cy.findByTestId('html-button').should('not.be.disabled')
+
+    // FAILS - DS Button stays disabled
+    cy.findByTestId('ds-button').should('not.be.disabled')
+  })
+
+  it('responsively handles attributes changes', () => {
+    const cyId = ref('ds-button')
+
+    mount({
+      render: () => (
+        <div>
+          <button
+            data-cy="toggle"
+            onClick={() => (cyId.value = 'ds-button-changed')}
+          >
+            Toggle
+          </button>
+
+          <Button data-cy={cyId.value}>DS Button</Button>
+        </div>
+      ),
+    })
+
+    // HTML & DS Buttons start off disabled
+    cy.findByTestId('ds-button').should('have.text', 'DS Button')
+
+    // Click toggle button to update `ref` for `disabled` state
+    cy.findByTestId('toggle').click()
+
+    // Base HTML button properly enables
+    cy.findByTestId('ds-button-changed').should('have.text', 'DS Button')
   })
 })

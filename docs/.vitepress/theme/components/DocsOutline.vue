@@ -114,7 +114,7 @@ defineExpose({
 <template>
   <div
     v-if="headers.length"
-    class="fixed top-[72px] mt-[48px] bottom-0 overflow-auto right-0 w-[300px] border-solid border-l border-gray-1000/07 dark:border-gray-50/07"
+    class="fixed top-[72px] mt-[48px] bottom-0 overflow-auto right-0 w-[300px] border-solid border-l border-gray-1000/07 dark:border-gray-50/[.07]"
   >
     <header
       class="ml-[32px] uppercase text-gray-500 mt-0 mb-[8px] text-[14px] leading-[20px]"

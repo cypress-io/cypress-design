@@ -1,16 +1,11 @@
 import _ from 'lodash'
-import { COLOR_PREFIXES, colors } from './colors'
+import { colors } from './colors'
+import {
+  COLOR_PREFIXES,
+  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT,
+} from './color-constants'
 
 const { camelCase, kebabCase } = _
-
-const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT = {
-  FillColor: (attrValue: string) => `icon-light-${attrValue}`,
-  StrokeColor: (attrValue: string) => `icon-dark-${attrValue}`,
-  SecondaryFillColor: (attrValue: string) =>
-    `icon-light-secondary-${attrValue}`,
-  SecondaryStrokeColor: (attrValue: string) =>
-    `icon-dark-secondary-${attrValue}`,
-} as const
 
 const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR: Record<
   string,
@@ -45,7 +40,7 @@ export { ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR }
 export function isIconAttribute(
   attrName: string
 ): attrName is keyof typeof ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR {
-  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR.hasOwnProperty(attrName)
+  return ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName] !== undefined
 }
 
 export const ADDITIONAL_COLORS = ['white', 'black', 'transparent', 'current']
@@ -55,7 +50,7 @@ export function isValidWindiColor(value: string) {
     return true
   }
   const [hue, weight] = value.split('-')
-  const hueObject = (colors as any)[hue]
+  const hueObject = (colors as Record<string, Record<number, string>>)[hue]
   if (!hueObject) {
     return false
   }

@@ -1,7 +1,8 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import { WindKeepRollupPlugin } from '@cypress-design/css'
+import rollupPluginPackage from '@cypress-design/rollup-plugin-tailwind-keep'
+const { Plugin: TailwindKeepRollupPlugin } = rollupPluginPackage
 
 export default ({ input, plugins = [] }) => ({
   input,
@@ -19,7 +20,7 @@ export default ({ input, plugins = [] }) => ({
     },
   ],
   plugins: [
-    WindKeepRollupPlugin(),
+    TailwindKeepRollupPlugin(),
     resolve(),
     commonjs(),
     typescript({

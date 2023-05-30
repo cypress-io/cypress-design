@@ -10,7 +10,7 @@ function run(input: string, config: Config) {
 }
 
 it('generates icon classes', async () => {
-  let config = {
+  const config = {
     content: [
       {
         raw: `

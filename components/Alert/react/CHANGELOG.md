@@ -1,5 +1,23 @@
 # @cypress-design/react-alert
 
+## 0.6.5
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+- Updated dependencies [[`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171)]:
+  - @cypress-design/react-icon@0.22.1
+
+## 0.6.4
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
+- Updated dependencies [[`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f)]:
+  - @cypress-design/react-icon@0.21.3
+
 ## 0.6.3
 
 ### Patch Changes

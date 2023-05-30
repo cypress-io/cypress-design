@@ -7,5 +7,10 @@
     "moduleResolution": "node",
     "composite": true
   },
-  "include": ["components/*/react/**/*.tsx", "components/*/react/**/*.ts"]
+  "include": [
+    "components/*/react/**/*.tsx",
+    "components/*/react/**/*.ts",
+    "components/*/assertions.ts",
+    "cypress/**/*.ts"
+  ]
 }

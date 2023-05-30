@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-docmenu",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "files": [
     "*"
   ],
@@ -22,6 +22,9 @@
   "dependencies": {
     "@cypress-design/constants-docmenu": "*",
     "@cypress-design/vue-icon": "*"
+  },
+  "devDependencies": {
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

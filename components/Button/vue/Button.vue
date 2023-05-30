@@ -16,35 +16,53 @@ export default defineComponent({
       return !!$event
     },
   },
-  props: ['variant', 'size', 'disabled', 'href'] as any,
-  setup(props: ButtonProps) {
-    const {
-      variant = DefaultVariant,
-      size = DefaultSize,
-      disabled = false,
-      href,
-      type = 'button',
-      ...attr
-    } = props
+  props: {
+    variant: {
+      type: String as () => NonNullable<ButtonProps['variant']>,
+      default: DefaultVariant,
+    },
+    size: {
+      type: String as () => NonNullable<ButtonProps['size']>,
+      default: DefaultSize,
+    },
+    disabled: {
+      type: Boolean as () => ButtonProps['disabled'],
+      default: false,
+    },
+    href: {
+      type: String as () => ButtonProps['href'],
+    },
+    type: {
+      type: String as () => ButtonProps['type'],
+      default: 'button',
+    },
+  },
+  setup(props) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { variant, size, disabled, href, type, ...attr } = props
 
     const finalVariant = computed(() =>
-      disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
+      props.disabled &&
+      !['outline-dark', 'outline-light', 'link'].includes(props.variant)
         ? 'disabled'
-        : variant
+        : props.variant
     )
-    const finalDisabled = computed(() => disabled || variant === 'disabled')
+    const finalDisabled = computed(
+      () => props.disabled || props.variant === 'disabled'
+    )
 
     return {
       componentTag: computed(() => (href ? 'a' : 'button')),
       href,
+      finalDisabled,
       buttonProps: reactive({
         ...attr,
         class: [
           StaticClasses,
           VariantClassesTable[finalVariant.value],
-          SizeClassesTable[size],
+          SizeClassesTable[props.size],
         ],
-        disabled: finalDisabled.value,
+        disabled: finalDisabled,
       }),
     }
   },

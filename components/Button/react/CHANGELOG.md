@@ -1,5 +1,23 @@
 # @cypress-design/react-button
 
+## 0.11.1
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+## 0.11.0
+
+### Minor Changes
+
+- [#235](https://github.com/cypress-io/cypress-design/pull/235) [`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf) Thanks [@tbiethman](https://github.com/tbiethman)! - adding icons for branch review initiative
+
+## 0.10.3
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
 ## 0.10.2
 
 ### Patch Changes

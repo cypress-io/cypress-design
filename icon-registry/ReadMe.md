@@ -41,7 +41,7 @@ iconSet.forEach((icon) => {
   const { size, compiledClasses, body } = compileIcon({
     name: rootId,
     size: 16,
-    // colors from the windicss set of colors
+    // colors from the tailwind set of colors
     strokeColor: 'red-600',
     fillColor: 'amber-300',
   })

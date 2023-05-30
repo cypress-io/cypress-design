@@ -1,5 +1,38 @@
 # @cypress-design/vue-icon
 
+## 0.23.1
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+## 0.23.0
+
+### Minor Changes
+
+- [#240](https://github.com/cypress-io/cypress-design/pull/240) [`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9) Thanks [@elevatebart](https://github.com/elevatebart)! - make 2 icons background transparent by default
+
+### Patch Changes
+
+- Updated dependencies [[`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9)]:
+  - @cypress-design/icon-registry@0.24.0
+
+## 0.22.4
+
+### Patch Changes
+
+- Updated dependencies [[`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf)]:
+  - @cypress-design/icon-registry@0.23.0
+
+## 0.22.3
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
+- Updated dependencies [[`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f)]:
+  - @cypress-design/icon-registry@0.22.2
+
 ## 0.22.2
 
 ### Patch Changes

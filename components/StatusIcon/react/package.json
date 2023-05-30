@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-statusicon",
-  "version": "0.4.3",
+  "version": "0.4.6",
   "files": [
     "*"
   ],
@@ -21,11 +21,11 @@
   },
   "dependencies": {
     "@cypress-design/constants-statusicon": "*",
-    "@cypress-design/react-icon": "^0.21.1",
+    "@cypress-design/react-icon": "^0.22.1",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-accordion",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "files": [
     "*"
   ],
@@ -26,6 +26,6 @@
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   }
 }

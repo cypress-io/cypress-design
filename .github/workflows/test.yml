@@ -1,0 +1,74 @@
+name: Tests
+
+on: [push]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Yarn cache path
+        id: yarn-cache
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+
+      - name: Load Yarn cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.yarn-cache.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+
+      - name: Remove Postinstall Script
+        run: npm pkg set scripts.postinstall="echo no-postinstall"
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Lint all files
+        run: yarn eslint .
+
+      - name: Run Eslint Plugin Tests
+        run: yarn test:eslint-plugin      
+
+      - name: Generate icon files
+        run: |
+          yarn turbo run build --filter=@cypress-design/css
+          yarn workspace @cypress-design/icon-registry run build:svg
+          yarn workspace @cypress-design/icon-registry run build:icons 
+
+      - name: Run Unit Tests
+        run: yarn test
+
+      - name: Build Components
+        run: yarn run build:components
+
+      - name: Check global types
+        run: |
+          yarn vue-tsc --noEmit -p . 
+          yarn tsc --noEmit --project ./tsconfig.react.json
+          yarn vue-tsc --noEmit --project ./tsconfig.vue.json 
+
+      # run cypress component tests
+      - name: Cypress run CT
+        uses: cypress-io/github-action@v5
+        with:
+          component: true
+          record: true
+          command-prefix: 'yarn percy exec --parallel -- '
+          browser: chrome
+        env:
+          # Recommended: pass the GitHub token lets this action correctly
+          # determine the unique run id necessary to re-run the checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

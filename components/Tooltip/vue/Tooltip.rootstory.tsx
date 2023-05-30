@@ -4,12 +4,12 @@ import Tooltip from './Tooltip.vue'
 export default ({
   color = 'light',
   placement,
-  tabIndex,
+  tabindex,
   disabled,
 }: {
   color?: 'light' | 'dark'
   placement?: Placement
-  tabIndex?: number
+  tabindex?: number
   disabled?: boolean
 } = {}) => (
   <div class="flex flex-col items-center center gap-20">
@@ -17,7 +17,8 @@ export default ({
       class="w-1/2 p-4 bg-red-200"
       placement={placement}
       color={color}
-      tabIndex={tabIndex}
+      // @ts-expect-error TSX in volar has a tendency to be a bit wrong, this would work in a template
+      tabindex={tabindex}
       disabled={disabled}
     >
       {{
@@ -55,7 +56,8 @@ export default ({
           class="w-1/2 p-4 bg-indigo-200"
           placement={placement}
           color={color}
-          tabIndex={tabIndex}
+          // @ts-expect-error TSX in volar has a tendency to be a bit wrong
+          tabindex={tabindex}
           disabled={disabled}
         >
           {{

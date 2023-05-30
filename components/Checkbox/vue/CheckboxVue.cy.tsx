@@ -68,7 +68,7 @@ describe('<Checkbox />', () => {
         <div>
           <Checkbox
             label="Welcome guide settings"
-            vModel={isChecked.value}
+            v-model={isChecked.value}
             class="px-2 py-1 m-2 border border-gray-300 rounded"
           />
           <div

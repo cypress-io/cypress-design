@@ -26,10 +26,11 @@ export function getRequires(
         return ''
       }
 
-      const localImport = production
-        ? null
-        : /^@cypress-design\/(vue|react)-(\w+)$/.exec(oneImport.source) &&
-          /\/(vue|react)\/(\w+).md$/.exec(relativePath)
+      const localImport =
+        production || !/\/(vue|react)\/(\w+).md$/.test(relativePath)
+          ? null
+          : /^@cypress-design\/(vue|react)-(\w+)$/.exec(oneImport.source)
+
       const source = localImport
         ? `../../../components/${componentNames.find(
             (name) => name.toLowerCase() === localImport[2]

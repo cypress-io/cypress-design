@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-icon",
-  "version": "0.21.2",
+  "version": "0.22.1",
   "files": [
     "*"
   ],
@@ -21,11 +21,12 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.22.1"
+    "@cypress-design/icon-registry": "^0.24.0",
+    "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*",
-    "@types/lodash": "^4.14.194",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@types/lodash": "^4.14.195",
     "lodash": "^4.17.21",
     "dedent": "^0.7.0"
   },
