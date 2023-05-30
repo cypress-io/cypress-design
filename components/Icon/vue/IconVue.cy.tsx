@@ -42,8 +42,6 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
         <IconBrowserWebkit class="w-16 h-16" />
       </div>
     ))
-
-    cy.get('button').click()
   })
 
   it('when an icon is unmounted later', () => {
@@ -60,6 +58,8 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     ))
 
     cy.get('button').click()
+    // the svg defs should have been transferred to the end of the body
+    cy.get('svg').should('have.length', 2)
   })
 
   it('when an icon is hidden later', () => {
