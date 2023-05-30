@@ -51,9 +51,9 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
 writeFile(`
 import { h, defineComponent, computed } from 'vue'
-import type { ComputedRef, SVGAttributes } from 'vue'
+import type { ComputedRef, SVGAttributes, Ref } from 'vue'
 import * as iconsRegistry from '@cypress-design/icon-registry'
-import { compileVueIconProperties } from './compileProperties'
+import { compileVueIconProperties, useShouldRenderDefs } from './compileProperties'
 
 const __iconComponentOpts__ = {
   props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class'],
@@ -88,7 +88,7 @@ function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name
 function hyperSVG(
     componentProps: ComputedRef<SVGAttributes>, 
     defs: ComputedRef<string | undefined>, 
-    shouldRenderDefs: ComputedRef<boolean>, 
+    shouldRenderDefs: Ref<boolean>, 
     attrs: SVGAttributes,
     className?: string, 
   ) {
@@ -118,7 +118,6 @@ function hyperSVG(
       })
 }
 
-const defsAlreadyLoaded = new Set<string>()
 ${iconsComponents.join('\n\n\n')}
 `)
 

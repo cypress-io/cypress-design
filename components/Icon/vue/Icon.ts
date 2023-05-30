@@ -16,7 +16,6 @@ import {
   compileVueIconProperties,
   useShouldRenderDefs,
 } from './compileProperties'
-import { use } from 'chai'
 
 export default defineComponent(
   (
