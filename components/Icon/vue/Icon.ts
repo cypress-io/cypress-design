@@ -3,14 +3,7 @@ import {
   compileIcon,
 } from '@cypress-design/icon-registry'
 import type { OpenIconProps, IconProps } from '@cypress-design/icon-registry'
-import {
-  h,
-  computed,
-  defineComponent,
-  onBeforeMount,
-  ref,
-  onUnmounted,
-} from 'vue'
+import { h, computed, defineComponent } from 'vue'
 import type { SVGAttributes } from 'vue'
 import {
   compileVueIconProperties,
