@@ -12,7 +12,7 @@
     "@cypress-design/react-icon": "^0.22.0",
     "@cypress-design/react-spinner": "^0.5.0",
     "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.23",
+    "postcss": "^8.4.24",
     "react": "18",
     "react-dom": "18",
     "tailwindcss": "^3.3.2"

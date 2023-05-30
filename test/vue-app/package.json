@@ -15,7 +15,7 @@
     "@cypress-design/vue-spinner": "*",
     "@cypress-design/vue-alert": "*",
     "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.23",
+    "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2",
     "vue": "^3.3.4"
   },

@@ -218,4 +218,5 @@ const { frontmatter } = useData() as any
     </div>
   </template>
   <Content v-else />
+  <div id="modal-target" />
 </template>
