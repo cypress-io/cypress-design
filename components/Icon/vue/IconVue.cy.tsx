@@ -37,11 +37,47 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
 
   it('renders multiple times an icon with defs', () => {
     mount(() => (
-      <div class="p-2">
+      <div class="p-2 flex">
         <IconBrowserWebkit class="w-16 h-16 hidden" />
         <IconBrowserWebkit class="w-16 h-16" />
       </div>
     ))
+
+    cy.get('button').click()
+  })
+
+  it('when an icon is unmounted later', () => {
+    cy.viewport(200, 100)
+    const iconVisible = ref(true)
+    mount(() => (
+      <div class="p-2 flex">
+        {iconVisible.value ? <IconBrowserWebkit class="w-16 h-16" /> : null}
+        <IconBrowserWebkit class="w-16 h-16" />
+        <button onClick={() => (iconVisible.value = !iconVisible.value)}>
+          toggle
+        </button>
+      </div>
+    ))
+
+    cy.get('button').click()
+  })
+
+  it('when an icon is hidden later', () => {
+    cy.viewport(200, 100)
+    const iconVisible = ref(true)
+    mount(() => (
+      <div class="p-2 flex">
+        <IconBrowserWebkit
+          class={`w-16 h-16 ${iconVisible.value ? '' : 'hidden'}`}
+        />
+        <IconBrowserWebkit class="w-16 h-16" />
+        <button onClick={() => (iconVisible.value = !iconVisible.value)}>
+          toggle
+        </button>
+      </div>
+    ))
+
+    cy.get('button').click()
   })
 
   it('renders multiple times an icon with defs with the Icon comp', () => {
@@ -64,6 +100,6 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
       </div>
     ))
 
-    // cy.get('button').click()
+    cy.get('button').click()
   })
 })

@@ -10,18 +10,33 @@ import {
 } from 'vue'
 import type { SVGAttributes } from 'vue'
 
+/**
+ * Icon names of the SVGs whose defs already appear in the DOM
+ */
 const defsAlreadyLoaded = new Set<string>()
 
+/**
+ * There is a bug in the chrome renderer
+ * If an svg containing defs is twice on the page
+ *  AND
+ * the first instance is hidden (display:none)
+ *
+ * Then the defs are not rendered for the second instance
+ * @param iconName
+ * @param defs
+ */
 export const useShouldRenderDefs = (
   iconName: string,
   defs: ComputedRef<string | undefined>
 ) => {
   const shouldRenderDefs = ref(false)
+
   onBeforeMount(() => {
     const hasDocMarker =
       // on SSR, we always want the first instance to come with the defs
       typeof document === 'undefined' ||
       // in interactive mode, the defs can be loaded, then removed, then loaded again
+      // so we check that they are here before adding them again
       !document.querySelector(`[data-cy-icon-unified-defs="${iconName}"]`)
     shouldRenderDefs.value = !defsAlreadyLoaded.has(iconName) && hasDocMarker
     if (hasDocMarker) {
@@ -39,6 +54,7 @@ export const useShouldRenderDefs = (
       )
       newDefs.setAttribute('width', '0')
       newDefs.setAttribute('height', '0')
+      newDefs.setAttribute('data-cy-icon-unified-defs', iconName)
       newDefs.style.position = 'absolute'
       newDefs.innerHTML = defs.value
       document.body.appendChild(newDefs)
@@ -107,24 +123,6 @@ export const compileVueIconProperties = (
       defs,
     }
   })
-
-  // onMounted(() => {
-  //   const { iconFileId, defs } = ret.value ?? {}
-  //   if (defs) {
-  //     if (document.querySelector(`[data-cy-svg-defs="${iconFileId}"]`)) {
-  //       return
-  //     }
-  //     const defsElement = document.createElementNS(
-  //       'http://www.w3.org/2000/svg',
-  //       'svg'
-  //     )
-  //     defsElement.setAttribute('data-cy-svg-defs', iconFileId)
-  //     defsElement.setAttribute('width', '0')
-  //     defsElement.setAttribute('height', '0')
-  //     defsElement.innerHTML = defs
-  //     document.body.appendChild(defsElement)
-  //   }
-  // })
 
   return {
     componentProps: computed(() => ret.value.componentProps),
