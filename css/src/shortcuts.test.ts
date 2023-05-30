@@ -1,13 +1,6 @@
 import { test, expect } from 'vitest'
-import postcss from 'postcss'
-import tailwindcss, { Config } from 'tailwindcss'
+import { runTailwind } from './testUtils'
 import { tailwindPlugin } from './shortcuts'
-
-function run(input: string, config: Config) {
-  return postcss(tailwindcss(config)).process(input, {
-    from: undefined,
-  })
-}
 
 test('tw generates shortcut classes', async () => {
   const config = {
@@ -21,7 +14,7 @@ test('tw generates shortcut classes', async () => {
     },
     plugins: [tailwindPlugin],
   }
-  const output = await run('@tailwind components', config)
+  const output = await runTailwind('@tailwind components', config)
   expect(output.css).toMatchInlineSnapshot(`
     ".card {
         background: white;

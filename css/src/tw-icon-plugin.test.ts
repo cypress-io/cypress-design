@@ -1,13 +1,6 @@
 import { it, expect } from 'vitest'
-import postcss from 'postcss'
-import tailwindcss, { Config } from 'tailwindcss'
+import { runTailwind } from './testUtils'
 import iconPlugin from './tw-icon-plugin'
-
-function run(input: string, config: Config) {
-  return postcss(tailwindcss(config)).process(input, {
-    from: undefined,
-  })
-}
 
 it('generates icon classes', async () => {
   const config = {
@@ -24,7 +17,7 @@ it('generates icon classes', async () => {
     },
     plugins: [iconPlugin],
   }
-  const output = await run('@tailwind components', config)
+  const output = await runTailwind('@tailwind components', config)
 
   expect(output.css).toMatchInlineSnapshot(`
     ".icon-light-teal-50 > *[fill].icon-light {

@@ -51,7 +51,10 @@ module.exports = {
       },
     },
     {
-      files: ['{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}'],
+      files: [
+        '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
+        '{packages,css,icon-registry}/**/testUtils.ts',
+      ],
       plugins: ['@typescript-eslint'],
       extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
       parser: '@typescript-eslint/parser',
