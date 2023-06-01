@@ -2,7 +2,6 @@ import { execa } from 'execa'
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import * as url from 'url'
-const __filename = url.fileURLToPath(import.meta.url)
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 async function run() {
