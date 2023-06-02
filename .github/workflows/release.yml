@@ -38,6 +38,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Set version numbers
+        run: node scripts/set-version.mjs
+
       - name: Create release Pull Request or publish to NPM
         id: changesets
         uses: changesets/action@v1
