@@ -1,5 +1,14 @@
 # @cypress-design/react-statusicon
 
+## 0.4.7
+
+### Patch Changes
+
+- [#234](https://github.com/cypress-io/cypress-design/pull/234) [`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9) Thanks [@elevatebart](https://github.com/elevatebart)! - allow to use a gradient icon more than once
+
+- Updated dependencies [[`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9)]:
+  - @cypress-design/react-icon@0.22.2
+
 ## 0.4.6
 
 ### Patch Changes
