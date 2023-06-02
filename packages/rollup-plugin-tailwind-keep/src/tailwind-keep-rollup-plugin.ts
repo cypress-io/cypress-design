@@ -25,7 +25,7 @@ export default function TailwindKeepRollupPlugin(): Plugin {
             'tailwindcss/lib/public/resolve-config.js'
           )
 
-          context = createContext(resolveConfig(TailwindConfig))
+          context = createContext(resolveConfig(TailwindConfig()))
         }
 
         const { resolveMatches } = await import(
@@ -36,7 +36,6 @@ export default function TailwindKeepRollupPlugin(): Plugin {
         candidates.forEach((c) => {
           if (!context) throw new Error('Context is not defined')
           const utilities = Array.from(resolveMatches(c, context))
-
           if (utilities.length) {
             classSet.add(c)
           }
@@ -46,7 +45,17 @@ export default function TailwindKeepRollupPlugin(): Plugin {
     async generateBundle(options, bundle) {
       const chunk = bundle[Object.keys(bundle)[0]]
       if (chunk?.type === 'chunk') {
+        // if the last line starts with //# sourceMappingURL,
+        // extract it and add it to the end of the file
+        const lastLine = chunk.code.split('\n').pop()
+        const hasSourceMaps = lastLine?.startsWith('//# sourceMappingURL')
+        if (hasSourceMaps && lastLine) {
+          chunk.code = chunk.code.replace(lastLine, '')
+        }
         chunk.code += `\n/* <wind-keep class="${[...classSet].join(' ')}"> */\n`
+        if (hasSourceMaps) {
+          chunk.code += `\n${lastLine}\n`
+        }
       }
     },
   }

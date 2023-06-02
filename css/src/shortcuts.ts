@@ -78,6 +78,8 @@ export const tailwindPlugin = plugin(function ({
     // utilities for modal
     '.cy-modal-overflow-hidden': {
       overflow: 'hidden',
+      height: '100vh',
+      width: '100vw',
     },
     '.cy-modal-overflow-scroll': {
       overflow: 'scroll',
