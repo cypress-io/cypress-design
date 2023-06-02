@@ -19,8 +19,5 @@ to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
   },
-  "devDependencies": {
-    "@cypress-design/icon-registry": "*"
-  },
   "license": "MIT"
 }
