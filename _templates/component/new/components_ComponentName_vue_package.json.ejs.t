@@ -13,7 +13,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
