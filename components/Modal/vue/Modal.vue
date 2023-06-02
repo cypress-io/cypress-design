@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 import {
   ClassBackDrop,
   ClassModal,
@@ -87,6 +87,14 @@ watch(
   },
   { immediate: true }
 )
+
+onMounted(() => {
+  if (!document.querySelector('#modal-target')) {
+    const modalTarget = document.createElement('div')
+    modalTarget.id = 'modal-target'
+    document.body.appendChild(modalTarget)
+  }
+})
 
 watch(show, (val) => {
   if (val) {

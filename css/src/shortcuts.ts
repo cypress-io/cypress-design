@@ -15,6 +15,7 @@ interface RecursiveKeyValuePair {
 export const tailwindPlugin = plugin(function ({
   addComponents,
   addUtilities,
+  addBase,
   theme,
 }) {
   function defaultRing(
@@ -79,11 +80,21 @@ export const tailwindPlugin = plugin(function ({
     '.cy-modal-overflow-hidden': {
       position: 'fixed',
       overflow: 'hidden',
-      height: '80vh',
-      width: '80vw',
     },
-    '.cy-modal-overflow-scroll': {
-      overflow: 'scroll',
+    '.cy-modal-overflow-scroll-x': {
+      overflowX: 'scroll',
+    },
+    '.cy-modal-overflow-scroll-y': {
+      overflowY: 'scroll',
+    },
+  })
+
+  addBase({
+    '#modal-target': {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      zIndex: '1000000',
     },
   })
 })

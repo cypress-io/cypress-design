@@ -1,7 +1,7 @@
 export const ClassBackDrop =
-  'fixed left-0 top-0 z-1010 h-screen w-screen bg-gray-900/[.92] backdrop-blur'
+  'fixed left-0 top-0 z-[1000010] h-screen w-screen bg-gray-900/[.92] backdrop-blur'
 export const ClassModalContainer =
-  'pointer-events-none fixed left-0 top-0 z-1020 flex h-full w-screen items-center justify-center overflow-hidden'
+  'pointer-events-none fixed left-0 top-0 z-[1000020] flex h-full w-screen items-center justify-center overflow-hidden'
 export const ClassModal =
   'pointer-events-auto relative flex max-h-[80vh] min-w-[200px] flex-col rounded-lg border-4 border-gray-700 bg-white sm:min-w-[390px] sm:max-w-[70vw]'
 export const ClassTitleBox =
