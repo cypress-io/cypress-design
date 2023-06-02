@@ -3,11 +3,11 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
 ---
 {
   "name": "@cypress-design/vue-<%= name.toLowerCase() %>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "files": [
     "*"
   ],
-  "typings": "./dist/vue/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "module": "./dist/index.es.mjs",
   "main": "./dist/index.umd.js",
   "exports": {

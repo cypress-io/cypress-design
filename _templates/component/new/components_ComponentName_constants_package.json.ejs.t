@@ -4,7 +4,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
 {
   "name": "@cypress-design/constants-<%= name.toLowerCase() %>",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.0.1",
   "files": [
     "*"
   ],
