@@ -15,6 +15,8 @@ import {
   ClassModalContainer,
   ClassTitle,
   ClassTitleBox,
+  disableBodyScroll,
+  freeBodyScroll,
 } from '@cypress-design/constants-modal'
 
 export interface ModalProps {
@@ -32,6 +34,17 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
 }) => {
+  React.useEffect(() => {
+    if (show) {
+      disableBodyScroll()
+    } else {
+      freeBodyScroll()
+    }
+    return () => {
+      freeBodyScroll()
+    }
+  }, [show])
+
   return (
     <>
       {createPortal(

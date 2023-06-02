@@ -16,7 +16,7 @@ export default (libConfig: LibraryOptions) =>
         external: [
           'vue',
           '@cypress-design/icon-registry',
-          '@cypress-design/icon',
+          '@cypress-design/vue-icon',
           '@cypress-design/details-animation',
         ],
         output: {
@@ -25,7 +25,7 @@ export default (libConfig: LibraryOptions) =>
           globals: {
             vue: 'Vue',
             '@cypress-design/icon-registry': 'CyIconRegistry',
-            '@cypress-design/icon': 'CyIcon',
+            '@cypress-design/vue-icon': 'CyIcon',
             '@cypress-design/details-animation': 'CyDetailsAnimation',
           },
         },

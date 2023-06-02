@@ -13,3 +13,5 @@ export const ClassHelpLink =
 export const ClassCloseButton =
   'group rounded-full border-transparent p-[4px] outline-none'
 export const ClassContent = 'overflow-y-auto p-[16px]'
+
+export * from './bodyScroll'

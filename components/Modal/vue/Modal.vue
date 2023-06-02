@@ -1,6 +1,6 @@
 <template>
   <Teleport v-if="show" to="#modal-target">
-    <div :class="ClassBackDrop" @click="closeModal" />
+    <div :class="ClassBackDrop" @click="show = false" />
     <div
       :class="ClassModalContainer"
       tabindex="-1"
@@ -30,7 +30,7 @@
           <button
             aria-label="Close"
             :class="ClassCloseButton"
-            @click="closeModal()"
+            @click="show = false"
           >
             <IconActionDelete
               class="children:transition-all"
@@ -49,7 +49,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { onUnmounted, ref, watch } from 'vue'
 import {
   ClassBackDrop,
   ClassModal,
@@ -60,6 +60,8 @@ import {
   ClassHelpLink,
   ClassCloseButton,
   ClassContent,
+  disableBodyScroll,
+  freeBodyScroll,
 } from '@cypress-design/constants-modal'
 import {
   IconActionDelete,
@@ -86,13 +88,18 @@ watch(
   { immediate: true }
 )
 
-const setIsOpen = (val: boolean) => {
+watch(show, (val) => {
+  if (val) {
+    disableBodyScroll()
+  } else {
+    freeBodyScroll()
+  }
   emit('update:modelValue', val)
-}
+})
 
-const closeModal = () => {
-  setIsOpen(false)
-}
+onUnmounted(() => {
+  freeBodyScroll()
+})
 </script>
 
 <style lang="scss" scoped>
