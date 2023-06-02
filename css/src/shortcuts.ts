@@ -12,7 +12,11 @@ interface RecursiveKeyValuePair {
  * outline with that, do border-transparent for the non-hocus state.
  */
 
-export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
+export const tailwindPlugin = plugin(function ({
+  addComponents,
+  addUtilities,
+  theme,
+}) {
   function defaultRing(
     color: 'indigo' | 'error' | 'jade'
   ): RecursiveKeyValuePair {
@@ -68,5 +72,15 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     },
     '.hocus-error': makeFocusDefaultObject(['hover', 'focus'], 'error'),
     '.hocus-secondary': makeFocusDefaultObject(['hover', 'focus'], 'jade'),
+  })
+
+  addUtilities({
+    // utilities for modal
+    '.cy-modal-overflow-hidden': {
+      overflow: 'hidden',
+    },
+    '.cy-modal-overflow-scroll': {
+      overflow: 'scroll',
+    },
   })
 })
