@@ -40,10 +40,14 @@ export const Modal: React.FC<ModalProps> = ({
     } else {
       freeBodyScroll()
     }
-    return () => {
-      freeBodyScroll()
-    }
   }, [show])
+
+  React.useEffect(
+    () => () => {
+      freeBodyScroll()
+    },
+    []
+  )
 
   return (
     <>

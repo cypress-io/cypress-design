@@ -6,10 +6,13 @@ import StatusIcon from '@cypress-design/react-statusicon'
 import Spinner from '@cypress-design/react-spinner'
 import './App.css'
 import { SimpleStatusIcon } from '@cypress-design/react-statusicon'
+import Modal from '@cypress-design/react-modal'
+import Button from '@cypress-design/react-button'
 
 function App() {
   const [count, setCount] = useState(0)
   const [isChecked, setChecked] = useState(false)
+  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="App">
@@ -62,6 +65,19 @@ function App() {
           fillColor="jade-500"
         />
       </header>
+      <div className="h-[500px]" />
+      <div className="text-center">
+        <Button className="mx-auto my-4" onClick={() => setShowModal(true)}>
+          Open Modal
+        </Button>
+      </div>
+      <Modal
+        title="Modal title"
+        show={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <p>Modal content</p>
+      </Modal>
     </div>
   )
 }
