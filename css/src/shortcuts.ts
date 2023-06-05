@@ -78,7 +78,7 @@ export const tailwindPlugin = plugin(function ({
   addUtilities({
     // utilities for modal
     '.cy-modal-overflow-hidden': {
-      position: 'fixed',
+      position: 'relative',
       overflow: 'hidden',
     },
     '.cy-modal-overflow-scroll-x': {

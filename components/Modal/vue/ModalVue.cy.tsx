@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 import assertions from '../assertions'
