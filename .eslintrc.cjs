@@ -51,6 +51,26 @@ module.exports = {
       },
     },
     {
+      files: [
+        '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
+        '{packages,css,icon-registry}/**/testUtils.ts',
+      ],
+      plugins: ['@typescript-eslint'],
+      extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+      parser: '@typescript-eslint/parser',
+      parserOptions: {
+        sourceType: 'module',
+        project: ['./tsconfig.json'],
+      },
+      rules: {
+        '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+      },
+      env: {
+        node: true,
+      },
+    },
+    {
       files: ['components/*/react/*.{ts,tsx}'],
       plugins: ['@typescript-eslint'],
       extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],

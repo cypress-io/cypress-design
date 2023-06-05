@@ -7,12 +7,14 @@ import Icon, {
   IconObjectBookCode,
   IconObjectMagnifyingGlass,
 } from '@cypress-design/vue-icon'
+import Modal from '@cypress-design/vue-modal'
 import Alert from '@cypress-design/vue-alert'
 // @ts-expect-error see this issue https://github.com/vuejs/language-tools/issues/1662
 import Spinner from '@cypress-design/vue-spinner/sfc'
 import Button from '@cypress-design/vue-button'
 
 const checked = ref(false)
+const showModal = ref(false)
 </script>
 
 <template>
@@ -33,6 +35,7 @@ const checked = ref(false)
       size="24"
       hoverStrokeColor="red-500"
     />
+    <div class="h-[80vh]" />
     <Alert type="error" disabled> Error </Alert>
     <Spinner />
     <Button variant="jade-dark">Button</Button>
@@ -50,5 +53,14 @@ const checked = ref(false)
         focus-within-stroke-color="red-500"
       /><input />
     </div>
+    <Button variant="jade-dark" @click="showModal = true">Open Modal</Button>
+    <Modal v-model="showModal" title="This is shown">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel reiciendis
+      magni quo dolor unde dolorem illum possimus laborum voluptatum maiores
+      blanditiis officiis fugiat sapiente, adipisci eum. Sapiente recusandae
+      voluptates mollitia?
+    </Modal>
+    <div class="h-[80vh]" />
+    Bottom of page
   </div>
 </template>

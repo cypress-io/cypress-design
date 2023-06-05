@@ -1,8 +1,5 @@
----
-to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
----
 {
-  "name": "@cypress-design/react-<%= name.toLowerCase() %>",
+  "name": "@cypress-design/react-modal",
   "version": "0.0.1",
   "files": [
     "*"
@@ -22,11 +19,12 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/package.json
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-<%= name.toLowerCase() %>": "*",
+    "@cypress-design/constants-modal": "*",
+    "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }

@@ -1,8 +1,5 @@
----
-to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
----
 {
-  "name": "@cypress-design/constants-<%= name.toLowerCase() %>",
+  "name": "@cypress-design/constants-modal",
   "private": true,
   "version": "0.0.1",
   "files": [
@@ -18,6 +15,9 @@ to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
   },
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }

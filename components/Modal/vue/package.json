@@ -1,8 +1,5 @@
----
-to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
----
 {
-  "name": "@cypress-design/vue-<%= name.toLowerCase() %>",
+  "name": "@cypress-design/vue-modal",
   "version": "0.0.1",
   "files": [
     "*"
@@ -23,10 +20,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-<%= name.toLowerCase() %>": "*"
-  },
-  "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/constants-modal": "*",
+    "@cypress-design/vue-icon": "*"
   },
   "license": "MIT"
 }

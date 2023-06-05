@@ -37,7 +37,9 @@
 // }
 import '@percy/cypress'
 
-// add testing library selectors
+// add testing library selectors types
+import '@testing-library/cypress'
+// add testing library commands
 import '@testing-library/cypress/add-commands'
 
 // add cy.findByTestId command
