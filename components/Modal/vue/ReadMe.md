@@ -20,7 +20,7 @@ const visible = ref(false)
 </script>
 
 <template>
-  <Modal v-model="visible" title="modal">
+  <Modal v-model:show="visible" title="modal">
     Lorem ipsum dolor sit amet consectetur adipisicing elit. Id perspiciatis hic
     ad minima ex recusandae autem incidunt, perferendis, illo voluptatum
     repudiandae iste voluptate reiciendis quam officiis voluptas laboriosam
