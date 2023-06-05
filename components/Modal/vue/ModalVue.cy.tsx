@@ -11,7 +11,7 @@ describe('<Modal/>', () => {
         <div class="h-[900px] w-[50px] bg-red-200"></div>
         <button onClick={() => (visibleModal.value = true)}>Open Modal</button>
         <div class="h-[900px] w-[50px] bg-red-200"></div>
-        <Modal {...options} v-model={visibleModal.value}>
+        <Modal {...options} v-model:show={visibleModal.value}>
           <p>
             Contents of the modal: Lorem ipsum dolor sit amet consectetur
             adipisicing elit. Id perspiciatis hic ad minima ex recusandae autem

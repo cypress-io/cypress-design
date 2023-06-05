@@ -71,17 +71,18 @@ import {
 const show = ref(false)
 
 const emit = defineEmits<{
-  (event: 'update:modelValue', value: boolean): void
+  (event: 'close'): void
+  (event: 'update:show', value: boolean): void
 }>()
 
 const props = defineProps<{
   title?: string
-  modelValue?: boolean
+  show?: boolean
   helpLink?: string
 }>()
 
 watch(
-  () => props.modelValue,
+  () => props.show,
   (val) => {
     show.value = val
   },
@@ -102,7 +103,10 @@ watch(show, (val) => {
   } else {
     freeBodyScroll()
   }
-  emit('update:modelValue', val)
+  emit('update:show', val)
+  if (!val) {
+    emit('close')
+  }
 })
 
 onUnmounted(() => {
