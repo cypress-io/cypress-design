@@ -23,6 +23,7 @@ const props = withDefaults(
 )
 
 const $tab = ref<HTMLButtonElement[]>()
+const $overflowContainer = ref<HTMLDivElement>()
 
 const emit = defineEmits<{
   /**
@@ -38,24 +39,40 @@ const activeMarkerStyle = ref<
   { left?: string; width?: string; transitionProperty?: string } | undefined
 >()
 
+const activeTab = computed(() => {
+  const activeIndex = props.tabs.findIndex((tab) => tab.id === activeId.value)
+  if (activeIndex > -1) {
+    const activeTab = $tab.value?.[activeIndex]
+    return activeTab
+  }
+})
 onMounted(() => {
   watch(
-    activeId,
-    (id) => {
-      const activeIndex = props.tabs.findIndex((tab) => tab.id === id)
-      if (activeIndex > -1) {
-        const activeTab = $tab.value?.[activeIndex]
-        if (activeTab) {
-          activeMarkerStyle.value = {
-            ...activeMarkerStyle.value,
-            left: `${activeTab.offsetLeft}px`,
-            width: `${activeTab.offsetWidth}px`,
-          }
+    activeTab,
+    (activeTab) => {
+      if (activeTab) {
+        activeMarkerStyle.value = {
+          ...activeMarkerStyle.value,
+          left: `${activeTab.offsetLeft}px`,
+          width: `${activeTab.offsetWidth}px`,
         }
       }
     },
     { immediate: true }
   )
+
+  if ($overflowContainer.value && activeTab.value) {
+    // Scroll to active tab if it is not visible
+    const overflowContainer = $overflowContainer.value
+    const leftBoundary =
+      overflowContainer.offsetWidth / 2 - activeTab.value.offsetWidth / 2
+
+    if (activeTab.value.offsetLeft > leftBoundary) {
+      overflowContainer.scrollTo({
+        left: activeTab.value.offsetLeft - leftBoundary,
+      })
+    }
+  }
 
   // Only start animation after the first render
   nextTick(() => {
@@ -96,7 +113,7 @@ const iconProps = computed(() => {
 </script>
 
 <template>
-  <div :class="overflowContainerClass">
+  <div ref="$overflowContainer" :class="overflowContainerClass">
     <div role="tablist" :class="classes.wrapper">
       <component
         v-for="tab in tabs"

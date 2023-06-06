@@ -34,6 +34,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   )
 
   const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
+  const $overflowContainer = React.useRef<HTMLDivElement>(null)
 
   const [activeMarkerStyle, setActiveMarkerStyle] = React.useState<{
     left?: string
@@ -41,20 +42,43 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     transitionProperty?: string
   }>({})
 
-  React.useEffect(() => {
+  function getActiveTabEl() {
     const activeTab = tabs.findIndex((tab) => tab.id === activeId)
     if (activeTab > -1) {
       const activeTabEl = $tab.current?.[activeTab]
       if (activeTabEl) {
-        setActiveMarkerStyle({
-          left: `${activeTabEl.offsetLeft}px`,
-          width: `${activeTabEl.offsetWidth}px`,
-          transitionProperty: 'left, width',
-        })
+        return activeTabEl
       }
+    }
+    return null
+  }
+
+  React.useEffect(() => {
+    const activeTabEl = getActiveTabEl()
+    if (activeTabEl) {
+      setActiveMarkerStyle({
+        left: `${activeTabEl.offsetLeft}px`,
+        width: `${activeTabEl.offsetWidth}px`,
+        transitionProperty: 'left, width',
+      })
     }
     setMounted(true)
   }, [activeId])
+
+  React.useEffect(() => {
+    const activeTabEl = getActiveTabEl()
+    if ($overflowContainer.current && activeTabEl) {
+      // Scroll to active tab if it is not visible
+      const leftBoundary =
+        $overflowContainer.current.offsetWidth / 2 - activeTabEl.offsetWidth / 2
+
+      if (activeTabEl.offsetLeft > leftBoundary) {
+        $overflowContainer.current.scrollTo({
+          left: activeTabEl.offsetLeft - leftBoundary,
+        })
+      }
+    }
+  }, [])
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift
@@ -76,7 +100,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     variant in variants ? variants[variant].icon : variants.default.icon
 
   return (
-    <div className={overflowContainerClass}>
+    <div ref={$overflowContainer} className={overflowContainerClass}>
       <div role="tablist" className={classes.wrapper} {...rest}>
         {tabs.map((tab, index) => {
           const ButtonTag = tab.href ? 'a' : 'button'
