@@ -35,7 +35,7 @@ export interface Tab {
 }
 
 export const overflowContainerClass =
-  'overflow-x-auto overflow-y-hidden no-scrollbar px-[4px] pb-[4px]'
+  'overflow-x-auto overflow-y-hidden no-scrollbar px-[1px] pb-[4px]'
 
 export const variants = {
   default: {
@@ -112,7 +112,7 @@ export const variants = {
   'underline-small': {
     classes: {
       wrapper:
-        'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
+        'py-[4px] inline-flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
       active: 'text-gray-900 dark:text-gray-400 z-20',
@@ -136,7 +136,7 @@ export const variants = {
   'underline-large': {
     classes: {
       wrapper:
-        'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
+        'py-[4px] inline-flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
       button:
         'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative',
       active: 'text-gray-900 dark:text-gray-400 z-20',

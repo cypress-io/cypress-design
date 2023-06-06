@@ -52,7 +52,10 @@ export default function assertions(
     })
 
     it('displays active tab when tabs are overflowing', () => {
-      mountStory({ tabs: longTabs, variant: 'underline-small' })
+      mountStory({
+        tabs: longTabs,
+        variant: 'underline-small',
+      })
     })
 
     Object.keys(variants).forEach((variant) => {
