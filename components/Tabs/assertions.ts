@@ -6,7 +6,7 @@ const tabs = [
   { id: 'ov', label: 'Overview', active: true },
   { id: 'cl', label: 'Command Log' },
   { id: 'err', label: 'Errors' },
-  { id: 'reco', label: 'Recommendations' },
+  { id: 'reco', label: 'Recommend' },
 ]
 
 const longTabs = [
@@ -51,16 +51,16 @@ export default function assertions(
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
     })
 
-    it('displays active tab when tabs are overflowing', () => {
-      mountStory({
-        tabs: longTabs,
-        variant: 'underline-small',
-      })
-    })
-
     Object.keys(variants).forEach((variant) => {
       it(`renders ${variant}`, () => {
         mountStory({ tabs, variant: variant as keyof typeof variants })
+      })
+    })
+
+    it('displays active tab when tabs are overflowing', () => {
+      mountStory({
+        tabs: longTabs,
+        // variant: 'underline-small',
       })
     })
   })
