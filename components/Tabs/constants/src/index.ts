@@ -34,6 +34,9 @@ export interface Tab {
   href?: string
 }
 
+export const overflowContainerClass =
+  'overflow-x-auto overflow-y-hidden no-scrollbar pb-[4px]'
+
 export const variants = {
   default: {
     classes: {

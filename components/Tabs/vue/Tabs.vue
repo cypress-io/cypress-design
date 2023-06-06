@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { Tab, variants } from '@cypress-design/constants-tabs'
+import {
+  Tab,
+  variants,
+  overflowContainerClass,
+} from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
   defineProps<{
@@ -92,25 +96,26 @@ const iconProps = computed(() => {
 </script>
 
 <template>
-  <div role="tablist" :class="classes.wrapper">
-    <component
-      v-for="tab in tabs"
-      :key="tab.id"
-      :is="tab.href ? 'a' : 'button'"
-      :href="tab.href"
-      ref="$tab"
-      role="tab"
-      :tabindex="tab.id === activeId ? undefined : -1"
-      :aria-selected="tab.id === activeId ? true : undefined"
-      :class="[
-        classes.button,
-        {
-          [classes.activeStatic]: tab.id === activeId && !activeMarkerStyle,
-          [classes.active]: tab.id === activeId,
-          [classes.inActive]: tab.id !== activeId,
-        },
-      ]"
-      @click="
+  <div :class="overflowContainerClass">
+    <div role="tablist" :class="classes.wrapper">
+      <component
+        v-for="tab in tabs"
+        :key="tab.id"
+        :is="tab.href ? 'a' : 'button'"
+        :href="tab.href"
+        ref="$tab"
+        role="tab"
+        :tabindex="tab.id === activeId ? undefined : -1"
+        :aria-selected="tab.id === activeId ? true : undefined"
+        :class="[
+          classes.button,
+          {
+            [classes.activeStatic]: tab.id === activeId && !activeMarkerStyle,
+            [classes.active]: tab.id === activeId,
+            [classes.inActive]: tab.id !== activeId,
+          },
+        ]"
+        @click="
         (e: MouseEvent) => {
           if(e.ctrlKey || e.metaKey) return
           e.preventDefault()
@@ -118,37 +123,38 @@ const iconProps = computed(() => {
           emit('switch', tab)
         }
       "
-      @keyup.left="navigate(-1)"
-      @keyup.right="navigate(1)"
-    >
-      <component
-        v-if="tab.iconBefore ?? tab.icon"
-        :is="tab.iconBefore ?? tab.icon"
-        v-bind="iconProps"
-        class="mr-[8px]"
-      />
-      {{ tab.label }}
-      <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
-      <component
-        v-if="tab.iconAfter"
-        :is="tab.iconAfter"
-        v-bind="iconProps"
-        class="ml-[8px]"
-      />
-      <div
-        v-if="tab.id === activeId && !activeMarkerStyle"
-        :class="classes.activeMarkerStatic"
-      />
-    </component>
-    <template v-if="activeMarkerStyle">
-      <div
-        :class="[classes.activeMarker, classes.activeMarkerColor]"
-        :style="activeMarkerStyle"
-      />
-      <div
-        :class="[classes.activeMarker, classes.activeMarkerBlender]"
-        :style="activeMarkerStyle"
-      />
-    </template>
+        @keyup.left="navigate(-1)"
+        @keyup.right="navigate(1)"
+      >
+        <component
+          v-if="tab.iconBefore ?? tab.icon"
+          :is="tab.iconBefore ?? tab.icon"
+          v-bind="iconProps"
+          class="mr-[8px]"
+        />
+        {{ tab.label }}
+        <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
+        <component
+          v-if="tab.iconAfter"
+          :is="tab.iconAfter"
+          v-bind="iconProps"
+          class="ml-[8px]"
+        />
+        <div
+          v-if="tab.id === activeId && !activeMarkerStyle"
+          :class="classes.activeMarkerStatic"
+        />
+      </component>
+      <template v-if="activeMarkerStyle">
+        <div
+          :class="[classes.activeMarker, classes.activeMarkerColor]"
+          :style="activeMarkerStyle"
+        />
+        <div
+          :class="[classes.activeMarker, classes.activeMarkerBlender]"
+          :style="activeMarkerStyle"
+        />
+      </template>
+    </div>
   </div>
 </template>
