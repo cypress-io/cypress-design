@@ -19,7 +19,6 @@ describe('<Modal/>', () => {
             reiciendis quam officiis voluptas laboriosam eligendi explicabo!
           </p>
         </Modal>
-        <div id="modal-target"></div> {/* for portal */}
       </div>
     ))
   }

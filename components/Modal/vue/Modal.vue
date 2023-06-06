@@ -1,6 +1,6 @@
 <template>
-  <Teleport v-if="show" to="#modal-target">
-    <div :class="ClassBackDrop" @click="show = false" />
+  <Teleport v-if="internalShow" to="#modal-target">
+    <div :class="ClassBackDrop" @click="internalShow = false" />
     <div
       :class="ClassModalContainer"
       tabindex="-1"
@@ -30,7 +30,7 @@
           <button
             aria-label="Close"
             :class="ClassCloseButton"
-            @click="show = false"
+            @click="internalShow = false"
           >
             <IconActionDelete
               class="children:transition-all"
@@ -68,7 +68,7 @@ import {
   IconActionQuestionMarkCircle,
 } from '@cypress-design/vue-icon'
 
-const show = ref(false)
+const internalShow = ref(false)
 
 const emit = defineEmits<{
   (event: 'close'): void
@@ -79,12 +79,13 @@ const props = defineProps<{
   title?: string
   show?: boolean
   helpLink?: string
+  transition?: number
 }>()
 
 watch(
   () => props.show,
   (val) => {
-    show.value = val
+    internalShow.value = val
   },
   { immediate: true }
 )
@@ -97,7 +98,7 @@ onMounted(() => {
   }
 })
 
-watch(show, (val) => {
+watch(internalShow, (val) => {
   if (val) {
     disableBodyScroll()
   } else {
