@@ -1,6 +1,5 @@
 <script setup>
 import BrandColors from './src/BrandColors.vue'
-defineExpose({ order: 4 })
 </script>
 
 # Brand Colors
