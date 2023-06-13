@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Placement, Side } from '@floating-ui/dom'
-import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
+import useTooltips from './useTooltip'
 import type { Ref } from 'vue'
 import { watch, computed, ref, onBeforeMount } from 'vue'
 
@@ -37,25 +37,15 @@ const portalTarget: Ref<HTMLElement | null> = ref(null)
 const reference: Ref<HTMLElement | null> = ref(null)
 const tooltip: Ref<HTMLElement | null> = ref(null)
 const arrowRef: Ref<HTMLElement | null> = ref(null)
-const left = ref(0)
-const top = ref(0)
-const arrowLeft = ref(0)
-const arrowTop = ref(0)
-const arrowRotate = ref(0)
-const arrowXRule: Ref<'left' | 'right'> = ref('left')
-const arrowYRule: Ref<'top' | 'bottom'> = ref('top')
-const positionComputed = ref(false)
-const dropShadowFilter: Ref<string | undefined> = ref(undefined)
-const placementSideFinal = ref(props.placement)
-const show = ref(false)
 const tooltipHovered = ref(false)
 
-const ROTATE_MAP = {
-  bottom: 180,
-  left: 270,
-  top: 0,
-  right: 90,
-} as const
+const { placeTooltip, positionComputed, show, arrowStyle, tooltipStyle } =
+  useTooltips({
+    reference,
+    tooltip,
+    arrowRef,
+    props,
+  })
 
 onBeforeMount(async () => {
   await getTarget()
@@ -97,72 +87,19 @@ const colors = computed(() => {
 watch(
   () => props.interactive,
   () => {
-    if (show.value) {
+    if (show.value && !props.disabled) {
       placeTooltip()
     }
   }
 )
-
-async function placeTooltip() {
-  if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value)
-    return
-  const {
-    x,
-    y,
-    placement,
-    middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
-  } = await computePosition(reference.value, tooltip.value, {
-    placement: props.placement,
-    middleware: [
-      props.forcePlacement
-        ? {
-            name: 'no-flip',
-            fn: (obj) => obj,
-          }
-        : flip(),
-      offset(props.interactive ? 0 : 16),
-      arrow({ element: arrowRef.value, padding: 24 }),
-    ],
-  })
-  const placementSide = placement.split('-')[0] as Side
-  left.value = x
-  top.value = y
-  arrowRotate.value = ROTATE_MAP[placementSide]
-
-  dropShadowFilter.value =
-    placementSide === 'bottom' || props.color === 'dark'
-      ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
-      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))'
-
-  if (arrowX && arrowY) {
-    arrowLeft.value = arrowX
-    arrowTop.value = arrowY
-    arrowXRule.value = 'left'
-    arrowYRule.value = 'top'
-  } else if (arrowX) {
-    arrowLeft.value = arrowX
-    arrowTop.value = props.interactive ? 6 : -10
-    arrowXRule.value = 'left'
-    arrowYRule.value = placementSide === 'top' ? 'bottom' : 'top'
-  } else if (arrowY) {
-    arrowTop.value = arrowY + 4
-    arrowLeft.value = props.interactive ? 0 : -16
-    arrowXRule.value = placementSide === 'left' ? 'right' : 'left'
-    arrowYRule.value = 'top'
-  }
-  positionComputed.value = true
-  placementSideFinal.value = placementSide
-
-  show.value = true
-}
 </script>
 
 <template>
   <div
     v-bind="$attrs"
     ref="reference"
-    @mouseover="placeTooltip"
-    @focus="placeTooltip"
+    @mouseover="props.disabled ? null : placeTooltip()"
+    @focus="props.disabled ? null : placeTooltip()"
     @blur="show = false"
     @mouseout="show = false"
   >
@@ -174,11 +111,7 @@ async function placeTooltip() {
         @mouseout="tooltipHovered = false"
         role="tooltip"
         ref="tooltip"
-        :style="
-          positionComputed
-            ? `top:${top}px!important;left:${left}px!important;`
-            : undefined
-        "
+        :style="tooltipStyle"
         class="absolute"
         :class="[
           {
@@ -202,11 +135,7 @@ async function placeTooltip() {
             height="12"
             class="absolute z-10"
             :class="colors.svg"
-            :style="`
-              transform: rotate(${arrowRotate}deg); 
-              filter: ${dropShadowFilter};
-              ${arrowYRule}:${arrowTop}px!important;
-              ${arrowXRule}:${arrowLeft}px!important;`"
+            :style="arrowStyle"
             fill="none"
           >
             <rect
