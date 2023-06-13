@@ -13,6 +13,9 @@ const longTabs = [
   { id: 'ov1', label: 'Overview' },
   { id: 'cl1', label: 'Command Log' },
   { id: 'err1', label: 'Errors' },
+  { id: 'o', label: 'o' },
+  { id: 'd', label: 'd' },
+  { id: 's', label: 's' },
   { id: 'reco1', label: 'Recommendations' },
   { id: 'ov2', label: 'Overview 1' },
   { id: 'cl2', label: 'Command Log 1' },
@@ -57,11 +60,15 @@ export default function assertions(
       })
     })
 
-    it('displays active tab when tabs are overflowing', () => {
-      mountStory({
-        tabs: longTabs,
-        // variant: 'underline-small',
-      })
-    })
+    it(
+      'displays active tab when tabs are overflowing',
+      { viewportHeight: 500 },
+      () => {
+        mountStory({
+          tabs: longTabs,
+          // variant: 'underline-small',
+        })
+      }
+    )
   })
 }
