@@ -1,17 +1,18 @@
 <script lang="ts" setup>
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import {
-  Tab,
+  Tab as TabConfig,
   variants,
   overflowContainerClass,
 } from '@cypress-design/constants-tabs'
+import Tab from './Tab.vue'
 
 const props = withDefaults(
   defineProps<{
     /**
      * The tabs to display
      */
-    tabs: Tab[]
+    tabs: TabConfig[]
     /**
      * Appearance of tabs
      */
@@ -22,7 +23,7 @@ const props = withDefaults(
   }
 )
 
-const $tab = ref<HTMLButtonElement[]>()
+const $tab = ref<(typeof Tab)[]>()
 const $overflowContainer = ref<HTMLDivElement>()
 
 const emit = defineEmits<{
@@ -30,7 +31,7 @@ const emit = defineEmits<{
    * A tab is changed
    * @param tab new tab selected
    */
-  (event: 'switch', tab: Tab): void
+  (event: 'switch', tab: TabConfig): void
 }>()
 
 const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
@@ -42,7 +43,7 @@ const activeMarkerStyle = ref<
 const activeTab = computed(() => {
   const activeIndex = props.tabs.findIndex((tab) => tab.id === activeId.value)
   if (activeIndex > -1) {
-    const activeTab = $tab.value?.[activeIndex]
+    const activeTab = $tab.value?.[activeIndex]?.$el as HTMLElement
     return activeTab
   }
 })
@@ -93,7 +94,7 @@ function navigate(shift: number) {
       ? 0
       : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
-  $tab.value?.[nextIndex]?.focus()
+  $tab.value?.[nextIndex]?.$el.focus()
   emit('switch', props.tabs[nextIndex])
 }
 
@@ -115,53 +116,25 @@ const iconProps = computed(() => {
 <template>
   <div ref="$overflowContainer" :class="overflowContainerClass">
     <div role="tablist" :class="classes.wrapper">
-      <component
+      <Tab
         v-for="tab in tabs"
         :key="tab.id"
-        :is="tab.href ? 'a' : 'button'"
-        :href="tab.href"
         ref="$tab"
-        role="tab"
-        :tabindex="tab.id === activeId ? undefined : -1"
-        :aria-selected="tab.id === activeId ? true : undefined"
-        :class="[
-          classes.button,
-          {
-            [classes.activeStatic]: tab.id === activeId && !activeMarkerStyle,
-            [classes.active]: tab.id === activeId,
-            [classes.inActive]: tab.id !== activeId,
-          },
-        ]"
+        :iconProps="iconProps"
+        :activeMarkerStyle="!!activeMarkerStyle"
+        :classes="classes"
+        :tab="tab"
+        :activeId="activeId"
+        @back="navigate(-1)"
+        @forward="navigate(1)"
         @click="
         (e: MouseEvent) => {
           if(e.ctrlKey || e.metaKey) return
           e.preventDefault()
           activeId = tab.id
           emit('switch', tab)
-        }
-      "
-        @keyup.left="navigate(-1)"
-        @keyup.right="navigate(1)"
-      >
-        <component
-          v-if="tab.iconBefore ?? tab.icon"
-          :is="tab.iconBefore ?? tab.icon"
-          v-bind="iconProps"
-          class="mr-[8px]"
-        />
-        {{ tab.label }}
-        <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
-        <component
-          v-if="tab.iconAfter"
-          :is="tab.iconAfter"
-          v-bind="iconProps"
-          class="ml-[8px]"
-        />
-        <div
-          v-if="tab.id === activeId && !activeMarkerStyle"
-          :class="classes.activeMarkerStatic"
-        />
-      </component>
+        }"
+      />
       <template v-if="activeMarkerStyle">
         <div
           :class="[classes.activeMarker, classes.activeMarkerColor]"
