@@ -108,7 +108,7 @@ function copyCode() {
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
-        @change="(newCode) => (liveCode = newCode)"
+        @change="(newCode:string) => (liveCode = newCode)"
       />
       <button
         class="copy"
