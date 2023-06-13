@@ -54,7 +54,7 @@ async function renderComplexTypes(schema, subType) {
     return overflow
       ? await makeTooltip(
           serializedInlineValuesWrapped,
-          `type ${schema.type.replace(
+          `type ${schema.type?.replace(
             ' | undefined',
             ''
           )} = ${filteredValues.join(' | ')}`
@@ -84,7 +84,7 @@ async function renderComplexTypes(schema, subType) {
 }
 
 function renderObjectType(value) {
-  const type = value.type.replace(' | undefined', '')
+  const type = value.type?.replace(' | undefined', '')
   const description = value.description?.length
     ? /\n/.test(value.description)
       ? `\t/**\n\t * ${value.description.replace(
