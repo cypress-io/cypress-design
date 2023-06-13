@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Placement, Side } from '@floating-ui/dom'
-import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
+import { computePosition, flip, offset, arrow, shift } from '@floating-ui/dom'
 import type { Ref } from 'vue'
 import { watch, computed, ref, onBeforeMount } from 'vue'
 
@@ -122,6 +122,7 @@ async function placeTooltip() {
         : flip(),
       offset(props.interactive ? 0 : 16),
       arrow({ element: arrowRef.value, padding: 24 }),
+      shift({ padding: 16 }),
     ],
   })
   const placementSide = placement.split('-')[0] as Side
