@@ -1,5 +1,12 @@
 # @cypress-design/vue-checkbox
 
+## 0.4.0
+
+### Minor Changes
+
+- [#258](https://github.com/cypress-io/cypress-design/pull/258) [`aac2e95`](https://github.com/cypress-io/cypress-design/commit/aac2e95c78a7dc41673101def2f7d185bc6e6d0e) Thanks [@elevatebart](https://github.com/elevatebart)! - handle array v-model with more than one checkboxes
+  - add the 'change' event to reflect the input checkbox's change event
+
 ## 0.3.3
 
 ### Patch Changes

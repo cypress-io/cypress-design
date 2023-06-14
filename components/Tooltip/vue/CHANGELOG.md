@@ -1,5 +1,11 @@
 # @cypress-design/vue-tooltip
 
+## 0.6.3
+
+### Patch Changes
+
+- [#259](https://github.com/cypress-io/cypress-design/pull/259) [`fdd8839`](https://github.com/cypress-io/cypress-design/commit/fdd883952476a852973adc671dadc817883251ec) Thanks [@elevatebart](https://github.com/elevatebart)! - when tooltip overflows, shift it back
+
 ## 0.6.2
 
 ### Patch Changes
