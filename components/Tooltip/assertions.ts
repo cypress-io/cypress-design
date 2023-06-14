@@ -36,4 +36,13 @@ export default function assertions(
       cy.percySnapshot(`tooltip-dark-${placement}-${fw}`)
     })
   })
+
+  it('shifts when overflowing', () => {
+    mountStory({ single: true })
+    cy.contains('[tabindex="1"]', 'Lorem ipsum').focus()
+    cy.contains('div', 'popit: Lorem ipsum').then(($el) => {
+      const { left } = $el[0].getBoundingClientRect()
+      expect(left).to.be.greaterThan(0)
+    })
+  })
 }
