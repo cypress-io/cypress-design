@@ -14,11 +14,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build:lib": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc -p . --emitDeclarationOnly",
-    "build:icons": "node ./build-icons.mjs",
-    "build:svg": "svg-to-ts-files",
-    "build": "yarn build:svg && yarn build:icons && yarn build:lib && yarn build:types"
+    "build": "./build.sh"
   },
   "files": [
     "dist"
@@ -41,10 +37,8 @@
     "interfaceName": "CyIcon",
     "outputDirectory": "./src",
     "typeName": "cyIcon",
-    "barrelFileName": "iconsList",
+    "fileName": "iconsList",
     "prefix": "cy",
-    "modelFileName": "icon.model",
-    "iconsFolderName": "iconsData",
     "completeIconSetName": "iconSet",
     "exportCompleteIconSet": true,
     "delimiter": "CAMEL"
