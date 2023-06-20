@@ -86,4 +86,50 @@ describe('<Checkbox />', () => {
     cy.get('input[type="checkbox"]').should('be.checked')
     cy.get('[data-cy="result"]').should('contain', 'isChecked = true')
   })
+
+  it("renders vModel when it's an array", () => {
+    const checkedValues = ref([])
+    mount(() => {
+      return (
+        <div>
+          <Checkbox
+            name="first-checkbox"
+            label="First checkbox"
+            v-model={checkedValues.value}
+            class="px-2 py-1 m-2 border border-gray-300 rounded"
+          />
+          <Checkbox
+            name="second-checkbox"
+            label="Second checkbox"
+            v-model={checkedValues.value}
+            class="px-2 py-1 m-2 border border-gray-300 rounded"
+          />
+          <Checkbox
+            name="third-checkbox"
+            label="Third checkbox"
+            v-model={checkedValues.value}
+            class="px-2 py-1 m-2 border border-gray-300 rounded"
+          />
+          <div
+            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            data-cy="result"
+          >
+            {JSON.stringify(checkedValues.value)}
+          </div>
+        </div>
+      )
+    })
+
+    cy.get('[data-cy="result"]').should('contain', '[]')
+    cy.contains('First checkbox').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.get('[data-cy="result"]').should('contain', '["first-checkbox"]')
+    cy.contains('Second checkbox').click()
+    cy.get('[data-cy="result"]').should(
+      'contain',
+      '["first-checkbox","second-checkbox"]'
+    )
+    cy.contains('Second checkbox').click()
+    cy.get('[data-cy="result"]').should('contain', '["first-checkbox"]')
+  })
 })

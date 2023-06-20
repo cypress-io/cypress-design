@@ -29,7 +29,7 @@
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "postcss": "^8.4.24",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.62.1"
+    "sass": "^1.63.4"
   },
   "license": "MIT"
 }

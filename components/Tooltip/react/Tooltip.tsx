@@ -5,6 +5,7 @@ import {
   offset,
   flip,
   arrow,
+  shift,
   autoUpdate,
   useFloating,
   useInteractions,
@@ -104,6 +105,7 @@ export const Tooltip: React.FC<
         : flip(),
       offset(interactive ? 0 : 16),
       arrow({ element: arrowRef, padding: 24 }),
+      shift({ padding: 16 }),
     ],
     whileElementsMounted: autoUpdate,
   })

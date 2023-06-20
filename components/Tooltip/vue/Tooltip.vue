@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { Placement, Side } from '@floating-ui/dom'
+import type { Placement } from '@floating-ui/dom'
 import useTooltips from './useTooltip'
 import type { Ref } from 'vue'
 import { watch, computed, ref, onBeforeMount } from 'vue'
