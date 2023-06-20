@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, h } from 'vue'
 import Tabs from '@cypress-design/vue-tabs'
+import { Tab } from '@cypress-design/constants-tabs'
 import ReactIcon from './react.svg'
 import VueIcon from './vue.svg'
 
@@ -34,6 +35,6 @@ const links = computed(() => [
     class="px-[16px]"
     variant="underline-large"
     :tabs="links"
-    @switch="(tab) => emit('switch', tab.id as any)"
+    @switch="(tab:Tab) => emit('switch', tab.id as any)"
   />
 </template>
