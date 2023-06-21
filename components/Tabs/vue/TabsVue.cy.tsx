@@ -6,7 +6,11 @@ import type { Tab, variants } from '../constants'
 
 describe('<Tabs/>', () => {
   function mountStory(
-    options: { tabs: Tab[]; variant?: keyof typeof variants } = { tabs: [] }
+    options: {
+      tabs: Tab[]
+      activeId?: string
+      variant?: keyof typeof variants
+    } = { tabs: [] }
   ) {
     mount(() => (
       <div class="m-4">

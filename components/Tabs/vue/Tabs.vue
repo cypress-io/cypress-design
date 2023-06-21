@@ -9,6 +9,10 @@ const props = withDefaults(
      */
     tabs: Tab[]
     /**
+     * The active tab
+     */
+    activeId?: string
+    /**
      * Appearance of tabs
      */
     variant?: keyof typeof variants
@@ -26,9 +30,10 @@ const emit = defineEmits<{
    * @param tab new tab selected
    */
   (event: 'switch', tab: Tab): void
+  (event: 'update:activeId', tab: string): void
 }>()
 
-const activeId = ref(props.tabs.find((tab) => tab.active)?.id)
+const activeId = ref(props.activeId ?? props.tabs.find((tab) => tab.active)?.id)
 
 const activeMarkerStyle = ref<
   { left?: string; width?: string; transitionProperty?: string } | undefined
@@ -73,6 +78,7 @@ function navigate(shift: number) {
       : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
   $tab.value?.[nextIndex]?.focus()
+  emit('update:activeId', props.tabs[nextIndex].id)
   emit('switch', props.tabs[nextIndex])
 }
 

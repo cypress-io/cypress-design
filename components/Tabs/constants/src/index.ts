@@ -11,6 +11,7 @@ export interface Tab {
   /**
    * is the tab active
    * (multiple tabs can be active at the same time)
+   * @deprecated use `activeId` prop instead
    */
   active?: boolean
   /**

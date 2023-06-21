@@ -8,7 +8,11 @@ import assertions from '../assertions'
 
 describe('Tabs', () => {
   function mountStory(
-    options: { tabs: Tab[]; variant?: keyof typeof variants } = { tabs: [] }
+    options: {
+      tabs: Tab[]
+      activeId?: string
+      variant?: keyof typeof variants
+    } = { tabs: [] }
   ) {
     mount(
       <div className="m-4">
