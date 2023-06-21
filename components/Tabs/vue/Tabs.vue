@@ -35,6 +35,13 @@ const emit = defineEmits<{
 
 const activeId = ref(props.activeId ?? props.tabs.find((tab) => tab.active)?.id)
 
+watch(
+  () => props.activeId,
+  (id) => {
+    activeId.value = id
+  }
+)
+
 const activeMarkerStyle = ref<
   { left?: string; width?: string; transitionProperty?: string } | undefined
 >()

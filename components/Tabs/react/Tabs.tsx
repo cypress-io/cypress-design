@@ -34,6 +34,12 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     activeIdProp || tabs.find((tab) => tab.active)?.id
   )
 
+  React.useEffect(() => {
+    if (mounted && activeIdProp) {
+      setActiveId(activeIdProp)
+    }
+  }, [activeIdProp])
+
   const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
   const [activeMarkerStyle, setActiveMarkerStyle] = React.useState<{

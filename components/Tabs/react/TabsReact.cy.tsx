@@ -21,4 +21,34 @@ describe('Tabs', () => {
     )
   }
   assertions(mountStory)
+
+  describe('React specific', () => {
+    it('updates the active tab', () => {
+      const ComponentTested = () => {
+        const [activeId, setActiveId] = React.useState('ia')
+        return (
+          <div className="m-4">
+            <Tabs
+              tabs={[
+                { id: 'ia', label: 'Initial Active' },
+                { id: 'fa', label: 'Final Active' },
+              ]}
+              activeId={activeId}
+            />
+            <div>
+              <button id="change" onClick={() => setActiveId('fa')}>
+                Change
+              </button>
+            </div>
+          </div>
+        )
+      }
+
+      mount(<ComponentTested />)
+
+      cy.get('[aria-selected="true"]').should('contain.text', 'Initial Active')
+      cy.findByRole('button', { name: 'Change' }).click()
+      cy.get('[aria-selected="true"]').should('contain.text', 'Final Active')
+    })
+  })
 })
