@@ -98,4 +98,19 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
   }
 
   assertions(mountStory, 'react')
+
+  it('forceOpen', () => {
+    mount(
+      <div className="text-center">
+        <Tooltip
+          className="border inline-block m-16 p-3"
+          popper="should be visible"
+          forceOpen
+        >
+          make sure its open
+        </Tooltip>
+      </div>
+    )
+    cy.findByText('should be visible').should('be.visible')
+  })
 })

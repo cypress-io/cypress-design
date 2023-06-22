@@ -38,13 +38,13 @@ jobs:
         run: yarn eslint .
 
       - name: Run Eslint Plugin Tests
-        run: yarn test:eslint-plugin      
+        run: yarn test:eslint-plugin
 
       - name: Generate icon files
         run: |
           yarn turbo run build --filter=@cypress-design/css
-          yarn workspace @cypress-design/icon-registry run build:svg
-          yarn workspace @cypress-design/icon-registry run build:icons 
+          yarn workspace @cypress-design/icon-registry svg-to-ts-constants
+          yarn workspace @cypress-design/icon-registry node ./build-icons.mjs
 
       - name: Run Unit Tests
         run: yarn test
@@ -56,7 +56,7 @@ jobs:
         run: |
           yarn vue-tsc --noEmit -p . 
           yarn tsc --noEmit --project ./tsconfig.react.json
-          yarn vue-tsc --noEmit --project ./tsconfig.vue.json 
+          yarn vue-tsc --noEmit --project ./tsconfig.vue.json
 
       # run cypress component tests
       - name: Cypress run CT
