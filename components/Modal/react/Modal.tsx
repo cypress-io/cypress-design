@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
-import clsx from 'clsx'
 import {
   IconActionQuestionMarkCircle,
   IconActionDelete,
@@ -50,56 +49,52 @@ export const Modal: React.FC<ModalProps> = ({
   )
 
   return (
-    <>
-      {createPortal(
-        <div>
-          {show ? (
-            <div className={ClassBackDrop} onClick={() => onClose?.()}></div>
-          ) : null}
-          {show ? (
-            <div
-              className={ClassModalContainer}
-              tabIndex={-1}
-              aria-modal="true"
-              role="modal"
-            >
-              <div className={ClassModal}>
-                <div className={ClassTitleBox}>
-                  <div className={ClassTitle}>{title}</div>
-                  {helpLink ? <div className={ClassHelpLinkDash} /> : null}
-                  {helpLink ? (
-                    <a href={helpLink} className={ClassHelpLink}>
-                      Need help
-                      <IconActionQuestionMarkCircle
-                        className="ml-[4px]"
-                        stroke-color="indigo-500"
-                        fill-color="indigo-100"
-                      />
-                    </a>
-                  ) : null}
+    show &&
+    createPortal(
+      <div>
+        <div className={ClassBackDrop} onClick={() => onClose?.()}></div>
 
-                  <div className="grow" />
-                  <button
-                    aria-label="Close"
-                    className={ClassCloseButton}
-                    onClick={() => onClose?.()}
-                  >
-                    <IconActionDelete
-                      className="children:transition-all"
-                      stroke-color="gray-400"
-                      hover-stroke-color="gray-700"
-                      interactiveColorsOnGroup
-                    />
-                  </button>
-                </div>
-                <div className={ClassContent}>{children}</div>
-              </div>
+        <div
+          className={ClassModalContainer}
+          tabIndex={-1}
+          aria-modal="true"
+          role="modal"
+        >
+          <div className={ClassModal}>
+            <div className={ClassTitleBox}>
+              <div className={ClassTitle}>{title}</div>
+              {helpLink ? <div className={ClassHelpLinkDash} /> : null}
+              {helpLink ? (
+                <a href={helpLink} className={ClassHelpLink}>
+                  Need help
+                  <IconActionQuestionMarkCircle
+                    className="ml-[4px]"
+                    stroke-color="indigo-500"
+                    fill-color="indigo-100"
+                  />
+                </a>
+              ) : null}
+
+              <div className="grow" />
+              <button
+                aria-label="Close"
+                className={ClassCloseButton}
+                onClick={() => onClose?.()}
+              >
+                <IconActionDelete
+                  className="children:transition-all"
+                  stroke-color="gray-400"
+                  hover-stroke-color="gray-700"
+                  interactiveColorsOnGroup
+                />
+              </button>
             </div>
-          ) : null}
-        </div>,
-        document.body
-      )}
-    </>
+            <div className={ClassContent}>{children}</div>
+          </div>
+        </div>
+      </div>,
+      document.body
+    )
   )
 }
 

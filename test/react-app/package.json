@@ -10,8 +10,9 @@
   "dependencies": {
     "@cypress-design/react-checkbox": "*",
     "@cypress-design/react-icon": "*",
-    "@cypress-design/react-spinner": "*",
     "@cypress-design/react-modal": "*",
+    "@cypress-design/react-spinner": "*",
+    "@cypress-design/react-tooltip": "*",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
     "react": "18",
