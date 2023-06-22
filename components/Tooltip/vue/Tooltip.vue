@@ -2,7 +2,7 @@
 import type { Placement, Side } from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow, shift } from '@floating-ui/dom'
 import type { Ref } from 'vue'
-import { watch, computed, ref, onBeforeMount } from 'vue'
+import { watch, computed, ref, onBeforeMount, onMounted } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -27,6 +27,11 @@ const props = withDefaults(
      * If set, the tooltip will always respect the given placement
      */
     forcePlacement?: boolean
+    /**
+     * Make sure the tooltip stays always open.
+     * This is useful for debugging.
+     */
+    forceOpen?: boolean
   }>(),
   {
     color: 'light',
@@ -106,6 +111,7 @@ watch(
 async function placeTooltip() {
   if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value)
     return
+
   const {
     x,
     y,
@@ -156,6 +162,18 @@ async function placeTooltip() {
 
   show.value = true
 }
+
+onMounted(() => {
+  watch(
+    () => props.forceOpen,
+    (forceOpen) => {
+      if (forceOpen) {
+        placeTooltip()
+      }
+    },
+    { immediate: true }
+  )
+})
 </script>
 
 <template>
@@ -186,7 +204,8 @@ async function placeTooltip() {
             invisible:
               !show &&
               positionComputed &&
-              !(tooltipHovered && props.interactive),
+              !(tooltipHovered && props.interactive) &&
+              !forceOpen,
             '-top-[10000px] invisible': !positionComputed,
           },
           props.interactive ? 'p-[16px]' : undefined,
