@@ -1,6 +1,5 @@
 import clsx from 'clsx'
 import * as React from 'react'
-import { createPortal } from 'react-dom'
 import {
   Placement,
   offset,
@@ -15,6 +14,7 @@ import {
   useRole,
   useDismiss,
   safePolygon,
+  FloatingPortal,
 } from '@floating-ui/react-dom-interactions'
 
 export interface TooltipProps {
@@ -159,10 +159,9 @@ export const Tooltip: React.FC<
       >
         {children}
       </div>
-      {disabled
-        ? null
-        : open &&
-          createPortal(
+      {disabled ? null : (
+        <FloatingPortal>
+          {open && (
             <div
               {...getFloatingProps({
                 ref: floating,
@@ -215,9 +214,10 @@ export const Tooltip: React.FC<
                   {popper}
                 </div>
               </div>
-            </div>,
-            document.body
+            </div>
           )}
+        </FloatingPortal>
+      )}
     </>
   )
 }
