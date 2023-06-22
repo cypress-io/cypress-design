@@ -70,19 +70,6 @@ export const Tooltip: React.FC<
   const arrowRef = React.useRef(null)
   const [open, setOpen] = React.useState(false)
 
-  const [container] = React.useState(() => {
-    // This will be executed only on the initial render
-    // https://reactjs.org/docs/hooks-reference.html#lazy-initial-state
-    return document.createElement('div')
-  })
-
-  React.useEffect(() => {
-    document.body.appendChild(container)
-    return () => {
-      document.body.removeChild(container)
-    }
-  }, [])
-
   const {
     x,
     y,
