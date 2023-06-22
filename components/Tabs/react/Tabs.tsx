@@ -8,6 +8,10 @@ export interface TabsProps {
    */
   tabs: Tab[]
   /**
+   * The id of the active tab
+   */
+  activeId?: string
+  /**
    * Appearance of tabs
    */
   variant?: keyof typeof variants
@@ -22,12 +26,19 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   tabs,
   onSwitch,
   variant = 'default',
+  activeId: activeIdProp,
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
   const [activeId, setActiveId] = React.useState(
-    tabs.find((tab) => tab.active)?.id
+    activeIdProp || tabs.find((tab) => tab.active)?.id
   )
+
+  React.useEffect(() => {
+    if (mounted && activeIdProp) {
+      setActiveId(activeIdProp)
+    }
+  }, [activeIdProp])
 
   const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
