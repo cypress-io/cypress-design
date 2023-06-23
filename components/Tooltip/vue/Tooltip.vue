@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { Placement } from '@floating-ui/dom'
-import useTooltips from './useTooltip'
+import useTooltips from '@cypress-design/place-floating-vue'
 import type { Ref } from 'vue'
 import { watch, computed, ref, onBeforeMount, onMounted } from 'vue'
 

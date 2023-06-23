@@ -1,4 +1,4 @@
-import { type Ref, computed, ref } from 'vue'
+import { Ref, computed, ref } from 'vue'
 import type { Placement, Side } from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow } from '@floating-ui/dom'
 

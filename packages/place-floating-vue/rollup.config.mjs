@@ -27,4 +27,5 @@ export default {
       sourceMap: true,
     }),
   ],
+  external: ['@floating-ui/dom', 'vue'],
 }
