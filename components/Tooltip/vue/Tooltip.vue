@@ -2,7 +2,7 @@
 import type { Placement } from '@floating-ui/dom'
 import useTooltips from './useTooltip'
 import type { Ref } from 'vue'
-import { watch, computed, ref, onBeforeMount } from 'vue'
+import { watch, computed, ref, onBeforeMount, onMounted } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -97,6 +97,18 @@ watch(
     }
   }
 )
+
+onMounted(() => {
+  watch(
+    () => props.forceOpen,
+    (forceOpen) => {
+      if (forceOpen) {
+        placeTooltip()
+      }
+    },
+    { immediate: true }
+  )
+})
 </script>
 
 <template>
