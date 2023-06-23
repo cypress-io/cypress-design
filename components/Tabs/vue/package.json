@@ -20,7 +20,8 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-tabs": "*"
+    "@cypress-design/constants-tabs": "*",
+    "@cypress-design/place-floating-vue": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
