@@ -1,17 +1,15 @@
-import clsx from 'clsx'
+/// <reference types="cypress" />
+import { mount } from 'cypress/vue'
+import { ColorClasses, SizeClasses } from '@cypress-design/constants-tag'
+import assertions from '../assertions'
 import Tag from './Tag.vue'
-import { SizeClasses, ColorClasses } from '../constants'
 
-export default () => (
+const TagStory = () => (
   <div class="flex flex-row flex-wrap items-start justify-center bg-gray-700 gap-6">
     {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
       (size) => {
         return (
-          <div
-            class={clsx(
-              'flex flex-col items-center gap-3 justify-center my-4 p-4 bg-white rounded-lg'
-            )}
-          >
+          <div class="flex flex-col items-center gap-3 justify-center my-4 p-4 bg-white rounded-lg">
             <h3 class="text-right">{size}</h3>
             {(Object.keys(ColorClasses) as Array<keyof typeof ColorClasses>)
               .reverse()
@@ -37,3 +35,10 @@ export default () => (
     )}
   </div>
 )
+
+describe('<Tag/>', () => {
+  function mountStory() {
+    mount(() => <TagStory />)
+  }
+  assertions(mountStory)
+})
