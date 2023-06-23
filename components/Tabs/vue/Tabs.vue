@@ -5,7 +5,7 @@ import {
   variants,
   overflowContainerClass,
 } from '@cypress-design/constants-tabs'
-import Tab from './Tab.vue'
+import Tab from './_Tab.vue'
 
 const props = withDefaults(
   defineProps<{
