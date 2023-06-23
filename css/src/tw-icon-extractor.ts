@@ -10,12 +10,12 @@ import defaultExtractor from './tw-default-extractor'
 const { camelCase } = _
 
 export function getHtmlAttributes(line: string) {
-  const attributes = line.match(/([\w-]+)=["']?([^"']*)["']?/g)
+  const attributes = line.matchAll(/([\w-]+)=\{?["']?([^"']*)["']\}?/g)
   if (!attributes) return null
-  const names = attributes.map((attr) => camelCase(attr.split('=')[0]))
-  const values = attributes.map((attr) =>
-    attr.split('=')[1].replace(/['"]/g, '')
-  )
+  const attributesArray = Array.from(attributes)
+  if (!attributesArray.length) return null
+  const names = attributesArray.map((attr) => camelCase(attr[1]))
+  const values = attributesArray.map((attr) => attr[2])
   return { names, values }
 }
 

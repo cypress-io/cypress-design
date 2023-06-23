@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
-import TooltipStory from './Tooltip.vue'
 import assertions from '../assertions'
 
 import type { Placement } from '@floating-ui/dom'
@@ -109,4 +108,18 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   }
 
   assertions(mountStory, 'vue')
+
+  it('forceOpen', () => {
+    mount(() => (
+      <div class="text-center">
+        <Tooltip class="border inline-block m-16 p-3" forceOpen>
+          {{
+            default: () => 'make sure its open',
+            popper: () => <div>should be visible</div>,
+          }}
+        </Tooltip>
+      </div>
+    ))
+    cy.findByText('should be visible').should('be.visible')
+  })
 })

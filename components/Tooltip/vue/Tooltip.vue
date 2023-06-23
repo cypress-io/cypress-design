@@ -27,6 +27,11 @@ const props = withDefaults(
      * If set, the tooltip will always respect the given placement
      */
     forcePlacement?: boolean
+    /**
+     * Make sure the tooltip stays always open.
+     * This is useful for debugging.
+     */
+    forceOpen?: boolean
   }>(),
   {
     color: 'light',
@@ -118,7 +123,8 @@ watch(
             invisible:
               !show &&
               positionComputed &&
-              !(tooltipHovered && props.interactive),
+              !(tooltipHovered && props.interactive) &&
+              !forceOpen,
             '-top-[10000px] invisible': !positionComputed,
           },
           props.interactive ? 'p-[16px]' : undefined,

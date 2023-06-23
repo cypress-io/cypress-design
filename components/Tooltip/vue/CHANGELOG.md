@@ -1,5 +1,11 @@
 # @cypress-design/vue-tooltip
 
+## 0.7.0
+
+### Minor Changes
+
+- [#265](https://github.com/cypress-io/cypress-design/pull/265) [`a69b7ee`](https://github.com/cypress-io/cypress-design/commit/a69b7ee3e7ca0900362b463f9925ba6ff6f4332f) Thanks [@elevatebart](https://github.com/elevatebart)! - add forceOpen prop
+
 ## 0.6.3
 
 ### Patch Changes

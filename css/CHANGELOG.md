@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.14.0
+
+### Minor Changes
+
+- [#266](https://github.com/cypress-io/cypress-design/pull/266) [`c573e4f`](https://github.com/cypress-io/cypress-design/commit/c573e4ff978f6fd98ef8f9967742b062d81fb07f) Thanks [@elevatebart](https://github.com/elevatebart)! - parse icons with curlies in color
+
 ## 0.13.4
 
 ### Patch Changes

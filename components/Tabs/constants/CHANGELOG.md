@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.3.0
+
+### Minor Changes
+
+- [#267](https://github.com/cypress-io/cypress-design/pull/267) [`dd57623`](https://github.com/cypress-io/cypress-design/commit/dd57623479470aaa0616dda02f59c6011cb2cd78) Thanks [@elevatebart](https://github.com/elevatebart)! - move active status of tabs to a prop of the component
+
 ## 0.2.0
 
 ### Minor Changes
