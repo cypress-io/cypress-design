@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
+import clsx from 'clsx'
 import {
   IconActionQuestionMarkCircle,
   IconActionDelete,
@@ -11,6 +12,8 @@ import {
   ClassHelpLink,
   ClassHelpLinkDash,
   ClassModal,
+  ClassModalFullscreenDimensions,
+  ClassModalStandardDimensions,
   ClassModalContainer,
   ClassTitle,
   ClassTitleBox,
@@ -24,6 +27,7 @@ export interface ModalProps {
   children?: React.ReactNode
   show?: boolean
   onClose?: () => void
+  fullscreen?: boolean
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -32,6 +36,7 @@ export const Modal: React.FC<ModalProps> = ({
   helpLink,
   onClose,
   children,
+  fullscreen = false,
 }) => {
   React.useEffect(() => {
     if (show) {
@@ -60,7 +65,14 @@ export const Modal: React.FC<ModalProps> = ({
           aria-modal="true"
           role="modal"
         >
-          <div className={ClassModal}>
+          <div
+            className={clsx(
+              ClassModal,
+              fullscreen
+                ? ClassModalFullscreenDimensions
+                : ClassModalStandardDimensions
+            )}
+          >
             <div className={ClassTitleBox}>
               <div className={ClassTitle}>{title}</div>
               {helpLink ? <div className={ClassHelpLinkDash} /> : null}
