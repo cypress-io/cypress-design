@@ -99,7 +99,7 @@ export default function useTooltips({
 
   const tooltipStyle = computed(() =>
     positionComputed.value
-      ? `top:${top.value}px!important;left:${left.value}px!important;`
+      ? { top: `${top.value}px!important`, left: `${left.value}px!important;` }
       : undefined
   )
 

@@ -15,6 +15,7 @@ import {
 } from '@cypress-design/constants-tabs'
 import useTooltips from '@cypress-design/place-floating-vue'
 import { IconMenuDotsVertical } from '@cypress-design/vue-icon'
+import { onClickOutside } from '@vueuse/core'
 import Tab from './_Tab.vue'
 
 const props = withDefaults(
@@ -169,6 +170,10 @@ const {
   },
 })
 
+const boxStyle = computed(() => {
+  return showOverflowMenu.value ? tooltipStyle.value : { top: '-9999px' }
+})
+
 const visibleTabs = computed(() => props.tabs.slice(0, firstVisibleIndex.value))
 const dropdownTabs = computed(() => props.tabs.slice(firstVisibleIndex.value))
 
@@ -217,6 +222,11 @@ async function getTarget() {
     document.body.appendChild(portalTargetLocal)
   }
 }
+
+// on click outside of overflow menu, close it
+onClickOutside($overflowMenu, () => {
+  showOverflowMenu.value = false
+})
 </script>
 
 <template>
@@ -251,9 +261,11 @@ async function getTarget() {
             [classes.active]: activeIndex > firstVisibleIndex,
           },
         ]"
+        :aria-selected="activeIndex > firstVisibleIndex"
         @click="placeTooltip()"
       >
         <IconMenuDotsVertical />
+        <span class="sr-only">Show more tabs</span>
       </button>
 
       <template v-if="activeMarkerStyle">
@@ -270,12 +282,12 @@ async function getTarget() {
     <teleport v-if="firstVisibleIndex < tabs.length - 1" to="#portal-target">
       <div
         ref="$overflowMenu"
-        class="w-[300px] absolute border border-gray-100 rounded bg-white shadow-lg"
+        class="min-w-[250px] absolute"
         :class="{
-          invisible: !showOverflowMenu && positionComputed,
-          '-top-[10000px] invisible': !positionComputed,
+          '-top-[10000px] invisible': !showOverflowMenu,
+          'top-0 visible': showOverflowMenu,
         }"
-        :style="tooltipStyle"
+        :style="boxStyle"
       >
         <svg
           ref="$arrowRef"
@@ -299,21 +311,29 @@ async function getTarget() {
             stroke-width="2"
           />
         </svg>
-        <button
-          v-for="tab in dropdownTabs"
-          class="block px-[16px] py-[8px] relative"
-          @click="
+        <div class="border border-gray-100 rounded bg-white shadow-lg">
+          <button
+            v-for="tab in dropdownTabs"
+            class="block px-[16px] py-[8px] relative"
+            @click="
             (e: MouseEvent) => {
+              // if user wants to open tab in new window, 
+              // avoid switching tabs on the current page
               if(e.ctrlKey || e.metaKey) return
+              // else switch tabs and avoid page reload
               e.preventDefault()
               activeId = tab.id
               emit('switch', tab)
             }"
-        >
-          {{ tab.label }}
+          >
+            {{ tab.label }}
 
-          <div v-if="tab.id === activeId" :class="classes.activeMarkerStatic" />
-        </button>
+            <div
+              v-if="tab.id === activeId"
+              :class="classes.activeMarkerStatic"
+            />
+          </button>
+        </div>
       </div>
     </teleport>
   </div>

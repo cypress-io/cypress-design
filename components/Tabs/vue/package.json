@@ -24,7 +24,8 @@
     "@cypress-design/place-floating-vue": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@vueuse/core": "*"
   },
   "license": "MIT"
 }

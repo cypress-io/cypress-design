@@ -1951,6 +1951,16 @@
     "@volar/typescript" "1.7.8"
     "@vue/language-core" "1.8.1"
 
+"@vueuse/core@*", "@vueuse/core@10.2.0":
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-10.2.0.tgz#65cf5222bf0178ff5ddec20a113d7ca6c30481e1"
+  integrity sha512-aHBnoCteIS3hFu7ZZkVB93SanVDY6t4TIb7XDLxJT/HQdAZz+2RdIEJ8rj5LUoEJr7Damb5+sJmtpCwGez5ozQ==
+  dependencies:
+    "@types/web-bluetooth" "^0.0.17"
+    "@vueuse/metadata" "10.2.0"
+    "@vueuse/shared" "10.2.0"
+    vue-demi ">=0.14.5"
+
 "@vueuse/core@10.1.2", "@vueuse/core@^10.1.2":
   version "10.1.2"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-10.1.2.tgz#2499eadec36c5d7109338e3a2b73725040ae8011"
@@ -1960,16 +1970,6 @@
     "@vueuse/metadata" "10.1.2"
     "@vueuse/shared" "10.1.2"
     vue-demi ">=0.14.0"
-
-"@vueuse/core@10.2.0":
-  version "10.2.0"
-  resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-10.2.0.tgz#65cf5222bf0178ff5ddec20a113d7ca6c30481e1"
-  integrity sha512-aHBnoCteIS3hFu7ZZkVB93SanVDY6t4TIb7XDLxJT/HQdAZz+2RdIEJ8rj5LUoEJr7Damb5+sJmtpCwGez5ozQ==
-  dependencies:
-    "@types/web-bluetooth" "^0.0.17"
-    "@vueuse/metadata" "10.2.0"
-    "@vueuse/shared" "10.2.0"
-    vue-demi ">=0.14.5"
 
 "@vueuse/integrations@^10.1.2":
   version "10.1.2"

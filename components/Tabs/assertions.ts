@@ -65,15 +65,46 @@ export default function assertions(
       })
     })
 
-    it(
-      'displays active tab when tabs are overflowing',
-      { viewportHeight: 500 },
-      () => {
-        mountStory({
-          tabs: longTabs,
-          // variant: 'underline-small',
-        })
-      }
-    )
+    describe('overflowing tabs', () => {
+      it(
+        'displays ellipsis when tabs are overflowing',
+        { viewportHeight: 500 },
+        () => {
+          mountStory({
+            tabs: longTabs,
+            // variant: 'underline-small',
+          })
+          cy.findByText('Show more tabs').should('exist')
+        }
+      )
+
+      it(
+        'displays ellipsis as active tab when tabs are overflowing',
+        { viewportHeight: 500 },
+        () => {
+          mountStory({
+            tabs: longTabs,
+            // variant: 'underline-small',
+          })
+          cy.contains('button', 'Show more tabs').should(
+            'have.attr',
+            'aria-selected'
+          )
+        }
+      )
+
+      it(
+        'displays active tab when tabs are overflowing',
+        { viewportHeight: 500 },
+        () => {
+          mountStory({
+            tabs: longTabs,
+            // variant: 'underline-small',
+          })
+          cy.findByText('Show more tabs').click({ force: true })
+          cy.findByText('Overview').click()
+        }
+      )
+    })
   })
 }
