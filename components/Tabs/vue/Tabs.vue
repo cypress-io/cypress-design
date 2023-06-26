@@ -1,13 +1,29 @@
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { Tab, variants } from '@cypress-design/constants-tabs'
+import {
+  computed,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from 'vue'
+import {
+  Tab as TabConfig,
+  variants,
+  overflowContainerClass,
+} from '@cypress-design/constants-tabs'
+import useTooltips from '@cypress-design/place-floating-vue'
+import { IconMenuDotsVertical } from '@cypress-design/vue-icon'
+import { onClickOutside } from '@vueuse/core'
+import Tab from './_Tab.vue'
 
 const props = withDefaults(
   defineProps<{
     /**
      * The tabs to display
      */
-    tabs: Tab[]
+    tabs: TabConfig[]
     /**
      * The active tab
      */
@@ -22,14 +38,18 @@ const props = withDefaults(
   }
 )
 
-const $tab = ref<HTMLButtonElement[]>()
+const $tab = ref<(typeof Tab)[]>()
+const $overflowContainer = ref<HTMLDivElement | null>(null)
+const $overflowButton = ref<HTMLButtonElement | null>(null)
+const $overflowMenu = ref<HTMLDivElement | null>(null)
+const $arrowRef = ref<HTMLElement | null>(null)
 
 const emit = defineEmits<{
   /**
    * A tab is changed
    * @param tab new tab selected
    */
-  (event: 'switch', tab: Tab): void
+  (event: 'switch', tab: TabConfig): void
   (event: 'update:activeId', tab: string): void
 }>()
 
@@ -43,17 +63,78 @@ watch(
 )
 
 const activeMarkerStyle = ref<
-  { left?: string; width?: string; transitionProperty?: string } | undefined
+  | {
+      left?: string
+      width?: string
+      transitionProperty?: string
+    }
+  | undefined
 >()
 
+const activeTab = computed(() => {
+  const activeIndex = props.tabs.findIndex((tab) => tab.id === activeId.value)
+  if (activeIndex > -1) {
+    const activeTab = $tab.value?.[activeIndex]?.$el as HTMLElement
+    return activeTab
+  }
+})
+
+const activeIndex = computed(() =>
+  props.tabs.findIndex((tab) => tab.id === activeId.value)
+)
+
+const firstVisibleIndex = ref(10000)
+
+function calcFirstVisibleTabIndex() {
+  if ($tab.value) {
+    // find the index of the first element
+    // visible in the overflow container
+    const containerRect = $overflowContainer.value?.getBoundingClientRect()
+    const cloneTabReversed = [...$tab.value].reverse()
+    const reverseIndex = cloneTabReversed.findIndex((tab) => {
+      return tab.$el.getBoundingClientRect().right < (containerRect?.right ?? 0)
+    })
+    firstVisibleIndex.value = props.tabs.length - reverseIndex
+  }
+}
+
+onUnmounted(() => {
+  window.removeEventListener('resize', calcFirstVisibleTabIndex)
+})
+
 onMounted(() => {
+  calcFirstVisibleTabIndex()
+
+  window.addEventListener('resize', calcFirstVisibleTabIndex)
+
   watch(
-    activeId,
-    (id) => {
-      const activeIndex = props.tabs.findIndex((tab) => tab.id === id)
-      if (activeIndex > -1) {
-        const activeTab = $tab.value?.[activeIndex]
-        if (activeTab) {
+    () => props.tabs,
+    () => {
+      calcFirstVisibleTabIndex()
+    },
+    { deep: true }
+  )
+
+  watch(
+    activeTab,
+    (activeTab) => {
+      if (activeTab) {
+        // get active tab index
+
+        if (activeIndex.value >= firstVisibleIndex.value) {
+          // we need to wait for the button to appear
+          // before knowing its position
+          nextTick(() => {
+            const activeButton = $overflowButton.value
+            if (activeButton) {
+              activeMarkerStyle.value = {
+                ...activeMarkerStyle.value,
+                left: `${activeButton.offsetLeft}px`,
+                width: `${activeButton.offsetWidth}px`,
+              }
+            }
+          })
+        } else {
           activeMarkerStyle.value = {
             ...activeMarkerStyle.value,
             left: `${activeTab.offsetLeft}px`,
@@ -74,6 +155,28 @@ onMounted(() => {
   })
 })
 
+const {
+  placeTooltip,
+  show: showOverflowMenu,
+  arrowStyle,
+  tooltipStyle,
+  positionComputed,
+} = useTooltips({
+  reference: $overflowButton,
+  tooltip: $overflowMenu,
+  arrowRef: $arrowRef,
+  props: {
+    placement: 'bottom-end',
+  },
+})
+
+const boxStyle = computed(() => {
+  return showOverflowMenu.value ? tooltipStyle.value : { top: '-9999px' }
+})
+
+const visibleTabs = computed(() => props.tabs.slice(0, firstVisibleIndex.value))
+const dropdownTabs = computed(() => props.tabs.slice(firstVisibleIndex.value))
+
 function navigate(shift: number) {
   const shiftedIndex =
     props.tabs.findIndex((tab) => tab.id === activeId.value) + shift
@@ -84,7 +187,7 @@ function navigate(shift: number) {
       ? 0
       : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
-  $tab.value?.[nextIndex]?.focus()
+  $tab.value?.[nextIndex]?.$el.focus()
   emit('update:activeId', props.tabs[nextIndex].id)
   emit('switch', props.tabs[nextIndex])
 }
@@ -102,66 +205,136 @@ const iconProps = computed(() => {
   }
   return variants.default.icon
 })
+
+onBeforeMount(async () => {
+  await getTarget()
+})
+
+async function getTarget() {
+  let portalTargetLocal = document.getElementById('portal-target')
+  if (!portalTargetLocal) {
+    portalTargetLocal = document.createElement('div')
+    portalTargetLocal.id = 'portal-target'
+    portalTargetLocal.style.position = 'absolute'
+    portalTargetLocal.style.top = '0'
+    portalTargetLocal.style.left = '0'
+    portalTargetLocal.style.zIndex = '10000'
+    document.body.appendChild(portalTargetLocal)
+  }
+}
+
+// on click outside of overflow menu, close it
+onClickOutside($overflowMenu, () => {
+  showOverflowMenu.value = false
+})
 </script>
 
 <template>
-  <div role="tablist" :class="classes.wrapper">
-    <component
-      v-for="tab in tabs"
-      :key="tab.id"
-      :is="tab.href ? 'a' : 'button'"
-      :href="tab.href"
-      ref="$tab"
-      role="tab"
-      :tabindex="tab.id === activeId ? undefined : -1"
-      :aria-selected="tab.id === activeId ? true : undefined"
-      :class="[
-        classes.button,
-        {
-          [classes.activeStatic]: tab.id === activeId && !activeMarkerStyle,
-          [classes.active]: tab.id === activeId,
-          [classes.inActive]: tab.id !== activeId,
-        },
-      ]"
-      @click="
+  <div ref="$overflowContainer" :class="overflowContainerClass">
+    <div role="tablist" :class="classes.wrapper">
+      <Tab
+        v-for="tab in visibleTabs"
+        :key="tab.id"
+        ref="$tab"
+        :iconProps="iconProps"
+        :activeMarkerStyle="!!activeMarkerStyle"
+        :classes="classes"
+        :tab="tab"
+        :activeId="activeId"
+        @back="navigate(-1)"
+        @forward="navigate(1)"
+        @click="
         (e: MouseEvent) => {
           if(e.ctrlKey || e.metaKey) return
           e.preventDefault()
           activeId = tab.id
           emit('switch', tab)
-        }
-      "
-      @keyup.left="navigate(-1)"
-      @keyup.right="navigate(1)"
-    >
-      <component
-        v-if="tab.iconBefore ?? tab.icon"
-        :is="tab.iconBefore ?? tab.icon"
-        v-bind="iconProps"
-        class="mr-[8px]"
+        }"
       />
-      {{ tab.label }}
-      <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
-      <component
-        v-if="tab.iconAfter"
-        :is="tab.iconAfter"
-        v-bind="iconProps"
-        class="ml-[8px]"
-      />
+      <button
+        v-if="firstVisibleIndex < tabs.length - 1"
+        ref="$overflowButton"
+        :class="[
+          'w-[24px] h-[24px] flex items-center justify-center rounded',
+          {
+            [classes.inActive]: activeIndex <= firstVisibleIndex,
+            [classes.active]: activeIndex > firstVisibleIndex,
+          },
+        ]"
+        :aria-selected="activeIndex > firstVisibleIndex"
+        @click="placeTooltip()"
+      >
+        <IconMenuDotsVertical />
+        <span class="sr-only">Show more tabs</span>
+      </button>
+
+      <template v-if="activeMarkerStyle">
+        <div
+          :class="[classes.activeMarker, classes.activeMarkerColor]"
+          :style="activeMarkerStyle"
+        />
+        <div
+          :class="[classes.activeMarker, classes.activeMarkerBlender]"
+          :style="activeMarkerStyle"
+        />
+      </template>
+    </div>
+    <teleport v-if="firstVisibleIndex < tabs.length - 1" to="#portal-target">
       <div
-        v-if="tab.id === activeId && !activeMarkerStyle"
-        :class="classes.activeMarkerStatic"
-      />
-    </component>
-    <template v-if="activeMarkerStyle">
-      <div
-        :class="[classes.activeMarker, classes.activeMarkerColor]"
-        :style="activeMarkerStyle"
-      />
-      <div
-        :class="[classes.activeMarker, classes.activeMarkerBlender]"
-        :style="activeMarkerStyle"
-      />
-    </template>
+        ref="$overflowMenu"
+        class="min-w-[250px] absolute"
+        :class="{
+          '-top-[10000px] invisible': !showOverflowMenu,
+          'top-0 visible': showOverflowMenu,
+        }"
+        :style="boxStyle"
+      >
+        <svg
+          ref="$arrowRef"
+          viewBox="0 0 48 24"
+          width="24"
+          height="12"
+          class="absolute z-10 stroke-gray-100 fill-white"
+          :style="arrowStyle"
+          fill="none"
+        >
+          <rect
+            x="0"
+            y="-4"
+            width="48"
+            height="8"
+            stroke-width="0"
+            stroke-color="red"
+          />
+          <path
+            d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+            stroke-width="2"
+          />
+        </svg>
+        <div class="border border-gray-100 rounded bg-white shadow-lg">
+          <button
+            v-for="tab in dropdownTabs"
+            class="block px-[16px] py-[8px] relative"
+            @click="
+            (e: MouseEvent) => {
+              // if user wants to open tab in new window, 
+              // avoid switching tabs on the current page
+              if(e.ctrlKey || e.metaKey) return
+              // else switch tabs and avoid page reload
+              e.preventDefault()
+              activeId = tab.id
+              emit('switch', tab)
+            }"
+          >
+            {{ tab.label }}
+
+            <div
+              v-if="tab.id === activeId"
+              :class="classes.activeMarkerStatic"
+            />
+          </button>
+        </div>
+      </div>
+    </teleport>
   </div>
 </template>

@@ -6,7 +6,29 @@ const tabs = [
   { id: 'ov', label: 'Overview' },
   { id: 'cl', label: 'Command Log' },
   { id: 'err', label: 'Errors' },
-  { id: 'reco', label: 'Recommendations' },
+  { id: 'reco', label: 'Recommend' },
+]
+
+const longTabs = [
+  { id: 'ov1', label: 'Overview' },
+  { id: 'cl1', label: 'Command Log' },
+  { id: 'err1', label: 'Errors' },
+  { id: 'o', label: 'o' },
+  { id: 'd', label: 'd' },
+  { id: 's', label: 's' },
+  { id: 'reco1', label: 'Recommendations' },
+  { id: 'ov2', label: 'Overview 1' },
+  { id: 'cl2', label: 'Command Log 1' },
+  { id: 'err2', label: 'Errors 1' },
+  { id: 'reco2', label: 'Recommendations 1' },
+  { id: 'ov3', label: 'Overview 2', active: true },
+  { id: 'cl3', label: 'Command Log 2' },
+  { id: 'err3', label: 'Errors 2' },
+  { id: 'reco3', label: 'Recommendations 2' },
+  { id: 'ov4', label: 'Overview 3' },
+  { id: 'cl4', label: 'Command Log 3' },
+  { id: 'err4', label: 'Errors 3' },
+  { id: 'reco4', label: 'Recommendations 3' },
 ]
 
 export default function assertions(
@@ -41,6 +63,48 @@ export default function assertions(
           variant: variant as keyof typeof variants,
         })
       })
+    })
+
+    describe('overflowing tabs', () => {
+      it(
+        'displays ellipsis when tabs are overflowing',
+        { viewportHeight: 500 },
+        () => {
+          mountStory({
+            tabs: longTabs,
+            // variant: 'underline-small',
+          })
+          cy.findByText('Show more tabs').should('exist')
+        }
+      )
+
+      it(
+        'displays ellipsis as active tab when tabs are overflowing',
+        { viewportHeight: 500 },
+        () => {
+          mountStory({
+            tabs: longTabs,
+            // variant: 'underline-small',
+          })
+          cy.contains('button', 'Show more tabs').should(
+            'have.attr',
+            'aria-selected'
+          )
+        }
+      )
+
+      it(
+        'displays active tab when tabs are overflowing',
+        { viewportHeight: 500 },
+        () => {
+          mountStory({
+            tabs: longTabs,
+            // variant: 'underline-small',
+          })
+          cy.findByText('Show more tabs').click({ force: true })
+          cy.findByText('Overview').click()
+        }
+      )
     })
   })
 }
