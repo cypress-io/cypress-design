@@ -33,7 +33,13 @@ const ComponentUsingModal = (options: {
 }
 
 describe('Modal', () => {
-  function mountStory(options: { title?: string; helpLink?: string }) {
+  function mountStory(
+    options: {
+      title?: string
+      helpLink?: string
+      fullscreen?: boolean
+    } = {}
+  ) {
     mount(<ComponentUsingModal {...options} />)
   }
   assertions(mountStory)
