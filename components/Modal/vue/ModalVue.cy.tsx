@@ -4,7 +4,13 @@ import assertions from '../assertions'
 import Modal from './Modal.vue'
 
 describe('<Modal/>', () => {
-  function mountStory(options: { title?: string; helpLink?: string }) {
+  function mountStory(
+    options: {
+      title?: string
+      helpLink?: string
+      fullscreen?: boolean
+    } = {}
+  ) {
     const visibleModal = ref(false)
     mount(() => (
       <div>

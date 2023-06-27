@@ -1,4 +1,10 @@
-export default function assertions(mountStory: (options?: any) => void): void {
+export default function assertions(
+  mountStory: (options?: {
+    title?: string
+    helpLink?: string
+    fullscreen?: boolean
+  }) => void
+): void {
   beforeEach(() => {
     cy.viewport(800, 400)
   })
@@ -29,5 +35,13 @@ export default function assertions(mountStory: (options?: any) => void): void {
     cy.findByRole('button', { name: 'Close' }).click()
     cy.findByRole('modal').should('not.exist')
     cy.window().its('scrollY').should('be.above', 0)
+  })
+
+  it('should show a fullscreen modal', () => {
+    mountStory({
+      title: 'Modal',
+      fullscreen: true,
+    })
+    cy.findByRole('button', { name: 'Open Modal' }).click()
   })
 }

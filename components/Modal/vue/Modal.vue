@@ -1,3 +1,73 @@
+<script lang="ts" setup>
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import {
+  ClassBackDrop,
+  ClassModal,
+  ClassModalFullscreenDimensions,
+  ClassModalStandardDimensions,
+  ClassModalContainer,
+  ClassTitleBox,
+  ClassTitle,
+  ClassHelpLinkDash,
+  ClassHelpLink,
+  ClassCloseButton,
+  ClassContent,
+  disableBodyScroll,
+  freeBodyScroll,
+} from '@cypress-design/constants-modal'
+import {
+  IconActionDelete,
+  IconActionQuestionMarkCircle,
+} from '@cypress-design/vue-icon'
+
+const internalShow = ref(false)
+
+const emit = defineEmits<{
+  (event: 'close'): void
+  (event: 'update:show', value: boolean): void
+}>()
+
+const props = defineProps<{
+  title?: string
+  show?: boolean
+  helpLink?: string
+  transition?: number
+  fullscreen?: boolean
+}>()
+
+watch(
+  () => props.show,
+  (val) => {
+    internalShow.value = val
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  if (!document.querySelector('#modal-target')) {
+    const modalTarget = document.createElement('div')
+    modalTarget.id = 'modal-target'
+    document.body.appendChild(modalTarget)
+  }
+})
+
+watch(internalShow, (val) => {
+  if (val) {
+    disableBodyScroll()
+  } else {
+    freeBodyScroll()
+  }
+  emit('update:show', val)
+  if (!val) {
+    emit('close')
+  }
+})
+
+onUnmounted(() => {
+  freeBodyScroll()
+})
+</script>
+
 <template>
   <Teleport v-if="internalShow" to="#modal-target">
     <div :class="ClassBackDrop" @click="internalShow = false" />
@@ -7,7 +77,14 @@
       aria-modal="true"
       role="modal"
     >
-      <div :class="ClassModal">
+      <div
+        :class="[
+          ClassModal,
+          fullscreen
+            ? ClassModalFullscreenDimensions
+            : ClassModalStandardDimensions,
+        ]"
+      >
         <div :class="ClassTitleBox">
           <div :class="ClassTitle">
             {{ title }}
@@ -47,73 +124,6 @@
     </div>
   </Teleport>
 </template>
-
-<script lang="ts" setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue'
-import {
-  ClassBackDrop,
-  ClassModal,
-  ClassModalContainer,
-  ClassTitleBox,
-  ClassTitle,
-  ClassHelpLinkDash,
-  ClassHelpLink,
-  ClassCloseButton,
-  ClassContent,
-  disableBodyScroll,
-  freeBodyScroll,
-} from '@cypress-design/constants-modal'
-import {
-  IconActionDelete,
-  IconActionQuestionMarkCircle,
-} from '@cypress-design/vue-icon'
-
-const internalShow = ref(false)
-
-const emit = defineEmits<{
-  (event: 'close'): void
-  (event: 'update:show', value: boolean): void
-}>()
-
-const props = defineProps<{
-  title?: string
-  show?: boolean
-  helpLink?: string
-  transition?: number
-}>()
-
-watch(
-  () => props.show,
-  (val) => {
-    internalShow.value = val
-  },
-  { immediate: true }
-)
-
-onMounted(() => {
-  if (!document.querySelector('#modal-target')) {
-    const modalTarget = document.createElement('div')
-    modalTarget.id = 'modal-target'
-    document.body.appendChild(modalTarget)
-  }
-})
-
-watch(internalShow, (val) => {
-  if (val) {
-    disableBodyScroll()
-  } else {
-    freeBodyScroll()
-  }
-  emit('update:show', val)
-  if (!val) {
-    emit('close')
-  }
-})
-
-onUnmounted(() => {
-  freeBodyScroll()
-})
-</script>
 
 <style lang="scss" scoped>
 .fade-enter-active,

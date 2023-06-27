@@ -8,6 +8,7 @@ import assertions from '../assertions'
 const ComponentUsingModal = (options: {
   title?: string
   helpLink?: string
+  fullscreen?: boolean
 }) => {
   const [visibleModal, setVisibleModal] = React.useState(false)
   return (
@@ -32,7 +33,13 @@ const ComponentUsingModal = (options: {
 }
 
 describe('Modal', () => {
-  function mountStory(options: { title?: string; helpLink?: string }) {
+  function mountStory(
+    options: {
+      title?: string
+      helpLink?: string
+      fullscreen?: boolean
+    } = {}
+  ) {
     mount(<ComponentUsingModal {...options} />)
   }
   assertions(mountStory)
