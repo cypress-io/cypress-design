@@ -1,5 +1,11 @@
 # @cypress-design/constants-modal
 
+## 0.1.0
+
+### Minor Changes
+
+- [#270](https://github.com/cypress-io/cypress-design/pull/270) [`2200d4f`](https://github.com/cypress-io/cypress-design/commit/2200d4fcca11f40509051e942b0eea22e5ec38b1) Thanks [@elevatebart](https://github.com/elevatebart)! - add fullscreen prop to modal
+
 ## 0.0.2
 
 ### Patch Changes
