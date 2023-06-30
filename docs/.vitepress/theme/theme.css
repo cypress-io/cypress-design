@@ -1,6 +1,6 @@
 @layer base {
   body {
-    @apply bg-white dark:bg-gray-1000 dark:text-white;
+    @apply bg-white;
   }
 }
 

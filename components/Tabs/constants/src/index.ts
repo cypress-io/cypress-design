@@ -109,11 +109,10 @@ export const variants = {
   },
   'underline-small': {
     classes: {
-      wrapper:
-        'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
+      wrapper: 'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
-      active: 'text-gray-900 dark:text-gray-400 z-20',
+      active: 'text-gray-900 z-20',
       activeStatic: 'relative',
       inActive:
         'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
@@ -134,10 +133,10 @@ export const variants = {
   'underline-large': {
     classes: {
       wrapper:
-        'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 dark:text-white relative',
+        'py-[4px] flex gap-[8px] border-b border-gray-100 text-gray-700 relative',
       button:
         'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative',
-      active: 'text-gray-900 dark:text-gray-400 z-20',
+      active: 'text-gray-900 z-20',
       activeStatic: 'relative',
       inActive:
         'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',

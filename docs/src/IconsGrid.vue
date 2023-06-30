@@ -26,20 +26,20 @@ const groupedIconsMetadata = computed(() =>
 </script>
 
 <template>
-  <div class="bg-gray-50 dark:bg-gray-800 rounded p-[16px] my-[24px] relative">
+  <div class="bg-gray-50 rounded p-[16px] my-[24px] relative">
     <input
       ref="$searchInput"
       type="search"
       v-model="search"
       placeholder="Search Icons"
-      class="w-full border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded bg-white dark:bg-gray-900"
+      class="w-full border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded bg-white"
     />
     <div v-if="!anyIconFound">
-      <p class="text-center text-gray-500 dark:text-gray-400">No icons found</p>
+      <p class="text-center text-gray-500">No icons found</p>
     </div>
     <div
       v-for="(icons, groupName) of groupedIconsMetadata"
-      class="bg-white py-[16px] dark:bg-gray-900 mb-[16px]"
+      class="bg-white py-[16px] mb-[16px]"
     >
       <h2
         :id="groupName"

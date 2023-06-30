@@ -132,22 +132,19 @@ const { frontmatter } = useData() as any
   <template v-if="!frontmatter.layout">
     <DarkModeSwitch class="fixed z-50 bottom-[32px] right-[32px]" />
     <header
-      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white dark:bg-gray-1000 h-[72px] justify-between items-center px-[24px] md:px-[32px] border-b border-gray-100 dark:border-gray-50/[.07]"
+      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-[72px] justify-between items-center px-[24px] md:px-[32px] border-b border-gray-100/[.07]"
     >
       <a href="/">
-        <img
-          src="../assets/logo.svg"
-          class="h-[32px] md:mr-[32px] dark:hidden"
-        />
+        <img src="../assets/logo.svg" class="h-[32px] md:mr-[32px]" />
         <img
           src="../assets/logo-dark.svg"
-          class="h-[32px] md:mr-[32px] hidden dark:inline-block"
+          class="h-[32px] md:mr-[32px] hidden"
         />
       </a>
       <Button
         href="https://github.com/cypress-io/cypress-design"
         variant="outline-light"
-        class="fixed bottom-[34px] right-[116px] md:static text-indigo-500 !bg-gray-50 !dark:bg-gray-900 !rounded-full !dark:border-gray-50/[.07] !dark:hover:border-gray-50/20 !dark:hover:shadow-gray-50/07"
+        class="fixed bottom-[34px] right-[116px] md:static text-indigo-500 !bg-gray-50 !!rounded-full !dark:border-gray-50/[.07] !dark:hover:border-gray-50/20 !dark:hover:shadow-gray-50/07"
       >
         <IconSocialGithubSolid />
       </Button>
@@ -164,7 +161,7 @@ const { frontmatter } = useData() as any
       />
       <div class="w-[250px] hidden md:block shrink-0" />
       <aside
-        class="fixed py-[32px] bg-white dark:bg-gray-1000 z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r border-gray-100 dark:border-gray-50/[.07]"
+        class="fixed py-[32px] bg-white z-50 transition transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r border-gray-100/[.07]"
         :class="{
           'transform -translate-x-full md:translate-x-0': !mobileMenuOpen,
         }"
@@ -185,7 +182,7 @@ const { frontmatter } = useData() as any
             common
           />
           <div
-            class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] mt-[24px] p-[8px] rounded"
+            class="peer-hover:bg-gray-50/50 py-[4px] mt-[24px] p-[8px] rounded"
           >
             <CommonContent ref="$common" class="markdown" />
           </div>
@@ -197,9 +194,7 @@ const { frontmatter } = useData() as any
             :commonPathReadme="commonPathReadme"
             :framework="hasFramework ? framework : undefined"
           />
-          <div
-            class="peer-hover:bg-gray-50/50 dark:peer-hover:bg-gray-800/20 py-[4px] p-[8px] rounded mt-8"
-          >
+          <div class="peer-hover:bg-gray-50/50 py-[4px] p-[8px] rounded mt-8">
             <FrameworkSwitch
               v-if="hasFramework"
               :framework="framework"
