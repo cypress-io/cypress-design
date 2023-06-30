@@ -10,7 +10,6 @@ import {
   defineAsyncComponent,
   h,
   nextTick,
-  type Ref,
 } from 'vue'
 import { useCookies } from '@vueuse/integrations/useCookies'
 import Button from '@cypress-design/vue-button'
@@ -21,7 +20,6 @@ import {
 import FrameworkSwitch from './FrameworkSwitch.vue'
 import Sidebar from './SideBar.vue'
 import DocsOutline from './DocsOutline.vue'
-import DarkModeSwitch from './DarkModeSwitch.vue'
 import EditButton from './EditButton.vue'
 const router = useRouter()
 
@@ -130,7 +128,6 @@ const { frontmatter } = useData() as any
 
 <template>
   <template v-if="!frontmatter.layout">
-    <DarkModeSwitch class="fixed z-50 bottom-[32px] right-[32px]" />
     <header
       class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-[72px] justify-between items-center px-[24px] md:px-[32px] border-b border-gray-100/[.07]"
     >
