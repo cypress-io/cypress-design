@@ -1,5 +1,11 @@
 # @cypress-design/vue-docmenu
 
+## 0.3.0
+
+### Minor Changes
+
+- [#272](https://github.com/cypress-io/cypress-design/pull/272) [`9a3e358`](https://github.com/cypress-io/cypress-design/commit/9a3e3582b8ca2dfdadd9198054042c9f0083be01) Thanks [@elevatebart](https://github.com/elevatebart)! - remove dark mode implementation to avoid wrong side effects
+
 ## 0.2.2
 
 ### Patch Changes
