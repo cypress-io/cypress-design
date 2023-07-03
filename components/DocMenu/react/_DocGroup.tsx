@@ -60,7 +60,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
         onClick={() => toggleMenu(!open)}
         href={group.href}
         className={clsx(classes.button, {
-          'text-indigo-500 dark:text-indigo-200': group.active,
+          'text-indigo-500': group.active,
           [classes.topButton]: depth === 0,
           [classes.leafButton]: depth,
         })}

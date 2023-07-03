@@ -68,7 +68,7 @@ const Head = computed(() =>
       {
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
-        'text-indigo-500 dark:text-indigo-200': props.group.active,
+        'text-indigo-500': props.group.active,
       },
     ]"
     :href="props.group.href"

@@ -23,7 +23,7 @@ withDefaults(
     <a
       class="group relative block w-full pl-[24px]"
       :class="{
-        'text-indigo-500 dark:text-indigo-200': item.active,
+        'text-indigo-500': item.active,
         'py-[8px] text-[16px] leading-[24px]': depth < 0,
         'leading-[20px] text-[14px] py-[12px]': depth >= 0,
       }"

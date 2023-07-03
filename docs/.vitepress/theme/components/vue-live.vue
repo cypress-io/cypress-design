@@ -127,7 +127,7 @@ function copyCode() {
   display: flex;
   flex-flow: column;
   overflow: hidden;
-  @apply rounded-lg my-[24px] border border-gray-100 dark:border-gray-700;
+  @apply rounded-lg my-[24px] border border-gray-100;
 }
 .vp-doc .vue-live-preview-code .vue-live-block {
   flex-grow: 1;
@@ -148,7 +148,7 @@ function copyCode() {
 
 .vue-live-preview-code .vue-live-preview {
   box-sizing: border-box;
-  @apply bg-indigo-50 dark:bg-gray-800 p-[12px];
+  @apply bg-indigo-50 p-[12px];
 }
 
 html.dark .vue-live-preview-code .vue-live-preview {
