@@ -1,5 +1,11 @@
 # @cypress-design/react-tabs
 
+## 0.6.1
+
+### Patch Changes
+
+- [`5b78521`](https://github.com/cypress-io/cypress-design/commit/5b785219b7e2c79be46ee9a93835a197fa443348) Thanks [@elevatebart](https://github.com/elevatebart)! - remove dark mode from tabs
+
 ## 0.6.0
 
 ### Minor Changes
