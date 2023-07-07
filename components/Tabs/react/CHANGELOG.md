@@ -1,5 +1,14 @@
 # @cypress-design/react-tabs
 
+## 0.6.2
+
+### Patch Changes
+
+- [`869d592`](https://github.com/cypress-io/cypress-design/commit/869d59290038d8919c318f4b6594867d1f1b8d4f) Thanks [@elevatebart](https://github.com/elevatebart)! - adust the underline-small classes with relative
+
+- Updated dependencies [[`869d592`](https://github.com/cypress-io/cypress-design/commit/869d59290038d8919c318f4b6594867d1f1b8d4f)]:
+  - @cypress-design/constants-tabs@0.4.1
+
 ## 0.6.1
 
 ### Patch Changes
