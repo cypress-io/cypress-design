@@ -1,5 +1,7 @@
 <template>
   <details ref="$details">
+    <button></button>
+    <img />
     <summary
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >

@@ -29,6 +29,7 @@ describe('<Accordion/>', () => {
         icon: IconActionQuestionMarkCircle,
       },
     }).get('summary svg')
+    cy.checkA11y()
   })
 
   it('can be passed an icon as an element', () => {
