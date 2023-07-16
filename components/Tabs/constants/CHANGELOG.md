@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.4.1
+
+### Patch Changes
+
+- [`869d592`](https://github.com/cypress-io/cypress-design/commit/869d59290038d8919c318f4b6594867d1f1b8d4f) Thanks [@elevatebart](https://github.com/elevatebart)! - adust the underline-small classes with relative
+
 ## 0.4.0
 
 ### Minor Changes
