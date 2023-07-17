@@ -10,7 +10,9 @@ import Spinner from '@cypress-design/vue-spinner'
 </DemoWrapper>
 
 <DemoWrapper>
-	<Spinner variant="dark" />
+  <div  class="bg-gray-1000 p-6">
+	  <Spinner variant="dark" />
+  </div>
 </DemoWrapper>
 
 The spinner component is used to indicate that an operation is in progress.

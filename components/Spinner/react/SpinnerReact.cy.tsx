@@ -10,6 +10,10 @@ describe('Spinner', () => {
   })
 
   it('renders dark', () => {
-    mount(<Spinner variant="dark" />)
+    mount(
+      <div className="bg-gray-1000 p-6">
+        <Spinner variant="dark" />
+      </div>,
+    )
   })
 })
