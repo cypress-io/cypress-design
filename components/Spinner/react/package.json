@@ -19,6 +19,9 @@
     "build:module": "rollup -c ./rollup.config.mjs",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
+  "dependencies": {
+    "@cypress-design/constants-spinner": "*"
+  },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "postcss": "^8.4.24",

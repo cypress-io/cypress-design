@@ -8,4 +8,8 @@ describe('<Spinner />', () => {
   it('renders', () => {
     mount(() => <Spinner />)
   })
+
+  it('renders dark', () => {
+    mount(() => <Spinner variant="dark" />)
+  })
 })
