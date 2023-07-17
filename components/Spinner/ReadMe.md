@@ -9,6 +9,10 @@ import Spinner from '@cypress-design/vue-spinner'
 	<Spinner/>
 </DemoWrapper>
 
+<DemoWrapper>
+	<Spinner variant="dark" />
+</DemoWrapper>
+
 The spinner component is used to indicate that an operation is in progress.
 
 ## Figma Link
