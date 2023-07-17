@@ -3,7 +3,7 @@ export const ClassBackDrop =
 export const ClassModalContainer =
   'pointer-events-none fixed left-0 top-0 z-[1000020] h-full w-screen overflow-hidden flex items-center justify-center'
 export const ClassModal =
-  'pointer-events-auto relative flex flex-col rounded-lg border-4 border-gray-500/[.40] bg-white'
+  'pointer-events-auto relative flex flex-col rounded outline outline-4 outline-gray-500/[.40] bg-white'
 export const ClassModalStandardDimensions =
   'max-h-[80vh] min-w-[200px] sm:min-w-[390px] sm:max-w-[70vw] shrink-0'
 export const ClassModalFullscreenDimensions =
