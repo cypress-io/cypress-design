@@ -4,7 +4,7 @@ export const COLORS = {
     secondary: 'stroke-jade-300',
   },
   dark: {
-    primary: 'fill-white',
-    secondary: 'stroke-gray-1000',
+    primary: 'fill-gray-700',
+    secondary: 'stroke-gray-500',
   },
 } as const
