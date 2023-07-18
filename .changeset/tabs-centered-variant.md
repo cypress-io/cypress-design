@@ -4,4 +4,4 @@
 '@cypress-design/vue-tabs': minor
 ---
 
-add centerd variant for blog
+add centered variant for blog
