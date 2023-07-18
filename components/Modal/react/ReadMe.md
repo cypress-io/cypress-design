@@ -22,7 +22,11 @@ export default () => {
 
   return (
     <>
-      <Modal show={visible} title="modal" onClose={() => setVisible(false)}>
+      <Modal
+        show={visible}
+        title="Modal Title"
+        onClose={() => setVisible(false)}
+      >
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Id perspiciatis
         hic ad minima ex recusandae autem incidunt, perferendis, illo voluptatum
         repudiandae iste voluptate reiciendis quam officiis voluptas laboriosam
