@@ -22,11 +22,11 @@
   },
   "dependencies": {
     "eslint-module-utils": "^2.8.0",
-    "minimatch": "^9.0.2",
+    "minimatch": "^9.0.3",
     "requireindex": "^1.2.0"
   },
   "devDependencies": {
-    "eslint": "^8.43.0",
+    "eslint": "^8.45.0",
     "eslint-doc-generator": "^1.4.3",
     "eslint-plugin-eslint-plugin": "^5.1.0",
     "eslint-plugin-node": "^11.1.0",
