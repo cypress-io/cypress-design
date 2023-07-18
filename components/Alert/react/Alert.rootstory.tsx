@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as dedent from 'dedent'
+import dedent from 'dedent'
 import { IconArrowRight } from '@cypress-design/react-icon'
 import Alert from './Alert'
 

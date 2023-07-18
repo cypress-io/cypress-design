@@ -5,6 +5,7 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "composite": true
   },
   "include": [

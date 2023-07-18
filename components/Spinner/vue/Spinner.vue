@@ -1,3 +1,30 @@
+<script lang="ts">
+function uid() {
+  return String(Date.now().toString(32) + Math.random().toString(16)).replace(
+    /\./g,
+    '',
+  )
+}
+</script>
+
+<script lang="ts" setup>
+import { computed, ref } from 'vue'
+import { COLORS } from '@cypress-design/constants-spinner'
+
+const props = withDefaults(
+  defineProps<{
+    variant: 'dark' | 'light'
+  }>(),
+  {
+    variant: 'light',
+  },
+)
+
+const id = ref(uid())
+
+const color = computed(() => COLORS[props.variant])
+</script>
+
 <template>
   <svg
     width="48"
@@ -19,7 +46,7 @@
 
     <path
       d="M16.877 19.0494C18.819 19.0494 20.401 20.085 21.2139 21.8915L21.2782 22.0329L24.5398 20.9253L24.4704 20.7583C23.2074 17.6823 20.2981 15.7704 16.877 15.7704C14.4719 15.7704 12.5169 16.5414 10.9015 18.1243C9.29635 19.697 8.48353 21.6757 8.48353 24.0064C8.48353 26.3166 9.29635 28.285 10.9015 29.8577C12.5169 31.4407 14.4719 32.2116 16.877 32.2116C20.2981 32.2116 23.2074 30.2997 24.4704 27.2263L24.5398 27.0593L21.273 25.9491L21.2113 26.0956C20.4833 27.8713 18.8628 28.9326 16.877 28.9326C15.5239 28.9326 14.3818 28.4598 13.4763 27.5295C12.5606 26.5864 12.0976 25.4018 12.0976 24.009C12.0976 22.6059 12.5503 21.4444 13.4763 20.4576C14.3792 19.5222 15.5239 19.0494 16.877 19.0494Z"
-      class="fill-gray-1000"
+      :class="color.primary"
     />
     <rect
       x="0"
@@ -27,7 +54,7 @@
       width="48"
       height="48"
       :mask="`url(#${id})`"
-      class="fill-gray-1000"
+      :class="color.primary"
     />
     <circle
       cx="24"
@@ -35,28 +62,10 @@
       r="23"
       stroke-width="5"
       :mask="`url(#${id})`"
-      class="stroke-jade-300"
+      :class="color.secondary"
     />
   </svg>
 </template>
-
-<script lang="ts">
-function uid() {
-  return String(Date.now().toString(32) + Math.random().toString(16)).replace(
-    /\./g,
-    ''
-  )
-}
-
-// necessary to get sourcemaps
-export default {
-  data() {
-    return {
-      id: uid(),
-    }
-  },
-}
-</script>
 
 <style scoped>
 .spinner circle {
