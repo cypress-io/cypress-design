@@ -31,7 +31,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
 }) => {
   const [mounted, setMounted] = React.useState(false)
   const [activeId, setActiveId] = React.useState(
-    activeIdProp || tabs.find((tab) => tab.active)?.id
+    activeIdProp || tabs.find((tab) => tab.active)?.id,
   )
 
   React.useEffect(() => {
@@ -84,6 +84,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
+      {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
         const ButtonTag = tab.href ? 'a' : 'button'
         return (

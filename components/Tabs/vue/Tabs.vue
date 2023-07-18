@@ -19,7 +19,7 @@ const props = withDefaults(
   }>(),
   {
     variant: 'default',
-  }
+  },
 )
 
 const $tab = ref<HTMLButtonElement[]>()
@@ -39,7 +39,7 @@ watch(
   () => props.activeId,
   (id) => {
     activeId.value = id
-  }
+  },
 )
 
 const activeMarkerStyle = ref<
@@ -62,7 +62,7 @@ onMounted(() => {
         }
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   // Only start animation after the first render
@@ -106,6 +106,7 @@ const iconProps = computed(() => {
 
 <template>
   <div role="tablist" :class="classes.wrapper">
+    <div v-if="'subWrapper' in classes" :class="classes.subWrapper" />
     <component
       v-for="tab in tabs"
       :key="tab.id"
@@ -125,7 +126,7 @@ const iconProps = computed(() => {
       ]"
       @click="
         (e: MouseEvent) => {
-          if(e.ctrlKey || e.metaKey) return
+          if (e.ctrlKey || e.metaKey) return
           e.preventDefault()
           activeId = tab.id
           emit('switch', tab)
