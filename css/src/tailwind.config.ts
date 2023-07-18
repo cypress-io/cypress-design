@@ -44,6 +44,7 @@ export default (fileGlobs: string[] = []) => {
           ':merge(.group):focus &',
           ':merge(.group):hover &',
         ])
+        addVariant('children', '& *')
       }),
     ],
   })
