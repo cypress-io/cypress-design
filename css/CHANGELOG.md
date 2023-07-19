@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.15.0
+
+### Minor Changes
+
+- [#281](https://github.com/cypress-io/cypress-design/pull/281) [`9ec1a81`](https://github.com/cypress-io/cypress-design/commit/9ec1a81cbe0a136bb8bd74b5af968c41615cefbc) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - add children variant to CSS
+
 ## 0.14.0
 
 ### Minor Changes
