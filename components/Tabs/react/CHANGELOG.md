@@ -1,5 +1,16 @@
 # @cypress-design/react-tabs
 
+## 0.7.0
+
+### Minor Changes
+
+- [#283](https://github.com/cypress-io/cypress-design/pull/283) [`cec77ef`](https://github.com/cypress-io/cypress-design/commit/cec77ef4d2e4af090efcb9e61905208b785f8183) Thanks [@elevatebart](https://github.com/elevatebart)! - add centered variant for blog
+
+### Patch Changes
+
+- Updated dependencies [[`cec77ef`](https://github.com/cypress-io/cypress-design/commit/cec77ef4d2e4af090efcb9e61905208b785f8183)]:
+  - @cypress-design/constants-tabs@0.5.0
+
 ## 0.6.2
 
 ### Patch Changes
