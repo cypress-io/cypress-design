@@ -1,5 +1,17 @@
 # @cypress-design/vue-modal
 
+## 0.2.0
+
+### Minor Changes
+
+- [#281](https://github.com/cypress-io/cypress-design/pull/281) [`9ec1a81`](https://github.com/cypress-io/cypress-design/commit/9ec1a81cbe0a136bb8bd74b5af968c41615cefbc) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - update visuals of a modal
+
+### Patch Changes
+
+- Updated dependencies [[`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d), [`9ec1a81`](https://github.com/cypress-io/cypress-design/commit/9ec1a81cbe0a136bb8bd74b5af968c41615cefbc)]:
+  - @cypress-design/vue-icon@0.24.0
+  - @cypress-design/constants-modal@0.2.0
+
 ## 0.1.0
 
 ### Minor Changes
