@@ -1,4 +1,5 @@
 import type { OpenIconProps } from '@cypress-design/icon-registry'
+export { default as throttle } from './throttle'
 
 type IconProps = Omit<OpenIconProps, 'name'>
 
