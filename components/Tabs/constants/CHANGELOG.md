@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.5.1
+
+### Patch Changes
+
+- [`743a060`](https://github.com/cypress-io/cypress-design/commit/743a060b016a346a9a4ce38e630cec4b9aa24705) Thanks [@elevatebart](https://github.com/elevatebart)! - remove translate-y from center tabs
+
 ## 0.5.0
 
 ### Minor Changes

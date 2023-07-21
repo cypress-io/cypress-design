@@ -1,4 +1,5 @@
 import type { OpenIconProps } from '@cypress-design/icon-registry'
+export { default as throttle } from './throttle'
 
 type IconProps = Omit<OpenIconProps, 'name'>
 
@@ -136,7 +137,7 @@ export const variants = {
       wrapper:
         'py-[4px] flex justify-center items-center h-[64px] gap-[32px] text-gray-700 relative',
       subWrapper:
-        'absolute bottom-0 left-0 right-0 block h-[1px] translate-y-[0.5px] transform rounded-full bg-gradient-to-r from-transparent via-gray-100 via-gray-100 via-gray-100 to-transparent',
+        'absolute bottom-0 left-0 right-0 block h-[1px] rounded-full bg-gradient-to-r from-transparent via-gray-100 via-gray-100 via-gray-100 to-transparent',
       button:
         'flex items-center px-[12px] h-full leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
       active: 'text-indigo-500 z-20',
