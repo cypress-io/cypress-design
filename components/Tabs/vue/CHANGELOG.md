@@ -1,5 +1,14 @@
 # @cypress-design/vue-tabs
 
+## 0.7.2
+
+### Patch Changes
+
+- [`ddaee22`](https://github.com/cypress-io/cypress-design/commit/ddaee22971121704cb9f3b780857c9877e470faf) Thanks [@elevatebart](https://github.com/elevatebart)! - adjust position of active marker when resizing window
+
+- Updated dependencies [[`ddaee22`](https://github.com/cypress-io/cypress-design/commit/ddaee22971121704cb9f3b780857c9877e470faf)]:
+  - @cypress-design/constants-tabs@0.5.2
+
 ## 0.7.1
 
 ### Patch Changes
