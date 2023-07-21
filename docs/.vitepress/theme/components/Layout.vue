@@ -170,7 +170,7 @@ const { frontmatter } = useData() as any
           @click="mobileMenuOpen = false"
         />
       </aside>
-      <main class="w-[800px] mx-[24px] xl:mx-auto md:mt-[24px]">
+      <main class="w-[800px] mx-[24px] min-[1420px]:mx-auto md:mt-[24px]">
         <div v-if="CommonContent" class="relative">
           <EditButton
             :key="commonPathReadme"
