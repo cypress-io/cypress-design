@@ -3669,10 +3669,10 @@ eslint-plugin-es@^3.0.0:
     eslint-utils "^2.0.0"
     regexpp "^3.0.0"
 
-eslint-plugin-eslint-plugin@^5.1.0:
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-eslint-plugin/-/eslint-plugin-eslint-plugin-5.1.0.tgz#040e08aa057d187418acae9d7c336b156ba1db07"
-  integrity sha512-HOzgLRSZJdEZpLaXbA3qd/4Sfa09W6NTzDBqWd5zeQNc1wnsGfGYGE2Rr8nVDeckyFT5u7GlU+lYrXF89UyECg==
+eslint-plugin-eslint-plugin@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-eslint-plugin/-/eslint-plugin-eslint-plugin-5.1.1.tgz#1de9f0511b0300bf85b3ddb29e9f7653fa684bf0"
+  integrity sha512-4MGDsG505Ot2TSDSYxFL0cpDo4Y+t6hKB8cfZw9Jx484VjXWDfiYC/A6cccWFtWoOOC0j+wGgQIIb11cdIAMBg==
   dependencies:
     eslint-utils "^3.0.0"
     estraverse "^5.3.0"
@@ -7032,10 +7032,10 @@ safe-regex-test@^1.0.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass@^1.63.6:
-  version "1.63.6"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.63.6.tgz#481610e612902e0c31c46b46cf2dad66943283ea"
-  integrity sha512-MJuxGMHzaOW7ipp+1KdELtqKbfAWbH7OLIdoSMnVe3EXPMTmxTmlaZDCTsgIpPCs3w99lLo9/zDKkOrJuT5byw==
+sass@^1.64.0:
+  version "1.64.0"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.64.0.tgz#9ca8d0acb1a704b86b7f1197dc310f568fb34638"
+  integrity sha512-m7YtAGmQta9uANIUJwXesAJMSncqH+3INc8kdVXs6eV6GUC8Qu2IYKQSN8PRLgiQfpca697G94klm2leYMxSHw==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
@@ -8048,24 +8048,24 @@ vite@4.4.0-beta.3:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vite@4.4.4, "vite@^3.0.0 || ^4.0.0", vite@^4.4.4:
-  version "4.4.4"
-  resolved "https://registry.yarnpkg.com/vite/-/vite-4.4.4.tgz#b76e6049c0e080cb54e735ad2d18287753752118"
-  integrity sha512-4mvsTxjkveWrKDJI70QmelfVqTm+ihFAb6+xf4sjEU2TmUCTlVX87tmg/QooPEMQb/lM9qGHT99ebqPziEd3wg==
-  dependencies:
-    esbuild "^0.18.10"
-    postcss "^8.4.25"
-    rollup "^3.25.2"
-  optionalDependencies:
-    fsevents "~2.3.2"
-
-vite@4.4.6:
+vite@4.4.6, vite@^4.4.6:
   version "4.4.6"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.4.6.tgz#97a0a43868ec773fd88980d7c323c80233521cf1"
   integrity sha512-EY6Mm8vJ++S3D4tNAckaZfw3JwG3wa794Vt70M6cNJ6NxT87yhq7EC8Rcap3ahyHdo8AhCmV9PTk+vG1HiYn1A==
   dependencies:
     esbuild "^0.18.10"
     postcss "^8.4.26"
+    rollup "^3.25.2"
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+"vite@^3.0.0 || ^4.0.0":
+  version "4.4.4"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-4.4.4.tgz#b76e6049c0e080cb54e735ad2d18287753752118"
+  integrity sha512-4mvsTxjkveWrKDJI70QmelfVqTm+ihFAb6+xf4sjEU2TmUCTlVX87tmg/QooPEMQb/lM9qGHT99ebqPziEd3wg==
+  dependencies:
+    esbuild "^0.18.10"
+    postcss "^8.4.25"
     rollup "^3.25.2"
   optionalDependencies:
     fsevents "~2.3.2"
