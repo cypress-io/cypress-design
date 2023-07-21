@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.5.2
+
+### Patch Changes
+
+- [`ddaee22`](https://github.com/cypress-io/cypress-design/commit/ddaee22971121704cb9f3b780857c9877e470faf) Thanks [@elevatebart](https://github.com/elevatebart)! - adjust position of active marker when resizing window
+
 ## 0.5.1
 
 ### Patch Changes
