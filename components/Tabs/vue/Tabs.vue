@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { Tab, variants } from '@cypress-design/constants-tabs'
+import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import { Tab, throttle, variants } from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
   defineProps<{
@@ -19,7 +19,7 @@ const props = withDefaults(
   }>(),
   {
     variant: 'default',
-  }
+  },
 )
 
 const $tab = ref<HTMLButtonElement[]>()
@@ -39,30 +39,36 @@ watch(
   () => props.activeId,
   (id) => {
     activeId.value = id
-  }
+  },
 )
 
 const activeMarkerStyle = ref<
   { left?: string; width?: string; transitionProperty?: string } | undefined
 >()
 
+function updateActiveMarkerStyle() {
+  const activeIndex = props.tabs.findIndex((tab) => tab.id === activeId.value)
+  if (activeIndex > -1) {
+    const activeTab = $tab.value?.[activeIndex]
+    if (activeTab) {
+      activeMarkerStyle.value = {
+        ...activeMarkerStyle.value,
+        left: `${activeTab.offsetLeft}px`,
+        width: `${activeTab.offsetWidth}px`,
+      }
+    }
+  }
+}
+
+const throttledUpdateActiveMarkerStyle = throttle(updateActiveMarkerStyle, 100)
+
 onMounted(() => {
   watch(
     activeId,
-    (id) => {
-      const activeIndex = props.tabs.findIndex((tab) => tab.id === id)
-      if (activeIndex > -1) {
-        const activeTab = $tab.value?.[activeIndex]
-        if (activeTab) {
-          activeMarkerStyle.value = {
-            ...activeMarkerStyle.value,
-            left: `${activeTab.offsetLeft}px`,
-            width: `${activeTab.offsetWidth}px`,
-          }
-        }
-      }
+    () => {
+      updateActiveMarkerStyle()
     },
-    { immediate: true }
+    { immediate: true },
   )
 
   // Only start animation after the first render
@@ -72,6 +78,14 @@ onMounted(() => {
       transitionProperty: 'left, width',
     }
   })
+})
+
+onMounted(() => {
+  window.addEventListener('resize', throttledUpdateActiveMarkerStyle)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', throttledUpdateActiveMarkerStyle)
 })
 
 function navigate(shift: number) {
@@ -106,6 +120,7 @@ const iconProps = computed(() => {
 
 <template>
   <div role="tablist" :class="classes.wrapper">
+    <div v-if="'subWrapper' in classes" :class="classes.subWrapper" />
     <component
       v-for="tab in tabs"
       :key="tab.id"
@@ -125,7 +140,7 @@ const iconProps = computed(() => {
       ]"
       @click="
         (e: MouseEvent) => {
-          if(e.ctrlKey || e.metaKey) return
+          if (e.ctrlKey || e.metaKey) return
           e.preventDefault()
           activeId = tab.id
           emit('switch', tab)

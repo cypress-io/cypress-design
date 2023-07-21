@@ -1,7 +1,6 @@
 {
-  "name": "@cypress-design/constants-modal",
-  "private": true,
-  "version": "0.2.0",
+  "name": "@cypress-design/constants-spinner",
+  "version": "0.0.2",
   "files": [
     "*"
   ],
@@ -15,9 +14,6 @@
   },
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
-  },
-  "dependencies": {
-    "@cypress-design/css": "*"
   },
   "license": "MIT"
 }

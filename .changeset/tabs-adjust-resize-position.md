@@ -4,4 +4,4 @@
 '@cypress-design/vue-tabs': patch
 ---
 
-adust the underline-small classes with relative
+adjust position of active marker when resizing window

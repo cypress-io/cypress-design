@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.26",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.63.6"
   },

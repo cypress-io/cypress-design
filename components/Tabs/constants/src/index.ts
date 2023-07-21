@@ -1,4 +1,5 @@
 import type { OpenIconProps } from '@cypress-design/icon-registry'
+export { default as throttle } from './throttle'
 
 type IconProps = Omit<OpenIconProps, 'name'>
 
@@ -114,6 +115,32 @@ export const variants = {
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
       active: 'text-gray-900 z-20',
+      activeStatic: 'relative',
+      inActive:
+        'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
+      activeMarker:
+        'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
+      activeMarkerColor: 'bg-indigo-500',
+      activeMarkerBlender: 'hidden',
+      activeMarkerStatic:
+        'absolute bg-indigo-500 rounded-full right-0 left-0 bottom-[-6.5px] h-[4px]',
+      tag: 'ml-[8px] px-[4px] bg-indigo-300/20 rounded text-gray-500 text-[12px] leading-[16px]',
+    },
+    icon: {
+      size: '16',
+      // <wind-keep fillColor="transparent"/>
+      fillColor: 'transparent',
+    } satisfies IconProps,
+  },
+  'underline-center': {
+    classes: {
+      wrapper:
+        'py-[4px] flex justify-center items-center h-[64px] gap-[32px] text-gray-700 relative',
+      subWrapper:
+        'absolute bottom-0 left-0 right-0 block h-[1px] rounded-full bg-gradient-to-r from-transparent via-gray-100 via-gray-100 via-gray-100 to-transparent',
+      button:
+        'flex items-center px-[12px] h-full leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
+      active: 'text-indigo-500 z-20',
       activeStatic: 'relative',
       inActive:
         'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',

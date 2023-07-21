@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-spinner",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "files": [
     "*"
   ],
@@ -36,6 +36,9 @@
     "build": "yarn build:module && yarn build:types",
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cypress-design/constants-spinner": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

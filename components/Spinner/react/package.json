@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-spinner",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "files": [
     "*"
   ],
@@ -19,9 +19,12 @@
     "build:module": "rollup -c ./rollup.config.mjs",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
+  "dependencies": {
+    "@cypress-design/constants-spinner": "*"
+  },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.26",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.63.6"
   },

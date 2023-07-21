@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, variants } from '@cypress-design/constants-tabs'
+import { Tab, variants, throttle } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
   /**
@@ -31,7 +31,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
 }) => {
   const [mounted, setMounted] = React.useState(false)
   const [activeId, setActiveId] = React.useState(
-    activeIdProp || tabs.find((tab) => tab.active)?.id
+    activeIdProp || tabs.find((tab) => tab.active)?.id,
   )
 
   React.useEffect(() => {
@@ -48,7 +48,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     transitionProperty?: string
   }>({})
 
-  React.useEffect(() => {
+  function updateActiveMarkerStyle() {
     const activeTab = tabs.findIndex((tab) => tab.id === activeId)
     if (activeTab > -1) {
       const activeTabEl = $tab.current?.[activeTab]
@@ -61,7 +61,22 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       }
     }
     setMounted(true)
+  }
+
+  React.useEffect(() => {
+    updateActiveMarkerStyle()
   }, [activeId])
+
+  const throttledUpdateActiveMarkerStyle = throttle(
+    updateActiveMarkerStyle,
+    100,
+  )
+
+  React.useEffect(() => {
+    window.addEventListener('resize', throttledUpdateActiveMarkerStyle)
+    return () =>
+      window.removeEventListener('resize', throttledUpdateActiveMarkerStyle)
+  }, [])
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift
@@ -84,6 +99,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
+      {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
         const ButtonTag = tab.href ? 'a' : 'button'
         return (

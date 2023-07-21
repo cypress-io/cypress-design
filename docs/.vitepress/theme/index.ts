@@ -7,7 +7,7 @@ import DemoWrapper from './components/DemoWrapper.vue'
 
 export default {
   Layout: Layout as any,
-  NotFound: (() => '404 - page not found') as any,
+
   enhanceApp({ app }) {
     app.component('VueLive', VueLiveWithLayout)
     app.component('Tooltip', Tooltip)
