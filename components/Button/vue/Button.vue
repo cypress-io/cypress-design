@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent, reactive } from 'vue'
+import { computed, defineComponent } from 'vue'
 import {
   VariantClassesTable,
   SizeClassesTable,
@@ -39,31 +39,35 @@ export default defineComponent({
   },
   setup(props) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { variant, size, disabled, href, type, ...attr } = props
+    const { variant, size, disabled, href, type, ...buttonProps } = props
 
     const finalVariant = computed(() =>
       props.disabled &&
       !['outline-dark', 'outline-light', 'link'].includes(props.variant)
         ? 'disabled'
-        : props.variant
+        : props.variant,
     )
     const finalDisabled = computed(
-      () => props.disabled || props.variant === 'disabled'
+      () => props.disabled || props.variant === 'disabled',
     )
 
+    const variantClasses = computed(
+      () => VariantClassesTable[finalVariant.value],
+    )
+
+    const sizeClasses = computed(() => SizeClassesTable[props.size])
+
+    const allClasses = computed(() => [
+      StaticClasses,
+      variantClasses.value,
+      sizeClasses.value,
+    ])
+
     return {
-      componentTag: computed(() => (href ? 'a' : 'button')),
       href,
       finalDisabled,
-      buttonProps: reactive({
-        ...attr,
-        class: [
-          StaticClasses,
-          VariantClassesTable[finalVariant.value],
-          SizeClassesTable[props.size],
-        ],
-        disabled: finalDisabled,
-      }),
+      allClasses,
+      buttonProps,
     }
   },
 })
@@ -74,6 +78,8 @@ export default defineComponent({
     v-if="href"
     :href="href"
     v-bind="buttonProps"
+    :class="allClasses"
+    :aria-disabled="finalDisabled ? 'true' : undefined"
     @click="($event) => $emit('click', $event)"
   >
     <slot />
@@ -81,6 +87,8 @@ export default defineComponent({
   <button
     v-else
     v-bind="buttonProps"
+    :class="allClasses"
+    :disabled="finalDisabled"
     @click="($event) => $emit('click', $event)"
   >
     <slot />
