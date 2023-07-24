@@ -1,5 +1,14 @@
 # @cypress-design/vue-modal
 
+## 0.2.1
+
+### Patch Changes
+
+- [#288](https://github.com/cypress-io/cypress-design/pull/288) [`2c53ea8`](https://github.com/cypress-io/cypress-design/commit/2c53ea8ffa13baaf299bd3168de819166ad071ce) Thanks [@elevatebart](https://github.com/elevatebart)! - fix accessibility
+
+- Updated dependencies [[`b3b4fbc`](https://github.com/cypress-io/cypress-design/commit/b3b4fbc189457a311abaf93959ec211067957a5c)]:
+  - @cypress-design/vue-icon@0.24.1
+
 ## 0.2.0
 
 ### Minor Changes

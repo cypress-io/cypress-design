@@ -1,5 +1,11 @@
 # @cypress-design/vue-icon
 
+## 0.24.1
+
+### Patch Changes
+
+- [#290](https://github.com/cypress-io/cypress-design/pull/290) [`b3b4fbc`](https://github.com/cypress-io/cypress-design/commit/b3b4fbc189457a311abaf93959ec211067957a5c) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: types of class attribute in icon
+
 ## 0.24.0
 
 ### Minor Changes
