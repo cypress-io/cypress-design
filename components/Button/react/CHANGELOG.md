@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.11.2
+
+### Patch Changes
+
+- [#288](https://github.com/cypress-io/cypress-design/pull/288) [`2c53ea8`](https://github.com/cypress-io/cypress-design/commit/2c53ea8ffa13baaf299bd3168de819166ad071ce) Thanks [@elevatebart](https://github.com/elevatebart)! - fix accessibility
+
 ## 0.11.1
 
 ### Patch Changes
