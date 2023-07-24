@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { defineConfig } from 'cypress'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -9,6 +10,14 @@ export default defineConfig({
   fixturesFolder: false,
 
   component: {
+    setupNodeEvents(on) {
+      on('task', {
+        'a11y-table': function (message) {
+          console.table(message)
+          return null
+        },
+      })
+    },
     devServer: {
       framework: 'vue',
       bundler: 'vite',
