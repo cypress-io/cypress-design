@@ -10,7 +10,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   const pascalCaseName = pascalCase(name)
   const iconMetadata = iconsMetadata[name]
   const availableIds = iconMetadata.availableSizes.map(
-    (size) => `${camelCase(name)}X${size}`
+    (size) => `${camelCase(name)}X${size}`,
   )
 
   const iconBodies = iconSet.reduce((acc, icon) => {
@@ -28,12 +28,12 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
   return dedent`
   export const Icon${pascalCaseName} = defineComponent((props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
-    class?: string
+    class?: VueComponentClassObject | VueComponentClassObject[]
   }, { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }) => {
     const iconPropsStep = useIconProps(props, ${JSON.stringify(
       iconBodies,
       null,
-      2
+      2,
     )}, ${JSON.stringify(iconMetadata.availableSizes)}, ${JSON.stringify(name)})
 
     const { componentProps, defs } = compileVueIconProperties(iconPropsStep)
@@ -53,7 +53,7 @@ writeFile(`
 import { h, defineComponent, computed } from 'vue'
 import type { ComputedRef, SVGAttributes, Ref } from 'vue'
 import * as iconsRegistry from '@cypress-design/icon-registry'
-import { compileVueIconProperties, useShouldRenderDefs } from './compileProperties'
+import { compileVueIconProperties, useShouldRenderDefs, type VueComponentClassObject } from './compileProperties'
 
 const __iconComponentOpts__ = {
   props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class'],
@@ -90,7 +90,7 @@ function hyperSVG(
     defs: ComputedRef<string | undefined>, 
     shouldRenderDefs: Ref<boolean>, 
     attrs: SVGAttributes,
-    className?: string, 
+    className?: VueComponentClassObject | VueComponentClassObject[], 
   ) {
 
   return shouldRenderDefs.value && defs.value
@@ -125,6 +125,6 @@ async function writeFile(fileContents) {
   await fs.writeFile(
     path.resolve(__dirname, './_TreeShakableIcons.ts'),
     fileContents,
-    'utf-8'
+    'utf-8',
   )
 }
