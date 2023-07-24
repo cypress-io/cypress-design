@@ -28,7 +28,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
   return dedent`
   export const Icon${pascalCaseName} = defineComponent((props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
-    class?: VueComponentClassObject | VueComponentClassObject[]
+    class?: any
   }, { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }) => {
     const iconPropsStep = useIconProps(props, ${JSON.stringify(
       iconBodies,
@@ -53,7 +53,7 @@ writeFile(`
 import { h, defineComponent, computed } from 'vue'
 import type { ComputedRef, SVGAttributes, Ref } from 'vue'
 import * as iconsRegistry from '@cypress-design/icon-registry'
-import { compileVueIconProperties, useShouldRenderDefs, type VueComponentClassObject } from './compileProperties'
+import { compileVueIconProperties, useShouldRenderDefs } from './compileProperties'
 
 const __iconComponentOpts__ = {
   props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class'],
@@ -90,7 +90,7 @@ function hyperSVG(
     defs: ComputedRef<string | undefined>, 
     shouldRenderDefs: Ref<boolean>, 
     attrs: SVGAttributes,
-    className?: VueComponentClassObject | VueComponentClassObject[], 
+    className?: any, 
   ) {
 
   return shouldRenderDefs.value && defs.value

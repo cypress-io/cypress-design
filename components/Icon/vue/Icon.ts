@@ -8,7 +8,6 @@ import type { SVGAttributes } from 'vue'
 import {
   compileVueIconProperties,
   useShouldRenderDefs,
-  type VueComponentClassObject,
 } from './compileProperties'
 
 export default defineComponent(
@@ -17,7 +16,8 @@ export default defineComponent(
     // since the IconProps are more restrictive, it will not change the use behavior
     props: OpenIconProps &
       Pick<IconProps, 'name'> & {
-        class?: VueComponentClassObject | VueComponentClassObject[]
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        class?: any
       },
     { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> },
   ) => {
