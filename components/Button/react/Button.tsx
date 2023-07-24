@@ -46,9 +46,10 @@ export const Button: React.FC<ReactButtonProps> = ({
         StaticClasses,
         VariantClassesTable[finalVariant],
         SizeClassesTable[size],
-        className
+        className,
       )}
       disabled={finalDisabled}
+      {...(finalDisabled && href ? { 'aria-disabled': true } : {})}
     >
       {children}
     </Comp>

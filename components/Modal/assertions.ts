@@ -3,7 +3,7 @@ export default function assertions(
     title?: string
     helpLink?: string
     fullscreen?: boolean
-  }) => void
+  }) => void,
 ): void {
   beforeEach(() => {
     cy.viewport(800, 400)
@@ -12,17 +12,17 @@ export default function assertions(
   it('renders', () => {
     mountStory({ title: 'Modal' })
     cy.contains('Open Modal').click()
-    cy.findByRole('modal').should('be.visible')
+    cy.findByRole('dialog').should('be.visible')
   })
 
   it('renders with helpLink', () => {
     mountStory({ title: 'Modal', helpLink: 'https://www.google.com' })
     cy.contains('Open Modal').click()
-    cy.findByRole('modal').should('be.visible')
+    cy.findByRole('dialog').should('be.visible')
     cy.findByRole('link', { name: 'Need help' }).should(
       'have.attr',
       'href',
-      'https://www.google.com'
+      'https://www.google.com',
     )
   })
 
@@ -31,9 +31,9 @@ export default function assertions(
       title: 'Modal',
     })
     cy.findByRole('button', { name: 'Open Modal' }).click()
-    cy.findByRole('modal').should('be.visible')
+    cy.findByRole('dialog').should('be.visible')
     cy.findByRole('button', { name: 'Close' }).click()
-    cy.findByRole('modal').should('not.exist')
+    cy.findByRole('dialog').should('not.exist')
     cy.window().its('scrollY').should('be.above', 0)
   })
 

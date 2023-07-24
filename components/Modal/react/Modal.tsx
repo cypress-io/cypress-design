@@ -50,7 +50,7 @@ export const Modal: React.FC<ModalProps> = ({
     () => () => {
       freeBodyScroll()
     },
-    []
+    [],
   )
 
   return (
@@ -63,18 +63,21 @@ export const Modal: React.FC<ModalProps> = ({
           className={ClassModalContainer}
           tabIndex={-1}
           aria-modal="true"
-          role="modal"
+          aria-labelledby="cy_modal_label"
+          role="dialog"
         >
           <div
             className={clsx(
               ClassModal,
               fullscreen
                 ? ClassModalFullscreenDimensions
-                : ClassModalStandardDimensions
+                : ClassModalStandardDimensions,
             )}
           >
             <div className={ClassTitleBox}>
-              <div className={ClassTitle}>{title}</div>
+              <div id="cy_modal_label" className={ClassTitle}>
+                {title}
+              </div>
               {helpLink ? <div className={ClassHelpLinkDash} /> : null}
               {helpLink ? (
                 <a href={helpLink} className={ClassHelpLink}>
@@ -105,7 +108,7 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
         </div>
       </div>,
-      document.body
+      document.body,
     )
   )
 }
