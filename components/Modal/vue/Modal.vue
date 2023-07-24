@@ -40,7 +40,7 @@ watch(
   (val) => {
     internalShow.value = val
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 onMounted(() => {
@@ -75,7 +75,8 @@ onUnmounted(() => {
       :class="ClassModalContainer"
       tabindex="-1"
       aria-modal="true"
-      role="modal"
+      aria-labelledby="cy_modal_label"
+      role="dialog"
     >
       <div
         :class="[
@@ -86,7 +87,7 @@ onUnmounted(() => {
         ]"
       >
         <div :class="ClassTitleBox">
-          <div :class="ClassTitle">
+          <div id="cy_modal_label" :class="ClassTitle">
             {{ title }}
           </div>
           <div v-if="helpLink" :class="ClassHelpLinkDash" />
