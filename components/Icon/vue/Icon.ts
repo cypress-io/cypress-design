@@ -14,8 +14,12 @@ export default defineComponent(
   (
     // the OpenIconProps helps volar extract the documentation from the props
     // since the IconProps are more restrictive, it will not change the use behavior
-    props: OpenIconProps & Pick<IconProps, 'name'> & { class?: string },
-    { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }
+    props: OpenIconProps &
+      Pick<IconProps, 'name'> & {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        class?: any
+      },
+    { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> },
   ) => {
     const ret = computed(() => {
       const { class: className, ...otherProps } = props
@@ -24,7 +28,7 @@ export default defineComponent(
     })
 
     const { componentProps, defs } = compileVueIconProperties(
-      computed(() => ret.value.iconProps)
+      computed(() => ret.value.iconProps),
     )
 
     const { shouldRenderDefs } = useShouldRenderDefs(props.name, defs)
@@ -65,5 +69,5 @@ export default defineComponent(
       'name',
       'class',
     ],
-  }
+  },
 )

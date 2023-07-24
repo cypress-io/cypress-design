@@ -10,6 +10,11 @@ import {
 } from 'vue'
 import type { SVGAttributes } from 'vue'
 
+export type VueComponentClassObject =
+  | Record<string, boolean>
+  | string
+  | Array<Record<string, boolean> | string>
+
 /**
  * Icon names of the SVGs whose defs already appear in the DOM
  */
@@ -27,7 +32,7 @@ const defsAlreadyLoaded = new Set<string>()
  */
 export const useShouldRenderDefs = (
   iconName: string,
-  defs: ComputedRef<string | undefined>
+  defs: ComputedRef<string | undefined>,
 ) => {
   const shouldRenderDefs = ref(false)
 
@@ -50,7 +55,7 @@ export const useShouldRenderDefs = (
       // add the defs inside an extra SVG and append it to the end of the body only when unmounting
       const newDefs = document.createElementNS(
         'http://www.w3.org/2000/svg',
-        'svg'
+        'svg',
       )
       newDefs.setAttribute('width', '0')
       newDefs.setAttribute('height', '0')
@@ -73,7 +78,7 @@ export const compileVueIconProperties = (
         size: string
         interactiveColorsOnGroup?: boolean
       }
-  >
+  >,
 ) => {
   const ret = computed(() => {
     const {
@@ -88,7 +93,7 @@ export const compileVueIconProperties = (
       (newAttributes, attrName) => {
         if (
           !ICON_COLOR_PROP_NAMES.includes(
-            attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
+            attrName as (typeof ICON_COLOR_PROP_NAMES)[number],
           ) &&
           attrName !== 'name'
         ) {
@@ -98,7 +103,7 @@ export const compileVueIconProperties = (
         }
         return newAttributes
       },
-      {} as Omit<SVGAttributes, 'name'>
+      {} as Omit<SVGAttributes, 'name'>,
     )
 
     const iconFileId = `${iconName}_${size}`
