@@ -26,6 +26,26 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     mount(() => <IconDocumentBlank {...props} />)
   })
 
+  it('renders correctly with array classes', () => {
+    mount(() => (
+      <IconObjectBookCode
+        class={[
+          'text-red-100',
+          'text-red-500',
+          { 'text-indigo-100': true, 'text-indigo-600': true },
+        ]}
+        fillColor="red-100"
+        strokeColor="red-500"
+        secondaryFillColor="indigo-100"
+        secondaryStrokeColor="indigo-600"
+      />
+    ))
+
+    cy.get('svg')
+      .should('have.class', 'text-red-100')
+      .and('have.class', 'text-red-500')
+  })
+
   it('renders multiple times an icon with defs with the generic Icon component', () => {
     mount(() => (
       <div class="p-2">
