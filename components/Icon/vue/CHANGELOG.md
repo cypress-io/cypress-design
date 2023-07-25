@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 0.24.2
+
+### Patch Changes
+
+- [`9365cdb`](https://github.com/cypress-io/cypress-design/commit/9365cdbe153f4b2d2243f3183513d24d1215de03) Thanks [@elevatebart](https://github.com/elevatebart)! - make icon compatible with vue 3.2
+
+- Updated dependencies [[`e0c2e5a`](https://github.com/cypress-io/cypress-design/commit/e0c2e5ad3aefaf0716223d2fa5d23445eeb325af)]:
+  - @cypress-design/icon-registry@0.26.0
+
 ## 0.24.1
 
 ### Patch Changes

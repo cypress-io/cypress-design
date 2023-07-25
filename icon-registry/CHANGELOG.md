@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.26.0
+
+### Minor Changes
+
+- [`e0c2e5a`](https://github.com/cypress-io/cypress-design/commit/e0c2e5ad3aefaf0716223d2fa5d23445eeb325af) Thanks [@elevatebart](https://github.com/elevatebart)! - publish source of @cypress-design/icon-registry for sourcemap support
+
 ## 0.25.0
 
 ### Minor Changes
