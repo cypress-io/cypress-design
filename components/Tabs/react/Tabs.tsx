@@ -102,28 +102,37 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
         const ButtonTag = tab.href ? 'a' : 'button'
+        const {
+          id,
+          href,
+          icon,
+          iconBefore,
+          iconAfter: IconAfter,
+          label,
+          tag,
+          ...dataAttr
+        } = tab
         return (
           <ButtonTag
-            key={tab.id}
+            key={id}
             role="tab"
-            href={tab.href}
+            href={href}
             className={clsx([
               classes.button,
               {
-                [classes.activeStatic]: tab.id === activeId && !mounted,
-                [classes.active]: tab.id === activeId,
-                [classes.inActive]: tab.id !== activeId,
+                [classes.activeStatic]: id === activeId && !mounted,
+                [classes.active]: id === activeId,
+                [classes.inActive]: id !== activeId,
               },
             ])}
             // @ts-expect-error React is incapable of typing this kind of ref so we do not add a type
             ref={(el) => (el ? ($tab.current[index] = el) : null)}
-            data-pendo={tab.dataPendo}
-            tabIndex={tab.id === activeId ? undefined : -1}
-            aria-selected={tab.id === activeId ? true : undefined}
+            tabIndex={id === activeId ? undefined : -1}
+            aria-selected={id === activeId ? true : undefined}
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
-              setActiveId(tab.id)
+              setActiveId(id)
               onSwitch?.(tab)
             }}
             onKeyUp={(e) => {
@@ -133,21 +142,22 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 navigate(-1)
               }
             }}
+            {...dataAttr}
           >
             <>
               {(() => {
-                const IconBefore = tab.iconBefore ?? tab.icon
+                const IconBefore = iconBefore ?? icon
                 return IconBefore ? (
                   <IconBefore {...iconProps} className="mr-[8px]" />
                 ) : null
               })()}
-              {tab.label}
-              {tab.tag ? <div className={classes.tag}>{tab.tag}</div> : null}
-              {tab.iconAfter ? (
-                <tab.iconAfter {...iconProps} className="ml-[8px]" />
+              {label}
+              {tag ? <div className={classes.tag}>{tag}</div> : null}
+              {IconAfter ? (
+                <IconAfter {...iconProps} className="ml-[8px]" />
               ) : null}
             </>
-            {tab.id === activeId && !activeMarkerStyle.left ? (
+            {id === activeId && !activeMarkerStyle.left ? (
               <div className={classes.activeMarkerStatic} />
             ) : null}
           </ButtonTag>
