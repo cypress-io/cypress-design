@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-spinner",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "files": [
     "*"
   ],
@@ -22,6 +22,9 @@
       "require": "./Spinner.vue"
     }
   },
+  "browser": {
+    "./sfc": "Spinner.vue"
+  },
   "typesVersions": {
     "*": {
       "sfc": [
@@ -34,8 +37,11 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
+  "dependencies": {
+    "@cypress-design/constants-spinner": "*"
+  },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

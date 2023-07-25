@@ -1,16 +1,9 @@
 import { it, expect } from 'vitest'
-import postcss from 'postcss'
-import tailwindcss, { Config } from 'tailwindcss'
+import { runTailwind } from './testUtils'
 import openPlugin from './tw-details-open-variant-plugin'
 
-function run(input: string, config: Config) {
-  return postcss(tailwindcss(config)).process(input, {
-    from: undefined,
-  })
-}
-
 it('generates icon classes', async () => {
-  let config = {
+  const config = {
     content: [
       {
         raw: `
@@ -25,7 +18,7 @@ it('generates icon classes', async () => {
     },
     plugins: [openPlugin],
   }
-  const output = await run('@tailwind utilities', config)
+  const output = await runTailwind('@tailwind utilities', config)
 
   expect(output.css).toMatchInlineSnapshot(`
     ".p-4 {

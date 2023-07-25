@@ -12,7 +12,12 @@ interface RecursiveKeyValuePair {
  * outline with that, do border-transparent for the non-hocus state.
  */
 
-export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
+export const tailwindPlugin = plugin(function ({
+  addComponents,
+  addUtilities,
+  addBase,
+  theme,
+}) {
   function defaultRing(
     color: 'indigo' | 'error' | 'jade'
   ): RecursiveKeyValuePair {
@@ -69,30 +74,27 @@ export const tailwindPlugin = plugin(function ({ addComponents, theme }) {
     '.hocus-error': makeFocusDefaultObject(['hover', 'focus'], 'error'),
     '.hocus-secondary': makeFocusDefaultObject(['hover', 'focus'], 'jade'),
   })
+
+  addUtilities({
+    // utilities for modal
+    '.cy-modal-overflow-hidden': {
+      position: 'relative',
+      overflow: 'hidden',
+    },
+    '.cy-modal-overflow-scroll-x': {
+      overflowX: 'scroll',
+    },
+    '.cy-modal-overflow-scroll-y': {
+      overflowY: 'scroll',
+    },
+  })
+
+  addBase({
+    '#modal-target': {
+      position: 'absolute',
+      top: '0',
+      left: '0',
+      zIndex: '1000000',
+    },
+  })
 })
-
-const focusDefault =
-  'outline-none' +
-  'focus:border focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100 focus:outline-transparent' +
-  'transition duration-150' +
-  'disabled:hover:ring-0 disabled:hover:border-transparent'
-
-// Usually what you want
-const hocusDefault = focusDefault.replace(/focus:/g, 'hocus:')
-
-// If you want to control a parent card when an inner button is in focus
-const focusWithinDefault = focusDefault.replace(/focus:/g, 'focus-within:')
-
-export const shortcuts = {
-  card:
-    'bg-white border rounded cursor-pointer block border-gray-100 w-full ' +
-    hocusDefault,
-  'default-ring': focusDefault.replace(/focus:/g, ''),
-  'hocus-within-default': focusDefault.replace(/focus:/g, 'hocus-within:'),
-  'hocus-default': hocusDefault,
-  'focus-within-default': focusWithinDefault,
-  'focus-default': focusDefault,
-  'hocus-link-default': 'focus:outline-transparent hocus:underline',
-  'hocus-error': hocusDefault.replace(/indigo/g, 'error'),
-  'hocus-secondary': hocusDefault.replace(/indigo/g, 'jade'),
-}

@@ -105,11 +105,11 @@ const $closeButton = ref<HTMLButtonElement>()
   <div
     ref="$button"
     tabindex="0"
-    class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 dark:bg-gray-800 min-h-[72px] rounded"
+    class="gap-x-[16px] flex flex-wrap items-center overflow-hidden bg-indigo-50 min-h-[72px] rounded"
     :class="{
       'mx-[16px] px-[8px] pb-[4px] md:flex-nowrap justify-end md:justify-start !cursor-default':
         focused,
-      'py-[8px] justify-center hover:bg-indigo-100 dark:hover:bg-gray-700 transition-colors cursor-pointer':
+      'py-[8px] justify-center hover:bg-indigo-100  transition-colors cursor-pointer':
         !focused,
       'absolute left-0 right-0 md:left-[28px] md:right-[28px] z-20 w-auto items-center min-h-[120px] md:min-h-0':
         localFocused,
@@ -123,14 +123,14 @@ const $closeButton = ref<HTMLButtonElement>()
     <button
       v-if="localFocused"
       ref="$closeButton"
-      class="absolute top-[4px] right-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500 dark:hover:border-gray-500"
+      class="absolute top-[4px] right-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500"
       @click.stop="localFocused = false"
     >
       <span class="sr-only">Close</span>
       <IconActionDeleteMedium />
     </button>
     <p
-      class="text-[16px] flex-shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
+      class="text-[16px] leading-none shrink-0 overflow-hidden whitespace-nowrap overflow-hidden py-[4px]"
       :class="{
         'w-full text-left md:text-right md:w-auto md:min-w-[350px]': focused,
         hidden: !focused,
@@ -138,7 +138,7 @@ const $closeButton = ref<HTMLButtonElement>()
     >
       <span class="flex items-center md:justify-end mb-[8px] gap-x-[8px] group"
         ><CopyButton class="hidden md:block" :text="iconName" /><code
-          class="!m-0"
+          class="!m-0 leading-none"
           >{{ iconName }}</code
         ></span
       >
@@ -146,14 +146,14 @@ const $closeButton = ref<HTMLButtonElement>()
         ><CopyButton
           class="hidden md:block"
           :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
-        /><code class="!m-0"
+        /><code class="!m-0 leading-none"
           >&lt;Icon{{ upperFirst(camelCase(iconName)) }} /&gt;</code
         ></span
       >
     </p>
 
     <div
-      class="flex-grow grid gap-[16px] transition-all duration-1000"
+      class="grow grid gap-[16px] transition-all duration-1000"
       :class="{
         [`grid-cols-${Math.min(meta.availableSizes.length, 4)}`]: !localFocused,
         [`grid-cols-5 justify-items-center`]: localFocused,

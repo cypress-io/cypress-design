@@ -5,7 +5,13 @@
     "strict": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "composite": true
   },
-  "include": ["components/*/react/**/*.tsx", "components/*/react/**/*.ts"]
+  "include": [
+    "components/*/react/**/*.tsx",
+    "components/*/react/**/*.ts",
+    "components/*/assertions.ts",
+    "cypress/**/*.ts"
+  ]
 }

@@ -3,7 +3,7 @@
 import { variants, Tab } from './constants'
 
 const tabs = [
-  { id: 'ov', label: 'Overview', active: true },
+  { id: 'ov', label: 'Overview' },
   { id: 'cl', label: 'Command Log' },
   { id: 'err', label: 'Errors' },
   { id: 'reco', label: 'Recommendations' },
@@ -12,29 +12,34 @@ const tabs = [
 export default function assertions(
   mountStory: (options?: {
     tabs: Tab[]
+    activeId?: string
     variant?: keyof typeof variants
   }) => void
 ): void {
   describe('Tabs', { viewportHeight: 80 }, () => {
     it('renders', () => {
-      mountStory({ tabs })
+      mountStory({ tabs, activeId: 'ov' })
     })
 
     it('moves to tab on click', () => {
-      mountStory({ tabs })
+      mountStory({ tabs, activeId: 'ov' })
       cy.contains('Errors').click()
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
     })
 
     it('moves to tab on arrow press', () => {
-      mountStory({ tabs })
+      mountStory({ tabs, activeId: 'ov' })
       cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
     })
 
     Object.keys(variants).forEach((variant) => {
       it(`renders ${variant}`, () => {
-        mountStory({ tabs, variant: variant as keyof typeof variants })
+        mountStory({
+          tabs,
+          activeId: 'ov',
+          variant: variant as keyof typeof variants,
+        })
       })
     })
   })

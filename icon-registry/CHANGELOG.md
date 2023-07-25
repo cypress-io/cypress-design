@@ -1,5 +1,49 @@
 # @cypress-design/icon-registry
 
+## 0.25.0
+
+### Minor Changes
+
+- [#280](https://github.com/cypress-io/cypress-design/pull/280) [`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d) Thanks [@dkasper-was-taken](https://github.com/dkasper-was-taken)! - adding icon for test replay initiative
+
+### Patch Changes
+
+- Updated dependencies [[`9ec1a81`](https://github.com/cypress-io/cypress-design/commit/9ec1a81cbe0a136bb8bd74b5af968c41615cefbc)]:
+  - @cypress-design/css@0.15.0
+
+## 0.24.1
+
+### Patch Changes
+
+- [#234](https://github.com/cypress-io/cypress-design/pull/234) [`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9) Thanks [@elevatebart](https://github.com/elevatebart)! - allow to use a gradient icon more than once
+
+## 0.24.0
+
+### Minor Changes
+
+- [#240](https://github.com/cypress-io/cypress-design/pull/240) [`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9) Thanks [@elevatebart](https://github.com/elevatebart)! - make 2 icons background transparent by default
+
+## 0.23.0
+
+### Minor Changes
+
+- [#235](https://github.com/cypress-io/cypress-design/pull/235) [`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf) Thanks [@tbiethman](https://github.com/tbiethman)! - adding icons for branch review initiative
+
+## 0.22.2
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
+- Updated dependencies [[`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f)]:
+  - @cypress-design/css@0.13.2
+
+## 0.22.1
+
+### Patch Changes
+
+- [#226](https://github.com/cypress-io/cypress-design/pull/226) [`3412b32`](https://github.com/cypress-io/cypress-design/commit/3412b321283094df19e66f9c2fe37317fe810478) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - feat(icons): add technology git error icon
+
 ## 0.22.0
 
 ### Minor Changes

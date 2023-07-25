@@ -36,7 +36,7 @@ const props = withDefaults(
      * If the checkbox is disabled, it will not be clickable.
      */
     disabled?: boolean
-    modelValue?: boolean
+    modelValue?: boolean | Array<string>
     /**
      * Label for the checkbox.
      * It is very important to set this to make the checkbox accessible.
@@ -49,19 +49,41 @@ const props = withDefaults(
   }
 )
 
-const localChecked = ref(props.modelValue || props.checked)
+const localChecked = ref(
+  (Array.isArray(props.modelValue)
+    ? props.name
+      ? props.modelValue.includes(props.name)
+      : false
+    : props.modelValue) || props.checked
+)
 
 const emit = defineEmits<{
   /**
    * Fired when the checkbox changes value
    * @arg value - The next value of the checkbox
    */
-  (event: 'update:modelValue', value: boolean): void
+  (event: 'update:modelValue', value: boolean | Array<string>): void
+  (event: 'change', value: boolean): void
 }>()
 
 function updated() {
   localChecked.value = !localChecked.value
-  emit('update:modelValue', localChecked.value)
+  if (Array.isArray(props.modelValue)) {
+    const arrayModelValue = [...props.modelValue]
+    if (!props.name) {
+      return
+    }
+    const index = arrayModelValue.indexOf(props.name)
+    if (index === -1) {
+      arrayModelValue.push(props.name)
+    } else {
+      arrayModelValue.splice(index, 1)
+    }
+    emit('update:modelValue', arrayModelValue)
+  } else {
+    emit('update:modelValue', localChecked.value)
+  }
+  emit('change', localChecked.value)
 }
 
 const checkboxClasses = computed(() =>
@@ -96,7 +118,7 @@ const checkboxClasses = computed(() =>
           v-if="label"
           :class="[
             Classes.trueLabel,
-            disabled ? 'text-gray-500' : 'text-gray-800 dark:text-gray-200',
+            disabled ? 'text-gray-500' : 'text-gray-800',
           ]"
         >
           {{ label }}

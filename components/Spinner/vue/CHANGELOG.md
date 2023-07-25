@@ -1,5 +1,20 @@
 # @cypress-design/vue-spinner
 
+## 0.4.3
+
+### Patch Changes
+
+- [#279](https://github.com/cypress-io/cypress-design/pull/279) [`433f93c`](https://github.com/cypress-io/cypress-design/commit/433f93cfcc643eed4268a0559e892c0bd9bfd280) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add spinner dark variant
+
+- Updated dependencies [[`433f93c`](https://github.com/cypress-io/cypress-design/commit/433f93cfcc643eed4268a0559e892c0bd9bfd280)]:
+  - @cypress-design/constants-spinner@0.0.2
+
+## 0.4.2
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
 ## 0.4.1
 
 ### Patch Changes

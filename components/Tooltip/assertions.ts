@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
-export default function assertions(mountStory: (options?: any) => void): void {
+export default function assertions(
+  mountStory: (options?: any) => void,
+  fw: 'react' | 'vue'
+): void {
   it('renders', () => {
     mountStory()
 
@@ -10,7 +13,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
-      cy.percySnapshot(placement)
+      cy.percySnapshot(`tooltip-light-${placement}-${fw}`)
     })
   })
 
@@ -30,7 +33,16 @@ export default function assertions(mountStory: (options?: any) => void): void {
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="1"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
-      cy.percySnapshot(placement)
+      cy.percySnapshot(`tooltip-dark-${placement}-${fw}`)
+    })
+  })
+
+  it('shifts when overflowing', () => {
+    mountStory({ single: true })
+    cy.contains('[tabindex="1"]', 'Lorem ipsum').focus()
+    cy.contains('div', 'popit: Lorem ipsum').then(($el) => {
+      const { left } = $el[0].getBoundingClientRect()
+      expect(left).to.be.greaterThan(0)
     })
   })
 }

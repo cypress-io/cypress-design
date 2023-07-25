@@ -1,5 +1,20 @@
 # @cypress-design/vue-accordion
 
+## 0.4.4
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+- Updated dependencies [[`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171)]:
+  - @cypress-design/vue-icon@0.23.1
+
+## 0.4.3
+
+### Patch Changes
+
+- [`4917933`](https://github.com/cypress-io/cypress-design/commit/4917933c82078090c7c29e94a090737e0427821d) Thanks [@elevatebart](https://github.com/elevatebart)! - make accordion compatible with tw
+
 ## 0.4.2
 
 ### Patch Changes

@@ -1,5 +1,72 @@
 # @cypress-design/react-tabs
 
+## 0.7.2
+
+### Patch Changes
+
+- [`ddaee22`](https://github.com/cypress-io/cypress-design/commit/ddaee22971121704cb9f3b780857c9877e470faf) Thanks [@elevatebart](https://github.com/elevatebart)! - adjust position of active marker when resizing window
+
+- Updated dependencies [[`ddaee22`](https://github.com/cypress-io/cypress-design/commit/ddaee22971121704cb9f3b780857c9877e470faf)]:
+  - @cypress-design/constants-tabs@0.5.2
+
+## 0.7.1
+
+### Patch Changes
+
+- [`743a060`](https://github.com/cypress-io/cypress-design/commit/743a060b016a346a9a4ce38e630cec4b9aa24705) Thanks [@elevatebart](https://github.com/elevatebart)! - remove translate-y from center tabs
+
+- Updated dependencies [[`743a060`](https://github.com/cypress-io/cypress-design/commit/743a060b016a346a9a4ce38e630cec4b9aa24705)]:
+  - @cypress-design/constants-tabs@0.5.1
+
+## 0.7.0
+
+### Minor Changes
+
+- [#283](https://github.com/cypress-io/cypress-design/pull/283) [`cec77ef`](https://github.com/cypress-io/cypress-design/commit/cec77ef4d2e4af090efcb9e61905208b785f8183) Thanks [@elevatebart](https://github.com/elevatebart)! - add centered variant for blog
+
+### Patch Changes
+
+- Updated dependencies [[`cec77ef`](https://github.com/cypress-io/cypress-design/commit/cec77ef4d2e4af090efcb9e61905208b785f8183)]:
+  - @cypress-design/constants-tabs@0.5.0
+
+## 0.6.2
+
+### Patch Changes
+
+- [`869d592`](https://github.com/cypress-io/cypress-design/commit/869d59290038d8919c318f4b6594867d1f1b8d4f) Thanks [@elevatebart](https://github.com/elevatebart)! - adust the underline-small classes with relative
+
+- Updated dependencies [[`869d592`](https://github.com/cypress-io/cypress-design/commit/869d59290038d8919c318f4b6594867d1f1b8d4f)]:
+  - @cypress-design/constants-tabs@0.4.1
+
+## 0.6.1
+
+### Patch Changes
+
+- [`5b78521`](https://github.com/cypress-io/cypress-design/commit/5b785219b7e2c79be46ee9a93835a197fa443348) Thanks [@elevatebart](https://github.com/elevatebart)! - remove dark mode from tabs
+
+## 0.6.0
+
+### Minor Changes
+
+- [#267](https://github.com/cypress-io/cypress-design/pull/267) [`dd57623`](https://github.com/cypress-io/cypress-design/commit/dd57623479470aaa0616dda02f59c6011cb2cd78) Thanks [@elevatebart](https://github.com/elevatebart)! - move active status of tabs to a prop of the component
+
+### Patch Changes
+
+- Updated dependencies [[`dd57623`](https://github.com/cypress-io/cypress-design/commit/dd57623479470aaa0616dda02f59c6011cb2cd78)]:
+  - @cypress-design/constants-tabs@0.3.0
+
+## 0.5.2
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+## 0.5.1
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
 ## 0.5.0
 
 ### Minor Changes

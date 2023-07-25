@@ -1,5 +1,58 @@
 # @cypress-design/vue-statusicon
 
+## 0.4.9
+
+### Patch Changes
+
+- Updated dependencies [[`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d)]:
+  - @cypress-design/vue-icon@0.24.0
+  - @cypress-design/icon-registry@0.25.0
+
+## 0.4.8
+
+### Patch Changes
+
+- [#234](https://github.com/cypress-io/cypress-design/pull/234) [`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9) Thanks [@elevatebart](https://github.com/elevatebart)! - allow to use a gradient icon more than once
+
+- Updated dependencies [[`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9)]:
+  - @cypress-design/vue-icon@0.23.2
+  - @cypress-design/icon-registry@0.24.1
+
+## 0.4.7
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+- Updated dependencies [[`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171)]:
+  - @cypress-design/vue-icon@0.23.1
+
+## 0.4.6
+
+### Patch Changes
+
+- Updated dependencies [[`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9)]:
+  - @cypress-design/icon-registry@0.24.0
+  - @cypress-design/vue-icon@0.23.0
+
+## 0.4.5
+
+### Patch Changes
+
+- Updated dependencies [[`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf)]:
+  - @cypress-design/icon-registry@0.23.0
+  - @cypress-design/vue-icon@0.22.4
+
+## 0.4.4
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
+- Updated dependencies [[`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f)]:
+  - @cypress-design/vue-icon@0.22.3
+  - @cypress-design/icon-registry@0.22.2
+
 ## 0.4.3
 
 ### Patch Changes

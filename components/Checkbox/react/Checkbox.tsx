@@ -90,7 +90,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         {label && (
           <span
             className={clsx([
-              disabled ? 'text-gray-500' : 'text-gray-800 dark:text-gray-200',
+              disabled ? 'text-gray-500' : 'text-gray-800',
               Classes.trueLabel,
             ])}
           >

@@ -1,16 +1,21 @@
-import camelCase from 'lodash.camelcase'
-import { COLOR_PREFIXES } from '@cypress-design/css/dist/colors'
-import type { OpenIconProps, IconProps, WindiColor } from './icons'
+import _ from 'lodash'
+import { COLOR_PREFIXES } from '@cypress-design/css/dist/color-constants'
+import type { OpenIconProps, ColorIconProps, IconProps } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
 import { iconSet } from './iconsList'
 
-export const compileIcon = (props: IconProps) => {
-  const { name } = props
+const camelCase = _.camelCase
+
+export const compileIcon = (
+  props: Omit<OpenIconProps, 'name'> & Pick<IconProps, 'name'>
+) => {
+  const { interactiveColorsOnGroup, name, ...cleanProps } = props
   const { availableSizes } = iconsMetadata[name]
 
   const { sizeWithDefault, compiledClasses } = getComponentAttributes({
-    ...(props as any),
+    ...cleanProps,
     availableSizes,
+    interactiveColorsOnGroup,
   })
 
   const nameWithSize = camelCase(`${name}_x${sizeWithDefault}`)
@@ -18,26 +23,29 @@ export const compileIcon = (props: IconProps) => {
   if (!iconData) {
     throw new Error(`icon '${name}' at size ${sizeWithDefault} not found`)
   }
+
+  // SVGO always brings defs to the end of the file
+  // so we can split the file in two parts
+  // and use the first part as the body
+  const defsStart = iconData.data.indexOf('<defs>')
+
   return {
-    ...(props as any),
+    ...cleanProps,
+    name,
     size: sizeWithDefault,
     compiledClasses,
-    body: iconData.data,
+    body: defsStart >= 0 ? iconData.data.slice(0, defsStart) : iconData.data,
+    defs: defsStart >= 0 ? iconData.data.slice(defsStart) : undefined,
   }
 }
 
 export const getComponentAttributes = (
   props: {
     availableSizes: readonly string[]
-  } & OpenIconProps
+  } & Omit<OpenIconProps, 'name'>
 ) => {
-  const {
-    size,
-    availableSizes,
-    interactiveColorsOnGroup,
-    name, // not used, just removed from colors
-    ...otherProps
-  } = props
+  const { size, availableSizes, interactiveColorsOnGroup, ...otherProps } =
+    props
   const sizeWithDefault =
     size ??
     (availableSizes.length >= 1
@@ -51,13 +59,21 @@ export const getComponentAttributes = (
       ? otherProps['interactive-colors-on-group']
       : interactiveColorsOnGroup
 
+  delete otherProps['interactive-colors-on-group']
+
   // TODO: when all icons are converted to using the design system,
   // replace dark by stroke and light by fill,
-  // both here and in the windi plugins configs.
+  // both here and in the tailwind plugins configs.
   const compiledClasses = Object.keys(otherProps)
-    .filter((attrName) => ICON_COLOR_PROP_NAMES.includes(attrName))
+    .filter(
+      (attrName) =>
+        otherProps[attrName as keyof typeof otherProps] &&
+        ICON_COLOR_PROP_NAMES.includes(
+          attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
+        )
+    )
     .map((colorAttrName: string) => {
-      const color: WindiColor = otherProps[colorAttrName]
+      const color = otherProps[colorAttrName as keyof ColorIconProps]
       const lowerCaseColor = colorAttrName.toLowerCase().replace(/-/g, '')
       const colorClass = lowerCaseColor.includes('strokecolor')
         ? 'dark'

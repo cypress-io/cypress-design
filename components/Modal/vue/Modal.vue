@@ -1,0 +1,139 @@
+<script lang="ts" setup>
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import {
+  ClassBackDrop,
+  ClassModal,
+  ClassModalFullscreenDimensions,
+  ClassModalStandardDimensions,
+  ClassModalContainer,
+  ClassTitleBox,
+  ClassTitle,
+  ClassHelpLinkDash,
+  ClassHelpLink,
+  ClassCloseButton,
+  ClassContent,
+  disableBodyScroll,
+  freeBodyScroll,
+} from '@cypress-design/constants-modal'
+import {
+  IconActionDelete,
+  IconActionQuestionMarkCircle,
+} from '@cypress-design/vue-icon'
+
+const internalShow = ref(false)
+
+const emit = defineEmits<{
+  (event: 'close'): void
+  (event: 'update:show', value: boolean): void
+}>()
+
+const props = defineProps<{
+  title?: string
+  show?: boolean
+  helpLink?: string
+  transition?: number
+  fullscreen?: boolean
+}>()
+
+watch(
+  () => props.show,
+  (val) => {
+    internalShow.value = val
+  },
+  { immediate: true },
+)
+
+onMounted(() => {
+  if (!document.querySelector('#modal-target')) {
+    const modalTarget = document.createElement('div')
+    modalTarget.id = 'modal-target'
+    document.body.appendChild(modalTarget)
+  }
+})
+
+watch(internalShow, (val) => {
+  if (val) {
+    disableBodyScroll()
+  } else {
+    freeBodyScroll()
+  }
+  emit('update:show', val)
+  if (!val) {
+    emit('close')
+  }
+})
+
+onUnmounted(() => {
+  freeBodyScroll()
+})
+</script>
+
+<template>
+  <Teleport v-if="internalShow" to="#modal-target">
+    <div :class="ClassBackDrop" @click="internalShow = false" />
+    <div
+      :class="ClassModalContainer"
+      tabindex="-1"
+      aria-modal="true"
+      aria-labelledby="cy_modal_label"
+      role="dialog"
+    >
+      <div
+        :class="[
+          ClassModal,
+          fullscreen
+            ? ClassModalFullscreenDimensions
+            : ClassModalStandardDimensions,
+        ]"
+      >
+        <div :class="ClassTitleBox">
+          <div id="cy_modal_label" :class="ClassTitle">
+            {{ title }}
+          </div>
+          <div v-if="helpLink" :class="ClassHelpLinkDash" />
+          <a
+            v-if="helpLink"
+            :href="helpLink"
+            :class="ClassHelpLink"
+            target="_blank"
+          >
+            Need help
+            <IconActionQuestionMarkCircle
+              class="ml-[4px]"
+              stroke-color="indigo-500"
+              fill-color="indigo-100"
+            />
+          </a>
+          <div class="grow" />
+          <button
+            aria-label="Close"
+            :class="ClassCloseButton"
+            @click="internalShow = false"
+          >
+            <IconActionDelete
+              class="children:transition-all"
+              stroke-color="gray-400"
+              hover-stroke-color="gray-700"
+              interactive-colors-on-group
+            />
+          </button>
+        </div>
+        <div :class="ClassContent">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </Teleport>
+</template>
+
+<style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

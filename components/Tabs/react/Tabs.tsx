@@ -1,12 +1,16 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, variants } from '@cypress-design/constants-tabs'
+import { Tab, variants, throttle } from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
   /**
    * The tabs to display
    */
   tabs: Tab[]
+  /**
+   * The id of the active tab
+   */
+  activeId?: string
   /**
    * Appearance of tabs
    */
@@ -22,12 +26,19 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   tabs,
   onSwitch,
   variant = 'default',
+  activeId: activeIdProp,
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
   const [activeId, setActiveId] = React.useState(
-    tabs.find((tab) => tab.active)?.id
+    activeIdProp || tabs.find((tab) => tab.active)?.id,
   )
+
+  React.useEffect(() => {
+    if (mounted && activeIdProp) {
+      setActiveId(activeIdProp)
+    }
+  }, [activeIdProp])
 
   const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
@@ -37,7 +48,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     transitionProperty?: string
   }>({})
 
-  React.useEffect(() => {
+  function updateActiveMarkerStyle() {
     const activeTab = tabs.findIndex((tab) => tab.id === activeId)
     if (activeTab > -1) {
       const activeTabEl = $tab.current?.[activeTab]
@@ -50,7 +61,22 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       }
     }
     setMounted(true)
+  }
+
+  React.useEffect(() => {
+    updateActiveMarkerStyle()
   }, [activeId])
+
+  const throttledUpdateActiveMarkerStyle = throttle(
+    updateActiveMarkerStyle,
+    100,
+  )
+
+  React.useEffect(() => {
+    window.addEventListener('resize', throttledUpdateActiveMarkerStyle)
+    return () =>
+      window.removeEventListener('resize', throttledUpdateActiveMarkerStyle)
+  }, [])
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift
@@ -73,6 +99,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
 
   return (
     <div role="tablist" className={classes.wrapper} {...rest}>
+      {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
         const ButtonTag = tab.href ? 'a' : 'button'
         return (
@@ -88,7 +115,8 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 [classes.inActive]: tab.id !== activeId,
               },
             ])}
-            ref={(el: any) => (el ? ($tab.current[index] = el) : null)}
+            // @ts-expect-error React is incapable of typing this kind of ref so we do not add a type
+            ref={(el) => (el ? ($tab.current[index] = el) : null)}
             tabIndex={tab.id === activeId ? undefined : -1}
             aria-selected={tab.id === activeId ? true : undefined}
             onClick={(e) => {

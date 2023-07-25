@@ -5,7 +5,7 @@ const renderType = require('./renderType.cjs')
 const { renderTags, mdclean } = defaultTemplates
 
 /**
- *
+ * Display one line per prop
  * @param {Array<import('vue-docgen-api').PropDescriptor>} props
  * @param {boolean} supComponent
  */
@@ -47,5 +47,6 @@ module.exports = async function renderProp(props, opt) {
 ${supComponent ? '#' : ''}## Props
 
 ${await lineTemplate(props, supComponent)}
+---
 `
 }

@@ -1,5 +1,37 @@
 # @cypress-design/css
 
+## 0.15.0
+
+### Minor Changes
+
+- [#281](https://github.com/cypress-io/cypress-design/pull/281) [`9ec1a81`](https://github.com/cypress-io/cypress-design/commit/9ec1a81cbe0a136bb8bd74b5af968c41615cefbc) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - add children variant to CSS
+
+## 0.14.0
+
+### Minor Changes
+
+- [#266](https://github.com/cypress-io/cypress-design/pull/266) [`c573e4f`](https://github.com/cypress-io/cypress-design/commit/c573e4ff978f6fd98ef8f9967742b062d81fb07f) Thanks [@elevatebart](https://github.com/elevatebart)! - parse icons with curlies in color
+
+## 0.13.4
+
+### Patch Changes
+
+- [#228](https://github.com/cypress-io/cypress-design/pull/228) [`3c5e87e`](https://github.com/cypress-io/cypress-design/commit/3c5e87e56937be486c10c928170ee7b64eb622c6) Thanks [@elevatebart](https://github.com/elevatebart)! - creation of modal component
+
+## 0.13.3
+
+### Patch Changes
+
+- [#244](https://github.com/cypress-io/cypress-design/pull/244) [`2b8927e`](https://github.com/cypress-io/cypress-design/commit/2b8927e6b6ee395d63a1b12e11c57888ee43940e) Thanks [@elevatebart](https://github.com/elevatebart)! - remove windi loader
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+## 0.13.2
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
 ## 0.13.1
 
 ### Patch Changes

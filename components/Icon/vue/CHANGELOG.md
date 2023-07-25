@@ -1,5 +1,73 @@
 # @cypress-design/vue-icon
 
+## 0.24.1
+
+### Patch Changes
+
+- [#290](https://github.com/cypress-io/cypress-design/pull/290) [`b3b4fbc`](https://github.com/cypress-io/cypress-design/commit/b3b4fbc189457a311abaf93959ec211067957a5c) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: types of class attribute in icon
+
+## 0.24.0
+
+### Minor Changes
+
+- [#280](https://github.com/cypress-io/cypress-design/pull/280) [`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d) Thanks [@dkasper-was-taken](https://github.com/dkasper-was-taken)! - adding icon for test replay initiative
+
+### Patch Changes
+
+- Updated dependencies [[`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d)]:
+  - @cypress-design/icon-registry@0.25.0
+
+## 0.23.2
+
+### Patch Changes
+
+- [#234](https://github.com/cypress-io/cypress-design/pull/234) [`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9) Thanks [@elevatebart](https://github.com/elevatebart)! - allow to use a gradient icon more than once
+
+- Updated dependencies [[`ff95963`](https://github.com/cypress-io/cypress-design/commit/ff95963feb7ae5d9eb01e6122e5e411517f105b9)]:
+  - @cypress-design/icon-registry@0.24.1
+
+## 0.23.1
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+## 0.23.0
+
+### Minor Changes
+
+- [#240](https://github.com/cypress-io/cypress-design/pull/240) [`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9) Thanks [@elevatebart](https://github.com/elevatebart)! - make 2 icons background transparent by default
+
+### Patch Changes
+
+- Updated dependencies [[`7b59812`](https://github.com/cypress-io/cypress-design/commit/7b59812607db7bd563643c84f5cf9c4be52d98b9)]:
+  - @cypress-design/icon-registry@0.24.0
+
+## 0.22.4
+
+### Patch Changes
+
+- Updated dependencies [[`91ff284`](https://github.com/cypress-io/cypress-design/commit/91ff2840f5e4e5a6e28f581732e452237c367daf)]:
+  - @cypress-design/icon-registry@0.23.0
+
+## 0.22.3
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
+- Updated dependencies [[`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f)]:
+  - @cypress-design/icon-registry@0.22.2
+
+## 0.22.2
+
+### Patch Changes
+
+- [#226](https://github.com/cypress-io/cypress-design/pull/226) [`3412b32`](https://github.com/cypress-io/cypress-design/commit/3412b321283094df19e66f9c2fe37317fe810478) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - feat(icons): add technology git error icon
+
+- Updated dependencies [[`3412b32`](https://github.com/cypress-io/cypress-design/commit/3412b321283094df19e66f9c2fe37317fe810478)]:
+  - @cypress-design/icon-registry@0.22.1
+
 ## 0.22.1
 
 ### Patch Changes

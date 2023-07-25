@@ -1,5 +1,27 @@
 # @cypress-design/vue-checkbox
 
+## 0.5.0
+
+### Minor Changes
+
+- [#272](https://github.com/cypress-io/cypress-design/pull/272) [`9a3e358`](https://github.com/cypress-io/cypress-design/commit/9a3e3582b8ca2dfdadd9198054042c9f0083be01) Thanks [@elevatebart](https://github.com/elevatebart)! - remove dark mode implementation to avoid wrong side effects
+
+## 0.4.0
+
+### Minor Changes
+
+- [#258](https://github.com/cypress-io/cypress-design/pull/258) [`aac2e95`](https://github.com/cypress-io/cypress-design/commit/aac2e95c78a7dc41673101def2f7d185bc6e6d0e) Thanks [@elevatebart](https://github.com/elevatebart)! - handle array v-model with more than one checkboxes
+  - add the 'change' event to reflect the input checkbox's change event
+
+## 0.3.3
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+- Updated dependencies [[`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171)]:
+  - @cypress-design/vue-icon@0.23.1
+
 ## 0.3.2
 
 ### Patch Changes

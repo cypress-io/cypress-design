@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-tabs",
-  "version": "0.5.0",
+  "version": "0.7.2",
   "files": [
     "*"
   ],
@@ -23,7 +23,7 @@
     "@cypress-design/constants-tabs": "*"
   },
   "devDependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

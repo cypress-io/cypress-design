@@ -14,6 +14,7 @@ export const SolidStatusIcon: React.FC<
       statuses: solid.statuses,
       className: rest.className,
       size,
+      variantName: 'solid',
     }),
   })
 }

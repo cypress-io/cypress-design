@@ -5,19 +5,24 @@
  */
 
 import { fileURLToPath } from 'url'
-import { COLOR_PREFIXES } from '@cypress-design/css'
+import {
+  cyColors,
+  COLOR_PREFIXES,
+  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT,
+} from '@cypress-design/css/dist/color-constants'
 import * as path from 'path'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
 import { promises as fs } from 'fs'
-import camelCase from 'camelcase'
 import _ from 'lodash'
 import dedent from 'dedent'
-import {
-  cyColors,
-  ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
-} from '@cypress-design/css'
+
+const { camelCase, kebabCase, upperFirst } = _
+
+function pascalCase(str) {
+  return upperFirst(camelCase(str))
+}
 
 const propDescriptions = {
   StrokeColor: 'Color of the stroke',
@@ -57,11 +62,10 @@ async function getIcons() {
         'utf8'
       )
       const iconMeta = {
-        interfaceName: `Icon${camelCase(kebabCaseName, {
-          pascalCase: true,
-        })}Props`,
+        interfaceName: `Icon${pascalCase(kebabCaseName)}Props`,
         kebabCaseName,
         size,
+        defsIndex: svgContent.indexOf('<defs>'),
         ...props.reduce((acc, prop) => {
           acc[prop] = propsRE[prop].test(svgContent)
           return acc
@@ -72,11 +76,13 @@ async function getIcons() {
   )
   const iconsObjectSet = new Set()
   const iconsObjectUnique = iconsObject.reduce((acc, curr) => {
+    let iconMeta
     if (!iconsObjectSet.has(curr.interfaceName)) {
       iconsObjectSet.add(curr.interfaceName)
-      const iconMeta = {
+      iconMeta = {
         ...curr,
         availableSizes: [curr.size],
+        defs: {},
       }
       props.forEach((property) => {
         if (curr[property]) {
@@ -88,16 +94,21 @@ async function getIcons() {
       const index = acc.findIndex(
         (item) => item.interfaceName === curr.interfaceName
       )
-      acc[index].availableSizes.push(curr.size)
+      iconMeta = acc[index]
+      iconMeta.availableSizes.push(curr.size)
       props.forEach((property) => {
         if (curr[property]) {
-          if (acc[index][property]) {
-            acc[index][property].push(curr.size)
+          if (iconMeta[property]) {
+            iconMeta[property].push(curr.size)
           } else {
-            acc[index][property] = [curr.size]
+            iconMeta[property] = [curr.size]
           }
         }
       })
+    }
+
+    if (curr.defsIndex !== -1) {
+      iconMeta.defs[curr.size] = curr.defsIndex
     }
     return acc
   }, [])
@@ -109,7 +120,7 @@ async function getIcons() {
   })
 
   await ensureDistExist()
-  await generateIndex(iconsObjectUnique, iconsObject)
+  await generateIndex(iconsObjectUnique)
 }
 
 async function ensureDistExist() {
@@ -128,8 +139,9 @@ async function generateIndex(iconsObjectUnique) {
       // prettier-ignore
       return dedent`
       '${icon.kebabCaseName}': {
-          availableSizes: ['${icon.availableSizes.join('\',\'')}'], ${ColorRoots.map((colorRoot) => `
-          has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}
+          availableSizes: ['${icon.availableSizes.join("','")}'], ${ColorRoots.map((colorRoot) => `
+          has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}${icon.defs ? `,
+          defs: ${JSON.stringify(icon.defs)}`: ''}
       }`;
     })
     .join(',\n')
@@ -160,7 +172,7 @@ async function generateIndex(iconsObjectUnique) {
         export interface ${icon.interfaceName} 
             extends ${['RootIconProps', ...ColorRoots.map(root => 
               icon[`has${root}`] 
-                ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
+                ? `Has${pascalCase(`${root}`)}` 
                 : false
             ).filter(Boolean)].join(', ')} {
             name: '${icon.kebabCaseName}';
@@ -175,7 +187,7 @@ async function generateIndex(iconsObjectUnique) {
           export interface ${icon.interfaceName}X${size} 
               extends ${['RootIconProps', ...ColorRoots.map(root => 
                 icon[`has${root}`] && (icon[`has${root}`].indexOf(size) > -1) 
-                  ? `Has${camelCase(`${root}`, { pascalCase: true })}` 
+                  ? `Has${pascalCase(`${root}`)}` 
                   : false
               ).filter(Boolean)].join(', ')} {
               name: '${icon.kebabCaseName}';
@@ -193,6 +205,25 @@ async function generateIndex(iconsObjectUnique) {
     })
     .join('\n\n')
 
+  const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = COLOR_PREFIXES.reduce(
+    (acc, prefix) => {
+      acc.push(
+        ...Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).reduce(
+          (acc2, root) => {
+            return [
+              ...acc2,
+              camelCase(`${prefix}${root}`),
+              kebabCase(`${prefix}${root}`),
+            ]
+          },
+          []
+        )
+      )
+      return acc
+    },
+    []
+  )
+
   await fs.writeFile(
     './src/icons.ts',
     dedent`
@@ -202,8 +233,8 @@ async function generateIndex(iconsObjectUnique) {
    * All possible prop names for icon colors
    */
   export const ICON_COLOR_PROP_NAMES = ${JSON.stringify(
-    Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR)
-  )}
+    ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR
+  )} as const
 
   /**
    * All possible values for icon colors
@@ -225,9 +256,9 @@ async function generateIndex(iconsObjectUnique) {
   export interface OpenIconProps extends RootIconProps, ColorIconProps {}
 
   export interface ColorIconProps
-    extends ${ColorRoots.map(
-      (root) => `Has${camelCase(`${root}`, { pascalCase: true })}`
-    ).join(', ')} {}
+    extends ${ColorRoots.map((root) => `Has${pascalCase(`${root}`)}`).join(
+      ', '
+    )} {}
 
   interface RootIconProps {
     /**
@@ -239,19 +270,17 @@ async function generateIndex(iconsObjectUnique) {
      */
     size?: string;
     /**
-     * Should the interactive variants \`hover\` and \`focus\` 
-     * be applied on the icon itself or on the parent 
-     * group defined in windiCSS
+     * Should the interactive variants \`hover\` and \`focus\` be applied on the icon itself or on the parent group
      */
     interactiveColorsOnGroup?: boolean;
+    
+    ['interactive-colors-on-group']?: boolean
   }
   
   ${ColorRoots.map(
     (root) =>
       dedent`
-        interface Has${camelCase(`${root}`, {
-          pascalCase: true,
-        })} {${COLOR_PREFIXES.map(
+        interface Has${pascalCase(`${root}`)} {${COLOR_PREFIXES.map(
         (prefix) => `  
             /**
              * ${
@@ -282,6 +311,7 @@ async function generateIndex(iconsObjectUnique) {
 }
 
 getIcons().then(() => {
+  // eslint-disable-next-line no-console
   console.log('Icons generated')
   process.exit(0)
 })

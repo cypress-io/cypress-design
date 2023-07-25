@@ -14,6 +14,7 @@ export const OutlineStatusIcon: React.FC<
       statuses: outline.statuses,
       className: rest.className,
       size,
+      variantName: 'outline',
     }),
   })
 }

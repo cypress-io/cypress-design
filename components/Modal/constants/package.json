@@ -1,0 +1,23 @@
+{
+  "name": "@cypress-design/constants-modal",
+  "private": true,
+  "version": "0.2.0",
+  "files": [
+    "*"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "dependencies": {
+    "@cypress-design/css": "*"
+  },
+  "license": "MIT"
+}

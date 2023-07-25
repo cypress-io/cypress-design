@@ -1,8 +1,13 @@
 import * as React from 'react'
-import Icon, { IconObjectBookCode } from './index'
 import { mount } from 'cypress/react18'
+import assertions from '../assertions'
+import Icon, {
+  IconBrowserWebkit,
+  IconObjectBookCode,
+  IconDocumentBlank,
+} from './index'
 
-describe('Icon', () => {
+describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
   it('renders correctly', () => {
     mount(
       <ul className="m-4">
@@ -33,6 +38,22 @@ describe('Icon', () => {
           </button>
         </li>
       </ul>
+    )
+  })
+
+  assertions(({ class: className, ...props }) => {
+    if (props.name) {
+      return mount(<Icon className={className} {...props} />)
+    }
+    mount(<IconDocumentBlank className={className} {...props} />)
+  })
+
+  it('renders multiple times an icon with defs', () => {
+    mount(
+      <div className="p-2">
+        <IconBrowserWebkit className="w-16 h-16 hidden" />
+        <IconBrowserWebkit className="w-16 h-16" />
+      </div>
     )
   })
 })

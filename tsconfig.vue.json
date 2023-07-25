@@ -25,9 +25,6 @@
     "forceConsistentCasingInFileNames": true,
     // See <https://github.com/vuejs/vue-cli/pull/5688>
     "skipLibCheck": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationMap": true,
     "lib": [
       // Should target at least ES2016 in Vue 3
       // Support for newer versions of language built-ins are
@@ -47,6 +44,9 @@
   "include": [
     "components/*/vue/*.ts",
     "components/*/vue/*.tsx",
-    "components/*/vue/*.vue"
-  ]
+    "components/*/vue/*.vue",
+    "components/*/assertions.ts",
+    "cypress/**/*.ts"
+  ],
+  "exclude": ["components/*/vue/vite.config.ts"]
 }

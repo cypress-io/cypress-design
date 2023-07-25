@@ -11,20 +11,21 @@ export const compileProps = ({
   statuses,
   className,
   size,
+  variantName,
 }: VariantStatusIconProps & {
   statuses: Record<string, IconSet>
   className: string | undefined
+  variantName: string
 }) => {
   const statusInfo = status ? statuses[status] : statuses.placeholder
 
   const iconInfo = status ? StatusForColor[status] : StatusForColor.placeholder
 
-  const { data: iconData, name } = statusInfo[`size${size}Icon`]
+  const { data: iconData } = statusInfo[`size${size}Icon`]
 
   const classes = `inline-block ${className || ''}`
 
   const { compiledClasses } = getComponentAttributes({
-    name,
     strokeColor: iconInfo.color,
     size,
     availableSizes: [size],
@@ -35,5 +36,6 @@ export const compileProps = ({
     body: iconData,
     compiledClasses: [...compiledClasses, classes],
     size,
+    name: `status_${status}_${size}_${variantName}`,
   })
 }

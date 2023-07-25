@@ -11,6 +11,7 @@ export function getRequires(
   code: string,
   importMarker: number,
   componentNames: string[],
+  relativePath: string,
   production: boolean
 ) {
   // first if we find a local component we redirect it to the code to allow hot reload
@@ -25,9 +26,11 @@ export function getRequires(
         return ''
       }
 
-      const localImport = production
-        ? null
-        : /^@cypress-design\/(vue|react)-(\w+)$/.exec(oneImport.source)
+      const localImport =
+        production || !/\/(vue|react)\/(\w+).md$/.test(relativePath)
+          ? null
+          : /^@cypress-design\/(vue|react)-(\w+)$/.exec(oneImport.source)
+
       const source = localImport
         ? `../../../components/${componentNames.find(
             (name) => name.toLowerCase() === localImport[2]

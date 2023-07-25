@@ -6,14 +6,25 @@ import StatusIcon from '@cypress-design/react-statusicon'
 import Spinner from '@cypress-design/react-spinner'
 import './App.css'
 import { SimpleStatusIcon } from '@cypress-design/react-statusicon'
+import Modal from '@cypress-design/react-modal'
+import Button from '@cypress-design/react-button'
+import Tooltip from '@cypress-design/react-tooltip'
 
 function App() {
   const [count, setCount] = useState(0)
   const [isChecked, setChecked] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const [showOtherModal, setShowOtherModal] = useState(false)
 
   return (
     <div className="App">
       <header className="App-header">
+        <Tooltip popper={<b>popper</b>}>
+          <p>Tooltip content</p>
+        </Tooltip>
+        <Tooltip popper={<b>another popper</b>}>
+          <p>another Tooltip content</p>
+        </Tooltip>
         <img src={logo} className="App-logo" alt="logo" />
         <p className="text-jade-500">Hello Vite + React!</p>
         <p>
@@ -51,9 +62,11 @@ function App() {
         <Spinner />
         <table>
           <tbody>
-            <td className="py-2">
-              <StatusIcon status="running" variant="outline" size="16" />
-            </td>
+            <tr>
+              <td className="py-2">
+                <StatusIcon status="running" variant="outline" size="16" />
+              </td>
+            </tr>
           </tbody>
         </table>
         <SimpleStatusIcon status="failed" size="16" />
@@ -62,6 +75,32 @@ function App() {
           fillColor="jade-500"
         />
       </header>
+      <div className="h-[500px]" />
+      <div className="text-center">
+        <Button className="mx-auto my-4" onClick={() => setShowModal(true)}>
+          Open Modal
+        </Button>
+        <Button
+          className="mx-auto my-4"
+          onClick={() => setShowOtherModal(true)}
+        >
+          Open Other Modal
+        </Button>
+      </div>
+      <Modal
+        title="Modal title"
+        show={showModal}
+        onClose={() => setShowModal(false)}
+      >
+        <p>Modal content</p>
+      </Modal>
+      <Modal
+        title="Other modal title"
+        show={showOtherModal}
+        onClose={() => setShowOtherModal(false)}
+      >
+        <p>Other Modal content</p>
+      </Modal>
     </div>
   )
 }

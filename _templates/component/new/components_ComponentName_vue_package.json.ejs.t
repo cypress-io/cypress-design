@@ -3,17 +3,18 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
 ---
 {
   "name": "@cypress-design/vue-<%= name.toLowerCase() %>",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "files": [
     "*"
   ],
-  "typings": "./dist/vue/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "module": "./dist/index.es.mjs",
   "main": "./dist/index.umd.js",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -23,6 +24,9 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
   },
   "dependencies": {
     "@cypress-design/constants-<%= name.toLowerCase() %>": "*"
+  },
+  "devDependencies": {
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

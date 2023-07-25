@@ -10,7 +10,13 @@ describe('getRequires', () => {
 		import Icon, { IconActionQuestionMarkCircle as LocalIcon, IconActionOther as LocalIconOther } from "@cypress-design/vue-icon";
     </script>
 		`
-    const imports = getRequires(code, 42, ['Icon'], false)
+    const imports = getRequires(
+      code,
+      42,
+      ['Icon'],
+      'components/vue/Accordion.md',
+      false
+    )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';
       import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '../../../components/Icon/vue/index.ts';
@@ -33,7 +39,13 @@ describe('getRequires', () => {
 		import Icon, { IconActionQuestionMarkCircle as LocalIcon, IconActionOther as LocalIconOther } from "@cypress-design/vue-icon";
     </script>
 		`
-    const imports = getRequires(code, 42, ['Icon'], true)
+    const imports = getRequires(
+      code,
+      42,
+      ['Icon'],
+      'components/vue/Accordion.md',
+      true
+    )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';
       import { IconActionQuestionMarkCircle as __imported_LocalIcon_$42__ } from '@cypress-design/vue-icon';

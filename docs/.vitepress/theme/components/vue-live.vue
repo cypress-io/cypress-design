@@ -108,7 +108,7 @@ function copyCode() {
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
-        @change="(newCode) => (liveCode = newCode)"
+        @change="(newCode:string) => (liveCode = newCode)"
       />
       <button
         class="copy"
@@ -127,7 +127,7 @@ function copyCode() {
   display: flex;
   flex-flow: column;
   overflow: hidden;
-  @apply rounded-lg my-[24px] border border-gray-100 dark:border-gray-700;
+  @apply rounded-lg my-[24px] border border-gray-100;
 }
 .vp-doc .vue-live-preview-code .vue-live-block {
   flex-grow: 1;
@@ -148,7 +148,7 @@ function copyCode() {
 
 .vue-live-preview-code .vue-live-preview {
   box-sizing: border-box;
-  @apply bg-indigo-50 dark:bg-gray-800 p-[12px];
+  @apply bg-indigo-50 p-[12px];
 }
 
 html.dark .vue-live-preview-code .vue-live-preview {
@@ -167,7 +167,7 @@ html.dark .vue-live-preview-code .vue-live-preview {
   padding-bottom: 0;
   white-space: pre-wrap;
   font-family: 'Fira Code', monospace;
-  line-height: var(--vp-code-line-height);
-  font-size: var(--vp-code-font-size);
+  line-height: 1.3;
+  font-size: 0.875rem;
 }
 </style>

@@ -1,5 +1,32 @@
 # @cypress-design/vue-alert
 
+## 0.5.5
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
+- Updated dependencies [[`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171)]:
+  - @cypress-design/vue-icon@0.23.1
+
+## 0.5.4
+
+### Patch Changes
+
+- [#219](https://github.com/cypress-io/cypress-design/pull/219) [`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor some typings so eslint passes without warning
+
+- Updated dependencies [[`0a4ce3b`](https://github.com/cypress-io/cypress-design/commit/0a4ce3bb55b9ab0510f7fb9ba207d5fdc3cb723f)]:
+  - @cypress-design/vue-icon@0.22.3
+
+## 0.5.3
+
+### Patch Changes
+
+- [#217](https://github.com/cypress-io/cypress-design/pull/217) [`0e24977`](https://github.com/cypress-io/cypress-design/commit/0e24977b5c2196b50409c4b1f7fe6fbe6639eb64) Thanks [@elevatebart](https://github.com/elevatebart)! - add alerts new variant and demos
+
+- Updated dependencies [[`0e24977`](https://github.com/cypress-io/cypress-design/commit/0e24977b5c2196b50409c4b1f7fe6fbe6639eb64)]:
+  - @cypress-design/constants-alert@0.1.1
+
 ## 0.5.2
 
 ### Patch Changes

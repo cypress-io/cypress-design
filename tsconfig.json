@@ -12,15 +12,22 @@
     "lib": ["ESNext", "DOM", "dom.iterable"],
     "skipLibCheck": true,
     "noEmit": true,
+    "allowJs": true,
     "types": []
   },
   "include": [
+    "*.mjs",
     "docs/.vitepress/**/*.d.ts",
     "docs/.vitepress/**/*.ts",
+    "packages/**/*.ts",
+    "css/**/*.ts",
+    "icon-registry/**/*.ts",
     "docs/.vitepress/**/*.vue",
     "docs/src/**/*.vue",
     "components/**/vite.config.ts",
-    "components/root.vite.config.ts"
+    "components/**/assertions.ts",
+    "components/root.vite.config.ts",
+    "cypress/support/**/*.ts"
   ],
   "references": [
     {

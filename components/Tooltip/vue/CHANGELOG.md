@@ -1,5 +1,23 @@
 # @cypress-design/vue-tooltip
 
+## 0.7.0
+
+### Minor Changes
+
+- [#265](https://github.com/cypress-io/cypress-design/pull/265) [`a69b7ee`](https://github.com/cypress-io/cypress-design/commit/a69b7ee3e7ca0900362b463f9925ba6ff6f4332f) Thanks [@elevatebart](https://github.com/elevatebart)! - add forceOpen prop
+
+## 0.6.3
+
+### Patch Changes
+
+- [#259](https://github.com/cypress-io/cypress-design/pull/259) [`fdd8839`](https://github.com/cypress-io/cypress-design/commit/fdd883952476a852973adc671dadc817883251ec) Thanks [@elevatebart](https://github.com/elevatebart)! - when tooltip overflows, shift it back
+
+## 0.6.2
+
+### Patch Changes
+
+- [#245](https://github.com/cypress-io/cypress-design/pull/245) [`d52d023`](https://github.com/cypress-io/cypress-design/commit/d52d02301bb851d514661a8c258d0c4ae5baf171) Thanks [@elevatebart](https://github.com/elevatebart)! - use tailwind to rollup classes in the final package
+
 ## 0.6.1
 
 ### Patch Changes

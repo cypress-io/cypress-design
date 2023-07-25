@@ -1,3 +1,4 @@
+import { SVGAttributes, computed } from 'vue'
 import type {
   IconSet,
   VariantStatusIconProps,
@@ -10,31 +11,38 @@ export const compileProps = ({
   status,
   statuses,
   size,
+  variantName,
   ...attributes
 }: VariantStatusIconProps & {
   statuses: Record<string, IconSet>
-  [attributes: string]: any
-}) => {
-  const statusInfo = status ? statuses[status] : statuses.placeholder
+  variantName: string
+} & Omit<SVGAttributes, 'name'>) => {
+  const props = computed(() => {
+    const statusInfo = status ? statuses[status] : statuses.placeholder
 
-  const iconInfo = status ? StatusForColor[status] : StatusForColor.placeholder
+    const iconInfo = status
+      ? StatusForColor[status]
+      : StatusForColor.placeholder
 
-  const { data: iconData, name } = statusInfo[`size${size}Icon`]
+    const { data: iconData } = statusInfo[`size${size}Icon`]
 
-  const classes = ['inline-block']
+    const classes = ['inline-block']
 
-  const { compiledClasses } = getComponentAttributes({
-    name,
-    strokeColor: iconInfo.color,
-    size,
-    availableSizes: [size],
-    fillColor: iconInfo.secondaryColor,
+    const { compiledClasses } = getComponentAttributes({
+      size,
+      availableSizes: [size],
+      strokeColor: iconInfo.color,
+      fillColor: iconInfo.secondaryColor,
+    })
+
+    return {
+      name: `status_${status}_${size}_${variantName}`,
+      compiledClasses: [...compiledClasses, ...classes],
+      size,
+      body: iconData,
+      ...attributes,
+    }
   })
 
-  return compileVueIconProperties({
-    compiledClasses: [...compiledClasses, ...classes],
-    size,
-    body: iconData,
-    ...attributes,
-  })
+  return compileVueIconProperties(props)
 }

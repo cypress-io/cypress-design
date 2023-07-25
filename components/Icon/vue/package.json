@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "0.22.1",
+  "version": "0.24.1",
   "files": [
     "*"
   ],
@@ -21,13 +21,13 @@
     "build:types": "yarn tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.22.0"
+    "@cypress-design/icon-registry": "^0.25.0"
   },
   "devDependencies": {
-    "@cypress-design/css": "*",
-    "@types/lodash": "^4.14.194",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@types/lodash": "^4.14.195",
     "lodash": "^4.17.21",
-    "dedent": "^0.7.0"
+    "dedent": "^1.2.0"
   },
   "license": "MIT"
 }

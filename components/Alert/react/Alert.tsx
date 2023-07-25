@@ -10,10 +10,10 @@ import { DetailsAnimation } from '@cypress-design/details-animation'
 import {
   AlertSize,
   alertSizesClasses,
-  AlertType,
+  AlertVariant,
   defaultAlertSize,
   defaultAlertTitle,
-  defaultAlertType,
+  defaultAlertVariant,
   alertClasses,
 } from '@cypress-design/constants-alert'
 
@@ -23,9 +23,18 @@ export interface AlertProps {
    */
   title: React.ReactNode
   /**
+   * Box at the bottom of the alert for buttons or links
+   */
+  footer?: React.ReactNode
+  /**
    * Color scheme
    */
-  type?: AlertType
+  variant?: AlertVariant
+  /**
+   * Color scheme
+   * @deprecated Use `variant` instead
+   */
+  type?: AlertVariant
   /**
    * Togglable additional details
    */
@@ -67,13 +76,15 @@ export interface AlertProps {
 export const Alert: React.FC<
   AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size'>
 > = ({
-  type = defaultAlertType,
+  variant,
+  type = defaultAlertVariant,
   detailsTitle = defaultAlertTitle,
   onDismiss,
   noIcon,
   notRounded,
   dismissible,
   title,
+  footer,
   details,
   children,
   className,
@@ -82,15 +93,16 @@ export const Alert: React.FC<
   size = defaultAlertSize,
   ...rest
 }) => {
-  const typeClasses = alertClasses[type] ?? {}
+  variant = variant ?? type
+  const variantClasses = alertClasses[variant] ?? {}
   const sizeClasses = alertSizesClasses[size] ?? {}
   const Icon =
     customIcon ??
-    (type === 'error'
+    (variant === 'error'
       ? IconWarningCircle
-      : type === 'warning'
+      : variant === 'warning'
       ? IconWarningCircle
-      : type === 'success'
+      : variant === 'success'
       ? IconCheckmarkOutline
       : undefined)
 
@@ -115,7 +127,7 @@ export const Alert: React.FC<
   React.useEffect(() => {
     if (onDismiss && duration && !durationTimeout) {
       setDismissed(false)
-      const timeout = setTimeout(dismiss, duration) as any
+      const timeout = setTimeout(dismiss, duration) as unknown as number
       setDurationTimeout(timeout)
     }
     return clearDurationTimeout
@@ -137,13 +149,14 @@ export const Alert: React.FC<
           className={clsx(
             !notRounded && 'rounded',
             'overflow-hidden text-left',
-            className
+            className,
+            variantClasses.wrapperClass
           )}
           {...rest}
         >
           <div
             className={clsx(
-              typeClasses.headerClass,
+              variantClasses.headerClass,
               'flex p-[16px]',
               sizeClasses
             )}
@@ -151,7 +164,7 @@ export const Alert: React.FC<
             {!noIcon && Icon && (
               <Icon
                 className="my-[4px] mr-[8px]"
-                strokeColor={typeClasses.iconColor}
+                strokeColor={variantClasses.iconColor}
               />
             )}
             <div className="flex-1 font-medium">{title}</div>
@@ -162,13 +175,13 @@ export const Alert: React.FC<
                 aria-label="Dismiss"
               >
                 <IconActionDeleteLarge
-                  strokeColor={typeClasses.iconCloseColor}
+                  strokeColor={variantClasses.iconCloseColor}
                 />
               </button>
             )}
           </div>
           {children && (
-            <div className={clsx('p-[16px]', typeClasses.bodyClass)}>
+            <div className={clsx('p-[16px]', variantClasses.bodyClass)}>
               {children}
             </div>
           )}
@@ -176,20 +189,20 @@ export const Alert: React.FC<
             <details
               className={clsx(
                 'p-[16px] border-t border-t-1 cursor-pointer',
-                typeClasses.bodyClass,
-                typeClasses.borderClass
+                variantClasses.bodyClass,
+                variantClasses.borderClass
               )}
               ref={detailsRef}
             >
               <summary
                 className={clsx(
                   'flex font-medium details-none',
-                  typeClasses.detailsHeaderClass
+                  variantClasses.detailsHeaderClass
                 )}
               >
                 <IconChevronDownSmall
                   className="my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
-                  strokeColor={typeClasses.iconChevronColor}
+                  strokeColor={variantClasses.iconChevronColor}
                 />
                 {detailsTitle}
               </summary>
@@ -198,6 +211,9 @@ export const Alert: React.FC<
               </div>
             </details>
           )}
+          {footer ? (
+            <div className={variantClasses.bodyClass}>{footer}</div>
+          ) : undefined}
         </div>
       )}
     </>

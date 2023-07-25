@@ -11,12 +11,12 @@ const { mdclean } = defaultTemplates
  */
 module.exports = async function renderType(type) {
   if (type.schema) {
-    return `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px] inline-block">${await renderComplexTypes(
+    return `<code class="bg-gray-50 py-[2px] px-[4px] inline-block rounded">${await renderComplexTypes(
       type.schema
     )}</code>`
   }
   return (
-    `<code class="bg-gray-50 dark:bg-gray-800 py-[2px] px-[4px]">${mdclean(
+    `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
       type?.name
     ).replace(/\\\|/g, '|')}</code>` ?? ''
   )
@@ -71,6 +71,7 @@ async function renderComplexTypes(schema, subType) {
     const obj = Object.values(schema.schema).map((value) =>
       renderObjectType(value)
     )
+    if (obj.includes(undefined)) return schema.type
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
@@ -84,7 +85,8 @@ async function renderComplexTypes(schema, subType) {
 }
 
 function renderObjectType(value) {
-  const type = value.type.replace(' | undefined', '')
+  const type = value.type?.replace(' | undefined', '')
+  if (!type) return undefined
   const description = value.description?.length
     ? /\n/.test(value.description)
       ? `\t/**\n\t * ${value.description.replace(
