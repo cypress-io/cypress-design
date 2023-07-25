@@ -14,7 +14,7 @@ export default function assertions(
     tabs: Tab[]
     activeId?: string
     variant?: keyof typeof variants
-  }) => void
+  }) => void,
 ): void {
   describe('Tabs', { viewportHeight: 80 }, () => {
     it('renders', () => {
@@ -31,6 +31,15 @@ export default function assertions(
       mountStory({ tabs, activeId: 'ov' })
       cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+    })
+
+    it('renders data attributes', () => {
+      const richTabs = tabs.map((tab) => ({
+        ...tab,
+        'data-foo': 'bar',
+      }))
+      mountStory({ tabs: richTabs, activeId: 'ov' })
+      cy.get('[data-foo="bar"]').should('have.length', 4)
     })
 
     Object.keys(variants).forEach((variant) => {

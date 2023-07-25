@@ -122,49 +122,68 @@ const iconProps = computed(() => {
   <div role="tablist" :class="classes.wrapper">
     <div v-if="'subWrapper' in classes" :class="classes.subWrapper" />
     <component
-      v-for="tab in tabs"
-      :key="tab.id"
-      :is="tab.href ? 'a' : 'button'"
-      :href="tab.href"
+      v-for="{
+        id,
+        href,
+        label,
+        tag,
+        icon,
+        iconBefore,
+        iconAfter,
+        ...dataAttr
+      } in tabs"
+      :key="id"
+      :is="href ? 'a' : 'button'"
+      :href="href"
       ref="$tab"
       role="tab"
-      :tabindex="tab.id === activeId ? undefined : -1"
-      :aria-selected="tab.id === activeId ? true : undefined"
+      :tabindex="id === activeId ? undefined : -1"
+      :aria-selected="id === activeId ? true : undefined"
       :class="[
         classes.button,
         {
-          [classes.activeStatic]: tab.id === activeId && !activeMarkerStyle,
-          [classes.active]: tab.id === activeId,
-          [classes.inActive]: tab.id !== activeId,
+          [classes.activeStatic]: id === activeId && !activeMarkerStyle,
+          [classes.active]: id === activeId,
+          [classes.inActive]: id !== activeId,
         },
       ]"
+      v-bind="dataAttr"
       @click="
         (e: MouseEvent) => {
           if (e.ctrlKey || e.metaKey) return
           e.preventDefault()
-          activeId = tab.id
-          emit('switch', tab)
+          activeId = id
+          emit('switch', {
+            id,
+            href,
+            label,
+            tag,
+            icon,
+            iconBefore,
+            iconAfter,
+            ...dataAttr,
+          })
         }
       "
       @keyup.left="navigate(-1)"
       @keyup.right="navigate(1)"
     >
       <component
-        v-if="tab.iconBefore ?? tab.icon"
-        :is="tab.iconBefore ?? tab.icon"
+        v-if="iconBefore ?? icon"
+        :is="iconBefore ?? icon"
         v-bind="iconProps"
         class="mr-[8px]"
       />
-      {{ tab.label }}
-      <div v-if="tab.tag" :class="classes.tag">{{ tab.tag }}</div>
+      {{ label }}
+      <div v-if="tag" :class="classes.tag">{{ tag }}</div>
       <component
-        v-if="tab.iconAfter"
-        :is="tab.iconAfter"
+        v-if="iconAfter"
+        :is="iconAfter"
         v-bind="iconProps"
         class="ml-[8px]"
       />
       <div
-        v-if="tab.id === activeId && !activeMarkerStyle"
+        v-if="id === activeId && !activeMarkerStyle"
         :class="classes.activeMarkerStatic"
       />
     </component>

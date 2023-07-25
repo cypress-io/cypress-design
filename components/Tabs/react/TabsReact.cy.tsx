@@ -12,12 +12,13 @@ describe('Tabs', () => {
       tabs: Tab[]
       activeId?: string
       variant?: keyof typeof variants
-    } = { tabs: [] }
+      [key: `data-${string}`]: any
+    } = { tabs: [] },
   ) {
     mount(
       <div className="m-4">
         <Tabs {...options} />
-      </div>
+      </div>,
     )
   }
   assertions(mountStory)

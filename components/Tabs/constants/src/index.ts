@@ -34,6 +34,7 @@ export interface Tab {
    * NOTE: the link will be prevented from navigating. It is only there for accessibility, semantics, SEO and right click -> open in new tab
    */
   href?: string
+  [key: `data-${string}`]: any
 }
 
 export const variants = {
