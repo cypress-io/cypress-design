@@ -1,5 +1,13 @@
 # @cypress-design/constants-tabs
 
+## 0.5.3
+
+### Patch Changes
+
+- [#292](https://github.com/cypress-io/cypress-design/pull/292) [`c570715`](https://github.com/cypress-io/cypress-design/commit/c5707156552fa29511876114109c4afe35a67cc5) Thanks [@mabela416](https://github.com/mabela416)! - Allow Tab to accept data-pendo prop
+
+- [#295](https://github.com/cypress-io/cypress-design/pull/295) [`209d58e`](https://github.com/cypress-io/cypress-design/commit/209d58ef50ab9d97ee5c1650f6086f640f1384bf) Thanks [@elevatebart](https://github.com/elevatebart)! - move underline a pixel up
+
 ## 0.5.2
 
 ### Patch Changes
