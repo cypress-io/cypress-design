@@ -18,7 +18,7 @@
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.27",
     "tailwindcss": "^3.3.3",
-    "vue": "^3.3.4"
+    "vue": "3.2.X"
   },
   "devDependencies": {
     "@cypress-design/css": "*",
