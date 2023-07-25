@@ -144,9 +144,9 @@ export const variants = {
       active: 'text-indigo-500 z-20',
       activeStatic: 'relative',
       inActive:
-        'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
+        'before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-5.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
       activeMarker:
-        'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
+        'absolute bottom-[-1.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
       activeMarkerColor: 'bg-indigo-500',
       activeMarkerBlender: 'hidden',
       activeMarkerStatic:
