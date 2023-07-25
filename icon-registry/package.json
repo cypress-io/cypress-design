@@ -17,7 +17,9 @@
     "build": "./build.sh"
   },
   "files": [
-    "dist"
+    "dist",
+    "src/compileIcon.ts",
+    "src/index.ts"
   ],
   "dependencies": {
     "@cypress-design/css": "*"
