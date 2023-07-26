@@ -1,5 +1,11 @@
 # @cypress-design/vue-statusicon
 
+## 0.4.11
+
+### Patch Changes
+
+- [`a27e322`](https://github.com/cypress-io/cypress-design/commit/a27e322145deb966537d47f32a0b3239c45d6cdb) Thanks [@elevatebart](https://github.com/elevatebart)! - continue compat with Vue 3.2
+
 ## 0.4.10
 
 ### Patch Changes
