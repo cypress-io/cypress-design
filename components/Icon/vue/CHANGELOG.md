@@ -1,5 +1,11 @@
 # @cypress-design/vue-icon
 
+## 0.24.3
+
+### Patch Changes
+
+- [`71e0139`](https://github.com/cypress-io/cypress-design/commit/71e013929dc4da74ad49e6109ebe4b9902d8b26c) Thanks [@elevatebart](https://github.com/elevatebart)! - make three-shaken icons compatible with vue 3.2
+
 ## 0.24.2
 
 ### Patch Changes
