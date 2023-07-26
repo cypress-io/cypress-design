@@ -5,12 +5,13 @@ import { simple } from '@cypress-design/constants-statusicon'
 
 import { compileProps } from './compileProps'
 
-export default defineComponent(
-  ({
+export default defineComponent({
+  props: ['size', 'status'],
+  setup({
     size = '24',
     status = 'placeholder',
     ...props
-  }: SVGAttributes & VariantStatusIconProps) => {
+  }: SVGAttributes & VariantStatusIconProps) {
     const { componentProps } = compileProps({
       size,
       status,
@@ -21,7 +22,4 @@ export default defineComponent(
 
     return () => h('svg', componentProps.value)
   },
-  {
-    props: ['size', 'status'],
-  }
-)
+})
