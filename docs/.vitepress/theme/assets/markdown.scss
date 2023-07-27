@@ -42,7 +42,9 @@
         z-index: 2;
         font-size: 12px;
         font-weight: 500;
-        transition: color 2s, opacity 0.4s;
+        transition:
+          color 2s,
+          opacity 0.4s;
         @apply text-gray-600;
       }
       &:hover > span.lang {
@@ -57,10 +59,8 @@
         }
       }
       & > button.copy.copied {
-        @apply transition-opacity duration-[2000] ease-in-out opacity-0;
         &:before {
           content: '✅ copied';
-          @apply whitespace-nowrap;
         }
       }
       &:hover > button.copy,
