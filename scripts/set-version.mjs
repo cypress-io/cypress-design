@@ -38,6 +38,7 @@ async function run() {
       await fs.readFile(join(__dirname, '..', location, 'package.json')),
     )
     if (pkg.dependencies) {
+      const depsUpdated = []
       await Promise.all(
         Object.entries(pkg.dependencies).map(async ([dep, version]) => {
           if (version === '*') {
@@ -47,14 +48,25 @@ async function run() {
               const version = await getVersionNumber(dep)
               pkg.dependencies[dep] = `^${version}`
             }
+            depsUpdated.push(dep)
           }
         }),
       )
 
+      if (depsUpdated.length === 0) return
       // write package.json to file
       await fs.writeFile(
         `${location}/package.json`,
         JSON.stringify(pkg, null, 2),
+      )
+
+      console.log()
+      console.log(location.replace(/^components\//, ''))
+      console.log(
+        depsUpdated.reduce((acc, dep) => {
+          acc[dep] = pkg?.dependencies[dep]
+          return acc
+        }, {}),
       )
     }
   })
