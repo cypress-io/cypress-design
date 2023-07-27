@@ -8,6 +8,7 @@ import './App.css'
 import { SimpleStatusIcon } from '@cypress-design/react-statusicon'
 import Modal from '@cypress-design/react-modal'
 import Button from '@cypress-design/react-button'
+import Tabs from '@cypress-design/react-tabs'
 import Tooltip from '@cypress-design/react-tooltip'
 
 function App() {
@@ -19,6 +20,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <Tabs
+          tabs={[
+            {
+              label: 'Tab 1',
+              id: 'tab1',
+              'data-testid': 'tab1',
+            },
+            {
+              label: 'Tab 2',
+              id: 'tab2',
+              'data-testid': 'tab2',
+            },
+          ]}
+        />
         <Tooltip popper={<b>popper</b>}>
           <p>Tooltip content</p>
         </Tooltip>
