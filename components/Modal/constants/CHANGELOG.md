@@ -1,5 +1,11 @@
 # @cypress-design/constants-modal
 
+## 0.2.1
+
+### Patch Changes
+
+- [`0cfefea`](https://github.com/cypress-io/cypress-design/commit/0cfefea3e1f89892309d3c46cec3c1e55bcaaa8c) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver modal constants remove private:true
+
 ## 0.2.0
 
 ### Minor Changes
