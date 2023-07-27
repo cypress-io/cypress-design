@@ -52,10 +52,10 @@ async function run() {
       )
 
       // write package.json to file
-      // await fs.writeFile(
-      //   `${location}/package.json`,
-      //   JSON.stringify(pkg, null, 2),
-      // )
+      await fs.writeFile(
+        `${location}/package.json`,
+        JSON.stringify(pkg, null, 2),
+      )
     }
   })
 }
