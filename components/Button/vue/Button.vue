@@ -1,5 +1,5 @@
 <script lang="ts">
-import { computed, defineComponent } from 'vue'
+import { PropType, computed, defineComponent } from 'vue'
 import {
   VariantClassesTable,
   SizeClassesTable,
@@ -18,22 +18,22 @@ export default defineComponent({
   },
   props: {
     variant: {
-      type: String as () => NonNullable<ButtonProps['variant']>,
+      type: String as PropType<NonNullable<ButtonProps['variant']>>,
       default: DefaultVariant,
     },
     size: {
-      type: String as () => NonNullable<ButtonProps['size']>,
+      type: String as PropType<NonNullable<ButtonProps['size']>>,
       default: DefaultSize,
     },
     disabled: {
-      type: Boolean as () => ButtonProps['disabled'],
+      type: Boolean as PropType<ButtonProps['disabled']>,
       default: false,
     },
     href: {
-      type: String as () => ButtonProps['href'],
+      type: String as PropType<ButtonProps['href']>,
     },
     type: {
-      type: String as () => ButtonProps['type'],
+      type: String as PropType<ButtonProps['type']>,
       default: 'button',
     },
   },
