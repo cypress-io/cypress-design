@@ -1,3 +1,3 @@
 export GIT_BRANCH=$VERCEL_GIT_COMMIT_REF
 echo "Building docs for branch $GIT_BRANCH"
-yarn vitepress build docs
+yarn vite-ssg build
