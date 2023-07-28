@@ -168,20 +168,35 @@ const iconProps = computed(() => {
       @keyup.left="navigate(-1)"
       @keyup.right="navigate(1)"
     >
-      <component
-        v-if="iconBefore ?? icon"
-        :is="iconBefore ?? icon"
-        v-bind="iconProps"
-        class="mr-[8px]"
-      />
-      {{ label }}
-      <div v-if="tag" :class="classes.tag">{{ tag }}</div>
-      <component
-        v-if="iconAfter"
-        :is="iconAfter"
-        v-bind="iconProps"
-        class="ml-[8px]"
-      />
+      <!-- @slot render a tab with a custom scoped slot -->
+      <slot
+        name="tab"
+        v-bind="{
+          id,
+          href,
+          label,
+          tag,
+          icon,
+          iconBefore,
+          iconAfter,
+          ...dataAttr,
+        }"
+      >
+        <component
+          v-if="iconBefore ?? icon"
+          :is="iconBefore ?? icon"
+          v-bind="iconProps"
+          class="mr-[8px]"
+        />
+        {{ label }}
+        <div v-if="tag" :class="classes.tag">{{ tag }}</div>
+        <component
+          v-if="iconAfter"
+          :is="iconAfter"
+          v-bind="iconProps"
+          class="ml-[8px]"
+        />
+      </slot>
       <div
         v-if="id === activeId && !activeMarkerStyle"
         :class="classes.activeMarkerStatic"
