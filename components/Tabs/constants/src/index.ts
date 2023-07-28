@@ -55,7 +55,7 @@ export const variants = {
         'z-30 bg-white mix-blend-difference pointer-events-none',
       activeMarkerStatic:
         'bg-indigo-500 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
-      tag: '',
+      tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-500 text-[12px] leading-[16px]',
     },
     icon: {
       size: '16',
@@ -78,7 +78,7 @@ export const variants = {
       activeMarkerBlender: 'z-30 mix-blend-overlay pointer-events-none',
       activeMarkerStatic:
         'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
-      tag: '',
+      tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-200 text-[12px] leading-[16px]',
     },
     icon: {
       size: '16',
@@ -101,7 +101,7 @@ export const variants = {
       activeMarkerBlender: 'z-30 mix-blend-overlay pointer-events-none',
       activeMarkerStatic:
         'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
-      tag: '',
+      tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-200 text-[12px] leading-[16px]',
     },
     icon: {
       size: '16',
@@ -125,7 +125,7 @@ export const variants = {
       activeMarkerBlender: 'hidden',
       activeMarkerStatic:
         'absolute bg-indigo-500 rounded-full right-0 left-0 bottom-[-6.5px] h-[4px]',
-      tag: 'ml-[8px] px-[4px] bg-indigo-300/20 rounded text-gray-500 text-[12px] leading-[16px]',
+      tag: 'ml-[8px] px-[4px] bg-gray-200/20 rounded text-gray-500 text-[12px] leading-[16px]',
     },
     icon: {
       size: '16',
@@ -175,7 +175,7 @@ export const variants = {
       activeMarkerBlender: 'hidden',
       activeMarkerStatic:
         'absolute bg-indigo-500 rounded-full right-0 left-0 bottom-[-6.5px] h-[4px]',
-      tag: '',
+      tag: 'ml-[8px] px-[4px] bg-gray-100/50 rounded text-gray-500',
     },
     icon: {
       size: '24',
