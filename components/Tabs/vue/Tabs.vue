@@ -121,7 +121,7 @@ const iconProps = computed(() => {
 <template>
   <div role="tablist" :class="classes.wrapper">
     <div v-if="'subWrapper' in classes" :class="classes.subWrapper" />
-    <component
+    <template
       v-for="{
         id,
         href,
@@ -133,60 +133,78 @@ const iconProps = computed(() => {
         ...dataAttr
       } in tabs"
       :key="id"
-      :is="href ? 'a' : 'button'"
-      :href="href"
-      ref="$tab"
-      role="tab"
-      :tabindex="id === activeId ? undefined : -1"
-      :aria-selected="id === activeId ? true : undefined"
-      :class="[
-        classes.button,
-        {
-          [classes.activeStatic]: id === activeId && !activeMarkerStyle,
-          [classes.active]: id === activeId,
-          [classes.inActive]: id !== activeId,
-        },
-      ]"
-      v-bind="dataAttr"
-      @click="
-        (e: MouseEvent) => {
-          if (e.ctrlKey || e.metaKey) return
-          e.preventDefault()
-          activeId = id
-          emit('switch', {
-            id,
-            href,
-            label,
-            tag,
-            icon,
-            iconBefore,
-            iconAfter,
-            ...dataAttr,
-          })
-        }
-      "
-      @keyup.left="navigate(-1)"
-      @keyup.right="navigate(1)"
     >
-      <component
-        v-if="iconBefore ?? icon"
-        :is="iconBefore ?? icon"
-        v-bind="iconProps"
-        class="mr-[8px]"
-      />
-      {{ label }}
-      <div v-if="tag" :class="classes.tag">{{ tag }}</div>
-      <component
-        v-if="iconAfter"
-        :is="iconAfter"
-        v-bind="iconProps"
-        class="ml-[8px]"
-      />
-      <div
-        v-if="id === activeId && !activeMarkerStyle"
-        :class="classes.activeMarkerStatic"
-      />
-    </component>
+      <!-- @slot render a tab with a custom scoped slot -->
+      <slot
+        name="tab"
+        v-bind="{
+          id,
+          href,
+          label,
+          tag,
+          icon,
+          iconBefore,
+          iconAfter,
+          ...dataAttr,
+        }"
+      >
+        <component
+          :is="href ? 'a' : 'button'"
+          :href="href"
+          ref="$tab"
+          role="tab"
+          :tabindex="id === activeId ? undefined : -1"
+          :aria-selected="id === activeId ? true : undefined"
+          :class="[
+            classes.button,
+            {
+              [classes.activeStatic]: id === activeId && !activeMarkerStyle,
+              [classes.active]: id === activeId,
+              [classes.inActive]: id !== activeId,
+            },
+          ]"
+          v-bind="dataAttr"
+          @click="
+            (e: MouseEvent) => {
+              if (e.ctrlKey || e.metaKey) return
+              e.preventDefault()
+              activeId = id
+              emit('switch', {
+                id,
+                href,
+                label,
+                tag,
+                icon,
+                iconBefore,
+                iconAfter,
+                ...dataAttr,
+              })
+            }
+          "
+          @keyup.left="navigate(-1)"
+          @keyup.right="navigate(1)"
+        >
+          <component
+            v-if="iconBefore ?? icon"
+            :is="iconBefore ?? icon"
+            v-bind="iconProps"
+            class="mr-[8px]"
+          />
+          {{ label }}
+          <div v-if="tag" :class="classes.tag">{{ tag }}</div>
+          <component
+            v-if="iconAfter"
+            :is="iconAfter"
+            v-bind="iconProps"
+            class="ml-[8px]"
+          />
+          <div
+            v-if="id === activeId && !activeMarkerStyle"
+            :class="classes.activeMarkerStatic"
+          />
+        </component>
+      </slot>
+    </template>
     <template v-if="activeMarkerStyle">
       <div
         :class="[classes.activeMarker, classes.activeMarkerColor]"

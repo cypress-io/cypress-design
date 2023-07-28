@@ -20,6 +20,11 @@ export interface TabsProps {
    * @param tab new tab selected
    */
   onSwitch?: (tab: Tab) => void
+
+  /**
+   * render a tab with a custom function
+   */
+  renderTab?: (tab: Tab) => React.ReactNode
 }
 
 export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
@@ -27,6 +32,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   onSwitch,
   variant = 'default',
   activeId: activeIdProp,
+  renderTab,
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
@@ -101,6 +107,10 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     <div role="tablist" className={classes.wrapper} {...rest}>
       {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
+        if (renderTab) {
+          return renderTab(tab)
+        }
+
         const ButtonTag = tab.href ? 'a' : 'button'
         const {
           id,

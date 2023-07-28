@@ -51,5 +51,16 @@ describe('Tabs', () => {
       cy.findByRole('button', { name: 'Change' }).click()
       cy.get('[aria-selected="true"]').should('contain.text', 'Final Active')
     })
+
+    it('renders a custom tab', () => {
+      mount(
+        <Tabs
+          tabs={[{ id: 'ia', label: 'Initial Active' }]}
+          renderTab={(tab) => <div role="tab">{tab.label} - Custom Tab</div>}
+        />,
+      )
+
+      cy.contains('Custom Tab').should('exist')
+    })
   })
 })
