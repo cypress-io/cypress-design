@@ -56,7 +56,7 @@ describe('Tabs', () => {
       mount(
         <Tabs
           tabs={[{ id: 'ia', label: 'Initial Active' }]}
-          renderTab={(tab) => <div role="tab">{tab.label} - Custom Tab</div>}
+          renderTab={(tab) => <div>{tab.label} - Custom Tab</div>}
         />,
       )
 
