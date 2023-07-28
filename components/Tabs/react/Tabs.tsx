@@ -107,10 +107,6 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     <div role="tablist" className={classes.wrapper} {...rest}>
       {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
-        if (renderTab) {
-          return renderTab(tab)
-        }
-
         const ButtonTag = tab.href ? 'a' : 'button'
         const {
           id,
@@ -154,19 +150,23 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             }}
             {...dataAttr}
           >
-            <>
-              {(() => {
-                const IconBefore = iconBefore ?? icon
-                return IconBefore ? (
-                  <IconBefore {...iconProps} className="mr-[8px]" />
-                ) : null
-              })()}
-              {label}
-              {tag ? <div className={classes.tag}>{tag}</div> : null}
-              {IconAfter ? (
-                <IconAfter {...iconProps} className="ml-[8px]" />
-              ) : null}
-            </>
+            {renderTab ? (
+              renderTab(tab)
+            ) : (
+              <>
+                {(() => {
+                  const IconBefore = iconBefore ?? icon
+                  return IconBefore ? (
+                    <IconBefore {...iconProps} className="mr-[8px]" />
+                  ) : null
+                })()}
+                {label}
+                {tag ? <div className={classes.tag}>{tag}</div> : null}
+                {IconAfter ? (
+                  <IconAfter {...iconProps} className="ml-[8px]" />
+                ) : null}
+              </>
+            )}
             {id === activeId && !activeMarkerStyle.left ? (
               <div className={classes.activeMarkerStatic} />
             ) : null}
