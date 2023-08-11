@@ -18,7 +18,7 @@ export const NavigationSide: React.FC<
   return (
     <nav {...rest} id={id} className={clsx('bg-gray-900', className)}>
       <ProjectDropdown />
-      <ul className="list-none p-0">
+      <ul className="p-0 list-none">
         {items.map((item, index) => (
           <NavLink key={index} item={item} expanded={expanded} />
         ))}

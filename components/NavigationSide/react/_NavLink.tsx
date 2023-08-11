@@ -35,7 +35,6 @@ export const NavLink: React.FC<NavLinkProps> = ({
       onActive?.(activeLIRef?.current?.offsetTop || 0)
     }
   }, [])
-
   return (
     <li
       ref={activeLIRef}
@@ -44,7 +43,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
       })}
     >
       <a
-        className={clsx('group relative inline-block pl-[24px]', {
+        className={clsx('flex items-center gap-2 group pl-[24px] bg-gray-900', {
           'text-indigo-500': active,
           'text-white': !active,
           'py-[8px] text-[16px] leading-[24px]': depth < 0,
@@ -55,15 +54,9 @@ export const NavLink: React.FC<NavLinkProps> = ({
         {item.icon || <IconTechnologyCodeEditor fillColor="transparent" />}
         {depth >= 0 ? (
           <div
-            className={clsx(
-              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
-              {
-                'group-hover:block bg-gray-300': !active && !expanded,
-              },
-            )}
-            style={{
-              left: `-${18.5 + depth * 8}px`,
-            }}
+            className={clsx('w-[4px] z-10 h-[80%] rounded-full hidden', {
+              'group-hover:block bg-gray-300': !active && !expanded,
+            })}
           />
         ) : null}
         {item.label}
