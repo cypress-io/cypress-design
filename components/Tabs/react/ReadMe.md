@@ -23,8 +23,9 @@ import { IconActionPlayVideo } from '@cypress-design/react-icon'
 
 export default () => (
   <Tabs
+    activeId='ov'
     tabs={[
-      { id: 'ov', label: 'Overview', active: true },
+      { id: 'ov', label: 'Overview' },
       { id: 'cl', label: 'Command Log', icon: IconActionPlayVideo },
       { id: 'err', label: 'Errors', href: 'https://www.cypress.io' },
       { id: 'reco', label: 'Recommendations' },
