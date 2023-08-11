@@ -7,8 +7,20 @@ import assertions from '../assertions'
 import { NavGroup, NavItemLink } from '../constants/dist'
 
 describe('<SidebarNavigation/>', () => {
-  function mountStory(items: (NavItemLink | NavGroup)[] = []) {
-    mount(<SidebarNavigationStory items={items} />)
+  function mountStory(
+    items: (NavItemLink | NavGroup)[] = [],
+    currentProject: string,
+    projects: [],
+    icon?: React.ReactNode,
+  ) {
+    mount(
+      <SidebarNavigationStory
+        items={items}
+        currentProject={currentProject}
+        projects={projects}
+        icon={icon}
+      />,
+    )
   }
   assertions(mountStory)
 })

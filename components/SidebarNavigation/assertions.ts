@@ -55,18 +55,13 @@ const menuItems = [
 ] satisfies (NavItemLink | NavGroup)[]
 
 export default function assertions(
-  mountStory: (options?: (NavItemLink | NavGroup)[]) => void,
+  mountStory: (
+    items?: (NavItemLink | NavGroup)[],
+    currentProject?: string,
+    projects?: string[],
+  ) => void,
 ): void {
   it('renders', () => {
-    mountStory(menuItems)
+    mountStory(menuItems, 'currentProject', ['project1', 'project2'])
   })
-
-  // it('closes the menu', () => {
-  //   mountStory(menuItems)
-
-  //   cy.contains('Runs').should('be.visible')
-  //   cy.contains('button', 'Overview').click()
-
-  //   cy.contains('Overview Item 1').should('not.be.visible')
-  // })
 }

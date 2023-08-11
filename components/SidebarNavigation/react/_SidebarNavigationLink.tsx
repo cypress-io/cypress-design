@@ -7,6 +7,7 @@ export interface SidebarNavigationLinkProps {
   collapsible: boolean
   depth?: number
   onActive?: (top: number) => void
+  icon?: React.ReactNode
 }
 
 export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
@@ -14,6 +15,7 @@ export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
   collapsible,
   depth = -1,
   onActive,
+  icon,
 }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
@@ -33,13 +35,17 @@ export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
       })}
     >
       <a
-        className={clsx('group relative inline-block pl-[24px]', {
-          'text-indigo-500': item.active,
-          'py-[8px] text-[16px] leading-[24px]': depth < 0,
-          'py-[12px] leading-[20px] text-[14px]': depth >= 0,
-        })}
+        className={clsx(
+          'flex items-center group relative inline-block pl-[24px]',
+          {
+            'text-indigo-500': item.active,
+            'py-[8px] text-[16px] leading-[24px]': depth < 0,
+            'py-[12px] leading-[20px] text-[14px]': depth >= 0,
+          },
+        )}
         href={item.href}
       >
+        {icon && <span className="mr-2">{icon}</span>}
         {depth >= 0 ? (
           <div
             className={clsx(
