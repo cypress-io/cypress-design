@@ -9,6 +9,7 @@ import { NavGroup, NavItemLink } from '../constants/dist'
 describe('<SidebarNavigation/>', () => {
   function mountStory(
     items: (NavItemLink | NavGroup)[] = [],
+    currentTeam: string,
     currentProject: string,
     projects: [],
     icon?: React.ReactNode,
@@ -16,6 +17,7 @@ describe('<SidebarNavigation/>', () => {
     mount(
       <SidebarNavigationStory
         items={items}
+        currentTeam={currentTeam}
         currentProject={currentProject}
         projects={projects}
         icon={icon}

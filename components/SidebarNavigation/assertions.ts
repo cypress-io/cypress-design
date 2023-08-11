@@ -57,11 +57,12 @@ const menuItems = [
 export default function assertions(
   mountStory: (
     items?: (NavItemLink | NavGroup)[],
+    currentTeam?: string,
     currentProject?: string,
     projects?: string[],
   ) => void,
 ): void {
   it('renders', () => {
-    mountStory(menuItems, 'currentProject', ['project1', 'project2'])
+    mountStory(menuItems, 'Gatsby', 'Design System', ['project1', 'project2'])
   })
 }

@@ -10,12 +10,14 @@ export interface SidebarNavigationHeadProps
   extends React.HTMLAttributes<HTMLUListElement> {
   collapsible?: boolean
   currentProject: string
+  currentTeam: string
   onProjectChange: (project: string) => void
   projects: []
 }
 
 export const SidebarNavigationHead: React.FC<SidebarNavigationHeadProps> = ({
   currentProject,
+  currentTeam,
   onProjectChange,
   ...rest
 }) => {
@@ -38,7 +40,10 @@ export const SidebarNavigationHead: React.FC<SidebarNavigationHeadProps> = ({
 "
         onClick={handleButtonClick}
       >
-        {currentProject}
+        <div className="flex flex-col items-start">
+          <span className="text-sm text-gray-500">{currentTeam}</span>
+          <span>{currentProject}</span>
+        </div>
       </Button>
       {isOpen && (
         <div>

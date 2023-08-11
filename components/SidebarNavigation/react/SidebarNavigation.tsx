@@ -20,14 +20,16 @@ export const SidebarNavigation: React.FC<SidebarNavigationProps> = ({
   items,
   collapsible = true,
   currentProject,
+  currentTeam,
   onProjectChange,
   projects,
   ...rest
 }) => {
   return (
-    <div>
+    <div className="bg-gray-900 text-white">
       <SidebarNavigationHead
         currentProject={currentProject}
+        currentTeam={currentTeam}
         onProjectChange={onProjectChange}
         projects={projects}
       />
