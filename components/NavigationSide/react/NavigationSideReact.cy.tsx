@@ -4,37 +4,27 @@ import * as React from 'react'
 import { mount } from 'cypress/react18'
 // import NavigationSideStory from './NavigationSide.rootstory'
 import NavigationSide from './NavigationSide'
-import assertions from '../assertions'
+import { IconTechnologyCodeEditor } from '@cypress-design/react-icon'
+// import assertions from '../assertions'
 
 const items = [
   {
     active: true,
     href: '/specs',
-    text: 'specs',
+    label: 'specs',
+    icon: <IconTechnologyCodeEditor fillColor="transparent" />,
   },
   {
     href: '/debug',
-    text: 'debug',
+    label: 'debug',
   },
   {
     href: '/runs',
-    text: 'runs',
-  },
-  {
-    href: '/reviews',
-    text: 'reviews',
-  },
-  {
-    href: '/branches',
-    text: 'branches',
-  },
-  {
-    href: '/insights',
-    text: 'insights',
+    label: 'runs',
   },
   {
     href: '/settings',
-    text: 'settings',
+    label: 'settings',
   },
 ]
 

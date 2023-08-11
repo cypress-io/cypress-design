@@ -14,16 +14,16 @@ const expanded = true
 
 export const NavigationSide: React.FC<
   NavigationSideProps & React.HTMLProps<HTMLDivElement>
-> = ({ id, label, className, items, ...rest }) => {
+> = ({ id, className, items, ...rest }) => {
   return (
-    <div {...rest} id={id} className={clsx('bg-gray-900', className)}>
+    <nav {...rest} id={id} className={clsx('bg-gray-900', className)}>
       <ProjectDropdown />
-      <ul {...rest} className={clsx('list-none p-0', rest?.className)}>
+      <ul className="list-none p-0">
         {items.map((item, index) => (
           <NavLink key={index} item={item} expanded={expanded} />
         ))}
       </ul>
-    </div>
+    </nav>
   )
 }
 
