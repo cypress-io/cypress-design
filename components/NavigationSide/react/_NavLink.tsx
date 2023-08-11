@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { IconTechnologyCodeEditor } from '@cypress-design/react-icon'
+import { IconGeneralPlaceholder } from '@cypress-design/react-icon'
 
 export interface NavLinkContentsProps {
   label: string
@@ -26,6 +26,11 @@ export const NavLink: React.FC<NavLinkProps> = ({
   active,
   ...rest
 }) => {
+  const handleClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
+    onActive?.(item.href)
+  }
+
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
   // on mount, if the item is active,
@@ -43,6 +48,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
       })}
     >
       <a
+        onClick={handleClick}
         className={clsx('flex items-center gap-2 group pl-[24px] bg-gray-900', {
           'text-indigo-500': active,
           'text-white': !active,
@@ -51,7 +57,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
         })}
         href={item.href}
       >
-        {item.icon || <IconTechnologyCodeEditor fillColor="transparent" />}
+        {item.icon || <IconGeneralPlaceholder fillColor="transparent" />}
         {depth >= 0 ? (
           <div
             className={clsx('w-[4px] z-10 h-[80%] rounded-full hidden', {
