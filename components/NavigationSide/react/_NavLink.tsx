@@ -1,26 +1,33 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { NavItemLink } from '@cypress-design/constants-docmenu'
+// import { NavItemLink } from '@cypress-design/constants-docmenu'
+
+export interface NavLinkContentsProps {
+  label: string
+  href: string
+}
 
 export interface NavLinkProps {
-  item: string
-  collapsible: boolean
+  item: NavLinkContentsProps
+  collapsed: boolean
+  active?: boolean
   depth?: number
   onActive?: (top: number) => void
 }
 
 export const NavLink: React.FC<NavLinkProps> = ({
   item,
-  collapsible,
+  collapsed,
   depth = -1,
   onActive,
+  active,
 }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
   // on mount, if the item is active,
   // send the top position to the parent
   React.useEffect(() => {
-    if (item.active) {
+    if (active) {
       onActive?.(activeLIRef?.current?.offsetTop || 0)
     }
   }, [])
@@ -34,7 +41,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
     >
       <a
         className={clsx('group relative inline-block pl-[24px]', {
-          'text-indigo-500': item.active,
+          'text-indigo-500': active,
           'py-[8px] text-[16px] leading-[24px]': depth < 0,
           'py-[12px] leading-[20px] text-[14px]': depth >= 0,
         })}
@@ -45,7 +52,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
             className={clsx(
               'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
               {
-                'group-hover:block bg-gray-300': !item.active && collapsible,
+                'group-hover:block bg-gray-300': !active && collapsed,
               }
             )}
             style={{
@@ -53,7 +60,7 @@ export const NavLink: React.FC<NavLinkProps> = ({
             }}
           />
         ) : null}
-        {item.text}
+        {item.label}
       </a>
     </li>
   )

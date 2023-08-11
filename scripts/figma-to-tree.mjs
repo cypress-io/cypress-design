@@ -8,6 +8,9 @@ import https from 'https'
 //  2. Set your access key: `export FIGMA_FIGMA_FIGMA_PERSONAL_ACCESS_TOKEN=<your access key>`
 //  3. Run the script: `node scripts/figma-to-tree.mjs <file key> <starting node id> <max depth> > tree.txt`
 
+// Example:
+// node ./scripts/figma-to-tree.mjs 2j2j0co3xaCHHmhACZs722 'I1:7761;1:1519' 999 > navigationSide.txt
+
 const FILE_KEY = process.argv[2] // Get file key from command line arguments
 const STARTING_NODE_ID = process.argv[3] // Get starting node ID from command line arguments
 const MAX_DEPTH = process.argv[4] // Get maximum depth from command line arguments
