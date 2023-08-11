@@ -1,6 +1,6 @@
 {
-  "name": "@cypress-design/react-navigationside",
-  "version": "0.0.1",
+  "name": "@cypress-design/react-SidebarNavigation",
+  "version": "0.3.0",
   "files": [
     "*"
   ],
@@ -10,7 +10,8 @@
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js"
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
     }
   },
   "scripts": {
@@ -19,7 +20,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-navigationside": "*",
+    "@cypress-design/constants-SidebarNavigation": "*",
+    "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {

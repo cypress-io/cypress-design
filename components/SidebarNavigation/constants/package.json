@@ -1,7 +1,6 @@
 {
-  "name": "@cypress-design/constants-navigationside",
-  "private": true,
-  "version": "0.0.1",
+  "name": "@cypress-design/constants-SidebarNavigation",
+  "version": "0.1.0",
   "files": [
     "*"
   ],
