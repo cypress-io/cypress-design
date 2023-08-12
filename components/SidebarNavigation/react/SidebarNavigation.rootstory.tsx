@@ -13,7 +13,6 @@ export default ({
   currentProject: string
   currentTeam: string
   projects: any
-  icon?: React.ReactNode
 }) => {
   return (
     <SidebarNavigation

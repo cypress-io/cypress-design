@@ -6,19 +6,25 @@ import clsx from 'clsx'
 //     NavItemLink,
 // } from '@cypress-design/constants-SidebarNavigation'
 
+export interface Project {
+  id: string | number
+  label: string
+}
+
 export interface SidebarNavigationHeadProps
   extends React.HTMLAttributes<HTMLUListElement> {
   collapsible?: boolean
   currentProject: string
   currentTeam: string
-  onProjectChange: (project: string) => void
-  projects: []
+  onProjectChange: (project: Project) => void
+  projects: Project[]
 }
 
 export const SidebarNavigationHead: React.FC<SidebarNavigationHeadProps> = ({
   currentProject,
   currentTeam,
   onProjectChange,
+  projects,
   ...rest
 }) => {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -27,17 +33,19 @@ export const SidebarNavigationHead: React.FC<SidebarNavigationHeadProps> = ({
     setIsOpen(!isOpen)
   }
 
-  const handleProjectChange = (project: string) => {
+  const handleProjectChange = (project: Project) => {
     setIsOpen(false)
     onProjectChange(project)
   }
 
   return (
-    <div {...rest} className={clsx('list-none p-0', rest.className)}>
+    <div
+      {...(rest as React.HTMLAttributes<HTMLDivElement>)}
+      className={clsx('list-none p-0', rest.className)}
+    >
       <Button
         className="w-full"
-        variant="outline-dark
-"
+        variant="outline-dark"
         onClick={handleButtonClick}
       >
         <div className="flex flex-col items-start">

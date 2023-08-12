@@ -3,7 +3,6 @@ import { SidebarNavigationHead } from './_SidebarNavigationHead'
 import { SidebarNavigationLink } from './_SidebarNavigationLink'
 import { SidebarNavigationGroup } from './_SidebarNavigationGroup'
 import clsx from 'clsx'
-import { IconGeneralPlaceholder } from '@cypress-design/react-icon'
 
 export type NavItem = NavGroup | NavItemLink
 
@@ -44,7 +43,6 @@ export const SidebarNavigation: React.FC<SidebarNavigationProps> = ({
               key={index}
               item={item}
               collapsible={collapsible}
-              icon={<IconGeneralPlaceholder />}
             />
           ),
         )}

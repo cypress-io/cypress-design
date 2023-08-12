@@ -1,11 +1,15 @@
 /// <reference types="cypress" />
-
-import type { NavGroup, NavItemLink } from './constants'
+import React from 'react'
+import type { NavGroup, NavItemLink } from './constants/dist'
+import { IconTechnologyDebugger } from '@cypress-design/react-icon'
 
 const menuItems = [
   {
     text: 'Runs',
     href: '#',
+    icon: () => (
+      <IconTechnologyDebugger strokeColor="indigo-600" fillColor="red-200" />
+    ),
   },
   {
     text: 'Reviews',
@@ -59,10 +63,13 @@ export default function assertions(
     items?: (NavItemLink | NavGroup)[],
     currentTeam?: string,
     currentProject?: string,
-    projects?: string[],
+    projects?: Array<{ id: string; label: string }>,
   ) => void,
 ): void {
   it('renders', () => {
-    mountStory(menuItems, 'Gatsby', 'Design System', ['project1', 'project2'])
+    mountStory(menuItems, 'Gatsby', 'Design System', [
+      { id: '1', label: 'project1' },
+      { id: '2', label: 'project2' },
+    ])
   })
 }

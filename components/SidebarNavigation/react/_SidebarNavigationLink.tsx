@@ -7,7 +7,6 @@ export interface SidebarNavigationLinkProps {
   collapsible: boolean
   depth?: number
   onActive?: (top: number) => void
-  icon?: React.ReactNode
 }
 
 export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
@@ -15,7 +14,6 @@ export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
   collapsible,
   depth = -1,
   onActive,
-  icon,
 }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
@@ -45,7 +43,7 @@ export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
         )}
         href={item.href}
       >
-        {icon && <span className="mr-2">{icon}</span>}
+        {item.icon && <span className="mr-2">{item.icon}</span>}
         {depth >= 0 ? (
           <div
             className={clsx(
