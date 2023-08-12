@@ -4,16 +4,11 @@ import * as React from 'react'
 import { mount } from 'cypress/react18'
 import SidebarNavigationStory from './SidebarNavigation.rootstory'
 import assertions from '../assertions'
-import { NavGroup, NavItemLink } from '../constants/dist'
+import { SidebarNavigationInterface } from '../constants/dist'
 
 describe('<SidebarNavigation/>', () => {
-  function mountStory(
-    items: (NavItemLink | NavGroup)[] = [],
-    currentTeam: string,
-    currentProject: string,
-    projects: [],
-    icon?: React.ReactNode,
-  ) {
+  function mountStory(args: SidebarNavigationInterface) {
+    const { items, currentTeam, currentProject, projects, icon } = args
     mount(
       <SidebarNavigationStory
         items={items}

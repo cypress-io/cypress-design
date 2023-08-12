@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 export interface NavItemBase {
   text: string
   href?: string
@@ -6,10 +8,43 @@ export interface NavItemBase {
 
 export interface NavItemLink extends NavItemBase {
   href: string
+  icon?: React.ComponentType<{
+    size?: string
+    strokeColor?: string
+    fillColor?: string
+  }>
 }
 
 export interface NavGroup extends NavItemBase {
   items: (NavItemLink | NavGroup)[]
+}
+
+export interface SidebarNavigationLinkInterface {
+  item: NavItemLink
+  depth?: number
+  onActive?: (top: number) => void
+}
+
+export interface ProjectInterface {
+  id: string | number
+  label: string
+}
+
+export interface SidebarNavigationHeadInterface
+  extends React.HTMLAttributes<HTMLUListElement> {
+  currentProject: string
+  currentTeam: string
+  projects: ProjectInterface[]
+  onProjectChange: (project: ProjectInterface) => void
+}
+
+export interface SidebarNavigationInterface {
+  className?: string
+  items: (NavGroup | NavItemLink)[]
+  currentProject: string
+  currentTeam: string
+  projects: Array<{ id: string; label: string }>
+  onProjectChange?: (project: ProjectInterface) => void
 }
 
 export const classes = {

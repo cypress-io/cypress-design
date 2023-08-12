@@ -1,26 +1,32 @@
 /// <reference types="cypress" />
 import React from 'react'
 import type { NavGroup, NavItemLink } from './constants/dist'
-import { IconTechnologyDebugger } from '@cypress-design/react-icon'
+import {
+  IconGeneralPlaceholder,
+  IconTechnologyDebugger,
+} from '@cypress-design/react-icon'
+import type { SidebarNavigationInterface } from './constants/dist'
+import { IconStatusPlaceholderSimple } from '@cypress-design/vue-icon'
 
-const menuItems = [
+const menuItems: (NavItemLink | NavGroup)[] = [
   {
     text: 'Runs',
     href: '#',
-    icon: () => (
-      <IconTechnologyDebugger strokeColor="indigo-600" fillColor="red-200" />
-    ),
+    icon: IconGeneralPlaceholder,
   },
   {
     text: 'Reviews',
     href: '#',
+    icon: IconGeneralPlaceholder,
   },
   {
     text: 'Branches',
     href: '#',
+    icon: IconGeneralPlaceholder,
   },
   {
     text: 'Insights',
+    icon: IconGeneralPlaceholder,
     items: [
       {
         text: 'Run status',
@@ -55,21 +61,22 @@ const menuItems = [
   {
     text: 'Settings',
     href: '#',
+    icon: IconGeneralPlaceholder,
   },
-] satisfies (NavItemLink | NavGroup)[]
+]
 
 export default function assertions(
-  mountStory: (
-    items?: (NavItemLink | NavGroup)[],
-    currentTeam?: string,
-    currentProject?: string,
-    projects?: Array<{ id: string; label: string }>,
-  ) => void,
+  mountStory: (args: SidebarNavigationInterface) => void,
 ): void {
   it('renders', () => {
-    mountStory(menuItems, 'Gatsby', 'Design System', [
-      { id: '1', label: 'project1' },
-      { id: '2', label: 'project2' },
-    ])
+    mountStory({
+      items: menuItems,
+      currentTeam: 'Gatsby',
+      currentProject: 'Design System',
+      projects: [
+        { id: '1', label: 'project1' },
+        { id: '2', label: 'project2' },
+      ],
+    })
   })
 }

@@ -2,26 +2,17 @@ import * as React from 'react'
 import { SidebarNavigationHead } from './_SidebarNavigationHead'
 import { SidebarNavigationLink } from './_SidebarNavigationLink'
 import { SidebarNavigationGroup } from './_SidebarNavigationGroup'
+import type { SidebarNavigationInterface } from '../constants/dist'
+
 import clsx from 'clsx'
 
-export type NavItem = NavGroup | NavItemLink
-
-export interface SidebarNavigationProps
-  extends React.HTMLAttributes<HTMLUListElement> {
-  items: NavItem[]
-  collapsible?: boolean
-  currentProject: string
-  onProjectChange: (project: string) => void
-  projects: []
-}
-
-export const SidebarNavigation: React.FC<SidebarNavigationProps> = ({
+export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
   items,
-  collapsible = true,
   currentProject,
   currentTeam,
   onProjectChange,
   projects,
+  className,
   ...rest
 }) => {
   return (
@@ -29,21 +20,17 @@ export const SidebarNavigation: React.FC<SidebarNavigationProps> = ({
       <SidebarNavigationHead
         currentProject={currentProject}
         currentTeam={currentTeam}
-        onProjectChange={onProjectChange}
+        onProjectChange={onProjectChange || (() => {})}
         projects={projects}
       />
-      <ul {...rest} className={clsx('list-none p-0', rest.className)}>
+      <ul {...rest} className={clsx('list-none p-0', className)}>
         {items.map((item, index) =>
           'items' in item ? (
             <li key={index} className="relative list-none p-0">
-              <SidebarNavigationGroup group={item} collapsible={collapsible} />
+              <SidebarNavigationGroup group={item} />
             </li>
           ) : (
-            <SidebarNavigationLink
-              key={index}
-              item={item}
-              collapsible={collapsible}
-            />
+            <SidebarNavigationLink key={index} item={item} />
           ),
         )}
       </ul>

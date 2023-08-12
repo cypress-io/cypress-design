@@ -1,5 +1,5 @@
 import * as React from 'react'
-import type { NavGroup, NavItemLink } from '../constants/dist'
+import type { SidebarNavigationInterface } from '../constants/dist'
 import SidebarNavigation from './SidebarNavigation'
 
 export default ({
@@ -8,12 +8,7 @@ export default ({
   currentTeam,
   projects,
   icon,
-}: {
-  items: (NavGroup | NavItemLink)[]
-  currentProject: string
-  currentTeam: string
-  projects: any
-}) => {
+}: SidebarNavigationInterface) => {
   return (
     <SidebarNavigation
       items={items}

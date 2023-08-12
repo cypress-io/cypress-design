@@ -1,20 +1,10 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { NavItemLink } from '@cypress-design/constants-SidebarNavigation'
+import { SidebarNavigationLinkInterface } from '../constants/dist'
 
-export interface SidebarNavigationLinkProps {
-  item: NavItemLink
-  collapsible: boolean
-  depth?: number
-  onActive?: (top: number) => void
-}
-
-export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
-  item,
-  collapsible,
-  depth = -1,
-  onActive,
-}) => {
+export const SidebarNavigationLink: React.FC<
+  SidebarNavigationLinkInterface
+> = ({ item, depth = -1, onActive }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
   // on mount, if the item is active,
@@ -43,20 +33,15 @@ export const SidebarNavigationLink: React.FC<SidebarNavigationLinkProps> = ({
         )}
         href={item.href}
       >
-        {item.icon && <span className="mr-2">{item.icon}</span>}
-        {depth >= 0 ? (
-          <div
-            className={clsx(
-              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
-              {
-                'group-hover:block bg-gray-300': !item.active && collapsible,
-              },
-            )}
-            style={{
-              left: `-${18.5 + depth * 8}px`,
-            }}
-          />
-        ) : null}
+        {item.icon && (
+          <span className="mr-2">
+            <item.icon
+              size="24"
+              strokeColor="white-900"
+              fillColor="white-200"
+            />
+          </span>
+        )}
         {item.text}
       </a>
     </li>

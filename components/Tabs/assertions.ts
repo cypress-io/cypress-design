@@ -14,7 +14,7 @@ export default function assertions(
     tabs: Tab[]
     activeId?: string
     variant?: keyof typeof variants
-  }) => void
+  }) => void,
 ): void {
   describe('Tabs', { viewportHeight: 80 }, () => {
     it('renders', () => {

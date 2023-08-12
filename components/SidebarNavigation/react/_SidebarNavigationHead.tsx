@@ -1,39 +1,21 @@
 import * as React from 'react'
 import Button from '@cypress-design/react-button'
 import clsx from 'clsx'
-// import {
-//     NavGroup,
-//     NavItemLink,
-// } from '@cypress-design/constants-SidebarNavigation'
+import {
+  SidebarNavigationHeadInterface,
+  ProjectInterface,
+} from '../constants/dist'
 
-export interface Project {
-  id: string | number
-  label: string
-}
-
-export interface SidebarNavigationHeadProps
-  extends React.HTMLAttributes<HTMLUListElement> {
-  collapsible?: boolean
-  currentProject: string
-  currentTeam: string
-  onProjectChange: (project: Project) => void
-  projects: Project[]
-}
-
-export const SidebarNavigationHead: React.FC<SidebarNavigationHeadProps> = ({
-  currentProject,
-  currentTeam,
-  onProjectChange,
-  projects,
-  ...rest
-}) => {
+export const SidebarNavigationHead: React.FC<
+  SidebarNavigationHeadInterface
+> = ({ currentProject, currentTeam, onProjectChange, projects, ...rest }) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
   const handleButtonClick = () => {
     setIsOpen(!isOpen)
   }
 
-  const handleProjectChange = (project: Project) => {
+  const handleProjectChange = (project: ProjectInterface) => {
     setIsOpen(false)
     onProjectChange(project)
   }
