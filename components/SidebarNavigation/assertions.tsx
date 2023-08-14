@@ -1,18 +1,22 @@
 /// <reference types="cypress" />
-import React from 'react'
 import type { NavGroup, NavItemLink } from './constants/dist'
 import {
   IconGeneralPlaceholder,
-  IconTechnologyDebugger,
+  // TODO: replace these with correct new icons
+  // IconTechnologyServer,
+  // IconGeneralChatBubble,
+  // IconTechnologyBranchH,
+  // IconViewPieChart,
+  // IconObjectGear
 } from '@cypress-design/react-icon'
 import type { SidebarNavigationInterface } from './constants/dist'
-import { IconStatusPlaceholderSimple } from '@cypress-design/vue-icon'
 
 const menuItems: (NavItemLink | NavGroup)[] = [
   {
     text: 'Runs',
     href: '#',
     icon: IconGeneralPlaceholder,
+    active: true,
   },
   {
     text: 'Reviews',
@@ -31,6 +35,7 @@ const menuItems: (NavItemLink | NavGroup)[] = [
       {
         text: 'Run status',
         href: '#',
+        active: true,
       },
       {
         text: 'Run duration',
