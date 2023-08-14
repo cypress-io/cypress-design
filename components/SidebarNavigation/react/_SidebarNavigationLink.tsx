@@ -36,12 +36,13 @@ export const SidebarNavigationLink: React.FC<
       >
         <div
           className={clsx(
-            'absolute w-[4px] z-10 transition-all duration-300 ease-in',
+            'absolute w-[4px] z-10 transition-all duration-300 ease-in-out',
             {
               'left-[-16px] top-[10%] h-[80%] rounded-r': depth == 0,
               'top-[10%] h-[80%] rounded-full': depth == 1,
-              'group-hover:block bg-gray-300 hidden': !item.active,
-              'bg-indigo-300 visible': item.active,
+              'group-hover:block bg-gray-300 opacity-0 group-hover:opacity-100':
+                !item.active,
+              'bg-indigo-300 block opacity-100': item.active,
             },
           )}
           style={depth == 1 ? { left: `-${18.5}px` } : {}}
