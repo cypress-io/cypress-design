@@ -18,7 +18,7 @@ export const SidebarNavigationLink: React.FC<
   return (
     <li
       ref={activeLIRef}
-      className={clsx('list-none p-0', {
+      className={clsx('relative list-none p-0', {
         'pl-[16px]': depth >= 0,
         'border-l-[1px] border-gray-100 pl-[16px]': depth >= 1,
       })}
@@ -34,22 +34,21 @@ export const SidebarNavigationLink: React.FC<
         )}
         href={item.href}
       >
-        {/* {depth >= 0 ? (
-          // add active indicator
+        {depth >= 1 ? (
+          // add active indicator for subnav items
           <div
             className={clsx(
-              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
+              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full transition-all duration-300 ease-in',
               {
-                'group-hover:block bg-gray-300': !item.active,
+                'group-hover:block bg-gray-300 hidden': !item.active,
                 'bg-indigo-300 visible': item.active,
-              }
+              },
             )}
             style={{
-              left: `-${18.5 * 8}px`,
+              left: `-${18.5}px`,
             }}
           />
-        ) : null} */}
-
+        ) : null}
         {/* Add optional icon */}
         {item.icon && (
           <span className="mr-2">
@@ -60,7 +59,7 @@ export const SidebarNavigationLink: React.FC<
             />
           </span>
         )}
-        {item.text}
+        {item.text} {item.active ? 'active!' : 'not active'}
       </a>
     </li>
   )
