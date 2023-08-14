@@ -34,34 +34,18 @@ export const SidebarNavigationLink: React.FC<
         )}
         href={item.href}
       >
-        {depth == 0 ? (
-          // add active indicator for parent items with active children
-          <div
-            className={clsx(
-              'absolute w-[4px] z-10 left-[-16px] ztop-[10%] h-[80%] rounded-r transition-all duration-300 ease-in',
-              {
-                'group-hover:block bg-gray-300 hidden': !item.active,
-                'bg-indigo-300 visible': item.active,
-              },
-            )}
-          />
-        ) : null}
-
-        {depth == 1 ? (
-          // add active indicator for subnav items
-          <div
-            className={clsx(
-              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full transition-all duration-300 ease-in',
-              {
-                'group-hover:block bg-gray-300 hidden': !item.active,
-                'bg-indigo-300 visible': item.active,
-              },
-            )}
-            style={{
-              left: `-${18.5}px`,
-            }}
-          />
-        ) : null}
+        <div
+          className={clsx(
+            'absolute w-[4px] z-10 transition-all duration-300 ease-in',
+            {
+              'left-[-16px] top-[10%] h-[80%] rounded-r': depth == 0,
+              'top-[10%] h-[80%] rounded-full': depth == 1,
+              'group-hover:block bg-gray-300 hidden': !item.active,
+              'bg-indigo-300 visible': item.active,
+            },
+          )}
+          style={depth == 1 ? { left: `-${18.5}px` } : {}}
+        />
 
         {/* Add optional icon */}
         {item.icon && (
