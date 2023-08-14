@@ -39,16 +39,17 @@ export const SidebarNavigationHead: React.FC<
         <div className="flex flex-row center">
           {/* Organization logo, or placeholder icon */}
           {currentOrganization?.icon && (
-            <span className="mr-2">
+            <span className="mr-2 py-2 pl-2">
               <currentOrganization.icon
-                size="48"
-                strokeColor="white-900"
+                style={{ width: '32px', height: '32px' }}
+                strokeColor="purple-500"
                 fillColor="white-100"
+                size={24}
               />
             </span>
           )}
-          <div className="flex flex-col items-start">
-            <span className="text-sm text-gray-500">
+          <div className="flex flex-col items-start gap-[0px]">
+            <span className="text-sm text-gray-600 font-normal">
               {currentOrganization.name}
             </span>
             <span>{currentProject}</span>

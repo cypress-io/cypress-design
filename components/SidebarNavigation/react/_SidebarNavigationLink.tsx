@@ -7,37 +7,42 @@ export const SidebarNavigationLink: React.FC<
 > = ({ item, depth = 0 }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
+  const offsetDepth0 = 16
+  const offsetDepth1 = 12
+  const offsetDepth1b = offsetDepth1 + 2
+
   return (
     <li
       ref={activeLIRef}
       className={clsx('relative list-none p-0', {
-        'pl-[16px]': depth >= 0,
-        'border-l-[1px] border-gray-100/10 pl-[16px]': depth >= 1,
+        [`pl-[${offsetDepth0}px]`]: depth == 0,
+        [`pl-[${offsetDepth1}px] ml-[${offsetDepth1}px] border-l-[1px] border-gray-100/10`]:
+          depth == 1,
       })}
     >
       <a
         className={clsx(
-          'flex items-center group relative inline-block pl-[16px] py-[8px]',
+          'flex items-center group relative inline-block pl-[12px] py-[8px]',
           {
             'text-indigo-300': item.active,
-            'text-gray-500 text-[16px] leading-[24px]': depth < 0,
-            'text-gray-500 pl-[0px] leading-[20px] text-[14px]': depth >= 0,
+            [`text-gray-500 text-16px leading-[24px]`]: depth == 0,
+            'text-gray-500 pl-[0px] leading-[20px] text-[14px]': depth == 1,
           },
         )}
         href={item.href}
       >
+        {/* Active indicator */}
         <div
           className={clsx(
-            'absolute w-[4px] z-10 transition-all duration-300 ease-in-out',
+            'absolute w-[4px] z-10 transition-all duration-300 ease-in-out top-[10%] h-[80%] ',
             {
-              'left-[-16px] top-[10%] h-[80%] rounded-r': depth == 0,
-              'top-[10%] h-[80%] rounded-full': depth == 1,
+              [`left-[-${offsetDepth0}px] rounded-r`]: depth == 0,
+              [`left-[-${offsetDepth1b}px] rounded-full`]: depth == 1,
               'group-hover:block bg-gray-300 opacity-0 group-hover:opacity-100':
                 !item.active,
               'bg-indigo-300 block opacity-100': item.active,
             },
           )}
-          style={depth == 1 ? { left: `-${18.5}px` } : {}}
         />
 
         {/* Add optional icon */}
