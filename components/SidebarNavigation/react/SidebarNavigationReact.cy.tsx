@@ -8,11 +8,11 @@ import { SidebarNavigationInterface } from '../constants/dist'
 
 describe('<SidebarNavigation/>', () => {
   function mountStory(args: SidebarNavigationInterface) {
-    const { items, currentTeam, currentProject, projects, icon } = args
+    const { items, currentOrganization, currentProject, projects, icon } = args
     mount(
       <SidebarNavigationStory
         items={items}
-        currentTeam={currentTeam}
+        currentOrganization={currentOrganization}
         currentProject={currentProject}
         projects={projects}
         icon={icon}

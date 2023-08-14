@@ -5,14 +5,14 @@ import SidebarNavigation from './SidebarNavigation'
 export default ({
   items,
   currentProject,
-  currentTeam,
+  currentOrganization,
   projects,
   icon,
 }: SidebarNavigationInterface) => {
   return (
     <SidebarNavigation
       items={items}
-      currentTeam={currentTeam}
+      currentOrganization={currentOrganization}
       currentProject={currentProject}
       projects={projects}
       icon={icon}

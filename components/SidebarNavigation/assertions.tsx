@@ -76,8 +76,11 @@ export default function assertions(
   it('renders', () => {
     mountStory({
       items: menuItems,
-      currentTeam: 'Gatsby',
       currentProject: 'Design System',
+      currentOrganization: {
+        name: 'Gatsby',
+        icon: IconGeneralPlaceholder,
+      },
       projects: [
         { id: '1', label: 'project1' },
         { id: '2', label: 'project2' },

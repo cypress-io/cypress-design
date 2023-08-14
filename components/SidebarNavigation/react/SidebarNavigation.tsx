@@ -9,17 +9,17 @@ import clsx from 'clsx'
 export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
   items,
   currentProject,
-  currentTeam,
   onProjectChange,
   projects,
   className,
+  currentOrganization,
   ...rest
 }) => {
   return (
     <div className="bg-gray-900 text-white">
       <SidebarNavigationHead
+        currentOrganization={currentOrganization}
         currentProject={currentProject}
-        currentTeam={currentTeam}
         onProjectChange={onProjectChange || (() => {})}
         projects={projects}
       />

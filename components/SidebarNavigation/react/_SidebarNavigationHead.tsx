@@ -8,7 +8,13 @@ import {
 
 export const SidebarNavigationHead: React.FC<
   SidebarNavigationHeadInterface
-> = ({ currentProject, currentTeam, onProjectChange, projects, ...rest }) => {
+> = ({
+  currentProject,
+  onProjectChange,
+  projects,
+  currentOrganization,
+  ...rest
+}) => {
   const [isOpen, setIsOpen] = React.useState(false)
 
   const handleButtonClick = () => {
@@ -23,26 +29,44 @@ export const SidebarNavigationHead: React.FC<
   return (
     <div
       {...(rest as React.HTMLAttributes<HTMLDivElement>)}
-      className={clsx('list-none p-0', rest.className)}
+      className={clsx('flex list-none p-0', rest.className)}
     >
       <Button
-        className="w-full"
+        className="w-full rounded-none"
         variant="outline-dark"
         onClick={handleButtonClick}
       >
-        <div className="flex flex-col items-start">
-          <span className="text-sm text-gray-500">{currentTeam}</span>
-          <span>{currentProject}</span>
+        <div className="flex flex-row center">
+          {/* Organization logo, or placeholder icon */}
+          {currentOrganization?.icon && (
+            <span className="mr-2">
+              <currentOrganization.icon
+                size="48"
+                strokeColor="white-900"
+                fillColor="white-100"
+              />
+            </span>
+          )}
+          <div className="flex flex-col items-start">
+            <span className="text-sm text-gray-500">
+              {currentOrganization.name}
+            </span>
+            <span>{currentProject}</span>
+          </div>
         </div>
       </Button>
       {isOpen && (
-        <div>
+        <ul className="bg-white p-2 text-indigo-500">
           {projects.map((project) => (
-            <div key={project.id} onClick={() => handleProjectChange(project)}>
+            <li
+              className="p-2"
+              key={project.id}
+              onClick={() => handleProjectChange(project)}
+            >
               {project.label}
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       )}
     </div>
   )

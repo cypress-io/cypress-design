@@ -16,7 +16,7 @@ export interface NavItemLink extends NavItemBase {
 }
 
 export interface NavGroup extends NavItemBase {
-  items: (NavItemLink | NavGroup)[]
+  items: NavItemLink[]
 }
 
 export interface SidebarNavigationLinkInterface {
@@ -30,10 +30,19 @@ export interface ProjectInterface {
   label: string
 }
 
+export interface CurrentOrganizationInterface {
+  name: string
+  icon: React.ComponentType<{
+    size?: string
+    strokeColor?: string
+    fillColor?: string
+  }>
+}
+
 export interface SidebarNavigationHeadInterface
   extends React.HTMLAttributes<HTMLUListElement> {
   currentProject: string
-  currentTeam: string
+  currentOrganization: CurrentOrganizationInterface
   projects: ProjectInterface[]
   onProjectChange: (project: ProjectInterface) => void
 }
@@ -42,7 +51,7 @@ export interface SidebarNavigationInterface {
   className?: string
   items: (NavGroup | NavItemLink)[]
   currentProject: string
-  currentTeam: string
+  currentOrganization: CurrentOrganizationInterface
   projects: Array<{ id: string; label: string }>
   onProjectChange?: (project: ProjectInterface) => void
 }

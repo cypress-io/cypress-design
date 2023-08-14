@@ -4,16 +4,8 @@ import { SidebarNavigationLinkInterface } from '../constants/dist'
 
 export const SidebarNavigationLink: React.FC<
   SidebarNavigationLinkInterface
-> = ({ item, depth = 0, onActive }) => {
+> = ({ item, depth = 0 }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
-
-  // on mount, if the item is active,
-  // send the top position to the parent
-  React.useEffect(() => {
-    if (item.active) {
-      onActive?.(activeLIRef?.current?.offsetTop || 0)
-    }
-  }, [])
 
   return (
     <li
