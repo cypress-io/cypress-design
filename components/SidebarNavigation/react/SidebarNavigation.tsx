@@ -26,9 +26,7 @@ export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
       <ul {...rest} className={clsx('list-none p-0', className)}>
         {items.map((item, index) =>
           'items' in item ? (
-            <li key={index} className="relative list-none p-0">
-              <SidebarNavigationGroup group={item} />
-            </li>
+            <SidebarNavigationGroup key={index} group={item} />
           ) : (
             <SidebarNavigationLink key={index} item={item} />
           ),

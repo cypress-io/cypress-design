@@ -21,7 +21,6 @@ export const SidebarNavigationLink: React.FC<
       className={clsx('relative list-none p-0', {
         'pl-[16px]': depth >= 0,
         'border-l-[1px] border-gray-100/10 pl-[16px]': depth >= 1,
-        'border-l-[4px] border-indigo-300 pl-[16px]': depth == 0 && item.active,
       })}
     >
       <a
@@ -35,6 +34,19 @@ export const SidebarNavigationLink: React.FC<
         )}
         href={item.href}
       >
+        {item.active && depth == 0 ? (
+          // add active indicator for parent items with active children
+          <div
+            className={clsx(
+              'absolute w-[4px] z-10 left-[-16px] ztop-[10%] h-[80%] rounded-r transition-all duration-300 ease-in',
+              {
+                'group-hover:block bg-gray-300 hidden': !item.active,
+                'bg-indigo-300 visible': item.active,
+              },
+            )}
+          />
+        ) : null}
+
         {depth >= 1 ? (
           // add active indicator for subnav items
           <div
