@@ -20,7 +20,8 @@ export const SidebarNavigationLink: React.FC<
       ref={activeLIRef}
       className={clsx('relative list-none p-0', {
         'pl-[16px]': depth >= 0,
-        'border-l-[1px] border-gray-100 pl-[16px]': depth >= 1,
+        'border-l-[1px] border-gray-100/10 pl-[16px]': depth >= 1,
+        'border-l-[4px] border-indigo-300 pl-[16px]': depth == 0 && item.active,
       })}
     >
       <a
@@ -59,7 +60,7 @@ export const SidebarNavigationLink: React.FC<
             />
           </span>
         )}
-        {item.text} {item.active ? 'active!' : 'not active'}
+        {item.text}
       </a>
     </li>
   )

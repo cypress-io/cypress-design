@@ -18,6 +18,7 @@ export const SidebarNavigationGroup: React.FC<SidebarNavigationGroupProps> = ({
         item={{
           icon: group.icon,
           href: group.href || '',
+          active: group.items && group.items.some((item) => item.active),
           ...group,
         }}
         depth={depth}
