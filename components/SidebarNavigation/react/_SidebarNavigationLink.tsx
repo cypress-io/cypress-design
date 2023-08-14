@@ -4,7 +4,7 @@ import { SidebarNavigationLinkInterface } from '../constants/dist'
 
 export const SidebarNavigationLink: React.FC<
   SidebarNavigationLinkInterface
-> = ({ item, depth = -1, onActive }) => {
+> = ({ item, depth = 0, onActive }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
   // on mount, if the item is active,
@@ -34,7 +34,7 @@ export const SidebarNavigationLink: React.FC<
         )}
         href={item.href}
       >
-        {item.active && depth == 0 ? (
+        {depth == 0 ? (
           // add active indicator for parent items with active children
           <div
             className={clsx(
@@ -47,7 +47,7 @@ export const SidebarNavigationLink: React.FC<
           />
         ) : null}
 
-        {depth >= 1 ? (
+        {depth == 1 ? (
           // add active indicator for subnav items
           <div
             className={clsx(
@@ -62,6 +62,7 @@ export const SidebarNavigationLink: React.FC<
             }}
           />
         ) : null}
+
         {/* Add optional icon */}
         {item.icon && (
           <span className="mr-2">
@@ -72,6 +73,7 @@ export const SidebarNavigationLink: React.FC<
             />
           </span>
         )}
+
         {item.text}
       </a>
     </li>
