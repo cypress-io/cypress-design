@@ -2,6 +2,7 @@ import * as React from 'react'
 import { SidebarNavigationHead } from './_SidebarNavigationHead'
 import { SidebarNavigationLink } from './_SidebarNavigationLink'
 import { SidebarNavigationGroup } from './_SidebarNavigationGroup'
+import { SidebarNavigationFooter } from './_SidebarNavigationFooter'
 import type { SidebarNavigationInterface } from '../constants/dist'
 
 import clsx from 'clsx'
@@ -32,6 +33,7 @@ export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
           ),
         )}
       </ul>
+      <SidebarNavigationFooter />
     </div>
   )
 }

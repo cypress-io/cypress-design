@@ -6,18 +6,23 @@ import SidebarNavigationStory from './SidebarNavigation.rootstory'
 import assertions from '../assertions'
 import { SidebarNavigationInterface } from '../constants/dist'
 
-describe('<SidebarNavigation/>', () => {
-  function mountStory(args: SidebarNavigationInterface) {
-    const { items, currentOrganization, currentProject, projects, icon } = args
-    mount(
-      <SidebarNavigationStory
-        items={items}
-        currentOrganization={currentOrganization}
-        currentProject={currentProject}
-        projects={projects}
-        icon={icon}
-      />,
-    )
-  }
-  assertions(mountStory)
-})
+describe(
+  '<SidebarNavigation/>',
+  { viewportHeight: 800, viewportWidth: 300 },
+  () => {
+    function mountStory(args: SidebarNavigationInterface) {
+      const { items, currentOrganization, currentProject, projects, icon } =
+        args
+      mount(
+        <SidebarNavigationStory
+          items={items}
+          currentOrganization={currentOrganization}
+          currentProject={currentProject}
+          projects={projects}
+          icon={icon}
+        />,
+      )
+    }
+    assertions(mountStory)
+  },
+)
