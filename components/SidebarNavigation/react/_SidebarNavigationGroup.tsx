@@ -25,11 +25,7 @@ export const SidebarNavigationGroup: React.FC<SidebarNavigationGroupProps> = ({
         depth={depth}
       />
       <li className="relative list-none p-0">
-        <ul
-          className={clsx('ml-1 list-none p-0', {
-            'pl-[24px]': depth >= 0,
-          })}
-        >
+        <ul className={clsx('list-none pl-4')}>
           {group.items.map((item, index) => {
             return (
               <SidebarNavigationLink
