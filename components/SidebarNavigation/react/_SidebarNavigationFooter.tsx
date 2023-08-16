@@ -1,5 +1,9 @@
 import * as React from 'react'
 import clsx from 'clsx'
+import {
+  IconActionQuestionMarkDefault,
+  IconArrowRight,
+} from '@cypress-design/react-icon'
 
 export interface SidebarNavigationFooterProps {}
 
@@ -47,8 +51,16 @@ export const SidebarNavigationFooter: React.FC<
   SidebarNavigationFooterProps
 > = () => {
   return (
-    <footer className={clsx('list-none pl-[32px] py-[8px]')}>
+    <footer className={clsx('flex list-none mt-[32px] pl-[16px] p-[8px]')}>
       <div>{cypressSVGLogo}</div>
+      <div className={clsx('ml-auto flex flex-col ')}>
+        <div className={clsx('p-1')}>
+          <IconArrowRight className={clsx('p1')} />
+        </div>
+        <div className={clsx('p-1')}>
+          <IconActionQuestionMarkDefault />
+        </div>
+      </div>
     </footer>
   )
 }
