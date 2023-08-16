@@ -5,6 +5,7 @@ import {
   SidebarNavigationHeadInterface,
   ProjectInterface,
 } from '../constants/dist'
+import { IconGeneralGrid2X2Small } from '@cypress-design/react-icon'
 
 export const SidebarNavigationHead: React.FC<
   SidebarNavigationHeadInterface
@@ -36,7 +37,7 @@ export const SidebarNavigationHead: React.FC<
         variant="outline-dark"
         onClick={handleButtonClick}
       >
-        <div className="flex flex-row items-center">
+        <div className="flex flex-row w-full items-center">
           {/* Organization logo, or placeholder icon */}
           {currentOrganization?.icon && (
             <div className="mr-[16px] py-2">
@@ -53,6 +54,13 @@ export const SidebarNavigationHead: React.FC<
               {currentOrganization.name}
             </div>
             <div className="text-[16px] leading-[16px]">{currentProject}</div>
+          </div>
+
+          <div className="ml-auto">
+            <IconGeneralGrid2X2Small
+              strokeColor="gray-700"
+              fillColor="transparent"
+            />
           </div>
         </div>
       </Button>
