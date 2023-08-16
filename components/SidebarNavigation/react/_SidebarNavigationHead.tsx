@@ -29,30 +29,30 @@ export const SidebarNavigationHead: React.FC<
   return (
     <div
       {...(rest as React.HTMLAttributes<HTMLDivElement>)}
-      className={clsx('flex list-none p-0', rest.className)}
+      className={clsx('flex flex-col list-none p-0', rest.className)}
     >
       <Button
-        className="w-full rounded-none"
+        className="w-full rounded-none px-[16px] block"
         variant="outline-dark"
         onClick={handleButtonClick}
       >
         <div className="flex flex-row center">
           {/* Organization logo, or placeholder icon */}
           {currentOrganization?.icon && (
-            <span className="mr-2 py-2 pl-2">
+            <div className="mr-[16px] py-2 pl-0]">
               <currentOrganization.icon
                 style={{ width: '32px', height: '32px' }}
                 strokeColor="purple-500"
                 fillColor="white-100"
                 size={24}
               />
-            </span>
+            </div>
           )}
           <div className="flex flex-col items-start gap-[0px]">
-            <span className="text-sm text-gray-600 font-normal">
+            <div className="text-sm text-gray-600 font-normal">
               {currentOrganization.name}
-            </span>
-            <span>{currentProject}</span>
+            </div>
+            <div>{currentProject}</div>
           </div>
         </div>
       </Button>
