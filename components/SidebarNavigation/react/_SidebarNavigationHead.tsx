@@ -36,23 +36,23 @@ export const SidebarNavigationHead: React.FC<
         variant="outline-dark"
         onClick={handleButtonClick}
       >
-        <div className="flex flex-row center">
+        <div className="flex flex-row items-center">
           {/* Organization logo, or placeholder icon */}
           {currentOrganization?.icon && (
-            <div className="mr-[16px] py-2 pl-0]">
+            <div className="mr-[16px] py-2">
               <currentOrganization.icon
                 style={{ width: '32px', height: '32px' }}
-                strokeColor="purple-500"
+                strokeColor="purple-400"
                 fillColor="white-100"
                 size={24}
               />
             </div>
           )}
-          <div className="flex flex-col items-start gap-[0px]">
-            <div className="text-sm text-gray-600 font-normal">
+          <div className="flex flex-col items-start gap-[6px]">
+            <div className="text-gray-600 font-normal text-[14px] leading-[10px]">
               {currentOrganization.name}
             </div>
-            <div>{currentProject}</div>
+            <div className="text-[16px] leading-[16px]">{currentProject}</div>
           </div>
         </div>
       </Button>
