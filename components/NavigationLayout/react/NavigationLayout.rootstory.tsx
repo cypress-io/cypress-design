@@ -1,8 +1,7 @@
 import * as React from 'react'
 
-// TODO: fix relative paths to types
-import type { NavigationLayoutInterface } from '../../NavigationLayout/constants/dist'
-import NavigationLayout from './NavigationLayout'
+import type { NavigationLayoutInterface } from '@cypress-design/constants-navigationlayout'
+import NavigationLayout from '@cypress-design/react-navigationlayout'
 
 export default ({
   items,

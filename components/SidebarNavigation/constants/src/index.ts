@@ -5,14 +5,16 @@ export interface NavItemBase {
   href?: string
   active?: boolean
 }
+export interface IconInterface {
+  size?: number
+  strokeColor?: string
+  fillColor?: string
+  style?: React.CSSProperties
+}
 
 export interface NavItemLink extends NavItemBase {
   href: string
-  icon?: React.ComponentType<{
-    size?: string
-    strokeColor?: string
-    fillColor?: string
-  }>
+  icon?: React.ComponentType<IconInterface>
 }
 
 export interface NavGroup extends NavItemBase {
@@ -32,11 +34,7 @@ export interface ProjectInterface {
 
 export interface CurrentOrganizationInterface {
   name: string
-  icon: React.ComponentType<{
-    size?: string
-    strokeColor?: string
-    fillColor?: string
-  }>
+  icon: React.ComponentType<IconInterface>
 }
 
 export interface SidebarNavigationHeadInterface

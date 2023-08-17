@@ -43,7 +43,7 @@ export const SidebarNavigationLink: React.FC<
         {item.icon && (
           <span className="mr-[24px]">
             <item.icon
-              size="24"
+              size={24}
               strokeColor="white-900"
               fillColor="white-200"
             />
