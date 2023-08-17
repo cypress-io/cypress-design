@@ -17,7 +17,7 @@ export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
   ...rest
 }) => {
   return (
-    <div className="bg-gray-900 text-white h-[100%]">
+    <nav className="bg-gray-900 text-white h-[100%]">
       <SidebarNavigationHead
         currentOrganization={currentOrganization}
         currentProject={currentProject}
@@ -34,7 +34,7 @@ export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
         )}
       </ul>
       <SidebarNavigationFooter />
-    </div>
+    </nav>
   )
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SidebarNavigation from '@cypress-design/vue-SidebarNavigation'
+import SidebarNavigation from '@cypress-design/react-SidebarNavigation'
 </script>
 
 # SidebarNavigation

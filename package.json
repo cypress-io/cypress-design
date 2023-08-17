@@ -42,6 +42,8 @@
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-tooltip": "*",
     "@cypress/vite-dev-server": "^5.0.5",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@percy/cli": "1.26.2",
     "@percy/cypress": "3.1.2",
     "@rollup/plugin-commonjs": "^25.0.3",
