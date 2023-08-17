@@ -1,5 +1,11 @@
 # @cypress-design/details-animation
 
+## 0.1.1
+
+### Patch Changes
+
+- [`a385f5c`](https://github.com/cypress-io/cypress-design/commit/a385f5cec36f25c030ffbfb833fdb677270993e5) Thanks [@elevatebart](https://github.com/elevatebart)! - fix import of details animation with vite 4
+
 ## 0.1.0
 
 ### Minor Changes
