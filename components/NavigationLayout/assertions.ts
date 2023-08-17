@@ -1,8 +1,6 @@
 /// <reference types="cypress" />
 
-//   TMP: How to share types?
-// TODO: Remove relative paths
-import type { NavigationLayoutInterface } from './constants/dist'
+import type { NavigationLayoutInterface } from '@cypress-design/constants-navigationlayout'
 import type {
   NavGroup,
   NavItemLink,
@@ -35,6 +33,27 @@ const menuItems: (NavItemLink | NavGroup)[] = [
   },
 ]
 
+const sharedMountStoryData = {
+  items: menuItems,
+  currentProject: 'Design System',
+  currentOrganization: {
+    name: 'Gatsby',
+    icon: IconGeneralPlaceholder,
+  },
+  projects: [
+    { id: '1', label: 'project1' },
+    { id: '2', label: 'project2' },
+  ],
+  navigation: [
+    {
+      name: 'Cypress',
+      href: '#',
+      icon: IconGeneralPlaceholder,
+      current: true,
+    },
+  ],
+}
+
 export default function assertions(
   mountStory: (args: NavigationLayoutInterface) => void,
 ): void {
@@ -44,44 +63,26 @@ export default function assertions(
     })
 
     it('renders', () => {
-      mountStory({
-        items: menuItems,
-        currentProject: 'Design System',
-        currentOrganization: {
-          name: 'Gatsby',
-          icon: IconGeneralPlaceholder,
-        },
-        projects: [
-          { id: '1', label: 'project1' },
-          { id: '2', label: 'project2' },
-        ],
-        navigation: [
-          {
-            name: 'Cypress',
-            href: '#',
-            icon: IconGeneralPlaceholder,
-            current: true,
-          },
-        ],
-      })
+      mountStory(sharedMountStoryData)
 
       cy.get('nav').should('be.visible')
     })
   })
 
-  // context('at iphone-5 resolution', () => {
-  //   beforeEach(() => {
-  //     cy.viewport('iphone-5')
-  //   })
+  context('at iphone-5 resolution', () => {
+    beforeEach(() => {
+      cy.viewport('iphone-5')
+    })
 
-  //   it('displays mobile menu on click', () => {
-  //     cy.get('nav .desktop-menu').should('not.be.visible')
-  //     cy.get('nav .mobile-menu')
-  //       .should('be.visible')
-  //       .find('i.hamburger')
-  //       .click()
+    it('displays mobile menu on click', () => {
+      mountStory(sharedMountStoryData)
+      cy.get('nav .desktop-menu').should('not.be.visible')
+      cy.get('nav .mobile-menu')
+        .should('be.visible')
+        .find('i.hamburger')
+        .click()
 
-  //     cy.get('ul.slideout-menu').should('be.visible')
-  //   })
-  // })
+      cy.get('ul.slideout-menu').should('be.visible')
+    })
+  })
 }
