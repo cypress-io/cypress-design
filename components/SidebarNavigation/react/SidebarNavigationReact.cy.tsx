@@ -8,7 +8,7 @@ import { SidebarNavigationInterface } from '../constants/dist'
 
 describe(
   '<SidebarNavigation/>',
-  { viewportHeight: 800, viewportWidth: 300 },
+  { viewportHeight: 700, viewportWidth: 300 },
   () => {
     function mountStory(args: SidebarNavigationInterface) {
       const { items, currentOrganization, currentProject, projects, icon } =
