@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.15.1
+
+### Patch Changes
+
+- [`a0194e0`](https://github.com/cypress-io/cypress-design/commit/a0194e0f045059a64bf1b0b378d4b6b8b12d02f2) Thanks [@elevatebart](https://github.com/elevatebart)! - update transition of card
+
 ## 0.15.0
 
 ### Minor Changes
