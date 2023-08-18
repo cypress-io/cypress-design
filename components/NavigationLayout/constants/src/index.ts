@@ -1,8 +1,7 @@
-// TODO fix relative paths
 import type {
   NavGroup,
   NavItemLink,
-} from '../../../SidebarNavigation/constants/dist'
+} from '@cypress-design/constants-SidebarNavigation'
 
 interface NavigationItem {
   name: string

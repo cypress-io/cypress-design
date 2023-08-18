@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import {
   SidebarNavigationHeadInterface,
   ProjectInterface,
-} from '../constants/dist'
+} from '@cypress-design/constants-SidebarNavigation'
 import { IconGeneralGrid2X2Small } from '@cypress-design/react-icon'
 
 export const SidebarNavigationHead: React.FC<
