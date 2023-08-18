@@ -1,12 +1,4 @@
-import * as React from 'react'
-import { SidebarNavigationHead } from './_SidebarNavigationHead'
-import { SidebarNavigationLink } from './_SidebarNavigationLink'
-import { SidebarNavigationGroup } from './_SidebarNavigationGroup'
-import { SidebarNavigationFooter } from '@cypress-design/react-SidebarNavigation/_SidebarNavigationFooter'
-import type { SidebarNavigationInterface } from '@cypress-design/constants-SidebarNavigation'
-// import landscapeIllustration from './landscapeIllustration.svg'
-
-const landscapeIllustration = `<svg width="320" height="960" viewBox="0 0 320 960" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="320" height="960" viewBox="0 0 320 960" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_42_3605)">
 <path d="M320 0H0V960H320V0Z" fill="#1B1E2E"/>
 <path d="M320 0H0V960H320V0Z" fill="#1B1E2E"/>
@@ -25,50 +17,3 @@ const landscapeIllustration = `<svg width="320" height="960" viewBox="0 0 320 96
 </clipPath>
 </defs>
 </svg>
-`
-
-import clsx from 'clsx'
-
-const svgDataUrl = `data:image/svg+xml,${encodeURIComponent(
-  landscapeIllustration,
-)}`
-
-export const SidebarNavigation: React.FC<SidebarNavigationInterface> = ({
-  items,
-  currentProject,
-  onProjectChange,
-  projects,
-  className,
-  currentOrganization,
-  ...rest
-}) => {
-  return (
-    <nav
-      className={clsx('bg-gray-900 text-white h-[100%]', 'bg-cover bg-scroll')}
-      style={{
-        backgroundImage: `url(${svgDataUrl})`,
-      }}
-    >
-      <SidebarNavigationHead
-        currentOrganization={currentOrganization}
-        currentProject={currentProject}
-        onProjectChange={onProjectChange || (() => {})}
-        projects={projects}
-      />
-      HELLO
-      <img src={`${svgDataUrl}`} />
-      <ul {...rest} className={clsx('list-none p-0', className)}>
-        {items.map((item, index) =>
-          'items' in item ? (
-            <SidebarNavigationGroup key={index} group={item} />
-          ) : (
-            <SidebarNavigationLink key={index} item={item} />
-          ),
-        )}
-      </ul>
-      <SidebarNavigationFooter />
-    </nav>
-  )
-}
-
-export default SidebarNavigation

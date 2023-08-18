@@ -4,7 +4,7 @@ import * as React from 'react'
 import { mount } from 'cypress/react18'
 import SidebarNavigationStory from './SidebarNavigation.rootstory'
 import assertions from '../assertions'
-import { SidebarNavigationInterface } from '../constants/dist'
+import { SidebarNavigationInterface } from '@cypress-design/constants-SidebarNavigation'
 
 describe(
   '<SidebarNavigation/>',

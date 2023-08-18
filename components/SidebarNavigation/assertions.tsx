@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
-import type { NavGroup, NavItemLink } from './constants/dist'
+import type {
+  NavGroup,
+  NavItemLink,
+  SidebarNavigationInterface,
+} from '@cypress-design/constants-SidebarNavigation'
 import {
   IconGeneralPlaceholder,
   // TODO: replace these with correct new icons
@@ -9,7 +13,6 @@ import {
   // IconViewPieChart,
   // IconObjectGear
 } from '@cypress-design/react-icon'
-import type { SidebarNavigationInterface } from './constants/dist'
 
 const menuItems: (NavItemLink | NavGroup)[] = [
   {

@@ -131,7 +131,7 @@ export default function NavigationLayout({
 
         <aside className="fixed inset-y-0 left-72 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
           {/* Secondary column (hidden on smaller screens) */}
-          <p>hello Secondary column</p>
+          <p>Cypress Support</p>
         </aside>
       </div>
     </>

@@ -1,6 +1,6 @@
 import * as React from 'react'
-import type { SidebarNavigationInterface } from '../constants/dist'
-import SidebarNavigation from './SidebarNavigation'
+import type { SidebarNavigationInterface } from '@cypress-design/constants-SidebarNavigation'
+import SidebarNavigation from '@cypress-design/react-SidebarNavigation'
 
 export default ({
   items,

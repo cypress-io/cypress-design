@@ -4,10 +4,10 @@ import type { NavigationLayoutInterface } from '@cypress-design/constants-naviga
 import type {
   NavGroup,
   NavItemLink,
+  IconInterface,
 } from '@cypress-design/constants-SidebarNavigation'
 
 import { IconGeneralPlaceholder } from '@cypress-design/react-icon'
-import type { IconInterface } from '@cypress-design/constants-SidebarNavigation'
 
 // TODO: consider how to remove this interface, it seems probably unnecessary
 interface IconGeneralPlaceholderProps extends IconInterface {}
