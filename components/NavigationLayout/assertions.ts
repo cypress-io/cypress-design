@@ -7,22 +7,37 @@ import type {
 } from '@cypress-design/constants-SidebarNavigation'
 
 import { IconGeneralPlaceholder } from '@cypress-design/react-icon'
+import type { IconInterface } from '@cypress-design/constants-SidebarNavigation'
 
+// TODO: consider how to remove this interface, it seems probably unnecessary
+interface IconGeneralPlaceholderProps extends IconInterface {}
+
+// Data for SidebarNavigation
 const menuItems: (NavItemLink | NavGroup)[] = [
   {
     text: 'Foo navigation item',
     href: '#',
-    icon: IconGeneralPlaceholder,
-    active: true,
+    icon: IconGeneralPlaceholder as React.FC<IconGeneralPlaceholderProps>,
+    active: false,
   },
   {
     text: 'Bar navigation item',
     icon: IconGeneralPlaceholder,
     items: [
       {
-        text: 'Example sub-navigation item',
+        text: 'Sub-item',
+        href: '#',
+        active: false,
+      },
+      {
+        text: 'Sub-item',
         href: '#',
         active: true,
+      },
+      {
+        text: 'Sub-item',
+        href: '#',
+        active: false,
       },
     ],
   },
@@ -33,7 +48,8 @@ const menuItems: (NavItemLink | NavGroup)[] = [
   },
 ]
 
-const sharedMountStoryData = {
+// Data for NavigationLayout
+const navigationLayoutStoryData = {
   items: menuItems,
   currentProject: 'Design System',
   currentOrganization: {
@@ -63,7 +79,7 @@ export default function assertions(
     })
 
     it('renders', () => {
-      mountStory(sharedMountStoryData)
+      mountStory(navigationLayoutStoryData)
 
       cy.get('nav').should('be.visible')
     })
@@ -75,7 +91,7 @@ export default function assertions(
     })
 
     it('displays mobile menu on click', () => {
-      mountStory(sharedMountStoryData)
+      mountStory(navigationLayoutStoryData)
       // cy.get('nav .desktop-menu').should('not.be.visible')
       // cy.get('nav .mobile-menu')
       //   .should('be.visible')
