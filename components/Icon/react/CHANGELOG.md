@@ -1,5 +1,23 @@
 # @cypress-design/react-icon
 
+## 0.23.1
+
+### Patch Changes
+
+- Updated dependencies [[`e0c2e5a`](https://github.com/cypress-io/cypress-design/commit/e0c2e5ad3aefaf0716223d2fa5d23445eeb325af)]:
+  - @cypress-design/icon-registry@0.26.0
+
+## 0.23.0
+
+### Minor Changes
+
+- [#280](https://github.com/cypress-io/cypress-design/pull/280) [`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d) Thanks [@dkasper-was-taken](https://github.com/dkasper-was-taken)! - adding icon for test replay initiative
+
+### Patch Changes
+
+- Updated dependencies [[`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d)]:
+  - @cypress-design/icon-registry@0.25.0
+
 ## 0.22.2
 
 ### Patch Changes

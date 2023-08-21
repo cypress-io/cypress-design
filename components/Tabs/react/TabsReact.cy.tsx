@@ -12,12 +12,13 @@ describe('Tabs', () => {
       tabs: Tab[]
       activeId?: string
       variant?: keyof typeof variants
-    } = { tabs: [] }
+      [key: `data-${string}`]: any
+    } = { tabs: [] },
   ) {
     mount(
       <div className="m-4">
         <Tabs {...options} />
-      </div>
+      </div>,
     )
   }
   assertions(mountStory)
@@ -49,6 +50,17 @@ describe('Tabs', () => {
       cy.get('[aria-selected="true"]').should('contain.text', 'Initial Active')
       cy.findByRole('button', { name: 'Change' }).click()
       cy.get('[aria-selected="true"]').should('contain.text', 'Final Active')
+    })
+
+    it('renders a custom tab', () => {
+      mount(
+        <Tabs
+          tabs={[{ id: 'ia', label: 'Initial Active' }]}
+          renderTab={(tab) => <div>{tab.label} - Custom Tab</div>}
+        />,
+      )
+
+      cy.contains('Custom Tab').should('exist')
     })
   })
 })

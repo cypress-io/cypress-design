@@ -33,6 +33,15 @@ export default function assertions(
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
     })
 
+    it('renders data attributes', () => {
+      const richTabs = tabs.map((tab) => ({
+        ...tab,
+        'data-foo': 'bar',
+      }))
+      mountStory({ tabs: richTabs, activeId: 'ov' })
+      cy.get('[data-foo="bar"]').should('have.length', 4)
+    })
+
     Object.keys(variants).forEach((variant) => {
       it(`renders ${variant}`, () => {
         mountStory({

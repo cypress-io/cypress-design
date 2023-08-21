@@ -13,7 +13,7 @@ export default () => {
           body: () => (
             <>
               There is no spec matching the following location:
-              <code class="bg-red-100 m-[8px] rounded px-[2px]">
+              <code class="bg-red-100 text-red-600 m-[8px] rounded px-[2px]">
                 path/to/spec.cy.js
               </code>
               <br />

@@ -1,5 +1,37 @@
 # @cypress-design/vue-icon
 
+## 0.24.3
+
+### Patch Changes
+
+- [`71e0139`](https://github.com/cypress-io/cypress-design/commit/71e013929dc4da74ad49e6109ebe4b9902d8b26c) Thanks [@elevatebart](https://github.com/elevatebart)! - make three-shaken icons compatible with vue 3.2
+
+## 0.24.2
+
+### Patch Changes
+
+- [`9365cdb`](https://github.com/cypress-io/cypress-design/commit/9365cdbe153f4b2d2243f3183513d24d1215de03) Thanks [@elevatebart](https://github.com/elevatebart)! - make icon compatible with vue 3.2
+
+- Updated dependencies [[`e0c2e5a`](https://github.com/cypress-io/cypress-design/commit/e0c2e5ad3aefaf0716223d2fa5d23445eeb325af)]:
+  - @cypress-design/icon-registry@0.26.0
+
+## 0.24.1
+
+### Patch Changes
+
+- [#290](https://github.com/cypress-io/cypress-design/pull/290) [`b3b4fbc`](https://github.com/cypress-io/cypress-design/commit/b3b4fbc189457a311abaf93959ec211067957a5c) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: types of class attribute in icon
+
+## 0.24.0
+
+### Minor Changes
+
+- [#280](https://github.com/cypress-io/cypress-design/pull/280) [`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d) Thanks [@dkasper-was-taken](https://github.com/dkasper-was-taken)! - adding icon for test replay initiative
+
+### Patch Changes
+
+- Updated dependencies [[`e390827`](https://github.com/cypress-io/cypress-design/commit/e3908270ece513886c64cebcb78cebe0cd0d8c3d)]:
+  - @cypress-design/icon-registry@0.25.0
+
 ## 0.23.2
 
 ### Patch Changes

@@ -12,7 +12,7 @@ export interface AccordionStoryOptions {
 }
 
 export default function assertions(
-  mountStory: (options?: AccordionStoryOptions) => void
+  mountStory: (options?: AccordionStoryOptions) => void,
 ): void {
   it('opens when clicking on the heading', () => {
     mountStory()
@@ -79,7 +79,7 @@ export default function assertions(
     })
 
     it('blue', () => {
-      mountStory({ headingClassName: 'bg-indigo-500' })
+      mountStory({ headingClassName: 'bg-indigo-50' })
       cy.percySnapshot()
     })
 

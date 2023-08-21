@@ -19,6 +19,12 @@ const showModal = ref(false)
 
 <template>
   <div class="group w-[500px] text-center mx-auto">
+    <Icon
+      name="general-grid-2x2"
+      size="16"
+      stroke-color="gray-500"
+      fill-color="gray-100"
+    />
     <Checkbox v-model="checked" label="Checkbox" id="Sample" />
     <p v-if="checked">Checked</p>
     <IconObjectBookCode

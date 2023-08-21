@@ -26,7 +26,7 @@ const router = useRouter()
 const { set, get } = useCookies()
 
 const cookieFramework = computed(
-  () => get<'react' | 'vue'>('framework') || 'vue'
+  () => get<'react' | 'vue'>('framework') || 'vue',
 )
 
 const saveScroll = ref(0)
@@ -38,7 +38,7 @@ const framework = computed(() =>
     ? ('react' as const)
     : routePath.value.includes('/vue/')
     ? ('vue' as const)
-    : cookieFramework.value
+    : cookieFramework.value,
 )
 
 watch(
@@ -51,21 +51,21 @@ watch(
     ) {
       const frameworkUrl = path.replace(
         '/components/',
-        `/components/${framework.value}/`
+        `/components/${framework.value}/`,
       )
       nextTick(() => {
         router.go(frameworkUrl)
       })
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 const Components = import.meta.glob('../../../../components/*/ReadMe.md')
 
 const ComponentsLower = Object.entries(Components).reduce(
   (acc, [k, v]) => ({ ...acc, [k.toLowerCase()]: v }),
-  {} as Record<string, any>
+  {} as Record<string, any>,
 )
 
 const hasFramework = computed(() => /\/(react|vue)\//.test(routePath.value))
@@ -75,7 +75,7 @@ onMounted(() => {
 })
 
 const commonPath = computed(() =>
-  routePath.value.replace(/\.html$/, '').replace(/\/(vue|react)/, '')
+  routePath.value.replace(/\.html$/, '').replace(/\/(vue|react)/, ''),
 )
 
 const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
@@ -170,7 +170,7 @@ const { frontmatter } = useData() as any
           @click="mobileMenuOpen = false"
         />
       </aside>
-      <main class="w-[800px] mx-[24px] xl:mx-auto md:mt-[24px]">
+      <main class="w-[800px] mx-[24px] min-[1420px]:mx-auto md:mt-[24px]">
         <div v-if="CommonContent" class="relative">
           <EditButton
             :key="commonPathReadme"

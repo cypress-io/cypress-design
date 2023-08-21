@@ -2,33 +2,26 @@ import 'cypress-axe'
 
 beforeEach(() => {
   cy.injectAxe()
-  cy.configureAxe({
-    rules: [
-      {
-        id: 'html-has-lang',
-        enabled: false,
-      },
-      {
-        id: 'landmark-one-main',
-        enabled: false,
-      },
-      {
-        id: 'page-has-heading-one',
-        enabled: false,
-      },
-      {
-        id: 'region',
-        enabled: false,
-      },
-    ],
-  })
 })
 
 afterEach(() => {
-  cy.checkA11y(undefined, {
-    runOnly: {
-      type: 'tag',
-      values: ['wcag21aa'],
+  cy.checkA11y(
+    'body',
+    {
+      runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa'],
     },
-  })
+    // Define at the top of the spec file or just import it
+    function terminalLog(violations) {
+      // pluck specific keys to keep the table readable
+      cy.task(
+        'a11y-table',
+        violations.map(({ id, impact, description, nodes }) => ({
+          id,
+          impact,
+          description,
+          nodes: nodes.length,
+        })),
+      )
+    },
+  )
 })

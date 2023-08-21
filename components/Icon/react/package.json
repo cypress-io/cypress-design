@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-icon",
-  "version": "0.22.2",
+  "version": "0.23.1",
   "files": [
     "*"
   ],
@@ -21,7 +21,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.24.1",
+    "@cypress-design/icon-registry": "^0.26.0",
     "clsx": "*"
   },
   "devDependencies": {

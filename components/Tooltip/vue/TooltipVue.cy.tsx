@@ -67,18 +67,20 @@ const TooltipMulti = ({
           {{
             default: () => <div>Hover Me ({placement})</div>,
             popper: () => (
-              <div class="p-4 bg-jade-200">Popover ({placement})</div>
+              <div class="p-4 bg-jade-200 text-gray-900">
+                Popover ({placement})
+              </div>
             ),
           }}
         </Tooltip>
-      )
+      ),
     )}
   </div>
 )
 
 describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   function mountStory(
-    options: { single?: boolean } & Parameters<typeof TooltipMulti>[0] = {}
+    options: { single?: boolean } & Parameters<typeof TooltipMulti>[0] = {},
   ) {
     const { single, tabindex = 1, ...rest } = options
     if (single) {

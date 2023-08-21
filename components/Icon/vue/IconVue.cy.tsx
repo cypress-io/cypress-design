@@ -26,7 +26,27 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     mount(() => <IconDocumentBlank {...props} />)
   })
 
-  it('renders multiple times an icon with defs with the Icon comp', () => {
+  it('renders correctly with array classes', () => {
+    mount(() => (
+      <IconObjectBookCode
+        class={[
+          'text-red-100',
+          'text-red-500',
+          { 'text-indigo-100': true, 'text-indigo-600': true },
+        ]}
+        fillColor="red-100"
+        strokeColor="red-500"
+        secondaryFillColor="indigo-100"
+        secondaryStrokeColor="indigo-600"
+      />
+    ))
+
+    cy.get('svg')
+      .should('have.class', 'text-red-100')
+      .and('have.class', 'text-red-500')
+  })
+
+  it('renders multiple times an icon with defs with the generic Icon component', () => {
     mount(() => (
       <div class="p-2">
         <Icon name="browser-webkit" class="w-16 h-16 hidden" />
@@ -80,9 +100,9 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     cy.get('button').click()
   })
 
-  it('renders multiple times an icon with defs with the Icon comp', () => {
+  it('renders multiple times an icon with defs with the Icon component and toggle it', () => {
     cy.viewport(200, 200)
-    const iconName = ref<'browser-webkit' | 'browser-safari'>('browser-safari')
+    const iconName = ref<'browser-edge' | 'browser-safari'>('browser-safari')
     mount(() => (
       <div class="p-2 flex flex-col h-screen items-center justify-center">
         <Icon name={iconName.value} class="w-16 h-16 hidden" />
@@ -90,9 +110,9 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
         <button
           onClick={() =>
             (iconName.value =
-              iconName.value === 'browser-webkit'
+              iconName.value === 'browser-edge'
                 ? 'browser-safari'
-                : 'browser-webkit')
+                : 'browser-edge')
           }
         >
           toggle
