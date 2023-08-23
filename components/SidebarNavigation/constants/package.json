@@ -1,0 +1,19 @@
+{
+  "name": "@cypress-design/constants-SidebarNavigation",
+  "version": "0.1.0",
+  "files": [
+    "*"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "license": "MIT"
+}
