@@ -5,23 +5,63 @@ import SidebarNavigation from '@cypress-design/react-SidebarNavigation'
 # SidebarNavigation
 
 <DemoWrapper>
-	<SidebarNavigation :items="[
-    {
-      text: 'Page',
-      href: '#',
-    },
-    {
-      text: 'Overview',
-      items: [
-        {
-          text: 'Overview Item 1',
-          href: '#',
-          active: true,
-        },
-        {
-          text: 'Overview Item 2',
-          href: '#',
-        },
-      ],
-    }]" />
+	<SidebarNavigation items={
+    const menuItems = [
+      {
+        text: 'Runs',
+        href: '#',
+        icon: IconGeneralPlaceholder,
+        active: true,
+      },
+      {
+        text: 'Reviews',
+        href: '#',
+        icon: IconGeneralPlaceholder,
+      },
+      {
+        text: 'Branches',
+        href: '#',
+        icon: IconGeneralPlaceholder,
+      },
+      {
+        text: 'Insights',
+        icon: IconGeneralPlaceholder,
+        items: [
+          {
+            text: 'Run status',
+            href: '#',
+            active: true,
+          },
+          {
+            text: 'Run duration',
+            href: '#',
+          },
+          {
+            text: 'Test suite size',
+            href: '#',
+          },
+          {
+            text: 'Top failures',
+            href: '#',
+          },
+          {
+            text: 'Slowest tests',
+            href: '#',
+          },
+          {
+            text: 'Most common errors',
+            href: '#',
+          },
+          {
+            text: 'Flaky tests',
+            href: '#',
+          },
+        ],
+      },
+      {
+        text: 'Settings',
+        href: '#',
+        icon: IconGeneralPlaceholder,
+      },
+    ]} />
 </DemoWrapper>
