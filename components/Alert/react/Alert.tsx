@@ -107,37 +107,34 @@ export const Alert: React.FC<
       : undefined)
 
   const [dismissed, setDismissed] = React.useState(false)
-  const [durationTimeout, setDurationTimeout] = React.useState<
-    number | undefined
-  >(undefined)
+  const durationTimeout = React.useRef<number | undefined>(undefined)
 
-  function clearDurationTimeout() {
+  const clearDurationTimeout = React.useCallback(() => {
     if (durationTimeout) {
-      clearTimeout(durationTimeout)
-      setDurationTimeout(undefined)
+      clearTimeout(durationTimeout.current)
+      durationTimeout.current = undefined
     }
-  }
+  }, [])
 
-  function dismiss() {
+  const dismiss = React.useCallback(() => {
     setDismissed(true)
     onDismiss && onDismiss()
     clearDurationTimeout()
-  }
+  }, [clearDurationTimeout, setDismissed, onDismiss])
 
   React.useEffect(() => {
-    if (onDismiss && duration && !durationTimeout) {
-      setDismissed(false)
+    if (duration && !durationTimeout.current) {
       const timeout = setTimeout(dismiss, duration) as unknown as number
-      setDurationTimeout(timeout)
+      durationTimeout.current = timeout
     }
     return clearDurationTimeout
-  }, [])
+  })
 
   React.useEffect(() => {
     if (detailsRef.current && contentRef.current) {
       new DetailsAnimation(detailsRef.current, contentRef.current)
     }
-  }, [])
+  })
 
   const detailsRef = React.useRef(null)
   const contentRef = React.useRef(null)
@@ -150,7 +147,7 @@ export const Alert: React.FC<
             !notRounded && 'rounded',
             'overflow-hidden text-left',
             className,
-            variantClasses.wrapperClass
+            variantClasses.wrapperClass,
           )}
           {...rest}
         >
@@ -158,7 +155,7 @@ export const Alert: React.FC<
             className={clsx(
               variantClasses.headerClass,
               'flex p-[16px]',
-              sizeClasses
+              sizeClasses,
             )}
           >
             {!noIcon && Icon && (
@@ -190,14 +187,14 @@ export const Alert: React.FC<
               className={clsx(
                 'p-[16px] border-t border-t-1 cursor-pointer',
                 variantClasses.bodyClass,
-                variantClasses.borderClass
+                variantClasses.borderClass,
               )}
               ref={detailsRef}
             >
               <summary
                 className={clsx(
                   'flex font-medium details-none',
-                  variantClasses.detailsHeaderClass
+                  variantClasses.detailsHeaderClass,
                 )}
               >
                 <IconChevronDownSmall
