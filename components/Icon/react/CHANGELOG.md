@@ -1,5 +1,18 @@
 # @cypress-design/react-icon
 
+## 0.24.0
+
+### Minor Changes
+
+- [#308](https://github.com/cypress-io/cypress-design/pull/308) [`630ad4a`](https://github.com/cypress-io/cypress-design/commit/630ad4ae2e6ba65350951949767a4ebdc4c7eb0a) Thanks [@dkasper-was-taken](https://github.com/dkasper-was-taken)! - adding failing (running + failures > 0) status icon for Runs Sidebar
+
+### Patch Changes
+
+- [#310](https://github.com/cypress-io/cypress-design/pull/310) [`a3a323f`](https://github.com/cypress-io/cypress-design/commit/a3a323fde7acf5e5407b298b4faa0c90314c6139) Thanks [@elevatebart](https://github.com/elevatebart)! - Add-eslint-react-hooks
+
+- Updated dependencies [[`630ad4a`](https://github.com/cypress-io/cypress-design/commit/630ad4ae2e6ba65350951949767a4ebdc4c7eb0a)]:
+  - @cypress-design/icon-registry@0.27.0
+
 ## 0.23.1
 
 ### Patch Changes
