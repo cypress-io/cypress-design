@@ -73,16 +73,15 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     updateActiveMarkerStyle()
   }, [activeId, updateActiveMarkerStyle])
 
-  const throttledUpdateActiveMarkerStyle = throttle(
-    updateActiveMarkerStyle,
-    100,
-  )
+  const throttledUpdateActiveMarkerStyle = React.useMemo(() => {
+    return throttle(updateActiveMarkerStyle, 100)
+  }, [updateActiveMarkerStyle])
 
   React.useEffect(() => {
     window.addEventListener('resize', throttledUpdateActiveMarkerStyle)
     return () =>
       window.removeEventListener('resize', throttledUpdateActiveMarkerStyle)
-  })
+  }, [throttledUpdateActiveMarkerStyle])
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift

@@ -110,10 +110,8 @@ export const Alert: React.FC<
   const durationTimeout = React.useRef<number | undefined>(undefined)
 
   const clearDurationTimeout = React.useCallback(() => {
-    if (durationTimeout) {
-      clearTimeout(durationTimeout.current)
-      durationTimeout.current = undefined
-    }
+    clearTimeout(durationTimeout.current)
+    durationTimeout.current = undefined
   }, [])
 
   const dismiss = React.useCallback(() => {
