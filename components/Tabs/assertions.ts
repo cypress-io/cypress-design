@@ -27,6 +27,17 @@ export default function assertions(
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
     })
 
+    it('moves to tab after resize on click', () => {
+      mountStory({ tabs, activeId: 'ov' })
+      cy.contains('Errors').click()
+      cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+      cy.viewport(300, 80)
+      cy.wait(100)
+      cy.get('[role=tablist] > div:last-child').then(($marker) => {
+        expect(parseInt($marker[0].style.left)).to.be.greaterThan(5)
+      })
+    })
+
     it('moves to tab on arrow press', () => {
       mountStory({ tabs, activeId: 'ov' })
       cy.contains('button', 'Overview').type('{rightArrow}{rightArrow}')
