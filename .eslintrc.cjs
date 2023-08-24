@@ -73,7 +73,11 @@ module.exports = {
     {
       files: ['components/*/react/*.{ts,tsx}'],
       plugins: ['@typescript-eslint'],
-      extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+      extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react-hooks/recommended',
+      ],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         sourceType: 'module',
@@ -86,7 +90,11 @@ module.exports = {
     {
       files: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
       plugins: ['@typescript-eslint'],
-      extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
+      extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:react-hooks/recommended',
+      ],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         sourceType: 'module',
