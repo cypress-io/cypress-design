@@ -107,30 +107,26 @@ export const Alert: React.FC<
       : undefined)
 
   const [dismissed, setDismissed] = React.useState(false)
-  const [durationTimeout, setDurationTimeout] = React.useState<
-    number | undefined
-  >(undefined)
+  const durationTimeout = React.useRef<number | undefined>(undefined)
 
-  function clearDurationTimeout() {
-    if (durationTimeout) {
-      clearTimeout(durationTimeout)
-      setDurationTimeout(undefined)
-    }
-  }
+  const clearDurationTimeout = React.useCallback(() => {
+    clearTimeout(durationTimeout.current)
+    durationTimeout.current = undefined
+  }, [])
 
-  function dismiss() {
+  const dismiss = React.useCallback(() => {
     setDismissed(true)
     onDismiss && onDismiss()
     clearDurationTimeout()
-  }
+  }, [clearDurationTimeout, setDismissed, onDismiss])
 
   React.useEffect(() => {
-    if (onDismiss && duration && !durationTimeout) {
-      setDismissed(false)
+    if (duration && !durationTimeout.current) {
       const timeout = setTimeout(dismiss, duration) as unknown as number
-      setDurationTimeout(timeout)
+      durationTimeout.current = timeout
     }
     return clearDurationTimeout
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   React.useEffect(() => {
@@ -150,7 +146,7 @@ export const Alert: React.FC<
             !notRounded && 'rounded',
             'overflow-hidden text-left',
             className,
-            variantClasses.wrapperClass
+            variantClasses.wrapperClass,
           )}
           {...rest}
         >
@@ -158,7 +154,7 @@ export const Alert: React.FC<
             className={clsx(
               variantClasses.headerClass,
               'flex p-[16px]',
-              sizeClasses
+              sizeClasses,
             )}
           >
             {!noIcon && Icon && (
@@ -190,14 +186,14 @@ export const Alert: React.FC<
               className={clsx(
                 'p-[16px] border-t border-t-1 cursor-pointer',
                 variantClasses.bodyClass,
-                variantClasses.borderClass
+                variantClasses.borderClass,
               )}
               ref={detailsRef}
             >
               <summary
                 className={clsx(
                   'flex font-medium details-none',
-                  variantClasses.detailsHeaderClass
+                  variantClasses.detailsHeaderClass,
                 )}
               >
                 <IconChevronDownSmall
