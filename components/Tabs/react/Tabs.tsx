@@ -71,7 +71,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
 
   React.useEffect(() => {
     updateActiveMarkerStyle()
-  }, [activeId])
+  }, [activeId, updateActiveMarkerStyle])
 
   const throttledUpdateActiveMarkerStyle = throttle(
     updateActiveMarkerStyle,
