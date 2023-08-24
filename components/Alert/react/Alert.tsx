@@ -126,13 +126,14 @@ export const Alert: React.FC<
       durationTimeout.current = timeout
     }
     return clearDurationTimeout
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   React.useEffect(() => {
     if (detailsRef.current && contentRef.current) {
       new DetailsAnimation(detailsRef.current, contentRef.current)
     }
-  })
+  }, [])
 
   const detailsRef = React.useRef(null)
   const contentRef = React.useRef(null)
