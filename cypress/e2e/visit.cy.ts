@@ -24,7 +24,10 @@ describe('test project', () => {
         //   ? `${this?.currentTest?.parent?.parent?.title} > ${this?.currentTest?.parent?.title}`
         //   : this?.currentTest?.parent?.title,
       }
-      cy.task('speculate', testState)
+      cy.log('✨ Speculate mode')
+      cy.task('speculate', testState).then((llmResponse) => {
+        cy.log(String(llmResponse)) // Log the response to the Cypress Command Log
+      })
     }
   })
 
