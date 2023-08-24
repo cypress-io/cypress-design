@@ -23,7 +23,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
     if (item.active) {
       onActive?.(activeLIRef?.current?.offsetTop || 0)
     }
-  }, [])
+  })
 
   return (
     <li
@@ -46,7 +46,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
               'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
               {
                 'group-hover:block bg-gray-300': !item.active && collapsible,
-              }
+              },
             )}
             style={{
               left: `-${18.5 + depth * 8}px`,

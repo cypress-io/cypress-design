@@ -44,7 +44,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     if (mounted && activeIdProp) {
       setActiveId(activeIdProp)
     }
-  }, [activeIdProp])
+  }, [activeIdProp, mounted])
 
   const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
@@ -54,7 +54,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     transitionProperty?: string
   }>({})
 
-  function updateActiveMarkerStyle() {
+  const updateActiveMarkerStyle = React.useCallback(() => {
     const activeTab = tabs.findIndex((tab) => tab.id === activeId)
     if (activeTab > -1) {
       const activeTabEl = $tab.current?.[activeTab]
@@ -67,11 +67,11 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       }
     }
     setMounted(true)
-  }
+  }, [activeId, tabs])
 
   React.useEffect(() => {
     updateActiveMarkerStyle()
-  }, [activeId])
+  }, [activeId, updateActiveMarkerStyle])
 
   const throttledUpdateActiveMarkerStyle = throttle(
     updateActiveMarkerStyle,
@@ -82,7 +82,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     window.addEventListener('resize', throttledUpdateActiveMarkerStyle)
     return () =>
       window.removeEventListener('resize', throttledUpdateActiveMarkerStyle)
-  }, [])
+  })
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift
