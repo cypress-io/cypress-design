@@ -23,6 +23,25 @@ describe(
         />,
       )
     }
+
+    // it('should handle exceptions', () => {
+    //   cy.on('uncaught:exception', (err) => {
+    //     // const error = {
+    //     //   message: err.message ? err.message : '',
+    //     //   stack: err.stack ? err.stack : '',
+    //     //   name: err.name ? err.name : ''
+    //     // };
+    //     cy.task('plainLanguageAdvice')
+    //     return false
+    //   })
+    // })
+
+    // afterEach(function () {
+    //   // if (this?.currentTest?.state === 'failed' && this.currentTest.err) {
+    //   cy.task('plainLanguageAdvice')
+    //   // }
+    // })
+
     assertions(mountStory)
   },
 )

@@ -4,10 +4,12 @@ import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import sucrase from '@rollup/plugin-sucrase'
 import createBundler from '@bahmutov/cypress-esbuild-preprocessor'
+import { speculate } from './cypress/plugins'
 
 export default defineConfig({
   projectId: '89d3nq',
   fixturesFolder: false,
+  experimentalStudio: true,
 
   component: {
     setupNodeEvents(on) {
@@ -16,6 +18,7 @@ export default defineConfig({
           console.table(message)
           return null
         },
+        speculate,
       })
     },
     devServer: {
@@ -49,6 +52,9 @@ export default defineConfig({
     baseUrl: 'http://localhost:5173/',
     setupNodeEvents(on, config) {
       on('file:preprocessor', createBundler())
+      on('task', {
+        speculate,
+      })
     },
   },
 })
