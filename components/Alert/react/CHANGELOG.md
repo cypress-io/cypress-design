@@ -1,5 +1,14 @@
 # @cypress-design/react-alert
 
+## 0.6.6
+
+### Patch Changes
+
+- [#310](https://github.com/cypress-io/cypress-design/pull/310) [`a3a323f`](https://github.com/cypress-io/cypress-design/commit/a3a323fde7acf5e5407b298b4faa0c90314c6139) Thanks [@elevatebart](https://github.com/elevatebart)! - Add-eslint-react-hooks
+
+- Updated dependencies [[`630ad4a`](https://github.com/cypress-io/cypress-design/commit/630ad4ae2e6ba65350951949767a4ebdc4c7eb0a), [`a3a323f`](https://github.com/cypress-io/cypress-design/commit/a3a323fde7acf5e5407b298b4faa0c90314c6139)]:
+  - @cypress-design/react-icon@0.24.0
+
 ## 0.6.5
 
 ### Patch Changes
