@@ -25,31 +25,31 @@ export const compileProps = (
   },
 ) => {
   const compProps = computed(() => {
-    const statusInfo = props.status
-      ? injections.statuses[props.status]
-      : injections.statuses.placeholder
+    const { statuses, variantName } = injections
+    const { status, size, ...attributes } = props
+    const statusInfo = status ? statuses[status] : statuses.placeholder
 
-    const iconInfo = props.status
-      ? StatusForColor[props.status]
+    const iconInfo = status
+      ? StatusForColor[status]
       : StatusForColor.placeholder
 
-    const { data: iconData } = statusInfo[`size${props.size}Icon`]
+    const { data: iconData } = statusInfo[`size${size}Icon`]
 
     const classes = ['inline-block']
 
     const { compiledClasses } = getComponentAttributes({
-      size: props.size,
-      availableSizes: [props.size],
+      size,
+      availableSizes: [size],
       strokeColor: iconInfo.color,
       fillColor: iconInfo.secondaryColor,
     })
 
     return {
-      name: `status_${props.status}_${props.size}_${injections.variantName}`,
+      name: `status_${status}_${size}_${variantName}`,
       compiledClasses: [...compiledClasses, ...classes],
-      size: props.size,
+      size,
       body: iconData,
-      ...cloneFilter(props, ['status', 'statuses', 'variantName', 'size']),
+      ...attributes,
     }
   })
 
