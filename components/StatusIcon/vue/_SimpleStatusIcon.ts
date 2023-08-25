@@ -7,17 +7,10 @@ import { compileProps } from './compileProps'
 
 export default defineComponent({
   props: ['size', 'status'],
-  setup({
-    size = '24',
-    status = 'placeholder',
-    ...props
-  }: SVGAttributes & VariantStatusIconProps) {
-    const { componentProps } = compileProps({
-      size,
-      status,
-      ...props,
+  setup(props: SVGAttributes & VariantStatusIconProps) {
+    const { componentProps } = compileProps(props, {
+      variantName: 'simple',
       statuses: simple.statuses,
-      variantName: 'solid',
     })
 
     return () => h('svg', componentProps.value)
