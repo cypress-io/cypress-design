@@ -27,7 +27,8 @@
     "components/**/vite.config.ts",
     "components/**/assertions.ts",
     "components/root.vite.config.ts",
-    "cypress/support/**/*.ts"
+    "cypress/support/**/*.ts",
+    "components/SidebarNavigation/assertions.tsx"
   ],
   "references": [
     {

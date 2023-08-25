@@ -12,6 +12,7 @@
     "components/*/react/**/*.tsx",
     "components/*/react/**/*.ts",
     "components/*/assertions.ts",
-    "cypress/**/*.ts"
+    "cypress/**/*.ts",
+    "components/SidebarNavigation/assertions.tsx"
   ]
 }

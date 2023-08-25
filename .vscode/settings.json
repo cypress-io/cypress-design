@@ -1,10 +1,11 @@
 {
   "css.customData": ["./.vscode/css-data.json"],
-  "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "typescript.tsdk": "node_modules/typescript/lib",
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "eslint.validate": ["javascript", "typescript", "vue"]
+  "eslint.validate": ["javascript", "typescript", "vue"],
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true
 }
