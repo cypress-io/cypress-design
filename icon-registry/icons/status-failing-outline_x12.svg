@@ -1,8 +1,0 @@
-<svg viewBox="0 0 12 12" fill="none"
-  xmlns="http://www.w3.org/2000/svg">
-  <circle cx="6" cy="6" r="4" stroke="#E1E3ED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-light"/>
-  <circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="2" stroke-dasharray="7 18" stroke-linecap="round" stroke-linejoin="round" class="icon-dark">
-    <animate attributeName="stroke-dashoffset" values="25.12;0" dur="1s" repeatCount="indefinite" />
-  </circle>
-</svg>
-  
