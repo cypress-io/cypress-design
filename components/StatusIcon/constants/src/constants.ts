@@ -35,6 +35,14 @@ const constStatuses = {
     // <tw-keep fillColor="gray-100" />
     secondaryColor: 'gray-100',
   },
+  failing: {
+    // <tw-keep strokeColor="red-400" />
+    color: 'red-400',
+    use: 'Runs, specs, groups, test results',
+    variants: ['outline'],
+    // <tw-keep fillColor="gray-100" />
+    secondaryColor: 'gray-100',
+  },
   passed: {
     // <tw-keep strokeColor="jade-400" />
     color: 'jade-400',
