@@ -1,5 +1,5 @@
 {
-  "name": "@cypress-design/react-SidebarNavigation",
+  "name": "@cypress-design/react-sidebarnavigation",
   "version": "0.3.0",
   "files": [
     "*"
@@ -20,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-SidebarNavigation": "*",
+    "@cypress-design/constants-sidebarnavigation": "*",
     "@cypress-design/react-icon": "*",
     "clsx": "*"
   },

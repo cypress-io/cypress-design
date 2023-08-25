@@ -1,7 +1,7 @@
 import type {
   NavGroup,
   NavItemLink,
-} from '@cypress-design/constants-SidebarNavigation'
+} from '@cypress-design/constants-sidebarnavigation'
 
 interface NavigationItem {
   name: string

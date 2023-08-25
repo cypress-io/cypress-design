@@ -4,7 +4,7 @@ import * as React from 'react'
 
 // TODO fix this import, it I think it should be like this:
 // import { SidebarNavigation }  from '@cypress-design/SidebarNavigation'
-import SidebarNavigation from '@cypress-design/react-SidebarNavigation'
+import SidebarNavigation from '@cypress-design/react-sidebarnavigation'
 import { NavigationLayoutInterface } from '@cypress-design/constants-navigationlayout'
 
 import { Fragment, useState } from 'react'

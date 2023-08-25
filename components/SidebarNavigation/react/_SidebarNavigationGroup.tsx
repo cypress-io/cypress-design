@@ -1,7 +1,7 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { SidebarNavigationLink } from './_SidebarNavigationLink'
-import { NavGroup } from '@cypress-design/constants-SidebarNavigation'
+import { NavGroup } from '@cypress-design/constants-sidebarnavigation'
 
 export interface SidebarNavigationGroupProps {
   group: NavGroup

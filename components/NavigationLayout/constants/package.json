@@ -16,5 +16,8 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
   },
+  "dependencies": {
+    "@cypress-design/constants-sidebarnavigation": "*"
+  },
   "license": "MIT"
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { SidebarNavigationLinkInterface } from '@cypress-design/constants-SidebarNavigation'
+import { SidebarNavigationLinkInterface } from '@cypress-design/constants-sidebarnavigation'
 
 export const SidebarNavigationLink: React.FC<
   SidebarNavigationLinkInterface

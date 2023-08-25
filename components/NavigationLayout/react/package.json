@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-navigationlayout": "*",
+    "@cypress-design/react-sidebarnavigation": "*",
     "clsx": "*"
   },
   "devDependencies": {
