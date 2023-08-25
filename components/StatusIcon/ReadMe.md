@@ -11,7 +11,9 @@ const size = computed(() => sizes[sizeSlider.value])
 # StatusIcon
 
 <DemoWrapper>
-  <div class="flex items-center gap-4">Size  <input type="range" min="0" max="4" step="1" v-model="sizeSlider"> {{size}} </div>
+  <div class="flex items-center gap-4">
+    Size  <input type="range" min="0" max="4" step="1" v-model="sizeSlider"> {{size}} 
+  </div>
 	<table>
     <tbody>
       <tr>
