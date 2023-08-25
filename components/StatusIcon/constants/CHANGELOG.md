@@ -1,5 +1,11 @@
 # @cypress-design/constants-statusicon
 
+## 0.2.0
+
+### Minor Changes
+
+- [#313](https://github.com/cypress-io/cypress-design/pull/313) [`d4af670`](https://github.com/cypress-io/cypress-design/commit/d4af670a92c411c897a547ab26ad72bd6ac07f54) Thanks [@elevatebart](https://github.com/elevatebart)! - add Failing icon to StatusIcon
+
 ## 0.1.0
 
 ### Minor Changes

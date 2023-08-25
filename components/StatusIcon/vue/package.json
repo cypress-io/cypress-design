@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-statusicon",
-  "version": "0.4.12",
+  "version": "0.5.0",
   "files": [
     "./dist/*"
   ],
