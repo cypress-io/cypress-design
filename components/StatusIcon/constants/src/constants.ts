@@ -1,6 +1,8 @@
 import type { WindiColor } from '@cypress-design/icon-registry'
-export type Variant = 'outline' | 'simple' | 'solid'
-export type Size = '4' | '8' | '12' | '16' | '24'
+export const variants = ['outline', 'simple', 'solid'] as const
+export type Variant = (typeof variants)[number]
+export const sizes = ['4', '8', '12', '16', '24'] as const
+export type Size = (typeof sizes)[number]
 
 type StatusInfo = {
   color: WindiColor

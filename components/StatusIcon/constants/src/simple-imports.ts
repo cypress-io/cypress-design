@@ -45,6 +45,11 @@ import {
   cyStatusCancelledSolidX24,
   cyStatusErroredSolidX16,
   cyStatusErroredSolidX24,
+  cyStatusFailingOutlineX4,
+  cyStatusFailingOutlineX8,
+  cyStatusFailingOutlineX12,
+  cyStatusFailingOutlineX16,
+  cyStatusFailingOutlineX24,
 } from '@cypress-design/icon-registry'
 
 export const statuses: Record<string, IconSet> = {
@@ -54,6 +59,13 @@ export const statuses: Record<string, IconSet> = {
     size12Icon: cyStatusRunningOutlineX12,
     size16Icon: cyStatusRunningOutlineX16,
     size24Icon: cyStatusRunningOutlineX24,
+  },
+  failing: {
+    size4Icon: cyStatusFailingOutlineX4,
+    size8Icon: cyStatusFailingOutlineX8,
+    size12Icon: cyStatusFailingOutlineX12,
+    size16Icon: cyStatusFailingOutlineX16,
+    size24Icon: cyStatusFailingOutlineX24,
   },
   passed: {
     size4Icon: cyStatusPassedSimpleX4,
