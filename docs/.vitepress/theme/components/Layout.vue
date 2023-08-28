@@ -23,11 +23,15 @@ import DocsOutline from './DocsOutline.vue'
 import EditButton from './EditButton.vue'
 const router = useRouter()
 
-const { set, get } = useCookies()
+const cookie = ref<ReturnType<typeof useCookies>>()
 
-const cookieFramework = computed(
-  () => get<'react' | 'vue'>('framework') || 'vue'
-)
+onMounted(() => {
+  cookie.value = useCookies()
+})
+
+const cookieFramework = computed(() => {
+  return cookie.value?.get<'react' | 'vue'>('framework') || 'vue'
+})
 
 const saveScroll = ref(0)
 
@@ -38,7 +42,7 @@ const framework = computed(() =>
     ? ('react' as const)
     : routePath.value.includes('/vue/')
     ? ('vue' as const)
-    : cookieFramework.value
+    : cookieFramework.value,
 )
 
 watch(
@@ -51,21 +55,21 @@ watch(
     ) {
       const frameworkUrl = path.replace(
         '/components/',
-        `/components/${framework.value}/`
+        `/components/${framework.value}/`,
       )
       nextTick(() => {
         router.go(frameworkUrl)
       })
     }
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 const Components = import.meta.glob('../../../../components/*/ReadMe.md')
 
 const ComponentsLower = Object.entries(Components).reduce(
   (acc, [k, v]) => ({ ...acc, [k.toLowerCase()]: v }),
-  {} as Record<string, any>
+  {} as Record<string, any>,
 )
 
 const hasFramework = computed(() => /\/(react|vue)\//.test(routePath.value))
@@ -75,7 +79,7 @@ onMounted(() => {
 })
 
 const commonPath = computed(() =>
-  routePath.value.replace(/\.html$/, '').replace(/\/(vue|react)/, '')
+  routePath.value.replace(/\.html$/, '').replace(/\/(vue|react)/, ''),
 )
 
 const commonPathReadme = computed(() => `${commonPath.value}/ReadMe.md`)
@@ -113,7 +117,7 @@ const CommonContent = computed(() => {
 
 function switchFramework(fw: 'react' | 'vue') {
   saveScroll.value = window.scrollY
-  set('framework', fw)
+  cookie.value?.set('framework', fw)
   router.go(routePath.value.replace(/\/(react|vue)\//, `/${fw}/`)).then(() => {
     setTimeout(() => {
       window.scrollTo(0, saveScroll.value)
