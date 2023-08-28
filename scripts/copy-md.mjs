@@ -14,7 +14,7 @@ import * as url from 'url'
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 async function createFileAndDirectory(dest, fileContents) {
-  const destFullPath = resolve(__dirname, '..', 'docs', dest)
+  const destFullPath = resolve(__dirname, '..', 'docs/src/pages', dest)
   const destDir = dirname(destFullPath)
   await fs.mkdir(destDir, { recursive: true })
   return fs.writeFile(destFullPath, fileContents, 'utf8')
@@ -41,10 +41,10 @@ layout: none
       return Promise.all([
         createFileAndDirectory(
           path.replace(/\/ReadMe\.md$/i, '.md'),
-          fileContents
+          fileContents,
         ),
       ])
-    })
+    }),
   )
   console.log('Generated all component readmes to docs')
 })()

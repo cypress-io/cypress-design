@@ -1,16 +1,21 @@
 {
   "name": "@cypress-design/docs",
-  "version": "0.3.0",
+  "private": true,
+  "version": "0.0.1",
   "files": [
     "*"
   ],
   "scripts": {
-    "build": "vite-ssg build",
-    "dev": "vite --port 3333 --open",
-    "preview": "vite preview"
+    "build": "node ../scripts/copy-md.mjs && vue-docgen -c ./docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
+    "docgen:watch": "vue-docgen --watch -c ./docgen/docgen.config.cjs",
+    "preview": "vite preview",
+    "dev": "rimraf docs/components && NODE_ENV=development concurrently \"node ../scripts/watch-constants.mjs\" \"yarn docgen:watch\" \"yarn vite dev\""
   },
   "dependencies": {
+    "@cypress-design/vue-tooltip": "*",
     "@types/markdown-it-link-attributes": "^3.0.1",
+    "@vueuse/head": "^1.3.1",
+    "concurrently": "^8.2.1",
     "markdown-it-link-attributes": "^4.0.1",
     "markdown-it-shiki": "^0.9.0",
     "react-docgen-typescript": "^2.2.2",
@@ -28,5 +33,6 @@
     "vue-docgen-cli": "^4.67.0",
     "vue-live": "^2.5.4",
     "vue-router": "^4.2.4"
-  }
+  },
+  "license": "MIT"
 }

@@ -7,6 +7,7 @@ import generateSitemap from 'vite-ssg-sitemap'
 import Markdown from 'vite-plugin-vue-markdown'
 import LinkAttributes from 'markdown-it-link-attributes'
 import Shiki from 'markdown-it-shiki'
+import FigmaLink from './src/utils/figma-link-md-it'
 
 export default defineConfig({
   resolve: {
@@ -33,12 +34,7 @@ export default defineConfig({
       headEnabled: true,
       markdownItSetup(md) {
         // https://prismjs.com/
-        md.use(Shiki, {
-          theme: {
-            light: 'vitesse-light',
-            dark: 'vitesse-dark',
-          },
-        })
+        md.use(Shiki)
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
           attrs: {
@@ -46,6 +42,7 @@ export default defineConfig({
             rel: 'noopener',
           },
         })
+        md.use(FigmaLink)
       },
     }),
   ],

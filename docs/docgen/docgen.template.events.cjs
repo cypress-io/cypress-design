@@ -15,7 +15,7 @@ module.exports = async function renderProp(events, opt) {
   return `
 ${supComponent ? '#' : ''}## Events
 
-${await lineTemplate(events, supComponent)}
+${await lineTemplate(events, supComponent ?? false)}
 `
 }
 
@@ -28,7 +28,7 @@ async function lineTemplate(event, supComponent) {
   const retArray = await Promise.all(
     event.map(async (ev) => {
       const properties = await Promise.all(
-        ev.properties.map(
+        ev.properties?.map(
           /**
            * @param {any} prop
            */
@@ -38,8 +38,8 @@ async function lineTemplate(event, supComponent) {
               description: prop.description,
               type: await renderType(prop.type),
             }
-          }
-        )
+          },
+        ) ?? [],
       )
       const name = ev.name
       let t = ev.description ?? ''
@@ -61,7 +61,7 @@ ${supComponent ? '#' : ''}##### ${mdclean(p.name)}
 ${p.description ? mdclean(p.description) : ''}
 <div><b>type</b>: ${p.type ? p.type : ''}</div>
 
-`
+`,
   )
   .join('')}
   `
@@ -69,7 +69,7 @@ ${p.description ? mdclean(p.description) : ''}
 }
 
 `
-    })
+    }),
   )
 
   return retArray.join('')

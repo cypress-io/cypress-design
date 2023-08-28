@@ -29,7 +29,7 @@ ${supComponent ? '#' : ''}### ${mdclean(p)}
 ${mdclean(t)}
 
 `
-    })
+    }),
   )
 
   return retArray.join('')
@@ -46,7 +46,7 @@ module.exports = async function renderProp(props, opt) {
   return `
 ${supComponent ? '#' : ''}## Props
 
-${await lineTemplate(props, supComponent)}
+${await lineTemplate(props, supComponent ?? false)}
 ---
 `
 }

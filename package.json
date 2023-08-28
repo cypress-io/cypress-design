@@ -19,6 +19,7 @@
     "test/*"
   ],
   "scripts": {
+    "start": "yarn workspace @cypress-design/docs run dev",
     "cy": "concurrently \"cypress open --component\" \"node ./scripts/watch-constants.mjs\"",
     "cy:run": "cypress run --component",
     "test": "vitest",
@@ -26,8 +27,6 @@
     "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/constants-*\"",
     "dev": "yarn start",
     "docs": "yarn start",
-    "start": "rimraf docs/components && NODE_ENV=development concurrently \"node ./scripts/watch-constants.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
-    "build:docs": "node scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
     "postinstall": "yarn husky install && node scripts/capitalize-icon.mjs && yarn build:components",
     "new:component": "hygen component new"
   },
@@ -66,7 +65,6 @@
     "axe-core": "^4.7.2",
     "chokidar": "^3.5.3",
     "chroma-js": "^2.4.2",
-    "concurrently": "^8.2.1",
     "cypress": "^12.17.4",
     "cypress-axe": "^1.4.0",
     "cypress-real-events": "^1.10.1",

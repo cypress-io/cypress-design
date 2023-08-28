@@ -8,8 +8,8 @@ const slots = require('./docgen.template.slots.cjs')
 const component = require('./docgen.template.component.cjs')
 
 module.exports = defineConfig({
-  componentsRoot: 'components/',
-  outDir: './docs/components',
+  componentsRoot: '../components/',
+  outDir: './src/pages/components/',
   defaultExamples: true,
   templates: {
     component,
