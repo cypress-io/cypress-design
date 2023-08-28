@@ -8,20 +8,23 @@ const $searchInput = ref<HTMLInputElement>()
 
 const anyIconFound = computed(() => {
   return Object.keys(iconsMetadata).some((iconName) =>
-    iconName.includes(search.value)
+    iconName.includes(search.value),
   )
 })
 
 const groupedIconsMetadata = computed(() =>
-  Object.entries(iconsMetadata).reduce((acc, [iconName, iconMeta]) => {
-    if (search.value && !iconName.includes(search.value)) return acc
-    const iconGroup = iconName.split('-')[0]
-    if (!acc[iconGroup]) {
-      acc[iconGroup] = {} as Record<keyof typeof iconsMetadata, any>
-    }
-    acc[iconGroup][iconName as keyof typeof iconsMetadata] = iconMeta
-    return acc
-  }, {} as Record<string, Record<keyof typeof iconsMetadata, any>>)
+  Object.entries(iconsMetadata).reduce(
+    (acc, [iconName, iconMeta]) => {
+      if (search.value && !iconName.includes(search.value)) return acc
+      const iconGroup = iconName.split('-')[0]
+      if (!acc[iconGroup]) {
+        acc[iconGroup] = {} as Record<keyof typeof iconsMetadata, any>
+      }
+      acc[iconGroup][iconName as keyof typeof iconsMetadata] = iconMeta
+      return acc
+    },
+    {} as Record<string, Record<keyof typeof iconsMetadata, any>>,
+  ),
 )
 </script>
 

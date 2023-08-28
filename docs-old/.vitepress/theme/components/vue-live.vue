@@ -43,7 +43,7 @@ onMounted(() => {
       (code) => {
         renderReactApp(code)
       },
-      { immediate: true }
+      { immediate: true },
     )
   }
 })
@@ -59,7 +59,7 @@ function renderReactApp(code: string) {
       code,
       requires: props.requires,
       components: props.components,
-    })
+    }),
   )
 }
 
@@ -108,7 +108,7 @@ function copyCode() {
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
-        @change="(newCode:string) => (liveCode = newCode)"
+        @change="(newCode: string) => (liveCode = newCode)"
       />
       <button
         class="copy"

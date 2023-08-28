@@ -14,7 +14,7 @@ const props = withDefaults(
   }>(),
   {
     common: false,
-  }
+  },
 )
 
 const routePath = computed(() => router.route.path)

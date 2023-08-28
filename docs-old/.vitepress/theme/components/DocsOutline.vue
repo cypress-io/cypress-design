@@ -69,13 +69,13 @@ function setActiveHeader() {
         header.items.forEach((item: NavItem) => {
           if ('href' in item) {
             item.active = visibleHeadings.some(
-              (heading) => `#${heading.id}` === item.href
+              (heading) => `#${heading.id}` === item.href,
             )
           }
         })
       }
       header.active = visibleHeadings.some(
-        (heading) => `#${heading.id}` === header.href
+        (heading) => `#${heading.id}` === header.href,
       )
     })
     return
@@ -91,7 +91,10 @@ function setActiveHeader() {
       }
       return acc
     },
-    { distance: -Infinity, heading: null } as { distance: number; heading: any }
+    { distance: -Infinity, heading: null } as {
+      distance: number
+      heading: any
+    },
   )
 
   const activeId = closestHeading.heading?.id

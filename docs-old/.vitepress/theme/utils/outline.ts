@@ -39,7 +39,7 @@ export interface NavLinkExtended extends NavItemLink {
 
 export function resolveHeaders(
   headers: NavLinkExtended[],
-  range: [number, number] = [2, 3]
+  range: [number, number] = [2, 3],
 ) {
   const [high, low] = range
 
