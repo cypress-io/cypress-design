@@ -7,17 +7,26 @@ import { statuses as StatusForColor } from '@cypress-design/constants-statusicon
 import { compileVueIconProperties } from '@cypress-design/vue-icon'
 import { getComponentAttributes } from '@cypress-design/icon-registry'
 
-export const compileProps = ({
-  status,
-  statuses,
-  size,
-  variantName,
-  ...attributes
-}: VariantStatusIconProps & {
-  statuses: Record<string, IconSet>
-  variantName: string
-} & Omit<SVGAttributes, 'name'>) => {
-  const props = computed(() => {
+export function cloneFilter<T>(object: Record<string, T>, blacklist: string[]) {
+  const newObject: Record<string, T> = {}
+  for (const key in object) {
+    if (!blacklist.includes(key)) {
+      newObject[key] = object[key]
+    }
+  }
+  return newObject
+}
+
+export const compileProps = (
+  props: VariantStatusIconProps & Omit<SVGAttributes, 'name'>,
+  injections: {
+    statuses: Record<string, IconSet>
+    variantName: string
+  },
+) => {
+  const compProps = computed(() => {
+    const { statuses, variantName } = injections
+    const { status, size, ...attributes } = props
     const statusInfo = status ? statuses[status] : statuses.placeholder
 
     const iconInfo = status
@@ -44,5 +53,5 @@ export const compileProps = ({
     }
   })
 
-  return compileVueIconProperties(props)
+  return compileVueIconProperties(compProps)
 }

@@ -21,7 +21,7 @@ export const compileReactIconProperties = ({
     (newAttributes, attrName) => {
       if (
         !ICON_COLOR_PROP_NAMES.includes(
-          attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
+          attrName as (typeof ICON_COLOR_PROP_NAMES)[number],
         ) &&
         attrName !== 'name'
       ) {
@@ -32,9 +32,10 @@ export const compileReactIconProperties = ({
       }
       return newAttributes
     },
-    {} as React.SVGProps<SVGSVGElement>
+    {} as React.SVGProps<SVGSVGElement>,
   )
 
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   React.useEffect(() => {
     const iconFileId = `${name}_${size}`
     if (defs) {
@@ -43,7 +44,7 @@ export const compileReactIconProperties = ({
       }
       const svgElement = document.createElementNS(
         'http://www.w3.org/2000/svg',
-        'svg'
+        'svg',
       )
       svgElement.setAttribute('data-cy-svg-defs', iconFileId)
       svgElement.setAttribute('width', '0')
@@ -51,7 +52,7 @@ export const compileReactIconProperties = ({
       svgElement.innerHTML = defs
       document.body.appendChild(svgElement)
     }
-  }, [defs])
+  }, [defs, name, size])
 
   const componentProps = {
     width: size,

@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.27.0
+
+### Minor Changes
+
+- [#308](https://github.com/cypress-io/cypress-design/pull/308) [`630ad4a`](https://github.com/cypress-io/cypress-design/commit/630ad4ae2e6ba65350951949767a4ebdc4c7eb0a) Thanks [@dkasper-was-taken](https://github.com/dkasper-was-taken)! - adding failing (running + failures > 0) status icon for Runs Sidebar
+
 ## 0.26.0
 
 ### Minor Changes

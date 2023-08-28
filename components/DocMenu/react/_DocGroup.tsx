@@ -19,25 +19,25 @@ export const DocGroup: React.FC<DocGroupProps> = ({
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
   const [itemsHeights, setItemsHeights] = React.useState<number[]>(
-    Array(group.items.length).fill(1)
+    Array(group.items.length).fill(1),
   )
 
   React.useEffect(() => {
     setHeight?.(open ? itemsHeights.reduce((a, b) => a + b, 1) : 1)
-  }, [itemsHeights, open])
+  }, [itemsHeights, open, setHeight])
 
   const [activeTop, setActiveTop] = React.useState(0)
 
   React.useEffect(() => {
     const activeItem = group.items.findIndex(
-      (item) => 'href' in item && item.active
+      (item) => 'href' in item && item.active,
     )
     if (activeItem >= 0) {
       setActiveTop(
-        itemsHeights.slice(0, activeItem).reduce((a, b) => a + b, 1) * 44
+        itemsHeights.slice(0, activeItem).reduce((a, b) => a + b, 1) * 44,
       )
     }
-  }, [itemsHeights])
+  }, [itemsHeights, group.items])
 
   function toggleMenu(open: boolean) {
     if (!collapsible) return
@@ -114,7 +114,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               depth={depth}
               onActive={(top) => setActiveTop(top)}
             />
-          )
+          ),
         )}
       </ul>
     </>

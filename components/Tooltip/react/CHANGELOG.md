@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 0.7.1
+
+### Patch Changes
+
+- [#310](https://github.com/cypress-io/cypress-design/pull/310) [`a3a323f`](https://github.com/cypress-io/cypress-design/commit/a3a323fde7acf5e5407b298b4faa0c90314c6139) Thanks [@elevatebart](https://github.com/elevatebart)! - Add-eslint-react-hooks
+
 ## 0.7.0
 
 ### Minor Changes

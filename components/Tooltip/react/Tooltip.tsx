@@ -109,6 +109,8 @@ export const Tooltip: React.FC<
     whileElementsMounted: autoUpdate,
   })
 
+  const contextHook = useDismiss(context)
+
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       handleClose: interactive ? safePolygon() : undefined,
@@ -118,11 +120,11 @@ export const Tooltip: React.FC<
       enabled: !disabled && !forceOpen,
     }),
     useRole(context, { role: 'tooltip' }),
-    ...(!forceOpen ? [useDismiss(context)] : []),
+    ...(!forceOpen ? [contextHook] : []),
   ])
 
   const placementSide = calculatedPlacement.split(
-    '-'
+    '-',
   )[0] as keyof typeof ROTATE_MAP
   const arrowRotate = ROTATE_MAP[placementSide]
 
@@ -220,7 +222,7 @@ export const Tooltip: React.FC<
                 <div
                   className={clsx(
                     'rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20',
-                    colors.background
+                    colors.background,
                   )}
                 >
                   {popper}

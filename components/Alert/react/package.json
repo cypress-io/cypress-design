@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-alert",
-  "version": "0.6.5",
+  "version": "0.6.6",
   "files": [
     "*"
   ],
@@ -27,9 +27,9 @@
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.27",
+    "postcss": "^8.4.28",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.64.1"
+    "sass": "^1.66.1"
   },
   "license": "MIT"
 }

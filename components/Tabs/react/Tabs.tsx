@@ -20,6 +20,11 @@ export interface TabsProps {
    * @param tab new tab selected
    */
   onSwitch?: (tab: Tab) => void
+
+  /**
+   * render a tab with a custom function
+   */
+  renderTab?: (tab: Tab) => React.ReactNode
 }
 
 export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
@@ -27,6 +32,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   onSwitch,
   variant = 'default',
   activeId: activeIdProp,
+  renderTab,
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
@@ -38,7 +44,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     if (mounted && activeIdProp) {
       setActiveId(activeIdProp)
     }
-  }, [activeIdProp])
+  }, [activeIdProp, mounted])
 
   const $tab = React.useRef<(HTMLButtonElement | HTMLAnchorElement)[]>([])
 
@@ -48,7 +54,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     transitionProperty?: string
   }>({})
 
-  function updateActiveMarkerStyle() {
+  const updateActiveMarkerStyle = React.useCallback(() => {
     const activeTab = tabs.findIndex((tab) => tab.id === activeId)
     if (activeTab > -1) {
       const activeTabEl = $tab.current?.[activeTab]
@@ -61,22 +67,21 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       }
     }
     setMounted(true)
-  }
+  }, [activeId, tabs])
 
   React.useEffect(() => {
     updateActiveMarkerStyle()
-  }, [activeId])
+  }, [activeId, updateActiveMarkerStyle])
 
-  const throttledUpdateActiveMarkerStyle = throttle(
-    updateActiveMarkerStyle,
-    100,
-  )
+  const throttledUpdateActiveMarkerStyle = React.useMemo(() => {
+    return throttle(updateActiveMarkerStyle, 100)
+  }, [updateActiveMarkerStyle])
 
   React.useEffect(() => {
     window.addEventListener('resize', throttledUpdateActiveMarkerStyle)
     return () =>
       window.removeEventListener('resize', throttledUpdateActiveMarkerStyle)
-  }, [])
+  }, [throttledUpdateActiveMarkerStyle])
 
   function navigate(shift: number) {
     const shiftedIndex = tabs.findIndex((tab) => tab.id === activeId) + shift
@@ -144,19 +149,23 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             }}
             {...dataAttr}
           >
-            <>
-              {(() => {
-                const IconBefore = iconBefore ?? icon
-                return IconBefore ? (
-                  <IconBefore {...iconProps} className="mr-[8px]" />
-                ) : null
-              })()}
-              {label}
-              {tag ? <div className={classes.tag}>{tag}</div> : null}
-              {IconAfter ? (
-                <IconAfter {...iconProps} className="ml-[8px]" />
-              ) : null}
-            </>
+            {renderTab ? (
+              renderTab(tab)
+            ) : (
+              <>
+                {(() => {
+                  const IconBefore = iconBefore ?? icon
+                  return IconBefore ? (
+                    <IconBefore {...iconProps} className="mr-[8px]" />
+                  ) : null
+                })()}
+                {label}
+                {tag ? <div className={classes.tag}>{tag}</div> : null}
+                {IconAfter ? (
+                  <IconAfter {...iconProps} className="ml-[8px]" />
+                ) : null}
+              </>
+            )}
             {id === activeId && !activeMarkerStyle.left ? (
               <div className={classes.activeMarkerStatic} />
             ) : null}

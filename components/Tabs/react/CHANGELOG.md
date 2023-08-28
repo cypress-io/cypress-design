@@ -1,5 +1,22 @@
 # @cypress-design/react-tabs
 
+## 0.8.1
+
+### Patch Changes
+
+- [#310](https://github.com/cypress-io/cypress-design/pull/310) [`a3a323f`](https://github.com/cypress-io/cypress-design/commit/a3a323fde7acf5e5407b298b4faa0c90314c6139) Thanks [@elevatebart](https://github.com/elevatebart)! - Add-eslint-react-hooks
+
+## 0.8.0
+
+### Minor Changes
+
+- [#301](https://github.com/cypress-io/cypress-design/pull/301) [`db5ca48`](https://github.com/cypress-io/cypress-design/commit/db5ca48eb3f21a3fe24d6075c87baa4445ef00f5) Thanks [@elevatebart](https://github.com/elevatebart)! - allow constants to be rendered custom + better tag style for most variants
+
+### Patch Changes
+
+- Updated dependencies [[`db5ca48`](https://github.com/cypress-io/cypress-design/commit/db5ca48eb3f21a3fe24d6075c87baa4445ef00f5)]:
+  - @cypress-design/constants-tabs@0.6.0
+
 ## 0.7.3
 
 ### Patch Changes

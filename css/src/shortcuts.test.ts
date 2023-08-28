@@ -26,14 +26,13 @@ test('tw generates shortcut classes', async () => {
         display: block;
         width: 100%;
         outline: none;
-        transition: all 150ms ease-in-out;
     }
     .card:hover,.card:focus {
         border-width: 1px;
         border-color: #a5b4fc;
         box-shadow: 0 0 0 2px #e0e7ff;
-        transition: all 150ms ease-in-out;
         outline: 2px solid transparent;
+        animation: .2s ease-in-out 0s 1 normal none running cardHover;
     }
     .card:hover:disabled, .card:focus:disabled {
         box-shadow: none;

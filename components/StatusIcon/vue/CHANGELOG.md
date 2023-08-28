@@ -1,5 +1,24 @@
 # @cypress-design/vue-statusicon
 
+## 0.5.0
+
+### Minor Changes
+
+- [#313](https://github.com/cypress-io/cypress-design/pull/313) [`d4af670`](https://github.com/cypress-io/cypress-design/commit/d4af670a92c411c897a547ab26ad72bd6ac07f54) Thanks [@elevatebart](https://github.com/elevatebart)! - add Failing icon to StatusIcon
+
+### Patch Changes
+
+- Updated dependencies [[`d4af670`](https://github.com/cypress-io/cypress-design/commit/d4af670a92c411c897a547ab26ad72bd6ac07f54)]:
+  - @cypress-design/constants-statusicon@0.2.0
+
+## 0.4.12
+
+### Patch Changes
+
+- Updated dependencies [[`630ad4a`](https://github.com/cypress-io/cypress-design/commit/630ad4ae2e6ba65350951949767a4ebdc4c7eb0a)]:
+  - @cypress-design/vue-icon@0.25.0
+  - @cypress-design/icon-registry@0.27.0
+
 ## 0.4.11
 
 ### Patch Changes

@@ -1,6 +1,8 @@
 import type { WindiColor } from '@cypress-design/icon-registry'
-export type Variant = 'outline' | 'simple' | 'solid'
-export type Size = '4' | '8' | '12' | '16' | '24'
+export const variants = ['outline', 'simple', 'solid'] as const
+export type Variant = (typeof variants)[number]
+export const sizes = ['4', '8', '12', '16', '24'] as const
+export type Size = (typeof sizes)[number]
 
 type StatusInfo = {
   color: WindiColor
@@ -30,6 +32,14 @@ const constStatuses = {
   running: {
     // <tw-keep strokeColor="indigo-400" />
     color: 'indigo-400',
+    use: 'Runs, specs, groups, test results',
+    variants: ['outline'],
+    // <tw-keep fillColor="gray-100" />
+    secondaryColor: 'gray-100',
+  },
+  failing: {
+    // <tw-keep strokeColor="red-400" />
+    color: 'red-400',
     use: 'Runs, specs, groups, test results',
     variants: ['outline'],
     // <tw-keep fillColor="gray-100" />
