@@ -1,0 +1,32 @@
+{
+  "name": "@cypress-design/docs",
+  "version": "0.3.0",
+  "files": [
+    "*"
+  ],
+  "scripts": {
+    "build": "vite-ssg build",
+    "dev": "vite --port 3333 --open",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@types/markdown-it-link-attributes": "^3.0.1",
+    "markdown-it-link-attributes": "^4.0.1",
+    "markdown-it-shiki": "^0.9.0",
+    "react-docgen-typescript": "^2.2.2",
+    "shiki": "^0.14.3",
+    "vite": "^4.4.9",
+    "vite-plugin-pages": "^0.31.0",
+    "vite-plugin-vue-layouts": "^0.8.0",
+    "vite-plugin-vue-markdown": "^0.23.7",
+    "vite-ssg": "^0.23.1",
+    "vite-ssg-sitemap": "^0.5.1",
+    "vitest": "^0.34.3",
+    "vue": "3.3.4",
+    "vue-component-meta": "^1.8.8",
+    "vue-docgen-api": "^4.74.0",
+    "vue-docgen-cli": "^4.67.0",
+    "vue-live": "^2.5.4",
+    "vue-router": "^4.2.4"
+  }
+}

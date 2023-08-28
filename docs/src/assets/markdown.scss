@@ -1,0 +1,165 @@
+@layer markdown {
+  .markdown {
+    div[class*='language-'] {
+      @apply bg-gray-1000 md:rounded-lg my-4 relative py-4 overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none;
+      pre,
+      code {
+        direction: ltr;
+        text-align: left;
+        white-space: pre;
+        word-spacing: normal;
+        word-break: normal;
+        word-wrap: normal;
+        tab-size: 4;
+        hyphens: none;
+      }
+
+      pre > code {
+        @apply bg-transparent;
+      }
+
+      pre {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+
+      code {
+        display: block;
+        padding: 0 24px;
+        width: fit-content;
+        min-width: 100%;
+        margin: 0;
+        white-space: pre-wrap;
+        transition: color 0.5s;
+      }
+      & > span.lang {
+        position: absolute;
+        top: 2px;
+        right: 8px;
+        z-index: 2;
+        font-size: 12px;
+        font-weight: 500;
+        transition:
+          color 2s,
+          opacity 0.4s;
+        @apply text-gray-600;
+      }
+      &:hover > span.lang {
+        transition-duration: 0ms;
+        @apply text-gray-400 opacity-100;
+      }
+      & > button.copy {
+        @apply right-3 top-3 absolute z-10 bg-gray-800/70 text-gray-100 h-8 px-3 rounded hidden;
+        &:before {
+          content: '📋 copy';
+          @apply whitespace-nowrap;
+        }
+      }
+      & > button.copy.copied {
+        &:before {
+          content: '✅ copied';
+        }
+      }
+      &:hover > button.copy,
+      & > button.copy.copied {
+        @apply block;
+      }
+    }
+
+    h1:not([class]),
+    h2:not([class]),
+    h3:not([class]),
+    h4:not([class]),
+    h5:not([class]),
+    h6:not([class]) {
+      font-family: 'Poppins';
+      @apply font-semibold mb-1;
+      .header-anchor {
+        @apply hidden;
+      }
+      &:hover .header-anchor {
+        @apply inline-block;
+      }
+    }
+
+    .header-anchor:after {
+      content: '#';
+    }
+
+    h1:not([class]) {
+      @apply mb-8 text-4xl;
+    }
+
+    h2:not([class]) {
+      @apply mt-10 text-3xl text-gray-900 border-b border-gray-100 pb-2;
+    }
+
+    h3:not([class]) {
+      @apply mt-4 text-xl text-gray-700;
+    }
+
+    h4:not([class]) {
+      @apply mt-2 text-base text-gray-500;
+    }
+
+    h5:not([class]) {
+      @apply mt-0 text-base text-gray-300;
+    }
+
+    ul:not([class]) {
+      @apply list-disc py-2 pl-6;
+      li:not([class]) {
+        &::marker {
+          @apply text-indigo-500;
+        }
+      }
+    }
+
+    .vue-live,
+    .demo-wrapper {
+      ul {
+        padding: unset;
+      }
+    }
+
+    blockquote:not([class]) {
+      @apply bg-gray-50 py-2 px-4 border-l-[4px] border-l-gray-500 my-4 relative;
+    }
+
+    code:not([class]) {
+      @apply bg-gray-100 px-2 py-[2px] rounded my-2;
+    }
+
+    a:not([class]) {
+      @apply text-indigo-500;
+      &:hover {
+        @apply underline;
+      }
+    }
+
+    hr:not([class]) {
+      @apply my-6;
+    }
+
+    .figma-link {
+      background: url(../assets/Figma-logo.svg) no-repeat 14px center;
+      background-size: auto 50%;
+      @apply inline-block mt-6 text-gray-900 border py-2 pr-4 pl-10 border-gray-100 rounded;
+      &:hover {
+        @apply bg-indigo-50/50 no-underline;
+      }
+      &:after {
+        content: '↗️';
+        @apply ml-2 text-gray-500 font-bold;
+      }
+    }
+  }
+}
+
+.shiki-tooltip > pre {
+  white-space: pre-wrap;
+  min-width: 40vw;
+}
