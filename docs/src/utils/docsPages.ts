@@ -9,6 +9,7 @@ export function getDocsPages(routePath: Ref<string>) {
       const serverRoute = p
         .replace(/^\.\.\/\.\.\/\.\./, '')
         .replace(/\/(\w+)\/ReadMe.md$/, '/$1.md')
+        .toLowerCase()
 
       const clientRoute = serverRoute.replace(/\.md$/, '')
 
@@ -26,7 +27,7 @@ export function getDocsPages(routePath: Ref<string>) {
   )
 
   const routeMap = Object.keys(docsPages).reduce((acc, p) => {
-    const serverRoute = p.replace(/^\.\.\/pages/, '')
+    const serverRoute = p.replace(/^\.\.\/pages/, '').toLowerCase()
 
     const clientRoute = serverRoute
       .replace(/\.md$/, '')
@@ -55,5 +56,5 @@ export function getDocsPages(routePath: Ref<string>) {
       }
     }),
   )
-  return { items, routeMap, routeMapComponent }
+  return { items, routeMap }
 }

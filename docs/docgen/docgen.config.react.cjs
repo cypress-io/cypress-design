@@ -7,7 +7,7 @@ const tsconfigPath = path.resolve(
   __dirname,
   '..',
   '..',
-  './tsconfig.react.json'
+  './tsconfig.react.json',
 )
 const parser = withCustomConfig(tsconfigPath, {
   shouldRemoveUndefinedFromOptional: true,
@@ -33,7 +33,7 @@ function getTags(tags) {
       acc[k] = [{ title: k, content: v }]
       return acc
     },
-    {}
+    {},
   )
 }
 
@@ -41,7 +41,7 @@ module.exports = defineConfig({
   components: './*/react/[A-Z]*.tsx',
   getDestFile: (componentPath, { outDir }) => {
     const name = componentPath.split('/').pop() || 'unknown'
-    return path.join(outDir, 'react', name.replace(/\.(tsx|ts)$/, '.md'))
+    return path.join(outDir, name.replace(/\.(tsx|ts)$/, ''), '/react.md')
   },
   propsParser(componentPath) {
     const props = parser.parse(componentPath)
