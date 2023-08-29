@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./SidebarNavigation.tsx", "./index.ts"],
+  "include": ["./SidebarNavigation.tsx", "./index.ts", "./*.d.ts"],
   "compilerOptions": {
     "sourceRoot": "./",
     "outDir": "dist"
