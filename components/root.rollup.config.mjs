@@ -2,7 +2,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import rollupPluginPackage from '@cypress-design/rollup-plugin-tailwind-keep'
-import svgr from '@svgr/rollup'
+import raw from './rollup-plugin-raw.mjs'
 const { Plugin: TailwindKeepRollupPlugin } = rollupPluginPackage
 
 export default ({ input, plugins = [] }) => ({
@@ -21,10 +21,10 @@ export default ({ input, plugins = [] }) => ({
     },
   ],
   plugins: [
-    svgr(),
     TailwindKeepRollupPlugin(),
     resolve(),
     commonjs(),
+    raw(),
     typescript({
       tsconfig: './tsconfig.build.json',
       declaration: false,
