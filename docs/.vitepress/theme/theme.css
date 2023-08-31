@@ -2,6 +2,9 @@
   body {
     @apply bg-white;
   }
+  pre.shiki.github-light.vp-code-light {
+    @apply hidden;
+  }
 }
 
 @layer tailwind {
