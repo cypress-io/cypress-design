@@ -8,7 +8,7 @@ import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.cameli
 
 describe('<<%= h.inflection.camelize(name, false) %>/>', () => {
   function mountStory(
-    options: Parameters<typeof <%= h.inflection.camelize(name, false) %>>[0] = { id: '1' },
+    options: InstanceType<typeof <%= h.inflection.camelize(name, false) %>>['$props'] = { id: '1' },
   ) {
     mount(() => <<%= h.inflection.camelize(name, false) %> {...options} />)
   }
