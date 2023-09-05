@@ -39,7 +39,7 @@ jobs:
 
       - name: Build Components
         run: |
-          yarn workspace @cypress-design/constants-componentname build
+          yarn turbo run build --filter="@cypress-design/constants-componentname"
           yarn install --frozen-lockfile
           yarn workspace @cypress-design/vue-componentname build
           yarn workspace @cypress-design/react-componentname build
