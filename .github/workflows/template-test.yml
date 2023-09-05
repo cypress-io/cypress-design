@@ -39,10 +39,10 @@ jobs:
 
       - name: Build Components
         run: |
-          yarn turbo run --no-daemon build \
-          --filter="@cypress-design/constants-componentname" \
-          --filter="@cypress-design/vue-componentname" \
-          --filter="@cypress-design/react-componentname" \
+          yarn workspace @cypress-design/constants-componentname build
+          yarn install --frozen-lockfile
+          yarn workspace @cypress-design/vue-componentname build
+          yarn workspace @cypress-design/react-componentname build
 
       - name: Check global types
         run: |
