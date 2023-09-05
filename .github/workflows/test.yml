@@ -40,8 +40,17 @@ jobs:
       - name: Run Eslint Plugin Tests
         run: yarn test:eslint-plugin
 
+      - name: Generate icon files
+        run: |
+          yarn turbo run build --filter=@cypress-design/css
+          yarn workspace @cypress-design/icon-registry svg-to-ts-constants
+          yarn workspace @cypress-design/icon-registry node ./build-icons.mjs
+
       - name: Run Unit Tests
         run: yarn test
+
+      - name: Build Components
+        run: yarn run build:components
 
       - name: Check global types
         run: |
