@@ -40,9 +40,9 @@ jobs:
       - name: Build Components
         run: |
           yarn turbo run --no-daemon build \
+          --filter="@cypress-design/constants-componentname" \
           --filter="@cypress-design/vue-componentname" \
           --filter="@cypress-design/react-componentname" \
-          --filter="@cypress-design/constants-componentname" \
 
       - name: Check global types
         run: |
