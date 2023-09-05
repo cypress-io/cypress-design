@@ -1,9 +1,9 @@
-name: Tests
+name: Template Tests
 
 on: [push]
 
 jobs:
-  cypress-run:
+  template-test:
     runs-on: ubuntu-latest
     steps:
       - name: Get Yarn cache path
@@ -34,14 +34,8 @@ jobs:
         env:
           CI: true
 
-      - name: Lint all files
-        run: yarn eslint .
-
-      - name: Run Eslint Plugin Tests
-        run: yarn test:eslint-plugin
-
-      - name: Run Unit Tests
-        run: yarn test
+      - name: Create component with template
+        run: yarn new:component --name ComponentName
 
       - name: Check global types
         run: |
@@ -49,17 +43,19 @@ jobs:
           yarn tsc --noEmit --project ./tsconfig.react.json
           yarn vue-tsc --noEmit --project ./tsconfig.vue.json
 
+      - name: Lint all files
+        run: yarn eslint .
+
       # run cypress component tests
       - name: Cypress run CT
         uses: cypress-io/github-action@v5
         with:
           component: true
           record: true
-          command-prefix: 'yarn percy exec --parallel -- '
           browser: chrome
+          spec: components/ComponentName/**/*
         env:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
