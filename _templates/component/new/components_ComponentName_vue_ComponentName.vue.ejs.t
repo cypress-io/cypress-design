@@ -5,6 +5,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.ca
   <div :id="id" class="bg-jade-100" :class="class">
     <label>{{ label }}</label>
     Template for <%= h.inflection.camelize(name, false) %>
+    <p>{{ SharedSettings.foo }}</p>
   </div>
 </template>
 
@@ -20,6 +21,6 @@ withDefaults(
   {
     label: undefined,
     class: undefined,
-  }
+  },
 )
 </script>
