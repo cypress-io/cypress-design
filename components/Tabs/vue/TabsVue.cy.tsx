@@ -1,19 +1,13 @@
 /// <reference types="cypress" />
 import { ref } from 'vue'
 import { mount } from 'cypress/vue'
+import type { ComponentProps } from '../../vue-utils'
 import assertions from '../assertions'
+import type { Tab } from '../constants'
 import Tabs from './Tabs.vue'
-import type { Tab, variants } from '../constants'
 
 describe('<Tabs/>', () => {
-  function mountStory(
-    options: {
-      tabs: Tab[]
-      activeId?: string
-      variant?: keyof typeof variants
-      [key: `data-${string}`]: any
-    } = { tabs: [] },
-  ) {
+  function mountStory(options: ComponentProps<typeof Tabs> = { tabs: [] }) {
     mount(() => (
       <div class="m-4">
         <Tabs {...options} />
