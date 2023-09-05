@@ -38,11 +38,7 @@ jobs:
         run: yarn new:component --name ComponentName
 
       - name: Build Components
-        run: |
-          yarn turbo run build --filter="@cypress-design/constants-componentname"
-          yarn install --frozen-lockfile
-          yarn turbo run build --filter="@cypress-design/vue-componentname"
-          yarn turbo run build --filter="@cypress-design/react-componentname"
+        run: yarn build:components
 
       - name: Check global types
         run: |
