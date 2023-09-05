@@ -38,7 +38,8 @@ jobs:
         run: yarn new:component --name ComponentName
 
       - name: Build Components
-        run: yarn turbo run --no-daemon build \
+        run: |
+          yarn turbo run --no-daemon build \
           --filter="@cypress-design/vue-componentname" \
           --filter="@cypress-design/react-componentname" \
           --filter="@cypress-design/constants-componentname" \
