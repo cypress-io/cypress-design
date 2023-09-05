@@ -37,6 +37,11 @@ jobs:
       - name: Create component with template
         run: yarn new:component --name ComponentName
 
+      - name: Re-link Dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
       - name: Build Components
         run: yarn build:components
 
