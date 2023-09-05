@@ -37,6 +37,9 @@ jobs:
       - name: Create component with template
         run: yarn new:component --name ComponentName
 
+      - name: Build Components
+        run: yarn run build:components
+
       - name: Check global types
         run: |
           yarn vue-tsc --noEmit -p . 
