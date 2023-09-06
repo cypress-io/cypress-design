@@ -4,7 +4,6 @@ import { mount } from 'cypress/vue'
 import assertions from '../assertions'
 import Button from './Button.vue'
 import ButtonStory from './Button.rootstory'
-import { cyDeviceLaptopX24 } from '@cypress-design/icon-registry'
 
 describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
   function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {

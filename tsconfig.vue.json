@@ -46,6 +46,7 @@
     "components/*/vue/*.tsx",
     "components/*/vue/*.vue",
     "components/*/assertions.ts",
+    "components/vue-utils.ts",
     "cypress/**/*.ts"
   ],
   "exclude": ["components/*/vue/vite.config.ts"]
