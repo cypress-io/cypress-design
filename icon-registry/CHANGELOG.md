@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.28.0
+
+### Minor Changes
+
+- [#319](https://github.com/cypress-io/cypress-design/pull/319) [`d8692bc`](https://github.com/cypress-io/cypress-design/commit/d8692bcf16f779417c202a8c2050b0e424576501) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Added clock icon
+
 ## 0.27.0
 
 ### Minor Changes
