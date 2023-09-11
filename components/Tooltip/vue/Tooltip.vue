@@ -35,7 +35,7 @@ const props = withDefaults(
   }>(),
   {
     color: 'light',
-  }
+  },
 )
 
 const portalTarget: Ref<HTMLElement | null> = ref(null)
@@ -85,7 +85,7 @@ const colors = computed(() => {
     case 'light':
       return {
         svg: 'stroke-none fill-white',
-        block: 'text-gray-900 shadow-gray-100 border-transparent',
+        block: 'text-gray-900 shadow-gray-300 border-transparent',
         background: 'bg-white',
       }
     case 'dark':
@@ -105,7 +105,7 @@ watch(
     if (show.value) {
       placeTooltip()
     }
-  }
+  },
 )
 
 async function placeTooltip() {
@@ -171,7 +171,7 @@ onMounted(() => {
         placeTooltip()
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 })
 </script>

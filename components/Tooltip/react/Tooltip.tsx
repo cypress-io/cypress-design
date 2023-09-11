@@ -147,7 +147,7 @@ export const Tooltip: React.FC<
       case 'light':
         return {
           svg: 'stroke-none fill-white',
-          block: 'text-gray-900 shadow-gray-100 border-transparent ',
+          block: 'text-gray-900 shadow-gray-300 border-transparent ',
           background: 'bg-white',
         }
       case 'dark':
