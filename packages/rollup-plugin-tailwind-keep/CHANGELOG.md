@@ -1,5 +1,12 @@
 # @cypress-design/rollup-plugin-tailwind-keep
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`1c61ac8`](https://github.com/cypress-io/cypress-design/commit/1c61ac8b242e085c3a6a0c93890110d8b17072fe)]:
+  - @cypress-design/css@0.16.0
+
 ## 0.0.6
 
 ### Patch Changes

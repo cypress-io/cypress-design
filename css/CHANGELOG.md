@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.16.0
+
+### Minor Changes
+
+- [#321](https://github.com/cypress-io/cypress-design/pull/321) [`1c61ac8`](https://github.com/cypress-io/cypress-design/commit/1c61ac8b242e085c3a6a0c93890110d8b17072fe) Thanks [@emilmilanov](https://github.com/emilmilanov)! - increasing drop-shadow for two increments
+
 ## 0.15.1
 
 ### Patch Changes
