@@ -23,6 +23,7 @@ export default defineTheme({
       'marketing-card': '0 2px 12px 0 rgba(0, 0, 0, 0.06)',
       'ring-hover': '0 0 0 2px rgba(0, 0, 0, 0.2)',
       'ring-focus': '0 0 0 3px rgba(0, 0, 0, 0.2)',
+      tooltip: '0 0 4px rgba(0, 0, 0, 0.25)',
     },
   },
 })

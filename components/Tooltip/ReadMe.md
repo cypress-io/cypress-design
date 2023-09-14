@@ -5,8 +5,13 @@ import Tooltip from '@cypress-design/vue-tooltip'
 # Tooltip
 
 <DemoWrapper>
-	<Tooltip tabIndex="0" class="inline-block">
-		<span>Focus me</span>
+	<Tooltip tabIndex="0" class="inline-block py-2">
+		<span>Focus me / light</span>
+		<template #popper>Extra information</template>
+	</Tooltip>
+	<br/>
+	<Tooltip color="dark" tabIndex="0" class="inline-block py-2">
+		<span>Focus me / dark</span>
 		<template #popper>Extra information</template>
 	</Tooltip>
 </DemoWrapper>
