@@ -35,7 +35,7 @@ const props = withDefaults(
   }>(),
   {
     color: 'light',
-  }
+  },
 )
 
 const portalTarget: Ref<HTMLElement | null> = ref(null)
@@ -85,13 +85,13 @@ const colors = computed(() => {
     case 'light':
       return {
         svg: 'stroke-none fill-white',
-        block: 'text-gray-900 shadow-gray-100 border-transparent',
+        block: 'text-gray-900 border-transparent',
         background: 'bg-white',
       }
     case 'dark':
       return {
         svg: 'stroke-none fill-gray-900',
-        block: 'text-white shadow-gray-800 border-transparent',
+        block: 'text-white border-transparent',
         background: 'bg-gray-900',
       }
     default:
@@ -105,7 +105,7 @@ watch(
     if (show.value) {
       placeTooltip()
     }
-  }
+  },
 )
 
 async function placeTooltip() {
@@ -171,7 +171,7 @@ onMounted(() => {
         placeTooltip()
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 })
 </script>
@@ -212,7 +212,7 @@ onMounted(() => {
         ]"
       >
         <div
-          class="border rounded shadow"
+          class="border rounded shadow-tooltip"
           :class="[colors.background, colors.block]"
         >
           <svg
