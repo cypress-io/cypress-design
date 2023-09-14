@@ -21,7 +21,7 @@
     "tailwindcss": "^3.3.3"
   },
   "devDependencies": {
-    "@cypress-design/css": "^0.15.0",
+    "@cypress-design/css": "^0.16.0",
     "@types/react": "18",
     "@types/react-dom": "18",
     "@vitejs/plugin-react": "^4.0.4",
