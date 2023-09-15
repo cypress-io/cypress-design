@@ -4,6 +4,12 @@ import { onMounted, ref } from 'vue'
 const isCypressOrg = ref(false)
 
 async function fetchCloud(body: any) {
+  // if domain is not cypress.io return empty data
+  // cors and cookies would make the data fail anyway
+  if (!window.location.hostname.endsWith('.cypress.io')) {
+    return { data: {} }
+  }
+
   const response = await fetch(`https://cloud.cypress.io/graphql`, {
     mode: `cors`,
     method: `POST`,
@@ -33,12 +39,11 @@ onMounted(async () => {
   } = await fetchCloud({
     query: CloudQuery,
   })
-  if (me) {
-    // check if the user has the Cypress org among it's organizations
-    isCypressOrg.value =
-      me.organizations?.nodes.some((org: any) => org.id === CYPRESS_ORG_ID) ??
-      false
-  }
+
+  // check if the user has the Cypress org among it's organizations
+  isCypressOrg.value =
+    me?.organizations?.nodes.some((org: any) => org.id === CYPRESS_ORG_ID) ??
+    false
 })
 
 defineProps<{
