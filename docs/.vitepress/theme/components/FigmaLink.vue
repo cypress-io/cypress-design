@@ -47,7 +47,7 @@ defineProps<{
 </script>
 
 <template>
-  <a v-if="isCypressOrg" :href="href">
+  <a v-if="isCypressOrg" :href="href" class="figma-link">
     <slot />
   </a>
 </template>
