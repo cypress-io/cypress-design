@@ -16,7 +16,7 @@
     "build": "tsc --project ./tsconfig.json"
   },
   "devDependencies": {
-    "@cypress-design/icon-registry": "^0.28.0"
+    "@cypress-design/icon-registry": "^0.29.0"
   },
   "license": "MIT"
 }

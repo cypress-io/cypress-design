@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.29.0
+
+### Minor Changes
+
+- [#326](https://github.com/cypress-io/cypress-design/pull/326) [`464b91a`](https://github.com/cypress-io/cypress-design/commit/464b91a61b62ca4621a4f6db28e12e61ab1b4b9e) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add the x16 bug icon
+
 ## 0.28.0
 
 ### Minor Changes
