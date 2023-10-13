@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 0.28.0
+
+### Minor Changes
+
+- [#330](https://github.com/cypress-io/cypress-design/pull/330) [`a8dce48`](https://github.com/cypress-io/cypress-design/commit/a8dce4886ea285157b20c7a64a8919817d6429dc) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add large and small x16 bug icons
+
+### Patch Changes
+
+- Updated dependencies [[`a8dce48`](https://github.com/cypress-io/cypress-design/commit/a8dce4886ea285157b20c7a64a8919817d6429dc)]:
+  - @cypress-design/icon-registry@0.30.0
+
 ## 0.27.0
 
 ### Minor Changes
