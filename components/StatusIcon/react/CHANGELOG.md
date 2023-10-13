@@ -1,5 +1,12 @@
 # @cypress-design/react-statusicon
 
+## 0.4.12
+
+### Patch Changes
+
+- Updated dependencies [[`a8dce48`](https://github.com/cypress-io/cypress-design/commit/a8dce4886ea285157b20c7a64a8919817d6429dc)]:
+  - @cypress-design/react-icon@0.27.0
+
 ## 0.4.11
 
 ### Patch Changes
