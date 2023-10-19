@@ -100,9 +100,9 @@ Once added, the svg attributes should be tweaked so as to integrate with the ico
 - Add `class="icon-light"` to paths that are light, generally the fills
 - Remove the `width` and `height` attributes of the SVG
 
-To verify that the icon is properly hooked up, run `yarn start` and navigate to the `icons` page. Search for your icon and tweak the colors. If you need to adjust the attributes you can run `yarn build:icons` and storybook will update with the latest changes.
+To verify that the icon is properly hooked up, run `yarn && yarn start` and navigate to the `icons` page. Search for your icon and tweak the colors.
 
-When an icon is added or updated, the changeset for both the '@cypress-design/react-icon' and '@cypress-design/vue-icon' packages should include a minor version bump.
+When an icon is added or updated, the changeset for both the '@cypress-design/react-icon' and '@cypress-design/vue-icon' packages should include a minor version bump. This can be done by running `yarn changeset`.
 
 ### Updating the component generator
 

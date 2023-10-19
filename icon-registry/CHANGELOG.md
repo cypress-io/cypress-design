@@ -1,5 +1,23 @@
 # @cypress-design/icon-registry
 
+## 0.31.0
+
+### Minor Changes
+
+- [#332](https://github.com/cypress-io/cypress-design/pull/332) [`a182e57`](https://github.com/cypress-io/cypress-design/commit/a182e57e1da4e33b693d0bf2b05fa0f2d4599940) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fixed the large x16 bug icon
+
+## 0.30.0
+
+### Minor Changes
+
+- [#330](https://github.com/cypress-io/cypress-design/pull/330) [`a8dce48`](https://github.com/cypress-io/cypress-design/commit/a8dce4886ea285157b20c7a64a8919817d6429dc) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add large and small x16 bug icons
+
+## 0.29.0
+
+### Minor Changes
+
+- [#326](https://github.com/cypress-io/cypress-design/pull/326) [`464b91a`](https://github.com/cypress-io/cypress-design/commit/464b91a61b62ca4621a4f6db28e12e61ab1b4b9e) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add the x16 bug icon
+
 ## 0.28.0
 
 ### Minor Changes
