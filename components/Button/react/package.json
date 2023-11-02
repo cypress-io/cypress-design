@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-button",
-  "version": "0.11.2",
+  "version": "1.0.0",
   "files": [
     "*"
   ],
@@ -21,7 +21,9 @@
   },
   "dependencies": {
     "@cypress-design/constants-button": "*",
-    "clsx": "*"
+    "clsx": "*",
+    "react-aria": "^3.29.1",
+    "react-aria-components": "^1.0.0-beta.2"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

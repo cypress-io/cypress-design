@@ -8,7 +8,10 @@ import {
   VariantClassesTable,
   StaticClasses,
 } from '@cypress-design/constants-button'
-
+import {
+  Link as AccessibleLink,
+  Button as AccessibleButton,
+} from 'react-aria-components'
 export interface ButtonPropsJsx extends ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
   className?: string
@@ -34,25 +37,35 @@ export const Button: React.FC<ReactButtonProps> = ({
     disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
       ? 'disabled'
       : variant
+
+  const finalClassName = clsx(
+    StaticClasses,
+    VariantClassesTable[finalVariant],
+    SizeClassesTable[size],
+    className,
+  )
+
   const finalDisabled = disabled || variant === 'disabled'
-  const Comp = href ? 'a' : 'button'
+  if (href) {
+    return (
+      <AccessibleLink
+        href={href}
+        className={finalClassName}
+        isDisabled={disabled}
+      >
+        {children}
+      </AccessibleLink>
+    )
+  }
   return (
-    // @ts-expect-error since the button cannot have an href, ts will complain
-    <Comp
-      {...(href ? {} : { type })}
+    <Button
+      type={type}
       {...rest}
-      href={href}
-      className={clsx(
-        StaticClasses,
-        VariantClassesTable[finalVariant],
-        SizeClassesTable[size],
-        className,
-      )}
+      className={finalClassName}
       disabled={finalDisabled}
-      {...(finalDisabled && href ? { 'aria-disabled': true } : {})}
     >
       {children}
-    </Comp>
+    </Button>
   )
 }
 
