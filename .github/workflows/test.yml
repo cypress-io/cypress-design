@@ -53,7 +53,7 @@ jobs:
         run: yarn run build:components
 
       - name: Types docs
-        run: yarn vue-tsc --noEmit -p . |
+        run: yarn vue-tsc --noEmit -p .
 
       - name: Types Vue
         run: yarn vue-tsc --noEmit --project ./tsconfig.vue.json
