@@ -42,14 +42,23 @@ jobs:
         env:
           CI: true
 
-      - name: Build Components
-        run: yarn build:components
+      - name: Build Component for Vue
+        run: yarn workspace @cypress-design/constants-component-name build
 
-      - name: Check global types
-        run: |
-          yarn vue-tsc --noEmit -p . 
-          yarn tsc --noEmit --project ./tsconfig.react.json
-          yarn vue-tsc --noEmit --project ./tsconfig.vue.json
+      - name: Build Component for Vue
+        run: yarn workspace @cypress-design/vue-component-name build
+
+      - name: Build Component for React
+        run: yarn workspace @cypress-design/react-component-name build
+
+      - name: Types docs
+        run: yarn vue-tsc --noEmit -p .
+
+      - name: Types Vue
+        run: yarn vue-tsc --noEmit --project ./tsconfig.vue.json
+
+      - name: Types React
+        run: yarn tsc --noEmit --project ./tsconfig.react.json
 
       - name: Lint all files
         run: yarn eslint .
