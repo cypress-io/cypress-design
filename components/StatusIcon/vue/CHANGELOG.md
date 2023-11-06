@@ -1,5 +1,13 @@
 # @cypress-design/vue-statusicon
 
+## 0.5.5
+
+### Patch Changes
+
+- Updated dependencies [[`24d343f`](https://github.com/cypress-io/cypress-design/commit/24d343f8c7c4acce6192b357df16c639ec316a44)]:
+  - @cypress-design/vue-icon@0.30.0
+  - @cypress-design/icon-registry@0.32.0
+
 ## 0.5.4
 
 ### Patch Changes
