@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { cyColors as designColors } from '@cypress-design/css/dist/color-constants'
 import _ from 'lodash'
-import flat from 'flat'
+import * as flat from 'flat'
 import chroma from 'chroma-js'
 
 const { filter, flatten, pick, startsWith, values } = _
@@ -33,7 +33,7 @@ type Color = {
   textColor: 'white' | 'black'
 }
 
-const colorsObject = flat(namedColors, {
+const colorsObject = flat.flatten(namedColors, {
   delimiter: '-',
 }) as Record<string, string>
 
