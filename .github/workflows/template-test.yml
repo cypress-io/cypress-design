@@ -43,13 +43,13 @@ jobs:
           CI: true
 
       - name: Build Component for Vue
-        run: yarn workspace @cypress-design/constants-component-name build
+        run: yarn workspace @cypress-design/constants-componentname build
 
       - name: Build Component for Vue
-        run: yarn workspace @cypress-design/vue-component-name build
+        run: yarn workspace @cypress-design/vue-componentname build
 
       - name: Build Component for React
-        run: yarn workspace @cypress-design/react-component-name build
+        run: yarn workspace @cypress-design/react-componentname build
 
       - name: Types docs
         run: yarn vue-tsc --noEmit -p .
