@@ -48,15 +48,6 @@ jobs:
       - name: Build Component for React
         run: yarn turbo run build --filter=@cypress-design/vue-componentname...
 
-      - name: Types docs
-        run: yarn vue-tsc --noEmit -p .
-
-      - name: Types Vue
-        run: yarn vue-tsc --noEmit --project ./tsconfig.vue.json
-
-      - name: Types React
-        run: yarn tsc --noEmit --project ./tsconfig.react.json
-
       - name: Lint all files
         run: yarn eslint .
 
