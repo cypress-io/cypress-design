@@ -1,5 +1,14 @@
 # @cypress-design/vue-modal
 
+## 0.2.2
+
+### Patch Changes
+
+- [`5e5b68d`](https://github.com/cypress-io/cypress-design/commit/5e5b68dc9f5ebe60bc3c558e2f2ebcd35c3d1489) Thanks [@elevatebart](https://github.com/elevatebart)! - remove unused transition props
+
+- Updated dependencies [[`17ce6d9`](https://github.com/cypress-io/cypress-design/commit/17ce6d9421ea37235058e5ca26b4e244d5d5b335)]:
+  - @cypress-design/vue-icon@0.31.0
+
 ## 0.2.1
 
 ### Patch Changes
