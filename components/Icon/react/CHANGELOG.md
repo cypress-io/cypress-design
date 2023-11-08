@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.30.0
+
+### Minor Changes
+
+- [#337](https://github.com/cypress-io/cypress-design/pull/337) [`17ce6d9`](https://github.com/cypress-io/cypress-design/commit/17ce6d9421ea37235058e5ca26b4e244d5d5b335) Thanks [@cbfrance](https://github.com/cbfrance)! - Add icon-shield-check
+
+### Patch Changes
+
+- Updated dependencies [[`17ce6d9`](https://github.com/cypress-io/cypress-design/commit/17ce6d9421ea37235058e5ca26b4e244d5d5b335)]:
+  - @cypress-design/icon-registry@0.33.0
+
 ## 0.29.0
 
 ### Minor Changes
