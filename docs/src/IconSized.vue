@@ -12,10 +12,10 @@ defineProps<{
   meta: Record<string, string[]>
 }>()
 
-const strokeColor = ref<WindiColor>()
-const fillColor = ref<WindiColor>()
-const secondaryStrokeColor = ref<WindiColor>()
-const secondaryFillColor = ref<WindiColor>()
+const strokeColor = ref<WindiColor>('indigo-500')
+const fillColor = ref<WindiColor>('jade-200')
+const secondaryStrokeColor = ref<WindiColor>('orange-500')
+const secondaryFillColor = ref<WindiColor>('orange-300')
 </script>
 
 <template>

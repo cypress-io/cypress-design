@@ -1,5 +1,17 @@
 # @cypress-design/icon-registry
 
+## 0.33.0
+
+### Minor Changes
+
+- [#337](https://github.com/cypress-io/cypress-design/pull/337) [`17ce6d9`](https://github.com/cypress-io/cypress-design/commit/17ce6d9421ea37235058e5ca26b4e244d5d5b335) Thanks [@cbfrance](https://github.com/cbfrance)! - Add icon-shield-check
+
+## 0.32.0
+
+### Minor Changes
+
+- [#335](https://github.com/cypress-io/cypress-design/pull/335) [`24d343f`](https://github.com/cypress-io/cypress-design/commit/24d343f8c7c4acce6192b357df16c639ec316a44) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added the Device TV icon
+
 ## 0.31.0
 
 ### Minor Changes
