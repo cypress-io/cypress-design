@@ -27,7 +27,9 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   }, {})
 
   return dedent`
-  export const Icon${pascalCaseName} = defineComponent({
+  export const Icon${pascalCaseName} = defineComponent<Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
+    class?: any
+  }>({
     ...__iconComponentOpts__, 
     setup(props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
     class?: any
@@ -60,7 +62,7 @@ import { compileVueIconProperties, useShouldRenderDefs } from './compileProperti
 
 const __iconComponentOpts__ = {
   props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class'] as string[],
-} as const
+} as any
 
 function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name'>, iconBodiesAndDefs: Record<string, {body: string, defs?: string}>, availableSizes: string[], name: string) {
   return computed(() => {
