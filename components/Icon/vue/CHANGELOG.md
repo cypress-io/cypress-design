@@ -1,5 +1,11 @@
 # @cypress-design/vue-icon
 
+## 0.31.1
+
+### Patch Changes
+
+- [#340](https://github.com/cypress-io/cypress-design/pull/340) [`1c85485`](https://github.com/cypress-io/cypress-design/commit/1c85485e7b1b5d36d8b65a80f78f7313e389bf10) Thanks [@elevatebart](https://github.com/elevatebart)! - fix types and allow for autocompletion to be restored
+
 ## 0.31.0
 
 ### Minor Changes
