@@ -10,6 +10,10 @@ export default defineConfig({
   fixturesFolder: false,
 
   component: {
+    retries: {
+      runMode: 2,
+      openMode: 0,
+    },
     setupNodeEvents(on) {
       on('task', {
         'a11y-table': function (message) {
