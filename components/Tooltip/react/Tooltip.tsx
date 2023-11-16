@@ -226,7 +226,7 @@ export const Tooltip: React.FC<
                     colors.background,
                   )}
                 >
-                  <span aria-label="Toolip: "></span>
+                  <span class="sr-only">Tooltip: </span>
                   {popper}
                 </div>
               </div>
