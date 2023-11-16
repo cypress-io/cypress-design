@@ -186,6 +186,7 @@ export const Tooltip: React.FC<
                   ...(interactive ? { padding: '16px' } : {}),
                 },
               })}
+              role="tooltip"
             >
               <div
                 className={clsx('rounded shadow-tooltip border', [
@@ -225,6 +226,7 @@ export const Tooltip: React.FC<
                     colors.background,
                   )}
                 >
+                  <span className="sr-only">Tooltip: </span>
                   {popper}
                 </div>
               </div>
