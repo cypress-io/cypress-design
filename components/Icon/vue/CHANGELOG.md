@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 0.31.2
+
+### Patch Changes
+
+- [#343](https://github.com/cypress-io/cypress-design/pull/343) [`2868018`](https://github.com/cypress-io/cypress-design/commit/28680187b2c0b0184360b6439b9811b420ddb2eb) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added more IconActionDelete sizes and fixed the colors for the IconCheckmarkSolid
+
+- Updated dependencies [[`2868018`](https://github.com/cypress-io/cypress-design/commit/28680187b2c0b0184360b6439b9811b420ddb2eb)]:
+  - @cypress-design/icon-registry@0.33.1
+
 ## 0.31.1
 
 ### Patch Changes

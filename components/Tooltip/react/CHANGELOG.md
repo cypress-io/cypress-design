@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 0.8.1
+
+### Patch Changes
+
+- [#344](https://github.com/cypress-io/cypress-design/pull/344) [`4fcb9f6`](https://github.com/cypress-io/cypress-design/commit/4fcb9f6510557436cb49abbd9542a18d49cb6306) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: accessible-tooltips
+
 ## 0.8.0
 
 ### Minor Changes
