@@ -226,7 +226,7 @@ export const Tooltip: React.FC<
                     colors.background,
                   )}
                 >
-                  <span class="sr-only">Tooltip: </span>
+                  <span className="sr-only">Tooltip: </span>
                   {popper}
                 </div>
               </div>
