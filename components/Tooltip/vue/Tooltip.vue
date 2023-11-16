@@ -184,6 +184,7 @@ onMounted(() => {
     @focus="placeTooltip"
     @blur="show = false"
     @mouseout="show = false"
+    @keydown.escape="show = false"
   >
     <!-- @slot element to hover on to open the tooltip -->
     <slot />
