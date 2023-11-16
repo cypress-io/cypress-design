@@ -184,6 +184,7 @@ onMounted(() => {
     @focus="placeTooltip"
     @blur="show = false"
     @mouseout="show = false"
+    @keydown.escape="show = false"
   >
     <!-- @slot element to hover on to open the tooltip -->
     <slot />
@@ -246,6 +247,7 @@ onMounted(() => {
             class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
             :class="colors.background"
           >
+            <span class="sr-only">Tooltip: </span>
             <!-- @slot content of the tooltip -->
             <slot name="popper" />
           </div>
