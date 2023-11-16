@@ -246,6 +246,7 @@ onMounted(() => {
             class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
             :class="colors.background"
           >
+            <span aria-label="Toolip: "></span>
             <!-- @slot content of the tooltip -->
             <slot name="popper" />
           </div>
