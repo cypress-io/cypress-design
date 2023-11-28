@@ -1,5 +1,17 @@
 # @cypress-design/vue-tooltip
 
+## 0.8.1
+
+### Patch Changes
+
+- [#344](https://github.com/cypress-io/cypress-design/pull/344) [`4fcb9f6`](https://github.com/cypress-io/cypress-design/commit/4fcb9f6510557436cb49abbd9542a18d49cb6306) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: accessible-tooltips
+
+## 0.8.0
+
+### Minor Changes
+
+- [#321](https://github.com/cypress-io/cypress-design/pull/321) [`1c61ac8`](https://github.com/cypress-io/cypress-design/commit/1c61ac8b242e085c3a6a0c93890110d8b17072fe) Thanks [@emilmilanov](https://github.com/emilmilanov)! - increasing drop-shadow for two increments
+
 ## 0.7.0
 
 ### Minor Changes

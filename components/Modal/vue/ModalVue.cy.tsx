@@ -1,16 +1,11 @@
-import { ref } from 'vue'
+import { Component, ref } from 'vue'
 import { mount } from 'cypress/vue'
+import { ComponentProps } from '../../vue-utils'
 import assertions from '../assertions'
 import Modal from './Modal.vue'
 
 describe('<Modal/>', () => {
-  function mountStory(
-    options: {
-      title?: string
-      helpLink?: string
-      fullscreen?: boolean
-    } = {}
-  ) {
+  function mountStory(options: ComponentProps<typeof Modal> = {}) {
     const visibleModal = ref(false)
     mount(() => (
       <div>
@@ -28,5 +23,6 @@ describe('<Modal/>', () => {
       </div>
     ))
   }
+
   assertions(mountStory)
 })

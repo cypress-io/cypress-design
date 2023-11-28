@@ -23,11 +23,15 @@ import DocsOutline from './DocsOutline.vue'
 import EditButton from './EditButton.vue'
 const router = useRouter()
 
-const { set, get } = useCookies()
+const cookie = ref<ReturnType<typeof useCookies>>()
 
-const cookieFramework = computed(
-  () => get<'react' | 'vue'>('framework') || 'vue',
-)
+onMounted(() => {
+  cookie.value = useCookies()
+})
+
+const cookieFramework = computed(() => {
+  return cookie.value?.get<'react' | 'vue'>('framework') || 'vue'
+})
 
 const saveScroll = ref(0)
 
@@ -113,7 +117,7 @@ const CommonContent = computed(() => {
 
 function switchFramework(fw: 'react' | 'vue') {
   saveScroll.value = window.scrollY
-  set('framework', fw)
+  cookie.value?.set('framework', fw)
   router.go(routePath.value.replace(/\/(react|vue)\//, `/${fw}/`)).then(() => {
     setTimeout(() => {
       window.scrollTo(0, saveScroll.value)

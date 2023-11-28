@@ -31,7 +31,6 @@ const props = defineProps<{
   title?: string
   show?: boolean
   helpLink?: string
-  transition?: number
   fullscreen?: boolean
 }>()
 

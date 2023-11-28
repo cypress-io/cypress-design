@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-tooltip",
-  "version": "0.7.0",
+  "version": "0.8.1",
   "files": [
     "*"
   ],
@@ -20,7 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.5.1"
+    "@floating-ui/dom": "^1.5.3"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

@@ -147,13 +147,13 @@ export const Tooltip: React.FC<
       case 'light':
         return {
           svg: 'stroke-none fill-white',
-          block: 'text-gray-900 shadow-gray-100 border-transparent ',
+          block: 'text-gray-900 border-transparent',
           background: 'bg-white',
         }
       case 'dark':
         return {
           svg: 'stroke-none fill-gray-900',
-          block: 'text-white shadow-gray-800 border-transparent',
+          block: 'text-white border-transparent',
           background: 'bg-gray-900',
         }
       default:
@@ -186,9 +186,10 @@ export const Tooltip: React.FC<
                   ...(interactive ? { padding: '16px' } : {}),
                 },
               })}
+              role="tooltip"
             >
               <div
-                className={clsx('rounded shadow border', [
+                className={clsx('rounded shadow-tooltip border', [
                   colors.background,
                   colors.block,
                   (!x || !y) && 'invisible',
@@ -225,6 +226,7 @@ export const Tooltip: React.FC<
                     colors.background,
                   )}
                 >
+                  <span className="sr-only">Tooltip: </span>
                   {popper}
                 </div>
               </div>

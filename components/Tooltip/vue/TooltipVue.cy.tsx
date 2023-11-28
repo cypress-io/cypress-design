@@ -1,8 +1,7 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
 import assertions from '../assertions'
-
-import type { Placement } from '@floating-ui/dom'
+import { ComponentProps } from '../../vue-utils'
 import Tooltip from './Tooltip.vue'
 
 const TooltipMulti = ({
@@ -10,12 +9,7 @@ const TooltipMulti = ({
   placement,
   tabindex = 1,
   disabled,
-}: {
-  color?: 'light' | 'dark'
-  placement?: Placement
-  tabindex?: number
-  disabled?: boolean
-} = {}) => (
+}: ComponentProps<typeof Tooltip> & { tabindex?: number } = {}) => (
   <div class="flex flex-col items-center center gap-20">
     <Tooltip
       class="w-1/2 p-4 bg-red-200"

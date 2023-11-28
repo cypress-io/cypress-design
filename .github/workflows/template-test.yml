@@ -1,9 +1,9 @@
-name: Tests
+name: Template Tests
 
 on: [push]
 
 jobs:
-  cypress-run:
+  template-test:
     runs-on: ubuntu-latest
     steps:
       - name: Get Yarn cache path
@@ -34,32 +34,22 @@ jobs:
         env:
           CI: true
 
+      - name: Create component with template
+        run: yarn new:component --name ComponentName
+
+      - name: Re-link Dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      - name: Build Component for Vue
+        run: yarn turbo run build --filter=@cypress-design/vue-componentname...
+
+      - name: Build Component for React
+        run: yarn turbo run build --filter=@cypress-design/vue-componentname...
+
       - name: Lint all files
         run: yarn eslint .
-
-      - name: Run Eslint Plugin Tests
-        run: yarn test:eslint-plugin
-
-      - name: Generate icon files
-        run: |
-          yarn turbo run build --filter=@cypress-design/css
-          yarn workspace @cypress-design/icon-registry svg-to-ts-constants
-          yarn workspace @cypress-design/icon-registry node ./build-icons.mjs
-
-      - name: Run Unit Tests
-        run: yarn test
-
-      - name: Build Components
-        run: yarn run build:components
-
-      - name: Types docs
-        run: yarn vue-tsc --noEmit -p .
-
-      - name: Types Vue
-        run: yarn vue-tsc --noEmit --project ./tsconfig.vue.json
-
-      - name: Types React
-        run: yarn tsc --noEmit --project ./tsconfig.react.json
 
       # run cypress component tests
       - name: Cypress run CT
@@ -67,11 +57,10 @@ jobs:
         with:
           component: true
           record: true
-          command-prefix: 'yarn percy exec --parallel -- '
           browser: chrome
+          spec: components/ComponentName/**/*
         env:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}

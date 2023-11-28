@@ -1,5 +1,80 @@
 # @cypress-design/react-icon
 
+## 0.30.1
+
+### Patch Changes
+
+- [#343](https://github.com/cypress-io/cypress-design/pull/343) [`2868018`](https://github.com/cypress-io/cypress-design/commit/28680187b2c0b0184360b6439b9811b420ddb2eb) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added more IconActionDelete sizes and fixed the colors for the IconCheckmarkSolid
+
+- Updated dependencies [[`2868018`](https://github.com/cypress-io/cypress-design/commit/28680187b2c0b0184360b6439b9811b420ddb2eb)]:
+  - @cypress-design/icon-registry@0.33.1
+
+## 0.30.0
+
+### Minor Changes
+
+- [#337](https://github.com/cypress-io/cypress-design/pull/337) [`17ce6d9`](https://github.com/cypress-io/cypress-design/commit/17ce6d9421ea37235058e5ca26b4e244d5d5b335) Thanks [@cbfrance](https://github.com/cbfrance)! - Add icon-shield-check
+
+### Patch Changes
+
+- Updated dependencies [[`17ce6d9`](https://github.com/cypress-io/cypress-design/commit/17ce6d9421ea37235058e5ca26b4e244d5d5b335)]:
+  - @cypress-design/icon-registry@0.33.0
+
+## 0.29.0
+
+### Minor Changes
+
+- [#335](https://github.com/cypress-io/cypress-design/pull/335) [`24d343f`](https://github.com/cypress-io/cypress-design/commit/24d343f8c7c4acce6192b357df16c639ec316a44) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added the Device TV icon
+
+### Patch Changes
+
+- Updated dependencies [[`24d343f`](https://github.com/cypress-io/cypress-design/commit/24d343f8c7c4acce6192b357df16c639ec316a44)]:
+  - @cypress-design/icon-registry@0.32.0
+
+## 0.28.0
+
+### Minor Changes
+
+- [#332](https://github.com/cypress-io/cypress-design/pull/332) [`a182e57`](https://github.com/cypress-io/cypress-design/commit/a182e57e1da4e33b693d0bf2b05fa0f2d4599940) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fixed the large x16 bug icon
+
+### Patch Changes
+
+- Updated dependencies [[`a182e57`](https://github.com/cypress-io/cypress-design/commit/a182e57e1da4e33b693d0bf2b05fa0f2d4599940)]:
+  - @cypress-design/icon-registry@0.31.0
+
+## 0.27.0
+
+### Minor Changes
+
+- [#330](https://github.com/cypress-io/cypress-design/pull/330) [`a8dce48`](https://github.com/cypress-io/cypress-design/commit/a8dce4886ea285157b20c7a64a8919817d6429dc) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add large and small x16 bug icons
+
+### Patch Changes
+
+- Updated dependencies [[`a8dce48`](https://github.com/cypress-io/cypress-design/commit/a8dce4886ea285157b20c7a64a8919817d6429dc)]:
+  - @cypress-design/icon-registry@0.30.0
+
+## 0.26.0
+
+### Minor Changes
+
+- [#326](https://github.com/cypress-io/cypress-design/pull/326) [`464b91a`](https://github.com/cypress-io/cypress-design/commit/464b91a61b62ca4621a4f6db28e12e61ab1b4b9e) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add the x16 bug icon
+
+### Patch Changes
+
+- Updated dependencies [[`464b91a`](https://github.com/cypress-io/cypress-design/commit/464b91a61b62ca4621a4f6db28e12e61ab1b4b9e)]:
+  - @cypress-design/icon-registry@0.29.0
+
+## 0.25.0
+
+### Minor Changes
+
+- [#319](https://github.com/cypress-io/cypress-design/pull/319) [`d8692bc`](https://github.com/cypress-io/cypress-design/commit/d8692bcf16f779417c202a8c2050b0e424576501) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Added clock icon
+
+### Patch Changes
+
+- Updated dependencies [[`d8692bc`](https://github.com/cypress-io/cypress-design/commit/d8692bcf16f779417c202a8c2050b0e424576501)]:
+  - @cypress-design/icon-registry@0.28.0
+
 ## 0.24.0
 
 ### Minor Changes

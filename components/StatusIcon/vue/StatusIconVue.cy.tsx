@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
 
-import { sizes, statuses } from '@cypress-design/constants-statusicon'
+import { sizes, statuses, variants } from '@cypress-design/constants-statusicon'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import StatusIconStory from './StatusIcon.rootstory'
 import { computed, defineComponent, ref } from 'vue'
@@ -61,12 +61,17 @@ describe('StatusIcon', () => {
   const VariableStatusIcon = defineComponent({
     setup() {
       const sizeSlider = ref(3)
-      const size = computed(() => sizes[sizeSlider.value])
+      const size = computed(
+        () => sizes[sizeSlider.value] as (typeof sizes)[number],
+      )
       const statusSlider = ref(0)
-      const status = computed(() => Object.keys(statuses)[statusSlider.value])
+      const status = computed(
+        () =>
+          Object.keys(statuses)[statusSlider.value] as keyof typeof statuses,
+      )
       const variantSlider = ref(0)
       const variant = computed(
-        () => ['simple', 'solid', 'outline'][variantSlider.value],
+        () => variants[variantSlider.value] as (typeof variants)[number],
       )
 
       return () => {

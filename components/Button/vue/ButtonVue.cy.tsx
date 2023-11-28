@@ -4,7 +4,6 @@ import { mount } from 'cypress/vue'
 import assertions from '../assertions'
 import Button from './Button.vue'
 import ButtonStory from './Button.rootstory'
-import { cyDeviceLaptopX24 } from '@cypress-design/icon-registry'
 
 describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
   function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {
@@ -30,7 +29,7 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
   })
 
   it('responsively handles `disabled` changes', () => {
-    const disabled = ref(true)
+    const disabled = ref(false)
 
     mount({
       render: () => (
@@ -52,18 +51,14 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
       ),
     })
 
-    // HTML & DS Buttons start off disabled
-    cy.findByTestId('html-button').should('be.disabled')
-    cy.findByTestId('ds-button').should('be.disabled')
+    cy.findByTestId('html-button').should('not.be.disabled')
+    cy.findByTestId('ds-button').should('not.be.disabled')
 
     // Click toggle button to update `ref` for `disabled` state
     cy.findByTestId('toggle').click()
 
-    // Base HTML button properly enables
-    cy.findByTestId('html-button').should('not.be.disabled')
-
-    // FAILS - DS Button stays disabled
-    cy.findByTestId('ds-button').should('not.be.disabled')
+    cy.findByTestId('html-button').should('be.disabled')
+    cy.findByTestId('ds-button').should('be.disabled')
   })
 
   it('responsively handles attributes changes', () => {

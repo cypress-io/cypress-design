@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "0.25.0",
+  "version": "0.31.2",
   "files": [
     "*"
   ],
@@ -18,14 +18,14 @@
     "build": "yarn build:codegen && yarn build:module && yarn build:types",
     "build:codegen": "node ./generate-icons.js",
     "build:module": "yarn vite build",
-    "build:types": "yarn tsc --project ./tsconfig.build.json"
+    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.27.0"
+    "@cypress-design/icon-registry": "^0.33.1"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@types/lodash": "^4.14.197",
+    "@types/lodash": "^4.14.200",
     "lodash": "^4.17.21",
     "dedent": "^1.5.1"
   },
