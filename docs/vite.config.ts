@@ -62,4 +62,10 @@ export default defineConfig({
     // TODO: workaround until they support native ESM
     noExternal: ['workbox-window'],
   },
+  server: {
+    fs: {
+      // Allow serving files from one level up to the project root
+      allow: ['..'],
+    },
+  },
 })

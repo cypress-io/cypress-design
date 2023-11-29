@@ -9,7 +9,7 @@
     "build": "node ../scripts/copy-md.mjs && vue-docgen -c ./docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
     "docgen:watch": "vue-docgen --watch -c ./docgen/docgen.config.cjs",
     "preview": "vite preview",
-    "dev": "rimraf docs/components && NODE_ENV=development concurrently \"node ../scripts/watch-constants.mjs\" \"yarn docgen:watch\" \"yarn vite dev\""
+    "dev": "rimraf docs/components && NODE_ENV=development yarn vite dev"
   },
   "dependencies": {
     "@cypress-design/vue-tooltip": "*",

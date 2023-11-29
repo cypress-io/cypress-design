@@ -5,8 +5,8 @@ import { getDocsPages } from '../utils/docsPages'
 import { getPatternPages } from '../utils/patternPages'
 
 const pages = {
-  vue: import.meta.glob('../../../components/vue/*.md'),
-  react: import.meta.glob('../../../components/react/*.md'),
+  vue: import.meta.glob('../../../components/*/vue/*.md', { eager: true }),
+  react: import.meta.glob('../../../components/*/react/*.md', { eager: true }),
 }
 
 const getPageName = (p: string) => {
@@ -26,15 +26,21 @@ const { items: docsPages } = getDocsPages(rp)
 const components = computed(() => {
   return {
     text: 'Components',
-    items: Object.keys(pages[props.framework]).map((p) => {
-      return {
-        text: getPageName(p),
-        href: p.replace(/\.md$/, ''),
-        active:
-          props.currentPath.length > 1 &&
-          p.replace(/\/(vue|react)/, '').includes(props.currentPath),
-      }
-    }),
+    items: Object.keys(pages[props.framework]).reduce(
+      (acc: { text: string; href: string; active: boolean }[], p) => {
+        const href = p.replace(/\.md$/, '').replace(/\/(vue|react)/, '')
+        if (acc.some(({ href: hrefAcc }) => hrefAcc === href)) return acc
+        acc.push({
+          text: getPageName(p),
+          href,
+          active:
+            props.currentPath.length > 1 &&
+            p.replace(/\/(vue|react)/, '').includes(props.currentPath),
+        })
+        return acc
+      },
+      [],
+    ),
   }
 })
 
