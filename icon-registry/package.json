@@ -25,11 +25,11 @@
     "@cypress-design/css": "*"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.200",
+    "@types/lodash": "^4.14.202",
     "dedent": "^1.5.1",
-    "globby": "^13.2.2",
+    "globby": "^14.0.0",
     "lodash": "^4.17.21",
-    "svg-to-ts": "^11.0.0",
+    "svg-to-ts": "^11.0.1",
     "wait-cli": "^1.0.0"
   },
   "svg-to-ts": {
