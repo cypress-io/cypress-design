@@ -55,7 +55,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
             }}
           />
         ) : null}
-        {item.text}
+        {item.label}
       </a>
     </li>
   )

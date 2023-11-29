@@ -1,23 +1,27 @@
+import { NavItemLink } from '@cypress-design/vue-docmenu'
 import { Ref, computed } from 'vue'
 
 const patternPages = import.meta.glob('../../../patterns/*.md')
 
 export function getPatternPages(routePath: Ref<string>) {
-  const routeMap = Object.keys(patternPages).reduce((acc, p) => {
-    const serverRoute = p.replace(/^\.\.\/\.\.\/\.\./, '')
+  const routeMap = Object.keys(patternPages).reduce(
+    (acc, p) => {
+      const serverRoute = p.replace(/^\.\.\/\.\.\/\.\./, '')
 
-    const clientRoute = serverRoute
-      .replace(/\.md$/, '')
-      .replace(/\/\d+-(\w)/g, '/$1')
+      const clientRoute = serverRoute
+        .replace(/\.md$/, '')
+        .replace(/\/\d+-(\w)/g, '/$1')
 
-    acc[clientRoute] = serverRoute
-    return acc
-  }, {} as Record<string, string>)
+      acc[clientRoute] = serverRoute
+      return acc
+    },
+    {} as Record<string, string>,
+  )
 
-  const items = computed(() =>
+  const items = computed<NavItemLink[]>(() =>
     Object.keys(routeMap).map((clientRoute) => {
       return {
-        text:
+        label:
           clientRoute
             .split('/')
             .pop()
@@ -26,7 +30,7 @@ export function getPatternPages(routePath: Ref<string>) {
         href: clientRoute,
         active: routePath.value.endsWith(`${clientRoute}.html`),
       }
-    })
+    }),
   )
   return { items, routeMap }
 }

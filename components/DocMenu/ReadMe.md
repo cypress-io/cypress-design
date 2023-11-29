@@ -7,19 +7,19 @@ import DocMenu from '@cypress-design/vue-docmenu'
 <DemoWrapper>
 	<DocMenu :items="[
     {
-      text: 'Page',
+      label: 'Page',
       href: '#',
     },
     {
-      text: 'Overview',
+      label: 'Overview',
       items: [
         {
-          text: 'Overview Item 1',
+          label: 'Overview Item 1',
           href: '#',
           active: true,
         },
         {
-          text: 'Overview Item 2',
+          label: 'Overview Item 2',
           href: '#',
         },
       ],
