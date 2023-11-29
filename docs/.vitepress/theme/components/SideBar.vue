@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DocMenu from '@cypress-design/vue-docmenu'
+import DocMenu, { NavGroup } from '@cypress-design/vue-docmenu'
 import { computed } from 'vue'
 import { getDocsPages } from '../utils/docsPages'
 import { getPatternPages } from '../utils/patternPages'
@@ -23,12 +23,12 @@ const rp = computed(() => props.routePath)
 
 const { items: docsPages } = getDocsPages(rp)
 
-const components = computed(() => {
+const components = computed<NavGroup>(() => {
   return {
-    text: 'Components',
+    label: 'Components',
     items: Object.keys(pages[props.framework]).map((p) => {
       return {
-        text: getPageName(p),
+        label: getPageName(p),
         href: p.replace(/\.md$/, ''),
         active:
           props.currentPath.length > 1 &&
@@ -40,9 +40,9 @@ const components = computed(() => {
 
 const { items: patterns } = getPatternPages(rp)
 
-const patternGroup = computed(() => {
+const patternGroup = computed<NavGroup>(() => {
   return {
-    text: 'Patterns',
+    label: 'Patterns',
     items: patterns.value,
   }
 })

@@ -22,53 +22,53 @@ import DocMenu from '@cypress-design/react-docmenu'
 <DocMenu
   items={[
     {
-      text: 'Get Started',
+      label: 'Get Started',
       href: '#',
     },
     {
-      text: 'Overview',
+      label: 'Overview',
       items: [
         {
-          text: 'Overview Item 1',
+          label: 'Overview Item 1',
           href: '#',
         },
         {
-          text: 'Overview Item 2',
+          label: 'Overview Item 2',
           href: '#',
           active: true,
         },
       ],
     },
     {
-      text: 'Getting Started',
+      label: 'Getting Started',
       items: [
         {
-          text: 'Item 1',
+          label: 'Item 1',
           href: '#',
         },
         {
-          text: 'Group',
+          label: 'Group',
           items: [
             {
-              text: 'Item 1',
+              label: 'Item 1',
               href: '#',
             },
             {
-              text: 'Item 2',
+              label: 'Item 2',
               href: '#',
             },
             {
-              text: 'Item 3',
+              label: 'Item 3',
               href: '#',
             },
             {
-              text: 'Item 4',
+              label: 'Item 4',
               href: '#',
             },
           ],
         },
         {
-          text: 'Item 5',
+          label: 'Item 5',
           href: '#',
           active: true,
         },

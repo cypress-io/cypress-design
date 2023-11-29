@@ -9,7 +9,7 @@ withDefaults(
   }>(),
   {
     depth: -1,
-  }
+  },
 )
 </script>
 
@@ -39,7 +39,7 @@ withDefaults(
           left: `-${18.5 + depth * 7.5}px`,
         }"
       />
-      {{ item.text }}
+      {{ item.label }}
     </a>
   </li>
 </template>

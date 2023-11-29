@@ -76,7 +76,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
             })}
           />
         ) : null}
-        {group.text}
+        {group.label}
       </Head>
       {collapsible &&
       depth >= 0 &&

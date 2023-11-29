@@ -13,7 +13,7 @@ const props = withDefaults(
   }>(),
   {
     depth: 0,
-  }
+  },
 )
 
 const open = ref(props.depth === 0)
@@ -24,7 +24,7 @@ const height = computed(() => {
   return $groups.value && open.value
     ? $groups.value.reduce(
         (acc, { height: h }) => acc + h,
-        props.group.items.length
+        props.group.items.length,
       )
     : 0
 })
@@ -37,12 +37,12 @@ defineExpose<{
 
 const activeMarkerTop = computed(() => {
   const activeIndex = props.group.items.findIndex(
-    (item) => 'href' in item && item.active
+    (item) => 'href' in item && item.active,
   )
 
   // how many groups are before the active element?
   let numberOfGroups = props.group.items.filter(
-    (item, index) => !('href' in item) && index < activeIndex
+    (item, index) => !('href' in item) && index < activeIndex,
   ).length
 
   // if there is any open group before the active element
@@ -56,7 +56,7 @@ const activeMarkerTop = computed(() => {
 })
 
 const Head = computed(() =>
-  props.collapsible ? 'button' : props.group.href ? 'a' : 'div'
+  props.collapsible ? 'button' : props.group.href ? 'a' : 'div',
 )
 </script>
 
@@ -91,7 +91,7 @@ const Head = computed(() =>
         'ml-[16px]': depth,
       }"
     />
-    {{ group.text }}
+    {{ group.label }}
   </component>
   <div
     v-if="

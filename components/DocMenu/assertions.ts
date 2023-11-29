@@ -4,77 +4,77 @@ import type { NavGroup, NavItemLink } from './constants'
 
 const menuItems = [
   {
-    text: 'Get Started',
+    label: 'Get Started',
     href: '#',
   },
   {
-    text: 'Overview',
+    label: 'Overview',
     items: [
       {
-        text: 'Overview Item 1',
+        label: 'Overview Item 1',
         href: '#',
       },
       {
-        text: 'Overview Item 2',
+        label: 'Overview Item 2',
         href: '#',
       },
     ],
   },
   {
-    text: 'Getting Started',
+    label: 'Getting Started',
     items: [
       {
-        text: 'Item 1',
+        label: 'Item 1',
         href: '#',
       },
       {
-        text: 'Item 2',
+        label: 'Item 2',
         href: '#',
       },
     ],
   },
   {
-    text: 'End-to-End Testing',
+    label: 'End-to-End Testing',
     items: [
       {
-        text: 'Introduction to E2E Testing',
+        label: 'Introduction to E2E Testing',
         items: [
           {
-            text: 'Item 1',
+            label: 'Item 1',
             href: '#',
           },
           {
-            text: 'sub menu',
+            label: 'sub menu',
             items: [
               {
-                text: 'Item 1',
+                label: 'Item 1',
                 href: '#',
                 active: true,
               },
               {
-                text: 'Item 2',
+                label: 'Item 2',
                 href: '#',
               },
             ],
           },
           {
-            text: 'Item 2',
+            label: 'Item 2',
             href: '#',
             active: true,
           },
         ],
       },
       {
-        text: 'AWS Authentication',
+        label: 'AWS Authentication',
         href: '#',
       },
       {
         active: true,
-        text: 'Google Authentication',
+        label: 'Google Authentication',
         href: '#',
       },
       {
-        text: 'Okta Authentication',
+        label: 'Okta Authentication',
         href: '#',
       },
     ],
@@ -82,7 +82,7 @@ const menuItems = [
 ] satisfies (NavItemLink | NavGroup)[]
 
 export default function assertions(
-  mountStory: (options?: (NavItemLink | NavGroup)[]) => void
+  mountStory: (options?: (NavItemLink | NavGroup)[]) => void,
 ): void {
   it('renders', () => {
     mountStory(menuItems)
