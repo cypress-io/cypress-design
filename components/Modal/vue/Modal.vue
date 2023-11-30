@@ -1,11 +1,9 @@
 <script lang="ts" setup>
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import {
-  ClassBackDrop,
   ClassModal,
   ClassModalFullscreenDimensions,
   ClassModalStandardDimensions,
-  ClassModalContainer,
   ClassTitleBox,
   ClassTitle,
   ClassHelpLinkDash,
@@ -34,6 +32,8 @@ const props = defineProps<{
   fullscreen?: boolean
 }>()
 
+const $dialog = ref<HTMLDialogElement>()
+
 watch(
   () => props.show,
   (val) => {
@@ -53,9 +53,12 @@ onMounted(() => {
 watch(internalShow, (val) => {
   if (val) {
     disableBodyScroll()
+    $dialog.value?.showModal()
   } else {
+    $dialog.value?.close()
     freeBodyScroll()
   }
+
   emit('update:show', val)
   if (!val) {
     emit('close')
@@ -68,61 +71,52 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <Teleport v-if="internalShow" to="#modal-target">
-    <div :class="ClassBackDrop" @click="internalShow = false" />
-    <div
-      :class="ClassModalContainer"
-      tabindex="-1"
-      aria-modal="true"
-      aria-labelledby="cy_modal_label"
-      role="dialog"
-    >
-      <div
-        :class="[
-          ClassModal,
-          fullscreen
-            ? ClassModalFullscreenDimensions
-            : ClassModalStandardDimensions,
-        ]"
-      >
-        <div :class="ClassTitleBox">
-          <div id="cy_modal_label" :class="ClassTitle">
-            {{ title }}
-          </div>
-          <div v-if="helpLink" :class="ClassHelpLinkDash" />
-          <a
-            v-if="helpLink"
-            :href="helpLink"
-            :class="ClassHelpLink"
-            target="_blank"
-          >
-            Need help
-            <IconActionQuestionMarkCircle
-              class="ml-[4px]"
-              stroke-color="indigo-500"
-              fill-color="indigo-100"
-            />
-          </a>
-          <div class="grow" />
-          <button
-            aria-label="Close"
-            :class="ClassCloseButton"
-            @click="internalShow = false"
-          >
-            <IconActionDelete
-              class="children:transition-all"
-              stroke-color="gray-400"
-              hover-stroke-color="gray-700"
-              interactive-colors-on-group
-            />
-          </button>
-        </div>
-        <div :class="ClassContent">
-          <slot />
-        </div>
+  <dialog
+    ref="$dialog"
+    :class="[
+      '!fixed',
+      internalShow ? ClassModal : null,
+      fullscreen
+        ? ClassModalFullscreenDimensions
+        : ClassModalStandardDimensions,
+    ]"
+  >
+    <div :class="ClassTitleBox">
+      <div id="cy_modal_label" :class="ClassTitle">
+        {{ title }}
       </div>
+      <div v-if="helpLink" :class="ClassHelpLinkDash" />
+      <a
+        v-if="helpLink"
+        :href="helpLink"
+        :class="ClassHelpLink"
+        target="_blank"
+      >
+        Need help
+        <IconActionQuestionMarkCircle
+          class="ml-[4px]"
+          stroke-color="indigo-500"
+          fill-color="indigo-100"
+        />
+      </a>
+      <div class="grow" />
+      <button
+        aria-label="Close"
+        :class="ClassCloseButton"
+        @click="internalShow = false"
+      >
+        <IconActionDelete
+          class="children:transition-all"
+          stroke-color="gray-400"
+          hover-stroke-color="gray-700"
+          interactive-colors-on-group
+        />
+      </button>
     </div>
-  </Teleport>
+    <div :class="ClassContent">
+      <slot />
+    </div>
+  </dialog>
 </template>
 
 <style lang="scss" scoped>
@@ -134,5 +128,9 @@ onUnmounted(() => {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
+}
+
+dialog::backdrop {
+  @apply bg-gray-900/[.80] backdrop-blur-sm;
 }
 </style>
