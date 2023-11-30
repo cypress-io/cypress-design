@@ -2,11 +2,18 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { NavItemLink } from '@cypress-design/constants-docmenu'
 
+export type LinkComponentType = React.ElementType<{
+  href: string
+  className?: string
+  children?: React.ReactNode
+}>
+
 export interface DocLinkProps {
   item: NavItemLink
   collapsible: boolean
   depth?: number
   onActive?: (top: number) => void
+  LinkComponent?: LinkComponentType
 }
 
 export const DocLink: React.FC<DocLinkProps> = ({
@@ -14,6 +21,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
   collapsible,
   depth = -1,
   onActive,
+  LinkComponent = 'a',
 }) => {
   const activeLIRef = React.useRef<HTMLLIElement>(null)
 
@@ -32,7 +40,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
         'pl-[16px]': depth >= 0,
       })}
     >
-      <a
+      <LinkComponent
         className={clsx('group relative inline-block pl-[24px]', {
           'text-indigo-500': item.active,
           'py-[8px] text-[16px] leading-[24px]': depth < 0,
@@ -54,7 +62,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
           />
         ) : null}
         {item.label}
-      </a>
+      </LinkComponent>
     </li>
   )
 }

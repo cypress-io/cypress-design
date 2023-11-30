@@ -2,7 +2,7 @@ import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
-import { DocLink } from './_DocLink'
+import { DocLink, LinkComponentType } from './_DocLink'
 
 export interface DocGroupProps {
   index: number
@@ -10,6 +10,7 @@ export interface DocGroupProps {
   collapsible: boolean
   depth?: number
   setHeight?: (height: number) => void
+  LinkComponent?: LinkComponentType
 }
 
 export const DocGroup: React.FC<DocGroupProps> = ({
@@ -18,6 +19,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   depth = 0,
   setHeight,
   index,
+  LinkComponent = 'a',
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
   const [itemsHeights, setItemsHeights] = React.useState<number[]>(
@@ -116,8 +118,9 @@ export const DocGroup: React.FC<DocGroupProps> = ({
                 group={item}
                 depth={depth + 1}
                 setHeight={onSetHeightCallback}
-                collapsible={collapsible}
                 index={index}
+                collapsible={collapsible}
+                LinkComponent={LinkComponent}
               />
             </li>
           ) : (
@@ -127,6 +130,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               collapsible={collapsible}
               depth={depth}
               onActive={(top) => setActiveTop(top)}
+              LinkComponent={LinkComponent}
             />
           ),
         )}

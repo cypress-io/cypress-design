@@ -33,6 +33,26 @@ describe('<DocMenu/>', () => {
     )
   })
 
+  it('renders the custom link components', () => {
+    mount(
+      <DocMenu
+        items={[
+          {
+            label: 'Baaaaaaz',
+            items: [{ label: 'Bar', items: [{ href: '/foo', label: 'Foo' }] }],
+          },
+        ]}
+        LinkComponent={({ href, className, children }) => (
+          <div className={className}>
+            {children} + href: {href}
+          </div>
+        )}
+      />,
+    )
+    cy.findByText('Bar').click()
+    cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
+  })
+
   function mountStory(items: (NavItemLink | NavGroup)[] = []) {
     mount(<DocMenuStory items={items} />)
   }
