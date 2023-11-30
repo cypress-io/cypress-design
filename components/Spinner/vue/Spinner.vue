@@ -13,7 +13,7 @@ import { COLORS } from '@cypress-design/constants-spinner'
 
 const props = withDefaults(
   defineProps<{
-    variant: 'dark' | 'light'
+    variant?: 'dark' | 'light'
   }>(),
   {
     variant: 'light',
