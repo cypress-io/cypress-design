@@ -25,7 +25,7 @@ describe('<DocMenu/>', () => {
       <DocMenu
         items={[
           {
-            label: 'Baz',
+            label: 'Baaaaaaz',
             items: [{ label: 'Bar', items: [{ href: '/foo', label: 'Foo' }] }],
           },
         ]}

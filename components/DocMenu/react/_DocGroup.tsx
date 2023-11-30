@@ -23,8 +23,16 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   )
 
   React.useEffect(() => {
-    setHeight?.(open ? itemsHeights.reduce((a, b) => a + b, 1) : 1)
-  }, [itemsHeights, open, setHeight])
+    // if this group contains other groups, ignore this effect
+    // it will be triggered by a leaf and trickle up
+    if (group.items.some((item) => 'items' in item)) {
+      return
+    }
+
+    const newHeight = open ? itemsHeights.reduce((a, b) => a + b, 1) : 1
+
+    setHeight?.(newHeight)
+  }, [itemsHeights, open, setHeight, group.items, group.label])
 
   const [activeTop, setActiveTop] = React.useState(0)
 
@@ -44,13 +52,16 @@ export const DocGroup: React.FC<DocGroupProps> = ({
     setOpen(open)
   }
 
-  function onSetHeight(index: number, height: number) {
-    setItemsHeights((prev) => {
-      const newHeights = [...prev]
-      newHeights[index] = height
-      return newHeights
-    })
-  }
+  const onSetHeightCallback = React.useCallback(
+    (index: number, height: number) => {
+      setItemsHeights((prev) => {
+        const newHeights = [...prev]
+        newHeights[index] = height
+        return newHeights
+      })
+    },
+    [setItemsHeights],
+  )
 
   const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
 
@@ -99,11 +110,12 @@ export const DocGroup: React.FC<DocGroupProps> = ({
         {group.items.map((item, index) =>
           'items' in item ? (
             <li key={index} className="relative list-none p-0">
-              <DocGroup
+              <DocGroupWithIndex
                 group={item}
                 depth={depth + 1}
-                setHeight={(height) => onSetHeight(index, height)}
+                setHeight={onSetHeightCallback}
                 collapsible={collapsible}
+                index={index}
               />
             </li>
           ) : (
@@ -119,4 +131,20 @@ export const DocGroup: React.FC<DocGroupProps> = ({
       </ul>
     </>
   )
+}
+
+const DocGroupWithIndex: React.FC<
+  Omit<DocGroupProps, 'setHeight'> & {
+    index: number
+    setHeight: (index: number, height: number) => void
+  }
+> = ({ setHeight, index, ...props }) => {
+  const onSetHeight = React.useCallback(
+    (height: number) => {
+      setHeight(index, height)
+    },
+    [index, setHeight],
+  )
+
+  return <DocGroup {...props} setHeight={onSetHeight} />
 }

@@ -23,9 +23,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
     if (item.active) {
       onActive?.(activeLIRef?.current?.offsetTop || 0)
     }
-    // supposed to happen only on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [onActive, item.active])
 
   return (
     <li
