@@ -21,11 +21,11 @@ export const DocMenu: React.FC<DocMenuProps> = ({
       {items.map((item, index) =>
         'items' in item ? (
           <li key={index} className="relative list-none p-0">
-            <DocGroup group={item} collapsible={collapsible} />
+            <DocGroup index={index} group={item} collapsible={collapsible} />
           </li>
         ) : (
           <DocLink key={index} item={item} collapsible={collapsible} />
-        )
+        ),
       )}
     </ul>
   )

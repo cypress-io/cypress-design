@@ -5,6 +5,7 @@ import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import { DocLink } from './_DocLink'
 
 export interface DocGroupProps {
+  index: number
   group: NavGroup
   collapsible: boolean
   depth?: number
@@ -16,6 +17,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   collapsible,
   depth = 0,
   setHeight,
+  index,
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
   const [itemsHeights, setItemsHeights] = React.useState<number[]>(
@@ -53,14 +55,14 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   }
 
   const onSetHeightCallback = React.useCallback(
-    (index: number, height: number) => {
+    (height: number) => {
       setItemsHeights((prev) => {
         const newHeights = [...prev]
         newHeights[index] = height
         return newHeights
       })
     },
-    [setItemsHeights],
+    [setItemsHeights, index],
   )
 
   const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
@@ -110,7 +112,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
         {group.items.map((item, index) =>
           'items' in item ? (
             <li key={index} className="relative list-none p-0">
-              <DocGroupWithIndex
+              <DocGroup
                 group={item}
                 depth={depth + 1}
                 setHeight={onSetHeightCallback}
@@ -131,20 +133,4 @@ export const DocGroup: React.FC<DocGroupProps> = ({
       </ul>
     </>
   )
-}
-
-const DocGroupWithIndex: React.FC<
-  Omit<DocGroupProps, 'setHeight'> & {
-    index: number
-    setHeight: (index: number, height: number) => void
-  }
-> = ({ setHeight, index, ...props }) => {
-  const onSetHeight = React.useCallback(
-    (height: number) => {
-      setHeight(index, height)
-    },
-    [index, setHeight],
-  )
-
-  return <DocGroup {...props} setHeight={onSetHeight} />
 }
