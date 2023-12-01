@@ -6,7 +6,9 @@ import Spinner from '@cypress-design/vue-spinner'
 # Spinner
 
 <DemoWrapper>
-	<Spinner/>
+  <div class="bg-gray-50 p-6">
+	  <Spinner/>
+  </div>
 </DemoWrapper>
 
 <DemoWrapper>
