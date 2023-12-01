@@ -1,0 +1,73 @@
+name: PR - workflow
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: test-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  make-nonce:
+    runs-on: ubuntu-latest
+    outputs:
+      nonce: ${{ steps.nonce.outputs.nonce }}
+    steps:
+      - name: Simplify branch name
+        id: branch
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const simpleBranchName = '${{ github.head_ref }}'.replace(/[^a-zA-Z0-9.-]/g, '').slice(0, 49)
+            core.setOutput('simpleBranchName', simpleBranchName)
+
+      - name: generate and Set nonce
+        id: nonce
+        run: |
+          echo "nonce=${{ github.run_id }}-${{ github.run_attempt }}-${{ steps.branch.outputs.simpleBranchName }}" >> $GITHUB_OUTPUT
+          echo "simpleBranchName=${{ steps.branch.outputs.simpleBranchName }}" >> $GITHUB_OUTPUT
+
+      - name: Display
+        run: echo ${{ toJSON(steps.nonce.outputs.nonce) }}
+
+  build:
+    name: Build
+    needs: [make-nonce]
+    uses: ./.github/workflows/build.yml
+    secrets: inherit
+    with:
+      nonce: ${{ needs.make-nonce.outputs.nonce }}
+
+  test:
+    name: Test
+    needs: [build, make-nonce]
+    uses: ./.github/workflows/test.yml
+    secrets: inherit
+    with:
+      nonce: ${{ needs.make-nonce.outputs.nonce }}
+
+  e2e-test:
+    name: E2E Test
+    needs: [build, make-nonce]
+    uses: ./.github/workflows/e2e-tests.yml
+    secrets: inherit
+    with:
+      nonce: ${{ needs.make-nonce.outputs.nonce }}
+
+  template-test:
+    name: Template Test
+    needs: [build, make-nonce]
+    uses: ./.github/workflows/template-test.yml
+    secrets: inherit
+    with:
+      nonce: ${{ needs.make-nonce.outputs.nonce }}
+
+  release:
+    name: Release
+    needs: [build, make-nonce]
+    uses: ./.github/workflows/release.yml
+    secrets: inherit
+    with:
+      nonce: ${{ needs.make-nonce.outputs.nonce }}
