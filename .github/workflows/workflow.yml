@@ -68,6 +68,7 @@ jobs:
 
   release:
     name: Release
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: [build, make-nonce, test, e2e-test, template-test]
     uses: ./.github/workflows/release.yml
     secrets: inherit
