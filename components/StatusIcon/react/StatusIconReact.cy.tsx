@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import StatusIcon from './StatusIcon'
-import StatusIconStory from './StatusIcon.rootstory'
+import { Story as StatusIconStory } from './StatusIcon.rootstory'
 
 describe('StatusIcon', () => {
   it('defaults to a variant that exists if the one provided does not exist', () => {
