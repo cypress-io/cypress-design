@@ -1,11 +1,13 @@
 <script lang="ts" setup>
+import type { DefineComponent } from 'vue'
 import type { NavItemLink } from '@cypress-design/constants-docmenu'
 
 withDefaults(
   defineProps<{
     item: NavItemLink
-    depth?: number
     collapsible: boolean
+    depth?: number
+    linkComponent: DefineComponent | 'a'
   }>(),
   {
     depth: -1,
@@ -20,7 +22,8 @@ withDefaults(
       'pl-[16px]': depth >= 0,
     }"
   >
-    <a
+    <component
+      :is="linkComponent"
       class="group relative block w-full pl-[24px]"
       :class="{
         'text-indigo-500': item.active,
@@ -40,6 +43,6 @@ withDefaults(
         }"
       />
       {{ item.label }}
-    </a>
+    </component>
   </li>
 </template>

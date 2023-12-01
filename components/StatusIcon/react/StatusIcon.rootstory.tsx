@@ -5,7 +5,7 @@ import { statuses } from '../constants'
 
 const sizes = ['4', '8', '12', '16', '24']
 
-export default () => (
+export const Story = () => (
   <table className="w-full">
     <thead>
       <tr key="h0">
@@ -30,54 +30,46 @@ export default () => (
       </tr>
     </thead>
     <tbody>
-      {Object.entries(statuses).map(([status, statusInfo]) => {
-        return (
-          <>
-            {statusInfo.variants.map((variant, i) => {
-              return (
-                <tr
-                  className={clsx(i === 0 && 'border-t')}
-                  key={`${status}-${variant}`}
-                >
-                  {i === 0 ? (
-                    <td>
-                      {statusInfo.link ? (
-                        <a
-                          href={statusInfo.link}
-                          className="text-indigo-500 underline"
-                          target="_blank"
-                        >
-                          {status}
-                        </a>
-                      ) : (
-                        status
-                      )}
-                    </td>
-                  ) : (
-                    <td />
-                  )}
+      {Object.entries(statuses).map(([status, statusInfo]) =>
+        statusInfo.variants.map((variant, i) => (
+          <tr
+            className={clsx(i === 0 && 'border-t')}
+            key={`${status}-${variant}`}
+          >
+            {i === 0 ? (
+              <td>
+                {statusInfo.link ? (
+                  <a
+                    href={statusInfo.link}
+                    className="text-indigo-500 underline"
+                    target="_blank"
+                  >
+                    {status}
+                  </a>
+                ) : (
+                  status
+                )}
+              </td>
+            ) : (
+              <td />
+            )}
 
-                  <td>{variant}</td>
-                  {sizes.map((size) => {
-                    return (
-                      <td key={`${status}-${size}-${variant}`} className="py-2">
-                        <StatusIcon
-                          status={status as any}
-                          size={size as any}
-                          variant={variant}
-                        />
-                      </td>
-                    )
-                  })}
-                  <td className="py-2 align-top">
-                    {i === 0 ? statusInfo.use : ''}
-                  </td>
-                </tr>
+            <td>{variant}</td>
+            {sizes.map((size) => {
+              return (
+                <td key={`${status}-${size}-${variant}`} className="py-2">
+                  <StatusIcon
+                    status={status as any}
+                    size={size as any}
+                    variant={variant}
+                  />
+                </td>
               )
             })}
-          </>
-        )
-      })}
+            <td className="py-2 align-top">{i === 0 ? statusInfo.use : ''}</td>
+          </tr>
+        )),
+      )}
     </tbody>
   </table>
 )

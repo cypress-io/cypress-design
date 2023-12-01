@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, Ref, ref } from 'vue'
+import { computed, type DefineComponent, Ref, ref } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocLink from './_DocLink.vue'
@@ -9,6 +9,7 @@ const props = withDefaults(
   defineProps<{
     group: NavGroup
     collapsible: boolean
+    linkComponent: DefineComponent | 'a'
     depth?: number
   }>(),
   {
@@ -120,9 +121,16 @@ const Head = computed(() =>
           :group="item"
           :depth="depth + 1"
           :collapsible="props.collapsible"
+          :link-component="props.linkComponent"
         />
       </li>
-      <DocLink v-else :item="item" :depth="depth" :collapsible="collapsible" />
+      <DocLink
+        v-else
+        :item="item"
+        :depth="depth"
+        :collapsible="collapsible"
+        :link-component="props.linkComponent"
+      />
     </template>
   </ul>
 </template>

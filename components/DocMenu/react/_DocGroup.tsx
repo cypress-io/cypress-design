@@ -2,13 +2,15 @@ import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
-import { DocLink } from './_DocLink'
+import { DocLink, LinkComponentType } from './_DocLink'
 
 export interface DocGroupProps {
+  index: number
   group: NavGroup
   collapsible: boolean
   depth?: number
   setHeight?: (height: number) => void
+  LinkComponent?: LinkComponentType
 }
 
 export const DocGroup: React.FC<DocGroupProps> = ({
@@ -16,6 +18,8 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   collapsible,
   depth = 0,
   setHeight,
+  index,
+  LinkComponent = 'a',
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
   const [itemsHeights, setItemsHeights] = React.useState<number[]>(
@@ -23,8 +27,16 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   )
 
   React.useEffect(() => {
-    setHeight?.(open ? itemsHeights.reduce((a, b) => a + b, 1) : 1)
-  }, [itemsHeights, open, setHeight])
+    // if this group contains other groups, ignore this effect
+    // it will be triggered by a leaf and trickle up
+    if (group.items.some((item) => 'items' in item)) {
+      return
+    }
+
+    const newHeight = open ? itemsHeights.reduce((a, b) => a + b, 1) : 1
+
+    setHeight?.(newHeight)
+  }, [itemsHeights, open, setHeight, group.items, group.label])
 
   const [activeTop, setActiveTop] = React.useState(0)
 
@@ -44,13 +56,16 @@ export const DocGroup: React.FC<DocGroupProps> = ({
     setOpen(open)
   }
 
-  function onSetHeight(index: number, height: number) {
-    setItemsHeights((prev) => {
-      const newHeights = [...prev]
-      newHeights[index] = height
-      return newHeights
-    })
-  }
+  const onSetHeightCallback = React.useCallback(
+    (height: number) => {
+      setItemsHeights((prev) => {
+        const newHeights = [...prev]
+        newHeights[index] = height
+        return newHeights
+      })
+    },
+    [setItemsHeights, index],
+  )
 
   const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
 
@@ -102,8 +117,10 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               <DocGroup
                 group={item}
                 depth={depth + 1}
-                setHeight={(height) => onSetHeight(index, height)}
+                setHeight={onSetHeightCallback}
+                index={index}
                 collapsible={collapsible}
+                LinkComponent={LinkComponent}
               />
             </li>
           ) : (
@@ -113,6 +130,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               collapsible={collapsible}
               depth={depth}
               onActive={(top) => setActiveTop(top)}
+              LinkComponent={LinkComponent}
             />
           ),
         )}

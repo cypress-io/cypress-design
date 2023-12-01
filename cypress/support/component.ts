@@ -27,5 +27,19 @@ import 'cypress-real-events'
 
 Cypress.on(
   'uncaught:exception',
-  (err) => !err.message.includes('ResizeObserver loop limit exceeded')
+  (err) => !err.message.includes('ResizeObserver loop limit exceeded'),
 )
+
+beforeEach(() => {
+  cy.window().then((win) => {
+    cy.spy(win.console, 'error')
+    cy.spy(win.console, 'warn')
+  })
+})
+
+afterEach(() => {
+  cy.window().then((win) => {
+    expect(win.console.error).to.have.callCount(0)
+    expect(win.console.warn).to.have.callCount(0)
+  })
+})

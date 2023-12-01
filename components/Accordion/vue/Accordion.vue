@@ -56,6 +56,7 @@ import {
   SVGAttributes,
   onMounted,
   ref,
+  toRaw,
   useSlots,
 } from 'vue'
 import { CssClasses } from '@cypress-design/constants-accordion'
@@ -111,5 +112,5 @@ onMounted(function () {
   }
 })
 
-const Icon = props.icon
+const Icon = toRaw(props.icon)
 </script>
