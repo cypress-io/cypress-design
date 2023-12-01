@@ -68,7 +68,7 @@ jobs:
 
   release:
     name: Release
-    needs: [build, make-nonce]
+    needs: [build, make-nonce, test, e2e-test, template-test]
     uses: ./.github/workflows/release.yml
     secrets: inherit
     with:
