@@ -2,7 +2,7 @@
 import { mount } from 'cypress/vue'
 import assertions from '../assertions'
 import Tag from './Tag.vue'
-import { SizeClasses, ColorClasses } from '../constants'
+import { SizeClasses, ColorClasses } from '../constants/dist/dist'
 
 describe('<Tag/>', () => {
   function mountStory() {

@@ -13,6 +13,7 @@ export default () => {
         title="Spec not found"
         detailsTitle="Stack trace"
         data-cy="alert-1"
+        key="alert-1"
         details={
           <pre className="bg-white rounded border border-red-500 px-[16px] py-[8px] overflow-x-auto">
             {dedent`Uncaught Error: Error occurred in defineConfig()
@@ -68,6 +69,7 @@ export default () => {
       </button>
       {displayTimedAlert ? (
         <Alert
+          key="alert-2"
           title="Wait 5 seconds please"
           duration={5000}
           onDismiss={() => setDisplayTimedAlert(false)}
@@ -76,6 +78,7 @@ export default () => {
         />
       ) : null}
       <Alert
+        key="alert-3"
         variant="success"
         dismissible
         title="Success with body"
@@ -83,9 +86,10 @@ export default () => {
       >
         Success body
       </Alert>
-      <Alert variant="warning" title="Warning" notRounded />
-      <Alert variant="neutral" title="Neutral" />
+      <Alert key="alert-4" variant="warning" title="Warning" notRounded />
+      <Alert key="alert-5" variant="neutral" title="Neutral" />
       <Alert
+        key="alert-6"
         variant="error"
         dismissible
         data-cy="alert-4"
@@ -98,17 +102,24 @@ export default () => {
       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
       est laborum."
       />
-      <Alert variant="info" title="Info" />
-      <Alert variant="info" title="Info" customIcon={IconArrowRight} />
+      <Alert key="alert-7" variant="info" title="Info" />
+      <Alert
+        key="alert-8"
+        variant="info"
+        title="Info"
+        customIcon={IconArrowRight}
+      />
       {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
         <>
           <Alert
+            key="alert-9"
             variant="error"
             title={`${size} - Lorem ipsum dolor sit amet`}
             data-cy="alert-size"
             size={size}
           />
           <Alert
+            key="alert-10"
             title="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
           veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
