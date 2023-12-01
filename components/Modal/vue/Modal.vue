@@ -68,18 +68,31 @@ watch(internalShow, (val) => {
 onUnmounted(() => {
   freeBodyScroll()
 })
+
+function closeOnClickBackdrop(event: MouseEvent) {
+  var rect = $dialog.value?.getBoundingClientRect()
+  if (!rect) return
+  var isInDialog =
+    rect.top <= event.clientY &&
+    event.clientY <= rect.top + rect.height &&
+    rect.left <= event.clientX &&
+    event.clientX <= rect.left + rect.width
+  if (!isInDialog) {
+    internalShow.value = false
+  }
+}
 </script>
 
 <template>
   <dialog
     ref="$dialog"
     :class="[
-      '!fixed',
       internalShow ? ClassModal : null,
       fullscreen
         ? ClassModalFullscreenDimensions
         : ClassModalStandardDimensions,
     ]"
+    @click="closeOnClickBackdrop"
   >
     <div :class="ClassTitleBox">
       <div id="cy_modal_label" :class="ClassTitle">
@@ -118,19 +131,3 @@ onUnmounted(() => {
     </div>
   </dialog>
 </template>
-
-<style lang="scss" scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-dialog::backdrop {
-  @apply bg-gray-900/[.80] backdrop-blur-sm;
-}
-</style>

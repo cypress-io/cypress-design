@@ -60,7 +60,7 @@ const showModal = ref(false)
       /><input />
     </div>
     <Button variant="jade-dark" @click="showModal = true">Open Modal</Button>
-    <Modal v-model="showModal" title="This is shown">
+    <Modal v-model:show="showModal" title="This is shown">
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel reiciendis
       magni quo dolor unde dolorem illum possimus laborum voluptatum maiores
       blanditiis officiis fugiat sapiente, adipisci eum. Sapiente recusandae

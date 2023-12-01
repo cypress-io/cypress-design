@@ -6,7 +6,6 @@ import {
   IconActionDelete,
 } from '@cypress-design/react-icon'
 import {
-  ClassBackDrop,
   ClassCloseButton,
   ClassContent,
   ClassHelpLink,
@@ -14,7 +13,6 @@ import {
   ClassModal,
   ClassModalFullscreenDimensions,
   ClassModalStandardDimensions,
-  ClassModalContainer,
   ClassTitle,
   ClassTitleBox,
   disableBodyScroll,
@@ -38,13 +36,17 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   fullscreen = false,
 }) => {
+  const dialogRef = React.useRef<HTMLDialogElement>(null)
+
   React.useEffect(() => {
     if (show) {
       disableBodyScroll()
+      dialogRef.current?.showModal()
     } else {
+      dialogRef.current?.close()
       freeBodyScroll()
     }
-  }, [show])
+  }, [show, onClose])
 
   React.useEffect(
     () => () => {
@@ -53,61 +55,69 @@ export const Modal: React.FC<ModalProps> = ({
     [],
   )
 
+  const closeOnClickBackdrop = React.useCallback<
+    React.MouseEventHandler<HTMLDialogElement>
+  >(
+    (event) => {
+      const rect = dialogRef.current?.getBoundingClientRect()
+      if (!rect) return
+      const isInDialog =
+        rect.top <= event.clientY &&
+        event.clientY <= rect.top + rect.height &&
+        rect.left <= event.clientX &&
+        event.clientX <= rect.left + rect.width
+      if (!isInDialog) {
+        onClose?.()
+      }
+    },
+    [onClose],
+  )
+
   return (
     show &&
     createPortal(
-      <div>
-        <div className={ClassBackDrop} onClick={() => onClose?.()}></div>
-
-        <div
-          className={ClassModalContainer}
-          tabIndex={-1}
-          aria-modal="true"
-          aria-labelledby="cy_modal_label"
-          role="dialog"
-        >
-          <div
-            className={clsx(
-              ClassModal,
-              fullscreen
-                ? ClassModalFullscreenDimensions
-                : ClassModalStandardDimensions,
-            )}
-          >
-            <div className={ClassTitleBox}>
-              <div id="cy_modal_label" className={ClassTitle}>
-                {title}
-              </div>
-              {helpLink ? <div className={ClassHelpLinkDash} /> : null}
-              {helpLink ? (
-                <a href={helpLink} className={ClassHelpLink}>
-                  Need help
-                  <IconActionQuestionMarkCircle
-                    className="ml-[4px]"
-                    stroke-color="indigo-500"
-                    fill-color="indigo-100"
-                  />
-                </a>
-              ) : null}
-
-              <div className="grow" />
-              <button
-                aria-label="Close"
-                className={ClassCloseButton}
-                onClick={() => onClose?.()}
-              >
-                <IconActionDelete
-                  className="children:transition-all"
-                  stroke-color="gray-400"
-                  hover-stroke-color="gray-700"
-                  interactiveColorsOnGroup
-                />
-              </button>
-            </div>
-            <div className={ClassContent}>{children}</div>
+      <dialog
+        ref={dialogRef}
+        className={clsx(
+          show ? ClassModal : null,
+          fullscreen
+            ? ClassModalFullscreenDimensions
+            : ClassModalStandardDimensions,
+        )}
+        onClick={closeOnClickBackdrop}
+      >
+        <div className={ClassTitleBox}>
+          <div id="cy_modal_label" className={ClassTitle}>
+            {title}
           </div>
+          {helpLink ? <div className={ClassHelpLinkDash} /> : null}
+          {helpLink ? (
+            <a href={helpLink} className={ClassHelpLink}>
+              Need help
+              <IconActionQuestionMarkCircle
+                className="ml-[4px]"
+                stroke-color="indigo-500"
+                fill-color="indigo-100"
+              />
+            </a>
+          ) : null}
+
+          <div className="grow" />
+          <button
+            aria-label="Close"
+            className={ClassCloseButton}
+            onClick={() => onClose?.()}
+          >
+            <IconActionDelete
+              className="children:transition-all"
+              stroke-color="gray-400"
+              hover-stroke-color="gray-700"
+              interactiveColorsOnGroup
+            />
+          </button>
         </div>
-      </div>,
+        <div className={ClassContent}>{children}</div>
+      </dialog>,
       document.body,
     )
   )
