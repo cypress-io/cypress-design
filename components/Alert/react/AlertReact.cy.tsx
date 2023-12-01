@@ -113,9 +113,8 @@ const AlertStory = () => {
         customIcon={IconArrowRight}
       />
       {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
-        <>
+        <React.Fragment key={`alert-9-${size}`}>
           <Alert
-            key={`alert-9-${size}`}
             variant="error"
             title={`${size} - Lorem ipsum dolor sit amet`}
             data-cy="alert-size"
@@ -134,7 +133,7 @@ const AlertStory = () => {
             data-cy="alert-size"
             size={size}
           />
-        </>
+        </React.Fragment>
       ))}
     </div>
   )
