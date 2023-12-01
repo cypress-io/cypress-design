@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import Tag from './Tag'
-import { SizeClasses, ColorClasses } from '../constants'
+import { SizeClasses, ColorClasses } from '@cypress-design/constants-tag'
 import assertions from '../assertions'
 
 describe('Tag', () => {
@@ -20,12 +20,18 @@ describe('Tag', () => {
                 ).map((color) => {
                   return (
                     <>
-                      <div className="flex items-center justify-center">
+                      <div
+                        key={color}
+                        className="flex items-center justify-center"
+                      >
                         <Tag size={size} color={color}>
                           {`{Tag}`}
                         </Tag>
                       </div>
-                      <div className="flex items-center justify-center">
+                      <div
+                        key={`${color}-2`}
+                        className="flex items-center justify-center"
+                      >
                         <Tag size={size} color={color} dark>
                           {`{Tag}`}
                         </Tag>
