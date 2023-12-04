@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@cypress-design/react-checkbox": "*",
+    "@cypress-design/react-docmenu": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-modal": "*",
     "@cypress-design/react-spinner": "*",
