@@ -13,13 +13,16 @@ describe('Tag', () => {
         {(Object.keys(SizeClasses) as Array<keyof typeof SizeClasses>).map(
           (size) => {
             return (
-              <div className="flex flex-col items-center gap-3 justify-center my-4 p-4 bg-white rounded-lg">
+              <div
+                key={`size-${size}`}
+                className="flex flex-col items-center gap-3 justify-center my-4 p-4 bg-white rounded-lg"
+              >
                 <h3 className="text-right">{size}</h3>
                 {(
                   Object.keys(ColorClasses) as Array<keyof typeof ColorClasses>
                 ).map((color) => {
                   return (
-                    <>
+                    <React.Fragment key={color}>
                       <div
                         key={color}
                         className="flex items-center justify-center"
@@ -36,7 +39,7 @@ describe('Tag', () => {
                           {`{Tag}`}
                         </Tag>
                       </div>
-                    </>
+                    </React.Fragment>
                   )
                 })}
               </div>
