@@ -10,6 +10,31 @@ import Modal from '@cypress-design/react-modal'
 import Button from '@cypress-design/react-button'
 import Tabs from '@cypress-design/react-tabs'
 import Tooltip from '@cypress-design/react-tooltip'
+import DocMenu from '@cypress-design/react-docmenu'
+
+function LinkComponent({
+  href,
+  children,
+  className,
+}: {
+  href: string
+  className?: string
+  children?: any
+}) {
+  return (
+    <a
+      className={className}
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => {
+        e.preventDefault()
+      }}
+    >
+      {children} 🔗
+    </a>
+  )
+}
 
 function App() {
   const [count, setCount] = useState(0)
@@ -90,7 +115,31 @@ function App() {
           fillColor="jade-500"
         />
       </header>
-      <div className="h-[500px]" />
+      <div className="h-[500px] text-left">
+        <DocMenu
+          LinkComponent={LinkComponent}
+          items={[
+            {
+              label: 'Get Started',
+              href: '#',
+            },
+            {
+              label: 'Overview',
+              items: [
+                {
+                  label: 'Overview Item 1',
+                  href: '#',
+                },
+                {
+                  label: 'Overview Item 2',
+                  href: '#',
+                  active: true,
+                },
+              ],
+            },
+          ]}
+        />
+      </div>
       <div className="text-center">
         <Button className="mx-auto my-4" onClick={() => setShowModal(true)}>
           Open Modal
