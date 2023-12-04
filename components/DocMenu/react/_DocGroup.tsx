@@ -38,17 +38,22 @@ export const DocGroup: React.FC<DocGroupProps> = ({
     setHeight?.(newHeight)
   }, [itemsHeights, open, setHeight, group.items, group.label])
 
-  const [activeTop, setActiveTop] = React.useState(0)
+  const [activeTop, setActiveTop] = React.useState<number | undefined>(
+    undefined,
+  )
+
+  const [activeHeight, setActiveHeight] = React.useState<number | undefined>(36)
 
   React.useEffect(() => {
-    const activeItem = group.items.findIndex(
+    const activeItemIndex = group.items.findIndex(
       (item) => 'href' in item && item.active,
     )
-    if (activeItem >= 0) {
-      setActiveTop(
-        itemsHeights.slice(0, activeItem).reduce((a, b) => a + b, 1) * 44,
-      )
-    }
+
+    setActiveTop(
+      activeItemIndex >= 0
+        ? itemsHeights.slice(0, activeItemIndex).reduce((a, b) => a + b, 44)
+        : undefined,
+    )
   }, [itemsHeights, group.items])
 
   function toggleMenu(open: boolean) {
@@ -102,6 +107,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
           style={{
             top: `${activeTop}px`,
             left: `${depth === 0 ? 0.5 : -(depth * 8) - 0.5}px`,
+            height: `${activeHeight}px`,
           }}
         />
       ) : null}
@@ -129,7 +135,10 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               item={item}
               collapsible={collapsible}
               depth={depth}
-              onActive={(top) => setActiveTop(top)}
+              onActive={({ top, height }) => {
+                setActiveTop(top)
+                setActiveHeight(height)
+              }}
               LinkComponent={LinkComponent}
             />
           ),

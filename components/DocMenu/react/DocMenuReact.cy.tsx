@@ -32,6 +32,108 @@ describe('<DocMenu/>', () => {
     )
   })
 
+  it(
+    'wraps items correctly',
+    { viewportHeight: 850, viewportWidth: 350 },
+    () => {
+      const Sut = () => {
+        const [activeHref, setActiveHref] = React.useState<string | undefined>()
+        return (
+          <div className="w-[200px]">
+            <DocMenu
+              LinkComponent={({ href, className, children }) => (
+                <div className={className} onClick={() => setActiveHref(href)}>
+                  {children}
+                </div>
+              )}
+              items={[
+                {
+                  href: '/foo',
+                  label: 'Foo',
+                  active: activeHref === '/foo',
+                },
+                {
+                  href: '/test',
+                  label: 'Getting started',
+                  active: activeHref === '/test',
+                },
+                {
+                  href: '/faaz',
+                  label:
+                    'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,',
+                  active: activeHref === '/faaz',
+                },
+                {
+                  label: 'Baaaaaaz',
+                  items: [
+                    {
+                      label: 'Bar',
+                      items: [
+                        {
+                          href: '/foo',
+                          label: 'Foo',
+                          active: activeHref === '/foo',
+                        },
+                        {
+                          href: '/test',
+                          label: 'Getting started',
+                          active: activeHref === '/test',
+                        },
+                      ],
+                    },
+                    {
+                      label: 'Code',
+                      items: [
+                        {
+                          href: '/faa',
+                          label: 'sasassa',
+                        },
+                        {
+                          href: '/faa1',
+                          label: 'sasassa2',
+                        },
+                        {
+                          href: '/faa2',
+                          label: 'sasassa3',
+                        },
+                        {
+                          href: '/faa3',
+                          label: 'sasassa4',
+                        },
+                        {
+                          href: '/faa4',
+                          label:
+                            'lorem ipsum dolor sit amet consectetur adipisicing elit',
+                        },
+                        {
+                          href: '/faa5',
+                          label: 'sasassa5',
+                        },
+                        {
+                          href: '/faa',
+                          label:
+                            'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
+                          active: activeHref === '/faa',
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ]}
+            />
+          </div>
+        )
+      }
+      mount(<Sut />)
+
+      cy.findByText('Bar').click()
+      cy.findByText('Code').click()
+      cy.findByText(
+        'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
+      ).click()
+    },
+  )
+
   it('renders the custom link components', () => {
     mount(
       <DocMenu
@@ -57,3 +159,6 @@ describe('<DocMenu/>', () => {
   }
   assertions(mountStory)
 })
+
+// pseudo text
+// lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos

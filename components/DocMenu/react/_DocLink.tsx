@@ -12,7 +12,7 @@ export interface DocLinkProps {
   item: NavItemLink
   collapsible: boolean
   depth?: number
-  onActive?: (top: number) => void
+  onActive?: (opts: { top: number; height: number }) => void
   LinkComponent?: LinkComponentType
 }
 
@@ -29,7 +29,10 @@ export const DocLink: React.FC<DocLinkProps> = ({
   // send the top position to the parent
   React.useEffect(() => {
     if (item.active) {
-      onActive?.(activeLIRef?.current?.offsetTop || 0)
+      onActive?.({
+        top: activeLIRef?.current?.offsetTop || 0,
+        height: activeLIRef?.current?.offsetHeight || 0,
+      })
     }
   }, [onActive, item.active])
 
