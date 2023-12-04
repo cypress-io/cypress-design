@@ -1,5 +1,18 @@
 # @cypress-design/vue-docmenu
 
+## 0.4.0
+
+### Minor Changes
+
+- [#350](https://github.com/cypress-io/cypress-design/pull/350) [`abc414d`](https://github.com/cypress-io/cypress-design/commit/abc414da149eb6fe0cfa61497a0aa8630d8d8d6e) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: allow usage of a custom link component
+
+### Patch Changes
+
+- [#347](https://github.com/cypress-io/cypress-design/pull/347) [`de67952`](https://github.com/cypress-io/cypress-design/commit/de679522ea2269854ec8ac8de925fcf930ce96e4) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: docmenu docusaurus style items structure
+
+- Updated dependencies [[`de67952`](https://github.com/cypress-io/cypress-design/commit/de679522ea2269854ec8ac8de925fcf930ce96e4)]:
+  - @cypress-design/constants-docmenu@0.1.1
+
 ## 0.3.0
 
 ### Minor Changes

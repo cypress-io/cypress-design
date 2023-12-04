@@ -1,5 +1,11 @@
 # @cypress-design/vue-accordion
 
+## 0.4.5
+
+### Patch Changes
+
+- [#350](https://github.com/cypress-io/cypress-design/pull/350) [`abc414d`](https://github.com/cypress-io/cypress-design/commit/abc414da149eb6fe0cfa61497a0aa8630d8d8d6e) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: remove some warnings returned by Vue compiler
+
 ## 0.4.4
 
 ### Patch Changes

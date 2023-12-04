@@ -1,5 +1,11 @@
 # @cypress-design/constants-modal
 
+## 0.3.0
+
+### Minor Changes
+
+- [#351](https://github.com/cypress-io/cypress-design/pull/351) [`98322c8`](https://github.com/cypress-io/cypress-design/commit/98322c8ca62a62f3462457704a0d3a06beb84be2) Thanks [@elevatebart](https://github.com/elevatebart)! - refactor: build dialog using dialog html
+
 ## 0.2.1
 
 ### Patch Changes
