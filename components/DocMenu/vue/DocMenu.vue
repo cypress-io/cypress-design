@@ -53,6 +53,7 @@ function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
             :collapsible="collapsible"
             :link-component="linkComponent"
             @update-active-position="updateActiveMarkerPosition"
+            @hide-marker="showMarker = false"
           />
         </li>
         <DocLink
