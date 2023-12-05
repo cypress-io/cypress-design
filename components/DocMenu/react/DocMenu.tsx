@@ -52,12 +52,12 @@ export const DocMenu: React.FC<DocMenuProps> = ({
           'items' in item ? (
             <li key={index} className="relative list-none p-0">
               <DocGroup
-                index={index}
                 group={item}
                 activePath={activePath}
                 collapsible={collapsible}
                 LinkComponent={LinkComponent}
                 onActivePosition={setActivePos}
+                hideMarker={() => setShowMarker(false)}
               />
             </li>
           ) : (

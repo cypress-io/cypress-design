@@ -2,129 +2,168 @@ import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
-import { DocLink, LinkComponentType } from './_DocLink'
+import { DocLink, LinkComponentType, type DocLinkForward } from './_DocLink'
 
 export interface DocGroupProps {
-  index: number
   group: NavGroup
   activePath: string
   collapsible: boolean
   onActivePosition: (opts: { top: number; height: number }) => void
+  updateMarkerPosition?: () => void
   depth?: number
-  setHeight?: (height: number) => void
   LinkComponent?: LinkComponentType
+  hideMarker: () => void
 }
 
-export const DocGroup: React.FC<DocGroupProps> = ({
-  group,
-  activePath,
-  collapsible,
-  depth = 0,
-  setHeight,
-  index,
-  onActivePosition,
-  LinkComponent = 'a',
-}) => {
-  const [open, setOpen] = React.useState(depth === 0)
-  const [itemsHeights, setItemsHeights] = React.useState<number[]>(
-    Array(group.items.length).fill(1),
-  )
+export interface DocGroupForward {
+  reTriggerSetActiveGroup: () => void
+}
 
-  React.useEffect(() => {
-    // if this group contains other groups, ignore this effect
-    // it will be triggered by a leaf and trickle up
-    if (group.items.some((item) => 'items' in item)) {
-      return
+export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
+  (
+    {
+      group,
+      activePath,
+      collapsible,
+      depth = 0,
+      onActivePosition,
+      updateMarkerPosition,
+      LinkComponent = 'a',
+      hideMarker,
+    },
+    ref,
+  ) => {
+    const [open, setOpen] = React.useState(group.collapsed !== true)
+    const $groups = React.useRef<DocGroupForward[]>([])
+    const $items = React.useRef<DocLinkForward[]>([])
+
+    function toggleMenu(open: boolean) {
+      if (!collapsible) return
+      setOpen(open)
     }
 
-    const newHeight = open ? itemsHeights.reduce((a, b) => a + b, 1) : 1
+    const hasActiveItemRecursively = React.useCallback(
+      (items = group.items): boolean => {
+        return items.some((item) => {
+          if ('items' in item) {
+            return hasActiveItemRecursively(item.items)
+          }
+          return item.href === activePath
+        })
+      },
+      [group.items, activePath],
+    )
 
-    setHeight?.(newHeight)
-  }, [itemsHeights, open, setHeight, group.items, group.label])
+    const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
 
-  function toggleMenu(open: boolean) {
-    if (!collapsible) return
-    setOpen(open)
-  }
+    const setActivePosition = React.useCallback(
+      ({ top, height }: { top: number; height: number }) => {
+        if (open) {
+          onActivePosition({ top, height })
+        }
+      },
+      [onActivePosition, open],
+    )
 
-  const onSetHeightCallback = React.useCallback(
-    (height: number) => {
-      setItemsHeights((prev) => {
-        const newHeights = [...prev]
-        newHeights[index] = height
-        return newHeights
+    function reTriggerSetActiveGroup() {
+      $groups.current.forEach((group) => {
+        group.reTriggerSetActiveGroup()
       })
-    },
-    [setItemsHeights, index],
-  )
+      $items.current.forEach((item) => {
+        item.setActiveMarkerPosition()
+      })
+    }
 
-  const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
-
-  const setActivePosition = React.useCallback(
-    ({ top, height }: { top: number; height: number }) => {
-      if (open) {
-        onActivePosition({ top, height })
+    React.useEffect(() => {
+      if (hasActiveItemRecursively()) {
+        if (open) {
+          reTriggerSetActiveGroup()
+        } else {
+          hideMarker()
+        }
+      } else {
+        updateMarkerPosition?.()
       }
-    },
-    [onActivePosition, open],
-  )
+    }, [open, updateMarkerPosition, hideMarker, hasActiveItemRecursively])
 
-  return (
-    <>
-      <Head
-        onClick={() => toggleMenu(!open)}
-        href={group.href}
-        className={clsx(classes.button, {
-          [classes.topButton]: depth === 0,
-          [classes.leafButton]: depth,
-        })}
-      >
-        {collapsible ? (
-          <IconChevronDownSmall
-            stroke-color="gray-400"
-            size={depth ? '8' : '16'}
-            className={clsx('absolute transform transition-transform left-0', {
-              'rotate-0': open,
-              '-rotate-90': !open,
-              'ml-[16px]': depth,
-            })}
-          />
-        ) : null}
-        {group.label}
-      </Head>
-      <ul
-        className={clsx('ml-[8px] list-none p-0', {
-          'border-l border-gray-100': depth === 0 && collapsible,
-          hidden: !open,
-        })}
-      >
-        {group.items.map((item, index) =>
-          'items' in item ? (
-            <li key={index} className="relative list-none p-0">
-              <DocGroup
-                group={item}
-                activePath={activePath}
-                depth={depth + 1}
-                setHeight={onSetHeightCallback}
-                index={index}
-                collapsible={collapsible}
-                LinkComponent={LinkComponent}
-                onActivePosition={setActivePosition}
-              />
-            </li>
-          ) : (
-            <DocLink
-              key={index}
-              item={item}
-              active={item.href === activePath}
-              collapsible={collapsible}
-              depth={depth}
-              onActive={setActivePosition}
-              LinkComponent={LinkComponent}
+    React.useImperativeHandle(ref, () => ({
+      reTriggerSetActiveGroup,
+    }))
+
+    const onUpdateMarkerPosition = React.useCallback(() => {
+      if (hasActiveItemRecursively()) {
+        reTriggerSetActiveGroup()
+      } else {
+        updateMarkerPosition?.()
+      }
+    }, [hasActiveItemRecursively, updateMarkerPosition])
+
+    return (
+      <>
+        <Head
+          onClick={() => toggleMenu(!open)}
+          href={group.href}
+          className={clsx(classes.button, {
+            [classes.topButton]: depth === 0,
+            [classes.leafButton]: depth,
+          })}
+        >
+          {collapsible ? (
+            <IconChevronDownSmall
+              stroke-color="gray-400"
+              size={depth ? '8' : '16'}
+              className={clsx(
+                'absolute transform transition-transform left-0',
+                {
+                  'rotate-0': open,
+                  '-rotate-90': !open,
+                  'ml-[16px]': depth,
+                },
+              )}
             />
-          ),
-        )}
-      </ul>
-    </>
-  )
-}
+          ) : null}
+          {group.label}
+        </Head>
+        <ul
+          className={clsx('ml-[8px] list-none p-0', {
+            'border-l border-gray-100': depth === 0 && collapsible,
+            hidden: !open,
+          })}
+        >
+          {group.items.map((item, index) =>
+            'items' in item ? (
+              <li key={index} className="relative list-none p-0">
+                <DocGroup
+                  ref={(el: DocGroupForward) => {
+                    $groups.current[index] = el
+                  }}
+                  group={item}
+                  activePath={activePath}
+                  depth={depth + 1}
+                  collapsible={collapsible}
+                  LinkComponent={LinkComponent}
+                  hideMarker={hideMarker}
+                  onActivePosition={setActivePosition}
+                  updateMarkerPosition={onUpdateMarkerPosition}
+                />
+              </li>
+            ) : (
+              <DocLink
+                ref={(el: DocLinkForward) => {
+                  $items.current[index] = el
+                }}
+                key={index}
+                item={item}
+                active={item.href === activePath}
+                collapsible={collapsible}
+                depth={depth}
+                onActive={setActivePosition}
+                LinkComponent={LinkComponent}
+              />
+            ),
+          )}
+        </ul>
+      </>
+    )
+  },
+)

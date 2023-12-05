@@ -85,6 +85,7 @@ describe('<DocMenu/>', () => {
                     },
                     {
                       label: 'Code',
+                      collapsed: true,
                       items: [
                         {
                           href: '/faa',
@@ -151,7 +152,7 @@ describe('<DocMenu/>', () => {
         )}
       />,
     )
-    cy.findByText('Bar').click()
+
     cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
   })
 

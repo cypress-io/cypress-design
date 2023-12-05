@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref, watch, nextTick } from 'vue'
+import { computed, type DefineComponent, ref, watch } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocLink from './_DocLink.vue'
@@ -45,8 +45,7 @@ function hasActiveItemRecursively(items = props.group.items): boolean {
   })
 }
 
-watch(open, async (open) => {
-  await nextTick()
+watch(open, (open) => {
   if (hasActiveItemRecursively()) {
     if (open) {
       reTriggerSetActiveGroup()
