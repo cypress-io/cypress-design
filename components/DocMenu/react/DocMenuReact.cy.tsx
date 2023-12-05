@@ -25,7 +25,12 @@ describe('<DocMenu/>', () => {
         items={[
           {
             label: 'Baaaaaaz',
-            items: [{ label: 'Bar', items: [{ href: '/foo', label: 'Foo' }] }],
+            items: [
+              {
+                label: 'Bar',
+                items: [{ href: '/foo', label: 'Foo', active: true }],
+              },
+            ],
           },
         ]}
       />,
@@ -34,12 +39,13 @@ describe('<DocMenu/>', () => {
 
   it(
     'wraps items correctly',
-    { viewportHeight: 850, viewportWidth: 350 },
+    { viewportHeight: 950, viewportWidth: 350 },
     () => {
       const Sut = () => {
         const [activeHref, setActiveHref] = React.useState<string | undefined>()
+
         return (
-          <div className="w-[200px]">
+          <div className="w-[200px] mt-[60px] absolute">
             <DocMenu
               LinkComponent={({ href, className, children }) => (
                 <div className={className} onClick={() => setActiveHref(href)}>
@@ -104,6 +110,7 @@ describe('<DocMenu/>', () => {
                           href: '/faa4',
                           label:
                             'lorem ipsum dolor sit amet consectetur adipisicing elit',
+                          active: activeHref === '/faa4',
                         },
                         {
                           href: '/faa5',

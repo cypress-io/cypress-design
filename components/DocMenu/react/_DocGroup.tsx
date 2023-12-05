@@ -8,6 +8,8 @@ export interface DocGroupProps {
   index: number
   group: NavGroup
   collapsible: boolean
+  onActive: (opts: { top: number; height: number }) => void
+  onCollapse: (opts: { hasActive: boolean; open: boolean }) => void
   depth?: number
   setHeight?: (height: number) => void
   LinkComponent?: LinkComponentType
@@ -19,6 +21,8 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   depth = 0,
   setHeight,
   index,
+  onActive,
+  onCollapse,
   LinkComponent = 'a',
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
@@ -38,27 +42,10 @@ export const DocGroup: React.FC<DocGroupProps> = ({
     setHeight?.(newHeight)
   }, [itemsHeights, open, setHeight, group.items, group.label])
 
-  const [activeTop, setActiveTop] = React.useState<number | undefined>(
-    undefined,
-  )
-
-  const [activeHeight, setActiveHeight] = React.useState<number | undefined>(36)
-
-  React.useEffect(() => {
-    const activeItemIndex = group.items.findIndex(
-      (item) => 'href' in item && item.active,
-    )
-
-    setActiveTop(
-      activeItemIndex >= 0
-        ? itemsHeights.slice(0, activeItemIndex).reduce((a, b) => a + b, 44)
-        : undefined,
-    )
-  }, [itemsHeights, group.items])
-
   function toggleMenu(open: boolean) {
     if (!collapsible) return
     setOpen(open)
+    onCollapse({ hasActive: true, open })
   }
 
   const onSetHeightCallback = React.useCallback(
@@ -73,6 +60,15 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   )
 
   const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
+
+  const setActive = React.useCallback(
+    ({ top, height }: { top: number; height: number }) => {
+      if (open) {
+        onActive({ top, height })
+      }
+    },
+    [onActive, open],
+  )
 
   return (
     <>
@@ -98,19 +94,6 @@ export const DocGroup: React.FC<DocGroupProps> = ({
         ) : null}
         {group.label}
       </Head>
-      {collapsible &&
-      depth >= 0 &&
-      open &&
-      group.items.some((item) => 'href' in item && item.active) ? (
-        <div
-          className="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[4px]"
-          style={{
-            top: `${activeTop}px`,
-            left: `${depth === 0 ? 0.5 : -(depth * 8) - 0.5}px`,
-            height: `${activeHeight}px`,
-          }}
-        />
-      ) : null}
       <ul
         className={clsx('ml-[8px] list-none p-0', {
           'border-l border-gray-100': depth === 0 && collapsible,
@@ -126,7 +109,9 @@ export const DocGroup: React.FC<DocGroupProps> = ({
                 setHeight={onSetHeightCallback}
                 index={index}
                 collapsible={collapsible}
+                onCollapse={onCollapse}
                 LinkComponent={LinkComponent}
+                onActive={setActive}
               />
             </li>
           ) : (
@@ -135,10 +120,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               item={item}
               collapsible={collapsible}
               depth={depth}
-              onActive={({ top, height }) => {
-                setActiveTop(top)
-                setActiveHeight(height)
-              }}
+              onActive={setActive}
               LinkComponent={LinkComponent}
             />
           ),

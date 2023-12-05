@@ -29,9 +29,10 @@ export const DocLink: React.FC<DocLinkProps> = ({
   // send the top position to the parent
   React.useEffect(() => {
     if (item.active) {
+      const box = activeLIRef?.current?.getBoundingClientRect()
       onActive?.({
-        top: activeLIRef?.current?.offsetTop || 0,
-        height: activeLIRef?.current?.offsetHeight || 0,
+        top: box?.top || 0,
+        height: box?.height || 0,
       })
     }
   }, [onActive, item.active])
@@ -54,7 +55,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
         {depth >= 0 ? (
           <div
             className={clsx(
-              'absolute w-[4px] z-10 top-[10%] h-[80%] rounded-full hidden',
+              'absolute w-[4px] z-10 top-[4px] bottom-[4px] rounded-full hidden',
               {
                 'group-hover:block bg-gray-300': !item.active && collapsible,
               },
