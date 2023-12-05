@@ -60,6 +60,13 @@ function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
           :active="item.href === activePath"
           :collapsible="collapsible"
           :link-component="linkComponent"
+          @update:active="
+            (active) => {
+              if (active) {
+                showMarker = false
+              }
+            }
+          "
         />
       </template>
     </ul>
