@@ -14,6 +14,7 @@ withDefaults(
   {
     linkComponent: 'a',
     collapsible: true,
+    activePath: '<unknown>',
   },
 )
 </script>

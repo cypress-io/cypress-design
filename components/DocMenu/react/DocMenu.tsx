@@ -15,7 +15,7 @@ export interface DocMenuProps extends React.HTMLAttributes<HTMLUListElement> {
 
 export const DocMenu: React.FC<DocMenuProps> = ({
   items,
-  activePath,
+  activePath = '<unknown>',
   collapsible = true,
   LinkComponent = 'a',
   ...rest

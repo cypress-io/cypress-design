@@ -28,7 +28,7 @@ describe('<DocMenu/>', () => {
             items: [
               {
                 label: 'Bar',
-                items: [{ href: '/foo', label: 'Foo', active: true }],
+                items: [{ href: '/foo', label: 'Foo' }],
               },
             ],
           },
@@ -55,8 +55,8 @@ describe('<DocMenu/>', () => {
               )}
               items={[
                 {
-                  href: '/foo',
-                  label: 'Foo',
+                  href: '/fooTop',
+                  label: 'Foo Top',
                 },
                 {
                   href: '/test',
@@ -112,7 +112,7 @@ describe('<DocMenu/>', () => {
                           label: 'sasassa5',
                         },
                         {
-                          href: '/faa',
+                          href: '/faa6',
                           label:
                             'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
                         },
@@ -155,8 +155,8 @@ describe('<DocMenu/>', () => {
     cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
   })
 
-  function mountStory(items: (NavItemLink | NavGroup)[] = []) {
-    mount(<DocMenu items={items} />)
+  function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
+    mount(<DocMenu items={items} activePath={activePath} />)
   }
   assertions(mountStory)
 })
