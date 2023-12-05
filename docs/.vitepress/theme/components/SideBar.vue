@@ -30,9 +30,6 @@ const components = computed<NavGroup>(() => {
       return {
         label: getPageName(p),
         href: p.replace(/\.md$/, ''),
-        active:
-          props.currentPath.length > 1 &&
-          p.replace(/\/(vue|react)/, '').includes(props.currentPath),
       }
     }),
   }
@@ -51,6 +48,7 @@ const patternGroup = computed<NavGroup>(() => {
 <template>
   <DocMenu
     :items="[...docsPages, components, patternGroup]"
+    :activePath="props.currentPath"
     class="pl-[16px] md:py-[16px] w-[250px]"
   />
 </template>

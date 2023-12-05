@@ -31,9 +31,6 @@ export function getDocsPages(routePath: Ref<string>) {
                 ?.replace(/^\d+-(\w)/g, '$1')
                 .replace(/-/g, ' ') ?? '',
         href: clientRoute,
-        active:
-          routePath.value.endsWith(`${clientRoute}.html`) ||
-          (routePath.value === '/' && clientRoute === '/'),
       }
     }),
   )
