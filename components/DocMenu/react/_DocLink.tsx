@@ -10,6 +10,7 @@ export type LinkComponentType = React.ElementType<{
 
 export interface DocLinkProps {
   item: NavItemLink
+  active: boolean
   collapsible: boolean
   depth?: number
   onActive?: (opts: { top: number; height: number }) => void
@@ -18,6 +19,7 @@ export interface DocLinkProps {
 
 export const DocLink: React.FC<DocLinkProps> = ({
   item,
+  active,
   collapsible,
   depth = -1,
   onActive,
@@ -28,14 +30,14 @@ export const DocLink: React.FC<DocLinkProps> = ({
   // on mount, if the item is active,
   // send the top position to the parent
   React.useEffect(() => {
-    if (item.active) {
+    if (active) {
       const box = activeLIRef?.current?.getBoundingClientRect()
       onActive?.({
         top: box?.top || 0,
         height: box?.height || 0,
       })
     }
-  }, [onActive, item.active])
+  }, [onActive, active])
 
   return (
     <li
@@ -46,7 +48,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
     >
       <LinkComponent
         className={clsx('group relative inline-block pl-[24px]', {
-          'text-indigo-500': item.active,
+          'text-indigo-500': active,
           'py-[8px] text-[16px] leading-[24px]': depth < 0,
           'py-[12px] leading-[20px] text-[14px]': depth >= 0,
         })}
@@ -57,7 +59,7 @@ export const DocLink: React.FC<DocLinkProps> = ({
             className={clsx(
               'absolute w-[4px] z-10 top-[4px] bottom-[4px] rounded-full hidden',
               {
-                'group-hover:block bg-gray-300': !item.active && collapsible,
+                'group-hover:block bg-gray-300': !active && collapsible,
               },
             )}
             style={{

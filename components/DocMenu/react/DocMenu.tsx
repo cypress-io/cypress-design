@@ -8,12 +8,14 @@ export type NavItem = NavGroup | NavItemLink
 
 export interface DocMenuProps extends React.HTMLAttributes<HTMLUListElement> {
   items: NavItem[]
+  activePath?: string
   collapsible?: boolean
   LinkComponent?: LinkComponentType
 }
 
 export const DocMenu: React.FC<DocMenuProps> = ({
   items,
+  activePath,
   collapsible = true,
   LinkComponent = 'a',
   ...rest
@@ -52,6 +54,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
               <DocGroup
                 index={index}
                 group={item}
+                activePath={activePath}
                 collapsible={collapsible}
                 LinkComponent={LinkComponent}
                 onActive={setActivePos}
@@ -62,6 +65,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
             <DocLink
               key={index}
               item={item}
+              active={item.href === activePath}
               collapsible={collapsible}
               LinkComponent={LinkComponent}
             />

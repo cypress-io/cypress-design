@@ -41,9 +41,9 @@ describe('<DocMenu/>', () => {
     cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
   })
 
-  function mountStory(items: (NavItemLink | NavGroup)[] = []) {
+  function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
     mount(() => {
-      return <DocMenu items={items} />
+      return <DocMenu items={items} activePath={activePath} />
     })
   }
   assertions(mountStory)

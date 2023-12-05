@@ -7,6 +7,7 @@ import { DocLink, LinkComponentType } from './_DocLink'
 export interface DocGroupProps {
   index: number
   group: NavGroup
+  activePath: string
   collapsible: boolean
   onActive: (opts: { top: number; height: number }) => void
   onCollapse: (opts: { hasActive: boolean; open: boolean }) => void
@@ -17,6 +18,7 @@ export interface DocGroupProps {
 
 export const DocGroup: React.FC<DocGroupProps> = ({
   group,
+  activePath,
   collapsible,
   depth = 0,
   setHeight,
@@ -105,6 +107,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
             <li key={index} className="relative list-none p-0">
               <DocGroup
                 group={item}
+                activePath={activePath}
                 depth={depth + 1}
                 setHeight={onSetHeightCallback}
                 index={index}
@@ -118,6 +121,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
             <DocLink
               key={index}
               item={item}
+              active={item.href === activePath}
               collapsible={collapsible}
               depth={depth}
               onActive={setActive}

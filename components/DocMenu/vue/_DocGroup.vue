@@ -8,6 +8,7 @@ import DocGroup from './_DocGroup.vue'
 const props = withDefaults(
   defineProps<{
     group: NavGroup
+    activePath: string
     collapsible: boolean
     linkComponent: DefineComponent | 'a'
     depth?: number
@@ -38,7 +39,7 @@ defineExpose<{
 
 const activeMarkerTop = computed(() => {
   const activeIndex = props.group.items.findIndex(
-    (item) => 'href' in item && item.active,
+    (item) => 'href' in item && item.href === props.activePath,
   )
 
   // how many groups are before the active element?
@@ -69,7 +70,6 @@ const Head = computed(() =>
       {
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
-        'text-indigo-500': props.group.active,
       },
     ]"
     :href="props.group.href"
@@ -99,7 +99,7 @@ const Head = computed(() =>
       props.collapsible &&
       depth >= 0 &&
       open &&
-      group.items.some((item) => 'href' in item && item.active)
+      group.items.some((item) => 'href' in item && item.href === activePath)
     "
     class="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[48px]"
     :style="{
@@ -118,6 +118,7 @@ const Head = computed(() =>
       <li class="relative list-none p-0" v-if="item && 'items' in item">
         <DocGroup
           ref="$groups"
+          :activePath="activePath"
           :group="item"
           :depth="depth + 1"
           :collapsible="props.collapsible"
@@ -127,6 +128,7 @@ const Head = computed(() =>
       <DocLink
         v-else
         :item="item"
+        :active="item.href === activePath"
         :depth="depth"
         :collapsible="collapsible"
         :link-component="props.linkComponent"

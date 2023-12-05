@@ -7,6 +7,7 @@ import DocLink from './_DocLink.vue'
 withDefaults(
   defineProps<{
     items: (NavItemLink | NavGroup)[]
+    activePath?: string
     collapsible?: boolean
     linkComponent?: DefineComponent | 'a'
   }>(),
@@ -23,6 +24,7 @@ withDefaults(
       <li v-if="'items' in item" class="relative list-none p-0">
         <DocGroup
           :group="item"
+          :active-path="activePath ?? ''"
           :depth="0"
           :collapsible="collapsible"
           :link-component="linkComponent"
@@ -31,6 +33,7 @@ withDefaults(
       <DocLink
         v-else
         :item="item"
+        :active="item.href === activePath"
         :collapsible="collapsible"
         :link-component="linkComponent"
       />

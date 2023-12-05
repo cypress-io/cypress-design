@@ -47,6 +47,7 @@ describe('<DocMenu/>', () => {
         return (
           <div className="w-[200px] mt-[60px] absolute">
             <DocMenu
+              activePath={activeHref}
               LinkComponent={({ href, className, children }) => (
                 <div className={className} onClick={() => setActiveHref(href)}>
                   {children}
@@ -56,18 +57,15 @@ describe('<DocMenu/>', () => {
                 {
                   href: '/foo',
                   label: 'Foo',
-                  active: activeHref === '/foo',
                 },
                 {
                   href: '/test',
                   label: 'Getting started',
-                  active: activeHref === '/test',
                 },
                 {
                   href: '/faaz',
                   label:
                     'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,',
-                  active: activeHref === '/faaz',
                 },
                 {
                   label: 'Baaaaaaz',
@@ -78,12 +76,10 @@ describe('<DocMenu/>', () => {
                         {
                           href: '/foo',
                           label: 'Foo',
-                          active: activeHref === '/foo',
                         },
                         {
                           href: '/test',
                           label: 'Getting started',
-                          active: activeHref === '/test',
                         },
                       ],
                     },
@@ -110,7 +106,6 @@ describe('<DocMenu/>', () => {
                           href: '/faa4',
                           label:
                             'lorem ipsum dolor sit amet consectetur adipisicing elit',
-                          active: activeHref === '/faa4',
                         },
                         {
                           href: '/faa5',
@@ -120,7 +115,6 @@ describe('<DocMenu/>', () => {
                           href: '/faa',
                           label:
                             'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
-                          active: activeHref === '/faa',
                         },
                       ],
                     },

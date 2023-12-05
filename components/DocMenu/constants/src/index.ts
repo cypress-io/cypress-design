@@ -1,7 +1,6 @@
 export interface NavItemBase {
   label: string
   href?: string
-  active?: boolean
 }
 
 export interface NavItemLink extends NavItemBase {
