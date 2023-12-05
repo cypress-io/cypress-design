@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, Ref, ref } from 'vue'
+import { computed, type DefineComponent, ref } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocLink from './_DocLink.vue'
@@ -18,48 +18,9 @@ const props = withDefaults(
   },
 )
 
-const open = ref(props.depth === 0)
+const open = ref(props.group.collapsed !== true)
 
-const $groups = ref<{ height: number }[]>([])
-
-const height = computed(() => {
-  return $groups.value && open.value
-    ? $groups.value.reduce(
-        (acc, { height: h }) => acc + h,
-        props.group.items.length,
-      )
-    : 0
-})
-
-defineExpose<{
-  height: Ref<number>
-}>({
-  height,
-})
-
-const activeMarkerTop = computed(() => {
-  const activeIndex = props.group.items.findIndex(
-    (item) => 'href' in item && item.href === props.activePath,
-  )
-
-  // how many groups are before the active element?
-  let numberOfGroups = props.group.items.filter(
-    (item, index) => !('href' in item) && index < activeIndex,
-  ).length
-
-  // if there is any open group before the active element
-  // compensate for the height
-  const groupHeight = $groups.value?.reduce((acc, group) => {
-    if (numberOfGroups < -1) return acc
-    numberOfGroups--
-    return acc + group.height
-  }, 0)
-  return (activeIndex + groupHeight) * 44
-})
-
-const Head = computed(() =>
-  props.collapsible ? 'button' : props.group.href ? 'a' : 'div',
-)
+const Head = computed(() => (props.collapsible ? 'button' : 'div'))
 </script>
 
 <template>
@@ -94,19 +55,6 @@ const Head = computed(() =>
     />
     {{ group.label }}
   </component>
-  <div
-    v-if="
-      props.collapsible &&
-      depth >= 0 &&
-      open &&
-      group.items.some((item) => 'href' in item && item.href === activePath)
-    "
-    class="absolute h-[36px] w-[4px] z-10 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[48px]"
-    :style="{
-      top: `${activeMarkerTop}px`,
-      left: `-${depth === 0 ? 0 : depth * 7.5 + 1}px`,
-    }"
-  />
   <ul
     v-show="open"
     class="list-none p-0 ml-[7.5px]"

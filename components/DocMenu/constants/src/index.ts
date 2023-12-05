@@ -9,6 +9,7 @@ export interface NavItemLink extends NavItemBase {
 
 export interface NavGroup extends NavItemBase {
   items: (NavItemLink | NavGroup)[]
+  collapsed?: boolean
 }
 
 export const classes = {

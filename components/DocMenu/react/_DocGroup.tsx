@@ -9,8 +9,7 @@ export interface DocGroupProps {
   group: NavGroup
   activePath: string
   collapsible: boolean
-  onActive: (opts: { top: number; height: number }) => void
-  onCollapse: (opts: { hasActive: boolean; open: boolean }) => void
+  onActivePosition: (opts: { top: number; height: number }) => void
   depth?: number
   setHeight?: (height: number) => void
   LinkComponent?: LinkComponentType
@@ -23,8 +22,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   depth = 0,
   setHeight,
   index,
-  onActive,
-  onCollapse,
+  onActivePosition,
   LinkComponent = 'a',
 }) => {
   const [open, setOpen] = React.useState(depth === 0)
@@ -47,7 +45,6 @@ export const DocGroup: React.FC<DocGroupProps> = ({
   function toggleMenu(open: boolean) {
     if (!collapsible) return
     setOpen(open)
-    onCollapse({ hasActive: true, open })
   }
 
   const onSetHeightCallback = React.useCallback(
@@ -63,13 +60,13 @@ export const DocGroup: React.FC<DocGroupProps> = ({
 
   const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
 
-  const setActive = React.useCallback(
+  const setActivePosition = React.useCallback(
     ({ top, height }: { top: number; height: number }) => {
       if (open) {
-        onActive({ top, height })
+        onActivePosition({ top, height })
       }
     },
-    [onActive, open],
+    [onActivePosition, open],
   )
 
   return (
@@ -111,9 +108,8 @@ export const DocGroup: React.FC<DocGroupProps> = ({
                 setHeight={onSetHeightCallback}
                 index={index}
                 collapsible={collapsible}
-                onCollapse={onCollapse}
                 LinkComponent={LinkComponent}
-                onActive={setActive}
+                onActivePosition={setActivePosition}
               />
             </li>
           ) : (
@@ -123,7 +119,7 @@ export const DocGroup: React.FC<DocGroupProps> = ({
               active={item.href === activePath}
               collapsible={collapsible}
               depth={depth}
-              onActive={setActive}
+              onActive={setActivePosition}
               LinkComponent={LinkComponent}
             />
           ),

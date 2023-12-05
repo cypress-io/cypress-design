@@ -22,14 +22,14 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 }) => {
   const [activeTop, setActiveTop] = React.useState(0)
   const [activeHeight, setActiveHeight] = React.useState(36)
-  const [hasActiveItem, setHasActiveItem] = React.useState(false)
+  const [showMarker, setShowMarker] = React.useState(false)
 
   const container = React.useRef<HTMLDivElement>(null)
 
   const setActivePos = React.useCallback(
     (opts: { top: number; height: number }) => {
       const containerTop = container.current?.getBoundingClientRect().top || 0
-      setHasActiveItem(true)
+      setShowMarker(true)
       setActiveTop(opts.top - containerTop)
       setActiveHeight(opts.height)
     },
@@ -38,7 +38,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 
   return (
     <div ref={container}>
-      {hasActiveItem ? (
+      {showMarker ? (
         <div
           className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
           style={{
@@ -57,8 +57,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
                 activePath={activePath}
                 collapsible={collapsible}
                 LinkComponent={LinkComponent}
-                onActive={setActivePos}
-                onCollapse={() => setHasActiveItem(false)}
+                onActivePosition={setActivePos}
               />
             </li>
           ) : (
