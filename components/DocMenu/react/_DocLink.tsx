@@ -36,7 +36,7 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
       if (active) {
         const box = activeLIRef?.current?.getBoundingClientRect()
         onActive?.({
-          top: (box?.top || 0) + window.scrollY,
+          top: box?.top || 0,
           height: box?.height || 0,
         })
       }

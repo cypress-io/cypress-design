@@ -31,7 +31,7 @@ function setActiveMarkerPosition() {
       $container.value?.getBoundingClientRect() ?? {}
 
     emit('update:active', props.active, {
-      top: top + window.scrollY,
+      top,
       height,
     })
   }

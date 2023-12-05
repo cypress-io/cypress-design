@@ -25,7 +25,8 @@ const activeHeight = ref(36)
 const showMarker = ref(false)
 
 function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
-  activeTop.value = top
+  const containerTop = $container.value?.getBoundingClientRect().top || 0
+  activeTop.value = top - containerTop
   activeHeight.value = height
   showMarker.value = true
 }
