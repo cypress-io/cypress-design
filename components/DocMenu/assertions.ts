@@ -98,9 +98,8 @@ export default function assertions(
   })
 
   it('keeps track of active values', () => {
-    mountStory(menuItems, 'eight')
+    mountStory(menuItems, 'google')
 
-    cy.contains('Introduction').click()
     cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()

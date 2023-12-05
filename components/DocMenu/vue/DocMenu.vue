@@ -23,13 +23,20 @@ const $container = ref<HTMLDivElement>()
 const activeTop = ref(0)
 const activeHeight = ref(36)
 const showMarker = ref(false)
+
+function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
+  activeTop.value = top
+  activeHeight.value = height
+  showMarker.value = true
+}
 </script>
 
 <template>
-  <div ref="$container">
+  <div ref="$container" class="relative">
     <div
       v-if="showMarker"
-      class="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
+      data-cy="doc-menu-active-marker"
+      class="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[4px]"
       :style="{
         top: `${activeTop + 4}px`,
         height: `${activeHeight - 8}px`,
@@ -44,6 +51,7 @@ const showMarker = ref(false)
             :depth="0"
             :collapsible="collapsible"
             :link-component="linkComponent"
+            @update-active-position="updateActiveMarkerPosition"
           />
         </li>
         <DocLink

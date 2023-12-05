@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { DefineComponent } from 'vue'
+import { watch, type DefineComponent, ref, onMounted } from 'vue'
 import type { NavItemLink } from '@cypress-design/constants-docmenu'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     item: NavItemLink
     active: boolean
@@ -14,10 +14,51 @@ withDefaults(
     depth: -1,
   },
 )
+
+const emit = defineEmits<{
+  (
+    event: 'update:active',
+    active: boolean,
+    opts?: { top: number; height: number },
+  ): void
+}>()
+
+const $container = ref<HTMLLIElement>()
+
+function setActiveMarkerPosition() {
+  if (props.active) {
+    const { top = 0, height = 36 } =
+      $container.value?.getBoundingClientRect() ?? {}
+
+    emit('update:active', props.active, {
+      top: top + window.scrollY,
+      height,
+    })
+  }
+}
+
+onMounted(() => {
+  watch(
+    () => props.active,
+    (active) => {
+      if (active) {
+        setActiveMarkerPosition()
+      } else {
+        emit('update:active', active)
+      }
+    },
+    { immediate: true },
+  )
+})
+
+defineExpose({
+  setActiveMarkerPosition,
+})
 </script>
 
 <template>
   <li
+    ref="$container"
     class="list-none p-0"
     :class="{
       'pl-[16px]': depth >= 0,

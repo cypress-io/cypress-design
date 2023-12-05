@@ -37,7 +37,7 @@ describe('<DocMenu/>', () => {
         linkComponent={CustomLinkVue}
       />
     ))
-    cy.findByText('Bar').click()
+
     cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
   })
 

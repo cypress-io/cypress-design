@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref } from 'vue'
+import { computed, type DefineComponent, ref, watch, nextTick } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocLink from './_DocLink.vue'
@@ -19,8 +19,51 @@ const props = withDefaults(
 )
 
 const open = ref(props.group.collapsed !== true)
+const $items = ref<(typeof DocLink)[]>([])
+const $groups = ref<(typeof DocGroup)[]>([])
 
 const Head = computed(() => (props.collapsible ? 'button' : 'div'))
+
+const emit = defineEmits<{
+  (event: 'updateActivePosition', opts?: { top: number; height: number }): void
+  (event: 'hideMarker'): void
+  (event: 'updateMarkerPosition'): void
+}>()
+
+function reTriggerSetActiveGroup() {
+  $items.value.forEach((item) => {
+    item.setActiveMarkerPosition()
+  })
+}
+
+function hasActiveItemRecursively(items = props.group.items): boolean {
+  return items.some((item) => {
+    if ('items' in item) {
+      return hasActiveItemRecursively(item.items)
+    }
+    return item.href === props.activePath
+  })
+}
+
+watch(open, async (open) => {
+  await nextTick()
+  if (hasActiveItemRecursively()) {
+    if (open) {
+      reTriggerSetActiveGroup()
+      $groups.value.forEach((group) => {
+        group.reTriggerSetActiveGroup()
+      })
+    } else {
+      emit('hideMarker')
+    }
+  } else {
+    emit('updateMarkerPosition')
+  }
+})
+
+defineExpose({
+  reTriggerSetActiveGroup,
+})
 </script>
 
 <template>
@@ -71,15 +114,36 @@ const Head = computed(() => (props.collapsible ? 'button' : 'div'))
           :depth="depth + 1"
           :collapsible="props.collapsible"
           :link-component="props.linkComponent"
+          @update-active-position="
+            (opts) => {
+              emit('updateActivePosition', opts)
+            }
+          "
+          @update-marker-position="
+            () => {
+              if (hasActiveItemRecursively()) {
+                reTriggerSetActiveGroup()
+              } else {
+                emit('updateMarkerPosition')
+              }
+            }
+          "
         />
       </li>
       <DocLink
         v-else
+        ref="$items"
         :item="item"
         :active="item.href === activePath"
         :depth="depth"
         :collapsible="collapsible"
         :link-component="props.linkComponent"
+        @update:active="
+          (_, opts) => {
+            if (!opts) return
+            emit('updateActivePosition', opts)
+          }
+        "
       />
     </template>
   </ul>
