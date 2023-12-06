@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref, watch } from 'vue'
+import { computed, type DefineComponent, ref, watch, nextTick } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocLink from './_DocLink.vue'
@@ -22,7 +22,9 @@ const open = ref(props.group.collapsed !== true)
 const $items = ref<(typeof DocLink)[]>([])
 const $groups = ref<(typeof DocGroup)[]>([])
 
-const Head = computed(() => (props.collapsible ? 'button' : 'div'))
+const Head = computed(() =>
+  props.collapsible ? 'button' : props.group.href ? 'a' : 'div',
+)
 
 const emit = defineEmits<{
   (event: 'updateActivePosition', opts?: { top: number; height: number }): void
@@ -45,7 +47,8 @@ function hasActiveItemRecursively(items = props.group.items): boolean {
   })
 }
 
-watch(open, (open) => {
+watch(open, async (open) => {
+  await nextTick()
   if (hasActiveItemRecursively()) {
     if (open) {
       reTriggerSetActiveGroup()
@@ -73,13 +76,16 @@ defineExpose({
       {
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
+        'text-indigo-500': group.href === activePath,
       },
     ]"
-    :href="props.group.href"
+    :href="group.href"
     @click="
       () => {
         if (collapsible) {
           open = !open
+        } else {
+          emit('updateActivePosition')
         }
       }
     "
