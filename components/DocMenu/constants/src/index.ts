@@ -1,7 +1,6 @@
 export interface NavItemBase {
   label: string
   href?: string
-  active?: boolean
 }
 
 export interface NavItemLink extends NavItemBase {
@@ -10,6 +9,7 @@ export interface NavItemLink extends NavItemBase {
 
 export interface NavGroup extends NavItemBase {
   items: (NavItemLink | NavGroup)[]
+  collapsed?: boolean
 }
 
 export const classes = {

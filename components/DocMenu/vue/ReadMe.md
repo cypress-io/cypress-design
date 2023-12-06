@@ -20,22 +20,22 @@ import DocMenu from '@cypress-design/vue-docmenu'
 
 ```vue live
 <DocMenu
+  activePath="#group-item-3"
   :items="[
     {
       label: 'Get Started',
-      href: '#',
+      href: '#get-started',
     },
     {
       label: 'Overview',
       items: [
         {
           label: 'Overview Item 1',
-          href: '#',
+          href: '#overview-item-1',
         },
         {
           label: 'Overview Item 2',
-          href: '#',
-          active: true,
+          href: '#overview-item-2',
         },
       ],
     },
@@ -44,33 +44,32 @@ import DocMenu from '@cypress-design/vue-docmenu'
       items: [
         {
           label: 'Item 1',
-          href: '#',
+          href: '#item-1',
         },
         {
           label: 'Group',
           items: [
             {
               label: 'Item 1',
-              href: '#',
+              href: '#group-item-1',
             },
             {
               label: 'Item 2',
-              href: '#',
+              href: '#group-item-2',
             },
             {
               label: 'Item 3',
-              href: '#',
+              href: '#group-item-3',
             },
             {
               label: 'Item 4',
-              href: '#',
+              href: '#group-item-4',
             },
           ],
         },
         {
           label: 'Item 5',
           href: '#',
-          active: true,
         },
       ],
     },

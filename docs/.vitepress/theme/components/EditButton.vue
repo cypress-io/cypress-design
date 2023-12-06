@@ -14,7 +14,7 @@ const props = withDefaults(
   }>(),
   {
     common: false,
-  }
+  },
 )
 
 const routePath = computed(() => router.route.path)
@@ -45,14 +45,29 @@ const href = computed(() => {
     ? `${editRoot}${props.commonPath}/${props.framework}/ReadMe.md`
     : editUrl.value
 })
+
+const isDev = import.meta.env.MODE === 'development'
+
+function devHandler(href: string) {
+  window.fetch(href)
+}
 </script>
 
 <template>
   <template v-if="editRoot">
     <Button
+      v-if="!isDev"
       :href="href"
       variant="link"
       class="absolute right-0 top-0 z-10 peer"
+    >
+      Edit
+    </Button>
+    <Button
+      v-else
+      variant="link"
+      class="absolute right-0 top-0 z-10 peer"
+      @click="() => devHandler(href)"
     >
       Edit
     </Button>

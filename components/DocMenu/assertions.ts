@@ -5,18 +5,18 @@ import type { NavGroup, NavItemLink } from './constants'
 const menuItems = [
   {
     label: 'Get Started',
-    href: '#',
+    href: 'one',
   },
   {
     label: 'Overview',
     items: [
       {
         label: 'Overview Item 1',
-        href: '#',
+        href: 'two',
       },
       {
         label: 'Overview Item 2',
-        href: '#',
+        href: 'three',
       },
     ],
   },
@@ -25,11 +25,11 @@ const menuItems = [
     items: [
       {
         label: 'Item 1',
-        href: '#',
+        href: 'four',
       },
       {
         label: 'Item 2',
-        href: '#',
+        href: 'five',
       },
     ],
   },
@@ -41,55 +41,55 @@ const menuItems = [
         items: [
           {
             label: 'Item 1',
-            href: '#',
+            href: 'six',
           },
           {
             label: 'sub menu',
             items: [
               {
                 label: 'Item 1',
-                href: '#',
-                active: true,
+                href: 'seven',
               },
               {
                 label: 'Item 2',
-                href: '#',
+                href: 'eight',
               },
             ],
           },
           {
             label: 'Item 2',
-            href: '#',
-            active: true,
+            href: 'nine',
           },
         ],
       },
       {
         label: 'AWS Authentication',
-        href: '#',
+        href: 'aws',
       },
       {
-        active: true,
         label: 'Google Authentication',
-        href: '#',
+        href: 'google',
       },
       {
         label: 'Okta Authentication',
-        href: '#',
+        href: 'okta',
       },
     ],
   },
 ] satisfies (NavItemLink | NavGroup)[]
 
 export default function assertions(
-  mountStory: (options?: (NavItemLink | NavGroup)[]) => void,
+  mountStory: (
+    options?: (NavItemLink | NavGroup)[],
+    activePath?: string,
+  ) => void,
 ): void {
   it('renders', () => {
-    mountStory(menuItems)
+    mountStory(menuItems, 'eight')
   })
 
   it('closes the menu', () => {
-    mountStory(menuItems)
+    mountStory(menuItems, 'eight')
 
     cy.contains('Overview Item 1').should('be.visible')
     cy.contains('button', 'Overview').click()
@@ -98,9 +98,8 @@ export default function assertions(
   })
 
   it('keeps track of active values', () => {
-    mountStory(menuItems)
+    mountStory(menuItems, 'google')
 
-    cy.contains('Introduction').click()
     cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()
