@@ -1,5 +1,14 @@
 # @cypress-design/react-docmenu
 
+## 0.4.1
+
+### Patch Changes
+
+- [#353](https://github.com/cypress-io/cypress-design/pull/353) [`b382b9e`](https://github.com/cypress-io/cypress-design/commit/b382b9ecc99e3ab6288eee406831199edb661c19) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: Docgen wrapping active links
+
+- Updated dependencies [[`b382b9e`](https://github.com/cypress-io/cypress-design/commit/b382b9ecc99e3ab6288eee406831199edb661c19)]:
+  - @cypress-design/constants-docmenu@0.1.2
+
 ## 0.4.0
 
 ### Minor Changes
