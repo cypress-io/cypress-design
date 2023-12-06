@@ -52,19 +52,24 @@ export default defineConfig({
   rewrites: {
     ...globbySync(['*.md', 'patterns/*.md'], {
       cwd: resolve(__dirname, '..'),
-    }).reduce((acc, path) => {
-      acc[path] = `/${path}`.replace(/\/\d+-/, '/').slice(1)
-      return acc
-    }, {} as Record<string, string>),
+    }).reduce(
+      (acc, path) => {
+        acc[path] = `/${path}`.replace(/\/\d+-/, '/').slice(1)
+        return acc
+      },
+      {} as Record<string, string>,
+    ),
     '1-Getting-Started.md': 'index.md',
   },
   vite: {
     define: {
       'import.meta.env.EDIT_ROOT_LOCAL': JSON.stringify(
-        `vscode://file/${resolve(__dirname, '../../')}`
+        `/__open-in-editor?file=${encodeURIComponent(
+          resolve(__dirname, '../../'),
+        )}`,
       ),
       'import.meta.env.EDIT_ROOT_GITHUB': JSON.stringify(
-        `https://github.com/cypress-io/cypress-design/blob/${branch}/`
+        `https://github.com/cypress-io/cypress-design/blob/${branch}/`,
       ),
     },
   },
