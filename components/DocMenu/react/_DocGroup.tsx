@@ -128,6 +128,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           {group.label}
         </Head>
         <DocGroupElements
+          ref={$groupElements}
           className={!open ? 'hidden' : undefined}
           items={group.items}
           activePath={activePath}
@@ -196,10 +197,10 @@ export const DocGroupElements = React.forwardRef<
 
     function reTriggerSetActiveGroup() {
       $groups.current.forEach((group) => {
-        group.reTriggerSetActiveGroup()
+        group?.reTriggerSetActiveGroup()
       })
       $items.current.forEach((item) => {
-        item.setActiveMarkerPosition()
+        item?.setActiveMarkerPosition()
       })
     }
 
