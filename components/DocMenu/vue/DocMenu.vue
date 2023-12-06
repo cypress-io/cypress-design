@@ -35,7 +35,7 @@ function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
 <template>
   <div ref="$container" class="relative">
     <div
-      v-if="showMarker"
+      v-if="showMarker && collapsible"
       data-cy="doc-menu-active-marker"
       class="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6px] mt-[4px]"
       :style="{

@@ -47,6 +47,14 @@ function hasActiveItemRecursively(items = props.group.items): boolean {
   })
 }
 
+const active = computed(() => props.group.href === props.activePath)
+
+watch(active, (active) => {
+  if (active) {
+    emit('hideMarker')
+  }
+})
+
 watch(open, async (open) => {
   await nextTick()
   if (hasActiveItemRecursively()) {
@@ -76,7 +84,7 @@ defineExpose({
       {
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
-        'text-indigo-500': group.href === activePath,
+        'text-indigo-500': active,
       },
     ]"
     :href="group.href"

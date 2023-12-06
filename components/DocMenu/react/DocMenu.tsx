@@ -38,7 +38,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 
   return (
     <div ref={container}>
-      {showMarker ? (
+      {showMarker && collapsible ? (
         <div
           className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
           style={{

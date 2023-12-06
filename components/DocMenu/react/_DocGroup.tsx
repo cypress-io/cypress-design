@@ -106,6 +106,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           className={clsx(classes.button, {
             [classes.topButton]: depth === 0,
             [classes.leafButton]: depth,
+            'text-indigo-500': activePath === group.href,
           })}
         >
           {collapsible ? (
