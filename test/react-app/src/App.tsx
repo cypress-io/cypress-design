@@ -118,6 +118,7 @@ function App() {
       <div className="h-[500px] text-left">
         <DocMenu
           LinkComponent={LinkComponent}
+          activePath="/foo"
           items={[
             {
               label: 'Get Started',
@@ -132,8 +133,7 @@ function App() {
                 },
                 {
                   label: 'Overview Item 2',
-                  href: '#',
-                  active: true,
+                  href: '/foo',
                 },
               ],
             },
