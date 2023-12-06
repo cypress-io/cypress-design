@@ -2,13 +2,12 @@
 import { computed, type DefineComponent, ref, watch, nextTick } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
-import DocLink from './_DocLink.vue'
-import DocGroup from './_DocGroup.vue'
+import DocGroupElements from './_DocGroupElements.vue'
 
 const props = withDefaults(
   defineProps<{
     group: NavGroup
-    activePath: string
+    activePath?: string
     collapsible: boolean
     linkComponent: DefineComponent | 'a'
     depth?: number
@@ -19,8 +18,7 @@ const props = withDefaults(
 )
 
 const open = ref(props.group.collapsed !== true)
-const $items = ref<(typeof DocLink)[]>([])
-const $groups = ref<(typeof DocGroup)[]>([])
+const $groupElements = ref<typeof DocGroupElements>()
 
 const Head = computed(() =>
   props.collapsible ? 'button' : props.group.href ? 'a' : 'div',
@@ -32,12 +30,6 @@ const emit = defineEmits<{
   (event: 'updateMarkerPosition'): void
 }>()
 
-function reTriggerSetActiveGroup() {
-  $items.value.forEach((item) => {
-    item.setActiveMarkerPosition()
-  })
-}
-
 function hasActiveItemRecursively(items = props.group.items): boolean {
   return items.some((item) => {
     if ('items' in item) {
@@ -45,6 +37,10 @@ function hasActiveItemRecursively(items = props.group.items): boolean {
     }
     return item.href === props.activePath
   })
+}
+
+function reTriggerSetActiveGroup() {
+  $groupElements.value?.reTriggerSetActiveGroup()
 }
 
 const active = computed(() => props.group.href === props.activePath)
@@ -60,9 +56,6 @@ watch(open, async (open) => {
   if (hasActiveItemRecursively()) {
     if (open) {
       reTriggerSetActiveGroup()
-      $groups.value.forEach((group) => {
-        group.reTriggerSetActiveGroup()
-      })
     } else {
       emit('hideMarker')
     }
@@ -111,53 +104,16 @@ defineExpose({
     />
     {{ group.label }}
   </component>
-  <ul
+  <DocGroupElements
+    ref="$groupElements"
     v-show="open"
-    class="list-none p-0 ml-[7.5px]"
-    :class="{
-      'border-l border-gray-100': depth === 0 && props.collapsible,
-    }"
-  >
-    <template v-for="item in group.items">
-      <li class="relative list-none p-0" v-if="item && 'items' in item">
-        <DocGroup
-          ref="$groups"
-          :activePath="activePath"
-          :group="item"
-          :depth="depth + 1"
-          :collapsible="props.collapsible"
-          :link-component="props.linkComponent"
-          @update-active-position="
-            (opts) => {
-              emit('updateActivePosition', opts)
-            }
-          "
-          @update-marker-position="
-            () => {
-              if (hasActiveItemRecursively()) {
-                reTriggerSetActiveGroup()
-              } else {
-                emit('updateMarkerPosition')
-              }
-            }
-          "
-        />
-      </li>
-      <DocLink
-        v-else
-        ref="$items"
-        :item="item"
-        :active="item.href === activePath"
-        :depth="depth"
-        :collapsible="collapsible"
-        :link-component="props.linkComponent"
-        @update:active="
-          (_, opts) => {
-            if (!opts) return
-            emit('updateActivePosition', opts)
-          }
-        "
-      />
-    </template>
-  </ul>
+    :depth="depth"
+    :items="group.items"
+    :active-path="activePath"
+    :collapsible="collapsible"
+    :link-component="linkComponent"
+    @hide-marker="emit('hideMarker')"
+    @update-marker-position="emit('updateMarkerPosition')"
+    @update-active-position="(opts) => emit('updateActivePosition', opts)"
+  />
 </template>

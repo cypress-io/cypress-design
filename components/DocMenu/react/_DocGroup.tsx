@@ -1,8 +1,16 @@
 import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'
-import { NavGroup, classes } from '@cypress-design/constants-docmenu'
-import { DocLink, LinkComponentType, type DocLinkForward } from './_DocLink'
+import {
+  type NavGroup,
+  type NavItemLink,
+  classes,
+} from '@cypress-design/constants-docmenu'
+import {
+  DocLink,
+  type DocLinkForward,
+  type LinkComponentType,
+} from './_DocLink'
 
 export interface DocGroupProps {
   group: NavGroup
@@ -34,8 +42,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     ref,
   ) => {
     const [open, setOpen] = React.useState(group.collapsed !== true)
-    const $groups = React.useRef<DocGroupForward[]>([])
-    const $items = React.useRef<DocLinkForward[]>([])
+    const $groupElements = React.useRef<DocGroupElementsForward>(null)
 
     function toggleMenu(open: boolean) {
       if (!collapsible) return
@@ -66,12 +73,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     )
 
     function reTriggerSetActiveGroup() {
-      $groups.current.forEach((group) => {
-        group.reTriggerSetActiveGroup()
-      })
-      $items.current.forEach((item) => {
-        item.setActiveMarkerPosition()
-      })
+      $groupElements.current?.reTriggerSetActiveGroup()
     }
 
     React.useEffect(() => {
@@ -125,46 +127,135 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           ) : null}
           {group.label}
         </Head>
-        <ul
-          className={clsx('ml-[8px] list-none p-0', {
-            'border-l border-gray-100': depth === 0 && collapsible,
-            hidden: !open,
-          })}
-        >
-          {group.items.map((item, index) =>
-            'items' in item ? (
-              <li key={index} className="relative list-none p-0">
-                <DocGroup
-                  ref={(el: DocGroupForward) => {
-                    $groups.current[index] = el
-                  }}
-                  group={item}
-                  activePath={activePath}
-                  depth={depth + 1}
-                  collapsible={collapsible}
-                  LinkComponent={LinkComponent}
-                  hideMarker={hideMarker}
-                  onActivePosition={setActivePosition}
-                  updateMarkerPosition={onUpdateMarkerPosition}
-                />
-              </li>
-            ) : (
-              <DocLink
-                ref={(el: DocLinkForward) => {
-                  $items.current[index] = el
-                }}
-                key={index}
-                item={item}
-                active={item.href === activePath}
-                collapsible={collapsible}
-                depth={depth}
-                onActive={setActivePosition}
-                LinkComponent={LinkComponent}
-              />
-            ),
-          )}
-        </ul>
+        <DocGroupElements
+          className={!open ? 'hidden' : undefined}
+          items={group.items}
+          activePath={activePath}
+          collapsible={collapsible}
+          depth={depth}
+          onActivePosition={setActivePosition}
+          updateMarkerPosition={onUpdateMarkerPosition}
+          LinkComponent={LinkComponent}
+          hideMarker={hideMarker}
+        />
       </>
+    )
+  },
+)
+
+export interface DocGroupElementsProps
+  extends React.HTMLAttributes<HTMLUListElement> {
+  items: (NavGroup | NavItemLink)[]
+  activePath: string
+  collapsible: boolean
+  onActivePosition: (opts: { top: number; height: number }) => void
+  updateMarkerPosition?: () => void
+  depth: number
+  LinkComponent: LinkComponentType
+  hideMarker: () => void
+  className: string | undefined
+}
+
+export interface DocGroupElementsForward {
+  reTriggerSetActiveGroup: () => void
+}
+
+export const DocGroupElements = React.forwardRef<
+  DocGroupElementsForward,
+  DocGroupElementsProps
+>(
+  (
+    {
+      items,
+      activePath,
+      collapsible,
+      depth = 0,
+      onActivePosition,
+      updateMarkerPosition,
+      LinkComponent,
+      hideMarker,
+      className,
+      ...rest
+    },
+    ref,
+  ) => {
+    const $groups = React.useRef<DocGroupForward[]>([])
+    const $items = React.useRef<DocLinkForward[]>([])
+
+    const hasActiveItemRecursively = React.useCallback(
+      (localItems = items): boolean => {
+        return localItems.some((item) => {
+          if ('items' in item) {
+            return hasActiveItemRecursively(item.items)
+          }
+          return item.href === activePath
+        })
+      },
+      [items, activePath],
+    )
+
+    function reTriggerSetActiveGroup() {
+      $groups.current.forEach((group) => {
+        group.reTriggerSetActiveGroup()
+      })
+      $items.current.forEach((item) => {
+        item.setActiveMarkerPosition()
+      })
+    }
+
+    React.useImperativeHandle(ref, () => ({
+      reTriggerSetActiveGroup,
+    }))
+
+    const onUpdateMarkerPosition = React.useCallback(() => {
+      if (hasActiveItemRecursively()) {
+        reTriggerSetActiveGroup()
+      } else {
+        updateMarkerPosition?.()
+      }
+    }, [hasActiveItemRecursively, updateMarkerPosition])
+
+    return (
+      <ul
+        {...rest}
+        className={clsx('list-none p-0', className, {
+          'border-l border-gray-100': depth === 0 && collapsible,
+          'ml-[8px]': depth >= 0,
+        })}
+      >
+        {items.map((item, index) =>
+          'items' in item ? (
+            <li key={index} className="relative list-none p-0">
+              <DocGroup
+                ref={(el: DocGroupForward) => {
+                  $groups.current[index] = el
+                }}
+                group={item}
+                activePath={activePath}
+                depth={depth + 1}
+                collapsible={collapsible}
+                LinkComponent={LinkComponent}
+                hideMarker={hideMarker}
+                onActivePosition={onActivePosition}
+                updateMarkerPosition={onUpdateMarkerPosition}
+              />
+            </li>
+          ) : (
+            <DocLink
+              ref={(el: DocLinkForward) => {
+                $items.current[index] = el
+              }}
+              key={index}
+              item={item}
+              active={item.href === activePath}
+              collapsible={collapsible}
+              depth={depth}
+              onActive={onActivePosition}
+              LinkComponent={LinkComponent}
+            />
+          ),
+        )}
+      </ul>
     )
   },
 )

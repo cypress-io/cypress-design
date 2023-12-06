@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
-import { DocLink, LinkComponentType } from './_DocLink'
-import { DocGroup } from './_DocGroup'
-import clsx from 'clsx'
+import type { LinkComponentType } from './_DocLink'
+import { DocGroupElements } from './_DocGroup'
 
 export type NavItem = NavGroup | NavItemLink
 
@@ -26,7 +25,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 
   const container = React.useRef<HTMLDivElement>(null)
 
-  const setActivePos = React.useCallback(
+  const setActivePosition = React.useCallback(
     (opts: { top: number; height: number }) => {
       const containerTop = container.current?.getBoundingClientRect().top || 0
       setShowMarker(true)
@@ -37,7 +36,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
   )
 
   return (
-    <div ref={container}>
+    <div ref={container} className="relative">
       {showMarker && collapsible ? (
         <div
           className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
@@ -47,30 +46,17 @@ export const DocMenu: React.FC<DocMenuProps> = ({
           }}
         />
       ) : null}
-      <ul {...rest} className={clsx('list-none p-0', rest.className)}>
-        {items.map((item, index) =>
-          'items' in item ? (
-            <li key={index} className="relative list-none p-0">
-              <DocGroup
-                group={item}
-                activePath={activePath}
-                collapsible={collapsible}
-                LinkComponent={LinkComponent}
-                onActivePosition={setActivePos}
-                hideMarker={() => setShowMarker(false)}
-              />
-            </li>
-          ) : (
-            <DocLink
-              key={index}
-              item={item}
-              active={item.href === activePath}
-              collapsible={collapsible}
-              LinkComponent={LinkComponent}
-            />
-          ),
-        )}
-      </ul>
+      <DocGroupElements
+        {...rest}
+        className={!open ? 'hidden' : undefined}
+        items={items}
+        activePath={activePath}
+        collapsible={collapsible}
+        depth={-1}
+        onActivePosition={setActivePosition}
+        LinkComponent={LinkComponent}
+        hideMarker={() => setShowMarker(false)}
+      />
     </div>
   )
 }
