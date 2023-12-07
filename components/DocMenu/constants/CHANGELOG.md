@@ -1,5 +1,11 @@
 # @cypress-design/constants-docmenu
 
+## 0.1.3
+
+### Patch Changes
+
+- [`a58be93`](https://github.com/cypress-io/cypress-design/commit/a58be9322cfc64c64533ff8f8414a45ba90be751) Thanks [@elevatebart](https://github.com/elevatebart)! - fix(docgen): make buttons left-aligned (logical)
+
 ## 0.1.2
 
 ### Patch Changes
