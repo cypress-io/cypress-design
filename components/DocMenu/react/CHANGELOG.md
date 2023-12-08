@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 0.4.3
+
+### Patch Changes
+
+- [`02ff747`](https://github.com/cypress-io/cypress-design/commit/02ff747ed7aac0ad10a10b250d71d844d910a09c) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: stop using open when it does not exist
+
 ## 0.4.2
 
 ### Patch Changes
