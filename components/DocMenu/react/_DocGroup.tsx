@@ -154,7 +154,7 @@ export interface DocGroupElementsProps
   depth: number
   LinkComponent: LinkComponentType
   hideMarker: () => void
-  className: string | undefined
+  className?: string
 }
 
 export interface DocGroupElementsForward {

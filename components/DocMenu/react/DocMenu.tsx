@@ -48,7 +48,6 @@ export const DocMenu: React.FC<DocMenuProps> = ({
       ) : null}
       <DocGroupElements
         {...rest}
-        className={!open ? 'hidden' : undefined}
         items={items}
         activePath={activePath}
         collapsible={collapsible}
