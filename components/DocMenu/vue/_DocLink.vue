@@ -72,16 +72,16 @@ defineExpose({
         'py-[8px] text-[16px] leading-[24px]': depth < 0,
         'leading-[20px] text-[14px] py-[12px]': depth >= 0,
       }"
+      :style="{
+        paddingLeft: depth >= 0 ? `${depth * 8 + 24}px` : undefined,
+      }"
       :href="item.href"
     >
       <div
         v-if="depth >= 0"
-        class="absolute h-[80%] top-[10%] w-[4px] z-10 rounded-full hidden"
+        class="left-[-9.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full hidden"
         :class="{
           'group-hover:block bg-gray-300': !active && collapsible,
-        }"
-        :style="{
-          left: `-${18.5 + depth * 7.5}px`,
         }"
       />
       {{ item.label }}

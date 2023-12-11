@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref, watch, nextTick } from 'vue'
+import { computed, type DefineComponent, ref, watch } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocGroupElements from './_DocGroupElements.vue'
@@ -19,6 +19,7 @@ const props = withDefaults(
 
 const open = ref(props.group.collapsed !== true)
 const $groupElements = ref<typeof DocGroupElements>()
+const $listWrapper = ref<HTMLDivElement>()
 
 const Head = computed(() =>
   props.collapsible ? 'button' : props.group.href ? 'a' : 'div',
@@ -52,7 +53,6 @@ watch(active, (active) => {
 })
 
 watch(open, async (open) => {
-  await nextTick()
   if (hasActiveItemRecursively()) {
     if (open) {
       reTriggerSetActiveGroup()
@@ -106,16 +106,29 @@ defineExpose({
     />
     {{ group.label }}
   </component>
-  <DocGroupElements
-    ref="$groupElements"
-    v-show="open"
-    :depth="depth"
-    :items="group.items"
-    :active-path="activePath"
-    :collapsible="collapsible"
-    :link-component="linkComponent"
-    @hide-marker="emit('hideMarker')"
-    @update-marker-position="emit('updateMarkerPosition')"
-    @update-active-position="(opts) => emit('updateActivePosition', opts)"
-  />
+  <div
+    class="grid transition-all relative"
+    ref="$listWrapper"
+    :class="{
+      'grid-rows-[0fr]': !open && collapsible,
+      'grid-rows-[1fr]': open || !collapsible,
+    }"
+  >
+    <div
+      v-if="open && collapsible && depth === 0"
+      class="absolute left-[8px] top-0 w-[1px] h-full bg-gray-100"
+    />
+    <DocGroupElements
+      ref="$groupElements"
+      class="overflow-hidden"
+      :depth="depth"
+      :items="group.items"
+      :active-path="activePath"
+      :collapsible="collapsible"
+      :link-component="linkComponent"
+      @hide-marker="emit('hideMarker')"
+      @update-marker-position="(m) => emit('updateMarkerPosition')"
+      @update-active-position="(opts) => emit('updateActivePosition', opts)"
+    />
+  </div>
 </template>

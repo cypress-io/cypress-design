@@ -48,8 +48,7 @@ defineExpose({
   <ul
     class="list-none p-0"
     :class="{
-      'border-l border-gray-100': depth === 0 && collapsible,
-      'ml-[8px]': depth >= 0,
+      'pl-[8px]': depth >= 0,
     }"
   >
     <template v-for="item in items">
