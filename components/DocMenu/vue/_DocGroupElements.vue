@@ -75,6 +75,7 @@ defineExpose({
               }
             }
           "
+          @hide-marker="emit('hideMarker')"
         />
       </li>
       <DocLink
