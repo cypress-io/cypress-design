@@ -30,11 +30,11 @@ function hasActiveItemRecursively(items = props.items): boolean {
   })
 }
 
-function reTriggerSetActiveGroup() {
+function reTriggerSetActiveGroup(index = 0) {
   $items.value.forEach((item) => {
     item.setActiveMarkerPosition()
   })
-  $groups.value.forEach((group) => {
+  $groups.value.slice(index).forEach((group) => {
     group.reTriggerSetActiveGroup()
   })
 }
@@ -45,13 +45,8 @@ defineExpose({
 </script>
 
 <template>
-  <ul
-    class="list-none p-0"
-    :class="{
-      'pl-[8px]': depth >= 0,
-    }"
-  >
-    <template v-for="item in items">
+  <ul class="list-none p-0">
+    <template v-for="(item, index) in items">
       <li class="relative list-none p-0" v-if="item && 'items' in item">
         <DocGroup
           ref="$groups"
@@ -68,7 +63,7 @@ defineExpose({
           @update-marker-position="
             () => {
               if (hasActiveItemRecursively()) {
-                reTriggerSetActiveGroup()
+                reTriggerSetActiveGroup(index)
               } else {
                 emit('updateMarkerPosition')
               }

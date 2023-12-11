@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref, watch } from 'vue'
+import { computed, type DefineComponent, ref, watch, inject } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocGroupElements from './_DocGroupElements.vue'
@@ -45,6 +45,19 @@ function reTriggerSetActiveGroup() {
 }
 
 const active = computed(() => props.group.href === props.activePath)
+
+const markerIsMoving = inject('transition-is-moving', ref(false))
+
+watch(open, () => {
+  $listWrapper.value?.addEventListener(
+    'transitionend',
+    () => {
+      reTriggerSetActiveGroup()
+      markerIsMoving.value = false
+    },
+    { once: true },
+  )
+})
 
 watch(active, (active) => {
   if (active) {
@@ -127,7 +140,7 @@ defineExpose({
       :collapsible="collapsible"
       :link-component="linkComponent"
       @hide-marker="emit('hideMarker')"
-      @update-marker-position="(m) => emit('updateMarkerPosition')"
+      @update-marker-position="() => emit('updateMarkerPosition')"
       @update-active-position="(opts) => emit('updateActivePosition', opts)"
     />
   </div>
