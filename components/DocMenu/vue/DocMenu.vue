@@ -38,7 +38,7 @@ function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
       data-cy="doc-menu-active-marker"
       class="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
       :style="{
-        top: `${activeTop + 4}px`,
+        top: `${activeTop}px`,
         height: `${activeHeight - 8}px`,
       }"
     />

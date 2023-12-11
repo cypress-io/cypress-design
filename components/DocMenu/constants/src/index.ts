@@ -13,6 +13,7 @@ export interface NavGroup extends NavItemBase {
 }
 
 export const classes = {
+  expandedIcon: 'absolute left-0 transform transition-transform',
   button:
     'flex leading-[24px] py-[10px] items-center relative w-full text-start',
   topButton: 'leading-[24px] text-[16px] pl-[24px] font-medium',

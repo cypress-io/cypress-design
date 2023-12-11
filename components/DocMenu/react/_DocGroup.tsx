@@ -115,14 +115,11 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             <IconChevronDownSmall
               stroke-color="gray-400"
               size={depth ? '8' : '16'}
-              className={clsx(
-                'absolute transform transition-transform left-0',
-                {
-                  'rotate-0': open,
-                  '-rotate-90': !open,
-                  'ml-[16px]': depth,
-                },
-              )}
+              className={clsx(classes.expandedIcon, {
+                'rotate-0': open,
+                '-rotate-90': !open,
+                'ml-[16px]': depth,
+              })}
             />
           ) : null}
           {group.label}
