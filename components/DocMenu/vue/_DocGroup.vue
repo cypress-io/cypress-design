@@ -3,6 +3,7 @@ import { computed, type DefineComponent, ref, watch, inject } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
 import DocGroupElements, {
+  hasActiveItemRecursively,
   type DocGroupEventsEmitted,
 } from './_DocGroupElements.vue'
 
@@ -32,20 +33,11 @@ const emit = defineEmits<DocGroupEventsEmitted>()
 const hasActiveItem = computed(() =>
   props.group.items.some((item) => {
     if ('items' in item) {
-      return hasActiveItemRecursively(item.items)
+      return hasActiveItemRecursively(item.items, props.activePath)
     }
     return item.href === props.activePath
   }),
 )
-
-function hasActiveItemRecursively(items = props.group.items): boolean {
-  return items.some((item) => {
-    if ('items' in item) {
-      return hasActiveItemRecursively(item.items)
-    }
-    return item.href === props.activePath
-  })
-}
 
 function reTriggerSetActiveGroup() {
   $groupElements.value?.reTriggerSetActiveGroup()

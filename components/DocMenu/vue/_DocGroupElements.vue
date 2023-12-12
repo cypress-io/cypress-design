@@ -1,16 +1,15 @@
-<script lang="ts" setup>
-import { DefineComponent, ref } from 'vue'
-import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
-import DocGroup from './_DocGroup.vue'
-import DocLink from './_DocLink.vue'
-
-const props = defineProps<{
-  items: (NavGroup | NavItemLink)[]
-  activePath?: string
-  collapsible: boolean
-  linkComponent: DefineComponent | 'a'
-  depth: number
-}>()
+<script lang="ts">
+export function hasActiveItemRecursively(
+  items: (NavGroup | NavItemLink)[],
+  activePath?: string,
+): boolean {
+  return items.some((item) => {
+    if ('items' in item) {
+      return hasActiveItemRecursively(item.items, activePath)
+    }
+    return item.href === activePath
+  })
+}
 
 export interface DocGroupEventsEmitted {
   /**
@@ -23,22 +22,40 @@ export interface DocGroupEventsEmitted {
    * to update its position if not in the current subtree
    */
   (event: 'updateMarkerPosition'): void
+  /**
+   * This event will bubble-up and hide the active marker
+   */
   (event: 'hideMarker'): void
 }
+</script>
+
+<script lang="ts" setup>
+import { DefineComponent, computed, ref } from 'vue'
+import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
+import DocGroup from './_DocGroup.vue'
+import DocLink from './_DocLink.vue'
+
+const props = defineProps<{
+  items: (NavGroup | NavItemLink)[]
+  activePath?: string
+  collapsible: boolean
+  linkComponent: DefineComponent | 'a'
+  depth: number
+}>()
 
 const emit = defineEmits<DocGroupEventsEmitted>()
 
 const $items = ref<(typeof DocLink)[]>([])
 const $groups = ref<(typeof DocGroup)[]>([])
 
-function hasActiveItemRecursively(items = props.items): boolean {
-  return items.some((item) => {
+const hasActiveItem = computed(() =>
+  props.items.some((item) => {
     if ('items' in item) {
-      return hasActiveItemRecursively(item.items)
+      return hasActiveItemRecursively(item.items, props.activePath)
     }
     return item.href === props.activePath
-  })
-}
+  }),
+)
 
 /**
  * update the position of the marker when opening a group
@@ -79,7 +96,7 @@ defineExpose({
           "
           @update-marker-position="
             () => {
-              if (hasActiveItemRecursively()) {
+              if (hasActiveItem) {
                 reTriggerSetActiveGroup(index)
               } else {
                 emit('updateMarkerPosition')
@@ -99,7 +116,7 @@ defineExpose({
         :link-component="linkComponent"
         @update:active="
           (_, opts) => {
-            if (!opts) return
+            if (!opts || depth < 0) return
             emit('updateActivePosition', opts)
           }
         "
