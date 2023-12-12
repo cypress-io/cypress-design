@@ -9,10 +9,6 @@ const { kebabCase, map, reduce } = _
 
 // get the branch from vercel's build context
 const branch = process.env.GIT_BRANCH || 'main'
-
-// default dark mode preference to system preference
-const fallbackPreference = 'auto'
-
 console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 
 // https://vitepress.vuejs.org/config/app-configs
@@ -20,6 +16,7 @@ export default defineConfig({
   title: 'Cypress Design System',
   description: 'The documentation website for building UI at Cypress',
   outDir: './dist',
+  appearance: false,
   markdown: {
     config(md) {
       md.use(vueLiveMd)
