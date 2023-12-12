@@ -2,7 +2,9 @@
 import { computed, type DefineComponent, ref, watch, inject } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, classes } from '@cypress-design/constants-docmenu'
-import DocGroupElements from './_DocGroupElements.vue'
+import DocGroupElements, {
+  type DocGroupEventsEmitted,
+} from './_DocGroupElements.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -25,11 +27,16 @@ const Head = computed(() =>
   props.collapsible ? 'button' : props.group.href ? 'a' : 'div',
 )
 
-const emit = defineEmits<{
-  (event: 'updateActivePosition', opts?: { top: number; height: number }): void
-  (event: 'hideMarker'): void
-  (event: 'updateMarkerPosition'): void
-}>()
+const emit = defineEmits<DocGroupEventsEmitted>()
+
+const hasActiveItem = computed(() =>
+  props.group.items.some((item) => {
+    if ('items' in item) {
+      return hasActiveItemRecursively(item.items)
+    }
+    return item.href === props.activePath
+  }),
+)
 
 function hasActiveItemRecursively(items = props.group.items): boolean {
   return items.some((item) => {
@@ -50,10 +57,18 @@ const markerIsMoving = inject('transition-is-moving', ref(false))
 
 watch(open, () => {
   $listWrapper.value?.addEventListener(
+    'transitionstart',
+    () => {
+      markerIsMoving.value = true
+    },
+    { once: true },
+  )
+
+  $listWrapper.value?.addEventListener(
     'transitionend',
     () => {
       markerIsMoving.value = false
-      if (open.value || !hasActiveItemRecursively()) {
+      if (open.value || !hasActiveItem.value) {
         emit('updateMarkerPosition')
       }
     },
@@ -67,8 +82,8 @@ watch(active, (active) => {
   }
 })
 
-watch(open, async (open) => {
-  if (hasActiveItemRecursively()) {
+watch(open, (open) => {
+  if (hasActiveItem.value) {
     if (open) {
       reTriggerSetActiveGroup()
     } else {
@@ -93,8 +108,10 @@ defineExpose({
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
         'text-indigo-500': active,
-        'text-gray-900 dark:text-gray-200': !active && depth === 0,
-        'text-gray-700 dark:text-gray-500': !active && depth >= 0,
+        'text-gray-900 dark:text-gray-200':
+          !hasActiveItem && !active && depth === 0,
+        'text-gray-700 dark:text-gray-500':
+          !hasActiveItem && !active && depth >= 0,
       },
     ]"
     :href="group.href"
@@ -145,7 +162,9 @@ defineExpose({
       :link-component="linkComponent"
       @hide-marker="emit('hideMarker')"
       @update-marker-position="() => emit('updateMarkerPosition')"
-      @update-active-position="(opts) => emit('updateActivePosition', opts)"
+      @update-active-position="
+        (opts) => (open ? emit('updateActivePosition', opts) : null)
+      "
     />
   </div>
 </template>

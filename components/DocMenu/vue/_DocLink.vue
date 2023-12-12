@@ -32,8 +32,6 @@ function setActiveMarkerPosition() {
     const { top = 0, height = 36 } =
       $container.value?.getBoundingClientRect() ?? {}
 
-    markerIsMoving.value = true
-
     emit('update:active', props.active, {
       top,
       height,

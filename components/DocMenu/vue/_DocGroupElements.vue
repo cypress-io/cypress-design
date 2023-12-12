@@ -12,11 +12,21 @@ const props = defineProps<{
   depth: number
 }>()
 
-const emit = defineEmits<{
+export interface DocGroupEventsEmitted {
+  /**
+   * If the group is not collapsed, this event will emit the
+   * active marker position all the way to the menu component
+   */
   (event: 'updateActivePosition', opts?: { top: number; height: number }): void
-  (event: 'hideMarker'): void
+  /**
+   * This event will trigger a re-render of the active marker
+   * to update its position if not in the current subtree
+   */
   (event: 'updateMarkerPosition'): void
-}>()
+  (event: 'hideMarker'): void
+}
+
+const emit = defineEmits<DocGroupEventsEmitted>()
 
 const $items = ref<(typeof DocLink)[]>([])
 const $groups = ref<(typeof DocGroup)[]>([])
@@ -30,7 +40,11 @@ function hasActiveItemRecursively(items = props.items): boolean {
   })
 }
 
-function reTriggerSetActiveGroup(index = 0) {
+/**
+ * update the position of the marker when opening a group
+ * @param index
+ */
+function reTriggerSetActiveGroup(index = -1) {
   $items.value.forEach((item) => {
     item.setActiveMarkerPosition()
   })
