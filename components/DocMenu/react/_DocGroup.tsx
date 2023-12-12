@@ -11,6 +11,19 @@ import {
   type DocLinkForward,
   type LinkComponentType,
 } from './_DocLink'
+import { MarkerIsMovingContext } from './markerIsMoving'
+
+const useIsMounted = () => {
+  const isMounted = React.useRef(false)
+
+  React.useEffect(() => {
+    isMounted.current = true
+    return () => {
+      isMounted.current = false
+    }
+  }, [])
+  return isMounted
+}
 
 export interface DocGroupProps {
   group: NavGroup
@@ -43,6 +56,8 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
   ) => {
     const [open, setOpen] = React.useState(group.collapsed !== true)
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
+    const $listWrapper = React.useRef<HTMLDivElement>(null)
+    const didMount = useIsMounted()
 
     function toggleMenu(open: boolean) {
       if (!collapsible) return
@@ -72,31 +87,63 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       [onActivePosition, open],
     )
 
-    function reTriggerSetActiveGroup() {
+    const { setMarkerIsMoving } = React.useContext(MarkerIsMovingContext)
+
+    function reTriggerSetActiveGroupParent() {
       $groupElements.current?.reTriggerSetActiveGroup()
     }
 
     React.useEffect(() => {
-      if (hasActiveItemRecursively()) {
-        if (open) {
-          reTriggerSetActiveGroup()
-        } else {
-          hideMarker()
-        }
-      } else {
-        updateMarkerPosition?.()
+      if (didMount.current) {
+        $listWrapper.current?.addEventListener(
+          'transitionend',
+          () => {
+            setMarkerIsMoving(false)
+            if (open || !hasActiveItemRecursively()) {
+              updateMarkerPosition?.()
+            }
+          },
+          { once: true },
+        )
       }
-    }, [open, updateMarkerPosition, hideMarker, hasActiveItemRecursively])
+    }, [
+      open,
+      setMarkerIsMoving,
+      updateMarkerPosition,
+      hasActiveItemRecursively,
+      didMount,
+    ])
+
+    React.useEffect(() => {
+      if (didMount.current) {
+        if (hasActiveItemRecursively()) {
+          if (open) {
+            reTriggerSetActiveGroupParent()
+          } else {
+            hideMarker()
+          }
+        } else {
+          updateMarkerPosition?.()
+        }
+      }
+    }, [
+      open,
+      updateMarkerPosition,
+      hideMarker,
+      hasActiveItemRecursively,
+      didMount,
+    ])
 
     React.useImperativeHandle(ref, () => ({
-      reTriggerSetActiveGroup,
+      reTriggerSetActiveGroup: reTriggerSetActiveGroupParent,
     }))
 
     const onUpdateMarkerPosition = React.useCallback(() => {
       if (hasActiveItemRecursively()) {
-        reTriggerSetActiveGroup()
+        reTriggerSetActiveGroupParent()
       } else {
         updateMarkerPosition?.()
+        $groupElements.current?.setActiveMarkerInMotion()
       }
     }, [hasActiveItemRecursively, updateMarkerPosition])
 
@@ -124,18 +171,29 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           ) : null}
           {group.label}
         </Head>
-        <DocGroupElements
-          ref={$groupElements}
-          className={!open ? 'hidden' : undefined}
-          items={group.items}
-          activePath={activePath}
-          collapsible={collapsible}
-          depth={depth}
-          onActivePosition={setActivePosition}
-          updateMarkerPosition={onUpdateMarkerPosition}
-          LinkComponent={LinkComponent}
-          hideMarker={hideMarker}
-        />
+        <div
+          className={clsx('grid transition-all relative', {
+            'grid-rows-[0fr]': !open && collapsible,
+            'grid-rows-[1fr]': open || !collapsible,
+          })}
+          ref={$listWrapper}
+        >
+          {open && collapsible && depth === 0 ? (
+            <div className={classes.openListBorderLeft} />
+          ) : null}
+          <DocGroupElements
+            ref={$groupElements}
+            className="overflow-hidden"
+            items={group.items}
+            activePath={activePath}
+            collapsible={collapsible}
+            depth={depth}
+            onActivePosition={setActivePosition}
+            updateMarkerPosition={onUpdateMarkerPosition}
+            LinkComponent={LinkComponent}
+            hideMarker={hideMarker}
+          />
+        </div>
       </>
     )
   },
@@ -155,7 +213,8 @@ export interface DocGroupElementsProps
 }
 
 export interface DocGroupElementsForward {
-  reTriggerSetActiveGroup: () => void
+  reTriggerSetActiveGroup: (index?: number) => void
+  setActiveMarkerInMotion: () => void
 }
 
 export const DocGroupElements = React.forwardRef<
@@ -192,35 +251,40 @@ export const DocGroupElements = React.forwardRef<
       [items, activePath],
     )
 
-    function reTriggerSetActiveGroup() {
-      $groups.current.forEach((group) => {
-        group?.reTriggerSetActiveGroup()
-      })
+    function reTriggerSetActiveGroup(index = 0) {
       $items.current.forEach((item) => {
         item?.setActiveMarkerPosition()
+      })
+      $groups.current.slice(index).forEach((group) => {
+        group?.reTriggerSetActiveGroup()
+      })
+    }
+
+    function setActiveMarkerInMotion() {
+      $items.current.forEach((item) => {
+        item?.setActiveMarkerInMotion()
       })
     }
 
     React.useImperativeHandle(ref, () => ({
       reTriggerSetActiveGroup,
+      setActiveMarkerInMotion,
     }))
 
-    const onUpdateMarkerPosition = React.useCallback(() => {
-      if (hasActiveItemRecursively()) {
-        reTriggerSetActiveGroup()
-      } else {
-        updateMarkerPosition?.()
-      }
-    }, [hasActiveItemRecursively, updateMarkerPosition])
+    const onUpdateMarkerPosition = React.useCallback(
+      (index: number) => {
+        if (hasActiveItemRecursively()) {
+          reTriggerSetActiveGroup(index)
+        } else {
+          updateMarkerPosition?.()
+          setActiveMarkerInMotion()
+        }
+      },
+      [hasActiveItemRecursively, updateMarkerPosition],
+    )
 
     return (
-      <ul
-        {...rest}
-        className={clsx('list-none p-0', className, {
-          'border-l border-gray-100': depth === 0 && collapsible,
-          'ml-[8px]': depth >= 0,
-        })}
-      >
+      <ul {...rest} className={clsx('list-none p-0', className)}>
         {items.map((item, index) =>
           'items' in item ? (
             <li key={index} className="relative list-none p-0">
@@ -235,7 +299,7 @@ export const DocGroupElements = React.forwardRef<
                 LinkComponent={LinkComponent}
                 hideMarker={hideMarker}
                 onActivePosition={onActivePosition}
-                updateMarkerPosition={onUpdateMarkerPosition}
+                updateMarkerPosition={() => onUpdateMarkerPosition(index)}
               />
             </li>
           ) : (
