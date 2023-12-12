@@ -34,6 +34,9 @@ function reTriggerSetActiveGroup(index = 0) {
   $items.value.forEach((item) => {
     item.setActiveMarkerPosition()
   })
+  // only update groups that come after the toggled one
+  // others will not need to update the marker
+  // since they are "before" in the rendering tree
   $groups.value.slice(index).forEach((group) => {
     group.reTriggerSetActiveGroup()
   })

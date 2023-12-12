@@ -64,14 +64,15 @@ defineExpose({
   <li ref="$container" class="list-none p-0">
     <component
       :is="linkComponent"
-      class="group relative block w-full pl-[24px] box-border"
+      class="group relative block w-full pl-[24px]"
       :class="{
         'text-indigo-500': active,
+        'text-gray-700 dark:text-gray-500': !active,
         'py-[8px] text-[16px] leading-[24px]': depth < 0,
         'leading-[20px] text-[14px] py-[12px]': depth >= 0,
       }"
       :style="{
-        paddingLeft: depth >= 0 ? `${depth * 12 + 32}px` : undefined,
+        paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
       }"
       :href="item.href"
     >
@@ -79,9 +80,9 @@ defineExpose({
         v-if="depth >= 0"
         class="left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full"
         :class="{
-          hidden: !active || !markerIsMoving,
+          hidden: !markerIsMoving || !active,
           'group-hover:block bg-gray-300': !active && collapsible,
-          'block bg-indigo-500': active && markerIsMoving,
+          'bg-indigo-500': active && markerIsMoving,
         }"
       />
       {{ item.label }}

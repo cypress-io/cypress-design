@@ -52,8 +52,10 @@ watch(open, () => {
   $listWrapper.value?.addEventListener(
     'transitionend',
     () => {
-      reTriggerSetActiveGroup()
       markerIsMoving.value = false
+      if (open.value || !hasActiveItemRecursively()) {
+        emit('updateMarkerPosition')
+      }
     },
     { once: true },
   )
@@ -91,6 +93,8 @@ defineExpose({
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
         'text-indigo-500': active,
+        'text-gray-900 dark:text-gray-200': !active && depth === 0,
+        'text-gray-700 dark:text-gray-500': !active && depth >= 0,
       },
     ]"
     :href="group.href"
@@ -106,14 +110,14 @@ defineExpose({
   >
     <IconChevronDownSmall
       v-if="props.collapsible"
-      stroke-color="gray-400"
+      stroke-color="current"
       :size="depth ? '8' : '16'"
       :class="[
         classes.expandedIcon,
         {
           'rotate-0': open,
           '-rotate-90': !open,
-          'ml-[16px]': depth,
+          'ml-[28px]': depth,
         },
       ]"
     />
@@ -129,7 +133,7 @@ defineExpose({
   >
     <div
       v-if="open && collapsible && depth === 0"
-      class="absolute left-[8px] top-0 w-[1px] h-full bg-gray-100"
+      :class="classes.openListBorderLeft"
     />
     <DocGroupElements
       ref="$groupElements"
