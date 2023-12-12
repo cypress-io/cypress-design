@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, type DefineComponent } from 'vue'
+import { ref, type DefineComponent, provide } from 'vue'
 import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
 import DocGroupElements from './_DocGroupElements.vue'
 
@@ -29,16 +29,20 @@ function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
   activeHeight.value = height
   showMarker.value = true
 }
+
+const markerIsMoving = ref(false)
+
+provide('transition-is-moving', markerIsMoving)
 </script>
 
 <template>
   <div ref="$container" class="relative">
     <div
-      v-if="showMarker && collapsible"
+      v-if="showMarker && collapsible && !markerIsMoving"
       data-cy="doc-menu-active-marker"
       class="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
       :style="{
-        top: `${activeTop + 4}px`,
+        top: `${activeTop}px`,
         height: `${activeHeight - 8}px`,
       }"
     />

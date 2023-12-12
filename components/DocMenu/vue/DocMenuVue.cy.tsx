@@ -1,23 +1,9 @@
 /// <reference types="cypress" />
-import { type DefineComponent, defineComponent } from 'vue'
+import { type DefineComponent, defineComponent, ref } from 'vue'
 import { mount } from 'cypress/vue'
 import assertions from '../assertions'
 import type { NavGroup, NavItemLink } from '../constants'
 import DocMenu from './DocMenu.vue'
-
-const CustomLinkVue: DefineComponent<{ href: StringConstructor }> =
-  defineComponent({
-    props: {
-      href: String,
-    },
-    setup(props, { slots }) {
-      return () => (
-        <div>
-          {slots.default?.()} + href: {props.href}
-        </div>
-      )
-    },
-  })
 
 describe('<DocMenu/>', () => {
   it('renders', () => {
@@ -26,19 +12,43 @@ describe('<DocMenu/>', () => {
   })
 
   it('renders the custom link components', () => {
+    const selectedHref = ref<string | undefined>()
+    const CustomLinkVue: DefineComponent<{ href: StringConstructor }> =
+      defineComponent({
+        props: {
+          href: String,
+        },
+        setup(props, { slots, emit }) {
+          return () => (
+            <span onClick={() => (selectedHref.value = props.href)}>
+              {slots.default?.()} + href: {props.href}
+            </span>
+          )
+        },
+      })
     mount(() => (
       <DocMenu
+        activePath={selectedHref.value}
         items={[
           {
             label: 'Baaaaaaz',
-            items: [{ label: 'Bar', items: [{ href: '/foo', label: 'Foo' }] }],
+            items: [
+              {
+                label: 'Bar',
+                items: [
+                  { href: '/foo', label: 'Foo' },
+                  { href: '/box', label: 'Box' },
+                ],
+              },
+              { label: 'Baz', href: '/baz' },
+            ],
           },
         ]}
         linkComponent={CustomLinkVue}
       />
     ))
 
-    cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
+    cy.findByText('Foo + href: /foo').should('be.visible')
   })
 
   function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
