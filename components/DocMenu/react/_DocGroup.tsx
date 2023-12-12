@@ -96,6 +96,13 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     React.useEffect(() => {
       if (didMount.current) {
         $listWrapper.current?.addEventListener(
+          'transitionstart',
+          () => {
+            setMarkerIsMoving(true)
+          },
+          { once: true },
+        )
+        $listWrapper.current?.addEventListener(
           'transitionend',
           () => {
             setMarkerIsMoving(false)
@@ -143,7 +150,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
         reTriggerSetActiveGroupParent()
       } else {
         updateMarkerPosition?.()
-        $groupElements.current?.setActiveMarkerInMotion()
       }
     }, [hasActiveItemRecursively, updateMarkerPosition])
 
@@ -165,7 +171,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
               className={clsx(classes.expandedIcon, {
                 'rotate-0': open,
                 '-rotate-90': !open,
-                'ml-[16px]': depth,
+                'ml-[28px]': depth,
               })}
             />
           ) : null}
@@ -214,7 +220,6 @@ export interface DocGroupElementsProps
 
 export interface DocGroupElementsForward {
   reTriggerSetActiveGroup: (index?: number) => void
-  setActiveMarkerInMotion: () => void
 }
 
 export const DocGroupElements = React.forwardRef<
@@ -260,15 +265,8 @@ export const DocGroupElements = React.forwardRef<
       })
     }
 
-    function setActiveMarkerInMotion() {
-      $items.current.forEach((item) => {
-        item?.setActiveMarkerInMotion()
-      })
-    }
-
     React.useImperativeHandle(ref, () => ({
       reTriggerSetActiveGroup,
-      setActiveMarkerInMotion,
     }))
 
     const onUpdateMarkerPosition = React.useCallback(
@@ -277,7 +275,6 @@ export const DocGroupElements = React.forwardRef<
           reTriggerSetActiveGroup(index)
         } else {
           updateMarkerPosition?.()
-          setActiveMarkerInMotion()
         }
       },
       [hasActiveItemRecursively, updateMarkerPosition],

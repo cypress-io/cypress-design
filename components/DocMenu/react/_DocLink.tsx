@@ -20,7 +20,6 @@ export interface DocLinkProps {
 
 export interface DocLinkForward {
   setActiveMarkerPosition: () => void
-  setActiveMarkerInMotion: () => void
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
@@ -33,12 +32,6 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     const { markerIsMoving, setMarkerIsMoving } = React.useContext(
       MarkerIsMovingContext,
     )
-
-    const setActiveMarkerInMotion = React.useCallback(() => {
-      if (active) {
-        setMarkerIsMoving(true)
-      }
-    }, [active, setMarkerIsMoving])
 
     const setActiveMarkerPosition = () => {
       if (active) {
@@ -61,7 +54,6 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
 
     React.useImperativeHandle(ref, () => ({
       setActiveMarkerPosition,
-      setActiveMarkerInMotion,
     }))
 
     return (
@@ -88,9 +80,6 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
                   'bg-indigo-500': active && markerIsMoving,
                 },
               )}
-              style={{
-                left: `-${18.5 + depth * 8}px`,
-              }}
             />
           ) : null}
           {item.label}
