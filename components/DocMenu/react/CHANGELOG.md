@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 0.5.1
+
+### Patch Changes
+
+- [`171cf54`](https://github.com/cypress-io/cypress-design/commit/171cf546bd79e96b8ef140b2af34d1949d022a4b) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: make docmenu transition properly
+
 ## 0.5.0
 
 ### Minor Changes
