@@ -1,5 +1,16 @@
 # @cypress-design/react-docmenu
 
+## 0.5.0
+
+### Minor Changes
+
+- [#357](https://github.com/cypress-io/cypress-design/pull/357) [`d0ed7c5`](https://github.com/cypress-io/cypress-design/commit/d0ed7c513df09d24639895ae1c7f2633eab8c254) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add transition when open/close collapsible menu
+
+### Patch Changes
+
+- Updated dependencies [[`d0ed7c5`](https://github.com/cypress-io/cypress-design/commit/d0ed7c513df09d24639895ae1c7f2633eab8c254)]:
+  - @cypress-design/constants-docmenu@0.2.0
+
 ## 0.4.3
 
 ### Patch Changes
