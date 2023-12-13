@@ -65,10 +65,17 @@ function reTriggerSetActiveGroup(index = -1) {
   $items.value.forEach((item) => {
     item.setActiveMarkerPosition()
   })
+
+  // calculate the index of the calling group in the list of groups
+  const indexGroup =
+    index -
+    // remove all the items that are not groups from the array and count them
+    props.items.slice(0, index).filter((item) => !('items' in item)).length
+
   // only update groups that come after the toggled one
   // others will not need to update the marker
   // since they are "before" in the rendering tree
-  $groups.value.slice(index).forEach((group) => {
+  $groups.value.slice(indexGroup + 1).forEach((group) => {
     group.reTriggerSetActiveGroup()
   })
 }
