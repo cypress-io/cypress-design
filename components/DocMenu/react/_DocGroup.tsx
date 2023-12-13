@@ -13,18 +13,6 @@ import {
 } from './_DocLink'
 import { MarkerIsMovingContext } from './markerIsMoving'
 
-const useIsMounted = () => {
-  const isMounted = React.useRef(false)
-
-  React.useEffect(() => {
-    isMounted.current = true
-    return () => {
-      isMounted.current = false
-    }
-  }, [])
-  return isMounted
-}
-
 export interface DocGroupProps {
   group: NavGroup
   activePath: string
@@ -57,11 +45,12 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     const [open, setOpen] = React.useState(group.collapsed !== true)
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
     const $listWrapper = React.useRef<HTMLDivElement>(null)
-    const didMount = useIsMounted()
 
     function toggleMenu(open: boolean) {
       if (!collapsible) return
       setOpen(open)
+      hideShowAbsoluteMarker()
+      readjustMarkerPosition()
     }
 
     const hasActiveItemRecursively = React.useCallback(
@@ -93,53 +82,42 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       $groupElements.current?.reTriggerSetActiveGroup()
     }
 
-    React.useEffect(() => {
-      if (didMount.current) {
-        $listWrapper.current?.addEventListener(
-          'transitionstart',
-          () => {
-            setMarkerIsMoving(true)
-          },
-          { once: true },
-        )
-        $listWrapper.current?.addEventListener(
-          'transitionend',
-          () => {
-            setMarkerIsMoving(false)
-            if (open || !hasActiveItemRecursively()) {
-              updateMarkerPosition?.()
-            }
-          },
-          { once: true },
-        )
-      }
-    }, [
-      open,
-      setMarkerIsMoving,
-      updateMarkerPosition,
-      hasActiveItemRecursively,
-      didMount,
-    ])
-
-    React.useEffect(() => {
-      if (didMount.current) {
-        if (hasActiveItemRecursively()) {
-          if (open) {
-            reTriggerSetActiveGroupParent()
-          } else {
-            hideMarker()
+    /**
+     * To make the marker follow smooth open/close animation of the menu groups
+     * We replace the absolute marker by one in the link. After the transition, the
+     * marker is replaced by the absolute one again.
+     */
+    function hideShowAbsoluteMarker() {
+      $listWrapper.current?.addEventListener(
+        'transitionstart',
+        () => {
+          setMarkerIsMoving(true)
+        },
+        { once: true },
+      )
+      $listWrapper.current?.addEventListener(
+        'transitionend',
+        () => {
+          if (open || !hasActiveItemRecursively()) {
+            updateMarkerPosition?.()
           }
+          setMarkerIsMoving(false)
+        },
+        { once: true },
+      )
+    }
+
+    function readjustMarkerPosition() {
+      if (hasActiveItemRecursively()) {
+        if (open) {
+          reTriggerSetActiveGroupParent()
         } else {
-          updateMarkerPosition?.()
+          hideMarker()
         }
+      } else {
+        updateMarkerPosition?.()
       }
-    }, [
-      open,
-      updateMarkerPosition,
-      hideMarker,
-      hasActiveItemRecursively,
-      didMount,
-    ])
+    }
 
     React.useImperativeHandle(ref, () => ({
       reTriggerSetActiveGroup: reTriggerSetActiveGroupParent,

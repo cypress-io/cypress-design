@@ -30,9 +30,7 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
   ) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { markerIsMoving, setMarkerIsMoving } = React.useContext(
-      MarkerIsMovingContext,
-    )
+    const { markerIsMoving } = React.useContext(MarkerIsMovingContext)
 
     const setActiveMarkerPosition = () => {
       if (active) {
@@ -47,11 +45,7 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
 
     // on mount, if the item is active,
     // send the top position to the parent
-    React.useEffect(setActiveMarkerPosition, [
-      onActive,
-      active,
-      setMarkerIsMoving,
-    ])
+    React.useEffect(setActiveMarkerPosition, [onActive, active])
 
     React.useImperativeHandle(ref, () => ({
       setActiveMarkerPosition,
