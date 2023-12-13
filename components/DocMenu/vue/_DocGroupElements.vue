@@ -123,8 +123,13 @@ defineExpose({
         :link-component="linkComponent"
         @update:active="
           (_, opts) => {
-            if (!opts || depth < 0) return
-            emit('updateActivePosition', opts)
+            if (!opts) {
+              return
+            } else if (depth < 0) {
+              emit('hideMarker')
+            } else {
+              emit('updateActivePosition', opts)
+            }
           }
         "
       />

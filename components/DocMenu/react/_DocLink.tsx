@@ -5,8 +5,9 @@ import { MarkerIsMovingContext } from './markerIsMoving'
 
 export type LinkComponentType = React.ElementType<{
   href: string
-  className?: string
-  children?: React.ReactNode
+  className: string
+  style: React.CSSProperties
+  children: React.ReactNode
 }>
 
 export interface DocLinkProps {

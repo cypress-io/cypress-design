@@ -256,23 +256,26 @@ export const DocGroupElements = React.forwardRef<
       [items, activePath],
     )
 
-    function reTriggerSetActiveGroup(index = 0) {
-      $items.current.forEach((item) => {
-        item?.setActiveMarkerPosition()
-      })
-      // calculate the index of the calling group in the list of groups
-      const indexGroup =
-        index -
-        // remove all the items that are not groups from the array and count them
-        items.slice(0, index).filter((item) => !('items' in item)).length
+    const reTriggerSetActiveGroup = React.useCallback(
+      (index: number = 0) => {
+        $items.current.forEach((item) => {
+          item?.setActiveMarkerPosition()
+        })
+        // calculate the index of the calling group in the list of groups
+        const indexGroup =
+          index -
+          // remove all the items that are not groups from the array and count them
+          items.slice(0, index).filter((item) => !('items' in item)).length
 
-      // only update groups that come after the toggled one
-      // others will not need to update the marker
-      // since they are "before" in the rendering tree
-      $groups.current.slice(indexGroup + 1).forEach((group) => {
-        group?.reTriggerSetActiveGroup()
-      })
-    }
+        // only update groups that come after the toggled one
+        // others will not need to update the marker
+        // since they are "before" in the rendering tree
+        $groups.current.slice(indexGroup + 1).forEach((group) => {
+          group?.reTriggerSetActiveGroup()
+        })
+      },
+      [items],
+    )
 
     React.useImperativeHandle(ref, () => ({
       reTriggerSetActiveGroup,
@@ -286,7 +289,7 @@ export const DocGroupElements = React.forwardRef<
           updateMarkerPosition?.()
         }
       },
-      [hasActiveItemRecursively, updateMarkerPosition],
+      [hasActiveItemRecursively, updateMarkerPosition, reTriggerSetActiveGroup],
     )
 
     return (
@@ -318,7 +321,9 @@ export const DocGroupElements = React.forwardRef<
               active={item.href === activePath}
               collapsible={collapsible}
               depth={depth}
-              onActive={onActivePosition}
+              onActive={(opts) =>
+                depth < 0 ? hideMarker() : onActivePosition(opts)
+              }
               LinkComponent={LinkComponent}
             />
           ),

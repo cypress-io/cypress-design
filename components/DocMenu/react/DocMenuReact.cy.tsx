@@ -48,8 +48,12 @@ describe('<DocMenu/>', () => {
           <div className="w-[200px] mt-[60px] absolute">
             <DocMenu
               activePath={activeHref}
-              LinkComponent={({ href, className, children }) => (
-                <div className={className} onClick={() => setActiveHref(href)}>
+              LinkComponent={({ href, className, children, style }) => (
+                <div
+                  style={style}
+                  className={className}
+                  onClick={() => setActiveHref(href)}
+                >
                   {children}
                 </div>
               )}
