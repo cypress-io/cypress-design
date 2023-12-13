@@ -260,7 +260,16 @@ export const DocGroupElements = React.forwardRef<
       $items.current.forEach((item) => {
         item?.setActiveMarkerPosition()
       })
-      $groups.current.slice(index).forEach((group) => {
+      // calculate the index of the calling group in the list of groups
+      const indexGroup =
+        index -
+        // remove all the items that are not groups from the array and count them
+        items.slice(0, index).filter((item) => !('items' in item)).length
+
+      // only update groups that come after the toggled one
+      // others will not need to update the marker
+      // since they are "before" in the rendering tree
+      $groups.current.slice(indexGroup + 1).forEach((group) => {
         group?.reTriggerSetActiveGroup()
       })
     }
