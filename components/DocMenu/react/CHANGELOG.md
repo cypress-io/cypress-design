@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 0.5.2
+
+### Patch Changes
+
+- [`5927136`](https://github.com/cypress-io/cypress-design/commit/59271366a460cbdc411a6bec75feb663d3991029) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: make sure when dynamic marker reappear, it does not bounce up
+
 ## 0.5.1
 
 ### Patch Changes
