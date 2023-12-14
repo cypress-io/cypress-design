@@ -46,11 +46,11 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
     const $listWrapper = React.useRef<HTMLDivElement>(null)
 
-    function toggleMenu(open: boolean) {
+    function toggleMenu(localOpen: boolean) {
       if (!collapsible) return
-      setOpen(open)
-      hideShowAbsoluteMarker()
-      readjustMarkerPosition()
+      setOpen(localOpen)
+      hideShowAbsoluteMarker(localOpen)
+      readjustMarkerPosition(localOpen)
     }
 
     const hasActiveItemRecursively = React.useCallback(
@@ -87,7 +87,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
      * We replace the absolute marker by one in the link. After the transition, the
      * marker is replaced by the absolute one again.
      */
-    function hideShowAbsoluteMarker() {
+    function hideShowAbsoluteMarker(localOpen: boolean) {
       $listWrapper.current?.addEventListener(
         'transitionstart',
         () => {
@@ -98,7 +98,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       $listWrapper.current?.addEventListener(
         'transitionend',
         () => {
-          if (open || !hasActiveItemRecursively()) {
+          if (localOpen || !hasActiveItemRecursively()) {
             updateMarkerPosition?.()
           }
           setMarkerIsMoving(false)
@@ -107,9 +107,9 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       )
     }
 
-    function readjustMarkerPosition() {
+    function readjustMarkerPosition(localOpen: boolean) {
       if (hasActiveItemRecursively()) {
-        if (open) {
+        if (localOpen) {
           reTriggerSetActiveGroupParent()
         } else {
           hideMarker()
@@ -240,6 +240,7 @@ export const DocGroupElements = React.forwardRef<
           item?.setActiveMarkerPosition()
         })
         // calculate the index of the calling group in the list of groups
+        // "index" is the index of the calling group in the list of items (groups and links)
         const indexGroup =
           index -
           // remove all the items that are not groups from the array and count them
