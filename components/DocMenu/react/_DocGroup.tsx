@@ -48,8 +48,8 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
 
     function toggleMenu(localOpen: boolean) {
       if (!collapsible) return
-      setOpen(localOpen)
       hideShowAbsoluteMarker(localOpen)
+      setOpen(localOpen)
       readjustMarkerPosition(localOpen)
     }
 

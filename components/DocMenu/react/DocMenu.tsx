@@ -23,7 +23,8 @@ export const DocMenu: React.FC<DocMenuProps> = ({
   const [activeTop, setActiveTop] = React.useState(0)
   const [activeHeight, setActiveHeight] = React.useState(36)
   const [showMarker, setShowMarker] = React.useState(false)
-  const [markerIsMoving, setMarkerIsMoving] = React.useState(false)
+  const [markerIsMoving, localSetMarkerIsMoving] = React.useState(false)
+  const [hasCSSTransition, setHasCSSTransition] = React.useState(true)
 
   const container = React.useRef<HTMLDivElement>(null)
 
@@ -38,6 +39,19 @@ export const DocMenu: React.FC<DocMenuProps> = ({
   )
 
   const setShowMarkerFalse = React.useCallback(() => setShowMarker(false), [])
+  const setMarkerIsMoving = React.useCallback(
+    (val: boolean) => {
+      localSetMarkerIsMoving(val)
+      if (!val) return
+      // make sure the animation does not fire "after"
+      // the marker has reappeared at its right place
+      setHasCSSTransition(false)
+      setTimeout(() => {
+        setHasCSSTransition(true)
+      }, 300)
+    },
+    [localSetMarkerIsMoving],
+  )
 
   return (
     <MarkerIsMovingContext.Provider
@@ -46,10 +60,13 @@ export const DocMenu: React.FC<DocMenuProps> = ({
       <div ref={container} className="relative">
         {showMarker && !markerIsMoving && collapsible ? (
           <div
-            className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
+            className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 ml-[6.5px] mt-[4px]"
             style={{
               top: `${activeTop}px`,
               height: `${activeHeight - 8}px`,
+              transition: hasCSSTransition
+                ? 'height .3s ease-in-out, top .3s ease-in-out'
+                : 'none',
             }}
           />
         ) : null}
