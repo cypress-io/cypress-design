@@ -55,7 +55,7 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
       <li ref={activeLIRef} className="list-none p-0">
         <LinkComponent
           className={clsx('group relative block w-full pl-[24px]', {
-            'text-indigo-500': active,
+            'text-indigo-500 dark:text-indigo-400': active,
             'text-gray-700 dark:text-gray-500': !active,
             'py-[8px] text-[16px] leading-[24px]': depth < 0,
             'leading-[20px] text-[14px] py-[12px]': depth >= 0,
@@ -72,7 +72,7 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
                 {
                   hidden: !markerIsMoving || !active,
                   'group-hover:block bg-gray-300': !active && collapsible,
-                  'bg-indigo-500': active && markerIsMoving,
+                  'bg-indigo-500 dark:bg-indigo-400': active && markerIsMoving,
                 },
               )}
             />

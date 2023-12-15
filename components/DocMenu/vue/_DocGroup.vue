@@ -99,11 +99,9 @@ defineExpose({
       {
         [classes.topButton]: depth === 0,
         [classes.leafButton]: depth,
-        'text-indigo-500': active,
-        'text-gray-900 dark:text-gray-200':
-          !hasActiveItem && !active && depth === 0,
-        'text-gray-700 dark:text-gray-500':
-          !hasActiveItem && !active && depth >= 0,
+        'text-indigo-500 dark:text-indigo-400': active,
+        'text-gray-900 dark:text-gray-100': hasActiveItem && !active,
+        'text-gray-800 dark:text-gray-200': !hasActiveItem && !active,
       },
     ]"
     :href="group.href"

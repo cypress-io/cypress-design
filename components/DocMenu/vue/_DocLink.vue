@@ -64,7 +64,7 @@ defineExpose({
       :is="linkComponent"
       class="group relative block w-full pl-[24px]"
       :class="{
-        'text-indigo-500': active,
+        'text-indigo-500 dark:text-indigo-400': active,
         'text-gray-700 dark:text-gray-500': !active,
         'py-[8px] text-[16px] leading-[24px]': depth < 0,
         'leading-[20px] text-[14px] py-[12px]': depth >= 0,

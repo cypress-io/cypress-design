@@ -28,6 +28,18 @@ export interface DocGroupForward {
   reTriggerSetActiveGroup: () => void
 }
 
+const hasActiveItemRecursively = (
+  items: (NavGroup | NavItemLink)[],
+  localActivePath: string,
+): boolean => {
+  return items.some((item) => {
+    if ('items' in item) {
+      return hasActiveItemRecursively(item.items, localActivePath)
+    }
+    return item.href === localActivePath
+  })
+}
+
 export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
   (
     {
@@ -53,17 +65,9 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       readjustMarkerPosition(localOpen)
     }
 
-    const hasActiveItemRecursively = React.useCallback(
-      (items = group.items): boolean => {
-        return items.some((item) => {
-          if ('items' in item) {
-            return hasActiveItemRecursively(item.items)
-          }
-          return item.href === activePath
-        })
-      },
-      [group.items, activePath],
-    )
+    const hasActiveItemRecursivelyMemo = React.useMemo(() => {
+      return hasActiveItemRecursively(group.items, activePath)
+    }, [group.items, activePath])
 
     const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
 
@@ -98,7 +102,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       $listWrapper.current?.addEventListener(
         'transitionend',
         () => {
-          if (localOpen || !hasActiveItemRecursively()) {
+          if (localOpen || !hasActiveItemRecursivelyMemo) {
             updateMarkerPosition?.()
           }
           setMarkerIsMoving(false)
@@ -108,7 +112,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     }
 
     function readjustMarkerPosition(localOpen: boolean) {
-      if (hasActiveItemRecursively()) {
+      if (hasActiveItemRecursivelyMemo) {
         if (localOpen) {
           reTriggerSetActiveGroupParent()
         } else {
@@ -124,12 +128,12 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     }))
 
     const onUpdateMarkerPosition = React.useCallback(() => {
-      if (hasActiveItemRecursively()) {
+      if (hasActiveItemRecursivelyMemo) {
         reTriggerSetActiveGroupParent()
       } else {
         updateMarkerPosition?.()
       }
-    }, [hasActiveItemRecursively, updateMarkerPosition])
+    }, [hasActiveItemRecursivelyMemo, updateMarkerPosition])
 
     return (
       <>
@@ -139,7 +143,11 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           className={clsx(classes.button, {
             [classes.topButton]: depth === 0,
             [classes.leafButton]: depth,
-            'text-indigo-500': activePath === group.href,
+            'text-indigo-500 dark:text-indigo-400': activePath === group.href,
+            'text-gray-900 dark:text-gray-100':
+              hasActiveItemRecursivelyMemo && activePath !== group.href,
+            'text-gray-800 dark:text-gray-200':
+              !hasActiveItemRecursivelyMemo && activePath !== group.href,
           })}
         >
           {collapsible ? (
@@ -222,18 +230,6 @@ export const DocGroupElements = React.forwardRef<
     const $groups = React.useRef<DocGroupForward[]>([])
     const $items = React.useRef<DocLinkForward[]>([])
 
-    const hasActiveItemRecursively = React.useCallback(
-      (localItems = items): boolean => {
-        return localItems.some((item) => {
-          if ('items' in item) {
-            return hasActiveItemRecursively(item.items)
-          }
-          return item.href === activePath
-        })
-      },
-      [items, activePath],
-    )
-
     const reTriggerSetActiveGroup = React.useCallback(
       (index: number = 0) => {
         $items.current.forEach((item) => {
@@ -262,13 +258,13 @@ export const DocGroupElements = React.forwardRef<
 
     const onUpdateMarkerPosition = React.useCallback(
       (index: number) => {
-        if (hasActiveItemRecursively()) {
+        if (hasActiveItemRecursively(items, activePath)) {
           reTriggerSetActiveGroup(index)
         } else {
           updateMarkerPosition?.()
         }
       },
-      [hasActiveItemRecursively, updateMarkerPosition, reTriggerSetActiveGroup],
+      [updateMarkerPosition, reTriggerSetActiveGroup, items, activePath],
     )
 
     return (
