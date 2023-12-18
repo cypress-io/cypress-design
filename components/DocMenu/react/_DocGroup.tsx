@@ -54,7 +54,13 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     },
     ref,
   ) => {
-    const [open, setOpen] = React.useState(group.collapsed !== true)
+    const hasActiveItemRecursivelyMemo = React.useMemo(() => {
+      return hasActiveItemRecursively(group.items, activePath)
+    }, [group.items, activePath])
+
+    const [open, setOpen] = React.useState(
+      !group.collapsed || hasActiveItemRecursivelyMemo,
+    )
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
     const $listWrapper = React.useRef<HTMLDivElement>(null)
 
@@ -64,10 +70,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       setOpen(localOpen)
       readjustMarkerPosition(localOpen)
     }
-
-    const hasActiveItemRecursivelyMemo = React.useMemo(() => {
-      return hasActiveItemRecursively(group.items, activePath)
-    }, [group.items, activePath])
 
     const Head = collapsible ? 'button' : group.href ? 'a' : 'div'
 
@@ -164,10 +166,9 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           {group.label}
         </Head>
         <div
-          className={clsx('grid transition-all relative', {
-            'grid-rows-[0fr]': !open && collapsible,
-            'grid-rows-[1fr]': open || !collapsible,
-          })}
+          className={`relative ${collapsible ? 'transition-all grid' : ''} ${
+            !open && collapsible ? 'grid-rows-[0fr]' : ''
+          } ${open && collapsible ? 'grid-rows-[1fr]' : ''}`}
           ref={$listWrapper}
         >
           {open && collapsible && depth === 0 ? (
