@@ -12,11 +12,9 @@ export type LinkComponentType = React.ElementType<{
 
 export interface DocLinkProps {
   item: NavItemLink
-  active: boolean
-  collapsible: boolean
-  depth?: number
-  onActive?: (opts: { top: number; height: number }) => void
-  LinkComponent?: LinkComponentType
+  depth: number
+  onActive: (opts: { top: number; height: number }) => void
+  LinkComponent: LinkComponentType
 }
 
 export interface DocLinkForward {
@@ -24,19 +22,20 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  (
-    { item, active, collapsible, depth = -1, onActive, LinkComponent = 'a' },
-    ref,
-  ) => {
+  ({ item, depth, onActive, LinkComponent }, ref) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { markerIsMoving } = React.useContext(MarkerIsMovingContext)
+    const { markerIsMoving, collapsible, activePath } = React.useContext(
+      MarkerIsMovingContext,
+    )
+
+    const active = item.href === activePath
 
     const setActiveMarkerPosition = () => {
       if (active) {
         const box = activeLIRef?.current?.getBoundingClientRect()
 
-        onActive?.({
+        onActive({
           top: box?.top || 0,
           height: box?.height || 0,
         })

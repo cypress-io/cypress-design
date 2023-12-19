@@ -15,8 +15,6 @@ import { MarkerIsMovingContext } from './markerIsMoving'
 
 export interface DocGroupProps {
   group: NavGroup
-  activePath: string
-  collapsible: boolean
   onActivePosition: (opts: { top: number; height: number }) => void
   updateMarkerPosition?: () => void
   depth?: number
@@ -44,8 +42,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
   (
     {
       group,
-      activePath,
-      collapsible,
       depth = 0,
       onActivePosition,
       updateMarkerPosition,
@@ -54,13 +50,15 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     },
     ref,
   ) => {
+    const { setMarkerIsMoving, activePath, collapsible } = React.useContext(
+      MarkerIsMovingContext,
+    )
+
     const hasActiveItemRecursivelyMemo = React.useMemo(() => {
       return hasActiveItemRecursively(group.items, activePath)
     }, [group.items, activePath])
 
-    const [open, setOpen] = React.useState(
-      !group.collapsed || hasActiveItemRecursivelyMemo,
-    )
+    const [open, setOpen] = React.useState(!group.collapsed)
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
     const $listWrapper = React.useRef<HTMLDivElement>(null)
 
@@ -81,8 +79,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       },
       [onActivePosition, open],
     )
-
-    const { setMarkerIsMoving } = React.useContext(MarkerIsMovingContext)
 
     function reTriggerSetActiveGroupParent() {
       $groupElements.current?.reTriggerSetActiveGroup()
@@ -216,8 +212,6 @@ export const DocGroupElements = React.forwardRef<
   (
     {
       items,
-      activePath,
-      collapsible,
       depth = 0,
       onActivePosition,
       updateMarkerPosition,
@@ -257,6 +251,8 @@ export const DocGroupElements = React.forwardRef<
       reTriggerSetActiveGroup,
     }))
 
+    const { activePath } = React.useContext(MarkerIsMovingContext)
+
     const onUpdateMarkerPosition = React.useCallback(
       (index: number) => {
         if (hasActiveItemRecursively(items, activePath)) {
@@ -278,9 +274,7 @@ export const DocGroupElements = React.forwardRef<
                   $groups.current[index] = el
                 }}
                 group={item}
-                activePath={activePath}
                 depth={depth + 1}
-                collapsible={collapsible}
                 LinkComponent={LinkComponent}
                 hideMarker={hideMarker}
                 onActivePosition={onActivePosition}
@@ -294,8 +288,6 @@ export const DocGroupElements = React.forwardRef<
               }}
               key={index}
               item={item}
-              active={item.href === activePath}
-              collapsible={collapsible}
               depth={depth}
               onActive={(opts) =>
                 depth < 0 ? hideMarker() : onActivePosition(opts)

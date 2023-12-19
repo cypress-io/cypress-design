@@ -55,7 +55,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 
   return (
     <MarkerIsMovingContext.Provider
-      value={{ markerIsMoving, setMarkerIsMoving }}
+      value={{ markerIsMoving, setMarkerIsMoving, activePath, collapsible }}
     >
       <div ref={container} className="relative">
         {showMarker && !markerIsMoving && collapsible ? (
