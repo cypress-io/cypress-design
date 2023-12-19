@@ -70,6 +70,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
         {...rest}
         items={items}
         depth={-1}
+        markerIsMoving={markerIsMoving}
         onActivePosition={setActivePosition}
         LinkComponent={LinkComponent}
         context={{
@@ -77,7 +78,6 @@ export const DocMenu: React.FC<DocMenuProps> = ({
           activePath,
           collapsible,
           hideMarker,
-          markerIsMoving,
         }}
       />
     </div>

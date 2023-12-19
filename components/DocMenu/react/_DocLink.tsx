@@ -7,7 +7,6 @@ export interface Context {
   collapsible: boolean
   activePath: string
   hideMarker: () => void
-  markerIsMoving: boolean
 }
 
 export type LinkComponentType = React.ElementType<{
@@ -20,6 +19,7 @@ export type LinkComponentType = React.ElementType<{
 export interface DocLinkProps {
   item: NavItemLink
   depth: number
+  markerIsMoving: boolean
   context: Context
   onActive: (opts: { top: number; height: number }) => void
   LinkComponent: LinkComponentType
@@ -30,10 +30,10 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  ({ item, depth, context, onActive, LinkComponent }, ref) => {
+  ({ item, depth, markerIsMoving, context, onActive, LinkComponent }, ref) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { collapsible, activePath, markerIsMoving } = context
+    const { collapsible, activePath } = context
 
     const active = item.href === activePath
 

@@ -18,6 +18,7 @@ export interface DocGroupProps {
   context: Context
   onActivePosition: (opts: { top: number; height: number }) => void
   updateMarkerPosition: () => void
+  markerIsMoving: boolean
   depth?: number
   LinkComponent?: LinkComponentType
 }
@@ -44,6 +45,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       group,
       depth = 0,
       onActivePosition,
+      markerIsMoving,
       context,
       updateMarkerPosition,
       LinkComponent = 'a',
@@ -61,7 +63,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     const $listWrapper = React.useRef<HTMLDivElement>(null)
 
     function toggleMenu(localOpen: boolean) {
-      if (!collapsible) return
+      if (!collapsible || markerIsMoving) return
       hideShowAbsoluteMarker(localOpen)
       setOpen(localOpen)
       readjustMarkerPosition(localOpen)
@@ -174,6 +176,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             items={group.items}
             depth={depth}
             context={context}
+            markerIsMoving={markerIsMoving}
             onActivePosition={setActivePosition}
             updateMarkerPosition={onUpdateMarkerPosition}
             LinkComponent={LinkComponent}
@@ -188,6 +191,7 @@ export interface DocGroupElementsProps
   extends React.HTMLAttributes<HTMLUListElement> {
   items: (NavGroup | NavItemLink)[]
   onActivePosition: (opts: { top: number; height: number }) => void
+  markerIsMoving: boolean
   updateMarkerPosition?: () => void
   depth: number
   LinkComponent: LinkComponentType
@@ -209,6 +213,7 @@ export const DocGroupElements = React.forwardRef<
       depth = 0,
       onActivePosition,
       updateMarkerPosition,
+      markerIsMoving,
       LinkComponent,
       className,
       context,
@@ -270,6 +275,7 @@ export const DocGroupElements = React.forwardRef<
                 group={item}
                 depth={depth + 1}
                 LinkComponent={LinkComponent}
+                markerIsMoving={markerIsMoving}
                 context={context}
                 onActivePosition={onActivePosition}
                 updateMarkerPosition={() => onUpdateMarkerPosition(index)}
@@ -283,6 +289,7 @@ export const DocGroupElements = React.forwardRef<
               key={index}
               item={item}
               depth={depth}
+              markerIsMoving={markerIsMoving}
               context={context}
               onActive={(opts) =>
                 depth < 0 ? hideMarker() : onActivePosition(opts)
