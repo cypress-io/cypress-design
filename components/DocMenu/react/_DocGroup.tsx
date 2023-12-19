@@ -162,9 +162,10 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           {group.label}
         </Head>
         <div
-          className={`relative ${collapsible ? 'transition-all grid' : ''} ${
-            !open && collapsible ? 'grid-rows-[0fr]' : ''
-          } ${open && collapsible ? 'grid-rows-[1fr]' : ''}`}
+          className={clsx('relative', collapsible && 'transition-all grid', {
+            'grid-rows-[0fr]': !open && collapsible,
+            'grid-rows-[1fr]': open && collapsible,
+          })}
           ref={$listWrapper}
         >
           {open && collapsible && depth === 0 ? (

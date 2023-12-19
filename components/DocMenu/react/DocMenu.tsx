@@ -53,34 +53,36 @@ export const DocMenu: React.FC<DocMenuProps> = ({
   )
 
   return (
-    <div ref={container} className="relative">
-      {showMarker && !markerIsMoving && collapsible ? (
-        <div
-          className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 dark:bg-indigo-400 ml-[6.5px] mt-[4px]"
-          style={{
-            top: `${activeTop}px`,
-            height: `${activeHeight - 8}px`,
-            transition: hasCSSTransition
-              ? 'height .3s ease-in-out, top .3s ease-in-out'
-              : 'none',
+    <React.StrictMode>
+      <div ref={container} className="relative">
+        {showMarker && !markerIsMoving && collapsible ? (
+          <div
+            className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 dark:bg-indigo-400 ml-[6.5px] mt-[4px]"
+            style={{
+              top: `${activeTop}px`,
+              height: `${activeHeight - 8}px`,
+              transition: hasCSSTransition
+                ? 'height .3s ease-in-out, top .3s ease-in-out'
+                : 'none',
+            }}
+          />
+        ) : null}
+        <DocGroupElements
+          {...rest}
+          items={items}
+          depth={-1}
+          markerIsMoving={markerIsMoving}
+          onActivePosition={setActivePosition}
+          LinkComponent={LinkComponent}
+          context={{
+            setMarkerIsMoving,
+            activePath,
+            collapsible,
+            hideMarker,
           }}
         />
-      ) : null}
-      <DocGroupElements
-        {...rest}
-        items={items}
-        depth={-1}
-        markerIsMoving={markerIsMoving}
-        onActivePosition={setActivePosition}
-        LinkComponent={LinkComponent}
-        context={{
-          setMarkerIsMoving,
-          activePath,
-          collapsible,
-          hideMarker,
-        }}
-      />
-    </div>
+      </div>
+    </React.StrictMode>
   )
 }
 
