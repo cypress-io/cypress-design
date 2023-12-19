@@ -7,14 +7,15 @@ import {
   classes,
 } from '@cypress-design/constants-docmenu'
 import {
+  Context,
   DocLink,
   type DocLinkForward,
   type LinkComponentType,
 } from './_DocLink'
-import { MarkerIsMovingContext } from './markerIsMoving'
 
 export interface DocGroupProps {
   group: NavGroup
+  context: Context
   onActivePosition: (opts: { top: number; height: number }) => void
   updateMarkerPosition: () => void
   depth?: number
@@ -43,13 +44,13 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       group,
       depth = 0,
       onActivePosition,
+      context,
       updateMarkerPosition,
       LinkComponent = 'a',
     },
     ref,
   ) => {
-    const { setMarkerIsMoving, activePath, collapsible, hideMarker } =
-      React.useContext(MarkerIsMovingContext)
+    const { setMarkerIsMoving, activePath, collapsible, hideMarker } = context
 
     const hasActiveItemRecursivelyMemo = React.useMemo(() => {
       return hasActiveItemRecursively(group.items, activePath)
@@ -172,6 +173,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             className="overflow-hidden"
             items={group.items}
             depth={depth}
+            context={context}
             onActivePosition={setActivePosition}
             updateMarkerPosition={onUpdateMarkerPosition}
             LinkComponent={LinkComponent}
@@ -190,6 +192,7 @@ export interface DocGroupElementsProps
   depth: number
   LinkComponent: LinkComponentType
   className?: string
+  context: Context
 }
 
 export interface DocGroupElementsForward {
@@ -208,6 +211,7 @@ export const DocGroupElements = React.forwardRef<
       updateMarkerPosition,
       LinkComponent,
       className,
+      context,
       ...rest
     },
     ref,
@@ -241,7 +245,7 @@ export const DocGroupElements = React.forwardRef<
       reTriggerSetActiveGroup,
     }))
 
-    const { activePath, hideMarker } = React.useContext(MarkerIsMovingContext)
+    const { activePath, hideMarker } = context
 
     const onUpdateMarkerPosition = React.useCallback(
       (index: number) => {
@@ -266,6 +270,7 @@ export const DocGroupElements = React.forwardRef<
                 group={item}
                 depth={depth + 1}
                 LinkComponent={LinkComponent}
+                context={context}
                 onActivePosition={onActivePosition}
                 updateMarkerPosition={() => onUpdateMarkerPosition(index)}
               />
@@ -278,6 +283,7 @@ export const DocGroupElements = React.forwardRef<
               key={index}
               item={item}
               depth={depth}
+              context={context}
               onActive={(opts) =>
                 depth < 0 ? hideMarker() : onActivePosition(opts)
               }

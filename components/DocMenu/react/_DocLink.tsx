@@ -1,7 +1,14 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { NavItemLink } from '@cypress-design/constants-docmenu'
-import { MarkerIsMovingContext } from './markerIsMoving'
+
+export interface Context {
+  setMarkerIsMoving: (markerIsMoving: boolean) => void
+  collapsible: boolean
+  activePath: string
+  hideMarker: () => void
+  markerIsMoving: boolean
+}
 
 export type LinkComponentType = React.ElementType<{
   href: string
@@ -13,6 +20,7 @@ export type LinkComponentType = React.ElementType<{
 export interface DocLinkProps {
   item: NavItemLink
   depth: number
+  context: Context
   onActive: (opts: { top: number; height: number }) => void
   LinkComponent: LinkComponentType
 }
@@ -22,12 +30,10 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  ({ item, depth, onActive, LinkComponent }, ref) => {
+  ({ item, depth, context, onActive, LinkComponent }, ref) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { markerIsMoving, collapsible, activePath } = React.useContext(
-      MarkerIsMovingContext,
-    )
+    const { collapsible, activePath, markerIsMoving } = context
 
     const active = item.href === activePath
 
