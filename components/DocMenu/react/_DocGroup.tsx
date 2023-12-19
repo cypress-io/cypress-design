@@ -16,7 +16,7 @@ import { MarkerIsMovingContext } from './markerIsMoving'
 export interface DocGroupProps {
   group: NavGroup
   onActivePosition: (opts: { top: number; height: number }) => void
-  updateMarkerPosition?: () => void
+  updateMarkerPosition: () => void
   depth?: number
   LinkComponent?: LinkComponentType
 }
@@ -98,7 +98,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
         'transitionend',
         () => {
           if (localOpen || !hasActiveItemRecursivelyMemo) {
-            updateMarkerPosition?.()
+            updateMarkerPosition()
           }
           setMarkerIsMoving(false)
         },
@@ -114,7 +114,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           hideMarker()
         }
       } else {
-        updateMarkerPosition?.()
+        updateMarkerPosition()
       }
     }
 
@@ -171,8 +171,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             ref={$groupElements}
             className="overflow-hidden"
             items={group.items}
-            activePath={activePath}
-            collapsible={collapsible}
             depth={depth}
             onActivePosition={setActivePosition}
             updateMarkerPosition={onUpdateMarkerPosition}
@@ -187,8 +185,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
 export interface DocGroupElementsProps
   extends React.HTMLAttributes<HTMLUListElement> {
   items: (NavGroup | NavItemLink)[]
-  activePath: string
-  collapsible: boolean
   onActivePosition: (opts: { top: number; height: number }) => void
   updateMarkerPosition?: () => void
   depth: number

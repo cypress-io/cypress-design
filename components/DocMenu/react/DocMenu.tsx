@@ -79,8 +79,6 @@ export const DocMenu: React.FC<DocMenuProps> = ({
         <DocGroupElements
           {...rest}
           items={items}
-          activePath={activePath}
-          collapsible={collapsible}
           depth={-1}
           onActivePosition={setActivePosition}
           LinkComponent={LinkComponent}
