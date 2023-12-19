@@ -5,8 +5,10 @@ export const MarkerIsMovingContext = createContext<{
   markerIsMoving: boolean
   collapsible: boolean
   activePath: string
+  hideMarker: () => void
 }>({
   setMarkerIsMoving: () => {},
+  hideMarker: () => {},
   markerIsMoving: false,
   collapsible: false,
   activePath: '',

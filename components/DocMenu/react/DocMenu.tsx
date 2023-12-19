@@ -38,7 +38,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
     [],
   )
 
-  const setShowMarkerFalse = React.useCallback(() => setShowMarker(false), [])
+  const hideMarker = React.useCallback(() => setShowMarker(false), [])
   const setMarkerIsMoving = React.useCallback(
     (val: boolean) => {
       localSetMarkerIsMoving(val)
@@ -55,7 +55,13 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 
   return (
     <MarkerIsMovingContext.Provider
-      value={{ markerIsMoving, setMarkerIsMoving, activePath, collapsible }}
+      value={{
+        markerIsMoving,
+        setMarkerIsMoving,
+        activePath,
+        collapsible,
+        hideMarker,
+      }}
     >
       <div ref={container} className="relative">
         {showMarker && !markerIsMoving && collapsible ? (
@@ -78,7 +84,6 @@ export const DocMenu: React.FC<DocMenuProps> = ({
           depth={-1}
           onActivePosition={setActivePosition}
           LinkComponent={LinkComponent}
-          hideMarker={setShowMarkerFalse}
         />
       </div>
     </MarkerIsMovingContext.Provider>

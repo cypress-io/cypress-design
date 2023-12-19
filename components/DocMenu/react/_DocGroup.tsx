@@ -19,7 +19,6 @@ export interface DocGroupProps {
   updateMarkerPosition?: () => void
   depth?: number
   LinkComponent?: LinkComponentType
-  hideMarker: () => void
 }
 
 export interface DocGroupForward {
@@ -46,13 +45,11 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       onActivePosition,
       updateMarkerPosition,
       LinkComponent = 'a',
-      hideMarker,
     },
     ref,
   ) => {
-    const { setMarkerIsMoving, activePath, collapsible } = React.useContext(
-      MarkerIsMovingContext,
-    )
+    const { setMarkerIsMoving, activePath, collapsible, hideMarker } =
+      React.useContext(MarkerIsMovingContext)
 
     const hasActiveItemRecursivelyMemo = React.useMemo(() => {
       return hasActiveItemRecursively(group.items, activePath)
@@ -180,7 +177,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             onActivePosition={setActivePosition}
             updateMarkerPosition={onUpdateMarkerPosition}
             LinkComponent={LinkComponent}
-            hideMarker={hideMarker}
           />
         </div>
       </>
@@ -197,7 +193,6 @@ export interface DocGroupElementsProps
   updateMarkerPosition?: () => void
   depth: number
   LinkComponent: LinkComponentType
-  hideMarker: () => void
   className?: string
 }
 
@@ -216,7 +211,6 @@ export const DocGroupElements = React.forwardRef<
       onActivePosition,
       updateMarkerPosition,
       LinkComponent,
-      hideMarker,
       className,
       ...rest
     },
@@ -251,7 +245,7 @@ export const DocGroupElements = React.forwardRef<
       reTriggerSetActiveGroup,
     }))
 
-    const { activePath } = React.useContext(MarkerIsMovingContext)
+    const { activePath, hideMarker } = React.useContext(MarkerIsMovingContext)
 
     const onUpdateMarkerPosition = React.useCallback(
       (index: number) => {
@@ -276,7 +270,6 @@ export const DocGroupElements = React.forwardRef<
                 group={item}
                 depth={depth + 1}
                 LinkComponent={LinkComponent}
-                hideMarker={hideMarker}
                 onActivePosition={onActivePosition}
                 updateMarkerPosition={() => onUpdateMarkerPosition(index)}
               />
