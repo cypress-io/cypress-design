@@ -86,7 +86,7 @@ function copyCode() {
   <div class="vue-live vue-live-preview-code">
     <div class="vue-live-preview vue-live-block">
       <div v-if="props.framework === 'react'" v-once ref="reactAppRoot$">
-        React app root
+        Loading react live... if this remains, JS is disabled
       </div>
       <VueLivePreview
         v-if="props.framework !== 'react'"
