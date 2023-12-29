@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { watch, type DefineComponent, ref, onMounted, inject } from 'vue'
+import {
+  watch,
+  type DefineComponent,
+  ref,
+  onMounted,
+  inject,
+  nextTick,
+} from 'vue'
 import type { NavItemLink } from '@cypress-design/constants-docmenu'
 
 const props = withDefaults(
@@ -29,12 +36,14 @@ const markerIsMoving = inject('transition-is-moving', ref(false))
 
 function setActiveMarkerPosition() {
   if (props.active) {
-    const { top = 0, height = 36 } =
-      $container.value?.getBoundingClientRect() ?? {}
+    nextTick(() => {
+      const { top = 0, height = 36 } =
+        $container.value?.getBoundingClientRect() ?? {}
 
-    emit('update:active', props.active, {
-      top,
-      height,
+      emit('update:active', props.active, {
+        top,
+        height,
+      })
     })
   }
 }

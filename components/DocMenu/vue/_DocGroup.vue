@@ -47,27 +47,6 @@ const active = computed(() => props.group.href === props.activePath)
 
 const markerIsMoving = inject('transition-is-moving', ref(false))
 
-watch(open, () => {
-  $listWrapper.value?.addEventListener(
-    'transitionstart',
-    () => {
-      markerIsMoving.value = true
-    },
-    { once: true },
-  )
-
-  $listWrapper.value?.addEventListener(
-    'transitionend',
-    () => {
-      markerIsMoving.value = false
-      if (open.value || !hasActiveItem.value) {
-        emit('updateMarkerPosition')
-      }
-    },
-    { once: true },
-  )
-})
-
 watch(active, (active) => {
   if (active) {
     emit('hideMarker')
@@ -137,6 +116,19 @@ defineExpose({
       'grid-rows-[0fr]': !open && collapsible,
       'grid-rows-[1fr]': open || !collapsible,
     }"
+    @transitionstart="
+      () => {
+        markerIsMoving = true
+      }
+    "
+    @transitionend="
+      () => {
+        markerIsMoving = false
+        if (open || !hasActiveItem) {
+          emit('updateMarkerPosition')
+        }
+      }
+    "
   >
     <div
       v-if="open && collapsible && depth === 0"

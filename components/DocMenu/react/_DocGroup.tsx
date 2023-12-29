@@ -60,11 +60,10 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
 
     const [open, setOpen] = React.useState(!group.collapsed)
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
-    const $listWrapper = React.useRef<HTMLDivElement>(null)
 
     const toggleMenu = (localOpen: boolean) => {
       if (!collapsible || markerIsMoving) return
-      hideShowAbsoluteMarker(localOpen)
+      setMarkerIsMoving(true)
       setOpen(localOpen)
       readjustMarkerPosition(localOpen)
     }
@@ -89,24 +88,11 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
      * We replace the absolute marker by one in the link. After the transition, the
      * marker is replaced by the absolute one again.
      */
-    function hideShowAbsoluteMarker(localOpen: boolean) {
-      $listWrapper.current?.addEventListener(
-        'transitionstart',
-        () => {
-          setMarkerIsMoving(true)
-        },
-        { once: true },
-      )
-      $listWrapper.current?.addEventListener(
-        'transitionend',
-        () => {
-          if (localOpen || !hasActiveItemRecursivelyMemo) {
-            updateMarkerPosition()
-          }
-          setMarkerIsMoving(false)
-        },
-        { once: true },
-      )
+    const restoreActiveMarkerAfterTransition = () => {
+      if (open || !hasActiveItemRecursivelyMemo) {
+        updateMarkerPosition()
+      }
+      setMarkerIsMoving(false)
     }
 
     function readjustMarkerPosition(localOpen: boolean) {
@@ -172,7 +158,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
                 }
               : null,
           )}
-          ref={$listWrapper}
+          onTransitionEnd={restoreActiveMarkerAfterTransition}
         >
           {open && collapsible && depth === 0 ? (
             <div className={classes.openListBorderLeft} />
