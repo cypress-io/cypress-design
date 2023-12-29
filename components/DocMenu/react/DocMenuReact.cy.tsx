@@ -138,7 +138,7 @@ describe('<DocMenu/>', () => {
         'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
       ).click()
       cy.findByText('Code').click()
-      cy.get('[data-cy=doc-menu-marker]').should('not.exist')
+      cy.get('[data-cy=doc-menu-active-marker]').should('not.exist')
     },
   )
 
