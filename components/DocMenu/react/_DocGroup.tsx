@@ -59,11 +59,19 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     }, [group.items, activePath])
 
     const [open, setOpen] = React.useState(!group.collapsed)
+    const [markerIsMovingTimeout, setMarkerIsMovingTimeout] =
+      React.useState<NodeJS.Timeout>()
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
 
     const toggleMenu = (localOpen: boolean) => {
       if (!collapsible || markerIsMoving) return
       setMarkerIsMoving(true)
+      // on browsers than do not support transitionend event
+      // we need to set a timeout to remove the markerIsMoving
+      const timeout = setTimeout(function () {
+        setMarkerIsMoving(false)
+      }, 350)
+      setMarkerIsMovingTimeout(timeout)
       setOpen(localOpen)
       readjustMarkerPosition(localOpen)
     }
@@ -89,6 +97,9 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
      * marker is replaced by the absolute one again.
      */
     const restoreActiveMarkerAfterTransition = () => {
+      if (!markerIsMovingTimeout) {
+        clearTimeout(markerIsMovingTimeout)
+      }
       if (open || !hasActiveItemRecursivelyMemo) {
         updateMarkerPosition()
       }
