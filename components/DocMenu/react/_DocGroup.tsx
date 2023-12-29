@@ -62,7 +62,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
     const $listWrapper = React.useRef<HTMLDivElement>(null)
 
-    function toggleMenu(localOpen: boolean) {
+    const toggleMenu = (localOpen: boolean) => {
       if (!collapsible || markerIsMoving) return
       hideShowAbsoluteMarker(localOpen)
       setOpen(localOpen)

@@ -39,13 +39,13 @@ describe('<DocMenu/>', () => {
 
   it(
     'wraps items correctly',
-    { viewportHeight: 950, viewportWidth: 350 },
+    { viewportHeight: 950, viewportWidth: 550 },
     () => {
       const Sut = () => {
         const [activeHref, setActiveHref] = React.useState<string | undefined>()
 
         return (
-          <div className="w-[200px] mt-[60px] absolute">
+          <div className="w-[400px] mt-[60px] mx-[24px] absolute">
             <DocMenu
               activePath={activeHref}
               LinkComponent={({ href, className, children, style }) => (
@@ -133,7 +133,7 @@ describe('<DocMenu/>', () => {
       mount(<Sut />)
 
       cy.findByText('Bar').click()
-      cy.findByText('Code').click()
+      cy.findByText('Code').click().click()
       cy.findByText(
         'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
       ).click()

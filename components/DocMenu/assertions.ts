@@ -103,11 +103,12 @@ export default function assertions(
     cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()
+    cy.wait(300)
     cy.contains('li', 'Google Authentication').then(($el) => {
       const top = $el[0].getBoundingClientRect().top
       cy.get('[data-cy="doc-menu-active-marker"]').then(($marker) => {
         expect(Math.abs($marker[0].getBoundingClientRect().top - top)).to.below(
-          20,
+          10,
           `marker should be close to the active item`,
         )
       })
