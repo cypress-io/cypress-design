@@ -56,6 +56,7 @@ export const DocMenu: React.FC<DocMenuProps> = ({
     <div ref={container} className="relative">
       {showMarker && !markerIsMoving && collapsible ? (
         <div
+          data-cy="doc-menu-marker"
           className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 dark:bg-indigo-400 ml-[6.5px] mt-[4px]"
           style={{
             top: `${activeTop}px`,
