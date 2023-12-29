@@ -8,20 +8,19 @@ import {
 } from '@cypress-design/constants-docmenu'
 import {
   DocLink,
+  type Context,
   type DocLinkForward,
   type LinkComponentType,
 } from './_DocLink'
-import { MarkerIsMovingContext } from './markerIsMoving'
 
 export interface DocGroupProps {
   group: NavGroup
-  activePath: string
-  collapsible: boolean
+  context: Context
   onActivePosition: (opts: { top: number; height: number }) => void
-  updateMarkerPosition?: () => void
+  updateMarkerPosition: () => void
+  markerIsMoving: boolean
   depth?: number
   LinkComponent?: LinkComponentType
-  hideMarker: () => void
 }
 
 export interface DocGroupForward {
@@ -44,29 +43,35 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
   (
     {
       group,
-      activePath,
-      collapsible,
       depth = 0,
       onActivePosition,
+      markerIsMoving,
+      context,
       updateMarkerPosition,
       LinkComponent = 'a',
-      hideMarker,
     },
     ref,
   ) => {
+    const { setMarkerIsMoving, activePath, collapsible, hideMarker } = context
+
     const hasActiveItemRecursivelyMemo = React.useMemo(() => {
       return hasActiveItemRecursively(group.items, activePath)
     }, [group.items, activePath])
 
-    const [open, setOpen] = React.useState(
-      !group.collapsed || hasActiveItemRecursivelyMemo,
-    )
+    const [open, setOpen] = React.useState(!group.collapsed)
+    const [markerIsMovingTimeout, setMarkerIsMovingTimeout] =
+      React.useState<NodeJS.Timeout>()
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
-    const $listWrapper = React.useRef<HTMLDivElement>(null)
 
-    function toggleMenu(localOpen: boolean) {
-      if (!collapsible) return
-      hideShowAbsoluteMarker(localOpen)
+    const toggleMenu = (localOpen: boolean) => {
+      if (!collapsible || markerIsMoving) return
+      setMarkerIsMoving(true)
+      // on browsers than do not support transitionend event
+      // we need to set a timeout to remove the markerIsMoving
+      const timeout = setTimeout(function () {
+        setMarkerIsMoving(false)
+      }, 350)
+      setMarkerIsMovingTimeout(timeout)
       setOpen(localOpen)
       readjustMarkerPosition(localOpen)
     }
@@ -82,8 +87,6 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       [onActivePosition, open],
     )
 
-    const { setMarkerIsMoving } = React.useContext(MarkerIsMovingContext)
-
     function reTriggerSetActiveGroupParent() {
       $groupElements.current?.reTriggerSetActiveGroup()
     }
@@ -93,24 +96,14 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
      * We replace the absolute marker by one in the link. After the transition, the
      * marker is replaced by the absolute one again.
      */
-    function hideShowAbsoluteMarker(localOpen: boolean) {
-      $listWrapper.current?.addEventListener(
-        'transitionstart',
-        () => {
-          setMarkerIsMoving(true)
-        },
-        { once: true },
-      )
-      $listWrapper.current?.addEventListener(
-        'transitionend',
-        () => {
-          if (localOpen || !hasActiveItemRecursivelyMemo) {
-            updateMarkerPosition?.()
-          }
-          setMarkerIsMoving(false)
-        },
-        { once: true },
-      )
+    const restoreActiveMarkerAfterTransition = () => {
+      if (!markerIsMovingTimeout) {
+        clearTimeout(markerIsMovingTimeout)
+      }
+      if (open || !hasActiveItemRecursivelyMemo) {
+        updateMarkerPosition()
+      }
+      setMarkerIsMoving(false)
     }
 
     function readjustMarkerPosition(localOpen: boolean) {
@@ -121,7 +114,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           hideMarker()
         }
       } else {
-        updateMarkerPosition?.()
+        updateMarkerPosition()
       }
     }
 
@@ -166,10 +159,17 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           {group.label}
         </Head>
         <div
-          className={`relative ${collapsible ? 'transition-all grid' : ''} ${
-            !open && collapsible ? 'grid-rows-[0fr]' : ''
-          } ${open && collapsible ? 'grid-rows-[1fr]' : ''}`}
-          ref={$listWrapper}
+          className={clsx(
+            'relative',
+            collapsible
+              ? {
+                  'transition-all grid': true,
+                  'grid-rows-[0fr]': !open,
+                  'grid-rows-[1fr]': open,
+                }
+              : null,
+          )}
+          onTransitionEnd={restoreActiveMarkerAfterTransition}
         >
           {open && collapsible && depth === 0 ? (
             <div className={classes.openListBorderLeft} />
@@ -178,13 +178,12 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             ref={$groupElements}
             className="overflow-hidden"
             items={group.items}
-            activePath={activePath}
-            collapsible={collapsible}
             depth={depth}
+            context={context}
+            markerIsMoving={markerIsMoving}
             onActivePosition={setActivePosition}
             updateMarkerPosition={onUpdateMarkerPosition}
             LinkComponent={LinkComponent}
-            hideMarker={hideMarker}
           />
         </div>
       </>
@@ -195,14 +194,13 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
 export interface DocGroupElementsProps
   extends React.HTMLAttributes<HTMLUListElement> {
   items: (NavGroup | NavItemLink)[]
-  activePath: string
-  collapsible: boolean
   onActivePosition: (opts: { top: number; height: number }) => void
+  markerIsMoving: boolean
   updateMarkerPosition?: () => void
   depth: number
   LinkComponent: LinkComponentType
-  hideMarker: () => void
   className?: string
+  context: Context
 }
 
 export interface DocGroupElementsForward {
@@ -216,14 +214,13 @@ export const DocGroupElements = React.forwardRef<
   (
     {
       items,
-      activePath,
-      collapsible,
       depth = 0,
       onActivePosition,
       updateMarkerPosition,
+      markerIsMoving,
       LinkComponent,
-      hideMarker,
       className,
+      context,
       ...rest
     },
     ref,
@@ -257,6 +254,8 @@ export const DocGroupElements = React.forwardRef<
       reTriggerSetActiveGroup,
     }))
 
+    const { activePath, hideMarker } = context
+
     const onUpdateMarkerPosition = React.useCallback(
       (index: number) => {
         if (hasActiveItemRecursively(items, activePath)) {
@@ -278,11 +277,10 @@ export const DocGroupElements = React.forwardRef<
                   $groups.current[index] = el
                 }}
                 group={item}
-                activePath={activePath}
                 depth={depth + 1}
-                collapsible={collapsible}
                 LinkComponent={LinkComponent}
-                hideMarker={hideMarker}
+                markerIsMoving={markerIsMoving}
+                context={context}
                 onActivePosition={onActivePosition}
                 updateMarkerPosition={() => onUpdateMarkerPosition(index)}
               />
@@ -294,9 +292,9 @@ export const DocGroupElements = React.forwardRef<
               }}
               key={index}
               item={item}
-              active={item.href === activePath}
-              collapsible={collapsible}
               depth={depth}
+              markerIsMoving={markerIsMoving}
+              context={context}
               onActive={(opts) =>
                 depth < 0 ? hideMarker() : onActivePosition(opts)
               }

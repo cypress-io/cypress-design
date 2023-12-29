@@ -1,7 +1,13 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import { NavItemLink } from '@cypress-design/constants-docmenu'
-import { MarkerIsMovingContext } from './markerIsMoving'
+
+export interface Context {
+  setMarkerIsMoving: (markerIsMoving: boolean) => void
+  collapsible: boolean
+  activePath: string
+  hideMarker: () => void
+}
 
 export type LinkComponentType = React.ElementType<{
   href: string
@@ -12,11 +18,11 @@ export type LinkComponentType = React.ElementType<{
 
 export interface DocLinkProps {
   item: NavItemLink
-  active: boolean
-  collapsible: boolean
-  depth?: number
-  onActive?: (opts: { top: number; height: number }) => void
-  LinkComponent?: LinkComponentType
+  depth: number
+  markerIsMoving: boolean
+  context: Context
+  onActive: (opts: { top: number; height: number }) => void
+  LinkComponent: LinkComponentType
 }
 
 export interface DocLinkForward {
@@ -24,19 +30,18 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  (
-    { item, active, collapsible, depth = -1, onActive, LinkComponent = 'a' },
-    ref,
-  ) => {
+  ({ item, depth, markerIsMoving, context, onActive, LinkComponent }, ref) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { markerIsMoving } = React.useContext(MarkerIsMovingContext)
+    const { collapsible, activePath } = context
+
+    const active = item.href === activePath
 
     const setActiveMarkerPosition = () => {
       if (active) {
         const box = activeLIRef?.current?.getBoundingClientRect()
 
-        onActive?.({
+        onActive({
           top: box?.top || 0,
           height: box?.height || 0,
         })

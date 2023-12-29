@@ -97,11 +97,21 @@ export default function assertions(
     cy.contains('Overview Item 1').should('not.be.visible')
   })
 
-  it('keeps track of active values', () => {
+  it('keeps track of active values', { viewportHeight: 800 }, () => {
     mountStory(menuItems, 'google')
 
     cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()
+    cy.wait(300)
+    cy.contains('li', 'Google Authentication').then(($el) => {
+      const top = $el[0].getBoundingClientRect().top
+      cy.get('[data-cy="doc-menu-active-marker"]').then(($marker) => {
+        expect(Math.abs($marker[0].getBoundingClientRect().top - top)).to.below(
+          10,
+          `marker should be close to the active item`,
+        )
+      })
+    })
   })
 }
