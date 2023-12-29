@@ -7,8 +7,8 @@ import {
   classes,
 } from '@cypress-design/constants-docmenu'
 import {
-  Context,
   DocLink,
+  type Context,
   type DocLinkForward,
   type LinkComponentType,
 } from './_DocLink'
@@ -162,10 +162,16 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           {group.label}
         </Head>
         <div
-          className={clsx('relative', collapsible && 'transition-all grid', {
-            'grid-rows-[0fr]': !open && collapsible,
-            'grid-rows-[1fr]': open && collapsible,
-          })}
+          className={clsx(
+            'relative',
+            collapsible
+              ? {
+                  'transition-all grid': true,
+                  'grid-rows-[0fr]': !open,
+                  'grid-rows-[1fr]': open,
+                }
+              : null,
+          )}
           ref={$listWrapper}
         >
           {open && collapsible && depth === 0 ? (
