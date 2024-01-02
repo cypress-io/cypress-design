@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 0.5.3
+
+### Patch Changes
+
+- [`9f750c5`](https://github.com/cypress-io/cypress-design/commit/9f750c57722351c43d8dda136796a1ea98c203c8) Thanks [@elevatebart](https://github.com/elevatebart)! - adjust colors according to designs and refactor react side to use context
+
 ## 0.5.2
 
 ### Patch Changes
