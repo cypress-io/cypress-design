@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 0.12.0
+
+### Minor Changes
+
+- [`ad63746`](https://github.com/cypress-io/cypress-design/commit/ad6374637894f93e5fa5900f442676ccb1f23d06) Thanks [@elevatebart](https://github.com/elevatebart)! - export `ButtonVariants` in buttons (react, vue)
+
 ## 0.11.2
 
 ### Patch Changes
