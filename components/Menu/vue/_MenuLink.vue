@@ -7,7 +7,7 @@ import {
   inject,
   nextTick,
 } from 'vue'
-import type { NavItemLink } from '@cypress-design/constants-docmenu'
+import type { NavItemLink } from '@cypress-design/constants-menu'
 
 const props = withDefaults(
   defineProps<{

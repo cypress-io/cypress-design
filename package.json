@@ -38,7 +38,7 @@
     "@cypress-design/css": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@cypress-design/vue-docmenu": "*",
+    "@cypress-design/vue-menu": "*",
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-tooltip": "*",
     "@percy/cli": "1.27.4",
