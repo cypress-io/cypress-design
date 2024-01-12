@@ -5,9 +5,24 @@ import Menu from '@cypress-design/vue-menu'
 # Menu
 
 <DemoWrapper>
-	<div>Demo Here</div>
+	<Menu 
+    activePath="/item1"
+    :items="[
+      {
+        label: 'Page',
+        href: '/page',
+      },
+      {
+        label: 'Overview',
+        items: [
+          {
+            label: 'Overview Item 1',
+            href: '/item1',
+          },
+          {
+            label: 'Overview Item 2',
+            href: '/item2',
+          },
+        ],
+      }]" />
 </DemoWrapper>
-
-Describe your component here.
-
-[figma::Menu (to be updated)](https://www.figma.com/file/...)
