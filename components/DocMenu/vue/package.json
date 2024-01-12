@@ -20,8 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-docmenu": "*",
-    "@cypress-design/vue-icon": "*"
+    "@cypress-design/vue-menu": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

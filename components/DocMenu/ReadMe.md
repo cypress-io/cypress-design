@@ -4,6 +4,8 @@ import DocMenu from '@cypress-design/vue-docmenu'
 
 # DocMenu
 
+⚠️ Package kept for compatibility with previous versions of Cypress Design System. ⚠️
+
 <DemoWrapper>
 	<DocMenu 
     activePath="/item1"
