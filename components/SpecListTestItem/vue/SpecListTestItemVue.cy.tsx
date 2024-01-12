@@ -18,11 +18,11 @@ describe('<SpecListTestItem/>', () => {
     mount(() => (
       <div class="p-[24px]">
         <div>
-          <SpecListTestItem {...options} />
-          <SpecListTestItem {...options} />
-          <SpecListTestItem {...options} />
-          <SpecListTestItem {...options} />
-          <SpecListTestItem {...options} />
+          <SpecListTestItem status="passed" {...options} />
+          <SpecListTestItem status="failed" {...options} />
+          <SpecListTestItem status="errored" {...options} />
+          <SpecListTestItem status="skipped" {...options} />
+          <SpecListTestItem status="running" {...options} />
         </div>
       </div>
     ))

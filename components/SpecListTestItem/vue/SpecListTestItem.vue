@@ -8,16 +8,19 @@
     >
       <div class="test-item-list test-item-list-describes">
         <div class="test-item-icon pr-[8px]" data-cy="test-item-icon">
-          <StatusIcon size="16" status="failed" variant="solid" />
+          <StatusIcon size="16" :status="status" variant="solid" />
         </div>
         <template v-for="(name, index) in names" :key="index">
           <div
             data-cy="test-item-name"
+            :data-index="index"
             class="test-item"
             :class="{
-              'test-item-first': index === 0,
-              'test-item-middle': index > 0 && index < name.length - 1,
-              'item-last': index === name.length - 1,
+              'test-item-first grow shrink basis-[max-content]': index === 0,
+              'test-item-middle shrink-100000 basis-auto':
+                index > 0 && index < names.length - 1,
+              'item-last grow shrink-0 basis-[max-content]':
+                index === names.length - 1,
             }"
           >
             <span data-cy="test-item-text">&nbsp;{{ name }}</span>
@@ -36,6 +39,7 @@ import { IconChevronRightSmall } from '@cypress-design/vue-icon'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 
 defineProps<{
+  status: string
   names: Array<string>
 }>()
 </script>
@@ -68,9 +72,6 @@ defineProps<{
   }
 
   &-middle {
-    flex-shrink: 100000;
-    flex-basis: auto;
-
     @container item (max-width: 600px) {
       flex-basis: 0;
       color: #888;
@@ -79,10 +80,6 @@ defineProps<{
   }
 
   &-first {
-    flex-grow: 1;
-    flex-shrink: 1;
-    flex-basis: max-content;
-
     @container item (max-width: 600px) {
       flex-basis: 0;
       color: #888;
@@ -91,10 +88,6 @@ defineProps<{
   }
 
   &-last {
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: max-content;
-
     @container item (max-width: 600px) {
       display: flex;
       flex-shrink: 0;
