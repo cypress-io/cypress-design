@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-menu": "*",
+    "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
