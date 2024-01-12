@@ -1,8 +1,0 @@
-{
-  "extends": "../../../tsconfig.react.build.json",
-  "include": ["./TestItem.tsx", "./index.ts"],
-  "compilerOptions": {
-    "sourceRoot": "./",
-    "outDir": "dist"
-  }
-}

@@ -1,13 +1,14 @@
 <script lang="ts" setup>
-import SpecListTestItem from '@cypress-design/vue-speclisttestitem'
+	import SpecListTestItem from '@cypress-design/vue-speclisttestitem'
+	let testNames = ['Describe', 'this', 'for', 'me']
 </script>
 
 # SpecListTestItem
 
 <DemoWrapper>
-	<div>Demo Here</div>
+	<SpecListTestItem :names=testNames />
+	<SpecListTestItem :names=testNames />
+	<SpecListTestItem :names=testNames />
+	<SpecListTestItem :names=testNames />
+	<SpecListTestItem :names=testNames />
 </DemoWrapper>
-
-Describe your component here.
-
-[figma::SpecListTestItem (to be updated)](https://www.figma.com/file/...)
