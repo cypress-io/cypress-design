@@ -20,18 +20,21 @@ export default (fileGlobs: string[] = []) => {
       path.resolve(
         currentPackagePath,
         '..', // remove css/ from path
-        '*/dist/*.@(js|css)' // look for all component files
-      )
+        '*/dist/*.@(js|css)', // look for all component files
+      ),
     )
   }
 
   return defineConfig({
     content: {
       files: fileGlobs,
-      extract: ['vue', 'js', 'ts', 'tsx', 'astro'].reduce((acc, ext) => {
-        acc[ext] = IconExtractor
-        return acc
-      }, {} as Record<string, (content: string) => string[]>),
+      extract: ['vue', 'js', 'ts', 'tsx', 'astro'].reduce(
+        (acc, ext) => {
+          acc[ext] = IconExtractor
+          return acc
+        },
+        {} as Record<string, (content: string) => string[]>,
+      ),
     },
     theme,
     plugins: [

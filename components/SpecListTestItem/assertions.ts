@@ -2,7 +2,8 @@
 
 export default function assertions(mountStory: (options?: any) => void): void {
   it('renders', () => {
-    cy.viewport(1280, 400)
     mountStory()
+    cy.viewport(1280, 400)
+    cy.viewport(500, 400)
   })
 }
