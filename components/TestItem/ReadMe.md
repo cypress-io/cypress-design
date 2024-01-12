@@ -7,4 +7,8 @@ let testNames = ['Describe', 'this', 'for', 'me']
 
 <DemoWrapper>
 	<TestItem :names=testNames />
+	<TestItem :names=testNames />
+	<TestItem :names=testNames />
+	<TestItem :names=testNames />
+	<TestItem :names=testNames />
 </DemoWrapper>

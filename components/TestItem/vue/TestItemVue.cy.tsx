@@ -12,7 +12,13 @@ describe('<TestItem/>', () => {
   ) {
     mount(() => (
       <div class="p-[24px]">
-        <TestItem {...options} />
+        <div>
+          <TestItem {...options} />
+          <TestItem {...options} />
+          <TestItem {...options} />
+          <TestItem {...options} />
+          <TestItem {...options} />
+        </div>
       </div>
     ))
   }

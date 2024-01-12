@@ -1,15 +1,11 @@
 <template>
-  <div class="test-item-container">
+  <div
+    class="test-item-container relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken"
+  >
     <div class="test-item-row">
       <div class="test-item-list test-item-list-describes">
         <div class="test-item-icon">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <circle cx="8" cy="8" r="7" fill="#E45770"></circle>
-            <path
-              d="M6.70711 5.29289C6.31658 4.90237 5.68342 4.90237 5.29289 5.29289C4.90237 5.68342 4.90237 6.31658 5.29289 6.70711L6.70711 5.29289ZM9.29289 10.7071C9.68342 11.0976 10.3166 11.0976 10.7071 10.7071C11.0976 10.3166 11.0976 9.68342 10.7071 9.29289L9.29289 10.7071ZM10.7071 6.70711C11.0976 6.31658 11.0976 5.68342 10.7071 5.29289C10.3166 4.90237 9.68342 4.90237 9.29289 5.29289L10.7071 6.70711ZM5.29289 9.29289C4.90237 9.68342 4.90237 10.3166 5.29289 10.7071C5.68342 11.0976 6.31658 11.0976 6.70711 10.7071L5.29289 9.29289ZM5.29289 6.70711L9.29289 10.7071L10.7071 9.29289L6.70711 5.29289L5.29289 6.70711ZM9.29289 5.29289L5.29289 9.29289L6.70711 10.7071L10.7071 6.70711L9.29289 5.29289Z"
-              fill="white"
-            ></path>
-          </svg>
+          <StatusIcon size="16" status="failed" variant="solid" />
         </div>
         <template v-for="(name, index) in names" :key="index">
           <div
@@ -23,15 +19,7 @@
             <span>&nbsp;{{ name }}</span>
           </div>
           <div class="test-item-chevron" v-if="index < name.length">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m6 12 4-4-4-4"
-              ></path>
-            </svg>
+            <IconChevronRightSmall stroke-color="gray-300" />
           </div>
         </template>
       </div>
@@ -40,18 +28,15 @@
 </template>
 
 <script lang="ts" setup>
+import { IconChevronRightSmall } from '@cypress-design/vue-icon'
+import { StatusIcon } from '@cypress-design/vue-statusicon'
+
 defineProps<{
   names: Array<string>
 }>()
 </script>
 
 <style lang="scss" scoped>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: content-box;
-}
-
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
