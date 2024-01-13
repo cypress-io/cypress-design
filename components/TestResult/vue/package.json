@@ -1,5 +1,5 @@
 {
-  "name": "@cypress-design/vue-speclisttestitem",
+  "name": "@cypress-design/vue-testresult",
   "version": "0.0.1",
   "files": [
     "*"
@@ -20,7 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-speclisttestitem": "*"
+    "@cypress-design/constants-testresult": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

@@ -2,11 +2,11 @@
 import { mount } from 'cypress/vue'
 import type { ComponentProps } from '../../vue-utils'
 import assertions from '../assertions'
-import SpecListTestItem from './SpecListTestItem.vue'
+import TestResult from './TestResult.vue'
 
-describe('<SpecListTestItem/>', () => {
+describe('<TestResult/>', () => {
   function mountStory(
-    options: ComponentProps<typeof SpecListTestItem> = {
+    options: ComponentProps<typeof TestResult> = {
       names: [
         'Authentication',
         'Roles',
@@ -18,11 +18,11 @@ describe('<SpecListTestItem/>', () => {
     mount(() => (
       <div class="p-[24px]">
         <div>
-          <SpecListTestItem status="passed" {...options} />
-          <SpecListTestItem status="failed" {...options} />
-          <SpecListTestItem status="errored" {...options} />
-          <SpecListTestItem status="skipped" {...options} />
-          <SpecListTestItem status="running" {...options} />
+          <TestResult status="passed" {...options} />
+          <TestResult status="failed" {...options} />
+          <TestResult status="errored" {...options} />
+          <TestResult status="skipped" {...options} />
+          <TestResult status="running" {...options} />
         </div>
       </div>
     ))

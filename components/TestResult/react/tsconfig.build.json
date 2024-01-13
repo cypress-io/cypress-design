@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./SpecListTestItem.tsx", "./index.ts"],
+  "include": ["./TestResult.tsx", "./index.ts"],
   "compilerOptions": {
     "sourceRoot": "./",
     "outDir": "dist"

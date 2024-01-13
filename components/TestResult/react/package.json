@@ -1,5 +1,5 @@
 {
-  "name": "@cypress-design/react-speclisttestitem",
+  "name": "@cypress-design/react-testresult",
   "version": "0.0.1",
   "files": [
     "*"
@@ -19,7 +19,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-speclisttestitem": "*",
+    "@cypress-design/constants-testresult": "*",
     "clsx": "*"
   },
   "devDependencies": {

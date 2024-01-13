@@ -1,1 +1,0 @@
-# @cypress-design/react-speclisttestitem
