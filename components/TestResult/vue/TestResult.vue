@@ -10,12 +10,12 @@
         data-cy="test-item-list"
         class="test-item-list flex justify-start items-center flex-nowrap overflow-hidden w-[100%] h-[100%]"
       >
-        <div class="test-item-icon h-[16px] pr-[8px]" data-cy="test-item-icon">
+        <div data-cy="test-item-icon" class="test-item-icon h-[16px] pr-[8px]">
           <StatusIcon
             size="16"
             :status="status"
             variant="solid"
-            class="block"
+            class="align-top"
           />
         </div>
         <template v-for="(name, index) in names" :key="index">
@@ -37,10 +37,11 @@
             >
           </div>
           <div
-            class="test-item-chevron pr-[8px] pl-[6px] relative bottom-[-1px]"
+            data-cy="test-item-chevron"
+            class="pr-[8px] pl-[6px] relative"
             v-if="index < names.length - 1"
           >
-            <IconChevronRightSmall stroke-color="gray-300" />
+            <IconChevronRightSmall stroke-color="gray-300" class="align-top" />
           </div>
         </template>
       </div>
