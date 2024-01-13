@@ -53,7 +53,21 @@ import { IconChevronRightSmall } from '@cypress-design/vue-icon'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 
 defineProps<{
-  status: string
+  status:
+    | 'running'
+    | 'failing'
+    | 'passed'
+    | 'failed'
+    | 'unclaimed'
+    | 'placeholder'
+    | 'cancelled'
+    | 'noTests'
+    | 'errored'
+    | 'timedOut'
+    | 'overLimit'
+    | 'skipped'
+    | 'pending'
+    | undefined
   names: Array<string>
 }>()
 </script>
