@@ -97,7 +97,7 @@
     "vite": "5.0.11",
     "vitepress": "1.0.0-rc.39",
     "vitest": "^1.2.0",
-    "vue": "3.4.14",
+    "vue": "^3.4.14",
     "vue-component-meta": "^1.8.27",
     "vue-docgen-api": "^4.75.1",
     "vue-docgen-cli": "^4.67.0",
