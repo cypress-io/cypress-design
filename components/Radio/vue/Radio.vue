@@ -106,8 +106,10 @@ const checkboxClasses = computed(() =>
       :checked="localChecked"
     />
     <label :class="Classes.labelTag" :for="id">
-      <span :class="[Classes.visibleRadio]" />
-      <span :class="[checkboxClasses]" />
+      <div :class="[Classes.wrapper]">
+        <span :class="[Classes.visibleRadio]" />
+        <span :class="[checkboxClasses, Classes.visibleRadioIndicator]" />
+      </div>
       <slot name="label">
         <span
           v-if="label"

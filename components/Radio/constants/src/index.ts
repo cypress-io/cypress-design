@@ -9,7 +9,9 @@ export const Classes = {
   hiddenInput: 'absolute inset-0 w-0 h-0 opacity-0',
   labelTag: 'flex items-center',
   visibleRadio:
-    'border border-solid rounded-full h-[16px] w-[16px] flex flex-shrink-0 items-center text-white',
+    'border border-solid rounded-full h-[16px] w-[16px] flex flex-shrink-0 items-center text-white outline',
+  visibleRadioIndicator:
+    'rounded-full h-[6px] w-[6px] items-center absolute ml-auto mr-auto inset-x-0',
   trueLabel: 'block ml-[8px] text-[16px] leading-[24px] font-light select-none',
 }
 
