@@ -53,7 +53,11 @@ describe('<DocMenu/>', () => {
 
   function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
     mount(() => {
-      return <DocMenu items={items} activePath={activePath} />
+      return (
+        <div class="p-4">
+          <DocMenu items={items} activePath={activePath} />
+        </div>
+      )
     })
   }
   assertions(mountStory)

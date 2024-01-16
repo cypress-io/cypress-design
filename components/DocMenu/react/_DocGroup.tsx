@@ -144,6 +144,9 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             'text-gray-800 dark:text-gray-200':
               !hasActiveItemRecursivelyMemo && activePath !== group.href,
           })}
+          style={{
+            paddingLeft: depth >= 1 ? `${(depth - 1) * 12 + 48}px` : undefined,
+          }}
         >
           {collapsible ? (
             <IconChevronDownSmall
@@ -152,8 +155,11 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
               className={clsx(classes.expandedIcon, {
                 'rotate-0': open,
                 '-rotate-90': !open,
-                'ml-[28px]': depth,
               })}
+              style={{
+                marginLeft:
+                  depth >= 1 ? `${(depth - 1) * 12 + 28}px` : undefined,
+              }}
             />
           ) : null}
           {group.label}

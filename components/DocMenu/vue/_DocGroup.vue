@@ -83,6 +83,9 @@ defineExpose({
         'text-gray-800 dark:text-gray-200': !hasActiveItem && !active,
       },
     ]"
+    :style="{
+      paddingLeft: depth >= 1 ? `${(depth - 1) * 12 + 48}px` : undefined,
+    }"
     :href="group.href"
     @click="
       () => {
@@ -103,9 +106,11 @@ defineExpose({
         {
           'rotate-0': open,
           '-rotate-90': !open,
-          'ml-[28px]': depth,
         },
       ]"
+      :style="{
+        marginLeft: depth >= 1 ? `${(depth - 1) * 12 + 28}px` : undefined,
+      }"
     />
     {{ group.label }}
   </component>
