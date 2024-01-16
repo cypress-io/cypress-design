@@ -8,8 +8,8 @@ export const Classes = {
   wrapper: 'relative flex items-center',
   hiddenInput: 'absolute inset-0 w-0 h-0 opacity-0',
   labelTag: 'flex items-center',
-  visibleCheckbox:
-    'border border-solid rounded h-[16px] w-[16px] flex flex-shrink-0 items-center text-white',
+  visibleRadio:
+    'border border-solid rounded-full h-[16px] w-[16px] flex flex-shrink-0 items-center text-white',
   trueLabel: 'block ml-[8px] text-[16px] leading-[24px] font-light select-none',
 }
 

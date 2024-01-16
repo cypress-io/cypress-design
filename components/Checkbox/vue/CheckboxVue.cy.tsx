@@ -127,7 +127,7 @@ describe('<Checkbox />', () => {
     cy.contains('Second checkbox').click()
     cy.get('[data-cy="result"]').should(
       'contain',
-      '["first-checkbox","second-checkbox"]'
+      '["first-checkbox","second-checkbox"]',
     )
     cy.contains('Second checkbox').click()
     cy.get('[data-cy="result"]').should('contain', '["first-checkbox"]')

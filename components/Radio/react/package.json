@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-radio": "*",
+    "@cypress-design/css": "^0.16.0",
     "clsx": "*"
   },
   "devDependencies": {

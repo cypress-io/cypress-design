@@ -5,9 +5,9 @@ import Radio from '@cypress-design/vue-radio'
 # Radio
 
 <DemoWrapper>
-	<Radio label="Option #2" name="example" />
+	<Radio label="Some Labels" name="example"/>
 </DemoWrapper>
 
 Describe your component here.
 
-[figma::Radio (to be updated)](https://www.figma.com/file/...)
+[figma::Radio](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=1927%3A2466&mode=dev)
