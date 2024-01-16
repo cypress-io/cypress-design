@@ -12,6 +12,7 @@
     // - If you are not using Vite, feel free to override the `target` field.
     "target": "ESNext",
     "moduleResolution": "Node",
+    "jsxImportSource": "vue",
     "module": "ESNext",
     "strict": true,
 
