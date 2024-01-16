@@ -27,15 +27,13 @@ const props = withDefaults(
      */
     checked?: boolean
     /**
-     * The color of the background in the checkbox.
-     * The checkmark will always be white.
+     * The color of the indicator dot
      */
     color?: 'red' | 'indigo' | 'jade'
     /**
      * If the checkbox is disabled, it will not be clickable.
      */
     disabled?: boolean
-    modelValue?: boolean | Array<string>
     /**
      * Label for the checkbox.
      * It is very important to set this to make the checkbox accessible.
@@ -48,13 +46,7 @@ const props = withDefaults(
   },
 )
 
-const localChecked = ref(
-  (Array.isArray(props.modelValue)
-    ? props.name
-      ? props.modelValue.includes(props.name)
-      : false
-    : props.modelValue) || props.checked,
-)
+const localChecked = ref(props.checked)
 
 const emit = defineEmits<{
   /**
@@ -67,21 +59,6 @@ const emit = defineEmits<{
 
 function updated() {
   localChecked.value = !localChecked.value
-  if (Array.isArray(props.modelValue)) {
-    const arrayModelValue = [...props.modelValue]
-    if (!props.name) {
-      return
-    }
-    const index = arrayModelValue.indexOf(props.name)
-    if (index === -1) {
-      arrayModelValue.push(props.name)
-    } else {
-      arrayModelValue.splice(index, 1)
-    }
-    emit('update:modelValue', arrayModelValue)
-  } else {
-    emit('update:modelValue', localChecked.value)
-  }
   emit('change', localChecked.value)
 }
 
