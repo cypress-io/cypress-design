@@ -58,8 +58,8 @@ const localChecked = ref(
 
 const emit = defineEmits<{
   /**
-   * Fired when the checkbox changes value
-   * @arg value - The next value of the checkbox
+   * Fired when the radio changes value
+   * @arg value - The next value of the radio
    */
   (event: 'update:modelValue', value: boolean | Array<string>): void
   (event: 'change', value: boolean): void
@@ -101,14 +101,17 @@ const checkboxClasses = computed(() =>
       :class="Classes.hiddenInput"
       :name="name || id"
       type="radio"
-      @change="updated"
+      @click="updated"
       :disabled="props.disabled"
       :checked="localChecked"
     />
     <label :class="Classes.labelTag" :for="id">
       <div :class="[Classes.wrapper]">
         <span :class="[Classes.visibleRadio]" />
-        <span :class="[checkboxClasses, Classes.visibleRadioIndicator]" />
+        <span
+          v-if="localChecked"
+          :class="[checkboxClasses, Classes.visibleRadioIndicator]"
+        />
       </div>
       <slot name="label">
         <span
