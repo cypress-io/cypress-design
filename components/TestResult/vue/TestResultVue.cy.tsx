@@ -9,9 +9,8 @@ describe('<TestResult/>', () => {
     options: ComponentProps<typeof TestResult> = {
       names: [
         'Authentication',
-        'Roles',
-        'Admin',
-        'Should be able to login successfully with proper credentials',
+        'Admin and owner roles',
+        'should be able to login successfully with proper credentials before being redirected to dashboard',
       ],
     },
   ) {

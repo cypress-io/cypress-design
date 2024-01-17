@@ -8,9 +8,12 @@
     >
       <div
         data-cy="test-item-list"
-        class="test-item-list flex justify-start items-center flex-nowrap overflow-hidden w-[100%] h-[100%]"
+        class="test-item-list flex justify-start items-center flex-nowrap overflow-hidden w-[100%] h-[100%] box-content"
       >
-        <div data-cy="test-item-icon" class="test-item-icon h-[16px] pr-[8px]">
+        <div
+          data-cy="test-item-icon"
+          class="test-item-icon h-[16px] w-[16px] pr-[8px] box-content"
+        >
           <StatusIcon
             size="16"
             :status="status"
@@ -21,24 +24,24 @@
         <template v-for="(name, index) in names" :key="index">
           <div
             data-cy="test-item-name"
-            class="test-item overflow-hidden w-[max-content] min-w-[16px] max-w-[max-content]"
+            class="test-item overflow-hidden w-[max-content] min-w-[16px] max-w-[max-content] h-[24px] box-content"
             :class="{
-              'test-item-first grow shrink basis-[max-content]': index === 0,
-              'test-item-middle shrink-100000 basis-auto':
+              'test-item-first shrink-[2] basis-[max-content]': index === 0,
+              'test-item-middle shrink-[100000] basis-auto':
                 index > 0 && index < names.length - 1,
-              'item-last grow shrink-0 basis-[max-content]':
+              'item-last shrink basis-[max-content]':
                 index === names.length - 1,
             }"
           >
             <span
               data-cy="test-item-text"
-              class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[24px] left-[-4px]"
+              class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[24px] left-[-4px] box-content"
               >&nbsp;{{ name }}</span
             >
           </div>
           <div
             data-cy="test-item-chevron"
-            class="pr-[8px] pl-[6px] relative"
+            class="px-[6px] relative text-gray-300"
             v-if="index < names.length - 1"
           >
             <IconChevronRightSmall stroke-color="gray-300" class="align-top" />
