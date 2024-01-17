@@ -1,19 +1,19 @@
 <template>
   <div
-    data-cy="test-item-container"
-    class="test-item-container relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result"
+    data-cy="test-result-container"
+    class="test-result-container relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result"
   >
     <div
-      data-cy="test-item-row"
-      class="test-item-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap px-[16px] py-[12px] @md/test-result:py-[16px] @md/test-result:h-[52px]"
+      data-cy="test-result-row"
+      class="test-result-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap px-[16px] py-[12px] @lg/test-result:py-[16px] @lg/test-result:h-[52px]"
     >
       <div
-        data-cy="test-item-list"
-        class="test-item-list flex justify-start items-center flex-nowrap overflow-hidden w-[100%] h-[100%] box-content"
+        data-cy="test-result-list"
+        class="test-result-list flex justify-start items-center flex-nowrap overflow-hidden w-[100%] h-[100%] box-content"
       >
         <div
-          data-cy="test-item-icon"
-          class="test-item-icon h-[16px] w-[16px] pr-[8px] box-content"
+          data-cy="test-result-icon"
+          class="test-result-icon h-[16px] w-[16px] pr-[8px] box-content"
         >
           <StatusIcon
             size="16"
@@ -24,33 +24,33 @@
         </div>
         <template v-for="(name, index) in names" :key="index">
           <div
-            data-cy="test-item-name"
-            class="test-item overflow-hidden w-[max-content] min-w-[16px] max-w-[max-content] h-[24px] box-content text-gray-1000"
+            data-cy="test-result-name"
+            class="test-result overflow-hidden w-[max-content] min-w-[16px] h-[24px] box-content text-gray-1000 max-w-[max-content]"
             :class="{
-              'test-item-first shrink-[2] basis-[max-content] text-gray-700 @md/test-result:text-gray-1000':
+              'test-result-first shrink-[2] basis-[max-content] text-gray-700 @lg/test-result:text-gray-1000':
                 names.length >= 2 && index === 0,
-              'test-item-middle shrink-[100000] basis-auto text-gray-700 @md/test-result:text-gray-1000':
+              'test-result-middle shrink-[100000] basis-auto text-gray-700 @lg/test-result:text-gray-1000':
                 names.length >= 2 && index > 0 && index < names.length - 1,
-              'test-item-last shrink basis-[max-content]':
+              'test-result-last flex shrink basis-[100%] @lg/test-result:shrink @lg/test-result:basis-[max-content]':
                 index === names.length - 1,
             }"
           >
             <span
-              data-cy="test-item-text"
+              data-cy="test-result-text"
               class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[24px] left-[-4px] box-content"
               >&nbsp;{{ name }}</span
             >
           </div>
           <div
-            data-cy="test-item-chevron"
-            class="px-[6px] relative text-gray-300"
+            data-cy="test-result-chevron"
+            class="px-[4px] @lg/test-result:px-[6px] relative text-gray-300 shrink-0"
             v-if="index < names.length - 1"
           >
             <IconChevronRightSmall stroke-color="gray-300" class="align-top" />
           </div>
         </template>
         <div
-          data-cy="test-attributes"
+          data-cy="test-result-attributes"
           class="flex items-center gap-x-[8px] px-[4px]"
         >
           <IconStatusFlaky v-if="flaky" />
@@ -95,7 +95,7 @@ defineProps<{
 </script>
 
 <style lang="scss" scoped>
-// .test-item {
+// .test-result {
 //   &-container {
 //     container: item / inline-size;
 //   }
