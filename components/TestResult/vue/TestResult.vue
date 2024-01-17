@@ -1,10 +1,11 @@
 <template>
   <div
-    class="test-item-container relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container"
+    data-cy="test-item-container"
+    class="test-item-container relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result"
   >
     <div
       data-cy="test-item-row"
-      class="test-item-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap px-[16px] h-[52px]"
+      class="test-item-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap px-[16px] py-[12px] @md/test-result:py-[16px] @md/test-result:h-[52px]"
     >
       <div
         data-cy="test-item-list"
@@ -24,11 +25,11 @@
         <template v-for="(name, index) in names" :key="index">
           <div
             data-cy="test-item-name"
-            class="test-item overflow-hidden w-[max-content] min-w-[16px] max-w-[max-content] h-[24px] box-content"
+            class="test-item overflow-hidden w-[max-content] min-w-[16px] max-w-[max-content] h-[24px] box-content text-gray-1000"
             :class="{
-              'test-item-first shrink-[2] basis-[max-content]':
+              'test-item-first shrink-[2] basis-[max-content] text-gray-700 @md/test-result:text-gray-1000':
                 names.length >= 2 && index === 0,
-              'test-item-middle shrink-[100000] basis-auto':
+              'test-item-middle shrink-[100000] basis-auto text-gray-700 @md/test-result:text-gray-1000':
                 names.length >= 2 && index > 0 && index < names.length - 1,
               'test-item-last shrink basis-[max-content]':
                 index === names.length - 1,

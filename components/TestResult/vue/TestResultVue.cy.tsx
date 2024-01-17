@@ -110,18 +110,6 @@ const TEST_RESULTS = [
     added: false,
     names: ['TestResult', 'should render as flaky and modified'],
   },
-  // {
-  //   status: 'running',
-  //   flaky: false,
-  //   modified: false,
-  //   added: false,
-  //   names: [
-  //     'Authentication',
-  //     'All roles',
-  //     'should logout successfully',
-  //     'and be redirected to the homepage',
-  //   ],
-  // },
 ]
 
 describe('<TestResult/>', () => {
