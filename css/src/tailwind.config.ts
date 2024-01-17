@@ -7,7 +7,7 @@ import { IconExtractor } from './tw-icon-extractor'
 import theme from './theme.config'
 import detailsOpenVariantPlugin from './tw-details-open-variant-plugin'
 import plugin from 'tailwindcss/plugin'
-import Container from '@tailwindcss/container-queries'
+import containerPlugin from '@tailwindcss/container-queries'
 
 function defineConfig(config: Config) {
   return config
@@ -50,7 +50,7 @@ export default (fileGlobs: string[] = []) => {
         ])
         addVariant('children', '& *')
       }),
-      Container,
+      containerPlugin,
     ],
   })
 }
