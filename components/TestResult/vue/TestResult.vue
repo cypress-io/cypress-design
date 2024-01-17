@@ -132,61 +132,11 @@ defineProps<{
 
 <style lang="scss" scoped>
 // .test-result {
-//   &-container {
-//     container: item / inline-size;
-//   }
-
-//   &-row {
-//     @container item (max-width: 600px) {
-//       height: auto;
-//       padding: 12px 16px;
-//     }
-//   }
-
-//   &-icon {
-//     @container item (max-width: 600px) {
-//       position: absolute;
-//       left: 16px;
-//       top: 50%;
-//       margin-top: -8px;
-//     }
-//   }
-
-//   &-middle {
-//     @container item (max-width: 600px) {
-//       flex-basis: 0;
-//       color: #888;
-//       font-size: 14px;
-//     }
-//   }
-
-//   &-first {
-//     @container item (max-width: 600px) {
-//       flex-basis: 0;
-//       color: #888;
-//       font-size: 14px;
-//     }
-//   }
-
-//   &-last {
-//     @container item (max-width: 600px) {
-//       display: flex;
-//       flex-shrink: 0;
-//       flex-basis: 100%;
-//     }
-//   }
-
 //   &-list {
 //     @container item (max-width: 600px) {
 //       flex-wrap: wrap;
 //       padding-left: 28px;
 //       flex-direction: row;
-//     }
-//   }
-
-//   &-chevron {
-//     @container item (max-width: 600px) {
-//       padding: 0 4px 0 2px;
 //     }
 //   }
 // }
