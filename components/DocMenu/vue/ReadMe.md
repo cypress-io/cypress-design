@@ -20,57 +20,56 @@ import DocMenu from '@cypress-design/vue-docmenu'
 
 ```vue live
 <DocMenu
+  activePath="#group-item-3"
   :items="[
     {
-      text: 'Get Started',
-      href: '#',
+      label: 'Get Started',
+      href: '#get-started',
     },
     {
-      text: 'Overview',
+      label: 'Overview',
       items: [
         {
-          text: 'Overview Item 1',
-          href: '#',
+          label: 'Overview Item 1',
+          href: '#overview-item-1',
         },
         {
-          text: 'Overview Item 2',
-          href: '#',
-          active: true,
+          label: 'Overview Item 2',
+          href: '#overview-item-2',
         },
       ],
     },
     {
-      text: 'Getting Started',
+      label: 'Getting Started',
       items: [
         {
-          text: 'Item 1',
-          href: '#',
+          label: 'Item 1',
+          href: '#item-1',
         },
         {
-          text: 'Group',
+          label: 'Group',
           items: [
             {
-              text: 'Item 1',
-              href: '#',
+              label: 'Item 1',
+              href: '#group-item-1',
             },
             {
-              text: 'Item 2',
-              href: '#',
+              label: 'Item 2',
+              href: '#group-item-2',
             },
             {
-              text: 'Item 3',
-              href: '#',
+              label: 'Item 3',
+              href: '#group-item-3',
             },
             {
-              text: 'Item 4',
-              href: '#',
+              label: 'Item 4',
+              href: '#group-item-4',
             },
           ],
         },
         {
-          text: 'Item 5',
+          label: 'Item 5',
           href: '#',
-          active: true,
         },
       ],
     },

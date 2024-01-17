@@ -4,92 +4,92 @@ import type { NavGroup, NavItemLink } from './constants'
 
 const menuItems = [
   {
-    text: 'Get Started',
-    href: '#',
+    label: 'Get Started',
+    href: 'one',
   },
   {
-    text: 'Overview',
+    label: 'Overview',
     items: [
       {
-        text: 'Overview Item 1',
-        href: '#',
+        label: 'Overview Item 1',
+        href: 'two',
       },
       {
-        text: 'Overview Item 2',
-        href: '#',
+        label: 'Overview Item 2',
+        href: 'three',
       },
     ],
   },
   {
-    text: 'Getting Started',
+    label: 'Getting Started',
     items: [
       {
-        text: 'Item 1',
-        href: '#',
+        label: 'Item 1',
+        href: 'four',
       },
       {
-        text: 'Item 2',
-        href: '#',
+        label: 'Item 2',
+        href: 'five',
       },
     ],
   },
   {
-    text: 'End-to-End Testing',
+    label: 'End-to-End Testing',
     items: [
       {
-        text: 'Introduction to E2E Testing',
+        label: 'Introduction to E2E Testing',
         items: [
           {
-            text: 'Item 1',
-            href: '#',
+            label: 'Item 1',
+            href: 'six',
           },
           {
-            text: 'sub menu',
+            label: 'sub menu',
             items: [
               {
-                text: 'Item 1',
-                href: '#',
-                active: true,
+                label: 'Item 1',
+                href: 'seven',
               },
               {
-                text: 'Item 2',
-                href: '#',
+                label: 'Item 2',
+                href: 'eight',
               },
             ],
           },
           {
-            text: 'Item 2',
-            href: '#',
-            active: true,
+            label: 'Item 2',
+            href: 'nine',
           },
         ],
       },
       {
-        text: 'AWS Authentication',
-        href: '#',
+        label: 'AWS Authentication',
+        href: 'aws',
       },
       {
-        active: true,
-        text: 'Google Authentication',
-        href: '#',
+        label: 'Google Authentication',
+        href: 'google',
       },
       {
-        text: 'Okta Authentication',
-        href: '#',
+        label: 'Okta Authentication',
+        href: 'okta',
       },
     ],
   },
 ] satisfies (NavItemLink | NavGroup)[]
 
 export default function assertions(
-  mountStory: (options?: (NavItemLink | NavGroup)[]) => void
+  mountStory: (
+    options?: (NavItemLink | NavGroup)[],
+    activePath?: string,
+  ) => void,
 ): void {
   it('renders', () => {
-    mountStory(menuItems)
+    mountStory(menuItems, 'eight')
   })
 
   it('closes the menu', () => {
-    mountStory(menuItems)
+    mountStory(menuItems, 'eight')
 
     cy.contains('Overview Item 1').should('be.visible')
     cy.contains('button', 'Overview').click()
@@ -97,12 +97,21 @@ export default function assertions(
     cy.contains('Overview Item 1').should('not.be.visible')
   })
 
-  it('keeps track of active values', () => {
-    mountStory(menuItems)
+  it('keeps track of active values', { viewportHeight: 800 }, () => {
+    mountStory(menuItems, 'google')
 
-    cy.contains('Introduction').click()
     cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()
+    cy.wait(300)
+    cy.contains('li', 'Google Authentication').then(($el) => {
+      const top = $el[0].getBoundingClientRect().top
+      cy.get('[data-cy="doc-menu-active-marker"]').then(($marker) => {
+        expect(Math.abs($marker[0].getBoundingClientRect().top - top)).to.below(
+          10,
+          `marker should be close to the active item`,
+        )
+      })
+    })
   })
 }

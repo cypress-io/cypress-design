@@ -68,28 +68,28 @@ it('generates icon classes', async () => {
     .icon-dark-secondary-indigo-400 > *[stroke][fill].icon-dark-secondary-stroke {
         stroke: #818cf8
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > *[fill].icon-light {
+    .group:hover .group-hover\\:icon-light-red-400 > *[fill].icon-light {
         fill: #f87171
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > *[stroke].icon-light {
+    .group:hover .group-hover\\:icon-light-red-400 > *[stroke].icon-light {
         stroke: #f87171
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > *[stroke][fill].icon-light-fill {
+    .group:hover .group-hover\\:icon-light-red-400 > *[stroke][fill].icon-light-fill {
         fill: #f87171
     }
-    .group:hover .group-hover\\\\:icon-light-red-400 > *[stroke][fill].icon-light-stroke {
+    .group:hover .group-hover\\:icon-light-red-400 > *[stroke][fill].icon-light-stroke {
         stroke: #f87171
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > *[fill].icon-dark {
+    .icon-hover\\:icon-dark-teal-900:hover > *[fill].icon-dark {
         fill: #134e4a
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > *[stroke].icon-dark {
+    .icon-hover\\:icon-dark-teal-900:hover > *[stroke].icon-dark {
         stroke: #134e4a
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > *[stroke][fill].icon-dark-fill {
+    .icon-hover\\:icon-dark-teal-900:hover > *[stroke][fill].icon-dark-fill {
         fill: #134e4a
     }
-    .icon-hover\\\\:icon-dark-teal-900:hover > *[stroke][fill].icon-dark-stroke {
+    .icon-hover\\:icon-dark-teal-900:hover > *[stroke][fill].icon-dark-stroke {
         stroke: #134e4a
     }"
   `)

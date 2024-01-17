@@ -1,9 +1,5 @@
-export const ClassBackDrop =
-  'fixed left-0 top-0 z-[1000010] h-screen w-screen bg-gray-900/[.80] backdrop-blur-sm'
-export const ClassModalContainer =
-  'pointer-events-none fixed left-0 top-0 z-[1000020] h-full w-screen overflow-hidden flex items-center justify-center'
 export const ClassModal =
-  'pointer-events-auto relative flex flex-col rounded outline outline-4 outline-gray-500/[.40] bg-white'
+  'pointer-events-auto fixed flex flex-col rounded outline outline-4 outline-gray-500/[.40] bg-white backdrop:bg-gray-900/[.80] backdrop:backdrop-blur-sm'
 export const ClassModalStandardDimensions =
   'max-h-[80vh] min-w-[200px] sm:min-w-[390px] max-w-[calc(100vw-32px)] sm:max-w-[70vw] shrink-0'
 export const ClassModalFullscreenDimensions =

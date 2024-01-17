@@ -1,45 +1,105 @@
 <script lang="ts" setup>
+import {
+  watch,
+  type DefineComponent,
+  ref,
+  onMounted,
+  inject,
+  nextTick,
+  computed,
+} from 'vue'
 import type { NavItemLink } from '@cypress-design/constants-docmenu'
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     item: NavItemLink
-    depth?: number
+    active: boolean
     collapsible: boolean
+    depth?: number
+    linkComponent: DefineComponent | 'a'
   }>(),
   {
     depth: -1,
-  }
+  },
 )
+
+const emit = defineEmits<{
+  (
+    event: 'update:active',
+    active: boolean,
+    opts?: { top: number; height: number },
+  ): void
+}>()
+
+const $container = ref<HTMLLIElement>()
+
+const markerIsMoving = inject('transition-is-moving', ref(false))
+
+function setActiveMarkerPosition() {
+  if (props.active) {
+    nextTick(() => {
+      const { top = 0, height = 36 } =
+        $container.value?.getBoundingClientRect() ?? {}
+
+      emit('update:active', props.active, {
+        top,
+        height,
+      })
+    })
+  }
+}
+
+onMounted(() => {
+  watch(
+    () => props.active,
+    (active) => {
+      if (active) {
+        setActiveMarkerPosition()
+      } else {
+        emit('update:active', active)
+      }
+    },
+    { immediate: true },
+  )
+})
+
+defineExpose({
+  setActiveMarkerPosition,
+})
+
+const itemWithoutLabel = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { label, ...rest } = props.item
+  return rest
+})
 </script>
 
 <template>
-  <li
-    class="list-none p-0"
-    :class="{
-      'pl-[16px]': depth >= 0,
-    }"
-  >
-    <a
+  <li ref="$container" class="list-none p-0">
+    <component
+      :is="linkComponent"
+      v-bind="itemWithoutLabel"
       class="group relative block w-full pl-[24px]"
       :class="{
-        'text-indigo-500': item.active,
+        'text-indigo-500 dark:text-indigo-400': active,
+        'text-gray-700 dark:text-gray-500': !active,
         'py-[8px] text-[16px] leading-[24px]': depth < 0,
         'leading-[20px] text-[14px] py-[12px]': depth >= 0,
       }"
-      :href="item.href"
+      :style="{
+        paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
+      }"
     >
       <div
         v-if="depth >= 0"
-        class="absolute h-[80%] top-[10%] w-[4px] z-10 rounded-full hidden"
+        class="left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full"
         :class="{
-          'group-hover:block bg-gray-300': !item.active && collapsible,
-        }"
-        :style="{
-          left: `-${18.5 + depth * 7.5}px`,
+          hidden: !markerIsMoving || !active,
+          'group-hover:block bg-gray-300': !active && collapsible,
+          'bg-indigo-500': active && markerIsMoving,
         }"
       />
-      {{ item.text }}
-    </a>
+      {{ item.label }}
+    </component>
   </li>
 </template>

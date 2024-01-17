@@ -15,6 +15,7 @@ export default defineConfig({
   title: 'Cypress Design System',
   description: 'The documentation website for building UI at Cypress',
   outDir: './dist',
+  appearance: false,
   markdown: {
     config(md) {
       md.use(vueLiveMd)
@@ -59,7 +60,9 @@ export default defineConfig({
   vite: {
     define: {
       'import.meta.env.EDIT_ROOT_LOCAL': JSON.stringify(
-        `vscode://file/${resolve(__dirname, '../../')}`,
+        `/__open-in-editor?file=${encodeURIComponent(
+          resolve(__dirname, '../../'),
+        )}`,
       ),
       'import.meta.env.EDIT_ROOT_GITHUB': JSON.stringify(
         `https://github.com/cypress-io/cypress-design/blob/${branch}/`,

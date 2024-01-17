@@ -1,12 +1,14 @@
 import { NavItemLink, NavGroup } from '@cypress-design/vue-docmenu'
 
 export function getHeaders(range: [number, number]) {
-  const headers = [...document.querySelectorAll('main h2,main h3')]
+  const headers: NavLinkExtended[] = [
+    ...document.querySelectorAll('main h2,main h3'),
+  ]
     .filter((el) => el.id && el.hasChildNodes())
     .map((el) => {
       const level = Number(el.tagName[1])
       return {
-        text: serializeHeader(el),
+        label: serializeHeader(el),
         href: '#' + el.id,
         level,
       }
@@ -39,7 +41,7 @@ export interface NavLinkExtended extends NavItemLink {
 
 export function resolveHeaders(
   headers: NavLinkExtended[],
-  range: [number, number] = [2, 3]
+  range: [number, number] = [2, 3],
 ) {
   const [high, low] = range
 

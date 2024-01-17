@@ -1,5 +1,59 @@
 # @cypress-design/vue-docmenu
 
+## 0.5.2
+
+### Patch Changes
+
+- [`fe2f9f0`](https://github.com/cypress-io/cypress-design/commit/fe2f9f0435117454b3d81ce22ec3e9258330a725) Thanks [@elevatebart](https://github.com/elevatebart)! - make margin of button on depth button
+
+## 0.5.1
+
+### Patch Changes
+
+- [`9f750c5`](https://github.com/cypress-io/cypress-design/commit/9f750c57722351c43d8dda136796a1ea98c203c8) Thanks [@elevatebart](https://github.com/elevatebart)! - adjust colors according to designs and refactor react side to use context
+
+## 0.5.0
+
+### Minor Changes
+
+- [#357](https://github.com/cypress-io/cypress-design/pull/357) [`d0ed7c5`](https://github.com/cypress-io/cypress-design/commit/d0ed7c513df09d24639895ae1c7f2633eab8c254) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add transition when open/close collapsible menu
+
+### Patch Changes
+
+- Updated dependencies [[`d0ed7c5`](https://github.com/cypress-io/cypress-design/commit/d0ed7c513df09d24639895ae1c7f2633eab8c254)]:
+  - @cypress-design/constants-docmenu@0.2.0
+
+## 0.4.2
+
+### Patch Changes
+
+- [`a58be93`](https://github.com/cypress-io/cypress-design/commit/a58be9322cfc64c64533ff8f8414a45ba90be751) Thanks [@elevatebart](https://github.com/elevatebart)! - fix(docgen): make buttons left-aligned (logical)
+
+- Updated dependencies [[`a58be93`](https://github.com/cypress-io/cypress-design/commit/a58be9322cfc64c64533ff8f8414a45ba90be751)]:
+  - @cypress-design/constants-docmenu@0.1.3
+
+## 0.4.1
+
+### Patch Changes
+
+- [#353](https://github.com/cypress-io/cypress-design/pull/353) [`b382b9e`](https://github.com/cypress-io/cypress-design/commit/b382b9ecc99e3ab6288eee406831199edb661c19) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: Docgen wrapping active links
+
+- Updated dependencies [[`b382b9e`](https://github.com/cypress-io/cypress-design/commit/b382b9ecc99e3ab6288eee406831199edb661c19)]:
+  - @cypress-design/constants-docmenu@0.1.2
+
+## 0.4.0
+
+### Minor Changes
+
+- [#350](https://github.com/cypress-io/cypress-design/pull/350) [`abc414d`](https://github.com/cypress-io/cypress-design/commit/abc414da149eb6fe0cfa61497a0aa8630d8d8d6e) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: allow usage of a custom link component
+
+### Patch Changes
+
+- [#347](https://github.com/cypress-io/cypress-design/pull/347) [`de67952`](https://github.com/cypress-io/cypress-design/commit/de679522ea2269854ec8ac8de925fcf930ce96e4) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: docmenu docusaurus style items structure
+
+- Updated dependencies [[`de67952`](https://github.com/cypress-io/cypress-design/commit/de679522ea2269854ec8ac8de925fcf930ce96e4)]:
+  - @cypress-design/constants-docmenu@0.1.1
+
 ## 0.3.0
 
 ### Minor Changes

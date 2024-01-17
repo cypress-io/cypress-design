@@ -1,26 +1,59 @@
 <script lang="ts" setup>
+import { ref, type DefineComponent, provide } from 'vue'
 import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
-import DocGroup from './_DocGroup.vue'
-import DocLink from './_DocLink.vue'
+import DocGroupElements from './_DocGroupElements.vue'
 
 withDefaults(
   defineProps<{
     items: (NavItemLink | NavGroup)[]
+    activePath?: string
     collapsible?: boolean
+    linkComponent?: DefineComponent | 'a'
   }>(),
   {
+    linkComponent: 'a',
     collapsible: true,
-  }
+    activePath: undefined,
+  },
 )
+
+const $container = ref<HTMLDivElement>()
+
+const activeTop = ref(0)
+const activeHeight = ref(36)
+const showMarker = ref(false)
+
+function updateActiveMarkerPosition({ top, height } = { height: 0, top: 0 }) {
+  const containerTop = $container.value?.getBoundingClientRect().top || 0
+  activeTop.value = top - containerTop
+  activeHeight.value = height
+  showMarker.value = true
+}
+
+const markerIsMoving = ref(false)
+
+provide('transition-is-moving', markerIsMoving)
 </script>
 
 <template>
-  <ul class="overflow-y-hidden list-none p-0">
-    <template v-for="item in items">
-      <li v-if="'items' in item" class="relative list-none p-0">
-        <DocGroup :group="item" :depth="0" :collapsible="collapsible" />
-      </li>
-      <DocLink v-else :item="item" :collapsible="collapsible" />
-    </template>
-  </ul>
+  <div ref="$container" class="relative">
+    <div
+      v-if="showMarker && collapsible && !markerIsMoving"
+      data-cy="doc-menu-active-marker"
+      class="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 transition-all duration-300 ml-[6.5px] mt-[4px]"
+      :style="{
+        top: `${activeTop}px`,
+        height: `${activeHeight - 8}px`,
+      }"
+    />
+    <DocGroupElements
+      :items="items"
+      :active-path="activePath"
+      :collapsible="collapsible"
+      :link-component="linkComponent"
+      :depth="-1"
+      @update-active-position="updateActiveMarkerPosition"
+      @hide-marker="showMarker = false"
+    />
+  </div>
 </template>

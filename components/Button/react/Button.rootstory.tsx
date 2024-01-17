@@ -13,9 +13,10 @@ export default ({
     {(Object.keys(VariantClassesTable) as ButtonVariants[]).map((variant) => {
       return (
         <div
+          key={variant}
           className={clsx(
             'flex flex-col items-center gap-3 justify-center mt-4 p-2',
-            { 'bg-gray-1000 text-white': variant === 'outline-dark' }
+            { 'bg-gray-1000 text-white': variant === 'outline-dark' },
           )}
         >
           <h3 className="text-right">{variant}</h3>
@@ -23,7 +24,7 @@ export default ({
             .reverse()
             .map((size) => {
               return (
-                <div className="flex items-center justify-center">
+                <div key={size} className="flex items-center justify-center">
                   <span
                     className={clsx('text-sm mr-4', {
                       'text-gray-300': variant === 'outline-dark',

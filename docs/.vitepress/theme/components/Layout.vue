@@ -41,8 +41,8 @@ const framework = computed(() =>
   routePath.value.includes('/react/')
     ? ('react' as const)
     : routePath.value.includes('/vue/')
-    ? ('vue' as const)
-    : cookieFramework.value,
+      ? ('vue' as const)
+      : cookieFramework.value,
 )
 
 watch(
@@ -216,3 +216,11 @@ const { frontmatter } = useData() as any
   <Content v-else />
   <div id="modal-target" />
 </template>
+
+<style lang="scss">
+.shiki {
+  .line > span {
+    color: var(--shiki-dark);
+  }
+}
+</style>

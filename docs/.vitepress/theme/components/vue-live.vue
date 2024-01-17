@@ -43,7 +43,7 @@ onMounted(() => {
       (code) => {
         renderReactApp(code)
       },
-      { immediate: true }
+      { immediate: true },
     )
   }
 })
@@ -59,7 +59,7 @@ function renderReactApp(code: string) {
       code,
       requires: props.requires,
       components: props.components,
-    })
+    }),
   )
 }
 
@@ -86,7 +86,7 @@ function copyCode() {
   <div class="vue-live vue-live-preview-code">
     <div class="vue-live-preview vue-live-block">
       <div v-if="props.framework === 'react'" v-once ref="reactAppRoot$">
-        React app root
+        Loading react live... if this remains, JS is disabled
       </div>
       <VueLivePreview
         v-if="props.framework !== 'react'"
@@ -108,7 +108,7 @@ function copyCode() {
         :prism-lang="props.framework === 'react' ? 'tsx' : prismLang"
         :error="error"
         :jsx="jsx || props.framework === 'react'"
-        @change="(newCode:string) => (liveCode = newCode)"
+        @change="(newCode: string) => (liveCode = newCode)"
       />
       <button
         class="copy"
@@ -152,7 +152,7 @@ function copyCode() {
 }
 
 html.dark .vue-live-preview-code .vue-live-preview {
-  @apply bg-gray-800;
+  @apply bg-gray-1000 text-white border-b border-gray-700;
 }
 
 .vue-live-preview-code :deep(.prism-editor-wrapper) {

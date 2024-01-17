@@ -18,62 +18,95 @@ yarn add @cypress-design/react-docmenu
 import DocMenu from '@cypress-design/react-docmenu'
 ```
 
+### Default usage
+
 ```tsx live
-<DocMenu
-  items={[
-    {
-      text: 'Get Started',
-      href: '#',
-    },
-    {
-      text: 'Overview',
-      items: [
-        {
-          text: 'Overview Item 1',
-          href: '#',
-        },
-        {
-          text: 'Overview Item 2',
-          href: '#',
-          active: true,
-        },
-      ],
-    },
-    {
-      text: 'Getting Started',
-      items: [
-        {
-          text: 'Item 1',
-          href: '#',
-        },
-        {
-          text: 'Group',
-          items: [
-            {
-              text: 'Item 1',
-              href: '#',
-            },
-            {
-              text: 'Item 2',
-              href: '#',
-            },
-            {
-              text: 'Item 3',
-              href: '#',
-            },
-            {
-              text: 'Item 4',
-              href: '#',
-            },
-          ],
-        },
-        {
-          text: 'Item 5',
-          href: '#',
-          active: true,
-        },
-      ],
-    },
-  ]}
-/>
+export default () => (
+  <DocMenu
+    activePath="#group-item-3"
+    items={[
+      {
+        label: 'Get Started',
+        href: '#get-started',
+      },
+      {
+        label: 'Overview',
+        items: [
+          {
+            label: 'Overview Item 1',
+            href: '#overview-item-1',
+          },
+          {
+            label: 'Overview Item 2',
+            href: '#overview-item-2',
+          },
+        ],
+      },
+      {
+        label: 'Getting Started',
+        items: [
+          {
+            label: 'Item 1',
+            href: '#item-1',
+          },
+          {
+            label: 'Group',
+            items: [
+              {
+                label: 'Item 1',
+                href: '#group-item-1',
+              },
+              {
+                label: 'Item 2',
+                href: '#group-item-2',
+              },
+              {
+                label: 'Item 3',
+                href: '#group-item-3',
+              },
+              {
+                label: 'Item 4',
+                href: '#group-item-4',
+              },
+            ],
+          },
+          {
+            label: 'Item 5',
+            href: '#',
+          },
+        ],
+      },
+    ]}
+  />
+)
+```
+
+### With a custom link
+
+```tsx live
+const CustomLink = ({ href, children, className }) => {
+  return (
+    <a
+      href={href}
+      className={className}
+      onClick={(evt) => {
+        console.log('The link was clicked.', { target: evt.target })
+      }}
+    >
+      {children} 🔗
+    </a>
+  )
+}
+
+export default () => (
+  <DocMenu
+    LinkComponent={CustomLink}
+    items={[
+      {
+        label: 'Install',
+        href: '#with-a-custom-link',
+      },
+    ]}
+  />
+)
 ```

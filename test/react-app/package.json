@@ -9,24 +9,25 @@
   },
   "dependencies": {
     "@cypress-design/react-checkbox": "*",
+    "@cypress-design/react-docmenu": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-modal": "*",
     "@cypress-design/react-spinner": "*",
     "@cypress-design/react-tabs": "*",
     "@cypress-design/react-tooltip": "*",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.31",
+    "postcss": "^8.4.33",
     "react": "18",
     "react-dom": "18",
-    "tailwindcss": "^3.3.5"
+    "tailwindcss": "^3.4.1"
   },
   "devDependencies": {
     "@cypress-design/css": "^0.16.0",
     "@types/react": "18",
     "@types/react-dom": "18",
-    "@vitejs/plugin-react": "^4.1.1",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.0"
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.11"
   },
   "license": "MIT"
 }
