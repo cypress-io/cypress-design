@@ -26,10 +26,11 @@
             data-cy="test-item-name"
             class="test-item overflow-hidden w-[max-content] min-w-[16px] max-w-[max-content] h-[24px] box-content"
             :class="{
-              'test-item-first shrink-[2] basis-[max-content]': index === 0,
+              'test-item-first shrink-[2] basis-[max-content]':
+                names.length >= 2 && index === 0,
               'test-item-middle shrink-[100000] basis-auto':
-                index > 0 && index < names.length - 1,
-              'item-last shrink basis-[max-content]':
+                names.length >= 2 && index > 0 && index < names.length - 1,
+              'test-item-last shrink basis-[max-content]':
                 index === names.length - 1,
             }"
           >
