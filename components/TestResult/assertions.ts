@@ -2,7 +2,7 @@
 
 export default function assertions(mountStory: (options?: any) => void): void {
   describe('viewport', () => {
-    before(() => {
+    beforeEach(() => {
       mountStory()
     })
 
