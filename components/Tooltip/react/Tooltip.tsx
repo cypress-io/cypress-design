@@ -84,7 +84,7 @@ export const Tooltip: React.FC<
 
   const {
     floatingStyles,
-    refs,
+    refs: { setReference, setFloating },
     placement: calculatedPlacement,
     context,
     middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
@@ -164,66 +164,64 @@ export const Tooltip: React.FC<
     <>
       <div
         {...getReferenceProps()}
-        ref={refs.setReference}
+        ref={setReference}
         className={className}
         {...rest}
       >
         {children}
       </div>
-      {disabled ? null : (
-        <FloatingPortal>
-          {open && (
+      {disabled ? null : open ? (
+        <FloatingPortal id="portal-target">
+          <div
+            ref={setFloating}
+            style={floatingStyles}
+            role="tooltip"
+            {...getFloatingProps()}
+          >
             <div
-              ref={refs.setFloating}
-              style={floatingStyles}
-              role="tooltip"
-              {...getFloatingProps()}
+              className={clsx('rounded shadow-tooltip border', [
+                colors.background,
+                colors.block,
+              ])}
             >
-              <div
-                className={clsx('rounded shadow-tooltip border', [
-                  colors.background,
-                  colors.block,
-                ])}
+              <svg
+                ref={arrowRef}
+                viewBox="0 0 48 24"
+                width="24"
+                height="12"
+                className={clsx('absolute z-10', colors.svg)}
+                style={{
+                  transform: `rotate(${arrowRotate}deg)`,
+                  filter:
+                    placementSide === 'bottom' || color === 'dark'
+                      ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
+                      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
+                  [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
+                  [arrowYRule]: `${
+                    arrowY ? arrowY + 6 : interactive ? 6 : -10
+                  }px`,
+                }}
+                fill="none"
               >
-                <svg
-                  ref={arrowRef}
-                  viewBox="0 0 48 24"
-                  width="24"
-                  height="12"
-                  className={clsx('absolute z-10', colors.svg)}
-                  style={{
-                    transform: `rotate(${arrowRotate}deg)`,
-                    filter:
-                      placementSide === 'bottom' || color === 'dark'
-                        ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
-                        : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                    [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
-                    [arrowYRule]: `${
-                      arrowY ? arrowY + 6 : interactive ? 6 : -10
-                    }px`,
-                  }}
-                  fill="none"
-                >
-                  <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
-                  <path
-                    d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-                    strokeWidth="2"
-                  />
-                </svg>
-                <div
-                  className={clsx(
-                    'rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20',
-                    colors.background,
-                  )}
-                >
-                  <span className="sr-only">Tooltip: </span>
-                  {popper}
-                </div>
+                <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+                <path
+                  d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+                  strokeWidth="2"
+                />
+              </svg>
+              <div
+                className={clsx(
+                  'rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20',
+                  colors.background,
+                )}
+              >
+                <span className="sr-only">Tooltip: </span>
+                {popper}
               </div>
             </div>
-          )}
+          </div>
         </FloatingPortal>
-      )}
+      ) : null}
     </>
   )
 }
