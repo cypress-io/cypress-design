@@ -29,7 +29,7 @@
             :class="{
               'test-result-first shrink-[2] basis-[max-content] text-gray-700 @lg/test-result:text-gray-1000':
                 names.length >= 2 && index === 0,
-              'test-result-middle shrink-[100000] basis-auto text-gray-700 @lg/test-result:text-gray-1000':
+              'test-result-middle shrink-[900000] basis-auto text-gray-700 @lg/test-result:text-gray-1000':
                 names.length >= 2 && index > 0 && index < names.length - 1,
               'test-result-last flex shrink basis-[100%] @lg/test-result:shrink @lg/test-result:basis-[max-content]':
                 index === names.length - 1,
@@ -37,7 +37,7 @@
           >
             <span
               data-cy="test-result-text"
-              class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[24px] left-[-4px] box-content"
+              class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] left-[-4px] box-content"
               >&nbsp;{{ name }}</span
             >
           </div>
@@ -46,7 +46,10 @@
             class="px-[2px] @lg/test-result:px-[4px] relative text-gray-300 shrink-0"
             v-if="index < names.length - 1"
           >
-            <IconChevronRightSmall stroke-color="gray-300" class="align-top" />
+            <IconChevronRightSmall
+              stroke-color="gray-300"
+              class="align-top relative bottom-[-1px]"
+            />
           </div>
         </template>
         <div
@@ -82,7 +85,8 @@
             size="32"
             class="!px-[8px] hidden @lg/test-result:inline-block h-[32px]"
           >
-            <IconChevronRightSmall stroke-color="gray-500" />
+            <IconChevronRightSmall stroke-color="gray-500" v-if="!hasGroups" />
+            <IconChevronDownSmall stroke-color="gray-500" v-if="hasGroups" />
           </Button>
         </div>
       </div>
@@ -94,6 +98,7 @@
 import Button from '@cypress-design/vue-button'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
+  IconChevronDownSmall,
   IconChevronRightSmall,
   IconStatusFlaky,
   IconDocumentModifiedSquareDot,
@@ -120,6 +125,7 @@ defineProps<{
   flaky?: boolean
   modified?: boolean
   added?: boolean
+  hasGroups?: boolean
   names: Array<string>
 }>()
 </script>
