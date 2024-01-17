@@ -83,10 +83,8 @@ export const Tooltip: React.FC<
   }, [forceOpen])
 
   const {
-    x,
-    y,
+    floatingStyles,
     refs,
-    strategy,
     placement: calculatedPlacement,
     context,
     middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
@@ -177,12 +175,7 @@ export const Tooltip: React.FC<
           {open && (
             <div
               ref={refs.setFloating}
-              style={{
-                position: strategy,
-                top: y ?? '',
-                left: x ?? '',
-                ...(interactive ? { padding: '16px' } : {}),
-              }}
+              style={floatingStyles}
               role="tooltip"
               {...getFloatingProps()}
             >
@@ -190,7 +183,6 @@ export const Tooltip: React.FC<
                 className={clsx('rounded shadow-tooltip border', [
                   colors.background,
                   colors.block,
-                  (!x || !y) && 'invisible',
                 ])}
               >
                 <svg
