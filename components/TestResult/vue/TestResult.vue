@@ -53,9 +53,15 @@
           data-cy="test-result-attributes"
           class="flex items-center gap-x-[8px] px-[4px]"
         >
-          <IconStatusFlaky v-if="flaky" />
-          <IconDocumentModifiedSquareDot v-if="modified" />
-          <IconDocumentAddedSquarePlus v-if="added" />
+          <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
+          <IconDocumentModifiedSquareDot
+            data-cy="test-result-modified"
+            v-if="modified"
+          />
+          <IconDocumentAddedSquarePlus
+            data-cy="test-result-added"
+            v-if="added"
+          />
         </div>
       </div>
     </div>
