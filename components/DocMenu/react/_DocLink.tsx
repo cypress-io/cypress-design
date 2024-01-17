@@ -30,12 +30,22 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  ({ item, depth, markerIsMoving, context, onActive, LinkComponent }, ref) => {
+  (
+    {
+      item: { label, ...itemRest },
+      depth,
+      markerIsMoving,
+      context,
+      onActive,
+      LinkComponent,
+    },
+    ref,
+  ) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
     const { collapsible, activePath } = context
 
-    const active = item.href === activePath
+    const active = itemRest.href === activePath
 
     const setActiveMarkerPosition = () => {
       if (active) {
@@ -59,13 +69,13 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     return (
       <li ref={activeLIRef} className="list-none p-0">
         <LinkComponent
+          {...itemRest}
           className={clsx('group relative block w-full pl-[24px]', {
             'text-indigo-500 dark:text-indigo-400': active,
             'text-gray-700 dark:text-gray-500': !active,
             'py-[8px] text-[16px] leading-[24px]': depth < 0,
             'leading-[20px] text-[14px] py-[12px]': depth >= 0,
           })}
-          href={item.href}
           style={{
             paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
           }}
@@ -82,7 +92,7 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
               )}
             />
           ) : null}
-          {item.label}
+          {label}
         </LinkComponent>
       </li>
     )
