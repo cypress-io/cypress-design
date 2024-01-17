@@ -15,7 +15,7 @@ import {
   useDismiss,
   safePolygon,
   FloatingPortal,
-} from '@floating-ui/react-dom-interactions'
+} from '@floating-ui/react'
 
 export interface TooltipProps {
   /**
@@ -85,8 +85,7 @@ export const Tooltip: React.FC<
   const {
     x,
     y,
-    reference,
-    floating,
+    refs,
     strategy,
     placement: calculatedPlacement,
     context,
@@ -167,7 +166,7 @@ export const Tooltip: React.FC<
     <>
       <div
         {...getReferenceProps()}
-        ref={reference}
+        ref={refs.setReference}
         className={className}
         {...rest}
       >
@@ -177,16 +176,15 @@ export const Tooltip: React.FC<
         <FloatingPortal>
           {open && (
             <div
-              {...getFloatingProps({
-                ref: floating,
-                style: {
-                  position: strategy,
-                  top: y ?? '',
-                  left: x ?? '',
-                  ...(interactive ? { padding: '16px' } : {}),
-                },
-              })}
+              ref={refs.setFloating}
+              style={{
+                position: strategy,
+                top: y ?? '',
+                left: x ?? '',
+                ...(interactive ? { padding: '16px' } : {}),
+              }}
               role="tooltip"
+              {...getFloatingProps()}
             >
               <div
                 className={clsx('rounded shadow-tooltip border', [
