@@ -7,6 +7,7 @@ import { IconExtractor } from './tw-icon-extractor'
 import theme from './theme.config'
 import detailsOpenVariantPlugin from './tw-details-open-variant-plugin'
 import plugin from 'tailwindcss/plugin'
+import Container from '@tailwindcss/container-queries'
 
 function defineConfig(config: Config) {
   return config
@@ -20,18 +21,21 @@ export default (fileGlobs: string[] = []) => {
       path.resolve(
         currentPackagePath,
         '..', // remove css/ from path
-        '*/dist/*.@(js|css)' // look for all component files
-      )
+        '*/dist/*.@(js|css)', // look for all component files
+      ),
     )
   }
 
   return defineConfig({
     content: {
       files: fileGlobs,
-      extract: ['vue', 'js', 'ts', 'tsx', 'astro'].reduce((acc, ext) => {
-        acc[ext] = IconExtractor
-        return acc
-      }, {} as Record<string, (content: string) => string[]>),
+      extract: ['vue', 'js', 'ts', 'tsx', 'astro'].reduce(
+        (acc, ext) => {
+          acc[ext] = IconExtractor
+          return acc
+        },
+        {} as Record<string, (content: string) => string[]>,
+      ),
     },
     theme,
     plugins: [
@@ -46,6 +50,7 @@ export default (fileGlobs: string[] = []) => {
         ])
         addVariant('children', '& *')
       }),
+      Container,
     ],
   })
 }
