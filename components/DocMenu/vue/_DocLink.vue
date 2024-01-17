@@ -6,6 +6,7 @@ import {
   onMounted,
   inject,
   nextTick,
+  computed,
 } from 'vue'
 import type { NavItemLink } from '@cypress-design/constants-docmenu'
 
@@ -65,12 +66,19 @@ onMounted(() => {
 defineExpose({
   setActiveMarkerPosition,
 })
+
+const itemWithoutLabel = computed(() => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { label, ...rest } = props.item
+  return rest
+})
 </script>
 
 <template>
   <li ref="$container" class="list-none p-0">
     <component
       :is="linkComponent"
+      v-bind="itemWithoutLabel"
       class="group relative block w-full pl-[24px]"
       :class="{
         'text-indigo-500 dark:text-indigo-400': active,
@@ -81,7 +89,6 @@ defineExpose({
       :style="{
         paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
       }"
-      :href="item.href"
     >
       <div
         v-if="depth >= 0"
