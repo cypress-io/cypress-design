@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 0.5.4
+
+### Patch Changes
+
+- [`fe2f9f0`](https://github.com/cypress-io/cypress-design/commit/fe2f9f0435117454b3d81ce22ec3e9258330a725) Thanks [@elevatebart](https://github.com/elevatebart)! - make margin of button on depth button
+
 ## 0.5.3
 
 ### Patch Changes
