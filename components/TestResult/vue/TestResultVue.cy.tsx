@@ -115,7 +115,7 @@ const TEST_RESULTS = [
 describe('<TestResult/>', () => {
   function mountStory(options: ComponentProps<typeof TestResult> = {}) {
     mount(() => (
-      <div class="p-[24px]">
+      <div class="p-[16px]">
         <div>
           {TEST_RESULTS.map((result) => (
             <TestResult

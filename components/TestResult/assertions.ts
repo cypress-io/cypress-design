@@ -35,7 +35,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     })
   })
 
-  describe('Properties', () => {
+  describe('Properties', { viewportWidth: 1024, viewportHeight: 400 }, () => {
     it('status', () => {
       cy.get('[data-cy="test-result-icon"] svg').should('exist')
     })
