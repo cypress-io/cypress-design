@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.17.0
+
+### Minor Changes
+
+- [#372](https://github.com/cypress-io/cypress-design/pull/372) [`d4b02af`](https://github.com/cypress-io/cypress-design/commit/d4b02af4d1698946789f1f24e2d7d5fb776ca3bd) Thanks [@elevatebart](https://github.com/elevatebart)! - add support for container queries in tailwind
+
 ## 0.16.0
 
 ### Minor Changes
