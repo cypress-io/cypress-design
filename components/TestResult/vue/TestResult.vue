@@ -48,14 +48,27 @@
             <IconChevronRightSmall stroke-color="gray-300" class="align-top" />
           </div>
         </template>
+        <div
+          data-cy="test-attributes"
+          class="flex items-center gap-x-[8px] px-[4px]"
+        >
+          <IconStatusFlaky v-if="flaky" />
+          <IconDocumentModifiedSquareDot v-if="modified" />
+          <IconDocumentAddedSquarePlus v-if="added" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { IconChevronRightSmall } from '@cypress-design/vue-icon'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
+import {
+  IconChevronRightSmall,
+  IconStatusFlaky,
+  IconDocumentModifiedSquareDot,
+  IconDocumentAddedSquarePlus,
+} from '@cypress-design/vue-icon'
 
 defineProps<{
   status:
@@ -73,6 +86,9 @@ defineProps<{
     | 'skipped'
     | 'pending'
     | undefined
+  flaky?: boolean
+  modified?: boolean
+  added?: boolean
   names: Array<string>
 }>()
 </script>

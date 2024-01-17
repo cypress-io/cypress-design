@@ -7,41 +7,121 @@ import TestResult from './TestResult.vue'
 const TEST_RESULTS = [
   {
     status: 'passed',
-    names: ['Authentication'],
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult should render one level'],
   },
   {
     status: 'passed',
-    names: ['Authentication', 'renders'],
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render two levels'],
+  },
+  {
+    status: 'passed',
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should', 'render three levels'],
+  },
+  {
+    status: 'passed',
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should', 'render', 'four levels'],
+  },
+  {
+    status: 'passed',
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should', 'render', 'five', 'levels'],
+  },
+  {
+    status: 'passed',
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render as passed'],
   },
   {
     status: 'failed',
-    names: ['Authentication', 'Viewer role', 'should log in successfully'],
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render as failed'],
   },
   {
     status: 'errored',
-    names: [
-      'Authentication',
-      'Admin role',
-      'should log in successfully with proper credentials',
-    ],
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render as errored'],
   },
   {
     status: 'skipped',
-    names: [
-      'Authentication',
-      'All roles',
-      'should be see error messages with improper credentials',
-    ],
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render as skipped'],
   },
   {
     status: 'running',
-    names: [
-      'Authentication',
-      'All roles',
-      'should logout successfully',
-      'and be redirected to the homepage',
-    ],
+    flaky: false,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render as running'],
   },
+  {
+    status: 'passed',
+    flaky: true,
+    modified: false,
+    added: false,
+    names: ['TestResult', 'should render as flaky'],
+  },
+  {
+    status: 'passed',
+    flaky: false,
+    modified: true,
+    added: false,
+    names: ['TestResult', 'should render as modified'],
+  },
+  {
+    status: 'passed',
+    flaky: false,
+    modified: false,
+    added: true,
+    names: ['TestResult', 'should render as added'],
+  },
+  {
+    status: 'passed',
+    flaky: true,
+    modified: false,
+    added: true,
+    names: ['TestResult', 'should render as flaky and added'],
+  },
+  {
+    status: 'passed',
+    flaky: true,
+    modified: true,
+    added: false,
+    names: ['TestResult', 'should render as flaky and modified'],
+  },
+  // {
+  //   status: 'running',
+  //   flaky: false,
+  //   modified: false,
+  //   added: false,
+  //   names: [
+  //     'Authentication',
+  //     'All roles',
+  //     'should logout successfully',
+  //     'and be redirected to the homepage',
+  //   ],
+  // },
 ]
 
 describe('<TestResult/>', () => {
@@ -50,7 +130,13 @@ describe('<TestResult/>', () => {
       <div class="p-[24px]">
         <div>
           {TEST_RESULTS.map((result) => (
-            <TestResult status={result.status} names={result.names} />
+            <TestResult
+              status={result.status}
+              names={result.names}
+              flaky={result.flaky}
+              modified={result.modified}
+              added={result.added}
+            />
           ))}
         </div>
       </div>
