@@ -9,7 +9,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     cy.percySnapshot()
   })
 
-  describe('Container', () => {
+  describe('@container', () => {
     it('@xs', () => {
       cy.viewport(320, 400)
     })
@@ -28,6 +28,10 @@ export default function assertions(mountStory: (options?: any) => void): void {
 
     it('@xl', () => {
       cy.viewport(576, 400)
+    })
+
+    it('@5xl', () => {
+      cy.viewport(1024, 400)
     })
   })
 
