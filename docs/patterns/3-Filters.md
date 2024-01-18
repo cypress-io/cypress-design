@@ -19,6 +19,8 @@ All of these can also have:
 <script setup lang="ts">
 import { reactive } from 'vue'
 import FilterItem from './FilterItem.vue'
+import Button from '@cypress-design/vue-button'
+
 import { allFilterItemTypes } from './filterConstants.js'
 import FilterRow from './FilterRow.vue'
 import AddFilterItemButton from './AddFilterItemButton.vue'
@@ -32,16 +34,39 @@ const state = reactive({
 // Initialize filter item types (in the "Add filter" dropdown)
 let availableFilterItemTypes = reactive(allFilterItemTypes)
 
+const componentForFilterType = (filterType) => {
+  switch (filterType) {
+    case 'Status':
+      return Button
+    case 'Flaky tests':
+      return Button
+    case 'Last modified':
+      return Button
+    case 'Spec file':
+      return Button
+    case 'Run group':
+      return Button
+    case 'Browser':
+      return Button
+    case 'OS':
+      return Button
+    case 'Testing type':
+      return Button
+    default:
+      return Button
+  }
+}
+
 // Add filter item
 const addFilterItem = (filterType) => {
   state.filterItems.push({
-    open: false,
-    value: null,
-    selected: null,
-    activeDescendant: null,
-    applied: false,
-    options: [],
-    item: { name: filterType },
+    // open: false,
+    // value: null,
+    // selected: null,
+    // activeDescendant: null,
+    // applied: false,
+    // options: [],
+    item: { name: filterType, component: componentForFilterType(filterType) },
   })
 
   // When we add the filterItem, we remove it from the menu
