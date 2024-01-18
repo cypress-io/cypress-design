@@ -1,19 +1,3 @@
-<!-- FilterRow.vue -->
-<template>
-  <div class="border bg-white p-2">
-    <FilterItem
-      v-for="(filterItem, index) in filterItems"
-      :key="index"
-      :id="index"
-      :item="filterItem.item"
-      @add="() => addFilter(filterItem)"
-      @remove="() => removeFilter(filterItem)"
-    >
-      <template v-slot:default></template>
-    </FilterItem>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { computed } from 'vue'
 import FilterItem from './FilterItem.vue'
@@ -40,3 +24,19 @@ const removeFilter = (filterItem) => () => {
   emit('remove', filterItem)
 }
 </script>
+
+<!-- FilterRow.vue -->
+<template>
+  <div class="border bg-white p-2">
+    <FilterItem
+      v-for="(filterItem, index) in filterItems"
+      :key="index"
+      :id="index"
+      :item="filterItem.item"
+      @add="() => addFilter(filterItem)"
+      @remove="() => removeFilter(filterItem)"
+    >
+      <template v-slot:default></template>
+    </FilterItem>
+  </div>
+</template>

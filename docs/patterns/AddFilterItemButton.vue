@@ -1,26 +1,3 @@
-<template>
-  <div class="dropdown" @click="isOpen = !isOpen">
-    <button class="dropdown-button">
-      <Icon
-        name="action-add-medium"
-        strokeColor="indigo-500"
-        size="16"
-        hoverStrokeColor="indigo-700"
-      />
-    </button>
-    <div class="dropdown-content" v-if="isOpen">
-      <div
-        class="dropdown-item"
-        v-for="type in filterTypes"
-        :key="type"
-        @click="addFilterItem(type)"
-      >
-        {{ type }}
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 import Icon from '@cypress-design/vue-icon'
 
@@ -31,37 +8,12 @@ export default {
   data() {
     return {
       isOpen: false,
-      filterTypes: [
-        'Status',
-        'flaky tests',
-        'last modified',
-        'Spec file',
-        'run group',
-        'browser',
-        'os',
-        'testing type',
-      ],
     }
   },
-  props: ['filterItems', 'filterTypes'],
+  props: ['filterItems', 'availableFilterItemTypes'],
   methods: {
-    addFilterItem(filterType) {
-      // Use this.filterItems instead of this.state.filterItems
-      this.filterItems.push({
-        open: false,
-        value: null,
-        selected: null,
-        activeDescendant: null,
-        applied: false,
-        options: [],
-        item: { name: filterType },
-      })
-
-      // Remove filterType from filterTypes
-      const index = this.filterTypes.indexOf(filterType)
-      if (index !== -1) {
-        this.filterTypes.splice(index, 1)
-      }
+    handleAddFilterItem(filterType) {
+      this.$emit('add', filterType)
     },
   },
 }
@@ -94,3 +46,26 @@ export default {
   display: block;
 }
 </style>
+
+<template>
+  <div class="dropdown" @click="isOpen = !isOpen">
+    <button class="dropdown-button">
+      <Icon
+        name="action-add-medium"
+        strokeColor="indigo-500"
+        size="16"
+        hoverStrokeColor="indigo-700"
+      />
+    </button>
+    <div class="dropdown-content" v-if="isOpen">
+      <div
+        class="dropdown-item"
+        v-for="type in availableFilterItemTypes"
+        :key="type"
+        @click="handleAddFilterItem(type)"
+      >
+        {{ type }}
+      </div>
+    </div>
+  </div>
+</template>

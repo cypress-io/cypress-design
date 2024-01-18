@@ -8,44 +8,21 @@ A FilterRow is composed of FilterItems. Each FilterItem is an arbitrary componen
 <script setup lang="ts">
 import { reactive } from 'vue'
 import FilterItem from './FilterItem.vue'
+import { allFilterItemTypes } from './filterConstants.js'
 import FilterRow from './FilterRow.vue'
-import AddFilterItemButton from './AddFilterItemButton.vue' // Import the AddFilterItemButton component
+import AddFilterItemButton from './AddFilterItemButton.vue'
 
-// Define state
 const state = reactive({
-  filterItems: [
-    {
-      item: { name: 'Item 1' },
-      open: false,
-      value: null,
-      selected: null,
-      activeDescendant: null,
-      applied: false,
-      options: [
-        { id: 1, name: 'Item 1', image: 'https://example.com/image1.jpg' },
-        { id: 2, name: 'Item 2', image: 'https://example.com/image2.jpg' },
-        // Add more items as needed
-      ],
-    },
-  ],
+  filterItems: [],
   queryString: '',
+  availableFilterItemTypes: allFilterItemTypes,
 })
 
-// Define filter types
-const filterTypes = reactive([
-  'Status',
-  'Flaky tests',
-  'Last modified',
-  'Spec file',
-  'Run group',
-  'Browser',
-  'OS',
-  'Testing type',
-])
+// Initialize filter item types (in the "Add filter" dropdown)
+let availableFilterItemTypes = reactive(allFilterItemTypes)
 
-// Method to add filter item and remove it from filter types
+// Add filter item
 const addFilterItem = (filterType) => {
-  // Add a new filterItem
   state.filterItems.push({
     open: false,
     value: null,
@@ -56,11 +33,10 @@ const addFilterItem = (filterType) => {
     item: { name: filterType },
   })
 
-  // Remove filterType from filterTypes
-  const index = filterTypes.indexOf(filterType)
-  if (index !== -1) {
-    filterTypes.splice(index, 1)
-  }
+  // When we add the filterItem, we remove it from the menu
+  state.availableFilterItemTypes = state.availableFilterItemTypes.filter(
+    (item) => item !== filterType,
+  )
 }
 
 // Expose JSON.stringify to the template
@@ -72,7 +48,7 @@ const stringify = JSON.stringify
     <FilterRow :filterItems="state.filterItems" @add="addFilterItem" />
     <AddFilterItemButton
       :filterItems="state.filterItems"
-      :filterTypes="filterTypes"
+      :availableFilterItemTypes="state.availableFilterItemTypes"
       @add="addFilterItem"
     />
   </div>
