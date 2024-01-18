@@ -5,15 +5,15 @@
   >
     <div
       data-cy="test-result-row"
-      class="test-result-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap px-[16px] py-[12px] @lg/test-result:py-[16px] @lg/test-result:h-[56px]"
+      class="test-result-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @lg/test-result:px-[16px] @lg/test-result:h-[56px]"
     >
       <div
         data-cy="test-result-list"
-        class="test-result-list flex justify-start items-center flex-nowrap w-[100%] h-[100%] box-content"
+        class="test-result-list flex justify-start items-center flex-nowrap w-[100%] h-[100%] gap-x-[8px] box-content"
       >
         <div
           data-cy="test-result-icon"
-          class="test-result-icon h-[16px] w-[16px] pr-[8px] box-content"
+          class="test-result-icon h-[16px] w-[16px] box-content"
         >
           <StatusIcon
             size="16"
@@ -22,52 +22,58 @@
             class="align-top"
           />
         </div>
-        <template v-for="(name, index) in names" :key="index">
-          <div
-            data-cy="test-result-name"
-            class="test-result overflow-hidden w-[max-content] min-w-[16px] h-[24px] box-content text-gray-1000 max-w-[max-content]"
-            :class="{
-              'test-result-first shrink-[2] basis-[max-content] text-gray-700 @lg/test-result:text-gray-1000':
-                names.length >= 2 && index === 0,
-              'test-result-middle shrink-[900000] basis-auto text-gray-700 @lg/test-result:text-gray-1000':
-                names.length >= 2 && index > 0 && index < names.length - 1,
-              'test-result-last flex shrink basis-[100%] @lg/test-result:shrink @lg/test-result:basis-[max-content]':
-                index === names.length - 1,
-            }"
-          >
-            <span
-              data-cy="test-result-text"
-              class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] left-[-4px] box-content"
-              >&nbsp;{{ name }}</span
-            >
-          </div>
-          <div
-            data-cy="test-result-chevron"
-            class="px-[2px] @lg/test-result:px-[4px] relative text-gray-300 shrink-0"
-            v-if="index < names.length - 1"
-          >
-            <IconChevronRightSmall
-              stroke-color="gray-300"
-              class="align-top relative bottom-[-1px]"
-            />
-          </div>
-        </template>
         <div
-          data-cy="test-result-attributes"
-          class="flex items-center gap-x-[8px] px-[4px]"
+          data-cy="test-result-name-list"
+          class="flex flex-wrap @lg/test-result:flex-nowrap gap-x-[2px] items-center shrink grow"
         >
-          <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
-          <IconDocumentModifiedSquareDot
-            data-cy="test-result-modified"
-            v-if="modified"
-          />
-          <IconDocumentAddedSquarePlus
-            data-cy="test-result-added"
-            v-if="added"
-          />
+          <template v-for="(name, index) in names" :key="index">
+            <div
+              data-cy="test-result-name"
+              class="test-result overflow-hidden w-[max-content] min-w-[16px] h-[20px] @lg/test-result:h-[24px] gap-x-[4px] box-content text-gray-1000 max-w-[max-content]"
+              :class="{
+                'test-result-first shrink-[2] basis-[max-content] text-[14px] @lg/test-result:text-[16px] text-gray-700 @lg/test-result:text-gray-1000':
+                  names.length >= 2 && index === 0,
+                'test-result-middle shrink-[900000] basis-auto text-[14px] @lg/test-result:text-[16px] text-gray-700 @lg/test-result:text-gray-1000':
+                  names.length >= 2 && index > 0 && index < names.length - 1,
+                'test-result-last flex shrink basis-[100%] @lg/test-result:shrink @lg/test-result:basis-[max-content]':
+                  index === names.length - 1,
+              }"
+            >
+              <span
+                data-cy="test-result-text"
+                class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] left-[-3px] box-content"
+                >&nbsp;{{ name }}</span
+              >
+              <div
+                v-if="index === names.length - 1"
+                data-cy="test-result-attributes"
+                class="flex items-center grow gap-x-[6px]"
+              >
+                <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
+                <IconDocumentModifiedSquareDot
+                  data-cy="test-result-modified"
+                  v-if="modified"
+                />
+                <IconDocumentAddedSquarePlus
+                  data-cy="test-result-added"
+                  v-if="added"
+                />
+              </div>
+            </div>
+            <div
+              data-cy="test-result-chevron"
+              class="relative text-gray-300 shrink-0"
+              v-if="index < names.length - 1"
+            >
+              <IconChevronRightSmall
+                stroke-color="gray-200"
+                class="align-top relative bottom-[-1px]"
+              />
+            </div>
+          </template>
         </div>
         <div
-          class="shrink-0 grow flex items-center gap-x-[12px] justify-end pl-[12px]"
+          class="shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end"
         >
           <Button
             variant="outline-light"
