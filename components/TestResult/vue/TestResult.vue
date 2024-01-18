@@ -24,12 +24,12 @@
         </div>
         <div
           data-cy="test-result-name-list"
-          class="flex flex-wrap @lg/test-result:flex-nowrap gap-x-[2px] items-center shrink grow h-[100%] overflow-hidden"
+          class="flex flex-wrap @lg/test-result:flex-nowrap gap-x-[4px] items-center shrink grow h-[100%] overflow-hidden"
         >
           <template v-for="(name, index) in names" :key="index">
             <div
               data-cy="test-result-name"
-              class="test-result overflow-x-hidden @lg/test-result:w-[max-content] min-w-[16px] h-[20px] @lg/test-result:h-[24px] gap-x-[4px] box-content text-gray-1000 max-w-[max-content]"
+              class="test-result @lg/test-result:w-[max-content] min-w-[16px] h-[20px] @lg/test-result:h-[24px] gap-x-[4px] box-content text-gray-1000 max-w-[max-content]"
               :class="{
                 'test-result-first shrink-[2] basis-[max-content] text-[14px] @lg/test-result:text-[16px] text-gray-700 @lg/test-result:text-gray-1000':
                   names.length >= 2 && index === 0,
@@ -41,8 +41,11 @@
             >
               <span
                 data-cy="test-result-text"
-                class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] left-[-3px] box-content leading-[20px]"
-                >&nbsp;{{ name }}</span
+                class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] box-content leading-[20px]"
+                :class="{
+                  '[direction:rtl]': index === names.length - 1,
+                }"
+                >{{ name }}</span
               >
               <div
                 v-if="index === names.length - 1"
