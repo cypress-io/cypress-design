@@ -8,7 +8,7 @@ export const CSS = {
   container:
     'box-border relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result',
   row: 'box-border flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @lg/test-result:px-[16px] @lg/test-result:h-[56px]',
-  list: 'box-border flex justify-start items-center flex-nowrap w-[100%] h-[100%] gap-x-[8px]',
+  list: 'box-border flex justify-start items-center flex-nowrap w-[100%] h-[100%] @lg/test-result:h-[32px] gap-x-[8px]',
   icon: 'box-border h-[16px] w-[16px]',
   status_icon: 'align-top',
   name: {
@@ -21,7 +21,7 @@ export const CSS = {
         'shrink-[900000] basis-auto text-[14px] @lg/test-result:text-[16px] text-gray-700 @lg/test-result:text-gray-1000',
       last: 'flex shrink grow basis-[100%] w-[100%] @lg/test-result:shrink @lg/test-result:basis-[max-content]',
       text: {
-        base: 'box-border relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] leading-[20px]',
+        base: 'box-border relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] leading-[20px] @lg/test-result:leading-[24px]',
         last: '[direction:rtl]',
       },
     },
