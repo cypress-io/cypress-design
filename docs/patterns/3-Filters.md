@@ -5,11 +5,11 @@ A FilterRow is composed of FilterItems. Each FilterItem is an arbitrary componen
 ## WIP
 
 ```vue live
-<!-- 3-Filters.md -->
 <script setup lang="ts">
 import { reactive } from 'vue'
 import FilterItem from './FilterItem.vue'
 import FilterRow from './FilterRow.vue'
+import AddFilterItemButton from './AddFilterItemButton.vue' // Import the AddFilterItemButton component
 
 // Define state
 const state = reactive({
@@ -31,7 +31,20 @@ const state = reactive({
   queryString: '',
 })
 
-const addFilterItem = () => {
+// Define filter types
+const filterTypes = reactive([
+  'Status',
+  'Flaky tests',
+  'Last modified',
+  'Spec file',
+  'Run group',
+  'Browser',
+  'OS',
+  'Testing type',
+])
+
+// Method to add filter item and remove it from filter types
+const addFilterItem = (filterType) => {
   // Add a new filterItem
   state.filterItems.push({
     open: false,
@@ -40,8 +53,14 @@ const addFilterItem = () => {
     activeDescendant: null,
     applied: false,
     options: [],
-    item: { name: 'hola' },
+    item: { name: filterType },
   })
+
+  // Remove filterType from filterTypes
+  const index = filterTypes.indexOf(filterType)
+  if (index !== -1) {
+    filterTypes.splice(index, 1)
+  }
 }
 
 // Expose JSON.stringify to the template
@@ -50,11 +69,12 @@ const stringify = JSON.stringify
 
 <template>
   <div class="p-14 border border-blue">
-    <!-- <pre>{{ stringify(state.filterItems, null, 2) }}</pre>
-    <pre>{{ state.filterItems.length }}</pre> -->
-
     <FilterRow :filterItems="state.filterItems" @add="addFilterItem" />
-    <button @click="addFilterItem">Add Filter Item</button>
+    <AddFilterItemButton
+      :filterItems="state.filterItems"
+      :filterTypes="filterTypes"
+      @add="addFilterItem"
+    />
   </div>
 </template>
 ```

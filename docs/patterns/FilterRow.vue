@@ -1,6 +1,6 @@
 <!-- FilterRow.vue -->
 <template>
-  <div>
+  <div class="border bg-white p-2">
     <FilterItem
       v-for="(filterItem, index) in filterItems"
       :key="index"
@@ -9,7 +9,7 @@
       @add="() => addFilter(filterItem)"
       @remove="() => removeFilter(filterItem)"
     >
-      <template v-slot:default> </template>
+      <template v-slot:default></template>
     </FilterItem>
   </div>
 </template>
