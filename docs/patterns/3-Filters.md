@@ -2,7 +2,18 @@
 
 A FilterRow is composed of FilterItems. Each FilterItem is an arbitrary component that renders a list of options which can be selected, and are used to filter a list of results.
 
-## WIP
+A FilterItem can be:
+
+- exposed (potentially selected, "is interactable" and appears in the Filter Set)
+- selected (darkened color, has selected options, is "doing work" in the Filter Set)
+- available (listed in the menu)
+
+All of these can also have:
+
+- active (being clicked)
+- disabled (does not work)
+
+## WIP exploration
 
 ```vue live
 <script setup lang="ts">
