@@ -15,78 +15,45 @@ All of these can also have:
 
 ## WIP exploration
 
-```vue live
+```tsx live
 <script setup lang="ts">
-import { reactive } from 'vue'
-import FilterItem from './FilterItem.vue'
-import Button from '@cypress-design/vue-button'
+  import { reactive } from 'vue'
+  import { allFilterItems } from './filterConstants.js'
+  import FilterRow from './FilterRow.vue'
+  import AddFilterItemButton from './AddFilterItemButton.vue'
 
-import { allFilterItemTypes } from './filterConstants.js'
-import FilterRow from './FilterRow.vue'
-import AddFilterItemButton from './AddFilterItemButton.vue'
-
-const state = reactive({
-  filterItems: [],
-  queryString: '',
-  availableFilterItemTypes: allFilterItemTypes,
-})
-
-// Initialize filter item types (in the "Add filter" dropdown)
-let availableFilterItemTypes = reactive(allFilterItemTypes)
-
-const componentForFilterType = (filterType) => {
-  switch (filterType) {
-    case 'Status':
-      return Button
-    case 'Flaky tests':
-      return Button
-    case 'Last modified':
-      return Button
-    case 'Spec file':
-      return Button
-    case 'Run group':
-      return Button
-    case 'Browser':
-      return Button
-    case 'OS':
-      return Button
-    case 'Testing type':
-      return Button
-    default:
-      return Button
-  }
-}
-
-// Add filter item
-const addFilterItem = (filterType) => {
-  state.filterItems.push({
-    // open: false,
-    // value: null,
-    // selected: null,
-    // activeDescendant: null,
-    // applied: false,
-    // options: [],
-    item: { name: filterType, component: componentForFilterType(filterType) },
+  const state = reactive({
+    filterItems: [],
+    queryString: '',
+    availableFilterItems: allFilterItems,
   })
 
-  // When we add the filterItem, we remove it from the menu
-  state.availableFilterItemTypes = state.availableFilterItemTypes.filter(
-    (item) => item !== filterType,
-  )
-}
+  const addFilterItem = (filterItem) => {
+    state.filterItems.push(filterItem);
+    state.availableFilterItems = state.availableFilterItems.filter(
+      (item) => item.id !== filterItem.id,
+    )
+  }
 
-// Expose JSON.stringify to the template
-const stringify = JSON.stringify
-</script>
+  const stringify = JSON.stringify
 
-<template>
-  <div class="p-14 border border-blue">
-    <FilterRow :filterItems="state.filterItems" @add="addFilterItem" />
-    <AddFilterItemButton
-      :filterItems="state.filterItems"
-      :availableFilterItemTypes="state.availableFilterItemTypes"
-      @add="addFilterItem"
-    />
-  </div>
-</template>
+//   const queryString = computed(() => {
+//   return props.filterItems
+//     .filter((item) => item.applied)
+//     .map((item) => `${item.name}=${item.value}`)
+//     .join('&')
+// })
+
+  </script>
+
+  <template>
+    <div class="p-14 border border-blue">
+      <FilterRow :filterItems="state.filterItems" @add="addFilterItem" />
+      <AddFilterItemButton
+        :filterItems="state.filterItems"
+        :availableFilterItems="state.availableFilterItems"
+        @addFilterItem="addFilterItem"
+      />
+    </div>
+  </template>
 ```

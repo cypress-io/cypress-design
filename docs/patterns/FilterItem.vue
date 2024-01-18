@@ -1,3 +1,4 @@
+<!-- FilterItem.vue -->
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue'
 
@@ -10,18 +11,11 @@ const props = defineProps({
     type: Object,
     required: true,
   },
-  // selected: {
-  //   type: Boolean,
-  //   default: false,
-  // },
-  // value: {
-  //   type: Number,
-  //   default: 0,
-  // },
-  // applied: {
-  //   type: Boolean,
-  //   default: false,
-  // },
+  selected: {
+    type: Boolean,
+    default: false,
+  },
+  // other properties...
 })
 
 const emit = defineEmits(['add', 'remove'])
@@ -46,7 +40,9 @@ const remove = () => {
     class="text-gray-900 cursor-default select-none relative py-2 pl-4 pr-9"
   >
     <div class="flex items-center space-x-3">
-      <component :is="item.component">{{ item.name }}</component>
+      <component v-if="item" :is="item.component" :label="item.label">{{
+        item.label
+      }}</component>
       <slot></slot>
     </div>
   </li>

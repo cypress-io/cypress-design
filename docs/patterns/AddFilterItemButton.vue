@@ -1,21 +1,22 @@
-<script>
+<script setup>
+import { ref, defineProps } from 'vue'
 import Icon from '@cypress-design/vue-icon'
+import Button from '@cypress-design/vue-button'
+import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 
-export default {
-  components: {
-    Icon,
+const components = { Icon }
+const isOpen = ref(false)
+const props = defineProps({
+  availableFilterItems: {
+    type: Array,
+    default: () => [],
   },
-  data() {
-    return {
-      isOpen: false,
-    }
-  },
-  props: ['filterItems', 'availableFilterItemTypes'],
-  methods: {
-    handleAddFilterItem(filterType) {
-      this.$emit('add', filterType)
-    },
-  },
+})
+
+const emit = defineEmits(['addFilterItem'])
+
+function handleAddFilterItem(filterItem) {
+  emit('addFilterItem', filterItem)
 }
 </script>
 
@@ -49,22 +50,15 @@ export default {
 
 <template>
   <div class="dropdown" @click="isOpen = !isOpen">
-    <button class="dropdown-button">
-      <Icon
-        name="action-add-medium"
-        strokeColor="indigo-500"
-        size="16"
-        hoverStrokeColor="indigo-700"
-      />
-    </button>
+    <Button type="outline-indigo"> Add filter </Button>
     <div class="dropdown-content" v-if="isOpen">
       <div
         class="dropdown-item"
-        v-for="type in availableFilterItemTypes"
-        :key="type"
-        @click="handleAddFilterItem(type)"
+        v-for="filterItem in availableFilterItems"
+        :key="filterItem.id"
+        @click="handleAddFilterItem(filterItem)"
       >
-        {{ type }}
+        {{ filterItem.label }}
       </div>
     </div>
   </div>
