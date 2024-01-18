@@ -5,9 +5,9 @@
       v-for="(filterItem, index) in filterItems"
       :key="index"
       :id="index"
-      :item="filterItem"
-      @apply="applyFilter(filterItem)"
-      @remove="removeFilter(filterItem)"
+      :item="filterItem.item"
+      @add="() => addFilter(filterItem)"
+      @remove="() => removeFilter(filterItem)"
     >
       <template v-slot:default> </template>
     </FilterItem>
@@ -32,15 +32,11 @@ const queryString = computed(() => {
     .join('&')
 })
 
-const applyFilter = (filterItem) => {
-  filterItem.applied = true
+const addFilter = (filterItem) => () => {
+  emit('add', filterItem)
 }
 
-const removeFilter = (filterItem) => {
-  filterItem.applied = false
-}
-
-const addFilter = () => {
-  emit('add')
+const removeFilter = (filterItem) => () => {
+  emit('remove', filterItem)
 }
 </script>

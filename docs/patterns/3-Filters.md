@@ -1,9 +1,11 @@
-# Filter Bar
+# Filters
+
+A FilterRow is composed of FilterItems. Each FilterItem is an arbitrary component that renders a list of options which can be selected, and are used to filter a list of results.
 
 ## WIP
 
 ```vue live
-<!-- 3-Filter-Bar.md -->
+<!-- 3-Filters.md -->
 <script setup lang="ts">
 import { reactive } from 'vue'
 import FilterItem from './FilterItem.vue'
@@ -13,12 +15,13 @@ import FilterRow from './FilterRow.vue'
 const state = reactive({
   filterItems: [
     {
+      item: { name: 'Item 1' },
       open: false,
       value: null,
       selected: null,
       activeDescendant: null,
       applied: false,
-      items: [
+      options: [
         { id: 1, name: 'Item 1', image: 'https://example.com/image1.jpg' },
         { id: 2, name: 'Item 2', image: 'https://example.com/image2.jpg' },
         // Add more items as needed
@@ -36,10 +39,8 @@ const addFilterItem = () => {
     selected: null,
     activeDescendant: null,
     applied: false,
-    items: [
-      // Define items for the new filterItem
-      { id: 1, name: 'Default Item', image: 'https://example.com/default.jpg' },
-    ],
+    options: [],
+    item: { name: 'hola' },
   })
 }
 
@@ -52,14 +53,8 @@ const stringify = JSON.stringify
     <!-- <pre>{{ stringify(state.filterItems, null, 2) }}</pre>
     <pre>{{ state.filterItems.length }}</pre> -->
 
-    <FilterRow :filterItems="state.filterItems" @add="addFilterItem">
-      <FilterItem
-        v-for="(filterItem, index) in state.filterItems"
-        :key="index"
-        :id="index"
-        :item="filterItem"
-      />
-    </FilterRow>
+    <FilterRow :filterItems="state.filterItems" @add="addFilterItem" />
+    <button @click="addFilterItem">Add Filter Item</button>
   </div>
 </template>
 ```
