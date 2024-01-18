@@ -1,56 +1,39 @@
 <template>
-  <div
-    data-cy="test-result-container"
-    class="test-result-container relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result"
-  >
-    <div
-      data-cy="test-result-row"
-      class="test-result-row flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @lg/test-result:px-[16px] @lg/test-result:h-[56px]"
-    >
-      <div
-        data-cy="test-result-list"
-        class="test-result-list flex justify-start items-center flex-nowrap w-[100%] h-[100%] gap-x-[8px] box-content"
-      >
-        <div
-          data-cy="test-result-icon"
-          class="test-result-icon h-[16px] w-[16px] box-content"
-        >
+  <div data-cy="test-result-container" :class="CSS.container">
+    <div data-cy="test-result-row" :class="CSS.row">
+      <div data-cy="test-result-list" :class="CSS.list">
+        <div data-cy="test-result-icon" :class="CSS.icon">
           <StatusIcon
             size="16"
-            :status="status"
             variant="solid"
-            class="align-top"
+            :status="status"
+            :class="CSS.status_icon"
           />
         </div>
-        <div
-          data-cy="test-result-name-list"
-          class="flex flex-wrap @lg/test-result:flex-nowrap gap-x-[4px] items-center shrink grow h-[100%] overflow-hidden"
-        >
+        <div data-cy="test-result-name-list" :class="CSS.name.list">
           <template v-for="(name, index) in names" :key="index">
             <div
-              data-cy="test-result-name"
-              class="test-result @lg/test-result:w-[max-content] min-w-[16px] h-[20px] @lg/test-result:h-[24px] gap-x-[4px] box-content text-gray-1000 max-w-[max-content]"
+              data-cy="test-result-name-item"
               :class="{
-                'test-result-first shrink-[2] basis-[max-content] text-[14px] @lg/test-result:text-[16px] text-gray-700 @lg/test-result:text-gray-1000':
-                  names.length >= 2 && index === 0,
-                'test-result-middle shrink-[900000] basis-auto text-[14px] @lg/test-result:text-[16px] text-gray-700 @lg/test-result:text-gray-1000':
+                [CSS.name.item.base]: true,
+                [CSS.name.item.first]: names.length >= 2 && index === 0,
+                [CSS.name.item.middle]:
                   names.length >= 2 && index > 0 && index < names.length - 1,
-                'test-result-last flex shrink grow basis-[100%] w-[100%] @lg/test-result:shrink @lg/test-result:basis-[max-content]':
-                  index === names.length - 1,
+                [CSS.name.item.last]: index === names.length - 1,
               }"
             >
               <span
-                data-cy="test-result-text"
-                class="relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] box-content leading-[20px]"
+                data-cy="test-result-name-item-text"
                 :class="{
-                  '[direction:rtl]': index === names.length - 1,
+                  [CSS.name.item.text.base]: true,
+                  [CSS.name.item.text.last]: index === names.length - 1,
                 }"
                 >{{ name }}</span
               >
               <div
-                v-if="index === names.length - 1"
                 data-cy="test-result-attributes"
-                class="flex items-center grow gap-x-[6px]"
+                :class="CSS.attribute.container"
+                v-if="index === names.length - 1"
               >
                 <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
                 <IconDocumentModifiedSquareDot
@@ -65,7 +48,7 @@
             </div>
             <div
               data-cy="test-result-chevron"
-              class="relative text-gray-300 shrink-0"
+              :class="CSS.chevron.container"
               v-if="index < names.length - 1"
             >
               <IconChevronRightSmall
@@ -75,25 +58,19 @@
             </div>
           </template>
         </div>
-        <div
-          class="shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end"
-        >
+        <div data-cy="test-result-actions" :class="CSS.button.container">
           <Button
             variant="outline-light"
             size="32"
             class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
           >
             <IconActionTestReplay />
-            <span class="hidden @lg/test-result:inline ml-[8px]"
-              >Test Replay</span
-            >
+            <span class="hidden @lg/test-result:inline ml-[8px]">
+              Test Replay
+            </span>
           </Button>
 
-          <Button
-            variant="outline-light"
-            size="32"
-            class="!px-[8px] hidden @lg/test-result:inline-block h-[32px]"
-          >
+          <Button variant="outline-light" size="32" :class="CSS.button.chevron">
             <IconChevronRightSmall stroke-color="gray-500" v-if="!hasGroups" />
             <IconChevronDownSmall stroke-color="gray-500" v-if="hasGroups" />
           </Button>
@@ -104,6 +81,7 @@
 </template>
 
 <script lang="ts" setup>
+import { CSS } from '@cypress-design/constants-testresult'
 import Button from '@cypress-design/vue-button'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
@@ -138,15 +116,3 @@ defineProps<{
   names: Array<string>
 }>()
 </script>
-
-<style lang="scss" scoped>
-// .test-result {
-//   &-list {
-//     @container item (max-width: 600px) {
-//       flex-wrap: wrap;
-//       padding-left: 28px;
-//       flex-direction: row;
-//     }
-//   }
-// }
-</style>

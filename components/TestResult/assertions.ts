@@ -41,7 +41,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     })
 
     it('names', () => {
-      cy.get('[data-cy="test-result-name"]').should('exist')
+      cy.get('[data-cy="test-result-name-list"]').should('exist')
     })
 
     it('added', () => {
