@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-docmenu",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "files": [
     "*"
   ],
@@ -20,7 +20,8 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/vue-menu": "*"
+    "@cypress-design/constants-docmenu": "*",
+    "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

@@ -15,8 +15,5 @@
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
   },
-  "dependencies": {
-    "@cypress-design/constants-menu": "*"
-  },
   "license": "MIT"
 }

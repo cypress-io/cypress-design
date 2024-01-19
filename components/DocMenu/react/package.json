@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-docmenu",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "files": [
     "*"
   ],
@@ -20,7 +20,9 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-menu": "*"
+    "@cypress-design/constants-docmenu": "*",
+    "@cypress-design/react-icon": "*",
+    "clsx": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

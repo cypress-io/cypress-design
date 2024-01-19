@@ -1,1 +1,2 @@
-export * from '@cypress-design/react-menu'
+export type { NavItemLink, NavGroup } from '@cypress-design/constants-docmenu'
+export { default } from './DocMenu'
