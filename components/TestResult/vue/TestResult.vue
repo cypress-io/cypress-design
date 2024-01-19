@@ -10,53 +10,69 @@
             :class="CSS.status_icon"
           />
         </div>
-        <div data-cy="test-result-name-list" :class="CSS.name.list">
-          <template v-for="(name, index) in names" :key="index">
-            <div
-              data-cy="test-result-name-item"
-              :class="{
-                [CSS.name.item.base]: true,
-                [CSS.name.item.first]: names.length >= 2 && index === 0,
-                [CSS.name.item.middle]:
-                  names.length >= 2 && index > 0 && index < names.length - 1,
-                [CSS.name.item.last]: index === names.length - 1,
-              }"
-            >
-              <span
-                data-cy="test-result-name-item-text"
-                :class="{
-                  [CSS.name.item.text.base]: true,
-                  [CSS.name.item.text.last]: index === names.length - 1,
-                }"
-                >{{ name }}</span
-              >
+        <div
+          data-cy="test-result-name-container-column"
+          :class="CSS.name.container.column"
+        >
+          <div
+            data-cy="test-result-name-container-describes"
+            :class="CSS.name.container.describes"
+            v-if="names.slice(0, -1).length > 0"
+          >
+            <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
-                data-cy="test-result-attributes"
-                :class="CSS.attribute.container"
-                v-if="index === names.length - 1"
+                data-cy="test-result-name-item"
+                :class="{
+                  [CSS.name.item.base]: true,
+                  [CSS.name.item.first]: names.length >= 2 && index === 0,
+                  [CSS.name.item.middle]:
+                    names.length >= 2 && index > 0 && index < names.length - 1,
+                }"
               >
-                <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
-                <IconDocumentModifiedSquareDot
-                  data-cy="test-result-modified"
-                  v-if="modified"
-                />
-                <IconDocumentAddedSquarePlus
-                  data-cy="test-result-added"
-                  v-if="added"
+                <span
+                  data-cy="test-result-name-item-text"
+                  :class="CSS.name.item.text.base"
+                  >{{ name }}</span
+                >
+              </div>
+              <div
+                data-cy="test-result-chevron"
+                :class="CSS.chevron.container"
+                v-if="index < names.length - 1"
+              >
+                <IconChevronRightSmall
+                  stroke-color="gray-200"
+                  class="align-top relative bottom-[-1px]"
                 />
               </div>
-            </div>
-            <div
-              data-cy="test-result-chevron"
-              :class="CSS.chevron.container"
-              v-if="index < names.length - 1"
+            </template>
+          </div>
+          <div
+            data-cy="test-result-name-container-it"
+            :class="CSS.name.container.it"
+          >
+            <span
+              data-cy="test-result-name-item-text"
+              :class="[CSS.name.item.text.base, CSS.name.item.text.it]"
             >
-              <IconChevronRightSmall
-                stroke-color="gray-200"
-                class="align-top relative bottom-[-1px]"
+              {{ names.at(-1) }}
+            </span>
+            <div
+              data-cy="test-result-attributes"
+              :class="CSS.attribute.container"
+              v-if="flaky || modified || added"
+            >
+              <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
+              <IconDocumentModifiedSquareDot
+                data-cy="test-result-modified"
+                v-if="modified"
+              />
+              <IconDocumentAddedSquarePlus
+                data-cy="test-result-added"
+                v-if="added"
               />
             </div>
-          </template>
+          </div>
         </div>
         <div data-cy="test-result-actions" :class="CSS.button.container">
           <Button

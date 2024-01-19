@@ -10,27 +10,23 @@ export default function assertions(mountStory: (options?: any) => void): void {
   })
 
   describe('@container', () => {
-    it('@xs', () => {
+    it('renders all sizes', () => {
+      cy.log('@xs')
       cy.viewport(320, 400)
-    })
 
-    it('@sm', () => {
+      cy.log('@sm')
       cy.viewport(384, 400)
-    })
 
-    it('@md', () => {
+      cy.log('@md')
       cy.viewport(448, 400)
-    })
 
-    it('@lg', () => {
+      cy.log('@lg')
       cy.viewport(512, 400)
-    })
 
-    it('@xl', () => {
+      cy.log('@xl')
       cy.viewport(576, 400)
-    })
 
-    it('@5xl', () => {
+      cy.log('@5xl')
       cy.viewport(1024, 400)
     })
   })
@@ -41,7 +37,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     })
 
     it('names', () => {
-      cy.get('[data-cy="test-result-name-list"]').should('exist')
+      cy.get('[data-cy="test-result-name-container-column"]').should('exist')
     })
 
     it('added', () => {
