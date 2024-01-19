@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 	import TestResult from '@cypress-design/vue-testresult'
-	let testNames = ['Authentication', 'Roles', 'Admin', 'Should be able to login successfully with proper credentials']
+	let testNames = ['TestResult', 'should be able to login successfully with proper credentials']
 </script>
 
 # TestResult

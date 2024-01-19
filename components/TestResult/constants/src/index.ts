@@ -1,9 +1,3 @@
-export const SharedSettings = {
-  foo: '-',
-  bar: 42,
-  baz: false,
-}
-
 export const CSS = {
   container:
     'box-border relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result',
