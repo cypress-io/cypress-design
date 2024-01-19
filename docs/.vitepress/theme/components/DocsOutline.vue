@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { nextTick, onMounted, ref, Ref, watch } from 'vue'
+import { computed, nextTick, onMounted, ref, Ref, watch } from 'vue'
 import { onContentUpdated } from 'vitepress'
-import Menu, { NavGroup, NavItemLink } from '@cypress-design/vue-menu'
+import DocMenu, { NavGroup, NavItemLink } from '@cypress-design/vue-docmenu'
 import { getHeaders } from '../utils/outline'
 import {} from 'fs'
 
@@ -85,7 +85,7 @@ defineExpose({
     >
       Contents
     </header>
-    <Menu
+    <DocMenu
       class="ml-[8px]"
       :items="headers"
       :active-path="`#${activeId}`"

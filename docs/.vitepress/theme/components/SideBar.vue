@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Menu, { NavGroup } from '@cypress-design/vue-menu'
+import DocMenu, { NavGroup } from '@cypress-design/vue-docmenu'
 import { computed } from 'vue'
 import { getDocsPages } from '../utils/docsPages'
 import { getPatternPages } from '../utils/patternPages'
@@ -53,7 +53,7 @@ const currentPathNormalized = computed(() => {
 </script>
 
 <template>
-  <Menu
+  <DocMenu
     :items="[...docsPages, components, patternGroup]"
     :activePath="currentPathNormalized"
     class="pl-[16px] md:py-[16px] w-[250px]"
