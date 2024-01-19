@@ -1,6 +1,5 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { SharedSettings } from '@cypress-design/constants-testresult'
 
 export interface TestResultProps {
   id: string
@@ -15,7 +14,6 @@ export const TestResult: React.FC<
     <div {...rest} id={id} className={clsx('bg-jade-100', className)}>
       <label>{label}</label>
       Render Function for TestResult
-      <p>{SharedSettings.foo}</p>
     </div>
   )
 }
