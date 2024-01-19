@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "clsx": "*",
-    "@floating-ui/react-dom-interactions": "^0.6.1"
+    "@floating-ui/react": "^0.26.6"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
