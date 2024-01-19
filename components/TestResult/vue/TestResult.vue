@@ -91,8 +91,8 @@
 </template>
 
 <script lang="ts" setup>
-import { CSS } from '@cypress-design/constants-testresult'
 import Button from '@cypress-design/vue-button'
+import { CSS } from '@cypress-design/constants-testresult'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
   IconChevronDownSmall,
