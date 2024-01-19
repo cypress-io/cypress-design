@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import * as React from 'react'
+import { createPortal } from 'react-dom'
 import {
   Placement,
   offset,
@@ -14,7 +15,6 @@ import {
   useRole,
   useDismiss,
   safePolygon,
-  FloatingPortal,
 } from '@floating-ui/react'
 
 export interface TooltipProps {
@@ -84,7 +84,7 @@ export const Tooltip: React.FC<
 
   const {
     floatingStyles,
-    refs: { setReference, setFloating },
+    refs,
     placement: calculatedPlacement,
     context,
     middlewareData: { arrow: { x: arrowX, y: arrowY } = {} },
@@ -106,7 +106,7 @@ export const Tooltip: React.FC<
     whileElementsMounted: autoUpdate,
   })
 
-  const contextHook = useDismiss(context)
+  const dismissHook = useDismiss(context)
 
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
@@ -117,7 +117,7 @@ export const Tooltip: React.FC<
       enabled: !disabled && !forceOpen,
     }),
     useRole(context, { role: 'tooltip' }),
-    ...(!forceOpen ? [contextHook] : []),
+    ...(!forceOpen ? [dismissHook] : []),
   ])
 
   const placementSide = calculatedPlacement.split(
@@ -163,65 +163,71 @@ export const Tooltip: React.FC<
   return (
     <>
       <div
-        {...getReferenceProps()}
-        ref={setReference}
+        ref={refs.setReference}
         className={className}
         {...rest}
+        {...getReferenceProps()}
       >
         {children}
       </div>
-      {disabled ? null : open ? (
-        <FloatingPortal id="portal-target">
-          <div
-            ref={setFloating}
-            style={floatingStyles}
-            role="tooltip"
-            {...getFloatingProps()}
-          >
-            <div
-              className={clsx('rounded shadow-tooltip border', [
-                colors.background,
-                colors.block,
-              ])}
-            >
-              <svg
-                ref={arrowRef}
-                viewBox="0 0 48 24"
-                width="24"
-                height="12"
-                className={clsx('absolute z-10', colors.svg)}
-                style={{
-                  transform: `rotate(${arrowRotate}deg)`,
-                  filter:
-                    placementSide === 'bottom' || color === 'dark'
-                      ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
-                      : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                  [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
-                  [arrowYRule]: `${
-                    arrowY ? arrowY + 6 : interactive ? 6 : -10
-                  }px`,
-                }}
-                fill="none"
-              >
-                <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
-                <path
-                  d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
-                  strokeWidth="2"
-                />
-              </svg>
+      {disabled
+        ? null
+        : open
+          ? // NOTE: we could have used the "FloatingPortal" component
+            // but it fails miserably and the native portal from react 18 is great...
+            createPortal(
               <div
-                className={clsx(
-                  'rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20',
-                  colors.background,
-                )}
+                ref={refs.setFloating}
+                style={{ ...floatingStyles, zIndex: 100 }}
+                role="tooltip"
+                {...getFloatingProps()}
               >
-                <span className="sr-only">Tooltip: </span>
-                {popper}
-              </div>
-            </div>
-          </div>
-        </FloatingPortal>
-      ) : null}
+                <div
+                  className={clsx('rounded shadow-tooltip border', [
+                    colors.background,
+                    colors.block,
+                  ])}
+                >
+                  <svg
+                    ref={arrowRef}
+                    viewBox="0 0 48 24"
+                    width="24"
+                    height="12"
+                    className={clsx('absolute z-10', colors.svg)}
+                    style={{
+                      transform: `rotate(${arrowRotate}deg)`,
+                      filter:
+                        placementSide === 'bottom' || color === 'dark'
+                          ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
+                          : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
+                      [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
+                      [arrowYRule]: `${
+                        arrowY ? arrowY + 6 : interactive ? 6 : -10
+                      }px`,
+                    }}
+                    fill="none"
+                  >
+                    <rect x="0" y="0" width="48" height="4" strokeWidth="0" />
+                    <path
+                      d="M 0 3 C 12 3 18 18 24 18 C 30 18 36 3 48 3"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                  <div
+                    className={clsx(
+                      'rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20',
+                      colors.background,
+                    )}
+                  >
+                    <span className="sr-only">Tooltip: </span>
+                    {popper}
+                  </div>
+                </div>
+              </div>,
+              document.body,
+              'cy-tooltip-portal',
+            )
+          : null}
     </>
   )
 }
