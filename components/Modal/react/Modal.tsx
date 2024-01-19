@@ -119,7 +119,6 @@ export const Modal: React.FC<ModalProps> = ({
         <div className={ClassContent}>{children}</div>
       </dialog>,
       document.body,
-      'cy-modal-portal',
     )
   )
 }
