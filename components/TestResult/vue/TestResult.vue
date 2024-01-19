@@ -1,8 +1,8 @@
 <template>
-  <div data-cy="test-result-container" :class="CSS.container">
-    <div data-cy="test-result-row" :class="CSS.row">
-      <div data-cy="test-result-list" :class="CSS.list">
-        <div data-cy="test-result-icon" :class="CSS.icon">
+  <div data-cy="tr-container" :class="CSS.container">
+    <div data-cy="tr-row" :class="CSS.row">
+      <div data-cy="tr-list" :class="CSS.list">
+        <div data-cy="tr-icon" :class="CSS.icon">
           <StatusIcon
             size="16"
             variant="solid"
@@ -11,17 +11,17 @@
           />
         </div>
         <div
-          data-cy="test-result-name-container-column"
+          data-cy="tr-name-container-column"
           :class="CSS.name.container.column"
         >
           <div
-            data-cy="test-result-name-container-describes"
+            data-cy="tr-name-container-describes"
             :class="CSS.name.container.describes"
             v-if="names.slice(0, -1).length > 0"
           >
             <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
-                data-cy="test-result-name-item"
+                data-cy="tr-name-item"
                 :class="{
                   [CSS.name.item.base]: true,
                   [CSS.name.item.first]: names.length >= 2 && index === 0,
@@ -30,13 +30,13 @@
                 }"
               >
                 <span
-                  data-cy="test-result-name-item-text"
+                  data-cy="tr-name-item-text"
                   :class="CSS.name.item.text.base"
                   >{{ name }}</span
                 >
               </div>
               <div
-                data-cy="test-result-chevron"
+                data-cy="tr-chevron"
                 :class="CSS.chevron.container"
                 v-if="index < names.length - 1"
               >
@@ -47,34 +47,28 @@
               </div>
             </template>
           </div>
-          <div
-            data-cy="test-result-name-container-it"
-            :class="CSS.name.container.it"
-          >
+          <div data-cy="tr-name-container-it" :class="CSS.name.container.it">
             <span
-              data-cy="test-result-name-item-text"
+              data-cy="tr-name-item-text"
               :class="[CSS.name.item.text.base, CSS.name.item.text.it]"
             >
               {{ names.at(-1) }}
             </span>
             <div
-              data-cy="test-result-attributes"
+              data-cy="tr-attributes"
               :class="CSS.attribute.container"
               v-if="flaky || modified || added"
             >
-              <IconStatusFlaky data-cy="test-result-flaky" v-if="flaky" />
+              <IconStatusFlaky data-cy="tr-flaky" v-if="flaky" />
               <IconDocumentModifiedSquareDot
-                data-cy="test-result-modified"
+                data-cy="tr-modified"
                 v-if="modified"
               />
-              <IconDocumentAddedSquarePlus
-                data-cy="test-result-added"
-                v-if="added"
-              />
+              <IconDocumentAddedSquarePlus data-cy="tr-added" v-if="added" />
             </div>
           </div>
         </div>
-        <div data-cy="test-result-actions" :class="CSS.button.container">
+        <div data-cy="tr-actions" :class="CSS.button.container">
           <Button
             variant="outline-light"
             size="32"
