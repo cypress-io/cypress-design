@@ -1,8 +1,8 @@
 <template>
-  <div data-cy="tr-container" :class="CSS.container">
-    <div data-cy="tr-row" :class="CSS.row">
-      <div data-cy="tr-list" :class="CSS.list">
-        <div data-cy="tr-icon" :class="CSS.icon">
+  <div data-cy="cd-tr-container" :class="CSS.container">
+    <div data-cy="cd-tr-row" :class="CSS.row">
+      <div data-cy="cd-tr-list" :class="CSS.list">
+        <div data-cy="cd-tr-icon" :class="CSS.icon">
           <StatusIcon
             size="16"
             variant="solid"
@@ -11,17 +11,17 @@
           />
         </div>
         <div
-          data-cy="tr-name-container-column"
+          data-cy="cd-tr-name-container-column"
           :class="CSS.name.container.column"
         >
           <div
-            data-cy="tr-name-container-describes"
+            data-cy="cd-tr-name-container-describes"
             :class="CSS.name.container.describes"
             v-if="names.slice(0, -1).length > 0"
           >
             <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
-                data-cy="tr-name-item"
+                data-cy="cd-tr-name-item"
                 :class="{
                   [CSS.name.item.base]: true,
                   [CSS.name.item.first]: names.length >= 2 && index === 0,
@@ -30,13 +30,13 @@
                 }"
               >
                 <span
-                  data-cy="tr-name-item-text"
+                  data-cy="cd-tr-name-item-text"
                   :class="CSS.name.item.text.base"
                   >{{ name }}</span
                 >
               </div>
               <div
-                data-cy="tr-chevron"
+                data-cy="cd-tr-chevron"
                 :class="CSS.chevron.container"
                 v-if="index < names.length - 1"
               >
@@ -47,28 +47,28 @@
               </div>
             </template>
           </div>
-          <div data-cy="tr-name-container-it" :class="CSS.name.container.it">
+          <div data-cy="cd-tr-name-container-it" :class="CSS.name.container.it">
             <span
-              data-cy="tr-name-item-text"
+              data-cy="cd-tr-name-item-text"
               :class="[CSS.name.item.text.base, CSS.name.item.text.it]"
             >
               {{ names.at(-1) }}
             </span>
             <div
-              data-cy="tr-attributes"
+              data-cy="cd-tr-attributes"
               :class="CSS.attribute.container"
               v-if="flaky || modified || added"
             >
-              <IconStatusFlaky data-cy="tr-flaky" v-if="flaky" />
+              <IconStatusFlaky data-cy="cd-tr-flaky" v-if="flaky" />
               <IconDocumentModifiedSquareDot
-                data-cy="tr-modified"
+                data-cy="cd-tr-modified"
                 v-if="modified"
               />
-              <IconDocumentAddedSquarePlus data-cy="tr-added" v-if="added" />
+              <IconDocumentAddedSquarePlus data-cy="cd-tr-added" v-if="added" />
             </div>
           </div>
         </div>
-        <div data-cy="tr-actions" :class="CSS.button.container">
+        <div data-cy="cd-tr-actions" :class="CSS.button.container">
           <Button
             variant="outline-light"
             size="32"
