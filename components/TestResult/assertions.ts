@@ -42,23 +42,23 @@ export default function assertions(mountStory: (options?: any) => void): void {
 
   describe('Properties', { viewportWidth: 1024, viewportHeight: 400 }, () => {
     it('status', () => {
-      cy.get('[data-cy="tr-icon"] svg').should('exist')
+      cy.get('[data-cy="cd-tr-icon"] svg').should('exist')
     })
 
     it('names', () => {
-      cy.get('[data-cy="tr-name-container-column"]').should('exist')
+      cy.get('[data-cy="cd-tr-name-container-column"]').should('exist')
     })
 
     it('added', () => {
-      cy.get('[data-cy="tr-added"]').should('exist')
+      cy.get('[data-cy="cd-tr-added"]').should('exist')
     })
 
     it('modified', () => {
-      cy.get('[data-cy="tr-modified"]').should('exist')
+      cy.get('[data-cy="cd-tr-modified"]').should('exist')
     })
 
     it('flaky', () => {
-      cy.get('[data-cy="tr-flaky"]').should('exist')
+      cy.get('[data-cy="cd-tr-flaky"]').should('exist')
     })
   })
 }
