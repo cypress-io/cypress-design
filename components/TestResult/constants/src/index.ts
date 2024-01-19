@@ -16,18 +16,16 @@ export const CSS = {
       column:
         'box-border flex flex-nowrap flex-col @xl/test-result:flex-row gap-x-[4px] @xl/test-result:items-center shrink grow h-[100%] overflow-hidden',
       describes:
-        'box-border flex flex-nowrap gap-x-[4px] items-center overflow-hidden grow @xl/test-result:grow-0 @xl/test-result:shrink-[10]',
-      it: 'box-border flex flex-nowrap items-center overflow-hidden grow @xl/test-result:grow-0 @xl/test-result:shrink',
+        'box-border flex flex-nowrap gap-x-[2px] @xl/test-result:gap-x-[4px] items-center overflow-hidden text-ellipsis grow @xl/test-result:grow-0 @xl/test-result:shrink-[2] text-[14px] @xl/test-result:text-[16px] text-gray-700 @xl/test-result:text-gray-1000',
+      it: 'box-border flex flex-nowrap items-center overflow-hidden grow @xl/test-result:grow-0 @xl/test-result:shrink text-gray-1000',
     },
     item: {
-      base: 'box-border @xl/test-result:w-[max-content] min-w-[16px] h-[20px] @xl/test-result:h-[24px] gap-x-[8px] text-gray-1000 max-w-[max-content]',
-      first:
-        'shrink basis-[max-content] text-[14px] @xl/test-result:text-[16px] text-gray-700 @xl/test-result:text-gray-1000',
-      middle:
-        'shrink-[900000] basis-auto text-[14px] @xl/test-result:text-[16px] text-gray-700 @xl/test-result:text-gray-1000',
+      base: 'box-border @xl/test-result:w-[max-content] min-w-[16px] h-[20px] @xl/test-result:h-[24px] gap-x-[8px] max-w-[max-content]',
+      first: 'shrink basis-[max-content]',
+      middle: 'shrink-[900000] basis-auto',
       last: 'flex shrink grow basis-[100%] w-[100%] @xl/test-result:shrink @xl/test-result:basis-[max-content]',
       text: {
-        base: 'box-border relative inline-block w-[100%] whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] leading-[20px] @xl/test-result:leading-[24px]',
+        base: 'box-border relative inline-block w-[100%] shrink max-w-max whitespace-nowrap overflow-hidden text-ellipsis min-w-[16px] leading-[18px] @xl/test-result:leading-[24px]',
         it: ' @xl/test-result:[direction:rtl] pr-[8px]',
       },
     },
@@ -36,7 +34,8 @@ export const CSS = {
     container: 'box-border flex items-center grow gap-x-[6px]',
   },
   chevron: {
-    container: 'relative text-gray-300 shrink-0',
+    container:
+      'relative text-gray-300 shrink-0 top-[-3px] @xl/test-result:top-0',
   },
   button: {
     container: 'shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end',

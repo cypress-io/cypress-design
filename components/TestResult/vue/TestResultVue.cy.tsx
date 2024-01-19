@@ -52,7 +52,7 @@ const TEST_RESULTS = [
       'render',
       'six',
       'levels',
-      'and truncate the text from the middle when the title gets really really long',
+      'and truncate the text from the middle when the title gets really really really really really long',
     ],
   },
   {
