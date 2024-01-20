@@ -69,17 +69,7 @@
           </div>
         </div>
         <div data-cy="cd-tr-actions" :class="CSS.button.container">
-          <Button
-            variant="outline-light"
-            size="32"
-            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-          >
-            <IconActionTestReplay />
-            <span class="hidden @lg/test-result:inline ml-[8px]">
-              Test Replay
-            </span>
-          </Button>
-
+          <slot></slot>
           <Button variant="outline-light" size="32" :class="CSS.button.chevron">
             <IconChevronRightSmall stroke-color="gray-500" v-if="!hasGroups" />
             <IconChevronDownSmall stroke-color="gray-500" v-if="hasGroups" />
@@ -100,7 +90,6 @@ import {
   IconStatusFlaky,
   IconDocumentModifiedSquareDot,
   IconDocumentAddedSquarePlus,
-  IconActionTestReplay,
 } from '@cypress-design/vue-icon'
 
 defineProps<{

@@ -4,6 +4,8 @@ import type { ComponentProps } from '../../vue-utils'
 import assertions from '../assertions'
 import TestResult from './TestResult.vue'
 import { TestResults } from '@cypress-design/constants-testresult'
+import Button from '@cypress-design/vue-button'
+import { IconActionTestReplay } from '@cypress-design/vue-icon'
 
 describe('<TestResult/>', () => {
   function mountStory(options: ComponentProps<typeof TestResult> = {}) {
@@ -18,7 +20,18 @@ describe('<TestResult/>', () => {
               modified={result.modified}
               added={result.added}
               hasGroups={result.hasGroups}
-            />
+            >
+              <Button
+                variant="outline-light"
+                size="32"
+                class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+              >
+                <IconActionTestReplay />
+                <span class="hidden @lg/test-result:inline ml-[8px]">
+                  Test Replay
+                </span>
+              </Button>
+            </TestResult>
           ))}
         </div>
       </div>
