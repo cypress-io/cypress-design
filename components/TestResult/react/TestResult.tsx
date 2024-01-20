@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Button from '@cypress-design/react-button'
 import { CSS } from '@cypress-design/constants-testresult'
-import { StatusIcon } from '@cypress-design/react-statusicon'
+import StatusIcon from '@cypress-design/react-statusicon'
 import {
   IconChevronDownSmall,
   IconChevronRightSmall,
