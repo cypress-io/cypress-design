@@ -216,4 +216,4 @@ export const TestResults = [
     hasGroups: true,
     names: ['TestResult', 'should render with multiple groups'],
   },
-]
+] as const

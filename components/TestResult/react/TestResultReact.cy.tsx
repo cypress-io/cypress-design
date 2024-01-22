@@ -9,7 +9,7 @@ import { IconActionTestReplay } from '@cypress-design/react-icon'
 import assertions from '../assertions'
 
 describe('<TestResult/>', () => {
-  function mountStory(options = {}) {
+  function mountStory() {
     mount(
       <div className="p-[16px]">
         <div>
