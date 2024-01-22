@@ -1,43 +1,43 @@
 <template>
-  <div data-cy="cd-tr-container" :class="CSS.container">
-    <div data-cy="cd-tr-row" :class="CSS.row">
-      <div data-cy="cd-tr-list" :class="CSS.list">
-        <div data-cy="cd-tr-icon" :class="CSS.icon">
+  <div data-cy="cd-tr-container" :class="cyCSS.container">
+    <div data-cy="cd-tr-row" :class="cyCSS.row">
+      <div data-cy="cd-tr-list" :class="cyCSS.list">
+        <div data-cy="cd-tr-icon" :class="cyCSS.icon">
           <StatusIcon
             size="16"
             variant="solid"
             :status="status"
-            :class="CSS.status_icon"
+            :class="cyCSS.status_icon"
           />
         </div>
         <div
           data-cy="cd-tr-name-container-column"
-          :class="CSS.name.container.column"
+          :class="cyCSS.name.container.column"
         >
           <div
             data-cy="cd-tr-name-container-describes"
-            :class="CSS.name.container.describes"
+            :class="cyCSS.name.container.describes"
             v-if="names.slice(0, -1).length > 0"
           >
             <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
                 data-cy="cd-tr-name-item"
                 :class="{
-                  [CSS.name.item.base]: true,
-                  [CSS.name.item.first]: names.length >= 2 && index === 0,
-                  [CSS.name.item.middle]:
+                  [cyCSS.name.item.base]: true,
+                  [cyCSS.name.item.first]: names.length >= 2 && index === 0,
+                  [cyCSS.name.item.middle]:
                     names.length >= 2 && index > 0 && index < names.length - 1,
                 }"
               >
                 <span
                   data-cy="cd-tr-name-item-text"
-                  :class="CSS.name.item.text.base"
+                  :class="cyCSS.name.item.text.base"
                   >{{ name }}</span
                 >
               </div>
               <div
                 data-cy="cd-tr-chevron"
-                :class="CSS.chevron.container"
+                :class="cyCSS.chevron.container"
                 v-if="index < names.length - 1"
               >
                 <IconChevronRightSmall
@@ -47,16 +47,19 @@
               </div>
             </template>
           </div>
-          <div data-cy="cd-tr-name-container-it" :class="CSS.name.container.it">
+          <div
+            data-cy="cd-tr-name-container-it"
+            :class="cyCSS.name.container.it"
+          >
             <span
               data-cy="cd-tr-name-item-text"
-              :class="[CSS.name.item.text.base, CSS.name.item.text.it]"
+              :class="[cyCSS.name.item.text.base, cyCSS.name.item.text.it]"
             >
               {{ names.at(-1) }}
             </span>
             <div
               data-cy="cd-tr-attributes"
-              :class="CSS.attribute.container"
+              :class="cyCSS.attribute.container"
               v-if="flaky || modified || added"
             >
               <IconStatusFlaky data-cy="cd-tr-flaky" v-if="flaky" />
@@ -68,9 +71,13 @@
             </div>
           </div>
         </div>
-        <div data-cy="cd-tr-actions" :class="CSS.button.container">
+        <div data-cy="cd-tr-actions" :class="cyCSS.button.container">
           <slot></slot>
-          <Button variant="outline-light" size="32" :class="CSS.button.chevron">
+          <Button
+            variant="outline-light"
+            size="32"
+            :class="cyCSS.button.chevron"
+          >
             <IconChevronRightSmall stroke-color="gray-500" v-if="!hasGroups" />
             <IconChevronDownSmall stroke-color="gray-500" v-if="hasGroups" />
           </Button>
@@ -82,7 +89,7 @@
 
 <script lang="ts" setup>
 import Button from '@cypress-design/vue-button'
-import { CSS } from '@cypress-design/constants-testresult'
+import { CSS as cyCSS } from '@cypress-design/constants-testresult'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
   IconChevronDownSmall,
