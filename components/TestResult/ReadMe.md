@@ -10,7 +10,7 @@
 <DemoWrapper>
   <div class="bg-[#fff] p-[16px] max-h-[480px] overflow-hidden overflow-y-auto">
     <template v-for="tr of TestResults">
-      <TestResult :status="tr.status" :names=tr.names>
+      <TestResult :status="tr.status" :names=tr.names :added="tr.added" :modified="tr.modified" :flaky="tr.flaky" :hasGroups="tr.hasGroups">
         <Button
           variant="outline-light"
           size="32"
