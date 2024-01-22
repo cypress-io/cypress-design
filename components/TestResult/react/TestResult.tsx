@@ -12,7 +12,21 @@ import {
 } from '@cypress-design/react-icon'
 
 export interface TestResultProps {
-  status: string
+  status:
+    | 'running'
+    | 'failing'
+    | 'passed'
+    | 'failed'
+    | 'unclaimed'
+    | 'placeholder'
+    | 'cancelled'
+    | 'noTests'
+    | 'errored'
+    | 'timedOut'
+    | 'overLimit'
+    | 'skipped'
+    | 'pending'
+    | undefined
   names: string[]
   id?: string
   label?: string
