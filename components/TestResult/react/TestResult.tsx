@@ -1,4 +1,5 @@
 import * as React from 'react'
+import classNames from 'classnames'
 import Button from '@cypress-design/react-button'
 import { CSS } from '@cypress-design/constants-testresult'
 import StatusIcon from '@cypress-design/react-statusicon'
@@ -18,7 +19,7 @@ export interface TestResultProps {
 
 export const TestResult: React.FC<
   TestResultProps & React.HTMLProps<HTMLDivElement>
-> = ({ status, flaky, modified, added, hasGroups, names }) => {
+> = ({ status, flaky, modified, added, hasGroups, names, children }) => {
   return (
     <div data-cy="cd-tr-container" className={CSS.container}>
       <div data-cy="cd-tr-row" className={CSS.row}>
@@ -44,14 +45,14 @@ export const TestResult: React.FC<
                   <React.Fragment key={index}>
                     <div
                       data-cy="cd-tr-name-item"
-                      className={{
+                      className={classNames({
                         [CSS.name.item.base]: true,
                         [CSS.name.item.first]: names.length >= 2 && index === 0,
                         [CSS.name.item.middle]:
                           names.length >= 2 &&
                           index > 0 &&
                           index < names.length - 1,
-                      }}
+                      })}
                     >
                       <span
                         data-cy="cd-tr-name-item-text"
@@ -105,7 +106,7 @@ export const TestResult: React.FC<
             </div>
           </div>
           <div data-cy="cd-tr-actions" className={CSS.button.container}>
-            {/* Replace <slot></slot> with children if needed */}
+            {children}
             <Button
               variant="outline-light"
               size="32"
