@@ -12,9 +12,15 @@ import {
 } from '@cypress-design/react-icon'
 
 export interface TestResultProps {
-  id: string
+  status: string
+  names: string[]
+  id?: string
   label?: string
   className?: string
+  flaky?: boolean
+  modified?: boolean
+  added?: boolean
+  hasGroups?: boolean
 }
 
 export const TestResult: React.FC<
