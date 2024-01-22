@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
-import type { ComponentProps } from '../../vue-utils'
 import assertions from '../assertions'
 import TestResult from './TestResult.vue'
 import { TestResults } from '@cypress-design/constants-testresult'
@@ -8,7 +7,7 @@ import Button from '@cypress-design/vue-button'
 import { IconActionTestReplay } from '@cypress-design/vue-icon'
 
 describe('<TestResult/>', () => {
-  function mountStory(options: ComponentProps<typeof TestResult> = {}) {
+  function mountStory() {
     mount(() => (
       <div class="p-[16px]">
         <div>
@@ -19,7 +18,7 @@ describe('<TestResult/>', () => {
               flaky={result.flaky}
               modified={result.modified}
               added={result.added}
-              hasGroups={result.hasGroups}
+              hasGroups={'hasGroups' in result ? result.hasGroups : false}
             >
               <Button
                 variant="outline-light"
