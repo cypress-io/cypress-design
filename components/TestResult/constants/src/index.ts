@@ -39,6 +39,7 @@ export const CSS = {
 
 export const TestResults = [
   {
+    id: 'test-result-1',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -47,6 +48,7 @@ export const TestResults = [
     names: ['TestResult should render one level'],
   },
   {
+    id: 'test-result-2',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -54,6 +56,7 @@ export const TestResults = [
     names: ['TestResult', 'should render two levels'],
   },
   {
+    id: 'test-result-3',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -61,6 +64,7 @@ export const TestResults = [
     names: ['TestResult', 'should', 'render three levels'],
   },
   {
+    id: 'test-result-4',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -68,6 +72,7 @@ export const TestResults = [
     names: ['TestResult', 'should', 'render', 'four levels'],
   },
   {
+    id: 'test-result-5',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -75,6 +80,7 @@ export const TestResults = [
     names: ['TestResult', 'should', 'render', 'five', 'levels'],
   },
   {
+    id: 'test-result-6',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -89,6 +95,7 @@ export const TestResults = [
     ],
   },
   {
+    id: 'test-result-7',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -96,6 +103,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as passed'],
   },
   {
+    id: 'test-result-8',
     status: 'failed',
     flaky: false,
     modified: false,
@@ -103,6 +111,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as failed'],
   },
   {
+    id: 'test-result-9',
     status: 'errored',
     flaky: false,
     modified: false,
@@ -110,6 +119,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as errored'],
   },
   {
+    id: 'test-result-10',
     status: 'skipped',
     flaky: false,
     modified: false,
@@ -117,6 +127,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as skipped'],
   },
   {
+    id: 'test-result-11',
     status: 'pending',
     flaky: false,
     modified: false,
@@ -124,6 +135,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as pending'],
   },
   {
+    id: 'test-result-12',
     status: 'cancelled',
     flaky: false,
     modified: false,
@@ -131,6 +143,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as cancelled'],
   },
   {
+    id: 'test-result-13',
     status: 'unclaimed',
     flaky: false,
     modified: false,
@@ -138,6 +151,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as unclaimed'],
   },
   {
+    id: 'test-result-14',
     status: 'placeholder',
     flaky: false,
     modified: false,
@@ -145,6 +159,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as placeholder'],
   },
   {
+    id: 'test-result-15',
     status: 'running',
     flaky: false,
     modified: false,
@@ -152,6 +167,7 @@ export const TestResults = [
     names: ['TestResult', 'StatusIcon', 'should render as running'],
   },
   {
+    id: 'test-result-16',
     status: 'passed',
     flaky: true,
     modified: false,
@@ -159,6 +175,7 @@ export const TestResults = [
     names: ['TestResult', 'should render as flaky'],
   },
   {
+    id: 'test-result-17',
     status: 'passed',
     flaky: false,
     modified: true,
@@ -166,6 +183,7 @@ export const TestResults = [
     names: ['TestResult', 'should render as modified'],
   },
   {
+    id: 'test-result-18',
     status: 'passed',
     flaky: false,
     modified: false,
@@ -173,6 +191,7 @@ export const TestResults = [
     names: ['TestResult', 'should render as added'],
   },
   {
+    id: 'test-result-19',
     status: 'passed',
     flaky: true,
     modified: false,
@@ -180,6 +199,7 @@ export const TestResults = [
     names: ['TestResult', 'should render as flaky and added'],
   },
   {
+    id: 'test-result-20',
     status: 'passed',
     flaky: true,
     modified: true,
@@ -188,6 +208,7 @@ export const TestResults = [
     names: ['TestResult', 'should render as flaky and modified'],
   },
   {
+    id: 'test-result-21',
     status: 'passed',
     flaky: false,
     modified: false,
