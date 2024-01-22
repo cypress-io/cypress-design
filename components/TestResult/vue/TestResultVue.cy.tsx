@@ -14,7 +14,7 @@ describe('<TestResult/>', () => {
           {TestResults.map((result) => (
             <TestResult
               status={result.status}
-              names={result.names}
+              names={[...result.names]}
               flaky={result.flaky}
               modified={result.modified}
               added={result.added}
