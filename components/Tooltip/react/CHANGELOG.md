@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 0.9.0
+
+### Minor Changes
+
+- [#371](https://github.com/cypress-io/cypress-design/pull/371) [`c7851b7`](https://github.com/cypress-io/cypress-design/commit/c7851b7ff4915d1d19e05136723e5939dca9b97b) Thanks [@elevatebart](https://github.com/elevatebart)! - update dependency from '@floating-ui/react-dom-interactions' to '@floating-ui/react'
+
 ## 0.8.1
 
 ### Patch Changes
