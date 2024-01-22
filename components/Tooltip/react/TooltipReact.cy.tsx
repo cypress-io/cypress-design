@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { mount } from 'cypress/react18'
-import { Placement } from '@floating-ui/react-dom-interactions'
+import type { Placement } from '@floating-ui/react'
 import assertions from '../assertions'
 import Tooltip from './Tooltip'
 
@@ -65,14 +65,16 @@ const TooltipStoryMulti = ({
         >
           <div>Hover Me ({placement})</div>
         </Tooltip>
-      )
+      ),
     )}
   </div>
 )
 
 describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
   function mountStory(
-    options: { single?: boolean } & Parameters<typeof TooltipStoryMulti>[0] = {}
+    options: { single?: boolean } & Parameters<
+      typeof TooltipStoryMulti
+    >[0] = {},
   ) {
     const { single, tabindex = 1, ...rest } = options
     if (single) {
@@ -90,7 +92,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
           voluptatum.
-        </Tooltip>
+        </Tooltip>,
       )
     } else {
       mount(<TooltipStoryMulti {...rest} tabindex={tabindex} />)
@@ -109,7 +111,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
         >
           make sure its open
         </Tooltip>
-      </div>
+      </div>,
     )
     cy.findByText('should be visible').should('be.visible')
   })

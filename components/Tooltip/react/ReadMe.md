@@ -22,8 +22,10 @@ import Tooltip from '@cypress-design/react-tooltip'
 
 ```jsx live
 export const comp = () => (
-  <Tooltip tabIndex="0" popper={<b>popper</b>}>
-    <span>Focus me</span>
-  </Tooltip>
+  <div>
+    <Tooltip className="inline-block" tabIndex="0" popper={<b>popper</b>}>
+      <span>Focus me</span>
+    </Tooltip>
+  </div>
 )
 ```
