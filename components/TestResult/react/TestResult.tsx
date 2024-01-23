@@ -7,7 +7,6 @@ import {
 } from '@cypress-design/constants-testresult'
 import StatusIcon from '@cypress-design/react-statusicon'
 import {
-  IconChevronDownSmall,
   IconChevronRightSmall,
   IconStatusFlaky,
   IconDocumentModifiedSquareDot,
@@ -15,6 +14,10 @@ import {
 } from '@cypress-design/react-icon'
 
 export interface TestResultProps extends TestResultData {
+  /**
+   * When the chevron is clicked
+   */
+  onToggle?: () => void
   className?: string
 }
 
@@ -27,11 +30,14 @@ export const TestResult: React.FC<
   added,
   hasGroups,
   names,
-  className,
   children,
+  onToggle,
+  className,
+  ...rest
 }) => {
   return (
     <div
+      {...rest}
       data-cy="cd-tr-container"
       className={clsx(classes.container, className)}
     >
@@ -125,9 +131,15 @@ export const TestResult: React.FC<
               variant="outline-light"
               size="32"
               className={classes.button.chevron}
+              onClick={onToggle}
             >
-              {!hasGroups && <IconChevronRightSmall strokeColor="gray-500" />}
-              {hasGroups && <IconChevronDownSmall strokeColor="gray-500" />}
+              <IconChevronRightSmall
+                strokeColor="gray-500"
+                className={clsx({
+                  'transition-transform transform': true,
+                  'rotate-90': hasGroups,
+                })}
+              />
             </Button>
           </div>
         </div>

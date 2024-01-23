@@ -40,13 +40,29 @@ export const classes = {
 }
 
 export interface TestResultData {
-  status: statusTypes
-  names: string[]
   id?: string
-  label?: string
+  status: statusTypes
+  /**
+   * The names of the hierarchy for the test result
+   * [NOTE]: the last item is usually the test name
+   */
+  names: string[]
+  /**
+   * will display a flaky icon
+   */
   flaky?: boolean
+  /**
+   * will display a "modified" icon
+   */
   modified?: boolean
+  /**
+   * will display an "added" icon
+   */
   added?: boolean
+  /**
+   * If the results groups window is expanded or not
+   * [NOTE] it will turn the caret down if open
+   */
   hasGroups?: boolean
 }
 

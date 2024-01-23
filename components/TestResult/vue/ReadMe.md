@@ -24,7 +24,7 @@ import Button from '@cypress-design/vue-button'
   <div class="bg-white p-2">
     <TestResult
       status="passed"
-      :names="['Test 1', 'Test 2']"
+      :names="['<TestResults />', 'playground']"
       flaky
       modified
       added
