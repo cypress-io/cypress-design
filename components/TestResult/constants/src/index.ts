@@ -10,8 +10,8 @@ export const CSS = {
       column:
         'box-border flex flex-nowrap flex-col @xl/test-result:flex-row gap-x-[4px] @xl/test-result:items-center shrink grow h-[100%] overflow-hidden',
       describes:
-        'box-border flex flex-nowrap gap-x-[2px] @xl/test-result:gap-x-[4px] items-center overflow-hidden text-ellipsis grow @xl/test-result:grow-0 @xl/test-result:shrink-[2] text-[14px] @xl/test-result:text-[16px] text-gray-700 @xl/test-result:text-gray-1000',
-      it: 'box-border flex flex-nowrap items-center overflow-hidden grow @xl/test-result:grow-0 @xl/test-result:shrink text-gray-1000',
+        'box-border flex flex-nowrap gap-x-[2px] @xl/test-result:gap-x-[4px] items-center overflow-hidden text-ellipsis grow @xl/test-result:grow-0 @xl/test-result:shrink-[2] text-[14px] @xl/test-result:text-[16px] text-gray-700',
+      it: 'box-border flex flex-nowrap items-center overflow-hidden grow @xl/test-result:grow-0 @xl/test-result:shrink text-gray-1000 @xl/test-result:text-gray-700',
     },
     item: {
       base: 'box-border @xl/test-result:w-[max-content] min-w-[16px] h-[20px] @xl/test-result:h-[24px] gap-x-[8px] max-w-[max-content]',

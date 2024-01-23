@@ -11,7 +11,7 @@ import assertions from '../assertions'
 describe('<TestResult/>', () => {
   function mountStory() {
     mount(
-      <div className="p-[16px]">
+      <div className="p-[16px] antialiased">
         <div>
           {TestResults.map((result) => (
             <TestResult
