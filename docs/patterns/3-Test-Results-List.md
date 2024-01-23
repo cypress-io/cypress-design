@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+  const components$ = { }
+</script>
+
 # Test Results List
 
 ## Usage
