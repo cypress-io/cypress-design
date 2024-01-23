@@ -16,7 +16,7 @@ import assertions from '../assertions'
 import clsx from 'clsx'
 
 const TestResultSut = (result: TestResultData) => {
-  const [hasGroups, setHasGroups] = React.useState(false)
+  const [showGroupBox, setShowGroupBox] = React.useState(false)
   return (
     <TestResult
       status={result.status}
@@ -39,13 +39,13 @@ const TestResultSut = (result: TestResultData) => {
         variant="outline-light"
         size="32"
         className="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
-        onClick={() => setHasGroups(!hasGroups)}
+        onClick={() => setShowGroupBox(!showGroupBox)}
       >
         <IconChevronRightSmall
           stroke-color="gray-500"
           className={clsx({
             'transition-transform transform': true,
-            'rotate-90': hasGroups,
+            'rotate-90': showGroupBox,
           })}
         />
       </Button>

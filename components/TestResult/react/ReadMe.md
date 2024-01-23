@@ -30,7 +30,6 @@ export const Demo = () => (
       flaky
       modified
       added
-      hasGroups
     >
       <Button
         variant="outline-light"

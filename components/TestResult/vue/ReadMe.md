@@ -34,7 +34,6 @@ const toggled = ref(false)
       flaky
       modified
       added
-      hasGroups
     >
       <Button
         variant="outline-light"

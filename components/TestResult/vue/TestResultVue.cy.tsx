@@ -12,7 +12,7 @@ import { IconChevronRightSmall } from '@cypress-design/vue-icon'
 import { ref } from 'vue'
 
 const TestResultSut = (result: TestResultData) => {
-  const hasGroups = ref(false)
+  const showGroupBox = ref(false)
   return (
     <TestResult
       status={result.status}
@@ -33,13 +33,13 @@ const TestResultSut = (result: TestResultData) => {
         variant="outline-light"
         size="32"
         class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
-        onClick={() => (hasGroups.value = !hasGroups.value)}
+        onClick={() => (showGroupBox.value = !showGroupBox.value)}
       >
         <IconChevronRightSmall
           stroke-color="gray-500"
           class={{
             'transition-transform transform': true,
-            'rotate-90': hasGroups,
+            'rotate-90': showGroupBox,
           }}
         />
       </Button>
