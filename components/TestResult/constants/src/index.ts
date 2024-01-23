@@ -42,7 +42,7 @@ export interface TestResultData {
   status: statusTypes
   /**
    * The names of the hierarchy for the test result
-   * [NOTE]: the last item is usually the test name
+   * **[NOTE]** the last item is usually the test name
    */
   names: string[]
   /**

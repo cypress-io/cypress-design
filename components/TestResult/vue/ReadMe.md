@@ -14,6 +14,10 @@ yarn add @cypress-design/vue-testresult
 
 ## Usage
 
+```ts
+import TestResult from '@cypress-design/vue-testresult'
+```
+
 ```vue live
 <script lang="ts" setup>
 import { ref } from 'vue'
