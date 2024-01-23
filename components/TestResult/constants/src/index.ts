@@ -1,4 +1,6 @@
-export const CSS = {
+import { type statusTypes } from '@cypress-design/constants-statusicon'
+
+export const classes = {
   container:
     'box-border relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result',
   row: 'box-border flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @xl/test-result:px-[16px] @xl/test-result:h-[56px]',
@@ -33,18 +35,37 @@ export const CSS = {
   },
   button: {
     container: 'shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end',
-    chevron: '!px-[8px] hidden @xl/test-result:inline-block h-[32px]',
   },
 }
 
-export const TestResults = [
+export interface TestResultData {
+  status: statusTypes
+  /**
+   * The names of the hierarchy for the test result
+   * **[NOTE]** the last item is usually the test name
+   */
+  names: string[]
+  /**
+   * will display a flaky icon
+   */
+  flaky?: boolean
+  /**
+   * will display a "modified" icon
+   */
+  modified?: boolean
+  /**
+   * will display an "added" icon
+   */
+  added?: boolean
+}
+
+export const TestResults: (TestResultData & { id: string })[] = [
   {
     id: 'test-result-1',
     status: 'passed',
     flaky: false,
     modified: false,
     added: false,
-    hasGroups: false,
     names: ['TestResult should render one level'],
   },
   {
@@ -204,16 +225,6 @@ export const TestResults = [
     flaky: true,
     modified: true,
     added: false,
-    hasGroups: false,
     names: ['TestResult', 'should render as flaky and modified'],
   },
-  {
-    id: 'test-result-21',
-    status: 'passed',
-    flaky: false,
-    modified: false,
-    added: false,
-    hasGroups: true,
-    names: ['TestResult', 'should render with multiple groups'],
-  },
-] as const
+]

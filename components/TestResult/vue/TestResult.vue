@@ -1,43 +1,59 @@
+<script lang="ts" setup>
+import {
+  classes,
+  type TestResultData,
+} from '@cypress-design/constants-testresult'
+import { StatusIcon } from '@cypress-design/vue-statusicon'
+import {
+  IconChevronRightSmall,
+  IconStatusFlaky,
+  IconDocumentModifiedSquareDot,
+  IconDocumentAddedSquarePlus,
+} from '@cypress-design/vue-icon'
+
+defineProps<TestResultData>()
+</script>
+
 <template>
-  <div data-cy="cd-tr-container" :class="cyCSS.container">
-    <div data-cy="cd-tr-row" :class="cyCSS.row">
-      <div data-cy="cd-tr-list" :class="cyCSS.list">
-        <div data-cy="cd-tr-icon" :class="cyCSS.icon">
+  <div data-cy="cd-tr-container" :class="classes.container">
+    <div data-cy="cd-tr-row" :class="classes.row">
+      <div data-cy="cd-tr-list" :class="classes.list">
+        <div data-cy="cd-tr-icon" :class="classes.icon">
           <StatusIcon
             size="16"
             variant="solid"
             :status="status"
-            :class="cyCSS.status_icon"
+            :class="classes.status_icon"
           />
         </div>
         <div
           data-cy="cd-tr-name-container-column"
-          :class="cyCSS.name.container.column"
+          :class="classes.name.container.column"
         >
           <div
             data-cy="cd-tr-name-container-describes"
-            :class="cyCSS.name.container.describes"
+            :class="classes.name.container.describes"
             v-if="names.slice(0, -1).length > 0"
           >
             <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
                 data-cy="cd-tr-name-item"
                 :class="{
-                  [cyCSS.name.item.base]: true,
-                  [cyCSS.name.item.first]: names.length >= 2 && index === 0,
-                  [cyCSS.name.item.middle]:
+                  [classes.name.item.base]: true,
+                  [classes.name.item.first]: names.length >= 2 && index === 0,
+                  [classes.name.item.middle]:
                     names.length >= 2 && index > 0 && index < names.length - 1,
                 }"
               >
                 <span
                   data-cy="cd-tr-name-item-text"
-                  :class="cyCSS.name.item.text.base"
+                  :class="classes.name.item.text.base"
                   >{{ name }}</span
                 >
               </div>
               <div
                 data-cy="cd-tr-chevron"
-                :class="cyCSS.chevron.container"
+                :class="classes.chevron.container"
                 v-if="index < names.length - 1"
               >
                 <IconChevronRightSmall
@@ -49,17 +65,17 @@
           </div>
           <div
             data-cy="cd-tr-name-container-it"
-            :class="cyCSS.name.container.it"
+            :class="classes.name.container.it"
           >
             <span
               data-cy="cd-tr-name-item-text"
-              :class="[cyCSS.name.item.text.base, cyCSS.name.item.text.it]"
+              :class="[classes.name.item.text.base, classes.name.item.text.it]"
             >
               {{ names.at(-1) }}
             </span>
             <div
               data-cy="cd-tr-attributes"
-              :class="cyCSS.attribute.container"
+              :class="classes.attribute.container"
               v-if="flaky || modified || added"
             >
               <IconStatusFlaky data-cy="cd-tr-flaky" v-if="flaky" />
@@ -71,54 +87,14 @@
             </div>
           </div>
         </div>
-        <div data-cy="cd-tr-actions" :class="cyCSS.button.container">
-          <slot></slot>
-          <Button
-            variant="outline-light"
-            size="32"
-            :class="cyCSS.button.chevron"
-          >
-            <IconChevronRightSmall stroke-color="gray-500" v-if="!hasGroups" />
-            <IconChevronDownSmall stroke-color="gray-500" v-if="hasGroups" />
-          </Button>
+        <div
+          v-if="$slots.default"
+          data-cy="cd-tr-actions"
+          :class="classes.button.container"
+        >
+          <slot />
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import Button from '@cypress-design/vue-button'
-import { CSS as cyCSS } from '@cypress-design/constants-testresult'
-import { StatusIcon } from '@cypress-design/vue-statusicon'
-import {
-  IconChevronDownSmall,
-  IconChevronRightSmall,
-  IconStatusFlaky,
-  IconDocumentModifiedSquareDot,
-  IconDocumentAddedSquarePlus,
-} from '@cypress-design/vue-icon'
-
-defineProps<{
-  status:
-    | 'running'
-    | 'failing'
-    | 'passed'
-    | 'failed'
-    | 'unclaimed'
-    | 'placeholder'
-    | 'cancelled'
-    | 'noTests'
-    | 'errored'
-    | 'timedOut'
-    | 'overLimit'
-    | 'skipped'
-    | 'pending'
-    | undefined
-  flaky?: boolean
-  modified?: boolean
-  added?: boolean
-  hasGroups?: boolean
-  names: Array<string>
-}>()
-</script>
