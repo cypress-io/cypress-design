@@ -1,6 +1,5 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import Button from '@cypress-design/react-button'
 import {
   classes,
   type TestResultData,
@@ -14,30 +13,14 @@ import {
 } from '@cypress-design/react-icon'
 
 export interface TestResultProps extends TestResultData {
-  /**
-   * When the chevron is clicked
-   */
-  onToggle?: () => void
   className?: string
 }
 
 export const TestResult: React.FC<
   TestResultProps & React.HTMLProps<HTMLDivElement>
-> = ({
-  status,
-  flaky,
-  modified,
-  added,
-  hasGroups,
-  names,
-  children,
-  onToggle,
-  className,
-  ...rest
-}) => {
+> = ({ status, flaky, modified, added, names, className, children }) => {
   return (
     <div
-      {...rest}
       data-cy="cd-tr-container"
       className={clsx(classes.container, className)}
     >
@@ -125,23 +108,11 @@ export const TestResult: React.FC<
               )}
             </div>
           </div>
-          <div data-cy="cd-tr-actions" className={classes.button.container}>
-            {children}
-            <Button
-              variant="outline-light"
-              size="32"
-              className={classes.button.chevron}
-              onClick={onToggle}
-            >
-              <IconChevronRightSmall
-                strokeColor="gray-500"
-                className={clsx({
-                  'transition-transform transform': true,
-                  'rotate-90': hasGroups,
-                })}
-              />
-            </Button>
-          </div>
+          {children ? (
+            <div data-cy="cd-tr-actions" className={classes.button.container}>
+              {children}
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

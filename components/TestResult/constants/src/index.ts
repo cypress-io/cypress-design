@@ -35,12 +35,10 @@ export const classes = {
   },
   button: {
     container: 'shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end',
-    chevron: '!px-[8px] hidden @xl/test-result:inline-block h-[32px]',
   },
 }
 
 export interface TestResultData {
-  id?: string
   status: statusTypes
   /**
    * The names of the hierarchy for the test result
@@ -59,21 +57,15 @@ export interface TestResultData {
    * will display an "added" icon
    */
   added?: boolean
-  /**
-   * If the results groups window is expanded or not
-   * [NOTE] it will turn the caret down if open
-   */
-  hasGroups?: boolean
 }
 
-export const TestResults: TestResultData[] = [
+export const TestResults: (TestResultData & { id: string })[] = [
   {
     id: 'test-result-1',
     status: 'passed',
     flaky: false,
     modified: false,
     added: false,
-    hasGroups: false,
     names: ['TestResult should render one level'],
   },
   {
@@ -233,16 +225,6 @@ export const TestResults: TestResultData[] = [
     flaky: true,
     modified: true,
     added: false,
-    hasGroups: false,
     names: ['TestResult', 'should render as flaky and modified'],
-  },
-  {
-    id: 'test-result-21',
-    status: 'passed',
-    flaky: false,
-    modified: false,
-    added: false,
-    hasGroups: true,
-    names: ['TestResult', 'should render with multiple groups'],
   },
 ]

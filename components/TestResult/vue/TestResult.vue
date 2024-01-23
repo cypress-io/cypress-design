@@ -1,9 +1,21 @@
+<script lang="ts" setup>
+import {
+  classes,
+  type TestResultData,
+} from '@cypress-design/constants-testresult'
+import { StatusIcon } from '@cypress-design/vue-statusicon'
+import {
+  IconChevronRightSmall,
+  IconStatusFlaky,
+  IconDocumentModifiedSquareDot,
+  IconDocumentAddedSquarePlus,
+} from '@cypress-design/vue-icon'
+
+defineProps<TestResultData>()
+</script>
+
 <template>
-  <div
-    data-cy="cd-tr-container"
-    :class="classes.container"
-    @click="(e) => emit('click', e)"
-  >
+  <div data-cy="cd-tr-container" :class="classes.container">
     <div data-cy="cd-tr-row" :class="classes.row">
       <div data-cy="cd-tr-list" :class="classes.list">
         <div data-cy="cd-tr-icon" :class="classes.icon">
@@ -75,52 +87,14 @@
             </div>
           </div>
         </div>
-        <div data-cy="cd-tr-actions" :class="classes.button.container">
-          <slot></slot>
-          <Button
-            variant="outline-light"
-            size="32"
-            :class="classes.button.chevron"
-            @click="(e) => emit('toggle', e)"
-          >
-            <IconChevronRightSmall
-              stroke-color="gray-500"
-              class="transition-transform transform"
-              :class="{
-                'rotate-90': hasGroups,
-              }"
-            />
-          </Button>
+        <div
+          v-if="$slots.default"
+          data-cy="cd-tr-actions"
+          :class="classes.button.container"
+        >
+          <slot />
         </div>
       </div>
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import Button from '@cypress-design/vue-button'
-import {
-  classes,
-  type TestResultData,
-} from '@cypress-design/constants-testresult'
-import { StatusIcon } from '@cypress-design/vue-statusicon'
-import {
-  IconChevronRightSmall,
-  IconStatusFlaky,
-  IconDocumentModifiedSquareDot,
-  IconDocumentAddedSquarePlus,
-} from '@cypress-design/vue-icon'
-
-const emit = defineEmits<{
-  /**
-   * Emit when the whole line is clicked.
-   */
-  click: [event: MouseEvent]
-  /**
-   * Emit when the chevron button is clicked.
-   */
-  toggle: [event: MouseEvent]
-}>()
-
-defineProps<TestResultData>()
-</script>
