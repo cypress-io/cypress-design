@@ -24,7 +24,7 @@
         <Button
           variant="outline-light"
           size="32"
-          class="!px-[8px] hidden @xl/test-result:inline-block"
+          class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
         >
           <IconChevronRightSmall stroke-color="gray-500" />
         </Button>

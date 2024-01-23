@@ -38,7 +38,7 @@ const TestResultSut = (result: TestResultData) => {
       <Button
         variant="outline-light"
         size="32"
-        className="!px-[8px] hidden @xl/test-result:inline-block"
+        className="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
         onClick={() => setHasGroups(!hasGroups)}
       >
         <IconChevronRightSmall

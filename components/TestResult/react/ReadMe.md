@@ -17,7 +17,10 @@ yarn add @cypress-design/react-testresult
 ```tsx live
 import TestResult from '@cypress-design/react-testresult'
 import Button from '@cypress-design/react-button'
-import { IconActionTestReplay } from '@cypress-design/react-icon'
+import {
+  IconActionTestReplay,
+  IconChevronRightSmall,
+} from '@cypress-design/react-icon'
 
 export const Demo = () => (
   <div className="bg-white p-2">
@@ -38,6 +41,13 @@ export const Demo = () => (
         <span className="hidden @lg/test-result:inline ml-[8px]">
           Test Replay
         </span>
+      </Button>
+      <Button
+        variant="outline-light"
+        size="32"
+        class="hidden @xl/test-result:inline-block h-[32px]"
+      >
+        <IconChevronRightSmall stroke-color="gray-500" />
       </Button>
     </TestResult>
   </div>

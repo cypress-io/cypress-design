@@ -16,8 +16,14 @@ yarn add @cypress-design/vue-testresult
 
 ```vue live
 <script lang="ts" setup>
-import { IconActionTestReplay } from '@cypress-design/vue-icon'
+import { ref } from 'vue'
+import {
+  IconActionTestReplay,
+  IconChevronRightSmall,
+} from '@cypress-design/vue-icon'
 import Button from '@cypress-design/vue-button'
+
+const toggled = ref(false)
 </script>
 
 <template>
@@ -37,6 +43,20 @@ import Button from '@cypress-design/vue-button'
       >
         <IconActionTestReplay />
         <span class="hidden @lg/test-result:inline ml-[8px]">Test Replay</span>
+      </Button>
+      <Button
+        variant="outline-light"
+        size="32"
+        class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+        @click="toggled = !toggled"
+      >
+        <IconChevronRightSmall
+          stroke-color="gray-500"
+          :class="{
+            'rotate-90': toggled,
+            'transform transition-transform': true,
+          }"
+        />
       </Button>
     </TestResult>
   </div>
