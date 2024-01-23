@@ -22,7 +22,6 @@
     "@cypress-design/constants-testresult": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-statusicon": "*",
-    "classnames": "^2.5.1",
     "clsx": "*"
   },
   "devDependencies": {

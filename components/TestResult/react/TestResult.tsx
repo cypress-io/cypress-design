@@ -1,7 +1,10 @@
 import * as React from 'react'
-import classNames from 'classnames'
+import clsx from 'clsx'
 import Button from '@cypress-design/react-button'
-import { CSS } from '@cypress-design/constants-testresult'
+import {
+  classes,
+  type TestResultData,
+} from '@cypress-design/constants-testresult'
 import StatusIcon from '@cypress-design/react-statusicon'
 import {
   IconChevronDownSmall,
@@ -11,64 +14,55 @@ import {
   IconDocumentAddedSquarePlus,
 } from '@cypress-design/react-icon'
 
-export interface TestResultProps {
-  status:
-    | 'running'
-    | 'failing'
-    | 'passed'
-    | 'failed'
-    | 'unclaimed'
-    | 'placeholder'
-    | 'cancelled'
-    | 'noTests'
-    | 'errored'
-    | 'timedOut'
-    | 'overLimit'
-    | 'skipped'
-    | 'pending'
-    | undefined
-  names: string[]
-  id?: string
-  label?: string
+export interface TestResultProps extends TestResultData {
   className?: string
-  flaky?: boolean
-  modified?: boolean
-  added?: boolean
-  hasGroups?: boolean
 }
 
 export const TestResult: React.FC<
   TestResultProps & React.HTMLProps<HTMLDivElement>
-> = ({ status, flaky, modified, added, hasGroups, names, children }) => {
+> = ({
+  status,
+  flaky,
+  modified,
+  added,
+  hasGroups,
+  names,
+  className,
+  children,
+}) => {
   return (
-    <div data-cy="cd-tr-container" className={CSS.container}>
-      <div data-cy="cd-tr-row" className={CSS.row}>
-        <div data-cy="cd-tr-list" className={CSS.list}>
-          <div data-cy="cd-tr-icon" className={CSS.icon}>
+    <div
+      data-cy="cd-tr-container"
+      className={clsx(classes.container, className)}
+    >
+      <div data-cy="cd-tr-row" className={classes.row}>
+        <div data-cy="cd-tr-list" className={classes.list}>
+          <div data-cy="cd-tr-icon" className={classes.icon}>
             <StatusIcon
               size="16"
               variant="solid"
               status={status}
-              className={CSS.status_icon}
+              className={classes.status_icon}
             />
           </div>
           <div
             data-cy="cd-tr-name-container-column"
-            className={CSS.name.container.column}
+            className={classes.name.container.column}
           >
             {names.slice(0, -1).length > 0 && (
               <div
                 data-cy="cd-tr-name-container-describes"
-                className={CSS.name.container.describes}
+                className={classes.name.container.describes}
               >
                 {names.slice(0, -1).map((name, index) => (
                   <React.Fragment key={index}>
                     <div
                       data-cy="cd-tr-name-item"
-                      className={classNames({
-                        [CSS.name.item.base]: true,
-                        [CSS.name.item.first]: names.length >= 2 && index === 0,
-                        [CSS.name.item.middle]:
+                      className={clsx({
+                        [classes.name.item.base]: true,
+                        [classes.name.item.first]:
+                          names.length >= 2 && index === 0,
+                        [classes.name.item.middle]:
                           names.length >= 2 &&
                           index > 0 &&
                           index < names.length - 1,
@@ -76,7 +70,7 @@ export const TestResult: React.FC<
                     >
                       <span
                         data-cy="cd-tr-name-item-text"
-                        className={CSS.name.item.text.base}
+                        className={classes.name.item.text.base}
                       >
                         {name}
                       </span>
@@ -84,7 +78,7 @@ export const TestResult: React.FC<
                     {index < names.length - 1 && (
                       <div
                         data-cy="cd-tr-chevron"
-                        className={CSS.chevron.container}
+                        className={classes.chevron.container}
                       >
                         <IconChevronRightSmall
                           strokeColor="gray-200"
@@ -98,13 +92,13 @@ export const TestResult: React.FC<
             )}
             <div
               data-cy="cd-tr-name-container-it"
-              className={CSS.name.container.it}
+              className={classes.name.container.it}
             >
               <span
                 data-cy="cd-tr-name-item-text"
                 className={[
-                  CSS.name.item.text.base,
-                  CSS.name.item.text.it,
+                  classes.name.item.text.base,
+                  classes.name.item.text.it,
                 ].join(' ')}
               >
                 {names.at(-1)}
@@ -112,7 +106,7 @@ export const TestResult: React.FC<
               {(flaky || modified || added) && (
                 <div
                   data-cy="cd-tr-attributes"
-                  className={CSS.attribute.container}
+                  className={classes.attribute.container}
                 >
                   {flaky && <IconStatusFlaky data-cy="cd-tr-flaky" />}
                   {modified && (
@@ -125,12 +119,12 @@ export const TestResult: React.FC<
               )}
             </div>
           </div>
-          <div data-cy="cd-tr-actions" className={CSS.button.container}>
+          <div data-cy="cd-tr-actions" className={classes.button.container}>
             {children}
             <Button
               variant="outline-light"
               size="32"
-              className={CSS.button.chevron}
+              className={classes.button.chevron}
             >
               {!hasGroups && <IconChevronRightSmall strokeColor="gray-500" />}
               {hasGroups && <IconChevronDownSmall strokeColor="gray-500" />}

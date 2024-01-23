@@ -1,4 +1,6 @@
-export const CSS = {
+import { type statusTypes } from '@cypress-design/constants-statusicon'
+
+export const classes = {
   container:
     'box-border relative my-[-1px] hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result',
   row: 'box-border flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @xl/test-result:px-[16px] @xl/test-result:h-[56px]',
@@ -37,7 +39,18 @@ export const CSS = {
   },
 }
 
-export const TestResults = [
+export interface TestResultData {
+  status: statusTypes
+  names: string[]
+  id?: string
+  label?: string
+  flaky?: boolean
+  modified?: boolean
+  added?: boolean
+  hasGroups?: boolean
+}
+
+export const TestResults: TestResultData[] = [
   {
     id: 'test-result-1',
     status: 'passed',
@@ -216,4 +229,4 @@ export const TestResults = [
     hasGroups: true,
     names: ['TestResult', 'should render with multiple groups'],
   },
-] as const
+]

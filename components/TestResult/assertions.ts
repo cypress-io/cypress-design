@@ -11,32 +11,23 @@ export default function assertions(mountStory: (options?: any) => void): void {
 
   describe('@container', () => {
     it('renders all sizes', () => {
-      cy.viewport(320, 400)
-      cy.log('@xs')
+      cy.viewport(320, 400).log('@xs')
 
-      cy.viewport(384, 400)
-      cy.log('@sm')
+      cy.viewport(384, 400).log('@sm')
 
-      cy.viewport(448, 400)
-      cy.log('@md')
+      cy.viewport(448, 400).log('@md')
 
-      cy.viewport(512, 400)
-      cy.log('@lg')
+      cy.viewport(512, 400).log('@lg')
 
-      cy.viewport(576, 400)
-      cy.log('@xl')
+      cy.viewport(576, 400).log('@xl')
 
-      cy.viewport(672, 400)
-      cy.log('@2xl')
+      cy.viewport(672, 400).log('@2xl')
 
-      cy.viewport(768, 400)
-      cy.log('@3xl')
+      cy.viewport(768, 400).log('@3xl')
 
-      cy.viewport(896, 400)
-      cy.log('@4xl')
+      cy.viewport(896, 400).log('@4xl')
 
-      cy.viewport(1024, 400)
-      cy.log('@5xl')
+      cy.viewport(1024, 400).log('@5xl')
     })
   })
 

@@ -17,11 +17,11 @@ describe('<TestResult/>', () => {
             <TestResult
               key={result.id} // Assuming each result has a unique 'id' for key
               status={result.status}
-              names={[...result.names]}
+              names={result.names}
               flaky={result.flaky}
               modified={result.modified}
               added={result.added}
-              hasGroups={'hasGroups' in result ? result.hasGroups : false}
+              hasGroups={result.hasGroups}
             >
               <Button
                 variant="outline-light"

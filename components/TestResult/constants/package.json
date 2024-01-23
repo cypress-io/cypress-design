@@ -13,6 +13,9 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "dependencies": {
+    "@cypress-design/constants-statusicon": "*"
+  },
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
   },
