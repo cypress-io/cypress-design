@@ -45,7 +45,7 @@ export const Demo = () => (
       <Button
         variant="outline-light"
         size="32"
-        class="hidden @xl/test-result:inline-block h-[32px]"
+        className="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
       >
         <IconChevronRightSmall stroke-color="gray-500" />
       </Button>
