@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.11.2
+
+### Patch Changes
+
+- [`9e0343c`](https://github.com/cypress-io/cypress-design/commit/9e0343c86ae8b186e32d184c6880edd125471cf6) Thanks [@elevatebart](https://github.com/elevatebart)! - fix button type reactivity issue
+
 ## 0.11.1
 
 ### Patch Changes
