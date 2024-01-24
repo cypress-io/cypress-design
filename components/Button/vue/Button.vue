@@ -89,6 +89,7 @@ export default defineComponent({
     v-bind="buttonProps"
     :class="allClasses"
     :disabled="finalDisabled"
+    :type="type"
     @click="($event) => $emit('click', $event)"
   >
     <slot />
