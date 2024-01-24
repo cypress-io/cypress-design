@@ -58,7 +58,7 @@ describe('<TestResult/>', () => {
   function mountStory() {
     mount(
       <div className="p-[16px]">
-        <div>
+        <div className="border border-gray-100">
           {TestResults.map((result) => (
             <TestResultSut {...result} key={result.id} />
           ))}
