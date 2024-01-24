@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.11.1
+
+### Patch Changes
+
+- [`2771c45`](https://github.com/cypress-io/cypress-design/commit/2771c454a03635e201a085e6f5ef4a33b74b1232) Thanks [@elevatebart](https://github.com/elevatebart)! - use the type prop in button
+
 ## 0.11.0
 
 ### Minor Changes
