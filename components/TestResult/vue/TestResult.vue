@@ -92,9 +92,10 @@ defineProps<TestResultData>()
           data-cy="cd-tr-actions"
           :class="classes.button.container"
         >
-          <slot />
+          <slot name="actions" />
         </div>
       </div>
+      <slot name="groups" />
     </div>
   </div>
 </template>
