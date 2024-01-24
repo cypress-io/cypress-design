@@ -15,7 +15,7 @@ module.exports = async function renderProp(slots, opt) {
   return `
 ${supComponent ? '#' : ''}## Slots
 
-${await lineTemplate(slots, supComponent)}
+${await lineTemplate(slots, supComponent ?? false)}
 `
 }
 
@@ -28,12 +28,14 @@ async function lineTemplate(slot, supComponent) {
   const retArray = await Promise.all(
     slot.map(async (sl) => {
       const bindings = await Promise.all(
-        sl.bindings.map(async function (bind) {
-          return {
-            name: bind.title,
-            type: await renderType(bind.type),
-          }
-        })
+        sl.bindings?.map(async function (bind) {
+          return bind.type
+            ? {
+                name: bind.title,
+                type: await renderType(bind.type),
+              }
+            : {}
+        }) ?? [],
       )
       const name = sl.name
       let t = sl.description ?? ''
@@ -53,13 +55,13 @@ ${bindings
 ##### ${p.name}
 
 <div>${p.type}</div>
-`
+`,
   )
   .join('\n')}
 `
     : ''
 }`
-    })
+    }),
   )
 
   return retArray.join('')

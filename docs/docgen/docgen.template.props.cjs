@@ -16,20 +16,20 @@ async function lineTemplate(props, supComponent) {
       const p = pr.name
       let t = pr.description ?? ''
       t += renderTags(pr.tags)
-      const n = await renderType(pr.type)
+      const n = pr.type ? await renderType(pr.type) : ''
       const d = pr.defaultValue?.value ?? ''
 
       return `
 ${supComponent ? '#' : ''}### ${mdclean(p)}
 
-<p><b>type</b> ${n}${pr.required ? ` *required` : ''}${
+<p class="m-2"><b>type</b> ${n}${pr.required ? ` *required` : ''}${
         d.length ? ` - <b>default</b>: <code>${mdclean(d)}</code>` : ''
       }</p>
 
-${mdclean(t)}
+${t?.length ? `<p class="m-2">${mdclean(t)}</p>` : ''}
 
 `
-    })
+    }),
   )
 
   return retArray.join('')
@@ -46,7 +46,7 @@ module.exports = async function renderProp(props, opt) {
   return `
 ${supComponent ? '#' : ''}## Props
 
-${await lineTemplate(props, supComponent)}
+${await lineTemplate(props, supComponent ?? false)}
 ---
 `
 }

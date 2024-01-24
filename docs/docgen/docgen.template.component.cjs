@@ -20,9 +20,11 @@ import { ${
   } as ${tempName} } from '../../../components/${fileName}'
 const components$ = { ${doc.displayName}: ${tempName} }
 </script>
-${doc.docsBlocks
-  .map((d) => d.replace(new RegExp(`# ${doc.displayName}`, 'g'), ''))
-  .join('\n\n')}
+${
+  doc.docsBlocks
+    ?.map((d) => d.replace(new RegExp(`# ${doc.displayName}`, 'g'), ''))
+    .join('\n\n') ?? ''
+}
 ${usage.props}
 ${usage.events}
 ${usage.slots}
