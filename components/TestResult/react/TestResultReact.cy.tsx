@@ -56,7 +56,7 @@ const TestResultSut = (result: TestResultData) => {
 describe('<TestResult/>', () => {
   function mountStory() {
     mount(
-      <div className="p-[16px] antialiased">
+      <div className="p-[16px]">
         <div>
           {TestResults.map((result) => (
             <TestResultSut {...result} key={result.id} />

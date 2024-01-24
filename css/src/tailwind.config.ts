@@ -42,6 +42,10 @@ export default (fileGlobs: string[] = []) => {
       shortcuts,
       iconPlugin,
       detailsOpenVariantPlugin,
+      containerPlugin,
+      /**
+       * hocus + group-hocus plugin
+       */
       plugin(({ addVariant }) => {
         addVariant('hocus', ['&:focus', '&:hover'])
         addVariant('group-hocus', [
@@ -50,7 +54,17 @@ export default (fileGlobs: string[] = []) => {
         ])
         addVariant('children', '& *')
       }),
-      containerPlugin,
+      /**
+       * add antialiased base for entire body
+       */
+      plugin(({ addBase }) => {
+        addBase({
+          body: {
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale',
+          },
+        })
+      }),
     ],
   })
 }
