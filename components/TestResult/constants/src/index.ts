@@ -2,7 +2,7 @@ import { type statusTypes } from '@cypress-design/constants-statusicon'
 
 export const classes = {
   container:
-    'box-border relative hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result m-[-1px]',
+    'box-border relative hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result my-[-1px]',
   row: 'box-border flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @xl/test-result:px-[16px] @xl/test-result:h-[56px]',
   list: 'box-border flex justify-start items-center flex-nowrap w-[100%] h-[100%] @xl/test-result:h-[32px] gap-x-[8px]',
   icon: 'box-border h-[16px] w-[16px]',
