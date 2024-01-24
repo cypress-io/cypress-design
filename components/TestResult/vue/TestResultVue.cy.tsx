@@ -35,6 +35,7 @@ const TestResultSut = (result: TestResultData) => {
         class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
         onClick={() => (showGroupBox.value = !showGroupBox.value)}
       >
+        <span class="sr-only">Expand Group</span>
         <IconChevronRightSmall
           stroke-color="gray-500"
           class={{
