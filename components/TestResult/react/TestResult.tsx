@@ -18,7 +18,16 @@ export interface TestResultProps extends TestResultData {
 
 export const TestResult: React.FC<
   TestResultProps & React.HTMLProps<HTMLDivElement>
-> = ({ status, flaky, modified, added, names, className, children }) => {
+> = ({
+  status,
+  names,
+  flaky,
+  modified,
+  added,
+  groups,
+  className,
+  children,
+}) => {
   return (
     <div
       data-cy="cd-tr-container"
@@ -114,6 +123,7 @@ export const TestResult: React.FC<
             </div>
           ) : null}
         </div>
+        {groups ? <div data-cy="cd-tr-groups">{groups}</div> : null}
       </div>
     </div>
   )

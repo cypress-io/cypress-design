@@ -3,7 +3,7 @@ import { type statusTypes } from '@cypress-design/constants-statusicon'
 export const classes = {
   container:
     'box-border relative hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result my-[-1px]',
-  row: 'box-border flex border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center flex-nowrap p-[12px] @xl/test-result:px-[16px] @xl/test-result:h-[56px]',
+  row: 'box-border flex flex-col flex-nowrap p-[11px] border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center @xl/test-result:px-[15px]',
   list: 'box-border flex justify-start items-center flex-nowrap w-[100%] h-[100%] @xl/test-result:h-[32px] gap-x-[8px]',
   icon: 'box-border h-[16px] w-[16px]',
   status_icon: 'align-top',
@@ -57,6 +57,10 @@ export interface TestResultData {
    * will display an "added" icon
    */
   added?: boolean
+  /**
+   * will display an "added" icon
+   */
+  groups?: string[]
 }
 
 export const TestResults: (TestResultData & { id: string })[] = [
@@ -226,5 +230,14 @@ export const TestResults: (TestResultData & { id: string })[] = [
     modified: true,
     added: false,
     names: ['TestResult', 'should render as flaky and modified'],
+  },
+  {
+    id: 'test-result-21',
+    status: 'passed',
+    flaky: true,
+    modified: true,
+    added: false,
+    names: ['TestResult', 'should render with groups'],
+    groups: ['Chrome', 'Firefox', 'Safari'],
   },
 ]

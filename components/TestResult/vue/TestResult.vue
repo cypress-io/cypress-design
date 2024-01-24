@@ -88,14 +88,16 @@ defineProps<TestResultData>()
           </div>
         </div>
         <div
-          v-if="$slots.default"
+          v-if="$slots.actions"
           data-cy="cd-tr-actions"
           :class="classes.button.container"
         >
           <slot name="actions" />
         </div>
       </div>
-      <slot name="groups" />
+      <div v-if="$slots.groups" data-cy="cd-tr-groups">
+        <slot name="groups" />
+      </div>
     </div>
   </div>
 </template>

@@ -24,6 +24,7 @@ const TestResultSut = (result: TestResultData) => {
       flaky={result.flaky}
       modified={result.modified}
       added={result.added}
+      groups={result.groups}
     >
       <Button
         variant="outline-light"
@@ -58,11 +59,9 @@ describe('<TestResult/>', () => {
   function mountStory() {
     mount(
       <div className="p-[16px]">
-        <div className="border border-gray-100">
-          {TestResults.map((result) => (
-            <TestResultSut {...result} key={result.id} />
-          ))}
-        </div>
+        {TestResults.map((result) => (
+          <TestResultSut {...result} key={result.id} />
+        ))}
       </div>,
     )
   }
