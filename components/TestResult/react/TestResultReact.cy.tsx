@@ -25,17 +25,20 @@ const TestResultSut = (result: TestResultData) => {
       modified={result.modified}
       added={result.added}
       groups={result.groups}
+      onClick={() => setShowGroupBox(!showGroupBox)}
     >
-      <Button
-        variant="outline-light"
-        size="32"
-        className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-      >
-        <IconActionTestReplay />
-        <span className="hidden @lg/test-result:inline ml-[8px]">
-          Test Replay
-        </span>
-      </Button>
+      {result.groups ? null : (
+        <Button
+          variant="outline-light"
+          size="32"
+          className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+        >
+          <IconActionTestReplay />
+          <span className="hidden @lg/test-result:inline ml-[8px]">
+            Test Replay
+          </span>
+        </Button>
+      )}
       <Button
         variant="outline-light"
         size="32"

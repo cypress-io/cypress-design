@@ -95,7 +95,11 @@ defineProps<TestResultData>()
           <slot name="actions" />
         </div>
       </div>
-      <div v-if="$slots.groups" data-cy="cd-tr-groups">
+      <div
+        v-if="$slots.groups"
+        data-cy="cd-tr-group-container"
+        :class="classes.group.container"
+      >
         <slot name="groups" />
       </div>
     </div>

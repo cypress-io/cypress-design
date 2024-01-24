@@ -3,7 +3,7 @@ import { type statusTypes } from '@cypress-design/constants-statusicon'
 export const classes = {
   container:
     'box-border relative hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result my-[-1px]',
-  row: 'box-border flex flex-col flex-nowrap p-[11px] border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center @xl/test-result:px-[15px]',
+  row: 'box-border flex flex-col flex-nowrap items-stretch gap-y-[16px] p-[11px] border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center @xl/test-result:px-[15px]',
   list: 'box-border flex justify-start items-center flex-nowrap w-[100%] h-[100%] @xl/test-result:h-[32px] gap-x-[8px]',
   icon: 'box-border h-[16px] w-[16px]',
   status_icon: 'align-top',
@@ -35,6 +35,9 @@ export const classes = {
   },
   button: {
     container: 'shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end',
+  },
+  group: {
+    container: 'pb-[4px]',
   },
 }
 

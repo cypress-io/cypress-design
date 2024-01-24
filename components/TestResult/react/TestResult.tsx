@@ -123,7 +123,14 @@ export const TestResult: React.FC<
             </div>
           ) : null}
         </div>
-        {groups ? <div data-cy="cd-tr-groups">{groups}</div> : null}
+        {groups ? (
+          <div
+            data-cy="cd-tr-group-container"
+            className={classes.group.container}
+          >
+            <div className="border border-gray-100 rounded">{groups}</div>
+          </div>
+        ) : null}
       </div>
     </div>
   )
