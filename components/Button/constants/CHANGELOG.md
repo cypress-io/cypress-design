@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 0.1.2
+
+### Patch Changes
+
+- [`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62) Thanks [@elevatebart](https://github.com/elevatebart)! - add w-fit and restore flex
+
 ## 0.1.1
 
 ### Patch Changes
