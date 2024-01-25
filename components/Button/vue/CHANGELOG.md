@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 0.11.3
+
+### Patch Changes
+
+- [#378](https://github.com/cypress-io/cypress-design/pull/378) [`c53e687`](https://github.com/cypress-io/cypress-design/commit/c53e68712e701d3a04ac0fb21c99943700b56158) Thanks [@elevatebart](https://github.com/elevatebart)! - fix the reactivity of href
+
 ## 0.11.2
 
 ### Patch Changes
