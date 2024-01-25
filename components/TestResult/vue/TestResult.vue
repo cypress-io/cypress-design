@@ -58,7 +58,7 @@ defineProps<TestResultData>()
               >
                 <IconChevronRightSmall
                   stroke-color="gray-200"
-                  class="align-top relative bottom-[-1px]"
+                  class="mt-[2px]"
                 />
               </div>
             </template>

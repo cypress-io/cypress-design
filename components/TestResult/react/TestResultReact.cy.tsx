@@ -31,7 +31,7 @@ const TestResultSut = (result: TestResultData) => {
         <Button
           variant="outline-light"
           size="32"
-          className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+          className="!px-[8px] @lg/test-result:!px-[12px]"
         >
           <IconActionTestReplay />
           <span className="hidden @lg/test-result:inline ml-[8px]">
@@ -42,7 +42,7 @@ const TestResultSut = (result: TestResultData) => {
       <Button
         variant="outline-light"
         size="32"
-        className="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+        className="!px-[8px] hidden @xl/test-result:inline-block"
         onClick={() => setShowGroupBox(!showGroupBox)}
       >
         <span className="sr-only">Expand Group</span>

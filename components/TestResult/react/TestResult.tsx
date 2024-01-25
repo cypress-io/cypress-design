@@ -80,7 +80,7 @@ export const TestResult: React.FC<
                       >
                         <IconChevronRightSmall
                           strokeColor="gray-200"
-                          className="align-top relative bottom-[-1px]"
+                          className="mt-[2px]"
                         />
                       </div>
                     )}
