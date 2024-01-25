@@ -1,5 +1,14 @@
 # @cypress-design/vue-button
 
+## 0.11.5
+
+### Patch Changes
+
+- [`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62) Thanks [@elevatebart](https://github.com/elevatebart)! - add w-fit and restore flex
+
+- Updated dependencies [[`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62)]:
+  - @cypress-design/constants-button@0.1.2
+
 ## 0.11.4
 
 ### Patch Changes
