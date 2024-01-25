@@ -13,6 +13,7 @@ import { ref } from 'vue'
 
 const TestResultSut = (result: TestResultData) => {
   const showGroupBox = ref(false)
+
   return (
     <TestResult
       status={result.status}
@@ -22,36 +23,59 @@ const TestResultSut = (result: TestResultData) => {
       added={result.added}
     >
       {{
-        actions: () => (
-          <>
-            <Button
-              variant="outline-light"
-              size="32"
-              class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-            >
-              <IconActionTestReplay />
-              <span class="hidden @lg/test-result:inline ml-[8px]">
-                Test Replay
-              </span>
-            </Button>
-            <Button
-              variant="outline-light"
-              size="32"
-              class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
-              onClick={() => (showGroupBox.value = !showGroupBox.value)}
-            >
-              <span class="sr-only">Expand Group</span>
-              <IconChevronRightSmall
-                stroke-color="gray-500"
-                class={{
-                  'transition-transform transform': true,
-                  'rotate-90': showGroupBox,
-                }}
+        actions: () => [
+          <Button
+            variant="outline-light"
+            size="32"
+            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+          >
+            <IconActionTestReplay />
+            <span class="hidden @lg/test-result:inline ml-[8px]">
+              Test Replay
+            </span>
+          </Button>,
+          <Button
+            variant="outline-light"
+            size="32"
+            class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+            onClick={() => (showGroupBox.value = !showGroupBox.value)}
+          >
+            <span class="sr-only">Expand Group</span>
+            <IconChevronRightSmall
+              stroke-color="gray-500"
+              class={{
+                'transition-transform transform': true,
+                'rotate-90': showGroupBox.value,
+              }}
+            />
+          </Button>,
+        ],
+        groups: () =>
+          showGroupBox.value ? (
+            <div>
+              <TestResult
+                status={result.status}
+                names={result.names}
+                flaky={result.flaky}
+                modified={result.modified}
+                added={result.added}
               />
-            </Button>
-          </>
-        ),
-        groups: () => <div>groups</div>,
+              <TestResult
+                status={result.status}
+                names={result.names}
+                flaky={result.flaky}
+                modified={result.modified}
+                added={result.added}
+              />
+              <TestResult
+                status={result.status}
+                names={result.names}
+                flaky={result.flaky}
+                modified={result.modified}
+                added={result.added}
+              />
+            </div>
+          ) : null,
       }}
     </TestResult>
   )

@@ -37,7 +37,7 @@ export const classes = {
     container: 'shrink-0 flex flex-nowrap items-center gap-x-[8px] justify-end',
   },
   group: {
-    container: 'pb-[4px]',
+    container: 'pb-[4px] empty:hidden',
   },
 }
 

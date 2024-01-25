@@ -96,7 +96,7 @@ defineProps<TestResultData>()
         </div>
       </div>
       <div
-        v-if="$slots.groups"
+        v-if="$slots.groups?.() !== undefined"
         data-cy="cd-tr-group-container"
         :class="classes.group.container"
       >
