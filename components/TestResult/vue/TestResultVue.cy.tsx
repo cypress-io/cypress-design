@@ -21,36 +21,38 @@ const TestResultSut = (result: TestResultData) => {
       modified={result.modified}
       added={result.added}
     >
-      <template v-slot:actions>
-        <Button
-          variant="outline-light"
-          size="32"
-          class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-        >
-          <IconActionTestReplay />
-          <span class="hidden @lg/test-result:inline ml-[8px]">
-            Test Replay
-          </span>
-        </Button>
-        <Button
-          variant="outline-light"
-          size="32"
-          class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
-          onClick={() => (showGroupBox.value = !showGroupBox.value)}
-        >
-          <span class="sr-only">Expand Group</span>
-          <IconChevronRightSmall
-            stroke-color="gray-500"
-            class={{
-              'transition-transform transform': true,
-              'rotate-90': showGroupBox,
-            }}
-          />
-        </Button>
-      </template>
-      <template v-slot:groups>
-        <div>groups</div>
-      </template>
+      {{
+        actions: () => (
+          <>
+            <Button
+              variant="outline-light"
+              size="32"
+              class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+            >
+              <IconActionTestReplay />
+              <span class="hidden @lg/test-result:inline ml-[8px]">
+                Test Replay
+              </span>
+            </Button>
+            <Button
+              variant="outline-light"
+              size="32"
+              class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+              onClick={() => (showGroupBox.value = !showGroupBox.value)}
+            >
+              <span class="sr-only">Expand Group</span>
+              <IconChevronRightSmall
+                stroke-color="gray-500"
+                class={{
+                  'transition-transform transform': true,
+                  'rotate-90': showGroupBox,
+                }}
+              />
+            </Button>
+          </>
+        ),
+        groups: () => <div>groups</div>,
+      }}
     </TestResult>
   )
 }
