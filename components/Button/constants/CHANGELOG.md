@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 0.1.3
+
+### Patch Changes
+
+- [`28863db`](https://github.com/cypress-io/cypress-design/commit/28863dbcf9dc6a9215583efce0a185133e377fc0) Thanks [@elevatebart](https://github.com/elevatebart)! - button should have a width by default
+
 ## 0.1.2
 
 ### Patch Changes
