@@ -37,17 +37,26 @@ export const Demo = () => {
         flaky
         modified
         added
+        groups={
+          toggled
+            ? ['Chrome', 'Firefox'].map((group) => (
+                <div className="px-[16px] py-[8px] border border-gray-100 flex">
+                  <span className="flex-1">{group}</span>
+                  <Button
+                    variant="outline-light"
+                    size="32"
+                    className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+                  >
+                    <IconActionTestReplay />
+                    <span className="hidden @lg/test-result:inline ml-[8px]">
+                      Test Replay
+                    </span>
+                  </Button>
+                </div>
+              ))
+            : null
+        }
       >
-        <Button
-          variant="outline-light"
-          size="32"
-          className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-        >
-          <IconActionTestReplay />
-          <span className="hidden @lg/test-result:inline ml-[8px]">
-            Test Replay
-          </span>
-        </Button>
         <Button
           variant="outline-light"
           size="32"

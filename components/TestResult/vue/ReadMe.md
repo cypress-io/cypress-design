@@ -39,28 +39,40 @@ const toggled = ref(false)
       modified
       added
     >
-      <Button
-        variant="outline-light"
-        size="32"
-        class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-      >
-        <IconActionTestReplay />
-        <span class="hidden @lg/test-result:inline ml-[8px]">Test Replay</span>
-      </Button>
-      <Button
-        variant="outline-light"
-        size="32"
-        class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
-        @click="toggled = !toggled"
-      >
-        <IconChevronRightSmall
-          stroke-color="gray-500"
-          :class="{
-            'rotate-90': toggled,
-            'transform transition-transform': true,
-          }"
-        />
-      </Button>
+      <template slot="actions">
+        <Button
+          variant="outline-light"
+          size="32"
+          class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+          @click="toggled = !toggled"
+        >
+          <IconChevronRightSmall
+            stroke-color="gray-500"
+            :class="{
+              'rotate-90': toggled,
+              'transform transition-transform': true,
+            }"
+          />
+        </Button>
+      </template>
+      <template v-if="toggled" slot="groups">
+        <div
+          v-for="group in ['Chrome', 'Firefox']"
+          class="px-[16px] py-[8px] border border-gray-100 flex"
+        >
+          <span class="flex-1">{{ group }}</span>
+          <Button
+            variant="outline-light"
+            size="32"
+            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+          >
+            <IconActionTestReplay />
+            <span class="hidden @lg/test-result:inline ml-[8px]">
+              Test Replay
+            </span>
+          </Button>
+        </div>
+      </template>
     </TestResult>
   </div>
 </template>
