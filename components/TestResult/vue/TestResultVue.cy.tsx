@@ -24,21 +24,27 @@ const TestResultSut = (result: TestResultData) => {
     >
       {{
         actions: () => [
-          <Button
-            variant="outline-light"
-            size="32"
-            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
-          >
-            <IconActionTestReplay />
-            <span class="hidden @lg/test-result:inline ml-[8px]">
-              Test Replay
-            </span>
-          </Button>,
+          !result.groups ? (
+            <Button
+              variant="outline-light"
+              size="32"
+              class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+            >
+              <IconActionTestReplay />
+              <span class="hidden @lg/test-result:inline ml-[8px]">
+                Test Replay
+              </span>
+            </Button>
+          ) : null,
           <Button
             variant="outline-light"
             size="32"
             class="!px-[8px] hidden @xl/test-result:inline-block"
-            onClick={() => (showGroupBox.value = !showGroupBox.value)}
+            onClick={() => {
+              if (result.groups) {
+                showGroupBox.value = !showGroupBox.value
+              }
+            }}
           >
             <span class="sr-only">Expand Group</span>
             <IconChevronRightSmall
@@ -53,27 +59,21 @@ const TestResultSut = (result: TestResultData) => {
         groups: () =>
           showGroupBox.value ? (
             <div>
-              <TestResult
-                status={result.status}
-                names={result.names}
-                flaky={result.flaky}
-                modified={result.modified}
-                added={result.added}
-              />
-              <TestResult
-                status={result.status}
-                names={result.names}
-                flaky={result.flaky}
-                modified={result.modified}
-                added={result.added}
-              />
-              <TestResult
-                status={result.status}
-                names={result.names}
-                flaky={result.flaky}
-                modified={result.modified}
-                added={result.added}
-              />
+              {result.groups?.map((group) => (
+                <div class="px-[16px] py-[8px] border border-gray-100 flex">
+                  <span class="flex-1">{group}</span>
+                  <Button
+                    variant="outline-light"
+                    size="32"
+                    class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+                  >
+                    <IconActionTestReplay />
+                    <span class="hidden @lg/test-result:inline ml-[8px]">
+                      Test Replay
+                    </span>
+                  </Button>
+                </div>
+              ))}
             </div>
           ) : null,
       }}
