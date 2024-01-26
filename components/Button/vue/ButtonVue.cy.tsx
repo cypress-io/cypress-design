@@ -89,13 +89,14 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
 
     mount({
       render: () => (
-        <div>
-          <button
+        <div class="p-4">
+          <Button
             data-cy="toggle"
+            class="mb-4"
             onClick={() => (cyHref.value = 'https://www.cypress.io')}
           >
             Toggle
-          </button>
+          </Button>
 
           <Button href={cyHref.value}>DS Button</Button>
         </div>
