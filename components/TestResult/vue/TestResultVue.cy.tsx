@@ -11,7 +11,7 @@ import { IconActionTestReplay } from '@cypress-design/vue-icon'
 import { IconChevronRightSmall } from '@cypress-design/vue-icon'
 import { ref } from 'vue'
 
-const TestResultSut = (result: TestResultData) => {
+const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
   const showGroupBox = ref(false)
 
   return (

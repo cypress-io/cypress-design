@@ -15,16 +15,32 @@ import {
 import assertions from '../assertions'
 import clsx from 'clsx'
 
-const TestResultSut = (result: TestResultData) => {
+const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
   const [showGroupBox, setShowGroupBox] = React.useState(false)
   return (
     <TestResult
-      status={result.status}
-      names={result.names}
-      flaky={result.flaky}
-      modified={result.modified}
-      added={result.added}
-      groups={result.groups}
+      {...result}
+      groups={
+        showGroupBox ? (
+          <div>
+            {result.groups?.map((group) => (
+              <div className="px-[16px] py-[8px] border border-gray-100 flex">
+                <span className="flex-1">{group}</span>
+                <Button
+                  variant="outline-light"
+                  size="32"
+                  className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+                >
+                  <IconActionTestReplay />
+                  <span className="hidden @lg/test-result:inline ml-[8px]">
+                    Test Replay
+                  </span>
+                </Button>
+              </div>
+            ))}
+          </div>
+        ) : null
+      }
       onClick={() => setShowGroupBox(!showGroupBox)}
     >
       {result.groups ? null : (
@@ -43,7 +59,7 @@ const TestResultSut = (result: TestResultData) => {
         variant="outline-light"
         size="32"
         className="!px-[8px] hidden @xl/test-result:inline-block"
-        onClick={() => setShowGroupBox(!showGroupBox)}
+        onClick={() => (result.groups ? setShowGroupBox(!showGroupBox) : null)}
       >
         <span className="sr-only">Expand Group</span>
         <IconChevronRightSmall

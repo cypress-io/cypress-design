@@ -14,6 +14,7 @@ import {
 
 export interface TestResultProps extends TestResultData {
   className?: string
+  groups?: React.ReactNode
 }
 
 export const TestResult: React.FC<
@@ -24,8 +25,8 @@ export const TestResult: React.FC<
   flaky,
   modified,
   added,
-  groups,
   className,
+  groups,
   children,
 }) => {
   return (
@@ -128,7 +129,7 @@ export const TestResult: React.FC<
             data-cy="cd-tr-group-container"
             className={classes.group.container}
           >
-            <div className="border border-gray-100 rounded">{groups}</div>
+            {groups}
           </div>
         ) : null}
       </div>

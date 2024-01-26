@@ -60,13 +60,12 @@ export interface TestResultData {
    * will display an "added" icon
    */
   added?: boolean
-  /**
-   * will display an "added" icon
-   */
-  groups?: string[]
 }
 
-export const TestResults: (TestResultData & { id: string })[] = [
+export const TestResults: (TestResultData & {
+  id: string
+  groups?: string[]
+})[] = [
   {
     id: 'test-result-1',
     status: 'passed',
