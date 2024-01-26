@@ -39,7 +39,7 @@ const toggled = ref(false)
       modified
       added
     >
-      <template slot="actions">
+      <template #actions>
         <Button
           variant="outline-light"
           size="32"
@@ -55,10 +55,10 @@ const toggled = ref(false)
           />
         </Button>
       </template>
-      <template v-if="toggled" slot="groups">
+      <template v-if="toggled" #groups>
         <div
           v-for="group in ['Chrome', 'Firefox']"
-          class="px-[16px] py-[8px] border border-gray-100 flex"
+          class="px-[16px] py-[8px] border border-gray-100 flex items-center"
         >
           <span class="flex-1">{{ group }}</span>
           <Button
