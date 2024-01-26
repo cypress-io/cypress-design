@@ -1,5 +1,17 @@
 # @cypress-design/constants-button
 
+## 0.1.2
+
+### Patch Changes
+
+- [`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62) Thanks [@elevatebart](https://github.com/elevatebart)! - add w-fit and restore flex
+
+## 0.1.1
+
+### Patch Changes
+
+- [`5153571`](https://github.com/cypress-io/cypress-design/commit/5153571c6cf83960692834d27974d7293303a273) Thanks [@elevatebart](https://github.com/elevatebart)! - use inline-flex instead of flex to avoid superwide links
+
 ## 0.1.0
 
 ### Minor Changes

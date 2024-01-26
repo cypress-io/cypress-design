@@ -1,5 +1,29 @@
 # @cypress-design/vue-button
 
+## 0.11.5
+
+### Patch Changes
+
+- [`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62) Thanks [@elevatebart](https://github.com/elevatebart)! - add w-fit and restore flex
+
+- Updated dependencies [[`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62)]:
+  - @cypress-design/constants-button@0.1.2
+
+## 0.11.4
+
+### Patch Changes
+
+- [`5153571`](https://github.com/cypress-io/cypress-design/commit/5153571c6cf83960692834d27974d7293303a273) Thanks [@elevatebart](https://github.com/elevatebart)! - use inline-flex instead of flex to avoid superwide links
+
+- Updated dependencies [[`5153571`](https://github.com/cypress-io/cypress-design/commit/5153571c6cf83960692834d27974d7293303a273)]:
+  - @cypress-design/constants-button@0.1.1
+
+## 0.11.3
+
+### Patch Changes
+
+- [#378](https://github.com/cypress-io/cypress-design/pull/378) [`c53e687`](https://github.com/cypress-io/cypress-design/commit/c53e68712e701d3a04ac0fb21c99943700b56158) Thanks [@elevatebart](https://github.com/elevatebart)! - fix the reactivity of href
+
 ## 0.11.2
 
 ### Patch Changes

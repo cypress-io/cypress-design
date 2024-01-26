@@ -61,8 +61,8 @@ export default defineComponent({
     ])
 
     return {
-      href: props.href,
-      type: props.type,
+      href: computed(() => props.href),
+      type: computed(() => props.type),
       finalDisabled,
       allClasses,
     }

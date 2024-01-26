@@ -65,6 +65,17 @@ export default (fileGlobs: string[] = []) => {
           },
         })
       }),
+      plugin(({ addComponents }) => {
+        addComponents({
+          // to allow users to set custom width on buttons, we give it a width by default
+          // if we don't set the button with by default, anchors will not have
+          // the same size as buttons
+          '.cy-button-width': {
+            width: 'fit-content',
+          },
+        })
+      }),
+      containerPlugin,
     ],
   })
 }
