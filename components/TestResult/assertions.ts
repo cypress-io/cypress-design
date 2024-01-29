@@ -9,7 +9,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
     cy.percySnapshot()
   })
 
-  describe('@container', () => {
+  describe('@container', { viewportWidth: 1024, viewportHeight: 400 }, () => {
     it('renders all sizes', () => {
       cy.viewport(320, 400).log('@xs')
 
@@ -28,6 +28,20 @@ export default function assertions(mountStory: (options?: any) => void): void {
       cy.viewport(896, 400).log('@4xl')
 
       cy.viewport(1024, 400).log('@5xl')
+    })
+
+    it('expand when groups are present', () => {
+      cy.get('[data-cy="cd-tr-container"]').eq(-1).as('container')
+      cy.get('@container').invoke('height').should('equal', 56)
+
+      // Expand the group
+      cy.get('@container').click().log('Expand the group')
+      cy.get('@container').invoke('height').should('be.greaterThan', 56)
+
+      // Collapse the group
+      cy.get('@container').click().log('Collapse the group')
+      cy.get('@container').invoke('height').should('equal', 56)
+      cy
     })
   })
 

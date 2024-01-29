@@ -19,6 +19,7 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
 
   return (
     <TestResult
+      data-cy-id={result.id}
       status={result.status}
       names={result.names}
       flaky={result.flaky}
@@ -48,6 +49,7 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
             variant="outline-light"
             size="32"
             class="!px-[8px] hidden @xl/test-result:inline-block"
+            aria-label="expand"
             onClick={() => {
               if (result.groups) {
                 showGroupBox.value = !showGroupBox.value
@@ -78,6 +80,7 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
                     variant="outline-light"
                     size="32"
                     class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+                    aria-label="test replay"
                   >
                     <IconActionTestReplay />
                     <span class="hidden @lg/test-result:inline ml-[8px]">

@@ -22,9 +22,12 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
       {...result}
       groups={
         showGroupBox ? (
-          <div>
-            {result.groups?.map((group) => (
-              <div className="px-[16px] py-[8px] border border-gray-100 flex">
+          <div className="flex flex-col">
+            {result.groups?.map((group, index) => (
+              <div
+                key={group + index}
+                className="px-[16px] py-[12px] border border-gray-100 flex mb-[-1px] h-[56px]"
+              >
                 <span className="flex-1">{group}</span>
                 <Button
                   variant="outline-light"
@@ -41,7 +44,7 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
           </div>
         ) : null
       }
-      onClick={() => setShowGroupBox(!showGroupBox)}
+      onClick={() => (result.groups ? setShowGroupBox(!showGroupBox) : null)}
     >
       {result.groups ? null : (
         <Button
