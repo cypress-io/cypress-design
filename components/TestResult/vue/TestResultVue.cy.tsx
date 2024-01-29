@@ -8,7 +8,10 @@ import {
 } from '@cypress-design/constants-testresult'
 import Button from '@cypress-design/vue-button'
 import { IconActionTestReplay } from '@cypress-design/vue-icon'
-import { IconChevronRightSmall } from '@cypress-design/vue-icon'
+import {
+  IconChevronRightSmall,
+  IconChevronDownSmall,
+} from '@cypress-design/vue-icon'
 import { ref } from 'vue'
 
 const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
@@ -21,6 +24,11 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
       flaky={result.flaky}
       modified={result.modified}
       added={result.added}
+      onClick={() => {
+        if (result.groups) {
+          showGroupBox.value = !showGroupBox.value
+        }
+      }}
     >
       {{
         actions: () => [
@@ -46,21 +54,25 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
               }
             }}
           >
-            <span class="sr-only">Expand Group</span>
-            <IconChevronRightSmall
-              stroke-color="gray-500"
-              class={{
-                'transition-transform transform': true,
-                'rotate-90': showGroupBox.value,
-              }}
-            />
+            <span class="sr-only">Expand</span>
+            {result.groups ? (
+              <IconChevronDownSmall
+                stroke-color="gray-500"
+                class={{
+                  'transition-transform transform': true,
+                  'rotate-180': showGroupBox.value,
+                }}
+              />
+            ) : (
+              <IconChevronRightSmall stroke-color="gray-500" />
+            )}
           </Button>,
         ],
         groups: () =>
           showGroupBox.value ? (
-            <div>
+            <div class="flex flex-col">
               {result.groups?.map((group) => (
-                <div class="px-[16px] py-[8px] border border-gray-100 flex">
+                <div class="px-[16px] py-[12px] border border-gray-100 flex mb-[-1px] h-[56px]">
                   <span class="flex-1">{group}</span>
                   <Button
                     variant="outline-light"
