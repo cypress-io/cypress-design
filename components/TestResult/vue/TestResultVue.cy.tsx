@@ -19,7 +19,6 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
 
   return (
     <TestResult
-      data-cy-id={result.id}
       status={result.status}
       names={result.names}
       flaky={result.flaky}
