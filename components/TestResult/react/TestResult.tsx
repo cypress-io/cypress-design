@@ -28,10 +28,12 @@ export const TestResult: React.FC<
   className,
   groups,
   children,
+  ...rest
 }) => {
   return (
     <div
       data-cy="cd-tr-container"
+      {...rest}
       className={clsx(classes.container, className)}
     >
       <div data-cy="cd-tr-row" className={classes.row}>
