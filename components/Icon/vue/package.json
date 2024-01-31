@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "0.31.2",
+  "version": "0.32.0",
   "files": [
     "*"
   ],
@@ -21,7 +21,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.33.1"
+    "@cypress-design/icon-registry": "^0.34.0"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
