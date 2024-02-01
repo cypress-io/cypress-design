@@ -1,0 +1,42 @@
+<script lang="ts" setup>
+defineProps<{
+  isActive?: boolean
+}>()
+</script>
+
+<template>
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M20 18C21.1046 18 22 17.1046 22 16V10C22 8.89543 21.1046 8 20 8H12C10.8954 8 10 8.89543 10 10V16C10 17.1046 10.8954 18 12 18H14L19 20.5V18H20Z"
+      stroke="#1B1E2E"
+      fill="#F3F4FA"
+      stroke-width="2"
+      stroke-linejoin="round"
+    ></path>
+    <path
+      d="M17 6C17 4.89543 16.1046 4 15 4H4C2.89543 4 2 4.89543 2 6V12C2 13.1046 2.89543 14 4 14H5V16.5L10 14H15C16.1046 14 17 13.1046 17 12V6Z"
+      stroke="#1B1E2E"
+      fill="#BFC2D4"
+      stroke-width="2"
+      stroke-linejoin="round"
+    />
+    <path
+      d="M7 9C7 9.55228 6.55228 10 6 10C5.44772 10 5 9.55228 5 9C5 8.44772 5.44772 8 6 8C6.55228 8 7 8.44772 7 9Z"
+      fill="#1B1E2E"
+    />
+    <path
+      d="M10.5 9C10.5 9.55228 10.0523 10 9.5 10C8.94772 10 8.5 9.55228 8.5 9C8.5 8.44772 8.94772 8 9.5 8C10.0523 8 10.5 8.44772 10.5 9Z"
+      fill="#1B1E2E"
+    />
+    <path
+      d="M14 9C14 9.55228 13.5523 10 13 10C12.4477 10 12 9.55228 12 9C12 8.44772 12.4477 8 13 8C13.5523 8 14 8.44772 14 9Z"
+      fill="#1B1E2E"
+    />
+  </svg>
+</template>
