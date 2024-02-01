@@ -12,10 +12,18 @@ import {
 } from '@cypress-design/vue-icon'
 
 defineProps<TestResultData>()
+
+const emit = defineEmits<{
+  click: [event: MouseEvent]
+}>()
 </script>
 
 <template>
-  <div data-cy="cd-tr-container" :class="classes.container">
+  <div
+    data-cy="cd-tr-container"
+    :class="classes.container"
+    @click="(e) => emit('click', e)"
+  >
     <div data-cy="cd-tr-row" :class="classes.row">
       <div data-cy="cd-tr-list" :class="classes.list">
         <div data-cy="cd-tr-icon" :class="classes.icon">
