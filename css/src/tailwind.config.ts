@@ -59,9 +59,11 @@ export default (fileGlobs: string[] = []) => {
        */
       plugin(({ addBase }) => {
         addBase({
-          body: {
-            WebkitFontSmoothing: 'antialiased',
-            MozOsxFontSmoothing: 'grayscale',
+          '@media (min-resolution:2dppx)': {
+            body: {
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+            },
           },
         })
       }),
