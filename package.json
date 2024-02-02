@@ -18,7 +18,7 @@
     "test/*"
   ],
   "scripts": {
-    "cy": "concurrently \"cypress open --component\" \"node ./scripts/watch-constants.mjs\"",
+    "cy": "concurrently -c \"auto\" --passthrough-arguments -n cypress,const \"cypress open --component {@}\" \"node ./scripts/watch-constants.mjs\"",
     "cy:run": "cypress run --component",
     "test": "vitest",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
