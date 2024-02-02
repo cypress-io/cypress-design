@@ -2,41 +2,60 @@
 defineProps<{
   isActive?: boolean
 }>()
+
+const dSmallBubble = `m20,18
+      a2,2 0 0 0 2,-2
+      l0,-6
+      a2,2 0 0 0 -2,-2
+      l-8,0
+      a2,2 0 0 0 -2,2
+      l0,6
+      c0,1 1,2 2,2
+      l2,0
+      l5,2.5
+      a0,0 0 0 0 0,0
+      l0,-2.5
+      l1,0z`
+
+const dSmallBubbleModded = `m19,18
+      a3,3 0 0 0 3,-3
+      l0,-4
+      a3,3 0 0 0 -3,-3
+      l-6,0
+      a3,3 0 0 0 -3,3
+      l0,4
+      c0,2 2,3 3,3
+      l1,0
+      l4,2
+      a3,10 0 0 0 1,-0.5
+      l0,-1.5
+      l0,0z`
 </script>
 
 <template>
-  <svg
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
     <path
-      d="M20 18C21.1046 18 22 17.1046 22 16V10C22 8.89543 21.1046 8 20 8H12C10.8954 8 10 8.89543 10 10V16C10 17.1046 10.8954 18 12 18H14L19 20.5V18H20Z"
       stroke="#1B1E2E"
-      fill="#F3F4FA"
-      stroke-width="2"
       stroke-linejoin="round"
-    ></path>
+      stroke-width="2"
+      :d="dSmallBubble"
+    >
+      <animate
+        attributeName="d"
+        dur="1s"
+        repeatCount="once"
+        :values="`${dSmallBubble};${dSmallBubbleModded};${dSmallBubble};`"
+      />
+    </path>
     <path
-      d="M17 6C17 4.89543 16.1046 4 15 4H4C2.89543 4 2 4.89543 2 6V12C2 13.1046 2.89543 14 4 14H5V16.5L10 14H15C16.1046 14 17 13.1046 17 12V6Z"
-      stroke="#1B1E2E"
       fill="#BFC2D4"
-      stroke-width="2"
+      stroke="#1B1E2E"
       stroke-linejoin="round"
+      stroke-width="2"
+      d="M17 6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h1v2.5l5-2.5h5a2 2 0 0 0 2-2V6Z"
     />
-    <path
-      d="M7 9C7 9.55228 6.55228 10 6 10C5.44772 10 5 9.55228 5 9C5 8.44772 5.44772 8 6 8C6.55228 8 7 8.44772 7 9Z"
-      fill="#1B1E2E"
-    />
-    <path
-      d="M10.5 9C10.5 9.55228 10.0523 10 9.5 10C8.94772 10 8.5 9.55228 8.5 9C8.5 8.44772 8.94772 8 9.5 8C10.0523 8 10.5 8.44772 10.5 9Z"
-      fill="#1B1E2E"
-    />
-    <path
-      d="M14 9C14 9.55228 13.5523 10 13 10C12.4477 10 12 9.55228 12 9C12 8.44772 12.4477 8 13 8C13.5523 8 14 8.44772 14 9Z"
-      fill="#1B1E2E"
-    />
+    <circle cx="6" cy="9" r="1" fill="#1B1E2E" />
+    <circle cx="9.5" cy="9" r="1" fill="#1B1E2E" />
+    <circle cx="13" cy="9" r="1" fill="#1B1E2E" />
   </svg>
 </template>
