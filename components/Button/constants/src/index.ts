@@ -39,11 +39,11 @@ export const VariantClassesTable = {
 export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
 
 export const SizeClassesTable = {
-  '20': 'px-[4px] py-0 text-[14px] leading-[20px]',
-  '24': 'px-[8px] py-[2px] text-[14px] leading-[20px]',
-  '32': 'px-[12px] py-[6px] text-[14px] leading-[20px]',
-  '40': 'px-[16px] py-[8px] text-[16px] leading-[24px]',
-  '48': 'px-[20px] py-[12px] text-[16px] leading-[24px]',
+  '20': 'px-[4px] py-0 text-[14px] leading-[20px] min-h-[20px]',
+  '24': 'px-[8px] py-[2px] text-[14px] leading-[20px] min-h-[24px]',
+  '32': 'px-[12px] py-[6px] text-[14px] leading-[20px] min-h-[32px]',
+  '40': 'px-[16px] py-[8px] text-[16px] leading-[24px] min-h-[40px]',
+  '48': 'px-[20px] py-[12px] text-[16px] leading-[24px] min-h-[48px]',
 } as const
 
 export const DefaultSize: keyof typeof SizeClassesTable = '40'

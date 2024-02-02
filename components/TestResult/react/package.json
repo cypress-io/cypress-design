@@ -1,17 +1,16 @@
 {
-  "name": "@cypress-design/react-spinner",
-  "version": "0.5.3",
+  "name": "@cypress-design/react-testresult",
+  "version": "0.0.1",
   "files": [
     "*"
   ],
   "typings": "./dist/index.d.ts",
-  "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.umd.js"
     }
   },
   "scripts": {
@@ -20,13 +19,13 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-spinner": "*"
+    "@cypress-design/constants-testresult": "*",
+    "@cypress-design/react-icon": "*",
+    "@cypress-design/react-statusicon": "*",
+    "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.33",
-    "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.70.0"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }
