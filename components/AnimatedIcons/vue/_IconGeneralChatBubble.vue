@@ -58,6 +58,8 @@ const dBigBubbleModded = `m17 7
     h4
     a3 3 0 0 0 3-3
     v-2Z`.replace(/\n {4}/g, ' ')
+
+const duration = '1s'
 </script>
 
 <template>
@@ -70,9 +72,21 @@ const dBigBubbleModded = `m17 7
     >
       <animate
         attributeName="d"
-        dur="1s"
+        :dur="duration"
         repeatCount="once"
         :values="`${dSmallBubble};${dSmallBubbleModded};${dSmallBubble};`"
+      />
+      <animate
+        attributeName="stroke-width"
+        :dur="duration"
+        repeatCount="once"
+        :values="`2;0;2;`"
+      />
+      <animate
+        attributeName="fill"
+        :dur="duration"
+        repeatCount="once"
+        :values="`transparent;#9095AD;transparent;`"
       />
     </path>
     <path
@@ -84,13 +98,46 @@ const dBigBubbleModded = `m17 7
     >
       <animate
         attributeName="d"
-        dur="1s"
+        :dur="duration"
         repeatCount="once"
         :values="`${dBigBubble};${dBigBubbleModded};${dBigBubble};`"
       />
+      <animate
+        attributeName="stroke-width"
+        :dur="duration"
+        repeatCount="once"
+        :values="`2;0;2;`"
+      />
+      <animate
+        attributeName="fill"
+        :dur="duration"
+        repeatCount="once"
+        :values="`transparent;#1B1E2E;transparent;`"
+      />
     </path>
-    <circle cx="6" cy="9" r="1" fill="#1B1E2E" />
-    <circle cx="9.5" cy="9" r="1" fill="#1B1E2E" />
-    <circle cx="13" cy="9" r="1" fill="#1B1E2E" />
+    <circle cx="6" cy="9" r="1" fill="#1B1E2E">
+      <animate
+        attributeName="fill"
+        :dur="duration"
+        repeatCount="once"
+        :values="`#1B1E2E;#FFFFFF;#1B1E2E;`"
+      />
+    </circle>
+    <circle cx="9.5" cy="9" r="1" fill="#1B1E2E">
+      <animate
+        attributeName="fill"
+        :dur="duration"
+        repeatCount="once"
+        :values="`#1B1E2E;#FFFFFF;#1B1E2E;`"
+      />
+    </circle>
+    <circle cx="13" cy="9" r="1" fill="#1B1E2E">
+      <animate
+        attributeName="fill"
+        :dur="duration"
+        repeatCount="once"
+        :values="`#1B1E2E;#FFFFFF;#1B1E2E;`"
+      />
+    </circle>
   </svg>
 </template>
