@@ -15,7 +15,7 @@ const dSmallBubble = `m20,18
       l5,2.5
       a0,0 0 0 0 0,0
       l0,-2.5
-      l1,0z`
+      l1,0Z`.replace(/\n {6}/g, ' ')
 
 const dSmallBubbleModded = `m19,18
       a3,3 0 0 0 3,-3
@@ -29,7 +29,35 @@ const dSmallBubbleModded = `m19,18
       l4,2
       a3,10 0 0 0 1,-0.5
       l0,-1.5
-      l0,0z`
+      l0,0Z`.replace(/\n {6}/g, ' ')
+
+const dBigBubble = `m17 6
+    a2 2 0 0 0-2-2
+    h-11
+    a2 2 0 0 0-2 2
+    v6
+    a2 2 0 0 0 2 2
+    h1
+    v2.5
+    c0.1 .1.1 .1 .1 .1
+    l5-2.5
+    h5
+    a2 2 0 0 0 2-2
+    v-3Z`.replace(/\n {4}/g, ' ')
+
+const dBigBubbleModded = `m17 7
+    a3 3 0 0 0-3-3
+    h-9
+    a3 3 0 0 0-3 3
+    v4
+    a3 3 0 0 0 3 3
+    h0
+    v1.3
+    c0 .5.6 1 1 .7
+    l4-2
+    h4
+    a3 3 0 0 0 3-3
+    v-2Z`.replace(/\n {4}/g, ' ')
 </script>
 
 <template>
@@ -52,8 +80,15 @@ const dSmallBubbleModded = `m19,18
       stroke="#1B1E2E"
       stroke-linejoin="round"
       stroke-width="2"
-      d="M17 6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v6c0 1.1.9 2 2 2h1v2.5l5-2.5h5a2 2 0 0 0 2-2V6Z"
-    />
+      :d="dBigBubble"
+    >
+      <animate
+        attributeName="d"
+        dur="1s"
+        repeatCount="once"
+        :values="`${dBigBubble};${dBigBubbleModded};${dBigBubble};`"
+      />
+    </path>
     <circle cx="6" cy="9" r="1" fill="#1B1E2E" />
     <circle cx="9.5" cy="9" r="1" fill="#1B1E2E" />
     <circle cx="13" cy="9" r="1" fill="#1B1E2E" />
