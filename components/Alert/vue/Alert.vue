@@ -70,7 +70,7 @@ const props = withDefaults(
     type: defaultAlertVariant,
     detailsTitle: defaultAlertTitle,
     size: defaultAlertSize,
-  }
+  },
 )
 
 const variant = computed(() => {

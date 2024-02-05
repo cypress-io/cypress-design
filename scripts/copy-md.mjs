@@ -41,10 +41,10 @@ layout: none
       return Promise.all([
         createFileAndDirectory(
           path.replace(/\/ReadMe\.md$/i, '.md'),
-          fileContents
+          fileContents,
         ),
       ])
-    })
+    }),
   )
   console.log('Generated all component readmes to docs')
 })()

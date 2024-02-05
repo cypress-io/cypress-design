@@ -7,7 +7,7 @@ import { iconSet } from './iconsList'
 const camelCase = _.camelCase
 
 export const compileIcon = (
-  props: Omit<OpenIconProps, 'name'> & Pick<IconProps, 'name'>
+  props: Omit<OpenIconProps, 'name'> & Pick<IconProps, 'name'>,
 ) => {
   const { interactiveColorsOnGroup, name, ...cleanProps } = props
   const { availableSizes } = iconsMetadata[name]
@@ -42,7 +42,7 @@ export const compileIcon = (
 export const getComponentAttributes = (
   props: {
     availableSizes: readonly string[]
-  } & Omit<OpenIconProps, 'name'>
+  } & Omit<OpenIconProps, 'name'>,
 ) => {
   const { size, availableSizes, interactiveColorsOnGroup, ...otherProps } =
     props
@@ -69,8 +69,8 @@ export const getComponentAttributes = (
       (attrName) =>
         otherProps[attrName as keyof typeof otherProps] &&
         ICON_COLOR_PROP_NAMES.includes(
-          attrName as (typeof ICON_COLOR_PROP_NAMES)[number]
-        )
+          attrName as (typeof ICON_COLOR_PROP_NAMES)[number],
+        ),
     )
     .map((colorAttrName: string) => {
       const color = otherProps[colorAttrName as keyof ColorIconProps]

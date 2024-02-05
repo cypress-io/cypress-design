@@ -33,7 +33,7 @@ async function lineTemplate(slot, supComponent) {
             name: bind.title,
             type: await renderType(bind.type),
           }
-        })
+        }),
       )
       const name = sl.name
       let t = sl.description ?? ''
@@ -53,13 +53,13 @@ ${bindings
 ##### ${p.name}
 
 <div>${p.type}</div>
-`
+`,
   )
   .join('\n')}
 `
     : ''
 }`
-    })
+    }),
   )
 
   return retArray.join('')

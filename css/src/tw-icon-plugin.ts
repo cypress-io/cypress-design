@@ -5,7 +5,7 @@ const flattenColorPalette = (
   colors:
     | Record<string, Record<string, string>>
     | Record<string, string>
-    | undefined
+    | undefined,
 ): Record<string, string> =>
   Object.assign(
     {},
@@ -14,8 +14,8 @@ const flattenColorPalette = (
         ? Object.entries(flattenColorPalette(values)).map(([number, hex]) => ({
             [color + (number === 'DEFAULT' ? '' : `-${number}`)]: hex,
           }))
-        : [{ [`${color}`]: values }]
-    )
+        : [{ [`${color}`]: values }],
+    ),
   )
 
 function toColorValue(maybeFunction: ((param: string) => string) | string) {

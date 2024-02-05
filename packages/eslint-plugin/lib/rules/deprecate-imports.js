@@ -66,13 +66,13 @@ module.exports = {
     }
 
     const emptyImport = deprecatedImports.find(
-      (importToCheck) => !importToCheck.source
+      (importToCheck) => !importToCheck.source,
     )
 
     if (emptyImport) {
       throw context.report({
         message: `No source provided for deprecated import ${JSON.stringify(
-          emptyImport
+          emptyImport,
         )}`,
       })
     }
@@ -83,7 +83,7 @@ module.exports = {
           return { ...importToConvert, source: [importToConvert.source] }
         }
         return importToConvert
-      }
+      },
     )
 
     //----------------------------------------------------------------------
@@ -107,9 +107,9 @@ module.exports = {
         const importOptions = deprecatedImportsWithArraySource.filter(
           (importToCheck) => {
             return importToCheck.source.some((source) =>
-              minimatch(fullSource, source)
+              minimatch(fullSource, source),
             )
-          }
+          },
         )
 
         if (!importOptions.length) {
@@ -122,7 +122,7 @@ module.exports = {
             const invalidSpecifiers = node.specifiers.filter(
               (specifier) =>
                 (hasDefault && specifier.type === 'ImportDefaultSpecifier') ||
-                option.specifiers.includes(specifier.imported.name)
+                option.specifiers.includes(specifier.imported.name),
             )
             if (invalidSpecifiers.length) {
               invalidSpecifiers.forEach((invalidSpecifier) => {

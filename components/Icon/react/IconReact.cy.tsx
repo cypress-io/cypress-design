@@ -37,7 +37,7 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
             Add a new icon
           </button>
         </li>
-      </ul>
+      </ul>,
     )
   })
 
@@ -53,7 +53,7 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
       <div className="p-2">
         <IconBrowserWebkit className="w-16 h-16 hidden" />
         <IconBrowserWebkit className="w-16 h-16" />
-      </div>
+      </div>,
     )
   })
 })

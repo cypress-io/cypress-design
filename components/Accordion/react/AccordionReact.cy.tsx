@@ -16,7 +16,7 @@ describe('Accordion', () => {
 
   it('can be passed an icon as a prop', () => {
     mount(
-      <Accordion title="hi" icon={IconActionQuestionMarkCircle}></Accordion>
+      <Accordion title="hi" icon={IconActionQuestionMarkCircle}></Accordion>,
     ).get('summary svg')
   })
 
@@ -31,7 +31,7 @@ describe('Accordion', () => {
             fillColor="red-50"
           />
         }
-      ></Accordion>
+      ></Accordion>,
     ).get('[data-cy=icon-element]')
   })
 
@@ -47,7 +47,7 @@ describe('Accordion', () => {
             fillColor="red-50"
           />
         }
-      ></Accordion>
+      ></Accordion>,
     ).get('[data-cy=icon-element]')
 
     cy.get('summary').find('svg').should('have.length', 2)

@@ -38,7 +38,7 @@ describe('Modal', () => {
       title?: string
       helpLink?: string
       fullscreen?: boolean
-    } = {}
+    } = {},
   ) {
     mount(<ComponentUsingModal {...options} />)
   }
