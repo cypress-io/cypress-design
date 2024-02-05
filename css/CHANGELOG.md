@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.18.0
+
+### Minor Changes
+
+- [#366](https://github.com/cypress-io/cypress-design/pull/366) [`3a48cc3`](https://github.com/cypress-io/cypress-design/commit/3a48cc327666f1a3b067263a24dd13a3ba1f3b1e) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - add anti-aliasing to all components directly ine the CSS reset
+
 ## 0.17.1
 
 ### Patch Changes
