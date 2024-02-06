@@ -167,52 +167,56 @@ describe('<DocMenu/>', () => {
       const [pathState, setPathState] = React.useState<string>('/foo')
       return (
         <>
-          <button onClick={() => setPathState('/another')}>
-            Set path to /another
+          <button onClick={() => setPathState('/kephren')}>
+            Set path to /kephren
           </button>
           <DocMenu
             items={[
               {
-                label: 'Baaaaaaz',
+                label: 'Section 1',
                 items: [
+                  { href: '/foo', label: 'Foo' },
                   {
-                    label: 'Bar',
-                    items: [
-                      { href: '/foo', label: 'Foo' },
-                      { href: '/another', label: 'Another' },
-                      { href: '/kephren', label: 'Kephren' },
-                    ],
+                    label: 'Subsection',
+                    items: [{ href: '/sub', label: 'Sub' }],
                   },
                 ],
               },
+              {
+                label: 'Pyramid',
+                items: [{ href: '/kephren', label: 'Kephren' }],
+                collapsed: true,
+              },
             ]}
-            LinkComponent={({ href, className, children }) => (
-              <div className={className}>
-                {children} + href: {href}
-              </div>
+            LinkComponent={({ href, children, style, ...props }) => (
+              <button
+                onClick={() => setPathState(href)}
+                {...props}
+                style={{ ...style, textAlign: 'left' }}
+              >
+                {children}
+              </button>
             )}
             activePath={pathState}
+            collapsible
           />
         </>
       )
     }
     mount(<SUT />)
 
-    cy.findByText('Foo + href: /foo', { selector: 'div' }).should(
+    cy.findByText('Foo', { selector: 'button' }).should(
       'have.class',
       'text-indigo-500',
     )
-    cy.findByText('Set path to /another', { selector: 'button' }).click()
 
-    cy.findByText('Foo + href: /foo', { selector: 'div' }).should(
-      'not.have.class',
-      'text-indigo-500',
-    )
+    cy.findByText('Set path to /kephren', { selector: 'button' }).click()
 
-    cy.findByText('Another + href: /another', { selector: 'div' }).should(
-      'have.class',
-      'text-indigo-500',
-    )
+    cy.findByText('Kephren', { selector: 'button' })
+      .should('be.visible')
+      .should('have.class', 'text-indigo-500')
+
+    cy.findByTestId('doc-menu-active-marker').should('have.css', 'top', '220px')
   })
 
   function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {

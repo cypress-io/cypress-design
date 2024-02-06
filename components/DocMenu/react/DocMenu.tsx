@@ -2,6 +2,7 @@ import * as React from 'react'
 import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
 import type { LinkComponentType } from './_DocLink'
 import { DocGroupElements } from './_DocGroup'
+import react from '.'
 
 export type NavItem = NavGroup | NavItemLink
 
@@ -29,6 +30,8 @@ export const DocMenu: React.FC<DocMenuProps> = ({
 
   const setActivePosition = React.useCallback(
     (opts: { top: number; height: number }) => {
+      console.log('setActivePosition', opts)
+      console.trace()
       const containerTop = container.current?.getBoundingClientRect().top || 0
       setShowMarker(true)
       setActiveTop(opts.top - containerTop)
@@ -36,6 +39,10 @@ export const DocMenu: React.FC<DocMenuProps> = ({
     },
     [],
   )
+
+  React.useEffect(() => {
+    console.log('activePath changed', activePath)
+  }, [activePath])
 
   const hideMarker = React.useCallback(() => setShowMarker(false), [])
   const setMarkerIsMoving = React.useCallback(
