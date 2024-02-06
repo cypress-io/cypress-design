@@ -30,22 +30,16 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  (
-    {
-      item: { label, ...itemRest },
-      depth,
-      markerIsMoving,
-      context,
-      onActive,
-      LinkComponent,
-    },
-    ref,
-  ) => {
+  ({ item, depth, markerIsMoving, context, onActive, LinkComponent }, ref) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { collapsible, activePath } = context
+    const active = React.useMemo(
+      () => item.href === context.activePath,
+      [item.href, context.activePath],
+    )
 
-    const active = itemRest.href === activePath
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { label, ...itemRest } = item
 
     const setActiveMarkerPosition = () => {
       if (active) {
@@ -86,15 +80,18 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
                 'left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full',
                 {
                   hidden: !markerIsMoving || !active,
-                  'group-hover:block bg-gray-300': !active && collapsible,
+                  'group-hover:block bg-gray-300':
+                    !active && context.collapsible,
                   'bg-indigo-500 dark:bg-indigo-400': active && markerIsMoving,
                 },
               )}
             />
           ) : null}
-          {label}
+          {item.label}
         </LinkComponent>
       </li>
     )
   },
 )
+
+DocLink.displayName = 'DocMenuDocLink'

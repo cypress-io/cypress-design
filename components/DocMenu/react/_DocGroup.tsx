@@ -197,6 +197,8 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
   },
 )
 
+DocGroup.displayName = 'DocMenuDocGroup'
+
 export interface DocGroupElementsProps
   extends React.HTMLAttributes<HTMLUListElement> {
   items: (NavGroup | NavItemLink)[]
@@ -312,3 +314,5 @@ export const DocGroupElements = React.forwardRef<
     )
   },
 )
+
+DocGroupElements.displayName = 'DocMenuDocGroupElements'
