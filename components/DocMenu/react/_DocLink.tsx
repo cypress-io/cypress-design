@@ -41,10 +41,9 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { label, ...itemRest } = item
 
-    const setActiveMarkerPosition = (source: string) => {
+    const setActiveMarkerPosition = () => {
       if (active) {
         const box = activeLIRef?.current?.getBoundingClientRect()
-        console.log('setActiveMarkerPosition active', item.label, source)
 
         onActive({
           top: box?.top || 0,
@@ -55,14 +54,10 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
 
     // on mount, if the item is active,
     // send the top position to the parent
-    React.useEffect(setActiveMarkerPosition.bind(null, 'effect'), [
-      onActive,
-      active,
-      item.label,
-    ])
+    React.useEffect(setActiveMarkerPosition, [onActive, active])
 
     React.useImperativeHandle(ref, () => ({
-      setActiveMarkerPosition: setActiveMarkerPosition.bind(null, 'imperative'),
+      setActiveMarkerPosition,
     }))
 
     return (

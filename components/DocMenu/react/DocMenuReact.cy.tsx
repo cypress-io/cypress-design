@@ -162,7 +162,15 @@ describe('<DocMenu/>', () => {
     cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
   })
 
-  it('renders an active custom link components', () => {
+  function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
+    mount(
+      <div className="p-4">
+        <DocMenu items={items} activePath={activePath} />
+      </div>,
+    )
+  }
+
+  assertions(mountStory, () => {
     const SUT = () => {
       const [pathState, setPathState] = React.useState<string>('/foo')
       return (
@@ -204,29 +212,7 @@ describe('<DocMenu/>', () => {
       )
     }
     mount(<SUT />)
-
-    cy.findByText('Foo', { selector: 'button' }).should(
-      'have.class',
-      'text-indigo-500',
-    )
-
-    cy.findByText('Set path to /kephren', { selector: 'button' }).click()
-
-    cy.findByText('Kephren', { selector: 'button' })
-      .should('be.visible')
-      .should('have.class', 'text-indigo-500')
-
-    cy.findByTestId('doc-menu-active-marker').should('have.css', 'top', '220px')
   })
-
-  function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
-    mount(
-      <div className="p-4">
-        <DocMenu items={items} activePath={activePath} />
-      </div>,
-    )
-  }
-  assertions(mountStory)
 })
 
 // pseudo text
