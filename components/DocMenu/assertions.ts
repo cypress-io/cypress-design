@@ -83,6 +83,7 @@ export default function assertions(
     options?: (NavItemLink | NavGroup)[],
     activePath?: string,
   ) => void,
+  mountCustomLinkStory: () => void,
 ): void {
   it('renders', () => {
     mountStory(menuItems, 'eight')
@@ -113,5 +114,21 @@ export default function assertions(
         )
       })
     })
+  })
+
+  it('expands a section where an element is activated', () => {
+    mountCustomLinkStory()
+    cy.findByText('Foo', { selector: 'button' }).should(
+      'have.class',
+      'text-indigo-500',
+    )
+
+    cy.findByText('Set path to /kephren', { selector: 'button' }).click()
+
+    cy.findByText('Kephren', { selector: 'button' })
+      .should('be.visible')
+      .should('have.class', 'text-indigo-500')
+
+    cy.findByTestId('doc-menu-active-marker').should('have.css', 'top', '220px')
   })
 }

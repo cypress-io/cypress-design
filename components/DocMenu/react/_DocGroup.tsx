@@ -63,6 +63,12 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       React.useState<NodeJS.Timeout>()
     const $groupElements = React.useRef<DocGroupElementsForward>(null)
 
+    React.useEffect(() => {
+      if (hasActiveItemRecursivelyMemo && !open) {
+        setOpen(true)
+      }
+    }, [hasActiveItemRecursivelyMemo, activePath, open])
+
     const toggleMenu = (localOpen: boolean) => {
       if (!collapsible || markerIsMoving) return
       setMarkerIsMoving(true)

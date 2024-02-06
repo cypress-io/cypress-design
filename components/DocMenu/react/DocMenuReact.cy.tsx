@@ -162,59 +162,6 @@ describe('<DocMenu/>', () => {
     cy.findByText('Foo + href: /foo', { selector: 'div' }).should('be.visible')
   })
 
-  it('renders an active custom link components', () => {
-    const SUT = () => {
-      const [pathState, setPathState] = React.useState<string>('/foo')
-      return (
-        <>
-          <button onClick={() => setPathState('/another')}>
-            Set path to /another
-          </button>
-          <DocMenu
-            items={[
-              {
-                label: 'Baaaaaaz',
-                items: [
-                  {
-                    label: 'Bar',
-                    items: [
-                      { href: '/foo', label: 'Foo' },
-                      { href: '/another', label: 'Another' },
-                      { href: '/kephren', label: 'Kephren' },
-                    ],
-                  },
-                ],
-              },
-            ]}
-            LinkComponent={({ href, className, children }) => (
-              <div className={className}>
-                {children} + href: {href}
-              </div>
-            )}
-            activePath={pathState}
-          />
-        </>
-      )
-    }
-    mount(<SUT />)
-
-    cy.findByText('Foo + href: /foo', { selector: 'div' }).should(
-      'have.class',
-      'text-indigo-500',
-    )
-    cy.findByText('Set path to /another', { selector: 'button' }).click()
-
-    cy.findByText('Foo + href: /foo', { selector: 'div' }).should(
-      'not.have.class',
-      'text-indigo-500',
-    )
-
-    cy.findByText('Another + href: /another', { selector: 'div' }).should(
-      'have.class',
-      'text-indigo-500',
-    )
-  })
-
   function mountStory(items: (NavItemLink | NavGroup)[] = [], activePath = '') {
     mount(
       <div className="p-4">
@@ -222,7 +169,50 @@ describe('<DocMenu/>', () => {
       </div>,
     )
   }
-  assertions(mountStory)
+
+  assertions(mountStory, () => {
+    const SUT = () => {
+      const [pathState, setPathState] = React.useState<string>('/foo')
+      return (
+        <>
+          <button onClick={() => setPathState('/kephren')}>
+            Set path to /kephren
+          </button>
+          <DocMenu
+            items={[
+              {
+                label: 'Section 1',
+                items: [
+                  { href: '/foo', label: 'Foo' },
+                  {
+                    label: 'Subsection',
+                    items: [{ href: '/sub', label: 'Sub' }],
+                  },
+                ],
+              },
+              {
+                label: 'Pyramid',
+                items: [{ href: '/kephren', label: 'Kephren' }],
+                collapsed: true,
+              },
+            ]}
+            LinkComponent={({ href, children, style, ...props }) => (
+              <button
+                onClick={() => setPathState(href)}
+                {...props}
+                style={{ ...style, textAlign: 'left' }}
+              >
+                {children}
+              </button>
+            )}
+            activePath={pathState}
+            collapsible
+          />
+        </>
+      )
+    }
+    mount(<SUT />)
+  })
 })
 
 // pseudo text
