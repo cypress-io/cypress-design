@@ -1,5 +1,11 @@
 # @cypress-design/vue-docmenu
 
+## 0.5.3
+
+### Patch Changes
+
+- [#387](https://github.com/cypress-io/cypress-design/pull/387) [`05b67c5`](https://github.com/cypress-io/cypress-design/commit/05b67c5389df1c0619d2f01e2b36fb5bd6bb30b9) Thanks [@elevatebart](https://github.com/elevatebart)! - when activePath changes, expand sections that contain the newly activated element
+
 ## 0.5.2
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @cypress-design/react-docmenu
 
+## 0.6.0
+
+### Minor Changes
+
+- [`bb4e507`](https://github.com/cypress-io/cypress-design/commit/bb4e507ca14e57e3400f0444446e1b3a0eb598ad) Thanks [@elevatebart](https://github.com/elevatebart)! - add a test and the names of components in dev tools
+
+### Patch Changes
+
+- [#387](https://github.com/cypress-io/cypress-design/pull/387) [`05b67c5`](https://github.com/cypress-io/cypress-design/commit/05b67c5389df1c0619d2f01e2b36fb5bd6bb30b9) Thanks [@elevatebart](https://github.com/elevatebart)! - when activePath changes, expand sections that contain the newly activated element
+
 ## 0.5.4
 
 ### Patch Changes
