@@ -660,6 +660,16 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@cypress-design/css@^0.16.0":
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/@cypress-design/css/-/css-0.16.0.tgz#2d8cc7ccf57b03db9019ab9ae553f535a2211dca"
+  integrity sha512-rzYpX/y4f+nXrwFYAApkS+ih5eLDl8XIaZ7f/12b0wzv7Q/Bwa8BVdEXLzDbFQ7DrMnqOHVsdhkFi7OQRAd0QQ==
+  dependencies:
+    "@windicss/plugin-interaction-variants" "^1.0.0"
+    lodash "^4.17.21"
+    resolve-pkg "^2.0.0"
+    tailwindcss "^3.3.3"
+
 "@cypress/request@^3.0.0":
   version "3.0.1"
   resolved "https://registry.npmjs.org/@cypress/request/-/request-3.0.1.tgz"
@@ -2195,6 +2205,11 @@
   integrity sha512-qFbXoxS44pi2FkgFjPvF4h7c9oMDutpyBdcJdMYIMg9XyXli2meFMuaKn+UMgsClo//Th6+beeCgqweT/79BVA==
   dependencies:
     vue-demi ">=0.14.6"
+
+"@windicss/plugin-interaction-variants@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@windicss/plugin-interaction-variants/-/plugin-interaction-variants-1.0.0.tgz#11e412c6fd653899f6cced4e4f7b402eb5456981"
+  integrity sha512-jk0kvJEwphPlzjgCASxi0yCrLIrMPBHKTjPB1vF2LZsmWVaIPhKQRfpJW6+G093ipDos1E2BkevDrh/R2Ln8gg==
 
 acorn-jsx@^5.3.2:
   version "5.3.2"
@@ -7915,7 +7930,7 @@ tabbable@^6.0.1, tabbable@^6.2.0:
   resolved "https://registry.yarnpkg.com/tabbable/-/tabbable-6.2.0.tgz#732fb62bc0175cfcec257330be187dcfba1f3b97"
   integrity sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==
 
-tailwindcss@3.4.1, tailwindcss@^3.4.1:
+tailwindcss@3.4.1, tailwindcss@^3.3.3, tailwindcss@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.1.tgz#f512ca5d1dd4c9503c7d3d28a968f1ad8f5c839d"
   integrity sha512-qAYmXRfk3ENzuPBakNK0SRrUDipP8NQnEY6772uDhflcQz5EhRdD7JNZxyrFHVQNCwULPBn6FNPp9brpO7ctcA==
