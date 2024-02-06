@@ -1,0 +1,23 @@
+{
+  "name": "@cypress-design/constants-testresult",
+  "private": true,
+  "version": "0.0.2",
+  "files": [
+    "*"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "dependencies": {
+    "@cypress-design/constants-statusicon": "*"
+  },
+  "scripts": {
+    "build": "tsc --project ./tsconfig.json"
+  },
+  "license": "MIT"
+}

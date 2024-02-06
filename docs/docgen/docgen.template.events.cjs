@@ -38,8 +38,8 @@ async function lineTemplate(event, supComponent) {
               description: prop.description,
               type: await renderType(prop.type),
             }
-          }
-        )
+          },
+        ),
       )
       const name = ev.name
       let t = ev.description ?? ''
@@ -61,7 +61,7 @@ ${supComponent ? '#' : ''}##### ${mdclean(p.name)}
 ${p.description ? mdclean(p.description) : ''}
 <div><b>type</b>: ${p.type ? p.type : ''}</div>
 
-`
+`,
   )
   .join('')}
   `
@@ -69,7 +69,7 @@ ${p.description ? mdclean(p.description) : ''}
 }
 
 `
-    })
+    }),
   )
 
   return retArray.join('')

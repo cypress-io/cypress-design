@@ -101,10 +101,10 @@ export const Alert: React.FC<
     (variant === 'error'
       ? IconWarningCircle
       : variant === 'warning'
-      ? IconWarningCircle
-      : variant === 'success'
-      ? IconCheckmarkOutline
-      : undefined)
+        ? IconWarningCircle
+        : variant === 'success'
+          ? IconCheckmarkOutline
+          : undefined)
 
   const [dismissed, setDismissed] = React.useState(false)
   const durationTimeout = React.useRef<number | undefined>(undefined)

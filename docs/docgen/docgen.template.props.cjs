@@ -29,7 +29,7 @@ ${supComponent ? '#' : ''}### ${mdclean(p)}
 ${mdclean(t)}
 
 `
-    })
+    }),
   )
 
   return retArray.join('')

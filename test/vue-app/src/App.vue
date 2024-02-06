@@ -18,6 +18,19 @@ const showModal = ref(false)
 </script>
 
 <template>
+  <div
+    class="@container/main mb-4 overflow-hidden max-w-[600px] mx-auto text-center"
+  >
+    <h2 class="p-4">Example of container query usage</h2>
+    <div class="grid grid-cols-1 @[30rem]/main:grid-cols-3 gap-4">
+      <div class="bg-gray-100 p-4">1</div>
+      <div class="bg-gray-100 p-4">2</div>
+      <div class="bg-gray-100 p-4">3</div>
+      <div class="bg-gray-100 p-4">4</div>
+      <div class="bg-gray-100 p-4">5</div>
+      <div class="bg-gray-100 p-4">6</div>
+    </div>
+  </div>
   <div class="group w-[500px] text-center mx-auto">
     <Icon
       name="general-grid-2x2"

@@ -1,7 +1,7 @@
 {
   "name": "@cypress-design/rollup-plugin-tailwind-keep",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.0.10",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -11,8 +11,8 @@
   "license": "MIT",
   "types": "./dist/index.d.ts",
   "dependencies": {
-    "@cypress-design/css": "0.16.0",
+    "@cypress-design/css": "0.18.0",
     "tailwindcss": "3.4.1",
-    "vite": "5.0.11"
+    "vite": "5.0.12"
   }
 }

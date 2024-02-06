@@ -44,10 +44,10 @@ fs.readdir(
               } else {
                 console.log('Directory renamed fixed successfully')
               }
-            }
+            },
           )
         }
-      }
+      },
     )
-  }
+  },
 )

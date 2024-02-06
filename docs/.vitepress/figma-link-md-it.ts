@@ -9,7 +9,7 @@ function addFigmaLink(md: any) {
     if (textToken?.type === 'text' && textToken.content.startsWith('figma::')) {
       textToken.content = `Open "${textToken.content.replace(
         /^figma::/,
-        ''
+        '',
       )}" in Figma`
       openLinkTagToken.attrPush(['class', 'figma-link'])
     }

@@ -56,7 +56,7 @@ function* buildRegExps() {
 
           // Normal values w/o quotes — may include an opacity modifier
           /[-/][^\s'"`\\$={><]*/,
-        ])
+        ]),
       ),
     ]),
   ])
@@ -147,7 +147,7 @@ function clipAtBalancedParens(input: string) {
       Object.assign([], match, {
         index: (match.index ?? 0) + idx,
         0: group,
-      })
+      }),
     )
   })
 

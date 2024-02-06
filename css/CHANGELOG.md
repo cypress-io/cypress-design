@@ -1,5 +1,23 @@
 # @cypress-design/css
 
+## 0.18.0
+
+### Minor Changes
+
+- [#366](https://github.com/cypress-io/cypress-design/pull/366) [`3a48cc3`](https://github.com/cypress-io/cypress-design/commit/3a48cc327666f1a3b067263a24dd13a3ba1f3b1e) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - add anti-aliasing to all components directly ine the CSS reset
+
+## 0.17.1
+
+### Patch Changes
+
+- [`28863db`](https://github.com/cypress-io/cypress-design/commit/28863dbcf9dc6a9215583efce0a185133e377fc0) Thanks [@elevatebart](https://github.com/elevatebart)! - button should have a width by default
+
+## 0.17.0
+
+### Minor Changes
+
+- [#372](https://github.com/cypress-io/cypress-design/pull/372) [`d4b02af`](https://github.com/cypress-io/cypress-design/commit/d4b02af4d1698946789f1f24e2d7d5fb776ca3bd) Thanks [@elevatebart](https://github.com/elevatebart)! - add support for container queries in tailwind
+
 ## 0.16.0
 
 ### Minor Changes

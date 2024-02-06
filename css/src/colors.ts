@@ -23,7 +23,7 @@ const FilteredColors = Object.keys(Colors).reduce(
 
     return acc
   },
-  {}
+  {},
 )
 
 export const colors = { ...FilteredColors, ...semanticColors, ...cyColors }

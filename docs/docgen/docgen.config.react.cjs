@@ -7,7 +7,7 @@ const tsconfigPath = path.resolve(
   __dirname,
   '..',
   '..',
-  './tsconfig.react.json'
+  './tsconfig.react.json',
 )
 const parser = withCustomConfig(tsconfigPath, {
   shouldRemoveUndefinedFromOptional: true,
@@ -33,7 +33,7 @@ function getTags(tags) {
       acc[k] = [{ title: k, content: v }]
       return acc
     },
-    {}
+    {},
   )
 }
 

@@ -15,7 +15,7 @@ describe('getRequires', () => {
       42,
       ['Icon'],
       'components/vue/Accordion.md',
-      false
+      false,
     )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';
@@ -44,7 +44,7 @@ describe('getRequires', () => {
       42,
       ['Icon'],
       'components/vue/Accordion.md',
-      true
+      true,
     )
     expect(imports).toMatchInlineSnapshot(`
       "import { merge as __imported_merge_$42__ } from 'lodash';

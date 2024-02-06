@@ -95,8 +95,8 @@ function navigate(shift: number) {
     shiftedIndex < 0
       ? props.tabs.length - 1
       : shiftedIndex >= props.tabs.length
-      ? 0
-      : shiftedIndex
+        ? 0
+        : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
   $tab.value?.[nextIndex]?.focus()
   emit('update:activeId', props.tabs[nextIndex].id)

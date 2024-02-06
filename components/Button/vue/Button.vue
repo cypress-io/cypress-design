@@ -38,9 +38,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const { variant, size, disabled, href, type, ...buttonProps } = props
-
     const finalVariant = computed(() =>
       props.disabled &&
       !['outline-dark', 'outline-light', 'link'].includes(props.variant)
@@ -64,10 +61,10 @@ export default defineComponent({
     ])
 
     return {
-      href,
+      href: computed(() => props.href),
+      type: computed(() => props.type),
       finalDisabled,
       allClasses,
-      buttonProps,
     }
   },
 })
@@ -77,7 +74,6 @@ export default defineComponent({
   <a
     v-if="href"
     :href="href"
-    v-bind="buttonProps"
     :class="allClasses"
     :aria-disabled="finalDisabled ? 'true' : undefined"
     @click="($event) => $emit('click', $event)"
@@ -86,9 +82,9 @@ export default defineComponent({
   </a>
   <button
     v-else
-    v-bind="buttonProps"
     :class="allClasses"
     :disabled="finalDisabled"
+    :type="type"
     @click="($event) => $emit('click', $event)"
   >
     <slot />

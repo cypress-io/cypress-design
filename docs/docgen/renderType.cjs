@@ -12,12 +12,12 @@ const { mdclean } = defaultTemplates
 module.exports = async function renderType(type) {
   if (type.schema) {
     return `<code class="bg-gray-50 py-[2px] px-[4px] inline-block rounded">${await renderComplexTypes(
-      type.schema
+      type.schema,
     )}</code>`
   }
   return (
     `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
-      type?.name
+      type?.name,
     ).replace(/\\\|/g, '|')}</code>` ?? ''
   )
 }
@@ -40,7 +40,7 @@ async function renderComplexTypes(schema, subType) {
   }
   if (schema.kind === 'enum') {
     const values = await Promise.all(
-      schema.schema.map((v) => renderComplexTypes(v, true))
+      schema.schema.map((v) => renderComplexTypes(v, true)),
     )
     const filteredValues = values.filter((v) => v)
     const overflow = filteredValues.length > 12
@@ -56,8 +56,8 @@ async function renderComplexTypes(schema, subType) {
           serializedInlineValuesWrapped,
           `type ${schema.type.replace(
             ' | undefined',
-            ''
-          )} = ${filteredValues.join(' | ')}`
+            '',
+          )} = ${filteredValues.join(' | ')}`,
         )
       : serializedInlineValuesWrapped
   }
@@ -69,7 +69,7 @@ async function renderComplexTypes(schema, subType) {
   }
   if (schema.kind === 'object') {
     const obj = Object.values(schema.schema).map((value) =>
-      renderObjectType(value)
+      renderObjectType(value),
     )
     if (obj.includes(undefined)) return schema.type
     const code = `interface ${schema.type} {
@@ -91,7 +91,7 @@ function renderObjectType(value) {
     ? /\n/.test(value.description)
       ? `\t/**\n\t * ${value.description.replace(
           /(\n\r?)/g,
-          '$1\t * '
+          '$1\t * ',
         )}\n\t */\n`
       : `\t/** ${value.description} */\n`
     : ''
@@ -110,6 +110,6 @@ async function makeTooltip(content, popperCode) {
     popperCode,
     {
       lang: 'ts',
-    }
+    },
   )}</span></template></Tooltip>`
 }

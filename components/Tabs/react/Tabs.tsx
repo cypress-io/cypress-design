@@ -89,8 +89,8 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
       shiftedIndex < 0
         ? tabs.length - 1
         : shiftedIndex >= tabs.length
-        ? 0
-        : shiftedIndex
+          ? 0
+          : shiftedIndex
     setActiveId(tabs[nextIndex].id)
     $tab.current?.[nextIndex]?.focus()
     onSwitch?.(tabs[nextIndex])
