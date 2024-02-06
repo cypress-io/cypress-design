@@ -1,9 +1,3 @@
-export const SharedSettings = {
-  foo: '-',
-  bar: 42,
-  baz: false,
-}
-
 export const Classes = {
   wrapper: 'relative flex items-center',
   hiddenInput: 'absolute inset-0 w-0 h-0 opacity-0',
