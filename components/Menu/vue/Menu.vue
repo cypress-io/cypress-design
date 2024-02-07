@@ -1,21 +1,11 @@
 <template>
-  <div :id="id" class="bg-jade-100">
-    <label>{{ label }}</label>
-    Template for Menu
-    <p>{{ SharedSettings.foo }}</p>
-  </div>
+  <div class="bg-jade-100"></div>
 </template>
 
 <script lang="ts" setup>
-import { SharedSettings } from '@cypress-design/constants-menu'
+import { NavMenuProps } from '@cypress-design/constants-menu'
 
-withDefaults(
-  defineProps<{
-    id: string
-    label?: string
-  }>(),
-  {
-    label: undefined,
-  },
-)
+withDefaults(defineProps<NavMenuProps>(), {
+  items: () => [],
+})
 </script>
