@@ -1,0 +1,8 @@
+{
+  "extends": "../../../tsconfig.vue.build.json",
+  "include": ["./*.vue", "./index.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "composite": false
+  }
+}
