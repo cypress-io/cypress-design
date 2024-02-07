@@ -9,37 +9,22 @@ function uid() {
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { RadioColors, Classes } from '@cypress-design/constants-radio'
+import {
+  RadioColors,
+  Classes,
+  RadioProps,
+} from '@cypress-design/constants-radio'
 
 const props = withDefaults(
-  defineProps<{
-    /**
-     * A unique identifier for the checkbox on the whole page.
-     * It will be used to give match label with input for a11y.
-     */
-    id?: string
-    /**
-     * Name attribute of the <input type="checkbox"/>.
-     */
-    name?: string
-    /**
-     * Is the checkbox checked when it is first rendered.
-     */
-    checked?: boolean
-    /**
-     * The color of the indicator dot
-     */
-    color?: 'red' | 'indigo' | 'jade'
-    /**
-     * If the checkbox is disabled, it will not be clickable.
-     */
-    disabled?: boolean
-    /**
-     * Label for the checkbox.
-     * It is very important to set this to make the checkbox accessible.
-     */
-    label?: string
-  }>(),
+  defineProps<
+    RadioProps & {
+      /**
+       * Label for the checkbox.
+       * It is very important to set this to make the checkbox accessible.
+       */
+      label?: string
+    }
+  >(),
   {
     id: () => uid(),
     color: 'indigo',

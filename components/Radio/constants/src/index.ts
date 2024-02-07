@@ -16,3 +16,28 @@ export const RadioColors = {
   disabled: 'border-gray-200 bg-gray-100',
   empty: 'border-gray-200 bg-white',
 } as const
+
+export interface RadioProps {
+  /**
+   * A unique identifier for the checkbox on the whole page.
+   * It will be used to give match label with input for a11y.
+   */
+  id?: string
+  /**
+   * Name attribute of the <input type="radio"/>.
+   */
+  name?: string
+  /**
+   * Is the radio checked when it is first rendered.
+   */
+  checked?: boolean
+  /**
+   * The color of the background in the checkbox.
+   * The check mark will always be white.
+   */
+  color?: keyof Omit<typeof RadioColors, 'disabled' | 'empty'>
+  /**
+   * If the radio is disabled, it will not be clickable.
+   */
+  disabled?: boolean
+}
