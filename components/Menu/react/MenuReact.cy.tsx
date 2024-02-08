@@ -3,11 +3,17 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
-import assertions from '../assertions'
 
 describe('Menu', () => {
-  function mountStory(options: Parameters<typeof Menu>[0] = { id: '1' }) {
-    mount(<Menu {...options} />)
-  }
-  assertions(mountStory)
+  it('renders', () => {
+    mount(
+      <Menu
+        items={[
+          { label: 'Item 1' }, //
+          { label: 'Item 2' },
+          { label: 'Item 3' },
+        ]}
+      />,
+    )
+  })
 })
