@@ -3,13 +3,13 @@ import IconTechServer from './_IconTechServer.vue'
 
 describe(
   '<_IconTechServer />',
-  { viewportHeight: 30, viewportWidth: 30 },
+  { viewportHeight: 340, viewportWidth: 340 },
   () => {
     it('renders', () => {
       // see: https://on.cypress.io/mounting-vue
       mount(() => (
         <div class="m-[3px]">
-          <IconTechServer />
+          <IconTechServer {...{ width: '300', height: '300' }} />
         </div>
       ))
     })
