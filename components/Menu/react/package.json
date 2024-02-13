@@ -23,6 +23,7 @@
     "clsx": "*"
   },
   "devDependencies": {
+    "@cypress-design/react-icon": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
