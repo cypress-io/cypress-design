@@ -3,53 +3,92 @@ import clsx from 'clsx'
 import { NavMenuItem, NavMenuGroup } from '@cypress-design/constants-menu'
 import { WindiColor } from '@cypress-design/icon-registry'
 
+type NavMenuItemIcon = React.FC<
+  {
+    size?: '24'
+    strokeColor?: WindiColor
+    fillColor?: WindiColor
+    secondaryFillColor?: WindiColor
+    hoverStrokeColor?: WindiColor
+    interactiveColorsOnGroup?: boolean
+  } & React.SVGProps<SVGSVGElement>
+>
+
+type NavMenuItemIconActive = React.FC<
+  React.SVGProps<SVGSVGElement> & {
+    animated: boolean
+  }
+>
+
 interface NavMenuItemWithIcon extends NavMenuItem {
-  icon: React.FC<
-    {
-      size?: '24'
-      strokeColor?: WindiColor
-      fillColor?: WindiColor
-      hoverStrokeColor?: WindiColor
-    } & React.SVGProps<SVGSVGElement>
-  >
-  iconActive: React.FC<
-    React.SVGProps<SVGSVGElement> & {
-      animated: boolean
-    }
-  >
+  icon: NavMenuItemIcon
+  iconActive: NavMenuItemIconActive
 }
 
 const IconComputed: React.FC<{
-  active: boolean
-  animated: boolean
-  Icon: React.FC<
-    {
-      size?: '24'
-      strokeColor?: WindiColor
-      fillColor?: WindiColor
-      hoverStrokeColor?: WindiColor
-    } & React.SVGProps<SVGSVGElement>
-  >
-  IconActive: React.FC<
-    React.SVGProps<SVGSVGElement> & {
-      animated: boolean
-    }
-  >
+  active?: boolean
+  animated?: boolean
+  Icon: NavMenuItemIcon
+  IconActive: NavMenuItemIconActive
 }> = ({ active, animated, Icon, IconActive }) => {
   return active ? (
     <IconActive
-      animated={animated}
+      animated={!!animated}
       width="24"
       height="24"
-      className="icon-dark-gray-500 group-hover:icon-dark-gray-900 group-hover:icon-light-gray-500 transition-all duration-300 ease-in-out"
+      className="icon-dark-gray-1000 icon-dark-secondary-indigo-300 icon-light-secondary-indigo-500 icon-light-indigo-400 transition-all duration-300 ease-in-out"
     />
   ) : (
     <Icon
       size="24"
       strokeColor="gray-600"
       fillColor="gray-900"
-      hoverStrokeColor="gray-500"
+      secondaryFillColor="gray-900"
+      hoverStrokeColor="gray-400"
+      interactiveColorsOnGroup
     />
+  )
+}
+
+const MenuItem = ({
+  href,
+  icon,
+  iconActive,
+  active,
+  label,
+}: {
+  href?: string
+  icon: NavMenuItemIcon
+  iconActive: NavMenuItemIconActive
+  active: boolean
+  label: string
+}) => {
+  const [animated, setAnimated] = React.useState(active)
+  React.useEffect(() => {
+    if (!active) {
+      setAnimated(false)
+    }
+  }, [active])
+  return (
+    <a
+      href={href}
+      className={clsx('flex gap-4 group', {
+        'text-gray-500': !active,
+        'text-indigo-300': active,
+      })}
+      onMouseUp={(e) => {
+        e.preventDefault()
+        setAnimated(true)
+      }}
+    >
+      <IconComputed
+        Icon={icon}
+        IconActive={iconActive}
+        active={active}
+        animated={animated}
+      />
+      {label}
+    </a>
   )
 }
 
@@ -62,6 +101,7 @@ export const Menu: React.FC<
   return (
     <ul className={clsx('bg-gray-1000 text-gray-500', className)} {...rest}>
       {items.map((item) => {
+        const active = item.href !== undefined && item.href === activePath
         return (
           <li key={item.label} className="p-4">
             {'items' in item ? (
@@ -70,15 +110,7 @@ export const Menu: React.FC<
                 <Menu items={item.items} />
               </>
             ) : (
-              <a href={item.href} className="flex gap-4 group">
-                <IconComputed
-                  Icon={item.icon}
-                  IconActive={item.iconActive}
-                  active={item.href === activePath}
-                  animated={true}
-                />
-                {item.label}
-              </a>
+              <MenuItem {...item} active={active} />
             )}
           </li>
         )

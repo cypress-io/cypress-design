@@ -7,16 +7,9 @@ interface PathMorpherProps extends React.SVGProps<SVGPathElement> {
   animated: boolean
 }
 
-export const PathMorpher: React.FC<PathMorpherProps> = ({
-  d,
-  dAnimated,
-  dur,
-  animated,
-  ...props
-}) => {
+function useAnimatedEffect(animated: boolean, dur: number) {
   const [prevAnimated, setPrevAnimated] = React.useState(animated)
-  const animateRef = React.useRef<SVGAnimateElement>(null)
-
+  const animateRef = React.useRef<SVGAnimateTransformElement>(null)
   React.useEffect(() => {
     if (prevAnimated === animated) {
       animateRef.current?.endElement()
@@ -27,19 +20,32 @@ export const PathMorpher: React.FC<PathMorpherProps> = ({
       }, dur - 15)
     }
   })
+  return { prevAnimated, animateRef }
+}
+
+export const PathMorpher: React.FC<PathMorpherProps> = ({
+  d,
+  dAnimated,
+  dur,
+  animated,
+  ...props
+}) => {
+  const { prevAnimated, animateRef } = useAnimatedEffect(animated, dur)
 
   return (
     <path d={prevAnimated ? d : dAnimated} {...props}>
-      <animate
-        ref={animateRef}
-        attributeName="d"
-        dur={`${dur}ms`}
-        repeatCount="1"
-        values={
-          prevAnimated ? [d, dAnimated].join(';') : [dAnimated, d].join(';')
-        }
-        restart="always"
-      />
+      {prevAnimated !== animated ? (
+        <animate
+          ref={animateRef}
+          attributeName="d"
+          dur={`${dur}ms`}
+          repeatCount="1"
+          values={
+            prevAnimated ? [d, dAnimated].join(';') : [dAnimated, d].join(';')
+          }
+          restart="always"
+        />
+      ) : null}
     </path>
   )
 }
@@ -58,36 +64,28 @@ export const CircleTranslate: React.FC<CircleTranslateProps> = ({
   dur,
   ...props
 }) => {
-  const [prevAnimated, setPrevAnimated] = React.useState(animated)
-  const animateRef = React.useRef<SVGAnimateTransformElement>(null)
-  React.useEffect(() => {
-    if (prevAnimated === animated) {
-      animateRef.current?.endElement()
-    } else {
-      animateRef.current?.beginElement()
-      setTimeout(() => {
-        setPrevAnimated(animated)
-      }, dur - 15)
-    }
-  })
+  const { prevAnimated, animateRef } = useAnimatedEffect(animated, dur)
+
   return (
     <circle
       {...props}
       transform={
-        prevAnimated ? `translate(${transform1})` : `translate(${transform2})`
+        prevAnimated ? `translate(${transform2})` : `translate(${transform1})`
       }
     >
-      <animateTransform
-        ref={animateRef}
-        attributeName="transform"
-        attributeType="XML"
-        type="translate"
-        dur={`${dur}ms`}
-        repeatCount={2}
-        from={prevAnimated ? transform1 : transform2}
-        to={prevAnimated ? transform2 : transform1}
-        restart="always"
-      />
+      {prevAnimated !== animated ? (
+        <animateTransform
+          ref={animateRef}
+          attributeName="transform"
+          attributeType="XML"
+          type="translate"
+          dur={`${dur}ms`}
+          repeatCount={2}
+          from={prevAnimated ? transform2 : transform1}
+          to={prevAnimated ? transform1 : transform2}
+          restart="always"
+        />
+      ) : null}
     </circle>
   )
 }

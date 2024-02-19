@@ -15,7 +15,7 @@ const IconTechServer: React.FC<
       <g
         strokeLinecap="round"
         clipRule="evenodd"
-        className="icon-dark-stroke icon-light-fill stroke-2 group-hover:stroke-0 transition-all duration-300 ease-in-out"
+        className="icon-dark-stroke icon-light-fill stroke-0 transition-all duration-300 ease-in-out"
         stroke="currentColor"
         fill="transparent"
       >
@@ -33,7 +33,7 @@ const IconTechServer: React.FC<
           transform-origin="50% 50%"
         >
           <path
-            className="fill-gray-500/30"
+            className="fill-gray-300/70"
             fillRule="evenodd"
             d="M2 11c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2Z"
           />
