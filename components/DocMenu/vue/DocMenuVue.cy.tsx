@@ -148,6 +148,7 @@ describe('<DocMenu/>', () => {
     cy.findByText('Code').click()
 
     cy.contains('Set path to').click()
+    cy.wait(200)
     cy.contains('Quisquam, quos').then(($el) => {
       const windowInnerHeight = Cypress.config(`viewportHeight`)
 
