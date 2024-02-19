@@ -56,6 +56,27 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     // send the top position to the parent
     React.useEffect(setActiveMarkerPosition, [onActive, active])
 
+    React.useEffect(() => {
+      if (active && activeLIRef.current) {
+        // if active check if the item is visible in the
+        // viewport and scrollIntoView if not
+        const rect = activeLIRef.current.getBoundingClientRect()
+
+        if (rect.top > 0 && rect.bottom < window.innerHeight) {
+          return
+        }
+
+        if (rect.left > 0 && rect.right < window.innerWidth) {
+          return
+        }
+
+        activeLIRef.current.scrollIntoView({
+          block: 'nearest',
+          inline: 'nearest',
+        })
+      }
+    }, [active])
+
     React.useImperativeHandle(ref, () => ({
       setActiveMarkerPosition,
     }))

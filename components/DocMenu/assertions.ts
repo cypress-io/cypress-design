@@ -132,3 +132,71 @@ export default function assertions(
     cy.findByTestId('doc-menu-active-marker').should('have.css', 'top', '220px')
   })
 }
+
+export const BIG_ITEMS_SET = [
+  {
+    href: '/fooTop',
+    label: 'Foo Top',
+  },
+  {
+    href: '/test',
+    label: 'Getting started',
+  },
+  {
+    href: '/faaz',
+    label: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,',
+  },
+  {
+    label: 'Baaaaaaz',
+    items: [
+      {
+        label: 'Bar',
+        items: [
+          {
+            href: '/foo',
+            label: 'Foo',
+          },
+          {
+            href: '/test',
+            label: 'Getting started',
+          },
+        ],
+      },
+      {
+        label: 'Code',
+        collapsed: true,
+        items: [
+          {
+            href: '/faa',
+            label: 'sasassa',
+          },
+          {
+            href: '/faa1',
+            label: 'sasassa2',
+          },
+          {
+            href: '/faa2',
+            label: 'sasassa3',
+          },
+          {
+            href: '/faa3',
+            label: 'sasassa4',
+          },
+          {
+            href: '/faa4',
+            label: 'lorem ipsum dolor sit amet consectetur adipisicing elit',
+          },
+          {
+            href: '/faa5',
+            label: 'sasassa5',
+          },
+          {
+            href: '/faa6',
+            label:
+              'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
+          },
+        ],
+      },
+    ],
+  },
+]
