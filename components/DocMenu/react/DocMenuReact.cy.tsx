@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import DocMenu from './index'
-import assertions from '../assertions'
+import assertions, { BIG_ITEMS_SET } from '../assertions'
 import { NavGroup, NavItemLink } from '../constants'
 
 describe('<DocMenu/>', () => {
@@ -57,75 +57,7 @@ describe('<DocMenu/>', () => {
                   {children}
                 </div>
               )}
-              items={[
-                {
-                  href: '/fooTop',
-                  label: 'Foo Top',
-                },
-                {
-                  href: '/test',
-                  label: 'Getting started',
-                },
-                {
-                  href: '/faaz',
-                  label:
-                    'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,',
-                },
-                {
-                  label: 'Baaaaaaz',
-                  items: [
-                    {
-                      label: 'Bar',
-                      items: [
-                        {
-                          href: '/foo',
-                          label: 'Foo',
-                        },
-                        {
-                          href: '/test',
-                          label: 'Getting started',
-                        },
-                      ],
-                    },
-                    {
-                      label: 'Code',
-                      collapsed: true,
-                      items: [
-                        {
-                          href: '/faa',
-                          label: 'sasassa',
-                        },
-                        {
-                          href: '/faa1',
-                          label: 'sasassa2',
-                        },
-                        {
-                          href: '/faa2',
-                          label: 'sasassa3',
-                        },
-                        {
-                          href: '/faa3',
-                          label: 'sasassa4',
-                        },
-                        {
-                          href: '/faa4',
-                          label:
-                            'lorem ipsum dolor sit amet consectetur adipisicing elit',
-                        },
-                        {
-                          href: '/faa5',
-                          label: 'sasassa5',
-                        },
-                        {
-                          href: '/faa6',
-                          label:
-                            'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ]}
+              items={BIG_ITEMS_SET}
             />
           </div>
         )
@@ -213,7 +145,45 @@ describe('<DocMenu/>', () => {
     }
     mount(<SUT />)
   })
-})
 
-// pseudo text
-// lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos
+  it('scrolls the active item into view', { viewportHeight: 200 }, () => {
+    const SUT = () => {
+      const [pathState, setPathState] = React.useState<string>('/foo')
+      return (
+        <>
+          <button
+            onClick={() => setPathState('/faa6')}
+            className="p-2 m-2 rounded bg-gray-100 border border-gray-300"
+          >
+            Set path to <code>/faa6</code>
+          </button>
+          <DocMenu
+            items={BIG_ITEMS_SET}
+            LinkComponent={({ href, children, style, ...props }) => (
+              <button
+                onClick={() => setPathState(href)}
+                {...props}
+                style={{ ...style, textAlign: 'left' }}
+              >
+                {children}
+              </button>
+            )}
+            activePath={pathState}
+            collapsible
+          />
+        </>
+      )
+    }
+    mount(<SUT />)
+
+    cy.findByText('Code').click()
+    cy.contains('Set path to').click()
+    cy.contains('Quisquam, quos').then(($el) => {
+      const windowInnerHeight = Cypress.config(`viewportHeight`)
+
+      const rect = ($el?.[0] as any).getBoundingClientRect()
+
+      expect(windowInnerHeight).to.be.greaterThan(rect.top)
+    })
+  })
+})

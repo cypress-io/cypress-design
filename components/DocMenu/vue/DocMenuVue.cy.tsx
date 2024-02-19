@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import { type DefineComponent, defineComponent, ref } from 'vue'
 import { mount } from 'cypress/vue'
-import assertions from '../assertions'
+import assertions, { BIG_ITEMS_SET } from '../assertions'
 import type { NavGroup, NavItemLink } from '../constants'
 import DocMenu from './DocMenu.vue'
 
@@ -109,5 +109,51 @@ describe('<DocMenu/>', () => {
         />
       </>
     ))
+  })
+
+  it.only('scrolls the active item into view', { viewportHeight: 200 }, () => {
+    const CustomLinkVue: DefineComponent<{ href: StringConstructor }> =
+      defineComponent({
+        props: {
+          href: String,
+        },
+        setup(props, { slots }) {
+          return () => (
+            <button style="text-align:left">{slots.default?.()}</button>
+          )
+        },
+      })
+
+    const pathState = ref('/fooTop')
+    const SUT = () => {
+      return (
+        <>
+          <button
+            onClick={() => (pathState.value = '/faa6')}
+            class="p-2 m-2 rounded bg-gray-100 border border-gray-300"
+          >
+            Set path to <code>/faa6</code>
+          </button>
+          <DocMenu
+            items={BIG_ITEMS_SET}
+            activePath={pathState.value}
+            linkComponent={CustomLinkVue}
+            collapsible
+          />
+        </>
+      )
+    }
+    mount(() => <SUT />)
+
+    cy.findByText('Code').click()
+
+    cy.contains('Set path to').click()
+    cy.contains('Quisquam, quos').then(($el) => {
+      const windowInnerHeight = Cypress.config(`viewportHeight`)
+
+      const rect = ($el?.[0] as any).getBoundingClientRect()
+
+      expect(windowInnerHeight).to.be.greaterThan(rect.top)
+    })
   })
 })
