@@ -4,12 +4,13 @@ import * as React from 'react'
 import {
   IconGeneralChatBubble,
   IconTechnologyServerAlt,
-  IconViewPieChartAlt,
+  IconTechnologyGitBranches,
 } from '@cypress-design/react-icon'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
 import IconChat from './_IconGeneralChatBubble'
 import IconServer from './_IconTechServer'
+import IconGitBranches from './_IconTechGitBranches'
 
 describe('Menu', () => {
   it('renders', () => {
@@ -28,8 +29,8 @@ describe('Menu', () => {
           },
           {
             label: 'Branches',
-            icon: IconViewPieChartAlt,
-            iconActive: IconServer,
+            icon: (props) => <IconTechnologyGitBranches {...props} />,
+            iconActive: IconGitBranches,
           },
         ]}
       />,
