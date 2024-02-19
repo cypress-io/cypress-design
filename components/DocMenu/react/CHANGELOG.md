@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 0.7.0
+
+### Minor Changes
+
+- [#388](https://github.com/cypress-io/cypress-design/pull/388) [`7839c67`](https://github.com/cypress-io/cypress-design/commit/7839c670d8a83f8339db1a5d4395bd0dd5eaf987) Thanks [@elevatebart](https://github.com/elevatebart)! - make docmenu scroll to active path if necessary
+
 ## 0.6.0
 
 ### Minor Changes
