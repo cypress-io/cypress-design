@@ -1,8 +1,8 @@
 import * as React from 'react'
 
 const IconTechServer: React.FC<
-  React.SVGProps<SVGSVGElement> & { isActive: boolean }
-> = ({ isActive, ...rest }) => {
+  React.SVGProps<SVGSVGElement> & { animated: boolean }
+> = ({ animated, ...rest }) => {
   return (
     <svg
       width="24"
@@ -20,7 +20,7 @@ const IconTechServer: React.FC<
         fill="transparent"
       >
         <g
-          transform={isActive ? `translate(0 -2)` : undefined}
+          transform={animated ? `translate(0 -2)` : undefined}
           className="transition-transform duration-300 ease-in-out"
         >
           <path d="M2 5c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5Z" />
@@ -29,7 +29,7 @@ const IconTechServer: React.FC<
         </g>
         <g
           className="transition-transform duration-300 ease-in-out"
-          transform={isActive ? `scale(1.2)` : undefined}
+          transform={animated ? `scale(1.2)` : undefined}
           transform-origin="50% 50%"
         >
           <path
@@ -41,7 +41,7 @@ const IconTechServer: React.FC<
           <path d="M5 12Z" strokeWidth="2" />
         </g>
         <g
-          transform={isActive ? `translate(0 2)` : undefined}
+          transform={animated ? `translate(0 2)` : undefined}
           className="transition-transform duration-300 ease-in-out"
         >
           <path d="M2 17c0-1.1.9-2 2-2h16a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2Z" />

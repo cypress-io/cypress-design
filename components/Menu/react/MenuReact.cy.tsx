@@ -4,6 +4,7 @@ import * as React from 'react'
 import {
   IconGeneralChatBubble,
   IconTechnologyServerAlt,
+  IconViewPieChartAlt,
 } from '@cypress-design/react-icon'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
@@ -16,16 +17,20 @@ describe('Menu', () => {
       <Menu
         items={[
           {
-            label: 'Item 1',
-            icon: IconGeneralChatBubble,
-            iconActive: IconChat,
-          }, //
-          {
-            label: 'Item 2',
+            label: 'Runs',
             icon: IconTechnologyServerAlt,
             iconActive: IconServer,
           },
-          // { label: 'Item 3', iconActive: IconServer },
+          {
+            label: 'Reviews',
+            icon: (props) => <IconGeneralChatBubble {...props} />,
+            iconActive: IconChat,
+          },
+          {
+            label: 'Branches',
+            icon: IconViewPieChartAlt,
+            iconActive: IconServer,
+          },
         ]}
       />,
     )

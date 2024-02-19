@@ -3,7 +3,6 @@ export interface NavMenuItem {
   href?: string
 }
 
-export interface NavMenuGroup<T extends NavMenuItem> {
-  label: string
+export interface NavMenuGroup<T extends NavMenuItem> extends NavMenuItem {
   items: (T | NavMenuGroup<T>)[]
 }

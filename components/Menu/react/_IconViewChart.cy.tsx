@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
-import IconTechServer from './_IconTechServer'
+import IconViewChart from './_IconViewChart'
 
-describe('<_IconTechServer />', () => {
+describe('<_IconViewChart />', () => {
   it('renders', () => {
     mount(
-      <IconTechServer
+      <IconViewChart
         animated={false}
         width={400}
         height={400}
@@ -18,7 +18,7 @@ describe('<_IconTechServer />', () => {
     const SUT = () => {
       const [isActive, setIsActive] = React.useState(false)
       return (
-        <IconTechServer
+        <IconViewChart
           animated={isActive}
           width={400}
           height={400}
