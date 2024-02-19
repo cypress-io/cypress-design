@@ -31,6 +31,6 @@ describe('<_IconGeneralChatBubble />', () => {
     }
     mount(<SUT />)
 
-    // cy.get('svg').click()
+    cy.get('svg').click()
   })
 })
