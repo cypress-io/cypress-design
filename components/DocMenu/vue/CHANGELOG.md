@@ -1,5 +1,11 @@
 # @cypress-design/vue-docmenu
 
+## 0.6.1
+
+### Patch Changes
+
+- [`ad32042`](https://github.com/cypress-io/cypress-design/commit/ad3204289730de696c9728b1343e06ce68382561) Thanks [@elevatebart](https://github.com/elevatebart)! - only skip scrolling if both dimension are in view
+
 ## 0.6.0
 
 ### Minor Changes
