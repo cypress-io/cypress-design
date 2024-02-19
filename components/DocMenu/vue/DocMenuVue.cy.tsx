@@ -127,7 +127,7 @@ describe('<DocMenu/>', () => {
     const pathState = ref('/fooTop')
     const SUT = () => {
       return (
-        <>
+        <div class="p-4">
           <button
             onClick={() => (pathState.value = '/faa6')}
             class="p-2 m-2 rounded bg-gray-100 border border-gray-300"
@@ -140,7 +140,7 @@ describe('<DocMenu/>', () => {
             linkComponent={CustomLinkVue}
             collapsible
           />
-        </>
+        </div>
       )
     }
     mount(() => <SUT />)

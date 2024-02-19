@@ -62,11 +62,12 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
         // viewport and scrollIntoView if not
         const rect = activeLIRef.current.getBoundingClientRect()
 
-        if (rect.top > 0 && rect.bottom < window.innerHeight) {
-          return
-        }
-
-        if (rect.left > 0 && rect.right < window.innerWidth) {
+        if (
+          rect.top > 0 &&
+          rect.bottom < window.innerHeight &&
+          rect.left > 0 &&
+          rect.right < window.innerWidth
+        ) {
           return
         }
 
