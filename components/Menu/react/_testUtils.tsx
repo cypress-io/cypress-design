@@ -19,7 +19,7 @@ export function iconTests(
     )
   })
 
-  it.only('renders active', () => {
+  it('renders active', () => {
     const SUT = () => {
       const [isActive, setIsActive] = React.useState(false)
       return (
