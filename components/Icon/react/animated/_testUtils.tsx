@@ -19,17 +19,20 @@ export function iconTests(
     )
   })
 
-  it('renders active', () => {
+  it.only('renders active', () => {
     const SUT = () => {
       const [isActive, setIsActive] = React.useState(false)
       return (
-        <Icon
-          animated={isActive}
-          width={400}
-          height={400}
-          className="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500 m-[50px]"
-          onClick={() => setIsActive(!isActive)}
-        />
+        <>
+          <pre>{isActive ? 'active' : 'not active'}</pre>
+          <Icon
+            animated={isActive}
+            width={400}
+            height={400}
+            className="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500 m-[50px]"
+            onClick={() => setIsActive(!isActive)}
+          />
+        </>
       )
     }
     mount(<SUT />)

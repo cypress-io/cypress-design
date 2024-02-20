@@ -4,7 +4,7 @@ interface PathMorpherProps extends React.SVGProps<SVGPathElement> {
   d: string
   dAnimated: string
   dur?: number
-  animated: boolean
+  animated?: boolean
 }
 
 function useAnimatedEffect(animated: boolean, dur: number) {
@@ -27,7 +27,7 @@ export const PathMorpher: React.FC<PathMorpherProps> = ({
   d,
   dAnimated,
   dur = 150,
-  animated,
+  animated = false,
   ...props
 }) => {
   const { prevAnimated, animateRef } = useAnimatedEffect(animated, dur)
@@ -53,14 +53,14 @@ export const PathMorpher: React.FC<PathMorpherProps> = ({
 interface CircleTranslateProps extends React.SVGProps<SVGCircleElement> {
   transform1: string
   transform2: string
-  animated: boolean
+  animated?: boolean
   dur?: number
 }
 
 export const CircleTranslate: React.FC<CircleTranslateProps> = ({
   transform1,
   transform2,
-  animated,
+  animated = false,
   dur = 150,
   ...props
 }) => {
