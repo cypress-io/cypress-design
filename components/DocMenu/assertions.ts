@@ -83,6 +83,7 @@ export default function assertions(
     options?: (NavItemLink | NavGroup)[],
     activePath?: string,
   ) => void,
+  mountCustomLinkStory: () => void,
 ): void {
   it('renders', () => {
     mountStory(menuItems, 'eight')
@@ -114,4 +115,88 @@ export default function assertions(
       })
     })
   })
+
+  it('expands a section where an element is activated', () => {
+    mountCustomLinkStory()
+    cy.findByText('Foo', { selector: 'button' }).should(
+      'have.class',
+      'text-indigo-500',
+    )
+
+    cy.findByText('Set path to /kephren', { selector: 'button' }).click()
+
+    cy.findByText('Kephren', { selector: 'button' })
+      .should('be.visible')
+      .should('have.class', 'text-indigo-500')
+
+    cy.findByTestId('doc-menu-active-marker').should('have.css', 'top', '220px')
+  })
 }
+
+export const BIG_ITEMS_SET = [
+  {
+    href: '/fooTop',
+    label: 'Foo Top',
+  },
+  {
+    href: '/test',
+    label: 'Getting started',
+  },
+  {
+    href: '/faaz',
+    label: 'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,',
+  },
+  {
+    label: 'Baaaaaaz',
+    items: [
+      {
+        label: 'Bar',
+        items: [
+          {
+            href: '/foo',
+            label: 'Foo',
+          },
+          {
+            href: '/test',
+            label: 'Getting started',
+          },
+        ],
+      },
+      {
+        label: 'Code',
+        collapsed: true,
+        items: [
+          {
+            href: '/faa',
+            label: 'sasassa',
+          },
+          {
+            href: '/faa1',
+            label: 'sasassa2',
+          },
+          {
+            href: '/faa2',
+            label: 'sasassa3',
+          },
+          {
+            href: '/faa3',
+            label: 'sasassa4',
+          },
+          {
+            href: '/faa4',
+            label: 'lorem ipsum dolor sit amet consectetur adipisicing elit',
+          },
+          {
+            href: '/faa5',
+            label: 'sasassa5',
+          },
+          {
+            href: '/faa6',
+            label:
+              'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
+          },
+        ],
+      },
+    ],
+  },
+]

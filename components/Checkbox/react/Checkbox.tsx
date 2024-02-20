@@ -39,7 +39,7 @@ export interface CheckboxProps
 const uid = () =>
   String(Date.now().toString(32) + Math.random().toString(16)).replace(
     /\./g,
-    ''
+    '',
   )
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
@@ -83,8 +83,8 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
             disabled
               ? CheckboxColors.disabled
               : localChecked
-              ? CheckboxColors[color]
-              : CheckboxColors.empty,
+                ? CheckboxColors[color]
+                : CheckboxColors.empty,
           ])}
         />
         {label && (

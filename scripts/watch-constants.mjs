@@ -28,7 +28,7 @@ watcher.on('change', async (file) => {
     {
       stdio: 'inherit',
       cwd,
-    }
+    },
   )
 
   await execa(pathToTsc, ['--emitDeclarationOnly'], {

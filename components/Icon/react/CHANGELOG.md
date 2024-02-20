@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.31.0
+
+### Minor Changes
+
+- [#383](https://github.com/cypress-io/cypress-design/pull/383) [`04bd296`](https://github.com/cypress-io/cypress-design/commit/04bd296f515ad300450deb2f838dc3ac6bae26f7) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - chore(icons): add a11y and ui-coverage icons
+
+### Patch Changes
+
+- Updated dependencies [[`04bd296`](https://github.com/cypress-io/cypress-design/commit/04bd296f515ad300450deb2f838dc3ac6bae26f7)]:
+  - @cypress-design/icon-registry@0.34.0
+
 ## 0.30.1
 
 ### Patch Changes

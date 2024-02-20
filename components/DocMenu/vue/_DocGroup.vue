@@ -65,6 +65,15 @@ watch(open, (open) => {
   }
 })
 
+watch(
+  () => props.activePath,
+  () => {
+    if (hasActiveItem.value && !open.value) {
+      open.value = true
+    }
+  },
+)
+
 defineExpose({
   reTriggerSetActiveGroup,
 })

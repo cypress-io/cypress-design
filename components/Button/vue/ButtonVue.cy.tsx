@@ -6,11 +6,6 @@ import Button from './Button.vue'
 import ButtonStory from './Button.rootstory'
 
 describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
-  function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {
-    mount(() => <ButtonStory {...options} />)
-  }
-  assertions(mountStory)
-
   it('should increment the value when clicking on the button', () => {
     const val = ref(0)
     mount(() => (
@@ -88,4 +83,41 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
     // Base HTML button properly enables
     cy.findByTestId('ds-button-changed').should('have.text', 'DS Button')
   })
+
+  it('responsively handles `href` changes', () => {
+    const cyHref = ref('')
+
+    mount({
+      render: () => (
+        <div class="p-4">
+          <Button
+            data-cy="toggle"
+            class="mb-4"
+            onClick={() => (cyHref.value = 'https://www.cypress.io')}
+          >
+            Toggle
+          </Button>
+
+          <Button href={cyHref.value}>DS Button</Button>
+        </div>
+      ),
+    })
+
+    cy.get('button').should('not.have.attr', 'href')
+
+    cy.findByTestId('toggle').click()
+
+    cy.get('a').should('have.attr', 'href', 'https://www.cypress.io')
+  })
+
+  it('uses the type as an attribute', () => {
+    mount(() => <Button type="submit">Submit</Button>)
+
+    cy.get('button').should('have.attr', 'type', 'submit')
+  })
+
+  function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {
+    mount(() => <ButtonStory {...options} />)
+  }
+  assertions(mountStory)
 })

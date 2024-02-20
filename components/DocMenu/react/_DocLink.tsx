@@ -30,22 +30,16 @@ export interface DocLinkForward {
 }
 
 export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
-  (
-    {
-      item: { label, ...itemRest },
-      depth,
-      markerIsMoving,
-      context,
-      onActive,
-      LinkComponent,
-    },
-    ref,
-  ) => {
+  ({ item, depth, markerIsMoving, context, onActive, LinkComponent }, ref) => {
     const activeLIRef = React.useRef<HTMLLIElement>(null)
 
-    const { collapsible, activePath } = context
+    const active = React.useMemo(
+      () => item.href === context.activePath,
+      [item.href, context.activePath],
+    )
 
-    const active = itemRest.href === activePath
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { label, ...itemRest } = item
 
     const setActiveMarkerPosition = () => {
       if (active) {
@@ -62,12 +56,37 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     // send the top position to the parent
     React.useEffect(setActiveMarkerPosition, [onActive, active])
 
+    React.useEffect(() => {
+      // if active check if the item is visible in the
+      // viewport and scrollIntoView if not
+      setTimeout(() => {
+        // give it time tp render and expand
+        if (active && activeLIRef.current) {
+          const rect = activeLIRef.current.getBoundingClientRect()
+
+          if (
+            rect.top > 0 &&
+            rect.bottom < window.innerHeight &&
+            rect.left > 0 &&
+            rect.right < window.innerWidth
+          ) {
+            return
+          }
+
+          activeLIRef.current.scrollIntoView({
+            block: 'nearest',
+            inline: 'nearest',
+          })
+        }
+      }, 200)
+    }, [active])
+
     React.useImperativeHandle(ref, () => ({
       setActiveMarkerPosition,
     }))
 
     return (
-      <li ref={activeLIRef} className="list-none p-0">
+      <li ref={activeLIRef} className="list-none p-0 scroll-my-10">
         <LinkComponent
           {...itemRest}
           className={clsx('group relative block w-full pl-[24px]', {
@@ -86,15 +105,18 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
                 'left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full',
                 {
                   hidden: !markerIsMoving || !active,
-                  'group-hover:block bg-gray-300': !active && collapsible,
+                  'group-hover:block bg-gray-300':
+                    !active && context.collapsible,
                   'bg-indigo-500 dark:bg-indigo-400': active && markerIsMoving,
                 },
               )}
             />
           ) : null}
-          {label}
+          {item.label}
         </LinkComponent>
       </li>
     )
   },
 )
+
+DocLink.displayName = 'DocMenuDocLink'

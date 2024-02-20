@@ -1,5 +1,59 @@
 # @cypress-design/vue-button
 
+## 0.11.7
+
+### Patch Changes
+
+- [#366](https://github.com/cypress-io/cypress-design/pull/366) [`3a48cc3`](https://github.com/cypress-io/cypress-design/commit/3a48cc327666f1a3b067263a24dd13a3ba1f3b1e) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - add min-height to button css classes
+
+- Updated dependencies [[`3a48cc3`](https://github.com/cypress-io/cypress-design/commit/3a48cc327666f1a3b067263a24dd13a3ba1f3b1e)]:
+  - @cypress-design/constants-button@0.1.4
+
+## 0.11.6
+
+### Patch Changes
+
+- [`28863db`](https://github.com/cypress-io/cypress-design/commit/28863dbcf9dc6a9215583efce0a185133e377fc0) Thanks [@elevatebart](https://github.com/elevatebart)! - button should have a width by default
+
+- Updated dependencies [[`28863db`](https://github.com/cypress-io/cypress-design/commit/28863dbcf9dc6a9215583efce0a185133e377fc0)]:
+  - @cypress-design/constants-button@0.1.3
+
+## 0.11.5
+
+### Patch Changes
+
+- [`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62) Thanks [@elevatebart](https://github.com/elevatebart)! - add w-fit and restore flex
+
+- Updated dependencies [[`070ab43`](https://github.com/cypress-io/cypress-design/commit/070ab43c7de2fa816b31052e887f85411ae02e62)]:
+  - @cypress-design/constants-button@0.1.2
+
+## 0.11.4
+
+### Patch Changes
+
+- [`5153571`](https://github.com/cypress-io/cypress-design/commit/5153571c6cf83960692834d27974d7293303a273) Thanks [@elevatebart](https://github.com/elevatebart)! - use inline-flex instead of flex to avoid superwide links
+
+- Updated dependencies [[`5153571`](https://github.com/cypress-io/cypress-design/commit/5153571c6cf83960692834d27974d7293303a273)]:
+  - @cypress-design/constants-button@0.1.1
+
+## 0.11.3
+
+### Patch Changes
+
+- [#378](https://github.com/cypress-io/cypress-design/pull/378) [`c53e687`](https://github.com/cypress-io/cypress-design/commit/c53e68712e701d3a04ac0fb21c99943700b56158) Thanks [@elevatebart](https://github.com/elevatebart)! - fix the reactivity of href
+
+## 0.11.2
+
+### Patch Changes
+
+- [`9e0343c`](https://github.com/cypress-io/cypress-design/commit/9e0343c86ae8b186e32d184c6880edd125471cf6) Thanks [@elevatebart](https://github.com/elevatebart)! - fix button type reactivity issue
+
+## 0.11.1
+
+### Patch Changes
+
+- [`2771c45`](https://github.com/cypress-io/cypress-design/commit/2771c454a03635e201a085e6f5ef4a33b74b1232) Thanks [@elevatebart](https://github.com/elevatebart)! - use the type prop in button
+
 ## 0.11.0
 
 ### Minor Changes

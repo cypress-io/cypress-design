@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import DocMenu from './index'
-import assertions from '../assertions'
+import assertions, { BIG_ITEMS_SET } from '../assertions'
 import { NavGroup, NavItemLink } from '../constants'
 
 describe('<DocMenu/>', () => {
@@ -57,75 +57,7 @@ describe('<DocMenu/>', () => {
                   {children}
                 </div>
               )}
-              items={[
-                {
-                  href: '/fooTop',
-                  label: 'Foo Top',
-                },
-                {
-                  href: '/test',
-                  label: 'Getting started',
-                },
-                {
-                  href: '/faaz',
-                  label:
-                    'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,',
-                },
-                {
-                  label: 'Baaaaaaz',
-                  items: [
-                    {
-                      label: 'Bar',
-                      items: [
-                        {
-                          href: '/foo',
-                          label: 'Foo',
-                        },
-                        {
-                          href: '/test',
-                          label: 'Getting started',
-                        },
-                      ],
-                    },
-                    {
-                      label: 'Code',
-                      collapsed: true,
-                      items: [
-                        {
-                          href: '/faa',
-                          label: 'sasassa',
-                        },
-                        {
-                          href: '/faa1',
-                          label: 'sasassa2',
-                        },
-                        {
-                          href: '/faa2',
-                          label: 'sasassa3',
-                        },
-                        {
-                          href: '/faa3',
-                          label: 'sasassa4',
-                        },
-                        {
-                          href: '/faa4',
-                          label:
-                            'lorem ipsum dolor sit amet consectetur adipisicing elit',
-                        },
-                        {
-                          href: '/faa5',
-                          label: 'sasassa5',
-                        },
-                        {
-                          href: '/faa6',
-                          label:
-                            'lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos',
-                        },
-                      ],
-                    },
-                  ],
-                },
-              ]}
+              items={BIG_ITEMS_SET}
             />
           </div>
         )
@@ -169,8 +101,90 @@ describe('<DocMenu/>', () => {
       </div>,
     )
   }
-  assertions(mountStory)
-})
 
-// pseudo text
-// lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos
+  assertions(mountStory, () => {
+    const SUT = () => {
+      const [pathState, setPathState] = React.useState<string>('/foo')
+      return (
+        <>
+          <button onClick={() => setPathState('/kephren')}>
+            Set path to /kephren
+          </button>
+          <DocMenu
+            items={[
+              {
+                label: 'Section 1',
+                items: [
+                  { href: '/foo', label: 'Foo' },
+                  {
+                    label: 'Subsection',
+                    items: [{ href: '/sub', label: 'Sub' }],
+                  },
+                ],
+              },
+              {
+                label: 'Pyramid',
+                items: [{ href: '/kephren', label: 'Kephren' }],
+                collapsed: true,
+              },
+            ]}
+            LinkComponent={({ href, children, style, ...props }) => (
+              <button
+                onClick={() => setPathState(href)}
+                {...props}
+                style={{ ...style, textAlign: 'left' }}
+              >
+                {children}
+              </button>
+            )}
+            activePath={pathState}
+            collapsible
+          />
+        </>
+      )
+    }
+    mount(<SUT />)
+  })
+
+  it('scrolls the active item into view', { viewportHeight: 200 }, () => {
+    const SUT = () => {
+      const [pathState, setPathState] = React.useState<string>('/foo')
+      return (
+        <div className="p-4">
+          <button
+            onClick={() => setPathState('/faa6')}
+            className="p-2 m-2 rounded bg-gray-100 border border-gray-300"
+          >
+            Set path to <code>/faa6</code>
+          </button>
+          <DocMenu
+            items={BIG_ITEMS_SET}
+            LinkComponent={({ href, children, style, ...props }) => (
+              <button
+                onClick={() => setPathState(href)}
+                {...props}
+                style={{ ...style, textAlign: 'left' }}
+              >
+                {children}
+              </button>
+            )}
+            activePath={pathState}
+            collapsible
+          />
+        </div>
+      )
+    }
+    mount(<SUT />)
+
+    cy.findByText('Code').click()
+    cy.contains('Set path to').click()
+    cy.wait(200)
+    cy.contains('Quisquam, quos').then(($el) => {
+      const windowInnerHeight = Cypress.config(`viewportHeight`)
+
+      const rect = ($el?.[0] as any).getBoundingClientRect()
+
+      expect(windowInnerHeight).to.be.greaterThan(rect.top)
+    })
+  })
+})

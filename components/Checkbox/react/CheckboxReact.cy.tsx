@@ -13,7 +13,7 @@ describe('Checkbox', () => {
         checked={isChecked}
         onChange={() => (isChecked = !isChecked)}
         className="px-2 py-1 m-2 border border-gray-300 rounded"
-      />
+      />,
     )
 
     cy.get('input[type="checkbox"]').should('be.checked')
@@ -33,7 +33,7 @@ describe('Checkbox', () => {
         checked={isChecked}
         onChange={() => (isChecked = !isChecked)}
         className="px-2 py-1 m-2 border border-gray-300 rounded"
-      />
+      />,
     )
 
     cy.get('input[type="checkbox"]').should('be.checked')
@@ -54,7 +54,7 @@ describe('Checkbox', () => {
         ].join(' ')}
         id="lorem-checkbox"
         onChange={() => {}}
-      />
+      />,
     )
 
     cy.percySnapshot()

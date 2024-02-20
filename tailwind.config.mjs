@@ -42,7 +42,7 @@ const safeColors = reduce(
               return acc_int
             },
 
-            []
+            [],
           )
           acc_prefix.push(...withSecondaryDerivatives)
           return acc_prefix
@@ -50,7 +50,7 @@ const safeColors = reduce(
         /**
          * @type {string[]}
          */
-        []
+        [],
       )
 
       return [`bg-${variantName}`, `text-${variantName}`, ...iconColor]
@@ -64,7 +64,7 @@ const safeColors = reduce(
 
     return acc
   },
-  []
+  [],
 )
 
 const files = [
@@ -83,7 +83,7 @@ export default {
     files,
     extract: ['vue', 'jsx', 'tsx', 'ts', 'md'].reduce(
       (acc, ext) => ({ ...acc, [ext]: TailwindIconExtractor }),
-      {}
+      {},
     ),
   },
   safelist: safeColors,

@@ -13,7 +13,7 @@ module.exports = {
       root: {
         exit: (ast) => {
           ast.children = ast.children.find(
-            (node) => node.name === 'svg' && node.type === 'element'
+            (node) => node.name === 'svg' && node.type === 'element',
           ).children
         },
       },

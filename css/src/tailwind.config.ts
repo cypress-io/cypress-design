@@ -42,6 +42,10 @@ export default (fileGlobs: string[] = []) => {
       shortcuts,
       iconPlugin,
       detailsOpenVariantPlugin,
+      containerPlugin,
+      /**
+       * hocus + group-hocus plugin
+       */
       plugin(({ addVariant }) => {
         addVariant('hocus', ['&:focus', '&:hover'])
         addVariant('group-hocus', [
@@ -49,6 +53,29 @@ export default (fileGlobs: string[] = []) => {
           ':merge(.group):hover &',
         ])
         addVariant('children', '& *')
+      }),
+      /**
+       * add antialiased base for entire body
+       */
+      plugin(({ addBase }) => {
+        addBase({
+          '@media (min-resolution:2dppx)': {
+            body: {
+              WebkitFontSmoothing: 'antialiased',
+              MozOsxFontSmoothing: 'grayscale',
+            },
+          },
+        })
+      }),
+      plugin(({ addComponents }) => {
+        addComponents({
+          // to allow users to set custom width on buttons, we give it a width by default
+          // if we don't set the button with by default, anchors will not have
+          // the same size as buttons
+          '.cy-button-width': {
+            width: 'fit-content',
+          },
+        })
       }),
       containerPlugin,
     ],

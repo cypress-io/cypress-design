@@ -67,6 +67,33 @@ defineExpose({
   setActiveMarkerPosition,
 })
 
+watch(
+  () => props.active,
+  (active) => {
+    setTimeout(() => {
+      if (active && $container.value) {
+        // if active check if the item is visible in the
+        // viewport and scrollIntoView if not
+        const rect = $container.value.getBoundingClientRect()
+
+        if (
+          rect.top > 0 &&
+          rect.bottom < window.innerHeight &&
+          rect.left > 0 &&
+          rect.right < window.innerWidth
+        ) {
+          return
+        }
+
+        $container.value.scrollIntoView({
+          block: 'nearest',
+          inline: 'nearest',
+        })
+      }
+    }, 200)
+  },
+)
+
 const itemWithoutLabel = computed(() => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { label, ...rest } = props.item
@@ -75,7 +102,7 @@ const itemWithoutLabel = computed(() => {
 </script>
 
 <template>
-  <li ref="$container" class="list-none p-0">
+  <li ref="$container" class="list-none p-0 scroll-my-10">
     <component
       :is="linkComponent"
       v-bind="itemWithoutLabel"

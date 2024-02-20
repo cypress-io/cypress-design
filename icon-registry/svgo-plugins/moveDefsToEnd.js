@@ -12,11 +12,11 @@ module.exports = {
           if (node.name !== 'svg') return
           node.children = [].concat(
             node.children.filter(
-              (child) => child.type !== 'element' || child.name !== 'defs'
+              (child) => child.type !== 'element' || child.name !== 'defs',
             ),
             node.children.filter(
-              (child) => child.type === 'element' && child.name === 'defs'
-            )
+              (child) => child.type === 'element' && child.name === 'defs',
+            ),
           )
         },
       },

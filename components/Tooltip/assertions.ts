@@ -2,7 +2,7 @@
 
 export default function assertions(
   mountStory: (options?: any) => void,
-  fw: 'react' | 'vue'
+  fw: 'react' | 'vue',
 ): void {
   it('renders', () => {
     mountStory()

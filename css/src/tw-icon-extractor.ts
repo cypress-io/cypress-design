@@ -42,12 +42,12 @@ export const IconExtractor = (line: string): string[] => {
           // if it checks out, add the class to the set
           ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR[attrName](
             checkedValue,
-            true
+            true,
           ).forEach((className) => set.add(className))
         }
       }
       return set
-    }, new Set<string>()) ?? new Set<string>()
+    }, new Set<string>()) ?? new Set<string>(),
   )
 
   return [...classes, ...additionalColorClasses]
