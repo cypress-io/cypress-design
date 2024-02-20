@@ -20,13 +20,7 @@ const IconObjectGear: React.FC<
         animated={animated}
         className="icon-light"
       />
-      <circle
-        cx="12"
-        cy="12"
-        r="2"
-        fill="#9095AD"
-        className="icon-light-secondary"
-      />
+      <circle cx="12" cy="12" r="2" fill="#9095AD" className="icon-dark" />
     </svg>
   )
 }

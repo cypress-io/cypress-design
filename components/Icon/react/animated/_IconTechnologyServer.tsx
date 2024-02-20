@@ -29,7 +29,7 @@ const IconTechServer: React.FC<
         dAnimated="M2 20C2 18.8954 2.89543 18 4 18H20C21.1046 18 22 18.8954 22 20V22C22 23.1046 21.1046 24 20 24H4C2.89543 24 2 23.1046 2 22V20ZM7 21C7 20.4477 7.44772 20 8 20H12C12.5523 20 13 20.4477 13 21C13 21.5523 12.5523 22 12 22H8C7.44772 22 7 21.5523 7 21ZM5 22C5.55228 22 6 21.5523 6 21C6 20.4477 5.55228 20 5 20C4.44772 20 4 20.4477 4 21C4 21.5523 4.44772 22 5 22Z"
         animated={animated}
         fill="#9095AD"
-        className="icon-light-secondary"
+        className="icon-dark"
       />
 
       <PathMorpher
@@ -39,7 +39,7 @@ const IconTechServer: React.FC<
         dAnimated="M2 2C2 0.89543 2.89543 0 4 0H20C21.1046 0 22 0.895431 22 2V4C22 5.10457 21.1046 6 20 6H4C2.89543 6 2 5.10457 2 4V2ZM7 3C7 2.44772 7.44772 2 8 2H15C15.5523 2 16 2.44772 16 3C16 3.55228 15.5523 4 15 4H8C7.44772 4 7 3.55228 7 3ZM5 4C5.55228 4 6 3.55228 6 3C6 2.44772 5.55228 2 5 2C4.44772 2 4 2.44772 4 3C4 3.55228 4.44772 4 5 4Z"
         animated={animated}
         fill="#9095AD"
-        className="icon-light-secondary"
+        className="icon-dark"
       />
     </svg>
   )

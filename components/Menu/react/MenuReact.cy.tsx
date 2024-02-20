@@ -15,6 +15,7 @@ import {
 } from '@cypress-design/react-icon'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
+import { IconWindowCodeEditor } from '@cypress-design/react-icon'
 
 describe('Menu', () => {
   it('renders', () => {
@@ -52,6 +53,13 @@ describe('Menu', () => {
                 href: '#insights',
               },
               {
+                label: 'Specs',
+                icon: (props) => <IconWindowCodeEditor {...props} />,
+                iconActive: IconWindowCodeEditor,
+                href: '#specs',
+              },
+
+              {
                 label: 'Settings',
                 icon: (props) => <IconObjectGear {...props} />,
                 iconActive: IconAnimatedObjectGear,
@@ -59,8 +67,10 @@ describe('Menu', () => {
               },
             ]}
             onMouseDown={(e: any) => {
-              e.preventDefault()
-              setActivePath(`#${e.target.href?.split('#')[1] ?? ''}`)
+              if (e.target.href) {
+                e.preventDefault()
+                setActivePath(`#${e.target.href.split('#')[1]}`)
+              }
             }}
           />
         </>
