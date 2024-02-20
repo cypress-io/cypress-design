@@ -5,7 +5,6 @@ interface PathMorpherProps extends React.SVGProps<SVGPathElement> {
   dAnimated: string
   dur?: number
   animated?: boolean
-  children?: React.ReactNode
 }
 
 function useAnimatedEffect(animated: boolean, dur: number) {
@@ -18,7 +17,7 @@ function useAnimatedEffect(animated: boolean, dur: number) {
       animateRef.current?.beginElement()
       setTimeout(() => {
         setPrevAnimated(animated)
-      }, dur - 15)
+      }, dur - 30)
     }
   })
   return { prevAnimated, animateRef }
@@ -29,26 +28,27 @@ export const PathMorpher: React.FC<PathMorpherProps> = ({
   dAnimated,
   dur = 150,
   animated = false,
-  children,
+
   ...props
 }) => {
   const { prevAnimated, animateRef } = useAnimatedEffect(animated, dur)
 
   return (
     <path d={prevAnimated ? dAnimated : d} {...props}>
-      {prevAnimated !== animated ? (
-        <animate
-          ref={animateRef}
-          attributeName="d"
-          dur={`${dur}ms`}
-          repeatCount="1"
-          values={
-            prevAnimated ? [dAnimated, d].join(';') : [d, dAnimated].join(';')
-          }
-          restart="always"
-        />
-      ) : null}
-      {children}
+      <animate
+        ref={animateRef}
+        attributeName="d"
+        dur={`${dur}ms`}
+        repeatCount="1"
+        values={
+          prevAnimated === animated
+            ? undefined
+            : prevAnimated
+              ? [dAnimated, d].join(';')
+              : [d, dAnimated].join(';')
+        }
+        restart="always"
+      />
     </path>
   )
 }

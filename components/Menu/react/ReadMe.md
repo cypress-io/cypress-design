@@ -17,17 +17,17 @@ import {
   IconGeneralChatBubble,
   IconAnimatedGeneralChatBubble,
   IconTechnologyServerAlt,
-  IconTechnologyGitBranches,
-  IconViewPieChart,
   IconAnimatedTechnologyServer,
+  IconTechnologyGitBranches,
   IconAnimatedTechnologyGitBranches,
+  IconViewPieChart,
   IconAnimatedViewChart,
   IconObjectGear,
   IconAnimatedObjectGear,
   IconWindowCodeEditor,
 } from '@cypress-design/react-icon'
 
-export const SoftMenu = () => {
+export default () => {
   const [activePath, setActivePath] = React.useState('#runs')
 
   return (

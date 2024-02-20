@@ -24,6 +24,7 @@ const IconViewChart: React.FC<
         fill="#747994"
         className="icon-dark-secondary"
         animated={animated}
+        shapeRendering="geometricPrecision"
       />
       <PathMorpher
         d="M 21 11.3 C 20.67 6.86 17.14 3.33 12.7 3 C 12.3 3 12 3.3 12 3.8 L 12 11.3 C 12 11.7 12.3 12 12.8 12 L 20.2 12 C 20.7 12 21 11.7 21 11.3 Z"
