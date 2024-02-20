@@ -3,16 +3,16 @@
 import * as React from 'react'
 import {
   IconGeneralChatBubble,
+  IconAnimatedGeneralChatBubble,
   IconTechnologyServerAlt,
   IconTechnologyGitBranches,
   IconViewPieChart,
+  IconAnimatedTechnologyServer,
+  IconAnimatedTechnologyGitBranches,
+  IconAnimatedViewChart,
 } from '@cypress-design/react-icon'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
-import IconChat from './_IconGeneralChatBubble'
-import IconServer from './_IconTechServer'
-import IconGitBranches from './_IconTechGitBranches'
-import IconViewChart from './_IconViewChart'
 
 describe('Menu', () => {
   it('renders', () => {
@@ -27,25 +27,25 @@ describe('Menu', () => {
               {
                 label: 'Runs',
                 icon: (props) => <IconTechnologyServerAlt {...props} />,
-                iconActive: IconServer,
+                iconActive: IconAnimatedTechnologyServer,
                 href: '#runs',
               },
               {
                 label: 'Reviews',
                 icon: (props) => <IconGeneralChatBubble {...props} />,
-                iconActive: IconChat,
+                iconActive: IconAnimatedGeneralChatBubble,
                 href: '#reviews',
               },
               {
                 label: 'Branches',
                 icon: (props) => <IconTechnologyGitBranches {...props} />,
-                iconActive: IconGitBranches,
+                iconActive: IconAnimatedTechnologyGitBranches,
                 href: '#branches',
               },
               {
                 label: 'Insights',
                 icon: (props) => <IconViewPieChart {...props} />,
-                iconActive: IconViewChart,
+                iconActive: IconAnimatedViewChart,
                 href: '#insights',
               },
             ]}
