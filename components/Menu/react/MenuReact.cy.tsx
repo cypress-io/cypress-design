@@ -1,6 +1,9 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
+import { mount } from 'cypress/react18'
+import Menu from './Menu'
+
 import {
   IconGeneralChatBubble,
   IconAnimatedGeneralChatBubble,
@@ -14,10 +17,8 @@ import {
   IconAnimatedObjectGear,
   IconWindowCodeEditor,
 } from '@cypress-design/react-icon'
-import { mount } from 'cypress/react18'
-import Menu from './Menu'
 
-describe('Menu', () => {
+describe('<Menu />', () => {
   it('renders', () => {
     const SUT = () => {
       const [activePath, setActivePath] = React.useState<string>('#runs')
