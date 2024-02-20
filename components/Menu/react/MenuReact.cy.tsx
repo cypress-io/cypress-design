@@ -12,10 +12,10 @@ import {
   IconAnimatedViewChart,
   IconObjectGear,
   IconAnimatedObjectGear,
+  IconWindowCodeEditor,
 } from '@cypress-design/react-icon'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
-import { IconWindowCodeEditor } from '@cypress-design/react-icon'
 
 describe('Menu', () => {
   it('renders', () => {
