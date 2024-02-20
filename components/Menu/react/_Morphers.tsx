@@ -3,7 +3,7 @@ import React from 'react'
 interface PathMorpherProps extends React.SVGProps<SVGPathElement> {
   d: string
   dAnimated: string
-  dur: number
+  dur?: number
   animated: boolean
 }
 
@@ -17,7 +17,7 @@ function useAnimatedEffect(animated: boolean, dur: number) {
       animateRef.current?.beginElement()
       setTimeout(() => {
         setPrevAnimated(animated)
-      }, dur - 15)
+      }, dur - 10)
     }
   })
   return { prevAnimated, animateRef }
@@ -26,14 +26,14 @@ function useAnimatedEffect(animated: boolean, dur: number) {
 export const PathMorpher: React.FC<PathMorpherProps> = ({
   d,
   dAnimated,
-  dur,
+  dur = 150,
   animated,
   ...props
 }) => {
   const { prevAnimated, animateRef } = useAnimatedEffect(animated, dur)
 
   return (
-    <path d={prevAnimated ? d : dAnimated} {...props}>
+    <path d={prevAnimated ? dAnimated : d} {...props}>
       {prevAnimated !== animated ? (
         <animate
           ref={animateRef}
@@ -41,7 +41,7 @@ export const PathMorpher: React.FC<PathMorpherProps> = ({
           dur={`${dur}ms`}
           repeatCount="1"
           values={
-            prevAnimated ? [d, dAnimated].join(';') : [dAnimated, d].join(';')
+            prevAnimated ? [dAnimated, d].join(';') : [d, dAnimated].join(';')
           }
           restart="always"
         />
@@ -54,14 +54,14 @@ interface CircleTranslateProps extends React.SVGProps<SVGCircleElement> {
   transform1: string
   transform2: string
   animated: boolean
-  dur: number
+  dur?: number
 }
 
 export const CircleTranslate: React.FC<CircleTranslateProps> = ({
   transform1,
   transform2,
   animated,
-  dur,
+  dur = 150,
   ...props
 }) => {
   const { prevAnimated, animateRef } = useAnimatedEffect(animated, dur)

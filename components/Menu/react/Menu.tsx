@@ -36,7 +36,7 @@ const IconComputed: React.FC<{
       animated={!!animated}
       width="24"
       height="24"
-      className="icon-dark-gray-1000 icon-dark-secondary-indigo-300 icon-light-secondary-indigo-500 icon-light-indigo-400 transition-all duration-300 ease-in-out"
+      className="icon-dark-gray-1000 icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-light-secondary-indigo-400 transition-all duration-300 ease-in-out"
     />
   ) : (
     <Icon
