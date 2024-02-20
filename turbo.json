@@ -2,25 +2,33 @@
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build"
+      ],
       "inputs": [
         "tsconfig.json",
         "tsconfig.build.json",
-        "*.vue",
-        "*.tsx",
-        "*.mjs",
-        "*.ts",
-        "*.svg",
+        "**/*.vue",
+        "**/*.tsx",
+        "**/*.mjs",
+        "**/*.ts",
+        "**/*.svg",
         "svgo-plugins/*.js",
-        "src/*.ts",
-        "src/*.mjs",
-        "src/*.js",
+        "src/**/*.ts",
+        "src/**/*.ts",
+        "src/**/*.mjs",
+        "src/**/*.js",
         "icons/*.svg",
         "!*.cy.tsx",
         "!*.rootstory.tsx"
       ],
-      "outputs": ["dist/**"]
+      "outputs": [
+        "dist/**"
+      ]
     }
   },
-  "globalDependencies": ["tsconfig.json", "tsconfig.*.json"]
+  "globalDependencies": [
+    "tsconfig.json",
+    "tsconfig.*.json"
+  ]
 }

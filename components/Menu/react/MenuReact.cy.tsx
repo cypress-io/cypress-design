@@ -10,6 +10,8 @@ import {
   IconAnimatedTechnologyServer,
   IconAnimatedTechnologyGitBranches,
   IconAnimatedViewChart,
+  IconObjectGear,
+  IconAnimatedObjectGear,
 } from '@cypress-design/react-icon'
 import { mount } from 'cypress/react18'
 import Menu from './Menu'
@@ -18,6 +20,7 @@ describe('Menu', () => {
   it('renders', () => {
     const SUT = () => {
       const [activePath, setActivePath] = React.useState<string>('#runs')
+
       return (
         <>
           <pre>URL: {activePath}</pre>
@@ -48,10 +51,16 @@ describe('Menu', () => {
                 iconActive: IconAnimatedViewChart,
                 href: '#insights',
               },
+              {
+                label: 'Settings',
+                icon: (props) => <IconObjectGear {...props} />,
+                iconActive: IconAnimatedObjectGear,
+                href: '#settings',
+              },
             ]}
             onMouseDown={(e: any) => {
               e.preventDefault()
-              setActivePath(`#${e.target.href.split('#')[1]}`)
+              setActivePath(`#${e.target.href?.split('#')[1] ?? ''}`)
             }}
           />
         </>
