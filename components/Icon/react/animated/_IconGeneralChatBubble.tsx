@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { CircleTranslate, PathMorpher } from './_Morphers'
+import { PathMorpher } from './_Morphers'
 
 const IconGeneralChatBubble: React.FC<
   React.SVGProps<SVGSVGElement> & { animated: boolean }
