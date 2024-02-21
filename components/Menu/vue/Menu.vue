@@ -27,8 +27,11 @@ defineEmits<{
   >
     <li :key="item.label" className="p-4">
       <template v-if="'items' in item">
-        <span></span>
-        <Menu :items="item.items" />
+        <MenuItem
+          v-bind="item"
+          :active="item.href !== undefined && item.href === activePath"
+        />
+        <Menu :items="item.items" :activePath="activePath" />
       </template>
       <MenuItem
         v-else

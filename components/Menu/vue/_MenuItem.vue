@@ -6,7 +6,7 @@ const props = defineProps<
   {
     label: string
     href?: string
-    active: boolean
+    active?: boolean
   } & IconSet
 >()
 
@@ -41,23 +41,25 @@ const Icon = computed(() => props.icon)
       }
     "
   >
-    <IconActive
-      v-if="active"
-      :animated="animated"
-      width="24"
-      height="24"
-      class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
-    />
+    <template v-if="icon && iconActive">
+      <IconActive
+        v-if="active"
+        :animated="animated"
+        width="24"
+        height="24"
+        class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+      />
 
-    <Icon
-      v-else
-      size="24"
-      strokeColor="gray-600"
-      fillColor="gray-900"
-      secondaryFillColor="gray-900"
-      hoverStrokeColor="gray-400"
-      interactiveColorsOnGroup
-    />
+      <Icon
+        v-else
+        size="24"
+        strokeColor="gray-600"
+        fillColor="gray-900"
+        secondaryFillColor="gray-900"
+        hoverStrokeColor="gray-400"
+        interactiveColorsOnGroup
+      />
+    </template>
     {{ label }}
   </a>
 </template>

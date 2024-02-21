@@ -52,6 +52,20 @@ describe('<Menu />', () => {
                 icon: (props) => <IconViewPieChart {...props} />,
                 iconActive: IconAnimatedViewChart,
                 href: '#insights',
+                items: [
+                  {
+                    label: 'Overview',
+                    href: '#overview',
+                  },
+                  {
+                    label: 'Test Results',
+                    href: '#test-results',
+                  },
+                  {
+                    label: 'Test Performance',
+                    href: '#test-performance',
+                  },
+                ],
               },
               {
                 label: 'Specs',

@@ -21,8 +21,8 @@ type NavMenuItemIconActive = React.FC<
 >
 
 interface NavMenuItemWithIcon extends NavMenuItem {
-  icon: NavMenuItemIcon
-  iconActive: NavMenuItemIconActive
+  icon?: NavMenuItemIcon
+  iconActive?: NavMenuItemIconActive
 }
 
 const IconComputed: React.FC<{
@@ -58,8 +58,8 @@ const MenuItem = ({
   label,
 }: {
   href?: string
-  icon: NavMenuItemIcon
-  iconActive: NavMenuItemIconActive
+  icon?: NavMenuItemIcon
+  iconActive?: NavMenuItemIconActive
   active: boolean
   label: string
 }) => {
@@ -81,12 +81,14 @@ const MenuItem = ({
         setAnimated(true)
       }}
     >
-      <IconComputed
-        Icon={icon}
-        IconActive={iconActive}
-        active={active}
-        animated={animated}
-      />
+      {icon && iconActive ? (
+        <IconComputed
+          Icon={icon}
+          IconActive={iconActive}
+          active={active}
+          animated={animated}
+        />
+      ) : null}
       {label}
     </a>
   )
@@ -106,8 +108,8 @@ export const Menu: React.FC<
           <li key={item.label} className="p-4">
             {'items' in item ? (
               <>
-                <span></span>
-                <Menu items={item.items} />
+                <MenuItem {...item} active={active} />
+                <Menu items={item.items} activePath={activePath} />
               </>
             ) : (
               <MenuItem {...item} active={active} />
