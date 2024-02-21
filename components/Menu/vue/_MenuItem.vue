@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { IconSet } from './interfaces'
 
 const props = defineProps<
@@ -10,7 +10,15 @@ const props = defineProps<
   } & IconSet
 >()
 
-const animated = ref(props.active)
+const animated = ref(!!props.active)
+
+watch(
+  () => props.active,
+  (newVal) => {
+    if (newVal) return
+    animated.value = false
+  },
+)
 
 const IconActive = computed(() => props.iconActive)
 const Icon = computed(() => props.icon)
@@ -35,7 +43,7 @@ const Icon = computed(() => props.icon)
   >
     <IconActive
       v-if="active"
-      :animated="!!animated"
+      :animated="animated"
       width="24"
       height="24"
       class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
