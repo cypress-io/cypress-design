@@ -1,12 +1,12 @@
 {
-  "name": "@cypress-design/vue-icon",
-  "version": "0.32.0",
+  "name": "@cypress-design/vue-menu",
+  "version": "0.0.1",
   "files": [
     "*"
   ],
   "typings": "./dist/index.d.ts",
-  "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
@@ -15,20 +15,16 @@
     }
   },
   "scripts": {
-    "build": "yarn build:codegen && yarn build:module && yarn build:types",
-    "build:codegen": "node ./generate-icons.js",
+    "build": "yarn build:module && yarn build:types",
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-icon": "*",
-    "@cypress-design/icon-registry": "*"
+    "@cypress-design/constants-menu": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@types/lodash": "^4.14.202",
-    "lodash": "^4.17.21",
-    "dedent": "^1.5.1"
+    "@cypress-design/vue-icon": "*"
   },
   "license": "MIT"
 }

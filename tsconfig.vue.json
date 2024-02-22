@@ -43,9 +43,9 @@
     "composite": true
   },
   "include": [
-    "components/*/vue/*.ts",
-    "components/*/vue/*.tsx",
-    "components/*/vue/*.vue",
+    "components/*/vue/**/*.ts",
+    "components/*/vue/**/*.tsx",
+    "components/*/vue/**/*.vue",
     "components/*/assertions.ts",
     "components/vue-utils.ts",
     "cypress/**/*.ts"

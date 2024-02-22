@@ -1,6 +1,7 @@
 {
-  "name": "@cypress-design/constants-statusicon",
-  "version": "0.2.0",
+  "name": "@cypress-design/constants-menu",
+  "private": true,
+  "version": "0.0.1",
   "files": [
     "*"
   ],
@@ -14,9 +15,6 @@
   },
   "scripts": {
     "build": "tsc --project ./tsconfig.json"
-  },
-  "devDependencies": {
-    "@cypress-design/icon-registry": "*"
   },
   "license": "MIT"
 }
