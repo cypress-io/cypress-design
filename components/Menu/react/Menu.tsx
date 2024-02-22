@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { NavMenuItem, NavMenuGroup } from '@cypress-design/constants-menu'
+import type { NavMenuItem, NavMenuGroup } from '@cypress-design/constants-menu'
 import { WindiColor } from '@cypress-design/icon-registry'
 
 type NavMenuItemIcon = React.FC<

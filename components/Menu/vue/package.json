@@ -23,7 +23,8 @@
     "@cypress-design/constants-menu": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@cypress-design/vue-icon": "*"
   },
   "license": "MIT"
 }

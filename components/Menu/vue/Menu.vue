@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { NavMenuGroup, NavMenuItem } from '@cypress-design/constants-menu'
+import type { NavMenuGroup, NavMenuItem } from '@cypress-design/constants-menu'
 import MenuItem from './_MenuItem.vue'
-import { IconSet } from './interfaces'
+import type { IconSet } from './interfaces'
 
 interface NavMenuItemWithIcon extends NavMenuItem, IconSet {}
 
