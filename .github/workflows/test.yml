@@ -78,6 +78,19 @@ jobs:
         with:
           node-version-file: '.node-version'
 
+      - name: Restore cached build files
+        uses: actions/cache@v3
+        with:
+          key: ${{ inputs.nonce }}
+          path: |
+            ./components
+            ./node_modules
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+        env:
+          CI: true
+
       - name: Cypress run CT
         uses: cypress-io/github-action@v5
         with:
@@ -85,6 +98,7 @@ jobs:
           record: true
           browser: '${{ env.BROWSER_PATH }}'
           command-prefix: 'yarn percy exec --parallel -- '
+          parallel: true
         env:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
