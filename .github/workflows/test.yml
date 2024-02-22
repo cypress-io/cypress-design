@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  cypress-run:
+  all-other-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -16,8 +16,6 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
-        with:
-          node-version: 18.x
 
       - name: Restore cached build files
         uses: actions/cache@v3
@@ -62,14 +60,31 @@ jobs:
       - name: Types React
         run: yarn tsc --noEmit --project ./tsconfig.react.json
 
-      # run cypress component tests
+  component:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        container: [1, 2, 3]
+    steps:
+      - uses: browser-actions/setup-chrome@latest
+      - run: echo "BROWSER_PATH=$(which chrome)" >> $GITHUB_ENV
+
+      - uses: actions/checkout@v4
+
+      # Install NPM dependencies
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.node-version'
+
       - name: Cypress run CT
         uses: cypress-io/github-action@v5
         with:
           component: true
           record: true
+          browser: '${{ env.BROWSER_PATH }}'
           command-prefix: 'yarn percy exec --parallel -- '
-          browser: chrome
         env:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
