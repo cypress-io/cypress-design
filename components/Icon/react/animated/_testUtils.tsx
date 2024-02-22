@@ -14,7 +14,7 @@ export function iconTests(
         animated={false}
         width={400}
         height={400}
-        className="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500"
+        className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
       />,
     )
   })
@@ -29,7 +29,7 @@ export function iconTests(
             animated={isActive}
             width={400}
             height={400}
-            className="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500 m-[50px]"
+            className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400 m-[50px]"
             onClick={() => setIsActive(!isActive)}
           />
         </>
@@ -42,14 +42,14 @@ export function iconTests(
 
   it('renders both side by side', { viewportWidth: 900 }, () => {
     mount(
-      <div className="bg-red-300 flex gap-4 text-center text-2xl">
+      <div className="bg-black flex gap-4 text-center text-2xl">
         <div>
           <h2>not animated</h2>
           <Icon
             animated={false}
             width={400}
             height={400}
-            className="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500"
+            className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
           />
         </div>
         <div>
@@ -58,7 +58,7 @@ export function iconTests(
             animated={true}
             width={400}
             height={400}
-            className="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500"
+            className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
           />
         </div>
       </div>,

@@ -21,7 +21,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "^0.34.0",
+    "@cypress-design/icon-registry": "*",
+    "@cypress-design/constants-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {

@@ -1,6 +1,6 @@
 import IconGeneralChatBubble from './_IconGeneralChatBubble.vue'
 import { iconTests } from './_testUtils'
 
-describe('<_IconGeneralChatBubble />', () => {
+describe('<IconGeneralChatBubble />', () => {
   iconTests(IconGeneralChatBubble)
 })
