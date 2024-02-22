@@ -110,6 +110,6 @@ async function makeTooltip(content, popperCode) {
 
   return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
     popperCode,
-    { lang: 'ts' },
+    { lang: 'ts', themes: {} },
   )}</span></template></Tooltip>`
 }
