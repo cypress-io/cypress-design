@@ -44,7 +44,9 @@ export function iconTests(
     mount(
       <div className="bg-black flex gap-4 text-center text-2xl">
         <div>
-          <h2>not animated</h2>
+          <h2 className="text-indigo-200 drop-shadow-md font-bold">
+            not animated
+          </h2>
           <Icon
             animated={false}
             width={400}
@@ -53,7 +55,7 @@ export function iconTests(
           />
         </div>
         <div>
-          <h2>animated</h2>
+          <h2 className="text-indigo-200 drop-shadow-md font-bold">animated</h2>
           <Icon
             animated={true}
             width={400}

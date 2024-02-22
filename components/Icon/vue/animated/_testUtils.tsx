@@ -8,7 +8,7 @@ export function iconTests(Icon: any) {
         animated={false}
         width={400}
         height={400}
-        class="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500"
+        class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
       />
     ))
   })
@@ -24,7 +24,7 @@ export function iconTests(Icon: any) {
           animated={isAnimated.value}
           width={400}
           height={400}
-          class="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500 m-[50px]"
+          class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400 m-[50px]"
           onClick={() => {
             isAnimated.value = !isAnimated.value
           }}
@@ -37,23 +37,23 @@ export function iconTests(Icon: any) {
 
   it('renders both side by side', { viewportWidth: 900 }, () => {
     mount(() => (
-      <div class="bg-red-300 flex gap-4 text-center text-2xl">
+      <div class="bg-black flex gap-4 text-center text-2xl">
         <div>
-          <h2>not animated</h2>
+          <h2 class="text-indigo-200 font-bold">not animated</h2>
           <Icon
             animated={false}
             width={400}
             height={400}
-            class="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500"
+            class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
           />
         </div>
         <div>
-          <h2>animated</h2>
+          <h2 class="text-indigo-200 font-bold">animated</h2>
           <Icon
             animated={true}
             width={400}
             height={400}
-            class="icon-dark-indigo-500 hover:icon-dark-jade-300 icon-light-jade-500 icon-light-secondary-red-500"
+            class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
           />
         </div>
       </div>
