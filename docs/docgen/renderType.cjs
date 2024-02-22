@@ -100,16 +100,13 @@ function renderObjectType(value) {
 }
 
 async function makeTooltip(content, popperCode) {
-  if (!highlighter) {
-    const { default: shiki } = await import('shiki')
-    highlighter = await shiki.getHighlighter({
-      themes: ['github-light'],
-      langs: ['ts'],
-    })
-  }
+  const { codeToHtml } = await import('shiki')
 
-  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
+  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${codeToHtml(
     popperCode,
-    { lang: 'ts', themes: {} },
+    {
+      lang: 'ts',
+      theme: 'github-light',
+    },
   )}</span></template></Tooltip>`
 }
