@@ -100,8 +100,7 @@ export const compileVueIconProperties = (
           attrName !== 'name'
         ) {
           // @ts-expect-error - TS doesn't know that attrName is a key of SVGAttributes
-          newAttributes[attrName] =
-            attributes[attrName as keyof typeof attributes]
+          newAttributes[attrName] = attributes[attrName]
         }
         return newAttributes
       },
