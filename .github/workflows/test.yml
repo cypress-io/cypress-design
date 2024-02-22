@@ -96,6 +96,7 @@ jobs:
           browser: '${{ env.BROWSER_PATH }}'
           command-prefix: 'yarn percy exec --parallel -- '
           parallel: true
+          group: 'Component'
         env:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
