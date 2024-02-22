@@ -32,6 +32,8 @@ const Icon = computed(() => props.icon)
       {
         'text-gray-500': !active,
         'text-indigo-300': active,
+        'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
+        'p-4': icon && iconActive,
       },
     ]"
     @mouseup="

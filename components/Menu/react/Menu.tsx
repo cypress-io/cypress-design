@@ -72,9 +72,11 @@ const MenuItem = ({
   return (
     <a
       href={href}
-      className={clsx('flex gap-4 group', {
+      className={clsx('flex items-center gap-4 group ', {
         'text-gray-500': !active,
         'text-indigo-300': active,
+        'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
+        'p-4': icon && iconActive,
       })}
       onMouseUp={(e) => {
         e.preventDefault()
@@ -105,7 +107,7 @@ export const Menu: React.FC<
       {items.map((item) => {
         const active = item.href !== undefined && item.href === activePath
         return (
-          <li key={item.label} className="p-4">
+          <li key={item.label}>
             {'items' in item ? (
               <>
                 <MenuItem {...item} active={active} />

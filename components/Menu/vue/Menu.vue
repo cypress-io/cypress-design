@@ -25,7 +25,7 @@ defineEmits<{
     v-for="item of items"
     @mousedown="(e) => $emit('mousedown', e)"
   >
-    <li :key="item.label" className="p-4">
+    <li :key="item.label">
       <template v-if="'items' in item">
         <MenuItem
           v-bind="item"

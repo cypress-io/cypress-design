@@ -53,19 +53,17 @@ describe('<Menu />', () => {
                 iconActive: IconAnimatedViewChart,
                 href: '#insights',
                 items: [
-                  {
-                    label: 'Overview',
-                    href: '#overview',
-                  },
-                  {
-                    label: 'Test Results',
-                    href: '#test-results',
-                  },
-                  {
-                    label: 'Test Performance',
-                    href: '#test-performance',
-                  },
-                ],
+                  'Run status',
+                  'Run duration',
+                  'Test suite size',
+                  'Top failures',
+                  'Slowest tests',
+                  'Most common errors',
+                  'Flaky tests',
+                ].map((l) => ({
+                  label: l,
+                  href: `#${l.toLowerCase().replace(/ /g, '-')}`,
+                })),
               },
               {
                 label: 'Specs',
