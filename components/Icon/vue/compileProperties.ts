@@ -116,7 +116,7 @@ export const compileVueIconProperties = (
       viewBox: `0 0 ${size} ${size}`,
       fill: 'none',
       innerHTML: alt
-        ? `<title>${alt.replace(/></g, (s) => {
+        ? `<title>${alt.replace(/[><]/g, (s) => {
             return s === '>' ? '&gt;' : '&lt;'
           })}</title>${body}`
         : body,

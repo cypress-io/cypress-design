@@ -63,7 +63,7 @@ export const compileReactIconProperties = ({
     fill: 'none',
     dangerouslySetInnerHTML: {
       __html: alt
-        ? `<title>${alt.replace(/></g, (s) => {
+        ? `<title>${alt.replace(/[><]/g, (s) => {
             return s === '>' ? '&gt;' : '&lt;'
           })}</title>${body}`
         : body,
