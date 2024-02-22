@@ -8,9 +8,11 @@ export const compileReactIconProperties = ({
   compiledClasses,
   size,
   name,
+  alt,
   ...attributes
 }: {
   body: string
+  alt?: string
   defs?: string
   compiledClasses: string[]
   size: string
@@ -60,7 +62,11 @@ export const compileReactIconProperties = ({
     viewBox: `0 0 ${size} ${size}`,
     fill: 'none',
     dangerouslySetInnerHTML: {
-      __html: body,
+      __html: alt
+        ? `<title>${alt.replace(/></g, (s) => {
+            return s === '>' ? '&gt;' : '&lt;'
+          })}</title>${body}`
+        : body,
     },
     className: undefined as string | undefined,
     ...filteredAttributes, // add all standard attributes back to the svg tag

@@ -122,4 +122,10 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
 
     cy.get('button').click()
   })
+
+  it('renders a title element when passed an alt prop', () => {
+    mount(() => <IconBrowserWebkit class="w-16 h-16" alt="This is a title" />)
+
+    cy.get('svg title').should('have.text', 'This is a title')
+  })
 })
