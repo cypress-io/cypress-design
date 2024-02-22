@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { COLORS } from '@cypress-design/constants-spinner'
-import styles from './Spinner.module.scss'
+import styles from './Spinner.module.css'
 
 function uid() {
   return String(Date.now().toString(32) + Math.random().toString(16)).replace(

@@ -36,8 +36,9 @@ let highlighter = null
 async function renderComplexTypes(schema, subType) {
   if (typeof schema === 'string') {
     if (schema === 'undefined') return undefined
-    return schema
+    return schema.replace(/<|>/g, (m) => (m === '<' ? '&lt;' : '&gt;'))
   }
+
   if (schema.kind === 'enum') {
     const values = await Promise.all(
       schema.schema.map((v) => renderComplexTypes(v, true)),

@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-statusicon": "*",
-    "@cypress-design/icon-registry": "^0.34.0",
+    "@cypress-design/icon-registry": "*",
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
