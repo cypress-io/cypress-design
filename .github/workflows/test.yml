@@ -97,7 +97,7 @@ jobs:
           command-prefix: 'yarn percy exec --parallel -- '
           parallel: true
           group: 'Component'
-          ci-build-id: ${{ github.run_id }}
+          ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
         env:
           # Recommended: pass the GitHub token lets this action correctly
           # determine the unique run id necessary to re-run the checks
