@@ -1,4 +1,4 @@
-# @cypress-design/vue-menu
+# @cypress-design/constants-icon
 
 ## 0.0.2
 

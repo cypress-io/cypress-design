@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-statusicon",
-  "version": "0.4.16",
+  "version": "0.4.17",
   "files": [
     "*"
   ],
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@cypress-design/constants-statusicon": "*",
-    "@cypress-design/react-icon": "^0.31.0",
+    "@cypress-design/react-icon": "^0.32.0",
     "clsx": "*"
   },
   "devDependencies": {
