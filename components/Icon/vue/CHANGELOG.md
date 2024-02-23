@@ -1,5 +1,19 @@
 # @cypress-design/vue-icon
 
+## 0.33.0
+
+### Minor Changes
+
+- [#391](https://github.com/cypress-io/cypress-design/pull/391) [`7f9ebbb`](https://github.com/cypress-io/cypress-design/commit/7f9ebbb83744d4109498f921f7de5539ccc3b479) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add alt prop to icons to make them accessible if not presentational
+
+### Patch Changes
+
+- [#367](https://github.com/cypress-io/cypress-design/pull/367) [`2f984a0`](https://github.com/cypress-io/cypress-design/commit/2f984a02807f344a878ac65ac9fab62bc0c9442d) Thanks [@elevatebart](https://github.com/elevatebart)! - first creation of menu item
+
+- Updated dependencies [[`7f9ebbb`](https://github.com/cypress-io/cypress-design/commit/7f9ebbb83744d4109498f921f7de5539ccc3b479), [`2f984a0`](https://github.com/cypress-io/cypress-design/commit/2f984a02807f344a878ac65ac9fab62bc0c9442d)]:
+  - @cypress-design/icon-registry@0.35.0
+  - @cypress-design/constants-icon@0.0.2
+
 ## 0.32.0
 
 ### Minor Changes

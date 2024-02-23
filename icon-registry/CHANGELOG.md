@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.35.0
+
+### Minor Changes
+
+- [#391](https://github.com/cypress-io/cypress-design/pull/391) [`7f9ebbb`](https://github.com/cypress-io/cypress-design/commit/7f9ebbb83744d4109498f921f7de5539ccc3b479) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add alt prop to icons to make them accessible if not presentational
+
 ## 0.34.0
 
 ### Minor Changes
