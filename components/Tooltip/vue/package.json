@@ -20,7 +20,7 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@floating-ui/dom": "^1.6.1"
+    "@floating-ui/dom": "^1.6.3"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

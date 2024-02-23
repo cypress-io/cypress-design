@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Simplify branch name
         id: branch
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const simpleBranchName = '${{ github.head_ref }}'.replace(/[^a-zA-Z0-9.-]/g, '').slice(0, 49)

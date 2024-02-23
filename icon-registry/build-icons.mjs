@@ -270,10 +270,13 @@ async function generateIndex(iconsObjectUnique) {
      */
     size?: string;
     /**
+     * alt text for the icon
+     */
+    alt?: string;
+    /**
      * Should the interactive variants \`hover\` and \`focus\` be applied on the icon itself or on the parent group
      */
     interactiveColorsOnGroup?: boolean;
-    
     ['interactive-colors-on-group']?: boolean
   }
   

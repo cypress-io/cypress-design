@@ -76,6 +76,7 @@ export const compileVueIconProperties = (
         defs?: string
         compiledClasses: string[]
         size: string
+        alt?: string
         interactiveColorsOnGroup?: boolean
       }
   >,
@@ -87,6 +88,7 @@ export const compileVueIconProperties = (
       defs,
       compiledClasses,
       size,
+      alt,
       ...attributes
     } = opts.value
     const filteredAttributes = Object.keys(attributes).reduce(
@@ -98,8 +100,7 @@ export const compileVueIconProperties = (
           attrName !== 'name'
         ) {
           // @ts-expect-error - TS doesn't know that attrName is a key of SVGAttributes
-          newAttributes[attrName] =
-            attributes[attrName as keyof typeof attributes]
+          newAttributes[attrName] = attributes[attrName]
         }
         return newAttributes
       },
@@ -113,7 +114,11 @@ export const compileVueIconProperties = (
       height: size,
       viewBox: `0 0 ${size} ${size}`,
       fill: 'none',
-      innerHTML: body,
+      innerHTML: alt
+        ? `<title>${alt.replace(/[><]/g, (s) => {
+            return s === '>' ? '&gt;' : '&lt;'
+          })}</title>${body}`
+        : body,
       class: undefined as string | undefined,
       ...filteredAttributes, // add all standard attributes back to the svg tag
     }

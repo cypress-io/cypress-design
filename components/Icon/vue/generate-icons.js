@@ -61,7 +61,7 @@ import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties, useShouldRenderDefs } from './compileProperties'
 
 const __iconComponentOpts__ = {
-  props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class'] as string[],
+  props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class', 'alt'] as string[],
 } as any
 
 function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name'>, iconBodiesAndDefs: Record<string, {body: string, defs?: string}>, availableSizes: string[], name: string) {

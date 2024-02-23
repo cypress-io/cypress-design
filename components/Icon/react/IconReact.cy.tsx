@@ -8,7 +8,7 @@ import Icon, {
 } from './index'
 
 describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
-  it('renders correctly', () => {
+  it('renders correctly', { viewportWidth: 500, viewportHeight: 500 }, () => {
     mount(
       <ul className="m-4">
         <li className="flex items-center px-2 mb-3">
@@ -55,5 +55,13 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
         <IconBrowserWebkit className="w-16 h-16" />
       </div>,
     )
+  })
+
+  it('renders a title element when passed an alt prop', () => {
+    mount(
+      <IconBrowserWebkit className="w-16 h-16" alt="This is a <b>title</b>" />,
+    )
+
+    cy.get('svg title').should('have.text', 'This is a <b>title</b>')
   })
 })

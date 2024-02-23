@@ -1,5 +1,4 @@
 // @ts-check
-const shiki = require('shiki')
 const { defaultTemplates } = require('vue-docgen-cli')
 
 const { mdclean } = defaultTemplates
@@ -101,16 +100,13 @@ function renderObjectType(value) {
 }
 
 async function makeTooltip(content, popperCode) {
-  if (!highlighter) {
-    highlighter = await shiki.getHighlighter({
-      theme: 'github-light',
-    })
-  }
+  const { codeToHtml } = await import('shiki')
 
-  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
+  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${codeToHtml(
     popperCode,
     {
       lang: 'ts',
+      theme: 'github-light',
     },
   )}</span></template></Tooltip>`
 }
