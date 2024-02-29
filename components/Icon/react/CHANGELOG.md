@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 0.33.1
+
+### Patch Changes
+
+- [`843134d`](https://github.com/cypress-io/cypress-design/commit/843134dbf487386f9fa730d422180c10161f059a) Thanks [@elevatebart](https://github.com/elevatebart)! - publish constants-icon package
+
+- Updated dependencies [[`843134d`](https://github.com/cypress-io/cypress-design/commit/843134dbf487386f9fa730d422180c10161f059a)]:
+  - @cypress-design/constants-icon@0.0.3
+
 ## 0.33.0
 
 ### Minor Changes
