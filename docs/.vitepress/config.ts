@@ -9,7 +9,6 @@ const { kebabCase, map, reduce } = _
 
 // get the branch from vercel's build context
 const branch = process.env.GIT_BRANCH || 'main'
-console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 
 // https://vitepress.vuejs.org/config/app-configs
 export default defineConfig({
