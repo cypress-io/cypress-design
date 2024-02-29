@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.19.0
+
+### Minor Changes
+
+- [#393](https://github.com/cypress-io/cypress-design/pull/393) [`38fcc2d`](https://github.com/cypress-io/cypress-design/commit/38fcc2d5b20a69b89226aadffdc4f418a3fedb79) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding extended colors: gray25 and gray950
+
 ## 0.18.0
 
 ### Minor Changes

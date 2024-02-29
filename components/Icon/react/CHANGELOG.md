@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.33.0
+
+### Minor Changes
+
+- [#393](https://github.com/cypress-io/cypress-design/pull/393) [`38fcc2d`](https://github.com/cypress-io/cypress-design/commit/38fcc2d5b20a69b89226aadffdc4f418a3fedb79) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding Globe icon x12 and Opposing arrows x16 and x24 icon
+
+### Patch Changes
+
+- Updated dependencies [[`38fcc2d`](https://github.com/cypress-io/cypress-design/commit/38fcc2d5b20a69b89226aadffdc4f418a3fedb79)]:
+  - @cypress-design/icon-registry@0.36.0
+
 ## 0.32.0
 
 ### Minor Changes
