@@ -41,7 +41,7 @@ export class DetailsAnimation {
   constructor(
     el: HTMLDetailsElement,
     content: HTMLElement,
-    options?: number | KeyframeAnimationOptions
+    options?: number | KeyframeAnimationOptions,
   ) {
     // Store the <details> element
     this.el = el
@@ -99,7 +99,7 @@ export class DetailsAnimation {
         // Set the keyframes from the startHeight to endHeight
         height: [startHeight, endHeight],
       },
-      this.animationOptions
+      this.animationOptions,
     )
 
     // When the animation is complete, call onAnimationFinish()
@@ -139,7 +139,7 @@ export class DetailsAnimation {
         // Set the keyframes from the startHeight to endHeight
         height: [startHeight, endHeight],
       },
-      this.animationOptions
+      this.animationOptions,
     )
     // When the animation is complete, call onAnimationFinish()
     this.animation.onfinish = () => this.onAnimationFinish(true)

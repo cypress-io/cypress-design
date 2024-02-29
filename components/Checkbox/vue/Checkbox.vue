@@ -2,7 +2,7 @@
 function uid() {
   return String(Date.now().toString(32) + Math.random().toString(16)).replace(
     /\./g,
-    ''
+    '',
   )
 }
 </script>
@@ -46,7 +46,7 @@ const props = withDefaults(
   {
     id: () => uid(),
     color: 'indigo',
-  }
+  },
 )
 
 const localChecked = ref(
@@ -54,7 +54,7 @@ const localChecked = ref(
     ? props.name
       ? props.modelValue.includes(props.name)
       : false
-    : props.modelValue) || props.checked
+    : props.modelValue) || props.checked,
 )
 
 const emit = defineEmits<{
@@ -90,8 +90,8 @@ const checkboxClasses = computed(() =>
   props.disabled
     ? CheckboxColors.disabled
     : localChecked.value
-    ? CheckboxColors[props.color]
-    : CheckboxColors.empty
+      ? CheckboxColors[props.color]
+      : CheckboxColors.empty,
 )
 </script>
 

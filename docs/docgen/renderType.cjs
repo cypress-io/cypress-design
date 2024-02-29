@@ -1,5 +1,4 @@
 // @ts-check
-const shiki = require('shiki')
 const { defaultTemplates } = require('vue-docgen-cli')
 
 const { mdclean } = defaultTemplates
@@ -12,12 +11,12 @@ const { mdclean } = defaultTemplates
 module.exports = async function renderType(type) {
   if (type.schema) {
     return `<code class="bg-gray-50 py-[2px] px-[4px] inline-block rounded">${await renderComplexTypes(
-      type.schema
+      type.schema,
     )}</code>`
   }
   return (
     `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
-      type?.name
+      type?.name,
     ).replace(/\\\|/g, '|')}</code>` ?? ''
   )
 }
@@ -36,11 +35,12 @@ let highlighter = null
 async function renderComplexTypes(schema, subType) {
   if (typeof schema === 'string') {
     if (schema === 'undefined') return undefined
-    return schema
+    return schema.replace(/<|>/g, (m) => (m === '<' ? '&lt;' : '&gt;'))
   }
+
   if (schema.kind === 'enum') {
     const values = await Promise.all(
-      schema.schema.map((v) => renderComplexTypes(v, true))
+      schema.schema.map((v) => renderComplexTypes(v, true)),
     )
     const filteredValues = values.filter((v) => v)
     const overflow = filteredValues.length > 12
@@ -56,8 +56,8 @@ async function renderComplexTypes(schema, subType) {
           serializedInlineValuesWrapped,
           `type ${schema.type.replace(
             ' | undefined',
-            ''
-          )} = ${filteredValues.join(' | ')}`
+            '',
+          )} = ${filteredValues.join(' | ')}`,
         )
       : serializedInlineValuesWrapped
   }
@@ -69,7 +69,7 @@ async function renderComplexTypes(schema, subType) {
   }
   if (schema.kind === 'object') {
     const obj = Object.values(schema.schema).map((value) =>
-      renderObjectType(value)
+      renderObjectType(value),
     )
     if (obj.includes(undefined)) return schema.type
     const code = `interface ${schema.type} {
@@ -91,7 +91,7 @@ function renderObjectType(value) {
     ? /\n/.test(value.description)
       ? `\t/**\n\t * ${value.description.replace(
           /(\n\r?)/g,
-          '$1\t * '
+          '$1\t * ',
         )}\n\t */\n`
       : `\t/** ${value.description} */\n`
     : ''
@@ -100,16 +100,13 @@ function renderObjectType(value) {
 }
 
 async function makeTooltip(content, popperCode) {
-  if (!highlighter) {
-    highlighter = await shiki.getHighlighter({
-      theme: 'github-light',
-    })
-  }
+  const { codeToHtml } = await import('shiki')
 
-  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${highlighter.codeToHtml(
+  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${codeToHtml(
     popperCode,
     {
       lang: 'ts',
-    }
+      theme: 'github-light',
+    },
   )}</span></template></Tooltip>`
 }

@@ -32,7 +32,7 @@
       // left for the users to include, because that would require:
       //   - either the project doesn't need to support older versions of browsers;
       //   - or the project has properly included the necessary polyfills.
-      "ES2016",
+      "ES2022",
 
       "DOM",
       "DOM.Iterable"
@@ -43,9 +43,9 @@
     "composite": true
   },
   "include": [
-    "components/*/vue/*.ts",
-    "components/*/vue/*.tsx",
-    "components/*/vue/*.vue",
+    "components/*/vue/**/*.ts",
+    "components/*/vue/**/*.tsx",
+    "components/*/vue/**/*.vue",
     "components/*/assertions.ts",
     "components/vue-utils.ts",
     "cypress/**/*.ts"

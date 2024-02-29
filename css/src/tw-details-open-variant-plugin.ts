@@ -10,5 +10,5 @@ export default plugin(
 
     addVariant('open', ['&[open]', 'details[open] &'])
   },
-  { name: 'details-open-variant-plugin' }
+  { name: 'details-open-variant-plugin' },
 )

@@ -14,7 +14,7 @@ export function disableBodyScroll() {
 
 export function freeBodyScroll() {
   const scrollY = parseInt(
-    document.body.getAttribute(ATTR_DATA_MODAL_SCROLL_TOP) || '0'
+    document.body.getAttribute(ATTR_DATA_MODAL_SCROLL_TOP) || '0',
   )
   document.body.classList.remove(CY_MODAL_CLASS)
   document.documentElement.classList.remove('cy-modal-overflow-scroll-x')

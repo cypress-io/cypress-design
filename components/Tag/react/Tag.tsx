@@ -24,7 +24,7 @@ export const Tag: React.FC<
         SizeClasses[size],
         ColorClasses[color][dark ? 'dark' : 'default'],
         SharedSettings.classes,
-        className
+        className,
       )}
     >
       {children}

@@ -1,5 +1,17 @@
 # @cypress-design/icon-registry
 
+## 0.35.0
+
+### Minor Changes
+
+- [#391](https://github.com/cypress-io/cypress-design/pull/391) [`7f9ebbb`](https://github.com/cypress-io/cypress-design/commit/7f9ebbb83744d4109498f921f7de5539ccc3b479) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add alt prop to icons to make them accessible if not presentational
+
+## 0.34.0
+
+### Minor Changes
+
+- [#383](https://github.com/cypress-io/cypress-design/pull/383) [`04bd296`](https://github.com/cypress-io/cypress-design/commit/04bd296f515ad300450deb2f838dc3ac6bae26f7) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - chore(icons): add a11y and ui-coverage icons
+
 ## 0.33.1
 
 ### Patch Changes

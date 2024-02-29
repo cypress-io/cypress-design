@@ -27,9 +27,9 @@
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.33",
+    "postcss": "^8.4.35",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.69.7"
+    "sass": "^1.71.1"
   },
   "license": "MIT"
 }

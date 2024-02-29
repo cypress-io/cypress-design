@@ -33,10 +33,10 @@ function addVueLive(md: any) {
       importMarker,
       componentDirectories,
       env.relativePath,
-      isProduction
+      isProduction,
     )
     const scriptBlock = env.sfcBlocks.scripts.find(
-      (s: any) => s.type === 'script' && s.tagOpen.includes('setup')
+      (s: any) => s.type === 'script' && s.tagOpen.includes('setup'),
     )
 
     if (!scriptBlock) {

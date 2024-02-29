@@ -1,5 +1,30 @@
 # @cypress-design/react-icon
 
+## 0.32.0
+
+### Minor Changes
+
+- [#391](https://github.com/cypress-io/cypress-design/pull/391) [`7f9ebbb`](https://github.com/cypress-io/cypress-design/commit/7f9ebbb83744d4109498f921f7de5539ccc3b479) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add alt prop to icons to make them accessible if not presentational
+
+### Patch Changes
+
+- [#367](https://github.com/cypress-io/cypress-design/pull/367) [`2f984a0`](https://github.com/cypress-io/cypress-design/commit/2f984a02807f344a878ac65ac9fab62bc0c9442d) Thanks [@elevatebart](https://github.com/elevatebart)! - first creation of menu item
+
+- Updated dependencies [[`7f9ebbb`](https://github.com/cypress-io/cypress-design/commit/7f9ebbb83744d4109498f921f7de5539ccc3b479), [`2f984a0`](https://github.com/cypress-io/cypress-design/commit/2f984a02807f344a878ac65ac9fab62bc0c9442d)]:
+  - @cypress-design/icon-registry@0.35.0
+  - @cypress-design/constants-icon@0.0.2
+
+## 0.31.0
+
+### Minor Changes
+
+- [#383](https://github.com/cypress-io/cypress-design/pull/383) [`04bd296`](https://github.com/cypress-io/cypress-design/commit/04bd296f515ad300450deb2f838dc3ac6bae26f7) Thanks [@jordanpowell88](https://github.com/jordanpowell88)! - chore(icons): add a11y and ui-coverage icons
+
+### Patch Changes
+
+- Updated dependencies [[`04bd296`](https://github.com/cypress-io/cypress-design/commit/04bd296f515ad300450deb2f838dc3ac6bae26f7)]:
+  - @cypress-design/icon-registry@0.34.0
+
 ## 0.30.1
 
 ### Patch Changes

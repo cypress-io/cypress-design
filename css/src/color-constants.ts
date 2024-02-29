@@ -69,6 +69,7 @@ export const cyColors = {
     1000: '#151A50',
   },
   gray: {
+    25: '#FAFAFC',
     50: '#F3F4FA',
     100: '#E1E3ED',
     200: '#D0D2E0',
@@ -79,6 +80,7 @@ export const cyColors = {
     700: '#5A5F7A',
     800: '#434861',
     900: '#2E3247',
+    950: '#25283C',
     1000: '#1B1E2E',
   },
   teal: {

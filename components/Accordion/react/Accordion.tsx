@@ -43,7 +43,7 @@ export const Accordion: React.FC<
       <summary
         className={clsx(
           CssClasses.summary,
-          headingClassName ?? CssClasses.summaryColor
+          headingClassName ?? CssClasses.summaryColor,
         )}
       >
         <span className={CssClasses.summaryDiv}>
@@ -58,7 +58,7 @@ export const Accordion: React.FC<
             <span
               className={clsx(
                 titleClassName ?? CssClasses.summaryTitleColor,
-                CssClasses.summaryTitle
+                CssClasses.summaryTitle,
               )}
             >
               {title}
@@ -67,7 +67,7 @@ export const Accordion: React.FC<
               <span
                 className={clsx(
                   CssClasses.summaryDescription,
-                  descriptionClassName ?? CssClasses.summaryDescriptionColor
+                  descriptionClassName ?? CssClasses.summaryDescriptionColor,
                 )}
               >
                 {description}

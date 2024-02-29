@@ -7,7 +7,7 @@ export interface ButtonStoryOptions {
 }
 
 export default function assertions(
-  mountStory: (options?: ButtonStoryOptions) => void
+  mountStory: (options?: ButtonStoryOptions) => void,
 ): void {
   it('renders variants disabled', () => {
     mountStory({ disabled: true })
@@ -17,14 +17,14 @@ export default function assertions(
     cy.get('@firstButton').should(
       'not.have.css',
       'text-decoration-line',
-      'underline'
+      'underline',
     )
     // @ts-ignore
     cy.get('@firstButton').realHover()
     cy.get('@firstButton').should(
       'not.have.css',
       'text-decoration-line',
-      'underline'
+      'underline',
     )
     cy
   })
@@ -37,14 +37,14 @@ export default function assertions(
     cy.get('@firstButton').should(
       'not.have.css',
       'text-decoration-line',
-      'underline'
+      'underline',
     )
     // @ts-ignore
     cy.get('@firstButton').realHover()
     cy.get('@firstButton').should(
       'have.css',
       'text-decoration-line',
-      'underline'
+      'underline',
     )
     cy.percySnapshot()
   })

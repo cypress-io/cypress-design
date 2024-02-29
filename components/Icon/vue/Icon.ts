@@ -16,6 +16,7 @@ export default defineComponent({
     'interactiveColorsOnGroup',
     'size',
     'name',
+    'alt',
     'class',
   ],
   setup(

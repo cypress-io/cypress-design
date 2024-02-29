@@ -13,7 +13,7 @@ export default ({
         <div
           class={clsx(
             'flex flex-col items-center gap-3 justify-center mt-4 p-2',
-            { 'bg-gray-1000 text-white': variant === 'outline-dark' }
+            { 'bg-gray-1000 text-white': variant === 'outline-dark' },
           )}
         >
           <h3 class="text-right">{variant}</h3>

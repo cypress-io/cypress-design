@@ -27,7 +27,7 @@ withDefaults(
     size: '24',
     status: 'placeholder',
     variant: 'simple',
-  }
+  },
 )
 </script>
 

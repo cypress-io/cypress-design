@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import Button from '@cypress-design/vue-button'
 import { useRouter } from 'vitepress'
 import { getDocsPages } from '../utils/docsPages'
+import { getPatternPages } from '../utils/patternPages'
 const router = useRouter()
 
 const props = withDefaults(
@@ -20,6 +21,7 @@ const props = withDefaults(
 const routePath = computed(() => router.route.path)
 
 const { routeMap } = getDocsPages(routePath)
+const { routeMap: patternMap } = getPatternPages(routePath)
 
 const editRoot =
   import.meta.env.MODE === 'development'
@@ -33,6 +35,11 @@ const editUrl = computed(() => {
   if (!editRoot) return ''
   const url = routeMap[routePath.value.replace(/\.html$/, '')]
   if (url?.length) return `${editRoot}/docs${url}`
+
+  const urlPattern = patternMap[routePath.value.replace(/\.html$/, '')]
+  if (urlPattern?.length) return `${editRoot}/docs${urlPattern}`
+
+  // if the url is not found in the list of routes, we use the first one
   const firstServerRoute = Object.values(routeMap)[0]
   return `${editRoot}/docs/${firstServerRoute}`
 })

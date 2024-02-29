@@ -59,7 +59,7 @@ async function getIcons() {
       const [kebabCaseName, size] = iconName.split('_x')
       const svgContent = await fs.readFile(
         path.join(__dirname, './icons', icon),
-        'utf8'
+        'utf8',
       )
       const iconMeta = {
         interfaceName: `Icon${pascalCase(kebabCaseName)}Props`,
@@ -72,7 +72,7 @@ async function getIcons() {
         }, {}),
       }
       return iconMeta
-    })
+    }),
   )
   const iconsObjectSet = new Set()
   const iconsObjectUnique = iconsObject.reduce((acc, curr) => {
@@ -92,7 +92,7 @@ async function getIcons() {
       acc.push(iconMeta)
     } else {
       const index = acc.findIndex(
-        (item) => item.interfaceName === curr.interfaceName
+        (item) => item.interfaceName === curr.interfaceName,
       )
       iconMeta = acc[index]
       iconMeta.availableSizes.push(curr.size)
@@ -115,7 +115,7 @@ async function getIcons() {
 
   iconsObjectUnique.forEach((icon) => {
     icon.availableSizes = icon.availableSizes.sort((a, b) =>
-      parseInt(a) > parseInt(b) ? 1 : -1
+      parseInt(a) > parseInt(b) ? 1 : -1,
     )
   })
 
@@ -163,7 +163,7 @@ async function generateIndex(iconsObjectUnique) {
             }
             return { prevValue: curValue, isUnique }
           },
-          { prevValue: undefined, isUnique: true }
+          { prevValue: undefined, isUnique: true },
         ).isUnique
       // if yes it is very easy to generate the type definition
       if (isUnique) {
@@ -216,12 +216,12 @@ async function generateIndex(iconsObjectUnique) {
               kebabCase(`${prefix}${root}`),
             ]
           },
-          []
-        )
+          [],
+        ),
       )
       return acc
     },
-    []
+    [],
   )
 
   await fs.writeFile(
@@ -233,14 +233,14 @@ async function generateIndex(iconsObjectUnique) {
    * All possible prop names for icon colors
    */
   export const ICON_COLOR_PROP_NAMES = ${JSON.stringify(
-    ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR
+    ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR,
   )} as const
 
   /**
    * All possible values for icon colors
    */
   export type WindiColor = 'current' | 'transparent' | 'white' | 'black' | '${Object.entries(
-    cyColors
+    cyColors,
   )
     .reduce((acc, [color, colorObject]) => {
       if (typeof colorObject !== 'object') {
@@ -257,7 +257,7 @@ async function generateIndex(iconsObjectUnique) {
 
   export interface ColorIconProps
     extends ${ColorRoots.map((root) => `Has${pascalCase(`${root}`)}`).join(
-      ', '
+      ', ',
     )} {}
 
   interface RootIconProps {
@@ -270,10 +270,13 @@ async function generateIndex(iconsObjectUnique) {
      */
     size?: string;
     /**
+     * alt text for the icon
+     */
+    alt?: string;
+    /**
      * Should the interactive variants \`hover\` and \`focus\` be applied on the icon itself or on the parent group
      */
     interactiveColorsOnGroup?: boolean;
-    
     ['interactive-colors-on-group']?: boolean
   }
   
@@ -281,7 +284,7 @@ async function generateIndex(iconsObjectUnique) {
     (root) =>
       dedent`
         interface Has${pascalCase(`${root}`)} {${COLOR_PREFIXES.map(
-        (prefix) => `  
+          (prefix) => `  
             /**
              * ${
                prefix
@@ -289,11 +292,11 @@ async function generateIndex(iconsObjectUnique) {
                  : propDescriptions[root]
              }
              */
-            ${camelCase(`${prefix}${root}`)}?: WindiColor;`
-      )
-        .filter(Boolean)
-        .join('')}
-        }`
+            ${camelCase(`${prefix}${root}`)}?: WindiColor;`,
+        )
+          .filter(Boolean)
+          .join('')}
+        }`,
   ).join('\n\n')}
     
   export type IconProps = ${iconsObjectUnique
@@ -306,7 +309,7 @@ async function generateIndex(iconsObjectUnique) {
     ${indexFileContent}
   } as const;
 
-    `
+    `,
   )
 }
 

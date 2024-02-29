@@ -25,11 +25,11 @@ function getComponentCode(code, components) {
       {
         transforms: ['jsx', 'typescript', 'imports'],
         production: true,
-      }
+      },
     )
     const funCode = `"use strict";const exports = {};const React = require('react');${compiledCode.replace(
       /^"use strict";/g,
-      ''
+      '',
     )}
   const keys = Object.keys(exports);
   return exports.default ?? exports[keys[0]]`
@@ -54,7 +54,7 @@ export const ReactPreview = ({ code, requires, components }) => {
 
   const LivePreview = new Function(
     'require',
-    getComponentCode(code, components)
+    getComponentCode(code, components),
   )
 
   return createElement(LivePreview(require))

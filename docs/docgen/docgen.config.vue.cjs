@@ -58,7 +58,7 @@ module.exports = defineConfig({
               properties: e.schema.map((s, i) => {
                 const name = typeArray[i]?.split(':')[0].trim()
                 const propDef = event.properties?.find(
-                  (p) => p.name === name
+                  (p) => p.name === name,
                 ) ?? { name }
 
                 return {

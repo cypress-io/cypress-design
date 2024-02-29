@@ -12,25 +12,25 @@ export function parseImports(code: string) {
         s: moduleSpecifierStartIndex,
         e: moduleSpecifierEndIndexExclusive,
         n: source,
-      }
+      },
     ) => {
       if (source) {
         let importClauseString = code
           .substring(
             statementStartIndex + `import`.length,
-            moduleSpecifierStartIndex - 1
+            moduleSpecifierStartIndex - 1,
           )
           .trim()
 
         if (importClauseString.endsWith(`from`)) {
           importClauseString = importClauseString.substring(
             0,
-            importClauseString.length - `from`.length
+            importClauseString.length - `from`.length,
           )
         } else {
           const source = code.substring(
             moduleSpecifierStartIndex,
-            moduleSpecifierEndIndexExclusive
+            moduleSpecifierEndIndexExclusive,
           )
           acc[source] = {
             source,
@@ -56,7 +56,7 @@ export function parseImports(code: string) {
       }
       return acc
     },
-    {} as Record<string, { source: string; imported?: string }>
+    {} as Record<string, { source: string; imported?: string }>,
   )
 }
 
@@ -86,7 +86,7 @@ function parseNamedImports(importClauseString: string) {
 }
 
 export const getImports = (
-  code: string
+  code: string,
 ): Record<string, { source: string; imported?: string }> => {
   if (/<\/script>/.test(code)) {
     const { descriptor, errors } = parse(code)
@@ -99,7 +99,7 @@ export const getImports = (
       return parseImports(
         descriptor?.script?.content ??
           '' + '\n' + descriptor?.scriptSetup?.content ??
-          ''
+          '',
       )
     }
   } else {

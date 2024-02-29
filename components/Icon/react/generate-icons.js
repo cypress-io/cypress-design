@@ -10,7 +10,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   const pascalCaseName = pascalCase(name)
   const iconMetadata = iconsMetadata[name]
   const availableIds = iconMetadata.availableSizes.map(
-    (size) => `${camelCase(name)}X${size}`
+    (size) => `${camelCase(name)}X${size}`,
   )
 
   const iconBodies = iconSet.reduce((acc, icon) => {
@@ -32,7 +32,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
   > = (props) => React.createElement('svg', useIconProps(props, ${JSON.stringify(
     iconBodies,
     null,
-    2
+    2,
   )}, ${JSON.stringify(iconMetadata.availableSizes)}, ${JSON.stringify(name)}))
   `
 })
@@ -77,6 +77,6 @@ async function writeFile(fileContents) {
   await fs.writeFile(
     path.resolve(__dirname, './_TreeShakableIcons.ts'),
     fileContents,
-    'utf-8'
+    'utf-8',
   )
 }
