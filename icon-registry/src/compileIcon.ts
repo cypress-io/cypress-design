@@ -1,8 +1,7 @@
 import _ from 'lodash'
 import { COLOR_PREFIXES } from '@cypress-design/css/dist/color-constants'
 import type { OpenIconProps, ColorIconProps, IconProps } from './icons'
-import { iconsMetadata, ICON_COLOR_PROP_NAMES } from './icons'
-import { iconSet } from './iconsList'
+import { iconsMetadata, ICON_COLOR_PROP_NAMES, iconSet } from './icons'
 
 const camelCase = _.camelCase
 

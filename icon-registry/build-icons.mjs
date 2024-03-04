@@ -7,12 +7,13 @@
  */
 
 import { fileURLToPath } from 'url'
+import * as path from 'path'
+import { optimize, loadConfig } from 'svgo'
 import {
   cyColors,
   COLOR_PREFIXES,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT,
 } from '@cypress-design/css/dist/color-constants'
-import * as path from 'path'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
@@ -52,6 +53,8 @@ const prefixDescriptions = {
 const props = Object.keys(propsRE)
 
 async function getIcons() {
+  const config = await loadConfig()
+
   const icons = await globby('*.svg', {
     cwd: path.join(__dirname, './icons'),
   })
@@ -59,11 +62,12 @@ async function getIcons() {
     icons.map(async (icon) => {
       const iconName = icon.replace(/.svg$/, '')
       const [kebabCaseName, size] = iconName.split('_x')
-      const svgContent = await fs.readFile(
-        path.join(__dirname, './icons', icon),
-        'utf8',
-      )
-      const iconMeta = {
+      const svgContent = optimize(
+        await fs.readFile(path.join(__dirname, './icons', icon), 'utf8'),
+        config ?? undefined,
+      ).data
+
+      const iconMetaWithSize = {
         interfaceName: `Icon${pascalCase(kebabCaseName)}Props`,
         kebabCaseName,
         size,
@@ -72,8 +76,9 @@ async function getIcons() {
           acc[prop] = propsRE[prop].test(svgContent)
           return acc
         }, {}),
+        body: svgContent,
       }
-      return iconMeta
+      return iconMetaWithSize
     }),
   )
   const iconsObjectSet = new Set()
@@ -83,6 +88,7 @@ async function getIcons() {
      *  availableSizes: string[],
      *  defs: Record<string, number>
      *  interfaceName: string,
+     *  kebabCaseName: string,
      * }[]} acc
      */
     (acc, curr) => {
@@ -132,7 +138,7 @@ async function getIcons() {
   })
 
   await ensureDistExist()
-  await generateIndex(iconsObjectUnique)
+  await generateIndex(iconsObjectUnique, iconsObject)
 }
 
 async function ensureDistExist() {
@@ -145,7 +151,32 @@ async function ensureDistExist() {
   }
 }
 
-async function generateIndex(iconsObjectUnique) {
+/**
+ * generate the actual file
+ * @param { {
+ *  availableSizes: string[];
+ *  defs: Record<string, number>;
+ *  interfaceName: string;
+ *  kebabCaseName: string;
+ * }[]} iconsObjectUnique
+ * @param {{
+ *  kebabCaseName: string,
+ *  body: string
+ *  size: string
+ * }[]} iconsObject
+ */
+async function generateIndex(iconsObjectUnique, iconsObject) {
+  const indexBodyExport = iconsObject.map((icon) => {
+    return `export const cy${pascalCase(icon.kebabCaseName)}X${icon.size} = {
+       name: '${camelCase(icon.kebabCaseName)}X${icon.size}',
+       data: \`${icon.body}\`,
+     } as const`
+  })
+
+  const indexBodyArray = iconsObject.map((icon) => {
+    return `cy${pascalCase(icon.kebabCaseName)}X${icon.size},`
+  })
+
   const indexFileContent = iconsObjectUnique
     .map((icon) => {
       // prettier-ignore
@@ -154,7 +185,6 @@ async function generateIndex(iconsObjectUnique) {
           availableSizes: ['${icon.availableSizes.join("','")}'], ${ColorRoots.map((colorRoot) => `
           has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}${icon.defs ? `,
           defs: ${JSON.stringify(icon.defs)}`: ''}
-          body: ,
       }`;
     })
     .join(',\n')
@@ -348,6 +378,9 @@ async function generateIndex(iconsObjectUnique) {
     ${indexFileContent}
   } as const;
 
+  ${indexBodyExport.join('\n')}
+
+  export const iconSet = [${indexBodyArray.join('\n')}]
     `,
   )
 }
