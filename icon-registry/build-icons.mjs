@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Generate icons.js and icons.d.ts
  * Also creates barrel files index.js and index.d.ts
@@ -75,43 +77,53 @@ async function getIcons() {
     }),
   )
   const iconsObjectSet = new Set()
-  const iconsObjectUnique = iconsObject.reduce((acc, curr) => {
-    let iconMeta
-    if (!iconsObjectSet.has(curr.interfaceName)) {
-      iconsObjectSet.add(curr.interfaceName)
-      iconMeta = {
-        ...curr,
-        availableSizes: [curr.size],
-        defs: {},
-      }
-      props.forEach((property) => {
-        if (curr[property]) {
-          iconMeta[property] = [curr.size]
+  const iconsObjectUnique = iconsObject.reduce(
+    /**
+     * @param {{
+     *  availableSizes: string[],
+     *  defs: Record<string, number>
+     *  interfaceName: string,
+     * }[]} acc
+     */
+    (acc, curr) => {
+      let iconMeta
+      if (!iconsObjectSet.has(curr.interfaceName)) {
+        iconsObjectSet.add(curr.interfaceName)
+        iconMeta = {
+          ...curr,
+          availableSizes: [curr.size],
+          defs: {},
         }
-      })
-      acc.push(iconMeta)
-    } else {
-      const index = acc.findIndex(
-        (item) => item.interfaceName === curr.interfaceName,
-      )
-      iconMeta = acc[index]
-      iconMeta.availableSizes.push(curr.size)
-      props.forEach((property) => {
-        if (curr[property]) {
-          if (iconMeta[property]) {
-            iconMeta[property].push(curr.size)
-          } else {
+        props.forEach((property) => {
+          if (curr[property]) {
             iconMeta[property] = [curr.size]
           }
-        }
-      })
-    }
+        })
+        acc.push(iconMeta)
+      } else {
+        const index = acc.findIndex(
+          (item) => item.interfaceName === curr.interfaceName,
+        )
+        iconMeta = acc[index]
+        iconMeta.availableSizes.push(curr.size)
+        props.forEach((property) => {
+          if (curr[property]) {
+            if (iconMeta[property]) {
+              iconMeta[property].push(curr.size)
+            } else {
+              iconMeta[property] = [curr.size]
+            }
+          }
+        })
+      }
 
-    if (curr.defsIndex !== -1) {
-      iconMeta.defs[curr.size] = curr.defsIndex
-    }
-    return acc
-  }, [])
+      if (curr.defsIndex !== -1) {
+        iconMeta.defs[curr.size] = curr.defsIndex
+      }
+      return acc
+    },
+    [],
+  )
 
   iconsObjectUnique.forEach((icon) => {
     icon.availableSizes = icon.availableSizes.sort((a, b) =>
@@ -142,6 +154,7 @@ async function generateIndex(iconsObjectUnique) {
           availableSizes: ['${icon.availableSizes.join("','")}'], ${ColorRoots.map((colorRoot) => `
           has${colorRoot}: ${JSON.stringify(icon[`has${colorRoot}`])}`).join(',')}${icon.defs ? `,
           defs: ${JSON.stringify(icon.defs)}`: ''}
+          body: ,
       }`;
     })
     .join(',\n')
@@ -153,6 +166,16 @@ async function generateIndex(iconsObjectUnique) {
       const isUnique =
         icon.availableSizes.length === 1 ||
         props.reduce(
+          /**
+           *
+           * @param {{
+           *  prevValue:string | undefined,
+           *  isUnique:boolean
+           * }} acc
+           * @param {string} prop
+           * @returns
+           */
+
           ({ prevValue, isUnique }, prop) => {
             if (!icon[prop]) {
               return { prevValue, isUnique }
@@ -169,10 +192,10 @@ async function generateIndex(iconsObjectUnique) {
       if (isUnique) {
         // prettier-ignore
         return dedent`
-        export interface ${icon.interfaceName} 
-            extends ${['RootIconProps', ...ColorRoots.map(root => 
-              icon[`has${root}`] 
-                ? `Has${pascalCase(`${root}`)}` 
+        export interface ${icon.interfaceName}
+            extends ${['RootIconProps', ...ColorRoots.map(root =>
+              icon[`has${root}`]
+                ? `Has${pascalCase(`${root}`)}`
                 : false
             ).filter(Boolean)].join(', ')} {
             name: '${icon.kebabCaseName}';
@@ -184,10 +207,10 @@ async function generateIndex(iconsObjectUnique) {
         const sizeInterfaces = icon.availableSizes.map((size) => {
           // prettier-ignore
           return `
-          export interface ${icon.interfaceName}X${size} 
-              extends ${['RootIconProps', ...ColorRoots.map(root => 
-                icon[`has${root}`] && (icon[`has${root}`].indexOf(size) > -1) 
-                  ? `Has${pascalCase(`${root}`)}` 
+          export interface ${icon.interfaceName}X${size}
+              extends ${['RootIconProps', ...ColorRoots.map(root =>
+                icon[`has${root}`] && (icon[`has${root}`].indexOf(size) > -1)
+                  ? `Has${pascalCase(`${root}`)}`
                   : false
               ).filter(Boolean)].join(', ')} {
               name: '${icon.kebabCaseName}';
@@ -206,9 +229,19 @@ async function generateIndex(iconsObjectUnique) {
     .join('\n\n')
 
   const ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR = COLOR_PREFIXES.reduce(
+    /**
+     * @param {string[]} acc
+     * @param {string} prefix
+     * @returns
+     */
     (acc, prefix) => {
       acc.push(
         ...Object.keys(ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT).reduce(
+          /**
+           * @param {string[]} acc2
+           * @param {string} root
+           * @returns
+           */
           (acc2, root) => {
             return [
               ...acc2,
@@ -242,17 +275,23 @@ async function generateIndex(iconsObjectUnique) {
   export type WindiColor = 'current' | 'transparent' | 'white' | 'black' | '${Object.entries(
     cyColors,
   )
-    .reduce((acc, [color, colorObject]) => {
-      if (typeof colorObject !== 'object') {
-        return acc
-      }
-      const completeColors = Object.keys(colorObject).map((key) => {
-        return `${color}${key !== 'DEFAULT' ? `-${key}` : ''}`
-      })
-      return [].concat(acc, completeColors)
-    }, [])
+    .reduce(
+      /**
+       * @param {string[]} acc
+       */
+      (acc, [color, colorObject]) => {
+        if (typeof colorObject !== 'object') {
+          return acc
+        }
+        const completeColors = Object.keys(colorObject).map((key) => {
+          return `${color}${key !== 'DEFAULT' ? `-${key}` : ''}`
+        })
+        return acc.concat(completeColors)
+      },
+      [],
+    )
     .join(`' | '`)}';
-  
+
   export interface OpenIconProps extends RootIconProps, ColorIconProps {}
 
   export interface ColorIconProps
@@ -279,12 +318,12 @@ async function generateIndex(iconsObjectUnique) {
     interactiveColorsOnGroup?: boolean;
     ['interactive-colors-on-group']?: boolean
   }
-  
+
   ${ColorRoots.map(
     (root) =>
       dedent`
         interface Has${pascalCase(`${root}`)} {${COLOR_PREFIXES.map(
-          (prefix) => `  
+          (prefix) => `
             /**
              * ${
                prefix
@@ -298,14 +337,14 @@ async function generateIndex(iconsObjectUnique) {
           .join('')}
         }`,
   ).join('\n\n')}
-    
+
   export type IconProps = ${iconsObjectUnique
     .map((icon) => icon.interfaceName)
     .join(' | ')}
 
   ${typesFileContent}
 
-  export var iconsMetadata = {
+  export const iconsMetadata = {
     ${indexFileContent}
   } as const;
 
