@@ -3,7 +3,7 @@ import {
   classes,
   type TestResultData,
 } from '@cypress-design/constants-testresult'
-import { StatusIcon } from '@cypress-design/vue-statusicon'
+import { SolidStatusIcon } from '@cypress-design/vue-statusicon'
 import {
   IconChevronRightSmall,
   IconStatusFlaky,
@@ -27,9 +27,8 @@ const emit = defineEmits<{
     <div data-cy="cd-tr-row" :class="classes.row">
       <div data-cy="cd-tr-list" :class="classes.list">
         <div data-cy="cd-tr-icon" :class="classes.icon">
-          <StatusIcon
+          <SolidStatusIcon
             size="16"
-            variant="solid"
             :status="status"
             :class="classes.status_icon"
           />

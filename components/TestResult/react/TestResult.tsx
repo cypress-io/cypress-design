@@ -4,7 +4,7 @@ import {
   classes,
   type TestResultData,
 } from '@cypress-design/constants-testresult'
-import StatusIcon from '@cypress-design/react-statusicon'
+import { SolidStatusIcon } from '@cypress-design/react-statusicon'
 import {
   IconChevronRightSmall,
   IconStatusFlaky,
@@ -39,9 +39,8 @@ export const TestResult: React.FC<
       <div data-cy="cd-tr-row" className={classes.row}>
         <div data-cy="cd-tr-list" className={classes.list}>
           <div data-cy="cd-tr-icon" className={classes.icon}>
-            <StatusIcon
+            <SolidStatusIcon
               size="16"
-              variant="solid"
               status={status}
               className={classes.status_icon}
             />
