@@ -352,7 +352,7 @@ async function generateIndex(iconsObjectUnique, iconsObject) {
   ${ColorRoots.map(
     (root) =>
       dedent`
-        interface Has${pascalCase(`${root}`)} {${COLOR_PREFIXES.map(
+        export interface Has${pascalCase(`${root}`)} {${COLOR_PREFIXES.map(
           (prefix) => `
             /**
              * ${
