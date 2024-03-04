@@ -49,7 +49,9 @@ module.exports = defineConfig({
 
       const events = meta.events.length
         ? meta.events.map((e) => {
-            const event = docgen.events.find((d) => d.name === e.name) ?? {}
+            const event = docgen?.events?.find((d) => d.name === e.name) ?? {
+              properties: [],
+            }
 
             const typeArray =
               e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
@@ -72,7 +74,7 @@ module.exports = defineConfig({
 
       const slots = meta.slots.length
         ? meta.slots.map(({ name, schema }) => {
-            const slot = docgen.slots.find((d) => d.name === name) ?? { name }
+            const slot = docgen?.slots?.find((d) => d.name === name) ?? { name }
             return {
               ...slot,
               bindings: extractBindings(schema, slot?.bindings),
@@ -93,6 +95,9 @@ module.exports = defineConfig({
         tags: {},
       }
     })
+  },
+  apiOptions: {
+    modules: ['./node_modules'],
   },
 })
 
