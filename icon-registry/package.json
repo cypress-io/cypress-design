@@ -14,7 +14,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "node ./build-icons.mjs && tsc -p . --emitDeclarationOnly && rollup -c ./rollup.config.mjs"
+    "build": "node ./build-icons.mjs && tsc -p . --noEmit && rollup -c ./rollup.config.mjs"
   },
   "files": [
     "dist",
