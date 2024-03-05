@@ -2,8 +2,6 @@ function addFigmaLink(md: any) {
   // Remember old renderer, if overridden, or proxy to default renderer
   var defaultRender = md.renderer.rules.link_open
 
-  console.log(Object.keys(md.renderer.rules))
-
   md.renderer.rules.link_open = function (...args: any[]) {
     const [tokens, idx] = args
     const openLinkTagToken = tokens[idx]

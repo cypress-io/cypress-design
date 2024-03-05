@@ -14,7 +14,7 @@ describe('compileIcon', () => {
         name: 'object-book',
       }).body,
     ).toMatchInlineSnapshot(
-      `"<path fill="#D0D2E0" d="M13 2H4a1 1 0 0 0-1 1v8h10z" class="icon-light"/><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 11V2H4m9 9H4m9 0v3H4m-1-3v2a1 1 0 0 0 1 1v0m-1-3V3a1 1 0 0 1 1-1v0m-1 9h1m0-9v9m0 0v3m6-9H7" class="icon-dark"/>"`,
+      `"<path d="M13 2H4a1 1 0 0 0-1 1v8h10V2Z" fill="#D0D2E0" class="icon-light"/><path d="M13 11V2H4m9 9H4m9 0v3H4m-1-3v2a1 1 0 0 0 1 1v0m-1-3V3a1 1 0 0 1 1-1v0m-1 9h1m0-9v9m0 0v3m6-9H7" stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>"`,
     )
   })
 

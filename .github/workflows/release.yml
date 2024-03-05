@@ -24,6 +24,8 @@ jobs:
         with:
           key: ${{ inputs.nonce }}
           path: |
+            ./css/dist
+            ./icon-registry/dist
             ./components
             ./node_modules
 

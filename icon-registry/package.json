@@ -14,7 +14,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "./build.sh"
+    "build": "node ./build-icons.mjs && tsc -p . --noEmit && rollup -c ./rollup.config.mjs"
   },
   "files": [
     "dist",
@@ -28,21 +28,6 @@
     "@types/lodash": "^4.14.202",
     "dedent": "^1.5.1",
     "globby": "^14.0.1",
-    "lodash": "^4.17.21",
-    "svg-to-ts": "^12.0.0",
-    "wait-cli": "^1.0.0"
-  },
-  "svg-to-ts": {
-    "srcFiles": [
-      "./icons/*.svg"
-    ],
-    "interfaceName": "CyIcon",
-    "outputDirectory": "./src",
-    "typeName": "cyIcon",
-    "fileName": "iconsList",
-    "prefix": "cy",
-    "completeIconSetName": "iconSet",
-    "exportCompleteIconSet": true,
-    "delimiter": "CAMEL"
+    "lodash-es": "^4.17.21"
   }
 }
