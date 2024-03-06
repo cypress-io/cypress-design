@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.34.0
+
+### Minor Changes
+
+- [#398](https://github.com/cypress-io/cypress-design/pull/398) [`20529b7`](https://github.com/cypress-io/cypress-design/commit/20529b7bc5f96006ce5b8ecde5e740420f0c2fac) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Added pin con x12
+
+### Patch Changes
+
+- Updated dependencies [[`20529b7`](https://github.com/cypress-io/cypress-design/commit/20529b7bc5f96006ce5b8ecde5e740420f0c2fac)]:
+  - @cypress-design/icon-registry@0.37.0
+
 ## 0.33.1
 
 ### Patch Changes
