@@ -50,6 +50,7 @@ module.exports = defineConfig({
       const events = meta.events.length
         ? meta.events.map((e) => {
             const event = docgen?.events?.find((d) => d.name === e.name) ?? {
+              name: e.name,
               properties: [],
             }
 
@@ -57,16 +58,17 @@ module.exports = defineConfig({
               e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
             return {
               ...event,
+
               properties: e.schema.map((s, i) => {
                 const name = typeArray[i]?.split(':')[0].trim()
                 const propDef = event.properties?.find(
                   (p) => p.name === name,
-                ) ?? { name }
-
-                return {
+                ) ?? { names: [name] }
+                const prop = {
                   ...propDef,
-                  type: renderEventProperty(s),
+                  ...renderEventProperty(s),
                 }
+                return prop
               }),
             }
           })
@@ -128,13 +130,16 @@ function extractBindings(schema, bindings) {
     return undefined
   }
 
-  if (schema.kind === 'object') {
+  if (schema.kind === 'object' && schema.schema) {
     return Object.keys(schema.schema).map((title) => {
       const binding = bindings?.find((b) => b.title === title) ?? { title }
-      return {
-        ...binding,
-        type: renderType(schema.schema[title]),
+      if (schema.schema) {
+        return {
+          ...binding,
+          type: renderType(schema.schema[title]),
+        }
       }
+      return binding
     })
   }
 
@@ -144,7 +149,7 @@ function extractBindings(schema, bindings) {
 /**
  * Renders a string representation of the type of a prop
  * @param {import('vue-component-meta').EventMeta['schema'][number]} p
- * @returns {import('vue-docgen-api').EventDescriptor['properties'][number] & { schema?: any }}
+ * @returns {NonNullable<import('vue-docgen-api').EventDescriptor['properties']>[number] & { schema?: any }}
  */
 function renderEventProperty(p) {
   if (typeof p === 'string') {
