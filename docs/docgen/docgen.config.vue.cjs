@@ -1,6 +1,6 @@
 /// @ts-check
 const { defineConfig } = require('vue-docgen-cli')
-const { parseMulti } = require('vue-docgen-api')
+
 const path = require('path')
 
 const { createChecker } = require('vue-component-meta')
@@ -19,11 +19,9 @@ module.exports = defineConfig({
       checker.reload()
     }
     const exportNames = checker.getExportNames(componentPath)
-    const docs = await parseMulti(componentPath).catch(() => [])
+
     return exportNames.map((exportName) => {
       const meta = checker.getComponentMeta(componentPath, exportName)
-
-      const docgen = docs.find((d) => d.exportName === exportName)
 
       const nonGlobalProps = meta.props.filter((prop) => {
         return (
@@ -34,6 +32,9 @@ module.exports = defineConfig({
       })
 
       // massage the output of meta to match the docgen format
+      /**
+       * @type {import('vue-docgen-api').PropDescriptor[] | undefined}
+       */
       const props = nonGlobalProps.length
         ? nonGlobalProps.map((p) => {
             return {
@@ -47,39 +48,34 @@ module.exports = defineConfig({
           })
         : undefined
 
+      /**
+       * @type {import('vue-docgen-api').EventDescriptor[] | undefined}
+       */
       const events = meta.events.length
         ? meta.events.map((e) => {
-            const event = docgen?.events?.find((d) => d.name === e.name) ?? {
-              name: e.name,
-              properties: [],
-            }
-
             const typeArray =
               e.type === 'any[]' ? [] : e.type.slice(1, -1).split(',')
             return {
-              ...event,
-
+              name: e.name,
               properties: e.schema.map((s, i) => {
                 const name = typeArray[i]?.split(':')[0].trim()
-                const propDef = event.properties?.find(
-                  (p) => p.name === name,
-                ) ?? { names: [name] }
-                const prop = {
-                  ...propDef,
+
+                return {
                   ...renderEventProperty(s),
                 }
-                return prop
               }),
             }
           })
         : undefined
 
+      /**
+       * @type {import('vue-docgen-api').SlotDescriptor[] | undefined}
+       */
       const slots = meta.slots.length
         ? meta.slots.map(({ name, schema }) => {
-            const slot = docgen?.slots?.find((d) => d.name === name) ?? { name }
             return {
-              ...slot,
-              bindings: extractBindings(schema, slot?.bindings),
+              name,
+              bindings: extractBindings(schema),
             }
           })
         : undefined
@@ -120,26 +116,24 @@ function renderType(p) {
 }
 
 /**
- *
+ * Transforms a slot schema into a docgen bindings array
  * @param {import('vue-component-meta').SlotMeta['schema']} schema
- * @param {import('vue-docgen-api').SlotDescriptor['bindings']} bindings
  * @returns {import('vue-docgen-api').SlotDescriptor['bindings']}
  */
-function extractBindings(schema, bindings) {
+function extractBindings(schema) {
   if (typeof schema === 'string') {
     return undefined
   }
 
   if (schema.kind === 'object' && schema.schema) {
     return Object.keys(schema.schema).map((title) => {
-      const binding = bindings?.find((b) => b.title === title) ?? { title }
       if (schema.schema) {
         return {
-          ...binding,
+          title: title,
           type: renderType(schema.schema[title]),
         }
       }
-      return binding
+      return { type: { name: title }, title }
     })
   }
 
