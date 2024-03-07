@@ -61,6 +61,7 @@ module.exports = defineConfig({
                 const name = typeArray[i]?.split(':')[0].trim()
 
                 return {
+                  name,
                   ...renderEventProperty(s),
                 }
               }),
@@ -167,7 +168,6 @@ function renderEventProperty(p) {
 
   return {
     type: { names: [serializedType] },
-    name: serializedType,
     schema: {
       kind: 'object',
       type: serializedType,

@@ -1,5 +1,5 @@
 <script lang="ts">
-import { PropType, computed, defineComponent } from 'vue'
+import { PropType, SlotsType, computed, defineComponent } from 'vue'
 import {
   VariantClassesTable,
   SizeClassesTable,
@@ -37,6 +37,12 @@ export default defineComponent({
       default: 'button',
     },
   },
+  slots: Object as SlotsType<{
+    /**
+     * The content of the button
+     */
+    default: void
+  }>,
   setup(props) {
     const finalVariant = computed(() =>
       props.disabled &&

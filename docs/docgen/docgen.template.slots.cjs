@@ -9,7 +9,7 @@ const { mdclean } = defaultTemplates
  * @param {{isSubComponent:boolean, hasSubComponents:boolean}} [opt]
  * @returns {Promise<string>}
  */
-module.exports = async function renderProp(slots, opt) {
+module.exports = async function renderSlots(slots, opt) {
   if (!slots.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents
   return `

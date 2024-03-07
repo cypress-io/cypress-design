@@ -7,7 +7,7 @@ const { renderTags, mdclean } = defaultTemplates
 /**
  * Display one line per prop
  * @param {Array<import('vue-docgen-api').PropDescriptor>} props
- * @param {boolean} supComponent
+ * @param {boolean | undefined} supComponent
  */
 async function lineTemplate(props, supComponent) {
   const retArray = await Promise.all(
@@ -16,7 +16,7 @@ async function lineTemplate(props, supComponent) {
       const p = pr.name
       let t = pr.description ?? ''
       t += renderTags(pr.tags)
-      const n = await renderType(pr.type)
+      const n = pr.type ? await renderType(pr.type) : 'any'
       const d = pr.defaultValue?.value ?? ''
 
       return `
@@ -38,9 +38,10 @@ ${mdclean(t)}
 /**
  * @param {Array<import('vue-docgen-api').PropDescriptor>} props
  * @param {{isSubComponent:boolean, hasSubComponents:boolean}} [opt]
+ * @param {import('vue-docgen-api').ComponentDoc} [doc]
  * @returns {Promise<string>}
  */
-module.exports = async function renderProp(props, opt) {
+module.exports = async function renderProp(props, opt, doc) {
   if (!props.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents
   return `
