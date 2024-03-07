@@ -22,18 +22,19 @@ ${await lineTemplate(slots, supComponent)}
 /**
  *
  * @param {Array<import('vue-docgen-api').SlotDescriptor>} slot
- * @param {boolean} supComponent
+ * @param {boolean | undefined} supComponent
  */
 async function lineTemplate(slot, supComponent) {
   const retArray = await Promise.all(
     slot.map(async (sl) => {
       const bindings = await Promise.all(
-        sl.bindings.map(async function (bind) {
+        sl?.bindings?.map(async function (bind) {
           return {
             name: bind.title,
-            type: await renderType(bind.type),
+            description: bind.description,
+            type: bind.type ? await renderType(bind.type) : 'any',
           }
-        }),
+        }) ?? [],
       )
       const name = sl.name
       let t = sl.description ?? ''
@@ -50,9 +51,12 @@ ${
 ${bindings
   .map(
     (p) => `
-##### ${p.name}
+**${p.name}** ${p.type}
 
-<div>${p.type}</div>
+${p.description ? ` ${p.description}` : ''}
+
+<br class="block mb-4"/>
+
 `,
   )
   .join('\n')}

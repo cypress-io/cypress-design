@@ -72,9 +72,10 @@ module.exports = defineConfig({
        * @type {import('vue-docgen-api').SlotDescriptor[] | undefined}
        */
       const slots = meta.slots.length
-        ? meta.slots.map(({ name, schema }) => {
+        ? meta.slots.map(({ name, schema, description }) => {
             return {
               name,
+              description,
               bindings: extractBindings(schema),
             }
           })
@@ -127,13 +128,20 @@ function extractBindings(schema) {
 
   if (schema.kind === 'object' && schema.schema) {
     return Object.keys(schema.schema).map((title) => {
-      if (schema.schema) {
+      if (schema.schema?.[title]) {
         return {
           title: title,
+          description: schema.schema[title].description,
           type: renderType(schema.schema[title]),
         }
       }
-      return { type: { name: title }, title }
+
+      return {
+        type: {
+          name: 'unknown',
+        },
+        title,
+      }
     })
   }
 
