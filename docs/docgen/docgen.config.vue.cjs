@@ -3,10 +3,10 @@ const { defineConfig } = require('vue-docgen-cli')
 const { parseMulti } = require('vue-docgen-api')
 const path = require('path')
 
-const { createComponentMetaChecker } = require('vue-component-meta')
+const { createChecker } = require('vue-component-meta')
 
-const tsconfigPath = path.resolve(__dirname, '..', '..', './tsconfig.vue.json')
-const checker = createComponentMetaChecker(tsconfigPath)
+const tsconfigPath = path.resolve(__dirname, '..', '..', 'tsconfig.vue.json')
+const checker = createChecker(tsconfigPath)
 
 module.exports = defineConfig({
   components: './*/vue/[A-Z]*.{vue,ts}',
