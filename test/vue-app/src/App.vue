@@ -38,7 +38,12 @@ const showModal = ref(false)
       stroke-color="gray-500"
       fill-color="gray-100"
     />
-    <Checkbox v-model="checked" label="Checkbox" id="Sample" />
+    <Checkbox
+      v-model="checked"
+      label="Checkbox"
+      id="Sample"
+      @update:model-value=""
+    />
     <p v-if="checked">Checked</p>
     <IconObjectBookCode
       size="48"
