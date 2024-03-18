@@ -90,9 +90,9 @@ export default () => {
           },
         ]}
         onMouseDown={(e) => {
-          if (e.target.href) {
+          if (e.target.closest('a')) {
             e.preventDefault()
-            setActivePath(`#${e.target.href.split('#')[1]}`)
+            setActivePath(`#${e.target.closest('a').href.split('#')[1]}`)
           }
         }}
       />
