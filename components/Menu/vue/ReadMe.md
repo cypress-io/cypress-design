@@ -86,9 +86,10 @@ const activePath = ref('#runs')
     ]"
     @mousedown="
       (e) => {
-        if (e.target?.href) {
+        // if target is a child of a link, prevent default
+        if (e.target.closest('a')) {
           e.preventDefault()
-          activePath = `#${e.target.href.split('#')[1]}`
+          activePath = `#${e.target.closest('a').href?.split('#')[1]}`
         }
       }
     "
