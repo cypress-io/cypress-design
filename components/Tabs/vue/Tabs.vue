@@ -33,6 +33,35 @@ const emit = defineEmits<{
   (event: 'update:activeId', tab: string): void
 }>()
 
+defineSlots<{
+  /**
+   * each tab can be custom rendered as a slot
+   */
+  tab(props: {
+    /**
+     * The tab id
+     */
+    id: string
+    /**
+     * is the current tab active
+     */
+    active?: boolean
+    /**
+     * The tab href
+     */
+    href?: string
+    label: string
+    tag?: string
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    icon: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    iconBefore: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    iconAfter: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  }): any
+}>()
+
 const activeId = ref(props.activeId ?? props.tabs.find((tab) => tab.active)?.id)
 
 watch(

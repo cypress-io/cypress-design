@@ -7,28 +7,30 @@ const { mdclean } = defaultTemplates
 /**
  * @param {Array<import('vue-docgen-api').EventDescriptor>} events
  * @param {{isSubComponent:boolean, hasSubComponents:boolean}} [opt]
+ * @param {import('vue-docgen-api').ComponentDoc} [doc]
  * @returns {Promise<string>}
  */
-module.exports = async function renderProp(events, opt) {
+module.exports = async function renderEvents(events, opt, doc) {
   if (!events.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents
   return `
 ${supComponent ? '#' : ''}## Events
 
-${await lineTemplate(events, supComponent)}
+${await lineTemplate(events, supComponent, doc?.displayName ?? '')}
 `
 }
 
 /**
  *
  * @param {Array<import('vue-docgen-api').EventDescriptor>} event
- * @param {boolean} supComponent
+ * @param {boolean | undefined} supComponent
+ * @param {string} displayName
  */
-async function lineTemplate(event, supComponent) {
+async function lineTemplate(event, supComponent, displayName) {
   const retArray = await Promise.all(
     event.map(async (ev) => {
       const properties = await Promise.all(
-        ev.properties.map(
+        ev.properties?.map(
           /**
            * @param {any} prop
            */
@@ -36,15 +38,25 @@ async function lineTemplate(event, supComponent) {
             return {
               name: prop.name,
               description: prop.description,
-              type: await renderType(prop.type),
+              typeName: prop.type?.names[0] ?? 'any',
+              type: await renderType(prop),
             }
           },
-        ),
+        ) ?? [],
       )
+
       const name = ev.name
       let t = ev.description ?? ''
       return `
 ${supComponent ? '#' : ''}### ${mdclean(name)}
+
+\`\`\`vue
+<${displayName} @${name}="(${
+        properties.length ? compilePropertyChain(properties) : ''
+      }) => { 
+        // your code here
+      }" />
+\`\`\`
 
 ${mdclean(t)}
 
@@ -73,4 +85,8 @@ ${p.description ? mdclean(p.description) : ''}
   )
 
   return retArray.join('')
+}
+
+function compilePropertyChain(properties) {
+  return properties.map((p) => `${p.name}: ${p.typeName}`).join(',')
 }

@@ -58,12 +58,8 @@ const localChecked = ref(
 )
 
 const emit = defineEmits<{
-  /**
-   * Fired when the checkbox changes value
-   * @arg value - The next value of the checkbox
-   */
-  (event: 'update:modelValue', value: boolean | Array<string>): void
-  (event: 'change', value: boolean): void
+  'update:modelValue': [value: boolean | Array<string>]
+  change: [value: boolean]
 }>()
 
 function updated() {

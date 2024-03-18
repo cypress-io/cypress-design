@@ -10,7 +10,16 @@ import {
   useShouldRenderDefs,
 } from './compileProperties'
 
-export default defineComponent({
+interface Props extends Pick<IconProps, 'name'>, Omit<OpenIconProps, 'name'> {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  class?: any
+}
+
+export default defineComponent<Props>({
+  // the props here need to exist because of runtime treatment
+  // if we don't have them explicit, vuejs will think it's attributes
+  // and not pass it down as props to the components
+  // but for typescript to pick up the correct prop types, we need to cast it to unknown
   props: [
     ...ICON_COLOR_PROP_NAMES,
     'interactiveColorsOnGroup',
@@ -18,15 +27,11 @@ export default defineComponent({
     'name',
     'alt',
     'class',
-  ],
+  ] as unknown as undefined,
   setup(
     // the OpenIconProps helps volar extract the documentation from the props
     // since the IconProps are more restrictive, it will not change the use behavior
-    props: OpenIconProps &
-      Pick<IconProps, 'name'> & {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        class?: any
-      },
+    props: Props,
     { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> },
   ) {
     const ret = computed(() => {

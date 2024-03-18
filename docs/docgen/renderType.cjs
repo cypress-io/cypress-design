@@ -14,6 +14,7 @@ module.exports = async function renderType(type) {
       type.schema,
     )}</code>`
   }
+
   return (
     `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
       type?.name,
@@ -30,7 +31,7 @@ let highlighter = null
  *
  * @param {any} schema
  * @param {boolean} [subType]
- * @returns {Promise<string>}
+ * @returns {Promise<string | undefined>}
  */
 async function renderComplexTypes(schema, subType) {
   if (typeof schema === 'string') {
@@ -102,7 +103,7 @@ function renderObjectType(value) {
 async function makeTooltip(content, popperCode) {
   const { codeToHtml } = await import('shiki')
 
-  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${codeToHtml(
+  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${await codeToHtml(
     popperCode,
     {
       lang: 'ts',
