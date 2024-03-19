@@ -1,19 +1,43 @@
 <script lang="ts" setup>
 import PathMorpher from './_PathMorpher.vue'
 import { iconObjectGear } from '@cypress-design/constants-icon'
+import {
+  type HasStrokeColor,
+  type HasFillColor,
+  getComponentAttributes,
+} from '@cypress-design/icon-registry'
+import { computed } from 'vue'
 
-withDefaults(
-  defineProps<{
-    animated?: boolean
-  }>(),
+const props = withDefaults(
+  defineProps<
+    {
+      animated?: boolean
+      interactiveColorsOnGroup?: boolean
+    } & HasStrokeColor &
+      HasFillColor
+  >(),
   {
     animated: false,
   },
 )
+
+const compiledClasses = computed(
+  () =>
+    getComponentAttributes({
+      ...props,
+      availableSizes: ['24'],
+      interactiveColorsOnGroup: props.interactiveColorsOnGroup,
+    }).compiledClasses,
+)
 </script>
 
 <template>
-  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    :class="compiledClasses"
+  >
     <PathMorpher
       v-bind="iconObjectGear"
       fill-rule="evenodd"

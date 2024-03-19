@@ -1,10 +1,17 @@
 import * as React from 'react'
 import { iconViewChart } from '@cypress-design/constants-icon'
 import { PathMorpher } from './_Morphers'
+import compileAttributes, { AnimatedProps } from './compileAttributes'
+import { HasSecondaryStrokeColor } from '@cypress-design/icon-registry'
 
 const IconViewChart: React.FC<
-  React.SVGProps<SVGSVGElement> & { animated: boolean }
-> = ({ animated, ...rest }) => {
+  AnimatedProps &
+    HasSecondaryStrokeColor &
+    React.SVGProps<SVGSVGElement> & {
+      animated: boolean
+    }
+> = ({ animated, ...fullRest }) => {
+  const rest = compileAttributes(fullRest)
   return (
     <svg
       viewBox="0 0 24 24"

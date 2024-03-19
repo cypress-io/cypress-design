@@ -1,10 +1,15 @@
 import * as React from 'react'
 import { iconObjectGear } from '@cypress-design/constants-icon'
 import { PathMorpher } from './_Morphers'
+import compileAttributes, { AnimatedProps } from './compileAttributes'
 
 const IconObjectGear: React.FC<
-  React.SVGProps<SVGSVGElement> & { animated: boolean }
-> = ({ animated, ...rest }) => {
+  AnimatedProps &
+    React.SVGProps<SVGSVGElement> & {
+      animated: boolean
+    }
+> = ({ animated, ...fullRest }) => {
+  const rest = compileAttributes(fullRest)
   return (
     <svg
       viewBox="0 0 24 24"

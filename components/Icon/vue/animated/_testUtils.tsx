@@ -35,6 +35,30 @@ export function iconTests(Icon: any) {
     cy.get('svg').click()
   })
 
+  it('renders with props', { viewportHeight: 550 }, () => {
+    const isAnimated = ref(false)
+
+    mount(() => (
+      <>
+        <pre>{isAnimated.value ? 'animated' : 'not animated'}</pre>
+
+        <Icon
+          animated={isAnimated.value}
+          width={400}
+          height={400}
+          fillColor="indigo-500"
+          strokeColor="jade-300"
+          secondaryStrokeColor="purple-400"
+          onClick={() => {
+            isAnimated.value = !isAnimated.value
+          }}
+        />
+      </>
+    ))
+
+    cy.get('svg').click()
+  })
+
   it('renders both side by side', { viewportWidth: 900 }, () => {
     mount(() => (
       <div class="bg-black flex gap-4 text-center text-2xl">

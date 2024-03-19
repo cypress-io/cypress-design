@@ -1,10 +1,16 @@
 import * as React from 'react'
 import { iconGeneralChatBubble } from '@cypress-design/constants-icon'
 import { PathMorpher } from './_Morphers'
+import compileAttributes, { AnimatedProps } from './compileAttributes'
 
 const IconGeneralChatBubble: React.FC<
-  React.SVGProps<SVGSVGElement> & { animated: boolean }
-> = ({ animated, ...rest }) => {
+  AnimatedProps &
+    React.SVGProps<SVGSVGElement> & {
+      animated: boolean
+    }
+> = ({ animated, ...fullRest }) => {
+  const rest = compileAttributes(fullRest)
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
