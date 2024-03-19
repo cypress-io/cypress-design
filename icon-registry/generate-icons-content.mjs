@@ -18,10 +18,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
 import { promises as fs } from 'fs'
-import _ from 'lodash'
+import { camelCase, kebabCase, upperFirst } from 'lodash-es'
 import dedent from 'dedent'
-
-const { camelCase, kebabCase, upperFirst } = _
 
 function pascalCase(str) {
   return upperFirst(camelCase(str))
