@@ -1,7 +1,30 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
+import {
+  IconAnimatedGeneralChatBubble,
+  IconAnimatedObjectGear,
+  IconAnimatedTechnologyGitBranches,
+  IconAnimatedTechnologyServer,
+  IconAnimatedViewChart,
+} from '@cypress-design/vue-icon'
 import IconButton from './IconButton.vue'
+
+const animatedIcons = {
+  IconAnimatedGeneralChatBubble,
+  IconAnimatedObjectGear,
+  IconAnimatedTechnologyGitBranches,
+  IconAnimatedTechnologyServer,
+  IconAnimatedViewChart,
+} as const
+
+const animated = reactive({
+  IconAnimatedGeneralChatBubble: false,
+  IconAnimatedObjectGear: false,
+  IconAnimatedTechnologyGitBranches: false,
+  IconAnimatedTechnologyServer: false,
+  IconAnimatedViewChart: false,
+})
 
 const search = ref('')
 const $searchInput = ref<HTMLInputElement>()
@@ -68,6 +91,25 @@ const groupedIconsMetadata = computed(() =>
           :groupName="groupName"
           :focused="!!search.length"
         />
+      </div>
+    </div>
+  </div>
+  <div>
+    <h2 class="text-[24px] text-center !mb-4 !mt-0">Animated Icons</h2>
+    <div class="flex flex-wrap justify-center gap-[16px] px-[24px]">
+      <div
+        class="flex flex-col items-center gap-[8px]"
+        v-for="(Icon, iconName) of animatedIcons"
+        :key="iconName"
+      >
+        <component
+          :is="Icon"
+          class="w-[64px] h-[64px]"
+          :animated="animated[iconName]"
+          @mousedown="() => (animated[iconName] = true)"
+          @mouseup="() => (animated[iconName] = false)"
+        />
+        <p>{{ iconName }}</p>
       </div>
     </div>
   </div>
