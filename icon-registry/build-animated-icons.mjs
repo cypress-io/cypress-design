@@ -10,7 +10,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 async function buildAnimatedIcons() {
   const files = await globby('*.svg', {
-    cwd: path.join(__dirname, 'src/icons'),
+    cwd: path.join(__dirname, 'icons-animated'),
   })
 
   /**
@@ -20,13 +20,13 @@ async function buildAnimatedIcons() {
 
   for (const filePath of files) {
     const fileContent = await fs.readFile(
-      path.join(__dirname, `src/icons/${filePath}`),
+      path.join(__dirname, `icons-animated/${filePath}`),
     )
 
     const [fileWithoutExtension] = filePath.split('.')
     const [iconNameKebab, animationType] = fileWithoutExtension.split('_')
 
-    const iconName = camelCase(`icon-${iconNameKebab}`)
+    const iconName = camelCase(`icon-animated-${iconNameKebab}`)
 
     icons[iconName] = icons[iconName] ?? {}
 
@@ -58,9 +58,9 @@ async function buildAnimatedIcons() {
     .join(`\n\n`)}`
 }
 
-async function main() {
+export default async function main() {
   const code = await buildAnimatedIcons()
-  const filepath = path.join(__dirname, 'src/index.ts')
+  const filepath = path.join(__dirname, 'src/animated-icons.ts')
   const formattedCode = await prettier.format(code, {
     singleQuote: true,
     semi: false,
@@ -70,4 +70,3 @@ async function main() {
   // eslint-disable-next-line no-console
   console.log('Build animated icons done!')
 }
-main()

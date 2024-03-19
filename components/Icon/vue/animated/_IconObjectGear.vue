@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import PathMorpher from './_PathMorpher.vue'
-import { iconObjectGear } from '@cypress-design/constants-icon'
+import { iconAnimatedObjectGear } from '@cypress-design/icon-registry'
 import {
   type HasStrokeColor,
   type HasFillColor,
@@ -39,7 +39,7 @@ const compiledClasses = computed(
     :class="compiledClasses"
   >
     <PathMorpher
-      v-bind="iconObjectGear"
+      v-bind="iconAnimatedObjectGear"
       fill-rule="evenodd"
       clip-rule="evenodd"
       class="icon-light"

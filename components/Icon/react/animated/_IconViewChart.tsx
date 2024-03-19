@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { iconViewChart } from '@cypress-design/constants-icon'
+import { iconAnimatedViewChart } from '@cypress-design/icon-registry'
 import { PathMorpher } from './_Morphers'
 import compileAttributes, { AnimatedProps } from './compileAttributes'
 import { HasSecondaryStrokeColor } from '@cypress-design/icon-registry'
@@ -20,19 +20,19 @@ const IconViewChart: React.FC<
       {...rest}
     >
       <PathMorpher
-        {...iconViewChart.topRight}
+        {...iconAnimatedViewChart.topRight}
         fill="#AFB3C7"
         className="icon-light"
         animated={animated}
       />
       <PathMorpher
-        {...iconViewChart.left}
+        {...iconAnimatedViewChart.left}
         fill="#1B1E2E"
         className="icon-dark-secondary"
         animated={animated}
       />
       <PathMorpher
-        {...iconViewChart.bottom}
+        {...iconAnimatedViewChart.bottom}
         fill="#747994"
         className="icon-dark"
         animated={animated}

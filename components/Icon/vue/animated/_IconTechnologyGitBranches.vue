@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { iconTechnologyGitBranches } from '@cypress-design/constants-icon'
+import { iconAnimatedTechnologyGitBranches } from '@cypress-design/icon-registry'
 import PathMorpher from './_PathMorpher.vue'
 import {
   type HasStrokeColor,
@@ -40,13 +40,13 @@ const compiledClasses = computed(
     :class="compiledClasses"
   >
     <PathMorpher
-      v-bind="iconTechnologyGitBranches.left"
+      v-bind="iconAnimatedTechnologyGitBranches.left"
       fill="#1B1E2E"
       class="icon-light"
       :animated="animated"
     />
     <PathMorpher
-      v-bind="iconTechnologyGitBranches.right"
+      v-bind="iconAnimatedTechnologyGitBranches.right"
       fill="#747994"
       class="icon-dark"
       :animated="animated"

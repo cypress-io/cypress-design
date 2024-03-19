@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import PathMorpher from './_PathMorpher.vue'
-import { iconGeneralChatBubble } from '@cypress-design/constants-icon'
+import { iconAnimatedGeneralChatBubble } from '@cypress-design/icon-registry'
 import {
   getComponentAttributes,
   type HasStrokeColor,
@@ -41,13 +41,13 @@ const compiledClasses = computed(
     <PathMorpher
       class="icon-dark"
       fill="#1B1E2E"
-      v-bind="iconGeneralChatBubble.small"
+      v-bind="iconAnimatedGeneralChatBubble.small"
       :animated="animated"
     />
     <PathMorpher
       class="icon-light"
       fill="#1B1E2E"
-      v-bind="iconGeneralChatBubble.big"
+      v-bind="iconAnimatedGeneralChatBubble.big"
       :animated="animated"
     />
   </svg>

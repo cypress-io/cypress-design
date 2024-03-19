@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "@cypress-design/icon-registry": "*",
-    "@cypress-design/constants-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {

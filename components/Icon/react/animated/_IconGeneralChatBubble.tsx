@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { iconGeneralChatBubble } from '@cypress-design/constants-icon'
+import { iconAnimatedGeneralChatBubble } from '@cypress-design/icon-registry'
 import { PathMorpher } from './_Morphers'
 import compileAttributes, { AnimatedProps } from './compileAttributes'
 
@@ -21,13 +21,13 @@ const IconGeneralChatBubble: React.FC<
       <PathMorpher
         className="icon-dark"
         fill="#1B1E2E"
-        {...iconGeneralChatBubble.small}
+        {...iconAnimatedGeneralChatBubble.small}
         animated={animated}
       />
       <PathMorpher
         className="icon-light"
         fill="#1B1E2E"
-        {...iconGeneralChatBubble.big}
+        {...iconAnimatedGeneralChatBubble.big}
         animated={animated}
       />
     </svg>

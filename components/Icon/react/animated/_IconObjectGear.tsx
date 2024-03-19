@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { iconObjectGear } from '@cypress-design/constants-icon'
+import { iconAnimatedObjectGear } from '@cypress-design/icon-registry'
 import { PathMorpher } from './_Morphers'
 import compileAttributes, { AnimatedProps } from './compileAttributes'
 
@@ -20,7 +20,7 @@ const IconObjectGear: React.FC<
       <PathMorpher
         fillRule="evenodd"
         clipRule="evenodd"
-        {...iconObjectGear}
+        {...iconAnimatedObjectGear}
         fill="#1B1E2E"
         animated={animated}
         className="icon-light"

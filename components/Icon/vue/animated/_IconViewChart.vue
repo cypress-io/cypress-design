@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { iconViewChart } from '@cypress-design/constants-icon'
 import PathMorpher from './_PathMorpher.vue'
 import {
   type HasStrokeColor,
   type HasFillColor,
   type HasSecondaryStrokeColor,
   getComponentAttributes,
+  iconAnimatedViewChart,
 } from '@cypress-design/icon-registry'
 import { computed } from 'vue'
 
@@ -41,19 +41,19 @@ const compiledClasses = computed(
     :class="compiledClasses"
   >
     <PathMorpher
-      v-bind="iconViewChart.topRight"
+      v-bind="iconAnimatedViewChart.topRight"
       fill="#AFB3C7"
       class="icon-light"
       :animated="animated"
     />
     <PathMorpher
-      v-bind="iconViewChart.left"
+      v-bind="iconAnimatedViewChart.left"
       fill="#747994"
       class="icon-dark-secondary"
       :animated="animated"
     />
     <PathMorpher
-      v-bind="iconViewChart.bottom"
+      v-bind="iconAnimatedViewChart.bottom"
       fill="#1B1E2E"
       class="icon-dark"
       :animated="animated"

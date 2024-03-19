@@ -31,9 +31,10 @@ const secondaryFillColor = ref<WindiColor>('orange-300')
 </script>
 
 <template>
-  <div>
-    <h2 class="text-[24px] text-center !mb-4 !mt-0">Animated Icons</h2>
-    <div class="flex flex-wrap justify-center gap-[16px] px-[24px]">
+  <div class="bg-gray-50 p-4 rounded text-center">
+    <h2 class="text-[24px] m-4">Animated Icons</h2>
+    <p class="m-4 text-gray-800">Click to see the animation start</p>
+    <div class="flex flex-wrap justify-center gap-[16px] p-8 bg-white">
       <div
         class="flex flex-col items-center gap-[8px]"
         v-for="(Icon, iconName) of animatedIcons"
@@ -46,10 +47,9 @@ const secondaryFillColor = ref<WindiColor>('orange-300')
           :strokeColor
           :fillColor
           :secondaryStrokeColor
-          @mousedown="() => (animated[iconName] = true)"
-          @mouseup="() => (animated[iconName] = false)"
+          @click="() => (animated[iconName] = !animated[iconName])"
         />
-        <p>{{ iconName }}</p>
+        <pre>&lt;{{ iconName }}/&gt;</pre>
       </div>
     </div>
   </div>

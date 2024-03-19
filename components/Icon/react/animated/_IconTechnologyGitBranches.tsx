@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { iconTechnologyGitBranches } from '@cypress-design/constants-icon'
+import { iconAnimatedTechnologyGitBranches } from '@cypress-design/icon-registry'
 import { PathMorpher } from './_Morphers'
 import compileAttributes, { AnimatedProps } from './compileAttributes'
 
@@ -18,13 +18,13 @@ const IconViewChart: React.FC<
       {...rest}
     >
       <PathMorpher
-        {...iconTechnologyGitBranches.left}
+        {...iconAnimatedTechnologyGitBranches.left}
         fill="#1B1E2E"
         className="icon-light"
         animated={animated}
       />
       <PathMorpher
-        {...iconTechnologyGitBranches.right}
+        {...iconAnimatedTechnologyGitBranches.right}
         fill="#747994"
         className="icon-dark"
         animated={animated}

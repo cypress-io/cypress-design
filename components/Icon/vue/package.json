@@ -21,7 +21,6 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-icon": "*",
     "@cypress-design/icon-registry": "*"
   },
   "devDependencies": {

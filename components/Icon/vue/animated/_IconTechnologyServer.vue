@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { iconTechnologyServer } from '@cypress-design/constants-icon'
 import PathMorpher from './_PathMorpher.vue'
 import {
   type HasStrokeColor,
   type HasFillColor,
   getComponentAttributes,
+  iconAnimatedTechnologyServer,
 } from '@cypress-design/icon-registry'
 import { computed } from 'vue'
 
@@ -41,7 +41,7 @@ const compiledClasses = computed(
     <PathMorpher
       fill-rule="evenodd"
       clip-rule="evenodd"
-      v-bind="iconTechnologyServer.top"
+      v-bind="iconAnimatedTechnologyServer.top"
       :animated="animated"
       fill="#1B1E2E"
       class="icon-light"
@@ -49,7 +49,7 @@ const compiledClasses = computed(
     <PathMorpher
       fill-rule="evenodd"
       clip-rule="evenodd"
-      v-bind="iconTechnologyServer.middle"
+      v-bind="iconAnimatedTechnologyServer.middle"
       :animated="animated"
       fill="#9095AD"
       class="icon-dark"
@@ -58,7 +58,7 @@ const compiledClasses = computed(
     <PathMorpher
       fill-rule="evenodd"
       clip-rule="evenodd"
-      v-bind="iconTechnologyServer.bottom"
+      v-bind="iconAnimatedTechnologyServer.bottom"
       :animated="animated"
       fill="#9095AD"
       class="icon-dark"
