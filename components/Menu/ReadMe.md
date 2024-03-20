@@ -14,6 +14,7 @@ import {
   IconAnimatedObjectGear,
   IconWindowCodeEditor,
 } from '@cypress-design/vue-icon'
+
 const activePath = ref('#runs')
 </script>
 
@@ -72,12 +73,15 @@ const activePath = ref('#runs')
         href: '#settings',
       },
     ]"
-    @mousedown="(e: MouseEvent) => {
-      if (e.target instanceof HTMLAnchorElement) {
-        e.preventDefault()
-        activePath = `#${e.target.href.split('#')[1]}`
+    @mousedown="
+      (e) => {
+        // if target is a child of a link, prevent default
+        if (e.target.closest('a')) {
+          e.preventDefault()
+          activePath = `#${e.target.closest('a').href?.split('#')[1]}`
+        }
       }
-    }"
+    "
   />
 </DemoWrapper>
 
