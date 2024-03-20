@@ -9,8 +9,9 @@ import prettier from 'prettier'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 async function buildAnimatedIcons() {
+  const cwd = path.join(__dirname, 'icons-animated')
   const files = await globby('*.svg', {
-    cwd: path.join(__dirname, 'icons-animated'),
+    cwd,
   })
 
   /**
@@ -19,9 +20,7 @@ async function buildAnimatedIcons() {
   const icons = {}
 
   for (const filePath of files) {
-    const fileContent = await fs.readFile(
-      path.join(__dirname, `icons-animated/${filePath}`),
-    )
+    const fileContent = await fs.readFile(path.join(cwd, filePath), 'utf8')
 
     const [fileWithoutExtension] = filePath.split('.')
     const [iconNameKebab, animationType] = fileWithoutExtension.split('_')

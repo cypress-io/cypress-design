@@ -53,15 +53,17 @@ const props = Object.keys(propsRE)
 export default async function getIcons() {
   const config = await loadConfig()
 
+  const cwd = path.join(__dirname, 'icons-static')
+
   const icons = await globby('*.svg', {
-    cwd: path.join(__dirname, './icons'),
+    cwd,
   })
   const iconsObject = await Promise.all(
     icons.map(async (icon) => {
       const iconName = icon.replace(/.svg$/, '')
       const [kebabCaseName, size] = iconName.split('_x')
       const svgContent = optimize(
-        await fs.readFile(path.join(__dirname, './icons', icon), 'utf8'),
+        await fs.readFile(path.join(cwd, icon), 'utf8'),
         config ?? undefined,
       ).data
 
