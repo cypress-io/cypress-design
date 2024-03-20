@@ -65,7 +65,5 @@ export default async function main() {
     semi: false,
     filepath,
   })
-  await fs.writeFile(filepath, formattedCode)
-  // eslint-disable-next-line no-console
-  console.log('Build animated icons done!')
+  return formattedCode
 }

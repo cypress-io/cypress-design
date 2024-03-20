@@ -18,7 +18,7 @@
         "src/**/*.ts",
         "src/**/*.mjs",
         "src/**/*.js",
-        "icons/*.svg",
+        "icons-*/*.svg",
         "!*.cy.tsx",
         "!*.rootstory.tsx"
       ],
