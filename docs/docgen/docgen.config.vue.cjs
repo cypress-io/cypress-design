@@ -82,15 +82,16 @@ module.exports = defineConfig({
           })
         : undefined
 
+      const displayName =
+        exportNames.length > 1 && exportName !== 'default'
+          ? `${exportName}`
+          : componentPath.split('/').pop()?.split('.').shift() || 'unknown'
+
       return {
         props,
         slots,
         events,
-        displayName:
-          componentPath
-            .split('/')
-            .pop()
-            ?.replace(/\.(ts|js|vue)/, '') || 'unknown',
+        displayName,
         exportName,
         tags: {},
       }

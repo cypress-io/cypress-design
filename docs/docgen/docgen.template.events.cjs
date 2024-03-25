@@ -4,12 +4,7 @@ const renderType = require('./renderType.cjs')
 
 const { mdclean } = defaultTemplates
 
-/**
- * @param {Array<import('vue-docgen-api').EventDescriptor>} events
- * @param {{isSubComponent:boolean, hasSubComponents:boolean}} [opt]
- * @param {import('vue-docgen-api').ComponentDoc} [doc]
- * @returns {Promise<string>}
- */
+/** @type import('vue-docgen-cli').Templates['events'] */
 module.exports = async function renderEvents(events, opt, doc) {
   if (!events.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents

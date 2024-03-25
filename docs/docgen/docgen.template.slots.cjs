@@ -4,11 +4,7 @@ const renderType = require('./renderType.cjs')
 
 const { mdclean } = defaultTemplates
 
-/**
- * @param {Array<import('vue-docgen-api').SlotDescriptor>} slots
- * @param {{isSubComponent:boolean, hasSubComponents:boolean}} [opt]
- * @returns {Promise<string>}
- */
+/** @type import('vue-docgen-cli').Templates['slots'] */
 module.exports = async function renderSlots(slots, opt) {
   if (!slots.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents

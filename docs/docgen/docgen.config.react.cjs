@@ -28,7 +28,7 @@ const parser = withCustomConfig(tsconfigPath, {
 
 function getTags(tags) {
   return Object.entries(tags || {}).reduce(
-    /** @param {NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number]['tags']} acc */
+    /** @param {NonNullable<NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number]['tags']>} acc */
     (acc, [k, v]) => {
       acc[k] = [{ title: k, content: v }]
       return acc
@@ -49,22 +49,25 @@ module.exports = defineConfig({
       /** @type import('vue-docgen-api').ComponentDoc */
       const mp = {
         displayName: p.displayName,
-        props: Object.entries(p.props).reduce((acc, [pkey, pp]) => {
-          if (!pp.name.includes('-')) {
-            // ignore kebab-case props here only for compat
-            /** @type NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number] */
-            const propType = {
-              name: pkey,
-              description: pp.description,
-              type: pp.type,
-              required: pp.required,
-              defaultValue: pp.defaultValue,
-              tags: getTags(pp.tags),
+        props: Object.entries(p.props).reduce(
+          /** @param acc {Array<NonNullable<import('vue-docgen-api').ComponentDoc['props']>[number]>} */
+          (acc, [pkey, pp]) => {
+            if (!pp.name.includes('-')) {
+              // ignore kebab-case props here only for compatibility with vue-docgen-api
+              const propType = {
+                name: pkey,
+                description: pp.description,
+                type: pp.type,
+                required: pp.required,
+                defaultValue: pp.defaultValue,
+                tags: getTags(pp.tags),
+              }
+              acc.push(propType)
             }
-            acc.push(propType)
-          }
-          return acc
-        }, []),
+            return acc
+          },
+          [],
+        ),
         exportName: p.displayName,
         tags: getTags(p.tags),
       }

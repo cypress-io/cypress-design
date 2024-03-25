@@ -1,0 +1,12 @@
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    id="small"
+    d="M14 18 h-1 a3 3 0 0 1-3-3 v-1 h4 a3 3 0 0 0 3-3 V8 h2 a3 3 0 0 1 3 3 v4 a3 3 0 0 1-3 3 h0 v1.3 c0 .5-.6 1-1 .7Z"
+    stroke="currentColor" stroke-linecap="round"
+    stroke-linejoin="round" />
+  <path
+    id="big"
+    d="M17 7a3 3 0 0 0-3-3H5a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3v1.3c0 .5.6 1 1 .7l4-2h4a3 3 0 0 0 3-3V7ZM7 9c0 .5523-.4477 1-1 1-.5523 0-1-.4477-1-1 0-.5523.4477-1 1-1 .5523 0 1 .4477 1 1zM10.5 9c0 .5523-.4477 1-1 1-.5523 0-1-.4477-1-1 0-.5523.4477-1 1-1 .5523 0 1 .4477 1 1zm3.5 0c0 .5523-.4477 1-1 1-.5523 0-1-.4477-1-1 0-.5523.4477-1 1-1 .5523 0 1 .4477 1 1z"
+    stroke="gray" stroke-linecap="round"
+    stroke-linejoin="round" />
+</svg>

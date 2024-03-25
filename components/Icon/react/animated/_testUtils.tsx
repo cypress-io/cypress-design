@@ -1,11 +1,18 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
+import {
+  HasSecondaryFillColor,
+  HasSecondaryStrokeColor,
+} from '@cypress-design/icon-registry'
+import { AnimatedProps } from './compileAttributes'
 
 export function iconTests(
   Icon: React.FC<
-    React.SVGProps<SVGSVGElement> & {
-      animated: boolean
-    }
+    AnimatedProps &
+      HasSecondaryStrokeColor &
+      React.SVGProps<SVGSVGElement> & {
+        animated: boolean
+      }
   >,
 ) {
   it('renders', () => {
@@ -30,6 +37,29 @@ export function iconTests(
             width={400}
             height={400}
             className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400 m-[50px]"
+            onClick={() => setIsActive(!isActive)}
+          />
+        </>
+      )
+    }
+    mount(<SUT />)
+
+    cy.get('svg').click()
+  })
+
+  it('renders with props', { viewportHeight: 550 }, () => {
+    const SUT = () => {
+      const [isActive, setIsActive] = React.useState(false)
+      return (
+        <>
+          <pre>{isActive ? 'active' : 'not active'}</pre>
+          <Icon
+            animated={isActive}
+            width={400}
+            height={400}
+            fillColor="indigo-500"
+            strokeColor="jade-300"
+            secondaryStrokeColor="purple-400"
             onClick={() => setIsActive(!isActive)}
           />
         </>

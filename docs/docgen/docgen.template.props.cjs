@@ -35,12 +35,7 @@ ${mdclean(t)}
   return retArray.join('')
 }
 
-/**
- * @param {Array<import('vue-docgen-api').PropDescriptor>} props
- * @param {{isSubComponent:boolean, hasSubComponents:boolean}} [opt]
- * @param {import('vue-docgen-api').ComponentDoc} [doc]
- * @returns {Promise<string>}
- */
+/** @type import('vue-docgen-cli').Templates['props'] */
 module.exports = async function renderProp(props, opt, doc) {
   if (!props.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents

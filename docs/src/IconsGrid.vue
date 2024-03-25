@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import IconButton from './IconButton.vue'
+import AnimatedIcons from './AnimatedIcons.vue'
 
 const search = ref('')
 const $searchInput = ref<HTMLInputElement>()
@@ -71,4 +72,5 @@ const groupedIconsMetadata = computed(() =>
       </div>
     </div>
   </div>
+  <AnimatedIcons />
 </template>

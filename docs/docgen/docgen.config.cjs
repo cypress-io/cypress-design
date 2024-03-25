@@ -6,12 +6,14 @@ const props = require('./docgen.template.props.cjs')
 const events = require('./docgen.template.events.cjs')
 const slots = require('./docgen.template.slots.cjs')
 const component = require('./docgen.template.component.cjs')
+const header = require('./docgen.template.header.cjs')
 
 module.exports = defineConfig({
   componentsRoot: 'components/',
   outDir: './docs/components',
   defaultExamples: true,
   templates: {
+    header,
     component,
     props,
     events,

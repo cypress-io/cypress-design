@@ -22,12 +22,11 @@
   },
   "dependencies": {
     "@cypress-design/icon-registry": "*",
-    "@cypress-design/constants-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@types/lodash": "^4.14.202",
+    "@types/lodash": "^4.17.0",
     "lodash": "^4.17.21",
     "dedent": "^1.5.1"
   },

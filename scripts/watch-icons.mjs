@@ -7,8 +7,9 @@ import { execa, execaNode } from 'execa'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 const cwd = resolve(__dirname, '..')
-const watcher = chokidar.watch(['./icon-registry/icons/*.svg'], {
+const watcher = chokidar.watch(['./icon-registry/icons-*/*.svg'], {
   cwd,
+  ignoreInitial: true,
 })
 
 const pathToRollup = resolve(__dirname, '..', 'node_modules/.bin/rollup')
@@ -26,18 +27,20 @@ watcher.on('unlink', async (file) => {
   await buildIcons(file)
 })
 
-setTimeout(async () => {
-  watcher.on('add', async (file) => {
-    console.log(`${file} added`)
+watcher.on('add', async (file) => {
+  console.log(`${file} added`)
 
-    buildIcons(file).catch((e) => {
-      console.error(e)
-    })
+  buildIcons(file).catch((e) => {
+    console.error(e)
   })
-}, 10)
+})
 
 async function buildIcons(file) {
-  if (!/[a-zA-Z-]_x\d+\.svg$/.test(file)) {
+  if (
+    !/icons-static\/[a-zA-Z-]+_x\d+\.svg$/.test(file) &&
+    !/icons-logo\/[a-zA-Z-_]+\.svg$/.test(file) &&
+    !/icons-animated\/[a-zA-Z-_]+\.svg$/.test(file)
+  ) {
     console.log('Not an icon file, skipping')
     return
   }

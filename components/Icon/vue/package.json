@@ -21,12 +21,11 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-icon": "*",
     "@cypress-design/icon-registry": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@types/lodash": "^4.14.202",
+    "@types/lodash": "^4.17.0",
     "lodash": "^4.17.21",
     "dedent": "^1.5.1"
   },

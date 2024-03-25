@@ -1,10 +1,15 @@
 import * as React from 'react'
-import { iconTechnologyServer } from '@cypress-design/constants-icon'
+import { iconAnimatedTechnologyServer } from '@cypress-design/icon-registry'
 import { PathMorpher } from './_Morphers'
+import compileAttributes, { AnimatedProps } from './compileAttributes'
 
 const IconTechServer: React.FC<
-  React.SVGProps<SVGSVGElement> & { animated: boolean }
-> = ({ animated, ...rest }) => {
+  AnimatedProps &
+    React.SVGProps<SVGSVGElement> & {
+      animated: boolean
+    }
+> = ({ animated, ...fullRest }) => {
+  const rest = compileAttributes(fullRest)
   return (
     <svg
       width="24"
@@ -17,7 +22,7 @@ const IconTechServer: React.FC<
       <PathMorpher
         fillRule="evenodd"
         clipRule="evenodd"
-        {...iconTechnologyServer.top}
+        {...iconAnimatedTechnologyServer.top}
         animated={animated}
         fill="#1B1E2E"
         className="icon-light"
@@ -25,7 +30,7 @@ const IconTechServer: React.FC<
       <PathMorpher
         fillRule="evenodd"
         clipRule="evenodd"
-        {...iconTechnologyServer.middle}
+        {...iconAnimatedTechnologyServer.middle}
         animated={animated}
         fill="#9095AD"
         className="icon-dark"
@@ -34,7 +39,7 @@ const IconTechServer: React.FC<
       <PathMorpher
         fillRule="evenodd"
         clipRule="evenodd"
-        {...iconTechnologyServer.bottom}
+        {...iconAnimatedTechnologyServer.bottom}
         animated={animated}
         fill="#9095AD"
         className="icon-dark"
