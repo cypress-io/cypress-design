@@ -30,7 +30,7 @@ export const CypressMark = defineComponent({
     return () =>
       h('svg', {
         viewBox: resolvedVariant.value?.viewBox,
-        innerHTMLa: resolvedVariant.value?.data,
+        innerHTML: resolvedVariant.value?.data,
       })
   },
 })
