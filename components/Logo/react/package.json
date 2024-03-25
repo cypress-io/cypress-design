@@ -1,22 +1,20 @@
 {
-  "name": "@cypress-design/react-icon",
-  "version": "0.34.0",
+  "name": "@cypress-design/react-logo",
+  "version": "0.0.1",
   "files": [
     "*"
   ],
   "typings": "./dist/index.d.ts",
-  "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
   "exports": {
     ".": {
       "import": "./dist/index.es.mjs",
-      "require": "./dist/index.umd.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.umd.js"
     }
   },
   "scripts": {
-    "build": "yarn build:codegen && yarn build:module && yarn build:types",
-    "build:codegen": "node ./generate-icons.js",
+    "build": "yarn build:module && yarn build:types",
     "build:module": "rollup -c ./rollup.config.mjs",
     "build:types": "tsc --project ./tsconfig.build.json"
   },
@@ -25,10 +23,7 @@
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@types/lodash": "^4.17.0",
-    "lodash": "^4.17.21",
-    "dedent": "^1.5.1"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }
