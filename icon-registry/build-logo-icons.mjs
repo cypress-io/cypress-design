@@ -35,7 +35,10 @@ async function buildLogoIcons() {
 
     icons[iconName][variant] = icons[iconName][variant] ?? {}
     icons[iconName][variant].viewBox = result.svg.$.viewBox
-    icons[iconName][variant].data = optimize(fileContent, config).data
+    icons[iconName][variant].data = optimize(fileContent, {
+      path: path.join(cwd, filePath),
+      ...config,
+    }).data
   }
 
   return Object.entries(icons)

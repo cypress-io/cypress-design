@@ -38,8 +38,7 @@ function getTags(tags) {
 }
 
 module.exports = defineConfig({
-  // components: './*/react/[A-Z]*.tsx',
-  components: './*/react/Logo.tsx',
+  components: './*/react/[A-Z]*.tsx',
   getDestFile: (componentPath, { outDir }) => {
     const name = componentPath.split('/').pop() || 'unknown'
     return path.join(outDir, 'react', name.replace(/\.(tsx|ts)$/, '.md'))
