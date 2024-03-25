@@ -15,8 +15,6 @@ yarn add @cypress-design/vue-logo
 ## Usage
 
 ```vue live
-import { CypressMark } from '@cypress-design/react-logo'
-
 <div class="flex items-center justify-center gap-8">
   <div class="p-4">
     <CypressMark class="w-[48px] h-[48px]" />
@@ -31,8 +29,6 @@ import { CypressMark } from '@cypress-design/react-logo'
 ```
 
 ```vue live
-import { CypressLockUp } from '@cypress-design/react-logo'
-
 <div class="flex items-center justify-center gap-8">
   <div class="p-4">
     <CypressLockUp class="w-[119px] h-[48px]" />
