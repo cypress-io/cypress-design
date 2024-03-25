@@ -1,6 +1,6 @@
 // @ts-check
 
-/** @type typeof import('vue-docgen-cli').defaultTemplates.component */
+/** @type import('vue-docgen-cli').Templates['component'] */
 module.exports = function (...args) {
   const [usage, doc, , , requiresMd, subTemplateOptions] = args
 

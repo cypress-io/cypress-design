@@ -4,6 +4,9 @@ function getDisplayName(doc) {
   return doc.exportName === 'default' ? doc.displayName : doc.exportName
 }
 
+function getTempName(doc) {
+  return `__${getDisplayName(doc)}__`
+}
 /** @type import('vue-docgen-cli').Templates['header'] */
 module.exports = function (...args) {
   const [docs, , , fileName] = args
@@ -28,8 +31,8 @@ description: ${doc.description}`
 
   return `${frontMatter}
 <script lang="ts" setup>
-import {${docs.map((d) => ` ${d.exportName} as __${d.exportName}__ `).join(',')} } from '../../../components/${fileName}'
-  const components$ = { ${docs.map((d) => `'${getDisplayName(d)}': __${d.exportName}__`).join(',')} }
+import {${docs.map((d) => ` ${d.exportName} as ${getTempName(d)} `).join(',')} } from '../../../components/${fileName}'
+const components$ = { ${docs.map((d) => `'${getDisplayName(d)}': ${getTempName(d)}`).join(',')} }
 </script>
 
 ${doc.docsBlocks
