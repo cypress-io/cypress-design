@@ -1,6 +1,19 @@
 import { computed, defineComponent, h } from 'vue'
 import { logoLockUp, logoMark } from '@cypress-design/icon-registry'
 
+const renderSvg = (variant: {
+  viewBox: string
+  data: string
+  width: number
+  height: number
+}) =>
+  h('svg', {
+    width: variant.width,
+    height: variant.height,
+    viewBox: variant.viewBox,
+    innerHTML: variant.data,
+  })
+
 export const CypressLockUp = defineComponent({
   props: {
     variant: {
@@ -10,11 +23,7 @@ export const CypressLockUp = defineComponent({
   },
   setup(props) {
     const resolvedVariant = computed(() => logoLockUp[props.variant])
-    return () =>
-      h('svg', {
-        viewBox: resolvedVariant.value?.viewBox,
-        innerHTML: resolvedVariant.value?.data,
-      })
+    return () => renderSvg(resolvedVariant.value)
   },
 })
 
@@ -27,10 +36,6 @@ export const CypressMark = defineComponent({
   },
   setup(props) {
     const resolvedVariant = computed(() => logoMark[props.variant])
-    return () =>
-      h('svg', {
-        viewBox: resolvedVariant.value?.viewBox,
-        innerHTML: resolvedVariant.value?.data,
-      })
+    return () => () => renderSvg(resolvedVariant.value)
   },
 })
