@@ -36,7 +36,11 @@ export const CypressWatermark = defineComponent({
   },
   setup(props) {
     return () =>
-      h(CypressMark, { class: props.dark ? 'text-gray-300' : 'text-white/20' })
+      h(CypressMark, {
+        class: props.dark
+          ? 'stroke-gray-500 text-gray-300 opacity-40'
+          : 'stroke-white/10 text-white/20',
+      })
   },
 })
 
