@@ -49,6 +49,9 @@ export default function App() {
       <div className="p-4">
         <CypressLockUp />
       </div>
+      <div className="bg-gray-1000 p-4 rounded">
+        <CypressLockUp variant="white" />
+      </div>
       <div className="p-4">
         <CypressLockUp variant="color-dark" />
       </div>

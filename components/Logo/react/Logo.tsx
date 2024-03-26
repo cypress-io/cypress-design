@@ -43,7 +43,9 @@ export const CypressWatermark: React.FC<
 }
 
 export const CypressLockUp: React.FC<
-  React.SVGProps<SVGSVGElement> & { variant?: keyof typeof logoLockUp }
+  React.SVGProps<SVGSVGElement> & {
+    variant?: keyof typeof logoLockUp
+  }
 > = ({ variant = 'default', ...rest }) => {
   return <FromVariant {...rest} variant={logoLockUp[variant]} />
 }

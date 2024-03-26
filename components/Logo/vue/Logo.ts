@@ -52,7 +52,6 @@ export const CypressLockUp = defineComponent({
     },
   },
   setup(props) {
-    const resolvedVariant = computed(() => logoLockUp[props.variant])
-    return () => renderSvg(resolvedVariant.value)
+    return () => renderSvg(logoLockUp[props.variant])
   },
 })
