@@ -1,4 +1,5 @@
 import * as React from 'react'
+import clsx from 'clsx'
 import { logoLockUp, logoMark } from '@cypress-design/icon-registry'
 
 function FromVariant({
@@ -19,14 +20,25 @@ function FromVariant({
   )
 }
 
-export const CypressLockUp: React.FC<
-  React.SVGProps<SVGSVGElement> & { variant?: keyof typeof logoLockUp }
-> = ({ variant = 'default', ...rest }) => {
-  return <FromVariant {...rest} variant={logoLockUp[variant]} />
-}
-
 export const CypressMark: React.FC<
   React.SVGProps<SVGSVGElement> & { variant?: keyof typeof logoMark }
 > = ({ variant = 'default', ...rest }) => {
   return <FromVariant {...rest} variant={logoMark[variant]} />
+}
+
+export const CypressWatermark: React.FC<
+  React.SVGProps<SVGSVGElement> & { dark: boolean }
+> = ({ dark, className, ...rest }) => {
+  return (
+    <CypressMark
+      {...rest}
+      className={clsx(className, dark ? 'text-gray-300' : 'text-white/20')}
+    />
+  )
+}
+
+export const CypressLockUp: React.FC<
+  React.SVGProps<SVGSVGElement> & { variant?: keyof typeof logoLockUp }
+> = ({ variant = 'default', ...rest }) => {
+  return <FromVariant {...rest} variant={logoLockUp[variant]} />
 }

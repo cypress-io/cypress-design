@@ -25,6 +25,12 @@ yarn add @cypress-design/vue-logo
   <div class="p-4 bg-gray-1000 rounded">
     <CypressMark variant="color-white" />
   </div>
+  <div class="p-4 bg-gray-1000 rounded">
+    <CypressWatermark />
+  </div>
+  <div class="p-4">
+    <CypressWatermark dark/>
+  </div>
 </div>
 ```
 

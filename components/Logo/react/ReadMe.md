@@ -29,6 +29,12 @@ export default function App() {
       <div className="p-4 bg-gray-1000 rounded">
         <CypressMark variant="color-white" />
       </div>
+      <div className="p-4 bg-gray-1000 rounded">
+        <CypressWatermark />
+      </div>
+      <div className="p-4">
+        <CypressWatermark dark />
+      </div>
     </div>
   )
 }
