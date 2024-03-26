@@ -32,7 +32,12 @@ export const CypressWatermark: React.FC<
   return (
     <CypressMark
       {...rest}
-      className={clsx(className, dark ? 'text-gray-300' : 'text-white/20')}
+      className={clsx(
+        className,
+        dark
+          ? 'stroke-gray-500 text-gray-300 opacity-40'
+          : 'stroke-white/10 text-white/20',
+      )}
     />
   )
 }
