@@ -34,7 +34,19 @@ async function buildLogoIcons() {
     const result = await xml2js.parseStringPromise(fileContent)
 
     icons[iconName][variant] = icons[iconName][variant] ?? {}
-    icons[iconName][variant].viewBox = result.svg.$.viewBox
+
+    // viewBox
+    const viewBox = result.svg.$.viewBox
+    icons[iconName][variant].viewBox = viewBox
+
+    // default dimensions
+    const viewBoxParts = viewBox.split(' ')
+    const height = parseInt(viewBoxParts[3]) - parseInt(viewBoxParts[1])
+    const width = parseInt(viewBoxParts[2]) - parseInt(viewBoxParts[0])
+    icons[iconName][variant].width = width
+    icons[iconName][variant].height = height
+
+    // content
     icons[iconName][variant].data = optimize(fileContent, {
       path: path.join(cwd, filePath),
       ...config,

@@ -1,5 +1,5 @@
 <svg viewBox="0 0 119 48" xmlns="http://www.w3.org/2000/svg">
-  <g fill="#2E3247">
+  <g fill="white">
     <path
       d="M0.854084 30.3588C0.288177 28.2979 6.10352e-05 26.1573 6.10352e-05 24.0013C6.10352e-05 14.1592 6.18132 5.16 15.3825 1.61121L16.5889 4.73343C8.66873 7.78884 3.34921 15.5314 3.34921 24.0013C3.34921 25.8592 3.59614 27.6991 4.08231 29.4722L0.854084 30.3588Z"
     />
@@ -34,8 +34,8 @@
   <defs>
     <linearGradient id="round-bangs-gradient" x1="21.5577" y1="-1.54942" x2="39.8227"
       y2="17.9723" gradientUnits="userSpaceOnUse">
-      <stop offset="0.0939" stop-color="#2E3247" />
-      <stop offset="0.9883" stop-color="#2E3247" stop-opacity="0" />
+      <stop offset="0.0939" stop-color="white" />
+      <stop offset="0.9883" stop-color="white" stop-opacity="0" />
     </linearGradient>
   </defs>
 </svg>
