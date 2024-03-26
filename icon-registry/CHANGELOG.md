@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.39.0
+
+### Minor Changes
+
+- [#405](https://github.com/cypress-io/cypress-design/pull/405) [`6215f29`](https://github.com/cypress-io/cypress-design/commit/6215f29c5ec2ad7f46472ce6630c066cb2ab5488) Thanks [@elevatebart](https://github.com/elevatebart)! - add CypressWatermark to Logo
+
 ## 0.38.0
 
 ### Minor Changes
