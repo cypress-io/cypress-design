@@ -37,7 +37,7 @@ yarn add @cypress-design/vue-logo
 ```vue live
 <div class="flex items-center justify-center gap-8">
   <div class="p-4">
-    <CypressLockUp dark/>
+    <CypressLockUp />
   </div>
   <div class="bg-gray-1000 p-4 rounded">
     <CypressLockUp variant="white" />

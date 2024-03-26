@@ -15,9 +15,9 @@ yarn add @cypress-design/react-logo
 ## Usage
 
 ```jsx live
-import { CypressMark } from '@cypress-design/react-logo'
+import { CypressMark, CypressWatermark } from '@cypress-design/react-logo'
 
-export default function App() {
+export default function () {
   return (
     <div className="flex items-center justify-center gap-8">
       <div className="p-4 ">
@@ -43,7 +43,7 @@ export default function App() {
 ```jsx live
 import { CypressLockUp } from '@cypress-design/react-logo'
 
-export default function App() {
+export default function () {
   return (
     <div className="flex items-center justify-center gap-8">
       <div className="p-4">
