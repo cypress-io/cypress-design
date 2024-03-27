@@ -1,5 +1,14 @@
 # @cypress-design/react-tabs
 
+## 0.8.2
+
+### Patch Changes
+
+- [`288a9c4`](https://github.com/cypress-io/cypress-design/commit/288a9c4c4c26002e6753191217f4f4ca60727adb) Thanks [@elevatebart](https://github.com/elevatebart)! - add a missing class to the border-b (underline)
+
+- Updated dependencies [[`288a9c4`](https://github.com/cypress-io/cypress-design/commit/288a9c4c4c26002e6753191217f4f4ca60727adb)]:
+  - @cypress-design/constants-tabs@0.6.1
+
 ## 0.8.1
 
 ### Patch Changes

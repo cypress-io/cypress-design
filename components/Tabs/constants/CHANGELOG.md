@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.6.1
+
+### Patch Changes
+
+- [`288a9c4`](https://github.com/cypress-io/cypress-design/commit/288a9c4c4c26002e6753191217f4f4ca60727adb) Thanks [@elevatebart](https://github.com/elevatebart)! - add a missing class to the border-b (underline)
+
 ## 0.6.0
 
 ### Minor Changes
