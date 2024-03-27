@@ -8,6 +8,7 @@ import theme from './theme.config'
 import detailsOpenVariantPlugin from './tw-details-open-variant-plugin'
 import plugin from 'tailwindcss/plugin'
 import containerPlugin from '@tailwindcss/container-queries'
+import Hocus from 'tailwindcss-hocus'
 
 function defineConfig(config: Config) {
   return config
@@ -46,14 +47,7 @@ export default (fileGlobs: string[] = []) => {
       /**
        * hocus + group-hocus plugin
        */
-      plugin(({ addVariant }) => {
-        addVariant('hocus', ['&:focus', '&:hover'])
-        addVariant('group-hocus', [
-          ':merge(.group):focus &',
-          ':merge(.group):hover &',
-        ])
-        addVariant('children', '& *')
-      }),
+      Hocus,
       /**
        * add antialiased base for entire body
        */
