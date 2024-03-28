@@ -71,7 +71,6 @@ export default (fileGlobs: string[] = []) => {
           },
         })
       }),
-      containerPlugin,
     ],
   })
 }
