@@ -1,5 +1,14 @@
 # @cypress-design/react-tabs
 
+## 0.8.3
+
+### Patch Changes
+
+- [`04c9f71`](https://github.com/cypress-io/cypress-design/commit/04c9f714391166128f189551696bdac7a7d836ff) Thanks [@elevatebart](https://github.com/elevatebart)! - use a proper plugin for hocus
+
+- Updated dependencies [[`04c9f71`](https://github.com/cypress-io/cypress-design/commit/04c9f714391166128f189551696bdac7a7d836ff)]:
+  - @cypress-design/constants-tabs@0.6.2
+
 ## 0.8.2
 
 ### Patch Changes
