@@ -9,7 +9,8 @@ import Icon, {
 } from '@cypress-design/vue-icon'
 import Modal from '@cypress-design/vue-modal'
 import Alert from '@cypress-design/vue-alert'
-// @ts-expect-error see this issue https://github.com/vuejs/language-tools/issues/1662
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore see this issue https://github.com/vuejs/language-tools/issues/1662
 import Spinner from '@cypress-design/vue-spinner/sfc'
 import Button from '@cypress-design/vue-button'
 
@@ -84,6 +85,8 @@ const showModal = ref(false)
       blanditiis officiis fugiat sapiente, adipisci eum. Sapiente recusandae
       voluptates mollitia?
     </Modal>
+    <a class="hocus:text-purple-500" href="https://google.com">Google</a>
+
     <div class="h-[80vh]" />
     Bottom of page
   </div>

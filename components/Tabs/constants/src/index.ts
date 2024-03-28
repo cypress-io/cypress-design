@@ -114,7 +114,7 @@ export const variants = {
       wrapper:
         'py-[4px] flex gap-[8px] border-b border-solid border-gray-100 text-gray-700 relative',
       button:
-        'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
+        'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap hocus:no-underline relative',
       active: 'text-indigo-500 z-20',
       activeStatic: 'relative',
       inActive:
@@ -140,7 +140,7 @@ export const variants = {
       subWrapper:
         'absolute bottom-0 left-0 right-0 block h-[1px] rounded-full bg-gradient-to-r from-transparent via-gray-100 via-gray-100 via-gray-100 to-transparent',
       button:
-        'flex items-center px-[12px] h-full leading-[20px] text-[14px] rounded font-medium whitespace-nowrap relative',
+        'flex items-center px-[12px] h-full leading-[20px] text-[14px] rounded font-medium whitespace-nowrap hocus:no-underline relative',
       active: 'text-indigo-500 z-20',
       activeStatic: 'relative',
       inActive:
@@ -164,11 +164,11 @@ export const variants = {
       wrapper:
         'py-[4px] flex gap-[8px] border-b border-solid border-gray-100 text-gray-700 relative',
       button:
-        'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative',
+        'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative hocus:no-underline ',
       active: 'text-indigo-500 z-20',
       activeStatic: 'relative',
       inActive:
-        'text-gray-700 hocus:no-underline hocus:text-gray-700 before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
+        'text-gray-700 hocus:text-gray-700 before:transition-color before:duration-300 before:absolute hover:before:bg-gray-200 before:bottom-[-6.5px] before:h-[4px] before:left-0 before:right-0 before:rounded-full',
       activeMarker:
         'absolute bottom-[-2.5px] h-[4px] rounded-full z-10 duration-300 ease-in-out',
       activeMarkerColor: 'bg-indigo-500',

@@ -46,16 +46,25 @@ function App() {
     <div className="App">
       <header className="App-header">
         <Tabs
+          variant="underline-small"
           tabs={[
             {
               label: 'Tab 1',
               id: 'tab1',
+              href: '#tab1',
               'data-testid': 'tab1',
             },
             {
               label: 'Tab 2',
               id: 'tab2',
+              href: '#tab2',
               'data-testid': 'tab2',
+            },
+            {
+              label: 'Tab 3',
+              id: 'tab3',
+              href: '#tab3',
+              'data-testid': 'tab3',
             },
           ]}
         />
