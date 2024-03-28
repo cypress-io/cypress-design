@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 0.19.2
+
+### Patch Changes
+
+- [`aa8e5a2`](https://github.com/cypress-io/cypress-design/commit/aa8e5a2bac5bec5ffb7ed650c9cc34e1b4b818fa) Thanks [@elevatebart](https://github.com/elevatebart)! - remove double containerplugin
+
 ## 0.19.1
 
 ### Patch Changes

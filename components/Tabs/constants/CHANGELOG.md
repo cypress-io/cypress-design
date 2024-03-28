@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.6.3
+
+### Patch Changes
+
+- [`6b05f7d`](https://github.com/cypress-io/cypress-design/commit/6b05f7d698d1c0f7056ab45f43856bece4833263) Thanks [@elevatebart](https://github.com/elevatebart)! - active tabs should never have a underline on hover (even when anchors)
+
 ## 0.6.2
 
 ### Patch Changes
