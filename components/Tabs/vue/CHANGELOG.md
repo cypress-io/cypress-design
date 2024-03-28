@@ -1,5 +1,14 @@
 # @cypress-design/vue-tabs
 
+## 0.8.4
+
+### Patch Changes
+
+- [`d0c6410`](https://github.com/cypress-io/cypress-design/commit/d0c64109f49cba1efb0c54c2daa1924a2898b96f) Thanks [@elevatebart](https://github.com/elevatebart)! - only border on the bottom
+
+- Updated dependencies [[`d0c6410`](https://github.com/cypress-io/cypress-design/commit/d0c64109f49cba1efb0c54c2daa1924a2898b96f)]:
+  - @cypress-design/constants-tabs@0.6.4
+
 ## 0.8.3
 
 ### Patch Changes
