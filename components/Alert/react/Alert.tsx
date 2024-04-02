@@ -74,7 +74,7 @@ export interface AlertProps {
 }
 
 export const Alert: React.FC<
-  AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size'>
+  AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size' | 'title'>
 > = ({
   variant,
   type = defaultAlertVariant,
