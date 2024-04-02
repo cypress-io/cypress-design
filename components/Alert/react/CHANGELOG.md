@@ -1,5 +1,11 @@
 # @cypress-design/react-alert
 
+## 0.6.7
+
+### Patch Changes
+
+- [`cdc6322`](https://github.com/cypress-io/cypress-design/commit/cdc63229f8aa3e6c1124081d1b61dfd2c473f3c1) Thanks [@elevatebart](https://github.com/elevatebart)! - fix type of title
+
 ## 0.6.6
 
 ### Patch Changes
