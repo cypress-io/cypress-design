@@ -33,6 +33,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   variant = 'default',
   activeId: activeIdProp,
   renderTab,
+  className,
   ...rest
 }) => {
   const [mounted, setMounted] = React.useState(false)
@@ -103,7 +104,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
     variant in variants ? variants[variant].icon : variants.default.icon
 
   return (
-    <div role="tablist" className={classes.wrapper} {...rest}>
+    <div role="tablist" className={clsx(classes.wrapper, className)} {...rest}>
       {'subWrapper' in classes ? <div className={classes.subWrapper} /> : null}
       {tabs.map((tab, index) => {
         const ButtonTag = tab.href ? 'a' : 'button'
