@@ -1,5 +1,11 @@
 # @cypress-design/react-tabs
 
+## 0.8.6
+
+### Patch Changes
+
+- [`75b3d0f`](https://github.com/cypress-io/cypress-design/commit/75b3d0f035d546d759739bbc854bf2173c924a19) Thanks [@elevatebart](https://github.com/elevatebart)! - merge classNames ni react component wrapper
+
 ## 0.8.5
 
 ### Patch Changes
