@@ -1,5 +1,16 @@
 # @cypress-design/react-button
 
+## 0.12.5
+
+### Patch Changes
+
+- [`c1877d3`](https://github.com/cypress-io/cypress-design/commit/c1877d3cc8795f5b23617f38d82295f60e4e0b61) Thanks [@elevatebart](https://github.com/elevatebart)! - fix disabled state of button
+  - add an `outline-disabled` variant
+  - make all outline variants get disabled with the `outline-disabled` variant
+  - remove hover ring on disabled buttons
+- Updated dependencies [[`c1877d3`](https://github.com/cypress-io/cypress-design/commit/c1877d3cc8795f5b23617f38d82295f60e4e0b61)]:
+  - @cypress-design/constants-button@0.1.5
+
 ## 0.12.4
 
 ### Patch Changes
