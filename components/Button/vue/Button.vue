@@ -47,11 +47,16 @@ export default defineComponent({
     const finalVariant = computed(() =>
       props.disabled &&
       !['outline-dark', 'outline-light', 'link'].includes(props.variant)
-        ? 'disabled'
+        ? props.variant.includes('outline') || props.variant === 'white'
+          ? 'outline-disabled'
+          : 'disabled'
         : props.variant,
     )
     const finalDisabled = computed(
-      () => props.disabled || props.variant === 'disabled',
+      () =>
+        props.disabled ||
+        props.variant === 'disabled' ||
+        props.variant === 'outline-disabled',
     )
 
     const variantClasses = computed(

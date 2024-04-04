@@ -2,7 +2,7 @@ export const VariantClassesTable = {
   link: 'text-indigo-600 border-transparent ring-transparent hover:underline disabled:text-gray-500 disabled:hocus:shadow-none disabled:no-underline hocus:shadow-transparent focus-visible:ring-gray-100 focus-visible:underline',
   white:
     'text-indigo-500 bg-white border-gray-100 hover:border-gray-200 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
-  disabled: 'text-white bg-gray-500 border-gray-500',
+  disabled: 'text-gray-500 bg-gray-100 border-gray-100 hover:shadow-none',
   // outline variants
   'outline-indigo':
     'border-indigo-500 text-indigo-500 disabled:hocus:shadow-none hocus:shadow-indigo-300/[.35] disabled:text-gray-500 focus:ring-indigo-600',
@@ -14,6 +14,7 @@ export const VariantClassesTable = {
     'text-indigo-500 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
+  'outline-disabled': 'text-gray-500 border-gray-100 hover:shadow-none',
   // light variants
   'indigo-light':
     'text-indigo-500 bg-indigo-50 border-indigo-50 hocus:border-indigo-200 disabled:hocus:shadow-none hocus:shadow-indigo-50 focus:ring-transparent',
@@ -51,6 +52,7 @@ export const DefaultSize: keyof typeof SizeClassesTable = '40'
 export const StaticClasses =
   'border border-solid rounded rounded-[4px] flex cy-button-width font-medium items-center transition duration-150 ' +
   'hover:shadow-ring-hover focus:shadow-ring-focus active:shadow-ring-focus ' +
+  'disabled:hover:shadow-none ' +
   'disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
 
 export type ButtonSizes = keyof typeof SizeClassesTable

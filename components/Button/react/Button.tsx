@@ -32,9 +32,12 @@ export const Button: React.FC<ReactButtonProps> = ({
 }) => {
   const finalVariant =
     disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
-      ? 'disabled'
+      ? variant.includes('outline') || variant === 'white'
+        ? 'outline-disabled'
+        : 'disabled'
       : variant
-  const finalDisabled = disabled || variant === 'disabled'
+  const finalDisabled =
+    disabled || variant === 'disabled' || variant === 'outline-disabled'
   const Comp = href ? 'a' : 'button'
   return (
     // @ts-expect-error since the button cannot have an href, ts will complain
