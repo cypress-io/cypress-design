@@ -6,7 +6,13 @@ export default function assertions(mountStory: (options?: any) => void): void {
   })
 
   afterEach(() => {
-    cy.percySnapshot()
+    cy.percySnapshot(
+      Cypress.spec.name +
+        ' - ' +
+        Cypress.currentTest.titlePath.join('_') +
+        ' - ' +
+        Cypress.currentTest.title,
+    )
   })
 
   describe('@container', { viewportWidth: 1024, viewportHeight: 400 }, () => {
