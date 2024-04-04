@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -36,7 +36,7 @@ jobs:
         run: yarn run build:components
 
       - name: Cache node_modules and built dist files
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           key: ${{ inputs.nonce }}
           path: |
