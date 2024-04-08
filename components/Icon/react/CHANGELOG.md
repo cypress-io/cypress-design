@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.36.0
+
+### Minor Changes
+
+- [`497ed31`](https://github.com/cypress-io/cypress-design/commit/497ed31f561ba2240470cbfad9895a9bac229b00) Thanks [@elevatebart](https://github.com/elevatebart)! - add info icon
+
+### Patch Changes
+
+- Updated dependencies [[`497ed31`](https://github.com/cypress-io/cypress-design/commit/497ed31f561ba2240470cbfad9895a9bac229b00)]:
+  - @cypress-design/icon-registry@0.40.0
+
 ## 0.35.0
 
 ### Minor Changes
