@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.41.0
+
+### Minor Changes
+
+- [`784a8b4`](https://github.com/cypress-io/cypress-design/commit/784a8b46d9376c96c1944b7ae11802f0151eb64a) Thanks [@elevatebart](https://github.com/elevatebart)! - add info outline
+
 ## 0.40.1
 
 ### Patch Changes
