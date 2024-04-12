@@ -27,9 +27,10 @@ const $tab = ref<HTMLButtonElement[]>()
 const emit = defineEmits<{
   /**
    * A tab is changed
+   * if false is returned, the tab will not be changed
    * @param tab new tab selected
    */
-  (event: 'switch', tab: Tab): void
+  (event: 'switch', tab: Tab): boolean | void
   (event: 'update:activeId', tab: string): void
 }>()
 
@@ -127,9 +128,10 @@ function navigate(shift: number) {
         ? 0
         : shiftedIndex
   activeId.value = props.tabs[nextIndex].id
-  $tab.value?.[nextIndex]?.focus()
-  emit('update:activeId', props.tabs[nextIndex].id)
-  emit('switch', props.tabs[nextIndex])
+  if (emit('switch', props.tabs[nextIndex]) !== false) {
+    $tab.value?.[nextIndex]?.focus()
+    emit('update:activeId', props.tabs[nextIndex].id)
+  }
 }
 
 const classes = computed(() => {
@@ -181,17 +183,21 @@ const iconProps = computed(() => {
         (e: MouseEvent) => {
           if (e.ctrlKey || e.metaKey) return
           e.preventDefault()
-          activeId = id
-          emit('switch', {
-            id,
-            href,
-            label,
-            tag,
-            icon,
-            iconBefore,
-            iconAfter,
-            ...dataAttr,
-          })
+
+          if (
+            emit('switch', {
+              id,
+              href,
+              label,
+              tag,
+              icon,
+              iconBefore,
+              iconAfter,
+              ...dataAttr,
+            }) !== false
+          ) {
+            activeId = id
+          }
         }
       "
       @keyup.left="navigate(-1)"

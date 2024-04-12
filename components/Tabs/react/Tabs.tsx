@@ -17,9 +17,10 @@ export interface TabsProps {
   variant?: keyof typeof variants
   /**
    * Callback when tab is changed
+   * if the callback returns false, the tab will not be switched
    * @param tab new tab selected
    */
-  onSwitch?: (tab: Tab) => void
+  onSwitch?: (tab: Tab) => boolean | void
 
   /**
    * render a tab with a custom function
@@ -92,9 +93,10 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
         : shiftedIndex >= tabs.length
           ? 0
           : shiftedIndex
-    setActiveId(tabs[nextIndex].id)
-    $tab.current?.[nextIndex]?.focus()
-    onSwitch?.(tabs[nextIndex])
+    if (onSwitch === undefined || onSwitch(tabs[nextIndex]) !== false) {
+      setActiveId(tabs[nextIndex].id)
+      $tab.current?.[nextIndex]?.focus()
+    }
   }
 
   const classes =
@@ -138,8 +140,9 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
-              setActiveId(id)
-              onSwitch?.(tab)
+              if (onSwitch === undefined || onSwitch(tab) !== false) {
+                setActiveId(id)
+              }
             }}
             onKeyUp={(e) => {
               if (e.key === 'ArrowRight') {
