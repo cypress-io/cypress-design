@@ -45,7 +45,7 @@ async function renderComplexTypes(schema, subType) {
 
   if (schema.kind === 'enum') {
     const values = await Promise.all(
-      schema.schema.map((v) => renderComplexTypes(v, true)),
+      schema.schema.map((v) => renderComplexTypes(v)),
     )
     const filteredValues = values.filter((v) => v)
     const overflow = filteredValues.length > 12
@@ -57,7 +57,7 @@ async function renderComplexTypes(schema, subType) {
       ? `(${serializedInlineValues})`
       : serializedInlineValues
 
-    return overflow && !subType
+    return overflow
       ? await makeTooltip(
           serializedInlineValuesWrapped,
           `type ${schema.type.replace(
@@ -74,14 +74,14 @@ async function renderComplexTypes(schema, subType) {
     return `${await renderComplexTypes(schema.schema[0], true)}[]`
   }
   if (schema.kind === 'object') {
-    const obj = Object.values(schema.schema).map((value) =>
-      renderObjectType(value),
-    )
+    const obj = Object.values(schema.schema)
+      .map((value) => renderObjectType(value))
+      .filter((v) => v)
     if (obj.includes(undefined)) return schema.type
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
-    return subType ? schema.type : await makeTooltip(schema.type, code)
+    return obj.length ? await makeTooltip(schema.type, code) : schema.type
   }
   return `
   \`\`\`
@@ -91,6 +91,8 @@ async function renderComplexTypes(schema, subType) {
 }
 
 function renderObjectType(value) {
+  if (value.declarations?.every((d) => d.file?.includes('node_modules')))
+    return undefined
   const type = value.type?.replace(' | undefined', '')
   if (!type) return undefined
   const description = value.description?.length
