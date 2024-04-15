@@ -1,5 +1,11 @@
 # @cypress-design/react-tabs
 
+## 0.9.0
+
+### Minor Changes
+
+- [`7cf7c9a`](https://github.com/cypress-io/cypress-design/commit/7cf7c9a60fa609d12f612fcdeb3ec40fbc11b7b8) Thanks [@elevatebart](https://github.com/elevatebart)! - allow switch event to retrun false to stop tabs from switching
+
 ## 0.8.6
 
 ### Patch Changes
