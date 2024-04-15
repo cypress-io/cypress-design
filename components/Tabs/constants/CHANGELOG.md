@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.6.5
+
+### Patch Changes
+
+- [`4c6fb8d`](https://github.com/cypress-io/cypress-design/commit/4c6fb8d408650ff985a71cdd5d46e738e5ee16c2) Thanks [@elevatebart](https://github.com/elevatebart)! - fix class issue
+
 ## 0.6.4
 
 ### Patch Changes
