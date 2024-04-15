@@ -1,6 +1,11 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { Tab, variants, throttle } from '@cypress-design/constants-tabs'
+import {
+  Tab,
+  variants,
+  throttle,
+  SwitchEvent,
+} from '@cypress-design/constants-tabs'
 
 export interface TabsProps {
   /**
@@ -17,10 +22,10 @@ export interface TabsProps {
   variant?: keyof typeof variants
   /**
    * Callback when tab is changed
-   * if the callback returns false, the tab will not be switched
+   * use e.preventDefault() to prevent tab change
    * @param tab new tab selected
    */
-  onSwitch?: (tab: Tab) => boolean | void
+  onSwitch?: (tab: Tab, evt: SwitchEvent) => void
 
   /**
    * render a tab with a custom function
@@ -93,10 +98,13 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
         : shiftedIndex >= tabs.length
           ? 0
           : shiftedIndex
-    if (onSwitch === undefined || onSwitch(tabs[nextIndex]) !== false) {
-      setActiveId(tabs[nextIndex].id)
-      $tab.current?.[nextIndex]?.focus()
+    const switchEvent = new SwitchEvent()
+    if (onSwitch !== undefined) {
+      onSwitch(tabs[nextIndex], switchEvent)
+      if (switchEvent.defaultPrevented) return
     }
+    setActiveId(tabs[nextIndex].id)
+    $tab.current?.[nextIndex]?.focus()
   }
 
   const classes =
@@ -140,9 +148,12 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
-              if (onSwitch === undefined || onSwitch(tab) !== false) {
-                setActiveId(id)
+              const switchEvent = new SwitchEvent()
+              if (onSwitch !== undefined) {
+                onSwitch(tab, switchEvent)
+                if (switchEvent.defaultPrevented) return
               }
+              setActiveId(id)
             }}
             onKeyUp={(e) => {
               if (e.key === 'ArrowRight') {

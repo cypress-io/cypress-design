@@ -37,6 +37,15 @@ export interface Tab {
   [key: `data-${string}`]: any
 }
 
+export class SwitchEvent {
+  public defaultPrevented = false
+  constructor() {}
+
+  preventDefault() {
+    this.defaultPrevented = true
+  }
+}
+
 export const variants = {
   default: {
     classes: {

@@ -14,6 +14,7 @@ export default function assertions(
     tabs: Tab[]
     activeId?: string
     variant?: keyof typeof variants
+    onSwitch?: (tab: Tab) => void | boolean
   }) => void,
 ): void {
   describe('Tabs', { viewportHeight: 80 }, () => {
@@ -40,6 +41,28 @@ export default function assertions(
       }))
       mountStory({ tabs: richTabs, activeId: 'ov' })
       cy.get('[data-foo="bar"]').should('have.length', 4)
+    })
+
+    it('calls onSwitch when switching tabs', () => {
+      const onSwitch = cy.stub().as('onSwitch')
+      mountStory({ tabs, activeId: 'ov', onSwitch })
+      cy.contains('Errors')
+        .click()
+        .then(() => {
+          expect(onSwitch).to.have.been.calledWith(Cypress.sinon.match(tabs[2]))
+        })
+    })
+
+    it('prevents switching when onSwitch returns false', () => {
+      const onSwitch = cy
+        .stub()
+        .as('onSwitch')
+        .callsFake((_, e) => {
+          e.preventDefault()
+        })
+      mountStory({ tabs, activeId: 'ov', onSwitch })
+      cy.contains('Errors').click()
+      cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
     })
 
     Object.keys(variants).forEach((variant) => {

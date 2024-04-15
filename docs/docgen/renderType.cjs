@@ -4,6 +4,15 @@ const { defaultTemplates } = require('vue-docgen-cli')
 const { mdclean } = defaultTemplates
 
 /**
+ * remove `<` and `>` from code
+ * @param {string} code
+ * @returns string
+ */
+function deTag(code) {
+  return code.replace(/<|>/g, (m) => (m === '<' ? '&lt;' : '&gt;'))
+}
+
+/**
  *
  * @param {{name:string, schema?:any}} type
  * @returns {Promise<string>}
@@ -17,15 +26,10 @@ module.exports = async function renderType(type) {
 
   return (
     `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
-      type?.name,
+      deTag(type?.name),
     ).replace(/\\\|/g, '|')}</code>` ?? ''
   )
 }
-
-/**
- * @type {import('shiki').Highlighter | null}
- */
-let highlighter = null
 
 /**
  *
@@ -36,7 +40,7 @@ let highlighter = null
 async function renderComplexTypes(schema, subType) {
   if (typeof schema === 'string') {
     if (schema === 'undefined') return undefined
-    return schema.replace(/<|>/g, (m) => (m === '<' ? '&lt;' : '&gt;'))
+    return deTag(schema)
   }
 
   if (schema.kind === 'enum') {
@@ -52,7 +56,8 @@ async function renderComplexTypes(schema, subType) {
     const serializedInlineValuesWrapped = subType
       ? `(${serializedInlineValues})`
       : serializedInlineValues
-    return overflow
+
+    return overflow && !subType
       ? await makeTooltip(
           serializedInlineValuesWrapped,
           `type ${schema.type.replace(
@@ -76,7 +81,7 @@ async function renderComplexTypes(schema, subType) {
     const code = `interface ${schema.type} {
   ${obj.join('\n')}
 }`
-    return await makeTooltip(schema.type, code)
+    return subType ? schema.type : await makeTooltip(schema.type, code)
   }
   return `
   \`\`\`
@@ -103,7 +108,7 @@ function renderObjectType(value) {
 async function makeTooltip(content, popperCode) {
   const { codeToHtml } = await import('shiki')
 
-  return `<Tooltip class="inline-block align-middle" interactive>${content}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${await codeToHtml(
+  return `<Tooltip class="inline-block align-middle" interactive>${deTag(content)}<template v-slot:popper><span class="shiki-tooltip block text-left max-w-[50vw] max-h-[50vh] overflow-auto">${await codeToHtml(
     popperCode,
     {
       lang: 'ts',
