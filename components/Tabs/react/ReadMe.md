@@ -60,7 +60,9 @@ export default () => {
           { id: 'err', label: 'Errors', href: 'https://www.cypress.io' },
           { id: 'reco', label: 'Recommendations' },
         ]}
-        onSwitch={(_, e) => e.preventDefault()}
+        onSwitch={(_, e) => {
+          if (!allowMove) e.preventDefault()
+        }}
       />
     </>
   )

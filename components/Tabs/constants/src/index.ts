@@ -38,8 +38,10 @@ export interface Tab {
 }
 
 export class SwitchEvent {
-  public defaultPrevented = false
-  constructor() {}
+  defaultPrevented: boolean
+  constructor() {
+    this.defaultPrevented = false
+  }
 
   preventDefault() {
     this.defaultPrevented = true
