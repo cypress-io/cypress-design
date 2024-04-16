@@ -38,7 +38,7 @@ export interface Tab {
 }
 
 export class SwitchEvent {
-  defaultPrevented: boolean
+  declare defaultPrevented: boolean
   constructor() {
     this.defaultPrevented = false
   }
