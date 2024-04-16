@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 0.6.6
+
+### Patch Changes
+
+- [`ab1b74c`](https://github.com/cypress-io/cypress-design/commit/ab1b74cc4e9582118298168edf2a8ba50d41f362) Thanks [@elevatebart](https://github.com/elevatebart)! - fix babel build
+
 ## 0.6.5
 
 ### Patch Changes
