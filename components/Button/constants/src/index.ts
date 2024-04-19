@@ -40,11 +40,34 @@ export const VariantClassesTable = {
 export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
 
 export const SizeClassesTable = {
-  '20': 'px-[4px] py-0 text-[14px] leading-[20px] min-h-[20px]',
-  '24': 'px-[8px] py-[2px] text-[14px] leading-[20px] min-h-[24px]',
-  '32': 'px-[12px] py-[6px] text-[14px] leading-[20px] min-h-[32px]',
-  '40': 'px-[16px] py-[8px] text-[16px] leading-[24px] min-h-[40px]',
-  '48': 'px-[20px] py-[12px] text-[16px] leading-[24px] min-h-[48px]',
+  '20': 'text-[14px] leading-[20px] min-h-[20px]',
+  '24': 'text-[14px] leading-[20px] min-h-[24px]',
+  '32': 'text-[14px] leading-[20px] min-h-[32px]',
+  '40': 'text-[16px] leading-[24px] min-h-[40px]',
+  '48': 'text-[16px] leading-[24px] min-h-[48px]',
+} as const
+
+export const SizeClassesTableSquare = {
+  '20': {
+    wide: 'px-[4px] py-0',
+    square: 'h-[20px] w-[20px] flex items-center justify-center',
+  },
+  '24': {
+    wide: 'px-[8px] py-[2px]',
+    square: 'h-[24px] w-[24px] flex items-center justify-center',
+  },
+  '32': {
+    wide: 'px-[12px] py-[6px]',
+    square: 'h-[32px] w-[32px] flex items-center justify-center',
+  },
+  '40': {
+    wide: 'px-[16px] py-[8px]',
+    square: 'h-[40px] w-[40px] flex items-center justify-center',
+  },
+  '48': {
+    wide: 'px-[20px] py-[12px]',
+    square: 'h-[48px] w-[48px] flex items-center justify-center',
+  },
 } as const
 
 export const DefaultSize: keyof typeof SizeClassesTable = '40'
@@ -88,4 +111,8 @@ export interface ButtonProps {
    * Type attribute of the button (only used when href is not set)
    */
   type?: 'button' | 'submit' | 'reset'
+  /**
+   * Should the button be rendered as a square?
+   */
+  square?: boolean
 }

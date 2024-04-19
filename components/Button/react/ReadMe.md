@@ -29,6 +29,24 @@ export default () => (
 )
 ```
 
+Square buttons
+
+```jsx live
+import { IconActionPower } from '@cypress-design/react-icon'
+import Button from '@cypress-design/react-button'
+export default () => (
+  <div className="flex gap-4 items-center">
+    {[20, 24, 32, 40, 48].map((size) => (
+      <Button key={size} size={size} square>
+        <IconActionPower
+          style={{ width: `${size / 2}px`, height: `${size / 2}px` }}
+        />
+      </Button>
+    ))}
+  </div>
+)
+```
+
 ## Possible variants
 
 ```tsx live
