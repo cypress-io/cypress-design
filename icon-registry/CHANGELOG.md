@@ -1,5 +1,13 @@
 # @cypress-design/icon-registry
 
+## 0.42.0
+
+### Minor Changes
+
+- [#427](https://github.com/cypress-io/cypress-design/pull/427) [`e96abdc`](https://github.com/cypress-io/cypress-design/commit/e96abdc4d38a809632d52bd87699a7567cd9dd93) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add two new icons: action-delete-circle and general-venn-diagram
+
+- [#425](https://github.com/cypress-io/cypress-design/pull/425) [`85301f4`](https://github.com/cypress-io/cypress-design/commit/85301f479e547528164bfd002247a2bfeee82a62) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding new icons
+
 ## 0.41.0
 
 ### Minor Changes
