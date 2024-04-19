@@ -39,9 +39,14 @@ import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 </script>
 
 <template>
-  <Button square>
-    <IconActionQuestionMarkCircle class="mr-2" fill-color="indigo-400" />
-  </Button>
+  <div class="flex gap-4 items-center">
+    <Button v-for="size of [20, 24, 32, 40, 48]" :size="`${size}`" square>
+      <IconActionQuestionMarkCircle
+        fill-color="indigo-400"
+        :style="{ width: `${size / 2}px`, height: `${size / 2}px` }"
+      />
+    </Button>
+  </div>
 </template>
 ```
 
