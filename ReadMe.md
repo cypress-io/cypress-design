@@ -85,7 +85,7 @@ In the new directory, you will find a React and a Vuejs version to complete. Eac
 
 ### Adding a new icon
 
-New icons should be added to the `icon-registry/icons` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `object-bug_x24.svg`.
+New icons should be added to the `icon-registry/icons-static` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `object-bug_x24.svg`.
 
 When grabbing the icon from Figma, make sure the width and height of the icon is equal to its name (e.g. `x24` icons should be 24x24px). If it isn't, try going up a layer in Figma.
 
