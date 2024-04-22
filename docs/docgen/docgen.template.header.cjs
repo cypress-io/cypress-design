@@ -29,7 +29,8 @@ description: ${doc.description}`
       ? fileName.split('.').shift().split('/').pop()
       : doc.displayName
 
-      const docsFiltered = docs.filter(d => !d.exportName.startsWith('__'))
+  // only keep public exports (filter out internal ones like __VLS_...__)
+  const docsFiltered = docs.filter(d => !d.exportName.startsWith('__'))
 
   return `${frontMatter}
 <script lang="ts" setup>
