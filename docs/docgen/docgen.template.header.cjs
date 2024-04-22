@@ -29,10 +29,12 @@ description: ${doc.description}`
       ? fileName.split('.').shift().split('/').pop()
       : doc.displayName
 
+      const docsFiltered = docs.filter(d => !d.exportName.startsWith('__'))
+
   return `${frontMatter}
 <script lang="ts" setup>
-import {${docs.map((d) => ` ${d.exportName} as ${getTempName(d)} `).join(',')} } from '../../../components/${fileName}'
-const components$ = { ${docs.map((d) => `'${getDisplayName(d)}': ${getTempName(d)}`).join(',')} }
+import {${docsFiltered.map((d) => ` ${d.exportName} as ${getTempName(d)} `).join(',')} } from '../../../components/${fileName}'
+const components$ = { ${docsFiltered.map((d) => `'${getDisplayName(d)}': ${getTempName(d)}`).join(',')} }
 </script>
 
 ${doc.docsBlocks
