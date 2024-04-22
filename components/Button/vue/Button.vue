@@ -6,6 +6,7 @@ import {
   StaticClasses,
   DefaultSize,
   DefaultVariant,
+  SizeClassesTableSquare,
 } from '@cypress-design/constants-button'
 
 import type { ButtonProps } from '@cypress-design/constants-button'
@@ -36,6 +37,10 @@ export default defineComponent({
       type: String as PropType<ButtonProps['type']>,
       default: 'button',
     },
+    square: {
+      type: Boolean as PropType<ButtonProps['square']>,
+      default: false,
+    },
   },
   slots: Object as SlotsType<{
     /**
@@ -63,7 +68,10 @@ export default defineComponent({
       () => VariantClassesTable[finalVariant.value],
     )
 
-    const sizeClasses = computed(() => SizeClassesTable[props.size])
+    const sizeClasses = computed(() => [
+      SizeClassesTable[props.size],
+      SizeClassesTableSquare[props.size][props.square ? 'square' : 'wide'],
+    ])
 
     const allClasses = computed(() => [
       StaticClasses,

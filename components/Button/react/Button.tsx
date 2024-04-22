@@ -7,6 +7,7 @@ import {
   SizeClassesTable,
   VariantClassesTable,
   StaticClasses,
+  SizeClassesTableSquare,
 } from '@cypress-design/constants-button'
 
 export interface ButtonPropsJsx extends ButtonProps {
@@ -28,6 +29,7 @@ export const Button: React.FC<ReactButtonProps> = ({
   className,
   children,
   type = 'button',
+  square = false,
   ...rest
 }) => {
   const finalVariant =
@@ -36,9 +38,12 @@ export const Button: React.FC<ReactButtonProps> = ({
         ? 'outline-disabled'
         : 'disabled'
       : variant
+
   const finalDisabled =
     disabled || variant === 'disabled' || variant === 'outline-disabled'
+
   const Comp = href ? 'a' : 'button'
+
   return (
     // @ts-expect-error since the button cannot have an href, ts will complain
     <Comp
@@ -49,6 +54,7 @@ export const Button: React.FC<ReactButtonProps> = ({
         StaticClasses,
         VariantClassesTable[finalVariant],
         SizeClassesTable[size],
+        SizeClassesTableSquare[size][square ? 'square' : 'wide'],
         className,
       )}
       disabled={finalDisabled}
