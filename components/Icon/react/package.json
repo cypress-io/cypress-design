@@ -28,7 +28,7 @@
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "@types/lodash": "^4.17.0",
     "lodash": "^4.17.21",
-    "dedent": "^1.5.3"
+    "dedent": "^1.5.1"
   },
   "license": "MIT"
 }
