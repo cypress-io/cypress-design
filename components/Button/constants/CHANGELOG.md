@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 0.1.6
+
+### Patch Changes
+
+- [#426](https://github.com/cypress-io/cypress-design/pull/426) [`1be8175`](https://github.com/cypress-io/cypress-design/commit/1be81756d9e99f5d498e1f62d0dc76cb492b420b) Thanks [@elevatebart](https://github.com/elevatebart)! - add square-button
+
 ## 0.1.5
 
 ### Patch Changes

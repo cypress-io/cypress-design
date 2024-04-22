@@ -25,7 +25,7 @@
     "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/constants-*\"",
     "dev": "yarn start",
     "docs": "yarn start",
-    "start": "rimraf docs/components && NODE_ENV=development concurrently -n const,icons,docgen,vitepress \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\"",
+    "start": "NODE_ENV=development concurrently -n const,icons,docgen,vitepress,cleanup \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\" \"node ./scripts/clean-component-docs.mjs\"",
     "build:docs": "node scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
     "postinstall": "yarn husky install && node scripts/capitalize-icon.mjs && yarn build:components",
     "new:component": "hygen component new"

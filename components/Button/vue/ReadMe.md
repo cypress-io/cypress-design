@@ -31,6 +31,25 @@ import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 </template>
 ```
 
+Square buttons
+
+```vue live
+<script lang="ts" setup>
+import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
+</script>
+
+<template>
+  <div class="flex gap-4 items-center">
+    <Button v-for="size of [20, 24, 32, 40, 48]" :size="`${size}`" square>
+      <IconActionQuestionMarkCircle
+        fill-color="indigo-400"
+        :style="{ width: `${size / 2}px`, height: `${size / 2}px` }"
+      />
+    </Button>
+  </div>
+</template>
+```
+
 ## Possible variants
 
 ```vue live
