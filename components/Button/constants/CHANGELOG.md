@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 0.1.7
+
+### Patch Changes
+
+- [`29703c4`](https://github.com/cypress-io/cypress-design/commit/29703c4d4d8fbb4f742bf57fb7577b41174a6590) Thanks [@elevatebart](https://github.com/elevatebart)! - fix height and width of buttons to match the size of non-square buttons
+
 ## 0.1.6
 
 ### Patch Changes
