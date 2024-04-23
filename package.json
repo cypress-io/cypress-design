@@ -93,7 +93,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "shiki": "^1.2.0",
-    "turbo": "^1.13.0",
+    "turbo": "^1.13.2",
     "typescript": "5.4.3",
     "typescript-eslint": "^7.7.1",
     "universal-cookie": "^7.1.0",
