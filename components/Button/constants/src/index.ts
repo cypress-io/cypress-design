@@ -50,23 +50,23 @@ export const SizeClassesTable = {
 export const SizeClassesTableSquare = {
   '20': {
     wide: 'px-[4px] py-0',
-    square: 'h-[20px] w-[20px] flex items-center justify-center',
+    square: 'h-[22px] w-[22px] flex items-center justify-center',
   },
   '24': {
     wide: 'px-[8px] py-[2px]',
-    square: 'h-[24px] w-[24px] flex items-center justify-center',
+    square: 'h-[26px] w-[26px] flex items-center justify-center',
   },
   '32': {
     wide: 'px-[12px] py-[6px]',
-    square: 'h-[32px] w-[32px] flex items-center justify-center',
+    square: 'h-[34px] w-[34px] flex items-center justify-center',
   },
   '40': {
     wide: 'px-[16px] py-[8px]',
-    square: 'h-[40px] w-[40px] flex items-center justify-center',
+    square: 'h-[42px] w-[42px] flex items-center justify-center',
   },
   '48': {
     wide: 'px-[20px] py-[12px]',
-    square: 'h-[48px] w-[48px] flex items-center justify-center',
+    square: 'h-[50px] w-[50px] flex items-center justify-center',
   },
 } as const
 
