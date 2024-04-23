@@ -40,7 +40,7 @@ export const VariantClassesTable = {
 export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
 
 export const SizeClassesTable = {
-  '20': 'text-[14px] leading-[20px] min-h-[20px]',
+  '20': 'text-[14px] leading-[18px] min-h-[20px]',
   '24': 'text-[14px] leading-[20px] min-h-[24px]',
   '32': 'text-[14px] leading-[20px] min-h-[32px]',
   '40': 'text-[16px] leading-[24px] min-h-[40px]',
@@ -50,23 +50,23 @@ export const SizeClassesTable = {
 export const SizeClassesTableSquare = {
   '20': {
     wide: 'px-[4px] py-0',
-    square: 'h-[22px] w-[22px] flex items-center justify-center',
+    square: 'h-[20px] w-[20px] flex items-center justify-center',
   },
   '24': {
-    wide: 'px-[8px] py-[2px]',
-    square: 'h-[26px] w-[26px] flex items-center justify-center',
+    wide: 'px-[8px] py-[1px]',
+    square: 'h-[24px] w-[24px] flex items-center justify-center',
   },
   '32': {
-    wide: 'px-[12px] py-[6px]',
-    square: 'h-[34px] w-[34px] flex items-center justify-center',
+    wide: 'px-[12px] py-[5px]',
+    square: 'h-[32px] w-[32px] flex items-center justify-center',
   },
   '40': {
-    wide: 'px-[16px] py-[8px]',
-    square: 'h-[42px] w-[42px] flex items-center justify-center',
+    wide: 'px-[16px] py-[7px]',
+    square: 'h-[40px] w-[40px] flex items-center justify-center',
   },
   '48': {
-    wide: 'px-[20px] py-[12px]',
-    square: 'h-[50px] w-[50px] flex items-center justify-center',
+    wide: 'px-[20px] py-[11px]',
+    square: 'h-[48px] w-[48px] flex items-center justify-center',
   },
 } as const
 
