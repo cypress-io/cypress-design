@@ -14,7 +14,8 @@ export const VariantClassesTable = {
     'text-indigo-500 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
-  'outline-disabled': 'text-gray-500 border-gray-100 hover:shadow-none',
+  'outline-disabled':
+    'text-gray-500 border-gray-100 hover:shadow-none bg-white',
   // light variants
   'indigo-light':
     'text-indigo-500 bg-indigo-50 border-indigo-50 hocus:border-indigo-200 disabled:hocus:shadow-none hocus:shadow-indigo-50 focus:ring-transparent',
