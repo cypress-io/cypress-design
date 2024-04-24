@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 0.1.8
+
+### Patch Changes
+
+- [`04f8d3e`](https://github.com/cypress-io/cypress-design/commit/04f8d3e68b7d222e89897d9ca046f98034ece1a6) Thanks [@elevatebart](https://github.com/elevatebart)! - add bg white to outline-disabled
+
 ## 0.1.7
 
 ### Patch Changes
