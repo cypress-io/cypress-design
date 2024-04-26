@@ -13,15 +13,15 @@ withDefaults(
     /**
      * The size of the icon's canvas, in pixels.
      */
-    size?: Size
+    size?: '24' | Size
     /**
      * If there is no status provided, a placeholder icon will be shown
      */
-    status?: statusTypes
+    status?: 'placeholder' | statusTypes
     /**
      * If a status doesn't have an icon for that variant, it will default to one it does have
      */
-    variant?: Variant
+    variant?: 'simple' | Variant
   }>(),
   {
     size: '24',
