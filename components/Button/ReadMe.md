@@ -1,13 +1,19 @@
 <script lang="ts" setup>
 import Button from '@cypress-design/vue-button'
+import { IconActionPlayLarge } from '@cypress-design/vue-icon'
 </script>
 
 # Button
 
 <DemoWrapper>
-	<Button>
-		Submit Form
-	</Button>
+  <div class="flex gap-4 items-center">
+    <Button>
+      Submit Form
+    </Button>
+    <Button square>
+      <IconActionPlayLarge fill-color="indigo-400" alt="Play"/>
+  	</Button>
+  </div>
 </DemoWrapper>
 
 A user clicking on the "Button" component triggers an action or event, such as submitting a form, opening a dialog, canceling an action, or performing a delete operation.
