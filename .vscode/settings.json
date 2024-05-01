@@ -7,5 +7,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.validate": ["javascript", "typescript", "vue"],
-  "cSpell.words": ["clsx", "docmenu"]
+  "cSpell.words": [
+    "clsx",
+    "docmenu"
+  ],
+  "eslint.enable": false
 }
