@@ -64,4 +64,10 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
 
     cy.get('svg title').should('have.text', 'This is a <b>title</b>')
   })
+
+  it('renders class passed only once', () => {
+    mount(<IconBrowserWebkit className="w-16 h-16" />)
+
+    cy.get('svg[width="16"]').should('have.attr', 'class', 'w-16 h-16')
+  })
 })

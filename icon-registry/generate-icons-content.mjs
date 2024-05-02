@@ -64,7 +64,10 @@ export default async function getIcons() {
       const [kebabCaseName, size] = iconName.split('_x')
       const svgContent = optimize(
         await fs.readFile(path.join(cwd, icon), 'utf8'),
-        config ?? undefined,
+        {
+          path: path.join(cwd, icon),
+          ...config,
+        },
       ).data
 
       const iconMetaWithSize = {

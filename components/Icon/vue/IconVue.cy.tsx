@@ -23,7 +23,7 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     if (props.name) {
       return mount(() => <Icon {...props} />)
     }
-    mount(() => <IconDocumentBlank {...props} />)
+    mount(() => <IconDocumentBlank {...props} class={props.class} />)
   })
 
   it('renders correctly with array classes', () => {
@@ -127,5 +127,11 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     mount(() => <IconBrowserWebkit class="w-16 h-16" alt="This is a title" />)
 
     cy.get('svg title').should('have.text', 'This is a title')
+  })
+
+  it('renders class passed only once', () => {
+    mount(() => <IconBrowserWebkit class="w-16 h-16" />)
+
+    cy.get('svg[width="16"]').should('have.attr', 'class', 'w-16 h-16')
   })
 })
