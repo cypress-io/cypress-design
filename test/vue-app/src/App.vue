@@ -4,6 +4,11 @@ import Accordion from '@cypress-design/vue-accordion'
 import Checkbox from '@cypress-design/vue-checkbox'
 import Icon, {
   IconActionQuestionMarkCircle,
+  IconBrowserChrome,
+  IconBrowserEdge,
+  IconBrowserMozillaFirefox,
+  IconBrowserSafari,
+  IconBrowserWebkit,
   IconObjectBookCode,
   IconObjectMagnifyingGlass,
 } from '@cypress-design/vue-icon'
@@ -19,6 +24,13 @@ const showModal = ref(false)
 </script>
 
 <template>
+  <div class="my-40 mx-auto justify-center flex gap-4">
+    <IconBrowserChrome class="h-32 w-32" />
+    <IconBrowserSafari class="h-32 w-32" />
+    <IconBrowserMozillaFirefox class="h-32 w-32" />
+    <IconBrowserWebkit class="h-32 w-32" />
+    <IconBrowserEdge class="h-32 w-32" />
+  </div>
   <div
     class="@container/main mb-4 overflow-hidden max-w-[600px] mx-auto text-center"
   >
