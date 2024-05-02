@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 0.38.1
+
+### Patch Changes
+
+- [#435](https://github.com/cypress-io/cypress-design/pull/435) [`bf0ef3f`](https://github.com/cypress-io/cypress-design/commit/bf0ef3f6504ea3dba71dcb00d8d2eb0a96e0fa55) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: avoid showing the passed classes twice
+
+- [#435](https://github.com/cypress-io/cypress-design/pull/435) [`bf0ef3f`](https://github.com/cypress-io/cypress-design/commit/bf0ef3f6504ea3dba71dcb00d8d2eb0a96e0fa55) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: use proper prefixing for icons defs ids
+
+- Updated dependencies [[`bf0ef3f`](https://github.com/cypress-io/cypress-design/commit/bf0ef3f6504ea3dba71dcb00d8d2eb0a96e0fa55), [`bf0ef3f`](https://github.com/cypress-io/cypress-design/commit/bf0ef3f6504ea3dba71dcb00d8d2eb0a96e0fa55)]:
+  - @cypress-design/icon-registry@0.42.1
+
 ## 0.38.0
 
 ### Minor Changes
