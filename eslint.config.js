@@ -1,47 +1,50 @@
-import pluginJs from '@eslint/js'
-import tseslint from 'typescript-eslint'
-import pluginReact from 'eslint-plugin-react'
-import pluginVue from 'eslint-plugin-vue'
-import pluginReactHooks from 'eslint-plugin-react-hooks'
+// eslint.config.js
+import typescript from '@typescript-eslint/parser'
+import vue from 'vue-eslint-parser'
+import typescriptPlugin from '@typescript-eslint/eslint-plugin'
+import noOnlyTests from 'eslint-plugin-no-only-tests'
 
-export default [
+const config = [
   {
-    name: 'global ignores',
-    ignores: ['**/dist/**', '**/cache/**'],
-  },
-  {
-    files: ['*.cjs'],
     languageOptions: {
-      sourceType: 'script',
+      parser: vue,
+      extraFileExtensions: ['.vue'],
+      ecmaVersion: 2020,
+      sourceType: 'module',
+    },
+    plugins: [typescriptPlugin, noOnlyTests],
+    rules: {
+      'no-console': 'error',
+      'no-debugger': 'error',
+      'no-only-tests/no-only-tests': 'error',
+      'no-unused-vars': 'off',
     },
   },
   {
-    ...pluginJs.configs.recommended,
-    files: ['*.mjs', '*.js'],
-  },
-  ...tseslint.configs.recommended,
-  {
-    name: 'react-components',
-    files: ['components/*/react/*.{ts,tsx}'],
-    plugins: {
-      'typescript-eslint': tseslint.plugin,
-      react: pluginReact,
-      'react-hooks': pluginReactHooks,
+    files: ['scripts/**/*'],
+    languageOptions: {
+      parser: typescript,
+    },
+    env: {
+      node: true,
     },
     rules: {
-      // ...pluginReact.configs.recommended.rules,
-      // ...pluginReactHooks.configs.recommended.rules,
+      'no-console': 'off',
     },
   },
   {
-    name: 'vue-components',
-    files: ['components/*/vue/*.{ts,tsx,vue}'],
-    plugins: {
-      'typescript-eslint': tseslint.plugin,
-      vue: pluginVue,
-    },
-    rules: {
-      ...pluginVue.configs.recommended.rules,
+    files: ['**/*.mjs'],
+    languageOptions: {
+      parser: typescript,
     },
   },
+  {
+    files: ['packages/eslint-plugin/**/*.js'],
+    env: {
+      node: true,
+    },
+  },
+  // ... rest of your overrides
 ]
+
+export default config
