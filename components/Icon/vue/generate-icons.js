@@ -66,7 +66,7 @@ const __iconComponentOpts__ = {
 
 function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name'>, iconBodiesAndDefs: Record<string, {body: string, defs?: string}>, availableSizes: string[], name: string) {
   return computed(() => {
-    const { interactiveColorsOnGroup, ...cleanProps } = props
+    const { interactiveColorsOnGroup, class:_, ...cleanProps } = props
 
     const { sizeWithDefault: size, compiledClasses } = iconsRegistry.getComponentAttributes({  
       ...cleanProps,
