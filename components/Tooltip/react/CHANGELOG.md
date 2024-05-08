@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 0.10.1
+
+### Patch Changes
+
+- [`ac69cb4`](https://github.com/cypress-io/cypress-design/commit/ac69cb4aa2b725f21d187e5a221f80eac2c89200) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: arrow was missing when interactive
+
 ## 0.10.0
 
 ### Minor Changes
