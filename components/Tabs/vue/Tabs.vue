@@ -190,8 +190,9 @@ const iconProps = computed(() => {
       :href="href"
       ref="$tab"
       role="tab"
+      :id="id"
       :tabindex="id === activeId ? undefined : -1"
-      :aria-selected="id === activeId ? true : undefined"
+      :aria-selected="id === activeId ? true : false"
       :class="[
         classes.button,
         {
