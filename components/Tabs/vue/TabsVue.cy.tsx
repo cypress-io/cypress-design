@@ -11,6 +11,15 @@ describe('<Tabs/>', () => {
     mount(() => (
       <div class="m-4">
         <Tabs {...options} />
+        {options.tabs.map((tab, i) => (
+          <div
+            key={i}
+            id={`tabpanel-id-${i + 1}`}
+            style={{ display: options.activeId === tab.id ? 'block' : 'none' }}
+          >
+            Tab Panel {i + 1}
+          </div>
+        ))}
       </div>
     ))
   }
