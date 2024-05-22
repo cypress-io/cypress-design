@@ -126,7 +126,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
           iconAfter: IconAfter,
           label,
           tag,
-          ...dataAttr
+          ...rest
         } = tab
         return (
           <ButtonTag
@@ -142,7 +142,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 [classes.inActive]: id !== activeId,
               },
             ])}
-            ref={(el: HTMLButtonElement | HTMLAnchorElement) =>
+            ref={(el: HTMLButtonElement | HTMLAnchorElement | null) =>
               el ? ($tab.current[index] = el) : null
             }
             tabIndex={id === activeId ? undefined : -1}
@@ -164,7 +164,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 navigate(-1)
               }
             }}
-            {...dataAttr}
+            {...rest}
           >
             {renderTab ? (
               renderTab(tab)

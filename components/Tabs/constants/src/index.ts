@@ -35,6 +35,7 @@ export interface Tab {
    */
   href?: string
   [key: `data-${string}`]: any
+  ['aria-controls']: string
 }
 
 export class SwitchEvent {

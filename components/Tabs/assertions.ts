@@ -3,10 +3,10 @@
 import { variants, Tab } from './constants'
 
 const tabs = [
-  { id: 'ov', label: 'Overview' },
-  { id: 'cl', label: 'Command Log' },
-  { id: 'err', label: 'Errors' },
-  { id: 'reco', label: 'Recommendations' },
+  { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
+  { id: 'cl', label: 'Command Log', ['aria-controls']: 'tabpanel-id-2' },
+  { id: 'err', label: 'Errors', ['aria-controls']: 'tabpanel-id-3' },
+  { id: 'reco', label: 'Recommendations', ['aria-controls']: 'tabpanel-id-4' },
 ]
 
 export default function assertions(
@@ -20,6 +20,13 @@ export default function assertions(
   describe('Tabs', { viewportHeight: 80 }, () => {
     it('renders', () => {
       mountStory({ tabs, activeId: 'ov' })
+      tabs.forEach((tab, i) => {
+        cy.get(`#${tab.id}`).should(
+          'have.attr',
+          'aria-controls',
+          `tabpanel-id-${i + 1}`,
+        )
+      })
     })
 
     it('moves to tab on click', () => {

@@ -23,8 +23,16 @@ describe('<Tabs/>', () => {
         <div class="m-4">
           <Tabs
             tabs={[
-              { id: 'ia', label: 'Initial Active' },
-              { id: 'fa', label: 'Final Active' },
+              {
+                id: 'ia',
+                label: 'Initial Active',
+                ['aria-controls']: 'tabpanel-id-1',
+              },
+              {
+                id: 'fa',
+                label: 'Final Active',
+                ['aria-controls']: 'tabpanel-id-2',
+              },
             ]}
             activeId={activeId.value}
           />
@@ -39,11 +47,21 @@ describe('<Tabs/>', () => {
       cy.get('[aria-selected="true"]').should('contain.text', 'Initial Active')
       cy.findByRole('button', { name: 'Change' }).click()
       cy.get('[aria-selected="true"]').should('contain.text', 'Final Active')
+      cy.get('#ia').should('have.attr', 'aria-controls', 'tabpanel-id-1')
+      cy.get('#fa').should('have.attr', 'aria-controls', 'tabpanel-id-2')
     })
 
     it('renders a custom tab', () => {
       mount(() => (
-        <Tabs tabs={[{ id: 'ia', label: 'Initial Active' }]}>
+        <Tabs
+          tabs={[
+            {
+              id: 'ia',
+              label: 'Initial Active',
+              ['aria-controls']: 'tabpanel-id-1',
+            },
+          ]}
+        >
           {{
             tab: (tab: Tab) => <div>{tab.label} - Custom Tab</div>,
           }}
