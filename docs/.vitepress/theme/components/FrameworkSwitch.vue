@@ -20,12 +20,14 @@ const links = computed(() => [
     label: 'React',
     iconAfter: () => h('img', { width: 24, src: ReactIcon }),
     active: props.framework === 'react',
+    ['aria-controls']: 'tabpanel-react',
   },
   {
     id: 'vue',
     label: 'Vue',
     iconAfter: () => h('img', { width: 24, src: VueIcon }),
     active: props.framework === 'vue',
+    ['aria-controls']: 'tabpanel-vue',
   },
 ])
 </script>
@@ -37,4 +39,10 @@ const links = computed(() => [
     :tabs="links"
     @switch="(tab: Tab) => emit('switch', tab.id as any)"
   />
+  <div id="tabpanel-react" :class="framework === 'react' ? 'block' : 'hidden'">
+    React Tab Panel
+  </div>
+  <div id="tabpanel-vue" :class="framework === 'vue' ? 'block' : 'hidden'">
+    Vue Tab Panel
+  </div>
 </template>
