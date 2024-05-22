@@ -45,6 +45,7 @@ describe('<Tabs/>', () => {
       ))
 
       cy.get('[aria-selected="true"]').should('contain.text', 'Initial Active')
+      cy.get('[aria-selected="false"]').should('contain.text', 'Final Active')
       cy.findByRole('button', { name: 'Change' }).click()
       cy.get('[aria-selected="true"]').should('contain.text', 'Final Active')
       cy.get('#ia').should('have.attr', 'aria-controls', 'tabpanel-id-1')

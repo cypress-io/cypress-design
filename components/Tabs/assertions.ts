@@ -33,6 +33,7 @@ export default function assertions(
       mountStory({ tabs, activeId: 'ov' })
       cy.contains('Errors').click()
       cy.get('[aria-selected="true"]').should('contain.text', 'Errors')
+      cy.get('[aria-selected="false"]').should('have.length', 3)
     })
 
     it('moves to tab on arrow press', () => {
