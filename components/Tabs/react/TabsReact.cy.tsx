@@ -32,13 +32,30 @@ describe('Tabs', () => {
           <div className="m-4">
             <Tabs
               tabs={[
-                { id: 'ia', label: 'Initial Active' },
-                { id: 'fa', label: 'Final Active' },
+                {
+                  id: 'ia',
+                  label: 'Initial Active',
+                  ['aria-controls']: 'tabpanel-id-1',
+                },
+                {
+                  id: 'fa',
+                  label: 'Final Active',
+                  ['aria-controls']: 'tabpanel-id-2',
+                },
               ]}
               activeId={activeId}
             />
-            <div>
+            <div
+              role="tabpanel"
+              id="tabpanel-id-1"
+              style={{ display: activeId === 'ia' ? 'block' : 'none' }}
+            >
               <button id="change" onClick={() => setActiveId('fa')}>
+                Change
+              </button>
+            </div>
+            <div role="tabpanel" id="tabpanel-id-2">
+              <button id="change" onClick={() => setActiveId('ia')}>
                 Change
               </button>
             </div>

@@ -36,8 +36,19 @@ describe('<Tabs/>', () => {
             ]}
             activeId={activeId.value}
           />
-          <div>
+          <div
+            id="tabpanel-id-1"
+            style={{ display: activeId.value === 'ia' ? 'block' : 'none' }}
+          >
             <button id="change" onClick={() => (activeId.value = 'fa')}>
+              Change
+            </button>
+          </div>
+          <div
+            id="tabpanel-id-2"
+            style={{ display: activeId.value === 'fa' ? 'block' : 'none' }}
+          >
+            <button id="change" onClick={() => (activeId.value = 'ia')}>
               Change
             </button>
           </div>
