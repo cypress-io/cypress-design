@@ -72,7 +72,12 @@ function App() {
           ]}
         />
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} id={`tabpanel-id-${i + 1}`} style={{ display: 'none' }}>
+          <div
+            role="tabpanel"
+            key={i}
+            id={`tabpanel-id-${i + 1}`}
+            style={{ display: 'none' }}
+          >
             Tab Panel {i + 1}
           </div>
         ))}

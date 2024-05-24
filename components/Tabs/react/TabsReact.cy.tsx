@@ -22,6 +22,7 @@ describe('Tabs', () => {
         {options.tabs.map((tab, i) => (
           <div
             key={i}
+            role="tabpanel"
             id={`tabpanel-id-${i + 1}`}
             style={{ display: options.activeId === tab.id ? 'block' : 'none' }}
           >

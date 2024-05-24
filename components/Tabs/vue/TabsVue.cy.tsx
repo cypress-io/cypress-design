@@ -15,6 +15,7 @@ describe('<Tabs/>', () => {
           <div
             key={i}
             id={`tabpanel-id-${i + 1}`}
+            role="tabpanel"
             style={{ display: options.activeId === tab.id ? 'block' : 'none' }}
           >
             Tab Panel {i + 1}

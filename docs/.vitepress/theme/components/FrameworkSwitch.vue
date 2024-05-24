@@ -39,10 +39,18 @@ const links = computed(() => [
     :tabs="links"
     @switch="(tab: Tab) => emit('switch', tab.id as any)"
   />
-  <div id="tabpanel-react" :class="framework === 'react' ? 'block' : 'hidden'">
+  <div
+    role="tabpanel"
+    id="tabpanel-react"
+    :class="framework === 'react' ? 'block' : 'hidden'"
+  >
     React Tab Panel
   </div>
-  <div id="tabpanel-vue" :class="framework === 'vue' ? 'block' : 'hidden'">
+  <div
+    role="tabpanel"
+    id="tabpanel-vue"
+    :class="framework === 'vue' ? 'block' : 'hidden'"
+  >
     Vue Tab Panel
   </div>
 </template>
