@@ -35,6 +35,10 @@ export interface Tab {
    */
   href?: string
   [key: `data-${string}`]: any
+  /**
+   * aria-controls attribute is required for accessibility. It should be set to the id of the tab panel that this tab controls
+   * Further reading: https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/tab_role
+   */
   ['aria-controls']: string
 }
 
