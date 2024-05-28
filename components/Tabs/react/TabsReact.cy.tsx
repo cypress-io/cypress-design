@@ -19,6 +19,16 @@ describe('Tabs', () => {
     mount(
       <div className="m-4">
         <Tabs {...options} />
+        {options.tabs.map((tab, i) => (
+          <div
+            key={i}
+            role="tabpanel"
+            id={`tabpanel-id-${i + 1}`}
+            style={{ display: options.activeId === tab.id ? 'block' : 'none' }}
+          >
+            Tab Panel {i + 1}
+          </div>
+        ))}
       </div>,
     )
   }
@@ -32,13 +42,34 @@ describe('Tabs', () => {
           <div className="m-4">
             <Tabs
               tabs={[
-                { id: 'ia', label: 'Initial Active' },
-                { id: 'fa', label: 'Final Active' },
+                {
+                  id: 'ia',
+                  label: 'Initial Active',
+                  ['aria-controls']: 'tabpanel-id-1',
+                },
+                {
+                  id: 'fa',
+                  label: 'Final Active',
+                  ['aria-controls']: 'tabpanel-id-2',
+                },
               ]}
               activeId={activeId}
             />
-            <div>
+            <div
+              role="tabpanel"
+              id="tabpanel-id-1"
+              style={{ display: activeId === 'ia' ? 'block' : 'none' }}
+            >
               <button id="change" onClick={() => setActiveId('fa')}>
+                Change
+              </button>
+            </div>
+            <div
+              role="tabpanel"
+              id="tabpanel-id-2"
+              style={{ display: activeId === 'fa' ? 'block' : 'none' }}
+            >
+              <button id="change" onClick={() => setActiveId('ia')}>
                 Change
               </button>
             </div>
@@ -55,10 +86,21 @@ describe('Tabs', () => {
 
     it('renders a custom tab', () => {
       mount(
-        <Tabs
-          tabs={[{ id: 'ia', label: 'Initial Active' }]}
-          renderTab={(tab) => <div>{tab.label} - Custom Tab</div>}
-        />,
+        <div>
+          <Tabs
+            tabs={[
+              {
+                id: 'ia',
+                label: 'Initial Active',
+                ['aria-controls']: 'tabpanel-id-1',
+              },
+            ]}
+            renderTab={(tab) => <div>{tab.label} - Custom Tab</div>}
+          />
+          <div role="tabpanel" id="tabpanel-id-1">
+            Tab Panel 1
+          </div>
+        </div>,
       )
 
       cy.contains('Custom Tab').should('exist')
