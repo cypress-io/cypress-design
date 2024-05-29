@@ -99,7 +99,7 @@ export const Tooltip: React.FC<
             fn: (obj) => obj,
           }
         : flip(),
-      offset(interactive ? 0 : 16),
+      offset(16),
       arrow({ element: arrowRef, padding: 24 }),
       shift({ padding: 16 }),
     ],
@@ -200,10 +200,8 @@ export const Tooltip: React.FC<
                         placementSide === 'bottom' || color === 'dark'
                           ? 'drop-shadow(0 1px 1px rgba(225, 227, 237, .3))'
                           : 'drop-shadow(0 1px 1px rgba(225, 227, 237, .8))',
-                      [arrowXRule]: `${arrowX ?? (interactive ? 0 : -16)}px`,
-                      [arrowYRule]: `${
-                        arrowY ? arrowY + 6 : interactive ? 6 : -10
-                      }px`,
+                      [arrowXRule]: `${arrowX ?? -16}px`,
+                      [arrowYRule]: `${arrowY ? arrowY + 6 : -10}px`,
                     }}
                     fill="none"
                   >

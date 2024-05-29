@@ -20,12 +20,14 @@ const links = computed(() => [
     label: 'React',
     iconAfter: () => h('img', { width: 24, src: ReactIcon }),
     active: props.framework === 'react',
+    ['aria-controls']: 'tabpanel-react',
   },
   {
     id: 'vue',
     label: 'Vue',
     iconAfter: () => h('img', { width: 24, src: VueIcon }),
     active: props.framework === 'vue',
+    ['aria-controls']: 'tabpanel-vue',
   },
 ])
 </script>

@@ -1,5 +1,14 @@
 # @cypress-design/constants-tabs
 
+## 1.0.0
+
+### Major Changes
+
+- [#439](https://github.com/cypress-io/cypress-design/pull/439) [`5bddc81`](https://github.com/cypress-io/cypress-design/commit/5bddc8150ae23549c3dca059a79260914323836a) Thanks [@rachelruderman](https://github.com/rachelruderman)! - - Tabs component now requires `aria-controls` prop
+  - Tab `id` is now passed through as an `id` attribute on the tab
+  - Inactive tabs now have `aria-selected=false`
+  - Button component now exports StaticClasses
+
 ## 0.6.6
 
 ### Patch Changes

@@ -202,7 +202,11 @@ const { frontmatter } = useData() as any
               :path="routePath"
               @switch="switchFramework"
             />
-            <Content class="markdown" />
+            <Content
+              class="markdown"
+              role="tabpanel"
+              :id="`tabpanel-${framework}`"
+            />
           </div>
         </div>
       </main>

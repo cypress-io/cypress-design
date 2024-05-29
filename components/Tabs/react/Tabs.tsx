@@ -126,11 +126,12 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
           iconAfter: IconAfter,
           label,
           tag,
-          ...dataAttr
+          ...rest
         } = tab
         return (
           <ButtonTag
             key={id}
+            id={id}
             role="tab"
             href={href}
             className={clsx([
@@ -141,10 +142,11 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 [classes.inActive]: id !== activeId,
               },
             ])}
-            // @ts-expect-error React is incapable of typing this kind of ref so we do not add a type
-            ref={(el) => (el ? ($tab.current[index] = el) : null)}
+            ref={(el: HTMLButtonElement | HTMLAnchorElement | null) =>
+              el ? ($tab.current[index] = el) : null
+            }
             tabIndex={id === activeId ? undefined : -1}
-            aria-selected={id === activeId ? true : undefined}
+            aria-selected={id === activeId ? true : false}
             onClick={(e) => {
               if (e.ctrlKey || e.metaKey) return
               e.preventDefault()
@@ -162,7 +164,7 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 navigate(-1)
               }
             }}
-            {...dataAttr}
+            {...rest}
           >
             {renderTab ? (
               renderTab(tab)
