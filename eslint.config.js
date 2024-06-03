@@ -21,6 +21,37 @@ const config = [
     },
   },
   {
+    files: ['**/*.mjs'],
+    languageOptions: {
+      parser: typescriptParser,
+    },
+  },
+  {
+    files: ['packages/eslint-plugin/**/*.js'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    files: [
+      '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
+      '{packages,css,icon-registry}/**/testUtils.ts',
+    ],
+    languageOptions: {
+      parser: typescriptParser,
+      globals: globals.node,
+      sourceType: 'module',
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+    plugins: { '@typescript-eslint': typescriptEslint },
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
     files: ['{packages,css,icon-registry}/**/*.{ts,tsx}'],
     languageOptions: {
       parser: typescriptParser,
@@ -35,6 +66,45 @@ const config = [
       ...typescriptEslint.configs.recommended.rules,
       'no-console': 'error',
       'no-debugger': 'error',
+    },
+  },
+
+  {
+    files: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
+    languageOptions: {
+      parser: typescriptParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: {
+        project: ['./tsconfig.react.json'],
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+    },
+    rules: {
+      ...typescriptEslint.configs.recommended.rules,
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
+    },
+  },
+  {
+    files: ['components/*/react/*.tsx'],
+    languageOptions: {
+      parser: typescriptParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: {
+        project: ['./tsconfig.react.json'],
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+    },
+    rules: {
+      ...typescriptEslint.configs.recommended.rules,
+      'react-hooks/rules-of-hooks': 'error',
+      'react-hooks/exhaustive-deps': 'warn',
     },
   },
   {
