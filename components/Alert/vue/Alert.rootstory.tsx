@@ -7,7 +7,7 @@ export default () => {
   const displayTimedAlert = ref(false)
   return (
     <div class="flex flex-col p-4 gap-[16px]">
-      <Alert type="error" detailsTitle="Stack trace" data-cy="alert-1">
+      <Alert variant="error" detailsTitle="Stack trace" data-cy="alert-1">
         {{
           default: () => 'Spec not found',
           body: () => (
@@ -77,17 +77,17 @@ export default () => {
           Wait 5 seconds please
         </Alert>
       )}
-      <Alert type="success" dismissible data-cy="alert-3">
+      <Alert variant="success" dismissible data-cy="alert-3">
         {{
           default: () => 'Success with body',
           body: () => 'Success body',
         }}
       </Alert>
-      <Alert type="warning" not-rounded>
+      <Alert variant="warning" not-rounded>
         Warning
       </Alert>
-      <Alert type="neutral">Neutral</Alert>
-      <Alert type="error" dismissible class="text-justify" data-cy="alert-4">
+      <Alert variant="neutral">Neutral</Alert>
+      <Alert variant="error" dismissible class="text-justify" data-cy="alert-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
         veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
@@ -96,8 +96,8 @@ export default () => {
         occaecat cupidatat non proident, sunt in culpa qui officia deserunt
         mollit anim id est laborum.
       </Alert>
-      <Alert type="info">Info</Alert>
-      <Alert type="info">
+      <Alert variant="info">Info</Alert>
+      <Alert variant="info">
         {{
           default: () => 'Info',
           icon: (props: any) => <IconArrowRight {...props} />,
@@ -105,10 +105,10 @@ export default () => {
       </Alert>
       {(['xs', 'sm', 'md', 'lg'] as const).map((size) => (
         <>
-          <Alert type="error" data-cy="alert-size" size={size}>
+          <Alert variant="error" data-cy="alert-size" size={size}>
             {size} - Lorem ipsum dolor sit amet
           </Alert>
-          <Alert type="warning" data-cy="alert-size" size={size}>
+          <Alert variant="warning" data-cy="alert-size" size={size}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut

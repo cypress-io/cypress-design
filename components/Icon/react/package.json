@@ -26,9 +26,9 @@
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "@types/lodash": "^4.17.0",
+    "@types/lodash": "^4.17.4",
     "lodash": "^4.17.21",
-    "dedent": "^1.5.1"
+    "dedent": "^1.5.3"
   },
   "license": "MIT"
 }

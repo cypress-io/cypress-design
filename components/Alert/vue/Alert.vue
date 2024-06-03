@@ -63,7 +63,7 @@ const props = withDefaults(
     /**
      * Size of the alert
      */
-    size?: AlertSize
+    size?: typeof defaultAlertSize | AlertSize
   }>(),
   {
     variant: undefined,
