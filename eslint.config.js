@@ -1,6 +1,5 @@
-// @ts-check
-// eslint.config.js
 import globals from 'globals'
+import js from '@eslint/js'
 import typescriptParser from '@typescript-eslint/parser'
 import vueParser from 'vue-eslint-parser'
 import vue from 'eslint-plugin-vue'
@@ -11,12 +10,21 @@ import { fixupPluginRules } from '@eslint/compat'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
 
-/**
- * @type {import('eslint').Linter.FlatConfig[]}
- */
 const config = [
+  js.configs.recommended,
   {
-    files: ['scripts/**/*', '**/rollup.config.{mjs,js}'],
+    files: [
+      'icon-registry/**/*.js',
+      'docs/docgen/*.cjs',
+      'components/**/generate-icons.js',
+    ],
+    languageOptions: {
+      sourceType: 'commonjs',
+      globals: globals.node,
+    },
+  },
+  {
+    files: ['scripts/**/*', '**/rollup.config.{mjs,js}', '**/vite.config.ts'],
     languageOptions: {
       parser: typescriptParser,
       globals: globals.node,
@@ -29,6 +37,7 @@ const config = [
     files: ['**/*.mjs'],
     languageOptions: {
       parser: typescriptParser,
+      globals: globals.node,
     },
   },
   {
@@ -60,7 +69,7 @@ const config = [
     files: ['{packages,css,icon-registry}/**/*.{ts,tsx}'],
     languageOptions: {
       parser: typescriptParser,
-      globals: globals.node,
+      globals: { ...globals.node, ...globals.browser },
       sourceType: 'module',
       parserOptions: {
         project: ['./tsconfig.json'],
@@ -78,7 +87,15 @@ const config = [
     files: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
     languageOptions: {
       parser: typescriptParser,
-      globals: globals.browser,
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+        ...globals.mocha,
+        ...globals.chai,
+        expect: 'readonly',
+        cy: 'readonly',
+        Cypress: 'readonly',
+      },
       sourceType: 'module',
       parserOptions: {
         project: ['./tsconfig.react.json'],
@@ -147,7 +164,15 @@ const config = [
     files: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
     languageOptions: {
       parser: vueParser,
-      globals: globals.browser,
+      globals: {
+        ...globals.node,
+        ...globals.browser,
+        ...globals.mocha,
+        ...globals.chai,
+        expect: 'readonly',
+        cy: 'readonly',
+        Cypress: 'readonly',
+      },
       sourceType: 'module',
       parserOptions: {
         parser: '@typescript-eslint/parser',
@@ -166,6 +191,10 @@ const config = [
       'no-only-tests/no-only-tests': 'error',
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
     },
   },
   {

@@ -13,7 +13,7 @@ declare module 'tailwindcss/lib/lib/setupContextUtils.js' {
 
 declare module 'tailwindcss/lib/public/resolve-config.js' {
   function resolveConfig(config: any): any
-  export { createContext as default }
+  export { resolveConfig as default }
 }
 
 declare module 'tailwindcss/lib/lib/generateRules.js' {
