@@ -1,50 +1,52 @@
+// @ts-check
 // eslint.config.js
-import typescript from '@typescript-eslint/parser'
+import globals from 'globals'
+import typescriptParser from '@typescript-eslint/parser'
 import vue from 'vue-eslint-parser'
-import typescriptPlugin from '@typescript-eslint/eslint-plugin'
+import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 
+/**
+ * @type {import('eslint').Linter.FlatConfig[]}
+ */
 const config = [
   {
+    files: ['scripts/**/*', '**/rollup.config.{mjs,js}'],
     languageOptions: {
-      parser: vue,
-      extraFileExtensions: ['.vue'],
-      ecmaVersion: 2020,
-      sourceType: 'module',
-    },
-    plugins: [typescriptPlugin, noOnlyTests],
-    rules: {
-      'no-console': 'error',
-      'no-debugger': 'error',
-      'no-only-tests/no-only-tests': 'error',
-      'no-unused-vars': 'off',
-    },
-  },
-  {
-    files: ['scripts/**/*'],
-    languageOptions: {
-      parser: typescript,
-    },
-    env: {
-      node: true,
+      parser: typescriptParser,
+      globals: globals.node,
     },
     rules: {
       'no-console': 'off',
     },
   },
   {
-    files: ['**/*.mjs'],
+    files: ['{packages,css,icon-registry}/**/*.{ts,tsx}'],
     languageOptions: {
-      parser: typescript,
+      parser: typescriptParser,
+      globals: globals.node,
+      sourceType: 'module',
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+    plugins: { '@typescript-eslint': typescriptEslint },
+    rules: {
+      ...typescriptEslint.configs.recommended.rules,
+      'no-console': 'error',
+      'no-debugger': 'error',
     },
   },
   {
-    files: ['packages/eslint-plugin/**/*.js'],
-    env: {
-      node: true,
-    },
+    ignores: [
+      '**/dist/**/*',
+      '**/cache/**/*',
+      '**/iconsData/**/*',
+      '**/_TreeShakableIcons.ts',
+      'icon-registry/src/icons.ts',
+      'icon-registry/src/iconsList.ts',
+    ],
   },
-  // ... rest of your overrides
 ]
 
 export default config

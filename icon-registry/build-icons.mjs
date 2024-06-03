@@ -18,7 +18,4 @@ Promise.all([
   buildLogoIcons().then((logoIcons) =>
     fs.writeFile('./src/logos.ts', logoIcons),
   ),
-]).then(() =>
-  // eslint-disable-next-line no-console
-  console.log('Icons generated'),
-)
+]).then(() => console.log('Icons generated'))
