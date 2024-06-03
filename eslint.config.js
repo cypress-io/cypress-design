@@ -5,6 +5,10 @@ import typescriptParser from '@typescript-eslint/parser'
 import vue from 'vue-eslint-parser'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
+import reactHooksRaw from 'eslint-plugin-react-hooks'
+import { fixupPluginRules } from '@eslint/compat'
+
+const reactHooks = fixupPluginRules(reactHooksRaw)
 
 /**
  * @type {import('eslint').Linter.FlatConfig[]}
@@ -81,15 +85,18 @@ const config = [
     },
     plugins: {
       '@typescript-eslint': typescriptEslint,
+      'react-hooks': reactHooks,
     },
     rules: {
       ...typescriptEslint.configs.recommended.rules,
+      ...reactHooksRaw.configs.recommended.rules,
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {
     files: ['components/*/react/*.tsx'],
+    ignores: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
     languageOptions: {
       parser: typescriptParser,
       globals: globals.browser,
@@ -100,9 +107,11 @@ const config = [
     },
     plugins: {
       '@typescript-eslint': typescriptEslint,
+      'react-hooks': reactHooks,
     },
     rules: {
       ...typescriptEslint.configs.recommended.rules,
+      ...reactHooksRaw.configs.recommended.rules,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
