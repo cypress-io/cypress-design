@@ -70,7 +70,7 @@
     "dedent": "^1.5.3",
     "es-module-lexer": "^1.5.3",
     "esbuild": "^0.21.4",
-    "eslint": "^9.4.0",
+    "eslint": "^8",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-no-only-tests": "^3.1.0",
     "eslint-plugin-react-hooks": "^4.6.2",
