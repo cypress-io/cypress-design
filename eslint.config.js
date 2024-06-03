@@ -2,7 +2,8 @@
 // eslint.config.js
 import globals from 'globals'
 import typescriptParser from '@typescript-eslint/parser'
-import vue from 'vue-eslint-parser'
+import vueParser from 'vue-eslint-parser'
+import vue from 'eslint-plugin-vue'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
@@ -86,12 +87,14 @@ const config = [
     plugins: {
       '@typescript-eslint': typescriptEslint,
       'react-hooks': reactHooks,
+      'no-only-tests': noOnlyTests,
     },
     rules: {
       ...typescriptEslint.configs.recommended.rules,
       ...reactHooksRaw.configs.recommended.rules,
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
+      'no-only-tests/no-only-tests': 'error',
     },
   },
   {
@@ -114,6 +117,55 @@ const config = [
       ...reactHooksRaw.configs.recommended.rules,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
+    },
+  },
+  {
+    files: ['components/*/vue/*.{ts,tsx,vue}'],
+    ignores: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
+    languageOptions: {
+      parser: vueParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.vue'],
+        project: ['./tsconfig.vue.json', './tsconfig.json'],
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+      vue,
+    },
+    rules: {
+      ...typescriptEslint.configs.recommended.rules,
+      ...vue.configs.recommended.rules,
+      'no-console': 'error',
+      'no-debugger': 'error',
+    },
+  },
+  {
+    files: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
+    languageOptions: {
+      parser: vueParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.vue'],
+        project: ['./tsconfig.vue.json', './tsconfig.json'],
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+      'no-only-tests': noOnlyTests,
+      vue,
+    },
+    rules: {
+      ...typescriptEslint.configs.recommended.rules,
+      ...vue.configs.recommended.rules,
+      'no-only-tests/no-only-tests': 'error',
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-explicit-any': 'off',
     },
   },
   {

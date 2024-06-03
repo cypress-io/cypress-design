@@ -98,9 +98,9 @@ const checkboxClasses = computed(() =>
       :class="Classes.hiddenInput"
       :name="name || id"
       type="checkbox"
-      @change="updated"
       :disabled="props.disabled"
       :checked="localChecked"
+      @change="updated"
     />
     <label :class="Classes.labelTag" :for="id">
       <IconCheckmarkSmall
