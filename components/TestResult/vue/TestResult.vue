@@ -11,7 +11,7 @@ import {
   IconDocumentAddedSquarePlus,
 } from '@cypress-design/vue-icon'
 
-defineProps<TestResultData>()
+defineProps<TestResultData & { status: 'passed' | TestResultData['status'] }>()
 
 const emit = defineEmits<{
   click: [event: MouseEvent]
