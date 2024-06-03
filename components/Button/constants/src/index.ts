@@ -14,7 +14,8 @@ export const VariantClassesTable = {
     'text-indigo-500 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
-  'outline-disabled': 'text-gray-500 border-gray-100 hover:shadow-none',
+  'outline-disabled':
+    'text-gray-500 border-gray-100 hover:shadow-none bg-white',
   // light variants
   'indigo-light':
     'text-indigo-500 bg-indigo-50 border-indigo-50 hocus:border-indigo-200 disabled:hocus:shadow-none hocus:shadow-indigo-50 focus:ring-transparent',
@@ -40,7 +41,7 @@ export const VariantClassesTable = {
 export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
 
 export const SizeClassesTable = {
-  '20': 'text-[14px] leading-[20px] min-h-[20px]',
+  '20': 'text-[14px] leading-[18px] min-h-[20px]',
   '24': 'text-[14px] leading-[20px] min-h-[24px]',
   '32': 'text-[14px] leading-[20px] min-h-[32px]',
   '40': 'text-[16px] leading-[24px] min-h-[40px]',
@@ -53,19 +54,19 @@ export const SizeClassesTableSquare = {
     square: 'h-[20px] w-[20px] flex items-center justify-center',
   },
   '24': {
-    wide: 'px-[8px] py-[2px]',
+    wide: 'px-[8px] py-[1px]',
     square: 'h-[24px] w-[24px] flex items-center justify-center',
   },
   '32': {
-    wide: 'px-[12px] py-[6px]',
+    wide: 'px-[12px] py-[5px]',
     square: 'h-[32px] w-[32px] flex items-center justify-center',
   },
   '40': {
-    wide: 'px-[16px] py-[8px]',
+    wide: 'px-[16px] py-[7px]',
     square: 'h-[40px] w-[40px] flex items-center justify-center',
   },
   '48': {
-    wide: 'px-[20px] py-[12px]',
+    wide: 'px-[20px] py-[11px]',
     square: 'h-[48px] w-[48px] flex items-center justify-center',
   },
 } as const

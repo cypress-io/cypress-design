@@ -183,15 +183,16 @@ const iconProps = computed(() => {
         icon,
         iconBefore,
         iconAfter,
-        ...dataAttr
+        ...rest
       } in tabs"
       :key="id"
       :is="href ? 'a' : 'button'"
       :href="href"
       ref="$tab"
       role="tab"
+      :id="id"
       :tabindex="id === activeId ? undefined : -1"
-      :aria-selected="id === activeId ? true : undefined"
+      :aria-selected="id === activeId ? true : false"
       :class="[
         classes.button,
         {
@@ -200,7 +201,7 @@ const iconProps = computed(() => {
           [classes.inActive]: id !== activeId,
         },
       ]"
-      v-bind="dataAttr"
+      v-bind="rest"
       @click="
         (e: MouseEvent) => {
           if (e.ctrlKey || e.metaKey) return
@@ -216,7 +217,7 @@ const iconProps = computed(() => {
               icon,
               iconBefore,
               iconAfter,
-              ...dataAttr,
+              ...rest,
             },
             switchEvent,
           )
@@ -238,7 +239,7 @@ const iconProps = computed(() => {
           icon,
           iconBefore,
           iconAfter,
-          ...dataAttr,
+          ...rest,
         }"
       >
         <component
