@@ -40,6 +40,9 @@ Then configure the rules you want to use under the rules section.
 
 <!-- begin auto-generated rules list -->
 
-TODO: Run eslint-doc-generator to generate the rules list.
+| Name                                                             | Description                                                 |
+| :--------------------------------------------------------------- | :---------------------------------------------------------- |
+| [deprecate-imports](docs/rules/deprecate-imports.md)             | list the imports you want to warn on and the docs to fix it |
+| [deprecate-imports-again](docs/rules/deprecate-imports-again.md) | list the imports you want to warn on and the docs to fix it |
 
 <!-- end auto-generated rules list -->

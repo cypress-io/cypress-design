@@ -21,8 +21,8 @@ defineEmits<{
 
 <template>
   <ul
-    class="bg-gray-1000 text-gray-500"
     v-for="item of items"
+    class="bg-gray-1000 text-gray-500"
     @mousedown="(e) => $emit('mousedown', e)"
   >
     <li :key="item.label">

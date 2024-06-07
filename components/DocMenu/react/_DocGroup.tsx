@@ -1,3 +1,4 @@
+/* global NodeJS */
 import * as React from 'react'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import clsx from 'clsx'

@@ -190,10 +190,8 @@ onMounted(() => {
     <slot />
     <teleport v-if="!disabled" to="#portal-target">
       <div
-        @mouseover="tooltipHovered = true"
-        @mouseout="tooltipHovered = false"
-        role="tooltip"
         ref="tooltip"
+        role="tooltip"
         :style="
           positionComputed
             ? `top:${top}px!important;left:${left}px!important;`
@@ -211,6 +209,8 @@ onMounted(() => {
           },
           props.interactive ? 'p-[16px]' : undefined,
         ]"
+        @mouseover="tooltipHovered = true"
+        @mouseout="tooltipHovered = false"
       >
         <div
           class="border rounded shadow-tooltip"

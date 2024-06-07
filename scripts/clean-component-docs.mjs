@@ -3,7 +3,7 @@
  * has a corresponding component in the components directory.
  * If it does not have it, it will delete the markdown file.
  */
-import { resolve, dirname } from 'path'
+import { resolve } from 'path'
 import { promises as fs } from 'fs'
 import { globby } from 'globby'
 import * as url from 'url'

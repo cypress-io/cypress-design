@@ -36,7 +36,7 @@ ${mdclean(t)}
 }
 
 /** @type import('vue-docgen-cli').Templates['props'] */
-module.exports = async function renderProp(props, opt, doc) {
+module.exports = async function renderProp(props, opt) {
   if (!props.length) return ''
   const supComponent = opt?.isSubComponent || opt?.hasSubComponents
   return `

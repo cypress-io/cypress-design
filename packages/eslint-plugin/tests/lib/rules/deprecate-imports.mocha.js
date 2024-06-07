@@ -18,12 +18,9 @@ const rule = require('../../../lib/rules/deprecate-imports'),
 //------------------------------------------------------------------------------
 
 const ruleTester = new RuleTester({
-  parserOptions: {
+  languageOptions: {
     ecmaVersion: 6,
     sourceType: 'module',
-  },
-  settings: {
-    'import/resolver': 'typescript',
   },
 })
 
