@@ -28,8 +28,13 @@ module.exports = {
         additionalProperties: {
           type: 'object',
           properties: {
-            name: { type: 'string' },
+            name: {
+              type: 'string',
+              description: 'Name of the deprecated import',
+            },
             source: {
+              description:
+                'RegExp or glob describing a way to match the deprecated import',
               anyOf: [
                 {
                   type: 'string',
@@ -40,7 +45,7 @@ module.exports = {
                 },
               ],
             },
-            docs: { type: 'string' },
+            docs: { type: 'string', description: 'URL to the documentation' },
           },
           additionalProperties: false,
         },
