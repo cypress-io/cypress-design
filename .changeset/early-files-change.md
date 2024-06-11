@@ -1,7 +1,7 @@
 ---
-'@cypress-design/icon-registry': major
-'@cypress-design/react-icon': major
-'@cypress-design/vue-icon': major
+'@cypress-design/icon-registry': minor
+'@cypress-design/react-icon': minor
+'@cypress-design/vue-icon': minor
 ---
 
 Add Twitter X icon
