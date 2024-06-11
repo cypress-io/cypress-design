@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 0.43.0
+
+### Minor Changes
+
+- [#442](https://github.com/cypress-io/cypress-design/pull/442) [`4044a11`](https://github.com/cypress-io/cypress-design/commit/4044a116b67703f3ae1d1960a9d3572a9e3a130e) Thanks [@cbfrance](https://github.com/cbfrance)! - Add Twitter X icon
+
 ## 0.42.1
 
 ### Patch Changes
