@@ -91,7 +91,7 @@ export const Tooltip: React.FC<
   } = useFloating({
     placement,
     open,
-    onOpenChange: setOpen,
+    onOpenChange: (open) => setOpen(open),
     middleware: [
       forcePlacement
         ? {
