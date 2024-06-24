@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 1.0.1
+
+### Patch Changes
+
+- [#446](https://github.com/cypress-io/cypress-design/pull/446) [`47c8ad6`](https://github.com/cypress-io/cypress-design/commit/47c8ad66ae304dbc6d13f93123440231ab917ecc) Thanks [@elevatebart](https://github.com/elevatebart)! - remove warning when opening/closing tooltip
+
 ## 1.0.0
 
 ### Major Changes
