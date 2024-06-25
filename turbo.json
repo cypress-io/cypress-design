@@ -1,6 +1,10 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  "pipeline": {
+  "globalDependencies": [
+    "tsconfig.json",
+    "tsconfig.*.json"
+  ],
+  "tasks": {
     "build": {
       "dependsOn": [
         "^build"
@@ -26,9 +30,5 @@
         "dist/**"
       ]
     }
-  },
-  "globalDependencies": [
-    "tsconfig.json",
-    "tsconfig.*.json"
-  ]
+  }
 }

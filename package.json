@@ -41,8 +41,8 @@
     "@cypress-design/vue-docmenu": "*",
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-tooltip": "*",
-    "@eslint/js": "^9.4.0",
     "@eslint/compat": "^1.0.3",
+    "@eslint/js": "^9.4.0",
     "@percy/cli": "1.28.7",
     "@percy/cypress": "3.1.2",
     "@rollup/plugin-commonjs": "^25.0.8",
@@ -95,7 +95,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "shiki": "^1.6.2",
-    "turbo": "^1.13.3",
+    "turbo": "^2.0.5",
     "typescript": "5.4.5",
     "universal-cookie": "^7.1.4",
     "vite": "5.2.12",
@@ -113,5 +113,6 @@
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
-  }
+  },
+  "packageManager": "yarn@1.22.21"
 }
