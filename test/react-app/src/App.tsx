@@ -53,21 +53,34 @@ function App() {
               id: 'tab1',
               href: '#tab1',
               'data-testid': 'tab1',
+              'aria-controls': 'tabpanel-id-1',
             },
             {
               label: 'Tab 2',
               id: 'tab2',
               href: '#tab2',
               'data-testid': 'tab2',
+              'aria-controls': 'tabpanel-id-2',
             },
             {
               label: 'Tab 3',
               id: 'tab3',
               href: '#tab3',
               'data-testid': 'tab3',
+              'aria-controls': 'tabpanel-id-3',
             },
           ]}
         />
+        {Array.from({ length: 3 }).map((_, i) => (
+          <div
+            role="tabpanel"
+            key={i}
+            id={`tabpanel-id-${i + 1}`}
+            style={{ display: 'none' }}
+          >
+            Tab Panel {i + 1}
+          </div>
+        ))}
         <Tooltip popper={<b>popper</b>}>
           <p>Tooltip content</p>
         </Tooltip>

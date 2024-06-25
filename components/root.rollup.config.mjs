@@ -4,7 +4,7 @@ import typescript from '@rollup/plugin-typescript'
 import rollupPluginPackage from '@cypress-design/rollup-plugin-tailwind-keep'
 const { Plugin: TailwindKeepRollupPlugin } = rollupPluginPackage
 
-export default ({ input, plugins = [] }) => ({
+export default ({ input, plugins = [], external = [] }) => ({
   input,
   output: [
     {
@@ -32,8 +32,10 @@ export default ({ input, plugins = [] }) => ({
     ...plugins,
   ],
   external: [
+    ...external,
     'clsx',
     'react',
+    'react-dom',
     '@cypress-design/icon-registry',
     '@cypress-design/details-animation',
   ],

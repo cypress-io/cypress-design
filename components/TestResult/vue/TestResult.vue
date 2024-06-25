@@ -11,7 +11,7 @@ import {
   IconDocumentAddedSquarePlus,
 } from '@cypress-design/vue-icon'
 
-defineProps<TestResultData>()
+defineProps<TestResultData & { status: 'passed' | TestResultData['status'] }>()
 
 const emit = defineEmits<{
   click: [event: MouseEvent]
@@ -38,9 +38,9 @@ const emit = defineEmits<{
           :class="classes.name.container.column"
         >
           <div
+            v-if="names.slice(0, -1).length > 0"
             data-cy="cd-tr-name-container-describes"
             :class="classes.name.container.describes"
-            v-if="names.slice(0, -1).length > 0"
           >
             <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
@@ -59,9 +59,9 @@ const emit = defineEmits<{
                 >
               </div>
               <div
+                v-if="index < names.length - 1"
                 data-cy="cd-tr-chevron"
                 :class="classes.chevron.container"
-                v-if="index < names.length - 1"
               >
                 <IconChevronRightSmall
                   stroke-color="gray-200"
@@ -81,16 +81,16 @@ const emit = defineEmits<{
               {{ names.at(-1) }}
             </span>
             <div
+              v-if="flaky || modified || added"
               data-cy="cd-tr-attributes"
               :class="classes.attribute.container"
-              v-if="flaky || modified || added"
             >
-              <IconStatusFlaky data-cy="cd-tr-flaky" v-if="flaky" />
+              <IconStatusFlaky v-if="flaky" data-cy="cd-tr-flaky" />
               <IconDocumentModifiedSquareDot
-                data-cy="cd-tr-modified"
                 v-if="modified"
+                data-cy="cd-tr-modified"
               />
-              <IconDocumentAddedSquarePlus data-cy="cd-tr-added" v-if="added" />
+              <IconDocumentAddedSquarePlus v-if="added" data-cy="cd-tr-added" />
             </div>
           </div>
         </div>

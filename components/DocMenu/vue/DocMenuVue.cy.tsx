@@ -111,7 +111,7 @@ describe('<DocMenu/>', () => {
     ))
   })
 
-  it.only('scrolls the active item into view', { viewportHeight: 200 }, () => {
+  it('scrolls the active item into view', { viewportHeight: 200 }, () => {
     const CustomLinkVue: DefineComponent<{ href: StringConstructor }> =
       defineComponent({
         props: {

@@ -1,5 +1,28 @@
 # @cypress-design/icon-registry
 
+## 1.1.0
+
+### Minor Changes
+
+- [#450](https://github.com/cypress-io/cypress-design/pull/450) [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d) Thanks [@elevatebart](https://github.com/elevatebart)! - Add the add/plus circle icon, and updated the Test Replay icon to match the Figma DS.
+
+## 1.0.0
+
+### Major Changes
+
+- [`63fb4d9`](https://github.com/cypress-io/cypress-design/commit/63fb4d9e60f6c56c563d17e3b983d0ebd25e0e87) Thanks [@elevatebart](https://github.com/elevatebart)! - Create 1.0
+
+### Patch Changes
+
+- Updated dependencies [[`63fb4d9`](https://github.com/cypress-io/cypress-design/commit/63fb4d9e60f6c56c563d17e3b983d0ebd25e0e87)]:
+  - @cypress-design/css@1.0.0
+
+## 0.43.0
+
+### Minor Changes
+
+- [#442](https://github.com/cypress-io/cypress-design/pull/442) [`4044a11`](https://github.com/cypress-io/cypress-design/commit/4044a116b67703f3ae1d1960a9d3572a9e3a130e) Thanks [@cbfrance](https://github.com/cbfrance)! - Add Twitter X icon
+
 ## 0.42.1
 
 ### Patch Changes

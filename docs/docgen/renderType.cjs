@@ -24,11 +24,9 @@ module.exports = async function renderType(type) {
     )}</code>`
   }
 
-  return (
-    `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
-      deTag(type?.name),
-    ).replace(/\\\|/g, '|')}</code>` ?? ''
-  )
+  return `<code class="bg-gray-50 py-[2px] px-[4px] rounded">${mdclean(
+    deTag(type?.name),
+  ).replace(/\\\|/g, '|')}</code>`
 }
 
 /**

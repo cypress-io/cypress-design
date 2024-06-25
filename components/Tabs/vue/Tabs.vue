@@ -175,6 +175,7 @@ const iconProps = computed(() => {
   <div role="tablist" :class="classes.wrapper">
     <div v-if="'subWrapper' in classes" :class="classes.subWrapper" />
     <component
+      :is="href ? 'a' : 'button'"
       v-for="{
         id,
         href,
@@ -183,15 +184,15 @@ const iconProps = computed(() => {
         icon,
         iconBefore,
         iconAfter,
-        ...dataAttr
+        ...rest
       } in tabs"
+      :id="id"
       :key="id"
-      :is="href ? 'a' : 'button'"
-      :href="href"
       ref="$tab"
+      :href="href"
       role="tab"
       :tabindex="id === activeId ? undefined : -1"
-      :aria-selected="id === activeId ? true : undefined"
+      :aria-selected="id === activeId ? true : false"
       :class="[
         classes.button,
         {
@@ -200,7 +201,7 @@ const iconProps = computed(() => {
           [classes.inActive]: id !== activeId,
         },
       ]"
-      v-bind="dataAttr"
+      v-bind="rest"
       @click="
         (e: MouseEvent) => {
           if (e.ctrlKey || e.metaKey) return
@@ -216,7 +217,7 @@ const iconProps = computed(() => {
               icon,
               iconBefore,
               iconAfter,
-              ...dataAttr,
+              ...rest,
             },
             switchEvent,
           )
@@ -238,20 +239,20 @@ const iconProps = computed(() => {
           icon,
           iconBefore,
           iconAfter,
-          ...dataAttr,
+          ...rest,
         }"
       >
         <component
-          v-if="iconBefore ?? icon"
           :is="iconBefore ?? icon"
+          v-if="iconBefore ?? icon"
           v-bind="iconProps"
           class="mr-[8px]"
         />
         {{ label }}
         <div v-if="tag" :class="classes.tag">{{ tag }}</div>
         <component
-          v-if="iconAfter"
           :is="iconAfter"
+          v-if="iconAfter"
           v-bind="iconProps"
           class="ml-[8px]"
         />

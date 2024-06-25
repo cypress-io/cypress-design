@@ -3,17 +3,17 @@ import Tabs from './vue/Tabs.vue'
 import { IconActionPlayVideo, IconActionRecord, IconGeneralCrosshairs, IconSecurityLockLocked } from '@cypress-design/vue-icon'
 
 const demoTabsSmall = [
-    { id: 'ov', label: 'Overview', icon: IconActionPlayVideo, active: true },
-    { id: 'cl', label: 'Command Log', icon: IconActionRecord },
-    { id: 'err', label: 'Errors', iconAfter: IconSecurityLockLocked, tag: '13' },
-    { id: 'reco', label: 'Recommendations', icon: IconGeneralCrosshairs },
+    { id: 'ov', label: 'Overview', icon: IconActionPlayVideo, active: true, ['aria-controls']: 'tabpanel-id-1' },
+    { id: 'cl', label: 'Command Log', icon: IconActionRecord, ['aria-controls']: 'tabpanel-id-2' },
+    { id: 'err', label: 'Errors', iconAfter: IconSecurityLockLocked, tag: '13', ['aria-controls']: 'tabpanel-id-3' },
+    { id: 'reco', label: 'Recommendations', icon: IconGeneralCrosshairs, ['aria-controls']: 'tabpanel-id-4' },
   ]
 
 const demoTabsLarge = [
-    { id: 'ov', label: 'Overview', active: true },
-    { id: 'cl', label: 'Command Log' },
-    { id: 'err', label: 'Errors', tag: '13' },
-    { id: 'reco', label: 'Recommendations' },
+    { id: 'ov', label: 'Overview', active: true, ['aria-controls']: 'tabpanel-id-1' },
+    { id: 'cl', label: 'Command Log', ['aria-controls']: 'tabpanel-id-2' },
+    { id: 'err', label: 'Errors', tag: '13', ['aria-controls']: 'tabpanel-id-3' },
+    { id: 'reco', label: 'Recommendations', ['aria-controls']: 'tabpanel-id-4' },
   ]
 
 const types = ['default', 'dark-small', 'dark-large', 'underline-small', 'underline-center', 'underline-large']

@@ -1,5 +1,25 @@
 # @cypress-design/react-tabs
 
+## 1.0.1
+
+### Patch Changes
+
+- [#450](https://github.com/cypress-io/cypress-design/pull/450) [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d) Thanks [@elevatebart](https://github.com/elevatebart)! - optim: do not package dependencies
+
+## 1.0.0
+
+### Major Changes
+
+- [#439](https://github.com/cypress-io/cypress-design/pull/439) [`5bddc81`](https://github.com/cypress-io/cypress-design/commit/5bddc8150ae23549c3dca059a79260914323836a) Thanks [@rachelruderman](https://github.com/rachelruderman)! - - Tabs component now requires `aria-controls` prop
+  - Tab `id` is now passed through as an `id` attribute on the tab
+  - Inactive tabs now have `aria-selected=false`
+  - Button component now exports StaticClasses
+
+### Patch Changes
+
+- Updated dependencies [[`5bddc81`](https://github.com/cypress-io/cypress-design/commit/5bddc8150ae23549c3dca059a79260914323836a)]:
+  - @cypress-design/constants-tabs@1.0.0
+
 ## 0.9.2
 
 ### Patch Changes

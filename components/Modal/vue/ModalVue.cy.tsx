@@ -1,4 +1,4 @@
-import { Component, ref } from 'vue'
+import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 import { ComponentProps } from '../../vue-utils'
 import assertions from '../assertions'

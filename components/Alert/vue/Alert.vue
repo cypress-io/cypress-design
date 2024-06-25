@@ -63,7 +63,7 @@ const props = withDefaults(
     /**
      * Size of the alert
      */
-    size?: AlertSize
+    size?: typeof defaultAlertSize | AlertSize
   }>(),
   {
     variant: undefined,
@@ -154,8 +154,8 @@ const sizeClasses = computed(() => {
 			-->
       <slot name="icon" v-bind="computedIconProps">
         <component
-          v-if="!props.noIcon && icon"
           :is="icon"
+          v-if="!props.noIcon && icon"
           v-bind="computedIconProps"
         />
       </slot>
@@ -166,8 +166,8 @@ const sizeClasses = computed(() => {
       <button
         v-if="dismissible"
         class="m-[4px] ml-[8px] h-[16px]"
-        @click="dismiss"
         aria-label="Dismiss"
+        @click="dismiss"
       >
         <IconActionDeleteLarge :stroke-color="variantClasses.iconCloseColor" />
       </button>
@@ -178,8 +178,8 @@ const sizeClasses = computed(() => {
     </div>
     <details
       v-if="slots.details"
-      class="p-[16px] border-t border-t-1"
       ref="detailsRef"
+      class="p-[16px] border-t border-t-1"
       :class="[variantClasses.bodyClass, variantClasses.borderClass]"
     >
       <summary

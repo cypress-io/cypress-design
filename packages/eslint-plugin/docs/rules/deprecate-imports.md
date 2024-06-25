@@ -1,10 +1,10 @@
-# list the imports you want to warn on and the docs to fix it (`deprecate-imports`)
+# List the imports you want to warn on and the docs to fix it (`@cypress-design/deprecate-imports`)
+
+<!-- end auto-generated rule header -->
 
 Cypress has decided to reuse as much as possible the same components. In each property, App, Cloud, Website, Docs, we created local versions of the components we needed. To replace the local components with the shared ones, we created a new rule that will warn you when you are importing a local component that has a shared version.
 
 ## Rule Details
-
-This rule aims to...
 
 Examples of **incorrect** code for this rule:
 
@@ -74,3 +74,15 @@ module.exports = {
   },
 }
 ```
+
+## Options
+
+<!-- begin auto-generated rule options list -->
+
+| Name     | Description                                                    | Type   |
+| :------- | :------------------------------------------------------------- | :----- |
+| `docs`   | URL to the documentation                                       | String |
+| `name`   | Name of the deprecated import                                  | String |
+| `source` | RegExp or glob describing a way to match the deprecated import |        |
+
+<!-- end auto-generated rule options list -->

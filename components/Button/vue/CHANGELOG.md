@@ -1,5 +1,25 @@
 # @cypress-design/vue-button
 
+## 1.0.0
+
+### Major Changes
+
+- [`63fb4d9`](https://github.com/cypress-io/cypress-design/commit/63fb4d9e60f6c56c563d17e3b983d0ebd25e0e87) Thanks [@elevatebart](https://github.com/elevatebart)! - Create 1.0
+
+### Patch Changes
+
+- Updated dependencies [[`63fb4d9`](https://github.com/cypress-io/cypress-design/commit/63fb4d9e60f6c56c563d17e3b983d0ebd25e0e87)]:
+  - @cypress-design/constants-button@1.0.0
+
+## 0.11.12
+
+### Patch Changes
+
+- [#439](https://github.com/cypress-io/cypress-design/pull/439) [`5bddc81`](https://github.com/cypress-io/cypress-design/commit/5bddc8150ae23549c3dca059a79260914323836a) Thanks [@rachelruderman](https://github.com/rachelruderman)! - - Tabs component now requires `aria-controls` prop
+  - Tab `id` is now passed through as an `id` attribute on the tab
+  - Inactive tabs now have `aria-selected=false`
+  - Button component now exports StaticClasses
+
 ## 0.11.11
 
 ### Patch Changes

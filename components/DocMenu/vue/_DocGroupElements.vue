@@ -88,7 +88,7 @@ defineExpose({
 <template>
   <ul class="list-none p-0">
     <template v-for="(item, index) in items">
-      <li class="relative list-none p-0" v-if="item && 'items' in item">
+      <li v-if="item && 'items' in item" class="relative list-none p-0">
         <DocGroup
           ref="$groups"
           :active-path="activePath"

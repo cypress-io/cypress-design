@@ -1,5 +1,33 @@
 # @cypress-design/react-statusicon
 
+## 1.0.1
+
+### Patch Changes
+
+- [#450](https://github.com/cypress-io/cypress-design/pull/450) [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d) Thanks [@elevatebart](https://github.com/elevatebart)! - optim: do not package dependencies
+
+- Updated dependencies [[`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d), [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d)]:
+  - @cypress-design/react-icon@1.1.0
+
+## 1.0.0
+
+### Major Changes
+
+- [`63fb4d9`](https://github.com/cypress-io/cypress-design/commit/63fb4d9e60f6c56c563d17e3b983d0ebd25e0e87) Thanks [@elevatebart](https://github.com/elevatebart)! - Create 1.0
+
+### Patch Changes
+
+- Updated dependencies [[`63fb4d9`](https://github.com/cypress-io/cypress-design/commit/63fb4d9e60f6c56c563d17e3b983d0ebd25e0e87)]:
+  - @cypress-design/react-icon@1.0.0
+  - @cypress-design/constants-statusicon@1.0.0
+
+## 0.4.24
+
+### Patch Changes
+
+- Updated dependencies [[`4044a11`](https://github.com/cypress-io/cypress-design/commit/4044a116b67703f3ae1d1960a9d3572a9e3a130e)]:
+  - @cypress-design/react-icon@0.39.0
+
 ## 0.4.23
 
 ### Patch Changes

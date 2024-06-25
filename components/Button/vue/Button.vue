@@ -12,11 +12,6 @@ import {
 import type { ButtonProps } from '@cypress-design/constants-button'
 
 export default defineComponent({
-  emits: {
-    click($event: MouseEvent) {
-      return !!$event
-    },
-  },
   props: {
     variant: {
       type: String as PropType<NonNullable<ButtonProps['variant']>>,
@@ -40,6 +35,11 @@ export default defineComponent({
     square: {
       type: Boolean as PropType<ButtonProps['square']>,
       default: false,
+    },
+  },
+  emits: {
+    click($event: MouseEvent) {
+      return !!$event
     },
   },
   slots: Object as SlotsType<{
