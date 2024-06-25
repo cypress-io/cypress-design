@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.1.0
+
+### Minor Changes
+
+- [#450](https://github.com/cypress-io/cypress-design/pull/450) [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d) Thanks [@elevatebart](https://github.com/elevatebart)! - Add the add/plus circle icon, and updated the Test Replay icon to match the Figma DS.
+
+### Patch Changes
+
+- Updated dependencies [[`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d)]:
+  - @cypress-design/icon-registry@1.1.0
+
 ## 1.0.0
 
 ### Major Changes

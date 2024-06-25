@@ -1,5 +1,14 @@
 # @cypress-design/react-docmenu
 
+## 1.0.1
+
+### Patch Changes
+
+- [#450](https://github.com/cypress-io/cypress-design/pull/450) [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d) Thanks [@elevatebart](https://github.com/elevatebart)! - optim: do not package dependencies
+
+- Updated dependencies [[`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d), [`927097f`](https://github.com/cypress-io/cypress-design/commit/927097f409235ac78c98b281c4d9b2ec70dfe01d)]:
+  - @cypress-design/react-icon@1.1.0
+
 ## 1.0.0
 
 ### Major Changes
