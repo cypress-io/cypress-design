@@ -1,7 +1,7 @@
 import { it, expect, describe, vi } from 'vitest'
 import { compileIcon } from './compileIcon'
 
-vi.mock('@cypress-design/css/dist/colors', () => {
+vi.mock('@cypress-design/color-constants', () => {
   return {
     COLOR_PREFIXES: ['hover', 'focus'],
   }

@@ -30,5 +30,4 @@ export default {
       tsconfig: resolve(__dirname, './tsconfig.json'),
     }),
   ],
-  external: Object.keys(pkg.dependencies),
 }

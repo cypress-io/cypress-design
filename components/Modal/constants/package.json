@@ -16,8 +16,5 @@
   "scripts": {
     "build": "rollup -c ./rollup.config.mjs"
   },
-  "dependencies": {
-    "@cypress-design/css": "*"
-  },
   "license": "MIT"
 }

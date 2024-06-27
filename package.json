@@ -91,6 +91,7 @@
     "react-docgen-typescript": "^2.2.2",
     "react-dom": "18",
     "react-live-runner": "^1.0.6",
+    "recast": "^0.23.9",
     "rimraf": "^5.0.7",
     "rollup": "^4.18.0",
     "rollup-plugin-postcss": "^4.0.2",

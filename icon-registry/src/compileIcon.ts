@@ -1,5 +1,5 @@
 import { camelCase } from 'lodash-es'
-import { COLOR_PREFIXES } from '@cypress-design/css/dist/color-constants'
+import { COLOR_PREFIXES } from '@cypress-design/color-constants'
 import type { OpenIconProps, ColorIconProps, IconProps } from './icons'
 import { iconsMetadata, ICON_COLOR_PROP_NAMES, iconSet } from './icons'
 

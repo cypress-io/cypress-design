@@ -1,0 +1,15 @@
+{
+  "include": ["src/**/*.ts"],
+  "compilerOptions": {
+    "target": "es6",
+    "moduleResolution": "node",
+    "declaration": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "outDir": "dist"
+  }
+}

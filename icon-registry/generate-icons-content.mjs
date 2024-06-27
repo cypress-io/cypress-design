@@ -13,7 +13,7 @@ import {
   cyColors,
   COLOR_PREFIXES,
   ICON_ATTRIBUTE_NAMES_TO_CLASS_GENERATOR_ROOT,
-} from '@cypress-design/css/dist/color-constants'
+} from '@cypress-design/color-constants'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 import { globby } from 'globby'
