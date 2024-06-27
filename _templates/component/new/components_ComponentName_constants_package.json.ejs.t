@@ -17,7 +17,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
     }
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build": "rollup -c ./rollup.config.mjs"
   },
   "license": "MIT"
 }
