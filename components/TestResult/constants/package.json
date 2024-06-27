@@ -16,7 +16,7 @@
     "@cypress-design/constants-statusicon": "*"
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build": "rollup -c ./rollup.config.mjs"
   },
   "license": "MIT"
 }
