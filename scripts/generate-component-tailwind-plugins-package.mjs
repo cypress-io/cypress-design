@@ -5,8 +5,6 @@ import * as url from 'url'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
-console.log(__dirname)
-
 async function createPackages() {
   const constantsPackages = await globby(
     './components/*/constants/package.json',
@@ -23,12 +21,27 @@ async function createPackages() {
     } = await import(resolve(__dirname, '../', pkgPath), {
       assert: { type: 'json' },
     })
+
+    // check if the exports?.['./tailwind'] exists and if the targeted file actually exists
     if (exports?.['./tailwind']) {
-      // add current package to the list of tailwind plugins
-      const pathArray = pkgPath.split('/')
-      constantsPackagesWithTailwindPlugin.push(
-        pathArray[pathArray.indexOf('package.json') - 2],
+      let hasTailwind = true
+      const pluginPath = resolve(
+        __dirname,
+        '../',
+        pkgPath.replace('package.json', 'dist/tailwind-plugin.es.mjs'),
       )
+      try {
+        await fs.access(pluginPath)
+      } catch {
+        hasTailwind = false
+      }
+      if (hasTailwind) {
+        // add current package to the list of tailwind plugins
+        const pathArray = pkgPath.split('/')
+        constantsPackagesWithTailwindPlugin.push(
+          pathArray[pathArray.indexOf('package.json') - 2],
+        )
+      }
     }
   }
 
