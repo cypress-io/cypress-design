@@ -1,5 +1,5 @@
 export const CssShared =
-  'rounded border border-1 align-middle font-medium inline-flex items-center'
+  'rounded border align-middle font-medium inline-flex items-center'
 
 export const CssSize = {
   '16': 'text-[12px] leading-[16px] h-[16px] px-[4px]',

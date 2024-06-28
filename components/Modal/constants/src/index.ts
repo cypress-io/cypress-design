@@ -5,7 +5,7 @@ export const ClassModalStandardDimensions =
 export const ClassModalFullscreenDimensions =
   'h-[calc(100vh-32px)] sm:w-[calc(100vw-32px)]'
 export const ClassTitleBox =
-  'flex shrink-0 items-center justify-between rounded-t-md border-b border-gray-100 p-[16px] px-16px sm:px-[24px]'
+  'flex shrink-0 items-center justify-between rounded-t-md border-b border-gray-100 p-[16px] sm:px-[24px]'
 export const ClassTitle = 'text-[18px] font-medium leading-[28px] text-gray-900'
 export const ClassHelpLinkDash = 'mx-[8px] h-[1px] w-[32px] bg-gray-100'
 export const ClassHelpLink =
