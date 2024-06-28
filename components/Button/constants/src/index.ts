@@ -1,3 +1,9 @@
+export const CssStaticClasses =
+  'border border-solid rounded rounded-[4px] flex cy-button-width font-medium items-center transition duration-150 ' +
+  'hover:shadow-ring-hover focus:shadow-ring-focus active:shadow-ring-focus ' +
+  'disabled:hover:shadow-none ' +
+  'disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
+
 export const CssVariantClassesTable = {
   link: 'text-indigo-600 border-transparent ring-transparent hover:underline disabled:text-gray-500 disabled:hocus:shadow-none disabled:no-underline hocus:shadow-transparent focus-visible:ring-gray-100 focus-visible:underline',
   white:
@@ -72,12 +78,6 @@ export const CssSizeClassesTableSquare = {
 } as const
 
 export const DefaultSize: keyof typeof CssSizeClassesTable = '40'
-
-export const CssStaticClasses =
-  'border border-solid rounded rounded-[4px] flex cy-button-width font-medium items-center transition duration-150 ' +
-  'hover:shadow-ring-hover focus:shadow-ring-focus active:shadow-ring-focus ' +
-  'disabled:hover:shadow-none ' +
-  'disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
 
 export type ButtonSizes = keyof typeof CssSizeClassesTable
 
