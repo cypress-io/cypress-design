@@ -20,4 +20,9 @@ watcher.on('change', async (file) => {
     stdio: 'inherit',
     cwd,
   })
+
+  await execa(pathToRollup, ['-c', './rollup.config.mjs'], {
+    stdio: 'inherit',
+    cwd: resolve(__dirname, '../css'),
+  })
 })
