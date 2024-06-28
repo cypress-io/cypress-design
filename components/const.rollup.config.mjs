@@ -51,7 +51,7 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
         throw Error(`wrong key type ${key.type}`)
       }
 
-      if (value.type === 'StringLiteral' && key.type === 'Identifier') {
+      if (value.type === 'StringLiteral') {
         onClass(
           makeClassName(`${componentClassPrefix}-${keyName}`),
           value.value,
