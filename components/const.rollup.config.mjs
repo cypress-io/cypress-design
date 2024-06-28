@@ -41,7 +41,11 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
     if (property.type === 'ObjectProperty') {
       const { value, key } = property
       if (value.type === 'StringLiteral' && key.type === 'Identifier') {
-        onClass(`${componentClassPrefix}-${key.name}`, value.value, value)
+        onClass(
+          makeClassName(`${componentClassPrefix}-${key.name}`),
+          value.value,
+          value,
+        )
       } else if (value.type === 'ObjectExpression') {
         const keyName =
           key.type === 'Identifier'
@@ -55,7 +59,7 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
         }
         visitConstantClassProperty(
           value,
-          `${componentClassPrefix}-${keyName.toLowerCase()}`,
+          `${componentClassPrefix}-${keyName}`,
           onClass,
         )
       }
@@ -81,7 +85,11 @@ function visitConstantClass(path, componentClassPrefix, onClass) {
             : null
         if (!varName) return false
         if (init?.type === 'StringLiteral') {
-          onClass(`${componentClassPrefix}-${varName}`, init.value, init)
+          onClass(
+            makeClassName(`${componentClassPrefix}-${varName}`),
+            init.value,
+            init,
+          )
         }
         if (init?.type === 'ObjectExpression') {
           visitConstantClassProperty(
@@ -93,6 +101,10 @@ function visitConstantClass(path, componentClassPrefix, onClass) {
       }
     }
   }
+}
+
+function makeClassName(className) {
+  return className.toLowerCase().replace(/-classes-/g, '-')
 }
 
 /**
@@ -112,7 +124,7 @@ function MakeTailwindComponentPluginRollupPlugin() {
       visit(ast, {
         visitExportNamedDeclaration(path) {
           visitConstantClass(path, componentClassPrefix, (key, value) => {
-            if (value.length) {
+            if (value.length && !key.includes('icon')) {
               componentClassesDefinitions[key] = { '@apply': value }
             }
           })
@@ -154,7 +166,7 @@ function ComponentClassesRollupPlugin() {
       visit(ast, {
         visitExportNamedDeclaration(path) {
           visitConstantClass(path, componentClassPrefix, (key, value, init) => {
-            if (value.length) {
+            if (value.length && !key.includes('icon')) {
               init.value = key
             }
           })
