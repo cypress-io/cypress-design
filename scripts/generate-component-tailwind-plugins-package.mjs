@@ -32,7 +32,7 @@ async function createPackages() {
     }
   }
 
-  console.log('found components: ', constantsPackagesWithTailwindPlugin)
+  constantsPackagesWithTailwindPlugin.sort()
   return constantsPackagesWithTailwindPlugin
 }
 
