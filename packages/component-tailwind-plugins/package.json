@@ -1,0 +1,13 @@
+{
+  "name": "@cypress-design/component-tailwind-plugins",
+  "version": "0.0.0",
+  "private": "true",
+  "exports": {
+    "import": "./index.mjs",
+    "types": "./dist/index.d.ts"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-Accordion": "*",
+    "tailwindcss": "^3.4.3"
+  }
+}
