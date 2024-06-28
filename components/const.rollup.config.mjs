@@ -67,14 +67,19 @@ function visitConstantClass(path, componentClassPrefix, onClass) {
   // if the export is a constant declaration and the name of the constant starts with css
   // then replace the values with some component classes
   const {
-    node: { declaration },
+    node: { declaration: topDeclaration },
   } = path
-  if (declaration && declaration.type === 'VariableDeclaration') {
-    declaration.declarations.forEach((declaration) => {
+  if (topDeclaration && topDeclaration.type === 'VariableDeclaration') {
+    for (const declaration of topDeclaration.declarations) {
       if (declaration.type !== 'VariableDeclarator') return false
       const { id, init } = declaration
-      if (id?.type === 'Identifier' && id.name.startsWith('Css')) {
-        const varName = id.name.slice(3).toLowerCase()
+      if (id?.type === 'Identifier') {
+        const varName = id.name.startsWith('Css')
+          ? id.name.slice(3).toLowerCase()
+          : id.name.startsWith('Class')
+            ? id.name.slice(5).toLowerCase()
+            : null
+        if (!varName) return false
         if (init?.type === 'StringLiteral') {
           onClass(`${componentClassPrefix}-${varName}`, init.value, init)
         }
@@ -86,7 +91,7 @@ function visitConstantClass(path, componentClassPrefix, onClass) {
           )
         }
       }
-    })
+    }
   }
 }
 

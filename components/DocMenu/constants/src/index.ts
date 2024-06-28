@@ -12,7 +12,7 @@ export interface NavGroup extends NavItemBase {
   collapsed?: boolean
 }
 
-export const classes = {
+export const CssClasses = {
   expandedIcon:
     'absolute left-0 transform transition-transform text-gray-400 dark:text-gray-700',
   button:
