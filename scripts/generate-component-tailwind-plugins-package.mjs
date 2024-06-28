@@ -40,7 +40,7 @@ async function generate() {
   const pkgs = await createPackages()
   await fs.writeFile(
     resolve(__dirname, '../packages/component-tailwind-plugins/index.mjs'),
-    `${pkgs.map((p) => `import ${p.replace(/-/g, '_')} from '@cypress-design/constants-${p}/tailwind`)}
+    `${pkgs.map((p) => `import ${p.replace(/-/g, '_')} from '@cypress-design/constants-${p.toLowerCase()}/tailwind'`).join('\n')}
 
 const componentPlugins = [
   ${pkgs.map((p) => p.replace(/-/g, '_')).join(',\n\t')}
@@ -61,7 +61,7 @@ export default componentPlugins`,
     "types": "./dist/index.d.ts"
   },
   "devDependencies": {
-    ${pkgs.map((p) => `"@cypress-design/constants-${p}": "*",`).join('\n\t\t')}
+    ${pkgs.map((p) => `"@cypress-design/constants-${p.toLowerCase()}": "*",`).join('\n\t\t')}
     "tailwindcss": "^3.4.3"
   }
 }`,

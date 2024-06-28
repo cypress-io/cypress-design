@@ -7,7 +7,17 @@
     "types": "./dist/index.d.ts"
   },
   "devDependencies": {
-    "@cypress-design/constants-Accordion": "*",
+    "@cypress-design/constants-accordion": "*",
+		"@cypress-design/constants-button": "*",
+		"@cypress-design/constants-checkbox": "*",
+		"@cypress-design/constants-docmenu": "*",
+		"@cypress-design/constants-menu": "*",
+		"@cypress-design/constants-modal": "*",
+		"@cypress-design/constants-spinner": "*",
+		"@cypress-design/constants-statusicon": "*",
+		"@cypress-design/constants-tabs": "*",
+		"@cypress-design/constants-tag": "*",
+		"@cypress-design/constants-testresult": "*",
     "tailwindcss": "^3.4.3"
   }
 }
