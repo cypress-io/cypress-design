@@ -14,6 +14,9 @@ to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
       "import": "./dist/index.es.mjs",
       "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
+    },
+    "./tailwind": {
+      "import": "./dist/tailwind-plugin.es.mjs"
     }
   },
   "scripts": {
