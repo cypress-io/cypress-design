@@ -43,9 +43,19 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
       if (value.type === 'StringLiteral' && key.type === 'Identifier') {
         onClass(`${componentClassPrefix}-${key.name}`, value.value, value)
       } else if (value.type === 'ObjectExpression') {
+        const keyName =
+          key.type === 'Identifier'
+            ? key.name
+            : key.type === 'StringLiteral'
+              ? key.value
+              : null
+
+        if (!keyName) {
+          throw Error(`wrong key type ${key.type}`)
+        }
         visitConstantClassProperty(
           value,
-          `${componentClassPrefix}-${key.name.toLowerCase()}`,
+          `${componentClassPrefix}-${keyName.toLowerCase()}`,
           onClass,
         )
       }

@@ -4,10 +4,10 @@ import {
   ButtonProps,
   DefaultSize,
   DefaultVariant,
-  SizeClassesTable,
-  VariantClassesTable,
-  StaticClasses,
-  SizeClassesTableSquare,
+  CssSizeClassesTable,
+  CssVariantClassesTable,
+  CssStaticClasses,
+  CssSizeClassesTableSquare,
 } from '@cypress-design/constants-button'
 
 export interface ButtonPropsJsx extends ButtonProps {
@@ -51,10 +51,10 @@ export const Button: React.FC<ReactButtonProps> = ({
       {...rest}
       href={href}
       className={clsx(
-        StaticClasses,
-        VariantClassesTable[finalVariant],
-        SizeClassesTable[size],
-        SizeClassesTableSquare[size][square ? 'square' : 'wide'],
+        CssStaticClasses,
+        CssVariantClassesTable[finalVariant],
+        CssSizeClassesTable[size],
+        CssSizeClassesTableSquare[size][square ? 'square' : 'wide'],
         className,
       )}
       disabled={finalDisabled}

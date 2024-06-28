@@ -1,4 +1,4 @@
-export const VariantClassesTable = {
+export const CssVariantClassesTable = {
   link: 'text-indigo-600 border-transparent ring-transparent hover:underline disabled:text-gray-500 disabled:hocus:shadow-none disabled:no-underline hocus:shadow-transparent focus-visible:ring-gray-100 focus-visible:underline',
   white:
     'text-indigo-500 bg-white border-gray-100 hover:border-gray-200 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
@@ -38,9 +38,9 @@ export const VariantClassesTable = {
     'text-white bg-gray-1000 border-gray-1000 disabled:hocus:shadow-none hocus:shadow-gray-100 focus:bg-gray-900 focus:border-gray-900 focus:ring-transparent',
 } as const
 
-export const DefaultVariant: keyof typeof VariantClassesTable = 'indigo-dark'
+export const DefaultVariant: keyof typeof CssVariantClassesTable = 'indigo-dark'
 
-export const SizeClassesTable = {
+export const CssSizeClassesTable = {
   '20': 'text-[14px] leading-[18px] min-h-[20px]',
   '24': 'text-[14px] leading-[20px] min-h-[24px]',
   '32': 'text-[14px] leading-[20px] min-h-[32px]',
@@ -48,7 +48,7 @@ export const SizeClassesTable = {
   '48': 'text-[16px] leading-[24px] min-h-[48px]',
 } as const
 
-export const SizeClassesTableSquare = {
+export const CssSizeClassesTableSquare = {
   '20': {
     wide: 'px-[4px] py-0',
     square: 'h-[20px] w-[20px] flex items-center justify-center',
@@ -71,17 +71,17 @@ export const SizeClassesTableSquare = {
   },
 } as const
 
-export const DefaultSize: keyof typeof SizeClassesTable = '40'
+export const DefaultSize: keyof typeof CssSizeClassesTable = '40'
 
-export const StaticClasses =
+export const CssStaticClasses =
   'border border-solid rounded rounded-[4px] flex cy-button-width font-medium items-center transition duration-150 ' +
   'hover:shadow-ring-hover focus:shadow-ring-focus active:shadow-ring-focus ' +
   'disabled:hover:shadow-none ' +
   'disabled:cursor-not-allowed focus-visible:ring-1 focus-visible:ring-offset-0 focus-visible:outline-none'
 
-export type ButtonSizes = keyof typeof SizeClassesTable
+export type ButtonSizes = keyof typeof CssSizeClassesTable
 
-export type ButtonVariants = keyof typeof VariantClassesTable
+export type ButtonVariants = keyof typeof CssVariantClassesTable
 
 export interface ButtonProps {
   /**
