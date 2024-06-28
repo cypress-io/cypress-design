@@ -1,4 +1,5 @@
 import Accordion from '@cypress-design/constants-accordion/tailwind'
+import Alert from '@cypress-design/constants-alert/tailwind'
 import Button from '@cypress-design/constants-button/tailwind'
 import Checkbox from '@cypress-design/constants-checkbox/tailwind'
 import DocMenu from '@cypress-design/constants-docmenu/tailwind'
@@ -12,6 +13,7 @@ import TestResult from '@cypress-design/constants-testresult/tailwind'
 
 const componentPlugins = [
   Accordion,
+	Alert,
 	Button,
 	Checkbox,
 	DocMenu,

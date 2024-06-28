@@ -36,6 +36,49 @@ function parseCode(code) {
   })
 }
 
+function visitConstantClassProperty(path, componentClassPrefix, onClass) {
+  for (const property of path.properties) {
+    if (property.type === 'ObjectProperty') {
+      const { value, key } = property
+      if (value.type === 'StringLiteral' && key.type === 'Identifier') {
+        onClass(`${componentClassPrefix}-${key.name}`, value.value, value)
+      } else if (value.type === 'ObjectExpression') {
+        visitConstantClassProperty(
+          value,
+          `${componentClassPrefix}-${key.name.toLowerCase()}`,
+        )
+      }
+    }
+  }
+}
+
+function visitConstantClass(path, componentClassPrefix, onClass) {
+  // if the export is a constant declaration and the name of the constant starts with css
+  // then replace the values with some component classes
+  const {
+    node: { declaration },
+  } = path
+  if (declaration && declaration.type === 'VariableDeclaration') {
+    declaration.declarations.forEach((declaration) => {
+      if (declaration.type !== 'VariableDeclarator') return false
+      const { id, init } = declaration
+      if (id?.type === 'Identifier' && id.name.startsWith('Css')) {
+        const varName = id.name.slice(3).toLowerCase()
+        if (init?.type === 'StringLiteral') {
+          onClass(`${componentClassPrefix}-${varName}`, init.value, init)
+        }
+        if (init?.type === 'ObjectExpression') {
+          visitConstantClassProperty(
+            init,
+            `${componentClassPrefix}-${varName}`,
+            onClass,
+          )
+        }
+      }
+    })
+  }
+}
+
 /**
  * @type {() => import('rollup').Plugin}
  */
@@ -45,46 +88,16 @@ function MakeTailwindComponentPluginRollupPlugin() {
     transform(code, id) {
       const pathArray = id.split('/')
 
-      const componentClassPrefix = `cyds-${pathArray[pathArray.indexOf('constants') - 1]}`
+      const componentClassPrefix = `cyds-${pathArray[pathArray.indexOf('constants') - 1].toLowerCase()}`
       const ast = parseCode(code)
 
       const componentClassesDefinitions = {}
 
       visit(ast, {
         visitExportNamedDeclaration(path) {
-          // if the export is a constant declaration and the name of the constant starts with css
-          // then replace the values with some component classes
-          const { node } = path
-          const { declaration } = node
-          if (declaration && declaration.type === 'VariableDeclaration') {
-            declaration.declarations.forEach((declaration) => {
-              if (declaration.type !== 'VariableDeclarator') return false
-              const { id, init } = declaration
-              if (id?.type === 'Identifier' && id.name.startsWith('Css')) {
-                const varName = id.name.slice(3)
-                if (init?.type === 'StringLiteral') {
-                  componentClassesDefinitions[
-                    `${componentClassPrefix}-${varName}`
-                  ] = { '@apply': init.value }
-                }
-                if (init?.type === 'ObjectExpression') {
-                  for (const property of init.properties) {
-                    if (property.type === 'ObjectProperty') {
-                      const { value, key } = property
-                      if (
-                        value.type === 'StringLiteral' &&
-                        key.type === 'Identifier'
-                      ) {
-                        componentClassesDefinitions[
-                          `${componentClassPrefix}-${varName}-${key.name}`
-                        ] = { '@apply': value.value }
-                      }
-                    }
-                  }
-                }
-              }
-            })
-          }
+          visitConstantClass(path, componentClassPrefix, (key, value) => {
+            componentClassesDefinitions[key] = { '@apply': value }
+          })
           return false
         },
       })
@@ -107,40 +120,14 @@ function ComponentClassesRollupPlugin() {
     transform(code, id) {
       const pathArray = id.split('/')
 
-      const componentClassPrefix = `cyds-${pathArray[pathArray.indexOf('constants') - 1]}`
+      const componentClassPrefix = `cyds-${pathArray[pathArray.indexOf('constants') - 1].toLowerCase()}`
       const ast = parseCode(code)
 
       visit(ast, {
         visitExportNamedDeclaration(path) {
-          // if the export is a constant declaration and the name of the constant starts with css
-          // then replace the values with some component classes
-          const { node } = path
-          const { declaration } = node
-          if (declaration && declaration.type === 'VariableDeclaration') {
-            declaration.declarations.forEach((declaration) => {
-              if (declaration.type !== 'VariableDeclarator') return false
-              const { id, init } = declaration
-              if (id?.type === 'Identifier' && id.name.startsWith('Css')) {
-                const varName = id.name.slice(3)
-                if (init?.type === 'StringLiteral') {
-                  init.value = `${componentClassPrefix}-${varName}`
-                }
-                if (init?.type === 'ObjectExpression') {
-                  for (const property of init.properties) {
-                    if (property.type === 'ObjectProperty') {
-                      const { value, key } = property
-                      if (
-                        value.type === 'StringLiteral' &&
-                        key.type === 'Identifier'
-                      ) {
-                        value.value = `${componentClassPrefix}-${varName}-${key.name}`
-                      }
-                    }
-                  }
-                }
-              }
-            })
-          }
+          visitConstantClass(path, componentClassPrefix, (key, _, init) => {
+            init.value = key
+          })
           return false
         },
       })

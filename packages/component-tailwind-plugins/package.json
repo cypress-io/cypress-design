@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@cypress-design/constants-accordion": "*",
+		"@cypress-design/constants-alert": "*",
 		"@cypress-design/constants-button": "*",
 		"@cypress-design/constants-checkbox": "*",
 		"@cypress-design/constants-docmenu": "*",
