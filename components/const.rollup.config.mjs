@@ -40,23 +40,24 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
   for (const property of path.properties) {
     if (property.type === 'ObjectProperty') {
       const { value, key } = property
+      const keyName =
+        key.type === 'Identifier'
+          ? key.name
+          : key.type === 'StringLiteral'
+            ? key.value
+            : null
+
+      if (!keyName) {
+        throw Error(`wrong key type ${key.type}`)
+      }
+
       if (value.type === 'StringLiteral' && key.type === 'Identifier') {
         onClass(
-          makeClassName(`${componentClassPrefix}-${key.name}`),
+          makeClassName(`${componentClassPrefix}-${keyName}`),
           value.value,
           value,
         )
       } else if (value.type === 'ObjectExpression') {
-        const keyName =
-          key.type === 'Identifier'
-            ? key.name
-            : key.type === 'StringLiteral'
-              ? key.value
-              : null
-
-        if (!keyName) {
-          throw Error(`wrong key type ${key.type}`)
-        }
         visitConstantClassProperty(
           value,
           `${componentClassPrefix}-${keyName}`,
@@ -84,16 +85,23 @@ function visitConstantClass(path, componentClassPrefix, onClass) {
             ? id.name.slice(5).toLowerCase()
             : null
         if (!varName) return false
-        if (init?.type === 'StringLiteral') {
+
+        const typeToTest =
+          init?.type === 'TSAsExpression' ? init.expression.type : init?.type
+
+        const pathToVisit =
+          init?.type === 'TSAsExpression' ? init.expression : init
+
+        if (typeToTest === 'StringLiteral') {
           onClass(
             makeClassName(`${componentClassPrefix}-${varName}`),
-            init.value,
-            init,
+            pathToVisit.value,
+            pathToVisit,
           )
         }
-        if (init?.type === 'ObjectExpression') {
+        if (typeToTest === 'ObjectExpression') {
           visitConstantClassProperty(
-            init,
+            pathToVisit,
             `${componentClassPrefix}-${varName}`,
             onClass,
           )
@@ -125,7 +133,9 @@ function MakeTailwindComponentPluginRollupPlugin() {
         visitExportNamedDeclaration(path) {
           visitConstantClass(path, componentClassPrefix, (key, value) => {
             if (value.length && !key.includes('icon')) {
-              componentClassesDefinitions[key] = { '@apply': value }
+              componentClassesDefinitions[`.${key}`] = {
+                [`@apply ${value}`]: {},
+              }
             }
           })
           return false
@@ -185,7 +195,7 @@ export default ({
   input = './src/index.ts',
   plugins = [],
   external = [],
-  enableTailwind = false,
+  enableTailwind = true,
 }) => [
   {
     input,
