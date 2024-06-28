@@ -76,9 +76,9 @@ function consolidateBinaryExpression(path) {
   }
 
   if (left.type === 'BinaryExpression') {
-    return `${consolidateBinaryExpression(left)} ${operator} ${right.value}`
+    return `${consolidateBinaryExpression(left)}${right.value}`
   }
-  return `${left.value} ${operator} ${right.value}`
+  return `${left.value}${right.value}`
 }
 
 function visitConstantClass(path, componentClassPrefix, onClass) {
