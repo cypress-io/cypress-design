@@ -181,7 +181,12 @@ function ComponentClassesRollupPlugin() {
   }
 }
 
-export default ({ input = './src/index.ts', plugins = [], external = [] }) => [
+export default ({
+  input = './src/index.ts',
+  plugins = [],
+  external = [],
+  enableTailwind = false,
+}) => [
   {
     input,
     output: [
@@ -200,7 +205,7 @@ export default ({ input = './src/index.ts', plugins = [], external = [] }) => [
     plugins: [
       resolve(),
       commonjs(),
-      ComponentClassesRollupPlugin(),
+      ...(enableTailwind ? [ComponentClassesRollupPlugin()] : []),
       typescript({
         tsconfig: './tsconfig.json',
         declarationMap: true,
@@ -209,15 +214,23 @@ export default ({ input = './src/index.ts', plugins = [], external = [] }) => [
     ],
     external,
   },
-  {
-    input,
-    output: [
-      {
-        file: './dist/tailwind-plugin.es.mjs',
-        format: 'esm',
-        sourcemap: true,
-      },
-    ],
-    plugins: [resolve(), commonjs(), MakeTailwindComponentPluginRollupPlugin()],
-  },
+  ...(enableTailwind
+    ? [
+        {
+          input,
+          output: [
+            {
+              file: './dist/tailwind-plugin.es.mjs',
+              format: 'esm',
+              sourcemap: true,
+            },
+          ],
+          plugins: [
+            resolve(),
+            commonjs(),
+            MakeTailwindComponentPluginRollupPlugin(),
+          ],
+        },
+      ]
+    : []),
 ]
