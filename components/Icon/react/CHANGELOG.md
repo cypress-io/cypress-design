@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.2.0
+
+### Minor Changes
+
+- [#452](https://github.com/cypress-io/cypress-design/pull/452) [`340a0de`](https://github.com/cypress-io/cypress-design/commit/340a0de1d7337aaf66449e92b4be7478d856c4dc) Thanks [@elevatebart](https://github.com/elevatebart)! - add tested views icons
+
+### Patch Changes
+
+- Updated dependencies [[`340a0de`](https://github.com/cypress-io/cypress-design/commit/340a0de1d7337aaf66449e92b4be7478d856c4dc)]:
+  - @cypress-design/icon-registry@1.2.0
+
 ## 1.1.0
 
 ### Minor Changes
