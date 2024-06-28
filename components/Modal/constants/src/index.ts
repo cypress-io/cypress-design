@@ -11,7 +11,7 @@ export const ClassHelpLinkDash = 'mx-[8px] h-[1px] w-[32px] bg-gray-100'
 export const ClassHelpLink =
   'flex items-center text-[16px] font-normal leading-[24px] text-indigo-500'
 export const ClassCloseButton =
-  'group rounded-full border-transparent p-[4px] outline-none'
+  'rounded-full border-transparent p-[4px] outline-none'
 export const ClassContent = 'overflow-y-auto p-[16px] sm:px-[24px]'
 
 export * from './bodyScroll'
