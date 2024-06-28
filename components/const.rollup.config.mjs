@@ -3,6 +3,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import { parse } from '@babel/parser'
+import t from '@babel/types'
 import { visit, print } from 'recast'
 
 function parseCode(code) {
@@ -68,6 +69,18 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
   }
 }
 
+function consolidateBinaryExpression(path) {
+  const { left, right, operator } = path
+  if (operator !== '+') {
+    throw Error(`unsupported operator ${operator}`)
+  }
+
+  if (left.type === 'BinaryExpression') {
+    return `${consolidateBinaryExpression(left)} ${operator} ${right.value}`
+  }
+  return `${left.value} ${operator} ${right.value}`
+}
+
 function visitConstantClass(path, componentClassPrefix, onClass) {
   // if the export is a constant declaration and the name of the constant starts with css
   // then replace the values with some component classes
@@ -86,20 +99,31 @@ function visitConstantClass(path, componentClassPrefix, onClass) {
             : null
         if (!varName) return false
 
-        const typeToTest =
-          init?.type === 'TSAsExpression' ? init.expression.type : init?.type
-
         const pathToVisit =
           init?.type === 'TSAsExpression' ? init.expression : init
 
-        if (typeToTest === 'StringLiteral') {
+        if (pathToVisit.type === 'StringLiteral') {
           onClass(
             makeClassName(`${componentClassPrefix}-${varName}`),
             pathToVisit.value,
             pathToVisit,
           )
         }
-        if (typeToTest === 'ObjectExpression') {
+
+        if (pathToVisit.type === 'BinaryExpression') {
+          const binaryExpressionString =
+            consolidateBinaryExpression(pathToVisit)
+
+          declaration.init = t.stringLiteral(binaryExpressionString)
+
+          onClass(
+            makeClassName(`${componentClassPrefix}-${varName}`),
+            binaryExpressionString,
+            declaration.init,
+          )
+        }
+
+        if (pathToVisit.type === 'ObjectExpression') {
           visitConstantClassProperty(
             pathToVisit,
             `${componentClassPrefix}-${varName}`,
