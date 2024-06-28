@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import { variants, Tab } from './constants'
+import { CssVariants, Tab } from './constants'
 
 const tabs = [
   { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
@@ -13,7 +13,7 @@ export default function assertions(
   mountStory: (options?: {
     tabs: Tab[]
     activeId?: string
-    variant?: keyof typeof variants
+    variant?: keyof typeof CssVariants
     onSwitch?: (tab: Tab) => void | boolean
   }) => void,
 ): void {
@@ -73,12 +73,12 @@ export default function assertions(
       cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
     })
 
-    Object.keys(variants).forEach((variant) => {
+    Object.keys(CssVariants).forEach((variant) => {
       it(`renders ${variant}`, () => {
         mountStory({
           tabs,
           activeId: 'ov',
-          variant: variant as keyof typeof variants,
+          variant: variant as keyof typeof CssVariants,
         })
       })
     })

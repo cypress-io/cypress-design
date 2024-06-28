@@ -53,7 +53,7 @@ export class SwitchEvent {
   }
 }
 
-export const variants = {
+export const CssVariants = {
   default: {
     classes: {
       wrapper:
