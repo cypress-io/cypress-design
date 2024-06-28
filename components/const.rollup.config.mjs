@@ -46,6 +46,7 @@ function visitConstantClassProperty(path, componentClassPrefix, onClass) {
         visitConstantClassProperty(
           value,
           `${componentClassPrefix}-${key.name.toLowerCase()}`,
+          onClass,
         )
       }
     }
@@ -96,7 +97,9 @@ function MakeTailwindComponentPluginRollupPlugin() {
       visit(ast, {
         visitExportNamedDeclaration(path) {
           visitConstantClass(path, componentClassPrefix, (key, value) => {
-            componentClassesDefinitions[key] = { '@apply': value }
+            if (value.length) {
+              componentClassesDefinitions[key] = { '@apply': value }
+            }
           })
           return false
         },
@@ -104,7 +107,11 @@ function MakeTailwindComponentPluginRollupPlugin() {
 
       return {
         code: `export default function plugin({ addComponents }) {
-  addComponents(${JSON.stringify(componentClassesDefinitions, null, 2)})
+  ${
+    Object.keys(componentClassesDefinitions).length
+      ? `addComponents(${JSON.stringify(componentClassesDefinitions, null, 2)})`
+      : ''
+  }
 }`,
       }
     },
@@ -120,13 +127,21 @@ function ComponentClassesRollupPlugin() {
     transform(code, id) {
       const pathArray = id.split('/')
 
-      const componentClassPrefix = `cyds-${pathArray[pathArray.indexOf('constants') - 1].toLowerCase()}`
+      const componentName = pathArray[pathArray.indexOf('constants') - 1]
+
+      if (!componentName) {
+        return { code }
+      }
+
+      const componentClassPrefix = `cyds-${componentName.toLowerCase()}`
       const ast = parseCode(code)
 
       visit(ast, {
         visitExportNamedDeclaration(path) {
-          visitConstantClass(path, componentClassPrefix, (key, _, init) => {
-            init.value = key
+          visitConstantClass(path, componentClassPrefix, (key, value, init) => {
+            if (value.length) {
+              init.value = key
+            }
           })
           return false
         },

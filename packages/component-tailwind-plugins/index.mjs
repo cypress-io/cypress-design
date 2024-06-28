@@ -1,3 +1,4 @@
+import plugin from 'tailwindcss/plugin'
 import Accordion from '@cypress-design/constants-accordion/tailwind'
 import Alert from '@cypress-design/constants-alert/tailwind'
 import Button from '@cypress-design/constants-button/tailwind'
@@ -12,18 +13,18 @@ import Tag from '@cypress-design/constants-tag/tailwind'
 import TestResult from '@cypress-design/constants-testresult/tailwind'
 
 const componentPlugins = [
-  Accordion,
-	Alert,
-	Button,
-	Checkbox,
-	DocMenu,
-	Menu,
-	Modal,
-	Spinner,
-	StatusIcon,
-	Tabs,
-	Tag,
-	TestResult
+  plugin(Accordion),
+	plugin(Alert),
+	plugin(Button),
+	plugin(Checkbox),
+	plugin(DocMenu),
+	plugin(Menu),
+	plugin(Modal),
+	plugin(Spinner),
+	plugin(StatusIcon),
+	plugin(Tabs),
+	plugin(Tag),
+	plugin(TestResult)
 ]
   
 export default componentPlugins
