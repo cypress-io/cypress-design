@@ -249,7 +249,12 @@ const iconProps = computed(() => {
           class="mr-[8px]"
         />
         {{ label }}
-        <div v-if="tag" :class="classes.tag">{{ tag }}</div>
+        <div
+          v-if="tag"
+          :class="{ [classes.tag]: true, [classes.tagActive]: id === activeId }"
+        >
+          {{ tag }}
+        </div>
         <component
           :is="iconAfter"
           v-if="iconAfter"

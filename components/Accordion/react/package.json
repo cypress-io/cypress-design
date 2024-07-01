@@ -20,12 +20,12 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-accordion": "*",
     "@cypress-design/details-animation": "*",
     "@cypress-design/react-icon": "*",
     "clsx": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-accordion": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

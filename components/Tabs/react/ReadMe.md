@@ -47,7 +47,7 @@ export default () => {
   return (
     <div>
       <Tabs activeId={activeId} tabs={tabs} />
-      {tabs.map(({ id, ...rest }, i) => (
+      {tabs.map(({ id: tabId, ...rest }, i) => (
         <div
           key={i}
           role="tabpanel"
@@ -67,6 +67,7 @@ import { useState } from 'react'
 import { IconActionPlayVideo } from '@cypress-design/react-icon'
 
 export default () => {
+  const activeId = 'ov'
   const [allowMove, setAllowMove] = useState(true)
   const tabs = [
     { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
@@ -95,19 +96,19 @@ export default () => {
           id="allow-move"
           type="checkbox"
           onClick={() => setAllowMove(!allowMove)}
-          checked={allowMove}
-          class="mr-2"
+          defaultChecked={allowMove}
+          className="mr-2"
         />
-        <label for="allow-move">allow tab move</label>
+        <label htmlFor="allow-move">allow tab move</label>
       </fieldset>
       <Tabs
-        activeId="ov"
+        activeId={activeId}
         tabs={tabs}
         onSwitch={(_, e) => {
           if (!allowMove) e.preventDefault()
         }}
       />
-      {tabs.map(({ id, ...rest }, i) => (
+      {tabs.map(({ id: tabId, ...rest }, i) => (
         <div
           key={i}
           role="tabpanel"

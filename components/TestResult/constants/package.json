@@ -12,7 +12,7 @@
       "types": "./dist/index.d.ts"
     }
   },
-  "dependencies": {
+  "devDependencies": {
     "@cypress-design/constants-statusicon": "*"
   },
   "scripts": {
