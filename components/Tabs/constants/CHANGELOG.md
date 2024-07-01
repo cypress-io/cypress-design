@@ -1,5 +1,11 @@
 # @cypress-design/constants-tabs
 
+## 1.1.0
+
+### Minor Changes
+
+- [#454](https://github.com/cypress-io/cypress-design/pull/454) [`48a3f6c`](https://github.com/cypress-io/cypress-design/commit/48a3f6cc5957844de2a5164137a8cedc31abe673) Thanks [@elevatebart](https://github.com/elevatebart)! - make using normalize unnecessary
+
 ## 1.0.0
 
 ### Major Changes
