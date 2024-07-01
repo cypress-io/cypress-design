@@ -72,6 +72,7 @@ export const variants = {
       activeMarkerStatic:
         'bg-indigo-500 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
       tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-500 text-[12px] leading-[16px]',
+      tagActive: '!text-black',
     },
     icon: {
       size: '16',
@@ -95,6 +96,7 @@ export const variants = {
       activeMarkerStatic:
         'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
       tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-200 text-[12px] leading-[16px]',
+      tagActive: '',
     },
     icon: {
       size: '16',
@@ -118,6 +120,7 @@ export const variants = {
       activeMarkerStatic:
         'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
       tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-200 text-[12px] leading-[16px]',
+      tagActive: '',
     },
     icon: {
       size: '16',
@@ -142,6 +145,7 @@ export const variants = {
       activeMarkerStatic:
         'absolute bg-indigo-500 rounded-full right-0 left-0 bottom-[-6.5px] h-[4px]',
       tag: 'ml-[8px] px-[4px] bg-gray-200/20 rounded text-gray-500 text-[12px] leading-[16px]',
+      tagActive: '',
     },
     icon: {
       size: '16',
@@ -168,6 +172,7 @@ export const variants = {
       activeMarkerStatic:
         'absolute bg-indigo-500 rounded-full right-0 left-0 bottom-[-6.5px] h-[4px]',
       tag: 'ml-[8px] px-[4px] bg-indigo-300/20 rounded text-gray-500 text-[12px] leading-[16px]',
+      tagActive: '',
     },
     icon: {
       size: '16',
@@ -192,6 +197,7 @@ export const variants = {
       activeMarkerStatic:
         'absolute bg-indigo-500 rounded-full right-0 left-0 bottom-[-6.5px] h-[4px]',
       tag: 'ml-[8px] px-[4px] bg-gray-100/50 rounded text-gray-500',
+      tagActive: '',
     },
     icon: {
       size: '24',
