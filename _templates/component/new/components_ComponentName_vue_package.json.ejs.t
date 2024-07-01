@@ -23,7 +23,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "devDependencies": {
-    "@cypress-design/constants-<%= name.toLowerCase() %>": "*"
+    "@cypress-design/constants-<%= name.toLowerCase() %>": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
