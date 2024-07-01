@@ -1,5 +1,11 @@
 # @cypress-design/react-docmenu
 
+## 1.0.2
+
+### Patch Changes
+
+- [#454](https://github.com/cypress-io/cypress-design/pull/454) [`48a3f6c`](https://github.com/cypress-io/cypress-design/commit/48a3f6cc5957844de2a5164137a8cedc31abe673) Thanks [@elevatebart](https://github.com/elevatebart)! - make sure the constant packages roll up in the react components for tailwind class detection
+
 ## 1.0.1
 
 ### Patch Changes
