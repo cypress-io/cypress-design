@@ -11,5 +11,5 @@ export default rootRollupConfig({
       use: ['sass'],
     }),
   ],
-  external: Object.keys(pkg.dependencies),
+  external: Object.keys(pkg.dependencies || {}),
 })

@@ -19,10 +19,8 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
-  "dependencies": {
-    "@cypress-design/constants-menu": "*"
-  },
   "devDependencies": {
+    "@cypress-design/constants-menu": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "@cypress-design/vue-icon": "*"
   },

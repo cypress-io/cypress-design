@@ -16,7 +16,7 @@
       "import": "./dist/tailwind-plugin.es.mjs"
     }
   },
-  "dependencies": {
+  "devDependencies": {
     "@cypress-design/constants-statusicon": "*"
   },
   "scripts": {

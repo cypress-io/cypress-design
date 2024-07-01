@@ -20,10 +20,10 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-tabs": "*",
     "clsx": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-tabs": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

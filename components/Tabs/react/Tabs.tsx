@@ -181,7 +181,16 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                   ) : null
                 })()}
                 {label}
-                {tag ? <div className={classes.tag}>{tag}</div> : null}
+                {tag ? (
+                  <div
+                    className={clsx(
+                      classes.tag,
+                      id === activeId ? classes.tagActive : null,
+                    )}
+                  >
+                    {tag}
+                  </div>
+                ) : null}
                 {IconAfter ? (
                   <IconAfter {...iconProps} className="ml-[8px]" />
                 ) : null}
