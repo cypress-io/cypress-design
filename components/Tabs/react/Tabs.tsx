@@ -179,10 +179,11 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
                 {label}
                 {tag ? (
                   <div
-                    className={clsx(
-                      classes.tag,
-                      id === activeId ? classes.tagActive : null,
-                    )}
+                    className={
+                      id === activeId && classes.tagActive.length
+                        ? classes.tagActive
+                        : classes.tag
+                    }
                   >
                     {tag}
                   </div>

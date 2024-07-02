@@ -251,7 +251,11 @@ const iconProps = computed(() => {
         {{ label }}
         <div
           v-if="tag"
-          :class="{ [classes.tag]: true, [classes.tagActive]: id === activeId }"
+          :class="
+            id === activeId && classes.tagActive.length
+              ? classes.tagActive
+              : classes.tag
+          "
         >
           {{ tag }}
         </div>
