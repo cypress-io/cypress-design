@@ -105,7 +105,7 @@ export const Modal: React.FC<ModalProps> = ({
           <div className="grow" />
           <button
             aria-label="Close"
-            className={ClassCloseButton}
+            className={`${ClassCloseButton} group`}
             onClick={() => onClose?.()}
           >
             <IconActionDelete

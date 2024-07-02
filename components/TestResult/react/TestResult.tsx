@@ -1,7 +1,7 @@
 import * as React from 'react'
 import clsx from 'clsx'
 import {
-  classes,
+  CssClasses,
   type TestResultData,
 } from '@cypress-design/constants-testresult'
 import { SolidStatusIcon } from '@cypress-design/react-statusicon'
@@ -34,35 +34,35 @@ export const TestResult: React.FC<
     <div
       data-cy="cd-tr-container"
       {...rest}
-      className={clsx(classes.container, className)}
+      className={clsx(CssClasses.container, className)}
     >
-      <div data-cy="cd-tr-row" className={classes.row}>
-        <div data-cy="cd-tr-list" className={classes.list}>
-          <div data-cy="cd-tr-icon" className={classes.icon}>
+      <div data-cy="cd-tr-row" className={CssClasses.row}>
+        <div data-cy="cd-tr-list" className={CssClasses.list}>
+          <div data-cy="cd-tr-icon" className={CssClasses.icon}>
             <SolidStatusIcon
               size="16"
               status={status}
-              className={classes.status_icon}
+              className={CssClasses.status_icon}
             />
           </div>
           <div
             data-cy="cd-tr-name-container-column"
-            className={classes.name.container.column}
+            className={CssClasses.name.container.column}
           >
             {names.slice(0, -1).length > 0 && (
               <div
                 data-cy="cd-tr-name-container-describes"
-                className={classes.name.container.describes}
+                className={CssClasses.name.container.describes}
               >
                 {names.slice(0, -1).map((name, index) => (
                   <React.Fragment key={index}>
                     <div
                       data-cy="cd-tr-name-item"
                       className={clsx({
-                        [classes.name.item.base]: true,
-                        [classes.name.item.first]:
+                        [CssClasses.name.item.base]: true,
+                        [CssClasses.name.item.first]:
                           names.length >= 2 && index === 0,
-                        [classes.name.item.middle]:
+                        [CssClasses.name.item.middle]:
                           names.length >= 2 &&
                           index > 0 &&
                           index < names.length - 1,
@@ -70,7 +70,7 @@ export const TestResult: React.FC<
                     >
                       <span
                         data-cy="cd-tr-name-item-text"
-                        className={classes.name.item.text.base}
+                        className={CssClasses.name.item.text.base}
                       >
                         {name}
                       </span>
@@ -78,7 +78,7 @@ export const TestResult: React.FC<
                     {index < names.length - 1 && (
                       <div
                         data-cy="cd-tr-chevron"
-                        className={classes.chevron.container}
+                        className={CssClasses.chevron.container}
                       >
                         <IconChevronRightSmall
                           strokeColor="gray-200"
@@ -92,13 +92,13 @@ export const TestResult: React.FC<
             )}
             <div
               data-cy="cd-tr-name-container-it"
-              className={classes.name.container.it}
+              className={CssClasses.name.container.it}
             >
               <span
                 data-cy="cd-tr-name-item-text"
                 className={[
-                  classes.name.item.text.base,
-                  classes.name.item.text.it,
+                  CssClasses.name.item.text.base,
+                  CssClasses.name.item.text.it,
                 ].join(' ')}
               >
                 {names.at(-1)}
@@ -106,7 +106,7 @@ export const TestResult: React.FC<
               {(flaky || modified || added) && (
                 <div
                   data-cy="cd-tr-attributes"
-                  className={classes.attribute.container}
+                  className={CssClasses.attribute.container}
                 >
                   {flaky && <IconStatusFlaky data-cy="cd-tr-flaky" />}
                   {modified && (
@@ -120,7 +120,10 @@ export const TestResult: React.FC<
             </div>
           </div>
           {children ? (
-            <div data-cy="cd-tr-actions" className={classes.button.container}>
+            <div
+              data-cy="cd-tr-actions"
+              className={CssClasses.button.container}
+            >
               {children}
             </div>
           ) : null}
@@ -128,7 +131,7 @@ export const TestResult: React.FC<
         {groups ? (
           <div
             data-cy="cd-tr-group-container"
-            className={classes.group.container}
+            className={CssClasses.group.container}
           >
             {groups}
           </div>

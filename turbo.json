@@ -2,7 +2,9 @@
   "$schema": "https://turborepo.org/schema.json",
   "globalDependencies": [
     "tsconfig.json",
-    "tsconfig.*.json"
+    "tsconfig.*.json",
+    "components/*.rollup.config.mjs",
+    "components/*.vite.config.ts"
   ],
   "tasks": {
     "build": {

@@ -1,12 +1,12 @@
 <script lang="ts">
 import { PropType, SlotsType, computed, defineComponent } from 'vue'
 import {
-  VariantClassesTable,
-  SizeClassesTable,
-  StaticClasses,
   DefaultSize,
   DefaultVariant,
-  SizeClassesTableSquare,
+  CssVariantClassesTable,
+  CssSizeClassesTable,
+  CssStaticClasses,
+  CssSizeClassesTableSquare,
 } from '@cypress-design/constants-button'
 
 import type { ButtonProps } from '@cypress-design/constants-button'
@@ -65,16 +65,16 @@ export default defineComponent({
     )
 
     const variantClasses = computed(
-      () => VariantClassesTable[finalVariant.value],
+      () => CssVariantClassesTable[finalVariant.value],
     )
 
     const sizeClasses = computed(() => [
-      SizeClassesTable[props.size],
-      SizeClassesTableSquare[props.size][props.square ? 'square' : 'wide'],
+      CssSizeClassesTable[props.size],
+      CssSizeClassesTableSquare[props.size][props.square ? 'square' : 'wide'],
     ])
 
     const allClasses = computed(() => [
-      StaticClasses,
+      CssStaticClasses,
       variantClasses.value,
       sizeClasses.value,
     ])

@@ -2,7 +2,10 @@ import clsx from 'clsx'
 import * as React from 'react'
 import type { FunctionComponent, HTMLProps, ReactNode } from 'react'
 import { IconCheckmarkSmall } from '@cypress-design/react-icon'
-import { CheckboxColors, Classes } from '@cypress-design/constants-checkbox'
+import {
+  CssCheckboxColors,
+  CssClasses,
+} from '@cypress-design/constants-checkbox'
 
 export interface CheckboxProps
   extends Omit<HTMLProps<HTMLDivElement>, 'label' | 'onChange' | 'name'> {
@@ -61,10 +64,10 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   }
 
   return (
-    <span className={clsx(className, Classes.wrapper)} {...rest}>
+    <span className={clsx(className, CssClasses.wrapper)} {...rest}>
       <input
         id={id}
-        className={Classes.hiddenInput}
+        className={CssClasses.hiddenInput}
         aria-describedby={`${id}-description`}
         name={name || id}
         type="checkbox"
@@ -72,26 +75,26 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         disabled={disabled}
         checked={localChecked}
       />
-      <label className={Classes.labelTag} htmlFor={id}>
+      <label className={CssClasses.labelTag} htmlFor={id}>
         {localChecked && (
           // <tw-keep strokeColor="white"/>
           <IconCheckmarkSmall strokeColor="white" className="absolute" />
         )}
         <span
           className={clsx([
-            Classes.visibleCheckbox,
+            CssClasses.visibleCheckbox,
             disabled
-              ? CheckboxColors.disabled
+              ? CssCheckboxColors.disabled
               : localChecked
-                ? CheckboxColors[color]
-                : CheckboxColors.empty,
+                ? CssCheckboxColors[color]
+                : CssCheckboxColors.empty,
           ])}
         />
         {label && (
           <span
             className={clsx([
               disabled ? 'text-gray-500' : 'text-gray-800',
-              Classes.trueLabel,
+              CssClasses.trueLabel,
             ])}
           >
             {label}

@@ -10,12 +10,12 @@ import {
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import {
   AlertSize,
-  alertSizesClasses,
+  CssAlertSizesClasses,
   AlertVariant,
   defaultAlertSize,
   defaultAlertTitle,
   defaultAlertVariant,
-  alertClasses,
+  CssAlertClasses,
 } from '@cypress-design/constants-alert'
 
 const dismissed = ref(false)
@@ -81,7 +81,7 @@ const detailsRef = ref(null)
 const contentRef = ref(null)
 
 const variantClasses = computed(() => {
-  return alertClasses[variant.value] ?? {}
+  return CssAlertClasses[variant.value] ?? {}
 })
 
 let timeout: number | undefined
@@ -136,7 +136,7 @@ const icon: ComputedRef<FunctionalComponent | null> = computed(() => {
 })
 
 const sizeClasses = computed(() => {
-  return alertSizesClasses[props.size] ?? {}
+  return CssAlertSizesClasses[props.size] ?? {}
 })
 </script>
 

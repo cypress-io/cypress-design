@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import {
-  classes,
+  CssClasses,
   type TestResultData,
 } from '@cypress-design/constants-testresult'
 import { SolidStatusIcon } from '@cypress-design/vue-statusicon'
@@ -21,47 +21,48 @@ const emit = defineEmits<{
 <template>
   <div
     data-cy="cd-tr-container"
-    :class="classes.container"
+    :class="CssClasses.container"
     @click="(e) => emit('click', e)"
   >
-    <div data-cy="cd-tr-row" :class="classes.row">
-      <div data-cy="cd-tr-list" :class="classes.list">
-        <div data-cy="cd-tr-icon" :class="classes.icon">
+    <div data-cy="cd-tr-row" :class="CssClasses.row">
+      <div data-cy="cd-tr-list" :class="CssClasses.list">
+        <div data-cy="cd-tr-icon" :class="CssClasses.icon">
           <SolidStatusIcon
             size="16"
             :status="status"
-            :class="classes.status_icon"
+            :class="CssClasses.status_icon"
           />
         </div>
         <div
           data-cy="cd-tr-name-container-column"
-          :class="classes.name.container.column"
+          :class="CssClasses.name.container.column"
         >
           <div
             v-if="names.slice(0, -1).length > 0"
             data-cy="cd-tr-name-container-describes"
-            :class="classes.name.container.describes"
+            :class="CssClasses.name.container.describes"
           >
             <template v-for="(name, index) in names.slice(0, -1)" :key="index">
               <div
                 data-cy="cd-tr-name-item"
                 :class="{
-                  [classes.name.item.base]: true,
-                  [classes.name.item.first]: names.length >= 2 && index === 0,
-                  [classes.name.item.middle]:
+                  [CssClasses.name.item.base]: true,
+                  [CssClasses.name.item.first]:
+                    names.length >= 2 && index === 0,
+                  [CssClasses.name.item.middle]:
                     names.length >= 2 && index > 0 && index < names.length - 1,
                 }"
               >
                 <span
                   data-cy="cd-tr-name-item-text"
-                  :class="classes.name.item.text.base"
+                  :class="CssClasses.name.item.text.base"
                   >{{ name }}</span
                 >
               </div>
               <div
                 v-if="index < names.length - 1"
                 data-cy="cd-tr-chevron"
-                :class="classes.chevron.container"
+                :class="CssClasses.chevron.container"
               >
                 <IconChevronRightSmall
                   stroke-color="gray-200"
@@ -72,18 +73,21 @@ const emit = defineEmits<{
           </div>
           <div
             data-cy="cd-tr-name-container-it"
-            :class="classes.name.container.it"
+            :class="CssClasses.name.container.it"
           >
             <span
               data-cy="cd-tr-name-item-text"
-              :class="[classes.name.item.text.base, classes.name.item.text.it]"
+              :class="[
+                CssClasses.name.item.text.base,
+                CssClasses.name.item.text.it,
+              ]"
             >
               {{ names.at(-1) }}
             </span>
             <div
               v-if="flaky || modified || added"
               data-cy="cd-tr-attributes"
-              :class="classes.attribute.container"
+              :class="CssClasses.attribute.container"
             >
               <IconStatusFlaky v-if="flaky" data-cy="cd-tr-flaky" />
               <IconDocumentModifiedSquareDot
@@ -97,7 +101,7 @@ const emit = defineEmits<{
         <div
           v-if="$slots.actions"
           data-cy="cd-tr-actions"
-          :class="classes.button.container"
+          :class="CssClasses.button.container"
         >
           <slot name="actions" />
         </div>
@@ -105,7 +109,7 @@ const emit = defineEmits<{
       <div
         v-if="$slots.groups?.() !== undefined"
         data-cy="cd-tr-group-container"
-        :class="classes.group.container"
+        :class="CssClasses.group.container"
       >
         <slot name="groups" />
       </div>

@@ -7,14 +7,15 @@ export type AlertVariant =
   | 'warning'
   | 'neutral'
   | 'clear'
-export const alertSizesClasses = {
+
+export const CssAlertSizesClasses = {
   xs: 'py-[4px] px-[8px] leading-[22px] text-[14px]',
   sm: 'py-[8px] px-[12px] leading-[22px] text-[14px]',
   md: 'py-[12px] px-[16px] leading-[24px] text-[16px]',
   lg: 'p-[16px] leading-[24px] text-[16px]',
 } as const
 
-export type AlertSize = keyof typeof alertSizesClasses
+export type AlertSize = keyof typeof CssAlertSizesClasses
 export const defaultAlertSize: AlertSize = 'lg'
 
 export type AlertClasses = {
@@ -28,7 +29,7 @@ export type AlertClasses = {
   iconChevronColor: WindiColor
 }
 
-export const alertClasses: Record<AlertVariant, AlertClasses> = {
+export const CssAlertClasses: Record<AlertVariant, AlertClasses> = {
   neutral: {
     headerClass: 'text-gray-800 bg-gray-100',
     bodyClass: 'bg-gray-50 text-gray-500',

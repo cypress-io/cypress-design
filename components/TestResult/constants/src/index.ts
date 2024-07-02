@@ -1,6 +1,6 @@
 import { type statusTypes } from '@cypress-design/constants-statusicon'
 
-export const classes = {
+export const CssClasses = {
   container:
     'box-border relative hover:z-10 hover:outline outline-[3px] outline-gray-50 transition-all rounded-[1px] mix-blend-darken @container/test-result my-[-1px]',
   row: 'box-border flex flex-col flex-nowrap items-stretch gap-y-[16px] p-[11px] border border-gray-100 hover:border-gray-300 transition-all cursor-pointer justify-start items-center @xl/test-result:px-[15px]',

@@ -9,12 +9,12 @@ import {
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import {
   AlertSize,
-  alertSizesClasses,
+  CssAlertSizesClasses,
   AlertVariant,
   defaultAlertSize,
   defaultAlertTitle,
   defaultAlertVariant,
-  alertClasses,
+  CssAlertClasses,
 } from '@cypress-design/constants-alert'
 
 export interface AlertProps {
@@ -94,8 +94,8 @@ export const Alert: React.FC<
   ...rest
 }) => {
   variant = variant ?? type
-  const variantClasses = alertClasses[variant] ?? {}
-  const sizeClasses = alertSizesClasses[size] ?? {}
+  const variantClasses = CssAlertClasses[variant] ?? {}
+  const sizeClasses = CssAlertSizesClasses[size] ?? {}
   const Icon =
     customIcon ??
     (variant === 'error'

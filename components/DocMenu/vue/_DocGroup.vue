@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, type DefineComponent, ref, watch, inject } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
-import { NavGroup, classes } from '@cypress-design/constants-docmenu'
+import { NavGroup, CssClasses } from '@cypress-design/constants-docmenu'
 import DocGroupElements, {
   hasActiveItemRecursively,
   type DocGroupEventsEmitted,
@@ -83,10 +83,10 @@ defineExpose({
   <component
     :is="Head"
     :class="[
-      classes.button,
+      CssClasses.button,
       {
-        [classes.topButton]: depth === 0,
-        [classes.leafButton]: depth,
+        [CssClasses.topButton]: depth === 0,
+        [CssClasses.leafButton]: depth,
         'text-indigo-500 dark:text-indigo-400': active,
         'text-gray-900 dark:text-gray-100': hasActiveItem && !active,
         'text-gray-800 dark:text-gray-200': !hasActiveItem && !active,
@@ -111,7 +111,7 @@ defineExpose({
       stroke-color="current"
       :size="depth ? '8' : '16'"
       :class="[
-        classes.expandedIcon,
+        CssClasses.expandedIcon,
         {
           'rotate-0': open,
           '-rotate-90': !open,
@@ -146,7 +146,7 @@ defineExpose({
   >
     <div
       v-if="open && collapsible && depth === 0"
-      :class="classes.openListBorderLeft"
+      :class="CssClasses.openListBorderLeft"
     />
     <DocGroupElements
       ref="$groupElements"

@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react18'
 import Tabs from './Tabs'
-import type { SwitchEvent, Tab, variants } from '../constants'
+import type { SwitchEvent, Tab, CssVariants } from '../constants'
 import assertions from '../assertions'
 
 describe('Tabs', () => {
@@ -11,7 +11,7 @@ describe('Tabs', () => {
     options: {
       tabs: Tab[]
       activeId?: string
-      variant?: keyof typeof variants
+      variant?: keyof typeof CssVariants
       onSwitch?: (tab: Tab, event: SwitchEvent) => void
       [key: `data-${string}`]: any
     } = { tabs: [] },

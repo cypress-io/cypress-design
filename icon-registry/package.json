@@ -22,7 +22,7 @@
     "src/index.ts"
   ],
   "dependencies": {
-    "@cypress-design/css": "*"
+    "@cypress-design/color-constants": "*"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.12",
