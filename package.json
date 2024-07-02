@@ -27,8 +27,9 @@
     "docs": "yarn start",
     "start": "NODE_ENV=development concurrently -n const,icons,docgen,vitepress,cleanup \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\" \"node ./scripts/clean-component-docs.mjs\"",
     "build:docs": "node scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
-    "postinstall": "yarn husky install && node scripts/capitalize-icon.mjs && yarn build:components",
-    "new:component": "hygen component new"
+    "postinstall": "node scripts/capitalize-icon.mjs && yarn build:components",
+    "new:component": "hygen component new",
+    "prepare": "husky"
   },
   "dependencies": {
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.1",
@@ -41,8 +42,8 @@
     "@cypress-design/vue-docmenu": "*",
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-tooltip": "*",
-    "@eslint/js": "^9.4.0",
     "@eslint/compat": "^1.0.3",
+    "@eslint/js": "^9.4.0",
     "@percy/cli": "1.28.7",
     "@percy/cypress": "3.1.2",
     "@rollup/plugin-commonjs": "^25.0.8",
