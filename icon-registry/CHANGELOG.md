@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.2.1
+
+### Patch Changes
+
+- [`ae286cf`](https://github.com/cypress-io/cypress-design/commit/ae286cf6ac2cd707fa384c62de71444cdfa6b99e) Thanks [@elevatebart](https://github.com/elevatebart)! - added globe tested and untested icons
+
 ## 1.2.0
 
 ### Minor Changes

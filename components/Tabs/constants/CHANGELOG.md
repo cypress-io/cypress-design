@@ -1,5 +1,14 @@
 # @cypress-design/constants-tabs
 
+## 1.2.1
+
+### Patch Changes
+
+- [`c01fce7`](https://github.com/cypress-io/cypress-design/commit/c01fce74816ce553657dd4feb693e253a26c867a) Thanks [@elevatebart](https://github.com/elevatebart)! - fix margin and colors of tabs
+
+- Updated dependencies [[`ae286cf`](https://github.com/cypress-io/cypress-design/commit/ae286cf6ac2cd707fa384c62de71444cdfa6b99e)]:
+  - @cypress-design/icon-registry@1.2.1
+
 ## 1.2.0
 
 ### Minor Changes

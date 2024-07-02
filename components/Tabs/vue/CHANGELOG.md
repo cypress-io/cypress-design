@@ -1,5 +1,11 @@
 # @cypress-design/vue-tabs
 
+## 1.2.1
+
+### Patch Changes
+
+- [`c01fce7`](https://github.com/cypress-io/cypress-design/commit/c01fce74816ce553657dd4feb693e253a26c867a) Thanks [@elevatebart](https://github.com/elevatebart)! - fix margin and colors of tabs
+
 ## 1.2.0
 
 ### Minor Changes
