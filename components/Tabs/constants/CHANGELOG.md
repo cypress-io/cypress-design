@@ -1,5 +1,17 @@
 # @cypress-design/constants-tabs
 
+## 1.2.0
+
+### Minor Changes
+
+- [`477d868`](https://github.com/cypress-io/cypress-design/commit/477d8684260cff6cb675ba0b5bc18d5cf7ff4afe) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add `indigo-light` variant for tabs
+
+## 1.1.0
+
+### Minor Changes
+
+- [#454](https://github.com/cypress-io/cypress-design/pull/454) [`48a3f6c`](https://github.com/cypress-io/cypress-design/commit/48a3f6cc5957844de2a5164137a8cedc31abe673) Thanks [@elevatebart](https://github.com/elevatebart)! - make using normalize unnecessary
+
 ## 1.0.0
 
 ### Major Changes

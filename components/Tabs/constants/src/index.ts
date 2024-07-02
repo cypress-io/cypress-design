@@ -72,7 +72,33 @@ export const CssVariants = {
       activeMarkerStatic:
         'bg-indigo-500 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
       tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-500 text-[12px] leading-[16px]',
-      tagActive: '!text-black',
+      tagActive:
+        'ml-[8px] px-[4px] bg-gray-200/30 rounded text-black text-[12px] leading-[16px]',
+    },
+    icon: {
+      size: '16',
+      // <wind-keep fillColor="transparent"/>
+      fillColor: 'transparent',
+    } satisfies IconProps,
+  },
+  'indigo-light': {
+    classes: {
+      wrapper:
+        'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
+      button:
+        'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
+      active: 'text-indigo-500 relative z-20',
+      activeStatic: '',
+      inActive: 'hover:bg-indigo-100',
+      activeMarker:
+        'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
+      activeMarkerColor: 'z-10 bg-indigo-100',
+      activeMarkerBlender: 'z-30 mix-blend-overlay pointer-events-none',
+      activeMarkerStatic:
+        'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
+      tag: 'ml-[8px] px-[4px] bg-indigo-200/30 rounded text-gray-500 text-[12px] leading-[16px]',
+      tagActive:
+        'ml-[8px] px-[4px] bg-indigo-300/30 rounded text-indigo-500 text-[12px] leading-[16px]',
     },
     icon: {
       size: '16',

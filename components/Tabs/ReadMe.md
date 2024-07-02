@@ -16,7 +16,7 @@ const demoTabsLarge = [
     { id: 'reco', label: 'Recommendations', ['aria-controls']: 'tabpanel-id-4' },
   ]
 
-const types = ['default', 'dark-small', 'dark-large', 'underline-small', 'underline-center', 'underline-large']
+const types = ['default', 'indigo-light', 'dark-small', 'dark-large', 'underline-small', 'underline-center', 'underline-large']
 </script>
 
 # Tabs
