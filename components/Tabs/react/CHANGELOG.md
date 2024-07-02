@@ -1,5 +1,11 @@
 # @cypress-design/react-tabs
 
+## 1.2.0
+
+### Minor Changes
+
+- [`477d868`](https://github.com/cypress-io/cypress-design/commit/477d8684260cff6cb675ba0b5bc18d5cf7ff4afe) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add `indigo-light` variant for tabs
+
 ## 1.1.0
 
 ### Minor Changes
