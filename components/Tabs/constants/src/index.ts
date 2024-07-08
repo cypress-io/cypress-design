@@ -57,7 +57,7 @@ export const CssVariants = {
   default: {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-100 bg-white text-gray-700 relative',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-black relative z-20',
@@ -71,7 +71,7 @@ export const CssVariants = {
         'z-30 bg-white mix-blend-difference pointer-events-none',
       activeMarkerStatic:
         'bg-indigo-500 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
-      tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-500 text-[12px] leading-[16px]',
+      tag: 'ml-[8px] px-[4px] bg-gray-200/30 rounded text-gray-700 text-[12px] leading-[16px]',
       tagActive:
         'ml-[8px] px-[4px] bg-gray-200/30 rounded text-black text-[12px] leading-[16px]',
     },
@@ -84,19 +84,19 @@ export const CssVariants = {
   'indigo-light': {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[8px] rounded border border-gray-100 bg-white text-gray-700 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-100 bg-white text-gray-700 relative',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-indigo-500 relative z-20',
       activeStatic: '',
-      inActive: 'hover:bg-indigo-100',
+      inActive: 'hover:bg-gray-50',
       activeMarker:
         'absolute bottom-[4px] top-[4px] rounded duration-300 ease-in-out',
       activeMarkerColor: 'z-10 bg-indigo-100',
       activeMarkerBlender: 'z-30 mix-blend-overlay pointer-events-none',
       activeMarkerStatic:
         'bg-gray-800 absolute -z-10 rounded right-0 left-0 bottom-0 top-0',
-      tag: 'ml-[8px] px-[4px] bg-indigo-200/30 rounded text-gray-500 text-[12px] leading-[16px]',
+      tag: 'ml-[8px] px-[4px] bg-indigo-200/30 rounded text-gray-700 text-[12px] leading-[16px]',
       tagActive:
         'ml-[8px] px-[4px] bg-indigo-300/30 rounded text-indigo-500 text-[12px] leading-[16px]',
     },
@@ -133,7 +133,7 @@ export const CssVariants = {
   'dark-large': {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[8px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-white relative z-20',
