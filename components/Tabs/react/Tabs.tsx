@@ -2,7 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import {
   Tab,
-  variants,
+  CssVariants,
   throttle,
   SwitchEvent,
 } from '@cypress-design/constants-tabs'
@@ -19,7 +19,7 @@ export interface TabsProps {
   /**
    * Appearance of tabs
    */
-  variant?: keyof typeof variants
+  variant?: keyof typeof CssVariants
   /**
    * Callback when tab is changed
    * use e.preventDefault() to prevent tab change
@@ -108,10 +108,14 @@ export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   }
 
   const classes =
-    variant in variants ? variants[variant].classes : variants.default.classes
+    variant in CssVariants
+      ? CssVariants[variant].classes
+      : CssVariants.default.classes
 
   const iconProps =
-    variant in variants ? variants[variant].icon : variants.default.icon
+    variant in CssVariants
+      ? CssVariants[variant].icon
+      : CssVariants.default.icon
 
   return (
     <div role="tablist" className={clsx(classes.wrapper, className)} {...rest}>

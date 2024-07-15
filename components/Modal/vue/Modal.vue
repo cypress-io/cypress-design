@@ -115,7 +115,7 @@ function closeOnClickBackdrop(event: MouseEvent) {
       <div class="grow" />
       <button
         aria-label="Close"
-        :class="ClassCloseButton"
+        :class="[ClassCloseButton, 'group']"
         @click="internalShow = false"
       >
         <IconActionDelete

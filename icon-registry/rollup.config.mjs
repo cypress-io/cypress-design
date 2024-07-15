@@ -1,7 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolvePlugin from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import pkg from './package.json' assert { type: 'json' }
 import * as url from 'url'
 import { resolve } from 'path'
 
@@ -30,5 +29,4 @@ export default {
       tsconfig: resolve(__dirname, './tsconfig.json'),
     }),
   ],
-  external: Object.keys(pkg.dependencies),
 }

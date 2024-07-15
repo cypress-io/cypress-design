@@ -12,7 +12,7 @@ import {
   SwitchEvent,
   Tab,
   throttle,
-  variants,
+  CssVariants,
 } from '@cypress-design/constants-tabs'
 
 const props = withDefaults(
@@ -28,7 +28,7 @@ const props = withDefaults(
     /**
      * Appearance of tabs
      */
-    variant?: keyof typeof variants
+    variant?: keyof typeof CssVariants
   }>(),
   {
     variant: 'default',
@@ -157,17 +157,17 @@ function navigate(shift: number) {
 }
 
 const classes = computed(() => {
-  if (props.variant in variants) {
-    return variants[props.variant].classes
+  if (props.variant in CssVariants) {
+    return CssVariants[props.variant].classes
   }
-  return variants.default.classes
+  return CssVariants.default.classes
 })
 
 const iconProps = computed(() => {
-  if (props.variant in variants) {
-    return variants[props.variant].icon
+  if (props.variant in CssVariants) {
+    return CssVariants[props.variant].icon
   }
-  return variants.default.icon
+  return CssVariants.default.icon
 })
 </script>
 

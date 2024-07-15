@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import {
   type NavGroup,
   type NavItemLink,
-  classes,
+  CssClasses,
 } from '@cypress-design/constants-docmenu'
 import {
   DocLink,
@@ -142,9 +142,9 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
         <Head
           onClick={() => toggleMenu(!open)}
           href={group.href}
-          className={clsx(classes.button, {
-            [classes.topButton]: depth === 0,
-            [classes.leafButton]: depth,
+          className={clsx(CssClasses.button, {
+            [CssClasses.topButton]: depth === 0,
+            [CssClasses.leafButton]: depth,
             'text-indigo-500 dark:text-indigo-400': activePath === group.href,
             'text-gray-900 dark:text-gray-100':
               hasActiveItemRecursivelyMemo && activePath !== group.href,
@@ -159,7 +159,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             <IconChevronDownSmall
               stroke-color="gray-400"
               size={depth ? '8' : '16'}
-              className={clsx(classes.expandedIcon, {
+              className={clsx(CssClasses.expandedIcon, {
                 'rotate-0': open,
                 '-rotate-90': !open,
               })}
@@ -185,7 +185,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
           onTransitionEnd={restoreActiveMarkerAfterTransition}
         >
           {open && collapsible && depth === 0 ? (
-            <div className={classes.openListBorderLeft} />
+            <div className={CssClasses.openListBorderLeft} />
           ) : null}
           <DocGroupElements
             ref={$groupElements}

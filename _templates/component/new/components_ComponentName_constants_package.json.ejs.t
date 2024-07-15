@@ -7,16 +7,20 @@ to: components/<%= h.inflection.camelize(name, false) %>/constants/package.json
   "files": [
     "*"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
+    },
+    "./tailwind": {
+      "import": "./dist/tailwind-plugin.es.mjs"
     }
   },
   "scripts": {
-    "build": "tsc --project ./tsconfig.json"
+    "build": "rollup -c ./rollup.config.mjs"
   },
   "license": "MIT"
 }

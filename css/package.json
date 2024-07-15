@@ -41,6 +41,7 @@
     "tailwindcss-hocus": "^0.0.7"
   },
   "devDependencies": {
+    "@cypress-design/color-constants": "*",
     "@types/lodash": "^4.17.4",
     "typescript": "5.4.5",
     "color-string": "1.9.1"
