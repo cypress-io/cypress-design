@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.2.3
+
+### Patch Changes
+
+- [`68fc5f5`](https://github.com/cypress-io/cypress-design/commit/68fc5f52f0fb7d518e49f95a377cc0cc947d944f) Thanks [@elevatebart](https://github.com/elevatebart)! - when different colors are available by size, typescript was returning a type error
+
+- Updated dependencies [[`68fc5f5`](https://github.com/cypress-io/cypress-design/commit/68fc5f52f0fb7d518e49f95a377cc0cc947d944f)]:
+  - @cypress-design/icon-registry@1.2.3
+
 ## 1.2.2
 
 ### Patch Changes
