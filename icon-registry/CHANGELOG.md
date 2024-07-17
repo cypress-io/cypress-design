@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.2.2
+
+### Patch Changes
+
+- [#458](https://github.com/cypress-io/cypress-design/pull/458) [`17459ca`](https://github.com/cypress-io/cypress-design/commit/17459ca7099c9e53ec003d8227ac5a64fc36d158) Thanks [@chrisbreiding](https://github.com/chrisbreiding)! - add untested link icon and update test/untested element icons
+
 ## 1.2.1
 
 ### Patch Changes

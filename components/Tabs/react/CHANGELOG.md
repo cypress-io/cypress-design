@@ -1,5 +1,11 @@
 # @cypress-design/react-tabs
 
+## 1.2.2
+
+### Patch Changes
+
+- [`8e45672`](https://github.com/cypress-io/cypress-design/commit/8e45672eefb86cbf0f4f883fd8c7faf61c5cd8c6) Thanks [@elevatebart](https://github.com/elevatebart)! - add constants as a dependency so we can check Tab types
+
 ## 1.2.1
 
 ### Patch Changes
