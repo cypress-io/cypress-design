@@ -214,14 +214,19 @@ async function generateIndex(iconsObjectUnique, iconsObject) {
       if (isUnique) {
         // prettier-ignore
         return dedent`
-       export interface ${icon.interfaceName}
-           extends ${['RootIconProps', ...ColorRoots.map(root =>
+       export interface Nameless${icon.interfaceName}
+           extends ${['Omit<RootIconProps, \'name\'>', ...ColorRoots.map(root =>
              icon[`has${root}`]
                ? `Has${pascalCase(`${root}`)}`
                : false
            ).filter(Boolean)].join(', ')} {
-           name: '${icon.kebabCaseName}';
            size?: '${icon.availableSizes.join('\' | \'')}';
+       }
+           
+       export interface ${icon.interfaceName}
+          extends Nameless${icon.interfaceName}
+       {
+           name: '${icon.kebabCaseName}';
        }`;
       } else {
         // if not, we need to generate the type definition for each size
@@ -229,14 +234,18 @@ async function generateIndex(iconsObjectUnique, iconsObject) {
         const sizeInterfaces = icon.availableSizes.map((size) => {
           // prettier-ignore
           return `
-         export interface ${icon.interfaceName}X${size}
-             extends ${['RootIconProps', ...ColorRoots.map(root =>
+         export interface Nameless${icon.interfaceName}X${size}
+             extends ${['Omit<RootIconProps, \'name\'>', ...ColorRoots.map(root =>
                icon[`has${root}`] && (icon[`has${root}`].indexOf(size) > -1)
                  ? `Has${pascalCase(`${root}`)}`
                  : false
              ).filter(Boolean)].join(', ')} {
-             name: '${icon.kebabCaseName}';
-             size?: '${size}';
+              size?: '${size}';
+          }
+              
+          export interface ${icon.interfaceName}X${size}
+            extends Nameless${icon.interfaceName}X${size}{
+                name: '${icon.kebabCaseName}';
          }`
         })
 
@@ -245,6 +254,7 @@ async function generateIndex(iconsObjectUnique, iconsObject) {
          ${sizeInterfaces.join('\n\n')}
 
          export type ${icon.interfaceName} = ${icon.availableSizes.map(size => `${icon.interfaceName}X${size}`).join(' | ')};
+         export type Nameless${icon.interfaceName} = ${icon.availableSizes.map(size => `Nameless${icon.interfaceName}X${size}`).join(' | ')};
        `
       }
     })

@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import logo from './logo.svg'
 import Checkbox from '@cypress-design/react-checkbox'
-import { IconActionQuestionMarkCircle } from '@cypress-design/react-icon'
+import {
+  IconActionQuestionMarkCircle,
+  IconObjectUntestedElement,
+} from '@cypress-design/react-icon'
 import StatusIcon from '@cypress-design/react-statusicon'
 import Spinner from '@cypress-design/react-spinner'
 import './App.css'
@@ -187,6 +190,10 @@ function App() {
       >
         <p>Other Modal content</p>
       </Modal>
+      <IconObjectUntestedElement
+        fillColor="jade-500"
+        secondaryStrokeColor="red-400"
+      />
     </div>
   )
 }
