@@ -112,4 +112,4 @@ cypress/screenshots
 
 storybook
 
-.turbo/cache
+.turbo
