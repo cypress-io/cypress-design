@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.3.0
+
+### Minor Changes
+
+- [`cc4013c`](https://github.com/cypress-io/cypress-design/commit/cc4013cb406005b28b9d8c18dc6f480f3102385f) Thanks [@elevatebart](https://github.com/elevatebart)! - add the browser light 24px
+
 ## 1.2.3
 
 ### Patch Changes
