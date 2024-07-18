@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.3.0
+
+### Minor Changes
+
+- [`cc4013c`](https://github.com/cypress-io/cypress-design/commit/cc4013cb406005b28b9d8c18dc6f480f3102385f) Thanks [@elevatebart](https://github.com/elevatebart)! - add the browser light 24px
+
+### Patch Changes
+
+- Updated dependencies [[`cc4013c`](https://github.com/cypress-io/cypress-design/commit/cc4013cb406005b28b9d8c18dc6f480f3102385f)]:
+  - @cypress-design/icon-registry@1.3.0
+
 ## 1.2.3
 
 ### Patch Changes
