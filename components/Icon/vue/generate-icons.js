@@ -31,7 +31,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
     class?: any
   }>({
     ...__iconComponentOpts__, 
-    setup(props: Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
+    setup(props: iconsRegistry.NamelessIcon${pascalCaseName}Props & {
     class?: any
   }, { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }) {
       const iconPropsStep = useIconProps(props, ${JSON.stringify(

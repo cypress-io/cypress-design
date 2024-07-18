@@ -28,7 +28,7 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
 
   return dedent`
   export const Icon${pascalCaseName}: React.FC<
-    Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & React.SVGProps<SVGSVGElement>
+    iconsRegistry.NamelessIcon${pascalCaseName}Props & React.SVGProps<SVGSVGElement>
   > = (props) => React.createElement('svg', useIconProps(props, ${JSON.stringify(
     iconBodies,
     null,
