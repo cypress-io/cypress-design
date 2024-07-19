@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 1.3.1
+
+### Patch Changes
+
+- [`ac92a3f`](https://github.com/cypress-io/cypress-design/commit/ac92a3f0b18e4131441883d92f812360ab5d46c6) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add untested icons
+
+- Updated dependencies [[`ac92a3f`](https://github.com/cypress-io/cypress-design/commit/ac92a3f0b18e4131441883d92f812360ab5d46c6)]:
+  - @cypress-design/icon-registry@1.3.1
+
 ## 1.3.0
 
 ### Minor Changes
