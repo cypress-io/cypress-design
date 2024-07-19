@@ -1,0 +1,8 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M33 13V13C39.0751 13 44 17.9249 44 24V24C44 30.0751 39.0751 35 33 35H24M24 13H15C8.92487 13 4 17.9249 4 24V24C4 30.0751 8.92487 35 15 35V35M15 24H21M33 24H27"
+    stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" />
+  <path d="M17 40L31 8" stroke="#E45770" class="icon-dark-secondary" stroke-width="2"
+    stroke-linecap="round" />
+</svg>
+  
