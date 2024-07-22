@@ -71,8 +71,8 @@ export default componentPlugins`,
   await fs.writeFile(
     resolve(packageFolder, './index.d.ts'),
     `import type { Plugin } from 'tailwindcss/plugin'
-    const componentPlugins: Plugin[]
-    export default componentPlugins`,
+const componentPlugins: Plugin[]
+export default componentPlugins`,
     { encoding: 'utf-8' },
   )
 
