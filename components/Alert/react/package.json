@@ -27,9 +27,9 @@
   "devDependencies": {
     "@cypress-design/constants-alert": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.77.4"
+    "sass": "^1.77.8"
   },
   "license": "MIT"
 }

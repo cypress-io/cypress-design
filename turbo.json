@@ -6,6 +6,7 @@
     "components/*.rollup.config.mjs",
     "components/*.vite.config.ts"
   ],
+  "ui": "tui",
   "tasks": {
     "build": {
       "dependsOn": [
