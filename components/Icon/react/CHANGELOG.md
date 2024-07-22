@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.3.2
+
+### Patch Changes
+
+- [#466](https://github.com/cypress-io/cypress-design/pull/466) [`575cfc9`](https://github.com/cypress-io/cypress-design/commit/575cfc9503aa882cfcb421461ee968e9e35ca97f) Thanks [@mabela416](https://github.com/mabela416)! - feat: add stack icons and tested element icon 48px
+
+- Updated dependencies [[`575cfc9`](https://github.com/cypress-io/cypress-design/commit/575cfc9503aa882cfcb421461ee968e9e35ca97f)]:
+  - @cypress-design/icon-registry@1.3.2
+
 ## 1.3.1
 
 ### Patch Changes
