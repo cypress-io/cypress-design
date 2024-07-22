@@ -72,7 +72,8 @@ export default componentPlugins`,
     resolve(packageFolder, './index.d.ts'),
     `import type { Plugin } from 'tailwindcss/plugin'
 const componentPlugins: Plugin[]
-export default componentPlugins`,
+export default componentPlugins
+`,
     { encoding: 'utf-8' },
   )
 
