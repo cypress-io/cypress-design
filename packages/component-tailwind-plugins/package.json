@@ -4,7 +4,7 @@
   "private": "true",
   "exports": {
     "import": "./index.mjs",
-    "types": "./dist/index.d.ts"
+    "types": "./index.d.ts"
   },
   "devDependencies": {
     "@cypress-design/constants-accordion": "*",

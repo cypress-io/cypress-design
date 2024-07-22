@@ -69,14 +69,22 @@ export default componentPlugins`,
   )
 
   await fs.writeFile(
-    resolve(__dirname, '../packages/component-tailwind-plugins/package.json'),
+    resolve(packageFolder, './index.d.ts'),
+    `import type { Plugin } from 'tailwindcss/plugin'
+    const componentPlugins: Plugin[]
+    export default componentPlugins`,
+    { encoding: 'utf-8' },
+  )
+
+  await fs.writeFile(
+    resolve(packageFolder, './package.json'),
     `{
   "name": "@cypress-design/component-tailwind-plugins",
   "version": "0.0.0",
   "private": "true",
   "exports": {
     "import": "./index.mjs",
-    "types": "./dist/index.d.ts"
+    "types": "./index.d.ts"
   },
   "devDependencies": {
     ${pkgs.map((p) => `"@cypress-design/constants-${p.toLowerCase()}": "*",`).join('\n\t\t')}
