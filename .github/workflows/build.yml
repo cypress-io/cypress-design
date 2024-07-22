@@ -16,6 +16,8 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
+        env:
+          DISABLE_V8_COMPILE_CACHE: '1'
         with:
           node-version-file: .nvmrc
 
