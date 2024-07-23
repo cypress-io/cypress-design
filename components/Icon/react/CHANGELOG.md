@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.3.3
+
+### Patch Changes
+
+- [#469](https://github.com/cypress-io/cypress-design/pull/469) [`1f0a351`](https://github.com/cypress-io/cypress-design/commit/1f0a3514135fc69061d93eb0f8392e4a6b836c08) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added the diff icon
+
+- Updated dependencies [[`1f0a351`](https://github.com/cypress-io/cypress-design/commit/1f0a3514135fc69061d93eb0f8392e4a6b836c08)]:
+  - @cypress-design/icon-registry@1.3.3
+
 ## 1.3.2
 
 ### Patch Changes
