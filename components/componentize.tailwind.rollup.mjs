@@ -34,6 +34,26 @@ function parseCode(code) {
   })
 }
 
+/**
+ * @param {string} classes the input of classes
+ * @returns {string[]} the classes with a group in one element, the classes without a group in another
+ */
+function isolateGroupClasses(classes) {
+  const groups = []
+  const noGroups = []
+  classes.split(' ').forEach((className) => {
+    if (
+      className === 'group' ||
+      (className.startsWith('group-') && className.includes(':'))
+    ) {
+      groups.push(className)
+    } else {
+      noGroups.push(className)
+    }
+  })
+  return [groups.join(' '), noGroups.join(' ')]
+}
+
 function visitConstantClassProperty(path, componentClassPrefix, onClass) {
   for (const property of path.properties) {
     if (property.type === 'ObjectProperty') {
@@ -154,8 +174,9 @@ export function MakeTailwindComponentPluginRollupPlugin() {
         visitExportNamedDeclaration(path) {
           visitConstantClass(path, componentClassPrefix, (key, value) => {
             if (value.length && !key.includes('icon')) {
+              const [, noGroupClasses] = isolateGroupClasses(value)
               componentClassesDefinitions[`.${key}`] = {
-                [`@apply ${value}`]: {},
+                [`@apply ${noGroupClasses}`]: {},
               }
             }
           })
@@ -198,7 +219,11 @@ export function ComponentClassesRollupPlugin() {
         visitExportNamedDeclaration(path) {
           visitConstantClass(path, componentClassPrefix, (key, value, init) => {
             if (value.length && !key.includes('icon')) {
-              init.value = key
+              const [groupsClasses] = isolateGroupClasses(value)
+              const classNames = groupsClasses?.length
+                ? [key, groupsClasses]
+                : [key]
+              init.value = classNames.join(' ')
             }
           })
           return false
