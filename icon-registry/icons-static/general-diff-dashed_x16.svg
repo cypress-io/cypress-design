@@ -1,0 +1,5 @@
+<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M2 13C1.44772 13 1 12.5523 1 12V4C1 3.44772 1.44772 3 2 3H8V13H2Z" fill="#A3E7CB" class="icon-light" />
+  <path d="M8 13V3M8 13V15M8 13H2C1.44772 13 1 12.5523 1 12V4C1 3.44772 1.44772 3 2 3H8M8 3V1" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-dark" />
+  <path d="M12 3H14C14.5523 3 15 3.44772 15 4V6M12 13H14C14.5523 13 15 12.5523 15 12V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="icon-dark" opacity="0.6" />
+</svg>
