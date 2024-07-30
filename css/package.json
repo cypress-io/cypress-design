@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "@cypress-design/color-constants": "*",
+    "@cypress-design/component-tailwind-plugins": "*",
     "@types/lodash": "^4.17.4",
     "typescript": "5.4.5",
     "color-string": "1.9.1"
