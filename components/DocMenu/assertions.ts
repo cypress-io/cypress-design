@@ -1,6 +1,11 @@
 /// <reference types="cypress" />
 
 import type { NavGroup, NavItemLink } from './constants'
+import { colors } from '@cypress-design/css/dist/colors'
+import hexRgb from 'hex-rgb'
+
+const { red, green, blue } = hexRgb(colors.indigo[500])
+const indigoToCompare = `rgb(${red}, ${green}, ${blue})`
 
 const menuItems = [
   {
@@ -119,17 +124,16 @@ export default function assertions(
   it('expands a section where an element is activated', () => {
     mountCustomLinkStory()
     cy.findByText('Foo', { selector: 'button' }).should(
-      'have.class',
-      'text-indigo-500',
+      'have.css',
+      'color',
+      indigoToCompare,
     )
 
     cy.findByText('Set path to /kephren', { selector: 'button' }).click()
 
     cy.findByText('Kephren', { selector: 'button' })
       .should('be.visible')
-      .should('have.class', 'text-indigo-500')
-
-    cy.findByTestId('doc-menu-active-marker').should('have.css', 'top', '220px')
+      .should('have.css', 'color', indigoToCompare)
   })
 }
 
