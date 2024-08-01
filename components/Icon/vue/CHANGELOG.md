@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 1.3.4
+
+### Patch Changes
+
+- [#471](https://github.com/cypress-io/cypress-design/pull/471) [`1df01a2`](https://github.com/cypress-io/cypress-design/commit/1df01a2ee7a2d2a2df21d6f4ed6fe7ad0c6b6a59) Thanks [@estrada9166](https://github.com/estrada9166)! - Added upgrade square icon
+
+- Updated dependencies [[`1df01a2`](https://github.com/cypress-io/cypress-design/commit/1df01a2ee7a2d2a2df21d6f4ed6fe7ad0c6b6a59)]:
+  - @cypress-design/icon-registry@1.3.4
+
 ## 1.3.3
 
 ### Patch Changes
