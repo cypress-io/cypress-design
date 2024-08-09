@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.4.0
+
+### Minor Changes
+
+- [#478](https://github.com/cypress-io/cypress-design/pull/478) [`9355536`](https://github.com/cypress-io/cypress-design/commit/9355536799317ce8dc9478c431434641c28dbc62) Thanks [@astone123](https://github.com/astone123)! - add technology-ui-coverage 16px icon
+
+### Patch Changes
+
+- Updated dependencies [[`1f8b5f4`](https://github.com/cypress-io/cypress-design/commit/1f8b5f4480202f0026589bad345b30a52e5f513e)]:
+  - @cypress-design/icon-registry@1.4.0
+
 ## 1.3.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.4.0
+
+### Minor Changes
+
+- [#476](https://github.com/cypress-io/cypress-design/pull/476) [`1f8b5f4`](https://github.com/cypress-io/cypress-design/commit/1f8b5f4480202f0026589bad345b30a52e5f513e) Thanks [@astone123](https://github.com/astone123)! - add technology-ui-coverage 16px icon
+
 ## 1.3.5
 
 ### Patch Changes
