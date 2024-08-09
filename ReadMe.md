@@ -95,7 +95,7 @@ The name and size should match what's shown in Figma.
 
 Once added, the svg attributes should be tweaked so as to integrate with the icon generation tooling.
 
-- Replace main color with `currentColor`
+- Replace the main color with `currentColor`
 - Add `class="icon-dark"` to paths that are dark, generally the strokes
 - Add `class="icon-light"` to paths that are light, generally the fills
 - Remove the `width` and `height` attributes of the SVG
