@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.3.5
+
+### Patch Changes
+
+- [#473](https://github.com/cypress-io/cypress-design/pull/473) [`79a3318`](https://github.com/cypress-io/cypress-design/commit/79a3318850277b207eac4105ddb12a8d0a40e50a) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added icons for UI Coverage & Accessibility
+
 ## 1.3.4
 
 ### Patch Changes
