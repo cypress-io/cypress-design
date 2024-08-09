@@ -1,5 +1,11 @@
 # @cypress-design/react-icon
 
+## 1.3.5
+
+### Patch Changes
+
+- [`cc0523c`](https://github.com/cypress-io/cypress-design/commit/cc0523cf82169d631747e249309540e29f494181) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fixing the versions for the vue and react packages
+
 ## 1.3.4
 
 ### Patch Changes
