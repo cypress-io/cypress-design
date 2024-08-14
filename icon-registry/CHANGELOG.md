@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.4.1
+
+### Patch Changes
+
+- [`6721d7c`](https://github.com/cypress-io/cypress-design/commit/6721d7c875e8a9d432e630ff3b2bc94696118d01) Thanks [@elevatebart](https://github.com/elevatebart)! - add triangle arrow icons
+
 ## 1.4.0
 
 ### Minor Changes
