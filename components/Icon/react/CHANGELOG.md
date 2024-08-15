@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.4.2
+
+### Patch Changes
+
+- [`266b524`](https://github.com/cypress-io/cypress-design/commit/266b52441e49291c5609cdc4d6fa85c6c7734ec6) Thanks [@elevatebart](https://github.com/elevatebart)! - add code editor diff icon
+
+- Updated dependencies [[`266b524`](https://github.com/cypress-io/cypress-design/commit/266b52441e49291c5609cdc4d6fa85c6c7734ec6)]:
+  - @cypress-design/icon-registry@1.4.2
+
 ## 1.4.1
 
 ### Patch Changes
