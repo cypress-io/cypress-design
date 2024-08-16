@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.4.3
+
+### Patch Changes
+
+- [`a22d163`](https://github.com/cypress-io/cypress-design/commit/a22d163bcc26bb04412625b6b7270372aa79f112) Thanks [@elevatebart](https://github.com/elevatebart)! - add browser checkmark
+
 ## 1.4.2
 
 ### Patch Changes
