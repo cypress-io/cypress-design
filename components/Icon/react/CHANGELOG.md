@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.4.4
+
+### Patch Changes
+
+- [`de75259`](https://github.com/cypress-io/cypress-design/commit/de752594d675900c91e15d1d31d61a30be11d27a) Thanks [@elevatebart](https://github.com/elevatebart)! - add chain link 12
+
+- Updated dependencies [[`de75259`](https://github.com/cypress-io/cypress-design/commit/de752594d675900c91e15d1d31d61a30be11d27a)]:
+  - @cypress-design/icon-registry@1.4.4
+
 ## 1.4.3
 
 ### Patch Changes
