@@ -1218,6 +1218,7 @@ __metadata:
     husky: "npm:^9.0.11"
     hygen: "npm:^6.2.11"
     lint-staged: "npm:>=15"
+    lodash: "npm:^4.17.21"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.3.0"
     react: "npm:18"
