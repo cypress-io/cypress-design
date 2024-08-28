@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.4.5
+
+### Patch Changes
+
+- [`abd180b`](https://github.com/cypress-io/cypress-design/commit/abd180b9a528d4e535e3ff453013a30bf12808cf) Thanks [@elevatebart](https://github.com/elevatebart)! - add object-chain-link tested icon
+
+- Updated dependencies [[`abd180b`](https://github.com/cypress-io/cypress-design/commit/abd180b9a528d4e535e3ff453013a30bf12808cf)]:
+  - @cypress-design/icon-registry@1.4.5
+
 ## 1.4.4
 
 ### Patch Changes
