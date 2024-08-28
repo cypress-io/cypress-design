@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.4.6
+
+### Patch Changes
+
+- [#486](https://github.com/cypress-io/cypress-design/pull/486) [`904ea0f`](https://github.com/cypress-io/cypress-design/commit/904ea0f9e081407cb9759a96bececdf3d6f87956) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - Update Flaky Status Icon with latest designs
+
+- Updated dependencies [[`904ea0f`](https://github.com/cypress-io/cypress-design/commit/904ea0f9e081407cb9759a96bececdf3d6f87956)]:
+  - @cypress-design/icon-registry@1.4.6
+
 ## 1.4.5
 
 ### Patch Changes
