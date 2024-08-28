@@ -37,9 +37,9 @@ watcher.on('add', async (file) => {
 
 async function buildIcons(file) {
   if (
-    !/icons-static\/[a-zA-Z-]+_x\d+\.svg$/.test(file) &&
-    !/icons-logo\/[a-zA-Z-_]+\.svg$/.test(file) &&
-    !/icons-animated\/[a-zA-Z-_]+\.svg$/.test(file)
+    !/icons-static\/[a-zA-Z0-9-]+_x\d+\.svg$/.test(file) &&
+    !/icons-logo\/[a-zA-Z0-9-_]+\.svg$/.test(file) &&
+    !/icons-animated\/[a-zA-Z0-9-_]+\.svg$/.test(file)
   ) {
     console.log('Not an icon file, skipping')
     return

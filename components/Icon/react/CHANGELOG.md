@@ -1,5 +1,85 @@
 # @cypress-design/react-icon
 
+## 1.4.5
+
+### Patch Changes
+
+- [`abd180b`](https://github.com/cypress-io/cypress-design/commit/abd180b9a528d4e535e3ff453013a30bf12808cf) Thanks [@elevatebart](https://github.com/elevatebart)! - add object-chain-link tested icon
+
+- Updated dependencies [[`abd180b`](https://github.com/cypress-io/cypress-design/commit/abd180b9a528d4e535e3ff453013a30bf12808cf)]:
+  - @cypress-design/icon-registry@1.4.5
+
+## 1.4.4
+
+### Patch Changes
+
+- [`de75259`](https://github.com/cypress-io/cypress-design/commit/de752594d675900c91e15d1d31d61a30be11d27a) Thanks [@elevatebart](https://github.com/elevatebart)! - add chain link 12
+
+- Updated dependencies [[`de75259`](https://github.com/cypress-io/cypress-design/commit/de752594d675900c91e15d1d31d61a30be11d27a)]:
+  - @cypress-design/icon-registry@1.4.4
+
+## 1.4.3
+
+### Patch Changes
+
+- [`a22d163`](https://github.com/cypress-io/cypress-design/commit/a22d163bcc26bb04412625b6b7270372aa79f112) Thanks [@elevatebart](https://github.com/elevatebart)! - add browser checkmark
+
+- Updated dependencies [[`a22d163`](https://github.com/cypress-io/cypress-design/commit/a22d163bcc26bb04412625b6b7270372aa79f112)]:
+  - @cypress-design/icon-registry@1.4.3
+
+## 1.4.2
+
+### Patch Changes
+
+- [`266b524`](https://github.com/cypress-io/cypress-design/commit/266b52441e49291c5609cdc4d6fa85c6c7734ec6) Thanks [@elevatebart](https://github.com/elevatebart)! - add code editor diff icon
+
+- Updated dependencies [[`266b524`](https://github.com/cypress-io/cypress-design/commit/266b52441e49291c5609cdc4d6fa85c6c7734ec6)]:
+  - @cypress-design/icon-registry@1.4.2
+
+## 1.4.1
+
+### Patch Changes
+
+- [`6721d7c`](https://github.com/cypress-io/cypress-design/commit/6721d7c875e8a9d432e630ff3b2bc94696118d01) Thanks [@elevatebart](https://github.com/elevatebart)! - add triangle arrow icons
+
+- Updated dependencies [[`6721d7c`](https://github.com/cypress-io/cypress-design/commit/6721d7c875e8a9d432e630ff3b2bc94696118d01)]:
+  - @cypress-design/icon-registry@1.4.1
+
+## 1.4.0
+
+### Minor Changes
+
+- [#478](https://github.com/cypress-io/cypress-design/pull/478) [`9355536`](https://github.com/cypress-io/cypress-design/commit/9355536799317ce8dc9478c431434641c28dbc62) Thanks [@astone123](https://github.com/astone123)! - add technology-ui-coverage 16px icon
+
+### Patch Changes
+
+- Updated dependencies [[`1f8b5f4`](https://github.com/cypress-io/cypress-design/commit/1f8b5f4480202f0026589bad345b30a52e5f513e)]:
+  - @cypress-design/icon-registry@1.4.0
+
+## 1.3.5
+
+### Patch Changes
+
+- [`cc0523c`](https://github.com/cypress-io/cypress-design/commit/cc0523cf82169d631747e249309540e29f494181) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fixing the versions for the vue and react packages
+
+## 1.3.4
+
+### Patch Changes
+
+- [#471](https://github.com/cypress-io/cypress-design/pull/471) [`1df01a2`](https://github.com/cypress-io/cypress-design/commit/1df01a2ee7a2d2a2df21d6f4ed6fe7ad0c6b6a59) Thanks [@estrada9166](https://github.com/estrada9166)! - Added upgrade square icon
+
+- Updated dependencies [[`1df01a2`](https://github.com/cypress-io/cypress-design/commit/1df01a2ee7a2d2a2df21d6f4ed6fe7ad0c6b6a59)]:
+  - @cypress-design/icon-registry@1.3.4
+
+## 1.3.3
+
+### Patch Changes
+
+- [#469](https://github.com/cypress-io/cypress-design/pull/469) [`1f0a351`](https://github.com/cypress-io/cypress-design/commit/1f0a3514135fc69061d93eb0f8392e4a6b836c08) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added the diff icon
+
+- Updated dependencies [[`1f0a351`](https://github.com/cypress-io/cypress-design/commit/1f0a3514135fc69061d93eb0f8392e4a6b836c08)]:
+  - @cypress-design/icon-registry@1.3.3
+
 ## 1.3.2
 
 ### Patch Changes
