@@ -113,3 +113,5 @@ cypress/screenshots
 storybook
 
 .turbo
+
+.yarn/*.gz

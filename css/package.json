@@ -43,8 +43,8 @@
   "devDependencies": {
     "@cypress-design/color-constants": "*",
     "@types/lodash": "^4.17.4",
-    "typescript": "5.4.5",
-    "color-string": "1.9.1"
+    "color-string": "1.9.1",
+    "typescript": "5.4.5"
   },
   "license": "MIT"
 }

@@ -9,12 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cypress-design/vue-alert": "*",
     "@cypress-design/vue-button": "*",
     "@cypress-design/vue-checkbox": "*",
     "@cypress-design/vue-icon": "*",
-    "@cypress-design/vue-spinner": "*",
-    "@cypress-design/vue-alert": "*",
     "@cypress-design/vue-modal": "*",
+    "@cypress-design/vue-spinner": "*",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
@@ -22,8 +22,8 @@
   },
   "devDependencies": {
     "@cypress-design/css": "*",
-    "@vue/tsconfig": "^0.5.1",
     "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/tsconfig": "^0.5.1",
     "typescript": "^5.4.5",
     "vite": "^5.2.12",
     "vue-tsc": "*"
