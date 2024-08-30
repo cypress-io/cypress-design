@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 1.4.7
+
+### Patch Changes
+
+- [`381174a`](https://github.com/cypress-io/cypress-design/commit/381174aaec12e10963bdf8244c0dcc5a0afd307f) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add plus icon in 12
+
+- Updated dependencies [[`381174a`](https://github.com/cypress-io/cypress-design/commit/381174aaec12e10963bdf8244c0dcc5a0afd307f)]:
+  - @cypress-design/icon-registry@1.4.7
+
 ## 1.4.6
 
 ### Patch Changes
