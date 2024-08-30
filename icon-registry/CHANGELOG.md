@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.4.8
+
+### Patch Changes
+
+- [`d551652`](https://github.com/cypress-io/cypress-design/commit/d55165243ca2ea4acd78ddc428fb007a92815677) Thanks [@elevatebart](https://github.com/elevatebart)! - add plus icons for uicov branch review
+
 ## 1.4.7
 
 ### Patch Changes
