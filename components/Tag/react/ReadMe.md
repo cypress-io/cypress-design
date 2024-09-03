@@ -17,3 +17,11 @@ yarn add @cypress-design/react-tag
 ```ts
 import Tag from '@cypress-design/react-tag'
 ```
+
+```tsx live
+export default () => (
+  <Tag size="20" color="indigo">
+    Tag
+  </Tag>
+)
+```
