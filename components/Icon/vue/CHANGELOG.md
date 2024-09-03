@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 1.4.9
+
+### Patch Changes
+
+- [`55104a0`](https://github.com/cypress-io/cypress-design/commit/55104a0de78a7f4984bab364e409fb596110d3e8) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: document-added-plus color settings in 12px was wrong
+
+- Updated dependencies [[`55104a0`](https://github.com/cypress-io/cypress-design/commit/55104a0de78a7f4984bab364e409fb596110d3e8)]:
+  - @cypress-design/icon-registry@1.4.9
+
 ## 1.4.8
 
 ### Patch Changes
