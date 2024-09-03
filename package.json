@@ -99,7 +99,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-sourcemaps": "^0.6.3",
     "shiki": "^1.6.2",
-    "turbo": "^2.0.9",
+    "turbo": "^2.1.1",
     "typescript": "5.4.5",
     "universal-cookie": "^7.1.4",
     "vite": "5.2.12",
