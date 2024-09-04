@@ -2,10 +2,10 @@ export const CssShared =
   'rounded border align-middle font-medium inline-flex items-center'
 
 export const CssSize = {
-  '16': 'text-[12px] leading-[16px] h-[16px] px-[4px]',
-  '20': 'text-[14px] leading-[20px] h-[20px] px-[4px]',
-  '24': 'text-[16px] leading-[24px] h-[24px] px-[8px]',
-  '32': 'text-[16px] leading-[24px] h-[32px] px-[12px]',
+  '16': 'text-[12px] leading-[16px] h-[16px] px-[3px]',
+  '20': 'text-[14px] leading-[20px] h-[20px] px-[3px]',
+  '24': 'text-[16px] leading-[24px] h-[24px] px-[7px]',
+  '32': 'text-[16px] leading-[24px] h-[32px] px-[11px]',
 } as const
 
 export const CssColor = {
