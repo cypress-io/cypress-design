@@ -1,5 +1,11 @@
 # @cypress-design/vue-tag
 
+## 1.0.1
+
+### Patch Changes
+
+- [`aefd489`](https://github.com/cypress-io/cypress-design/commit/aefd4892aa8757a28ca1a3ca4e21ee5d25171f88) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: tags with their border should be exactly their size but their padding is too big
+
 ## 1.0.0
 
 ### Major Changes
