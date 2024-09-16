@@ -1,5 +1,77 @@
 # @cypress-design/icon-registry
 
+## 1.4.9
+
+### Patch Changes
+
+- [`55104a0`](https://github.com/cypress-io/cypress-design/commit/55104a0de78a7f4984bab364e409fb596110d3e8) Thanks [@elevatebart](https://github.com/elevatebart)! - fix: document-added-plus color settings in 12px was wrong
+
+## 1.4.8
+
+### Patch Changes
+
+- [`d551652`](https://github.com/cypress-io/cypress-design/commit/d55165243ca2ea4acd78ddc428fb007a92815677) Thanks [@elevatebart](https://github.com/elevatebart)! - add plus icons for uicov branch review
+
+## 1.4.7
+
+### Patch Changes
+
+- [`381174a`](https://github.com/cypress-io/cypress-design/commit/381174aaec12e10963bdf8244c0dcc5a0afd307f) Thanks [@elevatebart](https://github.com/elevatebart)! - feat: add plus icon in 12
+
+## 1.4.6
+
+### Patch Changes
+
+- [#486](https://github.com/cypress-io/cypress-design/pull/486) [`904ea0f`](https://github.com/cypress-io/cypress-design/commit/904ea0f9e081407cb9759a96bececdf3d6f87956) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - Update Flaky Status Icon with latest designs
+
+## 1.4.5
+
+### Patch Changes
+
+- [`abd180b`](https://github.com/cypress-io/cypress-design/commit/abd180b9a528d4e535e3ff453013a30bf12808cf) Thanks [@elevatebart](https://github.com/elevatebart)! - add object-chain-link tested icon
+
+## 1.4.4
+
+### Patch Changes
+
+- [`de75259`](https://github.com/cypress-io/cypress-design/commit/de752594d675900c91e15d1d31d61a30be11d27a) Thanks [@elevatebart](https://github.com/elevatebart)! - add chain link 12
+
+## 1.4.3
+
+### Patch Changes
+
+- [`a22d163`](https://github.com/cypress-io/cypress-design/commit/a22d163bcc26bb04412625b6b7270372aa79f112) Thanks [@elevatebart](https://github.com/elevatebart)! - add browser checkmark
+
+## 1.4.2
+
+### Patch Changes
+
+- [`266b524`](https://github.com/cypress-io/cypress-design/commit/266b52441e49291c5609cdc4d6fa85c6c7734ec6) Thanks [@elevatebart](https://github.com/elevatebart)! - add code editor diff icon
+
+## 1.4.1
+
+### Patch Changes
+
+- [`6721d7c`](https://github.com/cypress-io/cypress-design/commit/6721d7c875e8a9d432e630ff3b2bc94696118d01) Thanks [@elevatebart](https://github.com/elevatebart)! - add triangle arrow icons
+
+## 1.4.0
+
+### Minor Changes
+
+- [#476](https://github.com/cypress-io/cypress-design/pull/476) [`1f8b5f4`](https://github.com/cypress-io/cypress-design/commit/1f8b5f4480202f0026589bad345b30a52e5f513e) Thanks [@astone123](https://github.com/astone123)! - add technology-ui-coverage 16px icon
+
+## 1.3.5
+
+### Patch Changes
+
+- [#473](https://github.com/cypress-io/cypress-design/pull/473) [`79a3318`](https://github.com/cypress-io/cypress-design/commit/79a3318850277b207eac4105ddb12a8d0a40e50a) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added icons for UI Coverage & Accessibility
+
+## 1.3.4
+
+### Patch Changes
+
+- [#471](https://github.com/cypress-io/cypress-design/pull/471) [`1df01a2`](https://github.com/cypress-io/cypress-design/commit/1df01a2ee7a2d2a2df21d6f4ed6fe7ad0c6b6a59) Thanks [@estrada9166](https://github.com/estrada9166)! - Added upgrade square icon
+
 ## 1.3.3
 
 ### Patch Changes

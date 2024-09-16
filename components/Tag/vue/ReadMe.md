@@ -17,3 +17,9 @@ yarn add @cypress-design/vue-tag
 ```ts
 import Tag from '@cypress-design/vue-tag'
 ```
+
+```vue live
+<Tag size="20" color="indigo">
+  Tag
+</Tag>
+```
