@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { WindiColor } from '@cypress-design/vue-icon'
 const emit = defineEmits<{
-  (event: 'update:modelValue', value: WindiColor): void
+  (event: 'update:modelValue', value?: WindiColor): void
 }>()
 
 defineProps<{
