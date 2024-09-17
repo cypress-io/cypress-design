@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.5.1
+
+### Patch Changes
+
+- [`8978535`](https://github.com/cypress-io/cypress-design/commit/8978535a3e4f9893fc269a8fa4364cab6afc88c8) Thanks [@elevatebart](https://github.com/elevatebart)! - add export secondary color
+
 ## 1.5.0
 
 ### Minor Changes
