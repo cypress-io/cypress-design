@@ -4,6 +4,7 @@
     "tsconfig.json",
     "tsconfig.*.json",
     "components/*.rollup.config.mjs",
+    "components/*.rollup.mjs",
     "components/*.vite.config.ts"
   ],
   "tasks": {
