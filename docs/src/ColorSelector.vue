@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { WindiColor } from '@cypress-design/vue-icon'
 const emit = defineEmits<{
-  (event: 'update:modelValue', value: WindiColor): void
+  (event: 'update:modelValue', value?: WindiColor): void
 }>()
 
 defineProps<{
@@ -10,7 +10,11 @@ defineProps<{
 
 function emitValue(event: Event) {
   const value = (event.target as HTMLSelectElement).value
-  emit('update:modelValue', value as WindiColor)
+  if (value === 'default') {
+    emit('update:modelValue', undefined)
+  } else {
+    emit('update:modelValue', value as WindiColor)
+  }
 }
 </script>
 
@@ -21,6 +25,8 @@ function emitValue(event: Event) {
       @change="emitValue"
     >
       <option></option>
+      <option value="default">default</option>
+      <option value="transparent">transparent</option>
       <option value="indigo-300">indigo</option>
       <option value="jade-300">jade</option>
       <option value="red-300">red</option>

@@ -1,5 +1,25 @@
 # @cypress-design/react-icon
 
+## 1.5.1
+
+### Patch Changes
+
+- [`8978535`](https://github.com/cypress-io/cypress-design/commit/8978535a3e4f9893fc269a8fa4364cab6afc88c8) Thanks [@elevatebart](https://github.com/elevatebart)! - add export secondary color
+
+- Updated dependencies [[`8978535`](https://github.com/cypress-io/cypress-design/commit/8978535a3e4f9893fc269a8fa4364cab6afc88c8)]:
+  - @cypress-design/icon-registry@1.5.1
+
+## 1.5.0
+
+### Minor Changes
+
+- [#492](https://github.com/cypress-io/cypress-design/pull/492) [`8e60c20`](https://github.com/cypress-io/cypress-design/commit/8e60c203d6d4b41f7367990624726b44c5c58f89) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Added are Accessibility icons variations: size 12x and 16x outline
+
+### Patch Changes
+
+- Updated dependencies [[`8e60c20`](https://github.com/cypress-io/cypress-design/commit/8e60c203d6d4b41f7367990624726b44c5c58f89), [`e05fd51`](https://github.com/cypress-io/cypress-design/commit/e05fd5175cb67542ec45fa4b2813a37709472645)]:
+  - @cypress-design/icon-registry@1.5.0
+
 ## 1.4.9
 
 ### Patch Changes
