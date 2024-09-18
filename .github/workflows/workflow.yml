@@ -74,3 +74,12 @@ jobs:
     secrets: inherit
     with:
       nonce: ${{ needs.make-nonce.outputs.nonce }}
+
+  release-next:
+    name: Release Next
+    if: github.ref == 'refs/heads/next' && github.event_name == 'push'
+    needs: [build, make-nonce, test, e2e-test, template-test]
+    uses: ./.github/workflows/release-next.yml
+    secrets: inherit
+    with:
+      nonce: ${{ needs.make-nonce.outputs.nonce }}
