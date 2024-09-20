@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-testresult",
-  "version": "1.0.2",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -19,13 +19,13 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-testresult": "*",
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-statusicon": "*",
+    "@cypress-design/constants-testresult": "2.0.0-next.0",
+    "@cypress-design/react-icon": "2.0.0-next.0",
+    "@cypress-design/react-statusicon": "2.0.0-next.0",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0"
   },
   "license": "MIT"
 }

@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/constants-tabs",
-  "version": "1.2.1",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -20,7 +20,7 @@
     "build": "rollup -c ./rollup.config.mjs"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "*"
+    "@cypress-design/icon-registry": "2.0.0-next.0"
   },
   "license": "MIT"
 }

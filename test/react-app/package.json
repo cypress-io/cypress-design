@@ -1,20 +1,20 @@
 {
   "name": "@cypress-design-test/react-app",
   "private": true,
-  "version": "0.1.3",
+  "version": "0.1.4-next.0",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@cypress-design/react-checkbox": "*",
-    "@cypress-design/react-docmenu": "*",
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-modal": "*",
-    "@cypress-design/react-spinner": "*",
-    "@cypress-design/react-tabs": "*",
-    "@cypress-design/react-tooltip": "*",
+    "@cypress-design/react-checkbox": "2.0.0-next.0",
+    "@cypress-design/react-docmenu": "2.0.0-next.0",
+    "@cypress-design/react-icon": "2.0.0-next.0",
+    "@cypress-design/react-modal": "2.0.0-next.0",
+    "@cypress-design/react-spinner": "2.0.0-next.0",
+    "@cypress-design/react-tabs": "2.0.0-next.0",
+    "@cypress-design/react-tooltip": "2.0.0-next.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "react": "18",
@@ -22,7 +22,7 @@
     "tailwindcss": "^3.4.3"
   },
   "devDependencies": {
-    "@cypress-design/css": "*",
+    "@cypress-design/css": "2.0.0-next.0",
     "@types/react": "18",
     "@types/react-dom": "18",
     "@vitejs/plugin-react": "^4.3.0",

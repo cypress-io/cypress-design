@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/constants-testresult",
-  "version": "1.0.0",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -17,7 +17,7 @@
     }
   },
   "devDependencies": {
-    "@cypress-design/constants-statusicon": "*"
+    "@cypress-design/constants-statusicon": "2.0.0-next.0"
   },
   "scripts": {
     "build": "rollup -c ./rollup.config.mjs"

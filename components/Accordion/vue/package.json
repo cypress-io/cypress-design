@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-accordion",
-  "version": "1.0.0",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -21,11 +21,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@cypress-design/constants-accordion": "*",
+    "@cypress-design/constants-accordion": "2.0.0-next.0",
     "@cypress-design/details-animation": "*",
-    "@cypress-design/vue-icon": "*"
+    "@cypress-design/vue-icon": "2.0.0-next.0"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0"
   }
 }

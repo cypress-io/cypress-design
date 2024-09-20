@@ -1,5 +1,17 @@
 # @test/vue-app-tailwind
 
+## 0.1.1-next.0
+
+### Patch Changes
+
+- Updated dependencies [[`3236662`](https://github.com/cypress-io/cypress-design/commit/3236662fdecd5abbceadce750098a75301d48f88)]:
+  - @cypress-design/vue-alert@2.0.0-next.0
+  - @cypress-design/vue-button@2.0.0-next.0
+  - @cypress-design/vue-checkbox@2.0.0-next.0
+  - @cypress-design/vue-icon@2.0.0-next.0
+  - @cypress-design/vue-modal@2.0.0-next.0
+  - @cypress-design/vue-spinner@2.0.0-next.0
+
 ## 0.1.0
 
 ### Minor Changes

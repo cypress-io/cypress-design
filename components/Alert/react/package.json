@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-alert",
-  "version": "1.0.2",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -20,13 +20,13 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-alert": "*",
+    "@cypress-design/constants-alert": "2.0.0-next.0",
     "@cypress-design/details-animation": "*",
-    "@cypress-design/react-icon": "*",
+    "@cypress-design/react-icon": "2.0.0-next.0",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0",
     "postcss": "^8.4.38",
     "rollup-plugin-postcss": "^4.0.2",
     "sass": "^1.77.4"

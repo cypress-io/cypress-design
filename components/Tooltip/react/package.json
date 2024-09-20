@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-tooltip",
-  "version": "1.0.2",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -24,7 +24,7 @@
     "@floating-ui/react": "^0.26.17"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0"
   },
   "license": "MIT"
 }

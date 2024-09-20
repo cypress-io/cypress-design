@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-button",
-  "version": "1.0.1",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -20,11 +20,11 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-button": "*",
+    "@cypress-design/constants-button": "2.0.0-next.0",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0"
   },
   "license": "MIT"
 }

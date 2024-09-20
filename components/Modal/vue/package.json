@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-modal",
-  "version": "1.0.0",
+  "version": "2.0.0-next.0",
   "files": [
     "*"
   ],
@@ -20,10 +20,10 @@
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-modal": "*"
+    "@cypress-design/constants-modal": "2.0.0-next.0"
   },
   "devDependencies": {
-    "@cypress-design/vue-icon": "*"
+    "@cypress-design/vue-icon": "2.0.0-next.0"
   },
   "license": "MIT"
 }
