@@ -51,6 +51,10 @@ jobs:
       - name: Set version numbers
         run: node scripts/set-version.mjs
 
+      - name: Remove changeset pre if it exists
+        run: yarn changeset pre exit
+        continue-on-error: true
+
       - name: Create release Pull Request or publish to NPM
         id: changesets
         uses: changesets/action@v1
