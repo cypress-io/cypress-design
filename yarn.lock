@@ -2238,18 +2238,18 @@
     he "^1.2.0"
 
 "@vue/devtools-api@^7.2.0":
-  version "7.4.5"
-  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-7.4.5.tgz#4b6f0a780aa187ee281a8ad45f121004f1a264e7"
-  integrity sha512-PX9uXirHOY2P99kb1cP3DxWZojFW3acNMqd+l4i5nKcqY59trXTOfwDZXt2Qifu0OU1izAQb76Ur6NPVldF2KQ==
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-7.4.6.tgz#5e9249d6de3cee58624e511fdc727837b1f2d273"
+  integrity sha512-XipBV5k0/IfTr0sNBDTg7OBUCp51cYMMXyPxLXJZ4K/wmUeMqt8cVdr2ZZGOFq+si/jTyCYnNxeKoyev5DOUUA==
   dependencies:
-    "@vue/devtools-kit" "^7.4.5"
+    "@vue/devtools-kit" "^7.4.6"
 
-"@vue/devtools-kit@^7.4.5":
-  version "7.4.5"
-  resolved "https://registry.yarnpkg.com/@vue/devtools-kit/-/devtools-kit-7.4.5.tgz#e80a551d4bce4c40c38a7ef6b080e408d541d346"
-  integrity sha512-Uuki4Z6Bc/ExvtlPkeDNGSAe4580R+HPcVABfTE9TF7BTz3Nntk7vxIRUyWblZkUEcB/x+wn2uofyt5i2LaUew==
+"@vue/devtools-kit@^7.4.6":
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-kit/-/devtools-kit-7.4.6.tgz#80aa30db65bf5b2b0eda4e818749d3c37d80f709"
+  integrity sha512-NbYBwPWgEic1AOd9bWExz9weBzFdjiIfov0yRn4DrRfR+EQJCI9dn4I0XS7IxYGdkmUJi8mFW42LLk18WsGqew==
   dependencies:
-    "@vue/devtools-shared" "^7.4.5"
+    "@vue/devtools-shared" "^7.4.6"
     birpc "^0.2.17"
     hookable "^5.5.3"
     mitt "^3.0.1"
@@ -2257,10 +2257,10 @@
     speakingurl "^14.0.1"
     superjson "^2.2.1"
 
-"@vue/devtools-shared@^7.4.5":
-  version "7.4.5"
-  resolved "https://registry.yarnpkg.com/@vue/devtools-shared/-/devtools-shared-7.4.5.tgz#f8f5ef73451c05922e8d18aa86d39a05ab883e94"
-  integrity sha512-2XgUOkL/7QDmyYI9J7cm+rz/qBhcGv+W5+i1fhwdQ0HQ1RowhdK66F0QBuJSz/5k12opJY8eN6m03/XZMs7imQ==
+"@vue/devtools-shared@^7.4.6":
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/@vue/devtools-shared/-/devtools-shared-7.4.6.tgz#492c2301caacc83a32542dd95dfcae3980621417"
+  integrity sha512-rPeSBzElnHYMB05Cc056BQiJpgocQjY8XVulgni+O9a9Gr9tNXgPteSzFFD+fT/iWMxNuUgGKs9CuW5DZewfIg==
   dependencies:
     rfdc "^1.4.1"
 
@@ -8045,9 +8045,9 @@ tailwindcss@3.4.3:
     sucrase "^3.32.0"
 
 tailwindcss@^3.4.3:
-  version "3.4.12"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.12.tgz#fd3b67c6d2c04d9d7bfa13e3fc70ccef9fef0455"
-  integrity sha512-Htf/gHj2+soPb9UayUNci/Ja3d8pTmu9ONTfh4QY8r3MATTZOzmv6UYWF7ZwikEIC8okpfqmGqrmDehua8mF8w==
+  version "3.4.13"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.4.13.tgz#3d11e5510660f99df4f1bfb2d78434666cb8f831"
+  integrity sha512-KqjHOJKogOUt5Bs752ykCeiwvi0fKVkr5oqsFNt/8px/tA8scFPIlkygsf6jXrfCqGHz7VflA6+yytWuM+XhFw==
   dependencies:
     "@alloc/quick-lru" "^5.2.0"
     arg "^5.0.2"
