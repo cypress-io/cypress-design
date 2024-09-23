@@ -43,7 +43,6 @@
 '@cypress-design/vue-testresult': major
 '@cypress-design/react-tooltip': major
 '@cypress-design/vue-tooltip': major
-'@cypress-design/icon-registry': major
 ---
 
 refactor: use tailwind components to manage specificity of styles
