@@ -1,5 +1,4 @@
 ---
-'@cypress-design/component-tailwind-plugins': major
 '@cypress-design/constants-docmenu': major
 '@cypress-design/react-docmenu': major
 '@cypress-design/vue-docmenu': major

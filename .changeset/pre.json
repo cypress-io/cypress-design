@@ -46,7 +46,6 @@
     "@cypress-design/vue-tooltip": "1.0.0",
     "@cypress-design/css": "1.0.0",
     "@cypress-design/color-constants": "1.0.0",
-    "@cypress-design/component-tailwind-plugins": "0.0.0",
     "@cypress-design/details-animation": "1.0.0",
     "@cypress-design/eslint-plugin": "0.1.1",
     "@cypress-design-test/react-app": "0.1.3",

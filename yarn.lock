@@ -645,10 +645,37 @@
   resolved "https://registry.yarnpkg.com/@colors/colors/-/colors-1.5.0.tgz#bb504579c1cae923e6576a4f5da43d25f97bdbd9"
   integrity sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==
 
+"@cypress-design/constants-accordion@file:components/Accordion/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-alert@file:components/Alert/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-button@file:components/Button/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-checkbox@file:components/Checkbox/constants":
+  version "2.0.0-next.0"
+
 "@cypress-design/constants-docmenu@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@cypress-design/constants-docmenu/-/constants-docmenu-1.0.0.tgz#7d5bb33d3f9e30872563e2c95206df935720e3c5"
   integrity sha512-MGY32mw2GkRHi7rwwwihMUzKnWboYKsGgZZCD/51XfTFj2L0qd7niO6piqBPYbTtsaZ0pfh1PqvwvNZSmmNEFg==
+
+"@cypress-design/constants-docmenu@file:components/DocMenu/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-menu@file:components/Menu/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-modal@file:components/Modal/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-spinner@file:components/Spinner/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-statusicon@file:components/StatusIcon/constants":
+  version "2.0.0-next.0"
 
 "@cypress-design/constants-tabs@*":
   version "1.2.1"
@@ -656,6 +683,17 @@
   integrity sha512-sxXx5NWVeazTguzXabqfxP7UhR2zDy+56a47oUOn9M5edganEMp8fwO5A/nC5wejsyexK8QXTGOTTuNVFyLx6Q==
   dependencies:
     "@cypress-design/icon-registry" "^1.2.1"
+
+"@cypress-design/constants-tabs@file:components/Tabs/constants":
+  version "2.0.0-next.0"
+  dependencies:
+    "@cypress-design/icon-registry" "2.0.0-next.0"
+
+"@cypress-design/constants-tag@file:components/Tag/constants":
+  version "2.0.0-next.0"
+
+"@cypress-design/constants-testresult@file:components/TestResult/constants":
+  version "2.0.0-next.0"
 
 "@cypress-design/css@*":
   version "1.0.0"
@@ -668,10 +706,10 @@
     tailwindcss "^3.4.3"
     tailwindcss-hocus "^0.0.7"
 
-"@cypress-design/icon-registry@^1.2.1", "@cypress-design/icon-registry@^1.5.1":
-  version "1.5.1"
-  resolved "https://registry.yarnpkg.com/@cypress-design/icon-registry/-/icon-registry-1.5.1.tgz#3eae679cb924ff98fedea828f431921022ab4938"
-  integrity sha512-iiGIX4sm2j6bXvtwcrh6L9MF6pbL9rj65GZJgR+c/OxJWvYyoF7U1z0NzUDf0K7PgVIjPpQ31GBfCkph3MtCsA==
+"@cypress-design/icon-registry@2.0.0-next.0":
+  version "2.0.0-next.0"
+  resolved "https://registry.yarnpkg.com/@cypress-design/icon-registry/-/icon-registry-2.0.0-next.0.tgz#e4dbfc129bcec2362c74609f866f6bb8fff859d0"
+  integrity sha512-G7hy6z97WPBY0dhbG+JJNu7NwarzHtOQTXetee7crhK1JuNfsf8mhQ3FoENu/537/NmmWDpZpON2ZfakLpGxVg==
   dependencies:
     "@cypress-design/color-constants" "^1.0.0"
 

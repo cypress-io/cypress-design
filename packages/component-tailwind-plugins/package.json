@@ -7,18 +7,18 @@
     "types": "./index.d.ts"
   },
   "devDependencies": {
-    "@cypress-design/constants-accordion": "*",
-		"@cypress-design/constants-alert": "*",
-		"@cypress-design/constants-button": "*",
-		"@cypress-design/constants-checkbox": "*",
-		"@cypress-design/constants-docmenu": "*",
-		"@cypress-design/constants-menu": "*",
-		"@cypress-design/constants-modal": "*",
-		"@cypress-design/constants-spinner": "*",
-		"@cypress-design/constants-statusicon": "*",
-		"@cypress-design/constants-tabs": "*",
-		"@cypress-design/constants-tag": "*",
-		"@cypress-design/constants-testresult": "*",
+    "@cypress-design/constants-accordion": "file:../../components/Accordion/constants",
+		"@cypress-design/constants-alert": "file:../../components/Alert/constants",
+		"@cypress-design/constants-button": "file:../../components/Button/constants",
+		"@cypress-design/constants-checkbox": "file:../../components/Checkbox/constants",
+		"@cypress-design/constants-docmenu": "file:../../components/DocMenu/constants",
+		"@cypress-design/constants-menu": "file:../../components/Menu/constants",
+		"@cypress-design/constants-modal": "file:../../components/Modal/constants",
+		"@cypress-design/constants-spinner": "file:../../components/Spinner/constants",
+		"@cypress-design/constants-statusicon": "file:../../components/StatusIcon/constants",
+		"@cypress-design/constants-tabs": "file:../../components/Tabs/constants",
+		"@cypress-design/constants-tag": "file:../../components/Tag/constants",
+		"@cypress-design/constants-testresult": "file:../../components/TestResult/constants",
     "tailwindcss": "^3.4.3"
   }
 }

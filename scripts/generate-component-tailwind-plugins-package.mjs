@@ -88,7 +88,7 @@ export default componentPlugins
     "types": "./index.d.ts"
   },
   "devDependencies": {
-    ${pkgs.map((p) => `"@cypress-design/constants-${p.toLowerCase()}": "*",`).join('\n\t\t')}
+    ${pkgs.map((p) => `"@cypress-design/constants-${p.toLowerCase()}": "file:../../components/${p}/constants",`).join('\n\t\t')}
     "tailwindcss": "^3.4.3"
   }
 }`,
