@@ -45,12 +45,10 @@
     "@cypress-design/react-tooltip": "1.0.2",
     "@cypress-design/vue-tooltip": "1.0.0",
     "@cypress-design/css": "1.0.0",
-    "@cypress-design/icon-registry": "1.5.1",
     "@cypress-design/color-constants": "1.0.0",
     "@cypress-design/component-tailwind-plugins": "0.0.0",
     "@cypress-design/details-animation": "1.0.0",
     "@cypress-design/eslint-plugin": "0.1.1",
-    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.0",
     "@cypress-design-test/react-app": "0.1.3",
     "@cypress-design-test/vue-app": "0.1.0"
   },

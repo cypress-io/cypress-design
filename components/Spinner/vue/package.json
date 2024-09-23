@@ -41,7 +41,7 @@
     "@cypress-design/constants-spinner": "2.0.0-next.0"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }

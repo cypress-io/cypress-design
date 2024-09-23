@@ -25,7 +25,7 @@
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "@types/lodash": "^4.17.4",
     "lodash": "^4.17.21",
     "dedent": "^1.5.3"

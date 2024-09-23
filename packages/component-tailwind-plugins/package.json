@@ -1,24 +1,24 @@
 {
-		"name": "@cypress-design/component-tailwind-plugins",
-		"version": "1.0.0-next.0",
-		"private": "true",
-		"exports": {
-				"import": "./index.mjs",
-				"types": "./index.d.ts"
-		},
-		"devDependencies": {
-				"@cypress-design/constants-accordion": "2.0.0-next.0",
-				"@cypress-design/constants-alert": "2.0.0-next.0",
-				"@cypress-design/constants-button": "2.0.0-next.0",
-				"@cypress-design/constants-checkbox": "2.0.0-next.0",
-				"@cypress-design/constants-docmenu": "2.0.0-next.0",
-				"@cypress-design/constants-menu": "2.0.0-next.0",
-				"@cypress-design/constants-modal": "2.0.0-next.0",
-				"@cypress-design/constants-spinner": "2.0.0-next.0",
-				"@cypress-design/constants-statusicon": "2.0.0-next.0",
-				"@cypress-design/constants-tabs": "2.0.0-next.0",
-				"@cypress-design/constants-tag": "2.0.0-next.0",
-				"@cypress-design/constants-testresult": "2.0.0-next.0",
-				"tailwindcss": "^3.4.3"
-		}
+  "name": "@cypress-design/component-tailwind-plugins",
+  "version": "0.0.0",
+  "private": "true",
+  "exports": {
+    "import": "./index.mjs",
+    "types": "./index.d.ts"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-accordion": "*",
+		"@cypress-design/constants-alert": "*",
+		"@cypress-design/constants-button": "*",
+		"@cypress-design/constants-checkbox": "*",
+		"@cypress-design/constants-docmenu": "*",
+		"@cypress-design/constants-menu": "*",
+		"@cypress-design/constants-modal": "*",
+		"@cypress-design/constants-spinner": "*",
+		"@cypress-design/constants-statusicon": "*",
+		"@cypress-design/constants-tabs": "*",
+		"@cypress-design/constants-tag": "*",
+		"@cypress-design/constants-testresult": "*",
+    "tailwindcss": "^3.4.3"
+  }
 }

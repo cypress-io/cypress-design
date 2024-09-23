@@ -23,7 +23,7 @@
     "@floating-ui/dom": "^1.6.5"
   },
   "devDependencies": {
-    "@cypress-design/rollup-plugin-tailwind-keep": "1.0.1-next.0"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }
