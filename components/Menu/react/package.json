@@ -19,10 +19,10 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-menu": "*",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-menu": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
