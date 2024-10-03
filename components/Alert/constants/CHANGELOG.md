@@ -1,5 +1,11 @@
 # @cypress-design/constants-alert
 
+## 1.0.1
+
+### Patch Changes
+
+- [`d334590`](https://github.com/cypress-io/cypress-design/commit/d33459005ee80d2dc91b2d597be50a10dc095e5d) Thanks [@elevatebart](https://github.com/elevatebart)! - deliver mjs with cjs
+
 ## 1.0.0
 
 ### Major Changes
