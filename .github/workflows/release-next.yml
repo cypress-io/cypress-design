@@ -53,7 +53,7 @@ jobs:
 
       - name: Run pre-release process with changeset
         run: |
-          yarn changeset pre enter next
+          yarn changeset pre enter alpha
           yarn changeset version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
