@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.5.2
+
+### Patch Changes
+
+- [#497](https://github.com/cypress-io/cypress-design/pull/497) [`1ebd6f0`](https://github.com/cypress-io/cypress-design/commit/1ebd6f0dfc49adc627d5da19c948cf545d478309) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Angled airplane icon added
+
 ## 1.5.1
 
 ### Patch Changes
