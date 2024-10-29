@@ -1,7 +1,7 @@
 ---
-'@cypress-design/react-icon': minor
-'@cypress-design/vue-icon': minor
-'@cypress-design/icon-registry': minor
+'@cypress-design/react-icon': patch
+'@cypress-design/vue-icon': patch
+'@cypress-design/icon-registry': patch
 ---
 
-Share icon added
+Angled airplane icon added
