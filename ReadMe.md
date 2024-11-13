@@ -95,10 +95,12 @@ The name and size should match what's shown in Figma.
 
 Once added, the svg attributes should be tweaked so as to integrate with the icon generation tooling.
 
-- Replace the main color with `currentColor`
+- Remove the `width` and `height` attributes of the SVG
+- Replace the main color fill and/or stroke colors with `currentColor`
 - Add `class="icon-dark"` to paths that are dark, generally the strokes
 - Add `class="icon-light"` to paths that are light, generally the fills
-- Remove the `width` and `height` attributes of the SVG
+  - For secondary colors are used in the design, use `class="icon-*-secondary"`
+  - When `fill` and `stroke` attributes are both uses in the path, you can use `class="icon-dark-stroke icon-light-fill"`
 
 To verify that the icon is properly hooked up, run `yarn && yarn start` and navigate to the `icons` page. Search for your icon and tweak the colors.
 
