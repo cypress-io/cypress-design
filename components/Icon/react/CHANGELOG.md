@@ -1,5 +1,11 @@
 # @cypress-design/react-icon
 
+## 1.5.3
+
+### Patch Changes
+
+- [#501](https://github.com/cypress-io/cypress-design/pull/501) [`7fa5429`](https://github.com/cypress-io/cypress-design/commit/7fa542957a7f7ad258c02ef47f200663c4da5774) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - - Add Accessibility & UI Cov disabled icons.
+
 ## 1.5.2
 
 ### Patch Changes
