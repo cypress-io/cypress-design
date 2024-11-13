@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.5.3
+
+### Patch Changes
+
+- [#499](https://github.com/cypress-io/cypress-design/pull/499) [`c1a0110`](https://github.com/cypress-io/cypress-design/commit/c1a011059a874cd90acf0ba0a382cf6ae4323781) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - Add Accessibility & UI Cov disabled icons.
+
 ## 1.5.2
 
 ### Patch Changes
