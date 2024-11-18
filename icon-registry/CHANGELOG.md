@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.5.4
+
+### Patch Changes
+
+- [#503](https://github.com/cypress-io/cypress-design/pull/503) [`9775412`](https://github.com/cypress-io/cypress-design/commit/977541249d2680dcee5ea3e8c1d97642a0041f42) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - Add Warning Triangle Icon
+
 ## 1.5.3
 
 ### Patch Changes
