@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 1.5.5
+
+### Patch Changes
+
+- [#505](https://github.com/cypress-io/cypress-design/pull/505) [`c8ec846`](https://github.com/cypress-io/cypress-design/commit/c8ec846fb415e885fc0fe7070767fa0506849e6c) Thanks [@chrisbreiding](https://github.com/chrisbreiding)! - Fix light fill color for test results icon
+
+- Updated dependencies [[`c8ec846`](https://github.com/cypress-io/cypress-design/commit/c8ec846fb415e885fc0fe7070767fa0506849e6c)]:
+  - @cypress-design/icon-registry@1.5.5
+
 ## 1.5.4
 
 ### Patch Changes
