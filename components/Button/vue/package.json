@@ -19,8 +19,10 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
+  "dependencies": {
+    "@cypress-design/constants-button": "*"
+  },
   "devDependencies": {
-    "@cypress-design/constants-button": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
