@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 1.1.0
+
+### Minor Changes
+
+- [#507](https://github.com/cypress-io/cypress-design/pull/507) [`f78d091`](https://github.com/cypress-io/cypress-design/commit/f78d0918b184f051e9bbb9373e2130b8aac6c7d4) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Add outline red button
+
 ## 1.0.1
 
 ### Patch Changes
