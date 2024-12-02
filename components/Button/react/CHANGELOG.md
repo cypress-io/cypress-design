@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 1.1.0
+
+### Minor Changes
+
+- [#509](https://github.com/cypress-io/cypress-design/pull/509) [`222f10e`](https://github.com/cypress-io/cypress-design/commit/222f10eab3cba33d62316581163a8eeb0dedc324) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Add outline red button
+
 ## 1.0.1
 
 ### Patch Changes
