@@ -14,6 +14,8 @@ export const CssVariantClassesTable = {
     'border-indigo-500 text-indigo-500 disabled:hocus:shadow-none hocus:shadow-indigo-300/[.35] disabled:text-gray-500 focus:ring-indigo-600',
   'outline-purple':
     'text-purple-500 border-purple-500 disabled:hocus:shadow-none hocus:shadow-purple-100 disabled:text-gray-500 focus:ring-purple-600',
+  'outline-red':
+    'text-red-500 border-red-500 disabled:hocus:shadow-none hocus:shadow-red-100 disabled:text-gray-500 focus:ring-red-600',
   'outline-gray':
     'text-gray-1000 border-gray-1000 disabled:hocus:shadow-none hocus:shadow-gray-100 disabled:text-gray-500 focus:ring-gray-1000',
   'outline-light':
