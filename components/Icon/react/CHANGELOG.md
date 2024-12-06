@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.5.6
+
+### Patch Changes
+
+- [#511](https://github.com/cypress-io/cypress-design/pull/511) [`01f321f`](https://github.com/cypress-io/cypress-design/commit/01f321fda0525a34d92acd45bd61dd9e4ecc6142) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - Add Git Commit Icon
+
+- Updated dependencies [[`01f321f`](https://github.com/cypress-io/cypress-design/commit/01f321fda0525a34d92acd45bd61dd9e4ecc6142)]:
+  - @cypress-design/icon-registry@1.5.6
+
 ## 1.5.5
 
 ### Patch Changes
