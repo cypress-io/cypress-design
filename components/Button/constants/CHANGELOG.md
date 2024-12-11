@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 1.2.0
+
+### Minor Changes
+
+- [#513](https://github.com/cypress-io/cypress-design/pull/513) [`f59a5b4`](https://github.com/cypress-io/cypress-design/commit/f59a5b46f66a5ca5869d8aad3c5ecba532885dce) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding outline tertiary button
+
 ## 1.1.0
 
 ### Minor Changes
