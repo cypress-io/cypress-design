@@ -19,8 +19,10 @@
     "build:module": "yarn vite build",
     "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
   },
+  "dependencies": {
+    "@cypress-design/constants-modal": "*"
+  },
   "devDependencies": {
-    "@cypress-design/constants-modal": "*",
     "@cypress-design/vue-icon": "*"
   },
   "license": "MIT"
