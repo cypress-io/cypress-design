@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.6.0
+
+### Minor Changes
+
+- [#515](https://github.com/cypress-io/cypress-design/pull/515) [`9137e33`](https://github.com/cypress-io/cypress-design/commit/9137e331402c6e2a1e3848fb8b04f8595fee3902) Thanks [@mschile](https://github.com/mschile)! - Added additional browser icons.
+
+### Patch Changes
+
+- Updated dependencies [[`9137e33`](https://github.com/cypress-io/cypress-design/commit/9137e331402c6e2a1e3848fb8b04f8595fee3902)]:
+  - @cypress-design/icon-registry@1.6.0
+
 ## 1.5.6
 
 ### Patch Changes
