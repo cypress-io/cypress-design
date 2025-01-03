@@ -1,14 +1,19 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import { CssClasses } from '@cypress-design/constants-accordion'
-import type { AccordionProps } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 
-export interface AccordionPropsReact
-  extends Omit<AccordionProps, 'description' | 'title'> {
-  title?: string | undefined
-  description: string | ReactNode | undefined
+export interface AccordionProps {
+  /**
+   * Main indigo title.
+   * [NOTE] Its color and font can be customized using `titleClassName`.
+   */
+  title: string
+  /**
+   * Second line in the heading.
+   */
+  description?: string | React.ReactNode
   /**
    * Icon to be displayed on the left of the the heading. Overridden by the iconEl prop, if both are provided.
    */
@@ -17,6 +22,28 @@ export interface AccordionPropsReact
    * Element to be displayed on the left of the the heading. Overrides the icon prop, if both are provided.
    */
   iconEl?: React.ReactNode
+  /**
+   * Should we add a vertical separator between the icon and the text.
+   */
+  separator?: boolean
+  /**
+   * Change the font and color of the heading title
+   */
+  titleClassName?: string
+  /**
+   * Change the font and color of the heading description
+   */
+  descriptionClassName?: string
+  /**
+   * Additional classes to add to the header of the accordion
+   * > [NOTE] useful to change the background color of the header
+   */
+  headingClassName?: string
+  /**
+   * When using content that needs ti be edge to edge,
+   * removes the content wrapper from the content.
+   */
+  fullWidthContent?: boolean
   /**
    * If true, prevents the accordion from toggling open or closed.
    */
@@ -38,7 +65,7 @@ export interface AccordionPropsReact
 }
 
 export const Accordion: React.FC<
-  AccordionPropsReact & React.HTMLProps<HTMLDetailsElement>
+  AccordionProps & React.HTMLProps<HTMLDetailsElement>
 > = ({
   title,
   description,
