@@ -13,6 +13,12 @@ export default (options: AccordionStoryOptions = {}) => {
     open = false,
     fullWidthContent = false,
     headingClassName,
+    titleClassName,
+    descriptionClassName,
+    locked = false,
+    onClickSummary,
+    onToggle,
+    onToggleBlocked,
     ...rest
   } = options
   return (
@@ -26,6 +32,12 @@ export default (options: AccordionStoryOptions = {}) => {
         open={open}
         fullWidthContent={fullWidthContent}
         headingClassName={headingClassName}
+        titleClassName={titleClassName}
+        descriptionClassName={descriptionClassName}
+        locked={locked}
+        onClickSummary={onClickSummary}
+        onToggle={onToggle}
+        onToggleBlocked={onToggleBlocked}
         {...rest}
       >
         <p data-cy="content">

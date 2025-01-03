@@ -9,6 +9,12 @@ export interface AccordionStoryOptions {
   open?: boolean
   fullWidthContent?: boolean
   headingClassName?: string
+  titleClassName?: string
+  descriptionClassName?: string
+  locked?: boolean
+  onClickSummary?: (event: MouseEvent) => boolean | undefined
+  onToggle?: (open: boolean) => void
+  onToggleBlocked?: () => void
 }
 
 export default function assertions(
@@ -37,7 +43,7 @@ export default function assertions(
 
   it('displays a separator when separator:true', () => {
     mountStory({ separator: true })
-    // the separator has a with of 1px. For some reason cypress detects it as invisible.
+    // the separator has a width of 1px. For some reason cypress detects it as invisible.
     cy.get('[role="separator"]').should('exist')
   })
 
@@ -58,6 +64,60 @@ export default function assertions(
     mountStory({ headingClassName: 'bg-gray-50' })
 
     cy.get('details summary').should('have.class', 'bg-gray-50')
+  })
+
+  it('applies the titleClassName correctly', () => {
+    mountStory({ titleClassName: 'text-indigo-600' })
+
+    cy.get('details summary span')
+      .first()
+      .should('have.class', 'text-indigo-600')
+  })
+
+  it('applies the descriptionClassName correctly', () => {
+    mountStory({ descriptionClassName: 'text-gray-500' })
+
+    cy.get('details summary span').eq(1).should('have.class', 'text-gray-500')
+  })
+
+  it('does not toggle when locked', () => {
+    mountStory({ locked: true })
+    cy.get('details summary').click()
+
+    cy.contains('Lorem ipsum, dolor sit amet').should('not.be.visible')
+  })
+
+  it('calls onClickSummary when summary is clicked', () => {
+    const onClickSummary = cy.stub()
+    mountStory({ onClickSummary })
+
+    cy.get('details summary')
+      .click()
+      .then(() => {
+        expect(onClickSummary).to.have.been.called
+      })
+  })
+
+  it('calls onToggle with the new state when toggled', () => {
+    const onToggle = cy.stub()
+    mountStory({ onToggle })
+
+    cy.get('details summary')
+      .click()
+      .then(() => {
+        expect(onToggle).to.have.been.calledWith(true)
+      })
+  })
+
+  it('calls onToggleBlocked when toggle attempt is blocked', () => {
+    const onToggleBlocked = cy.stub()
+    mountStory({ locked: true, onToggleBlocked })
+
+    cy.get('details summary')
+      .click()
+      .then(() => {
+        expect(onToggleBlocked).to.have.been.called
+      })
   })
 
   it('should not show a separator if no icon is provided', () => {
