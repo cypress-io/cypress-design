@@ -1,6 +1,7 @@
 <template>
-  <details ref="$details">
+  <details ref="$details" :open="openState">
     <summary
+      ref="$summary"
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
     >
       <span :class="CssClasses.summaryDiv">
@@ -101,16 +102,86 @@ const props = defineProps<{
    * removes the content wrapper from the content.
    */
   fullWidthContent?: boolean
+  open?: boolean
+  /**
+   * If true, prevents the accordion from toggling open or closed.
+   */
+  locked?: boolean
+  /**
+   * Provides access to the onClick event of the summary element.
+   * Allows for custom handling or cancellation of the default behavior.
+   */
+  onClickSummary?: (event: MouseEvent) => boolean | undefined
+  /**
+   * Callback triggered when the accordion toggles open or closed.
+   * @param open - The new open state of the accordion.
+   */
+  onToggle?: (open: boolean) => void
+  /**
+   * Callback triggered when a toggle attempt is blocked because the accordion is locked.
+   */
+  onToggleBlocked?: () => void
 }>()
 
 const $content = ref(null)
-const $details = ref(null)
+const $details = ref<HTMLDetailsElement | null>(null)
+const $summary = ref<HTMLElement | null>(null)
+const openState = ref(props.open ?? false)
 
 onMounted(function () {
   if ($details.value && $content.value) {
     new DetailsAnimation($details.value, $content.value)
   }
+
+  if ($details.value) {
+    $details.value.addEventListener('toggle', handleToggle)
+  }
+
+  if ($summary.value) {
+    $summary.value.addEventListener('click', handleSummaryClick, {
+      capture: true,
+    })
+  }
 })
 
 const Icon = toRaw(props.icon)
+
+function handleSummaryClick(event: MouseEvent) {
+  if (props.onClickSummary) {
+    const result = props.onClickSummary(event)
+    if (result === false) {
+      event.preventDefault()
+      event.stopPropagation()
+      return
+    }
+  }
+
+  if (props.locked) {
+    if (props.onToggleBlocked) {
+      props.onToggleBlocked()
+    }
+    event.preventDefault()
+    event.stopPropagation()
+  } else {
+    openState.value = !openState.value
+    if (props.onToggle) {
+      props.onToggle(openState.value)
+    }
+  }
+}
+
+function handleToggle(event: Event) {
+  if (props.locked) {
+    event.preventDefault()
+    event.stopPropagation()
+    if (props.onToggleBlocked) {
+      props.onToggleBlocked()
+    }
+  } else {
+    openState.value = $details.value?.open ?? false
+    if (props.onToggle) {
+      props.onToggle(openState.value)
+    }
+  }
+}
 </script>
