@@ -38,7 +38,7 @@ export default function assertions(
 
     cy.get('details summary').click()
 
-    cy.contains('Lorem ipsum, dolor sit amet').should('not.be.visible')
+    cy.get('details').should('not.have.attr', 'open')
   })
 
   it('displays a separator when separator:true', () => {
@@ -70,21 +70,29 @@ export default function assertions(
     mountStory({ titleClassName: 'text-indigo-600' })
 
     cy.get('details summary span')
-      .first()
-      .should('have.class', 'text-indigo-600')
+      .find('.text-indigo-600')
+      .should('exist')
+      .and('have.text', 'Accordion Title')
   })
 
   it('applies the descriptionClassName correctly', () => {
-    mountStory({ descriptionClassName: 'text-gray-500' })
+    mountStory({ descriptionClassName: 'text-gray-700' })
 
-    cy.get('details summary span').eq(1).should('have.class', 'text-gray-500')
+    cy.get('details summary')
+      .find('.text-gray-700')
+      .should('exist')
+      .and(
+        'have.text',
+        'Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla.',
+      )
   })
 
   it('does not toggle when locked', () => {
     mountStory({ locked: true })
+
     cy.get('details summary').click()
 
-    cy.contains('Lorem ipsum, dolor sit amet').should('not.be.visible')
+    cy.get('details').should('not.have.attr', 'open')
   })
 
   it('calls onClickSummary when summary is clicked', () => {
