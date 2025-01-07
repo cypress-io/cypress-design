@@ -104,10 +104,6 @@ const props = defineProps<{
   fullWidthContent?: boolean
   open?: boolean
   /**
-   * If true, prevents the accordion from toggling open or closed.
-   */
-  locked?: boolean
-  /**
    * Provides access to the onClick event of the summary element.
    * Allows for custom handling or cancellation of the default behavior.
    */
@@ -117,10 +113,6 @@ const props = defineProps<{
    * @param open - The new open state of the accordion.
    */
   onToggle?: (open: boolean) => void
-  /**
-   * Callback triggered when a toggle attempt is blocked because the accordion is locked.
-   */
-  onToggleBlocked?: () => void
 }>()
 
 const $content = ref(null)
@@ -156,32 +148,16 @@ function handleSummaryClick(event: MouseEvent) {
     }
   }
 
-  if (props.locked) {
-    if (props.onToggleBlocked) {
-      props.onToggleBlocked()
-    }
-    event.preventDefault()
-    event.stopPropagation()
-  } else {
-    openState.value = !openState.value
-    if (props.onToggle) {
-      props.onToggle(openState.value)
-    }
+  openState.value = !openState.value
+  if (props.onToggle) {
+    props.onToggle(openState.value)
   }
 }
 
-function handleToggle(event: Event) {
-  if (props.locked) {
-    event.preventDefault()
-    event.stopPropagation()
-    if (props.onToggleBlocked) {
-      props.onToggleBlocked()
-    }
-  } else {
-    openState.value = $details.value?.open ?? false
-    if (props.onToggle) {
-      props.onToggle(openState.value)
-    }
+function handleToggle() {
+  openState.value = $details.value?.open ?? false
+  if (props.onToggle) {
+    props.onToggle(openState.value)
   }
 }
 </script>

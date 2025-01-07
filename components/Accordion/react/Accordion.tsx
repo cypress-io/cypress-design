@@ -45,10 +45,6 @@ export interface AccordionProps {
    */
   fullWidthContent?: boolean
   /**
-   * If true, prevents the accordion from toggling open or closed.
-   */
-  locked?: boolean
-  /**
    * Provides access to the onClick event of the summary element.
    * Allows for custom handling or cancellation of the default behavior.
    */
@@ -58,10 +54,6 @@ export interface AccordionProps {
    * @param open - The new open state of the accordion.
    */
   onToggle?: (open: boolean) => void
-  /**
-   * Callback triggered when a toggle attempt is blocked because the accordion is locked.
-   */
-  onToggleBlocked?: () => void
 }
 
 export const Accordion: React.FC<
@@ -78,10 +70,8 @@ export const Accordion: React.FC<
   descriptionClassName,
   fullWidthContent,
   open,
-  locked = false,
   onClickSummary,
   onToggle = () => {},
-  onToggleBlocked = () => {},
   ...rest
 }) => {
   const [isOpen, setIsOpen] = useState(open)
@@ -120,14 +110,10 @@ export const Accordion: React.FC<
           return
         }
 
-        if (locked) {
-          onToggleBlocked()
-        } else {
-          const newIsOpen = !isOpen
-          setIsOpen(newIsOpen)
+        const newIsOpen = !isOpen
+        setIsOpen(newIsOpen)
 
-          onToggle(newIsOpen)
-        }
+        onToggle(newIsOpen)
       }
 
       summaryElement.addEventListener('click', handleSummaryClick, {
@@ -144,7 +130,7 @@ export const Accordion: React.FC<
     }
 
     return
-  }, [isOpen, locked, onClickSummary, onToggle, onToggleBlocked])
+  }, [isOpen, onClickSummary, onToggle])
 
   return (
     <details

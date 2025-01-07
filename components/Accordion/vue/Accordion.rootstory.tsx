@@ -14,10 +14,8 @@ export default (options: AccordionStoryOptions = {}) => {
     headingClassName,
     titleClassName,
     descriptionClassName,
-    locked = false,
     onClickSummary,
     onToggle,
-    onToggleBlocked,
   } = options
 
   return (
@@ -32,10 +30,8 @@ export default (options: AccordionStoryOptions = {}) => {
         headingClassName={headingClassName}
         titleClassName={titleClassName}
         descriptionClassName={descriptionClassName}
-        locked={locked}
         onClickSummary={onClickSummary}
         onToggle={onToggle}
-        onToggleBlocked={onToggleBlocked}
       >
         {{
           default: () => (

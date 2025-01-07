@@ -11,10 +11,8 @@ export interface AccordionStoryOptions {
   headingClassName?: string
   titleClassName?: string
   descriptionClassName?: string
-  locked?: boolean
   onClickSummary?: (event: MouseEvent) => boolean | undefined
   onToggle?: (open: boolean) => void
-  onToggleBlocked?: () => void
 }
 
 export default function assertions(
@@ -87,14 +85,6 @@ export default function assertions(
       )
   })
 
-  it('does not toggle when locked', () => {
-    mountStory({ locked: true })
-
-    cy.get('details summary').click()
-
-    cy.get('details').should('not.have.attr', 'open')
-  })
-
   it('calls onClickSummary when summary is clicked', () => {
     const onClickSummary = cy.stub()
     mountStory({ onClickSummary })
@@ -114,17 +104,6 @@ export default function assertions(
       .click()
       .then(() => {
         expect(onToggle).to.have.been.calledWith(true)
-      })
-  })
-
-  it('calls onToggleBlocked when toggle attempt is blocked', () => {
-    const onToggleBlocked = cy.stub()
-    mountStory({ locked: true, onToggleBlocked })
-
-    cy.get('details summary')
-      .click()
-      .then(() => {
-        expect(onToggleBlocked).to.have.been.called
       })
   })
 

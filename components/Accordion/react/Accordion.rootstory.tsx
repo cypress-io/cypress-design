@@ -15,10 +15,8 @@ export default (options: AccordionStoryOptions = {}) => {
     headingClassName,
     titleClassName,
     descriptionClassName,
-    locked = false,
     onClickSummary,
     onToggle,
-    onToggleBlocked,
     ...rest
   } = options
   return (
@@ -34,10 +32,8 @@ export default (options: AccordionStoryOptions = {}) => {
         headingClassName={headingClassName}
         titleClassName={titleClassName}
         descriptionClassName={descriptionClassName}
-        locked={locked}
         onClickSummary={onClickSummary}
         onToggle={onToggle}
-        onToggleBlocked={onToggleBlocked}
         {...rest}
       >
         <p data-cy="content">
