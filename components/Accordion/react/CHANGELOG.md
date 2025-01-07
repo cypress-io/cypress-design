@@ -1,5 +1,11 @@
 # @cypress-design/react-accordion
 
+## 1.1.0
+
+### Minor Changes
+
+- [#518](https://github.com/cypress-io/cypress-design/pull/518) [`bb8ccd1`](https://github.com/cypress-io/cypress-design/commit/bb8ccd1cbe77d9055aa88dee1814e13e84ed2652) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Add `open`, `onClickSummary`, and ` onToggle` props and add `toggle` and `click` event listeners
+
 ## 1.0.2
 
 ### Patch Changes
