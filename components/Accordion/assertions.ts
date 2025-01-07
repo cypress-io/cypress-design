@@ -9,6 +9,10 @@ export interface AccordionStoryOptions {
   open?: boolean
   fullWidthContent?: boolean
   headingClassName?: string
+  titleClassName?: string
+  descriptionClassName?: string
+  onClickSummary?: (event: MouseEvent) => boolean | undefined
+  onToggle?: (open: boolean) => void
 }
 
 export default function assertions(
@@ -32,12 +36,12 @@ export default function assertions(
 
     cy.get('details summary').click()
 
-    cy.contains('Lorem ipsum, dolor sit amet').should('not.be.visible')
+    cy.get('details').should('not.have.attr', 'open')
   })
 
   it('displays a separator when separator:true', () => {
     mountStory({ separator: true })
-    // the separator has a with of 1px. For some reason cypress detects it as invisible.
+    // the separator has a width of 1px. For some reason cypress detects it as invisible.
     cy.get('[role="separator"]').should('exist')
   })
 
@@ -58,6 +62,49 @@ export default function assertions(
     mountStory({ headingClassName: 'bg-gray-50' })
 
     cy.get('details summary').should('have.class', 'bg-gray-50')
+  })
+
+  it('applies the titleClassName correctly', () => {
+    mountStory({ titleClassName: 'text-indigo-600' })
+
+    cy.get('details summary span')
+      .find('.text-indigo-600')
+      .should('exist')
+      .and('have.text', 'Accordion Title')
+  })
+
+  it('applies the descriptionClassName correctly', () => {
+    mountStory({ descriptionClassName: 'text-gray-700' })
+
+    cy.get('details summary')
+      .find('.text-gray-700')
+      .should('exist')
+      .and(
+        'have.text',
+        'Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Aenean lacinia bibendum nulla.',
+      )
+  })
+
+  it('calls onClickSummary when summary is clicked', () => {
+    const onClickSummary = cy.stub()
+    mountStory({ onClickSummary })
+
+    cy.get('details summary')
+      .click()
+      .then(() => {
+        expect(onClickSummary).to.have.been.called
+      })
+  })
+
+  it('calls onToggle with the new state when toggled', () => {
+    const onToggle = cy.stub()
+    mountStory({ onToggle })
+
+    cy.get('details summary')
+      .click()
+      .then(() => {
+        expect(onToggle).to.have.been.calledWith(true)
+      })
   })
 
   it('should not show a separator if no icon is provided', () => {

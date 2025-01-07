@@ -12,6 +12,10 @@ export default (options: AccordionStoryOptions = {}) => {
     open = false,
     fullWidthContent = false,
     headingClassName,
+    titleClassName,
+    descriptionClassName,
+    onClickSummary,
+    onToggle,
   } = options
 
   return (
@@ -21,10 +25,13 @@ export default (options: AccordionStoryOptions = {}) => {
         separator={separator}
         description={description}
         icon={icon}
-        // @ts-expect-error volar is a little too strict for tsx html attributes. Only do this for tests
         open={open}
         fullWidthContent={fullWidthContent}
         headingClassName={headingClassName}
+        titleClassName={titleClassName}
+        descriptionClassName={descriptionClassName}
+        onClickSummary={onClickSummary}
+        onToggle={onToggle}
       >
         {{
           default: () => (

@@ -67,7 +67,7 @@ This will:
 - install all dependencies if anything is missing
 - build all the components, specially the ones needed for the docs
 - start the docs website locally
-- give you a link to open in your browser.
+- give you a link to open in your browser. (http://localhost:5173/)
 
 ### Create a new component
 
