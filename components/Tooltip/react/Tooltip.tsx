@@ -33,6 +33,10 @@ export interface TooltipProps {
    */
   popper?: React.ReactNode
   /**
+   * classname for the popper container
+   */
+  popperClassName?: string
+  /**
    * Disable the tooltip.
    * This hides the popper and makes the tooltip inactive.
    */
@@ -65,6 +69,7 @@ export const Tooltip: React.FC<
   placement,
   color = 'light',
   className,
+  popperClassName,
   children,
   popper,
   disabled,
@@ -180,6 +185,7 @@ export const Tooltip: React.FC<
                 ref={refs.setFloating}
                 style={{ ...floatingStyles, zIndex: 100 }}
                 role="tooltip"
+                className={popperClassName}
                 {...getFloatingProps()}
               >
                 <div
