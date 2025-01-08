@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 1.0.3
+
+### Patch Changes
+
+- [#519](https://github.com/cypress-io/cypress-design/pull/519) [`748fb55`](https://github.com/cypress-io/cypress-design/commit/748fb55d2d64318a0826482c8c0eabf88d7e40c7) Thanks [@mabela416](https://github.com/mabela416)! - Allow tooltip popper to receive a classname
+
 ## 1.0.2
 
 ### Patch Changes
