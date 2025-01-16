@@ -9,6 +9,7 @@ import detailsOpenVariantPlugin from './tw-details-open-variant-plugin'
 import plugin from 'tailwindcss/plugin'
 import containerPlugin from '@tailwindcss/container-queries'
 import Hocus from 'tailwindcss-hocus'
+import componentPlugins from '@cypress-design/component-tailwind-plugins'
 
 function defineConfig(config: Config) {
   return config
@@ -71,6 +72,7 @@ export default (fileGlobs: string[] = []) => {
           },
         })
       }),
+      ...componentPlugins,
     ],
   })
 }
