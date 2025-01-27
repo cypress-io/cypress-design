@@ -4,4 +4,4 @@
 '@cypress-design/icon-registry': minor
 ---
 
-Adding document-square-minus_x12 icon
+Adding square-minus_x12, square-minus_x16, and square-minus_x24 icons
