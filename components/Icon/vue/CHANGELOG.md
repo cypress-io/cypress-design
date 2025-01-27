@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.7.0
+
+### Minor Changes
+
+- [#522](https://github.com/cypress-io/cypress-design/pull/522) [`550bdd4`](https://github.com/cypress-io/cypress-design/commit/550bdd4ab238cdcc3cb57761bc25c26f391c7a9b) Thanks [@tbiethman](https://github.com/tbiethman)! - Adding square-minus_x12, square-minus_x16, and square-minus_x24 icons
+
+### Patch Changes
+
+- Updated dependencies [[`550bdd4`](https://github.com/cypress-io/cypress-design/commit/550bdd4ab238cdcc3cb57761bc25c26f391c7a9b)]:
+  - @cypress-design/icon-registry@1.7.0
+
 ## 1.6.0
 
 ### Minor Changes
