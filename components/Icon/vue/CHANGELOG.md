@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.8.0
+
+### Minor Changes
+
+- [#525](https://github.com/cypress-io/cypress-design/pull/525) [`70b6d4d`](https://github.com/cypress-io/cypress-design/commit/70b6d4dfebf35dade5000edbeeaf891503303922) Thanks [@mabela416](https://github.com/mabela416)! - add regenerate configuration icon
+
+### Patch Changes
+
+- Updated dependencies [[`70b6d4d`](https://github.com/cypress-io/cypress-design/commit/70b6d4dfebf35dade5000edbeeaf891503303922)]:
+  - @cypress-design/icon-registry@1.8.0
+
 ## 1.7.0
 
 ### Minor Changes
