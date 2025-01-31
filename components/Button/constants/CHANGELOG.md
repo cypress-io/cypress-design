@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 1.3.0
+
+### Minor Changes
+
+- [#527](https://github.com/cypress-io/cypress-design/pull/527) [`0add397`](https://github.com/cypress-io/cypress-design/commit/0add397b0400c05e69ef463f63c59eecba272a2e) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - update button constants for button
+
 ## 1.2.0
 
 ### Minor Changes
