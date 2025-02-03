@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.9.0
+
+### Minor Changes
+
+- [#528](https://github.com/cypress-io/cypress-design/pull/528) [`9b0bf09`](https://github.com/cypress-io/cypress-design/commit/9b0bf099f2603de9f138f50434e70cece664c5c0) Thanks [@mabela416](https://github.com/mabela416)! - Add ui coverage icon 48px
+
+### Patch Changes
+
+- Updated dependencies [[`9b0bf09`](https://github.com/cypress-io/cypress-design/commit/9b0bf099f2603de9f138f50434e70cece664c5c0)]:
+  - @cypress-design/icon-registry@1.9.0
+
 ## 1.8.0
 
 ### Minor Changes
