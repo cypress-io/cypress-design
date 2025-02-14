@@ -1,5 +1,14 @@
 # @cypress-design/vue-icon
 
+## 1.9.1
+
+### Patch Changes
+
+- [#531](https://github.com/cypress-io/cypress-design/pull/531) [`0422ad2`](https://github.com/cypress-io/cypress-design/commit/0422ad2f03f6372255f6eb172d8ed08ef370f98b) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added a 24x24 office building icon
+
+- Updated dependencies [[`0422ad2`](https://github.com/cypress-io/cypress-design/commit/0422ad2f03f6372255f6eb172d8ed08ef370f98b)]:
+  - @cypress-design/icon-registry@1.9.1
+
 ## 1.9.0
 
 ### Minor Changes
