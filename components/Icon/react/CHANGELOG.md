@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.9.2
+
+### Patch Changes
+
+- [#533](https://github.com/cypress-io/cypress-design/pull/533) [`d42d2c1`](https://github.com/cypress-io/cypress-design/commit/d42d2c195309d7c8e06a6671614ab886572f3576) Thanks [@chrisbreiding](https://github.com/chrisbreiding)! - Add thumbs up and thumbs down icons
+
+- Updated dependencies [[`d42d2c1`](https://github.com/cypress-io/cypress-design/commit/d42d2c195309d7c8e06a6671614ab886572f3576)]:
+  - @cypress-design/icon-registry@1.9.2
+
 ## 1.9.1
 
 ### Patch Changes
