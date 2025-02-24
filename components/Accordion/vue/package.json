@@ -21,11 +21,11 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@cypress-design/constants-accordion": "*",
     "@cypress-design/details-animation": "*",
     "@cypress-design/vue-icon": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-accordion": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   }
 }

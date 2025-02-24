@@ -1,6 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { NavItemLink } from '@cypress-design/constants-docmenu'
+import { type NavItemLink, CssLink } from '@cypress-design/constants-docmenu'
 
 export interface Context {
   setMarkerIsMoving: (markerIsMoving: boolean) => void
@@ -86,14 +86,14 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     }))
 
     return (
-      <li ref={activeLIRef} className="list-none p-0 scroll-my-10">
+      <li ref={activeLIRef} className={CssLink.wrapper}>
         <LinkComponent
           {...itemRest}
-          className={clsx('group relative block w-full pl-[24px]', {
-            'text-indigo-500 dark:text-indigo-400': active,
-            'text-gray-700 dark:text-gray-500': !active,
-            'py-[8px] text-[16px] leading-[24px]': depth < 0,
-            'leading-[20px] text-[14px] py-[12px]': depth >= 0,
+          className={clsx(CssLink.static, {
+            [CssLink.active]: active,
+            [CssLink.inactive]: !active,
+            [CssLink.negativeDepth]: depth < 0,
+            [CssLink.positiveDepth]: depth >= 0,
           })}
           style={{
             paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
@@ -101,15 +101,11 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
         >
           {depth >= 0 ? (
             <div
-              className={clsx(
-                'left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full',
-                {
-                  hidden: !markerIsMoving || !active,
-                  'group-hover:block bg-gray-300':
-                    !active && context.collapsible,
-                  'bg-indigo-500 dark:bg-indigo-400': active && markerIsMoving,
-                },
-              )}
+              className={clsx(CssLink.markerStatic, {
+                hidden: !markerIsMoving || !active,
+                'group-hover:block bg-gray-300': !active && context.collapsible,
+                'bg-indigo-500 dark:bg-indigo-400': active && markerIsMoving,
+              })}
             />
           ) : null}
           {item.label}
