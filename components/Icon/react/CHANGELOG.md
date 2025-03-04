@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.9.3
+
+### Patch Changes
+
+- [#536](https://github.com/cypress-io/cypress-design/pull/536) [`665a873`](https://github.com/cypress-io/cypress-design/commit/665a87369f32f74f3bda8e8aed37a7d176d684e1) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added the small and large sparkle icons
+
+- Updated dependencies [[`665a873`](https://github.com/cypress-io/cypress-design/commit/665a87369f32f74f3bda8e8aed37a7d176d684e1)]:
+  - @cypress-design/icon-registry@1.9.3
+
 ## 1.9.2
 
 ### Patch Changes
