@@ -24,6 +24,10 @@ export const CssVariantClassesTable = {
     'text-gray-700 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-300 focus:ring-gray-200',
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
+  'outline-orange-dark':
+    'border-orange-500 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-100 disabled:text-gray-500 focus:ring-orange-500',
+  'outline-orange-light':
+    'border-orange-200 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-50 disabled:text-gray-500 focus:ring-orange-400',
   'outline-disabled':
     'text-gray-500 border-gray-100 hover:shadow-none bg-white',
   // light variants
