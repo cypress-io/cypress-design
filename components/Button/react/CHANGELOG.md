@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 1.3.0
+
+### Minor Changes
+
+- [#538](https://github.com/cypress-io/cypress-design/pull/538) [`c3066a2`](https://github.com/cypress-io/cypress-design/commit/c3066a2ca4665270067b4c8dabe04bc8ecd470b3) Thanks [@emilmilanov](https://github.com/emilmilanov)! - react-button and vue-button packages
+
 ## 1.2.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 1.4.0
+
+### Minor Changes
+
+- [#538](https://github.com/cypress-io/cypress-design/pull/538) [`c3066a2`](https://github.com/cypress-io/cypress-design/commit/c3066a2ca4665270067b4c8dabe04bc8ecd470b3) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding outline-orange-dark and outline-orange-light buttons
+
 ## 1.3.0
 
 ### Minor Changes
