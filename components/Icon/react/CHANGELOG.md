@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 1.9.4
+
+### Patch Changes
+
+- [#540](https://github.com/cypress-io/cypress-design/pull/540) [`10425b0`](https://github.com/cypress-io/cypress-design/commit/10425b0e74be5f82cb41f022d60c29ffe3acf85d) Thanks [@astone123](https://github.com/astone123)! - add sparkle triple icon
+
+- Updated dependencies [[`10425b0`](https://github.com/cypress-io/cypress-design/commit/10425b0e74be5f82cb41f022d60c29ffe3acf85d)]:
+  - @cypress-design/icon-registry@1.9.4
+
 ## 1.9.3
 
 ### Patch Changes
