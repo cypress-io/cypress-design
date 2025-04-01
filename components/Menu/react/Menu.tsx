@@ -1,7 +1,20 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import type { NavMenuItem, NavMenuGroup } from '@cypress-design/constants-menu'
+import type {
+  NavMenuItem,
+  NavMenuGroup,
+  DataAttributes,
+} from '@cypress-design/constants-menu'
 import { WindiColor } from '@cypress-design/icon-registry'
+
+interface NavMenuGroupWithExtras extends NavMenuGroup<NavMenuItemWithIcon> {
+  submenuClassName?: string
+}
+
+interface NavMenuProps {
+  items: (NavMenuGroupWithExtras | NavMenuItemWithIcon)[]
+  activePath?: string
+}
 
 type NavMenuItemIcon = React.FC<
   {
@@ -23,6 +36,9 @@ type NavMenuItemIconActive = React.FC<
 interface NavMenuItemWithIcon extends NavMenuItem {
   icon?: NavMenuItemIcon
   iconActive?: NavMenuItemIconActive
+  anchorAttributes?:
+    | React.AnchorHTMLAttributes<HTMLAnchorElement>
+    | DataAttributes
 }
 
 const IconComputed: React.FC<{
@@ -30,13 +46,22 @@ const IconComputed: React.FC<{
   animated?: boolean
   Icon: NavMenuItemIcon
   IconActive: NavMenuItemIconActive
-}> = ({ active, animated, Icon, IconActive }) => {
+  interactiveColorsOnGroup?: boolean
+}> = ({
+  active,
+  animated,
+  Icon,
+  IconActive,
+  interactiveColorsOnGroup = true,
+}) => {
   return active ? (
     <IconActive
       animated={!!animated}
       width="24"
       height="24"
-      className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+      className={clsx(
+        'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400',
+      )}
     />
   ) : (
     <Icon
@@ -45,7 +70,7 @@ const IconComputed: React.FC<{
       fillColor="gray-900"
       secondaryFillColor="gray-900"
       hoverStrokeColor="gray-400"
-      interactiveColorsOnGroup
+      interactiveColorsOnGroup={interactiveColorsOnGroup}
     />
   )
 }
@@ -56,12 +81,12 @@ const MenuItem = ({
   iconActive,
   active,
   label,
-}: {
-  href?: string
-  icon?: NavMenuItemIcon
-  iconActive?: NavMenuItemIconActive
+  anchorClassName,
+  labelClassName,
+  interactiveColorsOnGroup,
+  anchorAttributes = {},
+}: NavMenuItemWithIcon & {
   active: boolean
-  label: string
 }) => {
   const [animated, setAnimated] = React.useState(active)
   React.useEffect(() => {
@@ -72,11 +97,14 @@ const MenuItem = ({
   return (
     <a
       href={href}
-      className={clsx('flex items-center gap-4 group ', {
+      {...anchorAttributes}
+      className={clsx('flex items-center gap-4', {
+        group: interactiveColorsOnGroup,
         'text-gray-500': !active,
         'text-indigo-300': active,
         'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
         'p-4': icon && iconActive,
+        [`${anchorClassName}`]: anchorClassName,
       })}
       onMouseUp={(e) => {
         e.preventDefault()
@@ -89,29 +117,44 @@ const MenuItem = ({
           IconActive={iconActive}
           active={active}
           animated={animated}
+          interactiveColorsOnGroup={interactiveColorsOnGroup}
         />
       ) : null}
-      {label}
+      {label && (
+        <span
+          className={
+            clsx({
+              [`${labelClassName}`]: labelClassName,
+            }) || undefined
+          }
+        >
+          {label}
+        </span>
+      )}
     </a>
   )
 }
 
 export const Menu: React.FC<
-  {
-    items: (NavMenuItemWithIcon | NavMenuGroup<NavMenuItemWithIcon>)[]
-    activePath?: string
-  } & React.HTMLProps<HTMLUListElement>
+  NavMenuProps & React.HTMLProps<HTMLUListElement>
 > = ({ items, activePath, className, ...rest }) => {
   return (
     <ul className={clsx('bg-gray-1000 text-gray-500', className)} {...rest}>
       {items.map((item) => {
         const active = item.href !== undefined && item.href === activePath
         return (
-          <li key={item.label}>
+          <li
+            key={item.key || item.label}
+            className={clsx(item.className, { active }) || undefined}
+          >
             {'items' in item ? (
               <>
                 <MenuItem {...item} active={active} />
-                <Menu items={item.items} activePath={activePath} />
+                <Menu
+                  items={item.items}
+                  className={item.submenuClassName}
+                  activePath={activePath}
+                />
               </>
             ) : (
               <MenuItem {...item} active={active} />
