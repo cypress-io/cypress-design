@@ -20,6 +20,7 @@
   "scripts": {
     "cy": "concurrently -c \"auto\" --passthrough-arguments -n cypress,const \"cypress open --component {@}\" \"node ./scripts/watch-constants.mjs\"",
     "cy:run": "cypress run --component",
+    "cy:open": "cypress open",
     "test": "vitest",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
     "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" && turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\"",

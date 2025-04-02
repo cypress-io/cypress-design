@@ -30,10 +30,19 @@ describe('<Menu />', () => {
             activePath={activePath}
             items={[
               {
+                key: 'runs',
                 label: 'Runs',
                 icon: (props) => <IconTechnologyServerAlt {...props} />,
                 iconActive: IconAnimatedTechnologyServer,
                 href: '#runs',
+                className: 'runs-li',
+                anchorClassName: 'runs-anchor',
+                labelClassName: 'runs-label',
+                interactiveColorsOnGroup: true,
+                anchorAttributes: {
+                  'data-testid': 'runs-anchor',
+                  title: 'Runs link',
+                },
               },
               {
                 label: 'Reviews',
@@ -52,6 +61,7 @@ describe('<Menu />', () => {
                 icon: (props) => <IconViewPieChart {...props} />,
                 iconActive: IconAnimatedViewChart,
                 href: '#insights',
+                submenuClassName: 'submenu-insights',
                 items: [
                   'Run status',
                   'Run duration',
@@ -60,9 +70,19 @@ describe('<Menu />', () => {
                   'Slowest tests',
                   'Most common errors',
                   'Flaky tests',
-                ].map((l) => ({
-                  label: l,
-                  href: `#${l.toLowerCase().replace(/ /g, '-')}`,
+                ].map((label, index) => ({
+                  key: `insight-${index}`,
+                  label,
+                  href: `#${label.toLowerCase().replace(/ /g, '-')}`,
+                  ...(label === 'Top failures' && {
+                    className: 'failures-li',
+                    anchorClassName: 'failures-anchor',
+                    labelClassName: 'failures-label',
+                    interactiveColorsOnGroup: false,
+                    anchorAttributes: {
+                      'data-testid': 'failures-anchor',
+                    },
+                  }),
                 })),
               },
               {
@@ -71,7 +91,6 @@ describe('<Menu />', () => {
                 iconActive: IconWindowCodeEditor,
                 href: '#specs',
               },
-
               {
                 label: 'Settings',
                 icon: (props) => <IconObjectGear {...props} />,
