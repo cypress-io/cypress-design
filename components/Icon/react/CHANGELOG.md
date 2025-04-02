@@ -1,5 +1,11 @@
 # @cypress-design/react-icon
 
+## 1.11.0
+
+### Minor Changes
+
+- [#544](https://github.com/cypress-io/cypress-design/pull/544) [`7d3aba5`](https://github.com/cypress-io/cypress-design/commit/7d3aba5d827740fa472e9e2dae5ad9da43c305f9) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Bump icons
+
 ## 1.9.4
 
 ### Patch Changes
