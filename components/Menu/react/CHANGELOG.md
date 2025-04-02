@@ -1,5 +1,11 @@
 # @cypress-design/react-menu
 
+## 1.1.0
+
+### Minor Changes
+
+- [#542](https://github.com/cypress-io/cypress-design/pull/542) [`ea77366`](https://github.com/cypress-io/cypress-design/commit/ea77366c4dd2c5cd7876216461c3936043c09158) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Add style props and active class to Menu and Icons
+
 ## 1.0.2
 
 ### Patch Changes
