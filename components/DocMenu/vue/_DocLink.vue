@@ -8,7 +8,7 @@ import {
   nextTick,
   computed,
 } from 'vue'
-import type { NavItemLink } from '@cypress-design/constants-docmenu'
+import { type NavItemLink, CssLink } from '@cypress-design/constants-docmenu'
 
 const props = withDefaults(
   defineProps<{
@@ -102,29 +102,33 @@ const itemWithoutLabel = computed(() => {
 </script>
 
 <template>
-  <li ref="$container" class="list-none p-0 scroll-my-10">
+  <li ref="$container" :class="CssLink.wrapper">
     <component
       :is="linkComponent"
       v-bind="itemWithoutLabel"
-      class="group relative block w-full pl-[24px]"
-      :class="{
-        'text-indigo-500 dark:text-indigo-400': active,
-        'text-gray-700 dark:text-gray-500': !active,
-        'py-[8px] text-[16px] leading-[24px]': depth < 0,
-        'leading-[20px] text-[14px] py-[12px]': depth >= 0,
-      }"
+      :class="[
+        CssLink.static,
+        {
+          [CssLink.active]: active,
+          [CssLink.inactive]: !active,
+          [CssLink.negativeDepth]: depth < 0,
+          [CssLink.positiveDepth]: depth >= 0,
+        },
+      ]"
       :style="{
         paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
       }"
     >
       <div
         v-if="depth >= 0"
-        class="left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full"
-        :class="{
-          hidden: !markerIsMoving || !active,
-          'group-hover:block bg-gray-300': !active && collapsible,
-          'bg-indigo-500': active && markerIsMoving,
-        }"
+        :class="[
+          CssLink.markerStatic,
+          {
+            hidden: !markerIsMoving || !active,
+            'group-hover:block bg-gray-300': !active && collapsible,
+            'bg-indigo-500': active && markerIsMoving,
+          },
+        ]"
       />
       {{ item.label }}
     </component>

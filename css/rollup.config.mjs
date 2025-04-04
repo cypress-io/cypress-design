@@ -3,7 +3,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import pkg from './package.json' assert { type: 'json' }
 
-const external = Object.keys(pkg.dependencies)
+const external = [...Object.keys(pkg.dependencies), 'picocolors']
 
 const exports = Object.keys(pkg.exports)
   .filter((r) => r !== '.' && !r.endsWith('.json'))
