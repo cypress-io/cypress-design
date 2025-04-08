@@ -1,5 +1,18 @@
 # @cypress-design/vue-icon
 
+## 1.12.0
+
+### Minor Changes
+
+- [#546](https://github.com/cypress-io/cypress-design/pull/546) [`32603f8`](https://github.com/cypress-io/cypress-design/commit/32603f8e95cf2bdad61772385914ae3b83c22302) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - action-pause icons added as 12x, 16x, and 24x
+
+- [#547](https://github.com/cypress-io/cypress-design/pull/547) [`2711c95`](https://github.com/cypress-io/cypress-design/commit/2711c9545d1afec21c8681a5612c353ec0e8e6d7) Thanks [@estrada9166](https://github.com/estrada9166)! - Add flag icon
+
+### Patch Changes
+
+- Updated dependencies [[`32603f8`](https://github.com/cypress-io/cypress-design/commit/32603f8e95cf2bdad61772385914ae3b83c22302), [`2711c95`](https://github.com/cypress-io/cypress-design/commit/2711c9545d1afec21c8681a5612c353ec0e8e6d7)]:
+  - @cypress-design/icon-registry@1.12.0
+
 ## 1.11.0
 
 ### Minor Changes
