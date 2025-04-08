@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.12.0
+
+### Minor Changes
+
+- [#546](https://github.com/cypress-io/cypress-design/pull/546) [`32603f8`](https://github.com/cypress-io/cypress-design/commit/32603f8e95cf2bdad61772385914ae3b83c22302) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - action-pause icons added as 12x, 16x, and 24x
+
 ## 1.10.0
 
 ### Minor Changes
