@@ -2,14 +2,16 @@
 
 ## Install
 
+The button component is contained in the `@cypress-design/react-button` package. You'll also want to install `@cypress-design/constants-button` to get proper types for TypeScript.
+
 ```bash
-npm install @cypress-design/vue-button
+npm install @cypress-design/vue-button @cypress-design/constants-button
 ```
 
 or with yarn
 
 ```bash
-yarn add @cypress-design/vue-button
+yarn add @cypress-design/vue-button @cypress-design/constants-button
 ```
 
 ## Usage
