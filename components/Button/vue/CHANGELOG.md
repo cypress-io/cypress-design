@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 1.4.0
+
+### Minor Changes
+
+- [#553](https://github.com/cypress-io/cypress-design/pull/553) [`a9b1d4f`](https://github.com/cypress-io/cypress-design/commit/a9b1d4fd04f58142096ec6096407a0d70691bf0c) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding outline-red-dark-mode, red-dark-mode and ouline-jade-dark-mode buttons
+
 ## 1.3.0
 
 ### Minor Changes
