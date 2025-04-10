@@ -17,7 +17,12 @@ export default ({
             key={variant}
             className={clsx(
               'flex flex-col items-center gap-3 justify-center mt-4 p-2',
-              { 'bg-gray-1000 text-white': variant === 'outline-dark' },
+              {
+                'bg-gray-1000 text-white':
+                  variant === 'outline-dark' ||
+                  variant === 'outline-red-dark-mode' ||
+                  variant === 'red-dark-mode',
+              },
             )}
           >
             <h3 className="text-right">{variant}</h3>
@@ -28,8 +33,15 @@ export default ({
                   <div key={size} className="flex items-center justify-center">
                     <span
                       className={clsx('text-sm mr-4', {
-                        'text-gray-300': variant === 'outline-dark',
-                        'text-gray-700': variant !== 'outline-dark',
+                        'text-gray-300':
+                          variant === 'outline-dark' ||
+                          variant === 'outline-red-dark-mode' ||
+                          variant === 'red-dark-mode',
+                        'text-gray-700': ![
+                          'outline-dark',
+                          'outline-red-dark-mode',
+                          'red-dark-mode',
+                        ].includes(variant),
                       })}
                     >
                       {size}
