@@ -16,6 +16,8 @@ export const CssVariantClassesTable = {
     'text-purple-500 border-purple-500 disabled:hocus:shadow-none hocus:shadow-purple-100 disabled:text-gray-500 focus:ring-purple-600',
   'outline-red':
     'text-red-500 border-red-500 disabled:hocus:shadow-none hocus:shadow-red-100 disabled:text-gray-500 focus:ring-red-600',
+  'outline-red-dark-mode':
+    'text-red-400 border-red-400 disabled:hocus:shadow-none hocus:shadow-red-300/35 disabled:text-gray-700 disabled:border-white/20 focus:ring-red-600',
   'outline-gray-dark':
     'text-gray-1000 border-gray-1000 disabled:hocus:shadow-none hocus:shadow-gray-100 disabled:text-gray-500 focus:ring-gray-1000',
   'outline-light':
@@ -46,6 +48,8 @@ export const CssVariantClassesTable = {
     'text-white bg-purple-500 border-purple-500 disabled:hocus:shadow-none hocus:shadow-purple-100 focus:bg-purple-600 focus:border-purple-600 focus:ring-transparent',
   'red-dark':
     'text-white bg-red-500 border-red-500 disabled:hocus:shadow-none hocus:shadow-red-100 focus:bg-red-600 focus:border-red-600 focus:ring-transparent',
+  'red-dark-mode':
+    'text-white bg-red-500 border-red-500 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:border-none hocus:shadow-red-400/40 disabled:mix-blend-screen focus:bg-red-600 focus:border-red-600 focus:ring-transparent',
   'gray-dark':
     'text-white bg-gray-800 border-gray-800 disabled:hocus:shadow-none hocus:shadow-gray-100 focus:bg-gray-900 focus:border-gray-900 focus:ring-transparent',
   'gray-darkest':

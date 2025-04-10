@@ -64,8 +64,18 @@ export default () => {
           key={variant}
           className="px-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
           style={{
-            backgroundColor: variant === 'outline-dark' ? '#1a202c' : 'white',
-            color: variant === 'outline-dark' ? 'white' : 'black',
+            backgroundColor:
+              variant === 'outline-dark' ||
+              variant === 'outline-red-dark-mode' ||
+              variant === 'red-dark-mode'
+                ? '#1a202c'
+                : 'white',
+            color:
+              variant === 'outline-dark' ||
+              variant === 'outline-red-dark-mode' ||
+              variant === 'red-dark-mode'
+                ? 'white'
+                : 'black',
           }}
         >
           {variant}
