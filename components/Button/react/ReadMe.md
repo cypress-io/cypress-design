@@ -67,12 +67,14 @@ export default () => {
             backgroundColor:
               variant === 'outline-dark' ||
               variant === 'outline-red-dark-mode' ||
+              variant === 'outline-jade-dark-mode' ||
               variant === 'red-dark-mode'
                 ? '#1a202c'
                 : 'white',
             color:
               variant === 'outline-dark' ||
               variant === 'outline-red-dark-mode' ||
+              variant === 'outline-jade-dark-mode' ||
               variant === 'red-dark-mode'
                 ? 'white'
                 : 'black',

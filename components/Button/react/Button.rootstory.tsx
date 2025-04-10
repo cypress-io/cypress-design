@@ -21,6 +21,7 @@ export default ({
                 'bg-gray-1000 text-white':
                   variant === 'outline-dark' ||
                   variant === 'outline-red-dark-mode' ||
+                  variant === 'outline-jade-dark-mode' ||
                   variant === 'red-dark-mode',
               },
             )}
@@ -36,10 +37,12 @@ export default ({
                         'text-gray-300':
                           variant === 'outline-dark' ||
                           variant === 'outline-red-dark-mode' ||
+                          variant === 'outline-jade-dark-mode' ||
                           variant === 'red-dark-mode',
                         'text-gray-700': ![
                           'outline-dark',
                           'outline-red-dark-mode',
+                          'outline-jade-dark-mode',
                           'red-dark-mode',
                         ].includes(variant),
                       })}

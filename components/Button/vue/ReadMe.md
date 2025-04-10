@@ -70,10 +70,12 @@ import {
         'bg-gray-1000 text-white':
           variant === 'outline-dark' ||
           variant === 'outline-red-dark-mode' ||
+          variant === 'outline-jade-dark-mode' ||
           variant === 'red-dark-mode',
         'bg-white text-gray-900': ![
           'outline-dark',
           'outline-red-dark-mode',
+          'outline-jade-dark-mode',
           'red-dark-mode',
         ].includes(variant),
       }"
