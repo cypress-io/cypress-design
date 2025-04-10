@@ -69,8 +69,17 @@ import {
       v-for="(_, variant) in VariantClassesTable"
       class="p-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
       :class="{
-        'bg-gray-1000 text-white': variant === 'outline-dark',
-        'bg-white text-gray-900': variant !== 'outline-dark',
+        'bg-gray-1000 text-white':
+          variant === 'outline-dark' ||
+          variant === 'outline-red-dark-mode' ||
+          variant === 'outline-jade-dark-mode' ||
+          variant === 'red-dark-mode',
+        'bg-white text-gray-900': ![
+          'outline-dark',
+          'outline-red-dark-mode',
+          'outline-jade-dark-mode',
+          'red-dark-mode',
+        ].includes(variant),
       }"
     >
       {{ variant }}

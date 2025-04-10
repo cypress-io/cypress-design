@@ -22,8 +22,6 @@ export const CssVariantClassesTable = {
     'text-indigo-500 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'outline-gray-light':
     'text-gray-700 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-300 focus:ring-gray-200',
-  'outline-dark':
-    'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
   'outline-orange-dark':
     'border-orange-500 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-100 disabled:text-gray-500 focus:ring-orange-500',
   'outline-orange-light':
@@ -50,6 +48,15 @@ export const CssVariantClassesTable = {
     'text-white bg-gray-800 border-gray-800 disabled:hocus:shadow-none hocus:shadow-gray-100 focus:bg-gray-900 focus:border-gray-900 focus:ring-transparent',
   'gray-darkest':
     'text-white bg-gray-1000 border-gray-1000 disabled:hocus:shadow-none hocus:shadow-gray-100 focus:bg-gray-900 focus:border-gray-900 focus:ring-transparent',
+  // Dark mode
+  'outline-red-dark-mode':
+    'text-red-400 border-red-400 disabled:hocus:shadow-none hocus:shadow-red-300/35 disabled:text-gray-700 disabled:border-white/20 focus:ring-red-600',
+  'outline-jade-dark-mode':
+    'text-jade-400 border-jade-400 disabled:hocus:shadow-none hocus:shadow-jade-300/35 disabled:text-gray-700 disabled:border-white/20 focus:ring-jade-600',
+  'outline-dark':
+    'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
+  'red-dark-mode':
+    'text-white bg-red-500 border-red-500 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:border-none hocus:shadow-red-400/40 disabled:mix-blend-screen focus:bg-red-600 focus:border-red-600 focus:ring-transparent',
 } as const
 
 export const DefaultVariant: keyof typeof CssVariantClassesTable = 'indigo-dark'
