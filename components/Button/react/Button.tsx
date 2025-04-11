@@ -32,12 +32,17 @@ export const Button: React.FC<ReactButtonProps> = ({
   square = false,
   ...rest
 }) => {
-  const finalVariant =
-    disabled && !['outline-dark', 'outline-light', 'link'].includes(variant)
-      ? variant.includes('outline') || variant === 'white'
-        ? 'outline-disabled'
-        : 'disabled'
-      : variant
+  // Determine if we should keep the original variant
+  const shouldKeepOriginalVariant =
+    // If not disabled, always keep original
+    !disabled ||
+    // Keep original for dark mode variants
+    variant.includes('dark-mode') ||
+    variant.includes('outline') ||
+    variant === 'white'
+
+  // If keeping original, use it. Otherwise, determine disabled variant
+  const finalVariant = shouldKeepOriginalVariant ? variant : 'disabled'
 
   const finalDisabled =
     disabled || variant === 'disabled' || variant === 'outline-disabled'

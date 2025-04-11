@@ -49,14 +49,18 @@ export default defineComponent({
     default: void
   }>,
   setup(props) {
-    const finalVariant = computed(() =>
-      props.disabled &&
-      !['outline-dark', 'outline-light', 'link'].includes(props.variant)
-        ? props.variant.includes('outline') || props.variant === 'white'
-          ? 'outline-disabled'
-          : 'disabled'
-        : props.variant,
+    const shouldKeepOriginalVariant = computed(
+      () =>
+        !props.disabled ||
+        props.variant.includes('dark-mode') ||
+        props.variant.includes('outline') ||
+        props.variant === 'white',
     )
+
+    const finalVariant = computed(() =>
+      shouldKeepOriginalVariant.value ? props.variant : 'disabled',
+    )
+
     const finalDisabled = computed(
       () =>
         props.disabled ||
