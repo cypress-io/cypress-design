@@ -54,6 +54,8 @@ import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 
 ## Possible variants
 
+Variants and their available sizes plus styles when `disabled` is set to `true` (represented as 🚫).
+
 ```vue live
 <script lang="ts" setup>
 import {
@@ -91,6 +93,10 @@ import {
       >
         {{ size }}
         <Button :variant="variant" :size="size"> Button </Button>
+      </div>
+      <div class="flex gap-[8px] items-center">
+        🚫
+        <Button :variant="variant" :size="48" disabled="true"> Button </Button>
       </div>
     </div>
   </div>
