@@ -116,6 +116,47 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
     cy.get('button').should('have.attr', 'type', 'submit')
   })
 
+  describe('Disabled Variants', () => {
+    it('should maintain dark-mode variants when disabled', () => {
+      mount(() => (
+        <Button variant="red-dark-mode" disabled>
+          Red Dark Mode
+        </Button>
+      ))
+
+      // Check that the button maintains its variant
+      cy.get('button').should('have.class', 'bg-red-500')
+      cy.get('button').should('have.class', 'disabled:bg-gray-1000')
+      cy.get('button').should('be.disabled')
+    })
+
+    it('should apply disabled variants for non-dark-mode buttons', () => {
+      mount(() => (
+        <Button variant="white" disabled>
+          White Button
+        </Button>
+      ))
+
+      // Check that the button has the correct disabled variant
+      cy.get('button').should('have.class', 'bg-white')
+      cy.get('button').should('have.class', 'disabled:text-gray-500')
+      cy.get('button').should('be.disabled')
+    })
+
+    it('should not modify special variants when disabled', () => {
+      mount(() => (
+        <Button variant="outline-light" disabled>
+          Outline Light
+        </Button>
+      ))
+
+      // Check that the button has the correct disabled variant
+      cy.get('button').should('have.class', 'text-indigo-500')
+      cy.get('button').should('have.class', 'disabled:text-gray-500')
+      cy.get('button').should('be.disabled')
+    })
+  })
+
   function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {
     mount(() => <ButtonStory {...options} />)
   }
