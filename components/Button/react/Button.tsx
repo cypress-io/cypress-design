@@ -9,7 +9,7 @@ import {
   CssStaticClasses,
   CssSizeClassesTableSquare,
 } from '@cypress-design/constants-button'
-import { useDisabledVariant } from '../utils/useDisabledVariant'
+import { useDisabledVariant } from '../useDisabledVariant'
 
 export interface ButtonPropsJsx extends ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void

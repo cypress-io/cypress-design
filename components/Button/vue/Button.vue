@@ -10,7 +10,7 @@ import {
 } from '@cypress-design/constants-button'
 
 import type { ButtonProps } from '@cypress-design/constants-button'
-import { useDisabledVariant } from '../utils/useDisabledVariant'
+import { useDisabledVariant } from './useDisabledVariant'
 
 export default defineComponent({
   props: {

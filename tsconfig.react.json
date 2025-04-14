@@ -12,7 +12,7 @@
     "components/*/react/**/*.tsx",
     "components/*/react/**/*.ts",
     "components/*/assertions.ts",
-    "components/*/utils/**/*.ts",
+    "components/*/useDisabledVariant.ts",
     "cypress/**/*.ts"
   ]
 }
