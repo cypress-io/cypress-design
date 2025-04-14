@@ -48,6 +48,7 @@
     "components/*/vue/**/*.vue",
     "components/*/assertions.ts",
     "components/vue-utils.ts",
+    "components/*/useDisabledVariant.ts",
     "cypress/**/*.ts"
   ],
   "exclude": ["components/*/vue/vite.config.ts"]

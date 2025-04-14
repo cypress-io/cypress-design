@@ -49,14 +49,18 @@ export default defineComponent({
     default: void
   }>,
   setup(props) {
-    const finalVariant = computed(() =>
-      props.disabled &&
-      !['outline-dark', 'outline-light', 'link'].includes(props.variant)
-        ? props.variant.includes('outline') || props.variant === 'white'
-          ? 'outline-disabled'
-          : 'disabled'
-        : props.variant,
-    )
+    const finalVariant = computed(() => {
+      // Determine if we should use the disabled variant
+      const useDisabledVariant =
+        props.disabled &&
+        !props.variant.includes('dark-mode') &&
+        !props.variant.includes('outline') &&
+        props.variant !== 'white'
+
+      // If using disabled variant, use it. Otherwise, keep original variant
+      return useDisabledVariant ? 'disabled' : props.variant
+    })
+
     const finalDisabled = computed(
       () =>
         props.disabled ||
