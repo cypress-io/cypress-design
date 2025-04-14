@@ -10,7 +10,6 @@ import {
 } from '@cypress-design/constants-button'
 
 import type { ButtonProps } from '@cypress-design/constants-button'
-import { useDisabledVariant } from './useDisabledVariant'
 
 export default defineComponent({
   props: {
@@ -50,9 +49,17 @@ export default defineComponent({
     default: void
   }>,
   setup(props) {
-    const finalVariant = computed(() =>
-      useDisabledVariant(props.variant, props.disabled),
-    )
+    const finalVariant = computed(() => {
+      // Determine if we should use the disabled variant
+      const useDisabledVariant =
+        props.disabled &&
+        !props.variant.includes('dark-mode') &&
+        !props.variant.includes('outline') &&
+        props.variant !== 'white'
+
+      // If using disabled variant, use it. Otherwise, keep original variant
+      return useDisabledVariant ? 'disabled' : props.variant
+    })
 
     const finalDisabled = computed(
       () =>

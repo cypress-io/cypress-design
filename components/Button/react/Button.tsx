@@ -9,7 +9,6 @@ import {
   CssStaticClasses,
   CssSizeClassesTableSquare,
 } from '@cypress-design/constants-button'
-import { useDisabledVariant } from '../useDisabledVariant'
 
 export interface ButtonPropsJsx extends ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
@@ -33,7 +32,15 @@ export const Button: React.FC<ReactButtonProps> = ({
   square = false,
   ...rest
 }) => {
-  const finalVariant = useDisabledVariant(variant, disabled)
+  // Determine if we should use the disabled variant
+  const useDisabledVariant =
+    disabled &&
+    !variant.includes('dark-mode') &&
+    !variant.includes('outline') &&
+    variant !== 'white'
+
+  // If using disabled variant, use it. Otherwise, keep original variant
+  const finalVariant = useDisabledVariant ? 'disabled' : variant
 
   const finalDisabled =
     disabled || variant === 'disabled' || variant === 'outline-disabled'
