@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 1.5.0
+
+### Minor Changes
+
+- [#557](https://github.com/cypress-io/cypress-design/pull/557) [`08acf5c`](https://github.com/cypress-io/cypress-design/commit/08acf5cbecf9cb9962ee7e96910438dd9daa3835) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding outline-indigo-dark-mode button.
+
 ## 1.4.0
 
 ### Minor Changes
