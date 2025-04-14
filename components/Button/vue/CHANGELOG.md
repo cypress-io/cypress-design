@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 1.6.0
+
+### Minor Changes
+
+- [#556](https://github.com/cypress-io/cypress-design/pull/556) [`76f62ae`](https://github.com/cypress-io/cypress-design/commit/76f62ae382cba68780bc1d13b303e683286a04b3) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - update buttons to use default variants for outline-, white, and dark-mode buttons and add arrow down left icon
+
 ## 1.5.0
 
 ### Minor Changes
