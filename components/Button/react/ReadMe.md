@@ -51,6 +51,8 @@ export default () => (
 
 ## Possible variants
 
+Variants and their available sizes plus styles when `disabled` is set to `true` (represented as 🚫).
+
 ```tsx live
 import {
   default as Button,
@@ -93,6 +95,12 @@ export default () => {
               </Button>
             </div>
           ))}
+          <div key={variant} className="flex gap-[8px] items-center">
+            🚫
+            <Button variant={variant} size="48" disabled="true">
+              Button
+            </Button>
+          </div>
         </div>
       ))}
     </div>
