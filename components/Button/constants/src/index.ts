@@ -11,21 +11,21 @@ export const CssVariantClassesTable = {
   disabled: 'text-gray-500 bg-gray-100 border-gray-100 hover:shadow-none',
   // outline variants
   'outline-indigo':
-    'border-indigo-500 text-indigo-500 disabled:hocus:shadow-none hocus:shadow-indigo-300/[.35] disabled:text-gray-500 focus:ring-indigo-600',
+    'border-indigo-500 text-indigo-500 disabled:hocus:shadow-none hocus:shadow-indigo-300/[.35] disabled:text-gray-500 disabled:border-gray-100 focus:ring-indigo-600',
   'outline-purple':
-    'text-purple-500 border-purple-500 disabled:hocus:shadow-none hocus:shadow-purple-100 disabled:text-gray-500 focus:ring-purple-600',
+    'text-purple-500 border-purple-500 disabled:hocus:shadow-none hocus:shadow-purple-100 disabled:text-gray-500 disabled:border-gray-100 focus:ring-purple-600',
   'outline-red':
-    'text-red-500 border-red-500 disabled:hocus:shadow-none hocus:shadow-red-100 disabled:text-gray-500 focus:ring-red-600',
+    'text-red-500 border-red-500 disabled:hocus:shadow-none hocus:shadow-red-100 disabled:text-gray-500 disabled:border-gray-100 focus:ring-red-600',
   'outline-gray-dark':
-    'text-gray-1000 border-gray-1000 disabled:hocus:shadow-none hocus:shadow-gray-100 disabled:text-gray-500 focus:ring-gray-1000',
+    'text-gray-1000 border-gray-1000 disabled:hocus:shadow-none hocus:shadow-gray-100 disabled:text-gray-500 disabled:border-gray-100 focus:ring-gray-1000',
   'outline-light':
     'text-indigo-500 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   'outline-gray-light':
     'text-gray-700 border-gray-100 hocus:border-gray-200 disabled:border-gray-100 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-300 focus:ring-gray-200',
   'outline-orange-dark':
-    'border-orange-500 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-100 disabled:text-gray-500 focus:ring-orange-500',
+    'border-orange-500 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-100 disabled:text-gray-500 disabled:border-gray-100 focus:ring-orange-500',
   'outline-orange-light':
-    'border-orange-200 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-50 disabled:text-gray-500 focus:ring-orange-400',
+    'border-orange-200 text-orange-500 disabled:hocus:shadow-none hocus:shadow-orange-50 disabled:text-gray-500 disabled:border-gray-100 focus:ring-orange-400',
   'outline-disabled':
     'text-gray-500 border-gray-100 hover:shadow-none bg-white',
   // light variants
