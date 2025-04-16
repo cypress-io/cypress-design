@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 1.7.0
+
+### Minor Changes
+
+- [#560](https://github.com/cypress-io/cypress-design/pull/560) [`eab53c8`](https://github.com/cypress-io/cypress-design/commit/eab53c8061b0675793c6623ccdd6ad4acf969210) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Updating disabled states for buttons: outline-indigo, outline-purple, outline-red, outline-gray-dark, outline-orange-dark, outline-orange-light
+
 ## 1.6.0
 
 ### Minor Changes
