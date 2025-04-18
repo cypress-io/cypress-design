@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.16.0
+
+### Minor Changes
+
+- [#562](https://github.com/cypress-io/cypress-design/pull/562) [`1995286`](https://github.com/cypress-io/cypress-design/commit/1995286865fc9fd7dbc414e6f1bd7568588cb7ff) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - add action-tap icon at 16 and 24 size
+
+### Patch Changes
+
+- Updated dependencies [[`1995286`](https://github.com/cypress-io/cypress-design/commit/1995286865fc9fd7dbc414e6f1bd7568588cb7ff)]:
+  - @cypress-design/icon-registry@1.16.0
+
 ## 1.15.0
 
 ### Patch Changes
