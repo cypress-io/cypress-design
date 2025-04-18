@@ -7,14 +7,14 @@
     }
   ],
   "commit": false,
-  "fixed": [],
-  "linked": [
+  "fixed": [
     [
       "@cypress-design/icon-registry",
       "@cypress-design/react-icon",
       "@cypress-design/vue-icon"
     ]
   ],
+  "linked": [],
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
