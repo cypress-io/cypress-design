@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.17.0
+
+### Minor Changes
+
+- [#566](https://github.com/cypress-io/cypress-design/pull/566) [`4d2ea8d`](https://github.com/cypress-io/cypress-design/commit/4d2ea8d7b2b030dcc33c7dbaa6b1483f3ac37f43) Thanks [@tbiethman](https://github.com/tbiethman)! - Adding technology-accessibility_x48
+
 ## 1.16.0
 
 ### Minor Changes
