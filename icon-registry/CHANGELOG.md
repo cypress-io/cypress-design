@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.15.0
+
+### Minor Changes
+
+- [#563](https://github.com/cypress-io/cypress-design/pull/563) [`39a0752`](https://github.com/cypress-io/cypress-design/commit/39a07528a00a8fbd2104636d81b6cb8be2b045d4) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - add security-flag-pin and user-general-outline at x24 size
+
 ## 1.14.0
 
 ### Minor Changes

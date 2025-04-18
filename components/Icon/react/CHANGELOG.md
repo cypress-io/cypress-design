@@ -1,5 +1,12 @@
 # @cypress-design/react-icon
 
+## 1.15.0
+
+### Patch Changes
+
+- Updated dependencies [[`39a0752`](https://github.com/cypress-io/cypress-design/commit/39a07528a00a8fbd2104636d81b6cb8be2b045d4)]:
+  - @cypress-design/icon-registry@1.15.0
+
 ## 1.14.0
 
 ### Minor Changes
