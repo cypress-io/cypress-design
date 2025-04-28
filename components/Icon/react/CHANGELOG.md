@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.18.0
+
+### Minor Changes
+
+- [#568](https://github.com/cypress-io/cypress-design/pull/568) [`7df4172`](https://github.com/cypress-io/cypress-design/commit/7df4172b5e820c809faae5ef815206377e6c07ea) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - add chevron-right and chevron-left icons for small, medium, and large at all sizes
+
+### Patch Changes
+
+- Updated dependencies [[`7df4172`](https://github.com/cypress-io/cypress-design/commit/7df4172b5e820c809faae5ef815206377e6c07ea)]:
+  - @cypress-design/icon-registry@1.18.0
+
 ## 1.17.0
 
 ### Minor Changes
