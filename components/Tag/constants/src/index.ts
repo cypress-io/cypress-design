@@ -17,6 +17,10 @@ export const CssColor = {
     default: 'bg-gray-50 text-gray-700 border-gray-100',
     dark: 'bg-gray-700 text-white border-gray-700',
   },
+  gray900: {
+    default: 'bg-gray-900 text-gray-300 border-none',
+    dark: 'bg-gray-900 text-gray-300 border-gray-800',
+  },
   jade: {
     default: 'bg-jade-100 text-jade-600 border-jade-100',
     dark: 'bg-jade-500 text-white border-jade-500',
