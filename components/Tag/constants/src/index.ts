@@ -17,7 +17,7 @@ export const CssColor = {
     default: 'bg-gray-50 text-gray-700 border-gray-100',
     dark: 'bg-gray-700 text-white border-gray-700',
   },
-  gray900: {
+  grayDark: {
     default: 'bg-gray-900 text-gray-300 border-none',
     dark: 'bg-gray-900 text-gray-300 border-gray-800',
   },
