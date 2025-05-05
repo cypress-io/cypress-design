@@ -14,6 +14,12 @@ export const CssVariantClassesTable = {
     'border-indigo-500 text-indigo-500 disabled:hocus:shadow-none hocus:shadow-indigo-300/[.35] disabled:text-gray-500 disabled:border-gray-100 focus:ring-indigo-600',
   'outline-purple':
     'text-purple-500 border-purple-500 disabled:hocus:shadow-none hocus:shadow-purple-100 disabled:text-gray-500 disabled:border-gray-100 focus:ring-purple-600',
+  'outline-teal-dark':
+    'border-teal-500 text-teal-500 disabled:hocus:shadow-none hocus:shadow-teal-300/[.35] disabled:text-gray-500 disabled:border-gray-100 focus:ring-teal-600',
+  'outline-jade-light':
+    'border-jade-300 text-teal-500 hocus:text-teal-600 disabled:hocus:shadow-none hocus:shadow-jade-300/[.35] disabled:text-gray-500 disabled:border-gray-100 disabled:hocus:text-gray-500 focus:ring-jade-600',
+  'outline-jade-dark':
+    'border-jade-500 text-jade-500 disabled:hocus:shadow-none hocus:shadow-teal-300/[.35] disabled:text-gray-500 disabled:border-gray-100 focus:ring-jade-600',
   'outline-red':
     'text-red-500 border-red-500 disabled:hocus:shadow-none hocus:shadow-red-100 disabled:text-gray-500 disabled:border-gray-100 focus:ring-red-600',
   'outline-gray-dark':
@@ -56,7 +62,7 @@ export const CssVariantClassesTable = {
   'outline-indigo-dark-mode':
     'text-indigo-300 border-indigo-400 disabled:hocus:shadow-none hocus:shadow-indigo-400/40 disabled:text-gray-700 disabled:border-white/20 focus:ring-indigo-300',
   'outline-dark':
-    'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:border-white/20 disabled:hover:border-white/20 disabled:text-white/50 focus:ring-gray-200',
+    'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:text-gray-700 disabled:hocus:border-white/20 disabled:border-white/20 focus:ring-gray-200',
   'red-dark-mode':
     'text-white bg-red-500 border-red-500 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:border-none hocus:shadow-red-400/40 disabled:mix-blend-screen focus:bg-red-600 focus:border-red-600 focus:ring-transparent',
 } as const
