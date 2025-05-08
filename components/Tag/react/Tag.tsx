@@ -6,19 +6,27 @@ export interface TagProps {
   size: keyof typeof CssSize
   color: keyof typeof CssColor
   dark?: boolean
+  outline?: boolean
   children: React.ReactNode
   className?: string
 }
 
 export const Tag: React.FC<
   TagProps & Omit<React.HTMLProps<HTMLSpanElement>, 'size'>
-> = ({ className, children, size, color, dark, ...rest }) => {
+> = ({ className, children, size, color, dark, outline, ...rest }) => {
+  const colorKey = dark
+    ? outline
+      ? 'dark-outline'
+      : 'dark'
+    : outline
+      ? 'default-outline'
+      : 'default'
   return (
     <span
       {...rest}
       className={clsx(
         CssSize[size],
-        CssColor[color][dark ? 'dark' : 'default'],
+        CssColor[color][colorKey] || CssColor[color][dark ? 'dark' : 'default'],
         CssShared,
         className,
       )}

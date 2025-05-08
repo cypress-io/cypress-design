@@ -23,8 +23,18 @@ describe('<Tag/>', () => {
                         </Tag>
                       </div>
                       <div class="flex items-center justify-center">
+                        <Tag size={size} color={color} outline>
+                          {`{Tag outline}`}
+                        </Tag>
+                      </div>
+                      <div class="flex items-center justify-center">
                         <Tag size={size} color={color} dark>
-                          {`{Tag}`}
+                          {`{Tag dark}`}
+                        </Tag>
+                      </div>
+                      <div class="flex items-center justify-center">
+                        <Tag size={size} color={color} dark outline>
+                          {`{Tag dark outline}`}
                         </Tag>
                       </div>
                     </>

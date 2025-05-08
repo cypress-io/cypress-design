@@ -33,8 +33,24 @@ describe('Tag', () => {
                         key={`${color}-2`}
                         className="flex items-center justify-center"
                       >
+                        <Tag size={size} color={color} outline>
+                          {`{Tag outline}`}
+                        </Tag>
+                      </div>
+                      <div
+                        key={`${color}-3`}
+                        className="flex items-center justify-center"
+                      >
                         <Tag size={size} color={color} dark>
-                          {`{Tag}`}
+                          {`{Tag dark}`}
+                        </Tag>
+                      </div>
+                      <div
+                        key={`${color}-4`}
+                        className="flex items-center justify-center"
+                      >
+                        <Tag size={size} color={color} dark outline>
+                          {`{Tag dark outline}`}
                         </Tag>
                       </div>
                     </React.Fragment>

@@ -17,8 +17,18 @@ import Tag from '@cypress-design/vue-tag'
           </Tag>
         </div>
         <div class="flex items-center justify-center">
+          <Tag :size="size" :color="color" outline>
+            {{color}} outline
+          </Tag>
+        </div>
+        <div class="flex items-center justify-center">
           <Tag :size="size" :color="color" dark>
-            {{color}}
+            {{color}} dark
+          </Tag>
+        </div>
+        <div class="flex items-center justify-center">
+          <Tag :size="size" :color="color" dark outline>
+            {{color}} dark outline
           </Tag>
         </div>
       </div>
