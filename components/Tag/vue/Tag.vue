@@ -2,7 +2,15 @@
   <span
     :class="[
       CssSize[size],
-      CssColor[color][dark ? 'dark' : 'default'],
+      CssColor[color][
+        (dark
+          ? outline
+            ? 'dark-outline'
+            : 'dark'
+          : outline
+            ? 'default-outline'
+            : 'default') as keyof (typeof CssColor)[typeof color]
+      ] || CssColor[color][dark ? 'dark' : 'default'],
       CssShared,
     ]"
   >
@@ -17,5 +25,6 @@ defineProps<{
   size: keyof typeof CssSize
   color: keyof typeof CssColor
   dark?: boolean
+  outline?: boolean
 }>()
 </script>
