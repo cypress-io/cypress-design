@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 1.8.0
+
+### Minor Changes
+
+- [#570](https://github.com/cypress-io/cypress-design/pull/570) [`e28b36d`](https://github.com/cypress-io/cypress-design/commit/e28b36d6d174a9949d7782613e3fc9e84ef7a963) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Added new Button variants for outline-jade-light, outline-jade-dark, and outline-teal-dark
+
 ## 1.7.0
 
 ### Minor Changes
