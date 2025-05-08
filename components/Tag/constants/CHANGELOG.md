@@ -1,5 +1,12 @@
 # @cypress-design/constants-tag
 
+## 1.1.0
+
+### Minor Changes
+
+- [#571](https://github.com/cypress-io/cypress-design/pull/571) [`ac915e5`](https://github.com/cypress-io/cypress-design/commit/ac915e5c2a3afe355e83c120d6ab4560051f12ce) Thanks [@emilmilanov](https://github.com/emilmilanov)! - - Adding gray-dark tag variant
+  - Updating all tag variants to support outline
+
 ## 1.0.2
 
 ### Patch Changes
