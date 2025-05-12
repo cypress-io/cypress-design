@@ -3,8 +3,8 @@
   <path d="M5 5H13V6M5 5V13H6M5 5H11V1H1V11H5V5Z" stroke="currentColor"  class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   <g clip-path="url(#clip0_19975_331)">
     <g clip-path="url(#clip1_19975_331)">
-      <circle cx="12" cy="12" r="3" transform="rotate(-90 12 12)" stroke="currentColor"  class="icon-light-secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M12 9C10.3431 9 9 10.3431 9 12" stroke="currentColor"  class="icon-dark-secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="3" transform="rotate(-90 12 12)" stroke="#E1E3ED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M12 9C10.3431 9 9 10.3431 9 12" stroke="#6470F3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </g>
   </g>
   <defs>

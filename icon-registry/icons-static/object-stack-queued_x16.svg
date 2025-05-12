@@ -2,7 +2,7 @@
   <path d="M1 1H11V5H5V11H1V1Z" fill="currentColor" class="icon-light"/>
   <path d="M5 5H13V6M5 5V13H6M5 5H11V1H1V11H5V5Z" stroke="currentColor" class="icon-dark" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   <g clip-path="url(#clip0_19975_348)">
-    <circle cx="12" cy="12" r="3" stroke="currentColor" class="icon-dark-secondary" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="12" cy="12" r="3" stroke="#5A5F7A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
   <defs>
     <clipPath id="clip0_19975_348">
