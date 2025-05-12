@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.19.0
+
+### Minor Changes
+
+- [#574](https://github.com/cypress-io/cypress-design/pull/574) [`4e4873d`](https://github.com/cypress-io/cypress-design/commit/4e4873dfd0227c1bd57b5331d7bd3c648aa26938) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding sparkle double icon in two size variations
+
+### Patch Changes
+
+- Updated dependencies [[`4e4873d`](https://github.com/cypress-io/cypress-design/commit/4e4873dfd0227c1bd57b5331d7bd3c648aa26938)]:
+  - @cypress-design/icon-registry@1.19.0
+
 ## 1.18.0
 
 ### Minor Changes
