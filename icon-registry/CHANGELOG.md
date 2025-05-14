@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.20.0
+
+### Minor Changes
+
+- [#576](https://github.com/cypress-io/cypress-design/pull/576) [`02cc704`](https://github.com/cypress-io/cypress-design/commit/02cc7045b84e67199fcaec9c54da28f68840e5bd) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - feat: add object stack icons for failed, passed, queued, and running
+
 ## 1.19.0
 
 ### Minor Changes
