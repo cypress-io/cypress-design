@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.21.0
+
+### Minor Changes
+
+- [#578](https://github.com/cypress-io/cypress-design/pull/578) [`33a77f0`](https://github.com/cypress-io/cypress-design/commit/33a77f0e8aad1ac2e7315e7a238ae0fc145b5dbd) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - add window-sidebar-collapse-left at x16 x24 size
+
 ## 1.20.0
 
 ### Minor Changes
