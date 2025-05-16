@@ -1,0 +1,10 @@
+<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    d="M5 2L2 5M2 5L5 8M2 5H10C12.2091 5 14 6.79086 14 9V10C14 12.2091 12.2091 14 10 14H2"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    class="icon-dark"
+  />
+</svg>
