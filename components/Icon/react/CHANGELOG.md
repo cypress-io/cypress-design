@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.23.0
+
+### Minor Changes
+
+- [#581](https://github.com/cypress-io/cypress-design/pull/581) [`b35c0b5`](https://github.com/cypress-io/cypress-design/commit/b35c0b5d5bc059febf747198fd327458fdf8ced8) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - feat: add object-stack-skipped icon at x16 size
+
+### Patch Changes
+
+- Updated dependencies [[`b35c0b5`](https://github.com/cypress-io/cypress-design/commit/b35c0b5d5bc059febf747198fd327458fdf8ced8)]:
+  - @cypress-design/icon-registry@1.23.0
+
 ## 1.22.0
 
 ### Minor Changes
