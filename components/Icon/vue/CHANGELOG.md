@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.22.0
+
+### Minor Changes
+
+- [#582](https://github.com/cypress-io/cypress-design/pull/582) [`d24a7ef`](https://github.com/cypress-io/cypress-design/commit/d24a7efd038f78bd2c3a3720d9fa5b90a3f70ea1) Thanks [@mabela416](https://github.com/mabela416)! - Add redo and undo icons
+
+### Patch Changes
+
+- Updated dependencies [[`d24a7ef`](https://github.com/cypress-io/cypress-design/commit/d24a7efd038f78bd2c3a3720d9fa5b90a3f70ea1)]:
+  - @cypress-design/icon-registry@1.22.0
+
 ## 1.21.0
 
 ### Patch Changes
