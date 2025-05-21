@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.24.0
+
+### Minor Changes
+
+- [#585](https://github.com/cypress-io/cypress-design/pull/585) [`afa0aa5`](https://github.com/cypress-io/cypress-design/commit/afa0aa5f211b7c314bb47ff62a933bb1448ebe33) Thanks [@tbiethman](https://github.com/tbiethman)! - Adding technology-browsers-light_x16 icon
+
 ## 1.23.0
 
 ### Minor Changes
