@@ -1,5 +1,13 @@
 # @cypress-design/icon-registry
 
+## 1.25.0
+
+### Minor Changes
+
+- [#579](https://github.com/cypress-io/cypress-design/pull/579) [`6af36fa`](https://github.com/cypress-io/cypress-design/commit/6af36fa58af0d5df2dd3eac33104b9b0c71789eb) Thanks [@astone123](https://github.com/astone123)! - add document failed icon
+
+- [#587](https://github.com/cypress-io/cypress-design/pull/587) [`eb93ac8`](https://github.com/cypress-io/cypress-design/commit/eb93ac88b89ff2e676228e750090139a440e6be8) Thanks [@mabela416](https://github.com/mabela416)! - Add technology angle brackets icon
+
 ## 1.24.0
 
 ### Minor Changes

@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 1.9.0
+
+### Minor Changes
+
+- [#587](https://github.com/cypress-io/cypress-design/pull/587) [`eb93ac8`](https://github.com/cypress-io/cypress-design/commit/eb93ac88b89ff2e676228e750090139a440e6be8) Thanks [@mabela416](https://github.com/mabela416)! - Add technology angle brackets icon
+
 ## 1.8.0
 
 ### Minor Changes
