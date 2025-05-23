@@ -1,5 +1,11 @@
 # @cypress-design/react-tag
 
+## 1.1.0
+
+### Minor Changes
+
+- [#589](https://github.com/cypress-io/cypress-design/pull/589) [`90c6bca`](https://github.com/cypress-io/cypress-design/commit/90c6bcafb4fb7abea05f6ad68c4b791625c65e77) Thanks [@mabela416](https://github.com/mabela416)! - Add gray-dark color to Tag component
+
 ## 1.0.3
 
 ### Patch Changes
