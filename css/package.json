@@ -26,7 +26,8 @@
       "import": "./dist/color-constants.es.mjs",
       "require": "./dist/color-constants.cjs.js",
       "types": "./dist/color-constants.d.ts"
-    }
+    },
+    "./dist/*.css": "./dist/*.css"
   },
   "scripts": {
     "build": "yarn build:types && yarn build:lib",
@@ -44,7 +45,10 @@
     "@cypress-design/color-constants": "*",
     "@types/lodash": "^4.17.4",
     "typescript": "5.4.5",
-    "color-string": "1.9.1"
+    "color-string": "1.9.1",
+    "rollup-plugin-postcss": "^4.0.2",
+    "postcss": "^8.4.38",
+    "autoprefixer": "^10.4.19"
   },
   "license": "MIT"
 }

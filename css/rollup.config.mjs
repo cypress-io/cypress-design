@@ -1,6 +1,7 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import postcss from 'rollup-plugin-postcss'
 import pkg from './package.json' assert { type: 'json' }
 
 const external = Object.keys(pkg.dependencies)
@@ -35,6 +36,15 @@ const config = ({ input, outputFile }) => {
         declarationMap: false,
         outDir: './dist',
       }),
+      postcss({
+        minimize: true,
+        modules: false,
+        use: ['sass'],
+        extensions: ['.css'],
+        inject: false,
+        writeDefinitions: true,
+        extract: (outputFile) => `${outputFile}.css`,
+      }),
     ],
     external,
   }
@@ -45,7 +55,9 @@ export default [
     input: './src/index.ts',
     outputFile: './dist/index',
   }),
-  ...exports.map((ex) => {
-    return config({ input: `./src/${ex}.ts`, outputFile: `./dist/${ex}` })
-  }),
+  ...exports
+    .filter((ex) => !ex.endsWith('.css'))
+    .map((ex) => {
+      return config({ input: `./src/${ex}.ts`, outputFile: `./dist/${ex}` })
+    }),
 ]
