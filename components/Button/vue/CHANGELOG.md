@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 1.10.0
+
+### Minor Changes
+
+- [#591](https://github.com/cypress-io/cypress-design/pull/591) [`5e64008`](https://github.com/cypress-io/cypress-design/commit/5e640086b16ca03966e86f8a4b9ad371bc1e7287) Thanks [@mabela416](https://github.com/mabela416)! - Add disabled-dark-mode variant
+
 ## 1.9.0
 
 ### Minor Changes
