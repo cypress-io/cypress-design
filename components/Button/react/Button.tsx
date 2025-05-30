@@ -43,7 +43,10 @@ export const Button: React.FC<ReactButtonProps> = ({
   const finalVariant = useDisabledVariant ? 'disabled' : variant
 
   const finalDisabled =
-    disabled || variant === 'disabled' || variant === 'outline-disabled'
+    disabled ||
+    variant === 'disabled' ||
+    variant === 'outline-disabled' ||
+    variant === 'disabled-dark-mode'
 
   const Comp = href ? 'a' : 'button'
 
