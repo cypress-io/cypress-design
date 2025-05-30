@@ -20,7 +20,8 @@ export default ({
                   variant === 'outline-red-dark-mode' ||
                   variant === 'outline-jade-dark-mode' ||
                   variant === 'outline-indigo-dark-mode' ||
-                  variant === 'red-dark-mode',
+                  variant === 'red-dark-mode' ||
+                  variant === 'disabled-dark-mode',
               },
             )}
           >
@@ -37,13 +38,15 @@ export default ({
                           variant === 'outline-red-dark-mode' ||
                           variant === 'outline-jade-dark-mode' ||
                           variant === 'outline-indigo-dark-mode' ||
-                          variant === 'red-dark-mode',
+                          variant === 'red-dark-mode' ||
+                          variant === 'disabled-dark-mode',
                         'text-gray-700': ![
                           'outline-dark',
                           'outline-red-dark-mode',
                           'outline-jade-dark-mode',
                           'outline-indigo-dark-mode',
                           'red-dark-mode',
+                          'disabled-dark-mode',
                         ].includes(variant),
                       })}
                     >

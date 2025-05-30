@@ -65,7 +65,8 @@ export default defineComponent({
       () =>
         props.disabled ||
         props.variant === 'disabled' ||
-        props.variant === 'outline-disabled',
+        props.variant === 'outline-disabled' ||
+        props.variant === 'disabled-dark-mode',
     )
 
     const variantClasses = computed(

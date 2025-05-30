@@ -10,7 +10,7 @@ export const CssVariantClassesTable = {
     'text-indigo-500 bg-white border-gray-100 hover:border-gray-200 disabled:hocus:shadow-none hocus:shadow-gray-50 disabled:text-gray-500 focus:ring-gray-200',
   disabled: 'text-gray-500 bg-gray-100 border-gray-100 hover:shadow-none',
   'disabled-dark-mode':
-    'hocus:shadow-none bg-gray-1000 text-gray-800 border-none mix-blend-screen:text-gray-800',
+    'text-gray-800 bg-gray-1000 border-none hocus:shadow-none mix-blend-screen',
   // outline variants
   'outline-indigo':
     'border-indigo-500 text-indigo-500 disabled:hocus:shadow-none hocus:shadow-indigo-300/[.35] disabled:text-gray-500 disabled:border-gray-100 focus:ring-indigo-600',
