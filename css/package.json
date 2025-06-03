@@ -27,12 +27,13 @@
       "require": "./dist/color-constants.cjs.js",
       "types": "./dist/color-constants.d.ts"
     },
-    "./dist/*.css": "./dist/*.css"
+    "./index.css": "./dist/index.css"
   },
   "scripts": {
-    "build": "yarn build:types && yarn build:lib",
+    "build": "yarn build:types && yarn build:colors-css && yarn build:lib",
     "build:types": "tsc -p ./tsconfig.build.json --noEmit false --emitDeclarationOnly",
-    "build:lib": "rollup -c ./rollup.config.mjs"
+    "build:lib": "rollup -c ./rollup.config.mjs",
+    "build:colors-css": "ts-node src/generate-colors-css.ts"
   },
   "dependencies": {
     "@tailwindcss/container-queries": "^0.1.1",

@@ -39,11 +39,10 @@ const config = ({ input, outputFile }) => {
       postcss({
         minimize: true,
         modules: false,
-        use: ['sass'],
         extensions: ['.css'],
         inject: false,
         writeDefinitions: true,
-        extract: (outputFile) => `${outputFile}.css`,
+        extract: 'index.css',
       }),
     ],
     external,
