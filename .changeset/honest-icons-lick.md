@@ -4,4 +4,4 @@
 '@cypress-design/icon-registry': patch
 ---
 
-Add technology-dashboard-fail 16px icon
+Add technology-dashboard-fail 16px icon and general-sparkle-triple x24 icon.
