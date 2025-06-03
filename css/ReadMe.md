@@ -11,6 +11,34 @@ To do that, follow the two steps below:
 yarn add -D @cypress-design/css
 ```
 
+## Using cyColors in stylesheets
+
+When building this package, we also have a script `generate-colors-css.ts` to generate the file `colors.css` which recreates all the `cyColors` from `color-constants.ts` as css variables. If a color needs to be added or updated, only the object `cyColors` in `color-constants.ts` needs to be updated. Then, we need to rebuild the package so that `colors.css` can be regenerated so you should run:
+
+```base
+cd css && yarn build
+```
+
+### To use those css variables:
+
+In your `.css` files add:
+
+```
+@import "@cypress-design/css/index.css";
+```
+
+In your `.scss` files add:
+
+```
+@use "@cypress-design/css/index.css" as *
+```
+
+and then you can use the variables from `colors.css` like this:
+
+```
+border: 1px solid var(--cy-gray-800);
+```
+
 ## Remove Windi (if installed)
 
 If windicss is installed, uninstall it first:
