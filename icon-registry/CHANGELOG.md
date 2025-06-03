@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.25.1
+
+### Patch Changes
+
+- [#594](https://github.com/cypress-io/cypress-design/pull/594) [`1978a30`](https://github.com/cypress-io/cypress-design/commit/1978a30f5b3081523ba6e4cfbac4526b46153165) Thanks [@emilyrohrbough](https://github.com/emilyrohrbough)! - Add technology-dashboard-fail 16px icon and general-sparkle-triple x24 icon.
+
 ## 1.25.0
 
 ### Minor Changes
