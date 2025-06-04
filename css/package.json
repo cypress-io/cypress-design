@@ -45,11 +45,12 @@
   "devDependencies": {
     "@cypress-design/color-constants": "*",
     "@types/lodash": "^4.17.4",
-    "typescript": "5.4.5",
+    "autoprefixer": "^10.4.19",
     "color-string": "1.9.1",
-    "rollup-plugin-postcss": "^4.0.2",
     "postcss": "^8.4.38",
-    "autoprefixer": "^10.4.19"
+    "rollup-plugin-postcss": "^4.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "5.4.5"
   },
   "license": "MIT"
 }

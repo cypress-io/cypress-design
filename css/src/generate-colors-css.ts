@@ -6,11 +6,13 @@ function generateColorsCSS() {
   let css = ':root {\n'
 
   // Generate base color variables
-  Object.entries(colors).forEach(([colorName, shades]) => {
+  Object.entries(colors).forEach(([colorName, shades], index) => {
     Object.entries(shades).forEach(([shade, value]) => {
-      css += `  --cy-${colorName}-${shade}: ${value};\n`
+      css += `  --cy-${colorName}-${shade}: ${value.toLowerCase()};\n`
     })
-    css += '\n'
+    if (index < Object.keys(colors).length - 1) {
+      css += '\n'
+    }
   })
 
   css += '}\n'
