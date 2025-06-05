@@ -1,5 +1,12 @@
 # @cypress-design/vue-icon
 
+## 1.25.1
+
+### Patch Changes
+
+- Updated dependencies [[`1978a30`](https://github.com/cypress-io/cypress-design/commit/1978a30f5b3081523ba6e4cfbac4526b46153165)]:
+  - @cypress-design/icon-registry@1.25.1
+
 ## 1.25.0
 
 ### Minor Changes
