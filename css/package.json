@@ -26,12 +26,14 @@
       "import": "./dist/color-constants.es.mjs",
       "require": "./dist/color-constants.cjs.js",
       "types": "./dist/color-constants.d.ts"
-    }
+    },
+    "./index.css": "./dist/index.css"
   },
   "scripts": {
-    "build": "yarn build:types && yarn build:lib",
+    "build": "yarn build:types && yarn build:colors-css && yarn build:lib",
     "build:types": "tsc -p ./tsconfig.build.json --noEmit false --emitDeclarationOnly",
-    "build:lib": "rollup -c ./rollup.config.mjs"
+    "build:lib": "rollup -c ./rollup.config.mjs",
+    "build:colors-css": "ts-node src/generate-colors-css.ts"
   },
   "dependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
@@ -43,8 +45,12 @@
   "devDependencies": {
     "@cypress-design/color-constants": "*",
     "@types/lodash": "^4.17.4",
-    "typescript": "5.4.5",
-    "color-string": "1.9.1"
+    "autoprefixer": "^10.4.19",
+    "color-string": "1.9.1",
+    "postcss": "^8.4.38",
+    "rollup-plugin-postcss": "^4.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "5.4.5"
   },
   "license": "MIT"
 }
