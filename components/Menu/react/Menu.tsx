@@ -89,6 +89,8 @@ const MenuItem = ({
   active: boolean
 }) => {
   const [animated, setAnimated] = React.useState(active)
+  const [transientActive, setTransientActive] = React.useState(false)
+  const visuallyActive = active || transientActive
   React.useEffect(() => {
     if (!active) {
       setAnimated(false)
@@ -100,22 +102,30 @@ const MenuItem = ({
       {...anchorAttributes}
       className={clsx('flex items-center gap-4', {
         group: interactiveColorsOnGroup,
-        'text-gray-500': !active,
-        'text-indigo-300': active,
+        'text-gray-500': !visuallyActive,
+        'text-indigo-300': visuallyActive,
         'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
         'p-4': icon && iconActive,
         [`${anchorClassName}`]: anchorClassName,
       })}
+      onMouseDown={(e) => {
+        e.preventDefault()
+        setTransientActive(true)
+      }}
       onMouseUp={(e) => {
         e.preventDefault()
         setAnimated(true)
+        setTimeout(() => setTransientActive(false), 0)
+      }}
+      onMouseLeave={() => {
+        setTransientActive(false)
       }}
     >
       {icon && iconActive ? (
         <IconComputed
           Icon={icon}
           IconActive={iconActive}
-          active={active}
+          active={visuallyActive}
           animated={animated}
           interactiveColorsOnGroup={interactiveColorsOnGroup}
         />
