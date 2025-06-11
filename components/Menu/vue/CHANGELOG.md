@@ -1,5 +1,11 @@
 # @cypress-design/vue-menu
 
+## 1.2.0
+
+### Minor Changes
+
+- [#597](https://github.com/cypress-io/cypress-design/pull/597) [`851d5d0`](https://github.com/cypress-io/cypress-design/commit/851d5d003c1b68e8f6481576127d8ba7e52b812e) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Add transient active to Menu
+
 ## 1.1.0
 
 ### Minor Changes
