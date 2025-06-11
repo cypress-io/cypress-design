@@ -1,5 +1,11 @@
 # @cypress-design/css
 
+## 1.2.0
+
+### Minor Changes
+
+- [#592](https://github.com/cypress-io/cypress-design/pull/592) [`7224078`](https://github.com/cypress-io/cypress-design/commit/7224078cac991b0bc28e7631270bdc342ea469d3) Thanks [@mabela416](https://github.com/mabela416)! - Add colors.css to be able to use color variables in css/scss files
+
 ## 1.1.0
 
 ### Minor Changes
