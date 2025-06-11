@@ -11,17 +11,38 @@ const props = defineProps<
 >()
 
 const animated = ref(!!props.active)
+const transientActive = ref(false)
 
 watch(
   () => props.active,
   (newVal) => {
-    if (newVal) return
-    animated.value = false
+    if (!newVal) {
+      animated.value = false
+    }
   },
 )
 
+const visuallyActive = computed(() => props.active || transientActive.value)
+
 const IconActive = computed(() => props.iconActive)
 const Icon = computed(() => props.icon)
+
+const handleMouseDown = (e: MouseEvent) => {
+  e.preventDefault()
+  transientActive.value = true
+}
+
+const handleMouseUp = (e: MouseEvent) => {
+  e.preventDefault()
+  animated.value = true
+  setTimeout(() => {
+    transientActive.value = false
+  }, 0)
+}
+
+const handleMouseLeave = () => {
+  transientActive.value = false
+}
 </script>
 
 <template>
@@ -30,22 +51,19 @@ const Icon = computed(() => props.icon)
     :class="[
       'flex gap-4 group',
       {
-        'text-gray-500': !active,
-        'text-indigo-300': active,
+        'text-gray-500': !visuallyActive,
+        'text-indigo-300': visuallyActive,
         'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
         'p-4': icon && iconActive,
       },
     ]"
-    @mouseup="
-      (e) => {
-        e.preventDefault()
-        animated = true
-      }
-    "
+    @mousedown="handleMouseDown"
+    @mouseup="handleMouseUp"
+    @mouseleave="handleMouseLeave"
   >
     <template v-if="icon && iconActive">
       <IconActive
-        v-if="active"
+        v-if="visuallyActive"
         :animated="animated"
         width="24"
         height="24"
