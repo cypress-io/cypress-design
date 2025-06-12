@@ -45,7 +45,7 @@ const IconComputed: React.FC<{
   active?: boolean
   animated?: boolean
   Icon: NavMenuItemIcon
-  IconActive: NavMenuItemIconActive
+  IconActive?: NavMenuItemIconActive
   interactiveColorsOnGroup?: boolean
 }> = ({
   active,
@@ -54,24 +54,48 @@ const IconComputed: React.FC<{
   IconActive,
   interactiveColorsOnGroup = true,
 }) => {
-  return active ? (
-    <IconActive
-      animated={!!animated}
-      width="24"
-      height="24"
-      className={clsx(
-        'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400',
-      )}
-    />
-  ) : (
-    <Icon
-      size="24"
-      strokeColor="gray-600"
-      fillColor="gray-900"
-      secondaryFillColor="gray-900"
-      hoverStrokeColor="gray-400"
-      interactiveColorsOnGroup={interactiveColorsOnGroup}
-    />
+  if (!IconActive) {
+    return (
+      <Icon
+        size="24"
+        strokeColor="gray-600"
+        fillColor="gray-900"
+        secondaryFillColor="gray-900"
+        hoverStrokeColor="gray-400"
+        interactiveColorsOnGroup={interactiveColorsOnGroup}
+        className={clsx({
+          'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400':
+            active,
+        })}
+      />
+    )
+  }
+
+  return (
+    <span className="relative inline-flex w-[24px] h-[24px] shrink-0 items-center justify-center align-middle">
+      <Icon
+        size="24"
+        strokeColor="gray-600"
+        fillColor="gray-900"
+        secondaryFillColor="gray-900"
+        hoverStrokeColor="gray-400"
+        interactiveColorsOnGroup={interactiveColorsOnGroup}
+        className={clsx(
+          'absolute inset-0 transition-opacity',
+          active ? 'opacity-0' : 'opacity-100',
+        )}
+      />
+      <IconActive
+        animated={!!animated}
+        width="24"
+        height="24"
+        className={clsx(
+          'absolute inset-0 transition-opacity',
+          active ? 'opacity-100' : 'opacity-0',
+          'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400',
+        )}
+      />
+    </span>
   )
 }
 
@@ -115,13 +139,13 @@ const MenuItem = ({
       onMouseUp={(e) => {
         e.preventDefault()
         setAnimated(true)
-        setTimeout(() => setTransientActive(false), 0)
+        setTransientActive(false)
       }}
       onMouseLeave={() => {
         setTransientActive(false)
       }}
     >
-      {icon && iconActive ? (
+      {icon ? (
         <IconComputed
           Icon={icon}
           IconActive={iconActive}
