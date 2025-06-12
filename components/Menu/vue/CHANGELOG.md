@@ -1,5 +1,11 @@
 # @cypress-design/vue-menu
 
+## 1.3.0
+
+### Minor Changes
+
+- [#598](https://github.com/cypress-io/cypress-design/pull/598) [`d019c22`](https://github.com/cypress-io/cypress-design/commit/d019c222c8c2b6071bdf0c4ffcf682eb7262bd63) Thanks [@karlsnyder0](https://github.com/karlsnyder0)! - Prevent losing click event during icon replacement
+
 ## 1.2.0
 
 ### Minor Changes
