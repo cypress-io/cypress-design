@@ -61,28 +61,44 @@ const handleMouseLeave = () => {
     @mouseup="handleMouseUp"
     @mouseleave="handleMouseLeave"
   >
-    <template v-if="icon && iconActive">
-      <span
-        class="relative inline-flex w-[24px] h-[24px] shrink-0 items-center justify-center align-middle"
-      >
+    <template v-if="icon">
+      <template v-if="iconActive">
+        <span
+          class="relative inline-flex w-[24px] h-[24px] shrink-0 items-center justify-center align-middle"
+        >
+          <Icon
+            v-show="!visuallyActive"
+            size="24"
+            strokeColor="gray-600"
+            fillColor="gray-900"
+            secondaryFillColor="gray-900"
+            hoverStrokeColor="gray-400"
+            interactiveColorsOnGroup
+            class="absolute inset-0 transition-opacity"
+          />
+          <IconActive
+            v-show="visuallyActive"
+            :animated="animated"
+            width="24"
+            height="24"
+            class="absolute inset-0 transition-opacity icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+          />
+        </span>
+      </template>
+      <template v-else>
         <Icon
-          v-show="!visuallyActive"
           size="24"
           strokeColor="gray-600"
           fillColor="gray-900"
           secondaryFillColor="gray-900"
           hoverStrokeColor="gray-400"
           interactiveColorsOnGroup
-          class="absolute inset-0 transition-opacity"
+          :class="{
+            'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400':
+              active,
+          }"
         />
-        <IconActive
-          v-show="visuallyActive"
-          :animated="animated"
-          width="24"
-          height="24"
-          class="absolute inset-0 transition-opacity icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
-        />
-      </span>
+      </template>
     </template>
     {{ label }}
   </a>
