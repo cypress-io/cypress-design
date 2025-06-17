@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.26.0
+
+### Minor Changes
+
+- [#600](https://github.com/cypress-io/cypress-design/pull/600) [`f347d4a`](https://github.com/cypress-io/cypress-design/commit/f347d4ae113b14006596d78df24372dba846bccd) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding icon general-sparkle-single-large-disabled_x24
+
+### Patch Changes
+
+- Updated dependencies [[`f347d4a`](https://github.com/cypress-io/cypress-design/commit/f347d4ae113b14006596d78df24372dba846bccd)]:
+  - @cypress-design/icon-registry@1.26.0
+
 ## 1.25.1
 
 ### Patch Changes
