@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.27.0
+
+### Minor Changes
+
+- [#602](https://github.com/cypress-io/cypress-design/pull/602) [`68f089e`](https://github.com/cypress-io/cypress-design/commit/68f089e391f930f53dbae87df96dffed03940ae7) Thanks [@mabela416](https://github.com/mabela416)! - Add stop circle icon
+
 ## 1.26.0
 
 ### Minor Changes
