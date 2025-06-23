@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.28.0
+
+### Minor Changes
+
+- [#604](https://github.com/cypress-io/cypress-design/pull/604) [`946eed0`](https://github.com/cypress-io/cypress-design/commit/946eed06260eb938f5b4f7c6a9044d4f8a118c7d) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding AI disabled icon in 16x size
+
 ## 1.27.0
 
 ### Minor Changes
