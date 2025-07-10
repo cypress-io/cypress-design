@@ -50,7 +50,9 @@ jobs:
         run: yarn test
 
       - name: Build Components
-        run: yarn run build:components
+        run: |
+          export NODE_OPTIONS=--max_old_space_size=4096
+          yarn run build:components
 
       - name: Types docs
         run: yarn vue-tsc --noEmit -p .

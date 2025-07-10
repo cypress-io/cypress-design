@@ -33,7 +33,9 @@ jobs:
           yarn workspace @cypress-design/icon-registry build
 
       - name: Build Components
-        run: yarn run build:components
+        run: |
+          export NODE_OPTIONS=--max_old_space_size=4096
+          yarn run build:components
 
       - name: Cache node_modules and built dist files
         uses: actions/cache@v4
