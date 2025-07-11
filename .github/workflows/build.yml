@@ -49,3 +49,4 @@ jobs:
             ./icon-registry/dist
             ./components
             ./node_modules
+            ./packages/details-animation/dist
