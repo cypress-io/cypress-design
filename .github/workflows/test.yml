@@ -33,6 +33,25 @@ jobs:
             ./components
             ./node_modules
 
+      - name: Verify Build Cache
+        run: |
+          echo "Checking if components are built..."
+          ls -la components/*/react/dist/ 2>/dev/null || echo "React components not found"
+          ls -la components/*/vue/dist/ 2>/dev/null || echo "Vue components not found"
+          ls -la components/*/constants/dist/ 2>/dev/null || echo "Constants not found"
+
+      - name: Rebuild Components if Cache Missing
+        run: |
+          if [ ! -d "components/Button/react/dist" ] || [ ! -d "components/Button/vue/dist" ]; then
+            echo "Build cache missing, rebuilding components..."
+            export NODE_OPTIONS=--max_old_space_size=4096
+            yarn build:constants
+            yarn build:vue
+            yarn build:react
+          else
+            echo "Build cache found, skipping rebuild"
+          fi
+
       - name: Remove Postinstall Script
         run: npm pkg set scripts.postinstall="echo no-postinstall"
 
