@@ -55,21 +55,6 @@ jobs:
       - name: Run Unit Tests
         run: yarn test
 
-      - name: Build Constants
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:constants
-
-      - name: Build Vue Components
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:vue
-
-      - name: Build React Components
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:react
-
       - name: Types docs
         run: yarn vue-tsc --noEmit -p .
 
