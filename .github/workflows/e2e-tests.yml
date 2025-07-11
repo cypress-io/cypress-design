@@ -43,7 +43,6 @@ jobs:
         with:
           start: yarn --cwd test/react-app dev
           wait-on: 'http://localhost:5173'
-          command: yarn cypress run --e2e --record
           browser: chrome
           record: true
           group: 'E2E Tests - React Dev'
@@ -90,7 +89,6 @@ jobs:
         with:
           start: yarn --cwd test/react-app preview --port=5173
           wait-on: 'http://localhost:5173'
-          command: yarn cypress run --e2e --record
           browser: chrome
           record: true
           group: 'E2E Tests - React Build'
@@ -134,7 +132,6 @@ jobs:
         with:
           start: yarn --cwd test/vue-app dev
           wait-on: 'http://localhost:5173'
-          command: yarn cypress run --e2e --record
           browser: chrome
           record: true
           group: 'E2E Tests - Vue Dev'
@@ -181,7 +178,6 @@ jobs:
         with:
           start: yarn --cwd test/vue-app preview --port=5173
           wait-on: 'http://localhost:5173'
-          command: yarn cypress run --e2e --record
           browser: chrome
           record: true
           group: 'E2E Tests - Vue Build'
