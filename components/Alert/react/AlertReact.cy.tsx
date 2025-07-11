@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import dedent from 'dedent'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import Alert from './Alert'
 import { IconArrowRight } from '@cypress-design/react-icon'
 

@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import StatusIcon from './StatusIcon'
 import { Story as StatusIconStory } from './StatusIcon.rootstory'
 

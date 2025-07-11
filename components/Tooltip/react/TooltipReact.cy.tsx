@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import type { Placement } from '@floating-ui/react'
 import assertions from '../assertions'
 import Tooltip from './Tooltip'

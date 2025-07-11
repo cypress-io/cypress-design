@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import DocMenu from './index'
 import assertions, { BIG_ITEMS_SET } from '../assertions'
 import { NavGroup, NavItemLink } from '../constants'

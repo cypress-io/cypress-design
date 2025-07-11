@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import Modal from './Modal'
 import assertions from '../assertions'
 

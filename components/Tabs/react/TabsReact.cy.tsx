@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import Tabs from './Tabs'
 import type { SwitchEvent, Tab, CssVariants } from '../constants'
 import assertions from '../assertions'

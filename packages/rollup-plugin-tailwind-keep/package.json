@@ -12,7 +12,9 @@
   "types": "./dist/index.d.ts",
   "dependencies": {
     "@cypress-design/css": "1.2.0",
-    "tailwindcss": "3.4.3",
-    "vite": "5.2.12"
+    "tailwindcss": "3.4.3"
+  },
+  "peerDependencies": {
+    "vite": "^5.2.0"
   }
 }
