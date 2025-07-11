@@ -85,7 +85,7 @@ jobs:
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
