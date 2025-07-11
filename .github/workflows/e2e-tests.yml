@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  test-react-app:
+  test-react-app-dev:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -35,22 +35,24 @@ jobs:
         env:
           CI: true
 
-      - name: Run E2E Tests - React App
+      - name: Install Cypress
+        run: yarn cypress install
+
+      - name: Run E2E Tests - React App (Dev Mode)
         uses: cypress-io/github-action@v6
         with:
-          working-directory: ./test/react-app
-          start: yarn dev
+          start: yarn --cwd test/react-app dev
           wait-on: 'http://localhost:5173'
           command: yarn cypress run --e2e
           browser: chrome
           record: true
-          group: 'E2E Tests - React'
+          group: 'E2E Tests - React Dev'
           ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
 
-  test-vue-app:
+  test-react-app-build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -77,16 +79,112 @@ jobs:
         env:
           CI: true
 
-      - name: Run E2E Tests - Vue App
+      - name: Install Cypress
+        run: yarn cypress install
+
+      - name: Build React App
+        run: yarn --cwd test/react-app build
+
+      - name: Run E2E Tests - React App (Build Mode)
         uses: cypress-io/github-action@v6
         with:
-          working-directory: ./test/vue-app
-          start: yarn dev
+          start: yarn --cwd test/react-app preview --port=5173
           wait-on: 'http://localhost:5173'
           command: yarn cypress run --e2e
           browser: chrome
           record: true
-          group: 'E2E Tests - Vue'
+          group: 'E2E Tests - React Build'
+          ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  test-vue-app-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Restore cached build files
+        uses: actions/cache@v4
+        with:
+          key: ${{ inputs.nonce }}
+          path: |
+            ./css/dist
+            ./icon-registry/dist
+            ./components
+            ./node_modules
+
+      - name: Install Dependencies
+        run: yarn install
+        env:
+          CI: true
+
+      - name: Install Cypress
+        run: yarn cypress install
+
+      - name: Run E2E Tests - Vue App (Dev Mode)
+        uses: cypress-io/github-action@v6
+        with:
+          start: yarn --cwd test/vue-app dev
+          wait-on: 'http://localhost:5173'
+          command: yarn cypress run --e2e
+          browser: chrome
+          record: true
+          group: 'E2E Tests - Vue Dev'
+          ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  test-vue-app-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Restore cached build files
+        uses: actions/cache@v4
+        with:
+          key: ${{ inputs.nonce }}
+          path: |
+            ./css/dist
+            ./icon-registry/dist
+            ./components
+            ./node_modules
+
+      - name: Install Dependencies
+        run: yarn install
+        env:
+          CI: true
+
+      - name: Install Cypress
+        run: yarn cypress install
+
+      - name: Build Vue App
+        run: yarn --cwd test/vue-app build
+
+      - name: Run E2E Tests - Vue App (Build Mode)
+        uses: cypress-io/github-action@v6
+        with:
+          start: yarn --cwd test/vue-app preview --port=5173
+          wait-on: 'http://localhost:5173'
+          command: yarn cypress run --e2e
+          browser: chrome
+          record: true
+          group: 'E2E Tests - Vue Build'
           ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
