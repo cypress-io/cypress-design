@@ -36,7 +36,9 @@ jobs:
             ./node_modules
 
       - name: Remove Postinstall Script
-        run: npm pkg set scripts.postinstall="echo no-postinstall"
+        run: |
+          npm pkg delete scripts.postinstall
+          echo "Postinstall script removed"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile

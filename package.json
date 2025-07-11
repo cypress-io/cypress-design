@@ -27,7 +27,7 @@
     "docs": "yarn start",
     "start": "NODE_ENV=development concurrently -n const,icons,docgen,vitepress,cleanup \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\" \"node ./scripts/clean-component-docs.mjs\"",
     "build:docs": "node scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
-    "postinstall": "node scripts/capitalize-icon.mjs && yarn build:components",
+    "postinstall": "node scripts/capitalize-icon.mjs && yarn build:constants && yarn build:vue && yarn build:react",
     "new:component": "hygen component new",
     "prepare": "husky"
   },
