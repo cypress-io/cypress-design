@@ -48,7 +48,7 @@ jobs:
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           path: |
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
             ./css/dist
