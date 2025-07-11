@@ -31,18 +31,13 @@ jobs:
             ./components
             ./node_modules
 
-      - name: Remove Postinstall Script
-        run: |
-          npm pkg delete scripts.postinstall
-          echo "Postinstall script removed"
-
       - name: Create component with template
         run: yarn new:component --name ComponentName
 
-      - name: Re-link Dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
+      - name: Reinstall dependencies and regenerate build files
+        if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
+        run: |
+          yarn install --frozen-lockfile
 
       - name: Install Cypress
         run: yarn cypress install

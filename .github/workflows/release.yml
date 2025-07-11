@@ -31,6 +31,11 @@ jobs:
             ./components
             ./node_modules
 
+      - name: Reinstall dependencies and regenerate build files
+        if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
+        run: |
+          yarn install --frozen-lockfile
+
       - name: Set committer info
         ## attribute the commit to cypress-bot: https://github.community/t/logging-into-git-as-a-github-app/115916
         run: |
