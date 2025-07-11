@@ -41,6 +41,9 @@ jobs:
         env:
           CI: true
 
+      - name: Install Cypress
+        run: yarn cypress install
+
       - name: Build Component for Vue
         run: yarn turbo run build --filter=@cypress-design/vue-componentname...
 
