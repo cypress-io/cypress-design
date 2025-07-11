@@ -21,6 +21,7 @@ jobs:
           cache: 'yarn'
 
       - name: Restore cached build files
+        id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
           key: ${{ inputs.nonce }}
