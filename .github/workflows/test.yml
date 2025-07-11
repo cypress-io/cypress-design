@@ -104,6 +104,9 @@ jobs:
         env:
           CI: true
 
+      - name: Install Cypress
+        run: yarn cypress install
+
       - name: Cypress run CT
         uses: cypress-io/github-action@v6
         with:
