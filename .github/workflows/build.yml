@@ -33,20 +33,10 @@ jobs:
           yarn turbo run build --filter=@cypress-design/css
           yarn workspace @cypress-design/icon-registry build
 
-      - name: Build Constants
+      - name: Build Components
         run: |
           export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:constants
-
-      - name: Build Vue Components
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:vue
-
-      - name: Build React Components
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:react
+          yarn build:components
 
       - name: Cache node_modules and built dist files
         uses: actions/cache@v4
