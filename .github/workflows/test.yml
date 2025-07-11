@@ -40,11 +40,6 @@ jobs:
           npm pkg delete scripts.postinstall
           echo "Postinstall script removed"
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
-
       - name: Lint all files
         run: yarn eslint .
 
@@ -95,13 +90,6 @@ jobs:
             ./icon-registry/dist
             ./components
             ./node_modules
-
-      - name: Install Dependencies
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn install --frozen-lockfile
-        env:
-          CI: true
 
       - name: Install Cypress
         run: yarn cypress install

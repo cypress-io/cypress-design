@@ -30,11 +30,6 @@ jobs:
             ./components
             ./node_modules
 
-      - name: Install Dependencies
-        run: yarn install
-        env:
-          CI: true
-
       - name: Install Cypress
         run: yarn cypress install
 
@@ -72,11 +67,6 @@ jobs:
             ./icon-registry/dist
             ./components
             ./node_modules
-
-      - name: Install Dependencies
-        run: yarn install
-        env:
-          CI: true
 
       - name: Install Cypress
         run: yarn cypress install
@@ -119,11 +109,6 @@ jobs:
             ./components
             ./node_modules
 
-      - name: Install Dependencies
-        run: yarn install
-        env:
-          CI: true
-
       - name: Install Cypress
         run: yarn cypress install
 
@@ -161,11 +146,6 @@ jobs:
             ./icon-registry/dist
             ./components
             ./node_modules
-
-      - name: Install Dependencies
-        run: yarn install
-        env:
-          CI: true
 
       - name: Install Cypress
         run: yarn cypress install

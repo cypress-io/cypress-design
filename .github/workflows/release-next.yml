@@ -30,11 +30,6 @@ jobs:
             ./components
             ./node_modules
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
-
       - name: Set committer info
         ## attribute the commit to cypress-bot: https://github.community/t/logging-into-git-as-a-github-app/115916
         run: |
