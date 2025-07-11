@@ -97,6 +97,7 @@ jobs:
       - name: Cypress run CT
         uses: cypress-io/github-action@v6
         with:
+          install: false
           component: true
           record: true
           browser: '${{ env.BROWSER_PATH }}'
