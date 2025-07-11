@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  build-projects:
+  test-react-app:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
@@ -35,5 +35,59 @@ jobs:
         env:
           CI: true
 
-      - name: Build each test project
-        run: ./test/test-all-projects.sh
+      - name: Run E2E Tests - React App
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ./test/react-app
+          start: yarn dev
+          wait-on: 'http://localhost:5173'
+          command: yarn cypress run --e2e
+          browser: chrome
+          record: true
+          group: 'E2E Tests - React'
+          ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+
+  test-vue-app:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+
+      - name: Restore cached build files
+        uses: actions/cache@v4
+        with:
+          key: ${{ inputs.nonce }}
+          path: |
+            ./css/dist
+            ./icon-registry/dist
+            ./components
+            ./node_modules
+
+      - name: Install Dependencies
+        run: yarn install
+        env:
+          CI: true
+
+      - name: Run E2E Tests - Vue App
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: ./test/vue-app
+          start: yarn dev
+          wait-on: 'http://localhost:5173'
+          command: yarn cypress run --e2e
+          browser: chrome
+          record: true
+          group: 'E2E Tests - Vue'
+          ci-build-id: ${{ github.run_id }}-${{ github.run_attempt }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}

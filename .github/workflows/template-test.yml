@@ -52,7 +52,7 @@ jobs:
 
       # run cypress component tests
       - name: Cypress run CT
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           component: true
           record: true
