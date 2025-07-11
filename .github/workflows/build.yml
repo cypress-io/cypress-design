@@ -40,11 +40,17 @@ jobs:
           export NODE_OPTIONS=--max_old_space_size=4096
           yarn build:components
 
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
       - name: Cache node_modules and built dist files
+        id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}
+          key: ${{ inputs.nonce }}-yarn-${{ hashFiles('**/yarn.lock') }}
           path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
             ./css/dist
             ./icon-registry/dist
             ./components
