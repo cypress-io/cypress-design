@@ -22,7 +22,7 @@
     "cy:open": "cypress open",
     "test": "vitest",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
-    "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\"",
+    "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/rollup-plugin-tailwind-keep\"",
     "dev": "yarn start",
     "docs": "yarn start",
     "start": "NODE_ENV=development concurrently -n const,icons,docgen,vitepress,cleanup \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\" \"node ./scripts/clean-component-docs.mjs\"",
