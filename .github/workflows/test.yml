@@ -40,6 +40,10 @@ jobs:
         run: |
           yarn install --frozen-lockfile
 
+      - name: Install eslint plugin dependencies
+        run: |
+          yarn workspace @cypress-design/eslint-plugin install --frozen-lockfile
+
       - name: Lint all files
         run: yarn eslint .
 
