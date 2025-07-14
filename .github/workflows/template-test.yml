@@ -29,6 +29,7 @@ jobs:
             ./css/dist
             ./icon-registry/dist
             ./components
+            ./packages/details-animation/dist
             ./node_modules
 
       - name: Reinstall dependencies and regenerate build files
@@ -39,9 +40,6 @@ jobs:
       - name: Create component with template
         run: yarn new:component --name ComponentName
 
-      - name: Install Cypress
-        run: yarn cypress install
-
       - name: Build Component for Vue
         run: yarn turbo run build --filter=@cypress-design/vue-componentname...
 
@@ -50,6 +48,9 @@ jobs:
 
       - name: Lint all files
         run: yarn eslint .
+
+      - name: Install Cypress
+        run: yarn cypress install
 
       # run cypress component tests
       - name: Cypress run CT
