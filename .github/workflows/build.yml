@@ -17,10 +17,13 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20
+          cache: 'yarn'
 
       - name: Remove Postinstall Script
-        run: npm pkg set scripts.postinstall="echo no-postinstall"
+        run: |
+          npm pkg delete scripts.postinstall
+          echo "Postinstall script removed"
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -33,14 +36,25 @@ jobs:
           yarn workspace @cypress-design/icon-registry build
 
       - name: Build Components
-        run: yarn run build:components
+        run: yarn build:components
+        env:
+          CI: true
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - name: Cache node_modules and built dist files
+        id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}
+          key: cache-${{ inputs.nonce }}
+          restore-keys: |
+            cache-
           path: |
             ./css/dist
             ./icon-registry/dist
             ./components
+            ./packages/details-animation/dist
             ./node_modules

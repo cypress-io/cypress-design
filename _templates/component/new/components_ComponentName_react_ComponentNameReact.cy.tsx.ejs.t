@@ -4,7 +4,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/react/<%= h.inflection.
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import <%= h.inflection.camelize(name, false) %> from './<%= h.inflection.camelize(name, false) %>'
 import assertions from '../assertions'
 

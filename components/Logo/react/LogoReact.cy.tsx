@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import { logoLockUp, logoMark } from '@cypress-design/icon-registry'
 import assertions from '../assertions'
 import { CypressLockUp, CypressMark } from './Logo'
