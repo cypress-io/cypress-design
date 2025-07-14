@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "eslint-module-utils": "^2.8.1",
-    "minimatch": "^5.1.6",
+    "minimatch": "^9.0.4",
     "requireindex": "^1.2.0"
   },
   "devDependencies": {

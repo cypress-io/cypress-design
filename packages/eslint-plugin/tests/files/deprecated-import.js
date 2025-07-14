@@ -1,1 +1,1 @@
-module.exports = {}
+module.export = {}
