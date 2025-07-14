@@ -31,13 +31,13 @@ jobs:
             ./components
             ./node_modules
 
-      - name: Create component with template
-        run: yarn new:component --name ComponentName
-
       - name: Reinstall dependencies and regenerate build files
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
           yarn install --frozen-lockfile
+
+      - name: Create component with template
+        run: yarn new:component --name ComponentName
 
       - name: Install Cypress
         run: yarn cypress install
