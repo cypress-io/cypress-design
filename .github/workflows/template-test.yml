@@ -1,5 +1,9 @@
 name: Template Tests
 
+# This workflow is used to test the template for a new component
+# It is used to ensure that the template is working correctly and that the component can be built and tested
+# It is also used to ensure that the component can be built and tested with the latest version of the dependencies
+
 on:
   workflow_call:
     inputs:
