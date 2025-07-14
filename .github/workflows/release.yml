@@ -36,6 +36,9 @@ jobs:
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
           yarn install --frozen-lockfile
+        env:
+          CI: true
+          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Set committer info
         ## attribute the commit to cypress-bot: https://github.community/t/logging-into-git-as-a-github-app/115916

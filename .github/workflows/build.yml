@@ -36,9 +36,10 @@ jobs:
           yarn workspace @cypress-design/icon-registry build
 
       - name: Build Components
-        run: |
-          export NODE_OPTIONS=--max_old_space_size=4096
-          yarn build:components
+        run: yarn build:components
+        env:
+          CI: true
+          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
