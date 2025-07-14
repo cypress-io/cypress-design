@@ -1,5 +1,13 @@
 # @cypress-design/icon-registry
 
+## 1.29.0
+
+### Minor Changes
+
+- [#606](https://github.com/cypress-io/cypress-design/pull/606) [`cab1a89`](https://github.com/cypress-io/cypress-design/commit/cab1a89ccac83bd51ca68dce92bfb178fdd8a323) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Add icon for record-disabled at 16x and 24x size
+
+- [#608](https://github.com/cypress-io/cypress-design/pull/608) [`e6cf01d`](https://github.com/cypress-io/cypress-design/commit/e6cf01d858eb165139c5f66308a6ec4c0df649cb) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding Cypress icon, filled version
+
 ## 1.28.0
 
 ### Minor Changes
