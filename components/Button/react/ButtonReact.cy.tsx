@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import * as React from 'react'
-import { mount } from 'cypress/react18'
+import { mount } from 'cypress/react'
 import Button from './Button'
 import ButtonStory from './Button.rootstory'
 import assertions from '../assertions'

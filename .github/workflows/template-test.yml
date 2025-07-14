@@ -1,5 +1,9 @@
 name: Template Tests
 
+# This workflow is used to test the template for a new component
+# It is used to ensure that the template is working correctly and that the component can be built and tested
+# It is also used to ensure that the component can be built and tested with the latest version of the dependencies
+
 on:
   workflow_call:
     inputs:
@@ -17,20 +21,32 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 20
+          cache: 'yarn'
 
       - name: Restore cached build files
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
             ./components
+            ./packages/details-animation/dist
             ./node_modules
+            
+      - name: Reinstall dependencies and regenerate build files
+        if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
+        run: |
+          yarn install --frozen-lockfile
+        env:
+          CI: true
+          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Remove Postinstall Script
-        run: npm pkg set scripts.postinstall="echo no-postinstall"
+        run: |
+          npm pkg delete scripts.postinstall
+          echo "Postinstall script removed"
 
       - name: Create component with template
         run: yarn new:component --name ComponentName
@@ -44,15 +60,19 @@ jobs:
         run: yarn turbo run build --filter=@cypress-design/vue-componentname...
 
       - name: Build Component for React
-        run: yarn turbo run build --filter=@cypress-design/vue-componentname...
+        run: yarn turbo run build --filter=@cypress-design/react-componentname...
 
       - name: Lint all files
         run: yarn eslint .
 
+      - name: Install Cypress
+        run: yarn cypress install
+
       # run cypress component tests
       - name: Cypress run CT
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
+          install: false
           component: true
           record: true
           browser: chrome

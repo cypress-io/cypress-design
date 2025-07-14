@@ -1,4 +1,4 @@
-name: Tests
+name: Unit and Component Tests
 
 on:
   workflow_call:
@@ -16,22 +16,37 @@ jobs:
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup Yarn
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
 
       - name: Restore cached build files
         uses: actions/cache@v4
         with:
           key: ${{ inputs.nonce }}
           path: |
+            ./css/dist
+            ./icon-registry/dist
             ./components
+            ./packages/details-animation/dist
             ./node_modules
 
-      - name: Remove Postinstall Script
-        run: npm pkg set scripts.postinstall="echo no-postinstall"
-
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+      - name: Reinstall dependencies and regenerate build files
+        if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
+        run: |
+          yarn install --frozen-lockfile
         env:
           CI: true
+          NODE_OPTIONS: --max_old_space_size=4096
+
+      - name: Install eslint plugin dependencies
+        run: |
+          yarn workspace @cypress-design/eslint-plugin install --frozen-lockfile
 
       - name: Lint all files
         run: yarn eslint .
@@ -46,9 +61,6 @@ jobs:
 
       - name: Run Unit Tests
         run: yarn test
-
-      - name: Build Components
-        run: yarn run build:components
 
       - name: Types docs
         run: yarn vue-tsc --noEmit -p .
@@ -73,25 +85,33 @@ jobs:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
 
       - name: Restore cached build files
+        id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
             ./components
             ./node_modules
+            
+      - name: Reinstall dependencies and regenerate build files
+        if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
+        run: |
+          yarn install --frozen-lockfile
 
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-        env:
-          CI: true
+      - name: Install Cypress
+        run: yarn cypress install
 
       - name: Cypress run CT
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
+          install: false
           component: true
           record: true
           browser: '${{ env.BROWSER_PATH }}'
