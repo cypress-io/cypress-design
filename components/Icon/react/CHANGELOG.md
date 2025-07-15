@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.30.0
+
+### Minor Changes
+
+- [#611](https://github.com/cypress-io/cypress-design/pull/611) [`f6ddbd0`](https://github.com/cypress-io/cypress-design/commit/f6ddbd0c22e7cac240f1b458b952369285dfa69e) Thanks [@astone123](https://github.com/astone123)! - add Cypress Studio icon
+
+### Patch Changes
+
+- Updated dependencies [[`f6ddbd0`](https://github.com/cypress-io/cypress-design/commit/f6ddbd0c22e7cac240f1b458b952369285dfa69e)]:
+  - @cypress-design/icon-registry@1.30.0
+
 ## 1.29.0
 
 ### Minor Changes
