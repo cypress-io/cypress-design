@@ -26,20 +26,7 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - name: Restore cached build files
-        id: cache-node-modules-dist
-        uses: actions/cache@v4
-        with:
-          key: cache-${{ inputs.nonce }}
-          path: |
-            ./css/dist
-            ./icon-registry/dist
-            ./components
-            ./packages/details-animation/dist
-            ./node_modules
-
       - name: Reinstall dependencies and regenerate build files
-        if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
           yarn install --frozen-lockfile
         env:
