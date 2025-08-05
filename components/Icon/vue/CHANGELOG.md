@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.31.0
+
+### Minor Changes
+
+- [#613](https://github.com/cypress-io/cypress-design/pull/613) [`bed863f`](https://github.com/cypress-io/cypress-design/commit/bed863f4dd33fe95ad6d308e3396f72ccc5c9309) Thanks [@ryanthemanuel](https://github.com/ryanthemanuel)! - add Cypress Studio x48 icon
+
+### Patch Changes
+
+- Updated dependencies [[`bed863f`](https://github.com/cypress-io/cypress-design/commit/bed863f4dd33fe95ad6d308e3396f72ccc5c9309)]:
+  - @cypress-design/icon-registry@1.31.0
+
 ## 1.30.0
 
 ### Minor Changes
