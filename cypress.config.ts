@@ -50,6 +50,7 @@ export default defineConfig({
   },
 
   e2e: {
+    experimentalStudio: true,
     baseUrl: 'http://localhost:5173/',
     setupNodeEvents(on, config) {
       on('file:preprocessor', createBundler())
