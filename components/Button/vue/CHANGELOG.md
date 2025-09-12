@@ -1,5 +1,11 @@
 # @cypress-design/vue-button
 
+## 1.11.0
+
+### Minor Changes
+
+- [#616](https://github.com/cypress-io/cypress-design/pull/616) [`378cd75`](https://github.com/cypress-io/cypress-design/commit/378cd7540b86ef1c6219ffdd3c281307811c28f7) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding indigo-dark dark mode variation button
+
 ## 1.10.1
 
 ### Patch Changes
