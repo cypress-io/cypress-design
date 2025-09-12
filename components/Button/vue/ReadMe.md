@@ -77,6 +77,7 @@ import {
           variant === 'outline-jade-dark-mode' ||
           variant === 'outline-indigo-dark-mode' ||
           variant === 'red-dark-mode' ||
+          variant === 'indigo-dark-mode' ||
           variant === 'disabled-dark-mode',
         'bg-white text-gray-900': ![
           'outline-dark',
@@ -84,6 +85,7 @@ import {
           'outline-jade-dark-mode',
           'outline-indigo-dark-mode',
           'red-dark-mode',
+          'indigo-dark-mode',
           'disabled-dark-mode',
         ].includes(variant),
       }"
