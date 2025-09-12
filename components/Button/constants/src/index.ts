@@ -65,6 +65,8 @@ export const CssVariantClassesTable = {
     'text-indigo-300 border-indigo-400 disabled:hocus:shadow-none hocus:shadow-indigo-400/40 disabled:text-gray-700 disabled:border-white/20 focus:ring-indigo-300',
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:text-gray-700 disabled:hocus:border-white/20 disabled:border-white/20 focus:ring-gray-200',
+  'indigo-dark-mode':
+    'text-white bg-indigo-500 border-indigo-500 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:border-none disabled:mix-blend-screen hocus:shadow-indigo-400/40 focus:bg-indigo-600 focus:border-indigo-600 focus:ring-transparent',
   'red-dark-mode':
     'text-white bg-red-500 border-red-500 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:border-none hocus:shadow-red-400/40 disabled:mix-blend-screen focus:bg-red-600 focus:border-red-600 focus:ring-transparent',
 } as const

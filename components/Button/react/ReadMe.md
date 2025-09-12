@@ -74,6 +74,7 @@ export default () => {
               variant === 'outline-jade-dark-mode' ||
               variant === 'outline-indigo-dark-mode' ||
               variant === 'red-dark-mode' ||
+              variant === 'indigo-dark-mode' ||
               variant === 'disabled-dark-mode'
                 ? '#1a202c'
                 : 'white',
@@ -83,6 +84,7 @@ export default () => {
               variant === 'outline-jade-dark-mode' ||
               variant === 'outline-indigo-dark-mode' ||
               variant === 'red-dark-mode' ||
+              variant === 'indigo-dark-mode' ||
               variant === 'disabled-dark-mode'
                 ? 'white'
                 : 'black',
