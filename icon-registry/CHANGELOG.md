@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.32.0
+
+### Minor Changes
+
+- [#618](https://github.com/cypress-io/cypress-design/pull/618) [`a3d4898`](https://github.com/cypress-io/cypress-design/commit/a3d48981441f76dfbaa8b43e6defab339b7fcf4a) Thanks [@astone123](https://github.com/astone123)! - Add technology-dashboard-fail 24px icon
+
 ## 1.31.0
 
 ### Minor Changes
