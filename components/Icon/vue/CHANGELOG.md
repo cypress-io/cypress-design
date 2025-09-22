@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.33.0
+
+### Minor Changes
+
+- [#620](https://github.com/cypress-io/cypress-design/pull/620) [`51d7201`](https://github.com/cypress-io/cypress-design/commit/51d7201089604391b6d958770b559ff5f24a201d) Thanks [@astone123](https://github.com/astone123)! - add studio icons in 24px
+
+### Patch Changes
+
+- Updated dependencies [[`51d7201`](https://github.com/cypress-io/cypress-design/commit/51d7201089604391b6d958770b559ff5f24a201d)]:
+  - @cypress-design/icon-registry@1.33.0
+
 ## 1.32.0
 
 ### Minor Changes
