@@ -4,4 +4,4 @@
 '@cypress-design/vue-icon': minor
 ---
 
-add technology locked project 24px
+add studio icons in 24px
