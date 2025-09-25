@@ -76,6 +76,7 @@ import {
           variant === 'outline-red-dark-mode' ||
           variant === 'outline-jade-dark-mode' ||
           variant === 'outline-indigo-dark-mode' ||
+          variant === 'outline-purple-dark-mode' ||
           variant === 'red-dark-mode' ||
           variant === 'indigo-dark-mode' ||
           variant === 'disabled-dark-mode',
@@ -84,6 +85,7 @@ import {
           'outline-red-dark-mode',
           'outline-jade-dark-mode',
           'outline-indigo-dark-mode',
+          'outline-purple-dark-mode',
           'red-dark-mode',
           'indigo-dark-mode',
           'disabled-dark-mode',

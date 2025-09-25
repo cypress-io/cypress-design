@@ -63,6 +63,8 @@ export const CssVariantClassesTable = {
     'text-jade-400 border-jade-400 disabled:hocus:shadow-none hocus:shadow-jade-300/35 disabled:text-gray-700 disabled:border-white/20 focus:ring-jade-600',
   'outline-indigo-dark-mode':
     'text-indigo-300 border-indigo-400 disabled:hocus:shadow-none hocus:shadow-indigo-400/40 disabled:text-gray-700 disabled:border-white/20 focus:ring-indigo-300',
+  'outline-purple-dark-mode':
+    'text-purple-300 border-purple-400 disabled:hocus:shadow-none hocus:shadow-purple-400/40 disabled:text-gray-700 disabled:border-white/20 focus:ring-purple-300',
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:text-gray-700 disabled:hocus:border-white/20 disabled:border-white/20 focus:ring-gray-200',
   'indigo-dark-mode':
