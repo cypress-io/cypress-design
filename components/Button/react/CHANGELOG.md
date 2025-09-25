@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 1.12.0
+
+### Minor Changes
+
+- [#622](https://github.com/cypress-io/cypress-design/pull/622) [`9f4e9e8`](https://github.com/cypress-io/cypress-design/commit/9f4e9e86adf2ccab6cf8cb1492faf683a7473ba3) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding outline-purple-dark-mode button
+
 ## 1.11.0
 
 ### Minor Changes
