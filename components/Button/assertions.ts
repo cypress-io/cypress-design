@@ -26,7 +26,6 @@ export default function assertions(
       'text-decoration-line',
       'underline',
     )
-    cy
   })
 
   it('renders variants', () => {
