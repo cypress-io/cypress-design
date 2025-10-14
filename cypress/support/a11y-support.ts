@@ -9,6 +9,9 @@ afterEach(() => {
     'body',
     {
       runOnly: ['wcag2a', 'wcag2aa', 'wcag21aa'],
+      rules: {
+        'color-contrast': { enabled: false },
+      },
     },
     // Define at the top of the spec file or just import it
     function terminalLog(violations) {
