@@ -9,7 +9,7 @@ export default ({
   href,
   onClick,
 }: { disabled?: boolean; href?: string; onClick?: () => void } = {}) => (
-  <div className="flex flex-row flex-wrap justify-center gap-2">
+  <div className="flex flex-row flex-wrap justify-center gap-2 bg-white">
     {(Object.keys(CssVariantClassesTable) as ButtonVariants[]).map(
       (variant) => {
         return (
@@ -37,26 +37,19 @@ export default ({
                 return (
                   <div key={size} className="flex items-center justify-center">
                     <span
-                      className={clsx('text-sm mr-4', {
-                        'text-gray-300':
-                          variant === 'outline-dark' ||
+                      className={clsx(
+                        'text-sm mr-4',
+                        variant === 'outline-dark' ||
                           variant === 'outline-red-dark-mode' ||
                           variant === 'outline-jade-dark-mode' ||
                           variant === 'outline-indigo-dark-mode' ||
                           variant === 'outline-purple-dark-mode' ||
                           variant === 'red-dark-mode' ||
                           variant === 'indigo-dark-mode' ||
-                          variant === 'disabled-dark-mode',
-                        'text-gray-700': ![
-                          'outline-dark',
-                          'outline-red-dark-mode',
-                          'outline-jade-dark-mode',
-                          'outline-indigo-dark-mode',
-                          'red-dark-mode',
-                          'indigo-dark-mode',
-                          'disabled-dark-mode',
-                        ].includes(variant),
-                      })}
+                          variant === 'disabled-dark-mode'
+                          ? 'text-gray-300'
+                          : 'text-gray-900',
+                      )}
                     >
                       {size}
                     </span>
