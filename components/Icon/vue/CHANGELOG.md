@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.34.0
+
+### Minor Changes
+
+- [#624](https://github.com/cypress-io/cypress-design/pull/624) [`c4bc551`](https://github.com/cypress-io/cypress-design/commit/c4bc55141ea44c9a0b4dba245e145b5d1fdf3e96) Thanks [@mabela416](https://github.com/mabela416)! - Add general sparkle single large icon in 24px
+
+### Patch Changes
+
+- Updated dependencies [[`c4bc551`](https://github.com/cypress-io/cypress-design/commit/c4bc55141ea44c9a0b4dba245e145b5d1fdf3e96)]:
+  - @cypress-design/icon-registry@1.34.0
+
 ## 1.33.0
 
 ### Minor Changes
