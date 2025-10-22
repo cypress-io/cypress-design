@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.35.0
+
+### Minor Changes
+
+- [#628](https://github.com/cypress-io/cypress-design/pull/628) [`698906a`](https://github.com/cypress-io/cypress-design/commit/698906a580f6184bc7aa28b65b33248f1e0c5b81) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding icon code-editor-small
+
 ## 1.34.0
 
 ### Minor Changes
