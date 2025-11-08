@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.35.1
+
+### Patch Changes
+
+- [#631](https://github.com/cypress-io/cypress-design/pull/631) [`6c016dd`](https://github.com/cypress-io/cypress-design/commit/6c016dd2fad79c9e2c651b4a6c62ba12a46fde58) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Updated the Facebook, X, and RSS icons
+
 ## 1.35.0
 
 ### Minor Changes
