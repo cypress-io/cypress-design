@@ -4,4 +4,4 @@
 '@cypress-design/vue-icon': patch
 ---
 
-Updated the facebook and x icons
+Updated the Facebook, X, and RSS icons
