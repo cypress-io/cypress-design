@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.36.0
+
+### Minor Changes
+
+- [#633](https://github.com/cypress-io/cypress-design/pull/633) [`9c8e75d`](https://github.com/cypress-io/cypress-design/commit/9c8e75dc444fde2cef7ed0c597dacf4e003725c0) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding github x24 icon and Jira icon
+
 ## 1.35.1
 
 ### Patch Changes
