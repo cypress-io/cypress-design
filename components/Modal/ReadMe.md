@@ -19,4 +19,4 @@ As a general rule, modals are used when a quick action is required by the user. 
   <Button @click="visible = true">Open Modal</Button>
 </DemoWrapper>
 
-[figma::Modal](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=11381-16819&t=eTHkHYIn7QpvUPjI-4)
+[figma::Modal](https://www.figma.com/design/P2y83Xt0FE5QBIYRnQjlA5/Component---Modals--v1.0----latest?node-id=901-2172)
