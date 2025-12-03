@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.37.0
+
+### Minor Changes
+
+- [#635](https://github.com/cypress-io/cypress-design/pull/635) [`965de37`](https://github.com/cypress-io/cypress-design/commit/965de377dbd9208d05494d1df01717af544ee186) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding email icon x48
+
+### Patch Changes
+
+- Updated dependencies [[`965de37`](https://github.com/cypress-io/cypress-design/commit/965de377dbd9208d05494d1df01717af544ee186)]:
+  - @cypress-design/icon-registry@1.37.0
+
 ## 1.36.0
 
 ### Minor Changes
