@@ -4,6 +4,18 @@ import Button from './Button'
 import { CssSizeClassesTable, CssVariantClassesTable } from '../constants'
 import type { ButtonSizes, ButtonVariants } from '../constants'
 
+const darkModeVariants: ButtonVariants[] = [
+  'outline-dark',
+  'outline-red-dark-mode',
+  'outline-jade-dark-mode',
+  'outline-indigo-dark-mode',
+  'outline-purple-dark-mode',
+  'red-dark-mode',
+  'purple-dark-mode',
+  'indigo-dark-mode',
+  'disabled-dark-mode',
+]
+
 export default ({
   disabled = false,
   href,
@@ -18,15 +30,7 @@ export default ({
             className={clsx(
               'flex flex-col items-center gap-3 justify-center mt-4 p-2',
               {
-                'bg-gray-1000 text-white':
-                  variant === 'outline-dark' ||
-                  variant === 'outline-red-dark-mode' ||
-                  variant === 'outline-jade-dark-mode' ||
-                  variant === 'outline-indigo-dark-mode' ||
-                  variant === 'outline-purple-dark-mode' ||
-                  variant === 'red-dark-mode' ||
-                  variant === 'indigo-dark-mode' ||
-                  variant === 'disabled-dark-mode',
+                'bg-gray-1000 text-white': darkModeVariants.includes(variant),
               },
             )}
           >
@@ -39,14 +43,7 @@ export default ({
                     <span
                       className={clsx(
                         'text-sm mr-4',
-                        variant === 'outline-dark' ||
-                          variant === 'outline-red-dark-mode' ||
-                          variant === 'outline-jade-dark-mode' ||
-                          variant === 'outline-indigo-dark-mode' ||
-                          variant === 'outline-purple-dark-mode' ||
-                          variant === 'red-dark-mode' ||
-                          variant === 'indigo-dark-mode' ||
-                          variant === 'disabled-dark-mode'
+                        darkModeVariants.includes(variant)
                           ? 'text-gray-300'
                           : 'text-gray-900',
                       )}
