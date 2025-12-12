@@ -3,6 +3,18 @@ import Button from './Button.vue'
 import type { ButtonSizes, ButtonVariants } from '../constants'
 import { CssSizeClassesTable, CssVariantClassesTable } from '../constants'
 
+const darkModeVariants: ButtonVariants[] = [
+  'outline-dark',
+  'outline-red-dark-mode',
+  'outline-jade-dark-mode',
+  'outline-indigo-dark-mode',
+  'outline-purple-dark-mode',
+  'red-dark-mode',
+  'purple-dark-mode',
+  'indigo-dark-mode',
+  'disabled-dark-mode',
+]
+
 export default ({
   disabled = false,
   href,
@@ -15,15 +27,7 @@ export default ({
             class={clsx(
               'flex flex-col items-center gap-3 justify-center mt-4 p-2',
               {
-                'bg-gray-1000 text-white':
-                  variant === 'outline-dark' ||
-                  variant === 'outline-red-dark-mode' ||
-                  variant === 'outline-jade-dark-mode' ||
-                  variant === 'outline-indigo-dark-mode' ||
-                  variant === 'outline-purple-dark-mode' ||
-                  variant === 'red-dark-mode' ||
-                  variant === 'indigo-dark-mode' ||
-                  variant === 'disabled-dark-mode',
+                'bg-gray-1000 text-white': darkModeVariants.includes(variant),
               },
             )}
           >
@@ -35,25 +39,8 @@ export default ({
                   <div class="flex items-center justify-center">
                     <span
                       class={clsx('text-sm mr-4', {
-                        'text-gray-300':
-                          variant === 'outline-dark' ||
-                          variant === 'outline-red-dark-mode' ||
-                          variant === 'outline-jade-dark-mode' ||
-                          variant === 'outline-indigo-dark-mode' ||
-                          variant === 'outline-purple-dark-mode' ||
-                          variant === 'red-dark-mode' ||
-                          variant === 'indigo-dark-mode' ||
-                          variant === 'disabled-dark-mode',
-                        'text-gray-700': ![
-                          'outline-dark',
-                          'outline-red-dark-mode',
-                          'outline-jade-dark-mode',
-                          'outline-indigo-dark-mode',
-                          'outline-purple-dark-mode',
-                          'red-dark-mode',
-                          'indigo-dark-mode',
-                          'disabled-dark-mode',
-                        ].includes(variant),
+                        'text-gray-300': darkModeVariants.includes(variant),
+                        'text-gray-700': !darkModeVariants.includes(variant),
                       })}
                     >
                       {size}
