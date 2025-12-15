@@ -68,11 +68,11 @@ export const CssVariantClassesTable = {
   'outline-dark':
     'text-white border-white/20 hocus:border-white/60 disabled:hocus:shadow-none hocus:shadow-white/20 disabled:text-gray-700 disabled:hocus:border-white/20 disabled:border-white/20 focus:ring-gray-200',
   'indigo-dark-mode':
-    'text-white bg-indigo-500 border-indigo-500 hocus:shadow-indigo-400/40 focus:border-indigo-300 focus:ring-indigo-300 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:mix-blend-screen disabled:border-none',
+    'text-white bg-indigo-500 border-indigo-500 hocus:shadow-indigo-400/40 focus:border-indigo-400 focus-visible:border-indigo-300 focus:ring-indigo-300 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:mix-blend-screen disabled:border-none',
   'red-dark-mode':
-    'text-white bg-red-500 border-red-500 hocus:shadow-red-400/40 focus:border-red-300 focus:ring-red-300 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:mix-blend-screen disabled:border-none',
+    'text-white bg-red-500 border-red-500 hocus:shadow-red-400/40 focus:border-red-400 focus-visible:border-red-300 focus:ring-red-300 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:mix-blend-screen disabled:border-none',
   'purple-dark-mode':
-    'text-white bg-purple-500 border-purple-500 hocus:shadow-purple-400/40 focus:border-purple-300 focus:ring-purple-300 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:mix-blend-screen disabled:border-none',
+    'text-white bg-purple-500 border-purple-500 hocus:shadow-purple-400/40 focus:border-purple-400 focus-visible:border-purple-300 focus:ring-purple-300 disabled:hocus:shadow-none disabled:bg-gray-1000 disabled:text-gray-800 disabled:mix-blend-screen disabled:border-none',
 } as const
 
 export const DefaultVariant: keyof typeof CssVariantClassesTable = 'indigo-dark'
