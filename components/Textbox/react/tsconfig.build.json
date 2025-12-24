@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": ["./Textbox.tsx", "./index.ts"],
+  "compilerOptions": {
+    "sourceRoot": "./",
+    "outDir": "dist"
+  }
+}
+
