@@ -4,9 +4,9 @@ export const CssStaticClasses =
 
 // Size classes
 export const CssSizeClassesTable = {
-  '32': 'h-[32px] text-[14px] leading-[20px] px-[12px]',
-  '40': 'h-[40px] text-[14px] leading-[20px] px-[16px]',
-  '48': 'h-[48px] text-[14px] leading-[20px] px-[16px]',
+  '32': 'h-[32px] text-[14px] leading-[20px]',
+  '40': 'h-[40px] text-[14px] leading-[20px]',
+  '48': 'h-[48px] text-[14px] leading-[20px]',
 } as const
 
 export const DefaultSize: keyof typeof CssSizeClassesTable = '40'
@@ -31,15 +31,15 @@ export const CssVariantClassesTableLight = {
       background: 'bg-gray-50',
       stroke: 'border-gray-100',
       text: 'text-gray-700',
-      iconFill: 'text-gray-500',
-      iconStroke: 'text-gray-50',
+      iconFill: 'text-gray-50',
+      iconStroke: 'text-gray-500',
     },
     default: {
       background: 'bg-white',
       stroke: 'border-gray-100',
-      text: 'text-[#2e3247]',
-      iconFill: 'text-gray-500',
-      iconStroke: 'text-gray-50',
+      text: 'text-gray-900',
+      iconFill: 'text-gray-50',
+      iconStroke: 'text-gray-500',
     },
     hover: {
       strokeOutside: 'border-gray-300/25',
@@ -47,7 +47,7 @@ export const CssVariantClassesTableLight = {
       groupHoverBackground: 'group-hover:bg-white',
       groupHoverStroke: 'group-hover:border-gray-200',
       groupHoverIconFill: 'group-hover:text-gray-50',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-gray-500',
+      groupHoverIconStroke: 'group-hover:text-gray-500',
     },
     active: {
       strokeOutside: 'border-[3px] border-indigo-300/35',
@@ -70,139 +70,139 @@ export const CssVariantClassesTableLight = {
   valid: {
     placeholder: {
       background: 'bg-white',
-      stroke: 'border-[#69d3a7]',
-      strokeOutside: 'border-2 border-[#69d3a7]/35',
-      text: 'text-[#00814d]',
-      iconFill: 'text-[#a3e7cb]',
-      iconStroke: 'text-[#00814d]',
+      stroke: 'border-jade-300',
+      strokeOutside: 'border-2 border-jade-300/35',
+      text: 'text-jade-500',
+      iconFill: 'text-jade-200',
+      iconStroke: 'text-jade-500',
     },
     default: {
       background: 'bg-white',
-      stroke: 'border-[#69d3a7]',
-      strokeOutside: 'border-2 border-[#69d3a7]/35',
-      text: 'text-[#00814d]',
-      iconFill: 'text-[#a3e7cb]',
-      iconStroke: 'text-[#00814d]',
+      stroke: 'border-jade-300',
+      strokeOutside: 'border-2 border-jade-300/35',
+      text: 'text-jade-500',
+      iconFill: 'text-jade-200',
+      iconStroke: 'text-jade-500',
     },
     hover: {
-      strokeOutside: 'border-2 border-[#69d3a7]/35',
+      strokeOutside: 'border-2 border-jade-300/35',
       // Tailwind prefixed classes (single source of truth)
       groupHoverBackground: 'group-hover:bg-white',
-      groupHoverStroke: 'group-hover:border-[#69d3a7]',
-      groupHoverIconFill: 'group-hover:text-[#a3e7cb]',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-[#00814d]',
+      groupHoverStroke: 'group-hover:border-jade-300',
+      groupHoverIconFill: 'group-hover:text-jade-200',
+      groupHoverIconStroke: 'group-hover:text-jade-500',
     },
     active: {
-      strokeOutside: 'border-[3px] border-[#69d3a7]/35',
+      strokeOutside: 'border-[3px] border-jade-300/35',
       // Tailwind prefixed classes (single source of truth)
       groupFocusWithinBackground: 'group-focus-within:bg-white',
-      groupFocusWithinStroke: 'group-focus-within:border-[#69d3a7]',
-      groupFocusWithinIconFill: 'group-focus-within:text-[#a3e7cb]',
-      groupFocusWithinIconStroke: 'group-focus-within:[&>*]:text-[#00814d]',
+      groupFocusWithinStroke: 'group-focus-within:border-jade-300',
+      groupFocusWithinIconFill: 'group-focus-within:text-jade-200',
+      groupFocusWithinIconStroke: 'group-focus-within:[&>*]:text-jade-500',
     },
     focus: {
-      strokeOutside: 'border-[3px] border-[#69d3a7]/35',
+      strokeOutside: 'border-[3px] border-jade-300/35',
       // Tailwind prefixed classes (single source of truth) - using focus-visible for keyboard navigation
       groupFocusVisibleBackground: 'group-focus-visible:bg-white',
       groupFocusVisibleStroke:
-        'group-focus-visible:border-2 group-focus-visible:border-[#69d3a7]',
-      groupFocusVisibleIconFill: 'group-focus-visible:text-[#a3e7cb]',
-      groupFocusVisibleIconStroke: 'group-focus-visible:[&>*]:text-[#00814d]',
+        'group-focus-visible:border-2 group-focus-visible:border-jade-300',
+      groupFocusVisibleIconFill: 'group-focus-visible:text-jade-200',
+      groupFocusVisibleIconStroke: 'group-focus-visible:[&>*]:text-jade-500',
     },
   },
   invalid: {
     placeholder: {
       background: 'bg-white',
-      stroke: 'border-[#f59aa9]',
-      strokeOutside: 'border-2 border-[#f59aa9]/35',
-      text: 'text-[#c62b49]',
-      iconFill: 'text-[#f8c4cd]',
-      iconStroke: 'text-[#c62b49]',
+      stroke: 'border-red-300',
+      strokeOutside: 'border-2 border-red-300/35',
+      text: 'text-red-500',
+      iconFill: 'text-red-200',
+      iconStroke: 'text-red-500',
     },
     default: {
       background: 'bg-white',
-      stroke: 'border-[#f59aa9]',
-      strokeOutside: 'border-2 border-[#f59aa9]/35',
-      text: 'text-[#c62b49]',
-      iconFill: 'text-[#f8c4cd]',
-      iconStroke: 'text-[#c62b49]',
+      stroke: 'border-red-300',
+      strokeOutside: 'border-2 border-red-300/35',
+      text: 'text-red-500',
+      iconFill: 'text-red-200',
+      iconStroke: 'text-red-500',
     },
     hover: {
-      strokeOutside: 'border-2 border-[#f59aa9]/35',
+      strokeOutside: 'border-2 border-red-300/35',
       // Tailwind prefixed classes (single source of truth)
       groupHoverBackground: 'group-hover:bg-white',
-      groupHoverStroke: 'group-hover:border-[#f59aa9]',
-      groupHoverIconFill: 'group-hover:text-[#f8c4cd]',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-[#c62b49]',
+      groupHoverStroke: 'group-hover:border-red-300',
+      groupHoverIconFill: 'group-hover:text-red-200',
+      groupHoverIconStroke: 'group-hover:text-red-500',
     },
     active: {
-      strokeOutside: 'border-[3px] border-[#f59aa9]/35',
+      strokeOutside: 'border-[3px] border-red-300/35',
       // Tailwind prefixed classes (single source of truth)
       groupFocusWithinBackground: 'group-focus-within:bg-white',
-      groupFocusWithinStroke: 'group-focus-within:border-[#f59aa9]',
-      groupFocusWithinIconFill: 'group-focus-within:text-[#f8c4cd]',
-      groupFocusWithinIconStroke: 'group-focus-within:[&>*]:text-[#c62b49]',
+      groupFocusWithinStroke: 'group-focus-within:border-red-300',
+      groupFocusWithinIconFill: 'group-focus-within:text-red-200',
+      groupFocusWithinIconStroke: 'group-focus-within:[&>*]:text-red-500',
     },
     focus: {
-      strokeOutside: 'border-[3px] border-[#f59aa9]/35',
+      strokeOutside: 'border-[3px] border-red-300/35',
       // Tailwind prefixed classes (single source of truth) - using focus-visible for keyboard navigation
       groupFocusVisibleBackground: 'group-focus-visible:bg-white',
       groupFocusVisibleStroke:
-        'group-focus-visible:border-2 group-focus-visible:border-[#f59aa9]',
-      groupFocusVisibleIconFill: 'group-focus-visible:text-[#f8c4cd]',
-      groupFocusVisibleIconStroke: 'group-focus-visible:[&>*]:text-[#c62b49]',
+        'group-focus-visible:border-2 group-focus-visible:border-red-300',
+      groupFocusVisibleIconFill: 'group-focus-visible:text-red-200',
+      groupFocusVisibleIconStroke: 'group-focus-visible:[&>*]:text-red-500',
     },
   },
   warning: {
     placeholder: {
       background: 'bg-white',
-      stroke: 'border-[#edbb4a]',
-      strokeOutside: 'border-2 border-[#edbb4a]/35',
-      text: 'text-[#bd5800]',
-      iconFill: 'text-[#f1e08f]',
-      iconStroke: 'text-[#bd5800]',
+      stroke: 'border-orange-300',
+      strokeOutside: 'border-2 border-orange-300/35',
+      text: 'text-orange-500',
+      iconFill: 'text-orange-200',
+      iconStroke: 'text-orange-500',
     },
     default: {
       background: 'bg-white',
-      stroke: 'border-[#edbb4a]',
-      strokeOutside: 'border-2 border-[#edbb4a]/35',
-      text: 'text-[#bd5800]',
-      iconFill: 'text-[#f1e08f]',
-      iconStroke: 'text-[#bd5800]',
+      stroke: 'border-orange-300',
+      strokeOutside: 'border-2 border-orange-300/35',
+      text: 'text-orange-500',
+      iconFill: 'text-orange-200',
+      iconStroke: 'text-orange-500',
     },
     hover: {
-      strokeOutside: 'border-2 border-[#edbb4a]/35',
+      strokeOutside: 'border-2 border-orange-300/35',
       // Tailwind prefixed classes (single source of truth)
       groupHoverBackground: 'group-hover:bg-white',
-      groupHoverStroke: 'group-hover:border-[#edbb4a]',
-      groupHoverIconFill: 'group-hover:text-[#f1e08f]',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-[#bd5800]',
+      groupHoverStroke: 'group-hover:border-orange-300',
+      groupHoverIconFill: 'group-hover:text-orange-200',
+      groupHoverIconStroke: 'group-hover:text-orange-500',
     },
     active: {
-      strokeOutside: 'border-[3px] border-[#edbb4a]/35',
+      strokeOutside: 'border-[3px] border-orange-300/35',
       // Tailwind prefixed classes (single source of truth)
       groupFocusWithinBackground: 'group-focus-within:bg-white',
-      groupFocusWithinStroke: 'group-focus-within:border-[#edbb4a]',
-      groupFocusWithinIconFill: 'group-focus-within:text-[#f1e08f]',
-      groupFocusWithinIconStroke: 'group-focus-within:[&>*]:text-[#bd5800]',
+      groupFocusWithinStroke: 'group-focus-within:border-orange-300',
+      groupFocusWithinIconFill: 'group-focus-within:text-orange-200',
+      groupFocusWithinIconStroke: 'group-focus-within:[&>*]:text-orange-500',
     },
     focus: {
-      strokeOutside: 'border-[3px] border-[#edbb4a]/35',
+      strokeOutside: 'border-[3px] border-orange-300/35',
       // Tailwind prefixed classes (single source of truth) - using focus-visible for keyboard navigation
       groupFocusVisibleBackground: 'group-focus-visible:bg-white',
       groupFocusVisibleStroke:
-        'group-focus-visible:border-2 group-focus-visible:border-[#edbb4a]',
-      groupFocusVisibleIconFill: 'group-focus-visible:text-[#f1e08f]',
-      groupFocusVisibleIconStroke: 'group-focus-visible:[&>*]:text-[#bd5800]',
+        'group-focus-visible:border-2 group-focus-visible:border-orange-300',
+      groupFocusVisibleIconFill: 'group-focus-visible:text-orange-200',
+      groupFocusVisibleIconStroke: 'group-focus-visible:[&>*]:text-orange-500',
     },
   },
   disabled: {
     default: {
-      background: 'bg-[#f3f4fa]',
-      stroke: 'border-[#f3f4fa]',
-      text: 'text-[#9095ad]',
-      iconFill: 'text-[#f3f4fa]',
-      iconStroke: 'text-[#afb3c7]',
+      background: 'bg-gray-50',
+      stroke: 'border-gray-50',
+      text: 'text-gray-500',
+      iconFill: 'text-gray-50',
+      iconStroke: 'text-gray-400',
     },
   },
 } as const
@@ -230,7 +230,7 @@ export const CssVariantClassesTableDark = {
       groupHoverBackground: 'group-hover:bg-gray-950',
       groupHoverStroke: 'group-hover:border-gray-800',
       groupHoverIconFill: 'group-hover:text-indigo-500',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-indigo-300',
+      groupHoverIconStroke: 'group-hover:text-indigo-300',
     },
     active: {
       strokeOutside: 'border-[3px] border-indigo-300/35',
@@ -273,7 +273,7 @@ export const CssVariantClassesTableDark = {
       groupHoverBackground: 'group-hover:bg-gray-950',
       groupHoverStroke: 'group-hover:border-jade-300',
       groupHoverIconFill: 'group-hover:text-jade-500',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-jade-300',
+      groupHoverIconStroke: 'group-hover:text-jade-300',
     },
     active: {
       strokeOutside: 'border-[3px] border-jade-300/35',
@@ -316,7 +316,7 @@ export const CssVariantClassesTableDark = {
       groupHoverBackground: 'group-hover:bg-gray-950',
       groupHoverStroke: 'group-hover:border-red-300',
       groupHoverIconFill: 'group-hover:text-red-500',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-red-300',
+      groupHoverIconStroke: 'group-hover:text-red-300',
     },
     active: {
       strokeOutside: 'border-[3px] border-red-300/35',
@@ -359,7 +359,7 @@ export const CssVariantClassesTableDark = {
       groupHoverBackground: 'group-hover:bg-gray-950',
       groupHoverStroke: 'group-hover:border-orange-300',
       groupHoverIconFill: 'group-hover:text-orange-500',
-      groupHoverIconStroke: 'group-hover:[&>*]:text-orange-300',
+      groupHoverIconStroke: 'group-hover:text-orange-300',
     },
     active: {
       strokeOutside: 'border-[3px] border-orange-300/35',
@@ -416,6 +416,23 @@ export const CssLabelClasses = {
     false: 'rounded-bl-[4px] rounded-tl-[4px]',
     true: 'rounded-bl-[38px] rounded-tl-[38px]',
   },
+  // Border states that match input states - labels respond to group states
+  default: {
+    stroke: 'border-gray-100',
+  },
+  placeholder: {
+    stroke: 'border-gray-100',
+  },
+  hover: {
+    stroke: 'group-hover:border-gray-200',
+  },
+  active: {
+    stroke: 'group-focus-within:border-indigo-300',
+  },
+  focus: {
+    stroke:
+      'group-focus-visible:border-2 group-focus-visible:border-indigo-300',
+  },
 } as const
 
 // Label classes - Dark Mode
@@ -427,6 +444,23 @@ export const CssLabelClassesDark = {
   rounded: {
     false: 'rounded-bl-[4px] rounded-tl-[4px]',
     true: 'rounded-bl-[38px] rounded-tl-[38px]',
+  },
+  // Border states that match input states - labels respond to group states
+  default: {
+    stroke: 'border-gray-800',
+  },
+  placeholder: {
+    stroke: 'border-gray-800',
+  },
+  hover: {
+    stroke: 'group-hover:border-gray-800',
+  },
+  active: {
+    stroke: 'group-focus-within:border-indigo-300',
+  },
+  focus: {
+    stroke:
+      'group-focus-visible:border-2 group-focus-visible:border-indigo-300',
   },
 } as const
 

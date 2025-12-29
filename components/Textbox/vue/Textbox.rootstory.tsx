@@ -1,11 +1,6 @@
-import clsx from 'clsx'
 import * as React from 'react'
 import Textbox from './Textbox.vue'
-import {
-  CssSizeClassesTable,
-  CssVariantClassesTableLight,
-  CssVariantClassesTableDark,
-} from '../constants'
+import { CssSizeClassesTable } from '../constants'
 import type { TextboxSizes, TextboxVariants } from '../constants'
 
 const variants: TextboxVariants[] = [
@@ -16,265 +11,271 @@ const variants: TextboxVariants[] = [
   'disabled',
 ]
 
-export default ({ darkMode = false }: { darkMode?: boolean } = {}) => {
+export default () => {
   return (
-    <div
-      className={clsx(
-        'p-[80px] flex flex-col gap-[40px]',
-        darkMode ? 'bg-gray-1000' : 'bg-white',
-      )}
-    >
-      {/* Textbox States */}
-      <div className="flex flex-col gap-[16px]">
-        <div className="flex flex-col">
-          <h2
-            className={clsx(
-              'text-[20px] leading-[28px] font-medium',
-              darkMode ? 'text-white' : 'text-gray-900',
-            )}
-          >
-            Textbox states
+    <div class="p-[80px] flex flex-col gap-[40px] bg-white">
+      {/* Textbox Variants */}
+      <div class="flex flex-col gap-[16px]">
+        <div class="flex flex-col">
+          <h2 class="text-[20px] leading-[28px] font-medium text-gray-900">
+            Variants
           </h2>
-          <p
-            className={clsx(
-              'text-[18px] leading-[28px]',
-              darkMode ? 'text-gray-500' : 'text-gray-700',
-            )}
-          >
-            Each state is component variant.
+          <p class="text-[18px] leading-[28px] text-gray-700">
+            Each variant is a component variant.
           </p>
         </div>
-        <div className="flex flex-col gap-[20px] w-[360px]">
-          {variants.map((variant) => {
-            const stateName = variant.charAt(0).toUpperCase() + variant.slice(1)
-            return (
-              <div key={variant} className="flex flex-col gap-[8px]">
-                <label
-                  className={clsx(
-                    'text-[14px] leading-[20px] font-medium',
-                    darkMode ? 'text-gray-400' : 'text-gray-600',
-                  )}
-                >
-                  {stateName}
-                </label>
-                <Textbox
-                  variant={variant}
-                  size="40"
-                  rounded={false}
-                  darkMode={darkMode}
-                  disabled={variant === 'disabled'}
-                  placeholder="Placeholder"
-                  modelValue={stateName}
-                  iconLeft="general-placeholder"
-                />
-              </div>
-            )
-          })}
+        <div class="flex gap-[40px]">
+          {/* Light Mode */}
+          <div class="flex flex-col gap-[16px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-gray-900">
+              Light Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              {variants.map((variant) => {
+                const stateName =
+                  variant.charAt(0).toUpperCase() + variant.slice(1)
+                return (
+                  <div key={variant} class="flex flex-col gap-[8px]">
+                    <label class="text-[14px] leading-[20px] font-medium text-gray-600">
+                      {stateName}
+                    </label>
+                    <Textbox
+                      variant={variant}
+                      size="40"
+                      rounded={false}
+                      darkMode={false}
+                      disabled={variant === 'disabled'}
+                      placeholder="Placeholder"
+                      modelValue={stateName}
+                      iconLeft="general-placeholder"
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+          {/* Dark Mode */}
+          <div class="flex flex-col gap-[16px] bg-gray-1000 p-[20px] rounded-[8px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-white">
+              Dark Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              {variants.map((variant) => {
+                const stateName =
+                  variant.charAt(0).toUpperCase() + variant.slice(1)
+                return (
+                  <div key={variant} class="flex flex-col gap-[8px]">
+                    <label class="text-[14px] leading-[20px] font-medium text-gray-400">
+                      {stateName}
+                    </label>
+                    <Textbox
+                      variant={variant}
+                      size="40"
+                      rounded={false}
+                      darkMode={true}
+                      disabled={variant === 'disabled'}
+                      placeholder="Placeholder"
+                      modelValue={stateName}
+                      iconLeft="general-placeholder"
+                    />
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Textbox Size */}
-      <div className="flex flex-col gap-[16px]">
-        <div className="flex flex-col">
-          <h2
-            className={clsx(
-              'text-[20px] leading-[28px] font-medium',
-              darkMode ? 'text-white' : 'text-gray-900',
-            )}
-          >
-            Textbox size
+      <div class="flex flex-col gap-[16px]">
+        <div class="flex flex-col">
+          <h2 class="text-[20px] leading-[28px] font-medium text-gray-900">
+            Sizes
           </h2>
-          <p
-            className={clsx(
-              'text-[18px] leading-[28px]',
-              darkMode ? 'text-gray-500' : 'text-gray-700',
-            )}
-          >
+          <p class="text-[18px] leading-[28px] text-gray-700">
             Size is applied with the "Input / Textbox / Size" option in the
             appearance panel.
           </p>
         </div>
-        <div className="flex flex-col gap-[20px] w-[360px]">
-          {(Object.keys(CssSizeClassesTable) as TextboxSizes[]).map((size) => (
-            <div key={size}>
-              <Textbox
-                variant="default"
-                size={size}
-                rounded={false}
-                darkMode={darkMode}
-                modelValue={size}
-                iconLeft="general-placeholder"
-              />
+        <div class="flex gap-[40px]">
+          {/* Light Mode */}
+          <div class="flex flex-col gap-[16px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-gray-900">
+              Light Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              {(Object.keys(CssSizeClassesTable) as TextboxSizes[]).map(
+                (size) => (
+                  <div key={size}>
+                    <Textbox
+                      variant="default"
+                      size={size}
+                      rounded={false}
+                      darkMode={false}
+                      modelValue={size}
+                      iconLeft="general-placeholder"
+                    />
+                  </div>
+                ),
+              )}
             </div>
-          ))}
+          </div>
+          {/* Dark Mode */}
+          <div class="flex flex-col gap-[16px] bg-gray-1000 p-[20px] rounded-[8px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-white">
+              Dark Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              {(Object.keys(CssSizeClassesTable) as TextboxSizes[]).map(
+                (size) => (
+                  <div key={size}>
+                    <Textbox
+                      variant="default"
+                      size={size}
+                      rounded={false}
+                      darkMode={true}
+                      modelValue={size}
+                      iconLeft="general-placeholder"
+                    />
+                  </div>
+                ),
+              )}
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Rounded Corners */}
-      <div className="flex flex-col gap-[16px]">
-        <div className="flex flex-col">
-          <h2
-            className={clsx(
-              'text-[20px] leading-[28px] font-medium',
-              darkMode ? 'text-white' : 'text-gray-900',
-            )}
-          >
-            Rounded corners
+      <div class="flex flex-col gap-[16px]">
+        <div class="flex flex-col">
+          <h2 class="text-[20px] leading-[28px] font-medium text-gray-900">
+            Rounded
           </h2>
-          <p
-            className={clsx(
-              'text-[18px] leading-[28px]',
-              darkMode ? 'text-gray-500' : 'text-gray-700',
-            )}
-          >
+          <p class="text-[18px] leading-[28px] text-gray-700">
             Rounded corners are applied with the "Input / Textbox / Rounded"
             option in the appearance panel.
           </p>
         </div>
-        <div className="flex flex-col gap-[20px] w-[360px]">
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="Rounded: False"
-              iconLeft={<IconPlaceholder />}
-            />
+        <div class="flex gap-[40px]">
+          {/* Light Mode */}
+          <div class="flex flex-col gap-[16px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-gray-900">
+              Light Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              <div>
+                <Textbox
+                  variant="default"
+                  size="40"
+                  rounded={false}
+                  darkMode={false}
+                  modelValue="Rounded: False"
+                  iconLeft="general-placeholder"
+                />
+              </div>
+              <div>
+                <Textbox
+                  variant="default"
+                  size="40"
+                  rounded={true}
+                  darkMode={false}
+                  modelValue="Rounded: True"
+                  iconLeft="general-placeholder"
+                />
+              </div>
+            </div>
           </div>
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={true}
-              darkMode={darkMode}
-              modelValue="Rounded: True"
-              iconLeft={<IconPlaceholder />}
-            />
-          </div>
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={true}
-              darkMode={darkMode}
-              modelValue="Rounded: True"
-              labelLeft="{Label}"
-              labelRight="{Label}"
-              iconLeft={<IconPlaceholder />}
-            />
+          {/* Dark Mode */}
+          <div class="flex flex-col gap-[16px] bg-gray-1000 p-[20px] rounded-[8px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-white">
+              Dark Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              <div>
+                <Textbox
+                  variant="default"
+                  size="40"
+                  rounded={false}
+                  darkMode={true}
+                  modelValue="Rounded: False"
+                  iconLeft="general-placeholder"
+                />
+              </div>
+              <div>
+                <Textbox
+                  variant="default"
+                  size="40"
+                  rounded={true}
+                  darkMode={true}
+                  modelValue="Rounded: True"
+                  iconLeft="general-placeholder"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Options */}
-      <div className="flex flex-col gap-[16px]">
-        <div className="flex flex-col">
-          <h2
-            className={clsx(
-              'text-[20px] leading-[28px] font-medium',
-              darkMode ? 'text-white' : 'text-gray-900',
-            )}
-          >
-            Options
+      {/* Labels */}
+      <div class="flex flex-col gap-[16px]">
+        <div class="flex flex-col">
+          <h2 class="text-[20px] leading-[28px] font-medium text-gray-900">
+            Labels
           </h2>
-          <p
-            className={clsx(
-              'text-[18px] leading-[28px]',
-              darkMode ? 'text-gray-500' : 'text-gray-700',
-            )}
-          >
-            <ul className="list-disc ml-6">
-              <li>Icon (L)</li>
-              <li>Icon (R)</li>
-              <li>Label (L)</li>
-              <li>Label (R)</li>
-              <li>Divider (L)</li>
-            </ul>
+          <p class="text-[18px] leading-[28px] text-gray-700">
+            Labels and icons on left and right sides.
           </p>
         </div>
-        <div className="flex flex-col gap-[20px] w-[360px]">
-          {/* Icon Left */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              iconLeft={<IconPlaceholder />}
-            />
+        <div class="flex gap-[40px]">
+          {/* Light Mode */}
+          <div class="flex flex-col gap-[16px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-gray-900">
+              Light Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              {(Object.keys(CssSizeClassesTable) as TextboxSizes[]).map(
+                (size) => (
+                  <div key={size}>
+                    <Textbox
+                      variant="default"
+                      size={size}
+                      rounded={false}
+                      darkMode={false}
+                      modelValue={size}
+                      labelLeft="Left"
+                      labelRight="Right"
+                      iconLeft="general-placeholder"
+                      iconRight="general-placeholder"
+                    />
+                  </div>
+                ),
+              )}
+            </div>
           </div>
-          {/* Icon Right */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              iconRight="action-close"
-            />
-          </div>
-          {/* Icon Left and Right */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              iconLeft={<IconPlaceholder />}
-              iconRight="action-close"
-            />
-          </div>
-          {/* Label Left */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              labelLeft="{Label}"
-            />
-          </div>
-          {/* Label Right */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              labelRight="{Label}"
-            />
-          </div>
-          {/* Label Left and Right */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              labelLeft="{Label}"
-              labelRight="{Label}"
-            />
-          </div>
-          {/* All Options Combined */}
-          <div>
-            <Textbox
-              variant="default"
-              size="40"
-              rounded={false}
-              darkMode={darkMode}
-              modelValue="{Text}"
-              labelLeft="{Label}"
-              labelRight="{Label}"
-              iconLeft={<IconPlaceholder />}
-              iconRight="action-close"
-            />
+          {/* Dark Mode */}
+          <div class="flex flex-col gap-[16px] bg-gray-1000 p-[20px] rounded-[8px]">
+            <h3 class="text-[16px] leading-[24px] font-medium text-white">
+              Dark Mode
+            </h3>
+            <div class="flex flex-col gap-[20px] w-[360px]">
+              {(Object.keys(CssSizeClassesTable) as TextboxSizes[]).map(
+                (size) => (
+                  <div key={size}>
+                    <Textbox
+                      variant="default"
+                      size={size}
+                      rounded={false}
+                      darkMode={true}
+                      modelValue={size}
+                      labelLeft="Left"
+                      labelRight="Right"
+                      iconLeft="general-placeholder"
+                      iconRight="general-placeholder"
+                    />
+                  </div>
+                ),
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -146,30 +146,68 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
     className,
   )
 
-  // Build label classes
+  // Build label classes with state-based borders
   const labelLeftClasses = labelLeft
     ? clsx(
-        'flex items-center h-full',
+        'flex items-center h-full transition-colors',
         labelTable.background,
-        labelTable.stroke,
         labelTable.text,
         labelTable.padding,
-        'border-r',
+        'border border-[1px]',
         labelTable.rounded[roundedKey],
+        // Default state border (always applied as base)
+        labelTable.default.stroke,
+        // Placeholder state border
+        stateStyle === 'placeholder' && labelTable.placeholder.stroke,
+        // Hover state border
+        !isActuallyDisabled &&
+          finalVariant !== 'disabled' &&
+          !isFocused &&
+          labelTable.hover.stroke,
+        // Active state border (mouse click) - 1px border
+        !isActuallyDisabled &&
+          finalVariant !== 'disabled' &&
+          isFocused &&
+          !isKeyboardFocus && ['border-[1px]', labelTable.active.stroke],
+        // Focus state border (keyboard Tab) - 2px border
+        !isActuallyDisabled &&
+          finalVariant !== 'disabled' &&
+          isFocused &&
+          isKeyboardFocus &&
+          labelTable.focus.stroke,
       )
     : undefined
 
   const labelRightClasses = labelRight
     ? clsx(
-        'flex items-center h-full',
+        'flex items-center h-full transition-colors',
         labelTable.background,
-        labelTable.stroke,
         labelTable.text,
         labelTable.padding,
-        'border-l',
+        'border border-[1px]',
         roundedKey === 'true'
           ? 'rounded-br-[28px] rounded-tr-[28px]'
           : 'rounded-br-[4px] rounded-tr-[4px]',
+        // Default state border (always applied as base)
+        labelTable.default.stroke,
+        // Placeholder state border
+        stateStyle === 'placeholder' && labelTable.placeholder.stroke,
+        // Hover state border
+        !isActuallyDisabled &&
+          finalVariant !== 'disabled' &&
+          !isFocused &&
+          labelTable.hover.stroke,
+        // Active state border (mouse click) - 1px border
+        !isActuallyDisabled &&
+          finalVariant !== 'disabled' &&
+          isFocused &&
+          !isKeyboardFocus && ['border-[1px]', labelTable.active.stroke],
+        // Focus state border (keyboard Tab) - 2px border
+        !isActuallyDisabled &&
+          finalVariant !== 'disabled' &&
+          isFocused &&
+          isKeyboardFocus &&
+          labelTable.focus.stroke,
       )
     : undefined
 
@@ -177,19 +215,27 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   const iconWrapperClasses =
     'flex items-center justify-center shrink-0 w-[16px] h-[16px]'
 
-  return (
-    <div className="relative w-full flex items-center">
-      {/* Left Label */}
-      {labelLeft && (
-        <div className={labelLeftClasses}>
-          <span className="text-[14px] leading-[20px]">{labelLeft}</span>
-        </div>
-      )}
+  // Helper function to extract color from Tailwind class (e.g., 'text-gray-500' -> 'gray-500')
+  const extractColorFromClass = (className: string): string => {
+    // Handle custom colors like 'text-[#2e3247]' -> '#2e3247'
+    const customColorMatch = className.match(/text-\[([^\]]+)\]/)
+    if (customColorMatch) {
+      return customColorMatch[1]
+    }
+    // Handle standard Tailwind colors like 'text-gray-500' -> 'gray-500'
+    const standardColorMatch = className.match(/text-(.+)/)
+    if (standardColorMatch) {
+      return standardColorMatch[1]
+    }
+    return className
+  }
 
+  return (
+    <div className="relative w-full flex items-center group">
       {/* Input Container */}
       <div
         className={clsx(
-          'relative flex-1 group',
+          'relative flex-1',
           containerClasses,
           // Add class for keyboard focus to enable CSS targeting
           isKeyboardFocus && 'textbox-keyboard-focus',
@@ -303,6 +349,12 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
 
         {/* Input Content */}
         <div className="relative flex items-center h-full z-20">
+          {/* Left Label */}
+          {labelLeft && (
+            <div className={labelLeftClasses}>
+              <span className="text-[14px] leading-[20px]">{labelLeft}</span>
+            </div>
+          )}
           {/* Left Icon */}
           {iconLeft && (
             <div className={clsx(iconWrapperClasses, 'ml-[16px]')}>
@@ -336,7 +388,36 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
                   <Icon
                     name={iconLeft as any}
                     size="16"
-                    className="text-current"
+                    fillColor={
+                      extractColorFromClass(baseStyleClasses.iconFill) as any
+                    }
+                    strokeColor={
+                      extractColorFromClass(baseStyleClasses.iconStroke) as any
+                    }
+                    hoverFillColor={
+                      !isActuallyDisabled &&
+                      finalVariant !== 'disabled' &&
+                      !isFocused &&
+                      hoverClasses &&
+                      'groupHoverIconFill' in hoverClasses
+                        ? (extractColorFromClass(
+                            hoverClasses.groupHoverIconFill as string,
+                          ) as any)
+                        : undefined
+                    }
+                    hoverStrokeColor={
+                      !isActuallyDisabled &&
+                      finalVariant !== 'disabled' &&
+                      !isFocused &&
+                      hoverClasses &&
+                      'groupHoverIconStroke' in hoverClasses
+                        ? (extractColorFromClass(
+                            hoverClasses.groupHoverIconStroke as string,
+                          ) as any)
+                        : undefined
+                    }
+                    interactiveColorsOnGroup={true}
+                    className="transition-colors"
                   />
                 ) : (
                   iconLeft
@@ -409,7 +490,36 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
                   <Icon
                     name={iconRight as any}
                     size="16"
-                    className="text-current"
+                    fillColor={
+                      extractColorFromClass(baseStyleClasses.iconFill) as any
+                    }
+                    strokeColor={
+                      extractColorFromClass(baseStyleClasses.iconStroke) as any
+                    }
+                    hoverFillColor={
+                      !isActuallyDisabled &&
+                      finalVariant !== 'disabled' &&
+                      !isFocused &&
+                      hoverClasses &&
+                      'groupHoverIconFill' in hoverClasses
+                        ? (extractColorFromClass(
+                            hoverClasses.groupHoverIconFill as string,
+                          ) as any)
+                        : undefined
+                    }
+                    hoverStrokeColor={
+                      !isActuallyDisabled &&
+                      finalVariant !== 'disabled' &&
+                      !isFocused &&
+                      hoverClasses &&
+                      'groupHoverIconStroke' in hoverClasses
+                        ? (extractColorFromClass(
+                            hoverClasses.groupHoverIconStroke as string,
+                          ) as any)
+                        : undefined
+                    }
+                    interactiveColorsOnGroup={true}
+                    className="transition-colors"
                   />
                 ) : (
                   iconRight
@@ -418,31 +528,14 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
             </div>
           )}
 
-          {/* Right Label (inside input) */}
-          {labelRight && !iconRight && (
-            <div
-              className={clsx(
-                'flex items-center h-full pr-[16px] pl-[16px]',
-                'border-l',
-                labelTable.stroke,
-              )}
-            >
-              <span
-                className={clsx('text-[14px] leading-[20px]', labelTable.text)}
-              >
-                {labelRight}
-              </span>
+          {/* Right Label (inside group) */}
+          {labelRight && iconRight && (
+            <div className={labelRightClasses}>
+              <span className="text-[14px] leading-[20px]">{labelRight}</span>
             </div>
           )}
         </div>
       </div>
-
-      {/* Right Label (outside input) */}
-      {labelRight && iconRight && (
-        <div className={labelRightClasses}>
-          <span className="text-[14px] leading-[20px]">{labelRight}</span>
-        </div>
-      )}
     </div>
   )
 }

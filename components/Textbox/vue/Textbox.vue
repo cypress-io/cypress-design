@@ -165,17 +165,40 @@ export default defineComponent({
       CssRoundedClasses[roundedKey.value],
     ])
 
-    // Build label classes
+    // Build label classes with state-based borders
     const labelLeftClasses = computed(() =>
       props.labelLeft
         ? [
-            'flex items-center h-full',
+            'flex items-center h-full transition-colors',
             labelTable.value.background,
-            labelTable.value.stroke,
             labelTable.value.text,
             labelTable.value.padding,
-            'border-r',
+            'border border-[1px]',
             labelTable.value.rounded[roundedKey.value],
+            // Default state border (always applied as base)
+            labelTable.value.default.stroke,
+            // Placeholder state border
+            stateStyle.value === 'placeholder' &&
+              labelTable.value.placeholder.stroke,
+            // Hover state border
+            !isActuallyDisabled.value &&
+              finalVariant.value !== 'disabled' &&
+              !isFocused.value &&
+              labelTable.value.hover.stroke,
+            // Active state border (mouse click) - 1px border
+            !isActuallyDisabled.value &&
+              finalVariant.value !== 'disabled' &&
+              isFocused.value &&
+              !isKeyboardFocus.value && [
+                'border-[1px]',
+                labelTable.value.active.stroke,
+              ],
+            // Focus state border (keyboard Tab) - 2px border
+            !isActuallyDisabled.value &&
+              finalVariant.value !== 'disabled' &&
+              isFocused.value &&
+              isKeyboardFocus.value &&
+              labelTable.value.focus.stroke,
           ]
         : null,
     )
@@ -183,15 +206,38 @@ export default defineComponent({
     const labelRightClasses = computed(() =>
       props.labelRight
         ? [
-            'flex items-center h-full',
+            'flex items-center h-full transition-colors',
             labelTable.value.background,
-            labelTable.value.stroke,
             labelTable.value.text,
             labelTable.value.padding,
-            'border-l',
+            'border border-[1px]',
             roundedKey.value === 'true'
               ? 'rounded-br-[28px] rounded-tr-[28px]'
               : 'rounded-br-[4px] rounded-tr-[4px]',
+            // Default state border (always applied as base)
+            labelTable.value.default.stroke,
+            // Placeholder state border
+            stateStyle.value === 'placeholder' &&
+              labelTable.value.placeholder.stroke,
+            // Hover state border
+            !isActuallyDisabled.value &&
+              finalVariant.value !== 'disabled' &&
+              !isFocused.value &&
+              labelTable.value.hover.stroke,
+            // Active state border (mouse click) - 1px border
+            !isActuallyDisabled.value &&
+              finalVariant.value !== 'disabled' &&
+              isFocused.value &&
+              !isKeyboardFocus.value && [
+                'border-[1px]',
+                labelTable.value.active.stroke,
+              ],
+            // Focus state border (keyboard Tab) - 2px border
+            !isActuallyDisabled.value &&
+              finalVariant.value !== 'disabled' &&
+              isFocused.value &&
+              isKeyboardFocus.value &&
+              labelTable.value.focus.stroke,
           ]
         : null,
     )
@@ -200,9 +246,60 @@ export default defineComponent({
     const iconWrapperClasses =
       'flex items-center justify-center shrink-0 w-[16px] h-[16px]'
 
+    // Helper function to extract color from Tailwind class (e.g., 'text-gray-500' -> 'gray-500')
+    const extractColorFromClass = (className: string): string => {
+      // Handle custom colors like 'text-[#2e3247]' -> '#2e3247'
+      const customColorMatch = className.match(/text-\[([^\]]+)\]/)
+      if (customColorMatch) {
+        return customColorMatch[1]
+      }
+      // Handle standard Tailwind colors like 'text-gray-500' -> 'gray-500'
+      const standardColorMatch = className.match(/text-(.+)/)
+      if (standardColorMatch) {
+        return standardColorMatch[1]
+      }
+      return className
+    }
+
+    // Icon color props
+    const iconFillColor = computed(
+      () => extractColorFromClass(baseStyleClasses.value.iconFill) as any,
+    )
+    const iconStrokeColor = computed(
+      () => extractColorFromClass(baseStyleClasses.value.iconStroke) as any,
+    )
+    const iconHoverFillColor = computed(() => {
+      if (
+        !isActuallyDisabled.value &&
+        finalVariant.value !== 'disabled' &&
+        !isFocused.value &&
+        hoverClasses.value &&
+        'groupHoverIconFill' in hoverClasses.value
+      ) {
+        return extractColorFromClass(
+          hoverClasses.value.groupHoverIconFill as string,
+        ) as any
+      }
+      return undefined
+    })
+    const iconHoverStrokeColor = computed(() => {
+      if (
+        !isActuallyDisabled.value &&
+        finalVariant.value !== 'disabled' &&
+        !isFocused.value &&
+        hoverClasses.value &&
+        'groupHoverIconStroke' in hoverClasses.value
+      ) {
+        return extractColorFromClass(
+          hoverClasses.value.groupHoverIconStroke as string,
+        ) as any
+      }
+      return undefined
+    })
+
     // Placeholder classes
     const placeholderClasses = computed(() => {
-      if (displayVariant.value === 'placeholder') {
+      if (stateStyle.value === 'placeholder') {
         return props.darkMode
           ? 'placeholder:text-gray-400'
           : 'placeholder:text-[#5a5f7a]'
@@ -260,6 +357,10 @@ export default defineComponent({
       labelLeftClasses,
       labelRightClasses,
       iconWrapperClasses,
+      iconFillColor,
+      iconStrokeColor,
+      iconHoverFillColor,
+      iconHoverStrokeColor,
       placeholderClasses,
       roundedKey,
       CssRoundedClasses,
@@ -281,16 +382,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="relative w-full flex items-center">
-    <!-- Left Label -->
-    <div v-if="labelLeft" :class="labelLeftClasses">
-      <span class="text-[14px] leading-[20px]">{{ labelLeft }}</span>
-    </div>
-
+  <div class="relative w-full flex items-center group">
     <!-- Input Container -->
     <div
       :class="[
-        'relative flex-1 group',
+        'relative flex-1',
         containerClasses,
         isKeyboardFocus ? 'textbox-keyboard-focus' : '',
       ]"
@@ -406,6 +502,10 @@ export default defineComponent({
 
       <!-- Input Content -->
       <div class="relative flex items-center h-full z-20">
+        <!-- Left Label -->
+        <div v-if="labelLeft" :class="labelLeftClasses">
+          <span class="text-[14px] leading-[20px]">{{ labelLeft }}</span>
+        </div>
         <!-- Left Icon -->
         <div v-if="iconLeft" :class="[iconWrapperClasses, 'ml-[16px]']">
           <div
@@ -434,7 +534,17 @@ export default defineComponent({
                 ],
             ]"
           >
-            <Icon v-if="isIconLeftString" :name="String(iconLeft)" size="16" />
+            <Icon
+              v-if="isIconLeftString"
+              :name="String(iconLeft)"
+              size="16"
+              :fill-color="iconFillColor"
+              :stroke-color="iconStrokeColor"
+              :hover-fill-color="iconHoverFillColor"
+              :hover-stroke-color="iconHoverStrokeColor"
+              :interactive-colors-on-group="true"
+              class="transition-colors"
+            />
             <component v-else :is="iconLeft" />
           </div>
         </div>
@@ -495,30 +605,22 @@ export default defineComponent({
               v-if="isIconRightString"
               :name="String(iconRight)"
               size="16"
+              :fill-color="iconFillColor"
+              :stroke-color="iconStrokeColor"
+              :hover-fill-color="iconHoverFillColor"
+              :hover-stroke-color="iconHoverStrokeColor"
+              :interactive-colors-on-group="true"
+              class="transition-colors"
             />
             <component v-else :is="iconRight" />
           </div>
         </div>
 
-        <!-- Right Label (inside input) -->
-        <div
-          v-if="labelRight && !iconRight"
-          :class="[
-            'flex items-center h-full pr-[16px] pl-[16px]',
-            'border-l',
-            labelTable.stroke,
-          ]"
-        >
-          <span :class="['text-[14px] leading-[20px]', labelTable.text]">
-            {{ labelRight }}
-          </span>
+        <!-- Right Label (inside group) -->
+        <div v-if="labelRight && iconRight" :class="labelRightClasses">
+          <span class="text-[14px] leading-[20px]">{{ labelRight }}</span>
         </div>
       </div>
-    </div>
-
-    <!-- Right Label (outside input) -->
-    <div v-if="labelRight && iconRight" :class="labelRightClasses">
-      <span class="text-[14px] leading-[20px]">{{ labelRight }}</span>
     </div>
   </div>
 </template>
