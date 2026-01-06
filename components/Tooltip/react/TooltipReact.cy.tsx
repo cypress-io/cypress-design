@@ -101,13 +101,13 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   assertions(mountStory, 'react')
 
-  it('forceOpen', () => {
+  it('shouldOpen', () => {
     mount(
       <div className="text-center">
         <Tooltip
           className="border inline-block m-16 p-3"
           popper="should be visible"
-          forceOpen
+          shouldOpen
         >
           make sure its open
         </Tooltip>

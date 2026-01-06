@@ -105,10 +105,10 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   assertions(mountStory, 'vue')
 
-  it('forceOpen', () => {
+  it('shouldOpen', () => {
     mount(() => (
       <div class="text-center">
-        <Tooltip class="border inline-block m-16 p-3" forceOpen>
+        <Tooltip class="border inline-block m-16 p-3" shouldOpen>
           {{
             default: () => 'make sure its open',
             popper: () => <div>should be visible</div>,
