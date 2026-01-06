@@ -164,9 +164,9 @@ async function placeTooltip() {
 
 onMounted(() => {
   watch(
-    () => props.shouldOpen,
-    (shouldOpen) => {
-      if (shouldOpen && !props.disabled) {
+    () => [props.shouldOpen, props.disabled],
+    ([shouldOpen, disabled]) => {
+      if (shouldOpen && !disabled) {
         placeTooltip()
       } else {
         show.value = false
