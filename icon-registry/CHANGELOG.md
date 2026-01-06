@@ -1,5 +1,35 @@
 # @cypress-design/icon-registry
 
+## 1.37.0
+
+### Minor Changes
+
+- [#635](https://github.com/cypress-io/cypress-design/pull/635) [`965de37`](https://github.com/cypress-io/cypress-design/commit/965de377dbd9208d05494d1df01717af544ee186) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding email icon x48
+
+## 1.36.0
+
+### Minor Changes
+
+- [#633](https://github.com/cypress-io/cypress-design/pull/633) [`9c8e75d`](https://github.com/cypress-io/cypress-design/commit/9c8e75dc444fde2cef7ed0c597dacf4e003725c0) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding github x24 icon and Jira icon
+
+## 1.35.1
+
+### Patch Changes
+
+- [#631](https://github.com/cypress-io/cypress-design/pull/631) [`6c016dd`](https://github.com/cypress-io/cypress-design/commit/6c016dd2fad79c9e2c651b4a6c62ba12a46fde58) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Updated the Facebook, X, and RSS icons
+
+## 1.35.0
+
+### Minor Changes
+
+- [#628](https://github.com/cypress-io/cypress-design/pull/628) [`698906a`](https://github.com/cypress-io/cypress-design/commit/698906a580f6184bc7aa28b65b33248f1e0c5b81) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding icon code-editor-small
+
+## 1.34.0
+
+### Minor Changes
+
+- [#624](https://github.com/cypress-io/cypress-design/pull/624) [`c4bc551`](https://github.com/cypress-io/cypress-design/commit/c4bc55141ea44c9a0b4dba245e145b5d1fdf3e96) Thanks [@mabela416](https://github.com/mabela416)! - Add general sparkle single large icon in 24px
+
 ## 1.33.0
 
 ### Minor Changes

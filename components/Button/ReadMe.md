@@ -6,7 +6,7 @@ import { IconActionPlayLarge } from '@cypress-design/vue-icon'
 # Button
 
 <DemoWrapper>
-  <div class="flex gap-4 items-center">
+  <div class="flex items-center gap-4">
     <Button>
       Submit Form
     </Button>
@@ -20,4 +20,4 @@ A user clicking on the "Button" component triggers an action or event, such as s
 
 It also can be render as an anchor, to navigate between pages, when you use the `href` prop.
 
-[figma::Button](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=852-0&t=31Ux0Tiv1c3LsT2Q-11)
+[figma::Button](https://www.figma.com/design/YmbG6FTZ4tYlRbfTmNvwe3/Component---Buttons--v1.0----latest?node-id=901-2172)

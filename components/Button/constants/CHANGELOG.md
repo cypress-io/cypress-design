@@ -1,5 +1,11 @@
 # @cypress-design/constants-button
 
+## 1.12.0
+
+### Minor Changes
+
+- [#637](https://github.com/cypress-io/cypress-design/pull/637) [`b8eb190`](https://github.com/cypress-io/cypress-design/commit/b8eb190c3dde062622bdb65efc6a29d45c564639) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding purple-dark-mode button
+
 ## 1.11.0
 
 ### Minor Changes

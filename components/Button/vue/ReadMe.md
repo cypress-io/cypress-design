@@ -63,6 +63,18 @@ import {
   VariantClassesTable,
   SizeClassesTable,
 } from '@cypress-design/vue-button'
+
+const darkVariants = [
+  'outline-dark',
+  'outline-red-dark-mode',
+  'outline-jade-dark-mode',
+  'outline-indigo-dark-mode',
+  'outline-purple-dark-mode',
+  'red-dark-mode',
+  'purple-dark-mode',
+  'indigo-dark-mode',
+  'disabled-dark-mode',
+]
 </script>
 
 <template>
@@ -71,25 +83,8 @@ import {
       v-for="(_, variant) in VariantClassesTable"
       class="p-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
       :class="{
-        'bg-gray-1000 text-white':
-          variant === 'outline-dark' ||
-          variant === 'outline-red-dark-mode' ||
-          variant === 'outline-jade-dark-mode' ||
-          variant === 'outline-indigo-dark-mode' ||
-          variant === 'outline-purple-dark-mode' ||
-          variant === 'red-dark-mode' ||
-          variant === 'indigo-dark-mode' ||
-          variant === 'disabled-dark-mode',
-        'bg-white text-gray-900': ![
-          'outline-dark',
-          'outline-red-dark-mode',
-          'outline-jade-dark-mode',
-          'outline-indigo-dark-mode',
-          'outline-purple-dark-mode',
-          'red-dark-mode',
-          'indigo-dark-mode',
-          'disabled-dark-mode',
-        ].includes(variant),
+        'bg-gray-1000 text-white': darkVariants.includes(variant),
+        'bg-white text-gray-900': !darkVariants.includes(variant),
       }"
     >
       {{ variant }}

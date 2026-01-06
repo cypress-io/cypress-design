@@ -22,4 +22,4 @@ Examples:
 - To attract attention to a specific note on the page.
 - To inform the user of a change in the system.
 
-[figma::Alert](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=1035-9923&t=31Ux0Tiv1c3LsT2Q-11)
+[figma::Alert](https://www.figma.com/design/ZZZ2it1HdjfHNefqxnWs8Q/Component---Alerts--v1.0--latest?node-id=901-2172)

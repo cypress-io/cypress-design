@@ -29,4 +29,4 @@ const types = ['default', 'indigo-light', 'dark-small', 'dark-large', 'underline
   </template>
 </DemoWrapper>
 
-[figma::Tabs](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=1259-10337&t=31Ux0Tiv1c3LsT2Q-11)
+[figma::Tabs](https://www.figma.com/design/gXOfcQAuy7JunKRSjoQEg4/Component---Tabs--v1.0--latest?node-id=901-2172)

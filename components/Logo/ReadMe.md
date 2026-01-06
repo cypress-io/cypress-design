@@ -12,7 +12,7 @@ import { CypressMark, CypressLockUp } from '@cypress-design/vue-logo'
     <div class="p-4">
       <CypressLockUp class="w-[119px] h-[48px]" variant="color-dark" />
     </div>
-    <div class="bg-gray-1000 p-4 rounded">
+    <div class="p-4 rounded bg-gray-1000">
       <CypressLockUp class="w-[119px] h-[48px]" variant="color-white" />
     </div>
   </div>
@@ -23,7 +23,7 @@ import { CypressMark, CypressLockUp } from '@cypress-design/vue-logo'
     <div class="p-4">
       <CypressMark class="w-[48px] h-[48px]" variant="color-dark" />
     </div>
-    <div class="p-4 bg-gray-1000 rounded">
+    <div class="p-4 rounded bg-gray-1000">
       <CypressMark class="w-[48px] h-[48px]" variant="color-white" />
     </div>
   </div>
@@ -33,4 +33,4 @@ The Cypress logo is a visual representation of the brand or product. It can be a
 
 For just the icon use the `CypressMark` component, and for the icon with the wordmark use the `CypressLockUp` component.
 
-[figma::Logo](https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System?type=design&node-id=3125-4344&mode=design&t=Vy6yz2hD7pjlD3N1-4)
+[figma::Logo](https://www.figma.com/design/MInXXOFULhBbdflyvAdjdh/Component---Logos--v1.x----latest?node-id=7-36)

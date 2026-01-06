@@ -61,6 +61,18 @@ import {
 } from '@cypress-design/react-button'
 
 export default () => {
+  const darkModeVariants = [
+    'outline-dark',
+    'outline-red-dark-mode',
+    'outline-jade-dark-mode',
+    'outline-indigo-dark-mode',
+    'outline-purple-dark-mode',
+    'red-dark-mode',
+    'purple-dark-mode',
+    'indigo-dark-mode',
+    'disabled-dark-mode',
+  ]
+
   return (
     <div className="flex flex-wrap justify-stretch gap-[8px]">
       {Object.keys(VariantClassesTable).map((variant) => (
@@ -68,28 +80,10 @@ export default () => {
           key={variant}
           className="px-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
           style={{
-            backgroundColor:
-              variant === 'outline-dark' ||
-              variant === 'outline-red-dark-mode' ||
-              variant === 'outline-jade-dark-mode' ||
-              variant === 'outline-indigo-dark-mode' ||
-              variant === 'outline-purple-dark-mode' ||
-              variant === 'red-dark-mode' ||
-              variant === 'indigo-dark-mode' ||
-              variant === 'disabled-dark-mode'
-                ? '#1a202c'
-                : 'white',
-            color:
-              variant === 'outline-dark' ||
-              variant === 'outline-red-dark-mode' ||
-              variant === 'outline-jade-dark-mode' ||
-              variant === 'outline-indigo-dark-mode' ||
-              variant === 'outline-purple-dark-mode' ||
-              variant === 'red-dark-mode' ||
-              variant === 'indigo-dark-mode' ||
-              variant === 'disabled-dark-mode'
-                ? 'white'
-                : 'black',
+            backgroundColor: darkModeVariants.includes(variant)
+              ? '#1a202c'
+              : 'white',
+            color: darkModeVariants.includes(variant) ? 'white' : 'black',
           }}
         >
           {variant}
