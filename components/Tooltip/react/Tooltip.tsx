@@ -78,7 +78,7 @@ export const Tooltip: React.FC<
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(shouldOpen)
 
   React.useEffect(() => {
     setOpen(shouldOpen)
