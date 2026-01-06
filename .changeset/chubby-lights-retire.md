@@ -1,6 +1,6 @@
 ---
-'@cypress-design/react-tooltip': minor
-'@cypress-design/vue-tooltip': minor
+'@cypress-design/react-tooltip': major
+'@cypress-design/vue-tooltip': major
 ---
 
 Add support for controlling when the tooltip is open
