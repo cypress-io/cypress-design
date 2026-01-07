@@ -28,10 +28,9 @@ const props = withDefaults(
      */
     forcePlacement?: boolean
     /**
-     * Make sure the tooltip stays always open.
-     * This is useful for debugging.
+     * If true, the tooltip will be open.
      */
-    forceOpen?: boolean
+    open?: boolean
   }>(),
   {
     color: 'light',
@@ -165,10 +164,12 @@ async function placeTooltip() {
 
 onMounted(() => {
   watch(
-    () => props.forceOpen,
-    (forceOpen) => {
-      if (forceOpen) {
+    () => [props.open, props.disabled],
+    ([open, disabled]) => {
+      if (open && !disabled) {
         placeTooltip()
+      } else {
+        show.value = false
       }
     },
     { immediate: true },
@@ -180,11 +181,11 @@ onMounted(() => {
   <div
     v-bind="$attrs"
     ref="reference"
-    @mouseover="placeTooltip"
-    @focus="placeTooltip"
-    @blur="show = false"
-    @mouseout="show = false"
-    @keydown.escape="show = false"
+    @mouseover="!disabled && !open && placeTooltip()"
+    @focus="!disabled && !open && placeTooltip()"
+    @blur="!open && (show = false)"
+    @mouseout="!open && (show = false)"
+    @keydown.escape="!open && (show = false)"
   >
     <!-- @slot element to hover on to open the tooltip -->
     <slot />
@@ -204,13 +205,13 @@ onMounted(() => {
               !show &&
               positionComputed &&
               !(tooltipHovered && props.interactive) &&
-              !forceOpen,
+              !open,
             '-top-[10000px] invisible': !positionComputed,
           },
           props.interactive ? 'p-[16px]' : undefined,
         ]"
-        @mouseover="tooltipHovered = true"
-        @mouseout="tooltipHovered = false"
+        @mouseover="!open && (tooltipHovered = true)"
+        @mouseout="!open && (tooltipHovered = false)"
       >
         <div
           class="border rounded shadow-tooltip"
