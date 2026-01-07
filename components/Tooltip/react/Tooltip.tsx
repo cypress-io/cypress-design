@@ -52,7 +52,7 @@ export interface TooltipProps {
   /**
    * If true, the tooltip will be open.
    */
-  shouldOpen?: boolean
+  open?: boolean
 }
 
 const ROTATE_MAP = {
@@ -74,15 +74,15 @@ export const Tooltip: React.FC<
   disabled,
   interactive,
   forcePlacement,
-  shouldOpen = false,
+  open: _open = false,
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
-  const [open, setOpen] = React.useState(shouldOpen)
+  const [open, setOpen] = React.useState(_open)
 
   React.useEffect(() => {
-    setOpen(shouldOpen)
-  }, [shouldOpen])
+    setOpen(_open)
+  }, [_open])
 
   const {
     floatingStyles,
@@ -93,7 +93,7 @@ export const Tooltip: React.FC<
   } = useFloating({
     placement,
     open,
-    onOpenChange: (newOpen) => !shouldOpen && setOpen(newOpen),
+    onOpenChange: (newOpen) => !_open && setOpen(newOpen),
     middleware: [
       forcePlacement
         ? {
@@ -111,14 +111,14 @@ export const Tooltip: React.FC<
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       handleClose: interactive ? safePolygon() : undefined,
-      enabled: !disabled && !shouldOpen,
+      enabled: !disabled && !_open,
     }),
     useFocus(context, {
-      enabled: !disabled && !shouldOpen,
+      enabled: !disabled && !_open,
     }),
     useRole(context, { role: 'tooltip' }),
     useDismiss(context, {
-      enabled: !shouldOpen,
+      enabled: !_open,
     }),
   ])
 
