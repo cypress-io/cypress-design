@@ -50,10 +50,9 @@ export interface TooltipProps {
    */
   forcePlacement?: boolean
   /**
-   * Make sure the tooltip stays always open.
-   * This is useful for debugging.
+   * If true, the tooltip will be open.
    */
-  forceOpen?: boolean
+  open?: boolean
 }
 
 const ROTATE_MAP = {
@@ -75,17 +74,15 @@ export const Tooltip: React.FC<
   disabled,
   interactive,
   forcePlacement,
-  forceOpen = false,
+  open: _open = false,
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
-  const [open, setOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(_open)
 
   React.useEffect(() => {
-    if (forceOpen) {
-      setOpen(true)
-    }
-  }, [forceOpen])
+    setOpen(_open)
+  }, [_open])
 
   const {
     floatingStyles,
@@ -96,7 +93,7 @@ export const Tooltip: React.FC<
   } = useFloating({
     placement,
     open,
-    onOpenChange: (open) => setOpen(open),
+    onOpenChange: (newOpen) => !_open && setOpen(newOpen),
     middleware: [
       forcePlacement
         ? {
@@ -111,18 +108,18 @@ export const Tooltip: React.FC<
     whileElementsMounted: autoUpdate,
   })
 
-  const dismissHook = useDismiss(context)
-
   const { getReferenceProps, getFloatingProps } = useInteractions([
     useHover(context, {
       handleClose: interactive ? safePolygon() : undefined,
-      enabled: !disabled && !forceOpen,
+      enabled: !disabled && !_open,
     }),
     useFocus(context, {
-      enabled: !disabled && !forceOpen,
+      enabled: !disabled && !_open,
     }),
     useRole(context, { role: 'tooltip' }),
-    ...(!forceOpen ? [dismissHook] : []),
+    useDismiss(context, {
+      enabled: !_open,
+    }),
   ])
 
   const placementSide = calculatedPlacement.split(

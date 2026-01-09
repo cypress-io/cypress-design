@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 2.0.0
+
+### Major Changes
+
+- [#639](https://github.com/cypress-io/cypress-design/pull/639) [`8b080b6`](https://github.com/cypress-io/cypress-design/commit/8b080b6fdbf405640084087017bf2eb8d785089e) Thanks [@mabela416](https://github.com/mabela416)! - Add support for controlling when the tooltip is open
+
 ## 1.0.3
 
 ### Patch Changes
