@@ -115,4 +115,36 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
     )
     cy.findByText('should be visible').should('be.visible')
   })
+
+  it('arrowPadding', () => {
+    mount(
+      <div className="flex flex-col items-center center gap-24 bg-gray-1000">
+        {(
+          [
+            'bottom-start',
+            'bottom-end',
+            'left-start',
+            'left-end',
+            'right-start',
+            'right-end',
+            'top-start',
+            'top-end',
+          ] as const
+        ).map((placement) => (
+          <Tooltip
+            key={placement}
+            className="w-1/2 p-4 bg-indigo-200"
+            placement={placement}
+            arrowPadding={1}
+            open
+            popper={<div className="p-4 bg-jade-200 text-gray-900">H</div>}
+          >
+            <div>Hover Me ({placement})</div>
+          </Tooltip>
+        ))}
+      </div>,
+    )
+
+    cy.percySnapshot()
+  })
 })

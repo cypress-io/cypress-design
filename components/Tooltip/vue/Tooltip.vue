@@ -31,9 +31,14 @@ const props = withDefaults(
      * If true, the tooltip will be open.
      */
     open?: boolean
+    /**
+     * The padding between the arrow and the edges of the floating element. The default is 24
+     */
+    arrowPadding?: number
   }>(),
   {
     color: 'light',
+    arrowPadding: 24,
   },
 )
 
@@ -126,7 +131,7 @@ async function placeTooltip() {
           }
         : flip(),
       offset(props.interactive ? 0 : 16),
-      arrow({ element: arrowRef.value, padding: 24 }),
+      arrow({ element: arrowRef.value, padding: props.arrowPadding }),
       shift({ padding: 16 }),
     ],
   })
@@ -164,7 +169,13 @@ async function placeTooltip() {
 
 onMounted(() => {
   watch(
-    () => [props.open, props.disabled],
+    () => [
+      props.open,
+      props.disabled,
+      props.arrowPadding,
+      props.placement,
+      props.forcePlacement,
+    ],
     ([open, disabled]) => {
       if (open && !disabled) {
         placeTooltip()

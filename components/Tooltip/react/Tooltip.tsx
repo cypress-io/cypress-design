@@ -53,6 +53,10 @@ export interface TooltipProps {
    * If true, the tooltip will be open.
    */
   open?: boolean
+  /**
+   * The padding between the arrow and the edges of the floating element. The default is 24
+   */
+  arrowPadding?: number
 }
 
 const ROTATE_MAP = {
@@ -75,6 +79,7 @@ export const Tooltip: React.FC<
   interactive,
   forcePlacement,
   open: _open = false,
+  arrowPadding = 24,
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
@@ -102,7 +107,7 @@ export const Tooltip: React.FC<
           }
         : flip(),
       offset(16),
-      arrow({ element: arrowRef, padding: 24 }),
+      arrow({ element: arrowRef, padding: arrowPadding }),
       shift({ padding: 16 }),
     ],
     whileElementsMounted: autoUpdate,
