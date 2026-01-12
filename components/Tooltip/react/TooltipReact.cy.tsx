@@ -118,7 +118,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('arrowPadding', () => {
     mount(
-      <div className="flex flex-col items-center center gap-24 bg-gray-1000">
+      <div className="flex flex-col items-center center gap-20 bg-gray-1000">
         {(
           [
             'bottom-start',
