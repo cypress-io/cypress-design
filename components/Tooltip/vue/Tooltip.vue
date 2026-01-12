@@ -193,9 +193,10 @@ onMounted(() => {
       props.forcePlacement,
       props.shiftOptions,
       props.offsetOptions,
+      props.interactive,
     ],
-    ([open, disabled]) => {
-      if (open && !disabled) {
+    () => {
+      if (props.open && !props.disabled) {
         placeTooltip()
       } else {
         show.value = false
