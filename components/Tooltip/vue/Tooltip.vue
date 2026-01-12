@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-import type { Placement, Side } from '@floating-ui/dom'
+import type {
+  Placement,
+  Side,
+  OffsetOptions,
+  ShiftOptions,
+} from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow, shift } from '@floating-ui/dom'
 import type { Ref } from 'vue'
 import { watch, computed, ref, onBeforeMount, onMounted } from 'vue'
@@ -32,13 +37,24 @@ const props = withDefaults(
      */
     open?: boolean
     /**
-     * The padding between the arrow and the edges of the floating element. The default is 24
+     * The padding between the arrow and the edges of the floating element. The default is 24px
      */
     arrowPadding?: number
+    /**
+     * Options for shifting the floating element to keep it in view. The default is { padding: 16 }
+     */
+    shiftOptions?: ShiftOptions
+    /**
+     * Options for translating the floating element along the specified axes.
+     * The default is 16px
+     */
+    offsetOptions?: OffsetOptions | number
   }>(),
   {
     color: 'light',
     arrowPadding: 24,
+    shiftOptions: () => ({ padding: 16 }),
+    offsetOptions: 16,
   },
 )
 
@@ -130,9 +146,9 @@ async function placeTooltip() {
             fn: (obj) => obj,
           }
         : flip(),
-      offset(props.interactive ? 0 : 16),
+      offset(props.interactive ? 0 : props.offsetOptions),
       arrow({ element: arrowRef.value, padding: props.arrowPadding }),
-      shift({ padding: 16 }),
+      shift(props.shiftOptions),
     ],
   })
   const placementSide = placement.split('-')[0] as Side
@@ -175,6 +191,8 @@ onMounted(() => {
       props.arrowPadding,
       props.placement,
       props.forcePlacement,
+      props.shiftOptions,
+      props.offsetOptions,
     ],
     ([open, disabled]) => {
       if (open && !disabled) {
