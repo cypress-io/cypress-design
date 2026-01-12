@@ -121,7 +121,7 @@ export const Tooltip: React.FC<
             fn: (obj) => obj,
           }
         : flip(),
-      offset(offsetOptions),
+      offset(interactive ? 0 : offsetOptions),
       arrow({ element: arrowRef, padding: arrowPadding }),
       shift(shiftOptions),
     ],
