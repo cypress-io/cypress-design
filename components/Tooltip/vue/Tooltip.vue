@@ -146,7 +146,7 @@ async function placeTooltip() {
             fn: (obj) => obj,
           }
         : flip(),
-      offset(props.interactive ? 0 : props.offsetOptions),
+      offset(props.offsetOptions),
       arrow({ element: arrowRef.value, padding: props.arrowPadding }),
       shift(props.shiftOptions),
     ],
@@ -193,7 +193,6 @@ onMounted(() => {
       props.forcePlacement,
       props.shiftOptions,
       props.offsetOptions,
-      props.interactive,
     ],
     () => {
       if (props.open && !props.disabled) {
