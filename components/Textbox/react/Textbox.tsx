@@ -76,9 +76,34 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
 }) => {
   // Track focus state to switch from placeholder to default when focused
   const [isFocused, setIsFocused] = React.useState(false)
+  // Track if focus was achieved via keyboard (Tab key) vs mouse click
+  const [isKeyboardFocus, setIsKeyboardFocus] = React.useState(false)
   // Track actual input value for uncontrolled inputs
   const inputRef = React.useRef<HTMLInputElement>(null)
   const [internalValue, setInternalValue] = React.useState(defaultValue ?? '')
+
+  // Track the last interaction type to detect keyboard vs mouse focus
+  // This helps us know if the next focus event is from keyboard or mouse
+  const lastInteractionRef = React.useRef<'keyboard' | 'mouse' | null>(null)
+
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        lastInteractionRef.current = 'keyboard'
+      }
+    }
+    const handleMouseDown = () => {
+      lastInteractionRef.current = 'mouse'
+    }
+
+    document.addEventListener('keydown', handleKeyDown, true)
+    document.addEventListener('mousedown', handleMouseDown, true)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown, true)
+      document.removeEventListener('mousedown', handleMouseDown, true)
+    }
+  }, [])
 
   // Determine current state based on priority:
   // 1. disabled (highest priority)
@@ -107,6 +132,34 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       ? 'placeholder'
       : 'default'
 
+  // Monitor focus-visible state while focused
+  React.useEffect(() => {
+    if (!isFocused || !inputRef.current) {
+      setIsKeyboardFocus(false)
+      return
+    }
+
+    // Check :focus-visible state periodically while focused
+    const checkFocusVisible = () => {
+      if (inputRef.current) {
+        const isFocusVisible = inputRef.current.matches(':focus-visible')
+        setIsKeyboardFocus(isFocusVisible)
+        // Debug: uncomment to verify detection
+        // console.log('Keyboard focus detected:', isFocusVisible)
+      }
+    }
+
+    // Check immediately and after a small delay to ensure browser has updated
+    checkFocusVisible()
+    const timeoutId = setTimeout(checkFocusVisible, 10)
+    const timeoutId2 = setTimeout(checkFocusVisible, 50)
+
+    return () => {
+      clearTimeout(timeoutId)
+      clearTimeout(timeoutId2)
+    }
+  }, [isFocused])
+
   // Handle focus events
   const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(true)
@@ -115,6 +168,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocused(false)
+    setIsKeyboardFocus(false)
     // Update internal value from input for uncontrolled inputs
     if (value === undefined) {
       setInternalValue(e.currentTarget.value)
@@ -148,8 +202,20 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   const variantKey =
     `${theme}-${variant}-${stateKey}` as keyof typeof CssVariantClassesTable
 
-  // Get variant classes
-  const variantClasses = CssVariantClassesTable[variantKey] || ''
+  // Get base variant classes (includes 1px border for click focus)
+  const baseVariantClasses = CssVariantClassesTable[variantKey] || ''
+
+  // When keyboard focused (Tab key), also apply focus-visible classes (2px border/outline)
+  // This provides the 2px border for keyboard navigation vs 1px for mouse clicks
+  let variantClasses: string = baseVariantClasses
+  if (stateKey === 'default' && !disabled && isKeyboardFocus) {
+    const focusVisibleKey =
+      `${theme}-${variant}-focus-visible` as keyof typeof CssVariantClassesTable
+    const focusVisibleClasses = CssVariantClassesTable[focusVisibleKey] || ''
+    // Combine base classes with focus-visible classes
+    // CSS specificity will ensure focus-visible styles (2px) override default styles (1px)
+    variantClasses = clsx(baseVariantClasses, focusVisibleClasses) as string
+  }
 
   // Get size classes - these include height, padding, font-size, line-height
   const sizeClasses = CssSizeClassesTable[size]
@@ -172,6 +238,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
     roundedClasses,
     heightClass, // Height on wrapper
     'group', // For group-hover and group-focus-within
+    isKeyboardFocus && 'keyboard-focused', // Add class for keyboard focus (for debugging/CSS targeting)
     className,
   )
 

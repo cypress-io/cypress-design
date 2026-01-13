@@ -24,13 +24,13 @@ export const CssVariantClassesTable = {
   'light-default-placeholder':
     'bg-gray-50 border-gray-100 text-gray-700 placeholder:text-gray-700',
   'light-default-default':
-    'bg-white border-gray-200 text-gray-900 hover:border-gray-300 hover:text-gray-900 focus-within:border-indigo-500 focus-within:text-gray-900 focus-within:hover:border-indigo-500 focus-visible:outline-indigo-500',
+    'bg-white border-gray-100 text-gray-900 hover:border-gray-200 outline-offset-0 hover:outline hover:border-gray-300 hover:outline hover:outline-2 hover:outline-gray-300/25 focus-within:border-indigo-300/35 focus-within:border-indigo-300 focus-within:outline-indigo-300/35 focus-within:outline focus-within:outline-indigo-500 focus-within:outline-2 focus-within:outline-offset-0 focus-within:hover:border-indigo-300 focus-within:hover:outline-indigo-300/35 active:text-indigo-500 active:border-indigo-500',
   'light-default-hover':
-    'bg-white border-gray-600 text-gray-900 focus-within:border-indigo-500 focus-visible:outline-indigo-500 outline-2 outline-indigo-500',
+    'bg-white border-gray-600 text-gray-900 outline outline-2 outline-gray-300/25',
   'light-default-active':
-    'bg-white border-indigo-500 text-gray-900 focus-visible:outline-indigo-500',
+    'bg-white border-indigo-500 text-gray-900 outline-indigo-500 outline outline-2',
   'light-default-focus-visible':
-    'bg-white border-indigo-500 text-gray-900 focus-visible:outline-2 focus-visible:outline-indigo-500',
+    'bg-white border-2 border-indigo-500 text-gray-900 focus-visible:outline-2 focus-visible:outline-indigo-500',
   'light-default-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
 
@@ -38,7 +38,7 @@ export const CssVariantClassesTable = {
   'light-valid-placeholder':
     'bg-white border-jade-400 text-gray-500 placeholder:text-gray-500',
   'light-valid-default':
-    'bg-white border-jade-400 text-jade-600 hover:border-jade-500 focus-within:border-jade-500 focus-within:hover:border-jade-500 focus-visible:outline-jade-500',
+    'bg-white border-jade-400 hover:outline hover:outline-2 hover:outline-jade-500 hover:outline hover:outline-offset-0 active:outline-2 active:outline-jade-500 text-jade-600 hover:border-jade-500 focus-within:border-jade-500 focus-within:hover:border-jade-500 focus-visible:outline-jade-500',
   'light-valid-hover':
     'bg-white border-jade-500 text-jade-600 focus-within:border-jade-500 focus-visible:outline-jade-500',
   'light-valid-active':
