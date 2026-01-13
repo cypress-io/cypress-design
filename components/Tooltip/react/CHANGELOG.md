@@ -1,5 +1,11 @@
 # @cypress-design/react-tooltip
 
+## 2.1.0
+
+### Minor Changes
+
+- [#641](https://github.com/cypress-io/cypress-design/pull/641) [`2690a85`](https://github.com/cypress-io/cypress-design/commit/2690a858d2756b8c8308f5976a9ebdb11be1922f) Thanks [@mabela416](https://github.com/mabela416)! - Add arrowPadding, shiftOptions, and offsetOptions props to the Tooltip components in React and Vue
+
 ## 2.0.0
 
 ### Major Changes
