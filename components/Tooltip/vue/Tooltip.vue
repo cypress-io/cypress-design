@@ -41,7 +41,7 @@ const props = withDefaults(
      */
     arrowPadding?: number
     /**
-     * Options for shifting the floating element to keep it in view. The default is { padding: 16 }
+     * Options for shifting the floating element to keep it in view. The default is `{ padding: 16 }`
      */
     shiftOptions?: ShiftOptions
     /**
