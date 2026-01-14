@@ -115,4 +115,91 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
     )
     cy.findByText('should be visible').should('be.visible')
   })
+
+  it('arrowPadding', () => {
+    mount(
+      <div className="flex flex-col items-center center gap-20 bg-gray-1000">
+        {(
+          [
+            'bottom-start',
+            'bottom-end',
+            'left-start',
+            'left-end',
+            'right-start',
+            'right-end',
+            'top-start',
+            'top-end',
+          ] as const
+        ).map((placement) => (
+          <Tooltip
+            key={placement}
+            className="w-1/2 p-4 bg-indigo-200"
+            placement={placement}
+            arrowPadding={1}
+            open
+            popper={<div className="p-4 bg-jade-200 text-gray-900">H</div>}
+          >
+            <div>Hover Me ({placement})</div>
+          </Tooltip>
+        ))}
+      </div>,
+    )
+
+    cy.percySnapshot()
+  })
+
+  it('shiftOptions', () => {
+    mount(
+      <div className="flex items-center justify-center h-[400px] w-[200px]">
+        <Tooltip
+          className="p-4 bg-indigo-200"
+          placement="bottom"
+          shiftOptions={{ padding: 50 }}
+          open
+          popper={
+            <div className="p-4 bg-jade-200 text-gray-900">
+              Custom shift padding of 50px
+            </div>
+          }
+        >
+          <div>Tooltip with custom shift padding</div>
+        </Tooltip>
+      </div>,
+    )
+
+    cy.findByText('Custom shift padding of 50px').should('be.visible')
+  })
+
+  it('offsetOptions', () => {
+    mount(
+      <div className="flex flex-col items-center center gap-40">
+        <Tooltip
+          className="p-4 bg-indigo-200"
+          placement="bottom"
+          offsetOptions={40}
+          open
+          popper={
+            <div className="p-4 bg-jade-200 text-gray-900">Offset 40px</div>
+          }
+        >
+          <div>Tooltip with offset 40px</div>
+        </Tooltip>
+        <Tooltip
+          className="p-4 bg-red-200"
+          placement="bottom"
+          offsetOptions={5}
+          open
+          popper={
+            <div className="p-4 bg-jade-200 text-gray-900">Offset 5px</div>
+          }
+        >
+          <div>Tooltip with offset 5px</div>
+        </Tooltip>
+      </div>,
+    )
+
+    cy.findByText('Offset 40px').should('be.visible')
+    cy.findByText('Offset 5px').should('be.visible')
+    cy.percySnapshot()
+  })
 })
