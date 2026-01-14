@@ -1,15 +1,21 @@
 <script lang="ts">
-import { PropType, computed, defineComponent, ref } from 'vue'
+import { PropType, computed, defineComponent } from 'vue'
 import {
   DefaultTheme,
   DefaultVariant,
   DefaultSize,
   CssStaticClasses,
+  CssInputSizeClassesTable,
   CssVariantClassesTable,
   CssRoundedClasses,
+  CssInputClassesTable,
+  CssLabelSizeClassesTable,
+  CssLabelThemeClassesTable,
+  CssLabelBorderClassesTable,
+  CssLabelRoundedClassesTable,
+  CssLabelBaseClasses,
   IconColors,
   DividerClasses,
-  LabelClasses,
   type TextboxTheme,
   type TextboxVariant,
   type TextboxSize,
@@ -96,29 +102,17 @@ export default defineComponent({
     blur: (event: FocusEvent) => event instanceof FocusEvent,
   },
   setup(props, { emit }) {
-    // Track focus state to switch from placeholder to default when focused
-    const isFocused = ref(false)
+    // Determine state key for variant classes
+    // States are handled by CSS pseudo-classes (hover, active, focus, focus-visible, placeholder-shown)
+    // We only need to determine base state: disabled or default
+    // CSS will automatically apply hover/active/focus/focus-visible/placeholder-shown styles
+    const stateKey: 'default' | 'disabled' = props.disabled
+      ? 'disabled'
+      : 'default'
 
-    // Determine current state based on priority
-    // Once any value is typed, use default state (not placeholder)
-    const hasValue = computed(() => {
-      const value = props.modelValue ?? ''
-      return value && String(value).trim() !== ''
-    })
-    const isPlaceholder = computed(() => !hasValue.value)
-
-    const stateKey = computed<'placeholder' | 'default' | 'disabled'>(() => {
-      if (props.disabled) return 'disabled'
-      // Priority: placeholder (only if empty AND not focused) > default
-      // When focused OR has value, use default state (so active styles show)
-      if (isPlaceholder.value && props.placeholder && !isFocused.value)
-        return 'placeholder'
-      return 'default'
-    })
-
-    // Build variant class key
+    // Build variant class key: theme-variant-state
     const variantKey = computed(() => {
-      return `${props.theme}-${props.variant}-${stateKey.value}` as keyof typeof CssVariantClassesTable
+      return `${props.theme}-${props.variant}-${stateKey}` as keyof typeof CssVariantClassesTable
     })
 
     // Get variant classes
@@ -162,18 +156,22 @@ export default defineComponent({
       return ['flex-1 flex items-center gap-[12px] min-w-0', paddingClass.value]
     })
 
-    // Build input classes
-    const inputClasses = computed(() => {
-      return [
-        'flex-1 min-w-0 outline-none bg-transparent border-0',
-        'text-[14px] leading-[20px]',
-        'placeholder:text-gray-500 dark:placeholder:text-gray-400',
-      ]
+    // Get input size classes (font size and line height)
+    const inputSizeClasses = computed(() => {
+      return CssInputSizeClassesTable[props.size]
     })
 
-    // Get icon colors
+    // Build input classes
+    const inputClasses = computed(() => {
+      return [CssInputClassesTable[props.theme], inputSizeClasses.value]
+    })
+
+    // Get icon colors based on current state
+    // For hover/active/focus-visible/placeholder-shown, CSS will handle the transitions
+    // We use the base state (default) for icon colors
+    const iconStateKey = props.disabled ? 'disabled' : 'default'
     const iconColorKey = computed(() => {
-      return `${props.theme}-${props.variant}-${stateKey.value}` as keyof typeof IconColors
+      return `${props.theme}-${props.variant}-${iconStateKey}` as keyof typeof IconColors
     })
 
     const iconColors = computed(() => {
@@ -188,11 +186,6 @@ export default defineComponent({
     // Get divider classes
     const dividerClasses = computed(() => {
       return DividerClasses[props.theme]
-    })
-
-    // Get label classes
-    const labelClasses = computed(() => {
-      return LabelClasses[props.theme]
     })
 
     // Determine aria-invalid value
@@ -238,24 +231,19 @@ export default defineComponent({
     })
 
     const handleFocus = (event: FocusEvent) => {
-      isFocused.value = true
       emit('focus', event)
     }
 
     const handleBlur = (event: FocusEvent) => {
-      isFocused.value = false
       emit('blur', event)
     }
 
     return {
-      isPlaceholder,
-      stateKey,
       wrapperClasses,
       inputContainerClasses,
       inputClasses,
       iconColors,
       dividerClasses,
-      labelClasses,
       ariaInvalidValue,
       ariaLabel,
       ariaDescribedBy,
@@ -264,6 +252,12 @@ export default defineComponent({
       handleBlur,
       iconLeftProps,
       iconRightProps,
+      // Label constants for template
+      CssLabelBaseClasses,
+      CssLabelSizeClassesTable,
+      CssLabelThemeClassesTable,
+      CssLabelBorderClassesTable,
+      CssLabelRoundedClassesTable,
     }
   },
 })
@@ -275,11 +269,11 @@ export default defineComponent({
     <span
       v-if="labelLeft"
       :class="[
-        labelClasses,
-        'px-[16px] shrink-0',
-        rounded
-          ? 'rounded-bl-[38px] rounded-tl-[38px]'
-          : 'rounded-bl-[4px] rounded-tl-[4px]',
+        CssLabelBaseClasses,
+        CssLabelSizeClassesTable[size],
+        CssLabelThemeClassesTable[theme],
+        CssLabelBorderClassesTable.left[theme],
+        CssLabelRoundedClassesTable.left[rounded ? 'rounded' : 'notRounded'],
       ]"
     >
       {{ labelLeft }}
@@ -319,11 +313,11 @@ export default defineComponent({
     <span
       v-if="labelRight"
       :class="[
-        labelClasses,
-        'px-[16px] shrink-0',
-        rounded
-          ? 'rounded-br-[38px] rounded-tr-[38px]'
-          : 'rounded-br-[4px] rounded-tr-[4px]',
+        CssLabelBaseClasses,
+        CssLabelSizeClassesTable[size],
+        CssLabelThemeClassesTable[theme],
+        CssLabelBorderClassesTable.right[theme],
+        CssLabelRoundedClassesTable.right[rounded ? 'rounded' : 'notRounded'],
       ]"
     >
       {{ labelRight }}
