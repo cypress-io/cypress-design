@@ -21,168 +21,236 @@ export const CssRoundedClasses = {
 // Dark mode colors extracted from Figma (explicit, not auto-mapped)
 export const CssVariantClassesTable = {
   // Light mode - Default type
-  'light-default-placeholder':
-    'bg-gray-50 border-gray-100 text-gray-700 placeholder:text-gray-700',
-  'light-default-default':
-    'bg-white border-gray-100 text-gray-900 hover:border-gray-200 outline-offset-0 hover:outline hover:border-gray-300 hover:outline hover:outline-2 hover:outline-gray-300/25 focus-within:border-indigo-300/35 focus-within:border-indigo-300 focus-within:outline-indigo-300/35 focus-within:outline focus-within:outline-indigo-500 focus-within:outline-2 focus-within:outline-offset-0 focus-within:hover:border-indigo-300 focus-within:hover:outline-indigo-300/35 active:text-indigo-500 active:border-indigo-500',
-  'light-default-hover':
-    'bg-white border-gray-600 text-gray-900 outline outline-2 outline-gray-300/25',
-  'light-default-active':
-    'bg-white border-indigo-500 text-gray-900 outline-indigo-500 outline outline-2',
-  'light-default-focus-visible':
-    'bg-white border-2 border-indigo-500 text-gray-900 focus-visible:outline-2 focus-visible:outline-indigo-500',
+  'light-default-default': [
+    // Base styles
+    'bg-white border-gray-100 text-gray-900',
+    // Placeholder styles (when input shows placeholder)
+    // Using :has() to detect when any descendant input has placeholder-shown
+    // The has: variant targets descendants, so this should match input:placeholder-shown
+    // Input element has text-inherit, so it will inherit this text color
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles
+    'has-[:hover]:border-gray-300',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-gray-300/25',
+
+    // Active and focus styles
+    'has-[:focus]:border-indigo-300',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35',
+  ].join(' '),
+
   'light-default-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
+    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Light mode - Valid type
-  'light-valid-placeholder':
-    'bg-white border-jade-400 text-gray-500 placeholder:text-gray-500',
-  'light-valid-default':
-    'bg-white border-jade-400 hover:outline hover:outline-2 hover:outline-jade-500 hover:outline hover:outline-offset-0 active:outline-2 active:outline-jade-500 text-jade-600 hover:border-jade-500 focus-within:border-jade-500 focus-within:hover:border-jade-500 focus-visible:outline-jade-500',
-  'light-valid-hover':
-    'bg-white border-jade-500 text-jade-600 focus-within:border-jade-500 focus-visible:outline-jade-500',
-  'light-valid-active':
-    'bg-white border-jade-500 text-jade-600 focus-visible:outline-jade-500',
-  'light-valid-focus-visible':
-    'bg-white border-jade-500 text-jade-600 focus-visible:outline-2 focus-visible:outline-jade-500',
-  'light-valid-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
+  'light-valid-default': [
+    // Base styles
+    'bg-white border-jade-400 text-jade-500',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50 has-[:placeholder-shown]:border-jade-300',
+    // Hover styles
+    'has-[:hover]:border-jade-300',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-jade-300/35',
+
+    // Active and focus styles
+    'has-[:focus]:border-jade-300',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-300/35',
+  ].join(' '),
 
   // Light mode - Invalid type
-  'light-invalid-placeholder':
-    'bg-white border-red-300 text-gray-500 placeholder:text-gray-500',
-  'light-invalid-default':
-    'bg-white border-red-300 text-red-600 hover:border-red-400 focus-within:border-red-400 focus-within:hover:border-red-400 focus-visible:outline-red-500',
-  'light-invalid-hover':
-    'bg-white border-red-400 text-red-600 focus-within:border-red-400 focus-visible:outline-red-500',
-  'light-invalid-active':
-    'bg-white border-red-400 text-red-600 focus-visible:outline-red-500',
-  'light-invalid-focus-visible':
-    'bg-white border-red-400 text-red-600 focus-visible:outline-2 focus-visible:outline-red-500',
+  'light-invalid-default': [
+    // Base styles
+    'bg-white border-red-300 text-red-500',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles
+    'has-[:hover]:border-red-400',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-red-300/35 has-[:hover]:outline-offset-0',
+    // Active and focus styles
+    'has-[:focus]:border-red-300',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35',
+  ].join(' '),
   'light-invalid-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
 
   // Light mode - Warning type
-  'light-warning-placeholder':
-    'bg-white border-orange-300 text-gray-500 placeholder:text-gray-500',
-  'light-warning-default':
-    'bg-white border-orange-300 text-orange-600 hover:border-orange-400 focus-within:border-orange-400 focus-within:hover:border-orange-400 focus-visible:outline-orange-500',
-  'light-warning-hover':
-    'bg-white border-orange-400 text-orange-600 focus-within:border-orange-400 focus-visible:outline-orange-500',
-  'light-warning-active':
-    'bg-white border-orange-400 text-orange-600 focus-visible:outline-orange-500',
-  'light-warning-focus-visible':
-    'bg-white border-orange-400 text-orange-600 focus-visible:outline-2 focus-visible:outline-orange-500',
+  'light-warning-default': [
+    // Base styles
+    'bg-white border-orange-300 text-orange-600',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles
+    'has-[:hover]:border-orange-400',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-orange-300/35',
+    // Active and focus styles
+    'has-[:focus]:border-orange-400',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35',
+  ].join(' '),
   'light-warning-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
 
   // Dark mode - Default type (explicit colors from Figma)
-  'dark-default-placeholder':
-    'bg-gray-800 border-gray-700 text-gray-400 placeholder:text-gray-400',
-  'dark-default-default':
-    'bg-gray-800 border-gray-700 text-gray-200 hover:border-gray-600 focus-within:border-indigo-400 focus-within:hover:border-indigo-400 focus-visible:outline-indigo-400',
-  'dark-default-hover':
-    'bg-gray-800 border-gray-600 text-gray-200 focus-within:border-indigo-400 focus-visible:outline-indigo-400',
-  'dark-default-active':
-    'bg-gray-800 border-indigo-400 text-gray-200 focus-visible:outline-indigo-400',
-  'dark-default-focus-visible':
-    'bg-gray-800 border-indigo-400 text-gray-200 focus-visible:outline-2 focus-visible:outline-indigo-400',
+  'dark-default-default': [
+    // Base styles
+    'bg-gray-800 border-gray-700 text-gray-200',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles
+    'has-[:hover]:border-gray-600',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-gray-600/25',
+    // Active and focus styles
+    'has-[:focus]:border-indigo-400',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-400/35',
+  ].join(' '),
   'dark-default-disabled':
     'bg-gray-1000 border-gray-800 text-gray-600 cursor-not-allowed',
 
   // Dark mode - Valid type
-  'dark-valid-placeholder':
-    'bg-gray-800 border-jade-400 text-gray-400 placeholder:text-gray-400',
-  'dark-valid-default':
-    'bg-gray-800 border-jade-400 text-jade-400 hover:border-jade-500 focus-within:border-jade-500 focus-within:hover:border-jade-500 focus-visible:outline-jade-500',
-  'dark-valid-hover':
-    'bg-gray-800 border-jade-500 text-jade-400 focus-within:border-jade-500 focus-visible:outline-jade-500',
-  'dark-valid-active':
-    'bg-gray-800 border-jade-400 text-jade-400 focus-visible:outline-jade-500',
-  'dark-valid-focus-visible':
-    'bg-gray-800 border-jade-400 text-jade-400 focus-visible:outline-2 focus-visible:outline-jade-500',
+  'dark-valid-default': [
+    // Base styles
+    'bg-gray-800 border-jade-400 text-jade-400',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles
+    'has-[:hover]:border-jade-500',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-jade-400/35',
+    // Active and focus styles
+    'has-[:focus]:border-jade-500',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-400/35',
+  ].join(' '),
   'dark-valid-disabled':
     'bg-gray-1000 border-gray-800 text-gray-600 cursor-not-allowed',
 
   // Dark mode - Invalid type
-  'dark-invalid-placeholder':
-    'bg-gray-800 border-red-300 text-gray-400 placeholder:text-gray-400',
-  'dark-invalid-default':
-    'bg-gray-800 border-red-300 text-red-300 hover:border-red-400 focus-within:border-red-400 focus-within:hover:border-red-400 focus-visible:outline-red-400',
-  'dark-invalid-hover':
-    'bg-gray-800 border-red-400 text-red-300 focus-within:border-red-400 focus-visible:outline-red-400',
-  'dark-invalid-active':
-    'bg-gray-800 border-red-300 text-red-300 focus-visible:outline-red-400',
-  'dark-invalid-focus-visible':
-    'bg-gray-800 border-red-300 text-red-300 focus-visible:outline-2 focus-visible:outline-red-400',
+  'dark-invalid-default': [
+    // Base styles
+    'bg-gray-800 border-red-300 text-red-300',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles
+    'has-[:hover]:border-red-400',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-red-300/35',
+    // Active and focus styles
+    'has-[:focus]:border-red-400',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35',
+  ].join(' '),
   'dark-invalid-disabled':
     'bg-gray-1000 border-gray-800 text-gray-600 cursor-not-allowed',
 
   // Dark mode - Warning type
-  'dark-warning-placeholder':
-    'bg-gray-800 border-orange-400 text-gray-400 placeholder:text-gray-400',
-  'dark-warning-default':
-    'bg-gray-800 border-orange-400 text-orange-400 hover:border-orange-500 focus-within:border-orange-500 focus-within:hover:border-orange-500 focus-visible:outline-orange-500',
-  'dark-warning-hover':
-    'bg-gray-800 border-orange-500 text-orange-400 focus-within:border-orange-500 focus-visible:outline-orange-500',
-  'dark-warning-active':
-    'bg-gray-800 border-orange-400 text-orange-400 focus-visible:outline-orange-500',
-  'dark-warning-focus-visible':
-    'bg-gray-800 border-orange-400 text-orange-400 focus-visible:outline-2 focus-visible:outline-orange-500',
+  'dark-warning-default': [
+    // Base styles
+    'bg-gray-800 border-orange-400 text-orange-400',
+    // Placeholder styles (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles
+    'has-[:hover]:border-orange-500',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-orange-400/35',
+    // Active and focus styles
+    'has-[:focus]:border-orange-500',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-400/35',
+  ].join(' '),
   'dark-warning-disabled':
     'bg-gray-1000 border-gray-800 text-gray-600 cursor-not-allowed',
 
   // Auto theme - combines light + dark with dark: prefix
   // Uses explicit dark mode colors from Figma (not auto-mapped)
-  'auto-default-placeholder':
-    'bg-white border-gray-200 text-gray-700 placeholder:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:placeholder:text-gray-400',
-  'auto-default-default':
-    'bg-white border-gray-200 text-gray-900 hover:border-gray-300 hover:text-gray-900 focus-within:border-indigo-500 focus-within:hover:border-indigo-500 focus-visible:outline-indigo-500 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200 dark:hover:border-gray-600 dark:focus-within:border-indigo-400 dark:focus-within:hover:border-indigo-400 dark:focus-visible:outline-indigo-400',
-  'auto-default-hover':
-    'bg-white border-gray-300 text-gray-900 focus-within:border-indigo-500 focus-visible:outline-indigo-500 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:focus-within:border-indigo-400 dark:focus-visible:outline-indigo-400',
-  'auto-default-active':
-    'bg-white border-indigo-500 text-gray-900 focus-visible:outline-indigo-500 dark:bg-gray-800 dark:border-indigo-400 dark:text-gray-200 dark:focus-visible:outline-indigo-400',
-  'auto-default-focus-visible':
-    'bg-white border-indigo-500 text-gray-900 focus-visible:outline-2 focus-visible:outline-indigo-500 dark:bg-gray-800 dark:border-indigo-400 dark:text-gray-200 dark:focus-visible:outline-2 dark:focus-visible:outline-indigo-400',
+  'auto-default-default': [
+    // Base styles - Light mode
+    'bg-white border-gray-200 text-gray-900',
+    // Placeholder styles - Light mode (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles - Light mode
+    'has-[:hover]:border-gray-300',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-gray-300/25',
+    // Active and focus styles - Light mode
+    'has-[:focus]:border-indigo-300',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35',
+    // Base styles - Dark mode
+    'dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200',
+    // Placeholder styles - Dark mode (when input shows placeholder)
+    'dark:has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles - Dark mode
+    'dark:has-[:hover]:border-gray-600',
+    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-gray-600/25',
+    // Active and focus styles - Dark mode
+    'dark:has-[:focus]:border-indigo-400',
+    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-indigo-400/35',
+  ].join(' '),
   'auto-default-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
 
-  'auto-valid-placeholder':
-    'bg-white border-jade-400 text-gray-500 placeholder:text-gray-500 dark:bg-gray-800 dark:border-jade-400 dark:text-gray-400 dark:placeholder:text-gray-400',
-  'auto-valid-default':
-    'bg-white border-jade-400 text-jade-600 hover:border-jade-500 focus-within:border-jade-500 focus-within:hover:border-jade-500 focus-visible:outline-jade-500 dark:bg-gray-800 dark:border-jade-400 dark:text-jade-400 dark:hover:border-jade-500 dark:focus-within:border-jade-500 dark:focus-within:hover:border-jade-500 dark:focus-visible:outline-jade-500',
-  'auto-valid-hover':
-    'bg-white border-jade-500 text-jade-600 focus-within:border-jade-500 focus-visible:outline-jade-500 dark:bg-gray-800 dark:border-jade-500 dark:text-jade-400 dark:focus-within:border-jade-500 dark:focus-visible:outline-jade-500',
-  'auto-valid-active':
-    'bg-white border-jade-500 text-jade-600 focus-visible:outline-jade-500 dark:bg-gray-800 dark:border-jade-400 dark:text-jade-400 dark:focus-visible:outline-jade-500',
-  'auto-valid-focus-visible':
-    'bg-white border-jade-500 text-jade-600 focus-visible:outline-2 focus-visible:outline-jade-500 dark:bg-gray-800 dark:border-jade-400 dark:text-jade-400 dark:focus-visible:outline-2 dark:focus-visible:outline-jade-500',
+  'auto-valid-default': [
+    // Base styles - Light mode
+    'bg-white border-jade-400 text-jade-600',
+    // Placeholder styles - Light mode (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles - Light mode
+    'has-[:hover]:border-jade-500',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-jade-400/35',
+    // Active and focus styles - Light mode
+    'has-[:focus]:border-jade-500',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-400/35',
+    // Base styles - Dark mode
+    'dark:bg-gray-800 dark:border-jade-400 dark:text-jade-400',
+    // Placeholder styles - Dark mode (when input shows placeholder)
+    'dark:has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles - Dark mode
+    'dark:has-[:hover]:border-jade-500',
+    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-jade-400/35',
+    // Active and focus styles - Dark mode
+    'dark:has-[:focus]:border-jade-500',
+    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-jade-400/35',
+  ].join(' '),
   'auto-valid-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
 
-  'auto-invalid-placeholder':
-    'bg-white border-red-300 text-gray-500 placeholder:text-gray-500 dark:bg-gray-800 dark:border-red-300 dark:text-gray-400 dark:placeholder:text-gray-400',
-  'auto-invalid-default':
-    'bg-white border-red-300 text-red-600 hover:border-red-400 focus-within:border-red-400 focus-within:hover:border-red-400 focus-visible:outline-red-500 dark:bg-gray-800 dark:border-red-300 dark:text-red-300 dark:hover:border-red-400 dark:focus-within:border-red-400 dark:focus-within:hover:border-red-400 dark:focus-visible:outline-red-400',
-  'auto-invalid-hover':
-    'bg-white border-red-400 text-red-600 focus-within:border-red-400 focus-visible:outline-red-500 dark:bg-gray-800 dark:border-red-400 dark:text-red-300 dark:focus-within:border-red-400 dark:focus-visible:outline-red-400',
-  'auto-invalid-active':
-    'bg-white border-red-400 text-red-600 focus-visible:outline-red-500 dark:bg-gray-800 dark:border-red-300 dark:text-red-300 dark:focus-visible:outline-red-400',
-  'auto-invalid-focus-visible':
-    'bg-white border-red-400 text-red-600 focus-visible:outline-2 focus-visible:outline-red-500 dark:bg-gray-800 dark:border-red-300 dark:text-red-300 dark:focus-visible:outline-2 dark:focus-visible:outline-red-400',
+  'auto-invalid-default': [
+    // Base styles - Light mode
+    'bg-white border-red-300 text-red-600',
+    // Placeholder styles - Light mode (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles - Light mode
+    'has-[:hover]:border-red-400',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-red-300/35',
+    // Active and focus styles - Light mode
+    'has-[:focus]:border-red-400',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35',
+    // Base styles - Dark mode
+    'dark:bg-gray-800 dark:border-red-300 dark:text-red-300',
+    // Placeholder styles - Dark mode (when input shows placeholder)
+    'dark:has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles - Dark mode
+    'dark:has-[:hover]:border-red-400',
+    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-red-300/35',
+    // Active and focus styles - Dark mode
+    'dark:has-[:focus]:border-red-400',
+    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-red-300/35',
+  ].join(' '),
   'auto-invalid-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
 
-  'auto-warning-placeholder':
-    'bg-white border-orange-300 text-gray-500 placeholder:text-gray-500 dark:bg-gray-800 dark:border-orange-400 dark:text-gray-400 dark:placeholder:text-gray-400',
-  'auto-warning-default':
-    'bg-white border-orange-300 text-orange-600 hover:border-orange-400 focus-within:border-orange-400 focus-within:hover:border-orange-400 focus-visible:outline-orange-500 dark:bg-gray-800 dark:border-orange-400 dark:text-orange-400 dark:hover:border-orange-500 dark:focus-within:border-orange-500 dark:focus-within:hover:border-orange-500 dark:focus-visible:outline-orange-500',
-  'auto-warning-hover':
-    'bg-white border-orange-400 text-orange-600 focus-within:border-orange-400 focus-visible:outline-orange-500 dark:bg-gray-800 dark:border-orange-500 dark:text-orange-400 dark:focus-within:border-orange-500 dark:focus-visible:outline-orange-500',
-  'auto-warning-active':
-    'bg-white border-orange-400 text-orange-600 focus-visible:outline-orange-500 dark:bg-gray-800 dark:border-orange-400 dark:text-orange-400 dark:focus-visible:outline-orange-500',
-  'auto-warning-focus-visible':
-    'bg-white border-orange-400 text-orange-600 focus-visible:outline-2 focus-visible:outline-orange-500 dark:bg-gray-800 dark:border-orange-400 dark:text-orange-400 dark:focus-visible:outline-2 dark:focus-visible:outline-orange-500',
+  'auto-warning-default': [
+    // Base styles - Light mode
+    'bg-white border-orange-300 text-orange-600',
+    // Placeholder styles - Light mode (when input shows placeholder)
+    'has-[:placeholder-shown]:bg-gray-50',
+    // Hover styles - Light mode
+    'has-[:hover]:border-orange-400',
+    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-orange-300/35',
+    // Active and focus styles - Light mode
+    'has-[:focus]:border-orange-400',
+    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35',
+    // Base styles - Dark mode
+    'dark:bg-gray-800 dark:border-orange-400 dark:text-orange-400',
+    // Placeholder styles - Dark mode (when input shows placeholder)
+    'dark:has-[:placeholder-shown]:bg-gray-800',
+    // Hover styles - Dark mode
+    'dark:has-[:hover]:border-orange-500',
+    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-orange-400/35',
+    // Active and focus styles - Dark mode
+    'dark:has-[:focus]:border-orange-500',
+    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-orange-400/35',
+  ].join(' '),
   'auto-warning-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
 } as const

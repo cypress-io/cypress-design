@@ -74,148 +74,44 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   'aria-describedby': ariaDescribedBy,
   ...rest
 }) => {
-  // Track focus state to switch from placeholder to default when focused
-  const [isFocused, setIsFocused] = React.useState(false)
-  // Track if focus was achieved via keyboard (Tab key) vs mouse click
-  const [isKeyboardFocus, setIsKeyboardFocus] = React.useState(false)
-  // Track actual input value for uncontrolled inputs
-  const inputRef = React.useRef<HTMLInputElement>(null)
-  const [internalValue, setInternalValue] = React.useState(defaultValue ?? '')
-
-  // Track the last interaction type to detect keyboard vs mouse focus
-  // This helps us know if the next focus event is from keyboard or mouse
-  const lastInteractionRef = React.useRef<'keyboard' | 'mouse' | null>(null)
-
-  React.useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Tab') {
-        lastInteractionRef.current = 'keyboard'
-      }
-    }
-    const handleMouseDown = () => {
-      lastInteractionRef.current = 'mouse'
-    }
-
-    document.addEventListener('keydown', handleKeyDown, true)
-    document.addEventListener('mousedown', handleMouseDown, true)
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown, true)
-      document.removeEventListener('mousedown', handleMouseDown, true)
-    }
-  }, [])
-
-  // Determine current state based on priority:
-  // 1. disabled (highest priority)
-  // 2. placeholder (if value is empty AND not focused)
-  // 3. focus-visible (handled by CSS)
-  // 4. active (handled by CSS)
-  // 5. hover (handled by CSS)
-  // 6. default (lowest priority)
-
-  // Check if placeholder state should be applied
-  // Once any value is typed, use default state (not placeholder)
-  // For controlled: use value prop
-  // For uncontrolled: use internalValue state (updated on input/change/blur)
-  const currentValue = value !== undefined ? value : internalValue
-  const hasValue = currentValue && String(currentValue).trim() !== ''
-  const isPlaceholder = !hasValue
-
   // Determine state key for variant classes
-  // Note: hover, active, and focus-visible are handled by CSS pseudo-classes
-  // We only need to determine between placeholder, default, and disabled
-  // Priority: disabled > placeholder (only if empty AND not focused) > default
-  // When focused OR has value, use default state (so active styles show)
-  const stateKey: 'placeholder' | 'default' | 'disabled' = disabled
-    ? 'disabled'
-    : isPlaceholder && placeholder && !isFocused
-      ? 'placeholder'
-      : 'default'
-
-  // Monitor focus-visible state while focused
-  React.useEffect(() => {
-    if (!isFocused || !inputRef.current) {
-      setIsKeyboardFocus(false)
-      return
-    }
-
-    // Check :focus-visible state periodically while focused
-    const checkFocusVisible = () => {
-      if (inputRef.current) {
-        const isFocusVisible = inputRef.current.matches(':focus-visible')
-        setIsKeyboardFocus(isFocusVisible)
-        // Debug: uncomment to verify detection
-        // console.log('Keyboard focus detected:', isFocusVisible)
-      }
-    }
-
-    // Check immediately and after a small delay to ensure browser has updated
-    checkFocusVisible()
-    const timeoutId = setTimeout(checkFocusVisible, 10)
-    const timeoutId2 = setTimeout(checkFocusVisible, 50)
-
-    return () => {
-      clearTimeout(timeoutId)
-      clearTimeout(timeoutId2)
-    }
-  }, [isFocused])
-
-  // Handle focus events
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(true)
-    onFocus?.(e)
-  }
-
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false)
-    setIsKeyboardFocus(false)
-    // Update internal value from input for uncontrolled inputs
-    if (value === undefined) {
-      setInternalValue(e.currentTarget.value)
-    }
-    onBlur?.(e)
-  }
-
-  // Handle input events to track value for uncontrolled inputs
-  // Update state immediately so component re-renders with correct state
-  const handleInput = (e: React.FormEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value
-    if (value === undefined) {
-      // Use functional update to ensure we get the latest value
-      setInternalValue(inputValue)
-    }
-    onInput?.(e)
-  }
-
-  // Handle change events to track value for uncontrolled inputs
-  // Update state immediately so component re-renders with correct state
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.currentTarget.value
-    if (value === undefined) {
-      // Use functional update to ensure we get the latest value
-      setInternalValue(inputValue)
-    }
-    onChange?.(e)
-  }
+  // States are handled by CSS pseudo-classes (hover, active, focus, focus-visible, placeholder-shown)
+  // We only need to determine base state: disabled or default
+  // CSS will automatically apply hover/active/focus/focus-visible/placeholder-shown styles
+  const stateKey: 'default' | 'disabled' = disabled ? 'disabled' : 'default'
 
   // Build variant class key: theme-variant-state
   const variantKey =
     `${theme}-${variant}-${stateKey}` as keyof typeof CssVariantClassesTable
 
-  // Get base variant classes (includes 1px border for click focus)
-  const baseVariantClasses = CssVariantClassesTable[variantKey] || ''
+  // Get variant classes - these include hover/active/focus/focus-visible styles
+  // CSS pseudo-classes will automatically apply the correct styles
+  const variantClasses = CssVariantClassesTable[variantKey] || ''
 
-  // When keyboard focused (Tab key), also apply focus-visible classes (2px border/outline)
-  // This provides the 2px border for keyboard navigation vs 1px for mouse clicks
-  let variantClasses: string = baseVariantClasses
-  if (stateKey === 'default' && !disabled && isKeyboardFocus) {
-    const focusVisibleKey =
-      `${theme}-${variant}-focus-visible` as keyof typeof CssVariantClassesTable
-    const focusVisibleClasses = CssVariantClassesTable[focusVisibleKey] || ''
-    // Combine base classes with focus-visible classes
-    // CSS specificity will ensure focus-visible styles (2px) override default styles (1px)
-    variantClasses = clsx(baseVariantClasses, focusVisibleClasses) as string
+  // #region agent log
+  if (variant === 'invalid' && theme === 'light') {
+    fetch('http://127.0.0.1:7242/ingest/b216fe50-d6b8-4a94-b221-11b07ed8da3f', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        location: 'Textbox.tsx:92',
+        message: 'Variant classes retrieved',
+        data: {
+          variantKey,
+          variantClasses,
+          hasHoverOutline: variantClasses.includes('has-[:hover]:outline'),
+          hoverClasses: variantClasses
+            .split(' ')
+            .filter((c) => c.includes('hover')),
+        },
+        timestamp: Date.now(),
+        sessionId: 'debug-session',
+        runId: 'run1',
+        hypothesisId: 'B',
+      }),
+    }).catch(() => {})
   }
+  // #endregion
 
   // Get size classes - these include height, padding, font-size, line-height
   const sizeClasses = CssSizeClassesTable[size]
@@ -238,9 +134,26 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
     roundedClasses,
     heightClass, // Height on wrapper
     'group', // For group-hover and group-focus-within
-    isKeyboardFocus && 'keyboard-focused', // Add class for keyboard focus (for debugging/CSS targeting)
     className,
   )
+
+  // #region agent log
+  if (variant === 'invalid' && theme === 'light') {
+    fetch('http://127.0.0.1:7242/ingest/b216fe50-d6b8-4a94-b221-11b07ed8da3f', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        location: 'Textbox.tsx:113',
+        message: 'Invalid variant wrapper classes',
+        data: { variantClasses, wrapperClasses, variant, theme },
+        timestamp: Date.now(),
+        sessionId: 'debug-session',
+        runId: 'run1',
+        hypothesisId: 'A',
+      }),
+    }).catch(() => {})
+  }
+  // #endregion
 
   // Build input container classes - this contains the input and icons with padding
   const inputContainerClasses = clsx(
@@ -251,18 +164,13 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // Build input classes
   const inputClasses = clsx(
     'flex-1 min-w-0 outline-none bg-transparent border-0',
-    'text-[14px] leading-[20px]', // Font size and line height
-    'placeholder:text-gray-500 dark:placeholder:text-gray-400', // Placeholder color
+    'text-[14px] leading-[20px] placeholder-gray-700', // Font size and line height
   )
 
   // Get icon colors based on current state
-  // For hover/active/focus-visible, CSS will handle the transitions
-  // We use the base state (default or placeholder) for icon colors
-  const iconStateKey = disabled
-    ? 'disabled'
-    : isPlaceholder && placeholder
-      ? 'placeholder'
-      : 'default'
+  // For hover/active/focus-visible/placeholder-shown, CSS will handle the transitions
+  // We use the base state (default) for icon colors
+  const iconStateKey = disabled ? 'disabled' : 'default'
   const iconColorKey =
     `${theme}-${variant}-${iconStateKey}` as keyof typeof IconColors
   const iconColors = IconColors[iconColorKey] || {
@@ -308,6 +216,28 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
         ? true
         : undefined
 
+  // #region agent log
+  if (variant === 'invalid' && theme === 'light') {
+    fetch('http://127.0.0.1:7242/ingest/b216fe50-d6b8-4a94-b221-11b07ed8da3f', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        location: 'Textbox.tsx:197',
+        message: 'Rendering invalid textbox wrapper',
+        data: {
+          wrapperClasses,
+          hasHoverClasses: variantClasses.includes('has-[:hover]'),
+          hasOutlineClasses: variantClasses.includes('outline'),
+        },
+        timestamp: Date.now(),
+        sessionId: 'debug-session',
+        runId: 'run1',
+        hypothesisId: 'A',
+      }),
+    }).catch(() => {})
+  }
+  // #endregion
+
   return (
     <div className={wrapperClasses}>
       {/* Label Left */}
@@ -337,17 +267,16 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
 
         {/* Input */}
         <input
-          ref={inputRef}
           type={type}
           className={inputClasses}
           value={value}
           defaultValue={defaultValue}
           disabled={disabled}
           placeholder={placeholder}
-          onChange={handleChange}
-          onInput={handleInput}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          onChange={onChange}
+          onInput={onInput}
+          onFocus={onFocus}
+          onBlur={onBlur}
           aria-label={ariaLabel}
           aria-invalid={ariaInvalidValue}
           aria-describedby={ariaDescribedBy}
