@@ -5,7 +5,7 @@ export interface TextboxStoryOptions {
   placeholder?: string
   value?: string
   variant?: 'default' | 'valid' | 'invalid' | 'warning'
-  theme?: 'auto' | 'light' | 'dark'
+  theme?: 'light' | 'dark'
   size?: '32' | '40' | '48'
   rounded?: boolean
 }

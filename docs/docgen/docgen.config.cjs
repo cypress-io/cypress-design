@@ -19,12 +19,7 @@ module.exports = defineConfig({
     events,
     slots,
   },
-  ignore: [
-    '**/*.rootstory.tsx',
-    '**/*.cy.tsx',
-    '**/node_modules/**/*',
-    '**/Textbox/react/Textbox.tsx', // Temporarily excluded from auto-generation
-  ],
+  ignore: ['**/*.rootstory.tsx', '**/*.cy.tsx', '**/node_modules/**/*'],
   pages: [
     reactConfig, // if it is on 2 lines it's easier to comment out
     vueConfig, //

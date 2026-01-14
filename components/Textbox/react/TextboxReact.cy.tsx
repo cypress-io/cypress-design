@@ -9,7 +9,7 @@ import {
   type TextboxVariant,
   type TextboxSize,
 } from '@cypress-design/constants-textbox'
-import { IconActionSearch, IconActionX } from '@cypress-design/react-icon'
+import { IconActionAdd, IconActionDelete } from '@cypress-design/react-icon'
 import assertions, { type TextboxStoryOptions } from '../assertions'
 
 describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
@@ -83,7 +83,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   })
 
   it('should handle all themes', () => {
-    const themes: TextboxTheme[] = ['light', 'dark', 'auto']
+    const themes: TextboxTheme[] = ['light', 'dark']
     mount(
       <div className="flex flex-col gap-4 p-4">
         {themes.map((theme) => (
@@ -125,11 +125,11 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   it('should handle icons', () => {
     mount(
       <div className="flex flex-col gap-4 p-4">
-        <Textbox iconLeft={IconActionSearch} placeholder="With left icon" />
-        <Textbox iconRight={IconActionX} placeholder="With right icon" />
+        <Textbox iconLeft={IconActionAdd} placeholder="With left icon" />
+        <Textbox iconRight={IconActionDelete} placeholder="With right icon" />
         <Textbox
-          iconLeft={IconActionSearch}
-          iconRight={IconActionX}
+          iconLeft={IconActionAdd}
+          iconRight={IconActionDelete}
           placeholder="With both icons"
         />
       </div>,
@@ -140,11 +140,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
 
   it('should handle divider', () => {
     mount(
-      <Textbox
-        iconLeft={IconActionSearch}
-        divider
-        placeholder="With divider"
-      />,
+      <Textbox iconLeft={IconActionAdd} divider placeholder="With divider" />,
     )
     cy.get('input').should('exist')
     cy.percySnapshot()
@@ -154,10 +150,10 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     mount(
       <Textbox
         labelLeft="Search"
-        iconLeft={IconActionSearch}
+        iconLeft={IconActionAdd}
         divider
         placeholder="Search term"
-        iconRight={IconActionX}
+        iconRight={IconActionDelete}
         labelRight="Results"
       />,
     )

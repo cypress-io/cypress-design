@@ -20,7 +20,6 @@ export const CssInputClassesTable = {
   light:
     'flex-1 min-w-0 outline-none bg-transparent border-0 placeholder-gray-700',
   dark: 'flex-1 min-w-0 outline-none bg-transparent border-0 placeholder-gray-400',
-  auto: 'flex-1 min-w-0 outline-none bg-transparent border-0 ',
 } as const
 
 // Variant classes - structure: theme-type-state
@@ -158,108 +157,6 @@ export const CssVariantClassesTable = {
   ].join(' '),
   'dark-warning-disabled':
     'bg-gray-1000 border-gray-800 text-gray-600 cursor-not-allowed',
-
-  // Auto theme - combines light + dark with dark: prefix
-  // Uses explicit dark mode colors from Figma (not auto-mapped)
-  'auto-default-default': [
-    // Base styles - Light mode
-    'bg-white border-gray-200 text-gray-900',
-    // Placeholder styles - Light mode (when input shows placeholder)
-    'has-[:placeholder-shown]:bg-gray-50',
-    // Hover styles - Light mode
-    'has-[:hover]:border-gray-300',
-    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-gray-300/25',
-    // Active and focus styles - Light mode
-    'has-[:focus]:border-indigo-300 has-[:focus]:hover:border-indigo-300',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35 has-[:focus]:hover:outline-indigo-300/35',
-    // Base styles - Dark mode
-    'dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200',
-    // Placeholder styles - Dark mode (when input shows placeholder)
-    'dark:has-[:placeholder-shown]:bg-gray-800',
-    // Hover styles - Dark mode
-    'dark:has-[:hover]:border-gray-600',
-    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-gray-600/25',
-    // Active and focus styles - Dark mode
-    'dark:has-[:focus]:border-indigo-400 dark:has-[:focus]:hover:border-indigo-400',
-    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-indigo-400/35 dark:has-[:focus]:hover:outline-indigo-400/35',
-  ].join(' '),
-  'auto-default-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
-
-  'auto-valid-default': [
-    // Base styles - Light mode
-    'bg-white border-jade-400 text-jade-600',
-    // Placeholder styles - Light mode (when input shows placeholder)
-    'has-[:placeholder-shown]:bg-gray-50',
-    // Hover styles - Light mode
-    'has-[:hover]:border-jade-500',
-    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-jade-400/35',
-    // Active and focus styles - Light mode
-    'has-[:focus]:border-jade-500 has-[:focus]:hover:border-jade-500',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-400/35 has-[:focus]:hover:outline-jade-400/35',
-    // Base styles - Dark mode
-    'dark:bg-gray-800 dark:border-jade-400 dark:text-jade-400',
-    // Placeholder styles - Dark mode (when input shows placeholder)
-    'dark:has-[:placeholder-shown]:bg-gray-800',
-    // Hover styles - Dark mode
-    'dark:has-[:hover]:border-jade-500',
-    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-jade-400/35',
-    // Active and focus styles - Dark mode
-    'dark:has-[:focus]:border-jade-500 dark:has-[:focus]:hover:border-jade-500',
-    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-jade-400/35 dark:has-[:focus]:hover:outline-jade-400/35',
-  ].join(' '),
-  'auto-valid-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
-
-  'auto-invalid-default': [
-    // Base styles - Light mode
-    'bg-white border-red-300 text-red-600',
-    // Placeholder styles - Light mode (when input shows placeholder)
-    'has-[:placeholder-shown]:bg-gray-50',
-    // Hover styles - Light mode
-    'has-[:hover]:border-red-400',
-    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-red-300/35',
-    // Active and focus styles - Light mode
-    'has-[:focus]:border-red-400 has-[:focus]:hover:border-red-400',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35 has-[:focus]:hover:outline-red-300/35',
-    // Base styles - Dark mode
-    'dark:bg-gray-800 dark:border-red-300 dark:text-red-300',
-    // Placeholder styles - Dark mode (when input shows placeholder)
-    'dark:has-[:placeholder-shown]:bg-gray-800',
-    // Hover styles - Dark mode
-    'dark:has-[:hover]:border-red-400',
-    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-red-300/35',
-    // Active and focus styles - Dark mode
-    'dark:has-[:focus]:border-red-400 dark:has-[:focus]:hover:border-red-400',
-    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-red-300/35 dark:has-[:focus]:hover:outline-red-300/35',
-  ].join(' '),
-  'auto-invalid-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
-
-  'auto-warning-default': [
-    // Base styles - Light mode
-    'bg-white border-orange-300 text-orange-600',
-    // Placeholder styles - Light mode (when input shows placeholder)
-    'has-[:placeholder-shown]:bg-gray-50',
-    // Hover styles - Light mode
-    'has-[:hover]:border-orange-400',
-    'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-orange-300/35',
-    // Active and focus styles - Light mode
-    'has-[:focus]:border-orange-400 has-[:focus]:hover:border-orange-400',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35 has-[:focus]:hover:outline-orange-300/35',
-    // Base styles - Dark mode
-    'dark:bg-gray-800 dark:border-orange-400 dark:text-orange-400',
-    // Placeholder styles - Dark mode (when input shows placeholder)
-    'dark:has-[:placeholder-shown]:bg-gray-800',
-    // Hover styles - Dark mode
-    'dark:has-[:hover]:border-orange-500',
-    'dark:has-[:hover]:outline dark:has-[:hover]:outline-2 dark:has-[:hover]:outline-orange-400/35',
-    // Active and focus styles - Dark mode
-    'dark:has-[:focus]:border-orange-500 dark:has-[:focus]:hover:border-orange-500',
-    'dark:has-[:focus]:outline dark:has-[:focus]:outline-2 dark:has-[:focus]:outline-offset-0 dark:has-[:focus]:outline-orange-400/35 dark:has-[:focus]:hover:outline-orange-400/35',
-  ].join(' '),
-  'auto-warning-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed dark:bg-gray-1000 dark:border-gray-800 dark:text-gray-600',
 } as const
 
 // Icon colors - structure: theme-type-state
@@ -472,111 +369,12 @@ export const IconColors = {
     strokeColor: 'gray-600',
     fillColor: 'transparent',
   },
-
-  // Auto theme - same as light for base, dark mode handled via CSS
-  'auto-default-placeholder': {
-    strokeColor: 'gray-500',
-    fillColor: 'transparent',
-  },
-  'auto-default-default': {
-    strokeColor: 'gray-600',
-    fillColor: 'transparent',
-  },
-  'auto-default-hover': {
-    strokeColor: 'gray-700',
-    fillColor: 'transparent',
-  },
-  'auto-default-active': {
-    strokeColor: 'indigo-500',
-    fillColor: 'transparent',
-  },
-  'auto-default-focus-visible': {
-    strokeColor: 'indigo-500',
-    fillColor: 'transparent',
-  },
-  'auto-default-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
-  },
-  'auto-valid-placeholder': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
-  },
-  'auto-valid-default': {
-    strokeColor: 'jade-500',
-    fillColor: 'transparent',
-  },
-  'auto-valid-hover': {
-    strokeColor: 'jade-500',
-    fillColor: 'transparent',
-  },
-  'auto-valid-active': {
-    strokeColor: 'jade-500',
-    fillColor: 'transparent',
-  },
-  'auto-valid-focus-visible': {
-    strokeColor: 'jade-500',
-    fillColor: 'transparent',
-  },
-  'auto-valid-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
-  },
-  'auto-invalid-placeholder': {
-    strokeColor: 'red-300',
-    fillColor: 'transparent',
-  },
-  'auto-invalid-default': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
-  },
-  'auto-invalid-hover': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
-  },
-  'auto-invalid-active': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
-  },
-  'auto-invalid-focus-visible': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
-  },
-  'auto-invalid-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
-  },
-  'auto-warning-placeholder': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
-  },
-  'auto-warning-default': {
-    strokeColor: 'orange-500',
-    fillColor: 'transparent',
-  },
-  'auto-warning-hover': {
-    strokeColor: 'orange-500',
-    fillColor: 'transparent',
-  },
-  'auto-warning-active': {
-    strokeColor: 'orange-500',
-    fillColor: 'transparent',
-  },
-  'auto-warning-focus-visible': {
-    strokeColor: 'orange-500',
-    fillColor: 'transparent',
-  },
-  'auto-warning-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
-  },
 } as const
 
 // Divider classes - structure: theme
 export const DividerClasses = {
   light: 'h-[16px] w-[1px] bg-gray-200',
   dark: 'h-[16px] w-[1px] bg-gray-700',
-  auto: 'h-[16px] w-[1px] bg-gray-200 dark:bg-gray-700',
 } as const
 
 // Label size classes - padding, font size, line height
@@ -590,7 +388,6 @@ export const CssLabelSizeClassesTable = {
 export const CssLabelThemeClassesTable = {
   light: 'text-gray-700 bg-gray-50',
   dark: 'text-gray-400 bg-gray-900',
-  auto: 'text-gray-600 bg-gray-50 dark:text-gray-400 dark:bg-gray-900',
 } as const
 
 // Label border classes - separate light/dark entries, no dark: prefix
@@ -598,12 +395,10 @@ export const CssLabelBorderClassesTable = {
   left: {
     light: 'border-r border-gray-100',
     dark: 'border-r border-gray-800',
-    auto: 'border-r border-gray-100 dark:border-r dark:border-gray-800',
   },
   right: {
     light: 'border-l border-gray-100',
     dark: 'border-l border-gray-800',
-    auto: 'border-l border-gray-100 dark:border-l dark:border-gray-800',
   },
 } as const
 
@@ -622,15 +417,14 @@ export const CssLabelRoundedClassesTable = {
 // Label base classes - vertical expansion and layout
 export const CssLabelBaseClasses = 'h-full flex items-center shrink-0'
 
-// Label classes (deprecated - kept for backward compatibility, will be removed)
+// Label classes (deprecated - kept for backward compatibility)
 export const LabelClasses = {
   light: 'text-gray-700 bg-gray-50 border-gray-100 border border-1',
   dark: 'text-gray-400 bg-gray-900 border-gray-800 border border-1',
-  auto: 'text-gray-600 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700',
 } as const
 
 // TypeScript types
-export type TextboxTheme = 'auto' | 'light' | 'dark'
+export type TextboxTheme = 'light' | 'dark'
 export type TextboxVariant = 'default' | 'valid' | 'invalid' | 'warning'
 export type TextboxState =
   | 'placeholder'
@@ -648,7 +442,7 @@ export const DefaultSize: TextboxSize = '40'
 // Props interface
 export interface TextboxProps {
   /**
-   * Theme mode: 'auto' adapts to system preference, 'light' or 'dark' forces a mode
+   * Theme mode: 'light' or 'dark'
    */
   theme?: TextboxTheme
   /**
