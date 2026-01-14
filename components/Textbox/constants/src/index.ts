@@ -1,7 +1,6 @@
 // Base static classes for all textboxes
 export const CssStaticClasses =
-  'flex items-center border border-solid transition-colors duration-150 ' +
-  'focus-within:outline-none focus-within:z-10 focus-visible:outline-2 focus-visible:outline-offset-0'
+  'flex items-center border border-solid transition-colors duration-150'
 
 // Font size and line height by size (for input element)
 export const CssInputSizeClassesTable = {
