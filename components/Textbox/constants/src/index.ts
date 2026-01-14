@@ -580,10 +580,53 @@ export const DividerClasses = {
   auto: 'h-[16px] w-[1px] bg-gray-200 dark:bg-gray-700',
 } as const
 
-// Label classes
+// Label size classes - padding, font size, line height
+export const CssLabelSizeClassesTable = {
+  '32': 'px-[8px] text-[14px] leading-[20px]',
+  '40': 'px-[16px] text-[16px] leading-[24px]',
+  '48': 'px-[16px] text-[16px] leading-[24px]',
+} as const
+
+// Label theme classes - text color and background
+export const CssLabelThemeClassesTable = {
+  light: 'text-gray-700 bg-gray-50',
+  dark: 'text-gray-400 bg-gray-900',
+  auto: 'text-gray-600 bg-gray-50 dark:text-gray-400 dark:bg-gray-900',
+} as const
+
+// Label border classes - separate light/dark entries, no dark: prefix
+export const CssLabelBorderClassesTable = {
+  left: {
+    light: 'border-r border-gray-100',
+    dark: 'border-r border-gray-800',
+    auto: 'border-r border-gray-100 dark:border-r dark:border-gray-800',
+  },
+  right: {
+    light: 'border-l border-gray-100',
+    dark: 'border-l border-gray-800',
+    auto: 'border-l border-gray-100 dark:border-l dark:border-gray-800',
+  },
+} as const
+
+// Label rounded classes - based on textbox rounded prop
+export const CssLabelRoundedClassesTable = {
+  left: {
+    rounded: 'rounded-tl-[28px] rounded-bl-[28px]',
+    notRounded: 'rounded-tl-[4px] rounded-bl-[4px]',
+  },
+  right: {
+    rounded: 'rounded-tr-[28px] rounded-br-[28px]',
+    notRounded: 'rounded-tr-[4px] rounded-br-[4px]',
+  },
+} as const
+
+// Label base classes - vertical expansion and layout
+export const CssLabelBaseClasses = 'h-full flex items-center shrink-0'
+
+// Label classes (deprecated - kept for backward compatibility, will be removed)
 export const LabelClasses = {
-  light: 'text-gray-600 bg-gray-50 border-gray-200',
-  dark: 'text-gray-400 bg-gray-800 border-gray-700',
+  light: 'text-gray-700 bg-gray-50 border-gray-100 border border-1',
+  dark: 'text-gray-400 bg-gray-900 border-gray-800 border border-1',
   auto: 'text-gray-600 bg-gray-50 border-gray-200 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700',
 } as const
 

@@ -10,9 +10,13 @@ import {
   CssVariantClassesTable,
   CssRoundedClasses,
   CssInputClassesTable,
+  CssLabelSizeClassesTable,
+  CssLabelThemeClassesTable,
+  CssLabelBorderClassesTable,
+  CssLabelRoundedClassesTable,
+  CssLabelBaseClasses,
   IconColors,
   DividerClasses,
-  LabelClasses,
   TextboxTheme,
   TextboxVariant,
   TextboxSize,
@@ -179,9 +183,6 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // Get divider classes
   const dividerClasses = DividerClasses[theme]
 
-  // Get label classes
-  const labelClasses = LabelClasses[theme]
-
   // Render icon helper
   const renderIcon = (
     Icon: React.ComponentType<any> | React.ReactNode | undefined,
@@ -242,11 +243,13 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       {labelLeft && (
         <span
           className={clsx(
-            labelClasses,
-            'px-[16px] shrink-0',
-            rounded
-              ? 'rounded-bl-[38px] rounded-tl-[38px]'
-              : 'rounded-bl-[4px] rounded-tl-[4px]',
+            CssLabelBaseClasses,
+            CssLabelSizeClassesTable[size],
+            CssLabelThemeClassesTable[theme],
+            CssLabelBorderClassesTable.left[theme],
+            CssLabelRoundedClassesTable.left[
+              rounded ? 'rounded' : 'notRounded'
+            ],
           )}
         >
           {labelLeft}
@@ -289,11 +292,13 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       {labelRight && (
         <span
           className={clsx(
-            labelClasses,
-            'px-[16px] shrink-0',
-            rounded
-              ? 'rounded-br-[38px] rounded-tr-[38px]'
-              : 'rounded-br-[4px] rounded-tr-[4px]',
+            CssLabelBaseClasses,
+            CssLabelSizeClassesTable[size],
+            CssLabelThemeClassesTable[theme],
+            CssLabelBorderClassesTable.right[theme],
+            CssLabelRoundedClassesTable.right[
+              rounded ? 'rounded' : 'notRounded'
+            ],
           )}
         >
           {labelRight}
