@@ -2,7 +2,7 @@ export { default } from './Textbox.vue'
 export {
   CssVariantClassesTable as VariantClassesTable,
   CssStaticClasses as StaticClasses,
-  CssSizeClassesTable as SizeClassesTable,
+  CssInputSizeClassesTable as InputSizeClassesTable,
   CssRoundedClasses as RoundedClasses,
   IconColors,
   DividerClasses,

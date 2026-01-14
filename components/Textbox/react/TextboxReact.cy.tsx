@@ -5,7 +5,6 @@ import { mount } from 'cypress/react'
 import Textbox from './Textbox'
 import {
   CssVariantClassesTable,
-  CssSizeClassesTable,
   type TextboxTheme,
   type TextboxVariant,
   type TextboxSize,

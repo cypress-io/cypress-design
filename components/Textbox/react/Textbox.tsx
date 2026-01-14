@@ -6,9 +6,10 @@ import {
   DefaultVariant,
   DefaultSize,
   CssStaticClasses,
-  CssSizeClassesTable,
+  CssInputSizeClassesTable,
   CssVariantClassesTable,
   CssRoundedClasses,
+  CssInputClassesTable,
   IconColors,
   DividerClasses,
   LabelClasses,
@@ -113,9 +114,6 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   }
   // #endregion
 
-  // Get size classes - these include height, padding, font-size, line-height
-  const sizeClasses = CssSizeClassesTable[size]
-
   // Extract padding from size for input container
   // Size classes format: "h-[40px] px-[16px] text-[14px] leading-[20px]"
   const paddingClass =
@@ -161,11 +159,11 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
     paddingClass, // Padding on input container
   )
 
+  // Get input size classes (font size and line height)
+  const inputSizeClasses = CssInputSizeClassesTable[size]
+
   // Build input classes
-  const inputClasses = clsx(
-    'flex-1 min-w-0 outline-none bg-transparent border-0',
-    'text-[14px] leading-[20px] placeholder-gray-700', // Font size and line height
-  )
+  const inputClasses = clsx(CssInputClassesTable[theme], inputSizeClasses)
 
   // Get icon colors based on current state
   // For hover/active/focus-visible/placeholder-shown, CSS will handle the transitions
