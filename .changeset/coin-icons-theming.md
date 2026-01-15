@@ -4,4 +4,4 @@
 "@cypress-design/vue-icon": minor
 ---
 
-Add coin icons (pending, success, small) with CSS class theming support
+Add coin icons (pending, success, small) and MCP logo icon with CSS class theming support
