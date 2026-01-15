@@ -16,6 +16,10 @@ import {
   CssLabelBaseClasses,
   IconColors,
   DividerClasses,
+  CssWrapperHeightClassesTable,
+  CssInputContainerPaddingClassesTable,
+  CssInputContainerBaseClasses,
+  CssShrinkZeroClass,
   type TextboxTheme,
   type TextboxVariant,
   type TextboxSize,
@@ -109,31 +113,18 @@ export default defineComponent({
     // States are handled by CSS pseudo-classes (hover, active, focus, focus-visible, placeholder-shown)
     // We only need to determine base state: disabled or default
     // CSS will automatically apply hover/active/focus/focus-visible/placeholder-shown styles
-    const stateKey: 'default' | 'disabled' = props.disabled
-      ? 'disabled'
-      : 'default'
+    const stateKey = computed(() => {
+      return props.disabled ? 'disabled' : 'default'
+    })
 
     // Build variant class key: theme-variant-state
     const variantKey = computed(() => {
-      return `${props.theme}-${props.variant}-${stateKey}` as keyof typeof CssVariantClassesTable
+      return `${props.theme}-${props.variant}-${stateKey.value}` as keyof typeof CssVariantClassesTable
     })
 
     // Get variant classes
     const variantClasses = computed(() => {
       return CssVariantClassesTable[variantKey.value] || ''
-    })
-
-    // Extract padding and height from size
-    const paddingClass = computed(() => {
-      return props.size === '32' ? 'px-[12px]' : 'px-[16px]'
-    })
-
-    const heightClass = computed(() => {
-      return props.size === '32'
-        ? 'h-[32px]'
-        : props.size === '40'
-          ? 'h-[40px]'
-          : 'h-[48px]'
     })
 
     // Get rounded classes
@@ -149,14 +140,16 @@ export default defineComponent({
         CssStaticClasses,
         variantClasses.value,
         roundedClasses.value,
-        heightClass.value,
-        'group',
+        CssWrapperHeightClassesTable[props.size],
       ]
     })
 
     // Build input container classes
     const inputContainerClasses = computed(() => {
-      return ['flex-1 flex items-center gap-[12px] min-w-0', paddingClass.value]
+      return [
+        CssInputContainerBaseClasses,
+        CssInputContainerPaddingClassesTable[props.size],
+      ]
     })
 
     // Get input size classes (font size and line height)
@@ -172,9 +165,11 @@ export default defineComponent({
     // Get icon colors based on current state
     // For hover/active/focus-visible/placeholder-shown, CSS will handle the transitions
     // We use the base state (default) for icon colors
-    const iconStateKey = props.disabled ? 'disabled' : 'default'
+    const iconStateKey = computed(() => {
+      return props.disabled ? 'disabled' : 'default'
+    })
     const iconColorKey = computed(() => {
-      return `${props.theme}-${props.variant}-${iconStateKey}` as keyof typeof IconColors
+      return `${props.theme}-${props.variant}-${iconStateKey.value}` as keyof typeof IconColors
     })
 
     const iconColors = computed(() => {
@@ -224,7 +219,7 @@ export default defineComponent({
         size: '16',
         strokeColor: iconColors.value.strokeColor,
         fillColor: iconColors.value.fillColor,
-        class: 'shrink-0',
+        class: CssShrinkZeroClass,
       }
     })
 
@@ -234,7 +229,7 @@ export default defineComponent({
         size: '16',
         strokeColor: iconColors.value.strokeColor,
         fillColor: iconColors.value.fillColor,
-        class: 'shrink-0',
+        class: CssShrinkZeroClass,
       }
     })
 
@@ -267,6 +262,8 @@ export default defineComponent({
       CssLabelThemeClassesTable,
       CssLabelBorderClassesTable,
       CssLabelRoundedClassesTable,
+      // Shrink-0 class for template
+      CssShrinkZeroClass,
     }
   },
 })
@@ -294,7 +291,10 @@ export default defineComponent({
       <component :is="iconLeft" v-if="iconLeft" v-bind="iconLeftProps" />
 
       <!-- Divider -->
-      <div v-if="divider && iconLeft" :class="[dividerClasses, 'shrink-0']" />
+      <div
+        v-if="divider && iconLeft"
+        :class="[dividerClasses, CssShrinkZeroClass]"
+      />
 
       <!-- Input -->
       <input

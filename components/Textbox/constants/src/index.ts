@@ -1,6 +1,6 @@
 // Base static classes for all textboxes
 export const CssStaticClasses =
-  'flex items-center border border-solid transition-colors duration-150'
+  'flex items-center border border-solid transition-colors duration-150 group'
 
 // Font size and line height by size (for input element)
 export const CssInputSizeClassesTable = {
@@ -8,6 +8,39 @@ export const CssInputSizeClassesTable = {
   '40': 'text-[16px] leading-[24px]',
   '48': 'text-[16px] leading-[24px]',
 } as const
+
+/**
+ * Wrapper height classes by size.
+ * Maps textbox size to corresponding height Tailwind class.
+ */
+export const CssWrapperHeightClassesTable = {
+  '32': 'h-[32px]',
+  '40': 'h-[40px]',
+  '48': 'h-[48px]',
+} as const
+
+/**
+ * Input container padding classes by size.
+ * Maps textbox size to corresponding horizontal padding Tailwind class.
+ */
+export const CssInputContainerPaddingClassesTable = {
+  '32': 'px-[12px]',
+  '40': 'px-[16px]',
+  '48': 'px-[16px]',
+} as const
+
+/**
+ * Input container base classes (layout).
+ * Provides flex layout, alignment, gap, and min-width constraints for the input container.
+ */
+export const CssInputContainerBaseClasses =
+  'flex-1 flex items-center gap-[12px] min-w-0'
+
+/**
+ * Shrink-0 utility class for icons and divider.
+ * Prevents flex items from shrinking below their content size.
+ */
+export const CssShrinkZeroClass = 'shrink-0'
 
 // Rounded classes
 export const CssRoundedClasses = {

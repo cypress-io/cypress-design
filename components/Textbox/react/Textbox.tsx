@@ -17,6 +17,10 @@ import {
   CssLabelBaseClasses,
   IconColors,
   DividerClasses,
+  CssWrapperHeightClassesTable,
+  CssInputContainerPaddingClassesTable,
+  CssInputContainerBaseClasses,
+  CssShrinkZeroClass,
   TextboxTheme,
   TextboxVariant,
   TextboxSize,
@@ -93,38 +97,6 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // CSS pseudo-classes will automatically apply the correct styles
   const variantClasses = CssVariantClassesTable[variantKey] || ''
 
-  // #region agent log
-  if (variant === 'invalid' && theme === 'light') {
-    fetch('http://127.0.0.1:7242/ingest/b216fe50-d6b8-4a94-b221-11b07ed8da3f', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        location: 'Textbox.tsx:92',
-        message: 'Variant classes retrieved',
-        data: {
-          variantKey,
-          variantClasses,
-          hasHoverOutline: variantClasses.includes('has-[:hover]:outline'),
-          hoverClasses: variantClasses
-            .split(' ')
-            .filter((c) => c.includes('hover')),
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'B',
-      }),
-    }).catch(() => {})
-  }
-  // #endregion
-
-  // Extract padding from size for input container
-  // Size classes format: "h-[40px] px-[16px] text-[14px] leading-[20px]"
-  const paddingClass =
-    size === '32' ? 'px-[12px]' : size === '40' ? 'px-[16px]' : 'px-[16px]'
-  const heightClass =
-    size === '32' ? 'h-[32px]' : size === '40' ? 'h-[40px]' : 'h-[48px]'
-
   // Get rounded classes
   const roundedClasses =
     CssRoundedClasses[rounded as unknown as keyof typeof CssRoundedClasses]
@@ -134,33 +106,14 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
     CssStaticClasses,
     variantClasses,
     roundedClasses,
-    heightClass, // Height on wrapper
-    'group', // For group-hover and group-focus-within
+    CssWrapperHeightClassesTable[size], // Height on wrapper
     className,
   )
 
-  // #region agent log
-  if (variant === 'invalid' && theme === 'light') {
-    fetch('http://127.0.0.1:7242/ingest/b216fe50-d6b8-4a94-b221-11b07ed8da3f', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        location: 'Textbox.tsx:113',
-        message: 'Invalid variant wrapper classes',
-        data: { variantClasses, wrapperClasses, variant, theme },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'A',
-      }),
-    }).catch(() => {})
-  }
-  // #endregion
-
   // Build input container classes - this contains the input and icons with padding
   const inputContainerClasses = clsx(
-    'flex-1 flex items-center gap-[12px] min-w-0',
-    paddingClass, // Padding on input container
+    CssInputContainerBaseClasses,
+    CssInputContainerPaddingClassesTable[size], // Padding on input container
   )
 
   // Get input size classes (font size and line height)
@@ -186,7 +139,6 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // Render icon helper
   const renderIcon = (
     Icon: React.ComponentType<any> | React.ReactNode | undefined,
-    position: 'left' | 'right',
   ) => {
     if (!Icon) return null
 
@@ -198,13 +150,13 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
           size="16"
           strokeColor={iconColors.strokeColor}
           fillColor={iconColors.fillColor}
-          className="shrink-0"
+          className={CssShrinkZeroClass}
         />
       )
     }
 
     // If Icon is already a ReactNode
-    return <span className="shrink-0">{Icon}</span>
+    return <span className={CssShrinkZeroClass}>{Icon}</span>
   }
 
   // Determine aria-invalid value
@@ -214,28 +166,6 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       : variant === 'invalid'
         ? true
         : undefined
-
-  // #region agent log
-  if (variant === 'invalid' && theme === 'light') {
-    fetch('http://127.0.0.1:7242/ingest/b216fe50-d6b8-4a94-b221-11b07ed8da3f', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        location: 'Textbox.tsx:197',
-        message: 'Rendering invalid textbox wrapper',
-        data: {
-          wrapperClasses,
-          hasHoverClasses: variantClasses.includes('has-[:hover]'),
-          hasOutlineClasses: variantClasses.includes('outline'),
-        },
-        timestamp: Date.now(),
-        sessionId: 'debug-session',
-        runId: 'run1',
-        hypothesisId: 'A',
-      }),
-    }).catch(() => {})
-  }
-  // #endregion
 
   return (
     <div className={wrapperClasses}>
@@ -259,11 +189,11 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       {/* Input Container - contains icons and input */}
       <div className={inputContainerClasses}>
         {/* Icon Left */}
-        {renderIcon(IconLeft, 'left')}
+        {renderIcon(IconLeft)}
 
         {/* Divider */}
         {divider && IconLeft && (
-          <div className={clsx(dividerClasses, 'shrink-0')} />
+          <div className={clsx(dividerClasses, CssShrinkZeroClass)} />
         )}
 
         {/* Input */}
@@ -285,7 +215,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
         />
 
         {/* Icon Right */}
-        {renderIcon(IconRight, 'right')}
+        {renderIcon(IconRight)}
       </div>
 
       {/* Label Right */}
