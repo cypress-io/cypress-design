@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.38.0
+
+### Minor Changes
+
+- [#645](https://github.com/cypress-io/cypress-design/pull/645) [`b0612ff`](https://github.com/cypress-io/cypress-design/commit/b0612ff0c2e77c0cd00444ca7a4be948cd72676e) Thanks [@davidr-cy](https://github.com/davidr-cy)! - Add coin icons (pending, success, small) and MCP logo icon with CSS class theming support
+
+### Patch Changes
+
+- Updated dependencies [[`b0612ff`](https://github.com/cypress-io/cypress-design/commit/b0612ff0c2e77c0cd00444ca7a4be948cd72676e)]:
+  - @cypress-design/icon-registry@1.38.0
+
 ## 1.37.0
 
 ### Minor Changes
