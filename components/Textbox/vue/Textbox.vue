@@ -67,6 +67,9 @@ export default defineComponent({
       type: String,
       default: '',
     },
+    value: {
+      type: String,
+    },
     type: {
       type: String as PropType<
         'text' | 'password' | 'email' | 'search' | 'tel' | 'url'
@@ -200,6 +203,11 @@ export default defineComponent({
     const ariaLabel = computed(() => props['aria-label'])
     const ariaDescribedBy = computed(() => props['aria-describedby'])
 
+    // Compute input value: use value prop if provided (uncontrolled), otherwise use modelValue (controlled)
+    const inputValue = computed(() => {
+      return props.value ?? props.modelValue ?? ''
+    })
+
     // Handle input event
     const handleInput = (event: Event) => {
       const target = event.target as HTMLInputElement
@@ -247,6 +255,7 @@ export default defineComponent({
       ariaInvalidValue,
       ariaLabel,
       ariaDescribedBy,
+      inputValue,
       handleInput,
       handleFocus,
       handleBlur,
@@ -292,7 +301,7 @@ export default defineComponent({
         :id="id"
         :type="type"
         :class="inputClasses"
-        :value="modelValue"
+        :value="inputValue"
         :disabled="disabled"
         :placeholder="placeholder"
         :name="name"

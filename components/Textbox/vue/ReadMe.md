@@ -68,10 +68,10 @@ import Textbox from '@cypress-design/vue-textbox'
 <template>
   <div class="bg-white p-4 rounded">
     <div class="flex flex-col gap-4">
-      <Textbox variant="default" :default-value="'Default'" />
-      <Textbox variant="valid" :default-value="'Valid'" />
-      <Textbox variant="invalid" :default-value="'Invalid'" />
-      <Textbox variant="warning" :default-value="'Warning'" />
+      <Textbox variant="default" value="Default" />
+      <Textbox variant="valid" value="Valid" />
+      <Textbox variant="invalid" value="Invalid" />
+      <Textbox variant="warning" value="Warning" />
     </div>
   </div>
 </template>
@@ -108,10 +108,10 @@ import Textbox from '@cypress-design/vue-textbox'
 <template>
   <div class="bg-gray-1000 p-4 rounded">
     <div class="flex flex-col gap-4">
-      <Textbox theme="dark" variant="default" :default-value="'Default'" />
-      <Textbox theme="dark" variant="valid" :default-value="'Valid'" />
-      <Textbox theme="dark" variant="invalid" :default-value="'Invalid'" />
-      <Textbox theme="dark" variant="warning" :default-value="'Warning'" />
+      <Textbox theme="dark" variant="default" value="Default" />
+      <Textbox theme="dark" variant="valid" value="Valid" />
+      <Textbox theme="dark" variant="invalid" value="Invalid" />
+      <Textbox theme="dark" variant="warning" value="Warning" />
     </div>
   </div>
 </template>
@@ -129,9 +129,9 @@ import Textbox from '@cypress-design/vue-textbox'
 <template>
   <div class="bg-white p-4 rounded">
     <div class="flex flex-col gap-4">
-      <Textbox size="32" :default-value="'Size 32'" />
-      <Textbox size="40" :default-value="'Size 40'" />
-      <Textbox size="48" :default-value="'Size 48'" />
+      <Textbox size="32" value="Size 32" />
+      <Textbox size="40" value="Size 40" />
+      <Textbox size="48" value="Size 48" />
     </div>
   </div>
 </template>
@@ -147,9 +147,9 @@ import Textbox from '@cypress-design/vue-textbox'
 <template>
   <div class="bg-gray-1000 p-4 rounded">
     <div class="flex flex-col gap-4">
-      <Textbox theme="dark" size="32" :default-value="'Size 32'" />
-      <Textbox theme="dark" size="40" :default-value="'Size 40'" />
-      <Textbox theme="dark" size="48" :default-value="'Size 48'" />
+      <Textbox theme="dark" size="32" value="Size 32" />
+      <Textbox theme="dark" size="40" value="Size 40" />
+      <Textbox theme="dark" size="48" value="Size 48" />
     </div>
   </div>
 </template>
@@ -167,8 +167,8 @@ import Textbox from '@cypress-design/vue-textbox'
 <template>
   <div class="bg-white p-4 rounded">
     <div class="flex flex-col gap-4">
-      <Textbox size="40" :rounded="false" :default-value="'Not rounded'" />
-      <Textbox size="40" :rounded="true" :default-value="'Rounded'" />
+      <Textbox size="40" :rounded="false" value="Not rounded" />
+      <Textbox size="40" :rounded="true" value="Rounded" />
     </div>
   </div>
 </template>
@@ -184,18 +184,8 @@ import Textbox from '@cypress-design/vue-textbox'
 <template>
   <div class="bg-gray-1000 p-4 rounded">
     <div class="flex flex-col gap-4">
-      <Textbox
-        theme="dark"
-        size="40"
-        :rounded="false"
-        :default-value="'Not rounded'"
-      />
-      <Textbox
-        theme="dark"
-        size="40"
-        :rounded="true"
-        :default-value="'Rounded'"
-      />
+      <Textbox theme="dark" size="40" :rounded="false" value="Not rounded" />
+      <Textbox theme="dark" size="40" :rounded="true" value="Rounded" />
     </div>
   </div>
 </template>
@@ -219,7 +209,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="32"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 32'"
+        value="Size 32"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -228,7 +218,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="40"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 40'"
+        value="Size 40"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -237,7 +227,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -247,7 +237,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -257,7 +247,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -267,7 +257,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -277,7 +267,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -303,7 +293,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="32"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 32'"
+        value="Size 32"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -313,7 +303,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="40"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 40'"
+        value="Size 40"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -323,7 +313,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -334,7 +324,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -345,7 +335,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -356,7 +346,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
@@ -367,7 +357,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         size="48"
         label-left="Label left"
         label-right="Label right"
-        :default-value="'Size 48'"
+        value="Size 48"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
