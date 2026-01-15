@@ -450,22 +450,9 @@ export const CssLabelRoundedClassesTable = {
 // Label base classes - vertical expansion and layout
 export const CssLabelBaseClasses = 'h-full flex items-center shrink-0'
 
-// Label classes (deprecated - kept for backward compatibility)
-export const LabelClasses = {
-  light: 'text-gray-700 bg-gray-50 border-gray-100 border border-1',
-  dark: 'text-gray-400 bg-gray-900 border-gray-800 border border-1',
-} as const
-
 // TypeScript types
 export type TextboxTheme = 'light' | 'dark'
 export type TextboxVariant = 'default' | 'valid' | 'invalid' | 'warning'
-export type TextboxState =
-  | 'placeholder'
-  | 'default'
-  | 'hover'
-  | 'active'
-  | 'focus-visible'
-  | 'disabled'
 export type TextboxSize = keyof typeof CssInputSizeClassesTable
 
 export const DefaultTheme: TextboxTheme = 'light'
