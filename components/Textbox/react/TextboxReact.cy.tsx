@@ -9,7 +9,7 @@ import {
   type TextboxVariant,
   type TextboxSize,
 } from '@cypress-design/constants-textbox'
-import { IconActionAdd, IconActionDelete } from '@cypress-design/react-icon'
+import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 import assertions, { type TextboxStoryOptions } from '../assertions'
 
 describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
@@ -91,7 +91,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
         ))}
       </div>,
     )
-    cy.get('input').should('have.length', 3)
+    cy.get('input').should('have.length', 2)
     cy.percySnapshot()
   })
 
@@ -125,11 +125,17 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   it('should handle icons', () => {
     mount(
       <div className="flex flex-col gap-4 p-4">
-        <Textbox iconLeft={IconActionAdd} placeholder="With left icon" />
-        <Textbox iconRight={IconActionDelete} placeholder="With right icon" />
         <Textbox
-          iconLeft={IconActionAdd}
-          iconRight={IconActionDelete}
+          iconLeft={IconShapeLightningBolt}
+          placeholder="With left icon"
+        />
+        <Textbox
+          iconRight={IconShapeLightningBolt}
+          placeholder="With right icon"
+        />
+        <Textbox
+          iconLeft={IconShapeLightningBolt}
+          iconRight={IconShapeLightningBolt}
           placeholder="With both icons"
         />
       </div>,
@@ -140,7 +146,11 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
 
   it('should handle divider', () => {
     mount(
-      <Textbox iconLeft={IconActionAdd} divider placeholder="With divider" />,
+      <Textbox
+        iconLeft={IconShapeLightningBolt}
+        divider
+        placeholder="With divider"
+      />,
     )
     cy.get('input').should('exist')
     cy.percySnapshot()
@@ -150,10 +160,10 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     mount(
       <Textbox
         labelLeft="Search"
-        iconLeft={IconActionAdd}
+        iconLeft={IconShapeLightningBolt}
         divider
         placeholder="Search term"
-        iconRight={IconActionDelete}
+        iconRight={IconShapeLightningBolt}
         labelRight="Results"
       />,
     )
