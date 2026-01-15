@@ -41,7 +41,7 @@ export const CssVariantClassesTable = {
 
     // Active and focus styles
     'has-[:focus]:border-indigo-300 has-[:focus]:hover:border-indigo-300',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35 has-[:focus]:hover:outline-indigo-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35 has-[:focus]:hover:outline-indigo-300/35',
   ].join(' '),
 
   'light-default-disabled':
@@ -52,14 +52,14 @@ export const CssVariantClassesTable = {
     // Base styles
     'bg-white border-jade-300 text-jade-500',
     // Placeholder styles (when input shows placeholder)
-    'has-[:placeholder-shown]:bg-gray-50 has-[:placeholder-shown]:border-jade-300',
+    'has-[:placeholder-shown]:bg-gray-50',
     // Hover styles
     'has-[:hover]:border-jade-300',
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-jade-300/35',
 
     // Active and focus styles
     'has-[:focus]:border-jade-400 has-[:focus]:hover:border-jade-400',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-300/35 has-[:focus]:hover:outline-jade-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-300/35 has-[:focus]:hover:outline-jade-300/35',
   ].join(' '),
 
   // Light mode - Invalid type
@@ -73,7 +73,7 @@ export const CssVariantClassesTable = {
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-red-300/35 has-[:hover]:outline-offset-0',
     // Active and focus styles
     'has-[:focus]:border-red-400 has-[:focus]:hover:border-red-400',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35 has-[:focus]:hover:outline-red-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35 has-[:focus]:hover:outline-red-300/35',
   ].join(' '),
   'light-invalid-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
@@ -89,7 +89,7 @@ export const CssVariantClassesTable = {
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-orange-300/35',
     // Active and focus styles
     'has-[:focus]:border-orange-400 has-[:focus]:hover:border-orange-400',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35 has-[:focus]:hover:outline-orange-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35 has-[:focus]:hover:outline-orange-300/35',
   ].join(' '),
   'light-warning-disabled':
     'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
@@ -105,7 +105,7 @@ export const CssVariantClassesTable = {
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-white/10',
     // Active and focus styles
     'has-[:focus]:border-indigo-300 has-[:focus]:hover:border-indigo-300',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35 has-[:focus]:hover:outline-indigo-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-indigo-300/35 has-[:focus]:hover:outline-indigo-300/35',
   ].join(' '),
   'dark-default-disabled':
     'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
@@ -121,10 +121,10 @@ export const CssVariantClassesTable = {
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-jade-300/35',
     // Active and focus styles
     'has-[:focus]:border-jade-300 has-[:focus]:hover:border-jade-300',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-300/35 has-[:focus]:hover:outline-jade-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-300/35 has-[:focus]:hover:outline-jade-300/35',
   ].join(' '),
   'dark-valid-disabled':
-    'bg-gray-1000 border-gray-900 text-gVyray-700 cursor-not-allowed',
+    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 
   // Dark mode - Invalid type
   'dark-invalid-default': [
@@ -137,10 +137,10 @@ export const CssVariantClassesTable = {
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-red-300/35',
     // Active and focus styles
     'has-[:focus]:border-red-300 has-[:focus]:hover:border-red-300',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35 has-[:focus]:hover:outline-red-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35 has-[:focus]:hover:outline-red-300/35',
   ].join(' '),
   'dark-invalid-disabled':
-    'bg-gray-1000 border-gray-800 text-Vpgray-600 cursor-not-allowed',
+    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 
   // Dark mode - Warning type
   'dark-warning-default': [
@@ -153,10 +153,10 @@ export const CssVariantClassesTable = {
     'has-[:hover]:outline has-[:hover]:outline-2 has-[:hover]:outline-orange-300/35',
     // Active and focus styles
     'has-[:focus]:border-orange-300 has-[:focus]:hover:border-orange-300',
-    'has-[:focus]:outline has-[:focus]:outline-2 has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35 has-[:focus]:hover:outline-orange-300/35',
+    'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35 has-[:focus]:hover:outline-orange-300/35',
   ].join(' '),
   'dark-warning-disabled':
-    'bg-gray-1000 border-gray-800 text-gray-600 cursor-not-allowed',
+    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 } as const
 
 // Icon colors - structure: theme-type-state
@@ -165,115 +165,115 @@ export const IconColors = {
   // Light mode - Default type
   'light-default-placeholder': {
     strokeColor: 'gray-500',
-    fillColor: 'transparent',
+    fillColor: 'gray-50',
   },
   'light-default-default': {
-    strokeColor: 'gray-600',
-    fillColor: 'transparent',
+    strokeColor: 'gray-500',
+    fillColor: 'gray-50',
   },
   'light-default-hover': {
-    strokeColor: 'gray-700',
-    fillColor: 'transparent',
+    strokeColor: 'indigo-500',
+    fillColor: 'indigo-200',
   },
   'light-default-active': {
     strokeColor: 'indigo-500',
-    fillColor: 'transparent',
+    fillColor: 'indigo-200',
   },
   'light-default-focus-visible': {
     strokeColor: 'indigo-500',
-    fillColor: 'transparent',
+    fillColor: 'indigo-200',
   },
   'light-default-disabled': {
     strokeColor: 'gray-400',
-    fillColor: 'transparent',
+    fillColor: 'indigo-50',
   },
 
   // Light mode - Valid type
   'light-valid-placeholder': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
+    strokeColor: 'jade-500',
+    fillColor: 'jade-200',
   },
   'light-valid-default': {
     strokeColor: 'jade-500',
-    fillColor: 'transparent',
+    fillColor: 'jade-200',
   },
   'light-valid-hover': {
     strokeColor: 'jade-500',
-    fillColor: 'transparent',
+    fillColor: 'jade-200',
   },
   'light-valid-active': {
     strokeColor: 'jade-500',
-    fillColor: 'transparent',
+    fillColor: 'jade-200',
   },
   'light-valid-focus-visible': {
     strokeColor: 'jade-500',
-    fillColor: 'transparent',
+    fillColor: 'jade-200',
   },
   'light-valid-disabled': {
     strokeColor: 'gray-400',
-    fillColor: 'transparent',
+    fillColor: 'gray-50',
   },
 
   // Light mode - Invalid type
   'light-invalid-placeholder': {
-    strokeColor: 'red-300',
-    fillColor: 'transparent',
+    strokeColor: 'red-500',
+    fillColor: 'red-200',
   },
   'light-invalid-default': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
+    strokeColor: 'red-500',
+    fillColor: 'red-200',
   },
   'light-invalid-hover': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
+    strokeColor: 'red-500',
+    fillColor: 'red-200',
   },
   'light-invalid-active': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
+    strokeColor: 'red-500',
+    fillColor: 'red-200',
   },
   'light-invalid-focus-visible': {
-    strokeColor: 'red-400',
-    fillColor: 'transparent',
+    strokeColor: 'red-500',
+    fillColor: 'red-200',
   },
   'light-invalid-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
+    strokeColor: 'red-500',
+    fillColor: 'red-200',
   },
 
   // Light mode - Warning type
   'light-warning-placeholder': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
+    strokeColor: 'orange-500',
+    fillColor: 'orange-200',
   },
   'light-warning-default': {
     strokeColor: 'orange-500',
-    fillColor: 'transparent',
+    fillColor: 'orange-200',
   },
   'light-warning-hover': {
     strokeColor: 'orange-500',
-    fillColor: 'transparent',
+    fillColor: 'orange-200',
   },
   'light-warning-active': {
     strokeColor: 'orange-500',
-    fillColor: 'transparent',
+    fillColor: 'orange-200',
   },
   'light-warning-focus-visible': {
     strokeColor: 'orange-500',
-    fillColor: 'transparent',
+    fillColor: 'orange-200',
   },
   'light-warning-disabled': {
     strokeColor: 'gray-400',
-    fillColor: 'transparent',
+    fillColor: 'gray-50',
   },
 
   // Dark mode - Default type (explicit colors from Figma)
   'dark-default-placeholder': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
+    strokeColor: 'gray-500',
+    fillColor: 'gray-800',
   },
   'dark-default-default': {
-    strokeColor: 'gray-400',
-    fillColor: 'transparent',
+    strokeColor: 'gray-500',
+    fillColor: 'gray-800',
   },
   'dark-default-hover': {
     strokeColor: 'indigo-300',
@@ -289,85 +289,85 @@ export const IconColors = {
   },
   'dark-default-disabled': {
     strokeColor: 'gray-600',
-    fillColor: 'transparent',
+    fillColor: 'gray-800',
   },
 
   // Dark mode - Valid type
   'dark-valid-placeholder': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
+    strokeColor: 'jade-300',
+    fillColor: 'jade-500',
   },
   'dark-valid-default': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
+    strokeColor: 'jade-300',
+    fillColor: 'jade-500',
   },
   'dark-valid-hover': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
+    strokeColor: 'jade-300',
+    fillColor: 'jade-500',
   },
   'dark-valid-active': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
+    strokeColor: 'jade-300',
+    fillColor: 'jade-500',
   },
   'dark-valid-focus-visible': {
-    strokeColor: 'jade-400',
-    fillColor: 'transparent',
+    strokeColor: 'jade-300',
+    fillColor: 'jade-500',
   },
   'dark-valid-disabled': {
     strokeColor: 'gray-600',
-    fillColor: 'transparent',
+    fillColor: 'gray-800',
   },
 
   // Dark mode - Invalid type
   'dark-invalid-placeholder': {
     strokeColor: 'red-300',
-    fillColor: 'transparent',
+    fillColor: 'red-500',
   },
   'dark-invalid-default': {
     strokeColor: 'red-300',
-    fillColor: 'transparent',
+    fillColor: 'red-500',
   },
   'dark-invalid-hover': {
     strokeColor: 'red-300',
-    fillColor: 'transparent',
+    fillColor: 'red-500',
   },
   'dark-invalid-active': {
     strokeColor: 'red-300',
-    fillColor: 'transparent',
+    fillColor: 'red-500',
   },
   'dark-invalid-focus-visible': {
     strokeColor: 'red-300',
-    fillColor: 'transparent',
+    fillColor: 'red-500',
   },
   'dark-invalid-disabled': {
     strokeColor: 'gray-600',
-    fillColor: 'transparent',
+    fillColor: 'gray-800',
   },
 
   // Dark mode - Warning type
   'dark-warning-placeholder': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
+    strokeColor: 'orange-300',
+    fillColor: 'orange-500',
   },
   'dark-warning-default': {
     strokeColor: 'orange-400',
     fillColor: 'transparent',
   },
   'dark-warning-hover': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
+    strokeColor: 'orange-300',
+    fillColor: 'orange-500',
   },
   'dark-warning-active': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
+    strokeColor: 'orange-300',
+    fillColor: 'orange-500',
   },
   'dark-warning-focus-visible': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
+    strokeColor: 'orange-300',
+    fillColor: 'orange-500',
   },
   'dark-warning-disabled': {
     strokeColor: 'gray-600',
-    fillColor: 'transparent',
+    fillColor: 'gray-800',
   },
 } as const
 

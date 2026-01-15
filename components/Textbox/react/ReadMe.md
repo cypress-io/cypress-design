@@ -64,6 +64,7 @@ export default () => (
       <Textbox variant="valid" defaultValue="Valid" />
       <Textbox variant="invalid" defaultValue="Invalid" />
       <Textbox variant="warning" defaultValue="Warning" />
+      <Textbox disabled defaultValue="Disabled" />
     </div>
   </div>
 )
@@ -98,6 +99,7 @@ export default () => (
       <Textbox theme="dark" variant="valid" defaultValue="Valid" />
       <Textbox theme="dark" variant="invalid" defaultValue="Invalid" />
       <Textbox theme="dark" variant="warning" defaultValue="Warning" />
+      <Textbox theme="dark" disabled defaultValue="Disabled" />
     </div>
   </div>
 )
@@ -238,6 +240,16 @@ export default () => (
         iconRight={IconShapeLightningBolt}
       />
       <Textbox
+        disabled
+        divider
+        size="48"
+        labelLeft="Label left"
+        labelRight="Label right"
+        defaultValue="disabled"
+        iconLeft={IconShapeLightningBolt}
+        iconRight={IconShapeLightningBolt}
+      />
+      <Textbox
         rounded
         divider
         size="48"
@@ -320,6 +332,17 @@ export default () => (
         labelLeft="Label left"
         labelRight="Label right"
         defaultValue="Size 48"
+        iconLeft={IconShapeLightningBolt}
+        iconRight={IconShapeLightningBolt}
+      />
+      <Textbox
+        disabled
+        divider
+        theme="dark"
+        size="48"
+        labelLeft="Label left"
+        labelRight="Label right"
+        defaultValue="disabled"
         iconLeft={IconShapeLightningBolt}
         iconRight={IconShapeLightningBolt}
       />

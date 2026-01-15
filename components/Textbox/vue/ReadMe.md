@@ -72,6 +72,7 @@ import Textbox from '@cypress-design/vue-textbox'
       <Textbox variant="valid" value="Valid" />
       <Textbox variant="invalid" value="Invalid" />
       <Textbox variant="warning" value="Warning" />
+      <Textbox disabled value="Disabled" />
     </div>
   </div>
 </template>
@@ -112,6 +113,7 @@ import Textbox from '@cypress-design/vue-textbox'
       <Textbox theme="dark" variant="valid" value="Valid" />
       <Textbox theme="dark" variant="invalid" value="Invalid" />
       <Textbox theme="dark" variant="warning" value="Warning" />
+      <Textbox theme="dark" disabled value="Disabled" />
     </div>
   </div>
 </template>
@@ -262,6 +264,16 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         :icon-right="IconShapeLightningBolt"
       />
       <Textbox
+        disabled
+        :divider="true"
+        size="48"
+        label-left="Label left"
+        label-right="Label right"
+        value="disabled"
+        :icon-left="IconShapeLightningBolt"
+        :icon-right="IconShapeLightningBolt"
+      />
+      <Textbox
         :rounded="true"
         :divider="true"
         size="48"
@@ -347,6 +359,17 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
         label-left="Label left"
         label-right="Label right"
         value="Size 48"
+        :icon-left="IconShapeLightningBolt"
+        :icon-right="IconShapeLightningBolt"
+      />
+      <Textbox
+        disabled
+        :divider="true"
+        theme="dark"
+        size="48"
+        label-left="Label left"
+        label-right="Label right"
+        value="disabled"
         :icon-left="IconShapeLightningBolt"
         :icon-right="IconShapeLightningBolt"
       />
