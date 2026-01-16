@@ -14,7 +14,7 @@ import {
   CssLabelBorderClassesTable,
   CssLabelRoundedClassesTable,
   CssLabelBaseClasses,
-  IconColors,
+  CssIconColorClassesTable,
   DividerClasses,
   CssWrapperHeightClassesTable,
   CssInputContainerPaddingClassesTable,
@@ -162,23 +162,18 @@ export default defineComponent({
       return [CssInputClassesTable[props.theme], inputSizeClasses.value]
     })
 
-    // Get icon colors based on current state
-    // For hover/active/focus-visible/placeholder-shown, CSS will handle the transitions
-    // We use the base state (default) for icon colors
+    // Get icon color classes based on current state
+    // For hover/active/focus/placeholder-shown, CSS classes handle the transitions
+    // We use the base state (default or disabled) for icon color classes
     const iconStateKey = computed(() => {
       return props.disabled ? 'disabled' : 'default'
     })
     const iconColorKey = computed(() => {
-      return `${props.theme}-${props.variant}-${iconStateKey.value}` as keyof typeof IconColors
+      return `${props.theme}-${props.variant}-${iconStateKey.value}` as keyof typeof CssIconColorClassesTable
     })
 
-    const iconColors = computed(() => {
-      return (
-        IconColors[iconColorKey.value] || {
-          strokeColor: 'gray-600',
-          fillColor: 'transparent',
-        }
-      )
+    const iconColorClasses = computed(() => {
+      return CssIconColorClassesTable[iconColorKey.value]
     })
 
     // Get divider classes
@@ -212,27 +207,6 @@ export default defineComponent({
       // Value is automatically tracked via modelValue prop in Vue
     }
 
-    // Icon props for left and right icons
-    const iconLeftProps = computed(() => {
-      if (!props.iconLeft) return null
-      return {
-        size: '16',
-        strokeColor: iconColors.value.strokeColor,
-        fillColor: iconColors.value.fillColor,
-        class: CssShrinkZeroClass,
-      }
-    })
-
-    const iconRightProps = computed(() => {
-      if (!props.iconRight) return null
-      return {
-        size: '16',
-        strokeColor: iconColors.value.strokeColor,
-        fillColor: iconColors.value.fillColor,
-        class: CssShrinkZeroClass,
-      }
-    })
-
     const handleFocus = (event: FocusEvent) => {
       emit('focus', event)
     }
@@ -245,7 +219,7 @@ export default defineComponent({
       wrapperClasses,
       inputContainerClasses,
       inputClasses,
-      iconColors,
+      iconColorClasses,
       dividerClasses,
       ariaInvalidValue,
       ariaLabel,
@@ -254,8 +228,6 @@ export default defineComponent({
       handleInput,
       handleFocus,
       handleBlur,
-      iconLeftProps,
-      iconRightProps,
       // Label constants for template
       CssLabelBaseClasses,
       CssLabelSizeClassesTable,
@@ -288,7 +260,13 @@ export default defineComponent({
     <!-- Input Container -->
     <div :class="inputContainerClasses">
       <!-- Icon Left -->
-      <component :is="iconLeft" v-if="iconLeft" v-bind="iconLeftProps" />
+      <component
+        :is="iconLeft"
+        v-if="iconLeft"
+        size="16"
+        :interactive-colors-on-group="true"
+        :class="[iconColorClasses, CssShrinkZeroClass]"
+      />
 
       <!-- Divider -->
       <div
@@ -315,7 +293,13 @@ export default defineComponent({
       />
 
       <!-- Icon Right -->
-      <component :is="iconRight" v-if="iconRight" v-bind="iconRightProps" />
+      <component
+        :is="iconRight"
+        v-if="iconRight"
+        size="16"
+        :interactive-colors-on-group="true"
+        :class="[iconColorClasses, CssShrinkZeroClass]"
+      />
     </div>
 
     <!-- Label Right -->

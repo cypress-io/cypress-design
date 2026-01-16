@@ -195,216 +195,89 @@ export const CssVariantClassesTable = {
     'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 } as const
 
-// Icon colors - structure: theme-type-state
-// Colors extracted from Figma design
-export const IconColors = {
+// Icon color classes - structure: theme-variant-state
+// Icon color classes extracted from Figma design, converted to CSS classes
+// These classes are applied to icon elements via className prop
+export const CssIconColorClassesTable = {
   // Light mode - Default type
-  'light-default-placeholder': {
-    strokeColor: 'gray-500',
-    fillColor: 'gray-50',
-  },
-  'light-default-default': {
-    strokeColor: 'gray-500',
-    fillColor: 'gray-50',
-  },
-  'light-default-hover': {
-    strokeColor: 'indigo-500',
-    fillColor: 'indigo-200',
-  },
-  'light-default-active': {
-    strokeColor: 'indigo-500',
-    fillColor: 'indigo-200',
-  },
-  'light-default-focus-visible': {
-    strokeColor: 'indigo-500',
-    fillColor: 'indigo-200',
-  },
-  'light-default-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'indigo-50',
-  },
+  'light-default-default': [
+    'icon-dark-gray-500 icon-light-gray-50', // base
+    'group-hover:icon-dark-indigo-500 group-hover:icon-light-indigo-200', // hover
+    'group-focus-within:icon-dark-indigo-500 group-focus-within:icon-light-indigo-200', // focus
+    'group-active:icon-dark-indigo-500 group-active:icon-light-indigo-200', // active
+    'has-[:placeholder-shown]:icon-dark-gray-500 has-[:placeholder-shown]:icon-light-gray-50', // placeholder
+  ].join(' '),
+  'light-default-disabled': 'icon-dark-gray-400 icon-light-indigo-50',
 
   // Light mode - Valid type
-  'light-valid-placeholder': {
-    strokeColor: 'jade-500',
-    fillColor: 'jade-200',
-  },
-  'light-valid-default': {
-    strokeColor: 'jade-500',
-    fillColor: 'jade-200',
-  },
-  'light-valid-hover': {
-    strokeColor: 'jade-500',
-    fillColor: 'jade-200',
-  },
-  'light-valid-active': {
-    strokeColor: 'jade-500',
-    fillColor: 'jade-200',
-  },
-  'light-valid-focus-visible': {
-    strokeColor: 'jade-500',
-    fillColor: 'jade-200',
-  },
-  'light-valid-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'gray-50',
-  },
+  'light-valid-default': [
+    'icon-dark-jade-500 icon-light-jade-200', // base
+    'group-hover:icon-dark-jade-500 group-hover:icon-light-jade-200', // hover
+    'group-focus-within:icon-dark-jade-500 group-focus-within:icon-light-jade-200', // focus
+    'group-active:icon-dark-jade-500 group-active:icon-light-jade-200', // active
+    'has-[:placeholder-shown]:icon-dark-jade-500 has-[:placeholder-shown]:icon-light-jade-200', // placeholder
+  ].join(' '),
+  'light-valid-disabled': 'icon-dark-gray-400 icon-light-gray-50',
 
   // Light mode - Invalid type
-  'light-invalid-placeholder': {
-    strokeColor: 'red-500',
-    fillColor: 'red-200',
-  },
-  'light-invalid-default': {
-    strokeColor: 'red-500',
-    fillColor: 'red-200',
-  },
-  'light-invalid-hover': {
-    strokeColor: 'red-500',
-    fillColor: 'red-200',
-  },
-  'light-invalid-active': {
-    strokeColor: 'red-500',
-    fillColor: 'red-200',
-  },
-  'light-invalid-focus-visible': {
-    strokeColor: 'red-500',
-    fillColor: 'red-200',
-  },
-  'light-invalid-disabled': {
-    strokeColor: 'red-500',
-    fillColor: 'red-200',
-  },
+  'light-invalid-default': [
+    'icon-dark-red-500 icon-light-red-200', // base
+    'group-hover:icon-dark-red-500 group-hover:icon-light-red-200', // hover
+    'group-focus-within:icon-dark-red-500 group-focus-within:icon-light-red-200', // focus
+    'group-active:icon-dark-red-500 group-active:icon-light-red-200', // active
+    'has-[:placeholder-shown]:icon-dark-red-500 has-[:placeholder-shown]:icon-light-red-200', // placeholder
+  ].join(' '),
+  'light-invalid-disabled': 'icon-dark-red-500 icon-light-red-200',
 
   // Light mode - Warning type
-  'light-warning-placeholder': {
-    strokeColor: 'orange-500',
-    fillColor: 'orange-200',
-  },
-  'light-warning-default': {
-    strokeColor: 'orange-500',
-    fillColor: 'orange-200',
-  },
-  'light-warning-hover': {
-    strokeColor: 'orange-500',
-    fillColor: 'orange-200',
-  },
-  'light-warning-active': {
-    strokeColor: 'orange-500',
-    fillColor: 'orange-200',
-  },
-  'light-warning-focus-visible': {
-    strokeColor: 'orange-500',
-    fillColor: 'orange-200',
-  },
-  'light-warning-disabled': {
-    strokeColor: 'gray-400',
-    fillColor: 'gray-50',
-  },
+  'light-warning-default': [
+    'icon-dark-orange-500 icon-light-orange-200', // base
+    'group-hover:icon-dark-orange-500 group-hover:icon-light-orange-200', // hover
+    'group-focus-within:icon-dark-orange-500 group-focus-within:icon-light-orange-200', // focus
+    'group-active:icon-dark-orange-500 group-active:icon-light-orange-200', // active
+    'has-[:placeholder-shown]:icon-dark-orange-500 has-[:placeholder-shown]:icon-light-orange-200', // placeholder
+  ].join(' '),
+  'light-warning-disabled': 'icon-dark-gray-400 icon-light-gray-50',
 
-  // Dark mode - Default type (explicit colors from Figma)
-  'dark-default-placeholder': {
-    strokeColor: 'gray-500',
-    fillColor: 'gray-800',
-  },
-  'dark-default-default': {
-    strokeColor: 'gray-500',
-    fillColor: 'gray-800',
-  },
-  'dark-default-hover': {
-    strokeColor: 'indigo-300',
-    fillColor: 'indigo-500',
-  },
-  'dark-default-active': {
-    strokeColor: 'indigo-300',
-    fillColor: 'indigo-500',
-  },
-  'dark-default-focus-visible': {
-    strokeColor: 'indigo-300',
-    fillColor: 'indigo-500',
-  },
-  'dark-default-disabled': {
-    strokeColor: 'gray-600',
-    fillColor: 'gray-800',
-  },
+  // Dark mode - Default type
+  'dark-default-default': [
+    'icon-dark-gray-500 icon-light-gray-800', // base
+    'group-hover:icon-dark-indigo-300 group-hover:icon-light-indigo-500', // hover
+    'group-focus-within:icon-dark-indigo-300 group-focus-within:icon-light-indigo-500', // focus
+    'group-active:icon-dark-indigo-300 group-active:icon-light-indigo-500', // active
+    'has-[:placeholder-shown]:icon-dark-gray-500 has-[:placeholder-shown]:icon-light-gray-800', // placeholder
+  ].join(' '),
+  'dark-default-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 
   // Dark mode - Valid type
-  'dark-valid-placeholder': {
-    strokeColor: 'jade-300',
-    fillColor: 'jade-500',
-  },
-  'dark-valid-default': {
-    strokeColor: 'jade-300',
-    fillColor: 'jade-500',
-  },
-  'dark-valid-hover': {
-    strokeColor: 'jade-300',
-    fillColor: 'jade-500',
-  },
-  'dark-valid-active': {
-    strokeColor: 'jade-300',
-    fillColor: 'jade-500',
-  },
-  'dark-valid-focus-visible': {
-    strokeColor: 'jade-300',
-    fillColor: 'jade-500',
-  },
-  'dark-valid-disabled': {
-    strokeColor: 'gray-600',
-    fillColor: 'gray-800',
-  },
+  'dark-valid-default': [
+    'icon-dark-jade-300 icon-light-jade-500', // base
+    'group-hover:icon-dark-jade-300 group-hover:icon-light-jade-500', // hover
+    'group-focus-within:icon-dark-jade-300 group-focus-within:icon-light-jade-500', // focus
+    'group-active:icon-dark-jade-300 group-active:icon-light-jade-500', // active
+    'has-[:placeholder-shown]:icon-dark-jade-300 has-[:placeholder-shown]:icon-light-jade-500', // placeholder
+  ].join(' '),
+  'dark-valid-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 
   // Dark mode - Invalid type
-  'dark-invalid-placeholder': {
-    strokeColor: 'red-300',
-    fillColor: 'red-500',
-  },
-  'dark-invalid-default': {
-    strokeColor: 'red-300',
-    fillColor: 'red-500',
-  },
-  'dark-invalid-hover': {
-    strokeColor: 'red-300',
-    fillColor: 'red-500',
-  },
-  'dark-invalid-active': {
-    strokeColor: 'red-300',
-    fillColor: 'red-500',
-  },
-  'dark-invalid-focus-visible': {
-    strokeColor: 'red-300',
-    fillColor: 'red-500',
-  },
-  'dark-invalid-disabled': {
-    strokeColor: 'gray-600',
-    fillColor: 'gray-800',
-  },
+  'dark-invalid-default': [
+    'icon-dark-red-300 icon-light-red-500', // base
+    'group-hover:icon-dark-red-300 group-hover:icon-light-red-500', // hover
+    'group-focus-within:icon-dark-red-300 group-focus-within:icon-light-red-500', // focus
+    'group-active:icon-dark-red-300 group-active:icon-light-red-500', // active
+    'has-[:placeholder-shown]:icon-dark-red-300 has-[:placeholder-shown]:icon-light-red-500', // placeholder
+  ].join(' '),
+  'dark-invalid-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 
   // Dark mode - Warning type
-  'dark-warning-placeholder': {
-    strokeColor: 'orange-300',
-    fillColor: 'orange-500',
-  },
-  'dark-warning-default': {
-    strokeColor: 'orange-400',
-    fillColor: 'transparent',
-  },
-  'dark-warning-hover': {
-    strokeColor: 'orange-300',
-    fillColor: 'orange-500',
-  },
-  'dark-warning-active': {
-    strokeColor: 'orange-300',
-    fillColor: 'orange-500',
-  },
-  'dark-warning-focus-visible': {
-    strokeColor: 'orange-300',
-    fillColor: 'orange-500',
-  },
-  'dark-warning-disabled': {
-    strokeColor: 'gray-600',
-    fillColor: 'gray-800',
-  },
+  'dark-warning-default': [
+    'icon-dark-orange-400 icon-light-transparent', // base (default state uses orange-400/transparent)
+    'group-hover:icon-dark-orange-300 group-hover:icon-light-orange-500', // hover
+    'group-focus-within:icon-dark-orange-300 group-focus-within:icon-light-orange-500', // focus
+    'group-active:icon-dark-orange-300 group-active:icon-light-orange-500', // active
+    'has-[:placeholder-shown]:icon-dark-orange-300 has-[:placeholder-shown]:icon-light-orange-500', // placeholder
+  ].join(' '),
+  'dark-warning-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 } as const
 
 // Divider classes - structure: theme

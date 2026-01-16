@@ -4,7 +4,7 @@ export {
   CssStaticClasses as StaticClasses,
   CssInputSizeClassesTable as InputSizeClassesTable,
   CssRoundedClasses as RoundedClasses,
-  IconColors,
+  CssIconColorClassesTable as IconColorClassesTable,
   DividerClasses,
   type TextboxTheme,
   type TextboxVariant,

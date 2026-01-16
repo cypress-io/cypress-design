@@ -259,6 +259,15 @@ export default () => (
         iconLeft={IconShapeLightningBolt}
         iconRight={IconShapeLightningBolt}
       />
+      <Textbox
+        divider
+        size="48"
+        labelLeft="Label left"
+        labelRight="Label right"
+        placeholder="Placeholder"
+        iconLeft={IconShapeLightningBolt}
+        iconRight={IconShapeLightningBolt}
+      />
     </div>
   </div>
 )
@@ -354,6 +363,16 @@ export default () => (
         labelLeft="Label left"
         labelRight="Label right"
         defaultValue="Size 48"
+        iconLeft={IconShapeLightningBolt}
+        iconRight={IconShapeLightningBolt}
+      />
+      <Textbox
+        divider
+        theme="dark"
+        size="48"
+        labelLeft="Label left"
+        labelRight="Label right"
+        placeholder="Placeholder"
         iconLeft={IconShapeLightningBolt}
         iconRight={IconShapeLightningBolt}
       />

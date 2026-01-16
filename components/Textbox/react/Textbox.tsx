@@ -15,7 +15,7 @@ import {
   CssLabelBorderClassesTable,
   CssLabelRoundedClassesTable,
   CssLabelBaseClasses,
-  IconColors,
+  CssIconColorClassesTable,
   DividerClasses,
   CssWrapperHeightClassesTable,
   CssInputContainerPaddingClassesTable,
@@ -122,16 +122,13 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // Build input classes
   const inputClasses = clsx(CssInputClassesTable[theme], inputSizeClasses)
 
-  // Get icon colors based on current state
-  // For hover/active/focus-visible/placeholder-shown, CSS will handle the transitions
-  // We use the base state (default) for icon colors
+  // Get icon color classes based on current state
+  // For hover/active/focus/placeholder-shown, CSS classes handle the transitions
+  // We use the base state (default or disabled) for icon color classes
   const iconStateKey = disabled ? 'disabled' : 'default'
   const iconColorKey =
-    `${theme}-${variant}-${iconStateKey}` as keyof typeof IconColors
-  const iconColors = IconColors[iconColorKey] || {
-    strokeColor: 'gray-600',
-    fillColor: 'transparent',
-  }
+    `${theme}-${variant}-${iconStateKey}` as keyof typeof CssIconColorClassesTable
+  const iconColorClasses = CssIconColorClassesTable[iconColorKey]
 
   // Get divider classes
   const dividerClasses = DividerClasses[theme]
@@ -148,9 +145,8 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       return (
         <IconComponent
           size="16"
-          strokeColor={iconColors.strokeColor}
-          fillColor={iconColors.fillColor}
-          className={CssShrinkZeroClass}
+          interactiveColorsOnGroup={true}
+          className={clsx(iconColorClasses, CssShrinkZeroClass)}
         />
       )
     }
