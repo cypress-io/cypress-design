@@ -95,6 +95,9 @@ export const CssVariantClassesTable = {
     'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-jade-300/35 has-[:focus]:hover:outline-jade-300/35',
   ].join(' '),
 
+  'light-valid-disabled':
+    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
+
   // Light mode - Invalid type
   'light-invalid-default': [
     // Base styles
@@ -109,7 +112,7 @@ export const CssVariantClassesTable = {
     'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-red-300/35 has-[:focus]:hover:outline-red-300/35',
   ].join(' '),
   'light-invalid-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
+    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Light mode - Warning type
   'light-warning-default': [
@@ -125,7 +128,7 @@ export const CssVariantClassesTable = {
     'has-[:focus]:outline has-[:focus]:outline-[3px] has-[:focus]:outline-offset-0 has-[:focus]:outline-orange-300/35 has-[:focus]:hover:outline-orange-300/35',
   ].join(' '),
   'light-warning-disabled':
-    'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed',
+    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Dark mode - Default type (explicit colors from Figma)
   'dark-default-default': [
