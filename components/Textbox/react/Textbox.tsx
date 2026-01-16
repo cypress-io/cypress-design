@@ -102,6 +102,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
     CssRoundedClasses[rounded as unknown as keyof typeof CssRoundedClasses]
 
   // Build wrapper classes - wrapper handles hover/focus states and height
+  // Use label element for click-to-focus behavior (no JS needed)
   const wrapperClasses = clsx(
     CssStaticClasses,
     variantClasses,
@@ -164,7 +165,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
         : undefined
 
   return (
-    <div className={wrapperClasses}>
+    <label className={wrapperClasses}>
       {/* Label Left */}
       {labelLeft && (
         <span
@@ -230,7 +231,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
           {labelRight}
         </span>
       )}
-    </div>
+    </label>
   )
 }
 

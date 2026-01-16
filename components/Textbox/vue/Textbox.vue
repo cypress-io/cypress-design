@@ -135,6 +135,7 @@ export default defineComponent({
     })
 
     // Build wrapper classes
+    // Use label element for click-to-focus behavior (no JS needed)
     const wrapperClasses = computed(() => {
       return [
         CssStaticClasses,
@@ -242,7 +243,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div :class="wrapperClasses">
+  <label :class="wrapperClasses">
     <!-- Label Left -->
     <span
       v-if="labelLeft"
@@ -315,5 +316,5 @@ export default defineComponent({
     >
       {{ labelRight }}
     </span>
-  </div>
+  </label>
 </template>
