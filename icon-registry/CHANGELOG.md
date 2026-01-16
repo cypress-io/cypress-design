@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 1.39.0
+
+### Minor Changes
+
+- [#647](https://github.com/cypress-io/cypress-design/pull/647) [`ecf9dd5`](https://github.com/cypress-io/cypress-design/commit/ecf9dd532954274f471aef982f3f86223d926dff) Thanks [@mabela416](https://github.com/mabela416)! - Add 48px triangle warning icon
+
 ## 1.38.0
 
 ### Minor Changes
