@@ -109,17 +109,10 @@ export default defineComponent({
     blur: (event: FocusEvent) => event instanceof FocusEvent,
   },
   setup(props, { emit }) {
-    // Determine state key for variant classes
-    // States are handled by CSS pseudo-classes (hover, active, focus, focus-visible, placeholder-shown)
-    // We only need to determine base state: disabled or default
-    // CSS will automatically apply hover/active/focus/focus-visible/placeholder-shown styles
-    const stateKey = computed(() => {
-      return props.disabled ? 'disabled' : 'default'
-    })
-
-    // Build variant class key: theme-variant-state
+    // Build variant class key: theme-variant-default
+    // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const variantKey = computed(() => {
-      return `${props.theme}-${props.variant}-${stateKey.value}` as keyof typeof CssVariantClassesTable
+      return `${props.theme}-${props.variant}-default` as keyof typeof CssVariantClassesTable
     })
 
     // Get variant classes
@@ -163,14 +156,10 @@ export default defineComponent({
       return [CssInputClassesTable[props.theme], inputSizeClasses.value]
     })
 
-    // Get icon color classes based on current state
-    // For hover/active/focus/placeholder-shown, CSS classes handle the transitions
-    // We use the base state (default or disabled) for icon color classes
-    const iconStateKey = computed(() => {
-      return props.disabled ? 'disabled' : 'default'
-    })
+    // Get icon color classes
+    // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const iconColorKey = computed(() => {
-      return `${props.theme}-${props.variant}-${iconStateKey.value}` as keyof typeof CssIconColorClassesTable
+      return `${props.theme}-${props.variant}-default` as keyof typeof CssIconColorClassesTable
     })
 
     const iconColorClasses = computed(() => {

@@ -83,15 +83,10 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   'aria-describedby': ariaDescribedBy,
   ...rest
 }) => {
-  // Determine state key for variant classes
-  // States are handled by CSS pseudo-classes (hover, active, focus, focus-visible, placeholder-shown)
-  // We only need to determine base state: disabled or default
-  // CSS will automatically apply hover/active/focus/focus-visible/placeholder-shown styles
-  const stateKey: 'default' | 'disabled' = disabled ? 'disabled' : 'default'
-
-  // Build variant class key: theme-variant-state
+  // Build variant class key: theme-variant-default
+  // Disabled state is handled by CSS has-[:disabled]: pseudo-class
   const variantKey =
-    `${theme}-${variant}-${stateKey}` as keyof typeof CssVariantClassesTable
+    `${theme}-${variant}-default` as keyof typeof CssVariantClassesTable
 
   // Get variant classes - these include hover/active/focus/focus-visible styles
   // CSS pseudo-classes will automatically apply the correct styles
@@ -123,12 +118,10 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // Build input classes
   const inputClasses = clsx(CssInputClassesTable[theme], inputSizeClasses)
 
-  // Get icon color classes based on current state
-  // For hover/active/focus/placeholder-shown, CSS classes handle the transitions
-  // We use the base state (default or disabled) for icon color classes
-  const iconStateKey = disabled ? 'disabled' : 'default'
+  // Get icon color classes
+  // Disabled state is handled by CSS has-[:disabled]: pseudo-class
   const iconColorKey =
-    `${theme}-${variant}-${iconStateKey}` as keyof typeof CssIconColorClassesTable
+    `${theme}-${variant}-default` as keyof typeof CssIconColorClassesTable
   const iconColorClasses = CssIconColorClassesTable[iconColorKey]
 
   // Get divider classes

@@ -75,10 +75,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-indigo-300 focus-within:hover:border-indigo-300',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-indigo-300/35 focus-within:hover:outline-indigo-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-50 has-[:disabled]:border-gray-50 has-[:disabled]:text-gray-500 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-50 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-50 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-
-  'light-default-disabled':
-    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Light mode - Valid type
   'light-valid-default': [
@@ -93,10 +95,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-jade-400 focus-within:hover:border-jade-400',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-jade-300/35 focus-within:hover:outline-jade-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-50 has-[:disabled]:border-gray-50 has-[:disabled]:text-gray-500 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-50 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-50 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-
-  'light-valid-disabled':
-    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Light mode - Invalid type
   'light-invalid-default': [
@@ -110,9 +114,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-red-400 focus-within:hover:border-red-400',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-red-300/35 focus-within:hover:outline-red-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-50 has-[:disabled]:border-gray-50 has-[:disabled]:text-gray-500 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-50 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-50 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-  'light-invalid-disabled':
-    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Light mode - Warning type
   'light-warning-default': [
@@ -126,9 +133,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-orange-400 focus-within:hover:border-orange-400',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-orange-300/35 focus-within:hover:outline-orange-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-50 has-[:disabled]:border-gray-50 has-[:disabled]:text-gray-500 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-50 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-50 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-  'light-warning-disabled':
-    'bg-gray-50 border-gray-50 text-gray-500 cursor-not-allowed',
 
   // Dark mode - Default type (explicit colors from Figma)
   'dark-default-default': [
@@ -142,9 +152,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-indigo-300 focus-within:hover:border-indigo-300',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-indigo-300/35 focus-within:hover:outline-indigo-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-1000 has-[:disabled]:border-gray-900 has-[:disabled]:text-gray-700 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-900 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-900 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-  'dark-default-disabled':
-    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 
   // Dark mode - Valid type
   'dark-valid-default': [
@@ -158,9 +171,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-jade-300 focus-within:hover:border-jade-300',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-jade-300/35 focus-within:hover:outline-jade-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-1000 has-[:disabled]:border-gray-900 has-[:disabled]:text-gray-700 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-900 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-900 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-  'dark-valid-disabled':
-    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 
   // Dark mode - Invalid type
   'dark-invalid-default': [
@@ -174,9 +190,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-red-300 focus-within:hover:border-red-300',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-red-300/35 focus-within:hover:outline-red-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-1000 has-[:disabled]:border-gray-900 has-[:disabled]:text-gray-700 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-900 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-900 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-  'dark-invalid-disabled':
-    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 
   // Dark mode - Warning type
   'dark-warning-default': [
@@ -190,9 +209,12 @@ export const CssVariantClassesTable = {
     // Active and focus styles
     'focus-within:border-orange-300 focus-within:hover:border-orange-300',
     'focus-within:outline focus-within:outline-[3px] focus-within:outline-offset-0 focus-within:outline-orange-300/35 focus-within:hover:outline-orange-300/35 focus-within:hover:outline-[3px]',
+    // Disabled styles
+    'has-[:disabled]:bg-gray-1000 has-[:disabled]:border-gray-900 has-[:disabled]:text-gray-700 has-[:disabled]:cursor-not-allowed',
+    // Disable interactive states when disabled
+    'has-[:disabled]:hover:border-gray-900 has-[:disabled]:hover:outline-none',
+    'has-[:disabled]:focus-within:border-gray-900 has-[:disabled]:focus-within:outline-none',
   ].join(' '),
-  'dark-warning-disabled':
-    'bg-gray-1000 border-gray-900 text-gray-700 cursor-not-allowed',
 } as const
 
 // Icon color classes - structure: theme-variant-state
@@ -201,83 +223,91 @@ export const CssVariantClassesTable = {
 export const CssIconColorClassesTable = {
   // Light mode - Default type
   'light-default-default': [
-    'icon-dark-gray-500 icon-light-gray-50', // base
     'group-hover:icon-dark-indigo-500 group-hover:icon-light-indigo-200', // hover
     'group-focus-within:icon-dark-indigo-500 group-focus-within:icon-light-indigo-200', // focus
     'group-active:icon-dark-indigo-500 group-active:icon-light-indigo-200', // active
     'has-[:placeholder-shown]:icon-dark-gray-500 has-[:placeholder-shown]:icon-light-gray-50', // placeholder
+    // Icons
+    'icon-dark-gray-500 icon-light-gray-50', // base
+    'group-has-[:disabled]:icon-dark-gray-400 group-has-[:disabled]:icon-light-indigo-50',
   ].join(' '),
-  'light-default-disabled': 'icon-dark-gray-400 icon-light-indigo-50',
 
   // Light mode - Valid type
   'light-valid-default': [
-    'icon-dark-jade-500 icon-light-jade-200', // base
     'group-hover:icon-dark-jade-500 group-hover:icon-light-jade-200', // hover
     'group-focus-within:icon-dark-jade-500 group-focus-within:icon-light-jade-200', // focus
     'group-active:icon-dark-jade-500 group-active:icon-light-jade-200', // active
     'has-[:placeholder-shown]:icon-dark-jade-500 has-[:placeholder-shown]:icon-light-jade-200', // placeholder
+    // Icons
+    'icon-dark-jade-500 icon-light-jade-200', // base
+    'group-has-[:disabled]:icon-dark-gray-400 group-has-[:disabled]:icon-light-gray-50',
   ].join(' '),
-  'light-valid-disabled': 'icon-dark-gray-400 icon-light-gray-50',
 
   // Light mode - Invalid type
   'light-invalid-default': [
-    'icon-dark-red-500 icon-light-red-200', // base
     'group-hover:icon-dark-red-500 group-hover:icon-light-red-200', // hover
     'group-focus-within:icon-dark-red-500 group-focus-within:icon-light-red-200', // focus
     'group-active:icon-dark-red-500 group-active:icon-light-red-200', // active
     'has-[:placeholder-shown]:icon-dark-red-500 has-[:placeholder-shown]:icon-light-red-200', // placeholder
+    // Icons
+    'icon-dark-red-500 icon-light-red-200', // base
+    'group-has-[:disabled]:icon-dark-red-500 group-has-[:disabled]:icon-light-red-200',
   ].join(' '),
-  'light-invalid-disabled': 'icon-dark-red-500 icon-light-red-200',
 
   // Light mode - Warning type
   'light-warning-default': [
-    'icon-dark-orange-500 icon-light-orange-200', // base
     'group-hover:icon-dark-orange-500 group-hover:icon-light-orange-200', // hover
     'group-focus-within:icon-dark-orange-500 group-focus-within:icon-light-orange-200', // focus
     'group-active:icon-dark-orange-500 group-active:icon-light-orange-200', // active
     'has-[:placeholder-shown]:icon-dark-orange-500 has-[:placeholder-shown]:icon-light-orange-200', // placeholder
+    // Icons
+    'icon-dark-orange-500 icon-light-orange-200', // base
+    'group-has-[:disabled]:icon-dark-gray-400 group-has-[:disabled]:icon-light-gray-50',
   ].join(' '),
-  'light-warning-disabled': 'icon-dark-gray-400 icon-light-gray-50',
 
   // Dark mode - Default type
   'dark-default-default': [
-    'icon-dark-gray-500 icon-light-gray-800', // base
     'group-hover:icon-dark-indigo-300 group-hover:icon-light-indigo-500', // hover
     'group-focus-within:icon-dark-indigo-300 group-focus-within:icon-light-indigo-500', // focus
     'group-active:icon-dark-indigo-300 group-active:icon-light-indigo-500', // active
     'has-[:placeholder-shown]:icon-dark-gray-500 has-[:placeholder-shown]:icon-light-gray-800', // placeholder
+    // Icons
+    'icon-dark-gray-500 icon-light-gray-800', // base
+    'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
   ].join(' '),
-  'dark-default-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 
   // Dark mode - Valid type
   'dark-valid-default': [
-    'icon-dark-jade-300 icon-light-jade-500', // base
     'group-hover:icon-dark-jade-300 group-hover:icon-light-jade-500', // hover
     'group-focus-within:icon-dark-jade-300 group-focus-within:icon-light-jade-500', // focus
     'group-active:icon-dark-jade-300 group-active:icon-light-jade-500', // active
     'has-[:placeholder-shown]:icon-dark-jade-300 has-[:placeholder-shown]:icon-light-jade-500', // placeholder
+    // Icons
+    'icon-dark-jade-300 icon-light-jade-500', // base
+    'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
   ].join(' '),
-  'dark-valid-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 
   // Dark mode - Invalid type
   'dark-invalid-default': [
-    'icon-dark-red-300 icon-light-red-500', // base
     'group-hover:icon-dark-red-300 group-hover:icon-light-red-500', // hover
     'group-focus-within:icon-dark-red-300 group-focus-within:icon-light-red-500', // focus
     'group-active:icon-dark-red-300 group-active:icon-light-red-500', // active
     'has-[:placeholder-shown]:icon-dark-red-300 has-[:placeholder-shown]:icon-light-red-500', // placeholder
+    // Icons
+    'icon-dark-red-300 icon-light-red-500', // base
+    'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
   ].join(' '),
-  'dark-invalid-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 
   // Dark mode - Warning type
   'dark-warning-default': [
-    'icon-dark-orange-400 icon-light-transparent', // base (default state uses orange-400/transparent)
     'group-hover:icon-dark-orange-300 group-hover:icon-light-orange-500', // hover
     'group-focus-within:icon-dark-orange-300 group-focus-within:icon-light-orange-500', // focus
     'group-active:icon-dark-orange-300 group-active:icon-light-orange-500', // active
     'has-[:placeholder-shown]:icon-dark-orange-300 has-[:placeholder-shown]:icon-light-orange-500', // placeholder
+    // Icons
+    'icon-dark-orange-400 icon-light-transparent', // base (default state uses orange-400/transparent)
+    'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
   ].join(' '),
-  'dark-warning-disabled': 'icon-dark-gray-600 icon-light-gray-800',
 } as const
 
 // Divider classes - structure: theme
