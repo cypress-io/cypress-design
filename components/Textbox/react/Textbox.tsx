@@ -20,7 +20,6 @@ import {
   CssWrapperHeightClassesTable,
   CssInputContainerPaddingClassesTable,
   CssInputContainerBaseClasses,
-  CssShrinkZeroClass,
   TextboxTheme,
   TextboxVariant,
   TextboxSize,
@@ -140,13 +139,13 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
         <IconComponent
           size="16"
           interactiveColorsOnGroup={true}
-          className={clsx(iconColorClasses, CssShrinkZeroClass)}
+          className={iconColorClasses}
         />
       )
     }
 
     // If Icon is already a ReactNode
-    return <span className={CssShrinkZeroClass}>{Icon}</span>
+    return <span className="shrink-0">{Icon}</span>
   }
 
   // Determine aria-invalid value
@@ -182,9 +181,7 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
         {renderIcon(IconLeft)}
 
         {/* Divider */}
-        {divider && IconLeft && (
-          <div className={clsx(dividerClasses, CssShrinkZeroClass)} />
-        )}
+        {divider && IconLeft && <div className={dividerClasses} />}
 
         {/* Input */}
         <input

@@ -19,7 +19,6 @@ import {
   CssWrapperHeightClassesTable,
   CssInputContainerPaddingClassesTable,
   CssInputContainerBaseClasses,
-  CssShrinkZeroClass,
   type TextboxTheme,
   type TextboxVariant,
   type TextboxSize,
@@ -224,8 +223,6 @@ export default defineComponent({
       CssLabelThemeClassesTable,
       CssLabelBorderClassesTable,
       CssLabelRoundedClassesTable,
-      // Shrink-0 class for template
-      CssShrinkZeroClass,
     }
   },
 })
@@ -255,14 +252,11 @@ export default defineComponent({
         v-if="iconLeft"
         size="16"
         :interactive-colors-on-group="true"
-        :class="[iconColorClasses, CssShrinkZeroClass]"
+        :class="iconColorClasses"
       />
 
       <!-- Divider -->
-      <div
-        v-if="divider && iconLeft"
-        :class="[dividerClasses, CssShrinkZeroClass]"
-      />
+      <div v-if="divider && iconLeft" :class="dividerClasses" />
 
       <!-- Input -->
       <input
@@ -288,7 +282,7 @@ export default defineComponent({
         v-if="iconRight"
         size="16"
         :interactive-colors-on-group="true"
-        :class="[iconColorClasses, CssShrinkZeroClass]"
+        :class="iconColorClasses"
       />
     </div>
 
