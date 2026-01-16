@@ -75,6 +75,34 @@ const files = [
   './docs/**/*.md',
 ].map((file) => path.resolve(__dirname, file))
 
+// Outline utilities that might be in string literals and need to be safelisted
+// These are used in the Textbox component for focus-visible states
+const outlineSafelist = [
+  'outline-none',
+  'outline-2',
+  'outline-offset-0',
+  'focus-within:outline-none',
+  'focus-visible:outline-2',
+  'focus-visible:outline-offset-0',
+  // Specific outline color classes used in Textbox component
+  'outline-indigo-400',
+  'outline-indigo-500',
+  'outline-jade-400',
+  'outline-jade-500',
+  'outline-red-400',
+  'outline-red-500',
+  'outline-orange-400',
+  'outline-orange-500',
+  'focus-visible:outline-indigo-400',
+  'focus-visible:outline-indigo-500',
+  'focus-visible:outline-jade-400',
+  'focus-visible:outline-jade-500',
+  'focus-visible:outline-red-400',
+  'focus-visible:outline-red-500',
+  'focus-visible:outline-orange-400',
+  'focus-visible:outline-orange-500',
+]
+
 /** @type {import('tailwindcss').Config} */
 export default {
   presets: [TailwindConfig()],
@@ -86,5 +114,5 @@ export default {
       {},
     ),
   },
-  safelist: safeColors,
+  safelist: [...safeColors, ...outlineSafelist],
 }
