@@ -19,7 +19,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
       return (
         <div className="p-4">
           <Textbox
-            value={value}
+            defaultValue={value}
             onChange={(e) => setValue(e.target.value)}
             placeholder="Type here..."
           />
@@ -199,7 +199,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   })
 
   it('should apply aria-invalid for invalid variant', () => {
-    mount(<Textbox variant="invalid" value="Invalid input" />)
+    mount(<Textbox variant="invalid" defaultValue="Invalid input" />)
     cy.get('input').should('have.attr', 'aria-invalid', 'true')
   })
 
@@ -245,8 +245,8 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     mount(
       <div className="flex flex-col gap-4 p-4">
         <Textbox placeholder="Placeholder state" />
-        <Textbox value="Value state" />
-        <Textbox value="" placeholder="Empty value with placeholder" />
+        <Textbox defaultValue="Value state" />
+        <Textbox defaultValue="" placeholder="Empty value with placeholder" />
       </div>,
     )
     cy.get('input').should('have.length', 3)
@@ -269,7 +269,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
         <Textbox
           disabled={disabled}
           placeholder={placeholder}
-          value={value}
+          defaultValue={value}
           variant={variant}
           theme={theme}
           size={size}

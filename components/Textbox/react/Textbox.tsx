@@ -1,25 +1,8 @@
 import clsx from 'clsx'
 import * as React from 'react'
-import {
+import * as TextboxConstants from '@cypress-design/constants-textbox'
+import type {
   TextboxProps as TextboxPropsBase,
-  DefaultTheme,
-  DefaultVariant,
-  DefaultSize,
-  CssStaticClasses,
-  CssInputSizeClassesTable,
-  CssVariantClassesTable,
-  CssRoundedClasses,
-  CssInputClassesTable,
-  CssLabelSizeClassesTable,
-  CssLabelThemeClassesTable,
-  CssLabelBorderClassesTable,
-  CssLabelRoundedClassesTable,
-  CssLabelBaseClasses,
-  CssIconColorClassesTable,
-  DividerClasses,
-  CssWrapperHeightClassesTable,
-  CssInputContainerPaddingClassesTable,
-  CssInputContainerBaseClasses,
   TextboxTheme,
   TextboxVariant,
   TextboxSize,
@@ -58,9 +41,9 @@ type ReactTextboxProps = TextboxPropsJsx &
   >
 
 export const Textbox: React.FC<ReactTextboxProps> = ({
-  theme = DefaultTheme,
-  variant = DefaultVariant,
-  size = DefaultSize,
+  theme = TextboxConstants.DefaultTheme,
+  variant = TextboxConstants.DefaultVariant,
+  size = TextboxConstants.DefaultSize,
   rounded = false,
   labelLeft,
   iconLeft: IconLeft,
@@ -85,46 +68,53 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
   // Build variant class key: theme-variant-default
   // Disabled state is handled by CSS has-[:disabled]: pseudo-class
   const variantKey =
-    `${theme}-${variant}-default` as keyof typeof CssVariantClassesTable
+    `${theme}-${variant}-default` as keyof typeof TextboxConstants.CssVariantClassesTable
 
   // Get variant classes - these include hover/active/focus/focus-visible styles
   // CSS pseudo-classes will automatically apply the correct styles
-  const variantClasses = CssVariantClassesTable[variantKey] || ''
+  const variantClasses =
+    TextboxConstants.CssVariantClassesTable[variantKey] || ''
 
   // Get rounded classes
   const roundedClasses =
-    CssRoundedClasses[rounded as unknown as keyof typeof CssRoundedClasses]
+    TextboxConstants.CssRoundedClasses[
+      rounded as unknown as keyof typeof TextboxConstants.CssRoundedClasses
+    ]
 
   // Build wrapper classes - wrapper handles hover/focus states and height
   // Use label element for click-to-focus behavior (no JS needed)
   const wrapperClasses = clsx(
-    CssStaticClasses,
+    TextboxConstants.CssStaticClasses,
     variantClasses,
     roundedClasses,
-    CssWrapperHeightClassesTable[size], // Height on wrapper
+    TextboxConstants.CssWrapperHeightClassesTable[size], // Height on wrapper
     className,
   )
 
   // Build input container classes - this contains the input and icons with padding
   const inputContainerClasses = clsx(
-    CssInputContainerBaseClasses,
-    CssInputContainerPaddingClassesTable[size], // Padding on input container
+    TextboxConstants.CssInputContainerBaseClasses,
+    TextboxConstants.CssInputContainerPaddingClassesTable[size], // Padding on input container
   )
 
   // Get input size classes (font size and line height)
-  const inputSizeClasses = CssInputSizeClassesTable[size]
+  const inputSizeClasses = TextboxConstants.CssInputSizeClassesTable[size]
 
   // Build input classes
-  const inputClasses = clsx(CssInputClassesTable[theme], inputSizeClasses)
+  const inputClasses = clsx(
+    TextboxConstants.CssInputClassesTable[theme],
+    inputSizeClasses,
+  )
 
   // Get icon color classes
   // Disabled state is handled by CSS has-[:disabled]: pseudo-class
   const iconColorKey =
-    `${theme}-${variant}-default` as keyof typeof CssIconColorClassesTable
-  const iconColorClasses = CssIconColorClassesTable[iconColorKey]
+    `${theme}-${variant}-default` as keyof typeof TextboxConstants.CssIconColorClassesTable
+  const iconColorClasses =
+    TextboxConstants.CssIconColorClassesTable[iconColorKey]
 
   // Get divider classes
-  const dividerClasses = DividerClasses[theme]
+  const dividerClasses = TextboxConstants.DividerClasses[theme]
 
   // Render icon helper
   const renderIcon = (
@@ -162,11 +152,11 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       {labelLeft && (
         <span
           className={clsx(
-            CssLabelBaseClasses,
-            CssLabelSizeClassesTable[size],
-            CssLabelThemeClassesTable[theme],
-            CssLabelBorderClassesTable.left[theme],
-            CssLabelRoundedClassesTable.left[
+            TextboxConstants.CssLabelBaseClasses,
+            TextboxConstants.CssLabelSizeClassesTable[size],
+            TextboxConstants.CssLabelThemeClassesTable[theme],
+            TextboxConstants.CssLabelBorderClassesTable.left[theme],
+            TextboxConstants.CssLabelRoundedClassesTable.left[
               rounded ? 'rounded' : 'notRounded'
             ],
           )}
@@ -209,11 +199,11 @@ export const Textbox: React.FC<ReactTextboxProps> = ({
       {labelRight && (
         <span
           className={clsx(
-            CssLabelBaseClasses,
-            CssLabelSizeClassesTable[size],
-            CssLabelThemeClassesTable[theme],
-            CssLabelBorderClassesTable.right[theme],
-            CssLabelRoundedClassesTable.right[
+            TextboxConstants.CssLabelBaseClasses,
+            TextboxConstants.CssLabelSizeClassesTable[size],
+            TextboxConstants.CssLabelThemeClassesTable[theme],
+            TextboxConstants.CssLabelBorderClassesTable.right[theme],
+            TextboxConstants.CssLabelRoundedClassesTable.right[
               rounded ? 'rounded' : 'notRounded'
             ],
           )}

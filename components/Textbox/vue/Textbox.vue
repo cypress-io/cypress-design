@@ -1,27 +1,10 @@
 <script lang="ts">
 import { PropType, computed, defineComponent } from 'vue'
-import {
-  DefaultTheme,
-  DefaultVariant,
-  DefaultSize,
-  CssStaticClasses,
-  CssInputSizeClassesTable,
-  CssVariantClassesTable,
-  CssRoundedClasses,
-  CssInputClassesTable,
-  CssLabelSizeClassesTable,
-  CssLabelThemeClassesTable,
-  CssLabelBorderClassesTable,
-  CssLabelRoundedClassesTable,
-  CssLabelBaseClasses,
-  CssIconColorClassesTable,
-  DividerClasses,
-  CssWrapperHeightClassesTable,
-  CssInputContainerPaddingClassesTable,
-  CssInputContainerBaseClasses,
-  type TextboxTheme,
-  type TextboxVariant,
-  type TextboxSize,
+import * as TextboxConstants from '@cypress-design/constants-textbox'
+import type {
+  TextboxTheme,
+  TextboxVariant,
+  TextboxSize,
 } from '@cypress-design/constants-textbox'
 
 export default defineComponent({
@@ -29,15 +12,15 @@ export default defineComponent({
   props: {
     theme: {
       type: String as PropType<TextboxTheme>,
-      default: DefaultTheme,
+      default: TextboxConstants.DefaultTheme,
     },
     variant: {
       type: String as PropType<TextboxVariant>,
-      default: DefaultVariant,
+      default: TextboxConstants.DefaultVariant,
     },
     size: {
       type: String as PropType<TextboxSize>,
-      default: DefaultSize,
+      default: TextboxConstants.DefaultSize,
     },
     rounded: {
       type: Boolean,
@@ -111,18 +94,18 @@ export default defineComponent({
     // Build variant class key: theme-variant-default
     // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const variantKey = computed(() => {
-      return `${props.theme}-${props.variant}-default` as keyof typeof CssVariantClassesTable
+      return `${props.theme}-${props.variant}-default` as keyof typeof TextboxConstants.CssVariantClassesTable
     })
 
     // Get variant classes
     const variantClasses = computed(() => {
-      return CssVariantClassesTable[variantKey.value] || ''
+      return TextboxConstants.CssVariantClassesTable[variantKey.value] || ''
     })
 
     // Get rounded classes
     const roundedClasses = computed(() => {
-      return CssRoundedClasses[
-        props.rounded as unknown as keyof typeof CssRoundedClasses
+      return TextboxConstants.CssRoundedClasses[
+        props.rounded as unknown as keyof typeof TextboxConstants.CssRoundedClasses
       ]
     })
 
@@ -130,44 +113,47 @@ export default defineComponent({
     // Use label element for click-to-focus behavior (no JS needed)
     const wrapperClasses = computed(() => {
       return [
-        CssStaticClasses,
+        TextboxConstants.CssStaticClasses,
         variantClasses.value,
         roundedClasses.value,
-        CssWrapperHeightClassesTable[props.size],
+        TextboxConstants.CssWrapperHeightClassesTable[props.size],
       ]
     })
 
     // Build input container classes
     const inputContainerClasses = computed(() => {
       return [
-        CssInputContainerBaseClasses,
-        CssInputContainerPaddingClassesTable[props.size],
+        TextboxConstants.CssInputContainerBaseClasses,
+        TextboxConstants.CssInputContainerPaddingClassesTable[props.size],
       ]
     })
 
     // Get input size classes (font size and line height)
     const inputSizeClasses = computed(() => {
-      return CssInputSizeClassesTable[props.size]
+      return TextboxConstants.CssInputSizeClassesTable[props.size]
     })
 
     // Build input classes
     const inputClasses = computed(() => {
-      return [CssInputClassesTable[props.theme], inputSizeClasses.value]
+      return [
+        TextboxConstants.CssInputClassesTable[props.theme],
+        inputSizeClasses.value,
+      ]
     })
 
     // Get icon color classes
     // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const iconColorKey = computed(() => {
-      return `${props.theme}-${props.variant}-default` as keyof typeof CssIconColorClassesTable
+      return `${props.theme}-${props.variant}-default` as keyof typeof TextboxConstants.CssIconColorClassesTable
     })
 
     const iconColorClasses = computed(() => {
-      return CssIconColorClassesTable[iconColorKey.value]
+      return TextboxConstants.CssIconColorClassesTable[iconColorKey.value]
     })
 
     // Get divider classes
     const dividerClasses = computed(() => {
-      return DividerClasses[props.theme]
+      return TextboxConstants.DividerClasses[props.theme]
     })
 
     // Determine aria-invalid value
@@ -218,11 +204,7 @@ export default defineComponent({
       handleFocus,
       handleBlur,
       // Label constants for template
-      CssLabelBaseClasses,
-      CssLabelSizeClassesTable,
-      CssLabelThemeClassesTable,
-      CssLabelBorderClassesTable,
-      CssLabelRoundedClassesTable,
+      TextboxConstants,
     }
   },
 })
@@ -234,11 +216,13 @@ export default defineComponent({
     <span
       v-if="labelLeft"
       :class="[
-        CssLabelBaseClasses,
-        CssLabelSizeClassesTable[size],
-        CssLabelThemeClassesTable[theme],
-        CssLabelBorderClassesTable.left[theme],
-        CssLabelRoundedClassesTable.left[rounded ? 'rounded' : 'notRounded'],
+        TextboxConstants.CssLabelBaseClasses,
+        TextboxConstants.CssLabelSizeClassesTable[size],
+        TextboxConstants.CssLabelThemeClassesTable[theme],
+        TextboxConstants.CssLabelBorderClassesTable.left[theme],
+        TextboxConstants.CssLabelRoundedClassesTable.left[
+          rounded ? 'rounded' : 'notRounded'
+        ],
       ]"
     >
       {{ labelLeft }}
@@ -290,11 +274,13 @@ export default defineComponent({
     <span
       v-if="labelRight"
       :class="[
-        CssLabelBaseClasses,
-        CssLabelSizeClassesTable[size],
-        CssLabelThemeClassesTable[theme],
-        CssLabelBorderClassesTable.right[theme],
-        CssLabelRoundedClassesTable.right[rounded ? 'rounded' : 'notRounded'],
+        TextboxConstants.CssLabelBaseClasses,
+        TextboxConstants.CssLabelSizeClassesTable[size],
+        TextboxConstants.CssLabelThemeClassesTable[theme],
+        TextboxConstants.CssLabelBorderClassesTable.right[theme],
+        TextboxConstants.CssLabelRoundedClassesTable.right[
+          rounded ? 'rounded' : 'notRounded'
+        ],
       ]"
     >
       {{ labelRight }}
