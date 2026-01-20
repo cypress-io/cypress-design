@@ -1,3 +1,5 @@
+import type * as React from 'react'
+
 // Base static classes for all textboxes
 export const CssStaticClasses =
   'flex items-center border border-solid transition-colors duration-150 group cursor-pointer'
@@ -388,11 +390,11 @@ export interface TextboxProps {
   /**
    * Label text or element on the left side
    */
-  labelLeft?: string | any
+  labelLeft?: string | React.ReactNode
   /**
    * Icon component on the left side
    */
-  iconLeft?: any
+  iconLeft?: React.ComponentType<any> | React.ReactNode
   /**
    * Whether to show a divider between iconLeft and input
    */
@@ -400,11 +402,11 @@ export interface TextboxProps {
   /**
    * Icon component on the right side
    */
-  iconRight?: any
+  iconRight?: React.ComponentType<any> | React.ReactNode
   /**
    * Label text or element on the right side
    */
-  labelRight?: string | any
+  labelRight?: string | React.ReactNode
   /**
    * Whether the input is disabled
    */

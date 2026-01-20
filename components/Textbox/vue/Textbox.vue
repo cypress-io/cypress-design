@@ -28,9 +28,11 @@ export default defineComponent({
     },
     labelLeft: {
       type: [String, Object] as PropType<string | unknown>,
+      // Can be a string or Vue component/VNode
     },
     iconLeft: {
       type: [Object, Function] as PropType<unknown>,
+      // Can be a Vue component or icon component from @cypress-design/vue-icon
     },
     divider: {
       type: Boolean,
@@ -38,9 +40,11 @@ export default defineComponent({
     },
     iconRight: {
       type: [Object, Function] as PropType<unknown>,
+      // Can be a Vue component or icon component from @cypress-design/vue-icon
     },
     labelRight: {
       type: [String, Object] as PropType<string | unknown>,
+      // Can be a string or Vue component/VNode
     },
     disabled: {
       type: Boolean,
@@ -89,6 +93,9 @@ export default defineComponent({
     input: (event: Event) => event instanceof Event,
     focus: (event: FocusEvent) => event instanceof FocusEvent,
     blur: (event: FocusEvent) => event instanceof FocusEvent,
+    keydown: (event: KeyboardEvent) => event instanceof KeyboardEvent,
+    keyup: (event: KeyboardEvent) => event instanceof KeyboardEvent,
+    keypress: (event: KeyboardEvent) => event instanceof KeyboardEvent,
   },
   setup(props, { emit }) {
     // Build variant class key: theme-variant-default
@@ -190,6 +197,18 @@ export default defineComponent({
       emit('blur', event)
     }
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      emit('keydown', event)
+    }
+
+    const handleKeyUp = (event: KeyboardEvent) => {
+      emit('keyup', event)
+    }
+
+    const handleKeyPress = (event: KeyboardEvent) => {
+      emit('keypress', event)
+    }
+
     return {
       wrapperClasses,
       inputContainerClasses,
@@ -203,6 +222,9 @@ export default defineComponent({
       handleInput,
       handleFocus,
       handleBlur,
+      handleKeyDown,
+      handleKeyUp,
+      handleKeyPress,
       // Label constants for template
       TextboxConstants,
     }
@@ -258,6 +280,9 @@ export default defineComponent({
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
+        @keydown="handleKeyDown"
+        @keyup="handleKeyUp"
+        @keypress="handleKeyPress"
       />
 
       <!-- Icon Right -->

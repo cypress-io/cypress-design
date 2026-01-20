@@ -389,6 +389,226 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
 </template>
 ```
 
+## Template Refs
+
+The Textbox component supports template refs, allowing you to access the underlying input element directly:
+
+```vue
+<template>
+  <div>
+    <Textbox ref="inputRef" placeholder="Type here..." />
+    <button @click="handleFocus">Focus Input</button>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import Textbox from '@cypress-design/vue-textbox'
+
+const inputRef = ref<InstanceType<typeof Textbox> | null>(null)
+
+const handleFocus = () => {
+  // Access the input element through the component instance
+  const input = inputRef.value?.$el?.querySelector('input')
+  input?.focus()
+}
+</script>
+```
+
+This is useful for:
+
+- Programmatically focusing the input
+- Accessing input methods like `select()`, `setSelectionRange()`
+- Integrating with third-party libraries that need direct DOM access
+
+## Keyboard Event Handlers
+
+The Textbox component supports keyboard event handlers for advanced interactions:
+
+```vue
+<template>
+  <Textbox
+    placeholder="Press Enter..."
+    @keydown="handleKeyDown"
+    @keyup="handleKeyUp"
+    @keypress="handleKeyPress"
+  />
+</template>
+
+<script setup lang="ts">
+import Textbox from '@cypress-design/vue-textbox'
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Enter') {
+    console.log('Enter pressed')
+  }
+}
+
+const handleKeyUp = (e: KeyboardEvent) => {
+  console.log('Key released:', e.key)
+}
+
+const handleKeyPress = (e: KeyboardEvent) => {
+  console.log('Key pressed:', e.key)
+}
+</script>
+```
+
+### Available Keyboard Events
+
+- **@keydown**: Fired when a key is pressed down
+- **@keyup**: Fired when a key is released
+- **@keypress**: Fired when a printable character key is pressed
+
+## Common Input Attributes
+
+The Textbox component supports all standard HTML input attributes. This includes:
+
+### Form Attributes
+
+- **readonly**: Makes the input read-only
+- **required**: Marks the input as required for form validation
+- **name**: Input name for form submission
+- **form**: Associates input with a form element
+
+### Validation Attributes
+
+- **maxlength**: Maximum number of characters
+- **minlength**: Minimum number of characters
+- **pattern**: Regular expression pattern for validation
+- **title**: Tooltip text shown on validation error
+
+### Other Attributes
+
+- **readonly**: Alias for readonly
+- **tabindex**: Tab order
+- **autocomplete**: Autocomplete behavior
+- **spellcheck**: Enable/disable spell checking
+
+Example:
+
+```vue
+<Textbox
+  placeholder="Username"
+  name="username"
+  required
+  maxlength="20"
+  minlength="3"
+  pattern="[a-zA-Z0-9]+"
+  title="Username must be 3-20 alphanumeric characters"
+/>
+```
+
+## Real-World Use Cases
+
+### Form Input with Validation
+
+```vue
+<template>
+  <div>
+    <Textbox
+      type="email"
+      placeholder="Email"
+      v-model="email"
+      @blur="validateEmail"
+      :variant="error ? 'invalid' : 'default'"
+      :aria-describedby="error ? 'email-error' : undefined"
+    />
+    <div v-if="error" id="email-error">{{ error }}</div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import Textbox from '@cypress-design/vue-textbox'
+
+const email = ref('')
+const error = ref('')
+
+const validateEmail = () => {
+  if (!email.value.includes('@')) {
+    error.value = 'Invalid email address'
+  } else {
+    error.value = ''
+  }
+}
+</script>
+```
+
+### Search Input with Keyboard Shortcuts
+
+```vue
+<template>
+  <Textbox
+    ref="inputRef"
+    :icon-left="IconActionSearch"
+    placeholder="Search (press / to focus)"
+    @keydown="handleKeyDown"
+  />
+</template>
+
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+import Textbox from '@cypress-design/vue-textbox'
+import { IconActionSearch } from '@cypress-design/vue-icon'
+
+const inputRef = ref<InstanceType<typeof Textbox> | null>(null)
+
+const handleKeyDown = (e: KeyboardEvent) => {
+  if (e.key === 'Escape') {
+    const input = inputRef.value?.$el?.querySelector('input')
+    input?.blur()
+  }
+}
+
+onMounted(() => {
+  const handleKeyPress = (e: KeyboardEvent) => {
+    if (
+      e.key === '/' &&
+      e.target !== inputRef.value?.$el?.querySelector('input')
+    ) {
+      e.preventDefault()
+      const input = inputRef.value?.$el?.querySelector('input')
+      input?.focus()
+    }
+  }
+
+  window.addEventListener('keydown', handleKeyPress)
+  onUnmounted(() => {
+    window.removeEventListener('keydown', handleKeyPress)
+  })
+})
+</script>
+```
+
+### Controlled Input with Debouncing
+
+```vue
+<template>
+  <div>
+    <Textbox v-model="value" placeholder="Search..." />
+    <p>Searching for: {{ debouncedValue }}</p>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, watch } from 'vue'
+import Textbox from '@cypress-design/vue-textbox'
+
+const value = ref('')
+const debouncedValue = ref('')
+
+let timeoutId: ReturnType<typeof setTimeout>
+
+watch(value, (newValue) => {
+  clearTimeout(timeoutId)
+  timeoutId = setTimeout(() => {
+    debouncedValue.value = newValue
+  }, 300)
+})
+</script>
+```
+
 ## Props
 
 (Props section will be auto-generated by vue-docgen-cli)

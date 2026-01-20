@@ -491,6 +491,208 @@ Whether to show a divider between iconLeft and input
 
 ### labelRight
 
-<p><b>type</b> <code class="bg-gray-50 py-[2px] px-[4px] rounded">any</code></p>
+<p><b>type</b> <code class="bg-gray-50 py-[2px] px-[4px] rounded">string | ReactNode</code></p>
 
 Label text or element on the right side
+
+## Ref Forwarding
+
+The Textbox component supports ref forwarding, allowing you to access the underlying input element directly:
+
+```tsx
+import { useRef } from 'react'
+import Textbox from '@cypress-design/react-textbox'
+
+function MyComponent() {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const handleFocus = () => {
+    inputRef.current?.focus()
+  }
+
+  return (
+    <>
+      <Textbox ref={inputRef} placeholder="Type here..." />
+      <button onClick={handleFocus}>Focus Input</button>
+    </>
+  )
+}
+```
+
+This is useful for:
+
+- Programmatically focusing the input
+- Accessing input methods like `select()`, `setSelectionRange()`
+- Integrating with third-party libraries that need direct DOM access
+- Measuring input dimensions
+
+## Keyboard Event Handlers
+
+The Textbox component supports keyboard event handlers for advanced interactions:
+
+```tsx
+import Textbox from '@cypress-design/react-textbox'
+
+function MyComponent() {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      console.log('Enter pressed')
+    }
+  }
+
+  const handleKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log('Key released:', e.key)
+  }
+
+  return (
+    <Textbox
+      placeholder="Press Enter..."
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+    />
+  )
+}
+```
+
+### Available Keyboard Handlers
+
+- **onKeyDown**: Fired when a key is pressed down
+- **onKeyUp**: Fired when a key is released
+- **onKeyPress**: Fired when a printable character key is pressed (deprecated but still supported)
+
+## Common Input Attributes
+
+The Textbox component supports all standard HTML input attributes through the `...rest` props spread. This includes:
+
+### Form Attributes
+
+- **readonly**: Makes the input read-only
+- **required**: Marks the input as required for form validation
+- **name**: Input name for form submission
+- **form**: Associates input with a form element
+
+### Validation Attributes
+
+- **maxLength**: Maximum number of characters
+- **minLength**: Minimum number of characters
+- **pattern**: Regular expression pattern for validation
+- **title**: Tooltip text shown on validation error
+
+### Other Attributes
+
+- **readOnly**: Alias for readonly
+- **tabIndex**: Tab order
+- **autoComplete**: Autocomplete behavior
+- **spellCheck**: Enable/disable spell checking
+
+Example:
+
+```tsx
+<Textbox
+  placeholder="Username"
+  name="username"
+  required
+  maxLength={20}
+  minLength={3}
+  pattern="[a-zA-Z0-9]+"
+  title="Username must be 3-20 alphanumeric characters"
+/>
+```
+
+## Real-World Use Cases
+
+### Form Input with Validation
+
+```tsx
+function LoginForm() {
+  const [email, setEmail] = useState('')
+  const [error, setError] = useState('')
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+    setError('')
+  }
+
+  const handleBlur = () => {
+    if (!email.includes('@')) {
+      setError('Invalid email address')
+    }
+  }
+
+  return (
+    <div>
+      <Textbox
+        type="email"
+        placeholder="Email"
+        value={email}
+        onChange={handleChange}
+        onBlur={handleBlur}
+        variant={error ? 'invalid' : 'default'}
+        aria-describedby={error ? 'email-error' : undefined}
+      />
+      {error && <div id="email-error">{error}</div>}
+    </div>
+  )
+}
+```
+
+### Search Input with Keyboard Shortcuts
+
+```tsx
+function SearchBox() {
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === '/' && e.target !== inputRef.current) {
+        e.preventDefault()
+        inputRef.current?.focus()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [])
+
+  return (
+    <Textbox
+      ref={inputRef}
+      iconLeft={IconActionSearch}
+      placeholder="Search (press / to focus)"
+      onKeyDown={(e) => {
+        if (e.key === 'Escape') {
+          e.currentTarget.blur()
+        }
+      }}
+    />
+  )
+}
+```
+
+### Controlled Input with Debouncing
+
+```tsx
+function DebouncedSearch() {
+  const [value, setValue] = useState('')
+  const [debouncedValue, setDebouncedValue] = useState('')
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value)
+    }, 300)
+
+    return () => clearTimeout(timer)
+  }, [value])
+
+  return (
+    <>
+      <Textbox
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        placeholder="Search..."
+      />
+      <p>Searching for: {debouncedValue}</p>
+    </>
+  )
+}
+```

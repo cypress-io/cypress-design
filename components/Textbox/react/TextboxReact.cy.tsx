@@ -281,3 +281,135 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
 
   assertions(mountStory)
 })
+
+describe('Ref Forwarding', () => {
+  it('should forward ref to input element', () => {
+    const inputRef = React.createRef<HTMLInputElement>()
+
+    mount(
+      <div>
+        <Textbox ref={inputRef} placeholder="Test input" />
+      </div>,
+    )
+
+    cy.then(() => {
+      expect(inputRef.current).to.exist
+      expect(inputRef.current?.tagName).to.equal('INPUT')
+      expect(inputRef.current?.placeholder).to.equal('Test input')
+    })
+  })
+
+  it('should allow programmatic focus via ref', () => {
+    const inputRef = React.createRef<HTMLInputElement>()
+
+    mount(
+      <div>
+        <Textbox ref={inputRef} placeholder="Test input" />
+        <button
+          onClick={() => {
+            inputRef.current?.focus()
+          }}
+        >
+          Focus
+        </button>
+      </div>,
+    )
+
+    cy.get('input').should('not.be.focused')
+    cy.get('button').click()
+    cy.get('input').should('be.focused')
+  })
+
+  it('should allow programmatic value manipulation via ref', () => {
+    const inputRef = React.createRef<HTMLInputElement>()
+
+    mount(
+      <div>
+        <Textbox ref={inputRef} />
+        <button
+          onClick={() => {
+            if (inputRef.current) {
+              inputRef.current.value = 'Programmatic value'
+            }
+          }}
+        >
+          Set Value
+        </button>
+      </div>,
+    )
+
+    cy.get('input').should('have.value', '')
+    cy.get('button').click()
+    cy.get('input').should('have.value', 'Programmatic value')
+  })
+})
+
+describe('Keyboard Event Handlers', () => {
+  it('should call onKeyDown handler', () => {
+    const onKeyDown = cy.stub().as('onKeyDown')
+
+    mount(<Textbox placeholder="Test" onKeyDown={onKeyDown} />)
+
+    cy.get('input').type('a')
+    cy.get('@onKeyDown').should('have.been.called')
+    cy.get('@onKeyDown').should('have.been.calledWithMatch', {
+      key: 'a',
+    })
+  })
+
+  it('should call onKeyUp handler', () => {
+    const onKeyUp = cy.stub().as('onKeyUp')
+
+    mount(<Textbox placeholder="Test" onKeyUp={onKeyUp} />)
+
+    cy.get('input').type('b')
+    cy.get('@onKeyUp').should('have.been.called')
+  })
+
+  it('should call onKeyPress handler', () => {
+    const onKeyPress = cy.stub().as('onKeyPress')
+
+    mount(<Textbox placeholder="Test" onKeyPress={onKeyPress} />)
+
+    cy.get('input').type('c')
+    cy.get('@onKeyPress').should('have.been.called')
+  })
+
+  it('should handle Enter key press', () => {
+    const onKeyDown = cy.stub().as('onKeyDown')
+
+    mount(<Textbox placeholder="Test" onKeyDown={onKeyDown} />)
+
+    cy.get('input').type('{enter}')
+    cy.get('@onKeyDown').should('have.been.calledWithMatch', {
+      key: 'Enter',
+    })
+  })
+
+  it('should handle Escape key press', () => {
+    const onKeyDown = cy.stub().as('onKeyDown')
+
+    mount(<Textbox placeholder="Test" onKeyDown={onKeyDown} />)
+
+    cy.get('input').type('{esc}')
+    cy.get('@onKeyDown').should('have.been.calledWithMatch', {
+      key: 'Escape',
+    })
+  })
+
+  it('should handle Tab key navigation', () => {
+    const onKeyDown = cy.stub().as('onKeyDown')
+
+    mount(
+      <div>
+        <Textbox placeholder="First" onKeyDown={onKeyDown} />
+        <Textbox placeholder="Second" />
+      </div>,
+    )
+
+    cy.get('input').first().type('{tab}')
+    cy.get('@onKeyDown').should('have.been.calledWithMatch', {
+      key: 'Tab',
+    })
+  })
+})
