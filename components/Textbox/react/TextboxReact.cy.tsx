@@ -407,9 +407,8 @@ describe('Keyboard Event Handlers', () => {
       </div>,
     )
 
-    cy.get('input').first().type('{tab}')
-    cy.get('@onKeyDown').should('have.been.calledWithMatch', {
-      key: 'Tab',
-    })
+    cy.get('input[placeholder="First"]').focus()
+    cy.press(Cypress.Keyboard.Keys.TAB)
+    cy.get('input[placeholder="Second"]').should('have.focus')
   })
 })
