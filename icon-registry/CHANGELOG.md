@@ -1,5 +1,17 @@
 # @cypress-design/icon-registry
 
+## 1.39.0
+
+### Minor Changes
+
+- [#647](https://github.com/cypress-io/cypress-design/pull/647) [`ecf9dd5`](https://github.com/cypress-io/cypress-design/commit/ecf9dd532954274f471aef982f3f86223d926dff) Thanks [@mabela416](https://github.com/mabela416)! - Add 48px triangle warning icon
+
+## 1.38.0
+
+### Minor Changes
+
+- [#645](https://github.com/cypress-io/cypress-design/pull/645) [`b0612ff`](https://github.com/cypress-io/cypress-design/commit/b0612ff0c2e77c0cd00444ca7a4be948cd72676e) Thanks [@davidr-cy](https://github.com/davidr-cy)! - Add coin icons (pending, success, small) and MCP logo icon with CSS class theming support
+
 ## 1.37.0
 
 ### Minor Changes

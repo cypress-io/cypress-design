@@ -15,6 +15,8 @@ import {
   useRole,
   useDismiss,
   safePolygon,
+  OffsetOptions,
+  ShiftOptions,
 } from '@floating-ui/react'
 
 export interface TooltipProps {
@@ -53,6 +55,19 @@ export interface TooltipProps {
    * If true, the tooltip will be open.
    */
   open?: boolean
+  /**
+   * The padding between the arrow and the edges of the floating element. The default is 24px
+   */
+  arrowPadding?: number
+  /**
+   * Options for shifting the floating element to keep it in view. The default is `{ padding: 16 }`
+   */
+  shiftOptions?: ShiftOptions
+  /**
+   * Options for translating the floating element along the specified axes.
+   * The default is 16px
+   */
+  offsetOptions?: OffsetOptions | number
 }
 
 const ROTATE_MAP = {
@@ -75,6 +90,11 @@ export const Tooltip: React.FC<
   interactive,
   forcePlacement,
   open: _open = false,
+  arrowPadding = 24,
+  shiftOptions = {
+    padding: 16,
+  },
+  offsetOptions = 16,
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
@@ -101,9 +121,9 @@ export const Tooltip: React.FC<
             fn: (obj) => obj,
           }
         : flip(),
-      offset(16),
-      arrow({ element: arrowRef, padding: 24 }),
-      shift({ padding: 16 }),
+      offset(offsetOptions),
+      arrow({ element: arrowRef, padding: arrowPadding }),
+      shift(shiftOptions),
     ],
     whileElementsMounted: autoUpdate,
   })
