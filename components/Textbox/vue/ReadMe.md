@@ -541,7 +541,7 @@ const validateEmail = () => {
 <template>
   <Textbox
     ref="inputRef"
-    :icon-left="IconActionSearch"
+    :icon-left="IconShapeLightningBolt"
     placeholder="Search (press / to focus)"
     @keydown="handleKeyDown"
   />
@@ -550,7 +550,7 @@ const validateEmail = () => {
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import Textbox from '@cypress-design/vue-textbox'
-import { IconActionSearch } from '@cypress-design/vue-icon'
+import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
 
 const inputRef = ref<InstanceType<typeof Textbox> | null>(null)
 

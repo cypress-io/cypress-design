@@ -21,11 +21,11 @@ import Textbox from '@cypress-design/react-textbox'
 ```
 
 ```jsx
-import { IconActionSearch } from '@cypress-design/react-icon'
+import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 import Textbox from '@cypress-design/react-textbox'
 
 export default () => (
-  <Textbox iconLeft={IconActionSearch} placeholder="Search..." />
+  <Textbox iconLeft={IconShapeLightningBolt} placeholder="Search..." />
 )
 ```
 
@@ -639,6 +639,10 @@ function LoginForm() {
 ### Search Input with Keyboard Shortcuts
 
 ```tsx
+import { useRef, useEffect } from 'react'
+import Textbox from '@cypress-design/react-textbox'
+import { IconShapeLightningBolt } from '@cypress-design/react-icon'
+
 function SearchBox() {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -657,7 +661,7 @@ function SearchBox() {
   return (
     <Textbox
       ref={inputRef}
-      iconLeft={IconActionSearch}
+      iconLeft={IconShapeLightningBolt}
       placeholder="Search (press / to focus)"
       onKeyDown={(e) => {
         if (e.key === 'Escape') {
