@@ -55,6 +55,6 @@ jobs:
           path: |
             ./css/dist
             ./icon-registry/dist
-            ./components
+            ./components/**/dist
             ./packages/details-animation/dist
             ./node_modules
