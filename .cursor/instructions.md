@@ -49,6 +49,48 @@ Each component must include:
 - Component-specific instructions override or supplement these global instructions
 - Always check for component-specific instructions first
 
+## Execution Workflow
+
+Component implementation should follow a staged approach. Complete each stage before moving to the next:
+
+1. **Plan Mode: Refine Component Instructions**
+
+   - Create or update `components/{ComponentName}/cursor-instructions.md` with component-specific requirements
+   - Document any deviations from global patterns or special considerations
+   - Define component-specific constants structure, prop types, and styling patterns
+
+2. **Create Components and Previews**
+
+   - **2a) Core Components:**
+     - Create shared visual styles in `components/{ComponentName}/constants/src/index.ts`
+     - Implement React component in `components/{ComponentName}/react/{ComponentName}.tsx`
+     - Implement Vue component in `components/{ComponentName}/vue/{ComponentName}.vue`
+     - Create component overview in `components/{ComponentName}/ReadMe.md`
+   - **2b) VitePress Documentation:**
+     - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
+     - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
+     - Include interactive code examples using ``jsx live` and ``vue live` blocks
+
+3. **Optimize Component for Accessibility**
+
+   - Review and implement WCAG 2.1 Level AA compliance requirements
+   - Add appropriate ARIA attributes (`aria-label`, `aria-invalid`, `aria-describedby`, `aria-disabled`, etc.)
+   - Ensure keyboard navigation works correctly (Tab, Enter, Space, Arrow keys as appropriate)
+   - Verify focus management and focus-visible indicators
+   - Test with keyboard-only navigation
+   - Ensure semantic HTML is used appropriately
+   - Verify screen reader compatibility
+
+4. **Generate Cypress Tests**
+
+   - Create component test file `components/{ComponentName}/react/{ComponentName}React.cy.tsx`
+   - Create component test file `components/{ComponentName}/vue/{ComponentName}Vue.cy.tsx`
+   - Test all states, sizes, variants, and accessibility features
+   - Include visual regression tests with `cy.percySnapshot()`
+   - Test keyboard navigation and accessibility features
+
+For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing", "Accessibility").
+
 ## Styling & Tokens
 
 ### Design Tokens
