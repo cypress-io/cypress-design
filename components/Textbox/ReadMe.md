@@ -71,5 +71,6 @@ Future consideration:
 
 - Css can't differentiate between focus and focus visible states for the Textbox. To make this possible we will probably need to use JS
 - Icon color's currently can't be customized by the developer. They are applied via css
+- Explore automatically switching from light to dark theme based on user preference
 
 [figma::Tag](https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=911-826&t=aU2glMF0Jlp2jNYC-4)
