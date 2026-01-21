@@ -53,6 +53,16 @@ Each component must include:
 
 Component implementation should follow a staged approach. Complete each stage before moving to the next:
 
+### Branching Strategy
+
+To make the code easier for review by developers, split the implementation into 3 branches:
+
+- **`{component-name}-branch`** (steps 1 and 2): Plan mode refinement and component creation
+- **`{component-name}-accessibility`** (step 3): Accessibility optimization
+- **`{component-name}-tests`** (step 4): Cypress test generation
+
+Each branch should be reviewed and merged before starting the next branch.
+
 1. **Plan Mode: Refine Component Instructions**
 
    - Create or update `components/{ComponentName}/cursor-instructions.md` with component-specific requirements
