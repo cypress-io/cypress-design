@@ -1,12 +1,7 @@
 import clsx from 'clsx'
 import * as React from 'react'
 import * as TextboxConstants from '@cypress-design/constants-textbox'
-import type {
-  TextboxProps as TextboxPropsBase,
-  TextboxTheme,
-  TextboxVariant,
-  TextboxSize,
-} from '@cypress-design/constants-textbox'
+import type { TextboxProps as TextboxPropsBase } from '@cypress-design/constants-textbox'
 
 export interface TextboxPropsJsx
   extends Omit<TextboxPropsBase, 'iconLeft' | 'iconRight' | 'rounded'> {
@@ -19,8 +14,8 @@ export interface TextboxPropsJsx
   onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void
   className?: string
-  iconLeft?: React.ComponentType<any> | React.ReactNode
-  iconRight?: React.ComponentType<any> | React.ReactNode
+  iconLeft?: React.ComponentType<Record<string, unknown>> | React.ReactNode
+  iconRight?: React.ComponentType<Record<string, unknown>> | React.ReactNode
   labelLeft?: string | React.ReactNode
   labelRight?: string | React.ReactNode
   type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'url'
@@ -133,13 +128,18 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
 
     // Render icon helper
     const renderIcon = (
-      Icon: React.ComponentType<any> | React.ReactNode | undefined,
+      Icon:
+        | React.ComponentType<Record<string, unknown>>
+        | React.ReactNode
+        | undefined,
     ) => {
       if (!Icon) return null
 
       // If Icon is a React component
       if (typeof Icon === 'function' || React.isValidElement(Icon)) {
-        const IconComponent = Icon as React.ComponentType<any>
+        const IconComponent = Icon as React.ComponentType<
+          Record<string, unknown>
+        >
         return (
           <IconComponent
             size="16"
