@@ -28,16 +28,8 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
       value,
       defaultValue,
       className,
-      onChange,
-      onInput,
-      onFocus,
-      onBlur,
-      onKeyDown,
-      onKeyUp,
       type = 'text',
-      'aria-label': ariaLabel,
       'aria-invalid': ariaInvalid,
-      'aria-describedby': ariaDescribedBy,
       ...rest
     },
     ref,
@@ -164,15 +156,7 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
             defaultValue={defaultValue}
             disabled={disabled}
             placeholder={placeholder}
-            onChange={onChange}
-            onInput={onInput}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            onKeyDown={onKeyDown}
-            onKeyUp={onKeyUp}
-            aria-label={ariaLabel}
             aria-invalid={ariaInvalidValue}
-            aria-describedby={ariaDescribedBy}
             {...rest}
           />
 

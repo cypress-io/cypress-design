@@ -9,6 +9,7 @@ import type {
 
 export default defineComponent({
   name: 'Textbox',
+  inheritAttrs: false,
   props: {
     theme: {
       type: String as PropType<TextboxTheme>,
@@ -64,26 +65,10 @@ export default defineComponent({
       type: String,
       default: 'text',
     },
-    name: {
-      type: String,
-    },
-    id: {
-      type: String,
-    },
-    autofocus: {
-      type: Boolean,
-      default: false,
-    },
-    'aria-label': {
-      type: String,
-    },
     'aria-invalid': {
       type: [Boolean, String] as PropType<
         boolean | 'false' | 'true' | 'grammar' | 'spelling'
       >,
-    },
-    'aria-describedby': {
-      type: String,
     },
   },
   emits: {
@@ -168,10 +153,6 @@ export default defineComponent({
       return props.variant === 'invalid' ? true : undefined
     })
 
-    // Get aria-label and aria-describedby from props
-    const ariaLabel = computed(() => props['aria-label'])
-    const ariaDescribedBy = computed(() => props['aria-describedby'])
-
     // Compute input value: use value prop if provided (uncontrolled), otherwise use modelValue (controlled)
     const inputValue = computed(() => {
       return props.value ?? props.modelValue ?? ''
@@ -209,8 +190,6 @@ export default defineComponent({
       iconColorClasses,
       dividerClasses,
       ariaInvalidValue,
-      ariaLabel,
-      ariaDescribedBy,
       inputValue,
       handleInput,
       handleFocus,
@@ -258,17 +237,13 @@ export default defineComponent({
 
       <!-- Input -->
       <input
-        :id="id"
+        v-bind="$attrs"
         :type="type"
         :class="inputClasses"
         :value="inputValue"
         :disabled="disabled"
         :placeholder="placeholder"
-        :name="name"
-        :autofocus="autofocus"
-        :aria-label="ariaLabel"
         :aria-invalid="ariaInvalidValue"
-        :aria-describedby="ariaDescribedBy"
         @input="handleInput"
         @focus="handleFocus"
         @blur="handleBlur"
