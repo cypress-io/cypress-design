@@ -61,9 +61,7 @@ export default defineComponent({
       type: String,
     },
     type: {
-      type: String as PropType<
-        'text' | 'password' | 'email' | 'search' | 'tel' | 'url'
-      >,
+      type: String,
       default: 'text',
     },
     name: {
@@ -95,7 +93,6 @@ export default defineComponent({
     blur: (event: FocusEvent) => event instanceof FocusEvent,
     keydown: (event: KeyboardEvent) => event instanceof KeyboardEvent,
     keyup: (event: KeyboardEvent) => event instanceof KeyboardEvent,
-    keypress: (event: KeyboardEvent) => event instanceof KeyboardEvent,
   },
   setup(props, { emit }) {
     // Build variant class key: theme-variant-default
@@ -205,10 +202,6 @@ export default defineComponent({
       emit('keyup', event)
     }
 
-    const handleKeyPress = (event: KeyboardEvent) => {
-      emit('keypress', event)
-    }
-
     return {
       wrapperClasses,
       inputContainerClasses,
@@ -224,7 +217,6 @@ export default defineComponent({
       handleBlur,
       handleKeyDown,
       handleKeyUp,
-      handleKeyPress,
       // Label constants for template
       TextboxConstants,
     }
@@ -282,7 +274,6 @@ export default defineComponent({
         @blur="handleBlur"
         @keydown="handleKeyDown"
         @keyup="handleKeyUp"
-        @keypress="handleKeyPress"
       />
 
       <!-- Icon Right -->

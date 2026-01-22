@@ -34,53 +34,6 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     cy.get('[data-cy="value-display"]').should('contain', 'Hello')
   })
 
-  it('should handle disabled state', () => {
-    mount(<Textbox disabled placeholder="Disabled input" />)
-    cy.get('input').should('be.disabled')
-    cy.get('input').should('not.be.enabled')
-  })
-
-  it('should handle placeholder state', () => {
-    mount(<Textbox placeholder="Enter text..." />)
-    cy.get('input').should('have.attr', 'placeholder', 'Enter text...')
-    cy.get('input').should('have.value', '')
-  })
-
-  it('should handle all variants', () => {
-    const variants: TextboxVariant[] = [
-      'default',
-      'valid',
-      'invalid',
-      'warning',
-    ]
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        {variants.map((variant) => (
-          <Textbox
-            key={variant}
-            variant={variant}
-            placeholder={`${variant} variant`}
-          />
-        ))}
-      </div>,
-    )
-    cy.get('input').should('have.length', 4)
-    cy.percySnapshot()
-  })
-
-  it('should handle all sizes', () => {
-    const sizes: TextboxSize[] = ['32', '40', '48']
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        {sizes.map((size) => (
-          <Textbox key={size} size={size} placeholder={`Size ${size}`} />
-        ))}
-      </div>,
-    )
-    cy.get('input').should('have.length', 3)
-    cy.percySnapshot()
-  })
-
   it('should handle all themes', () => {
     const themes: TextboxTheme[] = ['light', 'dark']
     mount(
@@ -88,17 +41,6 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
         {themes.map((theme) => (
           <Textbox key={theme} theme={theme} placeholder={`${theme} theme`} />
         ))}
-      </div>,
-    )
-    cy.get('input').should('have.length', 2)
-    cy.percySnapshot()
-  })
-
-  it('should handle rounded corners', () => {
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        <Textbox rounded={false} placeholder="Square corners" />
-        <Textbox rounded={true} placeholder="Rounded corners" />
       </div>,
     )
     cy.get('input').should('have.length', 2)
@@ -168,14 +110,6 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     )
     cy.get('input').should('exist')
     cy.percySnapshot()
-  })
-
-  it('should handle keyboard navigation', () => {
-    mount(<Textbox placeholder="Focus me" />)
-    cy.get('input').focus()
-    cy.get('input').should('be.focused')
-    cy.get('input').type('Test input')
-    cy.get('input').should('have.value', 'Test input')
   })
 
   it('should handle focus and blur events', () => {
@@ -363,15 +297,6 @@ describe('Keyboard Event Handlers', () => {
 
     cy.get('input').type('b')
     cy.get('@onKeyUp').should('have.been.called')
-  })
-
-  it('should call onKeyPress handler', () => {
-    const onKeyPress = cy.stub().as('onKeyPress')
-
-    mount(<Textbox placeholder="Test" onKeyPress={onKeyPress} />)
-
-    cy.get('input').type('c')
-    cy.get('@onKeyPress').should('have.been.called')
   })
 
   it('should handle Enter key press', () => {

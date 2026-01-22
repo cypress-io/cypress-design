@@ -3,45 +3,13 @@ import * as React from 'react'
 import * as TextboxConstants from '@cypress-design/constants-textbox'
 import type { TextboxProps as TextboxPropsBase } from '@cypress-design/constants-textbox'
 
-export interface TextboxPropsJsx
-  extends Omit<TextboxPropsBase, 'iconLeft' | 'iconRight' | 'rounded'> {
-  onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
-  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onInput?: (event: React.FormEvent<HTMLInputElement>) => void
-  onFocus?: (event: React.FocusEvent<HTMLInputElement>) => void
-  onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void
-  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  onKeyUp?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  onKeyPress?: (event: React.KeyboardEvent<HTMLInputElement>) => void
-  className?: string
-  iconLeft?: React.ComponentType<Record<string, unknown>> | React.ReactNode
-  iconRight?: React.ComponentType<Record<string, unknown>> | React.ReactNode
+export interface TextboxPropsJsx extends TextboxPropsBase {
   labelLeft?: string | React.ReactNode
   labelRight?: string | React.ReactNode
-  type?: 'text' | 'password' | 'email' | 'search' | 'tel' | 'url'
-  name?: string
-  id?: string
-  autoFocus?: boolean
-  rounded?: boolean
-  'aria-label'?: string
-  'aria-invalid'?: boolean | 'false' | 'true' | 'grammar' | 'spelling'
-  'aria-describedby'?: string
 }
 
 type ReactTextboxProps = TextboxPropsJsx &
-  Omit<
-    React.HTMLProps<HTMLInputElement>,
-    | 'size'
-    | 'onChange'
-    | 'onInput'
-    | 'onFocus'
-    | 'onBlur'
-    | 'onKeyDown'
-    | 'onKeyUp'
-    | 'onKeyPress'
-    | 'type'
-    | 'className'
-  >
+  Omit<React.HTMLProps<HTMLInputElement>, 'size'>
 
 export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
   (
@@ -66,7 +34,6 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
       onBlur,
       onKeyDown,
       onKeyUp,
-      onKeyPress,
       type = 'text',
       'aria-label': ariaLabel,
       'aria-invalid': ariaInvalid,
@@ -203,7 +170,6 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
             onBlur={onBlur}
             onKeyDown={onKeyDown}
             onKeyUp={onKeyUp}
-            onKeyPress={onKeyPress}
             aria-label={ariaLabel}
             aria-invalid={ariaInvalidValue}
             aria-describedby={ariaDescribedBy}
