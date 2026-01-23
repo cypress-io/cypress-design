@@ -19,7 +19,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
         <div className="p-4">
           <Textbox
             defaultValue={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setValue(e.currentTarget.value)}
             placeholder="Type here..."
           />
           <div data-cy="value-display" className="mt-2">
