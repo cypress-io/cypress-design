@@ -125,7 +125,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
 
   it('should handle onChange event', () => {
     const onChange = cy.stub().as('onChange')
-    mount(<Textbox placeholder="Test change" onChange={onChange} />)
+    mount(<Textbox value="Test change" onChange={onChange} />)
     cy.get('input').type('a')
     cy.get('@onChange').should('have.been.called')
   })

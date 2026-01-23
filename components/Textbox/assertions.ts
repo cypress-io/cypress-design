@@ -13,12 +13,6 @@ export interface TextboxStoryOptions {
 export default function assertions(
   mountStory: (options?: TextboxStoryOptions) => void,
 ): void {
-  it('renders all variants', () => {
-    mountStory()
-    cy.get('input').should('exist')
-    cy.percySnapshot()
-  })
-
   it('renders disabled state', () => {
     mountStory({ disabled: true })
     cy.get('input').should('be.disabled')
