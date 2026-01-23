@@ -6,7 +6,6 @@ import Textbox from './Textbox.vue'
 import {
   type TextboxTheme,
   type TextboxVariant,
-  type TextboxSize,
 } from '@cypress-design/constants-textbox'
 import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
 import assertions, { type TextboxStoryOptions } from '../assertions'
