@@ -14,7 +14,7 @@ Figma design should be provided with the following specifications:
 - **Component states** (e.g., default, hover, active, focus-visible, disabled, placeholder)
 - **Component size variants** (e.g., 32, 40, 48)
 - **Light and dark mode designs** - Separate designs for each mode
-- **Theme support** - If applicable, specify if component supports `'auto'`, `'light'`, or `'dark'` themes
+- **Theme support** - If applicable, specify if component supports `'light'` or `'dark'` themes (Note: `'auto'` theme for automatic system preference detection is not currently implemented but may be a future consideration)
 
 **Important:** Extract exact color values from Figma designs. Light and dark mode colors do NOT map 1:1 with Tailwind's automatic dark mode mapping - use explicit values from Figma.
 
@@ -185,13 +185,14 @@ export type ComponentVariant = keyof typeof CssVariantClassesTable
 
 ### Theme Support
 
-If component supports themes (`'auto' | 'light' | 'dark'`):
+If component supports themes (`'light' | 'dark'`):
 
 - `'light'` - Only light mode classes (no `dark:` variants)
 - `'dark'` - Only dark mode classes
-- `'auto'` - Combine both: base classes (light) + `dark:` classes (explicit dark colors from Figma)
 - Use Tailwind's class-based dark mode (`darkMode: 'class'`)
 - Extract exact colors from Figma for both modes - don't rely on automatic mapping
+
+**Note:** Automatic theme switching based on system/user preference (`'auto'` theme) is not currently implemented. If this feature is needed in the future, it would combine both: base classes (light) + `dark:` classes (explicit dark colors from Figma), where the parent/root element controls which is active via the `dark` class.
 
 ### State Management
 

@@ -469,7 +469,7 @@ Default value (uncontrolled)
 
 <p><b>type</b> <code class="bg-gray-50 py-[2px] px-[4px] rounded">TextboxTheme</code></p>
 
-Theme mode: 'auto' adapts to system preference, 'light' or 'dark' forces a mode
+Theme mode: 'light' or 'dark' forces a specific mode
 
 ### variant
 

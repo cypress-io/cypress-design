@@ -43,9 +43,10 @@ All elements are horizontally aligned in a flex container. The wrapper responds 
 
 ### Themes
 
-- `'auto'` - Automatically adapts to system/user preference (uses CSS `@media (prefers-color-scheme: dark)` or parent class)
 - `'light'` (default) - Always light mode
 - `'dark'` - Always dark mode
+
+**Note:** Automatic theme switching based on system/user preference (`'auto'` theme) is not currently implemented. This is a future consideration.
 
 **Implementation approach:**
 
@@ -53,17 +54,6 @@ The codebase uses Tailwind's class-based dark mode (`darkMode: 'class'`). **Impo
 
 1. **For `theme="light"`**: Use explicit light mode colors from Figma
 2. **For `theme="dark"`**: Use explicit dark mode colors from Figma
-3. **For `theme="auto"`**: Combine both with `dark:` prefix, using explicit dark mode colors from Figma (not automatic Tailwind mapping)
-   - Base classes = light mode colors
-   - `dark:` classes = explicit dark mode colors from Figma design
-   - The parent/root element controls which is active via the `dark` class
-
-**Example:**
-
-```typescript
-'auto-default-default': 'bg-white text-gray-800 border-gray-200 dark:bg-gray-1000 dark:text-white dark:border-gray-700',
-// Light colors (from Figma) + dark colors (from Figma, with dark: prefix)
-```
 
 ### Types (Variant/Kind)
 
@@ -156,11 +146,10 @@ export const CssRoundedClasses = {
 - Organize constants to map directly to visual states
 - Minimize conditional logic in component files
 - Use flat keys with naming convention: `theme-type-state` (e.g., `'light-default-hover'`)
-- For "auto" theme, include both light and dark classes using Tailwind's `dark:` prefix
 
 **Constants structure should reflect:**
 
-- Theme (`'auto' | 'light' | 'dark'`)
+- Theme (`'light' | 'dark'`)
 - Type/Variant (`'default' | 'valid' | 'invalid' | 'warning'`)
 - State (`'placeholder' | 'default' | 'hover' | 'active' | 'focus-visible' | 'disabled'`)
 - Size (`'32' | '40' | '48'`) - Separate table
@@ -215,7 +204,6 @@ export const DividerClasses = {
   // Structure: theme
   light: 'h-[16px] w-[1px] bg-gray-200', // Extract exact styles from Figma light mode
   dark: 'h-[16px] w-[1px] bg-gray-700', // Extract exact styles from Figma dark mode
-  auto: 'h-[16px] w-[1px] bg-gray-200 dark:bg-gray-700', // Combine both for auto theme
 } as const
 ```
 
@@ -228,7 +216,7 @@ export const DividerClasses = {
 Export proper TypeScript types:
 
 ```typescript
-export type TextboxTheme = 'auto' | 'light' | 'dark'
+export type TextboxTheme = 'light' | 'dark'
 export type TextboxVariant = 'default' | 'valid' | 'invalid' | 'warning'
 export type TextboxState =
   | 'placeholder'
@@ -390,7 +378,7 @@ const stateClasses = isPlaceholder
 
 ```tsx
 <Textbox
-  theme="light" | "dark" | "auto"
+  theme="light" | "dark"
   variant="default" | "valid" | "invalid" | "warning"  // or "kind" if preferred
   size="32" | "40" | "48"
   rounded={boolean}
@@ -408,7 +396,7 @@ const stateClasses = isPlaceholder
 
 ```vue
 <Textbox
-  theme="light" | "dark" | "auto"
+  theme="light" | "dark"
   variant="default" | "valid" | "invalid" | "warning"
   size="32" | "40" | "48"
   :rounded="boolean"
@@ -526,7 +514,6 @@ Display all combinations across:
 - [ ] Create `IconColors` constant with all theme/type/state combinations
 - [ ] Create `DividerClasses` constant for all themes
 - [ ] Export TypeScript types (`TextboxTheme`, `TextboxVariant`, `TextboxState`, `TextboxSize`)
-- [ ] Handle "auto" theme with Tailwind `dark:` variants (using explicit dark mode colors from Figma, not automatic mapping)
 
 ### Phase 2: Component Implementation
 
@@ -552,7 +539,7 @@ Display all combinations across:
 - [ ] Test all states individually (placeholder, default, hover, active, focus-visible, disabled)
 - [ ] Test all types (default, valid, invalid, warning)
 - [ ] Test all sizes (32, 40, 48)
-- [ ] Test all themes (light, dark, auto)
+- [ ] Test all themes (light, dark)
 - [ ] Test all optional elements (labelLeft, iconLeft, divider, iconRight, labelRight)
 - [ ] Test state combinations (e.g., disabled + hover, placeholder + focus-visible)
 - [ ] Test with rounded and non-rounded variants
