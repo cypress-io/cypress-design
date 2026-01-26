@@ -41,20 +41,6 @@ All elements are horizontally aligned in a flex container. The wrapper responds 
 
 ## Visual Structure & States
 
-### Themes
-
-- `'light'` (default) - Always light mode
-- `'dark'` - Always dark mode
-
-**Note:** Automatic theme switching based on system/user preference (`'auto'` theme) is not currently implemented. This is a future consideration.
-
-**Implementation approach:**
-
-The codebase uses Tailwind's class-based dark mode (`darkMode: 'class'`). **Important:** Light and dark mode colors from Figma do NOT map 1:1 with Tailwind's automatic dark mode mapping. You must use explicit color values from the Figma designs.
-
-1. **For `theme="light"`**: Use explicit light mode colors from Figma
-2. **For `theme="dark"`**: Use explicit dark mode colors from Figma
-
 ### Types (Variant/Kind)
 
 - `'default'` (default)
