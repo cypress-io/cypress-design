@@ -183,26 +183,6 @@ export const DividerClasses = {
 } as const
 ```
 
-### TypeScript Types
-
-Export proper TypeScript types:
-
-```typescript
-export type TextboxTheme = 'light' | 'dark'
-export type TextboxVariant = 'default' | 'valid' | 'invalid' | 'warning'
-export type TextboxState =
-  | 'placeholder'
-  | 'default'
-  | 'hover'
-  | 'active'
-  | 'focus-visible'
-  | 'disabled'
-export type TextboxSize = '32' | '40' | '48'
-export const DefaultTheme: TextboxTheme = 'light'
-export const DefaultVariant: TextboxVariant = 'default'
-export const DefaultSize: TextboxSize = '40'
-```
-
 ## Borders & Interaction Model
 
 **Visual border structure:**

@@ -154,6 +154,32 @@ export type ComponentVariant = keyof typeof CssVariantClassesTable
 - React components extend HTML element props where appropriate
 - Vue components use `defineComponent` with proper TypeScript types
 - Export types for consumers: `export type {ComponentName}Props`, `export type {ComponentName}Size`, etc.
+
+### Type Derivation Pattern
+
+Derive types from constants using `keyof typeof` to ensure types stay in sync with constants:
+
+```typescript
+export const CssSizeClasses = {
+  '32': '...',
+  '40': '...',
+  '48': '...',
+} as const
+
+// Derive type from constants - types automatically stay in sync
+export type ComponentSize = keyof typeof CssSizeClasses
+
+// Export defaults with proper typing
+export const DefaultSize: ComponentSize = '40'
+export const DefaultVariant: ComponentVariant = 'default'
+```
+
+**Benefits:**
+
+- Types stay in sync with constants automatically (single source of truth)
+- Type safety - can't use invalid values
+- Prevents type drift when constants change
+
 - **Avoid deprecated APIs**: Do not use deprecated event handlers like `onKeyPress` (React) or `@keypress` (Vue). Use `onKeyDown` or `onKeyUp` instead. Reference [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event) for deprecated properties.
 
 ## Testing
