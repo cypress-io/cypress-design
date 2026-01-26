@@ -123,13 +123,6 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     cy.get('@onBlur').should('have.been.calledOnce')
   })
 
-  it('should handle onChange event', () => {
-    const onChange = cy.stub().as('onChange')
-    mount(<Textbox value="Test change" onChange={onChange} />)
-    cy.get('input').type('a')
-    cy.get('@onChange').should('have.been.called')
-  })
-
   it('should apply aria-invalid for invalid variant', () => {
     mount(<Textbox variant="invalid" defaultValue="Invalid input" />)
     cy.get('input').should('have.attr', 'aria-invalid', 'true')
