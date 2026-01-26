@@ -95,8 +95,15 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
     ) => {
       if (!Icon) return null
 
-      // If Icon is a React component
-      if (typeof Icon === 'function' || React.isValidElement(Icon)) {
+      // If Icon is already a React element, return it directly with icon color classes
+      if (React.isValidElement(Icon)) {
+        return (
+          <span className={clsx('shrink-0', iconColorClasses)}>{Icon}</span>
+        )
+      }
+
+      // If Icon is a React component, render it as a component
+      if (typeof Icon === 'function') {
         const IconComponent = Icon as React.ComponentType<
           Record<string, unknown>
         >
@@ -109,7 +116,7 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
         )
       }
 
-      // If Icon is already a ReactNode
+      // Otherwise, treat as ReactNode
       return <span className="shrink-0">{Icon}</span>
     }
 
