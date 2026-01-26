@@ -428,7 +428,6 @@ Create the following sections in `docs/components/react/Textbox.md` and `docs/co
 
 - All sizes (32, 40, 48)
 - Light and dark themes
-- Show with and without rounded
 
 ### Rounded
 
