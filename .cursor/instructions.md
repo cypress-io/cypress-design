@@ -55,21 +55,26 @@ Component implementation should follow a staged approach. Complete each stage be
 
 ### Branching Strategy
 
-To make the code easier for review by developers, split the implementation into 3 branches:
+To make the code easier for review by developers and catch API issues early, split the implementation into 4 branches:
 
-- **`{component-name}-branch`** (steps 1 and 2): Plan mode refinement and component creation
-- **`{component-name}-accessibility`** (step 3): Accessibility optimization
-- **`{component-name}-tests`** (step 4): Cypress test generation
+- **`{component-name}-instructions`** (step 1): AI instructions and plan
+- **`{component-name}-component`** (step 2): Component creation
+- **`{component-name}-tests`** (step 3): Cypress test generation
+- **`{component-name}-accessibility`** (step 4): Accessibility optimization
 
 Each branch should be reviewed and merged before starting the next branch.
 
-1. **Plan Mode: Refine Component Instructions**
+1. **AI Instructions and Plan**
 
    - Create or update `components/{ComponentName}/cursor-instructions.md` with component-specific requirements
+   - Document the component API with all props, variants, and usage examples
+   - List all possible variants and expectations of how to use the component
+   - Example: `<Button type="Submit" variant="indigo-dark" disabled>Submit</Button>`
    - Document any deviations from global patterns or special considerations
    - Define component-specific constants structure, prop types, and styling patterns
+   - **Get feedback on API design before any code is written** - this helps catch API issues much easier in the AI instructions first
 
-2. **Create Components and Previews**
+2. **Component Creation**
 
    - **2a) Core Components:**
      - Create shared visual styles in `components/{ComponentName}/constants/src/index.ts`
@@ -81,8 +86,18 @@ Each branch should be reviewed and merged before starting the next branch.
      - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
      - Include interactive code examples using ``jsx live` and ``vue live` blocks
 
-3. **Optimize Component for Accessibility**
+3. **Generate Cypress Tests**
 
+   - Create component test file `components/{ComponentName}/react/{ComponentName}React.cy.tsx`
+   - Create component test file `components/{ComponentName}/vue/{ComponentName}Vue.cy.tsx`
+   - Test all states, sizes, variants, and accessibility features
+   - Include visual regression tests with `cy.percySnapshot()` (via Percy) - capture snapshots for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.)
+   - Test keyboard navigation and accessibility features
+   - **Run tests to get automatic feedback from Cypress Accessibility** - this provides early feedback on accessibility issues before the dedicated accessibility branch
+
+4. **Optimize Component for Accessibility**
+
+   - Use feedback from Cypress Accessibility to make accessibility improvements - address all issues identified by Cypress Accessibility
    - Review and implement WCAG 2.1 Level AA compliance requirements
    - Add appropriate ARIA attributes (`aria-label`, `aria-invalid`, `aria-describedby`, `aria-disabled`, etc.)
    - Ensure keyboard navigation works correctly (Tab, Enter, Space, Arrow keys as appropriate)
@@ -90,14 +105,6 @@ Each branch should be reviewed and merged before starting the next branch.
    - Test with keyboard-only navigation
    - Ensure semantic HTML is used appropriately
    - Verify screen reader compatibility
-
-4. **Generate Cypress Tests**
-
-   - Create component test file `components/{ComponentName}/react/{ComponentName}React.cy.tsx`
-   - Create component test file `components/{ComponentName}/vue/{ComponentName}Vue.cy.tsx`
-   - Test all states, sizes, variants, and accessibility features
-   - Include visual regression tests with `cy.percySnapshot()`
-   - Test keyboard navigation and accessibility features
 
 For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing", "Accessibility").
 
@@ -107,7 +114,7 @@ For detailed requirements on each stage, refer to the relevant sections in this 
 
 - **Never use hex values** - Always use design tokens from `@cypress-design/css`
 - Use Tailwind color classes (e.g., `bg-indigo-500`, `text-gray-800`)
-- Extract exact colors from Figma - don't assume Tailwind's automatic mapping
+- Extract exact colors from Figma for both light and dark modes - don't assume Tailwind will automatically map light mode colors to dark mode colors
 
 ### Constants Structure
 
@@ -152,8 +159,8 @@ export type ComponentVariant = keyof typeof CssVariantClassesTable
 ## Testing
 
 - **Cypress component tests** - Test all states, sizes, and variants
-- **Visual regression** - Ensure all states match Figma designs
-- **Accessibility testing** - Test with keyboard navigation, screen readers
+- **Visual regression** - Capture Percy snapshots (`cy.percySnapshot()`) for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.) to ensure all states match Figma designs
+- **Accessibility testing** - Use Cypress Accessibility for automated accessibility testing, in addition to manual testing with keyboard navigation and screen readers
 - **Cross-browser** - Test in major browsers
 
 ## Documentation
@@ -170,6 +177,7 @@ export type ComponentVariant = keyof typeof CssVariantClassesTable
 
 ## Accessibility
 
+- **Automated testing** - We rely on Cypress Accessibility for automated accessibility testing, which provides automatic feedback on accessibility issues during test runs. Use this feedback to make accessibility improvements.
 - **WCAG 2.1 compliance** - Ensure component meets Level AA standards
 - **Keyboard navigation** - All interactive elements must be keyboard accessible
 - **Focus management** - Use `focus-visible` for keyboard focus indicators (not mouse clicks)
@@ -190,7 +198,7 @@ If component supports themes (`'light' | 'dark'`):
 - `'light'` - Only light mode classes (no `dark:` variants)
 - `'dark'` - Only dark mode classes
 - Use Tailwind's class-based dark mode (`darkMode: 'class'`)
-- Extract exact colors from Figma for both modes - don't rely on automatic mapping
+- Extract exact colors from Figma for both light and dark modes separately - don't rely on Tailwind's automatic dark mode color mapping
 
 **Note:** Automatic theme switching based on system/user preference (`'auto'` theme) is not currently implemented. If this feature is needed in the future, it would combine both: base classes (light) + `dark:` classes (explicit dark colors from Figma), where the parent/root element controls which is active via the `dark` class.
 
