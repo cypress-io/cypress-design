@@ -122,7 +122,7 @@ export const CssVariantClassesTable = {
     // Base styles
     'bg-white border-orange-300 text-orange-600',
     // Placeholder styles (when input shows placeholder)
-    'has-[:placeholder-shown]:bg-gray-50',
+    'has-[input:placeholder-shown]:bg-gray-50',
     // Hover styles
     'hover:border-orange-400',
     'hover:outline hover:outline-2 hover:outline-orange-300/35',
