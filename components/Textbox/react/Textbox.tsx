@@ -96,10 +96,9 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
       if (!Icon) return null
 
       // If Icon is already a React element, return it directly with icon color classes
+      // Note: iconColorClasses already includes 'shrink-0'
       if (React.isValidElement(Icon)) {
-        return (
-          <span className={clsx('shrink-0', iconColorClasses)}>{Icon}</span>
-        )
+        return <span className={iconColorClasses}>{Icon}</span>
       }
 
       // If Icon is a React component, render it as a component
@@ -117,7 +116,11 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
       }
 
       // Otherwise, treat as ReactNode
-      return <span className="shrink-0">{Icon}</span>
+      return (
+        <span className={TextboxConstants.CssIconWrapperBaseClasses}>
+          {Icon}
+        </span>
+      )
     }
 
     // Determine aria-invalid value
