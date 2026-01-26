@@ -4,11 +4,11 @@ Instructions for implementing the Textbox component from Figma to code.
 
 ## Quick Start / Implementation Order
 
-1. **Extract all colors/styles from Figma** - Light mode and dark mode designs
+1. **Extract all colors/styles from Figma** - See global instructions for color extraction principles
 2. **Create constants file** - Map all theme/type/state/size combinations
 3. **Implement React component** - Start with basic structure, then add states
 4. **Implement Vue component** - Mirror React implementation
-5. **Add accessibility** - ARIA attributes, keyboard navigation
+5. **Add accessibility** - See global instructions for comprehensive accessibility guidelines
 6. **Create documentation** - VitePress examples for all combinations
 7. **Test thoroughly** - All states, themes, sizes, and combinations
 
@@ -77,20 +77,14 @@ Each type supports the following states:
   - Positioned to the left of the input
 - **IconLeft** (`iconLeft?: React.ComponentType | Vue Component`)
   - Reuse existing icon components from `@cypress-design/react-icon` or `@cypress-design/vue-icon`
-  - **Icon colors are specified in Figma design and differ for light and dark modes**
-  - Extract exact icon colors from Figma for each theme/state combination
-  - Apply colors explicitly using icon props (e.g., `strokeColor`, `fillColor`) - do not rely on automatic inheritance
+  - Icon colors differ for light and dark modes - see global instructions for icon color extraction and application
 - **DividerLeft** (`divider?: boolean`)
   - Optional divider between IconLeft and input
   - Only shown when IconLeft is present
-  - **Divider visual styles and colors are specified in Figma design and differ for light and dark modes**
-  - Extract exact divider styles (width, height, color, etc.) from Figma for each theme
-  - Apply styles explicitly via CSS classes - do not rely on automatic inheritance
+  - Divider visual styles and colors differ for light and dark modes - see global instructions for extracting exact styles from Figma
 - **IconRight** (`iconRight?: React.ComponentType | Vue Component`)
   - Reuse existing icon components from the design system
-  - **Icon colors are specified in Figma design and differ for light and dark modes**
-  - Extract exact icon colors from Figma for each theme/state combination
-  - Apply colors explicitly using icon props (e.g., `strokeColor`, `fillColor`) - do not rely on automatic inheritance
+  - Icon colors differ for light and dark modes - see global instructions for icon color extraction and application
 - **LabelRight** (`labelRight?: string | ReactNode`)
   - Static text/element (no hover, active, or focus styles)
   - Positioned to the right of the input
@@ -99,7 +93,7 @@ Each type supports the following states:
 
 ### File Structure
 
-Create constants in `components/Textbox/constants/src/index.ts` following the pattern from Button/Tag components:
+Create constants in `components/Textbox/constants/src/index.ts`. See global instructions for general constants structure patterns. Textbox-specific structure:
 
 ```typescript
 export const CssStaticClasses = '...' // Base classes for all textboxes
@@ -161,7 +155,7 @@ export const CssRoundedClasses = {
 
 ### Icon Colors
 
-Icon colors are specified in the Figma design and differ for light and dark modes. Create separate constants for icon colors:
+Create separate constants for icon colors following the structure below. See global instructions for icon color extraction and application principles.
 
 ```typescript
 export const IconColors = {
@@ -177,25 +171,17 @@ export const IconColors = {
 } as const
 ```
 
-- Extract exact icon colors from Figma for each theme/type/state combination
-- Apply these colors explicitly to icons via props (e.g., `strokeColor`, `fillColor`)
-- Do NOT rely on CSS inheritance or automatic color mapping
-
 ### Divider Styles
 
-Divider visual styles and colors are specified in the Figma design and differ for light and dark modes. Create separate constants for divider styles:
+Create separate constants for divider styles. See global instructions for extracting exact styles from Figma.
 
 ```typescript
 export const DividerClasses = {
   // Structure: theme
-  light: 'h-[16px] w-[1px] bg-gray-200', // Extract exact styles from Figma light mode
-  dark: 'h-[16px] w-[1px] bg-gray-700', // Extract exact styles from Figma dark mode
+  light: 'h-[16px] w-[1px] bg-gray-200',
+  dark: 'h-[16px] w-[1px] bg-gray-700',
 } as const
 ```
-
-- Extract exact divider styles (width, height, color, border-radius, etc.) from Figma for each theme
-- Apply styles explicitly via CSS classes - do not rely on automatic inheritance
-- Divider colors differ for light and dark modes - use explicit values from Figma
 
 ### TypeScript Types
 
@@ -351,12 +337,10 @@ const stateClasses = isPlaceholder
 - Typically: `focus-visible` > `active` > `hover` > `default`
 - Test with keyboard navigation (Tab) and mouse interaction to ensure correct behavior
 
-- **Accessibility:**
+- **Accessibility:** See global instructions for comprehensive accessibility guidelines. Component-specific notes:
   - Ensure proper `aria-label` or `aria-labelledby` when labelLeft/labelRight are used
   - For invalid/warning states, use `aria-invalid="true"` and `aria-describedby` for error messages
-  - Ensure keyboard navigation works correctly (Tab, Enter, etc.)
-  - The `focus-visible` outline is critical for keyboard users - never remove it
-  - Test with keyboard-only navigation (no mouse) to verify focus indicators are visible
+  - The `focus-visible` outline is critical for keyboard users - never remove it (see "Borders & Interaction Model" section for implementation details)
 
 ## Expected API
 
@@ -532,11 +516,10 @@ Display all combinations across:
 
 ## Common Pitfalls to Avoid
 
-1. **Don't use Tailwind's automatic dark mode mapping** - Extract exact colors from Figma
-2. **Don't apply states to input only** - Wrapper must handle hover/focus for entire control
-3. **Don't use `border` for focus-visible** - Use `outline` property instead
-4. **Don't rely on CSS inheritance for icon colors** - Apply explicitly via props
-5. **Don't forget placeholder state detection** - Requires JavaScript, not just CSS
-6. **Don't ignore state priority** - Disabled should override all other states
-7. **Don't forget accessibility** - `focus-visible` outline is critical for keyboard users
-8. **Don't assume all combinations are needed** - Some states may be mutually exclusive
+1. **Don't apply states to input only** - Wrapper must handle hover/focus for entire control
+2. **Don't use `border` for focus-visible** - Use `outline` property instead (see "Borders & Interaction Model" section)
+3. **Don't forget placeholder state detection** - Requires JavaScript, not just CSS
+4. **Don't ignore state priority** - Disabled should override all other states
+5. **Don't assume all combinations are needed** - Some states may be mutually exclusive
+
+**Note:** For general design system principles (color extraction, icon handling, accessibility, etc.), see global instructions.
