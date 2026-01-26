@@ -15,11 +15,7 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     const value = ref('')
     mount(() => (
       <div class="p-4">
-        <Textbox
-          modelValue={value.value}
-          onUpdate:modelValue={(val: string) => (value.value = val)}
-          placeholder="Type here..."
-        />
+        <Textbox v-model={value.value} placeholder="Type here..." />
         <div data-cy="value-display" class="mt-2">
           Value: {value.value}
         </div>

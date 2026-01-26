@@ -558,7 +558,6 @@ function MyComponent() {
 
 - **onKeyDown**: Fired when a key is pressed down
 - **onKeyUp**: Fired when a key is released
-- **onKeyPress**: Fired when a printable character key is pressed (deprecated but still supported)
 
 ## Common Input Attributes
 

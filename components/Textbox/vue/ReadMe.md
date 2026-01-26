@@ -431,7 +431,6 @@ The Textbox component supports keyboard event handlers for advanced interactions
     placeholder="Press Enter..."
     @keydown="handleKeyDown"
     @keyup="handleKeyUp"
-    @keypress="handleKeyPress"
   />
 </template>
 
@@ -447,10 +446,6 @@ const handleKeyDown = (e: KeyboardEvent) => {
 const handleKeyUp = (e: KeyboardEvent) => {
   console.log('Key released:', e.key)
 }
-
-const handleKeyPress = (e: KeyboardEvent) => {
-  console.log('Key pressed:', e.key)
-}
 </script>
 ```
 
@@ -458,7 +453,6 @@ const handleKeyPress = (e: KeyboardEvent) => {
 
 - **@keydown**: Fired when a key is pressed down
 - **@keyup**: Fired when a key is released
-- **@keypress**: Fired when a printable character key is pressed
 
 ## Common Input Attributes
 
