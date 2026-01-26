@@ -116,11 +116,7 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
       }
 
       // Otherwise, treat as ReactNode
-      return (
-        <span className={TextboxConstants.CssIconWrapperBaseClasses}>
-          {Icon}
-        </span>
-      )
+      return <span className="shrink-0">{Icon}</span>
     }
 
     // Determine aria-invalid value

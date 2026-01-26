@@ -203,7 +203,28 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     ))
   }
 
-  assertions(mountStory)
+  function mountAllSizes() {
+    mount(() => (
+      <div class="flex flex-col gap-4 p-4">
+        <Textbox size="32" placeholder="Size 32" />
+        <Textbox size="40" placeholder="Size 40" />
+        <Textbox size="48" placeholder="Size 48" />
+      </div>
+    ))
+  }
+
+  function mountAllVariants() {
+    mount(() => (
+      <div class="flex flex-col gap-4 p-4">
+        <Textbox variant="default" placeholder="Default variant" />
+        <Textbox variant="valid" placeholder="Valid variant" />
+        <Textbox variant="invalid" placeholder="Invalid variant" />
+        <Textbox variant="warning" placeholder="Warning variant" />
+      </div>
+    ))
+  }
+
+  assertions(mountStory, mountAllSizes, mountAllVariants)
 })
 
 describe('Keyboard Event Handlers', () => {
