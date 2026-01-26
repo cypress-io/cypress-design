@@ -38,12 +38,11 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
     // Build variant class key: theme-variant-default
     // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const variantKey =
-      `${theme}-${variant}-default` as keyof typeof TextboxConstants.CssVariantClassesTable
+      `${theme}-${variant}-default` as keyof typeof TextboxConstants.CssVariantClasses
 
     // Get variant classes - these include hover/active/focus/focus-visible styles
     // CSS pseudo-classes will automatically apply the correct styles
-    const variantClasses =
-      TextboxConstants.CssVariantClassesTable[variantKey] || ''
+    const variantClasses = TextboxConstants.CssVariantClasses[variantKey] || ''
 
     // Get rounded classes
     const roundedClasses =
@@ -57,31 +56,30 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
       TextboxConstants.CssStaticClasses,
       variantClasses,
       roundedClasses,
-      TextboxConstants.CssWrapperHeightClassesTable[size], // Height on wrapper
+      TextboxConstants.CssWrapperHeightClasses[size], // Height on wrapper
       className,
     )
 
     // Build input container classes - this contains the input and icons with padding
     const inputContainerClasses = clsx(
       TextboxConstants.CssInputContainerBaseClasses,
-      TextboxConstants.CssInputContainerPaddingClassesTable[size], // Padding on input container
+      TextboxConstants.CssInputContainerPaddingClasses[size], // Padding on input container
     )
 
     // Get input size classes (font size and line height)
-    const inputSizeClasses = TextboxConstants.CssInputSizeClassesTable[size]
+    const inputSizeClasses = TextboxConstants.CssInputSizeClasses[size]
 
     // Build input classes
     const inputClasses = clsx(
-      TextboxConstants.CssInputClassesTable[theme],
+      TextboxConstants.CssInputClasses[theme],
       inputSizeClasses,
     )
 
     // Get icon color classes
     // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const iconColorKey =
-      `${theme}-${variant}-default` as keyof typeof TextboxConstants.CssIconColorClassesTable
-    const iconColorClasses =
-      TextboxConstants.CssIconColorClassesTable[iconColorKey]
+      `${theme}-${variant}-default` as keyof typeof TextboxConstants.CssIconColorClasses
+    const iconColorClasses = TextboxConstants.CssIconColorClasses[iconColorKey]
 
     // Get divider classes
     const dividerClasses = TextboxConstants.DividerClasses[theme]
@@ -134,10 +132,10 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
           <span
             className={clsx(
               TextboxConstants.CssLabelBaseClasses,
-              TextboxConstants.CssLabelSizeClassesTable[size],
-              TextboxConstants.CssLabelThemeClassesTable[theme],
-              TextboxConstants.CssLabelBorderClassesTable.left[theme],
-              TextboxConstants.CssLabelRoundedClassesTable.left[
+              TextboxConstants.CssLabelSizeClasses[size],
+              TextboxConstants.CssLabelThemeClasses[theme],
+              TextboxConstants.CssLabelBorderClasses.left[theme],
+              TextboxConstants.CssLabelRoundedClasses.left[
                 rounded ? 'rounded' : 'notRounded'
               ],
             )}
@@ -176,10 +174,10 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
           <span
             className={clsx(
               TextboxConstants.CssLabelBaseClasses,
-              TextboxConstants.CssLabelSizeClassesTable[size],
-              TextboxConstants.CssLabelThemeClassesTable[theme],
-              TextboxConstants.CssLabelBorderClassesTable.right[theme],
-              TextboxConstants.CssLabelRoundedClassesTable.right[
+              TextboxConstants.CssLabelSizeClasses[size],
+              TextboxConstants.CssLabelThemeClasses[theme],
+              TextboxConstants.CssLabelBorderClasses.right[theme],
+              TextboxConstants.CssLabelRoundedClasses.right[
                 rounded ? 'rounded' : 'notRounded'
               ],
             )}

@@ -5,7 +5,7 @@ export const CssStaticClasses =
   'flex items-center border border-solid transition-colors duration-150 group cursor-pointer'
 
 // Font size and line height by size (for input element)
-export const CssInputSizeClassesTable = {
+export const CssInputSizeClasses = {
   '32': 'text-[14px] leading-[20px]',
   '40': 'text-[16px] leading-[24px]',
   '48': 'text-[16px] leading-[24px]',
@@ -15,7 +15,7 @@ export const CssInputSizeClassesTable = {
  * Wrapper height classes by size.
  * Maps textbox size to corresponding height Tailwind class.
  */
-export const CssWrapperHeightClassesTable = {
+export const CssWrapperHeightClasses = {
   '32': 'h-[32px]',
   '40': 'h-[40px]',
   '48': 'h-[48px]',
@@ -25,7 +25,7 @@ export const CssWrapperHeightClassesTable = {
  * Input container padding classes by size.
  * Maps textbox size to corresponding horizontal padding Tailwind class.
  */
-export const CssInputContainerPaddingClassesTable = {
+export const CssInputContainerPaddingClasses = {
   '32': 'px-[12px]',
   '40': 'px-[16px]',
   '48': 'px-[16px]',
@@ -45,7 +45,7 @@ export const CssRoundedClasses = {
 } as const
 
 // Input element classes - theme-specific
-export const CssInputClassesTable = {
+export const CssInputClasses = {
   light:
     'flex-1 min-w-0 outline-none bg-transparent border-0 placeholder-gray-700',
   dark: 'flex-1 min-w-0 outline-none bg-transparent border-0 placeholder-gray-400',
@@ -54,7 +54,7 @@ export const CssInputClassesTable = {
 // Variant classes - structure: theme-type-state
 // Light mode colors extracted from Figma
 // Dark mode colors extracted from Figma (explicit, not auto-mapped)
-export const CssVariantClassesTable = {
+export const CssVariantClasses = {
   // Light mode - Default type
   'light-default-default': [
     // Base styles
@@ -216,7 +216,7 @@ export const CssVariantClassesTable = {
 // Icon color classes - structure: theme-variant-state
 // Icon color classes extracted from Figma design, converted to CSS classes
 // These classes are applied to icon elements via className prop
-export const CssIconColorClassesTable = {
+export const CssIconColorClasses = {
   // Light mode - Default type
   'light-default-default': [
     'shrink-0', // Prevent flex shrinking
@@ -321,20 +321,20 @@ export const DividerClasses = {
 } as const
 
 // Label size classes - padding, font size, line height
-export const CssLabelSizeClassesTable = {
+export const CssLabelSizeClasses = {
   '32': 'px-[8px] text-[14px] leading-[20px]',
   '40': 'px-[16px] text-[16px] leading-[24px]',
   '48': 'px-[16px] text-[16px] leading-[24px]',
 } as const
 
 // Label theme classes - text color and background
-export const CssLabelThemeClassesTable = {
+export const CssLabelThemeClasses = {
   light: 'text-gray-700 bg-gray-50',
   dark: 'text-gray-400 bg-gray-900',
 } as const
 
 // Label border classes - separate light/dark entries, no dark: prefix
-export const CssLabelBorderClassesTable = {
+export const CssLabelBorderClasses = {
   left: {
     light: 'border-r border-gray-100',
     dark: 'border-r border-gray-800',
@@ -346,7 +346,7 @@ export const CssLabelBorderClassesTable = {
 } as const
 
 // Label rounded classes - based on textbox rounded prop
-export const CssLabelRoundedClassesTable = {
+export const CssLabelRoundedClasses = {
   left: {
     rounded: 'rounded-tl-[28px] rounded-bl-[28px]',
     notRounded: 'rounded-tl-[4px] rounded-bl-[4px]',
@@ -363,7 +363,7 @@ export const CssLabelBaseClasses = 'h-full flex items-center shrink-0'
 // TypeScript types
 export type TextboxTheme = 'light' | 'dark'
 export type TextboxVariant = 'default' | 'valid' | 'invalid' | 'warning'
-export type TextboxSize = keyof typeof CssInputSizeClassesTable
+export type TextboxSize = keyof typeof CssInputSizeClasses
 
 export const DefaultTheme: TextboxTheme = 'light'
 export const DefaultVariant: TextboxVariant = 'default'

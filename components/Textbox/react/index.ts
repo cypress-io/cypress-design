@@ -1,10 +1,10 @@
 export { default } from './Textbox'
 export {
-  CssVariantClassesTable as VariantClassesTable,
+  CssVariantClasses as VariantClasses,
   CssStaticClasses as StaticClasses,
-  CssInputSizeClassesTable as InputSizeClassesTable,
+  CssInputSizeClasses as InputSizeClasses,
   CssRoundedClasses as RoundedClasses,
-  CssIconColorClassesTable as IconColorClassesTable,
+  CssIconColorClasses as IconColorClasses,
   DividerClasses,
   type TextboxTheme,
   type TextboxVariant,

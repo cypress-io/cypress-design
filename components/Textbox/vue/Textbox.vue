@@ -83,12 +83,12 @@ export default defineComponent({
     // Build variant class key: theme-variant-default
     // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const variantKey = computed(() => {
-      return `${props.theme}-${props.variant}-default` as keyof typeof TextboxConstants.CssVariantClassesTable
+      return `${props.theme}-${props.variant}-default` as keyof typeof TextboxConstants.CssVariantClasses
     })
 
     // Get variant classes
     const variantClasses = computed(() => {
-      return TextboxConstants.CssVariantClassesTable[variantKey.value] || ''
+      return TextboxConstants.CssVariantClasses[variantKey.value] || ''
     })
 
     // Get rounded classes
@@ -105,7 +105,7 @@ export default defineComponent({
         TextboxConstants.CssStaticClasses,
         variantClasses.value,
         roundedClasses.value,
-        TextboxConstants.CssWrapperHeightClassesTable[props.size],
+        TextboxConstants.CssWrapperHeightClasses[props.size],
       ]
     })
 
@@ -113,19 +113,19 @@ export default defineComponent({
     const inputContainerClasses = computed(() => {
       return [
         TextboxConstants.CssInputContainerBaseClasses,
-        TextboxConstants.CssInputContainerPaddingClassesTable[props.size],
+        TextboxConstants.CssInputContainerPaddingClasses[props.size],
       ]
     })
 
     // Get input size classes (font size and line height)
     const inputSizeClasses = computed(() => {
-      return TextboxConstants.CssInputSizeClassesTable[props.size]
+      return TextboxConstants.CssInputSizeClasses[props.size]
     })
 
     // Build input classes
     const inputClasses = computed(() => {
       return [
-        TextboxConstants.CssInputClassesTable[props.theme],
+        TextboxConstants.CssInputClasses[props.theme],
         inputSizeClasses.value,
       ]
     })
@@ -133,11 +133,11 @@ export default defineComponent({
     // Get icon color classes
     // Disabled state is handled by CSS has-[:disabled]: pseudo-class
     const iconColorKey = computed(() => {
-      return `${props.theme}-${props.variant}-default` as keyof typeof TextboxConstants.CssIconColorClassesTable
+      return `${props.theme}-${props.variant}-default` as keyof typeof TextboxConstants.CssIconColorClasses
     })
 
     const iconColorClasses = computed(() => {
-      return TextboxConstants.CssIconColorClassesTable[iconColorKey.value]
+      return TextboxConstants.CssIconColorClasses[iconColorKey.value]
     })
 
     // Get divider classes
@@ -210,10 +210,10 @@ export default defineComponent({
       v-if="labelLeft"
       :class="[
         TextboxConstants.CssLabelBaseClasses,
-        TextboxConstants.CssLabelSizeClassesTable[size],
-        TextboxConstants.CssLabelThemeClassesTable[theme],
-        TextboxConstants.CssLabelBorderClassesTable.left[theme],
-        TextboxConstants.CssLabelRoundedClassesTable.left[
+        TextboxConstants.CssLabelSizeClasses[size],
+        TextboxConstants.CssLabelThemeClasses[theme],
+        TextboxConstants.CssLabelBorderClasses.left[theme],
+        TextboxConstants.CssLabelRoundedClasses.left[
           rounded ? 'rounded' : 'notRounded'
         ],
       ]"
@@ -266,10 +266,10 @@ export default defineComponent({
       v-if="labelRight"
       :class="[
         TextboxConstants.CssLabelBaseClasses,
-        TextboxConstants.CssLabelSizeClassesTable[size],
-        TextboxConstants.CssLabelThemeClassesTable[theme],
-        TextboxConstants.CssLabelBorderClassesTable.right[theme],
-        TextboxConstants.CssLabelRoundedClassesTable.right[
+        TextboxConstants.CssLabelSizeClasses[size],
+        TextboxConstants.CssLabelThemeClasses[theme],
+        TextboxConstants.CssLabelBorderClasses.right[theme],
+        TextboxConstants.CssLabelRoundedClasses.right[
           rounded ? 'rounded' : 'notRounded'
         ],
       ]"

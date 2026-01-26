@@ -117,12 +117,12 @@ Create constants in `components/Textbox/constants/src/index.ts` following the pa
 
 ```typescript
 export const CssStaticClasses = '...' // Base classes for all textboxes
-export const CssSizeClassesTable = {
+export const CssSizeClasses = {
   '32': '...',
   '40': '...',
   '48': '...',
 } as const
-export const CssVariantClassesTable = {
+export const CssVariantClasses = {
   // Structure: theme-type-state
   'light-default-default': '...',
   'light-default-hover': '...',
@@ -314,15 +314,15 @@ const isPlaceholder = computed(
 - Check if value is empty/null/undefined/whitespace-only
 - Only apply placeholder styles when value is empty AND placeholder attribute exists
 - Apply placeholder styles conditionally via className/computed classes
-- Use placeholder styles from constants: `CssVariantClassesTable['light-default-placeholder']`
+- Use placeholder styles from constants: `CssVariantClasses['light-default-placeholder']`
 
 **Example implementation:**
 
 ```tsx
 // React
 const stateClasses = isPlaceholder
-  ? CssVariantClassesTable[`${theme}-${variant}-placeholder`]
-  : CssVariantClassesTable[`${theme}-${variant}-default`]
+  ? CssVariantClasses[`${theme}-${variant}-placeholder`]
+  : CssVariantClasses[`${theme}-${variant}-default`]
 ```
 
 ### Active vs Focus-Visible States
@@ -509,8 +509,8 @@ Display all combinations across:
 
 - [ ] Extract all colors from Figma (light mode design)
 - [ ] Extract all colors from Figma (dark mode design)
-- [ ] Create constants file structure (`CssStaticClasses`, `CssSizeClassesTable`, `CssVariantClassesTable`, `CssRoundedClasses`)
-- [ ] Create all theme/type/state combinations in `CssVariantClassesTable`
+- [ ] Create constants file structure (`CssStaticClasses`, `CssSizeClasses`, `CssVariantClasses`, `CssRoundedClasses`)
+- [ ] Create all theme/type/state combinations in `CssVariantClasses`
 - [ ] Create `IconColors` constant with all theme/type/state combinations
 - [ ] Create `DividerClasses` constant for all themes
 - [ ] Export TypeScript types (`TextboxTheme`, `TextboxVariant`, `TextboxState`, `TextboxSize`)
