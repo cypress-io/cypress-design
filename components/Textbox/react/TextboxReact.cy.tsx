@@ -8,7 +8,7 @@ import {
   type TextboxVariant,
 } from '@cypress-design/constants-textbox'
 import { IconShapeLightningBolt } from '@cypress-design/react-icon'
-import assertions, { type TextboxStoryOptions } from '../assertions'
+import assertions, { type TextboxStoryOptions } from '../shared-assertions'
 
 describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   it('should handle value changes', () => {

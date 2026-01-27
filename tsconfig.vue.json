@@ -46,7 +46,7 @@
     "components/*/vue/**/*.ts",
     "components/*/vue/**/*.tsx",
     "components/*/vue/**/*.vue",
-    "components/*/assertions.ts",
+    "components/*/shared-assertions.ts",
     "components/vue-utils.ts",
     "components/*/useDisabledVariant.ts",
     "cypress/**/*.ts"

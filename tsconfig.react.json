@@ -11,7 +11,7 @@
   "include": [
     "components/*/react/**/*.tsx",
     "components/*/react/**/*.ts",
-    "components/*/assertions.ts",
+    "components/*/shared-assertions.ts",
     "components/*/useDisabledVariant.ts",
     "cypress/**/*.ts"
   ]
