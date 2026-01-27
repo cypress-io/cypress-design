@@ -132,8 +132,8 @@ export const CssRoundedClasses = {
 - Theme (`'light' | 'dark'`)
 - Type/Variant (`'default' | 'valid' | 'invalid' | 'warning'`)
 - State (`'placeholder' | 'default' | 'hover' | 'active' | 'focus-visible' | 'disabled'`)
-- Size (`'32' | '40' | '48'`) - Separate table
-- Rounded (`boolean`) - Separate table
+- Size (`'32' | '40' | '48'`)
+- Rounded (`boolean`)
 
 **Important:** Not all state combinations may be needed. For example:
 

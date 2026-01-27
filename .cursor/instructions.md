@@ -85,6 +85,14 @@ Each branch should be reviewed and merged before starting the next branch.
      - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
      - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
      - Include interactive code examples using ``jsx live` and ``vue live` blocks
+     - **Documentation structure:**
+       - Component description
+       - All variants/types
+       - All sizes
+       - All states (with examples)
+       - Props API reference
+       - Usage examples
+     - Follow the same structure as existing component documentation
 
 3. **Generate Cypress Tests**
 
@@ -93,20 +101,22 @@ Each branch should be reviewed and merged before starting the next branch.
    - Test all states, sizes, variants, and accessibility features
    - Include visual regression tests with `cy.percySnapshot()` (via Percy) - capture snapshots for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.)
    - Test keyboard navigation and accessibility features
-   - **Run tests to get automatic feedback from Cypress Accessibility** - this provides early feedback on accessibility issues before the dedicated accessibility branch
 
 4. **Optimize Component for Accessibility**
 
-   - Use feedback from Cypress Accessibility to make accessibility improvements - address all issues identified by Cypress Accessibility
-   - Review and implement WCAG 2.1 Level AA compliance requirements
-   - Add appropriate ARIA attributes (`aria-label`, `aria-invalid`, `aria-describedby`, `aria-disabled`, etc.)
-   - Ensure keyboard navigation works correctly (Tab, Enter, Space, Arrow keys as appropriate)
-   - Verify focus management and focus-visible indicators
-   - Test with keyboard-only navigation
-   - Ensure semantic HTML is used appropriately
-   - Verify screen reader compatibility
+   - **Automated testing** - Use feedback from Cypress Accessibility to make accessibility improvements - address all issues identified by Cypress Accessibility. We rely on Cypress Accessibility for automated accessibility testing, which provides automatic feedback on accessibility issues during test runs.
+   - **WCAG 2.1 compliance** - Review and implement WCAG 2.1 Level AA compliance requirements
+   - **Keyboard navigation** - Ensure keyboard navigation works correctly (Tab, Enter, Space, Arrow keys as appropriate). All interactive elements must be keyboard accessible.
+   - **Focus management** - Verify focus management and focus-visible indicators. Use `focus-visible` for keyboard focus indicators (not mouse clicks).
+   - **ARIA attributes** - Add appropriate `aria-*` attributes:
+     - `aria-label` or `aria-labelledby` for labeled elements
+     - `aria-invalid` for error states
+     - `aria-describedby` for help text or error messages
+     - `aria-disabled` when appropriate
+   - **Semantic HTML** - Ensure semantic HTML is used appropriately (e.g., `<button>`, `<input>`, etc.)
+   - **Testing** - Test with keyboard-only navigation to verify focus indicators are visible. Verify screen reader compatibility.
 
-For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing", "Accessibility").
+For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing").
 
 ## Styling & Tokens
 
@@ -127,10 +137,10 @@ For detailed requirements on each stage, refer to the relevant sections in this 
 
 ```typescript
 export const CssStaticClasses = '...' // Base classes for all variants
-export const CssSizeClassesTable = { '32': '...', '40': '...' } as const
-export const CssVariantClassesTable = { 'light-default': '...' } as const
-export type ComponentSize = keyof typeof CssSizeClassesTable
-export type ComponentVariant = keyof typeof CssVariantClassesTable
+export const CssSizeClasses = { '32': '...', '40': '...' } as const
+export const CssVariantClasses = { 'light-default': '...' } as const
+export type ComponentSize = keyof typeof CssSizeClasses
+export type ComponentVariant = keyof typeof CssVariantClasses
 ```
 
 ### Styling Guidelines
@@ -186,34 +196,7 @@ export const DefaultVariant: ComponentVariant = 'default'
 
 - **Cypress component tests** - Test all states, sizes, and variants
 - **Visual regression** - Capture Percy snapshots (`cy.percySnapshot()`) for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.) to ensure all states match Figma designs
-- **Accessibility testing** - Use Cypress Accessibility for automated accessibility testing, in addition to manual testing with keyboard navigation and screen readers
-- **Cross-browser** - Test in major browsers
-
-## Documentation
-
-- **VitePress documentation** - Create `docs/components/react/{ComponentName}.md` and `docs/components/vue/{ComponentName}.md`
-- **Documentation structure:**
-  - Component description
-  - All variants/types
-  - All sizes
-  - All states (with examples)
-  - Props API reference
-  - Usage examples
-- Follow the same structure as existing component documentation
-
-## Accessibility
-
-- **Automated testing** - We rely on Cypress Accessibility for automated accessibility testing, which provides automatic feedback on accessibility issues during test runs. Use this feedback to make accessibility improvements.
-- **WCAG 2.1 compliance** - Ensure component meets Level AA standards
-- **Keyboard navigation** - All interactive elements must be keyboard accessible
-- **Focus management** - Use `focus-visible` for keyboard focus indicators (not mouse clicks)
-- **ARIA attributes** - Use appropriate `aria-*` attributes:
-  - `aria-label` or `aria-labelledby` for labeled elements
-  - `aria-invalid` for error states
-  - `aria-describedby` for help text or error messages
-  - `aria-disabled` when appropriate
-- **Semantic HTML** - Use appropriate HTML elements (`<button>`, `<input>`, etc.)
-- **Test with keyboard-only navigation** - Verify focus indicators are visible
+- **Accessibility testing** - We use Cypress Accessibility for automated accessibility testing, in addition to manual testing with keyboard navigation and screen readers
 
 ## Common Patterns
 
