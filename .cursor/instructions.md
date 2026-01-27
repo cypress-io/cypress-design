@@ -16,7 +16,7 @@ Figma design should be provided with the following specifications:
 - **Light and dark mode designs** - Separate designs for each mode
 - **Theme support** - If applicable, specify if component supports `'light'` or `'dark'` themes (Note: `'auto'` theme for automatic system preference detection is not currently implemented but may be a future consideration)
 
-**Important:** Extract exact color values from Figma designs. Light and dark mode colors do NOT map 1:1 with Tailwind's automatic dark mode mapping - use explicit values from Figma.
+**Important:** See "Styling Guidelines" section for color extraction guidelines.
 
 ## Code Structure
 
@@ -29,7 +29,10 @@ Figma design should be provided with the following specifications:
   components/{ComponentName}/
     ├── constants/          # Shared styles (used by both React and Vue)
     ├── react/             # React implementation
+    │   └── {ComponentName}React.cy.tsx  # React Cypress tests
     ├── vue/               # Vue implementation
+    │   └── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
+    ├── assertions.ts      # Shared test assertions (optional)
     ├── ReadMe.md          # Component overview
     └── cursor-instructions.md  # Component-specific instructions (if needed)
   ```
@@ -77,7 +80,7 @@ Each branch should be reviewed and merged before starting the next branch.
 2. **Component Creation**
 
    - **2a) Core Components:**
-     - Create shared visual styles in `components/{ComponentName}/constants/src/index.ts`
+     - Create shared visual styles in constants file (see "Constants Structure" section)
      - Implement React component in `components/{ComponentName}/react/{ComponentName}.tsx`
      - Implement Vue component in `components/{ComponentName}/vue/{ComponentName}.vue`
      - Create component overview in `components/{ComponentName}/ReadMe.md`
@@ -100,11 +103,11 @@ Each branch should be reviewed and merged before starting the next branch.
    - Create component test file `components/{ComponentName}/vue/{ComponentName}Vue.cy.tsx`
    - Test all states, sizes, variants, and accessibility features
    - Include visual regression tests with `cy.percySnapshot()` (via Percy) - capture snapshots for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.)
-   - Test keyboard navigation and accessibility features
+   - See "Testing" section for detailed testing requirements
 
 4. **Optimize Component for Accessibility**
 
-   - **Automated testing** - Use feedback from Cypress Accessibility to make accessibility improvements - address all issues identified by Cypress Accessibility. We rely on Cypress Accessibility for automated accessibility testing, which provides automatic feedback on accessibility issues during test runs.
+   - **Automated testing** - We use feedback from Cypress Accessibility to make accessibility improvements - address all issues identified by Cypress Accessibility.
    - **WCAG 2.1 compliance** - Review and implement WCAG 2.1 Level AA compliance requirements
    - **Keyboard navigation** - Ensure keyboard navigation works correctly (Tab, Enter, Space, Arrow keys as appropriate). All interactive elements must be keyboard accessible.
    - **Focus management** - Verify focus management and focus-visible indicators. Use `focus-visible` for keyboard focus indicators (not mouse clicks).
@@ -124,7 +127,7 @@ For detailed requirements on each stage, refer to the relevant sections in this 
 
 - **Never use hex values** - Always use design tokens from `@cypress-design/css`
 - Use Tailwind color classes (e.g., `bg-indigo-500`, `text-gray-800`)
-- Extract exact colors from Figma for both light and dark modes - don't assume Tailwind will automatically map light mode colors to dark mode colors
+- See "Styling Guidelines" section for color extraction guidelines
 
 ### Constants Structure
 
@@ -145,6 +148,21 @@ export type ComponentVariant = keyof typeof CssVariantClasses
 
 ### Styling Guidelines
 
+#### Core Principles
+
+**Color Extraction:**
+
+- Extract exact color values from Figma designs for both light and dark modes
+- Light and dark mode colors do NOT map 1:1 with Tailwind's automatic dark mode mapping
+- Use explicit values from Figma - don't assume Tailwind will automatically map light mode colors to dark mode colors
+
+**Color Application:**
+
+- Apply colors explicitly via props or CSS classes
+- Do not rely on CSS inheritance or automatic color mapping
+
+**General Guidelines:**
+
 - **Use Tailwind CSS only** - No inline styles, no CSS modules, no styled-components
 - **Do not use inline styles** in `/react` or `/vue` component files
 - Use `clsx` (React) or computed classes (Vue) to combine class strings
@@ -155,8 +173,8 @@ export type ComponentVariant = keyof typeof CssVariantClasses
 
 - **Reuse existing Icon components** - Use `@cypress-design/react-icon` or `@cypress-design/vue-icon`
 - **Do not hardcode icons** - Always use the Icon component from the design system
-- **Icon colors** - Extract exact icon colors from Figma for each theme/state combination
-- Apply icon colors explicitly via props (e.g., `strokeColor`, `fillColor`) - do not rely on CSS inheritance
+- **Icon colors** - Extract exact icon colors from Figma for each theme/state combination (see "Styling Guidelines")
+- Apply icon colors explicitly via props (e.g., `strokeColor`, `fillColor`) - see "Styling Guidelines" for color application guidelines
 
 ## TypeScript
 
@@ -196,7 +214,7 @@ export const DefaultVariant: ComponentVariant = 'default'
 
 - **Cypress component tests** - Test all states, sizes, and variants
 - **Visual regression** - Capture Percy snapshots (`cy.percySnapshot()`) for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.) to ensure all states match Figma designs
-- **Accessibility testing** - We use Cypress Accessibility for automated accessibility testing, in addition to manual testing with keyboard navigation and screen readers
+- **Accessibility testing** - See Step 4 "Optimize Component for Accessibility" for comprehensive accessibility testing guidance, including Cypress Accessibility automated testing
 
 ## Common Patterns
 
@@ -207,13 +225,13 @@ If component supports themes (`'light' | 'dark'`):
 - `'light'` - Only light mode classes (no `dark:` variants)
 - `'dark'` - Only dark mode classes
 - Use Tailwind's class-based dark mode (`darkMode: 'class'`)
-- Extract exact colors from Figma for both light and dark modes separately - don't rely on Tailwind's automatic dark mode color mapping
+- See "Styling Guidelines" section for color extraction guidelines
 
 **Note:** Automatic theme switching based on system/user preference (`'auto'` theme) is not currently implemented. If this feature is needed in the future, it would combine both: base classes (light) + `dark:` classes (explicit dark colors from Figma), where the parent/root element controls which is active via the `dark` class.
 
 ### State Management
 
 - Use CSS pseudo-classes where possible (`:hover`, `:focus`, `:active`, `:focus-visible`)
-- For JavaScript-detected states (e.g., placeholder), use conditional class application
+- For JavaScript-detected states, use conditional class application
 - Define state priority logic (e.g., disabled overrides all other states)
 - Minimize JavaScript state detection - prefer CSS when possible
