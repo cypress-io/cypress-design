@@ -20,8 +20,6 @@ import 'tailwindcss/tailwind.css'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import './a11y-support'
-
 import 'cypress-real-events/support'
 import 'cypress-real-events'
 
