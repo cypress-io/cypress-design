@@ -30,7 +30,6 @@ const props = defineProps<{
   show?: boolean
   helpLink?: string
   fullscreen?: boolean
-  className?: string
 }>()
 
 const $dialog = ref<HTMLDialogElement>()
@@ -92,7 +91,6 @@ function closeOnClickBackdrop(event: MouseEvent) {
       fullscreen
         ? ClassModalFullscreenDimensions
         : ClassModalStandardDimensions,
-      className,
     ]"
     @click="closeOnClickBackdrop"
   >
