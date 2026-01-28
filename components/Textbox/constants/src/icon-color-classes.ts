@@ -8,7 +8,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-indigo-500 group-hover:icon-light-indigo-200', // hover
     'group-focus-within:icon-dark-indigo-500 group-focus-within:icon-light-indigo-200', // focus
     'group-active:icon-dark-indigo-500 group-active:icon-light-indigo-200', // active
-    'has-[:placeholder-shown]:icon-dark-gray-500 has-[:placeholder-shown]:icon-light-gray-50', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-gray-500 group-has-[:placeholder-shown]:icon-light-gray-50', // placeholder
     // Icons
     'icon-dark-gray-500 icon-light-gray-50', // base
     'group-has-[:disabled]:icon-dark-gray-400 group-has-[:disabled]:icon-light-indigo-50',
@@ -20,7 +20,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-jade-500 group-hover:icon-light-jade-200', // hover
     'group-focus-within:icon-dark-jade-500 group-focus-within:icon-light-jade-200', // focus
     'group-active:icon-dark-jade-500 group-active:icon-light-jade-200', // active
-    'has-[:placeholder-shown]:icon-dark-jade-500 has-[:placeholder-shown]:icon-light-jade-200', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-jade-500 group-has-[:placeholder-shown]:icon-light-jade-200', // placeholder
     // Icons
     'icon-dark-jade-500 icon-light-jade-200', // base
     'group-has-[:disabled]:icon-dark-gray-400 group-has-[:disabled]:icon-light-gray-50',
@@ -32,7 +32,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-red-500 group-hover:icon-light-red-200', // hover
     'group-focus-within:icon-dark-red-500 group-focus-within:icon-light-red-200', // focus
     'group-active:icon-dark-red-500 group-active:icon-light-red-200', // active
-    'has-[:placeholder-shown]:icon-dark-red-500 has-[:placeholder-shown]:icon-light-red-200', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-red-500 group-has-[:placeholder-shown]:icon-light-red-200', // placeholder
     // Icons
     'icon-dark-red-500 icon-light-red-200', // base
     'group-has-[:disabled]:icon-dark-red-500 group-has-[:disabled]:icon-light-red-200',
@@ -44,7 +44,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-orange-500 group-hover:icon-light-orange-200', // hover
     'group-focus-within:icon-dark-orange-500 group-focus-within:icon-light-orange-200', // focus
     'group-active:icon-dark-orange-500 group-active:icon-light-orange-200', // active
-    'has-[:placeholder-shown]:icon-dark-orange-500 has-[:placeholder-shown]:icon-light-orange-200', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-orange-500 group-has-[:placeholder-shown]:icon-light-orange-200', // placeholder
     // Icons
     'icon-dark-orange-500 icon-light-orange-200', // base
     'group-has-[:disabled]:icon-dark-gray-400 group-has-[:disabled]:icon-light-gray-50',
@@ -56,7 +56,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-indigo-300 group-hover:icon-light-indigo-500', // hover
     'group-focus-within:icon-dark-indigo-300 group-focus-within:icon-light-indigo-500', // focus
     'group-active:icon-dark-indigo-300 group-active:icon-light-indigo-500', // active
-    'has-[:placeholder-shown]:icon-dark-gray-500 has-[:placeholder-shown]:icon-light-gray-800', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-gray-500 group-has-[:placeholder-shown]:icon-light-gray-800', // placeholder
     // Icons
     'icon-dark-gray-500 icon-light-gray-800', // base
     'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
@@ -68,7 +68,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-jade-300 group-hover:icon-light-jade-500', // hover
     'group-focus-within:icon-dark-jade-300 group-focus-within:icon-light-jade-500', // focus
     'group-active:icon-dark-jade-300 group-active:icon-light-jade-500', // active
-    'has-[:placeholder-shown]:icon-dark-jade-300 has-[:placeholder-shown]:icon-light-jade-500', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-jade-300 group-has-[:placeholder-shown]:icon-light-jade-500', // placeholder
     // Icons
     'icon-dark-jade-300 icon-light-jade-500', // base
     'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
@@ -80,7 +80,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-red-300 group-hover:icon-light-red-500', // hover
     'group-focus-within:icon-dark-red-300 group-focus-within:icon-light-red-500', // focus
     'group-active:icon-dark-red-300 group-active:icon-light-red-500', // active
-    'has-[:placeholder-shown]:icon-dark-red-300 has-[:placeholder-shown]:icon-light-red-500', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-red-300 group-has-[:placeholder-shown]:icon-light-red-500', // placeholder
     // Icons
     'icon-dark-red-300 icon-light-red-500', // base
     'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
@@ -92,7 +92,7 @@ export const CssIconColorClasses = {
     'group-hover:icon-dark-orange-300 group-hover:icon-light-orange-500', // hover
     'group-focus-within:icon-dark-orange-300 group-focus-within:icon-light-orange-500', // focus
     'group-active:icon-dark-orange-300 group-active:icon-light-orange-500', // active
-    'has-[:placeholder-shown]:icon-dark-orange-300 has-[:placeholder-shown]:icon-light-orange-500', // placeholder
+    'group-has-[:placeholder-shown]:icon-dark-orange-300 group-has-[:placeholder-shown]:icon-light-orange-500', // placeholder
     // Icons
     'icon-dark-orange-300 icon-light-orange-500', // base (default state uses orange-400/transparent)
     'group-has-[:disabled]:icon-dark-gray-600 group-has-[:disabled]:icon-light-gray-800',
