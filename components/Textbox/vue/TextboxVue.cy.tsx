@@ -8,81 +8,12 @@ import {
   type TextboxVariant,
 } from '@cypress-design/constants-textbox'
 import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
-import assertions, { type TextboxStoryOptions } from '../shared-assertions'
+import assertions, {
+  type TextboxStoryOptions,
+  visualAssertions,
+} from '../shared-assertions'
 
-describe('Visual', { viewportHeight: 800, viewportWidth: 1200 }, () => {
-  it('Visual states', () => {
-    const themes: TextboxTheme[] = ['light', 'dark']
-    const variants: TextboxVariant[] = [
-      'default',
-      'valid',
-      'invalid',
-      'warning',
-    ]
-    mount(() => (
-      <div class="flex flex-col gap-4 p-4">
-        Default state with all variants
-        {variants.map((variant) => (
-          <Textbox key={variant} variant={variant} value={`${variant}`} />
-        ))}
-        Disabled state with all variants
-        {variants.map((variant) => (
-          <Textbox
-            key={variant}
-            variant={variant}
-            disabled
-            value={`Disabled ${variant}`}
-          />
-        ))}
-        Placeholder
-        <Textbox placeholder="Placeholder state" />
-        Themes
-        {themes.map((theme) => (
-          <Textbox key={theme} theme={theme} placeholder={`${theme} theme`} />
-        ))}
-      </div>
-    ))
-    cy.percySnapshot()
-  })
-
-  it('Visual options', () => {
-    mount(() => (
-      <div class="flex flex-col gap-4 p-4">
-        Labels
-        <Textbox labelLeft="Left" value="With left label" />
-        <Textbox labelRight="Right" value="With right label" />
-        <Textbox labelLeft="Left" labelRight="Right" value="With both labels" />
-        Icons
-        <Textbox iconLeft={IconShapeLightningBolt} value="With left icon" />
-        <Textbox iconRight={IconShapeLightningBolt} value="With right icon" />
-        <Textbox
-          iconLeft={IconShapeLightningBolt}
-          iconRight={IconShapeLightningBolt}
-          value="With both icons"
-        />
-        Divider
-        <Textbox
-          iconLeft={IconShapeLightningBolt}
-          divider
-          value="With divider"
-        />
-        Complete example
-        <Textbox
-          labelLeft="Search"
-          iconLeft={IconShapeLightningBolt}
-          divider
-          value="Search term"
-          iconRight={IconShapeLightningBolt}
-          labelRight="Results"
-        />
-      </div>
-    ))
-    cy.get('input').should('have.length', 8)
-    cy.percySnapshot()
-  })
-})
-
-describe('Shared', () => {
+describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   function mountStory(options: TextboxStoryOptions = {}) {
     const {
       disabled = false,
@@ -108,6 +39,80 @@ describe('Shared', () => {
       </div>
     ))
   }
+
+  visualAssertions(
+    () => {
+      const themes: TextboxTheme[] = ['light', 'dark']
+      const variants: TextboxVariant[] = [
+        'default',
+        'valid',
+        'invalid',
+        'warning',
+      ]
+      mount(() => (
+        <div class="flex flex-col gap-4 p-4">
+          Default state with all variants
+          {variants.map((variant) => (
+            <Textbox key={variant} variant={variant} value={`${variant}`} />
+          ))}
+          Disabled state with all variants
+          {variants.map((variant) => (
+            <Textbox
+              key={variant}
+              variant={variant}
+              disabled
+              value={`Disabled ${variant}`}
+            />
+          ))}
+          Placeholder
+          <Textbox placeholder="Placeholder state" />
+          Themes
+          {themes.map((theme) => (
+            <Textbox key={theme} theme={theme} placeholder={`${theme} theme`} />
+          ))}
+        </div>
+      ))
+    },
+    () => {
+      mount(() => (
+        <div class="flex flex-col gap-4 p-4">
+          Labels
+          <Textbox labelLeft="Left" value="With left label" />
+          <Textbox labelRight="Right" value="With right label" />
+          <Textbox
+            labelLeft="Left"
+            labelRight="Right"
+            value="With both labels"
+          />
+          Icons
+          <Textbox iconLeft={IconShapeLightningBolt} value="With left icon" />
+          <Textbox iconRight={IconShapeLightningBolt} value="With right icon" />
+          <Textbox
+            iconLeft={IconShapeLightningBolt}
+            iconRight={IconShapeLightningBolt}
+            value="With both icons"
+          />
+          Divider
+          <Textbox
+            iconLeft={IconShapeLightningBolt}
+            divider
+            value="With divider"
+          />
+          Rounded corners
+          <Textbox rounded value="Rounded corners" />
+          Complete example
+          <Textbox
+            labelLeft="Search"
+            iconLeft={IconShapeLightningBolt}
+            divider
+            value="Search term"
+            iconRight={IconShapeLightningBolt}
+            labelRight="Results"
+          />
+        </div>
+      ))
+    },
+  )
 
   assertions(mountStory)
 })

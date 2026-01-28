@@ -33,3 +33,19 @@ export default function assertions(
     cy.get('input').should('have.value', 'Test')
   })
 }
+
+export function visualAssertions(
+  mountVisualStates: () => void,
+  mountVisualOptions: () => void,
+): void {
+  it('Visual states', () => {
+    mountVisualStates()
+    cy.percySnapshot()
+  })
+
+  it('Visual options', () => {
+    mountVisualOptions()
+    cy.get('input').should('have.length', 9)
+    cy.percySnapshot()
+  })
+}
