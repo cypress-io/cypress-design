@@ -157,8 +157,11 @@ export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
             ref={ref}
             type={type}
             className={inputClasses}
-            value={value}
-            defaultValue={defaultValue}
+            {...(value !== undefined
+              ? { value }
+              : defaultValue !== undefined
+                ? { defaultValue }
+                : {})}
             disabled={disabled}
             placeholder={placeholder}
             aria-invalid={ariaInvalidValue}
