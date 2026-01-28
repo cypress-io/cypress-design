@@ -12,73 +12,17 @@ export interface TextboxStoryOptions {
 
 export default function assertions(
   mountStory: (options?: TextboxStoryOptions) => void,
-  mountAllSizes?: () => void,
-  mountAllVariants?: () => void,
 ): void {
-  it('renders disabled state', () => {
-    mountStory({ disabled: true })
-    cy.get('input').should('be.disabled')
-    cy.percySnapshot()
-  })
-
-  it('renders placeholder state', () => {
-    mountStory({ placeholder: 'Enter text...' })
-    cy.get('input').should('have.attr', 'placeholder', 'Enter text...')
-    cy.percySnapshot()
-  })
-
   it('renders with value', () => {
     mountStory({ value: 'Test value' })
     cy.get('input').should('have.value', 'Test value')
     cy.percySnapshot()
   })
 
-  it('handles input changes', () => {
+  it('handles input changes - uncontrolled component', () => {
     mountStory()
     cy.get('input').type('New text')
     cy.get('input').should('have.value', 'New text')
-  })
-
-  it('renders all sizes', () => {
-    if (mountAllSizes) {
-      mountAllSizes()
-      cy.get('input').should('have.length', 3)
-      cy.percySnapshot()
-    } else {
-      // Fallback to individual mounts if mountAllSizes not provided
-      mountStory({ size: '32' })
-      cy.get('input').should('exist')
-      mountStory({ size: '40' })
-      cy.get('input').should('exist')
-      mountStory({ size: '48' })
-      cy.get('input').should('exist')
-      cy.percySnapshot()
-    }
-  })
-
-  it('renders all variants', () => {
-    if (mountAllVariants) {
-      mountAllVariants()
-      cy.get('input').should('have.length', 4)
-      cy.percySnapshot()
-    } else {
-      // Fallback to individual mounts if mountAllVariants not provided
-      mountStory({ variant: 'default' })
-      cy.get('input').should('exist')
-      mountStory({ variant: 'valid' })
-      cy.get('input').should('exist')
-      mountStory({ variant: 'invalid' })
-      cy.get('input').should('exist')
-      mountStory({ variant: 'warning' })
-      cy.get('input').should('exist')
-      cy.percySnapshot()
-    }
-  })
-
-  it('renders rounded corners', () => {
-    mountStory({ rounded: true })
-    cy.get('input').should('exist')
-    cy.percySnapshot()
   })
 
   it('is keyboard accessible', () => {

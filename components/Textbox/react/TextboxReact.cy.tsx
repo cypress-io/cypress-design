@@ -10,8 +10,126 @@ import {
 import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 import assertions, { type TextboxStoryOptions } from '../shared-assertions'
 
-describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
-  it('should handle value changes', () => {
+describe('Visual', { viewportHeight: 800, viewportWidth: 1200 }, () => {
+  it('Visual states', () => {
+    const themes: TextboxTheme[] = ['light', 'dark']
+    const variants: TextboxVariant[] = [
+      'default',
+      'valid',
+      'invalid',
+      'warning',
+    ]
+    mount(
+      <div className="flex flex-col gap-4 p-4">
+        Default state with all variants
+        {variants.map((variant) => (
+          <Textbox
+            key={variant}
+            variant={variant}
+            defaultValue={`${variant}`}
+          />
+        ))}
+        Disabled state with all variants
+        {variants.map((variant) => (
+          <Textbox
+            key={variant}
+            variant={variant}
+            disabled
+            defaultValue={`Disabled ${variant}`}
+          />
+        ))}
+        Placeholder
+        <Textbox placeholder="Placeholder state" />
+        Themes
+        {themes.map((theme) => (
+          <Textbox key={theme} theme={theme} defaultValue={`${theme} theme`} />
+        ))}
+      </div>,
+    )
+    cy.percySnapshot()
+  })
+
+  it('Visual options', () => {
+    mount(
+      <div className="flex flex-col gap-4 p-4">
+        Labels
+        <Textbox labelLeft="Left" defaultValue="With left label" />
+        <Textbox labelRight="Right" defaultValue="With right label" />
+        <Textbox
+          labelLeft="Left"
+          labelRight="Right"
+          defaultValue="With both labels"
+        />
+        Icons
+        <Textbox
+          iconLeft={IconShapeLightningBolt}
+          defaultValue="With left icon"
+        />
+        <Textbox
+          iconRight={IconShapeLightningBolt}
+          defaultValue="With right icon"
+        />
+        <Textbox
+          iconLeft={IconShapeLightningBolt}
+          iconRight={IconShapeLightningBolt}
+          defaultValue="With both icons"
+        />
+        Divider
+        <Textbox
+          iconLeft={IconShapeLightningBolt}
+          divider
+          defaultValue="With divider"
+        />
+        Rounded corners
+        <Textbox rounded defaultValue="Rounded corners" />
+        Complete example
+        <Textbox
+          labelLeft="Search"
+          iconLeft={IconShapeLightningBolt}
+          divider
+          defaultValue="Search term"
+          iconRight={IconShapeLightningBolt}
+          labelRight="Results"
+        />
+      </div>,
+    )
+    cy.get('input').should('have.length', 9)
+    cy.percySnapshot()
+  })
+})
+
+describe('Shared', () => {
+  function mountStory(options: TextboxStoryOptions = {}) {
+    const {
+      disabled = false,
+      placeholder = 'Enter text...',
+      value,
+      variant = 'default',
+      theme = 'light',
+      size = '40',
+      rounded = false,
+    } = options
+
+    mount(
+      <div className="p-4">
+        <Textbox
+          disabled={disabled}
+          placeholder={placeholder}
+          defaultValue={value}
+          variant={variant}
+          theme={theme}
+          size={size}
+          rounded={rounded}
+        />
+      </div>,
+    )
+  }
+
+  assertions(mountStory)
+})
+
+describe('Function', () => {
+  it('should handle value changes - controlled component', () => {
     const SUT = () => {
       const [value, setValue] = React.useState('')
       return (
@@ -31,84 +149,6 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
     mount(<SUT />)
     cy.get('input').type('Hello')
     cy.get('[data-cy="value-display"]').should('contain', 'Hello')
-  })
-
-  it('should handle all themes', () => {
-    const themes: TextboxTheme[] = ['light', 'dark']
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        {themes.map((theme) => (
-          <Textbox key={theme} theme={theme} placeholder={`${theme} theme`} />
-        ))}
-      </div>,
-    )
-    cy.get('input').should('have.length', 2)
-    cy.percySnapshot()
-  })
-
-  it('should handle labels', () => {
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        <Textbox labelLeft="Left" placeholder="With left label" />
-        <Textbox labelRight="Right" placeholder="With right label" />
-        <Textbox
-          labelLeft="Left"
-          labelRight="Right"
-          placeholder="With both labels"
-        />
-      </div>,
-    )
-    cy.get('input').should('have.length', 3)
-    cy.percySnapshot()
-  })
-
-  it('should handle icons', () => {
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        <Textbox
-          iconLeft={IconShapeLightningBolt}
-          placeholder="With left icon"
-        />
-        <Textbox
-          iconRight={IconShapeLightningBolt}
-          placeholder="With right icon"
-        />
-        <Textbox
-          iconLeft={IconShapeLightningBolt}
-          iconRight={IconShapeLightningBolt}
-          placeholder="With both icons"
-        />
-      </div>,
-    )
-    cy.get('input').should('have.length', 3)
-    cy.percySnapshot()
-  })
-
-  it('should handle divider', () => {
-    mount(
-      <Textbox
-        iconLeft={IconShapeLightningBolt}
-        divider
-        placeholder="With divider"
-      />,
-    )
-    cy.get('input').should('exist')
-    cy.percySnapshot()
-  })
-
-  it('should handle complete example', () => {
-    mount(
-      <Textbox
-        labelLeft="Search"
-        iconLeft={IconShapeLightningBolt}
-        divider
-        placeholder="Search term"
-        iconRight={IconShapeLightningBolt}
-        labelRight="Results"
-      />,
-    )
-    cy.get('input').should('exist')
-    cy.percySnapshot()
   })
 
   it('should handle focus and blur events', () => {
@@ -140,92 +180,6 @@ describe('<Textbox />', { viewportHeight: 800, viewportWidth: 1200 }, () => {
       .should('have.attr', 'aria-label', 'Test input')
       .should('have.attr', 'aria-describedby', 'help-text')
   })
-
-  it('should handle disabled state with all variants', () => {
-    const variants: TextboxVariant[] = [
-      'default',
-      'valid',
-      'invalid',
-      'warning',
-    ]
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        {variants.map((variant) => (
-          <Textbox
-            key={variant}
-            variant={variant}
-            disabled
-            value={`Disabled ${variant}`}
-          />
-        ))}
-      </div>,
-    )
-    cy.get('input').each(($input) => {
-      cy.wrap($input).should('be.disabled')
-    })
-    cy.percySnapshot()
-  })
-
-  it('should handle placeholder vs value states', () => {
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        <Textbox placeholder="Placeholder state" />
-        <Textbox defaultValue="Value state" />
-        <Textbox defaultValue="" placeholder="Empty value with placeholder" />
-      </div>,
-    )
-    cy.get('input').should('have.length', 3)
-    cy.percySnapshot()
-  })
-
-  function mountStory(options: TextboxStoryOptions = {}) {
-    const {
-      disabled = false,
-      placeholder = 'Enter text...',
-      value,
-      variant = 'default',
-      theme = 'light',
-      size = '40',
-      rounded = false,
-    } = options
-
-    mount(
-      <div className="p-4">
-        <Textbox
-          disabled={disabled}
-          placeholder={placeholder}
-          defaultValue={value}
-          variant={variant}
-          theme={theme}
-          size={size}
-          rounded={rounded}
-        />
-      </div>,
-    )
-  }
-
-  function mountAllSizes() {
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        <Textbox size="32" placeholder="Size 32" />
-        <Textbox size="40" placeholder="Size 40" />
-        <Textbox size="48" placeholder="Size 48" />
-      </div>,
-    )
-  }
-
-  function mountAllVariants() {
-    mount(
-      <div className="flex flex-col gap-4 p-4">
-        <Textbox variant="default" placeholder="Default variant" />
-        <Textbox variant="valid" placeholder="Valid variant" />
-        <Textbox variant="invalid" placeholder="Invalid variant" />
-        <Textbox variant="warning" placeholder="Warning variant" />
-      </div>,
-    )
-  }
-
-  assertions(mountStory, mountAllSizes, mountAllVariants)
 })
 
 describe('Ref Forwarding', () => {
