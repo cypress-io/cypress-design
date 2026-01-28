@@ -26,6 +26,7 @@ export interface ModalProps {
   show?: boolean
   onClose?: () => void
   fullscreen?: boolean
+  className?: string
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -35,6 +36,7 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   fullscreen = false,
+  className,
 }) => {
   const dialogRef = React.useRef<HTMLDialogElement>(null)
 
@@ -83,6 +85,7 @@ export const Modal: React.FC<ModalProps> = ({
           fullscreen
             ? ClassModalFullscreenDimensions
             : ClassModalStandardDimensions,
+          className,
         )}
         onClick={closeOnClickBackdrop}
       >
