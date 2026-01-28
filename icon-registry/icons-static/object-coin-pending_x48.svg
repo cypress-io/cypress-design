@@ -1,0 +1,10 @@
+<svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path class="icon-light" d="M14 26.1973C8.02199 25.1599 4 23.2208 4 21V28.75C4 30.6932 8.02199 32.3899 14 33.2976V26.1973Z" fill="currentColor"/>
+  <path class="icon-light" d="M24 27C20.3571 27 16.9417 26.7078 14 26.1973V33.2976C16.9417 33.7443 20.3571 34 24 34V27Z" fill="currentColor"/>
+  <path class="icon-light" d="M34 26.1973C31.0583 26.7078 27.6429 27 24 27V34C27.6429 34 31.0583 33.7443 34 33.2976V26.1973Z" fill="currentColor"/>
+  <path class="icon-light" d="M44 21C44 23.2208 39.978 25.1599 34 26.1973V33.2976C39.978 32.3899 44 30.6932 44 28.75V21Z" fill="currentColor"/>
+  <path class="icon-dark" d="M44 21C44 24.3137 35.0457 27 24 27M44 21C44 17.6863 35.0457 15 24 15C12.9543 15 4 17.6863 4 21M44 21V28.75C44 30.6932 39.978 32.3899 34 33.2976M44 21C44 23.2208 39.978 25.1599 34 26.1973M24 27C12.9543 27 4 24.3137 4 21M24 27V34M24 27C20.3571 27 16.9417 26.7078 14 26.1973M24 27C27.6429 27 31.0583 26.7078 34 26.1973M4 21V28.75C4 30.6932 8.02199 32.3899 14 33.2976M4 21C4 23.2208 8.02199 25.1599 14 26.1973M24 34C27.6429 34 31.0583 33.7443 34 33.2976M24 34C20.3571 34 16.9417 33.7443 14 33.2976M34 33.2976V26.1973M14 33.2976V26.1973" stroke="currentColor" stroke-width="2"/>
+  <circle cx="36" cy="36" r="8" fill="white"/>
+  <circle class="icon-light-secondary" cx="36" cy="36" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path class="icon-dark-secondary" d="M42 36C42 32.6863 39.3137 30 36 30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
