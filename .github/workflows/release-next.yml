@@ -11,7 +11,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: --no-compilation-cache
+      NODE_DISABLE_COMPILE_CACHE: 1
     permissions:
       id-token: write
       contents: write
@@ -33,7 +33,7 @@ jobs:
           yarn install --frozen-lockfile
         env:
           CI: true
-          NODE_OPTIONS: --max_old_space_size=4096 --no-compilation-cache
+          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Set committer info
         ## attribute the commit to cypress-bot: https://github.community/t/logging-into-git-as-a-github-app/115916

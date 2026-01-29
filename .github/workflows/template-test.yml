@@ -15,7 +15,7 @@ jobs:
   template-test:
     runs-on: ubuntu-latest
     env:
-      NODE_OPTIONS: --no-compilation-cache
+      NODE_DISABLE_COMPILE_CACHE: 1
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
           yarn install --frozen-lockfile
         env:
           CI: true
-          NODE_OPTIONS: --max_old_space_size=4096 --no-compilation-cache
+          NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Remove Postinstall Script
         run: |
