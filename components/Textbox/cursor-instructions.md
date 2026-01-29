@@ -123,204 +123,25 @@ export const CssRoundedClasses = {
 
 ### Constants Organization
 
-- Organize constants to map directly to visual states
-- Minimize conditional logic in component files
-- Use flat keys with naming convention: `theme-type-state` (e.g., `'light-default-hover'`)
-
-**Constants structure should reflect:**
-
-- Theme (`'light' | 'dark'`)
-- Type/Variant (`'default' | 'valid' | 'invalid' | 'warning'`)
-- State (`'placeholder' | 'default' | 'hover' | 'active' | 'focus-visible' | 'disabled'`)
-- Size (`'32' | '40' | '48'`)
-- Rounded (`boolean`)
-
-**Important:** Not all state combinations may be needed. For example:
-
-- `disabled` state typically overrides other states (disabled inputs don't hover)
-- `placeholder` state is mutually exclusive with `default` (input is either empty or has value)
-- Consider if `hover` + `active` + `focus-visible` combinations need separate constants or if CSS specificity handles it
-
-**Example of state priority logic:**
-
-```typescript
-// In component, determine which state class to use:
-// 1. Check disabled first (highest priority)
-// 2. Check placeholder (if value is empty)
-// 3. Check focus-visible (if keyboard focused)
-// 4. Check active (if focused and typing)
-// 5. Check hover (if mouse over)
-// 6. Default state
-```
+See global instructions for state priority and naming (e.g. `theme-type-state`). Textbox uses flat keys like `'light-default-hover'`. Constants structure: Theme, Type/Variant, State, Size, Rounded (see Visual Structure above). Not all combinations may be needed—see global "Constants for multi-state components."
 
 ### Icon Colors
 
-Create separate constants for icon colors following the structure below. See global instructions for icon color extraction and application principles.
-
-```typescript
-export const IconColors = {
-  // Structure: theme-type-state
-  'light-default-default': {
-    strokeColor: 'gray-600',
-    fillColor: 'transparent',
-  },
-  'light-default-hover': { strokeColor: 'gray-700', fillColor: 'transparent' },
-  // ... etc for all combinations
-  'dark-default-default': { strokeColor: 'gray-300', fillColor: 'transparent' },
-  // ... etc
-} as const
-```
+Create separate constants with keys `theme-type-state`. See global instructions for icon color extraction and application.
 
 ### Divider Styles
 
-Create separate constants for divider styles. See global instructions for extracting exact styles from Figma.
-
-```typescript
-export const DividerClasses = {
-  // Structure: theme
-  light: 'h-[16px] w-[1px] bg-gray-200',
-  dark: 'h-[16px] w-[1px] bg-gray-700',
-} as const
-```
+Create constants keyed by theme (e.g. `light`, `dark`). See global instructions for extracting exact styles from Figma.
 
 ## Borders & Interaction Model
 
-**Visual border structure:**
-
-Hover, active, and focus-visible states use two visual borders:
-
-1. **Outside border** - The container's border (the main border of the wrapper)
-2. **Inside border** - An inner border/ring effect (creates a layered look)
-
-**Border implementation rules:**
-
-- **Hover / Active states** → 1px inside border
-  - Use CSS `border` property on the wrapper
-  - Example: `hover:border-gray-300` or `focus:border-gray-300`
-- **Focus-visible state** → 2px inside border
-  - Use CSS `outline` property (NOT `border`) - this is important for accessibility
-  - Example: `focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0`
-  - The `outline-offset-0` ensures the outline sits inside the border
-
-**Why outline for focus-visible?**
-
-- `outline` doesn't affect layout (unlike `border`)
-- Better for accessibility - doesn't shift content
-- Can be combined with border for the layered effect
-
-**Wrapper state handling:**
-
-The entire wrapper (including labels and icons) should respond to hover/focus states, not just the input element. This means:
-
-```tsx
-// ✅ Correct - wrapper handles states
-<div className="hover:border-gray-300 focus-within:border-gray-400">
-  <input />
-</div>
-
-// ❌ Wrong - only input handles states
-<div>
-  <input className="hover:border-gray-300" />
-</div>
-```
-
-Use `focus-within` on the wrapper to detect when the input inside is focused.
+See global instructions ("Form Controls / Input-like Components") for focus/outline and wrapper/focus-within. Textbox: hover/active via `border` on the wrapper; focus-visible via `outline`; wrapper uses `focus-within` so labels and icons react when the input is focused.
 
 ## HTML & Behavior
 
-- The component must support all standard `<input type="text">` attributes:
+Support standard input attributes and events; see global instructions for input-like components. Map `disabled` and empty value + placeholder to state classes per state priority (see global). Placeholder and active/focus-visible: see global ("Form Controls").
 
-  - `value`, `defaultValue` (React) / `v-model` (Vue)
-  - `readonly`, `disabled`
-  - `maxlength`, `minlength`
-  - `autofocus`, `placeholder`
-  - `name`, `id`, `aria-*` attributes
-  - `onChange`, `onInput`, `onFocus`, `onBlur` (React) / `@input`, `@focus`, `@blur` (Vue)
-
-- Visual state mapping:
-
-  - `disabled` prop → apply disabled styles from constants
-  - Empty value + placeholder → apply placeholder styles from constants
-  - `:hover` pseudo-class → apply hover styles
-  - `:active` or `:focus` → apply active styles
-  - `:focus-visible` → apply focus-visible styles
-
-## State Detection Best Practices
-
-### Placeholder State Detection
-
-**Placeholder state is NOT a CSS pseudo-class** - it requires JavaScript detection:
-
-```typescript
-// React example
-const isPlaceholder = !value || value.trim() === ''
-
-// Vue example
-const isPlaceholder = computed(
-  () => !props.modelValue || String(props.modelValue).trim() === '',
-)
-```
-
-**Best practices:**
-
-- Check if value is empty/null/undefined/whitespace-only
-- Only apply placeholder styles when value is empty AND placeholder attribute exists
-- Apply placeholder styles conditionally via className/computed classes
-- Use placeholder styles from constants: `CssVariantClasses['light-default-placeholder']`
-
-**Example implementation:**
-
-```tsx
-// React
-const stateClasses = isPlaceholder
-  ? CssVariantClasses[`${theme}-${variant}-placeholder`]
-  : CssVariantClasses[`${theme}-${variant}-default`]
-```
-
-### Active vs Focus-Visible States
-
-**These states can be true simultaneously** - handle them correctly:
-
-1. **`:active`** - CSS pseudo-class, applies when the input is focused and user is interacting (clicking or typing)
-
-   - For text inputs, this means the input is currently focused and the user is clicking or typing inside it
-   - Use in CSS: `active:border-gray-300` or `focus:border-gray-300` (for text inputs, `:focus` often represents the active/typing state)
-
-2. **`:focus-visible`** - CSS pseudo-class, applies when element has keyboard focus
-
-   - **Only for keyboard navigation** - Modern browsers only show focus-visible when focus was achieved via keyboard (Tab key, etc.)
-   - Does NOT show for mouse clicks - this is intentional for accessibility
-   - Use in CSS: `focus-visible:outline-2 focus-visible:outline-indigo-500`
-   - **Important for accessibility** - ensures keyboard users see focus indicators
-
-3. **`:focus`** - CSS pseudo-class, applies when element has focus (any method)
-   - Includes both mouse clicks and keyboard navigation
-   - Can be combined with `:focus-visible` for broader support
-
-**Best practices:**
-
-- Use CSS pseudo-classes in constants - let CSS handle state detection automatically
-- Order matters in CSS - later rules override earlier ones
-- For focus-visible, use `outline` property (not `border`) as per border rules
-- Combine states when needed: `focus-visible:active:outline-2` (if both should apply)
-- In constants, define separate classes for each state:
-  ```typescript
-  'light-default-active': 'active:border-gray-300',
-  'light-default-focus-visible': 'focus-visible:outline-2 focus-visible:outline-indigo-500',
-  ```
-- CSS will automatically apply the correct styles based on the current state
-- No JavaScript needed for active/focus-visible detection - CSS handles it
-
-**State priority (when multiple states are active):**
-
-- CSS specificity and order determine which styles apply
-- Typically: `focus-visible` > `active` > `hover` > `default`
-- Test with keyboard navigation (Tab) and mouse interaction to ensure correct behavior
-
-- **Accessibility:** See global instructions for comprehensive accessibility guidelines. Component-specific notes:
-  - Ensure proper `aria-label` or `aria-labelledby` when labelLeft/labelRight are used
-  - For invalid/warning states, use `aria-invalid="true"` and `aria-describedby` for error messages
-  - The `focus-visible` outline is critical for keyboard users - never remove it (see "Borders & Interaction Model" section for implementation details)
+**Accessibility (Textbox-specific):** Ensure `aria-label` or `aria-labelledby` when labelLeft/labelRight are used. For invalid/warning, use `aria-invalid="true"` and `aria-describedby` for error messages. Keep the focus-visible outline (see Borders above).
 
 ## Expected API
 
@@ -452,53 +273,11 @@ Display all combinations across:
 - Light and dark themes
 - All types (where applicable)
 
-## Implementation Checklist
+## Common Pitfalls
 
-### Phase 1: Constants & Styling
+- **Wrapper must handle hover/focus** for the entire control (labels and icons), not just the input.
+- **Don't assume all 432 combinations are needed**—some states override others or are mutually exclusive.
 
-- [ ] Extract all colors from Figma (light mode design)
-- [ ] Extract all colors from Figma (dark mode design)
-- [ ] Create constants file structure (`CssStaticClasses`, `CssSizeClasses`, `CssVariantClasses`, `CssRoundedClasses`)
-- [ ] Create all theme/type/state combinations in `CssVariantClasses`
-- [ ] Create `IconColors` constant with all theme/type/state combinations
-- [ ] Create `DividerClasses` constant for all themes
-- [ ] Export TypeScript types (`TextboxTheme`, `TextboxVariant`, `TextboxState`, `TextboxSize`)
-
-### Phase 2: Component Implementation
-
-- [ ] Implement React component with proper TypeScript types
-- [ ] Implement Vue component with proper TypeScript types
-- [ ] Ensure wrapper handles hover/focus states (not just input)
-- [ ] Implement placeholder state detection (JavaScript)
-- [ ] Implement state priority logic (disabled > placeholder > focus-visible > active > hover > default)
-- [ ] Support all standard input attributes (`value`, `onChange`, `disabled`, `placeholder`, etc.)
-- [ ] Apply icon colors explicitly via icon props (not CSS inheritance)
-- [ ] Apply divider styles explicitly via CSS classes
-
-### Phase 3: Accessibility & Polish
-
-- [ ] Add proper accessibility attributes (`aria-label`, `aria-invalid`, `aria-describedby`)
-- [ ] Ensure keyboard navigation works correctly (Tab, Enter, etc.)
-- [ ] Verify `focus-visible` outline is visible for keyboard users
-- [ ] Test with keyboard-only navigation (no mouse)
-
-### Phase 4: Documentation & Testing
-
-- [ ] Create VitePress documentation with all examples
-- [ ] Test all states individually (placeholder, default, hover, active, focus-visible, disabled)
-- [ ] Test all types (default, valid, invalid, warning)
-- [ ] Test all sizes (32, 40, 48)
-- [ ] Test all themes (light, dark)
-- [ ] Test all optional elements (labelLeft, iconLeft, divider, iconRight, labelRight)
-- [ ] Test state combinations (e.g., disabled + hover, placeholder + focus-visible)
-- [ ] Test with rounded and non-rounded variants
-
-## Common Pitfalls to Avoid
-
-1. **Don't apply states to input only** - Wrapper must handle hover/focus for entire control
-2. **Don't use `border` for focus-visible** - Use `outline` property instead (see "Borders & Interaction Model" section)
-3. **Don't forget placeholder state detection** - Requires JavaScript, not just CSS
-4. **Don't ignore state priority** - Disabled should override all other states
-5. **Don't assume all combinations are needed** - Some states may be mutually exclusive
+For outline vs border, placeholder JS, and state priority, see global instructions.
 
 **Note:** For general design system principles (color extraction, icon handling, accessibility, etc.), see global instructions.

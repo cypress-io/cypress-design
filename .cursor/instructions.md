@@ -32,7 +32,7 @@ Figma design should be provided with the following specifications:
     │   └── {ComponentName}React.cy.tsx  # React Cypress tests
     ├── vue/               # Vue implementation
     │   └── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
-    ├── assertions.ts      # Shared test assertions (optional)
+    ├── shared-assertions.ts  # Shared test assertions (optional)
     ├── ReadMe.md          # Component overview
     └── cursor-instructions.md  # Component-specific instructions (if needed)
   ```
@@ -235,3 +235,34 @@ If component supports themes (`'light' | 'dark'`):
 - For JavaScript-detected states, use conditional class application
 - Define state priority logic (e.g., disabled overrides all other states)
 - Minimize JavaScript state detection - prefer CSS when possible
+
+### Form Controls / Input-like Components
+
+**Focus and borders:**
+
+- Use **`outline`** for focus-visible (not `border`) - outline doesn't affect layout and is better for accessibility. Example: `focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0`
+- Use **`border`** for hover/active states on the wrapper (e.g. `hover:border-gray-300`)
+- For composite controls (label + input + icon), put hover/focus states on the **wrapper** and use **`focus-within`** so the whole control responds when the inner input is focused
+
+**Active vs focus-visible:**
+
+- **`:focus-visible`** - For keyboard focus; use for focus ring (with `outline` as above). Browsers show it only when focus was achieved via keyboard (Tab), not on mouse click - intentional for accessibility.
+- **`:active`** / **`:focus`** - For "currently focused and user is interacting" (e.g. typing in input). Can use `border` on wrapper. CSS handles state detection; no JavaScript needed for active/focus-visible.
+
+**Placeholder state (inputs):**
+
+- Placeholder state is not a CSS pseudo-class. Use JavaScript (e.g. empty value + placeholder attribute) and apply placeholder styles from constants when value is empty; use default state styles when value is present.
+
+**Constants for multi-state components:**
+
+- Use flat keys that encode theme, variant, and state (e.g. `theme-type-state`: `'light-default-hover'`). Document state priority order (e.g. disabled > placeholder > focus-visible > active > hover > default). Not every combination may need a constant (e.g. disabled often overrides others).
+
+**Input-like components:**
+
+- Support standard attributes (`value`/`defaultValue`/`v-model`, `disabled`, `placeholder`, `aria-*`, `onChange`/`onInput`/`onFocus`/`onBlur`). Map `disabled` and empty value + placeholder to the correct visual state classes from constants.
+
+## Common Pitfalls
+
+- Use **outline** for focus-visible, not border (accessibility and layout)
+- Placeholder state for inputs requires **JavaScript** (empty value + placeholder), not only CSS
+- **State priority:** Disabled should override other states; document and implement a clear order
