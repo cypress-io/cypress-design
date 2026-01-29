@@ -10,6 +10,8 @@ on:
 jobs:
   test-react-app-dev:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --no-compilation-cache
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -20,15 +22,11 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - name: Get Node version
-        id: node-version
-        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
-
       - name: Restore cached build files
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
@@ -61,6 +59,8 @@ jobs:
 
   test-react-app-build:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --no-compilation-cache
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -71,15 +71,11 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - name: Get Node version
-        id: node-version
-        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
-
       - name: Restore cached build files
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
@@ -115,6 +111,8 @@ jobs:
 
   test-vue-app-dev:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --no-compilation-cache
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -125,15 +123,11 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - name: Get Node version
-        id: node-version
-        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
-
       - name: Restore cached build files
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
@@ -166,6 +160,8 @@ jobs:
 
   test-vue-app-build:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --no-compilation-cache
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -176,15 +172,11 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
-      - name: Get Node version
-        id: node-version
-        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
-
       - name: Restore cached build files
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
+          key: cache-${{ inputs.nonce }}
           path: |
             ./css/dist
             ./icon-registry/dist
@@ -199,7 +191,7 @@ jobs:
           yarn install --frozen-lockfile
         env:
           CI: true
-          NODE_OPTIONS: --max_old_space_size=4096
+          NODE_OPTIONS: --max_old_space_size=4096 --no-compilation-cache
 
       - name: Install Cypress
         run: yarn cypress install

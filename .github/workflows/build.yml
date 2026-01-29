@@ -10,6 +10,8 @@ on:
 jobs:
   build-all:
     runs-on: ubuntu-latest
+    env:
+      NODE_OPTIONS: --no-compilation-cache
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4
@@ -19,10 +21,6 @@ jobs:
         with:
           node-version: 20
           cache: 'yarn'
-
-      - name: Get Node version
-        id: node-version
-        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
 
       - name: Remove Postinstall Script
         run: |
@@ -44,7 +42,7 @@ jobs:
         run: yarn build:components
         env:
           CI: true
-          NODE_OPTIONS: --max_old_space_size=4096
+          NODE_OPTIONS: --max_old_space_size=4096 --no-compilation-cache
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
@@ -54,7 +52,7 @@ jobs:
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
+          key: cache-${{ inputs.nonce }}
           restore-keys: |
             cache-
           path: |
