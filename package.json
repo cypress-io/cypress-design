@@ -16,6 +16,9 @@
     "icon-registry",
     "test/*"
   ],
+  "engines": {
+    "node": ">=22.19.0"
+  },
   "scripts": {
     "cy": "concurrently -c \"auto\" --passthrough-arguments -n cypress,const \"cypress open --component {@}\" \"node ./scripts/watch-constants.mjs\"",
     "cy:run": "cypress run --component",
