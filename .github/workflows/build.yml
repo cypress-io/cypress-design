@@ -34,6 +34,7 @@ jobs:
         run: |
           yarn turbo run build --filter=@cypress-design/css
           yarn workspace @cypress-design/icon-registry build
+          yarn workspace @cypress-design/rollup-plugin-tailwind-keep build
 
       - name: Build Components
         run: yarn build:components
@@ -57,4 +58,5 @@ jobs:
             ./icon-registry/dist
             ./components
             ./packages/details-animation/dist
+            ./packages/rollup-plugin-tailwind-keep/dist
             ./node_modules

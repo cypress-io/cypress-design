@@ -26,6 +26,7 @@ jobs:
           cache: 'yarn'
 
       - name: Restore cached build files
+        id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
           key: ${{ inputs.nonce }}
@@ -34,6 +35,7 @@ jobs:
             ./icon-registry/dist
             ./components
             ./packages/details-animation/dist
+            ./packages/rollup-plugin-tailwind-keep/dist
             ./node_modules
 
       - name: Reinstall dependencies and regenerate build files
@@ -58,6 +60,7 @@ jobs:
         run: |
           yarn turbo run build --filter=@cypress-design/css
           yarn workspace @cypress-design/icon-registry build
+          yarn workspace @cypress-design/rollup-plugin-tailwind-keep build
 
       - name: Run Unit Tests
         run: yarn test
