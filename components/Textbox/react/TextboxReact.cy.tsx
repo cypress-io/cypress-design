@@ -11,7 +11,7 @@ import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 import assertions, {
   type TextboxStoryOptions,
   visualAssertions,
-} from '../shared-assertions'
+} from '../assertions'
 
 describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
   function mountStory(options: TextboxStoryOptions = {}) {

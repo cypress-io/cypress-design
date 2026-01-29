@@ -32,7 +32,7 @@ Figma design should be provided with the following specifications:
     │   └── {ComponentName}React.cy.tsx  # React Cypress tests
     ├── vue/               # Vue implementation
     │   └── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
-    ├── shared-assertions.ts  # Shared test assertions (optional)
+    ├── assertions.ts      # Shared test assertions (optional)
     ├── ReadMe.md          # Component overview
     └── cursor-instructions.md  # Component-specific instructions (if needed)
   ```
