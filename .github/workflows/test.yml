@@ -25,10 +25,15 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
+      - name: Get Node version
+        id: node-version
+        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
+
       - name: Restore cached build files
+        id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: ${{ inputs.nonce }}
+          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
           path: |
             ./css/dist
             ./icon-registry/dist
@@ -89,11 +94,15 @@ jobs:
           node-version: 20
           cache: 'yarn'
 
+      - name: Get Node version
+        id: node-version
+        run: echo "version=$(node -v)" >> $GITHUB_OUTPUT
+
       - name: Restore cached build files
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
-          key: cache-${{ inputs.nonce }}
+          key: cache-${{ inputs.nonce }}-${{ steps.node-version.outputs.version }}
           path: |
             ./css/dist
             ./icon-registry/dist
