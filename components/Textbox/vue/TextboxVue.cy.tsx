@@ -53,7 +53,12 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
         <div class="flex flex-col gap-4 p-4">
           Default state with all variants
           {variants.map((variant) => (
-            <Textbox key={variant} variant={variant} value={`${variant}`} />
+            <Textbox
+              key={variant}
+              variant={variant}
+              value={`${variant}`}
+              aria-label={`Default ${variant}`}
+            />
           ))}
           Disabled state with all variants
           {variants.map((variant) => (
@@ -62,13 +67,22 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
               variant={variant}
               disabled
               value={`Disabled ${variant}`}
+              aria-label={`Disabled ${variant}`}
             />
           ))}
           Placeholder
-          <Textbox placeholder="Placeholder state" />
+          <Textbox
+            placeholder="Placeholder state"
+            aria-label="Placeholder state"
+          />
           Themes
           {themes.map((theme) => (
-            <Textbox key={theme} theme={theme} placeholder={`${theme} theme`} />
+            <Textbox
+              key={theme}
+              theme={theme}
+              placeholder={`${theme} theme`}
+              aria-label={`${theme} theme`}
+            />
           ))}
         </div>
       ))
@@ -77,29 +91,52 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
       mount(() => (
         <div class="flex flex-col gap-4 p-4">
           Labels
-          <Textbox labelLeft="Left" value="With left label" />
-          <Textbox labelRight="Right" value="With right label" />
+          <Textbox
+            labelLeft="Left"
+            value="With left label"
+            aria-label="With left label"
+          />
+          <Textbox
+            labelRight="Right"
+            value="With right label"
+            aria-label="With right label"
+          />
           <Textbox
             labelLeft="Left"
             labelRight="Right"
             value="With both labels"
+            aria-label="With both labels"
           />
           Icons
-          <Textbox iconLeft={IconShapeLightningBolt} value="With left icon" />
-          <Textbox iconRight={IconShapeLightningBolt} value="With right icon" />
+          <Textbox
+            iconLeft={IconShapeLightningBolt}
+            value="With left icon"
+            aria-label="With left icon"
+          />
+          <Textbox
+            iconRight={IconShapeLightningBolt}
+            value="With right icon"
+            aria-label="With right icon"
+          />
           <Textbox
             iconLeft={IconShapeLightningBolt}
             iconRight={IconShapeLightningBolt}
             value="With both icons"
+            aria-label="With both icons"
           />
           Divider
           <Textbox
             iconLeft={IconShapeLightningBolt}
             divider
             value="With divider"
+            aria-label="With divider"
           />
           Rounded corners
-          <Textbox rounded value="Rounded corners" />
+          <Textbox
+            rounded
+            value="Rounded corners"
+            aria-label="Rounded corners"
+          />
           Complete example
           <Textbox
             labelLeft="Search"
@@ -108,6 +145,7 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
             value="Search term"
             iconRight={IconShapeLightningBolt}
             labelRight="Results"
+            aria-label="Complete example"
           />
         </div>
       ))

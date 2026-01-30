@@ -57,6 +57,7 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
               key={variant}
               variant={variant}
               defaultValue={`${variant}`}
+              aria-label={`Default ${variant}`}
             />
           ))}
           Disabled state with all variants
@@ -66,16 +67,21 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
               variant={variant}
               disabled
               defaultValue={`Disabled ${variant}`}
+              aria-label={`Disabled ${variant}`}
             />
           ))}
           Placeholder
-          <Textbox placeholder="Placeholder state" />
+          <Textbox
+            placeholder="Placeholder state"
+            aria-label="Placeholder state"
+          />
           Themes
           {themes.map((theme) => (
             <Textbox
               key={theme}
               theme={theme}
               defaultValue={`${theme} theme`}
+              aria-label={`${theme} theme`}
             />
           ))}
         </div>,
@@ -85,35 +91,52 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
       mount(
         <div className="flex flex-col gap-4 p-4">
           Labels
-          <Textbox labelLeft="Left" defaultValue="With left label" />
-          <Textbox labelRight="Right" defaultValue="With right label" />
+          <Textbox
+            labelLeft="Left"
+            defaultValue="With left label"
+            aria-label="With left label"
+          />
+          <Textbox
+            labelRight="Right"
+            defaultValue="With right label"
+            aria-label="With right label"
+          />
           <Textbox
             labelLeft="Left"
             labelRight="Right"
             defaultValue="With both labels"
+            aria-label="With both labels"
           />
           Icons
           <Textbox
             iconLeft={IconShapeLightningBolt}
             defaultValue="With left icon"
+            aria-label="With left icon"
           />
           <Textbox
             iconRight={IconShapeLightningBolt}
             defaultValue="With right icon"
+            aria-label="With right icon"
           />
           <Textbox
             iconLeft={IconShapeLightningBolt}
             iconRight={IconShapeLightningBolt}
             defaultValue="With both icons"
+            aria-label="With both icons"
           />
           Divider
           <Textbox
             iconLeft={IconShapeLightningBolt}
             divider
             defaultValue="With divider"
+            aria-label="With divider"
           />
           Rounded corners
-          <Textbox rounded defaultValue="Rounded corners" />
+          <Textbox
+            rounded
+            defaultValue="Rounded corners"
+            aria-label="Rounded corners"
+          />
           Complete example
           <Textbox
             labelLeft="Search"
@@ -122,6 +145,7 @@ describe('Shared', { viewportHeight: 800, viewportWidth: 1200 }, () => {
             defaultValue="Search term"
             iconRight={IconShapeLightningBolt}
             labelRight="Results"
+            aria-label="Complete example"
           />
         </div>,
       )
