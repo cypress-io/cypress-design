@@ -151,11 +151,14 @@ describe('Function', () => {
 
   it('should handle aria attributes', () => {
     mount(() => (
-      <Textbox
-        aria-label="Test input"
-        aria-describedby="help-text"
-        placeholder="Accessible input"
-      />
+      <div>
+        <Textbox
+          aria-label="Test input"
+          aria-describedby="help-text"
+          placeholder="Accessible input"
+        />
+        <span id="help-text">Help text for the input.</span>
+      </div>
     ))
     cy.get('input')
       .should('have.attr', 'aria-label', 'Test input')
