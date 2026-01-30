@@ -191,7 +191,13 @@ describe('Function', () => {
   })
 
   it('should apply aria-invalid for invalid variant', () => {
-    mount(<Textbox variant="invalid" defaultValue="Invalid input" />)
+    mount(
+      <Textbox
+        variant="invalid"
+        defaultValue="Invalid input"
+        aria-label="Invalid input"
+      />,
+    )
     cy.get('input').should('have.attr', 'aria-invalid', 'true')
   })
 
