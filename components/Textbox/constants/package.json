@@ -1,0 +1,20 @@
+{
+  "name": "@cypress-design/constants-textbox",
+  "version": "1.0.0",
+  "files": [
+    "*"
+  ],
+  "main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c ./rollup.config.mjs"
+  },
+  "license": "MIT"
+}

@@ -75,6 +75,43 @@ const files = [
   './docs/**/*.md',
 ].map((file) => path.resolve(__dirname, file))
 
+// Outline utilities that might be in string literals and need to be safelisted
+// These are used in the Textbox component for focus-visible states
+const outlineSafelist = [
+  'outline-none',
+  'outline-2',
+  'outline-offset-0',
+  'focus-within:outline-none',
+  'focus-visible:outline-2',
+  'focus-visible:outline-offset-0',
+  // Specific outline color classes used in Textbox component (with opacity)
+  'outline-[3px]',
+  'outline-gray-300/25',
+  'outline-indigo-300/35',
+  'outline-jade-300/35',
+  'outline-red-300/35',
+  'outline-orange-300/35',
+  'outline-white/10',
+  // Hover states
+  'hover:outline-gray-300/25',
+  'hover:outline-jade-300/35',
+  'hover:outline-red-300/35',
+  'hover:outline-orange-300/35',
+  'hover:outline-white/10',
+  // Focus-within states
+  'focus-within:outline-[3px]',
+  'focus-within:outline-indigo-300/35',
+  'focus-within:outline-jade-300/35',
+  'focus-within:outline-red-300/35',
+  'focus-within:outline-orange-300/35',
+  // Focus-within:hover states
+  'focus-within:hover:outline-[3px]',
+  'focus-within:hover:outline-indigo-300/35',
+  'focus-within:hover:outline-jade-300/35',
+  'focus-within:hover:outline-red-300/35',
+  'focus-within:hover:outline-orange-300/35',
+]
+
 /** @type {import('tailwindcss').Config} */
 export default {
   presets: [TailwindConfig()],
@@ -86,5 +123,5 @@ export default {
       {},
     ),
   },
-  safelist: safeColors,
+  safelist: [...safeColors, ...outlineSafelist],
 }
