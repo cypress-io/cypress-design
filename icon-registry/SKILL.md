@@ -1,17 +1,17 @@
 ---
 name: add-icon-from-figma
-description: Exports icons from Figma as SVG and adds them to the cypress-design icon-registry. Use when adding a new icon from Figma, exporting icons to the design system, or when the user mentions icon-registry or icons-static.
+description: Adds icons to the cypress-design icon-registry. Use when adding a new icon or when the user mentions icon-registry or icons-static. Requires the user to provide the SVG code.
 ---
 
-# Add Icon from Figma
+# Add Icon
 
 Step-by-step workflow for adding a new icon to the cypress-design system. See [ReadMe.md](../ReadMe.md#adding-a-new-icon) for canonical instructions.
 
-## Step 1: Export SVG from Figma
+**Important**: Do NOT create icons from the example. The example is for reference only. The user must provide the SVG for the icon they want to add. If the user only provides a Figma link without SVG, ask them to copy the icon in Figma (Right-click → Copy/Paste as → Copy as SVG) and paste it here.
 
-**Option A (Manual - primary)**: Right-click the icon layer in Figma → Copy/Paste as → Copy as SVG. This puts the SVG code on the clipboard. Reference: [copy-svg.png](../copy-svg.png) in repo root.
+## Step 1: Get SVG from user
 
-**Option B (Figma MCP - when available)**: Use `mcp_Figma_Desktop_get_design_context` with `nodeId` extracted from the Figma URL. For `node-id=6814-10841`, use `6814:10841`. Requires Figma Desktop open with the file. The response may include reference code that can be adapted to SVG.
+Ask the user to provide the SVG code. They can copy it from Figma: Right-click the icon layer → Copy/Paste as → Copy as SVG, then paste. Do not proceed until the user provides the SVG.
 
 ## Step 2: Create icon file
 
@@ -65,7 +65,4 @@ After human approval, commit changes and open a PR.
 
 ## Example
 
-Figma URL: `https://www.figma.com/design/1WJ3GVQyMV5e7xVxPg3yID/Design-System?node-id=6814-10841`
-
-- **nodeId for MCP**: `6814:10841` (convert `-` to `:`)
-- The actual icon name/category must be read from Figma (e.g., from layer panel) to determine the filename
+Naming: `arrow-collapse-small_x16.svg` for Icon / Arrow / Collapse, x16, Size=Small. Category and name come from the Figma layer structure; size from the icon dimensions.
