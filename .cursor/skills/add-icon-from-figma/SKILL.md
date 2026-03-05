@@ -1,11 +1,13 @@
 ---
 name: add-icon-from-figma
 description: Adds icons to the cypress-design icon-registry. Use when adding a new icon or when the user mentions icon-registry or icons-static. Requires Figma link and SVG (Copy as SVG).
+metadata:
+  version: 1.0.0
 ---
 
 # Add Icon
 
-Step-by-step workflow for adding a new icon to the cypress-design system. See [ReadMe.md](https://github.com/cypress-io/cypress-design/blob/main/ReadMe.md#adding-a-new-icon) for canonical instructions.
+Step-by-step workflow for adding a new icon to the cypress-design system.
 
 ## Step 1: Get inputs from user
 
@@ -21,6 +23,7 @@ Ask the user to provide:
 3. **Derive icon name from design context**: Call `mcp_Figma_Desktop_get_design_context` with the variant's `nodeId`. The response includes a component/type name (e.g. `IconModifiedSquareAddedPlus`) that encodes the parent path (e.g. Icon / Modified / Square / Added - #plus). Parse it: split by PascalCase, skip the leading "Icon", join the rest with hyphens, lowercase → `modified-square-added-plus`.
 4. Use the user-provided SVG as the source (do not fetch from MCP asset URLs)
 5. **Fallback:** When the component name cannot be parsed or is missing, **ask the user** for the icon name. Do not infer from branch names or other context.
+6. If the SVG viewBox doesn't match the expected size (e.g. x24 should be 24x24), ask the user to try selecting the parent frame in Figma.
 
 **Naming from design context:**
 
@@ -41,7 +44,7 @@ Variant suffixes (Dimensions=x24, Size=Small) come from the variant frame metada
 
 ## Step 3: Add and modify SVG content
 
-Per [ReadMe](https://github.com/cypress-io/cypress-design/blob/main/ReadMe.md): remove width/height, use `currentColor`, add `icon-dark`/`icon-light` (or `icon-*-secondary`, `icon-dark-stroke icon-light-fill` for combined cases).
+Remove width/height, use `currentColor`, add `icon-dark`/`icon-light` (or `icon-*-secondary`, `icon-dark-stroke icon-light-fill` for combined cases).
 
 **Never modify viewBox.** Use the viewBox from the user-provided SVG as-is.
 
@@ -86,8 +89,3 @@ Examples are for reference only; do not create icons from them.
 - `arrow-expand_x16.svg` — Icon / Arrow / Expand, x16, no size variant
 
 **Naming source:** The icon name comes from the **parent component** of the variant frame. Call `get_design_context` with the variant's nodeId—the returned component name (e.g. `IconModifiedSquareAddedPlus`) encodes the path. Parse it: split by PascalCase, skip "Icon", join with hyphens, lowercase. Variant frames typically have names like "Dimensions=x16" or "Size=Small"—these describe the variant, not the icon.
-
-## Additional Resources
-
-- For skill creation plan and structure, see [references/PLAN.md](references/PLAN.md)
-- For prompt history, see [references/HISTORY.md](references/HISTORY.md)
