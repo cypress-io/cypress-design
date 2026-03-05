@@ -9,7 +9,7 @@ isProject: false
 
 ## Deliverables
 
-1. **[SKILL.md](SKILL.md)** - Reusable skill for adding icons from Figma to the design system
+1. **[SKILL.md](../SKILL.md)** - Reusable skill for adding icons from Figma to the design system
 2. **[HISTORY.md](HISTORY.md)** - Prompt history documenting how we arrived at the final skill
 
 ---
@@ -23,13 +23,13 @@ The skill will follow the [create-skill](.cursor/skills-cursor/create-skill/SKIL
 - `name`: `add-icon-from-figma`
 - `description`: Specific, third-person, includes trigger terms (Figma, icon, export, icon-registry)
 
-### Workflow Steps (aligned with [ReadMe.md](../ReadMe.md) "Adding a new icon" section)
+### Workflow Steps (aligned with [ReadMe.md](../../../ReadMe.md) "Adding a new icon" section)
 
 **Step 1: Export SVG from Figma**
 
 Two options to document:
 
-- **Option A (Manual - primary)**: Right-click the icon layer in Figma → Copy/Paste as → Copy as SVG. This puts the SVG code on the clipboard. Reference: [copy-svg.png](../copy-svg.png) in repo root.
+- **Option A (Manual - primary)**: Right-click the icon layer in Figma → Copy/Paste as → Copy as SVG. This puts the SVG code on the clipboard. Reference: [copy-svg.png](../../../copy-svg.png) in repo root.
 - **Option B (Figma MCP - when available)**: Use `mcp_Figma_Desktop_get_design_context` with `nodeId` extracted from the Figma URL. For `node-id=6814-10841`, use `6814:10841`. Requires Figma Desktop open with the file. The response may include reference code that can be adapted to SVG.
 
 **Step 2: Create icon file**
@@ -41,7 +41,7 @@ Two options to document:
 
 **Step 3: Add and modify SVG content**
 
-Per [ReadMe.md](../ReadMe.md) lines 98-104:
+Per [ReadMe.md](../../../ReadMe.md) lines 98-104:
 
 - Remove `width` and `height` attributes from the SVG
 - Replace main fill/stroke colors with `currentColor`
@@ -56,7 +56,7 @@ Per [ReadMe.md](../ReadMe.md) lines 98-104:
 yarn changeset
 ```
 
-Use this changeset content (per [.changeset/config.json](../.changeset/config.json) fixed group):
+Use this changeset content (per [.changeset/config.json](../../../.changeset/config.json) fixed group):
 
 ```
 ---
@@ -112,15 +112,15 @@ The Figma example: `https://www.figma.com/design/1WJ3GVQyMV5e7xVxPg3yID/Design-S
 
 ## 4. File Locations Summary
 
-| File                       | Purpose                                    |
-| -------------------------- | ------------------------------------------ |
-| `SKILL.md`                 | Reusable instructions for the agent        |
-| `HISTORY.md`               | Prompt history for this skill creation     |
-| `icons-static/*.svg`       | Target directory for new icons             |
-| `../ReadMe.md` (repo root) | Canonical "Adding a new icon" instructions |
+| File                             | Purpose                                    |
+| -------------------------------- | ------------------------------------------ |
+| `SKILL.md`                       | Reusable instructions for the agent        |
+| `HISTORY.md`                     | Prompt history for this skill creation     |
+| `icons-static/*.svg`             | Target directory for new icons             |
+| `../../../ReadMe.md` (repo root) | Canonical "Adding a new icon" instructions |
 
 ---
 
 ## 5. Skill Placement
 
-The skill will live in **project scope** at `SKILL.md`, so it is available to anyone working in this repo. It will be discoverable when users mention Figma, icons, icon-registry, or adding icons.
+The skill will live in **project scope** at `.cursor/skills/add-icon-from-figma/SKILL.md`, so it is available to anyone working in this repo. It will be discoverable when users mention Figma, icons, icon-registry, or adding icons.

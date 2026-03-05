@@ -1,6 +1,6 @@
 # Prompt History: Icon Export Skill
 
-This document records the prompts that led to the creation of the [SKILL.md](./SKILL.md) file for adding icons from Figma to the cypress-design system.
+This document records the prompts that led to the creation of the [SKILL.md](../SKILL.md) file for adding icons from Figma to the cypress-design system.
 
 ## Evolution of the Request
 

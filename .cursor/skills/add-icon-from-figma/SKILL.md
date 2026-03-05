@@ -86,3 +86,8 @@ Examples are for reference only; do not create icons from them.
 - `arrow-expand_x16.svg` — Icon / Arrow / Expand, x16, no size variant
 
 **Naming source:** The icon name comes from the **parent component** of the variant frame. Call `get_design_context` with the variant's nodeId—the returned component name (e.g. `IconModifiedSquareAddedPlus`) encodes the path. Parse it: split by PascalCase, skip "Icon", join with hyphens, lowercase. Variant frames typically have names like "Dimensions=x16" or "Size=Small"—these describe the variant, not the icon.
+
+## Additional Resources
+
+- For skill creation plan and structure, see [references/PLAN.md](references/PLAN.md)
+- For prompt history, see [references/HISTORY.md](references/HISTORY.md)
