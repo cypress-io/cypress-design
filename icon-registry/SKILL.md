@@ -11,15 +11,26 @@ Step-by-step workflow for adding a new icon to the cypress-design system. See [R
 
 Ask the user to provide:
 
-1. **Figma link** – Link to the icon variant frame (e.g. `https://www.figma.com/design/...?node-id=16273-13239`). Used to derive the icon name, category, size, and style variant via `get_metadata`.
+1. **Figma link** – Link to the icon variant frame (e.g. `https://www.figma.com/design/...?node-id=16273-13239`). Used to derive the icon name, category, size, and style variant via `get_metadata` and `get_design_context`.
 2. **SVG** – SVG from Copy as SVG (Right-click the frame → Copy/Paste as → Copy as SVG). This gives the correct viewBox and alignment.
 
 **Workflow:**
 
 1. Extract `node-id` from the Figma URL (e.g. `node-id=16273-13239` → `16273:13239`)
-2. Call `mcp_Figma_Desktop_get_metadata` with that `nodeId` to get node name, width, height (for filename: size, style variant)
-3. Derive the icon name/category from the Figma hierarchy (from metadata or user context)
+2. Call `mcp_Figma_Desktop_get_metadata` with that `nodeId` to get the variant frame's name, width, height (for filename: size, style variant)
+3. **Derive icon name from design context**: Call `mcp_Figma_Desktop_get_design_context` with the variant's `nodeId`. The response includes a component/type name (e.g. `IconModifiedSquareAddedPlus`) that encodes the parent path (e.g. Icon / Modified / Square / Added - #plus). Parse it: split by PascalCase, skip the leading "Icon", join the rest with hyphens, lowercase → `modified-square-added-plus`.
 4. Use the user-provided SVG as the source (do not fetch from MCP asset URLs)
+5. **Fallback:** When the component name cannot be parsed or is missing, **ask the user** for the icon name. Do not infer from branch names or other context.
+
+**Naming from design context:**
+
+| Component name              | Filename                             |
+| --------------------------- | ------------------------------------ |
+| IconModifiedSquareAddedPlus | `modified-square-added-plus_x24.svg` |
+| IconArrowExpand             | `arrow-expand_x16.svg`               |
+| IconObjectBug               | `object-bug_x24.svg`                 |
+
+Variant suffixes (Dimensions=x24, Size=Small) come from the variant frame metadata, not the component name.
 
 ## Step 2: Create icon file
 
@@ -73,3 +84,5 @@ Examples are for reference only; do not create icons from them.
 
 - `arrow-expand-small_x16.svg` — Icon / Arrow / Expand, x16, Size=Small
 - `arrow-expand_x16.svg` — Icon / Arrow / Expand, x16, no size variant
+
+**Naming source:** The icon name comes from the **parent component** of the variant frame. Call `get_design_context` with the variant's nodeId—the returned component name (e.g. `IconModifiedSquareAddedPlus`) encodes the path. Parse it: split by PascalCase, skip "Icon", join with hyphens, lowercase. Variant frames typically have names like "Dimensions=x16" or "Size=Small"—these describe the variant, not the icon.
