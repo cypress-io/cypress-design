@@ -4,4 +4,4 @@
 '@cypress-design/vue-icon': minor
 ---
 
-Adding icon arrow-collapse-small
+Adding icons arrow-collapse-small and arrow-expand-small

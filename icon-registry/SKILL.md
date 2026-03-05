@@ -1,35 +1,37 @@
 ---
 name: add-icon-from-figma
-description: Adds icons to the cypress-design icon-registry. Use when adding a new icon or when the user mentions icon-registry or icons-static. Requires the user to provide the SVG code.
+description: Adds icons to the cypress-design icon-registry. Use when adding a new icon or when the user mentions icon-registry or icons-static. Accepts Figma link or SVG code.
 ---
 
 # Add Icon
 
 Step-by-step workflow for adding a new icon to the cypress-design system. See [ReadMe.md](../ReadMe.md#adding-a-new-icon) for canonical instructions.
 
-**Important**: Do NOT create icons from the example. The example is for reference only. The user must provide the SVG for the icon they want to add. If the user only provides a Figma link without SVG, ask them to copy the icon in Figma (Right-click → Copy/Paste as → Copy as SVG) and paste it here.
+## Step 1: Get SVG
 
-## Step 1: Get SVG from user
+**Variant frame** = the 16×16 or 24×24 frame in Figma (not the inner path). Always select it; the MCP returns the inner asset otherwise.
 
-Ask the user to provide the SVG code. They can copy it from Figma: Right-click the icon layer → Copy/Paste as → Copy as SVG, then paste. Do not proceed until the user provides the SVG.
+**Option A (Figma link – preferred when Figma Desktop is open)**:
+
+1. Extract `node-id` from the Figma URL (e.g. `node-id=1169-9738` → `1169:9738`)
+2. Call `mcp_Figma_Desktop_get_design_context` and/or `get_metadata` with that `nodeId`
+3. Note the Size variant (Small/Medium/Large) from the node name for the filename
+4. Parse the response for the asset URL (e.g. `http://localhost:3845/assets/...svg`)
+5. Run `curl -s "http://localhost:3845/assets/<hash>.svg"` in the terminal
+6. Validate: SVG must have `viewBox="0 0 16 16"` or `viewBox="0 0 24 24"`. If not, use Option B.
+
+**Option B**: Ask the user to copy as SVG from the variant frame (Right-click → Copy/Paste as → Copy as SVG).
 
 ## Step 2: Create icon file
 
 - **Path**: `icon-registry/icons-static/`
-- **Naming**: `<category>-<icon-name>_x<size>.svg` (e.g., `object-bug_x24.svg`)
-- Category and name must match Figma layer structure
-- Size (e.g., x24) must match icon dimensions (24x24px). If dimensions don't match, go up a layer in Figma.
+- **Naming**: `<category>-<icon-name>[-small|-medium|-large]_x<dim>.svg`
+- Append `-small`, `-medium`, or `-large` when Figma shows Size=Small/Medium/Large. Create a new file for variants; do not overwrite the base icon.
+- Dimensions must match icon pixel size; if not, go up a layer in Figma.
 
 ## Step 3: Add and modify SVG content
 
-Per the [ReadMe](../ReadMe.md):
-
-- Remove `width` and `height` attributes from the SVG
-- Replace main fill/stroke colors with `currentColor`
-- Add `class="icon-dark"` to dark paths (typically strokes)
-- Add `class="icon-light"` to light paths (typically fills)
-- For secondary colors: `class="icon-*-secondary"`
-- For paths with both fill and stroke: `class="icon-dark-stroke icon-light-fill"`
+Per [ReadMe](../ReadMe.md): remove width/height, use `currentColor`, add `icon-dark`/`icon-light` (or `icon-*-secondary`, `icon-dark-stroke icon-light-fill` for combined cases).
 
 ## Step 4: Changeset
 
@@ -49,13 +51,15 @@ Use this changeset content (per [.changeset/config.json](../.changeset/config.js
 Adding icon {icon-name}
 ```
 
+For multiple icons: `Adding icons {name-1} and {name-2}`.
+
 ## Step 5: Preview
 
 ```bash
 yarn install && yarn start
 ```
 
-Open `http://localhost:5173/Icons` (or `http://127.0.0.1:5173/Icons.html`), search for the icon name, and verify appearance.
+Open `http://localhost:5173/Icons`, search for the icon name, and verify appearance.
 
 ## Step 6: Commit and PR
 
@@ -65,4 +69,7 @@ After human approval, commit changes and open a PR.
 
 ## Example
 
-Naming: `arrow-collapse-small_x16.svg` for Icon / Arrow / Collapse, x16, Size=Small. Category and name come from the Figma layer structure; size from the icon dimensions.
+Examples are for reference only; do not create icons from them.
+
+- `arrow-expand-small_x16.svg` — Icon / Arrow / Expand, x16, Size=Small
+- `arrow-expand_x16.svg` — Icon / Arrow / Expand, x16, no size variant
