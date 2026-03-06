@@ -26,6 +26,8 @@ export interface ModalProps {
   show?: boolean
   onClose?: () => void
   fullscreen?: boolean
+  className?: string
+  closeIcon?: React.ReactNode
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -35,6 +37,8 @@ export const Modal: React.FC<ModalProps> = ({
   onClose,
   children,
   fullscreen = false,
+  className,
+  closeIcon,
 }) => {
   const dialogRef = React.useRef<HTMLDialogElement>(null)
 
@@ -83,6 +87,7 @@ export const Modal: React.FC<ModalProps> = ({
           fullscreen
             ? ClassModalFullscreenDimensions
             : ClassModalStandardDimensions,
+          className,
         )}
         onClick={closeOnClickBackdrop}
       >
@@ -108,12 +113,14 @@ export const Modal: React.FC<ModalProps> = ({
             className={`${ClassCloseButton} group`}
             onClick={() => onClose?.()}
           >
-            <IconActionDelete
-              className="children:transition-all"
-              stroke-color="gray-400"
-              hover-stroke-color="gray-700"
-              interactiveColorsOnGroup
-            />
+            {closeIcon ?? (
+              <IconActionDelete
+                className="children:transition-all"
+                stroke-color="gray-400"
+                hover-stroke-color="gray-700"
+                interactiveColorsOnGroup
+              />
+            )}
           </button>
         </div>
         <div className={ClassContent}>{children}</div>

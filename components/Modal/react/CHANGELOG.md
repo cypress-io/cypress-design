@@ -1,5 +1,11 @@
 # @cypress-design/react-modal
 
+## 1.1.0
+
+### Minor Changes
+
+- [#649](https://github.com/cypress-io/cypress-design/pull/649) [`9a3f284`](https://github.com/cypress-io/cypress-design/commit/9a3f2841da0a2b7f9ac0804f3895f6d19ef3ba49) Thanks [@mabela416](https://github.com/mabela416)! - Add className and closeIcon properties to React Modal component
+
 ## 1.0.2
 
 ### Patch Changes
