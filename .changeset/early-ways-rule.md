@@ -4,4 +4,4 @@
 '@cypress-design/vue-icon': minor
 ---
 
-Adding icons arrow-collapse-small, arrow-expand-small, and cypress-accessibility-outline (x24)
+Adding icons arrow-collapse-small, arrow-expand-small, cypress-accessibility-outline (x24), and general-placeholder (x32)
