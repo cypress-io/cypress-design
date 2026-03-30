@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
 import { Context } from 'tailwindcss/lib/Context'
-import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css'
+import { TailwindConfig, TailwindIconExtractor } from '@cypress-design/css/tailwind'
 
 export default function TailwindKeepRollupPlugin(): Plugin {
   const classSet = new Set<string>()

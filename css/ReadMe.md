@@ -62,7 +62,7 @@ This config is less verbose but only allows you to customize the files scanned.
 
 ```js
 // tailwind.config.cjs
-const { TailwindConfig } = require('@cypress-design/css')
+const { TailwindConfig } = require('@cypress-design/css/tailwind')
 
 module.exports = TailwindConfig([
   './index.html',
@@ -76,7 +76,7 @@ If you plan on configuring
 
 ```js
 // tailwind.config.cjs
-const cypressCSS = require('@cypress-design/css')
+const cypressCSS = require('@cypress-design/css/tailwind')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -96,7 +96,7 @@ module.exports = {
 ### Webpack
 
 ```js
-const { CyCSSWebpackPlugin } = require('@cypress-design/css')
+const { CyCSSWebpackPlugin } = require('@cypress-design/css/tailwind')
 
 module.exports = {
   plugins: [

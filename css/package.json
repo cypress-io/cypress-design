@@ -22,6 +22,11 @@
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
     },
+    "./tailwind": {
+      "import": "./dist/tailwind.es.mjs",
+      "require": "./dist/tailwind.cjs.js",
+      "types": "./dist/tailwind.d.ts"
+    },
     "./dist/color-constants": {
       "import": "./dist/color-constants.es.mjs",
       "require": "./dist/color-constants.cjs.js",
