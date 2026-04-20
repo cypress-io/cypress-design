@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.40.0
+
+### Minor Changes
+
+- [#656](https://github.com/cypress-io/cypress-design/pull/656) [`1c5ff10`](https://github.com/cypress-io/cypress-design/commit/1c5ff10c4bb4f1fc64f6bfb8c5d8332e1212bfd2) Thanks [@tbiethman](https://github.com/tbiethman)! - Add `security-shield-failed` (12px and 16px) and `security-shield-check` (12px).
+
+### Patch Changes
+
+- Updated dependencies [[`1c5ff10`](https://github.com/cypress-io/cypress-design/commit/1c5ff10c4bb4f1fc64f6bfb8c5d8332e1212bfd2)]:
+  - @cypress-design/icon-registry@1.40.0
+
 ## 1.39.0
 
 ### Minor Changes
