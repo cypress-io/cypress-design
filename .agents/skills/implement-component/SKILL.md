@@ -1,10 +1,15 @@
-# Global Cursor Instructions - Design System Components
+---
+name: implement-component
+description: Use when implementing a new component (or a new variant, size, or state of an existing component) from Figma into the cypress-design repository. Covers the 4-stage workflow (instructions, component, tests, accessibility), React + Vue structure, shared constants, Tailwind styling rules, theme/state patterns, and accessibility requirements.
+---
+
+# Component implementation guidance
 
 ## Goal
 
 Implement `{component}` from Figma into the cypress-design repository, following existing design system patterns.
 
-**Note:** Check for component-specific instructions in `components/{ComponentName}/cursor-instructions.md` for detailed implementation guidance.
+**Note:** Check for component-specific instructions in `components/{ComponentName}/instructions.md` for detailed implementation guidance.
 
 ## Figma
 
@@ -34,7 +39,7 @@ Figma design should be provided with the following specifications:
     │   └── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
     ├── assertions.ts      # Shared test assertions (optional)
     ├── ReadMe.md          # Component overview
-    └── cursor-instructions.md  # Component-specific instructions (if needed)
+    └── instructions.md    # Component-specific agent instructions (if needed)
   ```
 
 ### Implementation Requirements
@@ -48,7 +53,7 @@ Each component must include:
 
 ### Component-Specific Instructions
 
-- If a component has complex requirements, create `components/{ComponentName}/cursor-instructions.md`
+- If a component has complex requirements, create `components/{ComponentName}/instructions.md`
 - Component-specific instructions override or supplement these global instructions
 - Always check for component-specific instructions first
 
@@ -60,22 +65,22 @@ Component implementation should follow a staged approach. Complete each stage be
 
 To make the code easier for review by developers and catch API issues early, split the implementation into 4 branches:
 
-- **`{component-name}-instructions`** (step 1): AI instructions and plan
+- **`{component-name}-instructions`** (step 1): Agent instructions and plan
 - **`{component-name}-component`** (step 2): Component creation
 - **`{component-name}-tests`** (step 3): Cypress test generation
 - **`{component-name}-accessibility`** (step 4): Accessibility optimization
 
 Each branch should be reviewed and merged before starting the next branch.
 
-1. **AI Instructions and Plan**
+1. **Agent Instructions and Plan**
 
-   - Create or update `components/{ComponentName}/cursor-instructions.md` with component-specific requirements
+   - Create or update `components/{ComponentName}/instructions.md` with component-specific requirements
    - Document the component API with all props, variants, and usage examples
    - List all possible variants and expectations of how to use the component
    - Example: `<Button type="Submit" variant="indigo-dark" disabled>Submit</Button>`
    - Document any deviations from global patterns or special considerations
    - Define component-specific constants structure, prop types, and styling patterns
-   - **Get feedback on API design before any code is written** - this helps catch API issues much easier in the AI instructions first
+   - **Get feedback on API design before any code is written** - this helps catch API issues much easier in the agent instructions first
 
 2. **Component Creation**
 
@@ -83,7 +88,10 @@ Each branch should be reviewed and merged before starting the next branch.
      - Create shared visual styles in constants file (see "Constants Structure" section)
      - Implement React component in `components/{ComponentName}/react/{ComponentName}.tsx`
      - Implement Vue component in `components/{ComponentName}/vue/{ComponentName}.vue`
-     - Create component overview in `components/{ComponentName}/ReadMe.md`
+     - Create/update `components/{ComponentName}/ReadMe.md` — this is the public docs page rendered on the design system site. Keep it terse: a `<script setup>` block importing the Vue component, a short prose description, one or more `<DemoWrapper>` live demos covering the main variants, and a Figma link. Don't put spec tables or state matrices here.
+     - Create `components/{ComponentName}/instructions.md` — agent-facing **usage** doc. Document every supported variant, size, state, theme, slot, and prop, plus accessibility notes and known limitations, so an agent can _use_ the component confidently without reading the source. Treat anything documented here as supported; anything missing isn't. Do not include file layout, constants structure, or internal interaction-model rationale here — that's for `architecture.md`.
+     - Create `components/{ComponentName}/architecture.md` — agent-facing **implementation** doc. Required for every component. Document the file layout, constants keying strategy, wrapper/structural choices (e.g. "wrapper is a `<label>` so clicking focuses the input"), state-handling approach (CSS pseudo-classes vs. JS state), extension points, and any gotchas that matter when rebuilding or extending the component. For trivial components, this can be short, but it must exist so future agents know where things live and why.
+     - Add the new component to the `## Components` list in `/AGENTS.md` so agents can discover it.
    - **2b) VitePress Documentation:**
      - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
      - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
