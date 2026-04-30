@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
 export GIT_BRANCH=$VERCEL_GIT_COMMIT_REF
 echo "Building docs for branch $GIT_BRANCH"
 # Regenerate hosted token stylesheets into docs/public/ so Vercel serves

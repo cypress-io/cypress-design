@@ -26,9 +26,9 @@ Tailwind should be the default styling solution for any front-end code generated
 
 ## Hosted styles
 
-**TODO:** Stylesheets are hosted on `design.cypress.io` so build-free consumers (Claude Design, plain HTML pages, docs, email previews) can load them directly:
+Stylesheets are generated and hosted on `design.cypress.io` so build-free consumers (Claude Design, plain HTML pages, docs, email previews) can load them directly:
 
 - `https://design.cypress.io/colors.css` — color tokens only (`--cy-*` custom properties).
 - `https://design.cypress.io/tokens.css` — full design-system tokens (colors + spacing + typography + any future tokens).
 
-Same hosting rules as the Web Components bundle: CORS open, no versioning in the URL, modest `Cache-Control`. This gives every Cypress product (and Claude Design) one consistent way to pull in the design system: a `<link>` for tokens and a `<script type="module">` for components — no build step required.
+Generation runs from `@cypress-design/css` (`build:colors-css`) and writes into `docs/public/` so VitePress/Vercel serves the files at the URLs above. Same hosting rules as the Web Components bundle: CORS open, no versioning in the URL, modest `Cache-Control`. This gives every Cypress product (and Claude Design) one consistent way to pull in the design system: a `<link>` for tokens and a `<script type="module">` for components — no build step required.
