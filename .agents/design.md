@@ -2,7 +2,7 @@
 
 ## Colors — Cypress Design System
 
-The full color palette lives in `cypress-colors.css` at the project root. Import it (`<link rel="stylesheet" href="cypress-colors.css">`) or copy the `:root` block into any new HTML file. Never invent new hex values when one of these works.
+The full color palette is hosted at `https://design.cypress.io/colors.css` (full token set at `https://design.cypress.io/tokens.css`). Import it (`<link rel="stylesheet" href="https://design.cypress.io/colors.css">`) or copy the `:root` block into any new HTML file. Never invent new hex values when one of these works.
 
 **10 hues · 113 swatches**, organized in three tiers:
 

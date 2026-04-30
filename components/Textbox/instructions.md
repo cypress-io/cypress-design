@@ -8,21 +8,24 @@ A single-line text input with optional left/right labels, left/right icons, and 
 
 ## Props
 
-All props are optional unless noted. React and Vue expose the same prop surface (Vue uses kebab-case for attributes and `v-model` for `value`).
+All props are optional unless noted. React and Vue expose the same prop surface, with framework-idiomatic differences called out per prop. Vue uses kebab-case for attribute names and binds the value via `v-model` (which maps to the `modelValue` prop).
 
 - **`theme`** — `'light' | 'dark'`, default `'light'`. Visual theme.
 - **`variant`** — `'default' | 'valid' | 'invalid' | 'warning'`, default `'default'`. Semantic variant. `'invalid'` auto-sets `aria-invalid="true"` unless overridden.
 - **`size`** — `'32' | '40' | '48'`, default `'40'`. Height in pixels (as a string).
 - **`rounded`** — `boolean`, default `false`. Full-radius corners when `true`.
-- **`labelLeft`** — `string | ReactNode` (React) / `string | slot` (Vue). Static label rendered left of the input.
-- **`labelRight`** — `string | ReactNode` (React) / `string | slot` (Vue). Static label rendered right of the input.
+- **`labelLeft`** — `string | ReactNode` (React) / `string` (Vue). Static label rendered left of the input. Vue currently renders this via text interpolation, so non-string values will stringify.
+- **`labelRight`** — `string | ReactNode` (React) / `string` (Vue). Static label rendered right of the input. Vue currently renders this via text interpolation, so non-string values will stringify.
 - **`iconLeft`** — Icon component or node. Rendered inside the input container, left of the input.
 - **`iconRight`** — Icon component or node. Rendered inside the input container, right of the input.
 - **`divider`** — `boolean`, default `false`. Vertical divider between `iconLeft` and the input. **Only renders when `iconLeft` is also provided.**
 - **`disabled`** — `boolean`, default `false`. Disables the underlying `<input>`.
 - **`placeholder`** — `string`. Standard HTML placeholder.
-- **`value`** — `string`. Controlled value. If omitted, component is uncontrolled.
-- **`defaultValue`** — `string`. Uncontrolled initial value.
+- **`value`** — `string`.
+  - React: controlled value. If omitted (and `defaultValue` is also omitted), the component is uncontrolled.
+  - Vue: optional override that takes precedence over `modelValue`. Most callers should use `v-model` / `modelValue` instead.
+- **`defaultValue`** — `string` (React only). Uncontrolled initial value. Vue does not have an equivalent — initialize `modelValue` instead.
+- **`modelValue`** — `string` (Vue only). Bound via `v-model`. Updates are emitted through `update:modelValue`.
 - **`type`** — standard HTML input types, default `'text'`. Passed through to `<input>`.
 - **`onChange`** — `(event) => void` (React). Standard change handler. Vue uses `v-model` / `@input`.
 - **`aria-invalid`** — `boolean`. Defaults to `true` when `variant="invalid"`; otherwise undefined. Override explicitly to opt out.
