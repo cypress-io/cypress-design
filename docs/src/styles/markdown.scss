@@ -19,11 +19,11 @@
     line-height: 1.5;
 
     /*
-     * Override <pre>'s default `white-space: pre` on the code element —
-     * Shiki wraps each source line in <span class="line">, and the newlines
-     * BETWEEN those spans would otherwise render as extra line breaks,
-     * doubling the visual height. Setting `pre-wrap` lets `display:block`
-     * on each .line handle line breaks instead of the literal `\n`s.
+     * Shiki wraps each source line in <span class="line"> with a literal `\n`
+     * between spans. Inheriting `white-space: pre` from <pre> would render
+     * each newline as an extra line break (doubling the visual height).
+     * `normal` on `code` collapses them; `.line` re-enables `pre` for its
+     * own content so indentation is preserved.
      */
     code {
       @apply bg-transparent p-0 font-mono;
@@ -31,7 +31,7 @@
       text-align: left;
       tab-size: 4;
       hyphens: none;
-      white-space: pre-wrap;
+      white-space: normal;
     }
 
     /* Each Shiki-rendered source line — keep indentation spaces verbatim. */
