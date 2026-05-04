@@ -14,12 +14,20 @@
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import F from '../../components/F.astro'
 import FrameworkTabs from '../../components/FrameworkTabs.astro'
+import Demo from '../../components/Demo.vue'
 import { getAllComponents } from '../../lib/components'
 
-// Per-component live demos — see docs/src/demos/ for one .astro file per component.
-// Each demo imports the actual Vue/React component and renders it with `client:only`.
-// Components without a demo file render without one (no error).
-const demoModules = import.meta.glob<{ default: any }>('../../demos/*.astro', { eager: true })
+// Per-component live demos at docs/src/demos/<Name>.{astro,vue}.
+// Prefer .astro for simple prop-only demos (lighter, no Vue runtime layer).
+// Use .vue for demos that need Vue features: slots (<template #name>),
+// v-model, refs, event handlers, v-for over reactive data, or passing
+// component references as props. Demo.vue dispatches Vue demos by name
+// because Astro's client:only requires static imports.
+const astroDemoModules = import.meta.glob('../../demos/*.astro', { eager: true }) as Record<
+  string,
+  { default: any }
+>
+const vueDemoModules = import.meta.glob('../../demos/*.vue')
 
 // ---------------------------------------------------------------------------
 // Static paths — one route per component directory
@@ -72,13 +80,19 @@ const InstructionsContent = hasInstructions
   ? await loadContent(instructionsMds, `${base}/instructions.md`)
   : null
 
-const Demo = demoModules[`../../demos/${component}.astro`]?.default ?? null
+const AstroDemo = astroDemoModules[`../../demos/${component}.astro`]?.default ?? null
+const hasVueDemo = `../../demos/${component}.vue` in vueDemoModules
 ---
 
 <BaseLayout title={component}>
   <h1 class="markdown-title">{component}</h1>
 
-  {Demo && <Demo />}
+  {(AstroDemo || hasVueDemo) && (
+    <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
+      {AstroDemo && <AstroDemo />}
+      {hasVueDemo && <Demo client:only="vue" name={component} />}
+    </div>
+  )}
 
   <FrameworkTabs frameworks={frameworks} />
 
