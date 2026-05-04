@@ -12,23 +12,32 @@
     @apply md:rounded-lg my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm;
     line-height: 1.5;
 
+    /*
+     * Override <pre>'s default `white-space: pre` on the code element —
+     * Shiki wraps each source line in <span class="line">, and the newlines
+     * BETWEEN those spans would otherwise render as extra line breaks,
+     * doubling the visual height. Setting `pre-wrap` lets `display:block`
+     * on each .line handle line breaks instead of the literal `\n`s.
+     */
     code {
       @apply bg-transparent p-0 font-mono;
       direction: ltr;
       text-align: left;
       tab-size: 4;
       hyphens: none;
+      white-space: pre-wrap;
     }
 
-    /* Astro/Shiki wraps each source line in a <span class="line"> */
+    /* Each Shiki-rendered source line — keep indentation spaces verbatim. */
     .line {
       display: block;
+      white-space: pre;
     }
 
     /* Empty lines render as empty <span class="line"> — give them
-       exactly one line height so blank rows don't double up. */
+       exactly one line height so blank rows don't collapse. */
     .line:empty::before {
-      content: '\200B'; /* zero-width space; collapses to one em-line */
+      content: '\200B'; /* zero-width space */
     }
   }
 
