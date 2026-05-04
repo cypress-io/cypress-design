@@ -9,20 +9,26 @@
 .markdown {
   /* Code blocks rendered by Astro/Shiki: <pre class="astro-code"><code>…</code></pre> */
   pre.astro-code {
-    @apply md:rounded-lg my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm leading-relaxed;
+    @apply md:rounded-lg my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm;
+    line-height: 1.5;
 
     code {
       @apply bg-transparent p-0 font-mono;
-      display: block;
       direction: ltr;
       text-align: left;
       tab-size: 4;
       hyphens: none;
+    }
 
-      .line {
-        display: block;
-        min-height: 1.4em;
-      }
+    /* Astro/Shiki wraps each source line in a <span class="line"> */
+    .line {
+      display: block;
+    }
+
+    /* Empty lines render as empty <span class="line"> — give them
+       exactly one line height so blank rows don't double up. */
+    .line:empty::before {
+      content: '\200B'; /* zero-width space; collapses to one em-line */
     }
   }
 
