@@ -18,8 +18,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          enable-corepack: true
           cache: 'yarn'
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Remove Postinstall Script
         run: |
