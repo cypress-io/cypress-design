@@ -1,10 +1,5 @@
 ---
-/**
- * Sidebar — left navigation panel.
- * Enumerates docs pages, components (from monorepo), and pattern pages.
- * Props:
- *   currentPath — Astro.url.pathname, used to highlight the active item.
- */
+import DocMenu from '@cypress-design/vue-docmenu'
 import { getAllComponents } from '../lib/components'
 
 interface Props {
@@ -15,7 +10,6 @@ const { currentPath } = Astro.props
 
 const componentNames = getAllComponents().map((c) => c.name)
 
-// Top-level docs pages (MDX files in src/pages/).
 const docPageGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: number } }>(
   '../pages/*.mdx',
   { eager: true },
@@ -28,7 +22,6 @@ const docPages = Object.entries(docPageGlob)
   }))
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
 
-// Pattern pages.
 const patternGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: number } }>(
   '../pages/patterns/*.mdx',
   { eager: true },
@@ -41,73 +34,25 @@ const patternPages = Object.entries(patternGlob)
   }))
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
 
-function isActive(href: string) {
-  if (href === '/') return currentPath === '/'
-  return currentPath.startsWith(href)
-}
-
-const linkBase =
-  'block px-4 py-1.5 text-sm rounded-md transition-colors'
-const linkActive = 'bg-indigo-50 text-indigo-700 font-medium'
-const linkIdle = 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+const items = [
+  {
+    label: 'Docs',
+    items: docPages.map((p) => ({ label: p.label, href: p.href })),
+  },
+  {
+    label: 'Components',
+    items: componentNames.map((name) => ({ label: name, href: `/components/${name}` })),
+  },
+  ...(patternPages.length > 0
+    ? [{ label: 'Patterns', items: patternPages.map((p) => ({ label: p.label, href: p.href })) }]
+    : []),
+]
 ---
 
-<nav class="pl-4 md:py-4 w-[250px]">
-  {
-    docPages.length > 0 && (
-      <section class="mb-6">
-        <h3 class="px-4 uppercase text-gray-500 text-xs font-medium mb-2 tracking-wider">
-          Docs
-        </h3>
-        <ul>
-          {docPages.map((p) => (
-            <li>
-              <a href={p.href} class:list={[linkBase, isActive(p.href) ? linkActive : linkIdle]}>
-                {p.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-
-  <section class="mb-6">
-    <h3 class="px-4 uppercase text-gray-500 text-xs font-medium mb-2 tracking-wider">
-      Components
-    </h3>
-    <ul>
-      {
-        componentNames.map((name) => (
-          <li>
-            <a
-              href={`/components/${name}`}
-              class:list={[linkBase, isActive(`/components/${name}`) ? linkActive : linkIdle]}
-            >
-              {name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
-
-  {
-    patternPages.length > 0 && (
-      <section class="mb-6">
-        <h3 class="px-4 uppercase text-gray-500 text-xs font-medium mb-2 tracking-wider">
-          Patterns
-        </h3>
-        <ul>
-          {patternPages.map((p) => (
-            <li>
-              <a href={p.href} class:list={[linkBase, isActive(p.href) ? linkActive : linkIdle]}>
-                {p.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
-</nav>
+<div class="pl-4 md:py-4 w-[250px]">
+  <DocMenu
+    client:only="vue"
+    items={items}
+    activePath={currentPath}
+  />
+</div>
