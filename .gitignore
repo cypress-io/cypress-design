@@ -114,3 +114,5 @@ storybook
 
 .turbo
 .vscode
+.astro/
+.yarn/install-state.gz
