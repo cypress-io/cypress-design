@@ -32,6 +32,9 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/react": "^5.0.4",
+    "@astrojs/vue": "^6.0.1",
     "@babel/parser": "^7.24.7",
     "@babel/types": "^7.24.7",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.1",
@@ -64,6 +67,7 @@
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/tsconfig": "^0.5.1",
     "@vueuse/integrations": "^10.10.0",
+    "astro": "^6.2.2",
     "autoprefixer": "^10.4.19",
     "axe-core": "^4.9.1",
     "chokidar": "^3.6.0",
