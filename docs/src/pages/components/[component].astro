@@ -16,6 +16,11 @@ import F from '../../components/F.astro'
 import FrameworkTabs from '../../components/FrameworkTabs.astro'
 import { getAllComponents } from '../../lib/components'
 
+// Per-component live demos — see docs/src/demos/ for one .astro file per component.
+// Each demo imports the actual Vue/React component and renders it with `client:only`.
+// Components without a demo file render without one (no error).
+const demoModules = import.meta.glob<{ default: any }>('../../demos/*.astro', { eager: true })
+
 // ---------------------------------------------------------------------------
 // Static paths — one route per component directory
 // ---------------------------------------------------------------------------
@@ -66,9 +71,15 @@ const AstroContent       = await loadContent(astroReadmes,    `${base}/astro/Rea
 const InstructionsContent = hasInstructions
   ? await loadContent(instructionsMds, `${base}/instructions.md`)
   : null
+
+const Demo = demoModules[`../../demos/${component}.astro`]?.default ?? null
 ---
 
 <BaseLayout title={component}>
+  <h1 class="markdown-title">{component}</h1>
+
+  {Demo && <Demo />}
+
   <FrameworkTabs frameworks={frameworks} />
 
   {/* Per-framework sections */}

@@ -6,6 +6,12 @@
  * and win over Tailwind base resets (which set `h1 { font-size: inherit }`).
  */
 
+/* Page-level component title (rendered above demos in [component].astro) */
+.markdown-title {
+  font-family: 'Poppins', sans-serif;
+  @apply text-4xl font-semibold mb-6;
+}
+
 .markdown {
   /* Code blocks rendered by Astro/Shiki: <pre class="astro-code"><code>…</code></pre> */
   pre.astro-code {
@@ -56,10 +62,16 @@
     @apply font-semibold mb-1;
   }
 
-  h1,
-  & > .component-title {
+  h1 {
     @apply mb-8 text-4xl font-semibold;
     font-family: 'Poppins', sans-serif;
+  }
+
+  /* The per-framework ReadMes each start with the component name as h1.
+     Since the page already shows it once at the top via .markdown-title,
+     suppress the duplicate inside per-framework sections. */
+  .component-framework > h1:first-child {
+    display: none;
   }
 
   h2 {
