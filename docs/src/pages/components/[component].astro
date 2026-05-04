@@ -11,32 +11,16 @@
  *      (Install + Usage + code examples — live fences stripped to static by remark plugin)
  *   4. instructions.md — hand-written props/events/slots reference (if present)
  */
-import { readdirSync, existsSync } from 'node:fs'
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import F from '../../components/F.astro'
 import FrameworkTabs from '../../components/FrameworkTabs.astro'
+import { getAllComponents } from '../../lib/components'
 
 // ---------------------------------------------------------------------------
 // Static paths — one route per component directory
 // ---------------------------------------------------------------------------
 export function getStaticPaths() {
-  // Navigate from this file (docs/src/pages/components/) up 4 levels to repo root
-  const thisDir = fileURLToPath(new URL('.', import.meta.url))
-  const componentsRoot = resolve(thisDir, '../../../../components')
-  const names = readdirSync(componentsRoot, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && !d.name.startsWith('.'))
-    .map((d) => d.name)
-    .sort()
-
-  return names.map((name) => {
-    const componentDir = resolve(componentsRoot, name)
-    const FRAMEWORK_DIRS = ['vue', 'react', 'vanilla', 'astro']
-    const frameworks = FRAMEWORK_DIRS.filter((fw) =>
-      existsSync(resolve(componentDir, fw)),
-    )
-    const hasInstructions = existsSync(resolve(componentDir, 'instructions.md'))
+  return getAllComponents().map(({ name, frameworks, hasInstructions }) => {
     return {
       params: { component: name },
       props: { frameworks, hasInstructions },

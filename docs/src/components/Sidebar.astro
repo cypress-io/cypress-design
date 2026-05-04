@@ -5,9 +5,7 @@
  * Props:
  *   currentPath — Astro.url.pathname, used to highlight the active item.
  */
-import { readdirSync } from 'node:fs'
-import { resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { getAllComponents } from '../lib/components'
 
 interface Props {
   currentPath: string
@@ -15,14 +13,7 @@ interface Props {
 
 const { currentPath } = Astro.props
 
-// Component names from the monorepo components/ directory at repo root.
-// Use import.meta.url so the path is correct regardless of what process.cwd() returns.
-const thisDir = fileURLToPath(new URL('.', import.meta.url))
-const componentsRoot = resolve(thisDir, '../../../components')
-const componentNames = readdirSync(componentsRoot, { withFileTypes: true })
-  .filter((d) => d.isDirectory() && !d.name.startsWith('.'))
-  .map((d) => d.name)
-  .sort()
+const componentNames = getAllComponents().map((c) => c.name)
 
 // Top-level docs pages (MDX files in src/pages/).
 const docPageGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: number } }>(

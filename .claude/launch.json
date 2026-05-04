@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "astro-docs",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": ["astro", "dev", "--root", "docs", "--port", "4323"],
+      "port": 4323
+    }
+  ]
+}
