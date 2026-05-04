@@ -22,7 +22,9 @@ Compose `TestResult` items in a scrollable container. Use the `#actions` slot fo
           class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
         >
           <IconActionTestReplay />
-          <span class="hidden @lg/test-result:inline ml-[8px]">Test Replay</span>
+          <span class="hidden @lg/test-result:inline ml-[8px]"
+            >Test Replay</span
+          >
         </Button>
         <Button
           v-else
@@ -33,7 +35,10 @@ Compose `TestResult` items in a scrollable container. Use the `#actions` slot fo
         >
           <IconChevronRightSmall
             stroke-color="gray-500"
-            :class="{ 'rotate-90': groupShowed[tr.id], 'transform transition-transform': true }"
+            :class="{
+              'rotate-90': groupShowed[tr.id],
+              'transform transition-transform': true,
+            }"
           />
         </Button>
       </template>
@@ -60,7 +65,10 @@ import { reactive } from 'vue'
 import TestResult from '@cypress-design/vue-testresult'
 import Button from '@cypress-design/vue-button'
 import { TestResults } from '@cypress-design/constants-testresult'
-import { IconActionTestReplay, IconChevronRightSmall } from '@cypress-design/vue-icon'
+import {
+  IconActionTestReplay,
+  IconChevronRightSmall,
+} from '@cypress-design/vue-icon'
 
 const groupShowed = reactive<Record<string, boolean>>({})
 ```
