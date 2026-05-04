@@ -1,0 +1,41 @@
+---
+layout: '../../layouts/BaseLayout.astro'
+title: Button Bar
+order: 2
+---
+
+# Button Bar
+
+## Usage
+
+Place action buttons in a footer row using `flex` and `gap`. A spacer element (`flex-grow`) pushes secondary actions to the opposite end.
+
+```vue
+<template>
+  <div class="bg-white rounded">
+    <div class="p-4">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    </div>
+    <div class="p-4 flex flex-wrap gap-4 border-t border-t-gray-50">
+      <Button variant="outline-indigo" size="32">Primary Action</Button>
+      <Button variant="link" size="32">Cancel</Button>
+      <div class="md:flex-grow" />
+      <Button variant="link" size="32">Give feedback</Button>
+    </div>
+  </div>
+</template>
+```
+
+```jsx
+<div className="bg-white rounded">
+  <div className="p-4">
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  </div>
+  <div className="p-4 flex flex-wrap gap-4 border-t border-t-gray-50">
+    <Button variant="outline-indigo" size="32">Primary Action</Button>
+    <Button variant="link" size="32">Cancel</Button>
+    <div className="md:flex-grow" />
+    <Button variant="link" size="32">Give feedback</Button>
+  </div>
+</div>
+```
