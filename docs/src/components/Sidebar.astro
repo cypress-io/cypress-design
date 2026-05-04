@@ -35,10 +35,7 @@ const patternPages = Object.entries(patternGlob)
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
 
 const items = [
-  {
-    label: 'Foundations',
-    items: docPages.map((p) => ({ label: p.label, href: p.href })),
-  },
+  ...docPages.map((p) => ({ label: p.label, href: p.href })),
   {
     label: 'Components',
     items: componentNames.map((name) => ({ label: name, href: `/components/${name}` })),
