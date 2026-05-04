@@ -1,0 +1,95 @@
+---
+/**
+ * /components — index listing all design system components.
+ * Shows framework support badges and a one-line description for each component.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { getAllComponents } from '../../lib/components'
+
+const components = getAllComponents()
+
+const descriptions: Record<string, string> = {
+  Accordion: 'Collapsible content sections with a summary trigger row.',
+  Alert: 'Inline status messages — info, success, warning, or error.',
+  Button: 'Triggers an action or navigates to a URL. Renders as <a> when href is set.',
+  Checkbox: 'Binary on/off input with optional indeterminate state.',
+  DocMenu: 'Hierarchical navigation menu for documentation sidebars.',
+  Icon: 'SVG icon library with configurable stroke and fill colors.',
+  Logo: 'Cypress brand mark in various sizes and light/dark themes.',
+  Menu: 'Dark-themed navigation menu for application shells.',
+  Modal: 'Dialog overlay with title, body, and footer slots.',
+  SpecListTestItem: 'A single row in a spec-file list showing name, status, and count.',
+  Spinner: 'Animated loading indicator in light and dark themes.',
+  StatusIcon: 'Represents a test result status (passed, failed, pending…).',
+  Tabs: 'Tab strip with accessible keyboard navigation and optional icons.',
+  Tag: 'Small badge for labeling items with color-coded variants.',
+  TestResult: 'Full test result row with status icon, test path, and action slots.',
+  Textbox: 'Single-line text input with optional labels and icons.',
+  Tooltip: 'Floating content anchored to a trigger element.',
+}
+
+const frameworkLabels: Record<string, string> = {
+  vue: 'Vue',
+  react: 'React',
+  vanilla: 'Vanilla',
+  astro: 'Astro',
+}
+
+const frameworkColors: Record<string, string> = {
+  vue: 'bg-jade-100 text-jade-700 border-jade-200',
+  react: 'bg-indigo-100 text-indigo-700 border-indigo-200',
+  vanilla: 'bg-gray-100 text-gray-700 border-gray-200',
+  astro: 'bg-orange-100 text-orange-700 border-orange-200',
+}
+---
+
+<BaseLayout title="Components">
+  <h1>Components</h1>
+  <p class="text-gray-600 mb-8">
+    All {components.length} components in the Cypress Design System. Click a component to see
+    install instructions, usage examples, and a full props reference.
+  </p>
+
+  <table class="w-full text-sm border-collapse">
+    <thead>
+      <tr class="border-b border-gray-200 text-left">
+        <th class="py-2 pr-4 font-medium text-gray-500 uppercase tracking-wider text-xs">Component</th>
+        <th class="py-2 pr-4 font-medium text-gray-500 uppercase tracking-wider text-xs">Description</th>
+        <th class="py-2 font-medium text-gray-500 uppercase tracking-wider text-xs">Frameworks</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        components.map(({ name, frameworks }) => (
+          <tr class="border-b border-gray-100 hover:bg-gray-50 transition-colors">
+            <td class="py-3 pr-4">
+              <a
+                href={`/components/${name}`}
+                class="font-medium text-indigo-600 hover:underline"
+              >
+                {name}
+              </a>
+            </td>
+            <td class="py-3 pr-4 text-gray-600">
+              {descriptions[name] ?? ''}
+            </td>
+            <td class="py-3">
+              <div class="flex flex-wrap gap-1">
+                {frameworks.map((fw) => (
+                  <span
+                    class:list={[
+                      'inline-block text-xs font-medium px-2 py-0.5 rounded border',
+                      frameworkColors[fw] ?? 'bg-gray-100 text-gray-600 border-gray-200',
+                    ]}
+                  >
+                    {frameworkLabels[fw] ?? fw}
+                  </span>
+                ))}
+              </div>
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</BaseLayout>
