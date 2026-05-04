@@ -8,9 +8,12 @@ import mdx from '@astrojs/mdx'
 
 export default defineConfig({
   // outDir and srcDir default to ./dist and ./src relative to this file's location.
-  integrations: [
-    react(),
-    vue(),
-    mdx(),
-  ],
+  integrations: [react(), vue(), mdx()],
+  vite: {
+    server: {
+      // Allow Vite to serve files from the monorepo root so component imports
+      // (e.g. ../../components/Button/vue/Button.vue) resolve during dev and build.
+      fs: { allow: ['..'] },
+    },
+  },
 })

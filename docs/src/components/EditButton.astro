@@ -1,0 +1,29 @@
+---
+/**
+ * EditButton — links to the source file on GitHub for in-context editing.
+ * Props:
+ *   editPath — path relative to repo root (e.g. 'docs/1-Getting-Started.md')
+ * In dev, opens via the Vite __open-in-editor endpoint.
+ * In production, links to the file on GitHub at the current branch.
+ */
+interface Props {
+  editPath: string
+}
+
+const { editPath } = Astro.props
+const branch = import.meta.env.GIT_BRANCH ?? 'main'
+const githubBase = `https://github.com/cypress-io/cypress-design/blob/${branch}/`
+const isDev = import.meta.env.DEV
+const href = isDev
+  ? `/__open-in-editor?file=${encodeURIComponent(editPath)}`
+  : `${githubBase}${editPath}`
+---
+
+<a
+  href={href}
+  target={isDev ? '_self' : '_blank'}
+  rel="noopener noreferrer"
+  class="absolute right-0 top-0 z-10 text-sm text-indigo-500 hover:underline"
+>
+  Edit
+</a>
