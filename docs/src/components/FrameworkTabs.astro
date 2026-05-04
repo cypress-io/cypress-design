@@ -1,0 +1,76 @@
+---
+/**
+ * FrameworkTabs — renders one tab button per supported framework.
+ * Clicking a tab updates data-fw on <html>, the ?fw= URL param, and localStorage.
+ *
+ * Props:
+ *   frameworks — list of framework keys supported by this component page
+ *                e.g. ['vue', 'react']
+ */
+interface Props {
+  frameworks: string[]
+}
+
+const { frameworks } = Astro.props
+
+const labels: Record<string, string> = {
+  vue: 'Vue',
+  react: 'React',
+  vanilla: 'Vanilla',
+  astro: 'Astro',
+}
+---
+
+{
+  frameworks.length > 1 && (
+    <div class="framework-tabs flex gap-1 mb-6 border-b border-gray-200">
+      {frameworks.map((fw) => (
+        <button
+          data-fw-tab={fw}
+          class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none"
+        >
+          {labels[fw] ?? fw}
+        </button>
+      ))}
+    </div>
+  )
+}
+
+<script>
+  function applyFw(fw: string) {
+    document.documentElement.setAttribute('data-fw', fw)
+    // Update URL without pushing a new history entry
+    const url = new URL(location.href)
+    url.searchParams.set('fw', fw)
+    history.replaceState(null, '', url.toString())
+    try {
+      localStorage.setItem('fw', fw)
+    } catch (_) {}
+    // Sync tab active styles
+    document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {
+      const active = btn.dataset.fwTab === fw
+      btn.classList.toggle('text-indigo-700', active)
+      btn.classList.toggle('border-b-2', active)
+      btn.classList.toggle('border-indigo-600', active)
+      btn.classList.toggle('text-gray-500', !active)
+      btn.classList.toggle('hover:text-gray-700', !active)
+    })
+  }
+
+  function initTabs() {
+    // Read current fw from html attribute (set by BaseLayout inline script)
+    const current = document.documentElement.getAttribute('data-fw') ?? 'vue'
+    applyFw(current)
+
+    document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const fw = btn.dataset.fwTab
+        if (fw) applyFw(fw)
+      })
+    })
+  }
+
+  // Run on initial load and after Astro view transitions
+  initTabs()
+  document.addEventListener('astro:after-swap', initTabs)
+</script>

@@ -3,3 +3,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+  Framework-conditional content.
+  [data-only] elements are hidden when the active framework (data-fw on <html>)
+  is not listed in the element's data-only attribute.
+*/
+[data-fw='vue'] [data-only]:not([data-only~='vue']) {
+  display: none;
+}
+[data-fw='react'] [data-only]:not([data-only~='react']) {
+  display: none;
+}
+[data-fw='vanilla'] [data-only]:not([data-only~='vanilla']) {
+  display: none;
+}
+[data-fw='astro'] [data-only]:not([data-only~='astro']) {
+  display: none;
+}

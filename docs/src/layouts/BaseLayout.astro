@@ -31,10 +31,19 @@ const currentPath = Astro.url.pathname
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/colors.css" />
     <!--
-      Framework selector script (Phase 3).
-      Injected here so data-fw is set on <html> before the body paints —
-      prevents a flash of the wrong framework's content.
+      Framework selector: reads ?fw= param → localStorage.fw → 'vue' default.
+      Runs before body paints so data-fw is set on <html> immediately,
+      preventing a flash of the wrong framework's content.
     -->
+    <script is:inline>
+      ;(function () {
+        var fw =
+          new URLSearchParams(location.search).get('fw') ||
+          (function () { try { return localStorage.getItem('fw') } catch (_) {} })() ||
+          'vue'
+        document.documentElement.setAttribute('data-fw', fw)
+      })()
+    </script>
   </head>
   <body class="bg-white text-gray-900 font-sans">
     <!-- Fixed header -->
