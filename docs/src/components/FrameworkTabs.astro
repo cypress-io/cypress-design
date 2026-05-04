@@ -19,6 +19,13 @@ const labels: Record<string, string> = {
   vanilla: 'Vanilla',
   astro: 'Astro',
 }
+
+const icons: Record<string, string | null> = {
+  vue: '/vue.svg',
+  react: '/react.svg',
+  vanilla: null,
+  astro: null,
+}
 ---
 
 {
@@ -27,9 +34,10 @@ const labels: Record<string, string> = {
       {frameworks.map((fw) => (
         <button
           data-fw-tab={fw}
-          class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none"
+          class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none flex items-center gap-2"
         >
-          {labels[fw] ?? fw}
+          <span>{labels[fw] ?? fw}</span>
+          {icons[fw] && <img src={icons[fw]!} alt="" class="w-5 h-5" />}
         </button>
       ))}
     </div>

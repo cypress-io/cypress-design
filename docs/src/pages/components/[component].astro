@@ -41,7 +41,10 @@ const { frameworks, hasInstructions } = Astro.props
 // Globs must be string literals; we index into them with the dynamic key.
 // Paths are relative to this file → ../../../../ = repo root.
 // ---------------------------------------------------------------------------
-const commonReadmes = import.meta.glob('../../../../components/*/ReadMe.md')
+// Per-framework ReadMes only. The framework-agnostic ReadMe.md at the
+// component root contains VitePress-specific <script setup> + <DemoWrapper>
+// markup that doesn't render correctly in Astro/MDX, so it's intentionally
+// skipped — the per-framework ReadMes already cover install + usage.
 const vueReadmes    = import.meta.glob('../../../../components/*/vue/ReadMe.md')
 const reactReadmes  = import.meta.glob('../../../../components/*/react/ReadMe.md')
 const vanillaReadmes = import.meta.glob('../../../../components/*/vanilla/ReadMe.md')
@@ -56,7 +59,6 @@ async function loadContent(glob: Record<string, () => Promise<unknown>>, key: st
 }
 
 const base = `../../../../components/${component}`
-const CommonContent      = await loadContent(commonReadmes,   `${base}/ReadMe.md`)
 const VueContent         = await loadContent(vueReadmes,      `${base}/vue/ReadMe.md`)
 const ReactContent       = await loadContent(reactReadmes,    `${base}/react/ReadMe.md`)
 const VanillaContent     = await loadContent(vanillaReadmes,  `${base}/vanilla/ReadMe.md`)
@@ -68,13 +70,6 @@ const InstructionsContent = hasInstructions
 
 <BaseLayout title={component}>
   <FrameworkTabs frameworks={frameworks} />
-
-  {/* Framework-agnostic intro and demo */}
-  {CommonContent && (
-    <div class="component-common markdown">
-      <CommonContent />
-    </div>
-  )}
 
   {/* Per-framework sections */}
   {frameworks.includes('vue') && VueContent && (

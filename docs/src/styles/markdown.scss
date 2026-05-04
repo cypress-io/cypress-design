@@ -1,188 +1,124 @@
 /*
  * Prose and code-block styles for .markdown content areas.
  * Applied to the <div class="markdown"> wrapper in BaseLayout.
+ *
+ * Note: NOT wrapped in `@layer markdown` so these rules are unlayered
+ * and win over Tailwind base resets (which set `h1 { font-size: inherit }`).
  */
-@layer markdown {
-  .markdown {
-    div[class*='language-'] {
-      @apply bg-gray-1000 md:rounded-lg my-4 relative py-4 overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none;
 
-      pre,
-      code {
-        direction: ltr;
-        text-align: left;
-        white-space: pre;
-        word-spacing: normal;
-        word-break: normal;
-        word-wrap: normal;
-        tab-size: 4;
-        hyphens: none;
-      }
+.markdown {
+  /* Code blocks rendered by Astro/Shiki: <pre class="astro-code"><code>…</code></pre> */
+  pre.astro-code {
+    @apply md:rounded-lg my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm leading-relaxed;
 
-      pre > code {
-        @apply bg-transparent;
-      }
+    code {
+      @apply bg-transparent p-0 font-mono;
+      display: block;
+      direction: ltr;
+      text-align: left;
+      tab-size: 4;
+      hyphens: none;
 
-      pre {
-        position: relative;
-        z-index: 1;
-        margin: 0;
-        padding: 0;
-        background: transparent;
-      }
-
-      code {
+      .line {
         display: block;
-        padding: 0 24px;
-        width: fit-content;
-        min-width: 100%;
-        margin: 0;
-        white-space: pre-wrap;
-        transition: color 0.5s;
-      }
-
-      & > span.lang {
-        position: absolute;
-        top: 2px;
-        right: 8px;
-        z-index: 2;
-        font-size: 12px;
-        font-weight: 500;
-        transition:
-          color 2s,
-          opacity 0.4s;
-        @apply text-gray-600;
-      }
-
-      &:hover > span.lang {
-        transition-duration: 0ms;
-        @apply text-gray-400 opacity-100;
-      }
-
-      & > button.copy {
-        @apply right-3 top-3 absolute z-10 bg-gray-800/70 text-gray-100 h-8 px-3 rounded hidden;
-        &:before {
-          content: '📋 copy';
-          @apply whitespace-nowrap;
-        }
-      }
-
-      & > button.copy.copied {
-        &:before {
-          content: '✅ copied';
-        }
-      }
-
-      &:hover > button.copy,
-      & > button.copy.copied {
-        @apply block;
+        min-height: 1.4em;
       }
     }
+  }
 
-    h1:not([class]),
-    h2:not([class]),
-    h3:not([class]),
-    h4:not([class]),
-    h5:not([class]),
-    h6:not([class]) {
-      font-family: 'Poppins';
-      @apply font-semibold mb-1;
+  /* Inline code (not inside a pre) */
+  :not(pre) > code {
+    @apply bg-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-mono text-gray-900;
+  }
 
-      .header-anchor {
-        @apply hidden;
-      }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+    @apply font-semibold mb-1;
+  }
 
-      &:hover .header-anchor {
-        @apply inline-block;
-      }
-    }
+  h1,
+  & > .component-title {
+    @apply mb-8 text-4xl font-semibold;
+    font-family: 'Poppins', sans-serif;
+  }
 
-    .header-anchor:after {
-      content: '#';
-    }
+  h2 {
+    @apply mt-10 text-3xl text-gray-900 border-b border-gray-100 pb-2;
+  }
 
-    h1:not([class]) {
-      @apply mb-8 text-4xl;
-    }
+  h3 {
+    @apply mt-4 text-xl text-gray-700;
+  }
 
-    h2:not([class]) {
-      @apply mt-10 text-3xl text-gray-900 border-b border-gray-100 pb-2;
-    }
+  h4 {
+    @apply mt-2 text-base text-gray-500;
+  }
 
-    h3:not([class]) {
-      @apply mt-4 text-xl text-gray-700;
-    }
+  h5 {
+    @apply mt-0 text-base text-gray-300;
+  }
 
-    h4:not([class]) {
-      @apply mt-2 text-base text-gray-500;
-    }
+  p {
+    @apply my-3 leading-7;
+  }
 
-    h5:not([class]) {
-      @apply mt-0 text-base text-gray-300;
-    }
+  ul:not([class]) {
+    @apply list-disc py-2 pl-6;
 
-    ul:not([class]) {
-      @apply list-disc py-2 pl-6;
-
-      li:not([class]) {
-        &::marker {
-          @apply text-indigo-500;
-        }
-      }
-    }
-
-    .demo-wrapper {
-      ul {
-        padding: unset;
-      }
-    }
-
-    blockquote:not([class]) {
-      @apply bg-gray-50 py-2 px-4 border-l-[4px] border-l-gray-500 my-4 relative;
-    }
-
-    code:not([class]) {
-      @apply bg-gray-100 px-2 py-[2px] rounded my-2;
-    }
-
-    a:not([class]) {
+    li::marker {
       @apply text-indigo-500;
+    }
+  }
 
-      &:hover {
-        @apply underline;
-      }
+  ol:not([class]) {
+    @apply list-decimal py-2 pl-6;
+  }
+
+  blockquote {
+    @apply bg-gray-50 py-2 px-4 border-l-[4px] border-l-gray-500 my-4 relative;
+  }
+
+  a:not([class]) {
+    @apply text-indigo-500;
+
+    &:hover {
+      @apply underline;
+    }
+  }
+
+  hr {
+    @apply my-6;
+  }
+
+  .figma-link {
+    background: url(/Figma-logo.svg) no-repeat 14px center;
+    background-size: auto 50%;
+    @apply inline-block mt-6 text-gray-900 border py-2 pr-4 pl-10 border-gray-100 rounded;
+
+    &:hover {
+      @apply bg-indigo-50/50 no-underline;
     }
 
-    hr:not([class]) {
-      @apply my-6;
+    &:after {
+      content: '↗️';
+      @apply ml-2 text-gray-500 font-bold;
+    }
+  }
+
+  table:not([class]) {
+    @apply w-full text-sm border-collapse my-4;
+
+    th {
+      @apply text-left font-semibold text-gray-900 border-b border-gray-200 pb-2 pr-4;
     }
 
-    .figma-link {
-      /* SVG served from /Figma-logo.svg in public/ */
-      background: url(/Figma-logo.svg) no-repeat 14px center;
-      background-size: auto 50%;
-      @apply inline-block mt-6 text-gray-900 border py-2 pr-4 pl-10 border-gray-100 rounded;
-
-      &:hover {
-        @apply bg-indigo-50/50 no-underline;
-      }
-
-      &:after {
-        content: '↗️';
-        @apply ml-2 text-gray-500 font-bold;
-      }
-    }
-
-    table:not([class]) {
-      @apply w-full text-sm border-collapse my-4;
-
-      th {
-        @apply text-left font-semibold text-gray-900 border-b border-gray-200 pb-2 pr-4;
-      }
-
-      td {
-        @apply text-gray-700 border-b border-gray-100 py-2 pr-4 align-top;
-      }
+    td {
+      @apply text-gray-700 border-b border-gray-100 py-2 pr-4 align-top;
     }
   }
 }
