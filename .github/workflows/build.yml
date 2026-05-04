@@ -18,6 +18,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          enable-corepack: true
           cache: 'yarn'
 
       - name: Remove Postinstall Script
@@ -26,7 +27,7 @@ jobs:
           echo "Postinstall script removed"
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
         env:
           CI: true
 

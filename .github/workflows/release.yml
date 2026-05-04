@@ -24,11 +24,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          enable-corepack: true
           cache: 'yarn'
 
       - name: Reinstall dependencies and regenerate build files
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
         env:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096

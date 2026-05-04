@@ -22,6 +22,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          enable-corepack: true
           cache: 'yarn'
 
       - name: Restore cached build files
@@ -38,7 +39,7 @@ jobs:
       - name: Reinstall dependencies and regenerate build files
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
         env:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096
@@ -52,7 +53,7 @@ jobs:
         run: yarn new:component --name ComponentName
 
       - name: Re-link Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable
         env:
           CI: true
 
