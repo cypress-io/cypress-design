@@ -8,19 +8,37 @@ order: 1
 
 ## Usage
 
-There is no card component — only a CSS class.
+There is no card component, only a CSS class
+
+<div class="p-4 bg-white flex flex-wrap gap-4 border border-gray-100 rounded-lg my-4">
+  <div class="card h-20 w-32 flex items-center justify-center">hello</div>
+  <div class="card h-20 w-32 flex items-center justify-center">goodbye</div>
+</div>
 
 ```html
-<div class="card h-20 w-32 flex items-center justify-center">hello</div>
+<div class="p-4 bg-white flex flex-wrap gap-4">
+  <div class="card h-20 w-32 flex items-center justify-center">hello</div>
+  <div class="card h-20 w-32 flex items-center justify-center">goodbye</div>
+</div>
 ```
 
-Use `card` on any element to apply the standard bordered surface styles. Cards can also add more shadow for a marketing context:
+One can also add more shadow for a marketing card
+
+`shadow-marketing-card`
+
+<div class="p-4 bg-white flex flex-wrap gap-4 border border-gray-100 rounded-lg my-4">
+  <div class="card shadow-marketing-card h-20 w-32 flex items-center justify-center">hello</div>
+  <div class="card shadow-marketing-card h-20 w-32 flex items-center justify-center">goodbye</div>
+</div>
 
 ```html
-<div
-  class="card shadow-marketing-card h-20 w-32 flex items-center justify-center"
->
-  hello
+<div class="p-4 bg-white flex flex-wrap gap-4">
+  <div class="card shadow-marketing-card h-20 w-32 flex items-center justify-center">
+    hello
+  </div>
+  <div class="card shadow-marketing-card h-20 w-32 flex items-center justify-center">
+    goodbye
+  </div>
 </div>
 ```
 
