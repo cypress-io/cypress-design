@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Icon, { WindiColor } from '@cypress-design/vue-icon'
+import Icon from '@cypress-design/vue-icon'
 import { ref } from 'vue'
 import ColorSelector from './ColorSelector.vue'
 const IconAny = Icon as any
@@ -12,10 +12,10 @@ defineProps<{
   meta: Record<string, string[]>
 }>()
 
-const strokeColor = ref<WindiColor>('indigo-500')
-const fillColor = ref<WindiColor>('jade-200')
-const secondaryStrokeColor = ref<WindiColor>('orange-500')
-const secondaryFillColor = ref<WindiColor>('orange-300')
+const strokeColor = ref('indigo-500')
+const fillColor = ref('jade-200')
+const secondaryStrokeColor = ref('orange-500')
+const secondaryFillColor = ref('orange-300')
 </script>
 
 <template>

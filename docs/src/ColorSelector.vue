@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { WindiColor } from '@cypress-design/vue-icon'
 const emit = defineEmits<{
-  (event: 'update:modelValue', value?: WindiColor): void
+  (event: 'update:modelValue', value?: string): void
 }>()
 
 defineProps<{
-  modelValue?: WindiColor
+  modelValue?: string
 }>()
 
 function emitValue(event: Event) {
@@ -13,7 +12,7 @@ function emitValue(event: Event) {
   if (value === 'default') {
     emit('update:modelValue', undefined)
   } else {
-    emit('update:modelValue', value as WindiColor)
+    emit('update:modelValue', value)
   }
 }
 </script>

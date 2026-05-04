@@ -5,7 +5,6 @@ import {
   IconAnimatedTechnologyGitBranches,
   IconAnimatedTechnologyServer,
   IconAnimatedViewChart,
-  WindiColor,
 } from '@cypress-design/vue-icon'
 import { reactive, ref } from 'vue'
 const animatedIcons = {
@@ -24,10 +23,10 @@ const animated = reactive({
   IconAnimatedViewChart: false,
 })
 
-const strokeColor = ref<WindiColor>('indigo-500')
-const fillColor = ref<WindiColor>('jade-200')
-const secondaryStrokeColor = ref<WindiColor>('orange-500')
-const secondaryFillColor = ref<WindiColor>('orange-300')
+const strokeColor = ref('indigo-500')
+const fillColor = ref('jade-200')
+const secondaryStrokeColor = ref('orange-500')
+const secondaryFillColor = ref('orange-300')
 </script>
 
 <template>
