@@ -46,10 +46,6 @@ jobs:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096
 
-      - name: Install eslint plugin dependencies
-        run: |
-          yarn workspaces focus @cypress-design/eslint-plugin
-
       - name: Lint all files
         run: yarn eslint .
 
