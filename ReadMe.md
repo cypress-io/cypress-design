@@ -28,7 +28,7 @@ module.exports = TailwindConfig([
 ])
 ```
 
-Check it out in the docs [here](./css)
+Check it out in the docs [here](https://design.cypress.io/colors)
 
 ### Install each component independently
 
@@ -56,18 +56,46 @@ See [the component ReadMe](./components/) for the list of available components a
 
 ## Contributing
 
+### Before you start
+
+**Read the guidance documents first:**
+
+- `/.agents/design.md` — Color palette, spacing, iconography standards
+- `/.agents/architecture.md` — Constraints, technical debt, and architectural patterns
+
+### Key Decision Patterns
+
+**When to add a new component to `/components`:**
+
+- Reusable UI element used across 2+ Cypress products
+- Has a clear, documented API (props, variants, states)
+- Needs both React and Vue implementations
+- Example: Button, Modal, Tabs, Menu
+
+**When to add to `/packages` instead:**
+
+- Build utilities, code generators, or shared ESLint rules
+- Used by components but not a component itself
+- Example: color-constants, eslint-plugin
+
+**When to add documentation:**
+
+- Component demo: `/docs/src/demos/{Component}.vue` (live, interactive)
+- Component page: Auto-routed from `components/` structure
+- Foundation page: `/docs/src/pages/` (colors, icons, typography)
+- Pattern page: `/docs/src/pages/patterns/` (multi-component examples)
+
 ### Running the docs locally
 
 ```bash
-yarn && yarn start
+yarn && yarn dev
 ```
 
 This will:
 
-- install all dependencies if anything is missing
-- build all the components, specially the ones needed for the docs
-- start the docs website locally
-- give you a link to open in your browser. (http://localhost:5173/)
+- Install dependencies
+- Start the Astro dev server (with icon and constant watchers) at `http://localhost:4321`
+- Watch for changes to icon SVGs, component constants, and docs source (hot-reload)
 
 ### Create a new component
 
@@ -85,26 +113,22 @@ In the new directory, you will find a React and a Vuejs version to complete. Eac
 
 ### Adding a new icon
 
-New icons should be added to the `icon-registry/icons-static` directory and named according to the format `<category>-<icon-name>_x<size>.svg`, for example, `object-bug_x24.svg`.
+Icons live in `/icon-registry/icons-static/` and follow the naming format: `<category>-<icon-name>_x<size>.svg` (e.g., `object-bug_x24.svg`).
 
-When grabbing the icon from Figma, make sure the width and height of the icon is equal to its name (e.g. `x24` icons should be 24x24px). If it isn't, try going up a layer in Figma.
+From Figma, ensure width and height match the size suffix (e.g., `x24` icons should be 24×24px).
 
-The name and size should match what's shown in Figma.
+Once added, adjust the SVG attributes for the icon generation tool:
 
-![image](copy-svg.png)
+- Remove `width` and `height` attributes from the `<svg>` tag
+- Replace fill/stroke colors with `currentColor`
+- Add `class="icon-dark"` to dark paths (typically strokes)
+- Add `class="icon-light"` to light paths (typically fills)
+- Use `class="icon-*-secondary"` for secondary colors
+- Combine classes for mixed fills/strokes: `class="icon-dark-stroke icon-light-fill"`
 
-Once added, the svg attributes should be tweaked so as to integrate with the icon generation tooling.
+Verify your icon: `yarn dev`, navigate to the `icons` page, search for it, and adjust colors as needed.
 
-- Remove the `width` and `height` attributes of the SVG
-- Replace the main color fill and/or stroke colors with `currentColor`
-- Add `class="icon-dark"` to paths that are dark, generally the strokes
-- Add `class="icon-light"` to paths that are light, generally the fills
-  - For secondary colors are used in the design, use `class="icon-*-secondary"`
-  - When `fill` and `stroke` attributes are both uses in the path, you can use `class="icon-dark-stroke icon-light-fill"`
-
-To verify that the icon is properly hooked up, run `yarn && yarn start` and navigate to the `icons` page. Search for your icon and tweak the colors.
-
-When an icon is added or updated, the changeset for '@cypress-design/icon-registry', '@cypress-design/react-icon' and '@cypress-design/vue-icon' should include a minor version bump. This can be helped by running `yarn changeset`.
+When adding or updating an icon, bump the minor version in a Changeset for `@cypress-design/icon-registry`, `@cypress-design/react-icon`, and `@cypress-design/vue-icon` (use `yarn changeset`).
 
 ### Updating the component generator
 
@@ -145,16 +169,107 @@ Finally, you should see the `prompt.js` file has been removed. Revert that chang
 
 ### Running tests
 
-To run in open mode, run `yarn cy`.
+```bash
+yarn cy        # Open Cypress (interactive mode, watches for changes)
+yarn cy:run    # CLI mode (headless)
+yarn test      # Unit tests (vitest)
+yarn eslint    # Linting
+```
 
-To run in CLI, run `yarn cypress run --components`.
+### Recent Changes: Astro Migration
 
-## Structure
+The docs have been migrated from VitePress to Astro (simpler, more maintainable for a static site). Component implementations, build process, and publishing remain unchanged.
 
-- [components](./components/) A collection of components for building Cypress applications and websites.
-- [packages](./packages/) Some packages do not fit in css or in components but are used in multiple components. They are here.
-- [css](./css/) What you need to install a pre-configured version of WindiCSS in a Cypress project.
-- [icon-registry](./icon-registry/) contains the list of all the svg icons available in the vue-icon and react-icon components.
-- [docs](./docs/) the docs website.
-- [docs/.vitepress/theme](./docs/.vitepress/theme) where you will find all the components and the assets used in the docs website but not published to NPM.
-- [test](./test/) Some sample test projects. We use them as sanity checks to see if the components we build are actually working with a real setup.
+**To update docs when working on a component:**
+
+1. Write or update `/components/{Component}/instructions.md` (consumer API docs)
+2. Add/update demo in `/docs/src/demos/{Component}.vue` (live example)
+3. Component page (`/docs/src/pages/components/[component].astro`) automatically picks it up
+
+**Cleanup debt (not urgent):**
+
+- Remove `/docs/.vitepress/` (old VitePress theme, now unused)
+- Remove `/docs/docgen/` (old doc generation scripts)
+- Remove `/scripts/copy-md.mjs` and `/scripts/clean-component-docs.mjs`
+
+## Repository Structure
+
+This is a Yarn monorepo (with Turbo) containing the Cypress Design System — reusable components, design tokens, and a documentation site.
+
+### Core Directories
+
+**`/components`** — Reusable UI components (the heart of the design system)
+
+- Each component directory (e.g., `Button/`, `Modal/`, `Tabs/`) contains:
+  - `/react` — React implementation (published as `@cypress-design/react-button`, etc.)
+  - `/vue` — Vue implementation (published as `@cypress-design/vue-button`, etc.)
+  - `/constants` — Shared types and enums (published as `@cypress-design/constants-button`, etc.)
+  - `instructions.md` — Consumer API documentation (props, variants, states, accessibility)
+  - `architecture.md` — Implementation details (for component maintainers)
+- Each framework and constants folder is its own Yarn workspace, published separately to npm
+- New components: `yarn new:component` (uses hygen scaffolding)
+
+**`/css`** — Design tokens and color palette
+
+- `@cypress-design/css` package: exports colors, spacing, typography as CSS custom properties
+- `build:colors-css` script generates `docs/public/colors.css` and `docs/public/tokens.css`
+- These hosted CSS files are available on `design.cypress.io` for build-free consumers (Claude Design, plain HTML, email)
+
+**`/docs`** — Design system documentation website (Astro-based)
+
+- `/src/pages` — Route structure (generates URLs):
+  - `index.mdx`, `install.mdx`, `colors.mdx`, `icons.mdx` — Foundation pages
+  - `/components/[component].astro` — Dynamic component pages (loads demo + docs automatically)
+  - `/patterns` — Multi-component pattern examples (ButtonBar, Card, TestResultsList)
+- `/src/demos` — Live, interactive demo components (Vue SFCs and Astro components)
+  - Single source of truth for each component/pattern demo
+  - Auto-rendered on the component page with framework tabs
+- `/src/components` — Astro component building blocks (Sidebar, Outline, FrameworkTabs, etc.)
+- `/src/lib/components.ts` — Metadata: available components, framework support, Figma links
+- `/src/layouts` — Page layouts (BaseLayout handles sidebar, outline, global styles)
+- `/src/styles` — Global CSS (fonts, markdown rendering, dark mode support)
+- `/public` — Static assets (fonts, logos, SVG icons, hosted CSS files)
+
+**`/icon-registry`** — Icon compilation and generation
+
+- Watches `/icons-static` for SVG files
+- Generates TypeScript/React/Vue icon components
+- Used by `@cypress-design/react-icon` and `@cypress-design/vue-icon` packages
+
+**`/packages`** — Shared tools and utilities (not UI components)
+
+- `/color-constants` — Color token generation and TypeScript types
+- `/eslint-plugin` — Custom ESLint rules for the design system
+- `/rollup-plugin-tailwind-keep` — Build plugin to preserve Tailwind utilities
+
+**`/cypress`** — Component testing suite (Cypress + component testing)
+
+- `/e2e` — Component interaction tests, visual tests, accessibility tests
+
+**`/test`** — Test applications (not published)
+
+- `/react-app`, `/vue-app` — Sample projects for validating components in real setups
+
+**`/_templates`** — Hygen scaffolding templates
+
+- Used by `yarn new:component` to generate component boilerplate
+
+### Configuration & Guidance
+
+**`/.agents`** — Agent documentation (read before any work)
+
+- `architecture.md` — Constraints, decision patterns, and gotchas for agents
+- `design.md` — Design tokens, color guidance, spacing, iconography
+- `skills/` — Task-specific guidance for common workflows
+
+**`/.claude`** — Claude Code configuration
+
+- `launch.json` — Dev server setup
+- `settings.json` — Permissions and hooks
+- `commands/` — Slash commands
+
+**`/scripts`** — Build automation
+
+- `watch-constants.mjs` — Watches component constants and rebuilds packages
+- `watch-icons.mjs` — Watches icon SVGs and regenerates components
+- `capitalize-icon.mjs` — Post-install icon naming normalization
