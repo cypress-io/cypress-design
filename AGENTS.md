@@ -12,6 +12,7 @@ Task-specific guidance lives in `/.agents/skills/<skill-name>/SKILL.md`. Each sk
 Available skills:
 
 - `skill(implement-component)` — use when implementing a new component, or adding a variant/size/state to an existing one, from a Figma spec.
+- `skill(cy-review-pr-comments)` — use to review the latest GitHub Copilot review comments on the PR for the current branch, triage them, update `.agents/known-issues.md`, and reply to or resolve each comment appropriately.
 
 ## Components
 
