@@ -54,7 +54,7 @@ jobs:
         run: yarn new:component --name ComponentName
 
       - name: Re-link Dependencies
-        run: yarn install
+        run: yarn install --no-immutable
         env:
           CI: true
           YARN_ENABLE_HARDENED_MODE: 0
