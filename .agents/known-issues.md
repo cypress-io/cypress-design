@@ -178,15 +178,6 @@ Matches prod (7 variants: default, indigo-light, dark-small/large,
 underline-small/center/large; events `switch` and `update:activeId`; tab slot
 bindings). Local additionally surfaces `Tab shape` type — improvement. ✅
 
-#### `/components/Tag`
-
-Matches prod (sizes 16/20/24/32; nine colors; outline + dark variants). ✅
-
-#### `/components/TestResult`
-
-Matches prod (statuses, badges, `#actions` and `#groups` slots, container
-queries). ✅
-
 #### `/components/Textbox`
 
 Largest page on the site. Outline is enormous — Possible variants / Sizes /
@@ -213,26 +204,6 @@ Attributes / Real-World Use Cases / Props.
 
 Matches prod (color dark/light, 12 placements, disabled, interactive,
 offsetOptions, shiftOptions, default + `popper` slots). ✅
-
----
-
-### Patterns
-
-#### `/patterns/card`
-
-Matches prod. Shows the basic `card` class and the `shadow-marketing-card`
-variant. Local adds an explicit sentence explaining
-`shadow-marketing-card` — small improvement. ✅
-
-#### `/patterns/button-bar`
-
-Matches prod (lorem ipsum + flex/gap layout with Primary Action / Cancel /
-Give feedback). ✅
-
-#### `/patterns/test-results-list`
-
-Matches prod (scrollable container of TestResult rows, `#actions` slot,
-expandable `#groups` with chevron rotation, container queries). ✅
 
 ---
 
