@@ -15,7 +15,7 @@
 .markdown {
   /* Code blocks rendered by Astro/Shiki: <pre class="astro-code"><code>…</code></pre> */
   pre.astro-code {
-    @apply md:rounded-lg my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm;
+    @apply rounded my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm;
     line-height: 1.5;
 
     /*
