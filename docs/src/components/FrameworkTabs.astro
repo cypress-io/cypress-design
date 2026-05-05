@@ -72,11 +72,10 @@ const icons: Record<string, string | null> = {
     const current = available.length > 0 && !available.includes(stored) ? available[0] : stored
     applyFw(current)
 
-    document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const fw = btn.dataset.fwTab
-        if (fw) applyFw(fw)
-      })
+    tabsEl?.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest<HTMLButtonElement>('[data-fw-tab]')
+      const fw = btn?.dataset.fwTab
+      if (fw) applyFw(fw)
     })
   }
 
