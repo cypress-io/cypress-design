@@ -51,9 +51,8 @@ const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3)
     const links = document.querySelectorAll<HTMLAnchorElement>('#outline [data-heading]')
     if (!headings.length || !links.length) return
 
-    const visible = headings.find((h) => h.getBoundingClientRect().top > 70)
     const active =
-      visible ?? [...headings].reverse().find((h) => h.getBoundingClientRect().top < 70)
+      [...headings].reverse().find((h) => h.getBoundingClientRect().top <= 70) ?? headings[0]
 
     links.forEach((a) => {
       const isActive = active?.id === a.dataset.heading

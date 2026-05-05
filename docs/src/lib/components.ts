@@ -30,7 +30,7 @@ function findComponentsRoot(): string {
     resolve(process.cwd(), '../components'),
   ]
   for (const dir of candidates) {
-    if (existsSync(resolve(dir, 'Button'))) return dir
+    if (existsSync(dir)) return dir
   }
   throw new Error(
     `Cannot locate monorepo components/ directory from ${process.cwd()}. ` +

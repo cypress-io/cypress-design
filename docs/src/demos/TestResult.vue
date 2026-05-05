@@ -10,7 +10,7 @@ import {
 
 <template>
   <div class="bg-white p-4 max-h-[400px] overflow-hidden overflow-y-auto">
-    <TestResult v-for="(tr, i) in TestResults" :key="i" v-bind="tr">
+    <TestResult v-for="tr in TestResults" :key="tr.id" v-bind="tr">
       <template #actions>
         <Button
           v-if="!tr.groups"
@@ -34,8 +34,8 @@ import {
       </template>
       <template #groups>
         <div
-          v-for="(group, gi) in tr.groups"
-          :key="gi"
+          v-for="group in tr.groups"
+          :key="group"
           class="px-[16px] py-[10px] border border-gray-100 border-t-0 first:border-t flex items-center"
         >
           <span class="flex-1">{{ group }}</span>
