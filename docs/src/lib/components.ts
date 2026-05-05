@@ -7,8 +7,8 @@
  *
  * Import this in Astro frontmatter (server-only). Never import in client scripts.
  */
-import { readdirSync, existsSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { readdirSync, existsSync } from 'fs'
+import { resolve } from 'path'
 
 /** Frameworks checked in preference order. */
 export const FRAMEWORKS = ['vue', 'react', 'vanilla', 'astro'] as const

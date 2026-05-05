@@ -19,7 +19,7 @@ import { IconObjectBookCode, IconObjectBook } from '@cypress-design/vue-icon'
     <button class="flex items-center gap-2">
       <IconObjectBook
         size="16"
-        strokeColor="blue-600"
+        strokeColor="indigo-600"
         hoverStrokeColor="jade-600"
       />
       Hover me
@@ -34,7 +34,7 @@ import { IconObjectBookCode, IconObjectBook } from '@cypress-design/vue-icon'
     <button class="group hover:text-jade-800 flex items-center gap-2">
       <IconObjectBook
         size="16"
-        strokeColor="blue-600"
+        strokeColor="indigo-600"
         hoverStrokeColor="jade-600"
         interactiveColorsOnGroup
       />

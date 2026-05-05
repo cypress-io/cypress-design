@@ -3,7 +3,7 @@ import { ref, computed } from 'vue'
 import { statuses, variants, sizes } from '@cypress-design/constants-statusicon'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 
-const statusNames = Object.keys(statuses)
+const statusNames = Object.keys(statuses) as Array<keyof typeof statuses>
 const sizeSlider = ref(3)
 const size = computed(() => sizes[sizeSlider.value])
 </script>

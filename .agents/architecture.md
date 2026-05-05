@@ -1,5 +1,9 @@
 # Architecture guidance
 
+## Design System Documentation
+
+The documentation for all components, patterns, and foundations of the Design System is generated using Astro (previously VitePress) and is hosted on `design.cypress.io`.
+
 ## Frameworks supported
 
 - [x] React — Used primarily by Cypress Cloud and Cypress Docs
@@ -20,9 +24,22 @@
 
 The `@cypress-design/css` package, published as `@cypress-design/css/index.css`, ships the full color palette and design tokens as CSS custom properties.
 
-### Tailwind over SASS, CSS Modules, or other CSS-in-JS solutions
+### Tailwind CSS
 
-Tailwind should be the default styling solution for any front-end code generated across all Cypress products (e.g. Cypress.io, Cypress Docs, Cypress Cloud, etc).
+Tailwind is the CSS framework for this design system and for all Cypress front-end products (Cypress.io, Cypress Docs, Cypress Cloud, Cypress App, etc). Use Tailwind utility classes for all styling — do not reach for SASS, CSS Modules, or CSS-in-JS.
+
+This repo documents Tailwind usage as it applies to the Cypress design system: which classes are sanctioned, which color tokens map to which utilities, and how components compose utilities. When in doubt, write Tailwind.
+
+### WindiCSS — in progress, do not add
+
+**STOP: Do not write new WindiCSS code or import WindiCSS-specific APIs.** The codebase previously used WindiCSS and still has remnants. Every new line of Windi is more debt to clean up later.
+
+Outstanding cleanup items:
+
+- [ ] Replace the `WindiColor` type in `icon-registry/src/icons.ts` with `string`, and remove all `WindiColor` re-exports from `@cypress-design/vue-icon` and `@cypress-design/react-icon`. This is the largest remaining Windi holdover — it leaks into every icon component prop definition.
+- [ ] Audit remaining `windi` references in config files and remove them once confirmed unused.
+
+Until `WindiColor` is removed, work around it without importing the type: prefer static string prop bindings (e.g. `stroke-color="indigo-500"`) so the literal is checked directly against the union, or use a type cast in the calling code rather than propagating the type further.
 
 ## Hosted styles
 

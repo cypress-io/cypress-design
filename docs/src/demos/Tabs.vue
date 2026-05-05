@@ -56,7 +56,7 @@ const types = [
   'underline-small',
   'underline-center',
   'underline-large',
-]
+] as const
 </script>
 
 <template>

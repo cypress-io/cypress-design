@@ -6,7 +6,7 @@ import {
   IconAnimatedTechnologyServer,
   IconAnimatedViewChart,
 } from '@cypress-design/vue-icon'
-import { reactive, ref } from 'vue'
+import { reactive } from 'vue'
 const animatedIcons = {
   IconAnimatedGeneralChatBubble,
   IconAnimatedObjectGear,
@@ -22,11 +22,6 @@ const animated = reactive({
   IconAnimatedTechnologyServer: false,
   IconAnimatedViewChart: false,
 })
-
-const strokeColor = ref('indigo-500')
-const fillColor = ref('jade-200')
-const secondaryStrokeColor = ref('orange-500')
-const secondaryFillColor = ref('orange-300')
 </script>
 
 <template>
@@ -43,9 +38,9 @@ const secondaryFillColor = ref('orange-300')
           :is="Icon"
           class="w-[64px] h-[64px]"
           :animated="animated[iconName]"
-          :strokeColor
-          :fillColor
-          :secondaryStrokeColor
+          stroke-color="indigo-500"
+          fill-color="jade-200"
+          secondary-stroke-color="orange-500"
           @click="() => (animated[iconName] = !animated[iconName])"
         />
         <pre>&lt;{{ iconName }}/&gt;</pre>

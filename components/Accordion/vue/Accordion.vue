@@ -52,14 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  FunctionalComponent,
-  SVGAttributes,
-  onMounted,
-  ref,
-  toRaw,
-  useSlots,
-} from 'vue'
+import { Component, onMounted, ref, toRaw, useSlots } from 'vue'
 import { CssClasses } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
@@ -79,7 +72,7 @@ const props = defineProps<{
   /**
    * Icon to be displayed on the left of the the heading. Overridden by the iconEl slot, if one is provided.
    */
-  icon?: FunctionalComponent<SVGAttributes>
+  icon?: Component
   /**
    * Should we add a vertical separator between the icon and the text.
    */

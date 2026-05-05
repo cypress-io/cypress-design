@@ -5,6 +5,8 @@ import Button, {
 } from '@cypress-design/vue-button'
 import { IconActionQuestionMarkCircle } from '@cypress-design/vue-icon'
 
+const squareSizes = ['20', '24', '32', '40', '48'] as const
+
 const darkVariants = [
   'outline-dark',
   'outline-red-dark-mode',
@@ -35,15 +37,13 @@ const darkVariants = [
     Square — all sizes
   </p>
   <div class="flex gap-4 items-center mb-6">
-    <Button
-      v-for="size of [20, 24, 32, 40, 48]"
-      :key="size"
-      :size="`${size}`"
-      square
-    >
+    <Button v-for="size of squareSizes" :key="size" :size="size" square>
       <IconActionQuestionMarkCircle
         fill-color="indigo-400"
-        :style="{ width: `${size / 2}px`, height: `${size / 2}px` }"
+        :style="{
+          width: `${Number(size) / 2}px`,
+          height: `${Number(size) / 2}px`,
+        }"
       />
     </Button>
   </div>
