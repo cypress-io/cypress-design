@@ -11,7 +11,7 @@ interface Props {
 }
 
 const { editPath } = Astro.props
-const branch = import.meta.env.GIT_BRANCH ?? 'main'
+const branch = process.env.GIT_BRANCH ?? 'main'
 const githubBase = `https://github.com/cypress-io/cypress-design/blob/${branch}/`
 const isDev = import.meta.env.DEV
 const href = isDev

@@ -23,7 +23,7 @@ const pageTitle = title ? `${title} — Cypress Design System` : 'Cypress Design
 const currentPath = Astro.url.pathname
 ---
 
-<html lang="en">
+<html lang="en" data-fw="vue">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -37,10 +37,12 @@ const currentPath = Astro.url.pathname
     -->
     <script is:inline>
       ;(function () {
+        var VALID_FW = ['vue', 'react', 'vanilla', 'astro']
         var fw =
           new URLSearchParams(location.search).get('fw') ||
           (function () { try { return localStorage.getItem('fw') } catch (_) {} })() ||
           'vue'
+        if (!VALID_FW.includes(fw)) fw = 'vue'
         document.documentElement.setAttribute('data-fw', fw)
       })()
     </script>

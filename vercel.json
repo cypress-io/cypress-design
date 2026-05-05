@@ -1,5 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "installCommand": "corepack prepare yarn@4.9.1 --activate && corepack yarn install --immutable",
-  "buildCommand": "corepack yarn build:docs"
+  "buildCommand": "GIT_BRANCH=${VERCEL_GIT_COMMIT_REF:-main} corepack yarn build:docs"
 }

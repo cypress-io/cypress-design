@@ -30,7 +30,7 @@ const icons: Record<string, string | null> = {
 
 {
   frameworks.length > 1 && (
-    <div class="framework-tabs flex gap-1 mb-6 border-b border-gray-200">
+    <div class="framework-tabs flex gap-1 mb-6 border-b border-gray-200" data-frameworks={frameworks.join(',')}>
       {frameworks.map((fw) => (
         <button
           data-fw-tab={fw}
@@ -66,8 +66,10 @@ const icons: Record<string, string | null> = {
   }
 
   function initTabs() {
-    // Read current fw from html attribute (set by BaseLayout inline script)
-    const current = document.documentElement.getAttribute('data-fw') ?? 'vue'
+    const tabsEl = document.querySelector<HTMLElement>('.framework-tabs')
+    const available = tabsEl?.dataset.frameworks?.split(',') ?? []
+    const stored = document.documentElement.getAttribute('data-fw') ?? 'vue'
+    const current = available.length > 0 && !available.includes(stored) ? available[0] : stored
     applyFw(current)
 
     document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {

@@ -4,5 +4,5 @@
 export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
 # shellcheck disable=SC1091
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-nvm use 2>/dev/null || true
+nvm use 2>/dev/null || nvm use 24 2>/dev/null || true
 exec node node_modules/.bin/astro dev --root docs --port 4323
