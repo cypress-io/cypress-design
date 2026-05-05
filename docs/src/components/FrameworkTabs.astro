@@ -75,12 +75,14 @@ const icons: Record<string, string | null> = {
 
   function initTabs() {
     const tabsEl = document.querySelector<HTMLElement>('.framework-tabs')
-    const available = tabsEl?.dataset.frameworks?.split(',') ?? []
+    if (!tabsEl) return
+
+    const available = tabsEl.dataset.frameworks?.split(',') ?? []
     const stored = document.documentElement.getAttribute('data-fw') ?? 'vue'
     const current = available.length > 0 && !available.includes(stored) ? available[0] : stored
     applyFw(current)
 
-    tabsEl?.addEventListener('click', (e) => {
+    tabsEl.addEventListener('click', (e) => {
       const btn = (e.target as Element).closest<HTMLButtonElement>('[data-fw-tab]')
       const fw = btn?.dataset.fwTab
       if (fw) applyFw(fw)
