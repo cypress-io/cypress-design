@@ -29,15 +29,36 @@ Extract the PR number. If there is no open PR for this branch, stop and tell the
 
 ---
 
-## Step 2 — Fetch Copilot review comments
+## Step 2 — Fetch Copilot review comments (unresolved only)
 
 ```bash
 PR=<number>
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 
-# Inline review comments
+# Get IDs of already-resolved threads so we can skip them
+RESOLVED_IDS=$(gh api graphql -f query='
+  query($owner:String!, $repo:String!, $pr:Int!) {
+    repository(owner:$owner, name:$repo) {
+      pullRequest(number:$pr) {
+        reviewThreads(first:100) {
+          nodes {
+            isResolved
+            comments(first:1) { nodes { databaseId } }
+          }
+        }
+      }
+    }
+  }
+' -f owner="<owner>" -f repo="<repo>" -F pr=$PR \
+  --jq '[.data.repository.pullRequest.reviewThreads.nodes[]
+        | select(.isResolved == true)
+        | .comments.nodes[0].databaseId] | @json')
+
+# Inline review comments — exclude already-resolved threads
 gh api "repos/$REPO/pulls/$PR/comments" --paginate \
-  --jq '[.[] | select(.user.login | test("copilot"; "i"))
+  --jq --argjson resolved "$RESOLVED_IDS" \
+  '[.[] | select(.user.login | test("copilot"; "i"))
+        | select(.id as $id | $resolved | index($id) | not)
         | {id, body, path, line, original_line, pull_request_review_id, html_url}]'
 
 # Top-level review bodies
@@ -46,7 +67,7 @@ gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
         | {id, body, html_url}]'
 ```
 
-Collect the output as a compact JSON array — this is the only data the sub-agent needs.
+Collect the output as a compact JSON array — this is the only data the sub-agent needs. If the filtered array is empty, stop and tell the user there are no unresolved Copilot comments.
 
 ---
 
@@ -220,7 +241,9 @@ Assign each issue to its most critical category:
 
 ## Checklist
 
-- [ ] All Copilot comments have a sub-agent classification
+- [ ] Already-resolved threads filtered out before classification
+- [ ] Stopped early if no unresolved Copilot comments remain
+- [ ] All unresolved Copilot comments have a sub-agent classification
 - [ ] Sub-agent output reviewed for correctness
 - [ ] Every comment has a posted reply
 - [ ] Bucket A and B threads are resolved on GitHub
