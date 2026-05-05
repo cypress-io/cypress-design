@@ -29,17 +29,25 @@ const icons: Record<string, string | null> = {
 ---
 
 {
-  frameworks.length > 1 && (
-    <div class="framework-tabs flex gap-1 mb-6 border-b border-gray-200" data-frameworks={frameworks.join(',')}>
-      {frameworks.map((fw) => (
-        <button
-          data-fw-tab={fw}
-          class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none flex items-center gap-2"
-        >
-          <span>{labels[fw] ?? fw}</span>
-          {icons[fw] && <img src={icons[fw]!} alt="" class="w-5 h-5" />}
-        </button>
-      ))}
+  frameworks.length > 0 && (
+    <div
+      class:list={[
+        'framework-tabs',
+        frameworks.length > 1 && 'flex gap-1 mb-6 border-b border-gray-200',
+      ]}
+      data-frameworks={frameworks.join(',')}
+      hidden={frameworks.length <= 1}
+    >
+      {frameworks.length > 1 &&
+        frameworks.map((fw) => (
+          <button
+            data-fw-tab={fw}
+            class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none flex items-center gap-2"
+          >
+            <span>{labels[fw] ?? fw}</span>
+            {icons[fw] && <img src={icons[fw]!} alt="" class="w-5 h-5" />}
+          </button>
+        ))}
     </div>
   )
 }
