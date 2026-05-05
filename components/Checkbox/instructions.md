@@ -24,6 +24,26 @@ yarn add @cypress-design/react-checkbox      # React
 | `update:modelValue` | `boolean` | Emitted when the checked state changes        |
 | `change`            | `Event`   | Native change event from the underlying input |
 
+### update:modelValue
+
+```vue
+<Checkbox
+  @update:modelValue="(value: boolean) => {
+    // your code here
+  }"
+/>
+```
+
+### change
+
+```vue
+<Checkbox
+  @change="(event: Event) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 | Slot      | Description                                   |

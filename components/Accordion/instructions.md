@@ -22,6 +22,16 @@ yarn add @cypress-design/react-accordion      # React
 | ------------- | --------- | ------------------------------------- |
 | `update:open` | `boolean` | Emitted when the accordion is toggled |
 
+### update:open
+
+```vue
+<Accordion
+  @update:open="(value: boolean) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 | Slot      | Description                                   |

@@ -29,6 +29,10 @@ export default defineConfig({
       // Allow Vite to serve files from the monorepo root so component imports
       // (e.g. ../../components/Button/vue/Button.vue) resolve during dev and build.
       fs: { allow: ['..'] },
+      watch: {
+        // Also watch component docs outside the docs/ project root.
+        ignored: ['!**/components/**'],
+      },
     },
   },
 })

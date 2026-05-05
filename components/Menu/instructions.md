@@ -45,6 +45,16 @@ interface NavMenuGroup {
 | ----------- | ------------ | ------------------------------- |
 | `mousedown` | `MouseEvent` | Bubbled from any item mousedown |
 
+### mousedown
+
+```vue
+<Menu
+  @mousedown="(e: MouseEvent) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 _None_ — the component is data-driven via `items`.

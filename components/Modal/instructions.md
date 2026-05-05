@@ -25,6 +25,28 @@ yarn add @cypress-design/react-modal      # React
 | `update:modelValue` | `boolean` | Emitted when open state changes                                    |
 | `close`             | —         | Emitted when the modal requests closing (close button or backdrop) |
 
+### close
+
+```vue
+<Modal
+  @close="
+    () => {
+      // your code here
+    }
+  "
+/>
+```
+
+### update:modelValue
+
+```vue
+<Modal
+  @update:modelValue="(value: boolean) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 | Slot      | Description                           |

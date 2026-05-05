@@ -28,6 +28,16 @@ All props are derived from the `TestResultData` interface plus a required `statu
 | ------- | ------------ | ------------------------------- |
 | `click` | `MouseEvent` | Emitted when the row is clicked |
 
+### click
+
+```vue
+<TestResult
+  @click="(event: MouseEvent) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 | Slot      | Description                                         |

@@ -27,6 +27,28 @@ yarn add @cypress-design/constants-alert  # shared types
 | `update:modelValue` | `boolean` | Emitted when open state changes          |
 | `dismiss`           | —         | Emitted when the close button is clicked |
 
+### update:modelValue
+
+```vue
+<Alert
+  @update:modelValue="(value: boolean) => {
+    // your code here
+  }"
+/>
+```
+
+### dismiss
+
+```vue
+<Alert
+  @dismiss="
+    () => {
+      // your code here
+    }
+  "
+/>
+```
+
 ## Slots
 
 | Slot      | Description                           |

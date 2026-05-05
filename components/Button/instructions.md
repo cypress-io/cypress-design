@@ -25,6 +25,16 @@ yarn add @cypress-design/constants-button  # shared types
 | ------- | ------------ | --------------------- |
 | `click` | `MouseEvent` | Emitted on user click |
 
+### click
+
+```vue
+<Button
+  @click="($event: MouseEvent) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 | Slot      | Description                      |

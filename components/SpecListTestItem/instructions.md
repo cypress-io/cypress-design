@@ -23,6 +23,16 @@ yarn add @cypress-design/react-speclisttestitem    # React
 | ------- | ------------ | -------------------------------- |
 | `click` | `MouseEvent` | Emitted when the item is clicked |
 
+### click
+
+```vue
+<SpecListTestItem
+  @click="(event: MouseEvent) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 _None_ — the component is data-driven via props.

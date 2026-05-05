@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "astro-docs",
-      "runtimeExecutable": "yarn",
-      "runtimeArgs": ["astro", "dev", "--port", "4323"],
+      "runtimeExecutable": "/bin/sh",
+      "runtimeArgs": ["../.claude/start-dev.sh"],
       "port": 4323
     }
   ]

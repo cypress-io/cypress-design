@@ -37,6 +37,26 @@ interface Tab {
 | `switch`          | `SwitchEvent` | Emitted before the active tab changes. Call `event.preventDefault()` to cancel. |
 | `update:activeId` | `string`      | Emitted after a tab switch with the new active tab id                           |
 
+### switch
+
+```vue
+<Tabs
+  @switch="(tab: Tab, evt: SwitchEvent) => {
+    // your code here
+  }"
+/>
+```
+
+### update:activeId
+
+```vue
+<Tabs
+  @update:activeId="(id: string) => {
+    // your code here
+  }"
+/>
+```
+
 ## Slots
 
 _None_ — tab content panels must be managed by the consuming component, linked via `aria-controls`.
