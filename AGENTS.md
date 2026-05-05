@@ -7,7 +7,7 @@ Before doing any work, you MUST read:
 
 ## Skills
 
-Task-specific guidance lives in `/.agents/skills/<skill-name>/SKILL.md`. Each skill has YAML frontmatter with a `description` telling you when to load it. Read the relevant skill(s) before starting matching work; don't load them preemptively.
+Task-specific guidance lives in `/.agents/skills/<skill-name>.md`. Each skill has YAML frontmatter with a `description` telling you when to load it. Read the relevant skill(s) before starting matching work; don't load them preemptively.
 
 Available skills:
 
