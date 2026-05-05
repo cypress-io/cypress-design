@@ -52,14 +52,17 @@ RESOLVED_IDS=$(gh api graphql -f query='
 ' -f owner="<owner>" -f repo="<repo>" -F pr=$PR \
   --jq '[.data.repository.pullRequest.reviewThreads.nodes[]
         | select(.isResolved == true)
-        | .comments.nodes[0].databaseId] | @json')
+        | .comments.nodes[0].databaseId]')
 
-# Inline review comments — exclude already-resolved threads
+# Inline review comments — exclude already-resolved threads.
+# IMPORTANT: pipe to standalone `jq` (not `gh api --jq`). `gh api --jq` does NOT
+# forward `--argjson` to the underlying jq, so the resolved-thread filter would
+# silently no-op and you'd pass already-resolved comments to the sub-agent.
 gh api "repos/$REPO/pulls/$PR/comments" --paginate \
-  --jq --argjson resolved "$RESOLVED_IDS" \
-  '[.[] | select(.user.login | test("copilot"; "i"))
-        | select(.id as $id | $resolved | index($id) | not)
-        | {id, body, path, line, original_line, pull_request_review_id, html_url}]'
+  | jq --argjson resolved "$RESOLVED_IDS" \
+    '[.[] | select(.user.login | test("copilot"; "i"))
+          | select(.id as $id | $resolved | index($id) | not)
+          | {id, body, path, line, original_line, pull_request_review_id, html_url}]'
 
 # Top-level review bodies
 gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
@@ -68,6 +71,19 @@ gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
 ```
 
 Collect the output as a compact JSON array — this is the only data the sub-agent needs. If the filtered array is empty, stop and tell the user there are no unresolved Copilot comments.
+
+### Sanity check before dispatching to the sub-agent
+
+Before passing comments to the sub-agent, verify the filter actually ran. Compute three counts and confirm the math:
+
+```bash
+TOTAL_COPILOT=$(gh api "repos/$REPO/pulls/$PR/comments" --paginate \
+  | jq '[.[] | select(.user.login | test("copilot"; "i"))] | length')
+RESOLVED_COUNT=$(echo "$RESOLVED_IDS" | jq 'length')
+UNRESOLVED_COUNT=<length of the filtered array you just produced>
+```
+
+`TOTAL_COPILOT` MUST equal `RESOLVED_COUNT + UNRESOLVED_COUNT`. If it doesn't, the resolved-thread filter is broken (this has regressed before — see the `--argjson` note above). STOP and investigate before invoking the sub-agent — otherwise the sub-agent will dutifully classify already-fixed comments as "Already Fixed" and produce a plan that posts redundant replies on resolved threads.
 
 ---
 
@@ -242,6 +258,7 @@ Assign each issue to its most critical category:
 ## Checklist
 
 - [ ] Already-resolved threads filtered out before classification
+- [ ] `TOTAL_COPILOT == RESOLVED_COUNT + UNRESOLVED_COUNT` sanity check passed before sub-agent dispatch
 - [ ] Stopped early if no unresolved Copilot comments remain
 - [ ] All unresolved Copilot comments have a sub-agent classification
 - [ ] Sub-agent output reviewed for correctness
