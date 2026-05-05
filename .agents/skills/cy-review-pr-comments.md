@@ -7,12 +7,14 @@ description: Use to review the latest GitHub Copilot review comments on the PR f
 
 Review Copilot PR comments for the current branch, triage each one, update the known-issues log, and reply to or resolve comments appropriately.
 
+**Token strategy:** Steps 1–2 (fetch) and Step 5 (act) run in this session. Step 3 (classify + draft replies) is delegated to a cheap sub-agent so this session never loads the full comment corpus into its context.
+
 ## Goal
 
 1. Fetch all open Copilot review comments on the PR for the current branch.
-2. For each comment, decide the outcome (fix acknowledged / irrelevant / already fixed).
-3. Reply to and/or resolve each comment on GitHub.
-4. Add new actionable issues to `.agents/known-issues.md`.
+2. Delegate classification and reply drafting to a cheap sub-agent.
+3. Review the sub-agent's JSON output.
+4. Post replies, resolve threads, and write `.agents/known-issues.md`.
 
 ---
 
@@ -29,101 +31,119 @@ Extract the PR number. If there is no open PR for this branch, stop and tell the
 
 ## Step 2 — Fetch Copilot review comments
 
-Fetch all review threads that are **not yet resolved** and were left by GitHub Copilot:
-
 ```bash
 PR=<number>
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 
-# Pull review comments (inline, on code)
+# Inline review comments
 gh api "repos/$REPO/pulls/$PR/comments" --paginate \
-  --jq '[.[] | select(.user.login | test("copilot"; "i"))]'
+  --jq '[.[] | select(.user.login | test("copilot"; "i"))
+        | {id, body, path, line, original_line, pull_request_review_id, html_url}]'
 
-# Pull top-level review bodies (non-inline)
+# Top-level review bodies
 gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
-  --jq '[.[] | select(.user.login | test("copilot"; "i"))]'
+  --jq '[.[] | select(.user.login | test("copilot"; "i"))
+        | {id, body, html_url}]'
 ```
 
-For each comment capture:
-
-- `id` — comment ID (needed for replies and resolution)
-- `body` — the text of the comment
-- `path` — file path (for inline comments)
-- `line` / `original_line` — line number
-- `pull_request_review_id` — parent review ID
-- `html_url` — link for reference
+Collect the output as a compact JSON array — this is the only data the sub-agent needs.
 
 ---
 
-## Step 3 — Triage each comment
+## Step 3 — Delegate to a cheap sub-agent
 
-Classify every comment into one of three buckets:
+Spawn the smallest/cheapest model available in your environment and ask it to classify every comment and draft a reply for each. Pass only the comment JSON and the triage rules — do not give it the full codebase or architecture docs.
 
-### A — Already Fixed
+### Claude Code
 
-The concern was addressed in a subsequent commit on this branch. Evidence: the code the comment refers to no longer exists or was changed to satisfy the concern.
+```bash
+claude --model claude-haiku-4-5 --print "$(cat <<'PROMPT'
+You are triaging GitHub Copilot PR review comments for the cypress-design repository.
+Classify each comment into exactly one bucket and draft a short reply.
 
-**Action:** Reply with a brief explanation of what was done, then resolve.
+BUCKETS
+A  Already Fixed   — the concern was addressed in a later commit; code no longer exists or was changed.
+B  Irrelevant      — flags an intentional repo pattern or lacks the context to be actionable.
+C  Actionable      — a real issue not yet fixed.
 
-### B — Irrelevant / Out of Context
+REPO POLICIES (use these to identify bucket B comments)
+- Tailwind-only: no SASS, CSS Modules, or styled-components
+- No hex colors: always use design tokens / Tailwind classes
+- WindiCSS remnants are tracked migration debt — do not fix now
+- "Consider adding comments" suggestions are out of scope
+- Accessibility covered in a component's instructions.md is already handled
+- Anything contradicting .agents/architecture.md or .agents/design.md
 
-The comment flags a pattern that is intentional in this repo, is addressed elsewhere in the codebase, or requires context the reviewer could not have (e.g., WindiCSS migration in progress, Web Components shadow DOM encapsulation, Tailwind-only styling policy, known-issues already tracked). These comments cost more to change than they are worth.
+REPLY TEMPLATES (2–4 sentences, plain text, no markdown headers)
+A: "Fixed — [what changed and why it satisfies the concern]."
+B: "Closing as out-of-scope: [one sentence on the repo policy]. See [file] for details."
+C: "Acknowledged. [One sentence on the planned fix]. Tracked in .agents/known-issues.md."
 
-Common irrelevant patterns in this repo:
+For bucket C also output:
+- category: one of "User Experience" | "Security & Privacy" | "Accessibility & Standards" | "Developer Experience" | "Code Quality"
+- severity: one of "Critical" | "High" | "Medium" | "Low" | "Possible"
+- title: short noun phrase (≤8 words)
+- description: one sentence
 
-- Suggestions to add SASS/CSS Modules/styled-components (Tailwind-only policy)
-- Complaints about WindiCSS remnants (tracked migration debt, do not fix now)
-- Generic "add error handling" in internal design-system utilities (not user-facing)
-- Suggestions to add hex colors (design token policy forbids hex)
-- "Consider adding comments" on code that is intentionally terse by repo policy
-- Accessibility suggestions that are already covered by the component's `instructions.md`
-- Any suggestion that contradicts `.agents/architecture.md` or `.agents/design.md`
+OUTPUT: a single JSON array — one object per comment, no extra text.
+Schema: [{id, bucket, reply, category?, severity?, title?, description?}]
 
-**Action:** Reply explaining why the comment does not apply (cite the relevant policy, file, or known-issue), then resolve.
+COMMENTS:
+<paste compact JSON array here>
+PROMPT
+)"
+```
 
-### C — Valid / Actionable
+### Other agents (Codex, Gemini CLI, etc.)
 
-The comment identifies a real issue that should be fixed but has not been yet.
+Use the equivalent "non-interactive, cheapest model" flag for your tool. Pass the same prompt above. The output must be the JSON array — instruct the model accordingly.
 
-**Action:** Reply acknowledging the issue, briefly describe the fix plan, and add the issue to `.agents/known-issues.md`. Do **not** resolve yet — leave open so the fix can be tracked.
+### Fallback (no sub-agent support)
+
+If your environment cannot spawn a sub-agent, perform the classification yourself using the same rules above, then continue to Step 4.
 
 ---
 
-## Step 4 — Reply to comments
+## Step 4 — Review sub-agent output
 
-Use the GitHub API to post a reply to each inline comment:
+Parse the JSON array. Sanity-check:
+
+- Every input comment has exactly one output object.
+- Bucket C entries have `category`, `severity`, `title`, and `description`.
+- Reply text looks reasonable (no hallucinated file names, correct bucket tone).
+
+Correct any obvious errors before proceeding. You do not need to re-read the full comment bodies — the sub-agent output is the source of truth for this step.
+
+---
+
+## Step 5 — Post replies
+
+**Inline comments** — use `in_reply_to`:
 
 ```bash
 gh api "repos/$REPO/pulls/$PR/comments" \
   -X POST \
-  -f body="<your reply text>" \
-  -f in_reply_to=<comment_id>
+  -f body="<reply>" \
+  -F in_reply_to=<comment_id>
 ```
 
-For top-level review bodies, reply as a PR comment:
+**Top-level review bodies** — post as a PR issue comment:
 
 ```bash
 gh api "repos/$REPO/issues/$PR/comments" \
   -X POST \
-  -f body="<your reply text>"
+  -f body="<reply>"
 ```
-
-### Reply tone guidelines
-
-- Be concise (2–4 sentences max).
-- For **A (Already Fixed)**: "Fixed in [short description] — [what changed and why it satisfies the concern]."
-- For **B (Irrelevant)**: "Closing as out-of-scope: [one sentence explaining the repo policy or context that makes this inapplicable]. See [file/doc] for details."
-- For **C (Actionable)**: "Acknowledged. [One sentence describing the planned fix]. Tracked in `.agents/known-issues.md`."
 
 ---
 
-## Step 5 — Resolve comments
+## Step 6 — Resolve threads (buckets A and B only)
 
-GitHub does not expose a direct "resolve thread" REST endpoint for pull request review comment threads. Use the GraphQL API instead:
+GitHub requires the GraphQL API to resolve a review thread:
 
 ```bash
-# Get the thread node ID for the comment
-THREAD_NODE_ID=$(gh api graphql -f query='
+# 1. Get thread node IDs
+gh api graphql -f query='
   query($owner:String!, $repo:String!, $pr:Int!) {
     repository(owner:$owner, name:$repo) {
       pullRequest(number:$pr) {
@@ -140,30 +160,25 @@ THREAD_NODE_ID=$(gh api graphql -f query='
 ' -f owner="<owner>" -f repo="<repo>" -F pr=<number> \
   --jq '.data.repository.pullRequest.reviewThreads.nodes[]
         | select(.comments.nodes[0].databaseId == <comment_id>)
-        | .id')
+        | .id'
 
-# Resolve the thread
+# 2. Resolve
 gh api graphql -f query='
   mutation($threadId:ID!) {
     resolveReviewThread(input:{threadId:$threadId}) {
       thread { isResolved }
     }
   }
-' -f threadId="$THREAD_NODE_ID"
+' -f threadId="<thread_node_id>"
 ```
 
-Resolve threads in buckets **A** and **B** after posting the reply.  
-Leave bucket **C** threads open.
+Leave bucket C threads open.
 
 ---
 
-## Step 6 — Update `.agents/known-issues.md`
+## Step 7 — Update `.agents/known-issues.md`
 
-For every bucket **C** comment, append the issue to `.agents/known-issues.md`.
-
-### File location
-
-`.agents/known-issues.md` — create if it does not exist.
+For every bucket C entry in the sub-agent output, add an item to `.agents/known-issues.md` (create the file if it doesn't exist).
 
 ### File structure
 
@@ -174,68 +189,40 @@ For every bucket **C** comment, append the issue to `.agents/known-issues.md`.
 
 ### User Experience
 
-<!-- Issues that directly impact end-user functionality, navigation, or content display -->
-
 ### Security & Privacy
-
-<!-- Authentication, authorization, XSS risks, data leakage, cache control -->
 
 ### Accessibility & Standards
 
-<!-- WCAG compliance, semantic HTML, SEO (noindex/indexation) -->
-
 ### Developer Experience
 
-<!-- Test reliability, build-time errors, development environment issues -->
-
 ### Code Quality
-
-<!-- Unused code, duplication, technical debt, inconsistencies (non-user-facing) -->
 ```
-
-### Categories
-
-| Category                      | What belongs here                                                           |
-| ----------------------------- | --------------------------------------------------------------------------- |
-| **User Experience**           | Directly impacts end-user functionality, navigation, or content display     |
-| **Security & Privacy**        | Authentication, authorization, XSS risks, data leakage, cache control       |
-| **Accessibility & Standards** | WCAG compliance, semantic HTML, SEO (noindex/indexation)                    |
-| **Developer Experience**      | Test reliability, build-time errors, development environment issues         |
-| **Code Quality**              | Unused code, duplication, technical debt, inconsistencies (non-user-facing) |
-
-Assign each issue to its **primary** category based on the most critical aspect.
-
-### Severity levels (within each category)
-
-`Critical` → `High` → `Medium` → `Low` → `Possible`
 
 ### Entry format
 
 ```markdown
-- **[Severity] Short title** — One-sentence description. `path/to/file.ts:line` _(PR #NNN, Copilot)_
+- **[Severity] Title** — Description. `path/to/file.ts:line` _(PR #NNN, Copilot)_
 ```
 
 ### Sorting rule
 
-**After adding or editing any entry, re-sort the entire category so that Critical/High items precede Medium, and Medium precedes Low.** Verify the ordering of every category you touch before considering the edit complete.
+Re-sort every category you touch top-to-bottom by severity (`Critical` → `High` → `Medium` → `Low` → `Possible`) before finishing. Do not just append.
 
-### Category assignment for multi-aspect issues
+### Category assignment
 
-If an issue spans multiple categories, assign it to the most critical one:
+Assign each issue to its most critical category:
 
-- XSS risk → Security & Privacy (not Code Quality)
-- Missing `aria-label` on a button that breaks keyboard nav → Accessibility & Standards (not UX)
-- A flaky test that masks a real regression → Developer Experience (not Code Quality)
+- XSS risk → Security & Privacy
+- Missing `aria-label` breaking keyboard nav → Accessibility & Standards
+- Flaky test masking a regression → Developer Experience
 
 ---
 
 ## Checklist
 
-Before finishing, confirm:
-
-- [ ] All Copilot comments were reviewed (none skipped)
-- [ ] Every comment received a reply
+- [ ] All Copilot comments have a sub-agent classification
+- [ ] Sub-agent output reviewed for correctness
+- [ ] Every comment has a posted reply
 - [ ] Bucket A and B threads are resolved on GitHub
 - [ ] Bucket C threads are left open
-- [ ] `.agents/known-issues.md` entries are sorted by severity within each category
-- [ ] No new entries were appended without re-sorting their category
+- [ ] `.agents/known-issues.md` entries sorted by severity within each category
