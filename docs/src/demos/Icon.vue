@@ -1,44 +1,40 @@
 <script lang="ts" setup>
-import { IconObjectBookCode, IconObjectBook } from '@cypress-design/vue-icon'
+import { IconObjectBook } from '@cypress-design/vue-icon'
 </script>
 
 <template>
-  <!-- Named import -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
-    Named import
-  </p>
-  <div class="mb-4">
-    <IconObjectBookCode />
-  </div>
-
   <!-- Stroke color + hover color -->
   <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
-    Stroke color &amp; hover
+    Stroke and fill colors with hover
   </p>
-  <div class="mb-4">
-    <button class="flex items-center gap-2">
-      <IconObjectBook
-        size="16"
-        strokeColor="indigo-600"
-        hoverStrokeColor="jade-600"
-      />
-      Hover me
-    </button>
+  <div class="mb-4 flex items-center gap-2 text-gray-700 font-medium">
+    <IconObjectBook
+      size="24"
+      fillColor="indigo-200"
+      strokeColor="indigo-600"
+      hoverFillColor="jade-200"
+      hoverStrokeColor="teal-600"
+    />
+    Hover the icon
   </div>
 
   <!-- interactiveColorsOnGroup — color follows parent hover -->
   <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
-    <code>interactiveColorsOnGroup</code> — color follows parent hover
+    <code>interactiveColorsOnGroup</code> — colors follow parent hover
   </p>
   <div>
-    <button class="group hover:text-jade-800 flex items-center gap-2">
+    <button
+      class="group text-indigo-500 hover:text-jade-600 flex items-center gap-2 font-medium"
+    >
       <IconObjectBook
-        size="16"
+        size="24"
+        fillColor="indigo-200"
         strokeColor="indigo-600"
-        hoverStrokeColor="jade-600"
+        hoverFillColor="jade-200"
+        hoverStrokeColor="teal-600"
         interactiveColorsOnGroup
       />
-      Hover me
+      Hover the button
     </button>
   </div>
 </template>
