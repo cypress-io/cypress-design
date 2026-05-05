@@ -11,7 +11,7 @@ function remarkStripLive() {
   return (tree) => {
     function visit(node) {
       if (node.type === 'code' && typeof node.lang === 'string') {
-        node.lang = node.lang.replace(/\s*\blive\b\s*/g, '').trim() || null
+        node.lang = node.lang.replace(/\s*\blive\b\s*/g, '').trim() || undefined
       }
       if (node.children) node.children.forEach(visit)
     }

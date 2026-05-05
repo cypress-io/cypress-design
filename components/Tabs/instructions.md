@@ -10,11 +10,11 @@ yarn add @cypress-design/constants-tabs    # shared types (Tab)
 
 ## Props
 
-| Prop       | Type                     | Default     | Description                     |
-| ---------- | ------------------------ | ----------- | ------------------------------- |
-| `tabs`     | `Tab[]`                  | required    | Array of tab descriptor objects |
-| `activeId` | `string`                 | —           | ID of the currently active tab  |
-| `variant`  | `"default" \| "rounded"` | `"default"` | Tab strip visual style          |
+| Prop       | Type                                                                                                                          | Default     | Description                     |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------- | ------------------------------- |
+| `tabs`     | `Tab[]`                                                                                                                       | required    | Array of tab descriptor objects |
+| `activeId` | `string`                                                                                                                      | —           | ID of the currently active tab  |
+| `variant`  | `"default" \| "indigo-light" \| "dark-small" \| "dark-large" \| "underline-small" \| "underline-center" \| "underline-large"` | `"default"` | Tab strip visual style          |
 
 ### `Tab` shape
 

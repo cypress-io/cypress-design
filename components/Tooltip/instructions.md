@@ -12,7 +12,7 @@ yarn add @cypress-design/react-tooltip      # React
 | Prop             | Type                                                                      | Default           | Description                                                      |
 | ---------------- | ------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------------- |
 | `placement`      | `"top" \| "bottom" \| "left" \| "right" \| "top-start" \| "top-end" \| …` | `"top"`           | Where the tooltip appears relative to the target                 |
-| `color`          | `"light" \| "dark"`                                                       | `"dark"`          | Tooltip background color                                         |
+| `color`          | `"light" \| "dark"`                                                       | `"light"`         | Tooltip background color                                         |
 | `disabled`       | `boolean`                                                                 | `false`           | Hides the tooltip and disables hover behavior                    |
 | `open`           | `boolean`                                                                 | —                 | Controlled open state (bypasses hover)                           |
 | `interactive`    | `boolean`                                                                 | `false`           | When true, the tooltip stays open when the pointer moves into it |
