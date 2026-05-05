@@ -1,22 +1,4 @@
----
-layout: '../../layouts/BaseLayout.astro'
-title: Test Results List
-order: 3
----
-import TestResultsList from '../../demos/TestResultsList.vue'
-
-# Test Results List
-
-## Usage
-
-Compose `TestResult` items in a scrollable container. Use the `#actions` slot for per-row controls and the `#groups` slot for expandable sub-groups.
-
-<div class="border border-gray-100 rounded-lg my-4 overflow-hidden">
-  <TestResultsList client:only="vue" />
-</div>
-
-```vue
-<script lang="ts" setup>
+<script setup lang="ts">
 import { reactive } from 'vue'
 import TestResult from '@cypress-design/vue-testresult'
 import Button from '@cypress-design/vue-button'
@@ -30,7 +12,7 @@ const groupShowed = reactive<Record<string, boolean>>({})
 </script>
 
 <template>
-  <div class="bg-white p-4 max-h-[400px] overflow-y-auto">
+  <div class="bg-white p-4 max-h-[400px] overflow-hidden overflow-y-auto">
     <TestResult v-for="tr of TestResults" v-bind="tr">
       <template #actions>
         <Button
@@ -66,12 +48,18 @@ const groupShowed = reactive<Record<string, boolean>>({})
           class="px-[16px] py-[10px] border border-gray-100 border-t-0 first:border-t flex items-center"
         >
           <span class="flex-1">{{ group }}</span>
-          <Button variant="outline-light" size="32" class="!px-[8px] h-[32px]">
+          <Button
+            variant="outline-light"
+            size="32"
+            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+          >
             <IconActionTestReplay />
+            <span class="hidden @lg/test-result:inline ml-[8px]"
+              >Test Replay</span
+            >
           </Button>
         </div>
       </template>
     </TestResult>
   </div>
 </template>
-```
