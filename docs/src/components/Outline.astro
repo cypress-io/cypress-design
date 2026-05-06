@@ -1,0 +1,76 @@
+---
+/**
+ * Outline — right-side table of contents.
+ * Props:
+ *   headings — array from MDX's getHeadings(); only depth 2 and 3 are shown.
+ * Active section highlighting is handled client-side via the inline script.
+ */
+interface Props {
+  headings: { depth: number; slug: string; text: string }[]
+}
+
+const { headings } = Astro.props
+const filtered = headings.filter((h) => h.depth === 2 || h.depth === 3)
+---
+
+{
+  filtered.length > 0 && (
+    <div
+      id="outline"
+      class="fixed top-[72px] mt-12 bottom-0 overflow-auto right-0 w-[300px] border-l border-gray-1000/[.07] px-2"
+    >
+      <p class="ml-6 uppercase text-gray-500 mt-0 mb-2 text-xs leading-5 tracking-wider font-medium">
+        Contents
+      </p>
+      <nav>
+        <ul>
+          {filtered.map((h) => (
+            <li>
+              <a
+                href={`#${h.slug}`}
+                data-heading={h.slug}
+                class:list={[
+                  'block py-1 text-sm text-gray-600 hover:text-gray-900 transition-colors rounded',
+                  h.depth === 3 ? 'pl-8' : 'pl-4',
+                ]}
+              >
+                {h.text}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </div>
+  )
+}
+
+<script>
+  // Highlights the heading closest to the top of the viewport on scroll.
+  function setActive() {
+    const headings = Array.from(document.querySelectorAll('main h2, main h3'))
+    const links = document.querySelectorAll<HTMLAnchorElement>('#outline [data-heading]')
+    if (!headings.length || !links.length) return
+
+    const active =
+      [...headings].reverse().find((h) => h.getBoundingClientRect().top <= 70) ?? headings[0]
+
+    links.forEach((a) => {
+      const isActive = active?.id === a.dataset.heading
+      a.classList.toggle('text-indigo-600', isActive)
+      a.classList.toggle('font-medium', isActive)
+      a.classList.toggle('text-gray-600', !isActive)
+    })
+  }
+
+  let ticking = false
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        setActive()
+        ticking = false
+      })
+      ticking = true
+    }
+  })
+  setActive()
+</script>

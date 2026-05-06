@@ -21,8 +21,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          cache: 'yarn'
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Restore cached build files
         uses: actions/cache@v4
@@ -34,11 +36,11 @@ jobs:
             ./components
             ./packages/details-animation/dist
             ./node_modules
-            
+
       - name: Reinstall dependencies and regenerate build files
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
         env:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096
@@ -52,9 +54,10 @@ jobs:
         run: yarn new:component --name ComponentName
 
       - name: Re-link Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --no-immutable
         env:
           CI: true
+          YARN_ENABLE_HARDENED_MODE: 0
 
       - name: Build Component for Vue
         run: yarn turbo run build --filter=@cypress-design/vue-componentname...

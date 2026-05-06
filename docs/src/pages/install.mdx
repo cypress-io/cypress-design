@@ -1,0 +1,76 @@
+---
+layout: '../layouts/BaseLayout.astro'
+title: Install
+order: 2
+---
+
+# Install
+
+## Components Packages
+
+Each component is its own package.
+
+To install the button component in a React project:
+
+```bash
+yarn add @cypress-design/react-button
+```
+
+Each component is versioned separately so urgent fixes can be delivered without blocking other components.
+
+## Install CSS Utility
+
+Every component is styled using TailwindCSS. Install `@cypress-design/css` to render components properly.
+
+```bash
+yarn add -D @cypress-design/css
+```
+
+### TailwindCSS
+
+Update your Tailwind config to use the Cypress preset:
+
+#### The simplest way
+
+```js
+// tailwind.config.cjs
+const { TailwindConfig } = require('@cypress-design/css')
+
+module.exports = TailwindConfig([
+  './index.html',
+  './src/**/*.{vue,js,ts,jsx,tsx}',
+])
+```
+
+#### The explicit way
+
+```js
+// tailwind.config.cjs
+const cypressCSS = require('@cypress-design/css')
+
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  presets: [cypressCSS.TailwindConfig()],
+  content: {
+    files: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+    extract: ['vue', 'js', 'tsx'].reduce((acc, ext) => {
+      acc[ext] = cypressCSS.TailwindIconExtractor
+      return acc
+    }, {}),
+  },
+}
+```
+
+## Token CSS
+
+Color and spacing tokens are available as CSS custom properties. Link the stylesheet in your HTML:
+
+```html
+<link rel="stylesheet" href="https://design.cypress.io/colors.css" />
+```
+
+Or generate locally (included when you build this docs site):
+
+```bash
+yarn workspace @cypress-design/css build:colors-css
+```

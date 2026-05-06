@@ -1,0 +1,19 @@
+---
+/**
+ * F — framework-conditional content wrapper.
+ * Wraps slot in a div with data-only="<frameworks>" so the global CSS
+ * show/hide rules can toggle visibility based on the selected framework.
+ *
+ * Usage: <F only="vue react">...vue-and-react-only content...</F>
+ *        <F only="vue">...vue-only content...</F>
+ */
+interface Props {
+  only: string
+}
+
+const { only } = Astro.props
+---
+
+<div data-only={only}>
+  <slot />
+</div>

@@ -1,0 +1,171 @@
+---
+/**
+ * BaseLayout — full-page shell with fixed header, left sidebar, main content, and right TOC.
+ * Props:
+ *   title     — page <title> (default: 'Cypress Design System')
+ *   headings  — from MDX getHeadings(); passed to Outline for the right-side TOC
+ *   editPath  — path relative to repo root for the GitHub edit link (optional)
+ */
+import '../styles/global.css'
+import '../styles/markdown.scss'
+import Sidebar from '../components/Sidebar.astro'
+import Outline from '../components/Outline.astro'
+import EditButton from '../components/EditButton.astro'
+
+interface Props {
+  title?: string
+  headings?: { depth: number; slug: string; text: string }[]
+  editPath?: string
+}
+
+const { title, headings = [], editPath } = Astro.props
+const pageTitle = title ? `${title} — Cypress Design System` : 'Cypress Design System'
+const currentPath = Astro.url.pathname
+---
+
+<html lang="en" data-fw="vue">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{pageTitle}</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/colors.css" />
+    <!--
+      Framework selector: reads ?fw= param → localStorage.fw → 'vue' default.
+      Runs before body paints so data-fw is set on <html> immediately,
+      preventing a flash of the wrong framework's content.
+    -->
+    <script is:inline>
+      ;(function () {
+        var VALID_FW = ['vue', 'react', 'vanilla', 'astro']
+        var fw =
+          new URLSearchParams(location.search).get('fw') ||
+          (function () { try { return localStorage.getItem('fw') } catch (_) {} })() ||
+          'vue'
+        if (!VALID_FW.includes(fw)) fw = 'vue'
+        document.documentElement.setAttribute('data-fw', fw)
+      })()
+    </script>
+  </head>
+  <body class="bg-white text-gray-900 font-sans">
+    <!-- Fixed header -->
+    <header
+      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-[72px] justify-between items-center px-6 md:px-8 border-b border-gray-100/[.07]"
+    >
+      <a href="/">
+        <img src="/logo.svg" class="h-8 md:mr-8" alt="Cypress Design System" />
+      </a>
+
+      <a
+        href="https://github.com/cypress-io/cypress-design"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="fixed bottom-[34px] right-[116px] md:static flex items-center gap-2 px-3 py-1.5 text-sm text-indigo-500 bg-gray-50 border border-gray-200 rounded-full hover:border-gray-300 transition-colors"
+        aria-label="View on GitHub"
+      >
+        <!-- GitHub Mark -->
+        <svg viewBox="0 0 16 16" class="w-4 h-4 fill-current" aria-hidden="true">
+          <path
+            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"
+          ></path>
+        </svg>
+        <span class="hidden md:inline">GitHub</span>
+      </a>
+
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden p-2 text-gray-700"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="sidebar"
+      >
+        <!-- Hamburger -->
+        <svg
+          viewBox="0 0 24 24"
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Header spacer -->
+    <div class="h-[72px]"></div>
+
+    <div class="flex min-h-full pb-8">
+      <!-- Mobile backdrop -->
+      <div
+        id="mobile-backdrop"
+        class="hidden fixed inset-0 bg-gray-900/70 z-10 md:hidden"
+      >
+      </div>
+
+      <!-- Sidebar spacer (desktop only) -->
+      <div class="w-[250px] hidden md:block shrink-0"></div>
+
+      <!-- Sidebar (fixed) -->
+      <aside
+        id="sidebar"
+        class="fixed py-8 bg-white z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r border-gray-100/[.07]"
+      >
+        <Sidebar currentPath={currentPath} />
+      </aside>
+
+      <!-- Main content -->
+      <main class="w-full max-w-[800px] mx-6 min-[1420px]:mx-auto md:mt-6 min-w-0">
+        <div class="relative">
+          {editPath && <EditButton editPath={editPath} />}
+          <div class="markdown py-1 mt-6 p-2 rounded">
+            <slot />
+          </div>
+        </div>
+      </main>
+
+      <!-- Right TOC (desktop only) -->
+      {
+        headings.length > 0 && (
+          <aside class="hidden xl:block">
+            <div class="w-[300px]">
+              <Outline headings={headings} />
+            </div>
+          </aside>
+        )
+      }
+    </div>
+
+    <!-- Mobile menu toggle -->
+    <script is:inline>
+      ;(function () {
+        const btn = document.getElementById('mobile-menu-btn')
+        const sidebar = document.getElementById('sidebar')
+        const backdrop = document.getElementById('mobile-backdrop')
+        if (!btn || !sidebar || !backdrop) return
+
+        // Sidebar starts closed on mobile — remove it from tab order and AT tree.
+        // On desktop the button is hidden so this block never runs.
+        if (window.matchMedia('(max-width: 767px)').matches) {
+          sidebar.inert = true
+        }
+
+        btn.addEventListener('click', () => {
+          const nowClosed = sidebar.classList.toggle('-translate-x-full')
+          backdrop.classList.toggle('hidden')
+          btn.setAttribute('aria-expanded', String(!nowClosed))
+          sidebar.inert = nowClosed
+        })
+        backdrop.addEventListener('click', () => {
+          sidebar.classList.add('-translate-x-full')
+          backdrop.classList.add('hidden')
+          btn.setAttribute('aria-expanded', 'false')
+          sidebar.inert = true
+        })
+      })()
+    </script>
+  </body>
+</html>

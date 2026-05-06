@@ -1,0 +1,137 @@
+---
+/**
+ * [component].astro — canonical template for all component documentation pages.
+ *
+ * URL: /components/Button, /components/Tabs, etc.
+ *
+ * Structure rendered per page:
+ *   1. <FrameworkTabs> — tab buttons for each supported framework
+ *   2. Per-framework sections inside <F only="<fw>"> wrappers
+ *      (Install + Usage + code examples — live fences stripped to static by remark plugin)
+ *   4. instructions.md — hand-written props/events/slots reference (if present)
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import F from '../../components/F.astro'
+import FrameworkTabs from '../../components/FrameworkTabs.astro'
+import Demo from '../../components/Demo.vue'
+import { getAllComponents } from '../../lib/components'
+
+// Per-component live demos at docs/src/demos/<Name>.{astro,vue}.
+// Prefer .astro for simple prop-only demos (lighter, no Vue runtime layer).
+// Use .vue for demos that need Vue features: slots (<template #name>),
+// v-model, refs, event handlers, v-for over reactive data, or passing
+// component references as props. Demo.vue dispatches Vue demos by name
+// because Astro's client:only requires static imports.
+const astroDemoModules = import.meta.glob('../../demos/*.astro', { eager: true }) as Record<
+  string,
+  { default: any }
+>
+const vueDemoModules = import.meta.glob('../../demos/*.vue')
+
+// ---------------------------------------------------------------------------
+// Static paths — one route per component directory
+// ---------------------------------------------------------------------------
+export function getStaticPaths() {
+  return getAllComponents().map(({ name, frameworks, hasInstructions }) => {
+    return {
+      params: { component: name },
+      props: { frameworks, hasInstructions },
+    }
+  })
+}
+
+interface Props {
+  frameworks: string[]
+  hasInstructions: boolean
+}
+
+const { component } = Astro.params
+const { frameworks, hasInstructions } = Astro.props
+
+// ---------------------------------------------------------------------------
+// Dynamic content imports
+// Globs must be string literals; we index into them with the dynamic key.
+// Paths are relative to this file → ../../../../ = repo root.
+// ---------------------------------------------------------------------------
+// Per-framework ReadMes only. The framework-agnostic ReadMe.md at the
+// component root contains VitePress-specific <script setup> + <DemoWrapper>
+// markup that doesn't render correctly in Astro/MDX, so it's intentionally
+// skipped — the per-framework ReadMes already cover install + usage.
+const vueReadmes    = import.meta.glob('../../../../components/*/vue/ReadMe.md')
+const reactReadmes  = import.meta.glob('../../../../components/*/react/ReadMe.md')
+const vanillaReadmes = import.meta.glob('../../../../components/*/vanilla/ReadMe.md')
+const astroReadmes  = import.meta.glob('../../../../components/*/astro/ReadMe.md')
+const instructionsMds = import.meta.glob('../../../../components/*/instructions.md')
+
+async function loadContent(glob: Record<string, () => Promise<unknown>>, key: string) {
+  const loader = glob[key]
+  if (!loader) return null
+  const mod = await loader() as { Content?: unknown }
+  return (mod.Content ?? null) as import('astro').AstroInstance['default'] | null
+}
+
+const base = `../../../../components/${component}`
+const VueContent         = await loadContent(vueReadmes,      `${base}/vue/ReadMe.md`)
+const ReactContent       = await loadContent(reactReadmes,    `${base}/react/ReadMe.md`)
+const VanillaContent     = await loadContent(vanillaReadmes,  `${base}/vanilla/ReadMe.md`)
+const AstroContent       = await loadContent(astroReadmes,    `${base}/astro/ReadMe.md`)
+const InstructionsContent = hasInstructions
+  ? await loadContent(instructionsMds, `${base}/instructions.md`)
+  : null
+
+const AstroDemo = astroDemoModules[`../../demos/${component}.astro`]?.default ?? null
+const hasVueDemo = `../../demos/${component}.vue` in vueDemoModules
+---
+
+<BaseLayout title={component}>
+  <h1 class="markdown-title">{component}</h1>
+
+  {(AstroDemo || hasVueDemo) && (
+    <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
+      {AstroDemo && <AstroDemo />}
+      {hasVueDemo && <Demo client:only="vue" name={component} />}
+    </div>
+  )}
+
+  <FrameworkTabs frameworks={frameworks} />
+
+  {/* Per-framework sections */}
+  {frameworks.includes('vue') && VueContent && (
+    <F only="vue">
+      <div class="component-framework markdown">
+        <VueContent />
+      </div>
+    </F>
+  )}
+
+  {frameworks.includes('react') && ReactContent && (
+    <F only="react">
+      <div class="component-framework markdown">
+        <ReactContent />
+      </div>
+    </F>
+  )}
+
+  {frameworks.includes('vanilla') && VanillaContent && (
+    <F only="vanilla">
+      <div class="component-framework markdown">
+        <VanillaContent />
+      </div>
+    </F>
+  )}
+
+  {frameworks.includes('astro') && AstroContent && (
+    <F only="astro">
+      <div class="component-framework markdown">
+        <AstroContent />
+      </div>
+    </F>
+  )}
+
+  {/* Props / events / slots reference */}
+  {InstructionsContent && (
+    <div class="component-instructions markdown mt-8 pt-8 border-t border-gray-100">
+      <InstructionsContent />
+    </div>
+  )}
+</BaseLayout>

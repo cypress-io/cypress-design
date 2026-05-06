@@ -19,8 +19,8 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/package.json
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+    "build:module": "yarn exec vite build",
+    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "devDependencies": {
     "@cypress-design/constants-<%= name.toLowerCase() %>": "*",

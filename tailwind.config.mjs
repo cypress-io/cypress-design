@@ -69,9 +69,7 @@ const safeColors = reduce(
 
 const files = [
   './components/**/*.@(tsx|vue|ts|scss|js|css|md)',
-  './docs/.vitepress/**/*.vue',
-  './docs/src/**/*.vue',
-  './docs/docgen/*.cjs',
+  './docs/src/**/*.@(astro|mdx|ts|tsx|vue)',
   './docs/**/*.md',
 ].map((file) => path.resolve(__dirname, file))
 

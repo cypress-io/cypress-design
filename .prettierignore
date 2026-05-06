@@ -12,3 +12,6 @@ node_modules
 
 # do not format the CODEOWNERS file
 .github/CODEOWNERS
+
+# symlinks to .agents/skills — prettier cannot process symlinked files
+.claude/commands/

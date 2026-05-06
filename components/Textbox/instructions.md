@@ -32,6 +32,81 @@ All props are optional unless noted. React and Vue expose the same prop surface,
 
 Any other standard `<input>` attributes (e.g. `name`, `autocomplete`, `maxlength`, `aria-*`, event handlers) are forwarded to the underlying `<input>`. React forwards `ref` to the `<input>` element.
 
+## Events
+
+| Event               | Payload         | Description                                        |
+| ------------------- | --------------- | -------------------------------------------------- |
+| `update:modelValue` | `string`        | Emitted on every input change (use with `v-model`) |
+| `input`             | `Event`         | Native input event from the underlying `<input>`   |
+| `focus`             | `FocusEvent`    | Emitted when the input gains focus                 |
+| `blur`              | `FocusEvent`    | Emitted when the input loses focus                 |
+| `keydown`           | `KeyboardEvent` | Emitted on keydown inside the input                |
+| `keyup`             | `KeyboardEvent` | Emitted on keyup inside the input                  |
+
+### update:modelValue
+
+```vue
+<Textbox
+  @update:modelValue="(value: string) => {
+    // your code here
+  }"
+/>
+```
+
+### input
+
+```vue
+<Textbox
+  @input="(event: Event) => {
+    // your code here
+  }"
+/>
+```
+
+### focus
+
+```vue
+<Textbox
+  @focus="(event: FocusEvent) => {
+    // your code here
+  }"
+/>
+```
+
+### blur
+
+```vue
+<Textbox
+  @blur="(event: FocusEvent) => {
+    // your code here
+  }"
+/>
+```
+
+### keydown
+
+```vue
+<Textbox
+  @keydown="(event: KeyboardEvent) => {
+    // your code here
+  }"
+/>
+```
+
+### keyup
+
+```vue
+<Textbox
+  @keyup="(event: KeyboardEvent) => {
+    // your code here
+  }"
+/>
+```
+
+## Slots
+
+_None_ — the component renders its own internal structure. Pass content via props (`labelLeft`, `labelRight`, `iconLeft`, `iconRight`).
+
 ## States
 
 The component responds to the standard interactive states automatically — no state prop to manage:

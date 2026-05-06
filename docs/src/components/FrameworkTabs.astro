@@ -1,0 +1,99 @@
+---
+/**
+ * FrameworkTabs — renders one tab button per supported framework.
+ * Clicking a tab updates data-fw on <html>, the ?fw= URL param, and localStorage.
+ *
+ * Props:
+ *   frameworks — list of framework keys supported by this component page
+ *                e.g. ['vue', 'react']
+ */
+interface Props {
+  frameworks: string[]
+}
+
+const { frameworks } = Astro.props
+
+const labels: Record<string, string> = {
+  vue: 'Vue',
+  react: 'React',
+  vanilla: 'Vanilla',
+  astro: 'Astro',
+}
+
+const icons: Record<string, string | null> = {
+  vue: '/vue.svg',
+  react: '/react.svg',
+  vanilla: null,
+  astro: null,
+}
+---
+
+{
+  frameworks.length > 0 && (
+    <div
+      role="tablist"
+      class:list={[
+        'framework-tabs',
+        frameworks.length > 1 && 'flex gap-1 mb-6 border-b border-gray-200',
+      ]}
+      data-frameworks={frameworks.join(',')}
+      hidden={frameworks.length <= 1}
+    >
+      {frameworks.length > 1 &&
+        frameworks.map((fw) => (
+          <button
+            data-fw-tab={fw}
+            role="tab"
+            aria-selected="false"
+            class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none flex items-center gap-2"
+          >
+            <span>{labels[fw] ?? fw}</span>
+            {icons[fw] && <img src={icons[fw]!} alt="" class="w-5 h-5" />}
+          </button>
+        ))}
+    </div>
+  )
+}
+
+<script>
+  function applyFw(fw: string) {
+    document.documentElement.setAttribute('data-fw', fw)
+    // Update URL without pushing a new history entry
+    const url = new URL(location.href)
+    url.searchParams.set('fw', fw)
+    history.replaceState(null, '', url.toString())
+    try {
+      localStorage.setItem('fw', fw)
+    } catch (_) {}
+    // Sync tab active styles and ARIA state
+    document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {
+      const active = btn.dataset.fwTab === fw
+      btn.setAttribute('aria-selected', active ? 'true' : 'false')
+      btn.classList.toggle('text-indigo-700', active)
+      btn.classList.toggle('border-b-2', active)
+      btn.classList.toggle('border-indigo-600', active)
+      btn.classList.toggle('text-gray-500', !active)
+      btn.classList.toggle('hover:text-gray-700', !active)
+    })
+  }
+
+  function initTabs() {
+    const tabsEl = document.querySelector<HTMLElement>('.framework-tabs')
+    if (!tabsEl) return
+
+    const available = tabsEl.dataset.frameworks?.split(',') ?? []
+    const stored = document.documentElement.getAttribute('data-fw') ?? 'vue'
+    const current = available.length > 0 && !available.includes(stored) ? available[0] : stored
+    applyFw(current)
+
+    tabsEl.addEventListener('click', (e) => {
+      const btn = (e.target as Element).closest<HTMLButtonElement>('[data-fw-tab]')
+      const fw = btn?.dataset.fwTab
+      if (fw) applyFw(fw)
+    })
+  }
+
+  // Run on initial load and after Astro view transitions
+  initTabs()
+  document.addEventListener('astro:after-swap', initTabs)
+</script>

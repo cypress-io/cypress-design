@@ -7,6 +7,9 @@
   "license": "MIT",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "workspaces": [
     "components/*/react",
     "components/*/vue",
@@ -21,19 +24,21 @@
     "cy:run": "cypress run --component",
     "cy:open": "cypress open",
     "test": "vitest",
+    "eslint": "eslint",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
     "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" && turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\"",
     "dev": "yarn start",
     "docs": "yarn start",
-    "start": "NODE_ENV=development concurrently -n const,icons,docgen,vitepress,cleanup \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"vue-docgen --watch -c docs/docgen/docgen.config.cjs\" \"vitepress dev docs\" \"node ./scripts/clean-component-docs.mjs\"",
-    "build:docs": "node scripts/copy-md.mjs && vue-docgen -c docs/docgen/docgen.config.cjs --logLevel=debug && yarn build:components && ./vercel-build-docs.sh",
+    "start": "NODE_ENV=development concurrently -n const,icons,astro \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"yarn astro dev --root docs --port 4321\"",
+    "build:docs": "yarn workspace @cypress-design/css build:colors-css && yarn build:components && yarn astro build --root docs",
     "postinstall": "node scripts/capitalize-icon.mjs && yarn build:components",
     "new:component": "hygen component new",
     "prepare": "husky"
   },
   "dependencies": {
-    "@babel/parser": "^7.24.7",
-    "@babel/types": "^7.24.7",
+    "@astrojs/mdx": "^5.0.4",
+    "@astrojs/react": "^5.0.4",
+    "@astrojs/vue": "^6.0.1",
     "@bahmutov/cypress-esbuild-preprocessor": "^2.2.1",
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.29.2",
@@ -63,7 +68,7 @@
     "@vitejs/plugin-vue": "^5.0.5",
     "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/tsconfig": "^0.5.1",
-    "@vueuse/integrations": "^10.10.0",
+    "astro": "^6.2.2",
     "autoprefixer": "^10.4.19",
     "axe-core": "^4.9.1",
     "chokidar": "^3.6.0",
@@ -73,7 +78,6 @@
     "cypress-axe": "^1.6.0",
     "cypress-real-events": "^1.14.0",
     "dedent": "^1.5.3",
-    "es-module-lexer": "^1.5.3",
     "esbuild": "^0.21.4",
     "eslint": "^9",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -90,10 +94,7 @@
     "postcss": "^8.4.38",
     "prettier": "^3.3.0",
     "react": "18",
-    "react-docgen-typescript": "^2.2.2",
     "react-dom": "18",
-    "react-live-runner": "^1.0.6",
-    "recast": "^0.23.9",
     "rimraf": "^5.0.7",
     "rollup": "^4.18.0",
     "rollup-plugin-postcss": "^4.0.2",
@@ -101,22 +102,14 @@
     "shiki": "^1.6.2",
     "turbo": "^2.1.1",
     "typescript": "5.4.5",
-    "universal-cookie": "^7.1.4",
     "vite": "^5.4.19",
-    "vitepress": "1.2.2",
     "vitest": "^1.6.0",
     "vue": "3.4.27",
-    "vue-component-meta": "^2.0.19",
-    "vue-docgen-cli": "^4.79.0",
     "vue-eslint-parser": "^9.4.3",
-    "vue-live": "^2.5.4",
     "vue-tsc": "2.0.19"
-  },
-  "lint-staged": {
-    "*.{js,ts,jsx,tsx,vue,css,md}": "prettier --write"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@4.9.1"
 }

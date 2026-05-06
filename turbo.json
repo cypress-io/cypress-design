@@ -8,9 +8,7 @@
   ],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
+      "dependsOn": ["^build"],
       "inputs": [
         "tsconfig.json",
         "tsconfig.build.json",
@@ -30,9 +28,7 @@
         "!dist/**/*.mjs",
         "!dist/**/*.d.ts"
       ],
-      "outputs": [
-        "dist/**"
-      ]
+      "outputs": ["dist/**"]
     }
   }
 }

@@ -1,0 +1,151 @@
+/*
+ * Prose and code-block styles for .markdown content areas.
+ * Applied to the <div class="markdown"> wrapper in BaseLayout.
+ *
+ * Note: NOT wrapped in `@layer markdown` so these rules are unlayered
+ * and win over Tailwind base resets (which set `h1 { font-size: inherit }`).
+ */
+
+/* Page-level component title (rendered above demos in [component].astro) */
+.markdown-title {
+  font-family: 'Poppins', sans-serif;
+  @apply text-4xl font-semibold mb-6;
+}
+
+.markdown {
+  /* Code blocks rendered by Astro/Shiki: <pre class="astro-code"><code>…</code></pre> */
+  pre.astro-code {
+    @apply rounded my-4 relative overflow-x-auto max-w-[calc(100vw_-_48px)] md:max-w-none px-6 py-4 text-sm;
+    line-height: 1.5;
+
+    /*
+     * Shiki wraps each source line in <span class="line"> with a literal `\n`
+     * between spans. Inheriting `white-space: pre` from <pre> would render
+     * each newline as an extra line break (doubling the visual height).
+     * `normal` on `code` collapses them; `.line` re-enables `pre` for its
+     * own content so indentation is preserved.
+     */
+    code {
+      @apply bg-transparent p-0 font-mono;
+      direction: ltr;
+      text-align: left;
+      tab-size: 4;
+      hyphens: none;
+      white-space: normal;
+    }
+
+    /* Each Shiki-rendered source line — keep indentation spaces verbatim. */
+    .line {
+      display: block;
+      white-space: pre;
+    }
+
+    /* Empty lines render as empty <span class="line"> — give them
+       exactly one line height so blank rows don't collapse. */
+    .line:empty::before {
+      content: '\200B'; /* zero-width space */
+    }
+  }
+
+  /* Inline code (not inside a pre) */
+  :not(pre) > code {
+    @apply bg-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-mono text-gray-900;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Poppins', sans-serif;
+    @apply font-semibold mb-1;
+  }
+
+  h1 {
+    @apply mb-8 text-4xl font-semibold;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* The per-framework ReadMes each start with the component name as h1.
+     Since the page already shows it once at the top via .markdown-title,
+     suppress the duplicate inside per-framework sections. */
+  .component-framework > h1:first-child {
+    display: none;
+  }
+
+  h2 {
+    @apply mt-10 text-3xl text-gray-900 border-b border-gray-100 pb-2;
+  }
+
+  h3 {
+    @apply mt-4 text-xl text-gray-700;
+  }
+
+  h4 {
+    @apply mt-2 text-base text-gray-500;
+  }
+
+  h5 {
+    @apply mt-0 text-base text-gray-300;
+  }
+
+  p {
+    @apply my-3 leading-7;
+  }
+
+  ul:not([class]) {
+    @apply list-disc py-2 pl-6;
+
+    li::marker {
+      @apply text-indigo-500;
+    }
+  }
+
+  ol:not([class]) {
+    @apply list-decimal py-2 pl-6;
+  }
+
+  blockquote {
+    @apply bg-gray-50 py-2 px-4 border-l-[4px] border-l-gray-500 my-4 relative;
+  }
+
+  a:not([class]) {
+    @apply text-indigo-500;
+
+    &:hover {
+      @apply underline;
+    }
+  }
+
+  hr {
+    @apply my-6;
+  }
+
+  .figma-link {
+    background: url(/Figma-logo.svg) no-repeat 14px center;
+    background-size: auto 50%;
+    @apply inline-block mt-6 text-gray-900 border py-2 pr-4 pl-10 border-gray-100 rounded;
+
+    &:hover {
+      @apply bg-indigo-50/50 no-underline;
+    }
+
+    &:after {
+      content: '↗️';
+      @apply ml-2 text-gray-500 font-bold;
+    }
+  }
+
+  table:not([class]) {
+    @apply w-full text-sm border-collapse my-4;
+
+    th {
+      @apply text-left font-semibold text-gray-900 border-b border-gray-200 pb-2 pr-4;
+    }
+
+    td {
+      @apply text-gray-700 border-b border-gray-100 py-2 pr-4 align-top;
+    }
+  }
+}

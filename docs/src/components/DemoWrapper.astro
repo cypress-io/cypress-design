@@ -1,0 +1,11 @@
+---
+/**
+ * DemoWrapper — frames a component demo in a bordered preview surface.
+ * Matches the indigo-tinted preview style from the VitePress theme.
+ * No props. Wrap any static demo output in this.
+ */
+---
+
+<div class="demo-wrapper flex items-center justify-center flex-wrap gap-4 p-6 rounded-lg border border-gray-100 bg-indigo-50/30 my-6">
+  <slot />
+</div>

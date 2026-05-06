@@ -20,8 +20,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "clsx": "*",
-    "@floating-ui/react": "^0.26.17"
+    "@floating-ui/react": "^0.26.17",
+    "clsx": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

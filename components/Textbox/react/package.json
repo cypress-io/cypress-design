@@ -20,8 +20,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "clsx": "*",
-    "@cypress-design/constants-textbox": "*"
+    "@cypress-design/constants-textbox": "*",
+    "clsx": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
