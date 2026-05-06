@@ -2,13 +2,13 @@
 
 ## Sections
 
-| Section                            | Anchor      |
-| ---------------------------------- | ----------- |
-| Hero                               | (top)       |
-| Primary brand colors               | `#brand`    |
-| The full palette                   | `#palette`  |
-| Reading the contrast scores        | `#a11y`     |
-| Fresh complementary color pairings | `#pairings` |
+| Section              | Anchor      |
+| -------------------- | ----------- |
+| Hero                 | (top)       |
+| Primary brand colors | `#brand`    |
+| The full palette     | `#palette`  |
+| Color contrast       | `#a11y`     |
+| Complementary colors | `#pairings` |
 
 ## Palette (core feature)
 
