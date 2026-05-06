@@ -22,6 +22,7 @@ const tocHeadings = [
   { depth: 3, slug: 'scale-magenta', text: 'Magenta' },
   { depth: 2, slug: 'a11y', text: 'Color contrast' },
   { depth: 2, slug: 'pairings', text: 'Complementary colors' },
+  { depth: 2, slug: 'usage', text: 'Token reference' },
 ]
 ---
 
@@ -123,6 +124,30 @@ const tocHeadings = [
     <PairingCard bigColor="#4B1A83" smallColor="#EDBB4A" token1="purple-700" token2="orange-300" />
     <PairingCard bigColor="#252E8F" smallColor="#A3E7CB" token1="indigo-800" token2="jade-200" />
   </div>
+
+  <!-- Usage -->
+  <h2 id="usage" class="font-['Poppins'] font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Token reference</h2>
+
+  <h3 class="font-['Poppins'] font-semibold text-xl mt-8 mb-1 text-gray-1000">JS Variables</h3>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">Import colors in JavaScript or TypeScript:</p>
+  <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-mono overflow-x-auto mb-8"><code><span class="text-indigo-300">import</span> <span class="text-gray-200">{'{ colors }'}</span> <span class="text-indigo-300">from</span> <span class="text-jade-300">'@cypress-design/css'</span>
+<span class="text-gray-500">// e.g. colors.jade[400], colors.indigo[700]</span></code></pre>
+
+  <h3 class="font-['Poppins'] font-semibold text-xl mt-8 mb-1 text-gray-1000">CSS Custom Properties</h3>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
+    Color tokens are available as CSS custom properties after linking <code class="font-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">colors.css</code>:
+  </p>
+  <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-mono overflow-x-auto mb-8"><code><span class="text-gray-300">color: </span><span class="text-jade-300">var(--cy-color-indigo-500)</span><span class="text-gray-300">;</span>
+<span class="text-gray-300">background: </span><span class="text-jade-300">var(--cy-color-jade-200)</span><span class="text-gray-300">;</span></code></pre>
+
+  <h3 class="font-['Poppins'] font-semibold text-xl mt-8 mb-1 text-gray-1000">Tailwind Classes</h3>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
+    All design system color tokens are available as <a href="https://tailwindcss.com/docs/text-color" class="text-indigo-500 hover:underline">Tailwind text color</a> and <a href="https://tailwindcss.com/docs/background-color" class="text-indigo-500 hover:underline">background color</a> utility classes. Use these when styling components or building new UI — they keep colors consistent with the design tokens and respond correctly to light/dark mode.
+  </p>
+  <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-mono overflow-x-auto mb-4"><code><span class="text-gray-500">&lt;</span><span class="text-red-300">div</span> <span class="text-indigo-300">class</span><span class="text-gray-400">=</span><span class="text-jade-300">"text-white bg-jade-400"</span><span class="text-gray-500">&gt;</span><span class="text-gray-200">background of jade 400</span><span class="text-gray-500">&lt;/</span><span class="text-red-300">div</span><span class="text-gray-500">&gt;</span>
+<span class="text-gray-500">&lt;</span><span class="text-red-300">div</span> <span class="text-indigo-300">class</span><span class="text-gray-400">=</span><span class="text-jade-300">"text-indigo-700"</span><span class="text-gray-500">&gt;</span><span class="text-gray-200">text of indigo 700</span><span class="text-gray-500">&lt;/</span><span class="text-red-300">div</span><span class="text-gray-500">&gt;</span></code></pre>
+
+  <a href="https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=969-9732" class="text-indigo-500 hover:underline text-sm" target="_blank" rel="noopener noreferrer">Open colors in Figma</a>
 
   <!-- Pager -->
   <nav class="flex justify-between gap-4 mt-20 pt-6 border-t border-gray-100">
