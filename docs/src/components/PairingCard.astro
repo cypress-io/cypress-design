@@ -1,0 +1,44 @@
+---
+interface Props {
+  stageBg?: string
+  bigColor: string
+  smallColor: string
+  token1: string
+  token2: string
+}
+
+const { stageBg = '#FFFFFF', bigColor, smallColor, token1, token2 } = Astro.props
+---
+
+<div class="border border-gray-100 rounded-md overflow-hidden flex flex-col bg-white">
+  <div
+    class="h-[148px] grid place-items-center border-b border-gray-100 relative overflow-hidden"
+    style={`background:${stageBg}`}
+  >
+    <div class="relative w-24 h-24 rounded-md" style={`background:${bigColor}`}>
+      <div
+        class="absolute left-2 bottom-2 w-8 h-8 rounded"
+        style={`background:${smallColor}`}
+      ></div>
+    </div>
+  </div>
+  <div class="p-4">
+    <div class="flex items-center gap-2 flex-wrap font-mono text-xs text-gray-900">
+      <span class="inline-flex items-center gap-2 px-2 py-1 border border-gray-100 rounded-full bg-gray-50">
+        <span
+          class="w-2 h-2 rounded-sm border border-black/[.08] inline-block shrink-0"
+          style={`background:${bigColor}`}
+        ></span>
+        {token1}
+      </span>
+      <span class="font-['Poppins'] italic font-normal text-gray-500">with</span>
+      <span class="inline-flex items-center gap-2 px-2 py-1 border border-gray-100 rounded-full bg-gray-50">
+        <span
+          class="w-2 h-2 rounded-sm border border-black/[.08] inline-block shrink-0"
+          style={`background:${smallColor}`}
+        ></span>
+        {token2}
+      </span>
+    </div>
+  </div>
+</div>

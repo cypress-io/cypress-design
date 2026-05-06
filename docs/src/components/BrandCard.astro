@@ -1,0 +1,19 @@
+---
+interface Props {
+  name: string
+  chipColor: string
+  desc: string
+  code: string
+}
+
+const { name, chipColor, desc, code } = Astro.props
+---
+
+<div class="p-5 rounded border border-gray-100 flex flex-col gap-4 min-h-[168px] bg-white">
+  <div class="w-10 h-10 rounded border border-black/[.06]" style={`background:${chipColor}`}></div>
+  <div>
+    <h3 class="m-0 mb-1 font-['Poppins'] text-xl font-semibold text-gray-1000">{name}</h3>
+    <p class="text-sm m-0 text-gray-700 leading-[1.5]">{desc}</p>
+  </div>
+  <div class="font-mono text-xs text-gray-600 mt-auto">{code}</div>
+</div>

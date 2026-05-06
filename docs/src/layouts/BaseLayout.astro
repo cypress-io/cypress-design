@@ -15,10 +15,15 @@ import EditButton from '../components/EditButton.astro'
 interface Props {
   title?: string
   headings?: { depth: number; slug: string; text: string }[]
+  tocHeadings?: { depth: number; slug: string; text: string }[]
   editPath?: string
+  rawContent?: boolean
 }
 
-const { title, headings = [], editPath } = Astro.props
+const { title, headings = [], tocHeadings, editPath, rawContent = false } = Astro.props
+// MDX frontmatter spreads into props; some Astro versions only expose custom keys via .frontmatter
+const frontmatterTocHeadings = (Astro.props as { frontmatter?: { tocHeadings?: typeof headings } }).frontmatter?.tocHeadings
+const outlineHeadings = tocHeadings ?? frontmatterTocHeadings ?? headings
 const pageTitle = title ? `${title} — Cypress Design System` : 'Cypress Design System'
 const currentPath = Astro.url.pathname
 ---
@@ -121,18 +126,24 @@ const currentPath = Astro.url.pathname
       <main class="w-full max-w-[800px] mx-6 min-[1420px]:mx-auto md:mt-6 min-w-0">
         <div class="relative">
           {editPath && <EditButton editPath={editPath} />}
-          <div class="markdown py-1 mt-6 p-2 rounded">
-            <slot />
-          </div>
+          {rawContent ? (
+            <div class="py-1 mt-6">
+              <slot />
+            </div>
+          ) : (
+            <div class="markdown py-1 mt-6 p-2 rounded">
+              <slot />
+            </div>
+          )}
         </div>
       </main>
 
       <!-- Right TOC (desktop only) -->
       {
-        headings.length > 0 && (
+        outlineHeadings.length > 0 && (
           <aside class="hidden xl:block">
             <div class="w-[300px]">
-              <Outline headings={headings} />
+              <Outline headings={outlineHeadings} />
             </div>
           </aside>
         )

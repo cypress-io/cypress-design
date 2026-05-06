@@ -1,0 +1,26 @@
+---
+// A11y legend for the color palette section.
+// Pulled into its own component to avoid MDX wrapping spans in <p> tags.
+---
+
+<div class="flex flex-wrap gap-4 items-center mt-8 mb-1 p-4 bg-white border border-gray-100 rounded text-xs text-gray-700">
+  <span class="font-semibold text-gray-1000">A11y check</span>
+  <span>
+    Each swatch shows its WCAG grade as <em class="not-italic font-semibold">text</em> against
+    the surface that fits it — light swatches scored on ink, dark swatches scored on white.
+  </span>
+  <span class="inline-flex items-center gap-2 font-mono">
+    <span
+      class="w-4 h-4 rounded inline-flex items-center justify-center text-[9px] font-bold text-gray-1000"
+      style="background:rgba(0,0,0,.12)"
+    >AA</span>
+    passes 4.5:1
+  </span>
+  <span class="inline-flex items-center gap-2 font-mono">
+    <span
+      class="w-4 h-4 rounded inline-flex items-center justify-center text-[9px] font-bold text-gray-1000 opacity-40"
+      style="background:rgba(0,0,0,.12)"
+    >·</span>
+    fails
+  </span>
+</div>
