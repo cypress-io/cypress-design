@@ -1,5 +1,6 @@
 ---
 import paletteData from '../palette-data.json'
+import { cyColors } from '../../../../../css/src/color-constants'
 
 type ColorStep = {
   step: string
@@ -57,9 +58,10 @@ function contrastTextOn(hex: string): string {
 const TIERS = ['Primary', 'Secondary', 'Tertiary']
 
 const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
-  const stepEntries = Object.entries(scale.steps)
+  const steps = cyColors[scale.name as keyof typeof cyColors] as Record<string, string>
+  const stepEntries = Object.entries(steps)
   const cols = Math.ceil(stepEntries.length / 2)
-  const midHex = (scale.steps as Record<string, string>)['500']
+  const midHex = steps[500] ?? steps[Object.keys(steps)[Math.floor(stepEntries.length / 2)]]
 
   const processedSteps: ColorStep[] = stepEntries.map(([step, hex]) => {
     const textColor = contrastTextOn(hex)
