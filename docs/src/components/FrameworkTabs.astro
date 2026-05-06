@@ -31,6 +31,7 @@ const icons: Record<string, string | null> = {
 {
   frameworks.length > 0 && (
     <div
+      role="tablist"
       class:list={[
         'framework-tabs',
         frameworks.length > 1 && 'flex gap-1 mb-6 border-b border-gray-200',
@@ -42,6 +43,8 @@ const icons: Record<string, string | null> = {
         frameworks.map((fw) => (
           <button
             data-fw-tab={fw}
+            role="tab"
+            aria-selected="false"
             class="px-4 py-2 text-sm font-medium rounded-t transition-colors focus:outline-none flex items-center gap-2"
           >
             <span>{labels[fw] ?? fw}</span>
@@ -62,9 +65,10 @@ const icons: Record<string, string | null> = {
     try {
       localStorage.setItem('fw', fw)
     } catch (_) {}
-    // Sync tab active styles
+    // Sync tab active styles and ARIA state
     document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {
       const active = btn.dataset.fwTab === fw
+      btn.setAttribute('aria-selected', active ? 'true' : 'false')
       btn.classList.toggle('text-indigo-700', active)
       btn.classList.toggle('border-b-2', active)
       btn.classList.toggle('border-indigo-600', active)

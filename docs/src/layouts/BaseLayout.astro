@@ -76,6 +76,8 @@ const currentPath = Astro.url.pathname
         id="mobile-menu-btn"
         class="md:hidden p-2 text-gray-700"
         aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="sidebar"
       >
         <!-- Hamburger -->
         <svg
@@ -145,13 +147,23 @@ const currentPath = Astro.url.pathname
         const backdrop = document.getElementById('mobile-backdrop')
         if (!btn || !sidebar || !backdrop) return
 
+        // Sidebar starts closed on mobile — remove it from tab order and AT tree.
+        // On desktop the button is hidden so this block never runs.
+        if (window.matchMedia('(max-width: 767px)').matches) {
+          sidebar.inert = true
+        }
+
         btn.addEventListener('click', () => {
-          sidebar.classList.toggle('-translate-x-full')
+          const nowClosed = sidebar.classList.toggle('-translate-x-full')
           backdrop.classList.toggle('hidden')
+          btn.setAttribute('aria-expanded', String(!nowClosed))
+          sidebar.inert = nowClosed
         })
         backdrop.addEventListener('click', () => {
           sidebar.classList.add('-translate-x-full')
           backdrop.classList.add('hidden')
+          btn.setAttribute('aria-expanded', 'false')
+          sidebar.inert = true
         })
       })()
     </script>
