@@ -17,7 +17,7 @@ const docPageGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: n
 const docPages = Object.entries(docPageGlob)
   .filter(([, mod]) => mod.frontmatter?.title != null)
   .map(([path, mod]) => ({
-    href: path.replace('../pages', '').replace('.mdx', '').replace(/\/index\.astro$/, '/') || '/',
+    href: path.replace('../pages', '').replace(/\/index\.(mdx|astro)$/, '/').replace('.mdx', '') || '/',
     label: mod.frontmatter!.title!,
     order: mod.frontmatter?.order ?? 99,
   }))

@@ -142,14 +142,18 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
 })}
 
 <script>
-  document.addEventListener('click', (e) => {
+  document.addEventListener('click', async (e) => {
     const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.swatch[data-copy]')
     if (!btn) return
-    navigator.clipboard?.writeText(btn.dataset.copy ?? '')
-    const overlay = btn.querySelector<HTMLElement>('.sw-copied')
-    if (overlay) {
-      overlay.style.opacity = '1'
-      setTimeout(() => { overlay.style.opacity = '' }, 900)
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy ?? '')
+      const overlay = btn.querySelector<HTMLElement>('.sw-copied')
+      if (overlay) {
+        overlay.style.opacity = '1'
+        setTimeout(() => { overlay.style.opacity = '' }, 900)
+      }
+    } catch {
+      // clipboard unavailable or permission denied — no feedback shown
     }
   })
 </script>
