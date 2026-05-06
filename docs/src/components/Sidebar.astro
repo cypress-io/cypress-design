@@ -15,9 +15,10 @@ const docPageGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: n
   { eager: true },
 )
 const docPages = Object.entries(docPageGlob)
+  .filter(([, mod]) => mod.frontmatter?.title != null)
   .map(([path, mod]) => ({
     href: path.replace('../pages', '').replace('.mdx', '').replace(/\/index\.astro$/, '/') || '/',
-    label: mod.frontmatter?.title ?? path.split('/').pop()?.replace(/\.(mdx|astro)$/, '') ?? '',
+    label: mod.frontmatter!.title!,
     order: mod.frontmatter?.order ?? 99,
   }))
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
