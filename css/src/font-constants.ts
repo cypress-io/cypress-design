@@ -1,5 +1,5 @@
 export const cyFonts = {
-  'brand-headings': ['Poppins', 'sans-serif'],
+  'brand-heading': ['Poppins', 'sans-serif'],
   brand: ['Roboto', 'sans-serif'],
   'brand-mono': ['Roboto Mono', 'monospace'],
   system: [

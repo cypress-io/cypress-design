@@ -87,7 +87,7 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
   return (
     <div id={tier.toLowerCase()}>
       <div class="mt-[72px] pb-8 border-b border-gray-100 first:mt-2">
-        <div class="font-brand-headings font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</div>
+        <div class="font-brand-heading font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</div>
         <p class="text-base font-normal text-gray-700 m-0 leading-[1.4]">{paletteData.tierBlurbs[tier as keyof typeof paletteData.tierBlurbs]}</p>
       </div>
 
@@ -96,7 +96,7 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
           class={`mb-10 mt-6 ${i > 0 ? 'pt-6 border-t border-gray-100' : ''}`}
         >
           <div class="flex flex-col gap-2 mb-4 max-w-[680px]">
-            <h3 id={`scale-${scale.name}`} class="font-brand-headings font-semibold text-2xl m-0 flex items-center gap-3 text-gray-1000">
+            <h3 id={`scale-${scale.name}`} class="font-brand-heading font-semibold text-2xl m-0 flex items-center gap-3 text-gray-1000">
               <span
                 class="w-4 h-4 rounded border border-black/[.08] inline-block shrink-0"
                 style={`background:${scale.midHex}`}

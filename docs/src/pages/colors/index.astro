@@ -36,7 +36,7 @@ const tocHeadings = [
   <!-- Hero -->
   <section class="max-w-[780px] pb-6 border-b border-gray-100 mb-0">
     <p class="text-xs uppercase text-purple-500 font-semibold mb-[14px] m-0">Foundations · v2.0</p>
-    <h1 class="font-brand-headings font-semibold text-[56px] leading-[1.04] m-0 mb-[18px] text-gray-1000">
+    <h1 class="font-brand-heading font-semibold text-[56px] leading-[1.04] m-0 mb-[18px] text-gray-1000">
       Colors, <em class="italic text-gray-700 font-medium">with intent.</em>
     </h1>
     <p class="text-[18px] leading-[1.55] text-gray-700 max-w-[680px] m-0 mb-7">
@@ -58,7 +58,7 @@ const tocHeadings = [
   </section>
 
   <!-- Brand colors -->
-  <h2 id="brand" class="font-brand-headings font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Brand colors</h2>
+  <h2 id="brand" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Brand colors</h2>
   <p class="text-base text-gray-700 max-w-[640px] mb-7 m-0">
     Teal, jade, and indigo do 80% of the work in Cypress interfaces. Everything else is support —
     semantic roles, surfaces, and the occasional accent.
@@ -85,7 +85,7 @@ const tocHeadings = [
   </div>
 
   <!-- Full palette -->
-  <h2 class="font-brand-headings font-semibold text-[30px] mt-16 mb-2 text-gray-1000">The full palette</h2>
+  <h2 class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">The full palette</h2>
   <p class="text-base text-gray-700 max-w-[640px] mb-7 m-0">
     Ten scales, grouped by role. <strong class="text-gray-900 font-semibold">Primary</strong> carries the brand;
     <strong class="text-gray-900 font-semibold">Secondary</strong> handles semantic accents;
@@ -100,7 +100,7 @@ const tocHeadings = [
   </div>
 
   <!-- Reading contrast -->
-  <h2 id="a11y" class="font-brand-headings font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Reading the contrast scores</h2>
+  <h2 id="a11y" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Reading the contrast scores</h2>
   <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
     Each swatch is scored as a <em>text</em> color — the color you'd set a paragraph to if the swatch were
     the background. <strong class="font-semibold text-gray-900">AA</strong> requires a 4.5:1 contrast
@@ -116,7 +116,7 @@ const tocHeadings = [
   </p>
 
   <!-- Pairings -->
-  <h2 id="pairings" class="font-brand-headings font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Fresh complementary color pairings</h2>
+  <h2 id="pairings" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Fresh complementary color pairings</h2>
   <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
     Tokens read as a list, but they earn their keep in combination. These pairings are tuned for
     product surfaces, illustration accents, and icon duos — proven on white, ready to lift.
@@ -131,21 +131,21 @@ const tocHeadings = [
   </div>
 
   <!-- Usage -->
-  <h2 id="usage" class="font-brand-headings font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Token reference</h2>
+  <h2 id="usage" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Token reference</h2>
 
-  <h3 id="usage-js" class="font-brand-headings font-semibold text-xl mt-8 mb-1 text-gray-1000">JS variables</h3>
+  <h3 id="usage-js" class="font-brand-heading font-semibold text-xl mt-8 mb-1 text-gray-1000">JS variables</h3>
   <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">Import colors in JavaScript or TypeScript:</p>
   <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-brand-mono overflow-x-auto mb-8"><code><span class="text-indigo-300">import</span> <span class="text-gray-200">{'{ colors }'}</span> <span class="text-indigo-300">from</span> <span class="text-jade-300">'@cypress-design/css'</span>
 <span class="text-gray-500">// e.g. colors.jade[400], colors.indigo[700]</span></code></pre>
 
-  <h3 id="usage-css" class="font-brand-headings font-semibold text-xl mt-8 mb-1 text-gray-1000">CSS variables</h3>
+  <h3 id="usage-css" class="font-brand-heading font-semibold text-xl mt-8 mb-1 text-gray-1000">CSS variables</h3>
   <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
     Color tokens are available as CSS custom properties after linking <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">colors.css</code>:
   </p>
   <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-brand-mono overflow-x-auto mb-8"><code><span class="text-gray-300">color: </span><span class="text-jade-300">var(--cy-color-indigo-500)</span><span class="text-gray-300">;</span>
 <span class="text-gray-300">background: </span><span class="text-jade-300">var(--cy-color-jade-200)</span><span class="text-gray-300">;</span></code></pre>
 
-  <h3 id="usage-tailwind" class="font-brand-headings font-semibold text-xl mt-8 mb-1 text-gray-1000">Tailwind classes</h3>
+  <h3 id="usage-tailwind" class="font-brand-heading font-semibold text-xl mt-8 mb-1 text-gray-1000">Tailwind classes</h3>
   <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
     All design system color tokens are available as <a href="https://tailwindcss.com/docs/text-color" class="text-indigo-500 hover:underline">Tailwind text color</a> and <a href="https://tailwindcss.com/docs/background-color" class="text-indigo-500 hover:underline">background color</a> utility classes. Use these when styling components or building new UI — they keep colors consistent with the design tokens and respond correctly to light/dark mode.
   </p>
@@ -158,11 +158,11 @@ const tocHeadings = [
   <nav class="flex justify-between gap-4 mt-20 pt-6 border-t border-gray-100">
     <a href="/install" class="flex-1 p-4 border border-gray-100 rounded flex flex-col gap-0.5 no-underline transition-colors hover:border-gray-400 bg-white">
       <span class="text-xs uppercase text-gray-600 font-semibold">← Previous</span>
-      <span class="font-brand-headings text-lg font-semibold text-gray-1000">Install</span>
+      <span class="font-brand-heading text-lg font-semibold text-gray-1000">Install</span>
     </a>
     <a href="/icons" class="flex-1 p-4 border border-gray-100 rounded flex flex-col gap-0.5 no-underline transition-colors hover:border-gray-400 bg-white text-right items-end">
       <span class="text-xs uppercase text-gray-600 font-semibold">Next →</span>
-      <span class="font-brand-headings text-lg font-semibold text-gray-1000">Icons</span>
+      <span class="font-brand-heading text-lg font-semibold text-gray-1000">Icons</span>
     </a>
   </nav>
 

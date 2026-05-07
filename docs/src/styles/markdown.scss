@@ -8,7 +8,7 @@
 
 /* Page-level component title (rendered above demos in [component].astro) */
 .markdown-title {
-  @apply font-brand-headings text-4xl font-semibold mb-6;
+  @apply font-brand-heading text-4xl font-semibold mb-6;
 }
 
 .markdown {
@@ -57,11 +57,11 @@
   h4,
   h5,
   h6 {
-    @apply font-brand-headings font-semibold mb-1;
+    @apply font-brand-heading font-semibold mb-1;
   }
 
   h1 {
-    @apply font-brand-headings mb-8 text-4xl font-semibold;
+    @apply font-brand-heading mb-8 text-4xl font-semibold;
   }
 
   /* The per-framework ReadMes each start with the component name as h1.
