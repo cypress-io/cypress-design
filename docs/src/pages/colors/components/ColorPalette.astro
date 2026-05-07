@@ -85,9 +85,9 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
 {TIERS.map((tier) => {
   const scales = PALETTE.filter((s) => s.tier === tier)
   return (
-    <div id={tier.toLowerCase()}>
+    <div>
       <div class="mt-[72px] pb-8 border-b border-gray-100 first:mt-2">
-        <div class="font-brand-heading font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</div>
+        <h2 id={tier.toLowerCase()} class="font-brand-heading font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</h2>
         <p class="text-base font-normal text-gray-700 m-0 leading-[1.4]">{paletteData.tierBlurbs[tier as keyof typeof paletteData.tierBlurbs]}</p>
       </div>
 
@@ -116,6 +116,7 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
                 style={`background:${hex};color:${textColor}`}
                 data-copy={tailwindClass}
                 title={`Copy ${tailwindClass}`}
+                aria-label={`Copy ${tailwindClass}`}
               >
                 <div class="font-brand-mono text-[12px] font-semibold opacity-90">{step}</div>
                 <div class="flex items-end justify-between gap-[3px]">
