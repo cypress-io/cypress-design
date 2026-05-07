@@ -109,7 +109,7 @@ REPO POLICIES (use these to identify bucket B comments)
 - WindiCSS remnants are tracked migration debt — do not fix now
 - "Consider adding comments" suggestions are out of scope
 - Accessibility covered in a component's instructions.md is already handled
-- Anything contradicting .agents/architecture.md or .agents/design.md
+- Anything contradicting .agents/architecture.md or .agents/colors.md
 
 REPLY TEMPLATES (2–4 sentences, plain text, no markdown headers)
 A: "Fixed — [what changed and why it satisfies the concern]."

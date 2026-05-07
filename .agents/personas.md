@@ -15,7 +15,7 @@ multiple roles depending on team size or context.
 **Typical titles:** QA Engineer, SDET, Developer, Automation Engineer
 
 The primary hands-on user. Writes and maintains tests, investigates failures, and debugs
-flake daily. Experiences tooling friction most acutely.
+flakiness daily. Experiences tooling friction most acutely.
 
 - Cares about: test stability, flake rate, debugging signals, runner performance
 - Comfortable with: selectors, assertions, networking, browser internals
