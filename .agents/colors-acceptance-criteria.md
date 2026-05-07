@@ -2,14 +2,16 @@
 
 ## Sections
 
-| Section              | Anchor      |
-| -------------------- | ----------- |
-| Hero                 | (top)       |
-| Primary brand colors | `#brand`    |
-| The full palette     | `#palette`  |
-| Color contrast       | `#a11y`     |
-| Complementary colors | `#pairings` |
-| Token reference      | `#usage`    |
+| Section              | Anchor       |
+| -------------------- | ------------ |
+| Hero                 | (top)        |
+| Primary brand colors | `#brand`     |
+| Primary colors       | `#primary`   |
+| Secondary colors     | `#secondary` |
+| Tertiary colors      | `#tertiary`  |
+| Color contrast       | `#a11y`      |
+| Complementary colors | `#pairings`  |
+| Token reference      | `#usage`     |
 
 ## Palette (core feature)
 
@@ -20,7 +22,7 @@
 
 ## Right-rail TOC
 
-- All 19 entries: Brand colors, Primary/Secondary/Tertiary colors (3 tier groups), 10 scale names, Color contrast, Complementary colors, Token reference, JS Variables, CSS Custom Properties, Tailwind Classes
+- All 20 entries: Brand colors, Primary/Secondary/Tertiary colors (3 tier groups), 10 scale names, Color contrast, Complementary colors, Token reference, JS variables, CSS variables, Tailwind classes
 - Tier groups (Primary/Secondary/Tertiary) are depth-2 entries; scale names and token subsections are depth-3 (indented)
 - TOC links scroll the page to the correct heading anchor
 

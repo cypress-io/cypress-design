@@ -1,5 +1,5 @@
 ---
-'@cypress-design/css': minor
+'@cypress-design/css': major
 ---
 
 Add brand font system with Tailwind utilities and CSS custom property tokens.
