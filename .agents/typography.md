@@ -22,6 +22,8 @@ Never set `font-family` inline — the correct stack is applied by the global co
 > **TODO**: type tokens not yet published. Until they are, follow these interim rules.
 
 - Use the type scale exposed by Tailwind defaults via `@cypress-design/tailwindcss`.
-- Body copy: `text-base` (16px) on light surfaces; `text-sm` (14px) only for dense UI.
+- `16px` — minimum for legible body content (`text-base`)
+- `14px` — secondary/supporting information only (`text-sm`)
+- `12px` — reserve for high info-density scenarios; use sparingly (`text-xs`)
 - Headings: prefer the existing `<h1>`–`<h4>` styles in `docs/`; do not introduce new sizes.
 - Line-height stays on the 4px grid (`leading-5`, `leading-6`, `leading-7` — see [spacing.md](./spacing.md)).
