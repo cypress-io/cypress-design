@@ -3,7 +3,7 @@ name: colors
 description: Fetch when choosing colors, picking tokens for backgrounds/text/borders, evaluating contrast, or designing color pairings. Skip for non-visual code.
 ---
 
-# Colors — Cypress Design System
+# Cypress Design System: Colors
 
 The full color palette is hosted at `https://design.cypress.io/colors.css` (full token set at `https://design.cypress.io/tokens.css`). Import it (`<link rel="stylesheet" href="https://design.cypress.io/colors.css">`) or copy the `:root` block into any new HTML file. Never invent new hex values when one of these works.
 
