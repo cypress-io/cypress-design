@@ -2,8 +2,12 @@
 
 Before doing any work, you MUST read:
 
-- /.agents/architecture.md
-- /.agents/design.md
+- `/.agents/architecture.md` — repo structure, build, deploy.
+- `/.agents/index.md` — router for design / voice / content guidance. Fetch the specific pillars the task needs (`colors.md`, `typography.md`, `spacing.md`, `iconography.md`, `voice.md`, `content.md`, `personas.md`). Don't load them all preemptively.
+
+Before claiming any UI / visual / content task is done, run `/.agents/review-checklist.md` against your own diff.
+
+Everything under `/.agents/` is also served at `https://design.cypress.io/agents/` for consumer repos to fetch — same files, single source of truth.
 
 ## Skills
 

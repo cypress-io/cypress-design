@@ -26,8 +26,9 @@
 **Read before any work:**
 
 - `/.agents/architecture.md` — This file
-- `/.agents/design.md` — Design tokens, colors, spacing, iconography
+- `/.agents/index.md` — Router for design / voice / content guidance (fetch specific pillars on demand)
 - `/.agents/skills/` — Task-specific guidance for component work, PR reviews, etc.
+- `/.agents/review-checklist.md` — Run before claiming any UI / visual / content task done
 
 **Configuration:**
 
