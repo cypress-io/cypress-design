@@ -13,6 +13,7 @@ Add brand font system with Tailwind utilities and CSS custom property tokens.
 | `font-brand-mono` | Roboto Mono |
 | `font-system` | System sans-serif stack |
 | `font-system-mono` | System monospace stack |
+| `font-mono` | System monospace stack (alias for `font-system-mono`) |
 
 Load the brand fonts via Google Fonts before using them:
 
@@ -35,6 +36,7 @@ Font stacks are now published as CSS variables alongside color tokens:
 --cy-font-brand-mono: "Roboto Mono", monospace;
 --cy-font-system: ui-sans-serif, system-ui, ...;
 --cy-font-system-mono: ui-monospace, SFMono-Regular, ...;
+--cy-font-mono: ui-monospace, SFMono-Regular, ...;
 ```
 
 **`font-mono` published alongside `font-system-mono`**
