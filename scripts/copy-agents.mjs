@@ -18,11 +18,13 @@ for (const entry of readdirSync(componentsDir, { withFileTypes: true })) {
   if (!entry.isDirectory()) continue
   const componentDest = join(dest, 'components', entry.name)
 
-  // instructions.md
-  const instructions = join(componentsDir, entry.name, 'instructions.md')
-  if (existsSync(instructions)) {
-    mkdirSync(componentDest, { recursive: true })
-    cpSync(instructions, join(componentDest, 'instructions.md'))
+  // root-level docs
+  for (const file of ['instructions.md', 'ReadMe.md', 'architecture.md']) {
+    const src = join(componentsDir, entry.name, file)
+    if (existsSync(src)) {
+      mkdirSync(componentDest, { recursive: true })
+      cpSync(src, join(componentDest, file))
+    }
   }
 
   // framework ReadMes (react/ReadMe.md, vue/ReadMe.md)
