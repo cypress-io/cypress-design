@@ -1,5 +1,5 @@
 ---
-'@cypress-design/css': major
+'@cypress-design/css': minor
 ---
 
 Add brand font system with Tailwind utilities and CSS custom property tokens.
@@ -37,6 +37,6 @@ Font stacks are now published as CSS variables alongside color tokens:
 --cy-font-system-mono: ui-monospace, SFMono-Regular, ...;
 ```
 
-**Breaking: `font-mono` now maps to the system monospace stack**
+**`font-mono` aliased to `font-system-mono`**
 
-Previously `font-mono` resolved to `"Fira Code", monospace`. It now aliases `font-system-mono` (the same system stack exposed by that utility). If you were relying on Fira Code via `font-mono`, switch to a self-hosted `@font-face` declaration and use `font-system-mono` as the fallback, or load Fira Code via Google Fonts and add it to your own Tailwind config.
+`font-mono` is now a convenience alias for `font-system-mono`. Both resolve to the same system monospace stack.
