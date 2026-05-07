@@ -85,9 +85,9 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
 {TIERS.map((tier) => {
   const scales = PALETTE.filter((s) => s.tier === tier)
   return (
-    <div>
+    <div id={tier.toLowerCase()}>
       <div class="mt-[72px] pb-8 border-b border-gray-100 first:mt-2">
-        <h3 class="font-['Poppins'] font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</h3>
+        <div class="font-brand-headings font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</div>
         <p class="text-base font-normal text-gray-700 m-0 leading-[1.4]">{paletteData.tierBlurbs[tier as keyof typeof paletteData.tierBlurbs]}</p>
       </div>
 
@@ -96,7 +96,7 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
           class={`mb-10 mt-6 ${i > 0 ? 'pt-6 border-t border-gray-100' : ''}`}
         >
           <div class="flex flex-col gap-2 mb-4 max-w-[680px]">
-            <h3 id={`scale-${scale.name}`} class="font-['Poppins'] font-semibold text-2xl m-0 flex items-center gap-3 text-gray-1000">
+            <h3 id={`scale-${scale.name}`} class="font-brand-headings font-semibold text-2xl m-0 flex items-center gap-3 text-gray-1000">
               <span
                 class="w-4 h-4 rounded border border-black/[.08] inline-block shrink-0"
                 style={`background:${scale.midHex}`}
@@ -117,19 +117,19 @@ const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
                 data-copy={tailwindClass}
                 title={`Copy ${tailwindClass}`}
               >
-                <div class="font-mono text-[12px] font-semibold opacity-90">{step}</div>
+                <div class="font-brand-mono text-[12px] font-semibold opacity-90">{step}</div>
                 <div class="flex items-end justify-between gap-[3px]">
-                  <span class="font-mono text-[9.5px] font-medium opacity-80">
+                  <span class="font-brand-mono text-[9.5px] font-medium opacity-80">
                     {hex.replace('#', '').toUpperCase()}
                   </span>
                   <span
-                    class={`font-mono text-[8px] font-bold px-1 py-[1px] rounded-[3px] leading-[1.3] shrink-0 ${isDark ? 'bg-white/25' : 'bg-black/[.09]'} ${wcagPasses ? '' : 'opacity-45'}`}
+                    class={`font-brand-mono text-[8px] font-bold px-1 py-[1px] rounded-[3px] leading-[1.3] shrink-0 ${isDark ? 'bg-white/25' : 'bg-black/[.09]'} ${wcagPasses ? '' : 'opacity-45'}`}
                   >
                     {wcagGrade}
                   </span>
                 </div>
                 <div
-                  class="sw-copied absolute inset-0 grid place-items-center font-mono text-[12px] font-semibold opacity-0 transition-[opacity] duration-[180ms] pointer-events-none rounded"
+                  class="sw-copied absolute inset-0 grid place-items-center font-brand-mono text-[12px] font-semibold opacity-0 transition-[opacity] duration-[180ms] pointer-events-none rounded"
                   style={`background:${hex};color:${textColor}`}
                 >
                   Copied

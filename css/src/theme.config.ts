@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss'
 import { colors } from './colors'
+import { cyFonts } from './font-constants'
 
 function defineTheme(theme: Config['theme']) {
   return theme
@@ -12,7 +13,8 @@ export default defineTheme({
       md: '4px',
     },
     fontFamily: {
-      mono: '"Fira Code", monospace',
+      ...cyFonts,
+      mono: cyFonts['system-mono'],
     },
     colors,
     cursor: {

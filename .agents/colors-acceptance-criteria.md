@@ -9,6 +9,7 @@
 | The full palette     | `#palette`  |
 | Color contrast       | `#a11y`     |
 | Complementary colors | `#pairings` |
+| Token reference      | `#usage`    |
 
 ## Palette (core feature)
 
@@ -19,7 +20,8 @@
 
 ## Right-rail TOC
 
-- All 14 headings are listed: 3 h2 sections + the 10 scale names as h3s
+- All 19 entries: Brand colors, Primary/Secondary/Tertiary colors (3 tier groups), 10 scale names, Color contrast, Complementary colors, Token reference, JS Variables, CSS Custom Properties, Tailwind Classes
+- Tier groups (Primary/Secondary/Tertiary) are depth-2 entries; scale names and token subsections are depth-3 (indented)
 - TOC links scroll the page to the correct heading anchor
 
 ## Navigation pager
@@ -31,3 +33,13 @@
 
 - Page renders without the `.markdown` prose wrapper (no auto-styled `<p>`, `<ul>`, etc.)
 - No component is wrapped in an unwanted `<p>` tag by the MDX/Astro processor
+
+## Known Issues
+
+### User Experience
+
+### Developer Experience
+
+- **[Low / Won't fix now] ColorPalette deep relative import** — `ColorPalette.astro` imports `cyColors` via `../../../../../css/src/color-constants` rather than through `@cypress-design/css`. Not resolving because `yarn dev` does not watch-build `css/dist/`; switching to the package import would require a manual `yarn workspace @cypress-design/css build:lib` on every color change during local dev. The relative path hits the TypeScript source directly and Astro compiles it on the fly, which is the better DX for now. Revisit once `css/src/**/*.ts` is added to `watch-constants.mjs`. `docs/src/pages/colors/components/ColorPalette.astro:3` _(PR #660, Copilot)_
+
+### Code Quality

@@ -1,0 +1,27 @@
+export const cyFonts = {
+  'brand-headings': ['Poppins', 'sans-serif'],
+  brand: ['Roboto', 'sans-serif'],
+  'brand-mono': ['Roboto Mono', 'monospace'],
+  system: [
+    'ui-sans-serif',
+    'system-ui',
+    '-apple-system',
+    'BlinkMacSystemFont',
+    'Segoe UI',
+    'Roboto',
+    'Helvetica Neue',
+    'Arial',
+    'Noto Sans',
+    'sans-serif',
+  ],
+  'system-mono': [
+    'ui-monospace',
+    'SFMono-Regular',
+    'Menlo',
+    'Monaco',
+    'Consolas',
+    'Liberation Mono',
+    'Courier New',
+    'monospace',
+  ],
+} as const
