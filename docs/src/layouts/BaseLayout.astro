@@ -2,9 +2,13 @@
 /**
  * BaseLayout — full-page shell with fixed header, left sidebar, main content, and right TOC.
  * Props:
- *   title     — page <title> (default: 'Cypress Design System')
- *   headings  — from MDX getHeadings(); passed to Outline for the right-side TOC
- *   editPath  — path relative to repo root for the GitHub edit link (optional)
+ *   title       — page <title> (default: 'Cypress Design System')
+ *   headings    — from MDX getHeadings(); used as TOC when tocHeadings is absent
+ *   tocHeadings — explicit TOC entries for non-MDX pages (overrides headings)
+ *   editPath    — path relative to repo root for the GitHub edit link (optional)
+ *   rawContent  — skip the .markdown prose wrapper; use for custom-layout pages (default: false)
+ *
+ * outlineHeadings resolution order: tocHeadings prop → frontmatter.tocHeadings → headings
  */
 import '../styles/global.css'
 import '../styles/markdown.scss'
@@ -15,10 +19,15 @@ import EditButton from '../components/EditButton.astro'
 interface Props {
   title?: string
   headings?: { depth: number; slug: string; text: string }[]
+  tocHeadings?: { depth: number; slug: string; text: string }[]
   editPath?: string
+  rawContent?: boolean
 }
 
-const { title, headings = [], editPath } = Astro.props
+const { title, headings = [], tocHeadings, editPath, rawContent = false } = Astro.props
+// MDX frontmatter spreads into props; some Astro versions only expose custom keys via .frontmatter
+const frontmatterTocHeadings = (Astro.props as { frontmatter?: { tocHeadings?: typeof headings } }).frontmatter?.tocHeadings
+const outlineHeadings = tocHeadings ?? frontmatterTocHeadings ?? headings
 const pageTitle = title ? `${title} — Cypress Design System` : 'Cypress Design System'
 const currentPath = Astro.url.pathname
 ---
@@ -30,6 +39,9 @@ const currentPath = Astro.url.pathname
     <title>{pageTitle}</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/colors.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500;600;700&display=swap" />
     <!--
       Framework selector: reads ?fw= param → localStorage.fw → 'vue' default.
       Runs before body paints so data-fw is set on <html> immediately,
@@ -47,10 +59,10 @@ const currentPath = Astro.url.pathname
       })()
     </script>
   </head>
-  <body class="bg-white text-gray-900 font-sans">
+  <body class="bg-white text-gray-900 font-brand">
     <!-- Fixed header -->
     <header
-      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-[72px] justify-between items-center px-6 md:px-8 border-b border-gray-100/[.07]"
+      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-[72px] justify-between items-center px-6 md:px-8 border-b border-gray-1000/[.07]"
     >
       <a href="/">
         <img src="/logo.svg" class="h-8 md:mr-8" alt="Cypress Design System" />
@@ -121,18 +133,24 @@ const currentPath = Astro.url.pathname
       <main class="w-full max-w-[800px] mx-6 min-[1420px]:mx-auto md:mt-6 min-w-0">
         <div class="relative">
           {editPath && <EditButton editPath={editPath} />}
-          <div class="markdown py-1 mt-6 p-2 rounded">
-            <slot />
-          </div>
+          {rawContent ? (
+            <div class="py-1 mt-6">
+              <slot />
+            </div>
+          ) : (
+            <div class="markdown py-1 mt-6 p-2 rounded">
+              <slot />
+            </div>
+          )}
         </div>
       </main>
 
       <!-- Right TOC (desktop only) -->
       {
-        headings.length > 0 && (
+        outlineHeadings.length > 0 && (
           <aside class="hidden xl:block">
             <div class="w-[300px]">
-              <Outline headings={headings} />
+              <Outline headings={outlineHeadings} />
             </div>
           </aside>
         )

@@ -11,6 +11,30 @@ To do that, follow the two steps below:
 yarn add -D @cypress-design/css
 ```
 
+## Typography
+
+The design system uses three brand fonts. Load them via Google Fonts — the CDN handles caching across Cypress products:
+
+```html
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto:ital,wght@0,400;0,500;0,700;1,400&family=Roboto+Mono:wght@400;500;600;700&display=swap"
+/>
+```
+
+The Tailwind font utilities exposed by this package:
+
+| Class                | Font                    | Use for                                  |
+| -------------------- | ----------------------- | ---------------------------------------- |
+| `font-brand-heading` | Poppins                 | Page headings, display text              |
+| `font-brand`         | Roboto                  | Body copy, UI labels                     |
+| `font-brand-mono`    | Roboto Mono             | Code, tokens, monospaced values          |
+| `font-system`        | System sans-serif stack | Fallback / system UI                     |
+| `font-system-mono`   | System monospace stack  | Fallback / system UI mono                |
+| `font-mono`          | System monospace stack  | Convenience alias for `font-system-mono` |
+
 ## For projects using this package:
 
 We bundle all the css imported to any of the files in this package into one file in the dist folder - `index.css` so that users of this package can import the css styles of this package and use it in their projects.

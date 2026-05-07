@@ -1,0 +1,19 @@
+{
+  "tierBlurbs": {
+    "Primary": "Used frequently as the base colors for establishing the brand. Common across products, docs, and marketing.",
+    "Secondary": "Generally used as accent colors and for semantic purposes throughout products, docs, and marketing.",
+    "Tertiary": "Reserved for generated content — syntax highlighting, charts with many data points. Use only when necessary."
+  },
+  "scales": [
+    { "tier": "Primary", "name": "gray", "role": "ink · neutrals", "desc": "The foundation: text, borders, dividers, surfaces. Every other scale leans on these steps to set hierarchy." },
+    { "tier": "Primary", "name": "jade", "role": "success · passing", "desc": "Cypress green. Reserve for healthy system state — passing tests, positive deltas, successful deploys. Never generic confirmation." },
+    { "tier": "Primary", "name": "teal", "role": "brand · primary", "desc": "Cypress teal. Brand surfaces, primary marketing, and the hue users associate first with the product." },
+    { "tier": "Primary", "name": "indigo", "role": "accent · links", "desc": "Links, focus rings, and the places attention should land first. The accent that signals interactivity." },
+    { "tier": "Secondary", "name": "purple", "role": "accent", "desc": "Used for accents, occasional highlights, and complement to teal. Pairs cleanly with the primary scales without competing." },
+    { "tier": "Secondary", "name": "red", "role": "error · failing", "desc": "Destructive actions, failed tests, errors, blockers. Used sparingly so it keeps its weight where it matters." },
+    { "tier": "Secondary", "name": "orange", "role": "warning", "desc": "Flaky tests, pending states, rate limits, degraded behavior. Warmer than red — attention without alarm." },
+    { "tier": "Tertiary", "name": "fuchsia", "role": "generated content", "desc": "Reserved for generated content — syntax highlighting, chart series, data visualizations with many points." },
+    { "tier": "Tertiary", "name": "green", "role": "generated content", "desc": "Reserved for generated content. A yellow-green for chart series and code highlights — distinct from jade." },
+    { "tier": "Tertiary", "name": "magenta", "role": "generated content", "desc": "Reserved for generated content — additional chart series and syntax highlighting tones." }
+  ]
+}

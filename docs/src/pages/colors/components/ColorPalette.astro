@@ -1,0 +1,162 @@
+---
+import paletteData from '../palette-data.json'
+import { cyColors } from '../../../../../css/src/color-constants'
+
+type ColorStep = {
+  step: string
+  hex: string
+  tailwindClass: string
+  textColor: string
+  wcagGrade: string
+  wcagPasses: boolean
+  isDark: boolean
+}
+
+type ColorScale = {
+  tier: string
+  name: string
+  role: string
+  desc: string
+  processedSteps: ColorStep[]
+  midHex: string
+  cols: number
+}
+
+function hexToRgb(h: string): [number, number, number] {
+  const hex = h.replace('#', '')
+  return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)]
+}
+
+function lum([r, g, b]: [number, number, number]): number {
+  const ch = [r, g, b].map((v) => {
+    v /= 255
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4)
+  })
+  return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2]
+}
+
+function contrastRatio(a: string, b: string): number {
+  const la = lum(hexToRgb(a))
+  const lb = lum(hexToRgb(b))
+  const [L, D] = la > lb ? [la, lb] : [lb, la]
+  return (L + 0.05) / (D + 0.05)
+}
+
+function wcagGrade(r: number): string {
+  if (r >= 7) return 'AAA'
+  if (r >= 4.5) return 'AA'
+  return '·'
+}
+
+const INK = '#1B1E2E'
+const WHITE = '#ffffff'
+
+function contrastTextOn(hex: string): string {
+  return contrastRatio(hex, WHITE) >= contrastRatio(hex, INK) ? WHITE : INK
+}
+
+const TIERS = ['Primary', 'Secondary', 'Tertiary']
+
+const PALETTE: ColorScale[] = paletteData.scales.map((scale) => {
+  const steps = cyColors[scale.name as keyof typeof cyColors] as Record<string, string>
+  const stepEntries = Object.entries(steps)
+  const cols = Math.ceil(stepEntries.length / 2)
+  const midHex = steps[500] ?? steps[Object.keys(steps)[Math.floor(stepEntries.length / 2)]]
+
+  const processedSteps: ColorStep[] = stepEntries.map(([step, hex]) => {
+    const textColor = contrastTextOn(hex)
+    const isDark = textColor === WHITE
+    const r = contrastRatio(hex, isDark ? WHITE : INK)
+    return {
+      step,
+      hex,
+      tailwindClass: `bg-${scale.name}-${step}`,
+      textColor,
+      isDark,
+      wcagGrade: wcagGrade(r),
+      wcagPasses: r >= 4.5,
+    }
+  })
+
+  return { ...scale, processedSteps, midHex, cols }
+})
+---
+
+{TIERS.map((tier) => {
+  const scales = PALETTE.filter((s) => s.tier === tier)
+  return (
+    <div>
+      <div class="mt-[72px] pb-8 border-b border-gray-100 first:mt-2">
+        <h2 id={tier.toLowerCase()} class="font-brand-heading font-semibold text-[28px] mb-2 text-gray-1000 mt-0">{tier} colors</h2>
+        <p class="text-base font-normal text-gray-700 m-0 leading-[1.4]">{paletteData.tierBlurbs[tier as keyof typeof paletteData.tierBlurbs]}</p>
+      </div>
+
+      {scales.map((scale, i) => (
+        <section
+          class={`mb-10 mt-6 ${i > 0 ? 'pt-6 border-t border-gray-100' : ''}`}
+        >
+          <div class="flex flex-col gap-2 mb-4 max-w-[680px]">
+            <h3 id={`scale-${scale.name}`} class="font-brand-heading font-semibold text-2xl m-0 flex items-center gap-3 text-gray-1000">
+              <span
+                class="w-4 h-4 rounded border border-black/[.08] inline-block shrink-0"
+                style={`background:${scale.midHex}`}
+              ></span>
+              {scale.name.charAt(0).toUpperCase() + scale.name.slice(1)}
+            </h3>
+            <p class="text-base font-normal text-gray-700 leading-[1.4] m-0">{scale.desc}</p>
+          </div>
+
+          <div
+            class="grid gap-2"
+            style={`grid-template-columns: repeat(${scale.cols}, minmax(0, 1fr))`}
+          >
+            {scale.processedSteps.map(({ step, hex, tailwindClass, textColor, isDark, wcagGrade, wcagPasses }) => (
+              <button
+                class="swatch group relative flex flex-col justify-between h-[88px] rounded p-2 cursor-pointer border border-black/[.06] transition-[transform,box-shadow] duration-[120ms] ease-out hover:-translate-y-0.5 hover:shadow-[0_6px_14px_-6px_rgba(27,30,46,.22)] active:translate-y-0 text-left"
+                style={`background:${hex};color:${textColor}`}
+                data-copy={tailwindClass}
+                title={`Copy ${tailwindClass}`}
+                aria-label={`Copy ${tailwindClass}`}
+              >
+                <div class="font-brand-mono text-[12px] font-semibold opacity-90">{step}</div>
+                <div class="flex items-end justify-between gap-[3px]">
+                  <span class="font-brand-mono text-[9.5px] font-medium opacity-80">
+                    {hex.replace('#', '').toUpperCase()}
+                  </span>
+                  <span
+                    class={`font-brand-mono text-[8px] font-bold px-1 py-[1px] rounded-[3px] leading-[1.3] shrink-0 ${isDark ? 'bg-white/25' : 'bg-black/[.09]'} ${wcagPasses ? '' : 'opacity-45'}`}
+                  >
+                    {wcagGrade}
+                  </span>
+                </div>
+                <div
+                  class="sw-copied absolute inset-0 grid place-items-center font-brand-mono text-[12px] font-semibold opacity-0 transition-[opacity] duration-[180ms] pointer-events-none rounded"
+                  style={`background:${hex};color:${textColor}`}
+                >
+                  Copied
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  )
+})}
+
+<script>
+  document.addEventListener('click', async (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('.swatch[data-copy]')
+    if (!btn) return
+    try {
+      await navigator.clipboard.writeText(btn.dataset.copy ?? '')
+      const overlay = btn.querySelector<HTMLElement>('.sw-copied')
+      if (overlay) {
+        overlay.style.opacity = '1'
+        setTimeout(() => { overlay.style.opacity = '' }, 900)
+      }
+    } catch {
+      // clipboard unavailable or permission denied — no feedback shown
+    }
+  })
+</script>

@@ -8,8 +8,7 @@
 
 /* Page-level component title (rendered above demos in [component].astro) */
 .markdown-title {
-  font-family: 'Poppins', sans-serif;
-  @apply text-4xl font-semibold mb-6;
+  @apply font-brand-heading text-4xl font-semibold mb-6;
 }
 
 .markdown {
@@ -26,7 +25,7 @@
      * own content so indentation is preserved.
      */
     code {
-      @apply bg-transparent p-0 font-mono;
+      @apply bg-transparent p-0 font-brand-mono;
       direction: ltr;
       text-align: left;
       tab-size: 4;
@@ -49,7 +48,7 @@
 
   /* Inline code (not inside a pre) */
   :not(pre) > code {
-    @apply bg-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-mono text-gray-900;
+    @apply bg-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-brand-mono text-gray-900;
   }
 
   h1,
@@ -58,13 +57,11 @@
   h4,
   h5,
   h6 {
-    font-family: 'Poppins', sans-serif;
-    @apply font-semibold mb-1;
+    @apply font-brand-heading font-semibold mb-1;
   }
 
   h1 {
-    @apply mb-8 text-4xl font-semibold;
-    font-family: 'Poppins', sans-serif;
+    @apply font-brand-heading mb-8 text-4xl font-semibold;
   }
 
   /* The per-framework ReadMes each start with the component name as h1.
