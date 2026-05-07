@@ -32,11 +32,3 @@ Fetch on demand — don't preload all of them:
 ## Before marking done
 
 Run [review-checklist.md](./review-checklist.md) against your diff.
-
-## Producer repo only
-
-- [architecture.md](./architecture.md) — component structure, build pipeline
-- `skills/<skill-name>.md` — task-specific skills; read each file's frontmatter for triggers
-- `components/<Name>/architecture.md` — file layout, constants, interaction rationale, gotchas. Load alongside `instructions.md` when modifying a component.
-- `components/<Name>/ReadMe.md` — public consumer docs (live demos, Figma link). Keep terse.
-- Not every component has all files yet — add them when a component is created or meaningfully revised. When adding a new component, update the list above.

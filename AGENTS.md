@@ -9,6 +9,16 @@ Before claiming any UI / visual / content task is done, run `/.agents/review-che
 
 Everything under `/.agents/` is also served at `https://design.cypress.io/agents/` for consumer repos to fetch — same files, single source of truth.
 
+## Component files
+
+Each component may have:
+
+- `components/<Name>/instructions.md` — consumer-facing API docs (props, variants, states, accessibility)
+- `components/<Name>/architecture.md` — implementation details (file layout, constants, interaction rationale, gotchas). Load alongside `instructions.md` when modifying a component.
+- `components/<Name>/react/ReadMe.md` and `components/<Name>/vue/ReadMe.md` — install command, import path, code examples
+
+Not every component has all files yet — add them when a component is created or meaningfully revised. When adding a new component, update the component list in `/.agents/index.md`.
+
 ## Skills
 
 Task-specific guidance lives in `/.agents/skills/<skill-name>.md`. Each skill has YAML frontmatter with a `description` telling you when to load it. Read the relevant skill(s) before starting matching work; don't load them preemptively.
