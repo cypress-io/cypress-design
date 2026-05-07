@@ -5,8 +5,6 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 # Voice
 
-> **TODO**: real content. Initial direction below; refine with the content team before relying on it.
-
 ## Tone
 
 - Confident, technical, concise. Speak like a senior engineer who respects the reader's time.
