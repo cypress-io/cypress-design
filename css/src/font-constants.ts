@@ -24,4 +24,14 @@ export const cyFonts = {
     'Courier New',
     'monospace',
   ],
+  mono: [
+    'ui-monospace',
+    'SFMono-Regular',
+    'Menlo',
+    'Monaco',
+    'Consolas',
+    'Liberation Mono',
+    'Courier New',
+    'monospace',
+  ],
 }

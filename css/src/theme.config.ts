@@ -14,7 +14,6 @@ export default defineTheme({
     },
     fontFamily: {
       ...cyFonts,
-      mono: cyFonts['system-mono'],
     },
     colors,
     cursor: {

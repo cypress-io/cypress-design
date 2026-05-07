@@ -37,6 +37,6 @@ Font stacks are now published as CSS variables alongside color tokens:
 --cy-font-system-mono: ui-monospace, SFMono-Regular, ...;
 ```
 
-**`font-mono` aliased to `font-system-mono`**
+**`font-mono` published alongside `font-system-mono`**
 
-`font-mono` is now a convenience alias for `font-system-mono`. Both resolve to the same system monospace stack.
+`font-mono` is a convenience alias for `font-system-mono` — both resolve to the same system monospace stack and are published as `--cy-font-mono` / `--cy-font-system-mono` CSS tokens.

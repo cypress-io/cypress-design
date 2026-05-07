@@ -26,13 +26,14 @@ The design system uses three brand fonts. Load them via Google Fonts — the CDN
 
 The Tailwind font utilities exposed by this package:
 
-| Class                | Font                    | Use for                         |
-| -------------------- | ----------------------- | ------------------------------- |
-| `font-brand-heading` | Poppins                 | Page headings, display text     |
-| `font-brand`         | Roboto                  | Body copy, UI labels            |
-| `font-brand-mono`    | Roboto Mono             | Code, tokens, monospaced values |
-| `font-system`        | System sans-serif stack | Fallback / system UI            |
-| `font-system-mono`   | System monospace stack  | Fallback / system UI mono       |
+| Class                | Font                    | Use for                                  |
+| -------------------- | ----------------------- | ---------------------------------------- |
+| `font-brand-heading` | Poppins                 | Page headings, display text              |
+| `font-brand`         | Roboto                  | Body copy, UI labels                     |
+| `font-brand-mono`    | Roboto Mono             | Code, tokens, monospaced values          |
+| `font-system`        | System sans-serif stack | Fallback / system UI                     |
+| `font-system-mono`   | System monospace stack  | Fallback / system UI mono                |
+| `font-mono`          | System monospace stack  | Convenience alias for `font-system-mono` |
 
 ## For projects using this package:
 
