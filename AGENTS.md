@@ -19,6 +19,14 @@ Each component may have:
 
 Not every component has all files yet — add them when a component is created or meaningfully revised. When adding a new component, update the component list in `/.agents/index.md`.
 
+## Pages
+
+Page-specific acceptance criteria and known issues live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
+
+Available pages:
+
+- `pages/colors.md` — `/colors` page sections, palette behavior, TOC, known issues
+
 ## Skills
 
 Task-specific guidance lives in `/.agents/skills/<skill-name>.md`. Each skill has YAML frontmatter with a `description` telling you when to load it. Read the relevant skill(s) before starting matching work; don't load them preemptively.
