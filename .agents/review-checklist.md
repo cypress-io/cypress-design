@@ -29,7 +29,7 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 ## Voice & content
 
 - [ ] User-facing strings follow [voice.md](./voice.md): sentence case, no "simply / just / easy", verb-first button labels.
-- [ ] Error messages state what happened + what to do next. See [content.md](./content.md).
+- [ ] Error messages state what happened + what to do next. See [voice.md](./voice.md).
 
 ## Accessibility
 
