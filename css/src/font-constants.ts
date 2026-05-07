@@ -24,4 +24,4 @@ export const cyFonts = {
     'Courier New',
     'monospace',
   ],
-} as const
+}
