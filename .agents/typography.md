@@ -19,8 +19,6 @@ Never set `font-family` inline — the correct stack is applied by the global co
 
 ## Scale & spacing
 
-> **TODO**: type tokens not yet published. Until they are, follow these interim rules.
-
 - Use the type scale exposed by Tailwind defaults via `@cypress-design/tailwindcss`.
 - `16px` — minimum for legible body content (`text-base`)
 - `14px` — secondary/supporting information only (`text-sm`)
