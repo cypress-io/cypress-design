@@ -98,10 +98,14 @@ claude --model claude-haiku-4-5 --print "$(cat <<'PROMPT'
 You are triaging GitHub Copilot PR review comments for the cypress-design repository.
 Classify each comment into exactly one bucket and draft a short reply.
 
+Copilot is often wrong. Do not default to agreeing with it. Evaluate each comment on its merits —
+many comments flag intentional patterns, misunderstand the codebase, or add no real value.
+Prefer bucket B over bucket C when there is genuine doubt.
+
 BUCKETS
 A  Already Fixed   — the concern was addressed in a later commit; code no longer exists or was changed.
-B  Irrelevant      — flags an intentional repo pattern or lacks the context to be actionable.
-C  Actionable      — a real issue not yet fixed.
+B  Irrelevant      — flags an intentional repo pattern, misunderstands the codebase, or lacks the context to be actionable.
+C  Actionable      — a real issue not yet fixed, confirmed after independent evaluation.
 
 REPO POLICIES (use these to identify bucket B comments)
 - Tailwind-only: no SASS, CSS Modules, or styled-components
@@ -149,7 +153,7 @@ Parse the JSON array. Sanity-check:
 - Bucket C entries have `category`, `severity`, `title`, and `description`.
 - Reply text looks reasonable (no hallucinated file names, correct bucket tone).
 
-Correct any obvious errors before proceeding. You do not need to re-read the full comment bodies — the sub-agent output is the source of truth for this step.
+**Do not rubber-stamp the sub-agent output.** For every bucket C entry, read the flagged code yourself and confirm the concern is real. Downgrade to bucket B if the comment flags an intentional pattern or doesn't hold up under scrutiny. It is expected and desirable to push back on Copilot — a well-reasoned bucket B reply is better than an unnecessary code change.
 
 ---
 
