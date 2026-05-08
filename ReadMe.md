@@ -60,7 +60,7 @@ See [the component ReadMe](./components/) for the list of available components a
 
 **Read the guidance documents first:**
 
-- `/.agents/design.md` — Color palette, spacing, iconography standards
+- `/.agents/index.md` — Design, voice, and component guidance router
 - `/.agents/architecture.md` — Constraints, technical debt, and architectural patterns
 
 ### Key Decision Patterns
@@ -259,7 +259,7 @@ This is a Yarn monorepo (with Turbo) containing the Cypress Design System — re
 **`/.agents`** — Agent documentation (read before any work)
 
 - `architecture.md` — Constraints, decision patterns, and gotchas for agents
-- `design.md` — Design tokens, color guidance, spacing, iconography
+- `index.md` — Design, voice, and component guidance router
 - `skills/` — Task-specific guidance for common workflows
 
 **`/.claude`** — Claude Code configuration

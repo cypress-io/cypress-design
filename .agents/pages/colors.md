@@ -1,3 +1,8 @@
+---
+name: pages/colors
+description: Acceptance criteria and known issues for the /colors docs page. Load when making changes to the colors page or verifying it after a build.
+---
+
 # Colors Page — Acceptance Criteria
 
 ## Sections

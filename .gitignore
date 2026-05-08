@@ -116,3 +116,4 @@ storybook
 .vscode
 .astro/
 .yarn/install-state.gz
+docs/public/agents/
