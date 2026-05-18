@@ -36,7 +36,7 @@ Both are accounted for below.
 - **Tooltip:** Internal Tooltip component, dynamic overlay for flaky
 - **Self-healed:** Included in v1 behind `showSelfHealed` flag (ports source 1:1)
 - **Ordering prop:** Dropped — single default order
-- **Branch flow:** 4 PRs, each off `main`, merged before next starts
+- **Branch flow:** 4 stacked PRs. Each branch sits on top of the previous (`instructions` → `component` → `tests` → `accessibility`). All four merge together once ready — not sequentially.
 
 ## Component shape (from real source)
 
@@ -155,7 +155,14 @@ Cross-check against `TestResult` dark variants before final values are committed
 
 ## 4-PR execution
 
-Each branch off `main`, merged before the next starts.
+**Stacked PRs.** Each branch sits on top of the previous; PRs target their predecessor as base (not `main`, except Stage 1). All four merge together when ready, not sequentially. When Stage 1 merges to `main`, GitHub auto-rebases Stage 2's base to `main`, and so on.
+
+| Stage | Branch                    | Base branch              |
+| ----- | ------------------------- | ------------------------ |
+| 1     | `runstatus-instructions`  | `main`                   |
+| 2     | `runstatus-component`     | `runstatus-instructions` |
+| 3     | `runstatus-tests`         | `runstatus-component`    |
+| 4     | `runstatus-accessibility` | `runstatus-tests`        |
 
 ### Stage 1 — `runstatus-instructions`
 
