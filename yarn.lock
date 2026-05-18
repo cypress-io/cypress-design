@@ -1385,6 +1385,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/constants-runstatus@npm:*, @cypress-design/constants-runstatus@workspace:components/RunStatus/constants":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/constants-runstatus@workspace:components/RunStatus/constants"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/constants-spinner@npm:*, @cypress-design/constants-spinner@workspace:components/Spinner/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-spinner@workspace:components/Spinner/constants"
@@ -1671,6 +1677,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/react-runstatus@workspace:components/RunStatus/react":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/react-runstatus@workspace:components/RunStatus/react"
+  dependencies:
+    "@cypress-design/constants-runstatus": "npm:*"
+    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/react-statusicon": "npm:*"
+    "@cypress-design/react-tooltip": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    clsx: "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/react-spinner@npm:*, @cypress-design/react-spinner@workspace:components/Spinner/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-spinner@workspace:components/Spinner/react"
@@ -1845,6 +1864,18 @@ __metadata:
   dependencies:
     "@cypress-design/constants-modal": "npm:*"
     "@cypress-design/vue-icon": "npm:*"
+  languageName: unknown
+  linkType: soft
+
+"@cypress-design/vue-runstatus@workspace:components/RunStatus/vue":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/vue-runstatus@workspace:components/RunStatus/vue"
+  dependencies:
+    "@cypress-design/constants-runstatus": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-statusicon": "npm:*"
+    "@cypress-design/vue-tooltip": "npm:*"
   languageName: unknown
   linkType: soft
 
