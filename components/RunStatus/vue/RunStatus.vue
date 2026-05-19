@@ -30,14 +30,19 @@ if (typeof document !== 'undefined') {
   if (!document.getElementById(RUN_STATUS_TOOLTIP_STYLE_ID)) {
     const style = document.createElement('style')
     style.id = RUN_STATUS_TOOLTIP_STYLE_ID
+    // gray-300 (#BFC2D4) for dark tooltips (on light RunStatus)
+    // gray-700 (#5A5F7A) for light tooltips (on dark RunStatus)
+    const sizeRules =
+      ' font-size: 14px; line-height: 20px; min-width: 0; white-space: nowrap; '
     style.textContent =
-      "[role='tooltip']:has(.cy-runstatus-tooltip-label) > div { color: #afb3c7; }" +
-      "[role='tooltip']:has(.cy-runstatus-tooltip-label) > div > div:last-child {" +
-      ' font-size: 14px;' +
-      ' line-height: 20px;' +
-      ' min-width: 0;' +
-      ' white-space: nowrap;' +
-      ' }'
+      "[role='tooltip']:has(.cy-runstatus-tooltip-dark) > div { color: #bfc2d4; }" +
+      "[role='tooltip']:has(.cy-runstatus-tooltip-dark) > div > div:last-child {" +
+      sizeRules +
+      '}' +
+      "[role='tooltip']:has(.cy-runstatus-tooltip-light) > div { color: #5a5f7a; }" +
+      "[role='tooltip']:has(.cy-runstatus-tooltip-light) > div > div:last-child {" +
+      sizeRules +
+      '}'
     document.head.appendChild(style)
   }
 }
@@ -167,11 +172,16 @@ export default defineComponent({
         },
         {
           default: () => li,
-          // Marker class — picked up by the <style> block at the bottom of
-          // this SFC to apply RunStatus-only tooltip overrides (font, color,
-          // min-width) without modifying the shared Tooltip component.
+          // Marker class — picked up by the injected <style> above to apply
+          // RunStatus-only tooltip overrides per tooltip color variant.
           popper: () =>
-            h('span', { class: 'cy-runstatus-tooltip-label' }, label),
+            h(
+              'span',
+              {
+                class: `cy-runstatus-tooltip-${TooltipColorForTheme[props.theme]}`,
+              },
+              label,
+            ),
         },
       )
     }

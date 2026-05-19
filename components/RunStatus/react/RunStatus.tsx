@@ -9,7 +9,8 @@ import Tooltip from '@cypress-design/react-tooltip'
 import {
   CssClasses,
   CssTheme,
-  CssTooltipPopper,
+  CssTooltipPopperDark,
+  CssTooltipPopperLight,
   TooltipColorForTheme,
   type RunStatusProps,
   type RunStatusTheme,
@@ -128,7 +129,11 @@ const Stat: React.FC<StatProps> = ({
       placement={getTooltipPlacement(statKey)}
       color={TooltipColorForTheme[theme]}
       popper={label}
-      popperClassName={CssTooltipPopper}
+      popperClassName={
+        TooltipColorForTheme[theme] === 'dark'
+          ? CssTooltipPopperDark
+          : CssTooltipPopperLight
+      }
     >
       {li}
     </Tooltip>
