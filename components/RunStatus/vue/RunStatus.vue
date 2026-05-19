@@ -149,7 +149,31 @@ export default defineComponent({
         content = h('span', { class: CssClasses.unlinked }, inner)
       }
 
-      const li = h(
+      if (props.showTooltip) {
+        const tooltipTarget = content
+        content = h(
+          Tooltip,
+          {
+            placement: getTooltipPlacement(statKey),
+            color: TooltipColorForTheme[props.theme],
+          },
+          {
+            default: () => tooltipTarget,
+            // Marker class — picked up by the injected <style> above to apply
+            // RunStatus-only tooltip overrides per tooltip color variant.
+            popper: () =>
+              h(
+                'span',
+                {
+                  class: `cy-runstatus-tooltip-${TooltipColorForTheme[props.theme]}`,
+                },
+                label,
+              ),
+          },
+        )
+      }
+
+      return h(
         'li',
         {
           'data-cy': `total-${kebab}`,
@@ -160,29 +184,6 @@ export default defineComponent({
           ),
         },
         [content],
-      )
-
-      if (!props.showTooltip) return li
-
-      return h(
-        Tooltip,
-        {
-          placement: getTooltipPlacement(statKey),
-          color: TooltipColorForTheme[props.theme],
-        },
-        {
-          default: () => li,
-          // Marker class — picked up by the injected <style> above to apply
-          // RunStatus-only tooltip overrides per tooltip color variant.
-          popper: () =>
-            h(
-              'span',
-              {
-                class: `cy-runstatus-tooltip-${TooltipColorForTheme[props.theme]}`,
-              },
-              label,
-            ),
-        },
       )
     }
 
