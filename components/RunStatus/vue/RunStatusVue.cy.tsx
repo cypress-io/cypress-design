@@ -27,7 +27,7 @@ function mountStory(props: Partial<RunStatusProps> = {}) {
 }
 
 describe('<RunStatus /> Vue', () => {
-  assertions(mountStory)
+  assertions(mountStory, 'vue')
 
   it('renders a custom link via renderLink', () => {
     mountStory({
