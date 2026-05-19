@@ -25,6 +25,7 @@
     "docs/src/**/*.astro",
     "components/**/vite.config.ts",
     "components/**/assertions.ts",
+    "components/**/a11y-assertions.ts",
     "components/root.vite.config.ts",
     "cypress/support/**/*.ts"
   ],
