@@ -44,14 +44,14 @@ export const CssClasses = {
 
 export const CssTheme = {
   light: {
-    list: 'text-gray-600 border-gray-100',
-    link: 'text-gray-700 hover:bg-indigo-100 focus-visible:bg-indigo-100',
+    list: 'bg-white text-gray-600 border-gray-100',
+    link: 'text-gray-700 hover:bg-gray-50 focus-visible:bg-gray-50',
     separator: 'after:border-gray-100',
   },
   dark: {
-    list: 'text-gray-400 border-gray-700',
-    link: 'text-gray-300 hover:bg-gray-800 focus-visible:bg-gray-800',
-    separator: 'after:border-gray-700',
+    list: 'bg-gray-1000 text-gray-400 border-gray-800',
+    link: 'text-gray-300 hover:bg-gray-900 focus-visible:bg-gray-900',
+    separator: 'after:border-gray-800',
   },
 } as const
 
