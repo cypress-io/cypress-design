@@ -109,22 +109,7 @@ const Stat: React.FC<StatProps> = ({
     content = <span className={unlinkedClasses}>{inner}</span>
   }
 
-  const li = (
-    <li
-      data-cy={`total-${kebab}`}
-      className={clsx(
-        CssClasses.item,
-        applySeparator && CssClasses.separatorAfter,
-        applySeparator && CssTheme[theme].separator,
-      )}
-    >
-      {content}
-    </li>
-  )
-
-  if (!showTooltip) return li
-
-  return (
+  const wrappedContent = showTooltip ? (
     <Tooltip
       placement={getTooltipPlacement(statKey)}
       color={TooltipColorForTheme[theme]}
@@ -135,8 +120,23 @@ const Stat: React.FC<StatProps> = ({
           : CssTooltipPopperLight
       }
     >
-      {li}
+      {content}
     </Tooltip>
+  ) : (
+    content
+  )
+
+  return (
+    <li
+      data-cy={`total-${kebab}`}
+      className={clsx(
+        CssClasses.item,
+        applySeparator && CssClasses.separatorAfter,
+        applySeparator && CssTheme[theme].separator,
+      )}
+    >
+      {wrappedContent}
+    </li>
   )
 }
 
