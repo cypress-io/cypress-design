@@ -50,7 +50,7 @@ export const CssClasses = {
 
 export const CssTheme = {
   light: {
-    list: 'bg-white text-gray-600 border-gray-100',
+    list: 'bg-white text-gray-700 border-gray-100',
     link: 'text-gray-700 hover:bg-gray-50 focus-visible:bg-gray-50',
     separator: 'after:border-gray-100',
   },
@@ -82,9 +82,11 @@ const CssTooltipPopperBase =
 export const CssTooltipPopperDark = `[&>div]:!text-gray-300 ${CssTooltipPopperBase}`
 export const CssTooltipPopperLight = `[&>div]:!text-gray-700 ${CssTooltipPopperBase}`
 
-// Source uses `top` for the flaky stat, `topRight` (= Floating UI `top-end`) for the rest.
-export function getTooltipPlacement(key: StatKey): 'top' | 'top-end' {
-  return key === 'flaky' ? 'top' : 'top-end'
+// `top-start` for flaky: left-aligns the tooltip with the stat so the arrow
+// points at the element rather than at the center of a wide tooltip.
+// `top-end` for the rest (right-aligned stats on the right side of the pill).
+export function getTooltipPlacement(key: StatKey): 'top-start' | 'top-end' {
+  return key === 'flaky' ? 'top-start' : 'top-end'
 }
 
 // Convert the API key (camelCase) to the DOM-attribute / display form (kebab-case).
