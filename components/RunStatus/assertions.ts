@@ -4,7 +4,10 @@ import type { RunStatusProps } from '@cypress-design/constants-runstatus'
 
 type MountFn = (props?: Partial<RunStatusProps>) => void
 
-export default function assertions(mountStory: MountFn): void {
+export default function assertions(
+  mountStory: MountFn,
+  fw: 'vue' | 'react',
+): void {
   // ---------------------------------------------------------------------------
   // Rendering — which stats show up
   // ---------------------------------------------------------------------------
@@ -217,6 +220,57 @@ export default function assertions(mountStory: MountFn): void {
   })
 
   // ---------------------------------------------------------------------------
+  // Flaky tooltip text
+  // ---------------------------------------------------------------------------
+
+  describe('flaky tooltip text', () => {
+    it('shows singular text when flaky count is 1', () => {
+      mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 1 })
+      cy.get('[data-cy="total-flaky"] a, [data-cy="total-flaky"] span')
+        .first()
+        .trigger('mouseover')
+      cy.get('[role="tooltip"]').should(
+        'contain',
+        'This test both passed and failed when retried within a run',
+      )
+    })
+
+    it('shows plural text when flaky count is > 1', () => {
+      mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 3 })
+      cy.get('[data-cy="total-flaky"] a, [data-cy="total-flaky"] span')
+        .first()
+        .trigger('mouseover')
+      cy.get('[role="tooltip"]').should(
+        'contain',
+        '3 tests both passed and failed when retried within a run',
+      )
+    })
+  })
+
+  // ---------------------------------------------------------------------------
+  // Null prop handling
+  // ---------------------------------------------------------------------------
+
+  describe('null props', () => {
+    it('treats flaky: null the same as flaky: 0 (no flaky stat rendered)', () => {
+      mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: null })
+      cy.get('[data-cy="total-flaky"]').should('not.exist')
+    })
+
+    it('treats selfHealed: null the same as selfHealed: 0', () => {
+      mountStory({
+        passed: 10,
+        failed: 0,
+        skipped: 0,
+        pending: 0,
+        selfHealed: null,
+        showSelfHealed: true,
+      })
+      cy.get('[data-cy="total-self-healed"]').should('not.exist')
+    })
+  })
+
+  // ---------------------------------------------------------------------------
   // DOM validity — <ul> children must be <li> only
   // ---------------------------------------------------------------------------
 
@@ -246,7 +300,7 @@ export default function assertions(mountStory: MountFn): void {
   describe('visual snapshots', () => {
     it('default — non-zero stats', () => {
       mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1 })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus default - ${fw}`)
     })
 
     it('expanded — zeros shown', () => {
@@ -257,12 +311,12 @@ export default function assertions(mountStory: MountFn): void {
         pending: 0,
         expanded: true,
       })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus expanded - ${fw}`)
     })
 
     it('with flaky', () => {
       mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1, flaky: 3 })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus with flaky - ${fw}`)
     })
 
     it('with self-healed', () => {
@@ -274,7 +328,7 @@ export default function assertions(mountStory: MountFn): void {
         selfHealed: 2,
         showSelfHealed: true,
       })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus with self-healed - ${fw}`)
     })
 
     it('flaky and self-healed', () => {
@@ -287,7 +341,7 @@ export default function assertions(mountStory: MountFn): void {
         selfHealed: 2,
         showSelfHealed: true,
       })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus flaky and self-healed - ${fw}`)
     })
 
     it('linked stats', () => {
@@ -304,7 +358,7 @@ export default function assertions(mountStory: MountFn): void {
           flaky: '#flaky',
         },
       })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus linked stats - ${fw}`)
     })
 
     it('dark theme', () => {
@@ -322,7 +376,7 @@ export default function assertions(mountStory: MountFn): void {
           flaky: '#flaky',
         },
       })
-      cy.percySnapshot()
+      cy.percySnapshot(`RunStatus dark theme - ${fw}`)
     })
   })
 }
