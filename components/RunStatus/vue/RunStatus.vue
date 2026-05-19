@@ -231,7 +231,11 @@ export default defineComponent({
           h(
             'ul',
             {
-              class: joinClasses(CssClasses.list, CssTheme[props.theme].list),
+              class: joinClasses(
+                CssClasses.list,
+                CssTheme[props.theme].list,
+                props.fullWidth && CssClasses.fullWidth,
+              ),
             },
             items,
           ),

@@ -182,7 +182,13 @@ export const RunStatus: React.FC<
         className,
       )}
     >
-      <ul className={clsx(CssClasses.list, CssTheme[theme].list)}>
+      <ul
+        className={clsx(
+          CssClasses.list,
+          CssTheme[theme].list,
+          fullWidth && CssClasses.fullWidth,
+        )}
+      >
         {showFlaky && (
           <Stat
             statKey="flaky"
