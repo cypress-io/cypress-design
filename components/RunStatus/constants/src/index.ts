@@ -63,6 +63,17 @@ export const TooltipColorForTheme: Record<RunStatusTheme, 'light' | 'dark'> = {
   dark: 'light',
 }
 
+// RunStatus-specific overrides applied via Tooltip's `popperClassName`:
+//   - drop the 160px min-width so the tooltip auto-fits content
+//   - shrink text to 14px / 20px (DS body size; shared Tooltip defaults to 16px / 24px)
+//   - tone the text down to gray-400
+// `[&>div]` targets the colored container inside the popper (where text color
+// is set on the shared Tooltip); `[&>div>div]` targets the inner text container
+// (where font-size / line-height / min-width are set on the shared Tooltip).
+// `!` is required because the shared Tooltip applies these on the same elements.
+export const CssTooltipPopper =
+  '[&>div]:!text-gray-400 [&>div>div]:!text-[14px] [&>div>div]:!leading-[20px] [&>div>div]:!min-w-0'
+
 // Source uses `top` for the flaky stat, `topRight` (= Floating UI `top-end`) for the rest.
 export function getTooltipPlacement(key: StatKey): 'top' | 'top-end' {
   return key === 'flaky' ? 'top' : 'top-end'
