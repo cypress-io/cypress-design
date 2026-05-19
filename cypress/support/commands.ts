@@ -36,6 +36,7 @@
 //   }
 // }
 import '@percy/cypress'
+import 'cypress-axe'
 
 // add testing library selectors types
 import '@testing-library/cypress'
