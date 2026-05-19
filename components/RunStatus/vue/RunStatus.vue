@@ -6,6 +6,41 @@ import {
   IconGeneralSparkleSingleSmall,
 } from '@cypress-design/vue-icon'
 import Tooltip from '@cypress-design/vue-tooltip'
+
+// RunStatus-only tooltip overrides.
+//
+// The shared Tooltip hardcodes 16px / 24px / 160px-min on its inner text
+// container and gray-900 / white text color on the colored wrapper. The
+// popper slot only lets us inject content *inside* the inner container, so
+// font and color could be set via a child wrapper, but min-width on a
+// parent cannot be overridden from a child.
+//
+// We tag the popper slot content with a marker class (see
+// `cy-runstatus-tooltip-label` below) and use `:has()` to target the
+// tooltip ancestors only when our marker is present. The CSS lives here as
+// a JS-injected <style> tag so consumers of @cypress-design/vue-runstatus
+// get the overrides without needing to import a separate CSS file. SFC
+// <style> blocks would emit a separate dist/style.css that the JS bundle
+// doesn't reference under Vite library mode — so we inject at runtime.
+//
+// Color value (#afb3c7) is the gray-400 design token, hard-coded so the
+// rule works outside the docs site where --cy-gray-400 may not be loaded.
+const RUN_STATUS_TOOLTIP_STYLE_ID = 'cy-runstatus-tooltip-style'
+if (typeof document !== 'undefined') {
+  if (!document.getElementById(RUN_STATUS_TOOLTIP_STYLE_ID)) {
+    const style = document.createElement('style')
+    style.id = RUN_STATUS_TOOLTIP_STYLE_ID
+    style.textContent =
+      "[role='tooltip']:has(.cy-runstatus-tooltip-label) > div { color: #afb3c7; }" +
+      "[role='tooltip']:has(.cy-runstatus-tooltip-label) > div > div:last-child {" +
+      ' font-size: 14px;' +
+      ' line-height: 20px;' +
+      ' min-width: 0;' +
+      ' white-space: nowrap;' +
+      ' }'
+    document.head.appendChild(style)
+  }
+}
 import {
   CssClasses,
   CssTheme,
@@ -132,7 +167,11 @@ export default defineComponent({
         },
         {
           default: () => li,
-          popper: () => label,
+          // Marker class — picked up by the <style> block at the bottom of
+          // this SFC to apply RunStatus-only tooltip overrides (font, color,
+          // min-width) without modifying the shared Tooltip component.
+          popper: () =>
+            h('span', { class: 'cy-runstatus-tooltip-label' }, label),
         },
       )
     }
