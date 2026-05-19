@@ -23,10 +23,11 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // Outer wrapper around the pill.
-  container: 'flex pointer-events-auto',
+  // Outer wrapper. `inline-flex` so the component shrinks to content width by
+  // default; the `fullWidth` prop toggles `w-full` on both container and list.
+  container: 'inline-flex pointer-events-auto',
   // The <ul> pill itself. Theme overrides border and text colors via CssTheme.
-  list: 'w-full text-[14px] leading-[20px] font-medium list-none border rounded-[4px] flex items-center',
+  list: 'flex items-center text-[14px] leading-[20px] font-medium list-none border rounded-[4px]',
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
   // Inner <a> wrapper for linked stats.
@@ -38,7 +39,7 @@ export const CssClasses = {
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",
-  // Optional full-width flag (the <div>, not the <ul>).
+  // Applied to BOTH container and list when the `fullWidth` prop is true.
   fullWidth: 'w-full',
 } as const
 
