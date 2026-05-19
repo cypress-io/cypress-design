@@ -27,7 +27,7 @@ export const CssClasses = {
   // default; the `fullWidth` prop toggles `w-full` on both container and list.
   container: 'inline-flex pointer-events-auto',
   // The <ul> pill itself. Theme overrides border and text colors via CssTheme.
-  list: 'flex items-center text-[14px] leading-[20px] font-medium list-none border rounded-[4px]',
+  list: 'flex items-center text-[14px] leading-[24px] font-medium list-none border rounded-[4px]',
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
   // Inner <a> wrapper for linked stats.
@@ -36,6 +36,11 @@ export const CssClasses = {
   unlinked: 'flex items-center h-full w-full px-[6px]',
   // Icon margin matches source `svg { margin: 0 4px }`.
   icon: 'mx-[4px]',
+  // Flaky icon override — drop the yellow background rect (first path in the
+  // SVG). Matches the source SCSS's `.flakyIcon svg path:first-child { fill:
+  // transparent !important }`. Scoped to this component; the shared
+  // IconStatusFlaky is unchanged.
+  iconFlaky: 'mx-[4px] [&_path:first-child]:fill-transparent',
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",
