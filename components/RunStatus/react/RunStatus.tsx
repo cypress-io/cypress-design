@@ -54,7 +54,7 @@ const Stat: React.FC<StatProps> = ({
         <IconStatusFlaky
           size="12"
           data-cy="status-icon-flaky"
-          className={CssClasses.icon}
+          className={CssClasses.iconFlaky}
         />
       )
     }

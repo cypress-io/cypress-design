@@ -59,7 +59,7 @@ export default defineComponent({
         return h(IconStatusFlaky, {
           size: '12',
           'data-cy': 'status-icon-flaky',
-          class: CssClasses.icon,
+          class: CssClasses.iconFlaky,
         })
       }
       if (statKey === 'selfHealed') {
