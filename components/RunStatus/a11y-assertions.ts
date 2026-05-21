@@ -100,19 +100,19 @@ export default function a11yAssertions(mountStory: MountFn): void {
       )
     })
 
-    it('flaky aria-label is plural when count > 1', () => {
+    it('flaky aria-label is singular when count is 1', () => {
       mountStory({
         passed: 10,
         failed: 0,
         skipped: 0,
         pending: 0,
-        flaky: 3,
+        flaky: 1,
         links: { flaky: '#flaky' },
       })
       cy.get('[data-cy="link-flaky"]').should(
         'have.attr',
         'aria-label',
-        '3 tests both passed and failed when retried within a run',
+        'This test both passed and failed when retried within a run',
       )
     })
   })
