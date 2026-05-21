@@ -18,6 +18,7 @@ import {
   getSeparatorAfterKey,
   getTooltipLabel,
   getTooltipPlacement,
+  getFlakyTooltipText,
   hasAnyStat,
   showRegularStat,
   statKeyToKebab,
@@ -109,11 +110,13 @@ const Stat: React.FC<StatProps> = ({
     content = <span className={unlinkedClasses}>{inner}</span>
   }
 
+  const tooltipText = statKey === 'flaky' ? getFlakyTooltipText(count) : label
+
   const wrappedContent = showTooltip ? (
     <Tooltip
       placement={getTooltipPlacement(statKey)}
       color={TooltipColorForTheme[theme]}
-      popper={label}
+      popper={tooltipText}
       popperClassName={
         TooltipColorForTheme[theme] === 'dark'
           ? CssTooltipPopperDark
