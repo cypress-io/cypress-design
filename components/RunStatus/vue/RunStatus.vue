@@ -56,6 +56,7 @@ import {
   getSeparatorAfterKey,
   getTooltipLabel,
   getTooltipPlacement,
+  getFlakyTooltipText,
   hasAnyStat,
   showRegularStat,
   statKeyToKebab,
@@ -67,6 +68,7 @@ import {
 // compose cleanly around a caller-provided VNode.
 export default defineComponent({
   name: 'RunStatus',
+  inheritAttrs: false,
   props: {
     passed: { type: Number as PropType<number | null>, required: true },
     failed: { type: Number as PropType<number | null>, required: true },
@@ -89,7 +91,7 @@ export default defineComponent({
     showTooltip: { type: Boolean, default: true },
     className: { type: String, default: undefined },
   },
-  setup(props) {
+  setup(props, { attrs }) {
     function joinClasses(...parts: (string | false | undefined)[]): string {
       return parts.filter(Boolean).join(' ')
     }
@@ -151,6 +153,8 @@ export default defineComponent({
       }
 
       if (props.showTooltip) {
+        const tooltipText =
+          statKey === 'flaky' ? getFlakyTooltipText(count) : label
         const tooltipTarget = content
         content = h(
           Tooltip,
@@ -168,7 +172,7 @@ export default defineComponent({
                 {
                   class: `cy-runstatus-tooltip-${TooltipColorForTheme[props.theme]}`,
                 },
-                label,
+                tooltipText,
               ),
           },
         )
@@ -272,11 +276,13 @@ export default defineComponent({
       return h(
         'div',
         {
+          ...attrs,
           'data-cy': 'run-stats',
           class: joinClasses(
             CssClasses.container,
             props.fullWidth && CssClasses.fullWidth,
             props.className,
+            attrs.class as string | undefined,
           ),
         },
         [

@@ -99,16 +99,22 @@ function capitalize(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
 
+// Long-form flaky description used in tooltips (always shown regardless of link).
+export function getFlakyTooltipText(count: number): string {
+  return count === 1
+    ? 'This test both passed and failed when retried within a run'
+    : `${count} tests both passed and failed when retried within a run`
+}
+
 // Tooltip / aria-label text. `isLinked` flips "View X tests" ↔ "X tests".
+// Flaky linked stat uses "View flaky tests"; tooltip content uses getFlakyTooltipText.
 export function getTooltipLabel(
   key: StatKey,
   count: number,
   isLinked: boolean,
 ): string {
   if (key === 'flaky') {
-    return count === 1
-      ? 'This test both passed and failed when retried within a run'
-      : `${count} tests both passed and failed when retried within a run`
+    return isLinked ? 'View flaky tests' : getFlakyTooltipText(count)
   }
   const display = statKeyToKebab(key)
   return isLinked ? `View ${display} tests` : `${capitalize(display)} tests`
