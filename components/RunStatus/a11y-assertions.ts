@@ -91,7 +91,7 @@ export default function a11yAssertions(mountStory: MountFn): void {
       cy.get('[data-cy="link-flaky"]').should(
         'have.attr',
         'aria-label',
-        '3 tests both passed and failed when retried within a run',
+        'View flaky tests',
       )
       cy.get('[data-cy="link-self-healed"]').should(
         'have.attr',
