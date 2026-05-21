@@ -110,7 +110,7 @@ export function getTooltipLabel(
       ? 'This test both passed and failed when retried within a run'
       : `${count} tests both passed and failed when retried within a run`
   }
-  const display = statKeyToKebab(key).replace(/-/g, ' ')
+  const display = statKeyToKebab(key)
   return isLinked ? `View ${display} tests` : `${capitalize(display)} tests`
 }
 

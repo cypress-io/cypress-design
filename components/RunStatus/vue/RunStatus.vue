@@ -87,6 +87,7 @@ export default defineComponent({
       default: null,
     },
     showTooltip: { type: Boolean, default: true },
+    className: { type: String, default: undefined },
   },
   setup(props) {
     function joinClasses(...parts: (string | false | undefined)[]): string {
@@ -275,6 +276,7 @@ export default defineComponent({
           class: joinClasses(
             CssClasses.container,
             props.fullWidth && CssClasses.fullWidth,
+            props.className,
           ),
         },
         [
