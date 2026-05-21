@@ -96,7 +96,7 @@ export default function a11yAssertions(mountStory: MountFn): void {
       cy.get('[data-cy="link-self-healed"]').should(
         'have.attr',
         'aria-label',
-        'View self healed tests',
+        'View self-healed tests',
       )
     })
 
