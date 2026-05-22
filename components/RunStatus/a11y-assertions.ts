@@ -100,7 +100,7 @@ export default function a11yAssertions(mountStory: MountFn): void {
       )
     })
 
-    it('flaky aria-label is singular when count is 1', () => {
+    it('linked flaky stat always uses "View flaky tests" aria-label regardless of count', () => {
       mountStory({
         passed: 10,
         failed: 0,
@@ -112,7 +112,7 @@ export default function a11yAssertions(mountStory: MountFn): void {
       cy.get('[data-cy="link-flaky"]').should(
         'have.attr',
         'aria-label',
-        'This test both passed and failed when retried within a run',
+        'View flaky tests',
       )
     })
   })
