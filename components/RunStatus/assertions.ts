@@ -226,9 +226,10 @@ export default function assertions(
   describe('flaky tooltip text', () => {
     it('shows singular text when flaky count is 1', () => {
       mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 1 })
+      // Use realHover so Floating UI (React) and Vue's @mouseover both fire correctly.
       cy.get('[data-cy="total-flaky"] a, [data-cy="total-flaky"] span')
         .first()
-        .trigger('mouseover')
+        .realHover()
       cy.get('[role="tooltip"]').should(
         'contain',
         'This test both passed and failed when retried within a run',
@@ -239,7 +240,7 @@ export default function assertions(
       mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 3 })
       cy.get('[data-cy="total-flaky"] a, [data-cy="total-flaky"] span')
         .first()
-        .trigger('mouseover')
+        .realHover()
       cy.get('[role="tooltip"]').should(
         'contain',
         '3 tests both passed and failed when retried within a run',
