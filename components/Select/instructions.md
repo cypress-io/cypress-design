@@ -4,9 +4,9 @@ How to use the Select component. Anything documented here is supported; anything
 
 ## What it is
 
-A single-select dropdown. The trigger is a [`Textbox`](../Textbox/instructions.md)-styled control by default, but can be swapped for any other element (e.g. a [`Button`](../Button/instructions.md)). The popover panel ("Option List") shows a list of rows ("Option Items") of several content types, with optional header (title, tabs, search) and footer.
+A single-select dropdown. The trigger is a [`Button`](../Button/instructions.md) by default (showing the selected label followed by a chevron icon), but can be swapped for any other element via the `trigger` slot. The popover panel ("Option List") shows a list of rows ("Option Items") of several content types, with optional header (title, tabs, search) and footer.
 
-Select composes existing cypress-design primitives — Textbox, Tabs, Checkbox, Tag, Button, Icon — so consumers get a consistent look without taking a dependency on `react-select` or other third-party dropdown libraries.
+Select composes existing cypress-design primitives — Button, Tabs, Checkbox, Textbox (for the search input), Tag, Icon — so consumers get a consistent look without taking a dependency on `react-select` or other third-party dropdown libraries.
 
 ## Install
 
@@ -35,9 +35,19 @@ All props are optional unless noted. React and Vue expose the same prop surface,
 
 - **`theme`** — `'light' | 'dark'`, default `'light'`. Visual theme. Applied to both the trigger and the popover.
 - **`size`** — `'32' | '40'`, default `'40'`. Height (in pixels, as a string) of the default trigger and of each option row.
-- **`variant`** — `'default' | 'valid' | 'invalid' | 'warning'`, default `'default'`. Forwarded to the default Textbox trigger. `'invalid'` auto-sets `aria-invalid="true"` on the trigger unless overridden.
+- **`triggerVariant`** — `ButtonVariant`, default `'outline-gray'`. Forwarded to the default Button trigger. See [Button instructions](../Button/instructions.md) for the full set of variants. Ignored when a custom `trigger` slot is supplied.
 - **`align`** — `'left' | 'right'`, default `'left'`. Horizontal alignment of the popover relative to the trigger. `'left'` aligns the popover's left edge to the trigger's left edge; `'right'` aligns the right edges.
 - **`disabled`** — `boolean`, default `false`. Disables the trigger and prevents opening the popover.
+
+### Dropdown sizing
+
+These apply to the popover panel only — the trigger keeps its natural width. Accept any CSS length string (e.g. `'320px'`, `'20rem'`, `'100%'`) or a plain number (interpreted as pixels). Omit for natural sizing.
+
+- **`width`** — fixed width of the popover.
+- **`minWidth`** — minimum width.
+- **`maxWidth`** — maximum width.
+- **`height`** — fixed height. Pair with `maxHeight` only if you also want the list to scroll past that height; usually you only need `maxHeight`.
+- **`maxHeight`** — maximum height. When the rendered rows exceed this, the items area scrolls. Headers and footers stay pinned.
 
 ### Open / close state
 

@@ -34,9 +34,9 @@ The package exports three named components per framework: `Select` (default), `S
 
 Select does not reimplement primitives that already exist in cypress-design. Specifically:
 
-- **Default trigger** is a [`Textbox`](../Textbox/architecture.md) styled with the same variant classes (`@cypress-design/constants-textbox`'s `CssVariantClasses`), with `iconRight` set to a chevron icon. Textbox does the heavy lifting for sizing, hover, focus, disabled visuals.
+- **Default trigger** is a [`Button`](../Button/) rendering `{selectedLabel ?? placeholder}` followed by a chevron icon as the last child of the button's default slot. Button has no `iconRight` prop, so the chevron is just a child node. The chevron rotates 180° while `open === true`. Button's variant and size do the heavy lifting for hover, focus-visible, disabled visuals.
 - **Header tabs** are the existing [`Tabs`](../Tabs/) component.
-- **Search input** in the header is a Textbox sized to match the row size.
+- **Search input** in the header is a [`Textbox`](../Textbox/) sized to match the row size.
 - **`type: 'checkbox'` rows** render the existing [`Checkbox`](../Checkbox/) component to the left of the label.
 - **`type: 'button'` rows** render the existing [`Button`](../Button/) component.
 - **`tag`** on default rows renders the existing [`Tag`](../Tag/) component.
@@ -87,6 +87,14 @@ Keying mirrors Textbox: every visual state for a given `(theme, size)` lives in 
 The popover is `position: absolute` inside a wrapper that's `position: relative`. The wrapper is the same DOM node as the trigger, so the popover is naturally anchored to it. `align` is implemented with `left-0` / `right-0` (no JS calculations).
 
 There is no viewport collision detection. If the popover overflows the viewport in the chosen direction, the consumer must change `align` or place the trigger differently. Picking up Floating UI is a future option but adds a runtime dependency.
+
+## Popover sizing
+
+The `width`, `minWidth`, `maxWidth`, `height`, `maxHeight` props are applied as inline `style` properties on the popover panel — not as Tailwind classes. A small helper coerces incoming values to CSS strings (a plain `number` becomes `${n}px`; any other value is passed through unchanged so `'20rem'` or `'min(100vw, 320px)'` work).
+
+Inline style is the right tool here because these dimensions are user-supplied at runtime and there is no closed set of values to enumerate as utility classes.
+
+When `maxHeight` is set and the rows would overflow, the **items area** scrolls — the header and footer stay pinned. This is done with `display: flex; flex-direction: column` on the popover panel and `overflow-y: auto; flex: 1 1 auto; min-height: 0` on the items wrapper. Header and footer get `flex-shrink: 0`.
 
 ## Filtering
 
