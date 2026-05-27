@@ -14,22 +14,22 @@ yarn add @cypress-design/constants-runstatus    # shared types + CSS class const
 
 ## Props
 
-| Prop             | Type                                                      | Default   | Description                                                                                                                                                                    |
-| ---------------- | --------------------------------------------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `passed`         | `number \| null`                                          | required  | Passed test count. `null` is treated as `0`.                                                                                                                                   |
-| `failed`         | `number \| null`                                          | required  | Failed test count. `null` is treated as `0`.                                                                                                                                   |
-| `skipped`        | `number \| null`                                          | required  | Skipped test count. `null` is treated as `0`.                                                                                                                                  |
-| `pending`        | `number \| null`                                          | required  | Pending test count. `null` is treated as `0`.                                                                                                                                  |
-| `flaky`          | `number \| null`                                          | —         | Flaky test count. When > 0, renders the flaky stat as a leading stat.                                                                                                          |
-| `selfHealed`     | `number \| null`                                          | —         | Self-healed test count. Only rendered when `showSelfHealed` is `true` **and** the count is > 0.                                                                                |
-| `showSelfHealed` | `boolean`                                                 | `false`   | Master gate for the self-healed stat. Consumer apps with the feature flag enabled set this true.                                                                               |
-| `theme`          | `"light" \| "dark"`                                       | `"light"` | Color scheme. Must be set explicitly — no auto theme detection.                                                                                                                |
-| `expanded`       | `boolean`                                                 | `false`   | When `true`, renders all four regular stats even if their count is `0`. Does **not** affect leading stats (flaky/self-healed are still only rendered when their count is > 0). |
-| `fullWidth`      | `boolean`                                                 | `false`   | When `true`, the pill stretches to the width of its container.                                                                                                                 |
-| `links`          | `Partial<Record<StatKey, string>>`                        | —         | Per-stat pre-built URLs. Caller is responsible for URL construction (no router in the DS).                                                                                     |
-| `renderLink`     | `(href: string, children: VNode \| ReactNode) => unknown` | —         | Custom link renderer. Same signature in both frameworks (children are the framework-native render output). Falls back to a native `<a href>` when not provided.                |
-| `showTooltip`    | `boolean`                                                 | `true`    | When `true`, wraps each stat in a Tooltip describing the stat.                                                                                                                 |
-| `className`      | `string`                                                  | —         | Extra classes **appended** to the outer pill's class list (does not override DS classes). Merged with `clsx`.                                                                  |
+| Prop             | Type                                                      | Default   | Description                                                                                                                                                                                                 |
+| ---------------- | --------------------------------------------------------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `passed`         | `number \| null`                                          | required  | Passed test count. `null` is treated as `0`.                                                                                                                                                                |
+| `failed`         | `number \| null`                                          | required  | Failed test count. `null` is treated as `0`.                                                                                                                                                                |
+| `skipped`        | `number \| null`                                          | required  | Skipped test count. `null` is treated as `0`.                                                                                                                                                               |
+| `pending`        | `number \| null`                                          | required  | Pending test count. `null` is treated as `0`.                                                                                                                                                               |
+| `flaky`          | `number \| null`                                          | —         | Flaky test count. When > 0, renders the flaky stat as a leading stat.                                                                                                                                       |
+| `selfHealed`     | `number \| null`                                          | —         | Self-healed test count. Rendered whenever `showSelfHealed` is `true` — the count is shown verbatim, including `0`. `null` is coerced to `0`.                                                                |
+| `showSelfHealed` | `boolean`                                                 | `false`   | Master gate for the self-healed stat. Consumers set this `true` when the run could have self-healed tests (e.g. `cy.prompt` was available), `false` otherwise.                                              |
+| `theme`          | `"light" \| "dark"`                                       | `"light"` | Color scheme. Must be set explicitly — no auto theme detection.                                                                                                                                             |
+| `expanded`       | `boolean`                                                 | `false`   | When `true`, renders all four regular stats even if their count is `0`. Does **not** affect leading stats (flaky is rendered only when count > 0; self-healed renders whenever `showSelfHealed` is `true`). |
+| `fullWidth`      | `boolean`                                                 | `false`   | When `true`, the pill stretches to the width of its container.                                                                                                                                              |
+| `links`          | `Partial<Record<StatKey, string>>`                        | —         | Per-stat pre-built URLs. Caller is responsible for URL construction (no router in the DS).                                                                                                                  |
+| `renderLink`     | `(href: string, children: VNode \| ReactNode) => unknown` | —         | Custom link renderer. Same signature in both frameworks (children are the framework-native render output). Falls back to a native `<a href>` when not provided.                                             |
+| `showTooltip`    | `boolean`                                                 | `true`    | When `true`, wraps each stat in a Tooltip describing the stat.                                                                                                                                              |
+| `className`      | `string`                                                  | —         | Extra classes **appended** to the outer pill's class list (does not override DS classes). Merged with `clsx`.                                                                                               |
 
 `StatKey` is `"passed" | "failed" | "skipped" | "pending" | "flaky" | "selfHealed"` (camelCase, matching `StatusIcon`'s multi-word keys like `noTests`, `timedOut`). `data-cy` attributes use the kebab-case form (`total-self-healed`, `status-icon-self-healed`) — that's a DOM-attribute convention, not the API.
 
@@ -49,7 +49,7 @@ Always rendered in this order, left-to-right:
 
 1. **Leading stats** (each independent, each optional)
    1. `flaky` — rendered when `flaky > 0`
-   2. `selfHealed` — rendered when `showSelfHealed && selfHealed > 0`
+   2. `selfHealed` — rendered whenever `showSelfHealed === true` (count `0` is still shown)
 2. **Separator** — vertical divider, rendered only when at least one leading stat **and** at least one regular stat are both present
 3. **Regular stats**
    1. `skipped`
@@ -65,7 +65,7 @@ Regular stats with count `0` are hidden unless `expanded` is `true`. Examples:
 - Both `flaky` and `self-healed` → flaky, self-healed, then divider, then regulars.
 - Leading stat(s) present, all regular counts zero, `expanded=false` → leading stat(s) only, no divider.
 
-`expanded` only affects regular stats. Leading stats (flaky, self-healed) are never rendered with a zero count regardless of `expanded`.
+`expanded` only affects regular stats. Flaky is never rendered with a zero count regardless of `expanded`. Self-healed visibility is controlled by `showSelfHealed`, not by `expanded` or by its count.
 
 ### Empty state
 
@@ -159,6 +159,6 @@ These selectors are part of the public contract — existing tests in consumer a
 - No `running`, `unclaimed`, `errored`, `timedOut`, `noTests`, `overLimit`, `cancelled` regular stats in the pill — only the four primary outcomes plus the optional `flaky` and `self-healed` leading stats.
 - Icons are fixed at size `12`. No size prop.
 - Counts are display-only; the component does not format large numbers (e.g. `1,234`) — pass pre-formatted strings if needed via a future prop, or wait for a follow-up.
-- Self-healed requires the `showSelfHealed` flag **and** a non-zero `selfHealed` count to render. Setting only one of the two will not show it.
+- Self-healed renders whenever `showSelfHealed` is `true`, regardless of the `selfHealed` count (a `0` count renders as "0"). When `showSelfHealed` is `false`, the stat is hidden entirely — the consumer is expected to set the flag based on whether the run could have self-healed tests at all (e.g. `cy.prompt` was available).
 - **No loading state.** `null` and `0` counts render identically. If you need to distinguish "loading" from "zero", render a skeleton/spinner externally and conditionally mount `<RunStatus>` when data lands. Combined with the empty-state behavior above, the component returns `null` while counts are still all-null.
 - **No i18n.** Tooltip labels are hardcoded English strings ("View passed tests", "N tests both passed and failed when retried within a run", etc.). A `labels` override prop can be added when a real consumer needs translations.

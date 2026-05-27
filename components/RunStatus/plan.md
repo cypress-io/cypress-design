@@ -34,7 +34,7 @@ Both are accounted for below.
 - **Frameworks:** React + Vue from day one
 - **Theme:** `theme: 'light' | 'dark'`, both implemented
 - **Tooltip:** Internal Tooltip component, dynamic overlay for flaky
-- **Self-healed:** Included in v1 behind `showSelfHealed` flag (ports source 1:1)
+- **Self-healed:** Included in v1 behind `showSelfHealed` flag. Deviates from source: source hides the stat when count is `0`; we show it (with "0") whenever `showSelfHealed` is `true`, matching the current cypress.io UI. The consumer decides visibility entirely via the flag.
 - **Ordering prop:** Dropped — single default order
 - **Branch flow:** 4 stacked PRs. Each branch sits on top of the previous (`instructions` → `component` → `tests` → `accessibility`). All four merge together once ready — not sequentially.
 

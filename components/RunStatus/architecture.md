@@ -31,7 +31,7 @@ Ported from `cypress-io/cypress-services` — `frontend/packages/design-system/s
 
 ## Why no separate `FlakyBadge` component
 
-The cypress-services source has a sibling `FlakyBadge` React component. We don't port it. The flaky stat in RunStatus is just `IconStatusFlaky` from `@cypress-design/react-icon` / `@cypress-design/vue-icon` rendered inline alongside a count — same as `TestResult` does today. A dedicated badge component would duplicate two existing primitives (Icon + Tooltip) without adding behavior. If a standalone flaky chip is ever needed elsewhere, it should be its own component (e.g. `FlakyChip`) rather than coupling RunStatus internals.
+The cypress-services source has a sibling `FlakyBadge` React component. We don't port it. In the new design, flaky is shown as a plain icon + count just like the other stats — no dedicated badge component needed inside RunStatus. (A "flaky badge" visual exists in other parts of the Cypress UI, but it's unrelated to this component and lives in its own place.)
 
 ## Render structure
 
@@ -42,7 +42,7 @@ Simplified render tree (React; Vue mirrors this):
   <ul>                              (full-width, list-none, flex, items-center)
     {/* Leading stats (independent, each optional) */}
     {flaky > 0 && <Stat status="flaky" />}
-    {showSelfHealed && selfHealed > 0 && <Stat status="selfHealed" />}
+    {showSelfHealed && <Stat status="selfHealed" />}
     {/* Regular stats */}
     {(expanded || skipped > 0) && <Stat status="skipped" />}
     {(expanded || pending > 0) && <Stat status="pending" />}
@@ -56,7 +56,7 @@ Flaky and self-healed are conceptually independent — not a unit. They render i
 
 ### Early return on empty state
 
-Before the JSX above, compute `hasAnyStat = (flaky > 0) || (showSelfHealed && selfHealed > 0) || (expanded || skipped > 0) || (expanded || pending > 0) || (expanded || passed > 0) || (expanded || failed > 0)`. If `false`, return `null` (React) / render nothing (Vue `v-if` at the template root). This is the documented behavior — see "Empty state" in `instructions.md`. Diverges from source, which always renders the bordered pill.
+Before the JSX above, compute `hasAnyStat = (flaky > 0) || showSelfHealed || (expanded || skipped > 0) || (expanded || pending > 0) || (expanded || passed > 0) || (expanded || failed > 0)`. If `false`, return `null` (React) / render nothing (Vue `v-if` at the template root). This is the documented behavior — see "Empty state" in `instructions.md`. Diverges from source, which always renders the bordered pill.
 
 Each `Stat` is:
 
@@ -83,7 +83,7 @@ Note: source uses 2px horizontal margin on the separator (`margin-left: 2px; mar
 
 Which `<li>` gets `separatorAfter` is computed at render time:
 
-- If `showSelfHealed && selfHealed > 0`: self-healed is the last leading stat → it gets `separatorAfter`.
+- If `showSelfHealed`: self-healed is the last leading stat → it gets `separatorAfter`.
 - Else if `flaky > 0`: flaky is the last leading stat → it gets `separatorAfter`.
 - Else: no leading stats, no separator.
 
@@ -182,12 +182,11 @@ The `aria-label` and `data-cy="link-{status}"` must end up on the rendered eleme
 
 ## Self-healed gating
 
-Two conditions, both required:
+A single condition: `showSelfHealed === true`. When the consumer sets it, the stat renders regardless of `selfHealed` count — including `0`. The count is displayed verbatim (`null` is coerced to `0` like the regular stats).
 
-1. `showSelfHealed === true` (the feature flag from the consumer)
-2. `selfHealed != null && selfHealed > 0` (there is something to show)
+The consumer decides visibility based on whether the run could have self-healed tests at all (e.g. `cy.prompt` was available). When that's not the case, the consumer sets `showSelfHealed: false` and the stat is hidden entirely. The component does not second-guess the flag based on count.
 
-`expanded` does **not** affect leading stats. Self-healed is never rendered with a zero count, regardless of `expanded`. This matches the source. If we ever need to render a zero self-healed stat, add a separate prop.
+`expanded` does **not** affect leading stats — it's a regular-stats-only knob. Flaky still only renders when its count is `> 0`; self-healed is governed entirely by `showSelfHealed`.
 
 ## Forwarding and extension points
 
@@ -208,5 +207,4 @@ Two conditions, both required:
 
 - Number formatting for large counts (`1,234`).
 - An `auto` theme that follows the parent's `dark` class (cross-repo concern, not specific to this component).
-- A standalone `FlakyChip` if multiple consumers need a flaky badge outside of a stats pill.
 - `RunStatus` size variants (compact vs. comfortable padding). Today the pill is a single fixed size.
