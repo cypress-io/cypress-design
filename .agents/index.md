@@ -25,6 +25,7 @@ Fetch on demand — don't preload all of them:
 
 `Accordion` `Alert` `Button` `Checkbox` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
 `DocMenu` — sidebar navigation used in documentation sites
+`Select` — single-select dropdown with Textbox trigger, optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
 `StatusIcon` — passed/failed/pending/skipped/running/flaky indicator
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions
