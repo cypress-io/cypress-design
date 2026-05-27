@@ -64,7 +64,7 @@ export default function assertions(
       cy.get('[data-cy="total-flaky"]').should('not.exist')
     })
 
-    it('renders self-healed when showSelfHealed and count > 0', () => {
+    it('renders self-healed with its count when showSelfHealed is true', () => {
       mountStory({
         passed: 10,
         failed: 0,
@@ -90,7 +90,7 @@ export default function assertions(
       cy.get('[data-cy="total-self-healed"]').should('not.exist')
     })
 
-    it('does not render self-healed when count is 0 even if showSelfHealed', () => {
+    it('renders self-healed with count 0 when showSelfHealed is true', () => {
       mountStory({
         passed: 10,
         failed: 0,
@@ -99,7 +99,9 @@ export default function assertions(
         selfHealed: 0,
         showSelfHealed: true,
       })
-      cy.get('[data-cy="total-self-healed"]').should('not.exist')
+      cy.get('[data-cy="total-self-healed"]')
+        .should('exist')
+        .and('contain', '0')
     })
   })
 
@@ -258,7 +260,7 @@ export default function assertions(
       cy.get('[data-cy="total-flaky"]').should('not.exist')
     })
 
-    it('treats selfHealed: null the same as selfHealed: 0', () => {
+    it('treats selfHealed: null the same as selfHealed: 0 (renders "0" when showSelfHealed)', () => {
       mountStory({
         passed: 10,
         failed: 0,
@@ -267,7 +269,9 @@ export default function assertions(
         selfHealed: null,
         showSelfHealed: true,
       })
-      cy.get('[data-cy="total-self-healed"]').should('not.exist')
+      cy.get('[data-cy="total-self-healed"]')
+        .should('exist')
+        .and('contain', '0')
     })
   })
 
