@@ -1,0 +1,14 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": [
+    "./Select.tsx",
+    "./SelectOptionList.tsx",
+    "./SelectOptionItem.tsx",
+    "./filter-items.ts",
+    "./index.ts"
+  ],
+  "compilerOptions": {
+    "sourceRoot": "./",
+    "outDir": "dist"
+  }
+}
