@@ -208,8 +208,9 @@ export default defineComponent({
 
       const separatorAfterKey = getSeparatorAfterKey(summaryProps)
       const showFlaky = statValue(props.flaky) > 0
-      const showSelfHealedStat =
-        props.showSelfHealed && statValue(props.selfHealed) > 0
+      // Self-healed renders whenever the flag is true; the count (0 included)
+      // is shown verbatim. See instructions.md / architecture.md for rationale.
+      const showSelfHealedStat = !!props.showSelfHealed
 
       const items: VNode[] = []
       if (showFlaky) {

@@ -178,7 +178,9 @@ export const RunStatus: React.FC<
 
   const separatorAfterKey = getSeparatorAfterKey(summaryProps)
   const showFlaky = statValue(flaky) > 0
-  const showSelfHealedStat = showSelfHealed && statValue(selfHealed) > 0
+  // Self-healed renders whenever the flag is true; the count (0 included) is
+  // shown verbatim. See instructions.md / architecture.md for rationale.
+  const showSelfHealedStat = !!showSelfHealed
 
   return (
     <div

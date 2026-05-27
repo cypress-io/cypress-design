@@ -127,8 +127,10 @@ export interface RunStatusProps {
   pending: number | null
   flaky?: number | null
 
-  // Self-healed (independent of flaky). Both `showSelfHealed` and a non-zero
-  // `selfHealed` count are required for it to render.
+  // Self-healed (independent of flaky). Rendered whenever `showSelfHealed`
+  // is true — the count (including 0, including `null` coerced to 0) is shown
+  // verbatim. Consumers set the flag based on whether the run could have
+  // self-healed tests at all (e.g. `cy.prompt` was available).
   selfHealed?: number | null
   showSelfHealed?: boolean
 
@@ -166,6 +168,9 @@ export function showRegularStat(
 // - else null (no separator at all)
 // Also returns null when there are no regular stats to follow — keep separators
 // from dangling at the end of the pill.
+//
+// Self-healed renders whenever `showSelfHealed` is true (regardless of count);
+// flaky renders only when its count > 0.
 export function getSeparatorAfterKey(
   props: Pick<
     RunStatusProps,
@@ -180,8 +185,7 @@ export function getSeparatorAfterKey(
   >,
 ): LeadingStatKey | null {
   const showFlaky = statValue(props.flaky) > 0
-  const showSelfHealed =
-    !!props.showSelfHealed && statValue(props.selfHealed) > 0
+  const showSelfHealed = !!props.showSelfHealed
   if (!showFlaky && !showSelfHealed) return null
 
   const expanded = !!props.expanded
@@ -212,7 +216,7 @@ export function hasAnyStat(
   const expanded = !!props.expanded
   return (
     statValue(props.flaky) > 0 ||
-    (!!props.showSelfHealed && statValue(props.selfHealed) > 0) ||
+    !!props.showSelfHealed ||
     showRegularStat(props.passed, expanded) ||
     showRegularStat(props.failed, expanded) ||
     showRegularStat(props.skipped, expanded) ||
