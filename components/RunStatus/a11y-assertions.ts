@@ -4,6 +4,18 @@ import type { RunStatusProps } from '@cypress-design/constants-runstatus'
 
 type MountFn = (props?: Partial<RunStatusProps>) => void
 
+// Inject a focusable sentinel <button> before the mounted pill so we can
+// keyboard-Tab INTO the component (rather than programmatically focusing the
+// first link, which doesn't exercise tab order or activate :focus-visible).
+function insertSentinel(): Cypress.Chainable {
+  return cy.document().then((doc) => {
+    const btn = doc.createElement('button')
+    btn.setAttribute('data-cy', 'sentinel-before-pill')
+    btn.textContent = 'sentinel'
+    doc.body.insertBefore(btn, doc.body.firstChild)
+  })
+}
+
 export default function a11yAssertions(mountStory: MountFn): void {
   // ---------------------------------------------------------------------------
   // Keyboard navigation
@@ -18,8 +30,12 @@ export default function a11yAssertions(mountStory: MountFn): void {
         pending: 1,
         links: { passed: '#passed', failed: '#failed' },
       })
-      // Tab into the component — first linked stat should receive focus
-      cy.get('[data-cy="link-passed"]').focus()
+      // Focus a sentinel before the pill, then Tab IN — verifies the first
+      // linked stat is actually in the tab order (a missing tabindex or a
+      // non-focusable wrapper would surface here).
+      insertSentinel()
+      cy.get('[data-cy="sentinel-before-pill"]').focus()
+      cy.realPress('Tab')
       cy.focused().should('have.attr', 'data-cy', 'link-passed')
 
       // Tab to the next linked stat
@@ -35,7 +51,7 @@ export default function a11yAssertions(mountStory: MountFn): void {
       )
     })
 
-    it('focus-visible ring is present on linked stats', () => {
+    it('focus-visible ring activates on keyboard focus of linked stats', () => {
       mountStory({
         passed: 22,
         failed: 0,
@@ -43,11 +59,24 @@ export default function a11yAssertions(mountStory: MountFn): void {
         pending: 0,
         links: { passed: '#passed' },
       })
-      cy.get('[data-cy="link-passed"]').focus()
-      cy.get('[data-cy="link-passed"]').should(
-        'have.class',
-        'focus-visible:outline',
-      )
+      // Programmatic .focus() does not trigger :focus-visible per the CSS
+      // spec — only keyboard / "sticky" focus does. So we Tab in from a
+      // sentinel and check the pseudo-class actually matches, plus that the
+      // resulting computed outline is visible (non-zero width and not "none").
+      insertSentinel()
+      cy.get('[data-cy="sentinel-before-pill"]').focus()
+      cy.realPress('Tab')
+      cy.get('[data-cy="link-passed"]').then(($el) => {
+        const el = $el[0]
+        expect(el.matches(':focus-visible'), ':focus-visible matches').to.be
+          .true
+        const styles = el.ownerDocument.defaultView!.getComputedStyle(el)
+        expect(styles.outlineStyle, 'outline-style').to.not.equal('none')
+        expect(
+          parseFloat(styles.outlineWidth),
+          'outline-width (px)',
+        ).to.be.greaterThan(0)
+      })
     })
   })
 
