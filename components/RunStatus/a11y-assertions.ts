@@ -7,8 +7,17 @@ type MountFn = (props?: Partial<RunStatusProps>) => void
 // Inject a focusable sentinel <button> before the mounted pill so we can
 // keyboard-Tab INTO the component (rather than programmatically focusing the
 // first link, which doesn't exercise tab order or activate :focus-visible).
+//
+// Cypress component-testing clears the mount root between tests but does NOT
+// clear arbitrary nodes appended to `document.body`. We must remove any
+// leftover sentinel from a prior `it` first, otherwise the second test in
+// the same describe ends up with two matching elements and Tab navigation
+// breaks.
 function insertSentinel(): Cypress.Chainable {
   return cy.document().then((doc) => {
+    doc
+      .querySelectorAll('[data-cy="sentinel-before-pill"]')
+      .forEach((n) => n.remove())
     const btn = doc.createElement('button')
     btn.setAttribute('data-cy', 'sentinel-before-pill')
     btn.textContent = 'sentinel'
@@ -60,16 +69,14 @@ export default function a11yAssertions(mountStory: MountFn): void {
         links: { passed: '#passed' },
       })
       // Tab in from a sentinel so we exercise real keyboard navigation
-      // (programmatic .focus() doesn't put the element in the tab order
-      // for the purposes of this test, and would mask a regression in
-      // focusability).
+      // (programmatic .focus() would mask a regression in focusability).
       insertSentinel()
       cy.get('[data-cy="sentinel-before-pill"]').focus()
       cy.realPress('Tab')
       // The link is actually reachable via keyboard…
       cy.focused().should('have.attr', 'data-cy', 'link-passed')
-      // …and the Tailwind focus-visible:* classes are wired up so the
-      // browser will paint the outline when :focus-visible activates.
+      // …and the link has the Tailwind focus-visible:* classes wired up so
+      // the browser will paint the outline when :focus-visible activates.
       //
       // We intentionally do NOT assert el.matches(':focus-visible') or read
       // computed outline styles here: Chrome's :focus-visible heuristic is
@@ -77,9 +84,10 @@ export default function a11yAssertions(mountStory: MountFn): void {
       // real key events from cypress-real-events), so a green/red signal on
       // those assertions doesn't track the real-world behaviour. The visual
       // ring is covered by Percy snapshots instead.
-      cy.focused().should('have.class', 'focus-visible:outline')
-      cy.focused().should('have.class', 'focus-visible:outline-2')
-      cy.focused().should('have.class', 'focus-visible:outline-indigo-500')
+      cy.get('[data-cy="link-passed"]')
+        .should('have.class', 'focus-visible:outline')
+        .and('have.class', 'focus-visible:outline-2')
+        .and('have.class', 'focus-visible:outline-indigo-500')
     })
   })
 
