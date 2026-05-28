@@ -87,7 +87,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
 
-For error messages, warnings, and other system-to-user messages, see [`../messages.md`](../messages.md) — the principles there (structure, tone, link conventions, no-blame, transient handling) apply whenever the product talks to the user about something that happened.
+For errors, warnings, and other system-to-user failure messages, see [`../errors.md`](../errors.md) — the principles there (structure, tone, link conventions, no-blame, transient handling) apply whenever the product talks to the user about something that happened.
 
 ## Feature naming & positioning
 

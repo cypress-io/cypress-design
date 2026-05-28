@@ -39,7 +39,7 @@ Several pillars lead with a `## Principles` section that governs the tokens and 
 - [iconography.md](./iconography.md) — creating or styling icons
 - [illustrations.md](./illustrations.md) — illustration principles, style, theme, and guidelines
 - [voice.md](./voice.md) — UI copy, errors, empty states
-- [messages.md](./messages.md) — system-to-user messages (errors, warnings, deprecations); distilled from Jennifer's cypress-error-messages skill in aihub
+- [errors.md](./errors.md) — errors, warnings, deprecations, and other system-to-user failure messages; distilled from Jennifer's cypress-error-messages skill in aihub
 - [personas.md](./personas.md) — who uses Cypress and what they need
 - [accessibility.md](./accessibility.md) — when to invest in a11y and the patterns to follow on the surfaces you ship
 

@@ -1,11 +1,11 @@
 ---
-name: messages
-description: Principles and patterns for system-to-user messages — errors, warnings, deprecations, info banners. Fetch when writing or reviewing a message that the product, app, CLI, or Cloud surfaces to the user. For the full message-writing workflow and worked examples, fetch the `cypress-error-messages` skill in `cypress-io/aihub`.
+name: errors
+description: Principles and patterns for errors, warnings, deprecations, and other system-to-user messages where the product needs to tell the user something happened. Fetch when writing or reviewing an error message, a warning, a deprecation notice, or any failure-state communication in the product, app, CLI, or Cloud. For the full writing workflow and worked examples, fetch the `cypress-error-messages` skill in `cypress-io/aihub`.
 ---
 
-# Messages
+# Errors and Warnings
 
-System-to-user messages — errors, warnings, deprecations, info banners — wherever the product talks to the user when something happened or needs their attention.
+Errors, warnings, deprecations, and other system-to-user messages — wherever the product talks to the user when something happened, failed, or needs their attention.
 
 > The content here is distilled from Jennifer Shehane's [`cypress-error-messages` skill](https://github.com/cypress-io/aihub/tree/main/skills/cypress-error-messages) in `cypress-io/aihub`. For the full pre-write checklist, the complete message structure, and the worked examples (security warning, usage cap, rate limit, CLI flag error, etc.), fetch the skill directly — this pillar gives the design-system shape of the rules; the skill is the authoritative workflow.
 
