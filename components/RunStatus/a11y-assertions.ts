@@ -82,8 +82,7 @@ export default function a11yAssertions(mountStory: MountFn): void {
       // computed outline styles here: Chrome's :focus-visible heuristic is
       // unreliable inside Cypress's test iframe (even with CDP-dispatched
       // real key events from cypress-real-events), so a green/red signal on
-      // those assertions doesn't track the real-world behaviour. The visual
-      // ring is covered by Percy snapshots instead.
+      // those assertions doesn't track the real-world behaviour.
       cy.get('[data-cy="link-passed"]')
         .should('have.class', 'focus-visible:outline')
         .and('have.class', 'focus-visible:outline-2')
