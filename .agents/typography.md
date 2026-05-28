@@ -5,6 +5,15 @@ description: Fetch when setting font family, size, weight, line-height, or lette
 
 # Typography
 
+## Principles
+
+- **Stick to the defined type scale.** Arbitrary font sizes scattered across surfaces signal a system nobody owns. Adding a new size is a sign the scale needs review, not a one-off exception.
+- **Hierarchy comes from size, weight, and space — not decoration.** Underlines, italics, all-caps, and color swaps for emphasis muddy hierarchy. Build it with restrained scale moves and generous spacing around the elements that matter most.
+- **Line length and line height matter as much as size.** Keep body measure (line length) in the 45–75 character range; pair font size with proportional line height (1.4–1.6 for body). Type is a system, not a single dial.
+- **Body text has a job; display text has a different job.** Body is for reading at length — optimize for readability and rhythm. Display is for catching attention — optimize for impact. Don't confuse the two.
+
+For the broader thinking on how typography fits into visual hierarchy, see [principles/visual-hierarchy.md](./principles/visual-hierarchy.md).
+
 ## Font families
 
 Brand-heavy properties (marketing, docs, public-facing sites) use Google Fonts to ensure a consistent experience across all devices.

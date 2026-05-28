@@ -7,7 +7,15 @@ description: Router for Cypress Design System agent guidance. Fetch this first; 
 
 Fetch only what the task needs. Don't preload all files.
 
+## Principles
+
+Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
+
+- [principles/index.md](./principles/index.md) — router for the full set (AI, UX, business + user needs, visual hierarchy, illustration, design systems, feedback, accessibility)
+
 ## Design pillars
+
+Each pillar leads with the principles that govern it, then the specific tokens and rules.
 
 - [colors.md](./colors.md) — color tokens, contrast, pairings
 - [typography.md](./typography.md) — font, size, weight, line-height
