@@ -19,6 +19,8 @@ description: UX as where business goals meet user needs. Fetch when starting new
 
 **If you cut a release into smaller pieces, be honest about why — and what's still in it.** Teams slice features into smaller releases for good reasons (speed, learning, derisking), but the cuts can strip the actual value out. Evaluating customer feedback on a release that the team already knows is gutted produces misleading signal. Either ship enough value to measure something real, or be explicit that this release isn't the one to judge.
 
+**Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
+
 ## Related
 
 - [ux.md](./ux.md) — General UX and product principles
