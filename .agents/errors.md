@@ -25,11 +25,11 @@ Errors, warnings, deprecations, and other system-to-user messages — wherever t
 
 ## Voice + accessibility
 
-Tone rules in [voice.md](./voice.md) apply — but messages are stricter:
+[voice.md](./voice.md) owns the general tone rules — fetch it first. Errors and warnings add stricter overrides on top:
 
-- Plain language. Active voice. Short sentences. Concrete, specific verbs over vague ones ("an issue occurred" is not acceptable).
-- No wit. No personality.
-- Meaning never depends on color, icons, or formatting alone. A red banner without text is not a message — it's decoration.
+- No wit. No personality. This is a CI failure at 11pm, not an onboarding tour.
+- Concrete, specific verbs over vague ones. "An issue occurred" is not acceptable; "Cypress couldn't reach the dashboard" is.
+- Meaning never depends on color, icons, or formatting alone. A red banner without text is decoration, not a message.
 - Link text is descriptive. Never "click here" or "learn more" standalone — the link text itself describes the destination.
 
 ## Links
