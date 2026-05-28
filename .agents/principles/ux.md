@@ -83,6 +83,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 ## Empty, loading, and error states
 
+**Never give people a dead end. They should always know how to proceed.** Any state a user can land in — empty, error, partial, end-of-flow, no-results — needs a clear path forward. "No items found" without a try-this-instead, "request failed" without a recovery action, "you're done" without a next step are all dead ends, even when they're technically accurate. Anticipating every state the user can reach, and designing how they exit it, is a UX baseline — not a polish item.
+
 **Every component has empty, loading, error, partial, and complete states. Design them deliberately.** States aren't edge cases; they're 80% of what users actually see. Skipping them means shipping a component that breaks the moment production conditions diverge from the happy path. Treat the full state set as part of the design, not a follow-up ticket.
 
 **Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
