@@ -23,12 +23,6 @@ When and how to invest in accessibility, plus the patterns that come up most oft
 
 **Don't trap users in inaccessible flows.** Modals, dropdowns, carousels, and custom inputs are where accessibility most often breaks. Test them with a keyboard and a screen reader before shipping — not after a customer files a ticket.
 
-**Hit targets need real size.** Tiny buttons and icon-only controls fail users with motor impairments, users on touch screens, and users in any non-ideal context. 44×44px is the practical minimum for primary interactions — use `h-11 w-11` (Tailwind) or the equivalent spacing token, not raw pixel values.
-
-**Don't rely on motion or hover to teach.** Animations that introduce critical information, or affordances that only appear on hover, exclude users on touch devices, with motion sensitivity, or using assistive tech. Make the core information visible by default.
-
-**Test with real assistive tech, not just automated tools.** Automated accessibility checks catch a fraction of real issues. A 5-minute pass with a screen reader and keyboard catches the ones that matter most to actual users.
-
 ## Related
 
 - [colors.md](./colors.md) — Contrast tokens

@@ -10,7 +10,6 @@ description: Fetch when choosing colors, picking tokens for backgrounds/text/bor
 - **Color has meaning. Don't waste it.** Decorative color (random tag colors, accent colors with no semantic load) implies a signal that isn't there. Reserve color for meaning; use neutrals where meaning isn't required.
 - **Use semantic tokens, not raw hex values.** Tokens carry intent; hex carries only appearance and breaks the moment the palette evolves.
 - **Color alone can't carry meaning.** Pair color with shape, icon, label, or position — colorblind users, dimmed screens, and bright sunlight all defeat color-only signals.
-- **Light/dark parity is non-negotiable.** A token that works in light mode but breaks contrast or hierarchy in dark isn't done. Design and test both modes together.
 
 For the broader thinking on how color fits into visual hierarchy, see [principles/visual-hierarchy.md](./principles/visual-hierarchy.md).
 

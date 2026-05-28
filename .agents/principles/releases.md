@@ -1,6 +1,6 @@
 ---
 name: releases
-description: Principles for shipping releases, betas, previews, feature flags, canary rollouts, hotfixes, deprecations, and multi-quarter phasing. Fetch when planning a release, scoping a beta, designing rollback triggers, sunsetting a feature, or phasing a long-running initiative.
+description: Principles for shipping releases, betas, previews, feature flags, and deprecations. Fetch when planning a release, scoping a beta, managing feature flags, or sunsetting a feature.
 ---
 
 # Releases, Betas, and Previews
@@ -21,25 +21,9 @@ description: Principles for shipping releases, betas, previews, feature flags, c
 
 **Cleanup is part of the work, not "later."** Old flags accumulate as technical debt and obscure what the codebase actually does. Treat flag removal as a first-class task in the same sprint as the launch, not a back-of-backlog item.
 
-## Canary and phased rollouts
-
-**Pick the canary sample deliberately — random isn't enough.** Roll out to customers whose usage patterns will actually reveal the failures you care about. A random 5% might miss the high-volume customer whose workload exercises the new code path; a chosen 5% won't.
-
-**Define rollback triggers before you ship, not when something breaks.** "We'll just watch the logs" isn't a rollback plan; it's a hope. Name the specific metric, the specific threshold, and the specific action — and write them down before the rollout starts. The team that has rollback criteria pre-agreed actually pulls the trigger; the team that doesn't argues about it for an hour while customers churn.
-
-**Fast rollback enables confident shipping.** A team that can roll back in minutes ships more aggressively than one that can't. Treat rollback as a capability to invest in — feature flags, blue-green, instant DNS swaps, whatever the stack needs — not as an admission of failure.
-
-## Hotfixes
-
-**A hotfix is a triage decision, not a release path.** Hotfixes exist to recover from production failures that can't wait for the next cycle. If hotfixes become routine, the actual problem is upstream — in scope, testing, code review, or release cadence. Fix the upstream cause, don't normalize the workaround.
-
 ## Deprecation
 
 **"Sunsetting in 30 days" is a rug pull, not a deprecation.** Give customers real lead time, an in-product migration path, and a clear date communicated _in the product itself_ — not just in release notes nobody reads. Deprecation done well preserves trust; deprecation done in a hurry destroys it.
-
-## Multi-quarter phasing
-
-**Every quarter must deliver standalone value.** If a feature spans Q1–Q4, you can't promise full functionality at the end of Q4 — every customer needs a reason to care after Q1, Q2, and Q3 too. Slice the work so each quarter ships something usable, not just a chunk of an unfinished system. Customers who see "coming soon" for a year stop trusting any roadmap claim.
 
 ## Related
 
