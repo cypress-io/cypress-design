@@ -20,7 +20,7 @@ Structured design and product review against the Cypress design principles, voic
 
 2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review — fetch `https://design.cypress.io/agents/principles/business-and-user-needs.md`.
 
-3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/principles/ai.md` (any AI-generated work), `https://design.cypress.io/agents/principles/illustration.md` (illustrations), `https://design.cypress.io/agents/principles/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/principles/design-systems.md` (new components or patterns).
+3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/principles/ai.md` (any AI-generated work), `https://design.cypress.io/agents/illustrations.md` (illustrations — principles and Cypress Heroes house style), `https://design.cypress.io/agents/principles/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/principles/design-systems.md` (new components or patterns).
 
 4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
 

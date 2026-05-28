@@ -15,7 +15,6 @@ Foundational thinking that frames how we make design and product decisions. Fetc
 - [principles/ux.md](./principles/ux.md) — UX and product design fundamentals
 - [principles/business-and-user-needs.md](./principles/business-and-user-needs.md) — UX where business goals meet user needs
 - [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
-- [principles/illustration.md](./principles/illustration.md) — illustration craft and house style
 - [principles/design-systems.md](./principles/design-systems.md) — meta-principles about design systems
 - [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
 - [principles/accessibility.md](./principles/accessibility.md) — accessibility as a baseline
@@ -28,6 +27,7 @@ Each pillar leads with the principles that govern it, then the specific tokens a
 - [typography.md](./typography.md) — font, size, weight, line-height
 - [spacing.md](./spacing.md) — margins, padding, gaps, layout dimensions
 - [iconography.md](./iconography.md) — creating or styling icons
+- [illustrations.md](./illustrations.md) — illustration principles and Cypress Heroes house style
 - [voice.md](./voice.md) — UI copy, errors, empty states
 - [personas.md](./personas.md) — who uses Cypress and what they need
 

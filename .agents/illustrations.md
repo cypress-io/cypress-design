@@ -1,9 +1,13 @@
 ---
-name: illustration
-description: Principles for illustration craft and house style. Fetch when generating or reviewing illustrations, deciding on a visual style, or briefing illustration work to AI or designers.
+name: illustrations
+description: Principles and house style for Cypress illustration work. Fetch when generating or reviewing illustrations, deciding on a visual style, or briefing illustration work to AI or designers.
 ---
 
-# Illustration Principles
+# Illustrations
+
+Principles and the Cypress Heroes house style — everything an agent or designer needs to brief, generate, or evaluate Cypress illustration work.
+
+## Principles
 
 **Establish a visual language and prompt against it relentlessly.** A house style works because every constraint is encoded — palette, edges, contrast, framing, lighting, subject matter, and what to never do. Without the constraints written down, every generation drifts.
 
@@ -145,6 +149,8 @@ The result should feel intentional, analytical, grounded, and clearly part of th
 
 ## Related
 
-- [../iconography.md](../iconography.md) — Icon-specific rules
-- [ai.md](./ai.md) — Using AI for generation
-- [design-systems.md](./design-systems.md) — How illustration fits into the broader system
+- [iconography.md](./iconography.md) — Icon-specific rules
+- [colors.md](./colors.md) — Exact color tokens referenced in the palette
+- [principles/ai.md](./principles/ai.md) — Using AI for generation
+- [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — How illustration supports content hierarchy
+- [principles/design-systems.md](./principles/design-systems.md) — How illustration fits into the broader system
