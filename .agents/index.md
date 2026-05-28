@@ -11,7 +11,14 @@ Fetch only what the task needs. Don't preload all files.
 
 Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
 
-- [principles/index.md](./principles/index.md) — router for the full set (AI, UX, business + user needs, visual hierarchy, illustration, design systems, feedback, accessibility)
+- [principles/ai.md](./principles/ai.md) — using AI to build, design, write, or review
+- [principles/ux.md](./principles/ux.md) — UX and product design fundamentals
+- [principles/business-and-user-needs.md](./principles/business-and-user-needs.md) — UX where business goals meet user needs
+- [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
+- [principles/illustration.md](./principles/illustration.md) — illustration craft and house style
+- [principles/design-systems.md](./principles/design-systems.md) — meta-principles about design systems
+- [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
+- [principles/accessibility.md](./principles/accessibility.md) — accessibility as a baseline
 
 ## Design pillars
 
