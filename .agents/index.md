@@ -7,6 +7,14 @@ description: Router for Cypress Design System agent guidance. Fetch this first; 
 
 Fetch only what the task needs. Don't preload all files.
 
+## Framing — why this matters
+
+The design system is what unblocks everyone else. Mature design systems exist because they make the rest of the company faster — they warrant dedicated team investment for the same reason any other platform investment does: leverage. Treat them as a force multiplier, not a side project. A few non-negotiables shape how this one is structured:
+
+- **One design system spans every surface — product and marketing.** Splitting the system creates inconsistency that customers feel even if they can't name it. The goal from day one is a single system that feeds both the product and the marketing site.
+- **A design system is more than components.** Tokens, color, spacing, typography, icons, motion, content patterns, and usage guidelines all count. Without that breadth and without documentation, contributions stay nice-to-haves instead of must-haves.
+- **Build inside the real framework, not a microsite.** New surfaces should live inside the main app or marketing framework so branding stays automatic and code stays maintainable. Microsites are easy to launch but burden everyone who has to maintain them later — and they're often a way to skip consensus and avoid the hard work of integrating into the real system. Shipping the easiest possible solution and calling it production-ready is an illusion of progress, not progress.
+
 ## Principles
 
 Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
@@ -15,9 +23,7 @@ Foundational thinking that frames how we make design and product decisions. Fetc
 - [principles/ux.md](./principles/ux.md) — UX and product design fundamentals
 - [principles/business-and-user-needs.md](./principles/business-and-user-needs.md) — UX where business goals meet user needs
 - [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
-- [principles/design-systems.md](./principles/design-systems.md) — meta-principles about design systems
 - [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
-- [principles/accessibility.md](./principles/accessibility.md) — accessibility as a baseline
 
 ## Design pillars
 
@@ -27,9 +33,10 @@ Each pillar leads with the principles that govern it, then the specific tokens a
 - [typography.md](./typography.md) — font, size, weight, line-height
 - [spacing.md](./spacing.md) — margins, padding, gaps, layout dimensions
 - [iconography.md](./iconography.md) — creating or styling icons
-- [illustrations.md](./illustrations.md) — illustration principles and Cypress Heroes house style
+- [illustrations.md](./illustrations.md) — illustration principles and Cypress house style
 - [voice.md](./voice.md) — UI copy, errors, empty states
 - [personas.md](./personas.md) — who uses Cypress and what they need
+- [accessibility.md](./accessibility.md) — when to invest in a11y and the patterns to follow on the surfaces you ship
 
 ## Components
 

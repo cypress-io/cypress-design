@@ -19,8 +19,6 @@ description: Principles for reviewing other people's work and giving design / pr
 
 **Time-box design, but don't pretend it's instant.** Things always take longer once you're inside them. Over-committing on timelines punishes the work and produces worse outcomes; honest estimates protect quality.
 
-**Design is a process — protect it.** Good design needs time to produce good results. AI doesn't shortcut that; it just changes which parts of the process get faster. Treat the time required as a real constraint, not a soft one.
-
 ## Related
 
 - [../review-checklist.md](../review-checklist.md) — Mechanical checks before shipping

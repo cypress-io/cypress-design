@@ -1,11 +1,19 @@
 ---
 name: accessibility
-description: Accessibility principles beyond the mechanical review-checklist items. Fetch when designing interactive elements, modals, custom inputs, animations, or evaluating whether a flow works for users on keyboard / assistive tech.
+description: Accessibility principles and considerations. Fetch when designing interactive elements, modals, custom inputs, animations, or evaluating whether a flow works for users on keyboard / assistive tech.
 ---
 
-# Accessibility Principles
+# Accessibility
 
-**Accessibility is a baseline, not a feature.** WCAG AA is the floor for any user-facing surface — not a checklist to game, not a "phase 2" item, not a nice-to-have. If a surface doesn't meet the baseline, it's not done.
+When and how to invest in accessibility, plus the patterns that come up most often. The mechanical checks live in [review-checklist.md](./review-checklist.md).
+
+## When to invest
+
+**Accessibility investment scales with audience, stage, and risk — not a fixed floor.** An accessible product can still be hard to use; a usable product can ship without full coverage if product-market fit isn't proven yet. Match investment to the situation: who the audience is, what stage the product is at, how many users it serves, the speed/feedback trade-off, and how much regulatory or contractual exposure exists. Early-stage features may earn the right to ship without full coverage; mature, broadly-used surfaces don't. The question isn't "is this accessible" — it's "is the accessibility right for what this is and who it serves."
+
+**Mobile-first and accessibility tend to scale together.** Both are signals you've moved past "prove it works" into "make it work for everyone." Plan them as the same decision: when the product earns a wider audience, both come up.
+
+## Patterns for the surfaces you do ship
 
 **Focus states must be visible.** Keyboard users need to know where they are at all times. Removing focus outlines for visual cleanliness is one of the most common and most user-hostile patterns in modern UI. If the default outline is ugly, design a better one — don't delete it.
 
@@ -23,5 +31,5 @@ description: Accessibility principles beyond the mechanical review-checklist ite
 
 ## Related
 
-- [../colors.md](../colors.md) — Contrast tokens
-- [../review-checklist.md](../review-checklist.md) — Mechanical a11y checks before shipping
+- [colors.md](./colors.md) — Contrast tokens
+- [review-checklist.md](./review-checklist.md) — Mechanical a11y checks before shipping

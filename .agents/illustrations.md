@@ -63,19 +63,21 @@ An editorial watercolor language. Atmospheric, landscape-inspired, restrained �
 - Background must clearly contrast the subject's value range: dark subject → luminous background; light subject → deeper background.
 - Silhouette clarity around the subject is mandatory.
 
-### Palette (exact hex)
+### Palette (Cypress brand tokens)
+
+Always map to the design-system tokens, not raw hex. Full token set hosted at `https://design.cypress.io/colors.css` and documented in [colors.md](./colors.md).
 
 Base / background:
 
-- `#1B1E2E` or `#101118` (dominant)
+- `--cy-gray-1000` (`#1B1E2E`) — dominant. For darker page contexts you may see `#101118` in use; that's an off-token historical background — prefer `--cy-gray-1000` for new work.
 
 Accent colors, used unevenly and restrained:
 
-- **Jade** — `#69D3A7`, `#1FA971` — primary energy / clarity / action
-- **Purple** — `#C8A7F5`, `#A06CE4` — depth, insight
-- **Indigo** — `#9AA2FC`, `#6470F3` — structure, depth, shadow
-- **Teal** — `#4BBFD2`, `#0097A8` — minimal, reflective
-- **Orange** — `#EDBB4A`, `#DB7903` — extremely restrained micro-accents only
+- **Jade** — `--cy-jade-300` (`#69D3A7`), `--cy-jade-400` (`#1FA971`) — primary energy / clarity / action
+- **Purple** — `--cy-purple-300` (`#C8A7F5`), `--cy-purple-400` (`#A06CE4`) — depth, insight
+- **Indigo** — `--cy-indigo-300` (`#9AA2FC`), `--cy-indigo-400` (`#6470F3`) — structure, depth, shadow
+- **Teal** — `--cy-teal-300` (`#4BBFD2`), `--cy-teal-400` (`#0097A8`) — minimal, reflective
+- **Orange** — `--cy-orange-300` (`#EDBB4A`), `--cy-orange-400` (`#DB7903`) — extremely restrained micro-accents only
 
 Palette rules:
 
@@ -151,4 +153,4 @@ The result should feel intentional, atmospheric, restrained, and softly tied to 
 - [colors.md](./colors.md) — Exact color tokens referenced in the palette
 - [principles/ai.md](./principles/ai.md) — Using AI for generation
 - [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — How illustration supports content hierarchy
-- [principles/design-systems.md](./principles/design-systems.md) — How illustration fits into the broader system
+- [index.md](./index.md) — Framing for why the design system matters and how illustration fits

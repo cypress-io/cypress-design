@@ -7,6 +7,8 @@ description: Principles for using AI tools to build, design, write, or review Cy
 
 ## Quality, review, and debt
 
+**Design is a process — protect it.** Good design needs time to produce good results. AI doesn't shortcut that; it just changes which parts of the process get faster. Treat the time the process requires as a real constraint, not a soft one. This sits at the top because it frames everything below it.
+
 **AI is a build accelerator, not a designer.** It can produce something that looks on-brand and feels passable, but "passable" isn't the bar. The right question is always whether the JTBD is solved and the UX is actually right — and only a human reviewer with taste can answer that.
 
 **You still have to know what good looks like — across every craft AI touches.** If you can't write code, you can't judge whether AI's code is tested, scalable, or DRY. Same for design, copy, illustration, strategy. Without an expert reviewer, AI just produces faster mediocrity, and the iteration cost of bending output into the right shape eats the speed gain.
