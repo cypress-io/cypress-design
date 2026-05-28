@@ -23,6 +23,7 @@ Foundational thinking that frames how we make design and product decisions. Fetc
 - [principles/ux.md](./principles/ux.md) — UX, product design, and business-goal principles (where business goals meet user needs, JTBD, restraint, pricing)
 - [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
 - [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
+- [principles/releases.md](./principles/releases.md) — shipping releases, betas, and previews; naming stages; managing feedback quality
 
 ## Design pillars
 
