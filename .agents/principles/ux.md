@@ -23,13 +23,19 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
 
+**PMs own the "why." Designers own the "what."** PMs are responsible for the JTBD — which jobs the product serves, and which it deliberately doesn't. Designers turn the why into the right UX hierarchy. When the why arrives after the what, everything downstream is wrong: you end up justifying a solution instead of solving a problem.
+
 ## Designing for users
 
 **Start with jobs to be done, not the screen.** If the JTBD isn't clear, the UX won't be either — no matter how nice the pixels look. Intuitive design follows from clarity about the underlying job; it doesn't precede it.
 
 **Respect the primary job. Don't optimize for secondary ones.** Every secondary job you try to support competes with the main one for attention and visual real estate. A clean UI that nails the primary task beats a busy UI that tries to support every edge case.
 
+**New features are sub-jobs of existing ones — don't let the feature become the job.** Most "new features" map back to a job the product already serves. Find the parent job first, then design the new capability as a sub-job under it. Designing a feature as if it's a new job creates a UI that competes with the rest of the product instead of extending it.
+
 **Don't solve UX problems by throwing more UI and text at them.** When users keep tripping, the instinct is to add a tooltip, banner, empty state, or guide. That's a bandaid. The real fix is to eliminate the root cause in the interaction itself. Bandaids accumulate; intuitive design compounds.
+
+**Ship the simplest version first. Complexity is earned by real user confusion, not anticipated edge cases.** Adding more UI to anticipate confusion you haven't seen yet usually creates the confusion. Start minimal, watch what trips users up, and only add when the confusion is real.
 
 **Reduce surfaces to a small set of recognizable patterns.** UX is pattern recognition. When two adjacent surfaces behave by different rules, users have to relearn each one. Pick the smallest workable set of patterns and apply them consistently across the product.
 
@@ -38,6 +44,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 **Consistency in language is non-negotiable.** Brevity matters, but consistency matters more. Different words for the same concept across different surfaces erodes user trust and slows comprehension.
 
 **Don't over-optimize for consistency either.** Forcing every surface into the same pattern can introduce its own UX problem. Consistency is a default, not a religion — break it deliberately when the job demands it.
+
+**Progressive disclosure means not asking.** Every extra form field, setting, or toggle is a question you haven't justified yet. Default to the bare minimum the user needs to make progress; surface the rest only when the task requires it. Asking for things "in case we need them later" is a tax on every user who never needs them.
 
 **Build against the outcome, not the literal request.** Customers don't know your product, your team, or what you can build. They ask for features in their own words — usually solutions they've already half-stitched-together in their head. That's a signal, not a spec. The most useful question is six words: _"what outcome are you looking for?"_ It surfaces the why behind the why and gives them room to keep working it out as they say it. Half the time the asked-for feature is one of many possible solutions, and often not the best one. The job is helping find the right ask, not answering the wrong one.
 
@@ -63,6 +71,28 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Tense matters in UI labels.** Past tense ("self-healed") describes something that already happened. Present-progressive ("self-healing") implies an ongoing state or a filter. These describe different jobs — pick deliberately.
 
+**Name the exact scope of every action.** Labels like "everything" or "all" without scope are misleading — users can't tell whether the action affects the current view, the entire account, or something in between. Spell out exactly what the action will touch ("Run all specs again" not "Run everything again"). Ambiguity at a button is a support ticket waiting to happen.
+
+**Build for the people who buy it, not just the people who trigger it.** A lot of features are designed for the user who hits the feature day-to-day — but the person who decides to pay for it is often someone else (an EM, a director, a CTO). Design for both: the day-to-day user has to be able to use it, but the surface area, reporting, and visibility have to give the buyer reasons to keep the line item.
+
+## Onboarding & empty states
+
+**Capture user intent upfront — and eliminate the dead ends it reveals.** Asking "what are you here to do?" early is valuable only if you actually route each answer to a working path. Surfacing intent without removing the dead ends just diagnoses the broken thing without fixing it.
+
+**Onboarding copy leads with value, not product actions.** "Manage your test runs" is not a value proposition — it's a task description. Flip every onboarding line to lead with what the user gains (faster debugging, replayable failures, clearer signal across CI), not what they do.
+
+**Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
+
+## Feature naming & positioning
+
+**Naming collisions with existing features create UX debt instantly.** If a new feature reuses a term that already means something else in the product (or in adjacent products customers know), customers will conflate the two. Rename before you ship — migrations after launch are far more expensive than getting the name right up front.
+
+**Feature names communicate value, not mechanics.** "Optimization" tells the user what they get. "Rerun strategy" describes what the feature does internally. Pick the name that signals the outcome — mechanics belong in the docs, not the label.
+
+**Design picks naming candidates. GTM validates.** Designers know the product surface and the user vocabulary; GTM knows how the name will land in trial calls, ads, and sales conversations. Don't finalize a feature name without that loop.
+
+**Feature placement is a statement of belief.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention. If the feature is real, give it real placement. If it doesn't deserve real placement, question why you're shipping it at all.
+
 ## Pricing
 
 **Don't gate features that should be free.** Detection should be free; analytics and history are worth paying for. Pricing should follow real value, not the desire to use a feature as a paywall hook. Gating obvious value drives churn faster than it drives revenue.
@@ -70,6 +100,14 @@ description: UX, product design, and business-goal principles. Fetch when design
 **Defensive pricing solutions can be the right call.** Keeping customers at a lower price point beats losing them entirely to a competitor. Pricing isn't only about maximizing each account — sometimes the math of retention beats the math of upsell.
 
 **Signal future monetization at first exposure — not after adoption.** If a feature will eventually be paid, restricted to a higher tier, or moved behind an enterprise plan, position it that way from day one — "preview of an enterprise capability," "free during preview, paid in the future," or similar. Letting customers anchor on it as a standard included setting and then changing the model later creates product debt and a rug-pull conversation. The moment to set the expectation is on first exposure, when customers form their mental model — not a year in, when changing it means explaining why we're now charging for something they've used freely.
+
+**Sell the risk people are protecting against, not the feature.** People invest in testing because they have a business to protect — outages, regressions, brand damage. Lead with that. CI minutes and run times are useful supporting evidence, never the headline. Insurance and security companies sell risk for a reason.
+
+**Show people exactly how much they're leaving on the table.** Concrete, personalized savings metrics ("upgrading to Business saves you 12 hours of CI per week") are the only upgrade prompt that actually works. Generic "upgrade for more features" doesn't compete with that.
+
+**A CTA that doesn't complete its implied promise is misleading.** If "Get Started" on a paid plan actually puts users on the free plan, the button is lying. Match the CTA to the real flow — "Request a Demo" for paths that need sales, "Start Free" for self-serve trials, etc. The user shouldn't have to guess what will happen.
+
+**Don't name a tool for what it doesn't deliver.** An "ROI Calculator" that only shows return without the investment isn't an ROI calculator — it's a savings estimate dressed up. Either deliver both sides of the equation or name the tool accurately for what it actually does.
 
 ## Related
 
