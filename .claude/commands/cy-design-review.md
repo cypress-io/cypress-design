@@ -18,7 +18,7 @@ Structured design and product review against the Cypress design principles, voic
 
 1. **Identify the surface and the job.** What is this — page, component, copy, illustration, AI-generated output? Who is the user (fetch `https://design.cypress.io/agents/personas.md`) and what's the JTBD? If you can't answer this, stop and ask the requester.
 
-2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review — fetch `https://design.cypress.io/agents/principles/business-and-user-needs.md`.
+2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review — fetch `https://design.cypress.io/agents/principles/ux.md` and apply its "Business goals + user needs" section.
 
 3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`, `https://design.cypress.io/agents/principles/feedback.md` (delivery rules for any review). As applicable: `https://design.cypress.io/agents/principles/ai.md` (any AI-generated work), `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/index.md` (framing principles, including design-system meta-principles, sit at the top of the index).
 

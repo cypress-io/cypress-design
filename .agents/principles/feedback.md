@@ -22,5 +22,5 @@ description: Principles for reviewing other people's work and giving design / pr
 ## Related
 
 - [../review-checklist.md](../review-checklist.md) — Mechanical checks before shipping
-- [business-and-user-needs.md](./business-and-user-needs.md) — Pushback rooted in goals and outcomes
+- [ux.md](./ux.md) — Pushback rooted in goals and outcomes (see "Business goals + user needs" section)
 - [../voice.md](../voice.md) — Voice rules apply to feedback too

@@ -48,6 +48,6 @@ description: Principles for using AI tools to build, design, write, or review Cy
 ## Related
 
 - [ux.md](./ux.md) — JTBD and how it gates AI work
-- [business-and-user-needs.md](./business-and-user-needs.md) — Defining success before designing
+- [ux.md](./ux.md) — Defining success and business goals before designing (see "Business goals + user needs" section)
 - [../voice.md](../voice.md) — Voice rules for all AI-generated copy
 - [../review-checklist.md](../review-checklist.md) — Mechanical gate before shipping

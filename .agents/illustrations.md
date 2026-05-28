@@ -1,17 +1,17 @@
 ---
 name: illustrations
-description: Principles and house style for Cypress illustration work. Fetch when generating or reviewing illustrations, deciding on a visual style, or briefing illustration work to AI or designers.
+description: Principles, style, theme, and guidelines for Cypress illustration work. Fetch when generating or reviewing illustrations, deciding on a visual approach, or briefing illustration work to AI or designers.
 ---
 
 # Illustrations
 
-Principles and house style for any Cypress illustration — marketing backgrounds, blog assets, product imagery, AI-generated work. The goal is an editorial watercolor language with a soft connection to the Cypress brand, not a heavy thematic universe. Landscape-inspired in feel, never literal scenery.
+Principles, style, theme, and guidelines for any Cypress illustration — marketing backgrounds, blog assets, product imagery, AI-generated work. The goal is an editorial watercolor language with a soft connection to the Cypress brand, not a heavy thematic universe. Landscape-inspired in feel, never literal scenery.
 
 ## Principles
 
-**Establish a visual language and prompt against it relentlessly.** A house style works because every constraint is encoded — palette, edges, contrast, framing, lighting, subject matter, and what to never do. Without the constraints written down, every generation drifts.
+**Establish a visual language and prompt against it relentlessly.** A documented style works because every constraint is encoded — palette, edges, contrast, framing, lighting, subject matter, and what to never do. Without the constraints written down, every generation drifts.
 
-**Pick the right model for the style.** Different generative tools have different strengths. Don't assume one wins everywhere — compare outputs against the actual house style before committing.
+**Pick the right model for the style.** Different generative tools have different strengths. Don't assume one wins everywhere — compare outputs against the documented style before committing.
 
 **Reuse a recognizable style across surfaces.** Marketing pages, blog assets, product illustrations, and editorial backgrounds sharing one visual language compounds brand equity. Style sprawl dilutes it.
 
@@ -135,7 +135,7 @@ Never include:
 ### Recommended model
 
 - Nano Banana Pro currently produces the best results for this style.
-- Compare any new model's output against the house style before committing.
+- Compare any new model's output against the documented style and guidelines before committing.
 
 ### Calibration — when to adjust
 
