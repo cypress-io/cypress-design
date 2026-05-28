@@ -9,7 +9,7 @@ Fetch only what the task needs. Don't preload all files.
 
 ## Framing — why this matters
 
-The design system is what unblocks everyone else. Mature design systems exist because they make the rest of the company faster — they warrant dedicated team investment for the same reason any other platform investment does: leverage. Treat them as a force multiplier, not a side project. A few non-negotiables shape how this one is structured:
+The design system is what unblocks everyone else. Mature design systems exist because they make the rest of the company faster, and they warrant dedicated team investment for the same reason any other platform investment does — one team building it makes every other team move faster. Treat the design system as a force multiplier, not a side project. A few non-negotiables shape how this one is structured:
 
 - **One design system spans every surface — product and marketing.** Splitting the system creates inconsistency that customers feel even if they can't name it. The goal from day one is a single system that feeds both the product and the marketing site.
 - **A design system is more than components.** Tokens, color, spacing, typography, icons, motion, content patterns, and usage guidelines all count. Without that breadth and without documentation, contributions stay nice-to-haves instead of must-haves.
