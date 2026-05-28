@@ -11,6 +11,7 @@ description: Fetch when setting font family, size, weight, line-height, or lette
 - **Hierarchy comes from size, weight, and space — not decoration.** Underlines, italics, all-caps, and color swaps for emphasis muddy hierarchy. Build it with restrained scale moves and generous spacing around the elements that matter most.
 - **Line length and line height matter as much as size.** Keep body measure (line length) in the 45–75 character range; pair font size with proportional line height (1.4–1.6 for body). Type is a system, not a single dial.
 - **Body text has a job; display text has a different job.** Body is for reading at length — optimize for readability and rhythm. Display is for catching attention — optimize for impact. Don't confuse the two.
+- **Line height is invisible padding — compensate for it.** A text block with `padding: 16px` on all sides looks lopsided when the line-height already adds visible vertical space above and below the text. The result reads as more top/bottom padding than side padding. Bias toward smaller top/bottom padding (e.g. side `24px`, top/bottom `16px`) so the perceived spacing balances.
 
 For the broader thinking on how typography fits into visual hierarchy, see [principles/visual-hierarchy.md](./principles/visual-hierarchy.md).
 

@@ -20,3 +20,7 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 - Sentence case for buttons, headings, menu items, page titles. Not Title Case.
 - Code identifiers stay verbatim — never rewrap or recase them.
+
+## Headings
+
+- Headings pull people in; they don't label a shelf. Bias toward action- or outcome-oriented phrasing ("Catch failures before they ship") over dry category labels ("Workflows and integrations"). Category labels read as inert; action-oriented headings tell the reader why to keep reading.
