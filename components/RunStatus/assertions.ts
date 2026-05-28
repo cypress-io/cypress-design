@@ -20,6 +20,7 @@ export default function assertions(
       cy.get('[data-cy="total-failed"]').should('exist')
       cy.get('[data-cy="total-pending"]').should('exist')
       cy.get('[data-cy="total-skipped"]').should('not.exist')
+      cy.percySnapshot(`RunStatus default - ${fw}`)
     })
 
     it('returns nothing when all stats are zero', () => {
@@ -27,18 +28,19 @@ export default function assertions(
       cy.get('[data-cy="run-stats"]').should('not.exist')
     })
 
-    it('shows zeros for all regular stats when expanded', () => {
+    it('shows all regular stats when expanded (including zero counts)', () => {
       mountStory({
-        passed: 0,
-        failed: 0,
+        passed: 22,
+        failed: 4,
         skipped: 0,
         pending: 0,
         expanded: true,
       })
       cy.get('[data-cy="total-passed"]').should('exist')
       cy.get('[data-cy="total-failed"]').should('exist')
-      cy.get('[data-cy="total-skipped"]').should('exist')
-      cy.get('[data-cy="total-pending"]').should('exist')
+      cy.get('[data-cy="total-skipped"]').should('exist').and('contain', '0')
+      cy.get('[data-cy="total-pending"]').should('exist').and('contain', '0')
+      cy.percySnapshot(`RunStatus expanded - ${fw}`)
     })
 
     it('shows correct counts', () => {
@@ -55,8 +57,9 @@ export default function assertions(
 
   describe('leading stats', () => {
     it('renders flaky when count > 0', () => {
-      mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 3 })
+      mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1, flaky: 3 })
       cy.get('[data-cy="total-flaky"]').should('exist').and('contain', '3')
+      cy.percySnapshot(`RunStatus with flaky - ${fw}`)
     })
 
     it('does not render flaky when count is 0', () => {
@@ -66,16 +69,17 @@ export default function assertions(
 
     it('renders self-healed with its count when showSelfHealed is true', () => {
       mountStory({
-        passed: 10,
-        failed: 0,
+        passed: 22,
+        failed: 4,
         skipped: 0,
-        pending: 0,
+        pending: 1,
         selfHealed: 2,
         showSelfHealed: true,
       })
       cy.get('[data-cy="total-self-healed"]')
         .should('exist')
         .and('contain', '2')
+      cy.percySnapshot(`RunStatus with self-healed - ${fw}`)
     })
 
     it('does not render self-healed when showSelfHealed is false', () => {
@@ -120,10 +124,10 @@ export default function assertions(
 
     it('shows separator after self-healed (not flaky) when both lead', () => {
       mountStory({
-        passed: 10,
-        failed: 0,
+        passed: 22,
+        failed: 4,
         skipped: 0,
-        pending: 0,
+        pending: 1,
         flaky: 3,
         selfHealed: 2,
         showSelfHealed: true,
@@ -136,6 +140,7 @@ export default function assertions(
         'not.have.class',
         "after:content-['']",
       )
+      cy.percySnapshot(`RunStatus flaky and self-healed - ${fw}`)
     })
 
     it('omits separator when no regular stats follow leading stats', () => {
@@ -158,7 +163,13 @@ export default function assertions(
         failed: 4,
         skipped: 0,
         pending: 1,
-        links: { passed: '#passed', failed: '#failed' },
+        flaky: 3,
+        links: {
+          passed: '#passed',
+          failed: '#failed',
+          pending: '#pending',
+          flaky: '#flaky',
+        },
       })
       cy.get('[data-cy="link-passed"]')
         .should('exist')
@@ -166,6 +177,13 @@ export default function assertions(
       cy.get('[data-cy="link-failed"]')
         .should('exist')
         .and('have.attr', 'href', '#failed')
+      cy.get('[data-cy="link-pending"]')
+        .should('exist')
+        .and('have.attr', 'href', '#pending')
+      cy.get('[data-cy="link-flaky"]')
+        .should('exist')
+        .and('have.attr', 'href', '#flaky')
+      cy.percySnapshot(`RunStatus linked stats - ${fw}`)
     })
 
     it('renders a <span> (no link) when no link is provided', () => {
@@ -299,74 +317,16 @@ export default function assertions(
   })
 
   // ---------------------------------------------------------------------------
-  // Percy snapshots
+  // Dark theme
+  //
+  // All other Percy snapshots are taken inline within the functional tests
+  // above to avoid duplicating mount work — see e.g. 'renders only non-zero
+  // regular stats', 'renders flaky when count > 0', etc. Dark theme has no
+  // such pre-existing functional counterpart, so it lives here.
   // ---------------------------------------------------------------------------
 
-  describe('visual snapshots', () => {
-    it('default — non-zero stats', () => {
-      mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1 })
-      cy.percySnapshot(`RunStatus default - ${fw}`)
-    })
-
-    it('expanded — zeros shown', () => {
-      mountStory({
-        passed: 22,
-        failed: 4,
-        skipped: 0,
-        pending: 0,
-        expanded: true,
-      })
-      cy.percySnapshot(`RunStatus expanded - ${fw}`)
-    })
-
-    it('with flaky', () => {
-      mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1, flaky: 3 })
-      cy.percySnapshot(`RunStatus with flaky - ${fw}`)
-    })
-
-    it('with self-healed', () => {
-      mountStory({
-        passed: 22,
-        failed: 4,
-        skipped: 0,
-        pending: 1,
-        selfHealed: 2,
-        showSelfHealed: true,
-      })
-      cy.percySnapshot(`RunStatus with self-healed - ${fw}`)
-    })
-
-    it('flaky and self-healed', () => {
-      mountStory({
-        passed: 22,
-        failed: 4,
-        skipped: 0,
-        pending: 1,
-        flaky: 3,
-        selfHealed: 2,
-        showSelfHealed: true,
-      })
-      cy.percySnapshot(`RunStatus flaky and self-healed - ${fw}`)
-    })
-
-    it('linked stats', () => {
-      mountStory({
-        passed: 22,
-        failed: 4,
-        skipped: 0,
-        pending: 1,
-        flaky: 3,
-        links: {
-          passed: '#passed',
-          failed: '#failed',
-          pending: '#pending',
-          flaky: '#flaky',
-        },
-      })
-      cy.percySnapshot(`RunStatus linked stats - ${fw}`)
-    })
-
-    it('dark theme', () => {
+  describe('dark theme', () => {
+    it('applies the dark theme classes to the pill', () => {
       mountStory({
         passed: 22,
         failed: 4,
@@ -381,6 +341,10 @@ export default function assertions(
           flaky: '#flaky',
         },
       })
+      cy.get('[data-cy="run-stats"] ul')
+        .should('have.class', 'bg-gray-1000')
+        .and('have.class', 'text-gray-400')
+        .and('have.class', 'border-gray-800')
       cy.percySnapshot(`RunStatus dark theme - ${fw}`)
     })
   })
