@@ -7,7 +7,7 @@ description: Principles and patterns for errors, warnings, deprecations, and oth
 
 Errors, warnings, deprecations, and other system-to-user messages — wherever the product talks to the user when something happened, failed, or needs their attention.
 
-> The content here is distilled from Jennifer Shehane's [`cypress-error-messages` skill](https://github.com/cypress-io/aihub/tree/main/skills/cypress-error-messages) in `cypress-io/aihub`. For the full pre-write checklist, the complete message structure, and the worked examples (security warning, usage cap, rate limit, CLI flag error, etc.), fetch the skill directly — this pillar gives the design-system shape of the rules; the skill is the authoritative workflow.
+> The content here is distilled from the [`cypress-error-messages` skill](https://github.com/cypress-io/aihub/tree/main/skills/cypress-error-messages) in `cypress-io/aihub`. For the full pre-write checklist, the complete message structure, and the worked examples (security warning, usage cap, rate limit, CLI flag error, etc.), fetch the skill directly — this pillar gives the design-system shape of the rules; the skill is the authoritative workflow.
 
 ## Principles
 
