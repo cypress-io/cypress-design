@@ -1,5 +1,5 @@
 ---
-name: principles-ux
+name: ux
 description: UX and product design principles. Fetch when designing new flows, evaluating proposed UX, reviewing screens, or making product decisions about how features should work.
 ---
 

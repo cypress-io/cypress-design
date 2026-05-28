@@ -1,5 +1,5 @@
 ---
-name: principles-feedback
+name: feedback
 description: Principles for reviewing other people's work and giving design / product feedback. Fetch when about to give feedback, running a critique, or deciding how to push back on a proposal.
 ---
 

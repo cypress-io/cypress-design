@@ -1,5 +1,5 @@
 ---
-name: principles-design-systems
+name: design-systems
 description: Meta-principles about design systems themselves — when to invest, scope, and how they should be structured to unblock both humans and agents. Fetch when scoping design-system work, deciding whether a new pattern belongs in the system, or evaluating system maturity.
 ---
 

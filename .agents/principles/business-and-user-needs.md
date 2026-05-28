@@ -1,5 +1,5 @@
 ---
-name: principles-business-and-user-needs
+name: business-and-user-needs
 description: UX as where business goals meet user needs. Fetch when starting new work, defining success, planning research, or deciding how to scope a release.
 ---
 

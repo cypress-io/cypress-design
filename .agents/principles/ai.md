@@ -1,9 +1,11 @@
 ---
-name: principles-ai
+name: ai
 description: Principles for using AI tools to build, design, write, or review Cypress work. Fetch when generating UI / copy / illustration with AI, deciding whether AI is the right tool, or reviewing AI output.
 ---
 
 # AI Principles
+
+## Quality, review, and debt
 
 **AI is a build accelerator, not a designer.** It can produce something that looks on-brand and feels passable, but "passable" isn't the bar. The right question is always whether the JTBD is solved and the UX is actually right — and only a human reviewer with taste can answer that.
 
@@ -17,23 +19,29 @@ description: Principles for using AI tools to build, design, write, or review Cy
 
 **Don't let AI output replace the design process.** A functional prototype is a wireframe, not a finished UI. Treating "looks like it works" as "90% done" skips the part where the JTBD is actually figured out — and the final UI almost always needs to look meaningfully different from the AI-generated starting point.
 
+**Don't let "anyone can prompt the website" become the architecture.** AI lowers the cost of contribution, but review is still the bottleneck and visual problems still need a designer. Open prompting without an expert gate produces noise, not value.
+
+## When to use AI and which tool
+
 **If you already know what good looks like, AI can slow you down.** AI wins when you hand it a screenshot, a clear spec, or a tight prompt. It loses when you're trying to discover what you want through iteration with it — you'll often arrive at something you could have built faster in the native tool.
 
 **AI is uneven across crafts. Match the tool to the task.** Strong at illustration with the right prompt. Decent at synthesizing research. Weak at original visual problem-solving and at slide design when you have a specific outcome in mind. Don't assume one tool wins everywhere.
 
-**Don't let "anyone can prompt the website" become the architecture.** AI lowers the cost of contribution, but review is still the bottleneck and visual problems still need a designer. Open prompting without an expert gate produces noise, not value.
+**Token caps on creative AI tools undermine the value.** Creativity doesn't happen on a budget; people need freedom to explore without rationing prompts. On-demand billing on a creative tool actively eats the stickiness that makes it worth using.
+
+## Working with AI day-to-day
 
 **Invest the upfront prompt work — it's the part nobody sees.** Consistent AI output, especially for illustration and brand-sensitive work, comes from refining the prompt many times against a reference style. One-shot generation is a coincidence, not a system.
 
 **Treat agent instructions as a living artifact.** Whenever you find a gap in how an AI handles something, fix the instructions in the same pass as the work. The only way AI gets better at a job is if the guidance gets patched as the holes appear.
 
+**Use AI to do the synthesis work, then own the conclusion.** The pattern: AI compresses the research, the human signs off on the position. Never publish or decide on AI synthesis without an explicit human endorsement of the conclusion.
+
+## Sources of truth AI reads
+
 **Align every source of truth AI reads.** Docs, marketing, and custom instructions all need to say the same thing. Mixed messages across sources mean customers and agents get inconsistent answers depending on where they happen to look — and trust degrades.
 
 **Don't point AI at content that goes stale.** Blog posts capture a moment in time; product docs are the living source. Pointing AI at outdated content guarantees outdated answers.
-
-**Token caps on creative AI tools undermine the value.** Creativity doesn't happen on a budget; people need freedom to explore without rationing prompts. On-demand billing on a creative tool actively eats the stickiness that makes it worth using.
-
-**Use AI to do the synthesis work, then own the conclusion.** The pattern: AI compresses the research, the human signs off on the position. Never publish or decide on AI synthesis without an explicit human endorsement of the conclusion.
 
 ## Related
 

@@ -1,5 +1,5 @@
 ---
-name: principles-visual-hierarchy
+name: visual-hierarchy
 description: Principles for directing the eye through color, icons, spacing, size, and position. Fetch when designing or reviewing layouts, deciding what to emphasize on a page, or diagnosing a "busy" interface.
 ---
 
