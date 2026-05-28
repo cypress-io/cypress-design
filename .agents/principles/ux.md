@@ -75,13 +75,27 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Build for the people who buy it, not just the people who trigger it.** A lot of features are designed for the user who hits the feature day-to-day — but the person who decides to pay for it is often someone else (an EM, a director, a CTO). Design for both: the day-to-day user has to be able to use it, but the surface area, reporting, and visibility have to give the buyer reasons to keep the line item.
 
-## Onboarding & empty states
+## Onboarding
 
 **Capture user intent upfront — and eliminate the dead ends it reveals.** Asking "what are you here to do?" early is valuable only if you actually route each answer to a working path. Surfacing intent without removing the dead ends just diagnoses the broken thing without fixing it.
 
 **Onboarding copy leads with value, not product actions.** "Manage your test runs" is not a value proposition — it's a task description. Flip every onboarding line to lead with what the user gains (faster debugging, replayable failures, clearer signal across CI), not what they do.
 
+## Empty, loading, and error states
+
+**Every component has empty, loading, error, partial, and complete states. Design them deliberately.** States aren't edge cases; they're 80% of what users actually see. Skipping them means shipping a component that breaks the moment production conditions diverge from the happy path. Treat the full state set as part of the design, not a follow-up ticket.
+
 **Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
+
+**Loading spinners by themselves aren't loading states.** Tell users what's happening, what they're waiting on, and (when possible) how long it'll take. Show progress when you can; show skeletons when the layout is predictable; reserve generic spinners for cases where you genuinely can't estimate. A spinner alone reads as "the page is hung."
+
+**Errors must state what happened AND what to do next.** A red message without a recovery path teaches the user that the product is broken. Recovery is part of the error, not an afterthought. "Couldn't save" isn't enough; "Couldn't save — your connection dropped; we kept your draft, try again" is.
+
+**Don't punish users for our failures.** Form validation that wipes the user's input on submit, retries that lose context, errors that force a full reload — these convert recoverable failures into churn. Preserve state across error and retry. The user's work is sacred even when the system breaks.
+
+**Distinguish "still working" from "stalled" from "failed."** A run that's been pending for 30 seconds reads differently than one pending for 30 minutes. Surface time elapsed, expected duration, and an action when the wait crosses a threshold. Pending-forever feels worse than honest failure.
+
+**Optimistic UI when actions are reversible; pessimistic when they aren't.** A like, a star, a tag rename — those can update locally before the server confirms; if the server fails, the revert is cheap. Account deletion, billing changes, anything destructive — those wait for confirmation. Match the UI's confidence to the cost of being wrong.
 
 ## Feature naming & positioning
 
