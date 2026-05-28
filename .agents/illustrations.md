@@ -5,7 +5,7 @@ description: Principles and house style for Cypress illustration work. Fetch whe
 
 # Illustrations
 
-Principles and the Cypress Heroes house style — everything an agent or designer needs to brief, generate, or evaluate Cypress illustration work.
+Principles and house style for any Cypress illustration — marketing backgrounds, blog assets, product imagery, AI-generated work. The goal is an editorial watercolor language with a soft connection to the Cypress brand, not a heavy thematic universe. Landscape-inspired in feel, never literal scenery.
 
 ## Principles
 
@@ -13,7 +13,7 @@ Principles and the Cypress Heroes house style — everything an agent or designe
 
 **Pick the right model for the style.** Different generative tools have different strengths. Don't assume one wins everywhere — compare outputs against the actual house style before committing.
 
-**Reuse a recognizable style across surfaces.** Holiday assets, conference pages, hero portraits, and product illustrations sharing one visual language compounds brand equity. Style sprawl dilutes it.
+**Reuse a recognizable style across surfaces.** Marketing pages, blog assets, product illustrations, and editorial backgrounds sharing one visual language compounds brand equity. Style sprawl dilutes it.
 
 **Tie illustrations to the feature they sell.** Each tab, section, or page gets one primary expression of the thing it's selling. If the focus is one button or one outcome, don't bury it in a wider scene.
 
@@ -27,13 +27,13 @@ Principles and the Cypress Heroes house style — everything an agent or designe
 
 **Ship retina-ready assets.** Always deliver @2x or vector. Blurry images immediately read as low-quality and undermine everything else on the page.
 
-## Cypress Heroes house style
+## House style
 
-The watercolor visual language used across hero portraits, blog and editorial backgrounds, conference assets, footer scenes, and any AI-generated Cypress illustration. Apply these constraints whenever generating or reviewing illustration work — they are what keep on-brand output from drifting between generations.
+An editorial watercolor language. Atmospheric, landscape-inspired, restrained — never literal scenery, never decorative, never narrative. The connection to the brand is felt through mood, palette, and material — not stated through depicted subjects. Apply these constraints whenever generating or reviewing illustration work; they're what keep output from drifting between generations.
 
 ### Substrate
 
-- Watercolor painted on very dark paper. Use `#1B1E2E` for general use and `#101118` for footer or dense editorial backgrounds — match whatever page background the illustration sits on.
+- Watercolor painted on very dark paper. Use `#1B1E2E` for general use and `#101118` for darker page backgrounds — match whatever page background the illustration sits on.
 - Pigment is embedded in the darkness, not sitting on top of paper.
 - No visible white or off-white paper anywhere in the image.
 - No borders, torn edges, canvas edges, paper margins, or paper texture artifacts.
@@ -55,16 +55,15 @@ The watercolor visual language used across hero portraits, blog and editorial ba
 - Shapes gently frame the center without enclosing it.
 - If detail competes with legibility behind text, remove the detail. Prefer suggestion over definition.
 
-### Composition — portraits and featured illustrations
+### Composition — featured illustrations with a primary subject
 
-- One primary subject, framed deliberately (chest-up for portraits — head, shoulders, upper chest, collarbone).
-- Face forward or slightly angled; calm, confident posture; centered and vertically balanced.
-- One primary power expression per portrait — no decorative noise stacked on top.
+- One primary subject, framed deliberately.
+- Calm, confident composition; centered or intentionally offset, but balanced.
+- One primary expression of the idea — no decorative noise stacked on top.
 - Background must clearly contrast the subject's value range: dark subject → luminous background; light subject → deeper background.
-- Silhouette clarity around head and shoulders is mandatory.
-- Costume colors lean cool, charcoal-leaning grays derived from desaturated indigo. No shared uniform system across heroes — each hero has its own costume language.
+- Silhouette clarity around the subject is mandatory.
 
-### Palette (Cypress Heroes — exact hex)
+### Palette (exact hex)
 
 Base / background:
 
@@ -97,7 +96,7 @@ Palette rules:
 - No visible light source, no spotlights, no bright highlights or glow clusters.
 - Any glow is subtle and absorbed into surrounding pigment.
 - Depth comes from tonal layering and overlap, not from value extremes.
-- Lighting suggests understanding, resolution, or quiet power — not drama.
+- Lighting feels calm and intentional — never dramatic.
 
 ### Concept hierarchy (illustrations with a primary subject)
 
@@ -117,20 +116,19 @@ Never include:
 - UI elements, screens, panels, or interface metaphors
 - Neon, glossy, metallic, or sci-fi materials
 - Visible paper texture, white canvas, sketchbook borders, or exposed edges
-- Vegetation, roots, vines, or organic growth (unless the piece is specifically about organic life)
+- Literal landscapes, trees, plants, vines, or organic growth as the depicted subject — landscape character belongs to mood and texture, not to subject matter
 - Sharp crystals, spikes, or fantasy ornamentation
 - Medieval, ancient, or fantasy-dungeon aesthetics
-- Characters or humanoid forms (unless the piece is a hero portrait)
-- Capes, masks, helmets, horns, wings, armor spikes
+- Characters or humanoid forms (unless the piece is intentionally about a person)
 - Guns, firearms, or excessive aggression
 - High-contrast focal points in the center of a background
 
 ### References protocol
 
-- References are inspirational only — never copy specific costumes, poses, characters, compositions, or effects.
-- Use prior Cypress Heroes work for: watercolor behavior, pigment density and bleed, contrast balance, glow softness, overall mood and restraint.
-- Use abstract landscape or geological references for composition and atmospheric inspiration.
-- Spell out which references inform which property (e.g. "reference 1 for facial structure; references 3+ for watercolor style only").
+- References are inspirational only — never copy specific subjects, poses, characters, compositions, or effects from them.
+- Use prior Cypress illustration work for watercolor behavior, pigment density and bleed, contrast balance, glow softness, and overall mood.
+- Use abstract landscape, geological, or material references for composition and atmospheric inspiration — not as instructions to depict those things literally.
+- Spell out which references inform which property (e.g. "reference 1 for material feel; references 3+ for watercolor style only").
 
 ### Recommended model
 
@@ -139,13 +137,13 @@ Never include:
 
 ### Calibration — when to adjust
 
-- Reads elegant but generic → add domain-specific concept evidence (a clearer subject or symbolic form).
+- Reads elegant but generic → add a clearer subject or symbolic form for the piece's specific purpose.
 - Reads as abstract process → emphasize the resolved result rather than the operation.
 - Texture-heavy or busy → quiet the background near the subject and the content overlay area.
-- Reads cave-first / scene-first when it should be background-first → reduce raw geological cues to the top 20% and let designed structure dominate the rest.
+- Reads as a literal landscape or depicted scene → pull back. Landscape character is texture and mood, not subject matter. No "happy little trees."
 - Subject blends into the background → adjust background luminosity in the opposite direction of the subject.
 
-The result should feel intentional, analytical, grounded, and clearly part of the Cypress Heroes visual universe.
+The result should feel intentional, atmospheric, restrained, and softly tied to the Cypress brand.
 
 ## Related
 
