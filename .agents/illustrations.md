@@ -65,7 +65,7 @@ An editorial watercolor language. Atmospheric, landscape-inspired, restrained â€
 
 ### Palette (Cypress brand tokens)
 
-Always map to the design-system tokens, not raw hex. Full token set hosted at `https://design.cypress.io/colors.css` and documented in [colors.md](./colors.md).
+Always map to the design-system tokens, not raw hex. Color tokens are at `https://design.cypress.io/colors.css`; the full design-system token set (colors + spacing + typography) is at `https://design.cypress.io/tokens.css`. Both are documented in [colors.md](./colors.md).
 
 Base / background:
 

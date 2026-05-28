@@ -26,7 +26,7 @@ Foundational thinking that frames how we make design and product decisions. Fetc
 
 ## Design pillars
 
-Each pillar leads with the principles that govern it, then the specific tokens and rules.
+Several pillars lead with a `## Principles` section that governs the tokens and rules below it (colors, typography, spacing, iconography, illustrations). Others (voice, personas, accessibility) are organized differently — open each file for the structure that fits its content.
 
 - [colors.md](./colors.md) — color tokens, contrast, pairings
 - [typography.md](./typography.md) — font, size, weight, line-height
