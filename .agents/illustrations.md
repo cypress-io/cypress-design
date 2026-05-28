@@ -33,7 +33,7 @@ An editorial watercolor language. Atmospheric, landscape-inspired, restrained �
 
 ### Substrate
 
-- Watercolor painted on very dark paper. Use `#1B1E2E` for general use and `#101118` for darker page backgrounds — match whatever page background the illustration sits on.
+- Watercolor painted on very dark paper. Use `--cy-gray-1000` as the canonical dark base — match whatever page background the illustration sits on. Some legacy surfaces use an off-token darker value; prefer the token for new work.
 - Pigment is embedded in the darkness, not sitting on top of paper.
 - No visible white or off-white paper anywhere in the image.
 - No borders, torn edges, canvas edges, paper margins, or paper texture artifacts.
@@ -69,15 +69,15 @@ Always map to the design-system tokens, not raw hex. Color tokens are at `https:
 
 Base / background:
 
-- `--cy-gray-1000` (`#1B1E2E`) — dominant. For darker page contexts you may see `#101118` in use; that's an off-token historical background — prefer `--cy-gray-1000` for new work.
+- `--cy-gray-1000` — dominant.
 
 Accent colors, used unevenly and restrained:
 
-- **Jade** — `--cy-jade-300` (`#69D3A7`), `--cy-jade-400` (`#1FA971`) — primary energy / clarity / action
-- **Purple** — `--cy-purple-300` (`#C8A7F5`), `--cy-purple-400` (`#A06CE4`) — depth, insight
-- **Indigo** — `--cy-indigo-300` (`#9AA2FC`), `--cy-indigo-400` (`#6470F3`) — structure, depth, shadow
-- **Teal** — `--cy-teal-300` (`#4BBFD2`), `--cy-teal-400` (`#0097A8`) — minimal, reflective
-- **Orange** — `--cy-orange-300` (`#EDBB4A`), `--cy-orange-400` (`#DB7903`) — extremely restrained micro-accents only
+- **Jade** — `--cy-jade-300`, `--cy-jade-400` — primary energy / clarity / action
+- **Purple** — `--cy-purple-300`, `--cy-purple-400` — depth, insight
+- **Indigo** — `--cy-indigo-300`, `--cy-indigo-400` — structure, depth, shadow
+- **Teal** — `--cy-teal-300`, `--cy-teal-400` — minimal, reflective
+- **Orange** — `--cy-orange-300`, `--cy-orange-400` — extremely restrained micro-accents only
 
 Palette rules:
 
