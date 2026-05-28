@@ -10,6 +10,7 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 - Confident, technical, concise. Speak like a senior engineer who respects the reader's time.
 - No hype, no marketing fluff. Avoid "simply", "just", "easy", "powerful", "seamless", "delight".
 - Prefer present tense, active voice.
+- For error / warning / deprecation messages specifically — stricter rules apply (no exclamation points, no blame, structured what/why/next). See [messages.md](./messages.md).
 
 ## Point of view
 

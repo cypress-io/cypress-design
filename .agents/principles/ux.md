@@ -87,6 +87,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
 
+For error messages, warnings, and other system-to-user messages, see [`../messages.md`](../messages.md) — the principles there (structure, tone, link conventions, no-blame, transient handling) apply whenever the product talks to the user about something that happened.
+
 ## Feature naming & positioning
 
 **Naming collisions with existing features create UX debt instantly.** If a new feature reuses a term that already means something else in the product (or in adjacent products customers know), customers will conflate the two. Rename before you ship — migrations after launch are far more expensive than getting the name right up front.
