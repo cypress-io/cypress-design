@@ -23,6 +23,7 @@ description: Principles for reviewing other people's work and giving design / pr
 
 ## Related
 
+- [learning-from-feedback.md](./learning-from-feedback.md) — when feedback contains a reusable rule, capture it as a principle
 - [../review-checklist.md](../review-checklist.md) — Mechanical checks before shipping
 - [ux.md](./ux.md) — Pushback rooted in goals and outcomes (see "Business goals + user needs" section)
 - [../voice.md](../voice.md) — Voice rules apply to feedback too
