@@ -23,7 +23,7 @@ description: Principles for shipping releases, betas, previews, feature flags, a
 
 ## Deprecation
 
-**"Sunsetting in 30 days" is a rug pull, not a deprecation.** Give customers real lead time, an in-product migration path, and a clear date communicated _in the product itself_ — not just in release notes nobody reads. Deprecation done well preserves trust; deprecation done in a hurry destroys it. The same rule runs in reverse when you make a free capability paid — see [ux.md](./ux.md), "Turning a free capability paid is a rug pull," in the Pricing section.
+**"Sunsetting in 30 days" is a rug pull, not a deprecation.** Give customers real lead time, an in-product migration path, and a clear date communicated _in the product itself_ — not just in release notes nobody reads. Deprecation done well preserves trust; deprecation done in a hurry destroys it. The same rule runs in reverse when you make a free capability paid — see [ux.md](./ux.md), "Turning a free capability paid is a rug pull" in the Pricing section.
 
 ## Related
 
