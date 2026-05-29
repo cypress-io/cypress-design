@@ -17,6 +17,8 @@ description: Principles for reviewing other people's work and giving design / pr
 
 **Number feedback that needs to be acted on.** Scannable, numbered lists travel better than prose blocks. Bury context underneath each numbered point, not on top of the list.
 
+**Apply the principle; don't cite it.** Ground feedback in the principle, then build it into clear, plain advice — don't quote chapter-and-verse to an audience that isn't fluent in the design system. Naming the rule adds ceremony, not weight; being consistent and clear is what makes it land. Reserve exact quoting for the internal check with the principle's owner, where it has to be verifiable. Linking to the source can come later, once it's shared vocabulary.
+
 **Time-box design, but don't pretend it's instant.** Things always take longer once you're inside them. Over-committing on timelines punishes the work and produces worse outcomes; honest estimates protect quality.
 
 ## Related
