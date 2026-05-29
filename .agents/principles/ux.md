@@ -103,9 +103,15 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 **Don't gate features that should be free.** Detection should be free; analytics and history are worth paying for. Pricing should follow real value, not the desire to use a feature as a paywall hook. Gating obvious value drives churn faster than it drives revenue.
 
+**A consumption cap isn't a paywall — don't conflate them.** Gating _value_ to force payment drives churn (above). Capping _consumption_ that carries real marginal cost — when there's no billing relationship to charge an overage against — is a cost control, not a paywall, and it's legitimate. A hard cap on the free tier protects against unbillable usage; the same cap on a paying tier should be an overage, not a wall. Be clear which one you're imposing, and why.
+
+**When you must enforce a limit, fail the smallest unit — don't halt the whole workflow.** A quota or billing cap shouldn't stop an entire run; degrade at the unit of work — the one prompt, test, or request that couldn't proceed — and let everything else keep moving. Blocking the whole session to enforce a per-item limit turns a cost control into a dead end. Pair the unit-level failure with a clear path forward (upgrade, overage, retry).
+
 **Defensive pricing solutions can be the right call.** Keeping customers at a lower price point beats losing them entirely to a competitor. Pricing isn't only about maximizing each account — sometimes the math of retention beats the math of upsell.
 
 **Signal future monetization at first exposure — not after adoption.** If a feature will eventually be paid, restricted to a higher tier, or moved behind an enterprise plan, position it that way from day one — "preview of an enterprise capability," "free during preview, paid in the future," or similar. Letting customers anchor on it as a standard included setting and then changing the model later creates product debt and a rug-pull conversation. The moment to set the expectation is on first exposure, when customers form their mental model — not a year in, when changing it means explaining why we're now charging for something they've used freely.
+
+**Turning a free capability paid is a rug pull unless you give lead time and promise no retroactive charges.** Charging for something customers have used freely is as trust-sensitive as deprecating something they depend on, and gets the same treatment: announce before it lands, give a grace period, and state explicitly that nothing already used will be billed retroactively. Signaling monetization at first exposure (above) sets the expectation; this is the commitment that keeps the GA moment from reading as a bait-and-switch. See [releases.md](./releases.md) — "'Sunsetting in 30 days' is a rug pull" is the same rule from the deprecation side.
 
 **Sell the risk people are protecting against, not the feature.** People invest in testing because they have a business to protect — outages, regressions, brand damage. Lead with that. CI minutes and run times are useful supporting evidence, never the headline. Insurance and security companies sell risk for a reason.
 
