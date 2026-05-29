@@ -66,7 +66,7 @@ Component implementation should follow a staged approach. Complete each stage be
 To make the code easier for review by developers and catch API issues early, split the implementation into 4 branches:
 
 - **`{component-name}-instructions`** (step 1): Agent instructions and plan
-- **`{component-name}-component`** (step 2): Component creation
+- **`{component-name}-component`** (step 2): Component creation — also where the `.changeset/*.md` release-intent file lives (step 5)
 - **`{component-name}-tests`** (step 3): Cypress test generation
 - **`{component-name}-accessibility`** (step 4): Accessibility optimization
 
@@ -126,6 +126,26 @@ Each branch should be reviewed and merged before starting the next branch.
      - `aria-disabled` when appropriate
    - **Semantic HTML** - Ensure semantic HTML is used appropriately (e.g., `<button>`, `<input>`, etc.)
    - **Testing** - Test with keyboard-only navigation to verify focus indicators are visible. Verify screen reader compatibility.
+
+5. **Add a Changeset (required for release)**
+
+   Every PR that adds a new package or modifies a published one **must** include a `.changeset/*.md` file. Without one, the release workflow (`changesets/action@v1` in `.github/workflows/release.yml`) has nothing to publish.
+
+   - Run `yarn changeset` and follow the prompts, or hand-write `.changeset/{component-name}.md`.
+   - List all affected packages and the bump level. For a brand-new component, the established convention is `patch` across the three new packages (see `.changeset/calm-corners-begin.md` from the Textbox addition):
+
+     ```md
+     ---
+     '@cypress-design/constants-{component}': patch
+     '@cypress-design/react-{component}': patch
+     '@cypress-design/vue-{component}': patch
+     ---
+
+     Adding {Component} component — one-sentence summary of what it does.
+     ```
+
+   - Place the changeset file on the `{component-name}-component` branch (alongside the new `package.json` files). It travels through the rest of the stack and merges to `main` with the rest of the work.
+   - Once merged, `changesets/action@v1` opens an automated "ci(changesets): version packages" PR that bumps versions and generates `CHANGELOG.md`. When that PR merges, npm publish happens automatically.
 
 For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing").
 
