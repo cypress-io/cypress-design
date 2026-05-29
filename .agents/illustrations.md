@@ -153,4 +153,4 @@ The result should feel intentional, atmospheric, restrained, and softly tied to 
 - [colors.md](./colors.md) — Exact color tokens referenced in the palette
 - [principles/ai.md](./principles/ai.md) — Using AI for generation
 - [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — How illustration supports content hierarchy
-- [index.md](./index.md) — Framing for why the design system matters and how illustration fits
+- [index.md](./index.md) — Router for the rest of the design-system guidance
