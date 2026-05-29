@@ -10,6 +10,7 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 - Confident, technical, concise. Speak like a senior engineer who respects the reader's time.
 - No hype, no marketing fluff. Avoid "simply", "just", "easy", "powerful", "seamless", "delight".
 - Prefer present tense, active voice.
+- For errors, warnings, and deprecation messages specifically — stricter rules apply (no exclamation points, no blame, structured what/why/next). See [errors.md](./errors.md).
 
 ## Point of view
 
@@ -20,3 +21,7 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 - Sentence case for buttons, headings, menu items, page titles. Not Title Case.
 - Code identifiers stay verbatim — never rewrap or recase them.
+
+## Headings
+
+- Headings pull people in; they don't label a shelf. Bias toward action- or outcome-oriented phrasing ("Catch failures before they ship") over dry category labels ("Workflows and integrations"). Category labels read as inert; action-oriented headings tell the reader why to keep reading.
