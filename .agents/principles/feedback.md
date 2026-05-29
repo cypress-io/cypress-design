@@ -23,6 +23,7 @@ description: Principles for reviewing other people's work and giving design / pr
 
 ## Related
 
+- [learning-from-feedback.md](./learning-from-feedback.md) — fetch on every feedback exchange, from any source (teammates, other agents, Copilot, automation); shows how to spot the rule hiding in a fix and confirm it with the human before documenting
 - [../review-checklist.md](../review-checklist.md) — Mechanical checks before shipping
 - [ux.md](./ux.md) — Pushback rooted in goals and outcomes (see "Business goals + user needs" section)
 - [../voice.md](../voice.md) — Voice rules apply to feedback too
