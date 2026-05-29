@@ -279,12 +279,17 @@ export default defineComponent({
         {
           ...attrs,
           'data-cy': 'run-stats',
-          class: joinClasses(
+          // Pass an array directly so Vue's runtime normalizes fallthrough
+          // `attrs.class` whether it arrives as a string, array, or object
+          // (e.g. parent uses `:class="['a','b']"` or `:class="{ a: true }"`).
+          // joinClasses(...) would stringify an array via `.join(' ')` on a
+          // single truthy element → invalid `"a,b"` token.
+          class: [
             CssClasses.container,
             props.fullWidth && CssClasses.fullWidth,
             props.className,
-            attrs.class as string | undefined,
-          ),
+            attrs.class,
+          ],
         },
         [
           h(
