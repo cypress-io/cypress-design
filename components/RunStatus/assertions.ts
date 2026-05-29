@@ -235,6 +235,13 @@ export default function assertions(
         pending: 1,
         showTooltip: false,
       })
+      // Hover a stat to verify the opt-out works under interaction. Without
+      // this, the assertion passes vacuously in React, whose Tooltip only
+      // renders its [role="tooltip"] portal when its internal `open` state
+      // flips to true (i.e. on hover/focus). With showTooltip: false the
+      // component skips wrapping stats in <Tooltip> entirely, so hover
+      // produces no popper.
+      cy.get('[data-cy="total-passed"]').realHover()
       cy.get('[role="tooltip"]').should('not.exist')
     })
   })
