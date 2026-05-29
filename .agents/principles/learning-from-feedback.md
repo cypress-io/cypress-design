@@ -1,18 +1,20 @@
 ---
 name: learning-from-feedback
-description: How to treat every piece of feedback as a chance to find a reusable rule, and how to add it to the principle set when it is. Fetch whenever giving or receiving feedback, reviewing work, or deciding whether a piece of guidance belongs in the principles.
+description: Fetch on every feedback exchange — given or received, from any author (teammates, other agents, Copilot, automation) and on any surface (PR review, Slack, Zoom recap, Claude, GitHub comment). Each piece of feedback is a chance to find a reusable rule; this file shows how to spot the rule, confirm it with the human, and codify it as a principle.
 ---
 
 # Learning from feedback
 
 Most feedback is a one-off fix. Some of it is a rule in disguise — the same point you'd make again next week on a different surface. This file is about catching the second kind and writing it down, so the next reviewer (human or agent) starts from the same place.
 
+Feedback comes from many places — teammates by name (Brian, Emil, Jennifer, Ryan), other agents, Copilot, automated checks. The source doesn't change the loop; weight humans higher when their feedback expresses intent the codebase can't yet show.
+
 The principles are a living document. They grow from real feedback and decisions, not from theory.
 
 ## When feedback arrives, run these four steps
 
 1. **Notice** — treat every piece of feedback as a candidate for a rule, not just a task to finish. This applies whether the feedback is framed as a principle or not. Most of it won't be.
-2. **Extract** — pull the underlying rule out of the specific case. "Move this label up" is a fix. "Labels sit above their input unless space forbids it" is a rule.
+2. **Extract — ask the human for the why.** "Move this label up" is a fix. The rule is hiding in the reason behind the fix. If the human didn't say _why_, ask: "Is the rule here that labels sit above their input unless space forbids it, or is this one-off?" Their answer becomes the rule. Don't infer it silently — the confirmation step is the point.
 3. **Test for reuse** — would this apply on a different surface, in a different repo, next month? If yes, it's a principle candidate. If it's only true for this one screen, leave it as a fix.
 4. **Codify** — vet it against the existing principles, then add it (see below).
 
@@ -26,7 +28,7 @@ Before adding anything new, check it against the principles already exposed. Sur
 - **Conflicts with an existing principle.** If guidance contradicts a principle that _is_ exposed, name the specific principle and the tension — reasoning before verdict (see [feedback.md](./feedback.md)). The existing principle isn't automatically right; the point is to make the conflict explicit so it's resolved deliberately, not by accident.
 - **Additive refinement.** If a take is consistent but a principle would push it further, offer the refinement as additive — not a correction.
 
-Quote the principle verbatim in this internal check, so the source is verifiable. That's the one place to quote it — see **"Apply the principle; don't cite it"** in [feedback.md](./feedback.md) for why audience-facing feedback shouldn't.
+Quote the principle verbatim back to the human in the review or reply itself. The quote is how the human confirms that this rule should be documented — or that the rule the agent _thinks_ it heard is what they actually meant. This is a live, audience-facing confirmation, not a private check. (See **"Apply the principle; don't cite it"** in [feedback.md](./feedback.md) — that rule governs how to _apply_ a settled principle in everyday feedback; the quote here is the moment you're settling a new one.)
 
 ## Adding a new principle
 
