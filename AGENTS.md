@@ -7,6 +7,8 @@ Before doing any work, you MUST read:
 
 Before claiming any UI / visual / content task is done, run `/.agents/review-checklist.md` against your own diff.
 
+When opening a PR, lead the description with the problem and goal (why / what) before the implementation (how) — see [`.github/pull_request_template.md`](.github/pull_request_template.md). Reviewers, human and AI, evaluate against the stated goal; a description that's all _how_ steers them toward syntax nitpicks instead of substance.
+
 Everything under `/.agents/` is also served at `https://design.cypress.io/agents/` for consumer repos to fetch — same files, single source of truth.
 
 ## Framing — why the design system exists and how it's structured
