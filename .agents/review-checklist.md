@@ -41,4 +41,8 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 
 - [ ] No duplicate constants or color/spacing maps copy-pasted from another component. Pull from shared `constants/` or tokens.
 
+## Release
+
+- [ ] If the diff touches a published package (anything under `components/`), include a `.changeset/*.md` file — otherwise the release workflow has nothing to publish. See [implement-component](./skills/implement-component.md) for conventions (bump levels, file placement, examples).
+
 If a check fails, fix the code, don't relax the rule.
