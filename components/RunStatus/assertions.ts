@@ -28,6 +28,30 @@ export default function assertions(
       cy.get('[data-cy="run-stats"]').should('not.exist')
     })
 
+    it('still renders the pill when all regular stats are zero but showSelfHealed is true', () => {
+      // Guards hasAnyStat's `!!props.showSelfHealed` short-circuit: a
+      // regression that ANDed the count against the flag (or dropped the
+      // self-healed branch entirely) would return null here and CI would
+      // stay green without this scenario.
+      mountStory({
+        passed: 0,
+        failed: 0,
+        skipped: 0,
+        pending: 0,
+        selfHealed: 2,
+        showSelfHealed: true,
+      })
+      cy.get('[data-cy="run-stats"]').should('exist')
+      cy.get('[data-cy="total-self-healed"]')
+        .should('exist')
+        .and('contain', '2')
+      // No regular stats render
+      cy.get('[data-cy="total-passed"]').should('not.exist')
+      cy.get('[data-cy="total-failed"]').should('not.exist')
+      cy.get('[data-cy="total-skipped"]').should('not.exist')
+      cy.get('[data-cy="total-pending"]').should('not.exist')
+    })
+
     it('shows all regular stats when expanded (including zero counts)', () => {
       mountStory({
         passed: 22,
@@ -40,6 +64,10 @@ export default function assertions(
       cy.get('[data-cy="total-failed"]').should('exist')
       cy.get('[data-cy="total-skipped"]').should('exist').and('contain', '0')
       cy.get('[data-cy="total-pending"]').should('exist').and('contain', '0')
+      // `expanded` is a regular-stats-only knob — flaky still requires
+      // count > 0. Guard against a regression that treats flaky like a
+      // regular stat and renders a zero-count row.
+      cy.get('[data-cy="total-flaky"]').should('not.exist')
       cy.percySnapshot(`RunStatus expanded - ${fw}`)
     })
 
@@ -251,16 +279,23 @@ export default function assertions(
   // ---------------------------------------------------------------------------
 
   describe('flaky tooltip text', () => {
+    // Vue mounts a [role="tooltip"] per stat (teleport v-if="!disabled"),
+    // so the page can have multiple tooltips in the DOM at once.
+    // `cy.contains('[role="tooltip"]', text)` scopes the assertion to the
+    // single tooltip whose text matches — without this scoping, a swap
+    // regression (passed tooltip showing flaky text, flaky tooltip showing
+    // passed text) could still pass because the combined text would match.
+
     it('shows singular text when flaky count is 1', () => {
       mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 1 })
       // Use realHover so Floating UI (React) and Vue's @mouseover both fire correctly.
       cy.get('[data-cy="total-flaky"] a, [data-cy="total-flaky"] span')
         .first()
         .realHover()
-      cy.get('[role="tooltip"]').should(
-        'contain',
+      cy.contains(
+        '[role="tooltip"]',
         'This test both passed and failed when retried within a run',
-      )
+      ).should('exist')
     })
 
     it('shows plural text when flaky count is > 1', () => {
@@ -268,10 +303,10 @@ export default function assertions(
       cy.get('[data-cy="total-flaky"] a, [data-cy="total-flaky"] span')
         .first()
         .realHover()
-      cy.get('[role="tooltip"]').should(
-        'contain',
+      cy.contains(
+        '[role="tooltip"]',
         '3 tests both passed and failed when retried within a run',
-      )
+      ).should('exist')
     })
   })
 
