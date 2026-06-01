@@ -90,16 +90,13 @@ The separator must **also** be suppressed when no regular stats render (all four
 
 ## Status → icon mapping
 
-| Status       | Icon component                                                                 | Source packages                                                       |
-| ------------ | ------------------------------------------------------------------------------ | --------------------------------------------------------------------- |
-| `passed`     | `<StatusIcon status="passed" />`                                               | `@cypress-design/react-statusicon` + `@cypress-design/vue-statusicon` |
-| `failed`     | `<StatusIcon status="failed" />`                                               | same                                                                  |
-| `skipped`    | `<StatusIcon status="skipped" />`                                              | same                                                                  |
-| `pending`    | `<StatusIcon status="pending" />`                                              | same                                                                  |
-| `flaky`      | `<IconStatusFlaky />`                                                          | `@cypress-design/react-icon` + `@cypress-design/vue-icon`             |
-| `selfHealed` | `<IconGeneralSparkleSingleSmall strokeColor="jade-400" fillColor="jade-50" />` | same                                                                  |
+| Status                                      | Icon                                               | Comes from                                                            |
+| ------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- |
+| `passed` / `failed` / `skipped` / `pending` | `StatusIcon` with a matching `status` prop         | `@cypress-design/react-statusicon` + `@cypress-design/vue-statusicon` |
+| `flaky`                                     | `IconStatusFlaky`                                  | `@cypress-design/react-icon` + `@cypress-design/vue-icon`             |
+| `selfHealed`                                | `IconGeneralSparkleSingleSmall` (jade stroke/fill) | same as flaky                                                         |
 
-All icons render at size `12` (fixed; no prop). The source supported `'10' | '12'`, but `10` is unused in known callers — we drop it. If a smaller variant is needed later, reintroduce as an explicit prop. For the flaky icon, the first `<path>` is sourced with `fill="transparent"` in the original SCSS via a descendant selector. Replicate by passing the correct prop or, if not available on the icon component, applying the equivalent via a wrapper class — verify against the icon registry during Stage 2.
+See `renderIcon` in `vue/RunStatus.vue` and the `icon` factory inside `Stat` in `react/RunStatus.tsx` for the actual wiring (icon names → component, fixed `size="12"`, the flaky-yellow-bg workaround via the `iconFlaky` class).
 
 ## Constants keying
 
