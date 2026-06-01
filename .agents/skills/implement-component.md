@@ -90,7 +90,7 @@ Each branch should be reviewed and merged before starting the next branch.
      - Implement Vue component in `components/{ComponentName}/vue/{ComponentName}.vue`
      - Create/update `components/{ComponentName}/ReadMe.md` — this is the public docs page rendered on the design system site. Keep it terse: a `<script setup>` block importing the Vue component, a short prose description, one or more `<DemoWrapper>` live demos covering the main variants, and a Figma link. Don't put spec tables or state matrices here.
      - Create `components/{ComponentName}/instructions.md` — agent-facing **usage** doc. Document every supported variant, size, state, theme, slot, and prop, plus accessibility notes and known limitations, so an agent can _use_ the component confidently without reading the source. Treat anything documented here as supported; anything missing isn't. Do not include file layout, constants structure, or internal interaction-model rationale here — that's for `architecture.md`.
-     - Create `components/{ComponentName}/architecture.md` — agent-facing **implementation** doc. Required for every component. Document the file layout, constants keying strategy, wrapper/structural choices (e.g. "wrapper is a `<label>` so clicking focuses the input"), state-handling approach (CSS pseudo-classes vs. JS state), extension points, and any gotchas that matter when rebuilding or extending the component. For trivial components, this can be short, but it must exist so future agents know where things live and why.
+     - Create `components/{ComponentName}/architecture.md` — agent-facing **implementation** doc. Required for every component. Document the file layout, constants keying strategy, wrapper/structural choices (e.g. "wrapper is a `<label>` so clicking focuses the input"), state-handling approach (CSS pseudo-classes vs. JS state), extension points, and any gotchas that matter when rebuilding or extending the component. For trivial components, this can be short, but it must exist so future agents know where things live and why. **Focus on intent, not implementation.** The Vue/React source files are the source of truth for _how_; this doc covers _why_ and _where_. Don't reproduce class strings, JSX bodies, or full code samples that already live in the component files — link to the source file by name and summarize the decision in prose. Duplicating implementation here means two places to maintain.
      - Add the new component to the `## Components` list in `/AGENTS.md` so agents can discover it.
    - **2b) VitePress Documentation:**
      - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
@@ -146,6 +146,14 @@ Each branch should be reviewed and merged before starting the next branch.
 
    - Place the changeset file on the `{component-name}-component` branch (alongside the new `package.json` files). It travels through the rest of the stack and merges to `main` with the rest of the work.
    - Once merged, `changesets/action@v1` opens an automated "ci(changesets): version packages" PR that bumps versions and generates `CHANGELOG.md`. When that PR merges, npm publish happens automatically.
+
+6. **Cleanup before merge**
+
+   Working/scratch files used during the port don't belong in the long-term tree once the component ships. Before approving the final PR in the stack:
+
+   - If you created a `components/{ComponentName}/plan.md` (or any other working doc capturing the migration plan, design deltas, "decisions" log, etc.), **delete it**. Once the component is built and published, the plan is dead code — its content is now in the commit history, the changeset, and (where it's still useful) in `architecture.md` or `instructions.md`.
+   - Remove any references to the deleted file from `architecture.md` and `instructions.md`.
+   - Delete debug printlines, commented-out code, and TODO comments that the implementation made redundant.
 
 For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing").
 
