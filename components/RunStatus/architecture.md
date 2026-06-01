@@ -105,7 +105,14 @@ All icons render at size `12` (fixed; no prop). The source supported `'10' | '12
 ## Constants keying
 
 - **`CssClasses`** — flat object of static classes for: `container` (the pill `<div>`), `list` (the `<ul>`), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `count` (the count text `<span>`), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`).
-- **`CssTheme`** — keyed by `'light' | 'dark'`. Each entry overrides border/text/hover/separator colors. Applied to the container.
+- **`CssTheme`** — keyed by `'light' | 'dark'`, with each entry further sub-keyed by element role:
+
+  - `list` — border + base text colors, applied to the `<ul>`
+  - `link` — link text color + `hover:`/`focus-visible:` background, applied to each `<a>` (so linked stats theme their hover state correctly)
+  - `separator` — `after:border-*` color, merged into the `separatorAfter` class on the leading `<li>`
+
+  Don't apply `CssTheme[theme]` whole-cloth to a single element — pick the sub-key that matches what you're rendering.
+
 - **`CssFullWidth`** — `'true' | 'false'` flag for the `w-full` modifier.
 
 Types are derived from constants with `keyof typeof`:
@@ -126,13 +133,17 @@ Per-stat: `top` for `flaky`, `top-end` for every other stat (matches cypress-ser
 
 ### Labels
 
-Built by a helper `getTooltipLabel(status, count, isLinked)` in `constants/src/index.ts`. Pure function, no React/Vue imports. Returns:
+Built by a helper `getTooltipLabel(status, count, isLinked)` in `constants/src/index.ts`. Pure function, no React/Vue imports.
+
+`isLinked` is computed in the component layer as `!!links[statKey]` — i.e. the consumer set a truthy href for this stat. It is **not** inferred from the rendered output (so passing a `renderLink` that returns plain text still resolves to `isLinked: true`; the `links[statKey]` truthy value is the source of truth). An empty-string href is falsy and resolves to `isLinked: false`.
+
+Returns:
 
 - `flaky`, count `n`:
   - `n === 1`: `"This test both passed and failed when retried within a run"`
   - else: `"{n} tests both passed and failed when retried within a run"`
-- Other statuses, linked: `"View {status} tests"`
-- Other statuses, unlinked: `"{Capitalized status} tests"`
+- Other statuses, linked (`isLinked: true`): `"View {status} tests"`
+- Other statuses, unlinked (`isLinked: false`): `"{Capitalized status} tests"`
 
 Inline ternary for the flaky singular/plural — no `pluralize` dependency. The source used `pluralize('test', value)` but for a single call site a ternary is clearer and avoids a tree-shake-resistant dep.
 

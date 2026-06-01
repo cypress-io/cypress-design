@@ -80,10 +80,11 @@ Both themes use explicit Tailwind colors mapped from the design tokens. The comp
 
 ## Linked vs unlinked stats
 
-- If `links[statKey]` is set, the stat renders inside an `<a href={links[statKey]}>` (or `renderLink(href, ...)` if provided). The whole `<li>` is clickable, with hover and focus styling.
-- If `links[statKey]` is unset, the stat renders as plain text inside the `<li>`.
+- If `links[statKey]` is a **truthy string**, the stat renders inside an `<a href={links[statKey]}>` (or `renderLink(href, ...)` if provided). The whole `<li>` is clickable, with hover and focus styling.
+- If `links[statKey]` is unset, `undefined`, `null`, or an empty string `""`, the stat renders as plain text inside the `<li>`. Empty strings count as unlinked — to make a stat clickable, pass a non-empty href.
 - You can mix linked and unlinked stats in one render (e.g. provide `links.flaky` but not `links.passed`).
 - The `links` object accepts a `selfHealed` key for the self-healed stat.
+- The same truthiness check drives the tooltip wording: linked stats get `"View {status} tests"`, unlinked stats get `"{Capitalized status} tests"`.
 
 ### Custom link renderer
 
