@@ -27,7 +27,7 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 Cypress feature and product names are proper nouns. Capitalize them exactly as listed below — never lowercase them in body copy, even in the middle of a sentence ("…with Smart Orchestration", not "…with smart orchestration"). Sentence case applies to ordinary words in headings and UI strings (see [Capitalization](#capitalization)); it does **not** demote a proper-noun feature name.
 
-Source of truth is the cypress.io product navigation (`src/layouts/Header/content/product.yml`) for products and feature categories, and the [pricing page](https://www.cypress.io/pricing) (`src/components/pages/pricing/**`) for individual features. When a name changes there or a name is added, update the relevant list below in the same change — keep these living, not a snapshot.
+Keep these lists current: when a name changes or a new one ships, update the relevant list in the same change — they're living, not a snapshot.
 
 ### Products
 
