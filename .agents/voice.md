@@ -27,7 +27,7 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 Cypress feature and product names are proper nouns. Capitalize them exactly as listed below — never lowercase them in body copy, even in the middle of a sentence ("…with Smart Orchestration", not "…with smart orchestration"). Sentence case applies to ordinary words in headings and UI strings (see [Capitalization](#capitalization)); it does **not** demote a proper-noun feature name.
 
-Source of truth is the [cypress.io pricing page](https://www.cypress.io/pricing) (`src/components/pages/pricing/**` in the cypress.io repo). When a name changes there or a name is added, update the relevant list below in the same change — keep these living, not a snapshot.
+Source of truth is the cypress.io product navigation (`src/layouts/Header/content/product.yml`) for products and feature categories, and the [pricing page](https://www.cypress.io/pricing) (`src/components/pages/pricing/**`) for individual features. When a name changes there or a name is added, update the relevant list below in the same change — keep these living, not a snapshot.
 
 ### Products
 
@@ -35,29 +35,25 @@ Things customers buy, sign into, or install:
 
 - Cypress App
 - Cypress Cloud
-- Cypress Accessibility — premium add-on
 - UI Coverage — premium add-on
+- Cypress Accessibility — premium add-on
 
 ### Feature categories
 
-The capability groupings the pricing page organizes features under:
+The capability groupings within each product:
 
-- Visual Reviews
-- Smart Orchestration
-- Analytics & Insights
-- Workflow Integrations
-- Test Generation
-- Application Quality
+- **Cypress App:** Browser Testing, Visual Debugging, Test Generation, Flake Resistance
+- **Cypress Cloud:** Visual Reviews, Smart Orchestration, Analytics & Insights, Workflow Integrations
 
 ### Features
 
 Individual capabilities, grouped under their category:
 
-- **Visual Reviews:** Test Replay, Branch Review, AI Summaries, Test Artifacts
-- **Smart Orchestration:** Parallelization, Load Balancing, Manual Cancellation, Auto Cancellation, Spec Prioritization
-- **Analytics & Insights:** Test History, Project Analytics, Flake Detection, Flaky Test Analytics, Enterprise Reporting, Data Extract API
-- **Workflow Integrations:** Status Checks, PR Comments, Team Notifications, Cloud MCP, Jira Integration
-- **Test Generation:** Cypress Studio, Studio AI
+- **Test Generation** (Cypress App): Cypress Studio, Studio AI
+- **Visual Reviews** (Cypress Cloud): Test Replay, Branch Review, AI Summaries, Test Artifacts
+- **Smart Orchestration** (Cypress Cloud): Parallelization, Load Balancing, Manual Cancellation, Auto Cancellation, Spec Prioritization
+- **Analytics & Insights** (Cypress Cloud): Test History, Project Analytics, Flake Detection, Flaky Test Analytics, Enterprise Reporting, Data Extract API
+- **Workflow Integrations** (Cypress Cloud): Status Checks, PR Comments, Team Notifications, Cloud MCP, Jira Integration
 
 ### Plan tiers
 
