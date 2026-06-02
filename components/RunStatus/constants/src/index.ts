@@ -40,6 +40,13 @@ export const CssClasses = {
   // transparent !important }`. Scoped to this component; the shared
   // IconStatusFlaky is unchanged.
   iconFlaky: 'mx-[4px] [&_path:first-child]:fill-transparent',
+  // Self-healed icon override — `IconGeneralSparkleSingleSmall` only ships
+  // a `["16"]` variant in the icon registry, but the rest of the stats
+  // render at 12px. The icon component IS an <svg>, so `w-3 h-3` on the
+  // className overrides the icon's intrinsic `width`/`height` attributes
+  // via CSS and pins the rendered size to 12 × 12 — visual consistency
+  // without depending on a 12px icon variant that doesn't exist.
+  iconSelfHealed: 'mx-[4px] w-3 h-3',
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",

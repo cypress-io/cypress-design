@@ -66,7 +66,7 @@ const Stat: React.FC<StatProps> = ({
           strokeColor="jade-400"
           fillColor="jade-50"
           data-cy="status-icon-self-healed"
-          className={CssClasses.icon}
+          className={CssClasses.iconSelfHealed}
         />
       )
     }
