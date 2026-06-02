@@ -130,16 +130,25 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
           )}
         >
           {headerTitle && (
-            <div className={SelectConstants.CssHeaderTitleClasses[theme]}>
+            <div
+              className={clsx(
+                SelectConstants.CssHeaderTitleClasses[theme],
+                SelectConstants.CssOptionItemPaddingClasses[size],
+              )}
+            >
               {headerTitle}
             </div>
           )}
           {headerTabs && headerTabs.length > 0 && (
-            <Tabs
-              tabs={headerTabs as never}
-              activeId={headerActiveTab}
-              onSwitch={(tab) => onHeaderTabChange?.(tab.id)}
-            />
+            // Wrapper keeps Tabs at content width — flex-col parents
+            // otherwise stretch every child to the full cross-axis.
+            <div className="self-start">
+              <Tabs
+                tabs={headerTabs as never}
+                activeId={headerActiveTab}
+                onSwitch={(tab) => onHeaderTabChange?.(tab.id)}
+              />
+            </div>
           )}
           {searchable && (
             <Textbox

@@ -66,7 +66,10 @@ function onMouseDown(e: MouseEvent) {
     v-if="item.type === 'headline'"
     :id="id"
     role="presentation"
-    :class="SelectConstants.CssOptionHeadlineClasses[theme]"
+    :class="[
+      SelectConstants.CssOptionHeadlineClasses[theme],
+      SelectConstants.CssOptionItemPaddingClasses[size],
+    ]"
   >
     {{ item.label }}
   </div>
@@ -156,7 +159,7 @@ function onMouseDown(e: MouseEvent) {
     <component
       :is="item.iconLeft"
       v-if="item.iconLeft"
-      size="24"
+      size="16"
       :interactive-colors-on-group="true"
       :class="iconColorClass"
     />
@@ -199,7 +202,7 @@ function onMouseDown(e: MouseEvent) {
     <Tag v-if="item.tag" size="16" color="gray" :dark="theme === 'dark'">
       {{ item.tag }}
     </Tag>
-    <span v-if="item.slotRight" class="shrink-0">
+    <span v-if="item.slotRight" class="ml-auto shrink-0">
       <component :is="item.slotRight" />
     </span>
   </div>

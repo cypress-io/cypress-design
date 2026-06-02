@@ -179,7 +179,7 @@ export function buildSizingStyle(
 // ---------- Defaults ----------
 
 export const DefaultTheme: SelectTheme = 'light'
-export const DefaultSize: SelectSize = '40'
+export const DefaultSize: SelectSize = '32'
 export const DefaultAlignment: SelectAlignment = 'left'
 export const DefaultTriggerVariant: ButtonVariantLoose = 'outline-gray-light'
 export const DefaultSearchPlaceholder = 'Search'

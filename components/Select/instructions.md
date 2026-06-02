@@ -34,7 +34,7 @@ All props are optional unless noted. React and Vue expose the same prop surface,
 ### Appearance
 
 - **`theme`** — `'light' | 'dark'`, default `'light'`. Visual theme. Applied to both the trigger and the popover.
-- **`size`** — `'32' | '40'`, default `'40'`. Height (in pixels, as a string) of the default trigger and of each option row.
+- **`size`** — `'32' | '40'`, default `'32'`. Height (in pixels, as a string) of the default trigger and of each option row.
 - **`triggerVariant`** — `ButtonVariant`, default `'outline-gray-light'`. Forwarded to the default Button trigger. See [Button instructions](../Button/instructions.md) for the full set of variants. Ignored when a custom `trigger` slot is supplied.
 - **`align`** — `'left' | 'right'`, default `'left'`. Horizontal alignment of the popover relative to the trigger. `'left'` aligns the popover's left edge to the trigger's left edge; `'right'` aligns the right edges.
 - **`disabled`** — `boolean`, default `false`. Disables the trigger and prevents opening the popover.
