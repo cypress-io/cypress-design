@@ -38,7 +38,7 @@ Simplified render tree (React; Vue mirrors this):
 
 ```
 <div data-cy="run-stats">           (outer pill: border, rounded, flex)
-  <ul>                              (full-width, list-none, flex, items-center)
+  <ul>                              (list-none, flex, items-center)
     {/* Leading stats (independent, each optional) */}
     {flaky > 0 && <Stat status="flaky" />}
     {showSelfHealed && <Stat status="selfHealed" />}
@@ -108,8 +108,6 @@ See `renderIcon` in `vue/RunStatus.vue` and the `icon` factory inside `Stat` in 
   - `separator` — `after:border-*` color, merged into the `separatorAfter` class on the leading `<li>`
 
   Don't apply `CssTheme[theme]` whole-cloth to a single element — pick the sub-key that matches what you're rendering.
-
-- **`CssFullWidth`** — `'true' | 'false'` flag for the `w-full` modifier.
 
 Types are derived from constants with `keyof typeof`:
 
