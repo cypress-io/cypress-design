@@ -1,6 +1,6 @@
 ---
 name: accessibility
-description: Accessibility principles and considerations. Fetch when designing interactive elements, modals, custom inputs, animations, or evaluating whether a flow works for users on keyboard / assistive tech.
+description: Accessibility principles and considerations. Fetch when designing interactive elements, modals, custom inputs, animations, evaluating whether a flow works for users on keyboard / assistive tech, or writing copy about accessibility or disability.
 ---
 
 # Accessibility
@@ -23,7 +23,25 @@ When and how to invest in accessibility, plus the patterns that come up most oft
 
 **Don't trap users in inaccessible flows.** Modals, dropdowns, carousels, and custom inputs are where accessibility most often breaks. Test them with a keyboard and a screen reader before shipping — not after a customer files a ticket.
 
+## Writing about accessibility and disability
+
+Accessibility is a content concern, not only a design one. These rules apply whenever you write or format copy.
+
+**Don't rely on visuals alone.** If a reader can't see colors, images, or video, the core message must still land in the text. Provide alt text for informative images and mark decorative ones as decorative. Keep text and key UI at sufficient contrast for low-vision and color-blind readers.
+
+**Use descriptive link text.** A link must make sense on its own — "Read the Test Replay setup guide", never standalone "click here" or "learn more". (Errors and warnings share this rule; see [errors.md](./errors.md).)
+
+**"Disabled" and "disability" are the correct words — don't tiptoe around them.** This language moves quickly, and we'll get corrected sometimes; stay open to it.
+
+- **Avoid:** "special needs", "differently abled", "people of all abilities", "wheelchair-bound", "normal" / "regular" people, "inspiring" / "inspirational" (when applied to people for being disabled).
+- **Prefer, by context:** "people with disabilities", "disabled people", "blind", "deaf", "non-speaking", "non-disabled", "sighted", "mouse-users", "screen-reader users".
+- **Defer to a person's own preference** when you know it — e.g. capital-D "Deaf", or a stated preference like "hearing impaired". There's no way to know ahead of time, so don't assume.
+- **Name the technical need, not the disability, when being specific.** Screen readers aren't used only by blind people — say "screen-reader users" when that's who you mean, and reserve "blind users" for what's genuinely specific to blind people (which is rarer than it seems).
+
+When in doubt, check the [accessibility.com glossary](https://www.accessibility.com/glossary). Deeper references: the [NCDJ Disability Language Style Guide](https://ncdj.org/style-guide/) and the [University of Iowa DEI style guide](https://diversity.uiowa.edu/resources/dei-style-guide/style-guide-people-disabilities).
+
 ## Related
 
+- [voice.md](./voice.md) — general voice, tone, and mechanics for all copy
 - [colors.md](./colors.md) — Contrast tokens
 - [review-checklist.md](./review-checklist.md) — Mechanical a11y checks before shipping
