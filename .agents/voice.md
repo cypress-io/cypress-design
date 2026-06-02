@@ -90,7 +90,6 @@ People skim before they commit. Write so the structure carries the meaning on a 
 - **Numbers.** Spell out one through nine; use numerals for 10 and above. Always use numerals for metrics, measurements, and performance data.
 - **Dates and time.** Spell out days; abbreviate months. Use numerals with am/pm (7am, 7:30pm). Include time zones when scheduling matters.
 - **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly. Never use exclamation points in error messages or alerts — see [errors.md](./errors.md).
-- **Active voice by default.** "Cypress added support for hover interactions", not "Support for hover interactions was added". Reach for passive only when the actor genuinely doesn't matter.
 
 ## Writing about accessibility and inclusion
 
