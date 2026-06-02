@@ -79,7 +79,6 @@ export default defineComponent({
     showSelfHealed: { type: Boolean, default: false },
     theme: { type: String as PropType<RunStatusTheme>, default: 'light' },
     expanded: { type: Boolean, default: false },
-    fullWidth: { type: Boolean, default: false },
     links: {
       type: Object as PropType<RunStatusProps['links']>,
       default: () => ({}),
@@ -284,22 +283,13 @@ export default defineComponent({
           // (e.g. parent uses `:class="['a','b']"` or `:class="{ a: true }"`).
           // joinClasses(...) would stringify an array via `.join(' ')` on a
           // single truthy element → invalid `"a,b"` token.
-          class: [
-            CssClasses.container,
-            props.fullWidth && CssClasses.fullWidth,
-            props.className,
-            attrs.class,
-          ],
+          class: [CssClasses.container, props.className, attrs.class],
         },
         [
           h(
             'ul',
             {
-              class: joinClasses(
-                CssClasses.list,
-                CssTheme[props.theme].list,
-                props.fullWidth && CssClasses.fullWidth,
-              ),
+              class: joinClasses(CssClasses.list, CssTheme[props.theme].list),
             },
             items,
           ),

@@ -71,17 +71,6 @@ import RunStatus from '@cypress-design/vue-runstatus'
       />
     </section>
 
-    <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">Full width</h3>
-      <RunStatus
-        :passed="22"
-        :failed="4"
-        :skipped="0"
-        :pending="1"
-        full-width
-      />
-    </section>
-
     <section class="bg-gray-900 p-4 rounded">
       <h3 class="text-sm font-medium text-gray-300 mb-2">Dark theme</h3>
       <RunStatus

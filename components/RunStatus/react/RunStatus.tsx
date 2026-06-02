@@ -156,7 +156,6 @@ export const RunStatus: React.FC<
   showSelfHealed = false,
   theme = 'light',
   expanded = false,
-  fullWidth = false,
   links,
   renderLink,
   showTooltip = true,
@@ -186,19 +185,9 @@ export const RunStatus: React.FC<
     <div
       data-cy="run-stats"
       {...rest}
-      className={clsx(
-        CssClasses.container,
-        fullWidth && CssClasses.fullWidth,
-        className,
-      )}
+      className={clsx(CssClasses.container, className)}
     >
-      <ul
-        className={clsx(
-          CssClasses.list,
-          CssTheme[theme].list,
-          fullWidth && CssClasses.fullWidth,
-        )}
-      >
+      <ul className={clsx(CssClasses.list, CssTheme[theme].list)}>
         {showFlaky && (
           <Stat
             statKey="flaky"

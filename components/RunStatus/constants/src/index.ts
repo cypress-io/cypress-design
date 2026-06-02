@@ -23,8 +23,7 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // Outer wrapper. `inline-flex` so the component shrinks to content width by
-  // default; the `fullWidth` prop toggles `w-full` on both container and list.
+  // Outer wrapper. `inline-flex` so the component shrinks to content width.
   container: 'inline-flex pointer-events-auto',
   // The <ul> pill itself. Theme overrides border and text colors via CssTheme.
   list: 'flex items-center text-[14px] leading-[24px] font-medium list-none border rounded-[4px]',
@@ -44,8 +43,6 @@ export const CssClasses = {
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",
-  // Applied to BOTH container and list when the `fullWidth` prop is true.
-  fullWidth: 'w-full',
 } as const
 
 export const CssTheme = {
@@ -138,7 +135,6 @@ export interface RunStatusProps {
   // When true, regular stats render even with a zero count.
   // Does NOT affect leading stats — they only render when count > 0.
   expanded?: boolean
-  fullWidth?: boolean
 
   links?: Partial<Record<StatKey, string>>
   // Same signature in React and Vue. `children` is whatever the framework
