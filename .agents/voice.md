@@ -35,7 +35,7 @@ Lead with reader benefit; the action you want follows from understanding. See [L
 
 People skim before they commit. Write so the structure carries the meaning on a fast pass.
 
-- **Front-load the point.** Use the [inverted pyramid](https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)) — most important information first. Assume the reader stops at any point.
+- **Front-load the point.** Use the [inverted pyramid](<https://en.wikipedia.org/wiki/Inverted_pyramid_(journalism)>) — most important information first. Assume the reader stops at any point.
 - **Make structure visible.** Headings, subheads, and lists over walls of text. Short paragraphs, direct sentences.
 - **Plain language over academic phrasing.** Favor the everyday word. Breaking a strict grammar rule is fine when it improves clarity.
 - **Cut buzzwords and vague verbs.** "Use Cypress to automate your tests", not "leverage Cypress to automate your tests".
@@ -54,16 +54,49 @@ People skim before they commit. Write so the structure carries the meaning on a 
 
 ## Product and feature names
 
-**Product and feature names are always capitalized** — they're proper names, even inside otherwise sentence-case text. (Sentence case, above, governs UI chrome and headings — not these names.) When capitalization is unclear, match how the term appears in the product UI. The general capability stays lowercase even when the product is capitalized: "Cypress Accessibility" the product, "an accessibility report" the artifact.
+**Product and feature names are always capitalized** — they're proper names, even inside otherwise sentence-case text, and a name is never lowercased in body copy ("…with Smart Orchestration", not "…with smart orchestration"). Sentence case (above) governs UI chrome and headings, not these names. When capitalization is unclear, match how the term appears in the product UI. The general capability stays lowercase even when the product is capitalized: "Cypress Accessibility" the product, "an accessibility report" the artifact.
+
+Keep these lists current: when a name changes or a new one ships, update the relevant list in the same change — they're living, not a snapshot.
+
+### Products
+
+- Cypress App
+- Cypress Cloud
+- UI Coverage
+- Cypress Accessibility
+
+### Feature categories
+
+- **Cypress App:** Browser Testing, Visual Debugging, Test Generation, Flake Resistance
+- **Cypress Cloud:** Visual Reviews, Smart Orchestration, Analytics & Insights, Workflow Integrations
+
+### Features
+
+- **Visual Debugging** (Cypress App): Time Travel, Live Reload, Native Browser Inspection, Screenshots & Videos, Embedded Cloud Workflows
+- **Test Generation** (Cypress App): Cypress Studio, Studio AI
+- **Flake Resistance** (Cypress App): Automatic Waiting, Test Retries, Test Isolation, Flake Detection, Consistent Results
+- **Visual Reviews** (Cypress Cloud): Test Replay, Branch Review, AI Summaries, Test Artifacts
+- **Smart Orchestration** (Cypress Cloud): Parallelization, Load Balancing, Manual Cancellation, Auto Cancellation, Spec Prioritization
+- **Analytics & Insights** (Cypress Cloud): Test History, Project Analytics, Flake Detection, Flaky Test Analytics, Enterprise Reporting, Data Extract API
+- **Workflow Integrations** (Cypress Cloud): Status Checks, PR Comments, Team Notifications, Cloud MCP, Jira Integration
+
+### Plan tiers
+
+- Starter
+- Team
+- Business
+- Enterprise
+
+### Naming rules
 
 - **Cypress** — write "Cypress", never "Cypress.io". On non-Cypress domains, link the first mention to cypress.io. "Cypress" can mean the whole platform (the App and Cloud); when explaining specific behavior, name the specific product.
-- **Cypress Cloud** — always capitalized; don't precede with "the".
-- **Cypress App**, **Cypress Studio**, **Cypress Learn** — capitalized.
+- **Cypress Cloud** — don't precede with "the".
 - **Cypress End-to-End Testing**, **Cypress Component Testing** — capitalize when naming the product or UI entity; lowercase for the general practice.
-- **Test Replay** — capitalized.
-- **UI Coverage** — capitalized; never "UI Code Coverage".
-- **Cypress Accessibility** — capitalized. Reports are "Cypress Accessibility report" or "accessibility report" depending on specificity.
-- **Launchpad**, **Test Runner** (the specific feature, not the whole Cypress App), **Command Log** — capitalized.
+- **UI Coverage** — never "UI Code Coverage".
+- **Cypress Learn**, **Launchpad**, **Test Runner** (the specific feature, not the whole Cypress App), **Command Log** — other capitalized named entities.
+- **`cy.prompt`** is a code identifier — keep it verbatim and lowercase, never "Cy.prompt" or "Cy.Prompt".
+- Integration partner names keep their own branding: **GitHub**, **GitLab**, **Bitbucket**, **Slack**, **MS Teams**, **Jira**, **Okta**, **Azure AD**.
+- **SSO** and **CI/CD** are written in caps.
 
 ## Abbreviations and acronyms
 
