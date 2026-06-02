@@ -5,6 +5,16 @@ description: Fetch when choosing colors, picking tokens for backgrounds/text/bor
 
 # Cypress Design System: Colors
 
+## Principles
+
+- **Color has meaning. Don't waste it.** Decorative color (random tag colors, accent colors with no semantic load) implies a signal that isn't there. Reserve color for meaning; use neutrals where meaning isn't required.
+- **Use semantic tokens, not raw hex values.** Tokens carry intent; hex carries only appearance and breaks the moment the palette evolves.
+- **Color alone can't carry meaning.** Pair color with shape, icon, label, or position — colorblind users, dimmed screens, and bright sunlight all defeat color-only signals.
+
+For the broader thinking on how color fits into visual hierarchy, see [principles/visual-hierarchy.md](./principles/visual-hierarchy.md).
+
+## Palette
+
 The full color palette is hosted at `https://design.cypress.io/colors.css` (full token set at `https://design.cypress.io/tokens.css`). Import it (`<link rel="stylesheet" href="https://design.cypress.io/colors.css">`) or copy the `:root` block into any new HTML file. Never invent new hex values when one of these works.
 
 **10 hues · 113 swatches**, organized in three tiers:
