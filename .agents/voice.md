@@ -54,17 +54,16 @@ People skim before they commit. Write so the structure carries the meaning on a 
 
 ## Product and feature names
 
-Use sentence case in most contexts; avoid unnecessary capitalization. When capitalization is unclear, match how the term appears in the product UI.
+**Product and feature names are always capitalized** — they're proper names, even inside otherwise sentence-case text. (Sentence case, above, governs UI chrome and headings — not these names.) When capitalization is unclear, match how the term appears in the product UI. The general capability stays lowercase even when the product is capitalized: "Cypress Accessibility" the product, "an accessibility report" the artifact.
 
-- **Cypress** — write "Cypress", never "Cypress.io". On non-Cypress domains, link the first mention to cypress.io. "Cypress" can mean the whole platform (app + Cloud); when explaining specific behavior, name the specific product.
+- **Cypress** — write "Cypress", never "Cypress.io". On non-Cypress domains, link the first mention to cypress.io. "Cypress" can mean the whole platform (the App and Cloud); when explaining specific behavior, name the specific product.
 - **Cypress Cloud** — always capitalized; don't precede with "the".
-- **Cypress App** — capitalized; it's a proper name.
-- **Cypress Studio**, **Cypress Learn** — capitalized.
+- **Cypress App**, **Cypress Studio**, **Cypress Learn** — capitalized.
 - **Cypress End-to-End Testing**, **Cypress Component Testing** — capitalize when naming the product or UI entity; lowercase for the general practice.
 - **Test Replay** — capitalized.
 - **UI Coverage** — capitalized; never "UI Code Coverage".
 - **Cypress Accessibility** — capitalized. Reports are "Cypress Accessibility report" or "accessibility report" depending on specificity.
-- **Launchpad**, **Test Runner** (the specific feature, not the whole app), **Command Log** — capitalized.
+- **Launchpad**, **Test Runner** (the specific feature, not the whole Cypress App), **Command Log** — capitalized.
 
 ## Abbreviations and acronyms
 
