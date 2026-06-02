@@ -62,7 +62,7 @@ Each `Stat` is:
 ```
 <li data-cy="total-{status}">
   <Tooltip overlay={…}>            (only when showTooltip)
-    <a|span>                       (<a> when links[status] set, else <span>)
+    <a|span>                       (<a> when links?.[status] is a truthy href, else <span>)
       <Icon />                     (StatusIcon | IconStatusFlaky | IconGeneralSparkleSingleSmall)
       <span>{count}</span>
     </a|span>
@@ -131,7 +131,9 @@ Per-stat: `top` for `flaky`, `top-end` for every other stat (matches cypress-ser
 
 Built by a helper `getTooltipLabel(status, count, isLinked)` in `constants/src/index.ts`. Pure function, no React/Vue imports.
 
-`isLinked` is computed in the component layer as `!!links[statKey]` — i.e. the consumer set a truthy href for this stat. It is **not** inferred from the rendered output (so passing a `renderLink` that returns plain text still resolves to `isLinked: true`; the `links[statKey]` truthy value is the source of truth). An empty-string href is falsy and resolves to `isLinked: false`.
+`isLinked` is computed in the component layer as `!!links?.[statKey]` — i.e. the consumer set a truthy href for this stat. It is **not** inferred from the rendered output (so passing a `renderLink` that returns plain text still resolves to `isLinked: true`; the truthy value of `links?.[statKey]` is the source of truth). An empty-string href is falsy and resolves to `isLinked: false`.
+
+The `links` prop is optional. Vue defaults it to `{}`; React reads it with optional chaining. Either way, omitting `links` entirely — or omitting any individual key — is safe and resolves to `isLinked: false` for that stat.
 
 Returns:
 
