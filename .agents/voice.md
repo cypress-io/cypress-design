@@ -21,6 +21,50 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 - Sentence case for buttons, headings, menu items, page titles. Not Title Case.
 - Code identifiers stay verbatim — never rewrap or recase them.
+- Feature and product names are proper nouns — see [Feature & product names](#feature--product-names). They keep their exact casing even mid-sentence in sentence-case copy.
+
+## Feature & product names
+
+Cypress feature and product names are proper nouns. Capitalize them exactly as listed below — never lowercase them in body copy, even in the middle of a sentence ("…with Smart Orchestration", not "…with smart orchestration"). Sentence case applies to ordinary words in headings and UI strings (see [Capitalization](#capitalization)); it does **not** demote a proper-noun feature name.
+
+Source of truth is the [cypress.io pricing page](https://www.cypress.io/pricing) (`src/components/pages/pricing/**` in the cypress.io repo). When a name changes there or a feature is added, update this table in the same change — keep it living, not a snapshot.
+
+| Name                                   | Type                       |
+| -------------------------------------- | -------------------------- |
+| Cypress App                            | Product                    |
+| Cypress Cloud                          | Product                    |
+| Cypress Accessibility                  | Product (premium add-on)   |
+| UI Coverage                            | Product (premium add-on)   |
+| Cypress Studio                         | Product                    |
+| Test Replay                            | Feature                    |
+| Branch Review                          | Feature                    |
+| AI Summaries                           | Feature                    |
+| Test Artifacts                         | Feature                    |
+| Smart Orchestration                    | Feature (capability suite) |
+| Parallelization                        | Feature                    |
+| Load Balancing                         | Feature                    |
+| Manual Cancellation                    | Feature                    |
+| Auto Cancellation                      | Feature                    |
+| Spec Prioritization                    | Feature                    |
+| Test History                           | Feature                    |
+| Project Analytics                      | Feature                    |
+| Flake Detection                        | Feature                    |
+| Flaky Test Analytics                   | Feature                    |
+| Enterprise Reporting                   | Feature                    |
+| Data Extract API                       | Feature                    |
+| Status Checks                          | Feature                    |
+| PR Comments                            | Feature                    |
+| Team Notifications                     | Feature                    |
+| Cloud MCP                              | Feature                    |
+| Jira Integration                       | Feature                    |
+| Studio AI                              | Feature                    |
+| Starter / Team / Business / Enterprise | Plan tiers                 |
+
+Notes:
+
+- **`cy.prompt`** is a code identifier — keep it verbatim and lowercase, never "Cy.prompt" or "Cy.Prompt" (see [Capitalization](#capitalization) on code identifiers).
+- Integration partner names keep their own branding: **GitHub**, **GitLab**, **Bitbucket**, **Slack**, **MS Teams**, **Jira**, **Okta**, **Azure AD**.
+- **SSO** and **CI / CD** are written as the pricing page renders them.
 
 ## Headings
 
