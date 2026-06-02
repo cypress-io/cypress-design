@@ -43,7 +43,9 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 ### Features
 
+- **Visual Debugging** (Cypress App): Time Travel, Live Reload, Native Browser Inspection, Screenshots & Videos, Embedded Cloud Workflows
 - **Test Generation** (Cypress App): Cypress Studio, Studio AI
+- **Flake Resistance** (Cypress App): Automatic Waiting, Test Retries, Test Isolation, Flake Detection, Consistent Results
 - **Visual Reviews** (Cypress Cloud): Test Replay, Branch Review, AI Summaries, Test Artifacts
 - **Smart Orchestration** (Cypress Cloud): Parallelization, Load Balancing, Manual Cancellation, Auto Cancellation, Spec Prioritization
 - **Analytics & Insights** (Cypress Cloud): Test History, Project Analytics, Flake Detection, Flaky Test Analytics, Enterprise Reporting, Data Extract API
