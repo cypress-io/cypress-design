@@ -62,7 +62,7 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - **`cy.prompt`** is a code identifier — keep it verbatim and lowercase, never "Cy.prompt" or "Cy.Prompt" (see [Capitalization](#capitalization) on code identifiers).
 - Integration partner names keep their own branding: **GitHub**, **GitLab**, **Bitbucket**, **Slack**, **MS Teams**, **Jira**, **Okta**, **Azure AD**.
-- **SSO** and **CI / CD** are written in caps, with spaces around the slash in CI / CD.
+- **SSO** and **CI/CD** are written in caps.
 
 ## Headings
 
