@@ -58,7 +58,7 @@ Use sentence case in most contexts; avoid unnecessary capitalization. When capit
 
 - **Cypress** — write "Cypress", never "Cypress.io". On non-Cypress domains, link the first mention to cypress.io. "Cypress" can mean the whole platform (app + Cloud); when explaining specific behavior, name the specific product.
 - **Cypress Cloud** — always capitalized; don't precede with "the".
-- **Cypress app** — lowercase "app" unless a format forces title case.
+- **Cypress App** — capitalized; it's a proper name.
 - **Cypress Studio**, **Cypress Learn** — capitalized.
 - **Cypress End-to-End Testing**, **Cypress Component Testing** — capitalize when naming the product or UI entity; lowercase for the general practice.
 - **Test Replay** — capitalized.

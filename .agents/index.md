@@ -27,7 +27,7 @@ Several pillars lead with a `## Principles` section that governs the tokens and 
 - [spacing.md](./spacing.md) — margins, padding, gaps, layout dimensions
 - [iconography.md](./iconography.md) — creating or styling icons
 - [illustrations.md](./illustrations.md) — illustration principles, style, theme, and guidelines
-- [voice.md](./voice.md) — UI copy, tone, point of view, capitalization, product naming, mechanics (numbers, dates, punctuation)
+- [voice.md](./voice.md) — UI copy, errors, empty states, tone, capitalization, product naming, mechanics (numbers, dates, punctuation)
 - [errors.md](./errors.md) — errors, warnings, deprecations, and other system-to-user failure messages; distilled from the cypress-error-messages skill in aihub
 - [personas.md](./personas.md) — who uses Cypress and what they need
 - [accessibility.md](./accessibility.md) — when to invest in a11y and the patterns to follow on the surfaces you ship
