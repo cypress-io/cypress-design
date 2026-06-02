@@ -17,7 +17,6 @@ function mountStory(props: Partial<RunStatusProps> = {}) {
         showSelfHealed={props.showSelfHealed}
         theme={props.theme}
         expanded={props.expanded}
-        fullWidth={props.fullWidth}
         links={props.links}
         renderLink={props.renderLink}
         showTooltip={props.showTooltip}
@@ -41,17 +40,5 @@ describe('<RunStatus /> Vue', () => {
       ),
     })
     cy.get('button[data-href="#passed"]').should('exist')
-  })
-
-  it('stretches to full width when fullWidth is true', () => {
-    mountStory({
-      passed: 22,
-      failed: 4,
-      skipped: 0,
-      pending: 1,
-      fullWidth: true,
-    })
-    cy.get('[data-cy="run-stats"]').should('have.class', 'w-full')
-    cy.get('[data-cy="run-stats"] ul').should('have.class', 'w-full')
   })
 })
