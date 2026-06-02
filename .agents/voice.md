@@ -27,40 +27,47 @@ description: Fetch when writing user-facing copy — UI strings, error messages,
 
 Cypress feature and product names are proper nouns. Capitalize them exactly as listed below — never lowercase them in body copy, even in the middle of a sentence ("…with Smart Orchestration", not "…with smart orchestration"). Sentence case applies to ordinary words in headings and UI strings (see [Capitalization](#capitalization)); it does **not** demote a proper-noun feature name.
 
-Source of truth is the [cypress.io pricing page](https://www.cypress.io/pricing) (`src/components/pages/pricing/**` in the cypress.io repo). When a name changes there or a feature is added, update this table in the same change — keep it living, not a snapshot.
+Source of truth is the [cypress.io pricing page](https://www.cypress.io/pricing) (`src/components/pages/pricing/**` in the cypress.io repo). When a name changes there or a name is added, update the relevant list below in the same change — keep these living, not a snapshot.
 
-| Name                                   | Type                       |
-| -------------------------------------- | -------------------------- |
-| Cypress App                            | Product                    |
-| Cypress Cloud                          | Product                    |
-| Cypress Accessibility                  | Product (premium add-on)   |
-| UI Coverage                            | Product (premium add-on)   |
-| Cypress Studio                         | Product                    |
-| Test Replay                            | Feature                    |
-| Branch Review                          | Feature                    |
-| AI Summaries                           | Feature                    |
-| Test Artifacts                         | Feature                    |
-| Smart Orchestration                    | Feature (capability suite) |
-| Parallelization                        | Feature                    |
-| Load Balancing                         | Feature                    |
-| Manual Cancellation                    | Feature                    |
-| Auto Cancellation                      | Feature                    |
-| Spec Prioritization                    | Feature                    |
-| Test History                           | Feature                    |
-| Project Analytics                      | Feature                    |
-| Flake Detection                        | Feature                    |
-| Flaky Test Analytics                   | Feature                    |
-| Enterprise Reporting                   | Feature                    |
-| Data Extract API                       | Feature                    |
-| Status Checks                          | Feature                    |
-| PR Comments                            | Feature                    |
-| Team Notifications                     | Feature                    |
-| Cloud MCP                              | Feature                    |
-| Jira Integration                       | Feature                    |
-| Studio AI                              | Feature                    |
-| Starter / Team / Business / Enterprise | Plan tiers                 |
+### Products
 
-Notes:
+Things customers buy, sign into, or install:
+
+- Cypress App
+- Cypress Cloud
+- Cypress Accessibility — premium add-on
+- UI Coverage — premium add-on
+- Cypress Studio
+
+### Feature categories
+
+The capability groupings the pricing page organizes features under:
+
+- Visual Reviews
+- Smart Orchestration
+- Analytics & Insights
+- Workflow Integrations
+- Test Generation
+- Application Quality
+
+### Features
+
+Individual capabilities, grouped under their category:
+
+- **Visual Reviews:** Test Replay, Branch Review, AI Summaries, Test Artifacts
+- **Smart Orchestration:** Parallelization, Load Balancing, Manual Cancellation, Auto Cancellation, Spec Prioritization
+- **Analytics & Insights:** Test History, Project Analytics, Flake Detection, Flaky Test Analytics, Enterprise Reporting, Data Extract API
+- **Workflow Integrations:** Status Checks, PR Comments, Team Notifications, Cloud MCP, Jira Integration
+- **Test Generation:** Studio AI
+
+### Plan tiers
+
+- Starter
+- Team
+- Business
+- Enterprise
+
+### Notes
 
 - **`cy.prompt`** is a code identifier — keep it verbatim and lowercase, never "Cy.prompt" or "Cy.Prompt" (see [Capitalization](#capitalization) on code identifiers).
 - Integration partner names keep their own branding: **GitHub**, **GitLab**, **Bitbucket**, **Slack**, **MS Teams**, **Jira**, **Okta**, **Azure AD**.
