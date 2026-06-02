@@ -1,9 +1,13 @@
 // Popover panel + header + footer classes, keyed by theme.
-
+//
+// Figma uses NO drop shadow on the panel. The chrome is a 1px inside border
+// plus a 3px outside outline — light mode uses muted gray, dark mode uses
+// indigo. Tokens come from Components/Inputs/Select/Option List/Card/Outline
+// in Figma (light node 4980:25030, dark node 5116:122785).
 export const CssPopoverClasses = {
   light:
-    'bg-white border border-gray-100 rounded-[6px] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.16)]',
-  dark: 'bg-gray-1000 border border-gray-800 rounded-[6px] shadow-[0_8px_24px_-8px_rgba(0,0,0,0.5)]',
+    'bg-white border border-gray-400 rounded-[4px] outline outline-[3px] outline-offset-0 outline-gray-1000/[0.07]',
+  dark: 'bg-gray-1000 border border-indigo-300 rounded-[4px] outline outline-[3px] outline-offset-0 outline-indigo-300/35',
 } as const
 
 export const CssHeaderClasses = {
@@ -11,9 +15,13 @@ export const CssHeaderClasses = {
   dark: 'border-b border-gray-800',
 } as const
 
+// Header title visually matches an in-list `headline` row: same font weight,
+// same muted color, inherits font-size from the popover root so it scales
+// with `size`. Render code applies the per-size `CssOptionItemPaddingClasses`
+// so the title aligns with the option rows below it.
 export const CssHeaderTitleClasses = {
-  light: 'text-[14px] leading-[20px] font-medium text-gray-900 px-[4px]',
-  dark: 'text-[14px] leading-[20px] font-medium text-gray-300 px-[4px]',
+  light: 'font-medium text-gray-600',
+  dark: 'font-medium text-gray-500',
 } as const
 
 export const CssFooterClasses = {

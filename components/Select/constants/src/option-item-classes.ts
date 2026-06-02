@@ -57,8 +57,12 @@ export const CssOptionItemIconColorClasses = {
   dark: 'text-gray-400 shrink-0',
 } as const
 
-// Label takes the remaining horizontal space inside a row.
-export const CssOptionItemLabelClasses = 'flex-1 min-w-0 truncate'
+// Label is content-width by default — anything visually following it
+// (a `tag`) sits inline immediately after the label, as per Figma. The
+// optional `slotRight` is pushed to the row's right edge via `ml-auto`.
+// `min-w-0 truncate` lets the label shrink + ellipsize when the row is
+// too narrow to fit everything.
+export const CssOptionItemLabelClasses = 'min-w-0 truncate'
 
 // Sub-text (used by `checkbox`, `user` content types) — smaller, muted.
 export const CssOptionItemSubTextClasses = {
@@ -67,10 +71,17 @@ export const CssOptionItemSubTextClasses = {
 } as const
 
 // Headline row — non-interactive section heading.
+// Font size + line-height inherit from the popover root, so headlines
+// follow the size of the surrounding option items:
+//   size 32 → 14/20  ·  size 40 → 16/24
+// Headlines are always font-weight 500 (medium) regardless of size.
+// Rendered in the case the consumer passes — no uppercase transform.
+// Padding is NOT included here — render code applies the per-size
+// `CssOptionItemPaddingClasses` so the headline lines up horizontally
+// and vertically with the surrounding option rows.
 export const CssOptionHeadlineClasses = {
-  light:
-    'text-[12px] leading-[16px] font-medium uppercase tracking-wide text-gray-600 px-[12px] py-[6px]',
-  dark: 'text-[12px] leading-[16px] font-medium uppercase tracking-wide text-gray-500 px-[12px] py-[6px]',
+  light: 'font-medium text-gray-600',
+  dark: 'font-medium text-gray-500',
 } as const
 
 // Divider row — horizontal rule.

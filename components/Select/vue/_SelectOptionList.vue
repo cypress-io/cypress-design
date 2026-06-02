@@ -133,16 +133,22 @@ function rowId(index: number): string | undefined {
     >
       <div
         v-if="headerTitle"
-        :class="SelectConstants.CssHeaderTitleClasses[theme]"
+        :class="[
+          SelectConstants.CssHeaderTitleClasses[theme],
+          SelectConstants.CssOptionItemPaddingClasses[size],
+        ]"
       >
         {{ headerTitle }}
       </div>
-      <Tabs
-        v-if="headerTabs && headerTabs.length > 0"
-        :tabs="headerTabs as never"
-        :active-id="headerActiveTab"
-        @switch="(tab: { id: string }) => emit('header-tab-change', tab.id)"
-      />
+      <!-- Wrapper keeps Tabs at content width — flex-col parents otherwise
+           stretch every child to the full cross-axis (panel width). -->
+      <div v-if="headerTabs && headerTabs.length > 0" class="self-start">
+        <Tabs
+          :tabs="headerTabs as never"
+          :active-id="headerActiveTab"
+          @switch="(tab: { id: string }) => emit('header-tab-change', tab.id)"
+        />
+      </div>
       <Textbox
         v-if="searchable"
         :theme="theme"

@@ -57,7 +57,10 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
       <div
         id={id}
         role="presentation"
-        className={SelectConstants.CssOptionHeadlineClasses[theme]}
+        className={clsx(
+          SelectConstants.CssOptionHeadlineClasses[theme],
+          SelectConstants.CssOptionItemPaddingClasses[size],
+        )}
       >
         {item.label}
       </div>
@@ -182,7 +185,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         onClick={handleClick}
         onMouseDown={(e) => e.preventDefault()}
       >
-        {renderIcon(item.iconLeft, iconColorClass, '24')}
+        {renderIcon(item.iconLeft, iconColorClass)}
         <div className={SelectConstants.CssUserRowStackClasses}>
           <span className={SelectConstants.CssUserRowLabelClasses}>
             {item.label}
@@ -219,7 +222,9 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
           {item.tag}
         </Tag>
       )}
-      {item.slotRight && <span className="shrink-0">{item.slotRight}</span>}
+      {item.slotRight && (
+        <span className="ml-auto shrink-0">{item.slotRight}</span>
+      )}
     </div>
   )
 }
