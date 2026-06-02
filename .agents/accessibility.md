@@ -34,7 +34,7 @@ Accessibility is a content concern, not only a design one. These rules apply whe
 **"Disabled" and "disability" are the correct words — don't tiptoe around them.** This language moves quickly, and we'll get corrected sometimes; stay open to it.
 
 - **Avoid:** "special needs", "differently abled", "people of all abilities", "wheelchair-bound", "normal" / "regular" people, "inspiring" / "inspirational" (when applied to people for being disabled).
-- **Prefer, by context:** "people with disabilities", "disabled people", "blind", "deaf", "non-speaking", "non-disabled", "sighted", "mouse-users", "screen-reader users".
+- **Prefer, by context:** "people with disabilities", "disabled people", "blind", "deaf", "non-speaking", "non-disabled", "sighted", "mouse users", "screen-reader users".
 - **Defer to a person's own preference** when you know it — e.g. capital-D "Deaf", or a stated preference like "hearing impaired". There's no way to know ahead of time, so don't assume.
 - **Name the technical need, not the disability, when being specific.** Screen readers aren't used only by blind people — say "screen-reader users" when that's who you mean, and reserve "blind users" for what's genuinely specific to blind people (which is rarer than it seems).
 

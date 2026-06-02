@@ -68,7 +68,7 @@ People skim before they commit. Write so the structure carries the meaning on a 
 ## Abbreviations and acronyms
 
 - Spell out acronyms on first use unless universally known (API, CSS).
-- Prefer "accessibility" over "a11y" in most contexts.
+- Prefer "accessibility" over "a11y" in user-facing copy. "a11y" is fine in internal labels, code, anchors, and checklists.
 - Use the shortened form consistently after first use.
 
 ## Headings
@@ -88,7 +88,7 @@ People skim before they commit. Write so the structure carries the meaning on a 
 ## Mechanics
 
 - **Numbers.** Spell out one through nine; use numerals for 10 and above. Always use numerals for metrics, measurements, and performance data.
-- **Dates and time.** Spell out days; abbreviate months. Use numerals with am/pm (7am, 7:30pm). Include time zones when scheduling matters.
+- **Dates and time.** Spell out the day of the week and abbreviate the month (Tuesday, Jan 14). Use numerals with am/pm (7am, 7:30pm). Include time zones when scheduling matters.
 - **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly. Never use exclamation points in error messages or alerts — see [errors.md](./errors.md).
 
 ## Writing about accessibility and inclusion
