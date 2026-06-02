@@ -33,8 +33,8 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - Cypress App
 - Cypress Cloud
-- UI Coverage — premium add-on
-- Cypress Accessibility — premium add-on
+- UI Coverage
+- Cypress Accessibility
 
 ### Feature categories
 
