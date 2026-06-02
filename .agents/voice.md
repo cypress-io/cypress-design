@@ -31,8 +31,6 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 ### Products
 
-Things customers buy, sign into, or install:
-
 - Cypress App
 - Cypress Cloud
 - UI Coverage — premium add-on
@@ -40,14 +38,10 @@ Things customers buy, sign into, or install:
 
 ### Feature categories
 
-The capability groupings within each product:
-
 - **Cypress App:** Browser Testing, Visual Debugging, Test Generation, Flake Resistance
 - **Cypress Cloud:** Visual Reviews, Smart Orchestration, Analytics & Insights, Workflow Integrations
 
 ### Features
-
-Individual capabilities, grouped under their category:
 
 - **Test Generation** (Cypress App): Cypress Studio, Studio AI
 - **Visual Reviews** (Cypress Cloud): Test Replay, Branch Review, AI Summaries, Test Artifacts
