@@ -37,7 +37,6 @@ Things customers buy, sign into, or install:
 - Cypress Cloud
 - Cypress Accessibility — premium add-on
 - UI Coverage — premium add-on
-- Cypress Studio
 
 ### Feature categories
 
@@ -58,7 +57,7 @@ Individual capabilities, grouped under their category:
 - **Smart Orchestration:** Parallelization, Load Balancing, Manual Cancellation, Auto Cancellation, Spec Prioritization
 - **Analytics & Insights:** Test History, Project Analytics, Flake Detection, Flaky Test Analytics, Enterprise Reporting, Data Extract API
 - **Workflow Integrations:** Status Checks, PR Comments, Team Notifications, Cloud MCP, Jira Integration
-- **Test Generation:** Studio AI
+- **Test Generation:** Cypress Studio, Studio AI
 
 ### Plan tiers
 
