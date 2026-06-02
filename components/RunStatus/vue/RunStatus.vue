@@ -70,12 +70,25 @@ export default defineComponent({
   name: 'RunStatus',
   inheritAttrs: false,
   props: {
-    passed: { type: Number as PropType<number | null>, required: true },
-    failed: { type: Number as PropType<number | null>, required: true },
-    skipped: { type: Number as PropType<number | null>, required: true },
-    pending: { type: Number as PropType<number | null>, required: true },
-    flaky: { type: Number as PropType<number | null>, default: null },
-    selfHealed: { type: Number as PropType<number | null>, default: null },
+    // Number-or-null props use the [Number, null] array form so Vue's
+    // runtime validator accepts `null` without emitting a dev-mode type
+    // warning. The bare `Number` constructor only matches numbers; the
+    // PropType cast is TypeScript-only.
+    passed: { type: [Number, null] as PropType<number | null>, required: true },
+    failed: { type: [Number, null] as PropType<number | null>, required: true },
+    skipped: {
+      type: [Number, null] as PropType<number | null>,
+      required: true,
+    },
+    pending: {
+      type: [Number, null] as PropType<number | null>,
+      required: true,
+    },
+    flaky: { type: [Number, null] as PropType<number | null>, default: null },
+    selfHealed: {
+      type: [Number, null] as PropType<number | null>,
+      default: null,
+    },
     showSelfHealed: { type: Boolean, default: false },
     theme: { type: String as PropType<RunStatusTheme>, default: 'light' },
     expanded: { type: Boolean, default: false },
