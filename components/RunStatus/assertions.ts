@@ -285,6 +285,13 @@ export default function assertions(
     // single tooltip whose text matches — without this scoping, a swap
     // regression (passed tooltip showing flaky text, flaky tooltip showing
     // passed text) could still pass because the combined text would match.
+    //
+    // We assert `be.visible` (not just `exist`) so the test actually fails
+    // if hover never opened the tooltip. The Vue role="tooltip" element is
+    // present in the DOM even when hidden — `exist` alone would pass
+    // vacuously, masking a regression where realHover doesn't fire the
+    // open handler. React only portals on open, but be.visible gives both
+    // frameworks the same rigor.
 
     it('shows singular text when flaky count is 1', () => {
       mountStory({ passed: 10, failed: 0, skipped: 0, pending: 0, flaky: 1 })
@@ -295,7 +302,7 @@ export default function assertions(
       cy.contains(
         '[role="tooltip"]',
         'This test both passed and failed when retried within a run',
-      ).should('exist')
+      ).should('be.visible')
     })
 
     it('shows plural text when flaky count is > 1', () => {
@@ -306,7 +313,7 @@ export default function assertions(
       cy.contains(
         '[role="tooltip"]',
         '3 tests both passed and failed when retried within a run',
-      ).should('exist')
+      ).should('be.visible')
     })
   })
 
