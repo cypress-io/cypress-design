@@ -31,9 +31,9 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **A POC has to prove something that matters — say what before you build it.** "We can build it" isn't a result. Name the hypothesis the POC tests and the decision its outcome drives. Are we proving we can launch a rocket, or that we can get to Mars? If you can't state what a passing POC would teach you, you're not ready to build it. A doc written to justify a solution already chosen is the same smell from the other side — it argues backward from the answer instead of forward from the problem.
 
-**Frame initiatives as opportunities, then explore several solutions before committing.** A customer problem is the opportunity, and it always has more than one possible solution. Map the space — an opportunity-solution tree works well — and carry a few candidates into discovery instead of spending engineering time on the first idea. Being handed a fixed feature to execute skips the part where the best solution gets found.
+**Map the opportunity space before you commit engineering.** That any single ask is rarely the best solution is the starting point (see "Build against the outcome" and "One solution rarely solves a big problem") — this is the discovery practice that acts on it. Chart the candidate solutions to a problem (an opportunity-solution tree works well) and carry a few into discovery, so the comparison happens before the build, not after. Being handed a fixed feature to execute skips the step where solutions get weighed against each other.
 
-**Connect the altitudes: vision → jobs → solution.** Every solution should trace up to a job, and every job up to the north star. When those links are missing, work still ships but never lands — a rocket with no agreed destination. Confirm where we're going before debating execution; if the team can't agree it's Mars and not the Moon, don't launch yet.
+**Connect the altitudes: vision → jobs → solution.** Every solution should trace up to a job, and every job up to the north star. When those links are missing, work still ships but never lands — effort with no agreed destination. Confirm where we're going before debating execution; if the team can't agree on the destination, don't start building.
 
 **Learn the cheap way before you build the expensive way.** Validate the assumption with the lightest test that produces real signal — a fake door, a Wizard-of-Oz flow, a Pendo guide, a mocked workflow — before committing engineering. Each discovery loop carries one hypothesis and one small, observable thing it's trying to learn. Implementation follows the learning, not the reverse.
 
@@ -111,9 +111,7 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 **Design picks naming candidates. GTM validates.** Designers know the product surface and the user vocabulary; GTM knows how the name will land in trial calls, ads, and sales conversations. Don't finalize a feature name without that loop.
 
-**Feature placement is a statement of belief.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention. If the feature is real, give it real placement. If it doesn't deserve real placement, question why you're shipping it at all.
-
-**Shipping a high-value capability as "just config" undersells it.** Where you place a feature signals what you think it's worth; shipping an enterprise-grade capability as a configuration toggle tells customers and sales it isn't worth paying for. If it protects the customer's business the way a security or audit product does, position and price it that way. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](./releases.md).)
+**Feature placement is a statement of belief — and a price signal.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention, and shipping an enterprise-grade capability as "just config" tells them it isn't worth paying for. If the feature is real, give it real placement; if it protects the customer's business the way a security or audit product does, position and price it that way. If it doesn't deserve real placement, question why you're shipping it at all. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](./releases.md).)
 
 ## Pricing
 
