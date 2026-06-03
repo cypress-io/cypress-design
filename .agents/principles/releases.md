@@ -15,6 +15,14 @@ description: Principles for shipping releases, betas, previews, feature flags, a
 
 **Pick which customers see which version deliberately.** Customers you've over-promised to should not be the first ones to see a stripped-down preview — they'll grade it against the promise, not the actual scope. Reserve early previews for customers who'll grade on direction and contribute signal, not for accounts where the gap between promise and reality could damage trust.
 
+## Release titles
+
+**Lead with the benefit, but name the feature when people search for it.** Release titles follow the same benefit-first rule as the rest of the product ([voice.md](../voice.md), "Leading with value") — open on the outcome, not the mechanism. A release index adds a second job: it's a scan-and-navigate surface, and for some launches a search-and-discovery one. A benefit-only title can leave someone scanning the list unsure what actually shipped, and feature or category names aren't always self-explanatory on their own (e.g. "Smart Orchestration").
+
+**When a release introduces a term people come looking for — a product or feature name with recognition or search value, like "Cloud MCP" — put it in the title alongside the benefit.** Keep the benefit-led phrasing, and tag it with the name as a short prefix: `Cloud MCP Beta: Debug failing tests with your AI assistant`, not `Debug failing tests with your AI assistant (beta)`. The value-first phrasing stays; the title also reads clearly to scanners and search.
+
+**Don't force a name into every title.** Use this when the term carries recognition or SEO weight people actually scan or search for. If a feature name adds no discovery value, keep the clean benefit-led title.
+
 ## Feature flags
 
 **Feature flags are tools, not strategy — every flag needs a sunset plan.** A flag without a removal date is unfinished work pretending to be done. Decide up front: when does this flag come out, and what's the trigger (% rollout, customer count, success metric)?
