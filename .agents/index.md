@@ -17,6 +17,7 @@ Foundational thinking that frames how we make design and product decisions. Fetc
 - [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
 - [principles/learning-from-feedback.md](./principles/learning-from-feedback.md) — **fetch on every feedback exchange** (PR review, reply to a comment, Slack thread, Zoom recap) — how to spot the rule hiding in a fix and confirm it with the human before documenting
 - [principles/releases.md](./principles/releases.md) — shipping releases, betas, and previews; naming stages; managing feedback quality
+- [principles/product-process.md](./principles/product-process.md) — how an initiative is run: ownership, shipping to learn (measure before launch, don't bundle, set a review date), and post-launch decide. Fetch when planning, prioritizing, or reviewing whether shipped work is measured and followed up
 
 ## Design pillars
 
@@ -47,4 +48,6 @@ Fetch on demand — don't preload all of them:
 
 ## Before marking done
 
-Run [review-checklist.md](./review-checklist.md) against your diff.
+Run [review-checklist.md](./review-checklist.md) against your diff (tokens, spacing, a11y — is the surface built right?).
+
+When the work is a product brief, initiative, or design proposal — not just a UI surface — also run [product-review-checklist.md](./product-review-checklist.md) (problem defined, alternatives compared, success metric + measurement, review date, post-launch decision — should we be building it, and will we know if it worked?).

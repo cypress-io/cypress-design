@@ -20,7 +20,7 @@ Structured design and product review against the Cypress design principles, voic
 
 2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review — fetch `https://design.cypress.io/agents/principles/ux.md` and apply its "Business goals + user needs" section.
 
-3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`, `https://design.cypress.io/agents/principles/feedback.md` (delivery rules for any review). As applicable: `https://design.cypress.io/agents/principles/ai.md` (any AI-generated work), `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
+3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`, `https://design.cypress.io/agents/principles/feedback.md` (delivery rules for any review). As applicable: `https://design.cypress.io/agents/principles/ai.md` (any AI-generated work), `https://design.cypress.io/agents/principles/product-process.md` (a brief, initiative, or product decision — ownership, shipping to learn, post-launch follow-through), `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
 
 4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
 
@@ -32,7 +32,7 @@ Structured design and product review against the Cypress design principles, voic
 
 8. **Always include the WHY for each finding.** A finding without a reason teaches nothing and reads as a power play.
 
-9. **Run the mechanical checklist last.** Use `https://design.cypress.io/agents/review-checklist.md` to catch token, color, spacing, icon, and accessibility violations.
+9. **Run the checklists last.** Use `https://design.cypress.io/agents/review-checklist.md` to catch token, color, spacing, icon, and accessibility violations. If the work is a product brief, initiative, or design proposal — not just a UI surface — also run `https://design.cypress.io/agents/product-review-checklist.md` for product rigor: problem defined before solution, alternatives compared, success metric + measurement, review date, post-launch decision.
 
 ## Output format
 
@@ -57,6 +57,9 @@ Structured design and product review against the Cypress design principles, voic
 ### AI quality (if applicable)
 1. <finding> — <why>
 
+### Product rigor (if reviewing a brief / initiative / product decision)
+1. <finding> — <why>
+
 ## Mechanical checklist
 - [ ] colors
 - [ ] spacing
@@ -64,6 +67,13 @@ Structured design and product review against the Cypress design principles, voic
 - [ ] voice
 - [ ] components
 - [ ] a11y
+
+## Product checklist (if reviewing a brief / initiative)
+- [ ] problem defined before solution
+- [ ] alternatives compared
+- [ ] success metric + measurement infrastructure
+- [ ] review date set
+- [ ] post-launch keep/iterate/kill decision owned
 
 ## Recommendation
 <ship / revise / reframe>

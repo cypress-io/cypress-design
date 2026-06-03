@@ -13,6 +13,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **When user need and business goal conflict, surface the conflict — don't hide it.** A checkout flow optimized purely for conversion will frustrate users; one optimized purely for user comfort will leave money on the table. The best designs resolve the tension explicitly. The worst pretend it doesn't exist.
 
+**Rank jobs, not solutions — and score the job from both sides.** Prioritize by the customer job, not the feature you'd build for it; how hard something is to build shouldn't decide which customer needs are worth solving. But how much a job matters to the customer is only one input — it says nothing about how much the business gains from solving it, or how long it'll take us (which depends on the solution we pick). Rank on customer importance and business value together (see "UX lives where business goals meet user needs," above), then weigh against cost to solve — without letting "it's hard" bury a job that matters.
+
 **A design isn't done until you can explain how it pays back.** If you can't articulate what business outcome the design moves and how you'll measure it, the design is incomplete — no matter how polished it looks.
 
 **Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result.
