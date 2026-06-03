@@ -1,6 +1,6 @@
 ---
 name: ux
-description: UX, product design, and business-goal principles. Fetch when designing new flows, evaluating proposed UX, defining success, planning research, reviewing screens, or making product decisions about how features should work.
+description: UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.
 ---
 
 # UX & Product Design Principles
@@ -9,21 +9,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **UX lives where business goals meet user needs.** JTBD captures the user side well, but the framework is usually phrased entirely from the user's perspective — which quietly hides the business outcome a design has to drive. Good UX serves both at once. If a flow only serves the user, the business gets nothing measurable; if it only serves the business, users feel manipulated and leave. The work is to find designs where both sides win.
 
-**Name the business goal alongside the JTBD.** Before designing, write both down: what the user is trying to accomplish, and what the business is trying to gain (revenue, retention, activation, qualified leads, NPS, etc.). Without both on paper, you can't evaluate trade-offs honestly, and you'll default to whichever side has the loudest voice in the room.
-
-**When user need and business goal conflict, surface the conflict — don't hide it.** A checkout flow optimized purely for conversion will frustrate users; one optimized purely for user comfort will leave money on the table. The best designs resolve the tension explicitly. The worst pretend it doesn't exist.
-
-**A design isn't done until you can explain how it pays back.** If you can't articulate what business outcome the design moves and how you'll measure it, the design is incomplete — no matter how polished it looks.
-
-**Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result.
-
-**Name the decision before you go looking for data.** Research without a decision attached produces interesting findings and zero action. Before commissioning research, ask: what am I going to do differently depending on what I learn? If there's no answer, the research is performative.
-
-**If you cut a release into smaller pieces, be honest about why — and what's still in it.** Teams slice features into smaller releases for good reasons (speed, learning, derisking), but the cuts can strip the actual value out. Evaluating customer feedback on a release that the team already knows is gutted produces misleading signal. Either ship enough value to measure something real, or be explicit that this release isn't the one to judge.
-
-**Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
-
-**PMs own the "why." Designers own the "what."** PMs are responsible for the JTBD — which jobs the product serves, and which it deliberately doesn't. Designers turn the why into the right UX hierarchy. When the why arrives after the what, everything downstream is wrong: you end up justifying a solution instead of solving a problem.
+For naming the business goal, prioritizing jobs, defining success, deciding whether the work earns the next step, and problem definition + discovery, see [product.md](./product.md) — the why/whether side of the canon.
 
 ## Designing for users
 
@@ -34,6 +20,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 **New features are sub-jobs of existing ones — don't let the feature become the job.** Most "new features" map back to a job the product already serves. Find the parent job first, then design the new capability as a sub-job under it. Designing a feature as if it's a new job creates a UI that competes with the rest of the product instead of extending it.
 
 **Don't solve UX problems by throwing more UI and text at them.** When users keep tripping, the instinct is to add a tooltip, banner, empty state, or guide. That's a bandaid. The real fix is to eliminate the root cause in the interaction itself. Bandaids accumulate; intuitive design compounds.
+
+**Don't interrupt the user's task with uninvited overlays.** Tour pop-ups, coach marks, and in-app announcements fire context-blind — they land while someone is debugging a failed test or about to ship a PR, exactly when an interruption costs the most. The intent is usually pure; the mechanism isn't, and a technical audience dismisses them before reading a word. A feature that needs a guided tour to be usable isn't intuitive yet — fix the interface, don't narrate it. Genuine news belongs where users find it on their own terms, not blocking the task they came to do.
 
 **Ship the simplest version first. Complexity is earned by real user confusion, not anticipated edge cases.** Adding more UI to anticipate confusion you haven't seen yet usually creates the confusion. Start minimal, watch what trips users up, and only add when the confusion is real.
 
@@ -67,8 +55,6 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Prototype against real data, not Figma mocks.** Fake data hides the actual UX problems. The point of a prototype is to fail fast on the things you can't see otherwise — and you only see them with the real shape, density, and edge cases of production data.
 
-**Stop burying low-hanging fruit in tickets.** Small, obvious fixes don't belong in a ticket queue where they'll rot. If the fix is small and the impact is clear, do it directly. Queues exist to coordinate; they're not a substitute for doing the work.
-
 **Tense matters in UI labels.** Past tense ("self-healed") describes something that already happened. Present-progressive ("self-healing") implies an ongoing state or a filter. These describe different jobs — pick deliberately.
 
 **Name the exact scope of every action.** Labels like "everything" or "all" without scope are misleading — users can't tell whether the action affects the current view, the entire account, or something in between. Spell out exactly what the action will touch ("Run all specs again" not "Run everything again"). Ambiguity at a button is a support ticket waiting to happen.
@@ -97,7 +83,7 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 **Design picks naming candidates. GTM validates.** Designers know the product surface and the user vocabulary; GTM knows how the name will land in trial calls, ads, and sales conversations. Don't finalize a feature name without that loop.
 
-**Feature placement is a statement of belief.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention. If the feature is real, give it real placement. If it doesn't deserve real placement, question why you're shipping it at all.
+**Feature placement is a statement of belief — and a price signal.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention, and shipping an enterprise-grade capability as "just config" tells them it isn't worth paying for. If the feature is real, give it real placement; if it protects the customer's business the way a security or audit product does, position and price it that way. If it doesn't deserve real placement, question why you're shipping it at all. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](./releases.md).)
 
 ## Pricing
 
@@ -123,6 +109,7 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 ## Related
 
+- [product.md](./product.md) — the _why/whether_ side: business goals + prioritization, problem definition & discovery, and running the work. This file is the _what_
 - [visual-hierarchy.md](./visual-hierarchy.md) — Directing the eye once the JTBD is clear
 - [feedback.md](./feedback.md) — How to push back when framing is wrong
 - [../personas.md](../personas.md) — Who you're designing for
