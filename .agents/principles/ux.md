@@ -49,7 +49,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Don't solve UX problems by throwing more UI and text at them.** When users keep tripping, the instinct is to add a tooltip, banner, empty state, or guide. That's a bandaid. The real fix is to eliminate the root cause in the interaction itself. Bandaids accumulate; intuitive design compounds.
 
-**A feature that needs a guided tour isn't intuitive yet.** Tooltip tours, coach marks, and onboarding overlays are the most disruptive bandaid of all: they block the task the user came to do, and most people dismiss them before reading a word — a technical audience fastest of all. If the interface needs a walkthrough to be usable, fix the interface. The tour is evidence the design problem is still there, not a solution to it.
+**Don't interrupt the user's task with uninvited overlays.** Tour pop-ups, coach marks, and in-app announcements fire context-blind — they land while someone is debugging a failed test or about to ship a PR, exactly when an interruption costs the most. The intent is usually pure; the mechanism isn't, and a technical audience dismisses them before reading a word. A feature that needs a guided tour to be usable isn't intuitive yet — fix the interface, don't narrate it. Genuine news belongs where users find it on their own terms, not blocking the task they came to do.
 
 **Ship the simplest version first. Complexity is earned by real user confusion, not anticipated edge cases.** Adding more UI to anticipate confusion you haven't seen yet usually creates the confusion. Start minimal, watch what trips users up, and only add when the confusion is real.
 
