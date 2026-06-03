@@ -132,18 +132,19 @@ Each branch should be reviewed and merged before starting the next branch.
    Every PR that adds a new package or modifies a published one **must** include a `.changeset/*.md` file. Without one, the release workflow (`changesets/action@v1` in `.github/workflows/release.yml`) has nothing to publish.
 
    - Run `yarn changeset` and follow the prompts, or hand-write `.changeset/{component-name}.md`.
-   - List all affected packages and the bump level. For a brand-new component, the established convention is `patch` across the three new packages (see `.changeset/calm-corners-begin.md` from the Textbox addition):
+   - **For brand-new packages, use `major` and start `package.json` at `0.0.0`.** Set each new package's `version` to `"0.0.0"` in its `package.json` and write the changeset with `major` for all three. Changesets will bump `0.0.0` → `1.0.0` on the version-packages PR, so the first npm publish lands at `1.0.0` — a semver-honest "first stable release". Don't follow the older `patch`-from-`1.0.0` pattern some prior components used (it publishes the first release as `1.0.1` and labels the changelog entry "Patch Changes", which reads as a fix to a 1.0.0 that never existed):
 
      ```md
      ---
-     '@cypress-design/constants-{component}': patch
-     '@cypress-design/react-{component}': patch
-     '@cypress-design/vue-{component}': patch
+     '@cypress-design/constants-{component}': major
+     '@cypress-design/react-{component}': major
+     '@cypress-design/vue-{component}': major
      ---
 
      Adding {Component} component — one-sentence summary of what it does.
      ```
 
+   - For _changes_ to an already-published package, use the normal semver rule: `major` for breaking API changes, `minor` for new features, `patch` for bug fixes.
    - Place the changeset file on the `{component-name}-component` branch (alongside the new `package.json` files). It travels through the rest of the stack and merges to `main` with the rest of the work.
    - Once merged, `changesets/action@v1` opens an automated "ci(changesets): version packages" PR that bumps versions and generates `CHANGELOG.md`. When that PR merges, npm publish happens automatically.
 
