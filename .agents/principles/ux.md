@@ -17,6 +17,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result.
 
+**Decide in advance what happens if it doesn't work.** When you define success, also define the failure response — iterate, scope down, or pull the feature — not after the numbers come in. A success metric with no pre-agreed consequence is one everyone quietly walks away from; naming the response up front makes a missed goal trigger a real decision instead of defaulting to "leave it as-is." This is the forward-looking pair to the sunk-cost rule below — committing to the exit before you ship is how you keep from rationalizing continuation later.
+
 **Name the decision before you go looking for data.** Research without a decision attached produces interesting findings and zero action. Before commissioning research, ask: what am I going to do differently depending on what I learn? If there's no answer, the research is performative.
 
 **If you cut a release into smaller pieces, be honest about why — and what's still in it.** Teams slice features into smaller releases for good reasons (speed, learning, derisking), but the cuts can strip the actual value out. Evaluating customer feedback on a release that the team already knows is gutted produces misleading signal. Either ship enough value to measure something real, or be explicit that this release isn't the one to judge.
