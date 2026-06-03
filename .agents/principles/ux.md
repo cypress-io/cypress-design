@@ -19,8 +19,6 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result. (Decide the failure response — iterate, scope down, or pull — up front too; see "Decide in advance what happens if it doesn't work" in [product.md](./product.md).)
 
-**If you cut a release into smaller pieces, be honest about why — and what's still in it.** Teams slice features into smaller releases for good reasons (speed, learning, derisking), but the cuts can strip the actual value out. Evaluating customer feedback on a release that the team already knows is gutted produces misleading signal. Either ship enough value to measure something real, or be explicit that this release isn't the one to judge.
-
 **Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
 
 **PMs and design co-own the "why"; design owns the "what."** Which jobs the product serves — and which it deliberately doesn't — has to be agreed by both before anyone commits to a solution. From that shared why, design owns the what: the solution and its UX hierarchy. The common failure runs backward — a PM or engineer arrives with a _what_ and a _how_ already picked, then reverse-engineers a _why_ to justify shipping it fast. That's selling a solution, not solving a problem, and it usually means the why was never worked out. Pushing back with "why?" until the problem is defined is everyone's job — PM, engineering, and design alike. Design tends to feel the gap first, because it can't choose the right what without a settled why — but that's not a reason design should have to carry it alone.
@@ -82,8 +80,6 @@ description: UX, product design, and business-goal principles. Fetch when design
 **Prioritize public-facing work over internal.** If most people will never see it (internal slides, dashboards, throwaway docs), don't burn design time on it. Save the polish for surfaces that drive outcomes.
 
 **Prototype against real data, not Figma mocks.** Fake data hides the actual UX problems. The point of a prototype is to fail fast on the things you can't see otherwise — and you only see them with the real shape, density, and edge cases of production data.
-
-**Stop burying low-hanging fruit in tickets.** Small, obvious fixes don't belong in a ticket queue where they'll rot. If the fix is small and the impact is clear, do it directly. Queues exist to coordinate; they're not a substitute for doing the work.
 
 **Tense matters in UI labels.** Past tense ("self-healed") describes something that already happened. Present-progressive ("self-healing") implies an ongoing state or a filter. These describe different jobs — pick deliberately.
 

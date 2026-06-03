@@ -19,6 +19,8 @@ Durable beliefs about how product work gets decided and run — from problem to 
 
 **Don't let work rot at "almost done."** Staged-but-unshipped work — blocked on a bug, waiting on a call no one owns — is the most expensive state there is: the cost is already paid and the value is never collected. Force an explicit decision: fix and ship, or cancel. Limbo is not a decision. This is the other side of "sunk cost doesn't earn the next step" in [ux.md](./ux.md) — there, don't continue on momentum; here, don't abandon by neglect. Either way, decide on purpose.
 
+**Stop burying low-hanging fruit in tickets.** Small, obvious fixes don't belong in a ticket queue where they'll rot. If the fix is small and the impact is clear, do it directly. Queues exist to coordinate; they're not a substitute for doing the work.
+
 ## Shipping to learn
 
 **Decide in advance what happens if it doesn't work.** When you define success, also define the failure response — iterate, scope down, or pull the feature — before the numbers come in, not after. A success metric with no pre-agreed consequence is one everyone quietly walks away from; naming the response up front makes a missed goal trigger a real decision instead of defaulting to "leave it as-is." Pairs with "Define what success looks like before you design" in [ux.md](./ux.md), and with the sunk-cost rule there — committing to the exit before you ship is how you keep from rationalizing continuation later. The review date below is when you act on it.
