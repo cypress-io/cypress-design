@@ -1,11 +1,11 @@
 ---
 name: product-review-checklist
-description: Run when reviewing a product brief, initiative, or design proposal — before committing engineering, before shipping, and after. Complements review-checklist.md (mechanical UI checks) with product-rigor checks. Distilled from principles/ux.md and principles/product-process.md.
+description: Run when reviewing a product brief, initiative, or design proposal — before committing engineering, before shipping, and after. Complements review-checklist.md (mechanical UI checks) with product-rigor checks. Distilled from principles/ux.md and principles/product.md.
 ---
 
 # Product review checklist
 
-Run before committing engineering to an initiative, before shipping it, and after it ships. If a check doesn't apply, skip it; otherwise it must pass. Each maps to a principle in [principles/ux.md](./principles/ux.md) or [principles/product-process.md](./principles/product-process.md).
+Run before committing engineering to an initiative, before shipping it, and after it ships. If a check doesn't apply, skip it; otherwise it must pass. Each maps to a principle in [principles/ux.md](./principles/ux.md) or [principles/product.md](./principles/product.md).
 
 This is the product-rigor companion to [review-checklist.md](./review-checklist.md) (tokens, spacing, a11y). That one asks "is the surface built right?"; this one asks "should we be building it, and will we know if it worked?"
 

@@ -17,7 +17,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **A design isn't done until you can explain how it pays back.** If you can't articulate what business outcome the design moves and how you'll measure it, the design is incomplete — no matter how polished it looks.
 
-**Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result. (Decide the failure response — iterate, scope down, or pull — up front too; see "Decide in advance what happens if it doesn't work" in [product-process.md](./product-process.md).)
+**Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result. (Decide the failure response — iterate, scope down, or pull — up front too; see "Decide in advance what happens if it doesn't work" in [product.md](./product.md).)
 
 **Name the decision before you go looking for data.** Research without a decision attached produces interesting findings and zero action. Before commissioning research, ask: what am I going to do differently depending on what I learn? If there's no answer, the research is performative.
 

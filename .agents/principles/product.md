@@ -1,11 +1,11 @@
 ---
-name: product-process
-description: Product and delivery process principles — ownership, shipping to learn, and post-launch follow-through. Fetch when planning or prioritizing an initiative, deciding what to ship, or reviewing whether shipped work is being measured and followed up. Pairs with ux.md (what to build and why) — this file is how the work is run.
+name: product
+description: Product principles — how product work is decided and run: ownership, shipping to learn, and post-launch follow-through. The why/whether side of the canon, paired with ux.md (the design/what side). Fetch when planning or prioritizing an initiative, deciding what to ship, or reviewing whether shipped work is being measured and followed up.
 ---
 
-# Product & delivery process
+# Product principles
 
-How work gets from problem to shipped to learned-from. The principles in [ux.md](./ux.md) cover _what_ to build and _why_; these cover _how the work is run_ so it doesn't stall, ship blind, or get abandoned at "almost done."
+Durable beliefs about how product work gets decided and run — from problem to shipped to learned-from. Where [ux.md](./ux.md) leans toward the _what_ (UX, interaction, the shape of the solution), these lean toward the _why_ and _whether_: is this the right problem, will we know if it worked, and does the work actually close out. The line between product and design is fuzzy on purpose — both own the why together (see "PMs and design co-own the 'why'" in [ux.md](./ux.md)); this file is where the running-the-work side lives so it doesn't stall, ship blind, or get abandoned at "almost done."
 
 ## Ownership & follow-through
 
