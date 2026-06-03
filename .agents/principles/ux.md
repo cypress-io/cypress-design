@@ -35,7 +35,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Connect the altitudes: vision → jobs → solution.** Every solution should trace up to a job, and every job up to the north star. When those links are missing, work still ships but never lands — effort with no agreed destination. Confirm where we're going before debating execution; if the team can't agree on the destination, don't start building.
 
-**Learn the cheap way before you build the expensive way.** Validate the assumption with the lightest test that produces real signal — a fake door, a Wizard-of-Oz flow, a Pendo guide, a mocked workflow — before committing engineering. Each discovery loop carries one hypothesis and one small, observable thing it's trying to learn. Implementation follows the learning, not the reverse.
+**Learn the cheap way before you build the expensive way.** Validate the assumption with the lightest test that produces real signal — a fake door, a Wizard-of-Oz flow, a mocked workflow — before committing engineering. Each discovery loop carries one hypothesis and one small, observable thing it's trying to learn. Implementation follows the learning, not the reverse.
 
 **Phase by jobs, and keep one standing opportunity doc the loops reference.** Define phases as sets of jobs ("Phase 1 solves these two; Phase 2, the next") and make the sequencing visible so everyone sees why now versus later. List the jobs once in a durable opportunity doc; each discovery loop points at specific jobs instead of re-arguing the whole vision every time.
 
@@ -48,6 +48,8 @@ description: UX, product design, and business-goal principles. Fetch when design
 **New features are sub-jobs of existing ones — don't let the feature become the job.** Most "new features" map back to a job the product already serves. Find the parent job first, then design the new capability as a sub-job under it. Designing a feature as if it's a new job creates a UI that competes with the rest of the product instead of extending it.
 
 **Don't solve UX problems by throwing more UI and text at them.** When users keep tripping, the instinct is to add a tooltip, banner, empty state, or guide. That's a bandaid. The real fix is to eliminate the root cause in the interaction itself. Bandaids accumulate; intuitive design compounds.
+
+**A feature that needs a guided tour isn't intuitive yet.** Tooltip tours, coach marks, and onboarding overlays are the most disruptive bandaid of all: they block the task the user came to do, and most people dismiss them before reading a word — a technical audience fastest of all. If the interface needs a walkthrough to be usable, fix the interface. The tour is evidence the design problem is still there, not a solution to it.
 
 **Ship the simplest version first. Complexity is earned by real user confusion, not anticipated edge cases.** Adding more UI to anticipate confusion you haven't seen yet usually creates the confusion. Start minimal, watch what trips users up, and only add when the confusion is real.
 
