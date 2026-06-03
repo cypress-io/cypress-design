@@ -34,7 +34,7 @@ advocates for quality investment. Often a former Practitioner.
 - Cares about: team-wide consistency, onboarding friction, CI integration, coverage strategy
 - Comfortable with: architecture decisions, process design, cross-team coordination
 - Needs from UI: configuration clarity, team-level visibility, exportable evidence of value
-- Copy guidance: speak to outcomes and tradeoffs, not just feature descriptions.
+- Copy guidance: speak to outcomes and trade-offs, not just feature descriptions.
 
 ---
 
