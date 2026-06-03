@@ -47,6 +47,8 @@ description: Principles for using AI tools to build, design, write, or review Cy
 
 **Treat agent instructions as a living artifact.** Whenever you find a gap in how an AI handles something, fix the instructions in the same pass as the work. The only way AI gets better at a job is if the guidance gets patched as the holes appear.
 
+**Make the AI challenge a solution-first brief.** When a prompt or brief jumps straight to "what to build," the agent should ask what problem it solves and whose job it serves before generating. Encoding the problem-first habit into the tooling is how it stops being a thing people have to remember.
+
 **Use AI to do the synthesis work, then own the conclusion.** The pattern: AI compresses the research, the human signs off on the position. Never publish or decide on AI synthesis without an explicit human endorsement of the conclusion.
 
 ## Sources of truth AI reads

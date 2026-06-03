@@ -23,7 +23,21 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
 
-**PMs own the "why." Designers own the "what."** PMs are responsible for the JTBD — which jobs the product serves, and which it deliberately doesn't. Designers turn the why into the right UX hierarchy. When the why arrives after the what, everything downstream is wrong: you end up justifying a solution instead of solving a problem.
+**PMs and design co-own the "why"; design owns the "what."** Which jobs the product serves — and which it deliberately doesn't — has to be agreed by both before anyone commits to a solution. From that shared why, design owns the what: the solution and its UX hierarchy. The common failure runs backward — a PM or engineer arrives with a _what_ and a _how_ already picked, then reverse-engineers a _why_ to justify shipping it fast. That's selling a solution, not solving a problem, and it usually means the why was never worked out. Design's job is to push back, repeatedly, with "why?" until the problem is actually defined.
+
+## Discovery & problem definition
+
+**Start from the problem, not the solution.** The default failure mode — especially on engineering-led teams with AI tools — is jumping to "let's build X" before anyone has named the problem, the job, or the customer it serves. Write the problem in plain terms first. A solution with no problem attached is throwaway work waiting to happen.
+
+**A POC has to prove something that matters — say what before you build it.** "We can build it" isn't a result. Name the hypothesis the POC tests and the decision its outcome drives. Are we proving we can launch a rocket, or that we can get to Mars? If you can't state what a passing POC would teach you, you're not ready to build it. A doc written to justify a solution already chosen is the same smell from the other side — it argues backward from the answer instead of forward from the problem.
+
+**Frame initiatives as opportunities, then explore several solutions before committing.** A customer problem is the opportunity, and it always has more than one possible solution. Map the space — an opportunity-solution tree works well — and carry a few candidates into discovery instead of spending engineering time on the first idea. Being handed a fixed feature to execute skips the part where the best solution gets found.
+
+**Connect the altitudes: vision → jobs → solution.** Every solution should trace up to a job, and every job up to the north star. When those links are missing, work still ships but never lands — a rocket with no agreed destination. Confirm where we're going before debating execution; if the team can't agree it's Mars and not the Moon, don't launch yet.
+
+**Learn the cheap way before you build the expensive way.** Validate the assumption with the lightest test that produces real signal — a fake door, a Wizard-of-Oz flow, a Pendo guide, a mocked workflow — before committing engineering. Each discovery loop carries one hypothesis and one small, observable thing it's trying to learn. Implementation follows the learning, not the reverse.
+
+**Phase by jobs, and keep one standing opportunity doc the loops reference.** Define phases as sets of jobs ("Phase 1 solves these two; Phase 2, the next") and make the sequencing visible so everyone sees why now versus later. List the jobs once in a durable opportunity doc; each discovery loop points at specific jobs instead of re-arguing the whole vision every time.
 
 ## Designing for users
 
@@ -98,6 +112,8 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 **Design picks naming candidates. GTM validates.** Designers know the product surface and the user vocabulary; GTM knows how the name will land in trial calls, ads, and sales conversations. Don't finalize a feature name without that loop.
 
 **Feature placement is a statement of belief.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention. If the feature is real, give it real placement. If it doesn't deserve real placement, question why you're shipping it at all.
+
+**Shipping a high-value capability as "just config" undersells it.** Where you place a feature signals what you think it's worth; shipping an enterprise-grade capability as a configuration toggle tells customers and sales it isn't worth paying for. If it protects the customer's business the way a security or audit product does, position and price it that way. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](./releases.md).)
 
 ## Pricing
 
