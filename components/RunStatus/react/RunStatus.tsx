@@ -143,25 +143,32 @@ const Stat: React.FC<StatProps> = ({
   )
 }
 
-export const RunStatus: React.FC<
+// `forwardRef` so a parent can attach a `ref` to the outer pill `<div>`,
+// per architecture.md's documented API. Sibling `@cypress-design/react-textbox`
+// follows the same pattern.
+export const RunStatus = React.forwardRef<
+  HTMLDivElement,
   RunStatusProps &
     Omit<React.HTMLAttributes<HTMLDivElement>, keyof RunStatusProps>
-> = ({
-  passed,
-  failed,
-  skipped,
-  pending,
-  flaky,
-  selfHealed,
-  showSelfHealed = false,
-  theme = 'light',
-  expanded = false,
-  links,
-  renderLink,
-  showTooltip = true,
-  className,
-  ...rest
-}) => {
+>(function RunStatus(
+  {
+    passed,
+    failed,
+    skipped,
+    pending,
+    flaky,
+    selfHealed,
+    showSelfHealed = false,
+    theme = 'light',
+    expanded = false,
+    links,
+    renderLink,
+    showTooltip = true,
+    className,
+    ...rest
+  },
+  ref,
+) {
   const summaryProps = {
     passed,
     failed,
@@ -183,6 +190,7 @@ export const RunStatus: React.FC<
 
   return (
     <div
+      ref={ref}
       data-cy="run-stats"
       {...rest}
       className={clsx(CssClasses.container, className)}
@@ -257,6 +265,6 @@ export const RunStatus: React.FC<
       </ul>
     </div>
   )
-}
+})
 
 export default RunStatus
