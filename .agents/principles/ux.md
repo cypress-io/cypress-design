@@ -33,7 +33,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **Map the opportunity space before you commit engineering.** That any single ask is rarely the best solution is the starting point (see "Build against the outcome" and "One solution rarely solves a big problem") — this is the discovery practice that acts on it. Chart the candidate solutions to a problem (an opportunity-solution tree works well) and carry a few into discovery, so the comparison happens before the build, not after. Being handed a fixed feature to execute skips the step where solutions get weighed against each other.
 
-**Connect the altitudes: vision → jobs → solution.** Every solution should trace up to a job, and every job up to the north star. When those links are missing, work still ships but never lands — effort with no agreed destination. Confirm where we're going before debating execution; if the team can't agree on the destination, don't start building.
+**Tie every solution to a job, and every job to the vision.** A solution should clearly serve a specific job, and that job should clearly advance the product vision. When those links are missing, work still ships but moves nothing that matters — there's no agreed destination for it to serve. Agree on where you're going before debating how to get there; if the team can't agree on the destination, don't start building.
 
 **Learn the cheap way before you build the expensive way.** Validate the assumption with the lightest test that produces real signal — a fake door, a Wizard-of-Oz flow, a mocked workflow — before committing engineering. Each discovery loop carries one hypothesis and one small, observable thing it's trying to learn. Implementation follows the learning, not the reverse.
 
