@@ -17,11 +17,11 @@ This is the product-rigor companion to [review-checklist.md](./review-checklist.
 - [ ] Problem importance is backed by data: how many customers, ARR at risk, churn signal — not assumed. ("Learn the cheap way" / "Name the business goal")
 - [ ] More than one solution was considered, with pros / cons / trade-offs documented. ("Map the opportunity space before you commit engineering")
 - [ ] The opportunity is sized against other priorities — is this the best use of the resource right now? ("Rank jobs, not solutions")
+- [ ] Success metrics are defined: what improves, by how much, and what would count as failure — define it now, since how you measure success shapes the solution. ("Define what success looks like before you design")
+- [ ] The failure response is decided up front — iterate, scope down, or kill. ("Decide in advance what happens if it doesn't work")
 
 ## Before shipping
 
-- [ ] Success metrics are defined: what improves, by how much, and what would count as failure. ("Define what success looks like before you design")
-- [ ] The failure response is decided up front — iterate, scope down, or kill. ("Decide in advance what happens if it doesn't work")
 - [ ] Measurement infrastructure exists — dashboard, query, or session path — before launch. ("Build the measurement before you ship")
 - [ ] Changes ship incrementally where possible; if bundled, the confidence threshold is set. ("Don't bundle changes you want to learn from")
 - [ ] A review date is on the calendar. ("Set the review date before you ship")
