@@ -17,6 +17,8 @@ How work gets from problem to shipped to learned-from. The principles in [ux.md]
 
 ## Shipping to learn
 
+**Decide in advance what happens if it doesn't work.** When you define success, also define the failure response — iterate, scope down, or pull the feature — before the numbers come in, not after. A success metric with no pre-agreed consequence is one everyone quietly walks away from; naming the response up front makes a missed goal trigger a real decision instead of defaulting to "leave it as-is." Pairs with "Define what success looks like before you design" in [ux.md](./ux.md), and with the sunk-cost rule there — committing to the exit before you ship is how you keep from rationalizing continuation later. The review date below is when you act on it.
+
 **Build the measurement before you ship, not after.** Defining the success metric isn't enough — the dashboard, query, or session path that captures it has to exist before launch. Ship without it and you've given up the ability to know whether it worked, which means you can't repeat a win or catch a regression. Pairs with "Define what success looks like before you design" in [ux.md](./ux.md): that names the metric; this makes it observable.
 
 **Don't bundle changes you want to learn from.** Several changes shipped together can't be told apart — if the number moves, you don't know which change moved it. Ship one variable at a time when the goal is learning. When you must bundle, set the confidence threshold up front so you know when there's enough signal to judge the result. (Distinct from release-slicing in [ux.md](./ux.md), which is about not stripping the value out of a release; this is about attribution.)
