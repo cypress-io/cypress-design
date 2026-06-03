@@ -7,6 +7,10 @@ description: Product principles — how product work is decided and run: ownersh
 
 Durable beliefs about how product work gets decided and run — from problem to shipped to learned-from. Where [ux.md](./ux.md) leans toward the _what_ (UX, interaction, the shape of the solution), these lean toward the _why_ and _whether_: is this the right problem, will we know if it worked, and does the work actually close out. The line between product and design is fuzzy on purpose — both own the why together (see "PMs and design co-own the 'why'" in [ux.md](./ux.md)); this file is where the running-the-work side lives so it doesn't stall, ship blind, or get abandoned at "almost done."
 
+## Before you invest
+
+**Name the decision before you go looking for data.** Research without a decision attached produces interesting findings and zero action. Before commissioning research, ask: what am I going to do differently depending on what I learn? If there's no answer, the research is performative. Same discipline as "Decide in advance what happens if it doesn't work" below — don't gather signal you haven't committed to acting on.
+
 ## Ownership & follow-through
 
 **Every initiative has one owner, through post-launch review.** Work without a clear owner stalls at the first hard decision. The owner drives it to shipped — and to the review after, not just to launch.
