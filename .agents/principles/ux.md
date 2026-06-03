@@ -1,6 +1,6 @@
 ---
 name: ux
-description: UX, product design, and business-goal principles. Fetch when designing new flows, evaluating proposed UX, defining success, planning research, reviewing screens, or making product decisions about how features should work.
+description: UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.
 ---
 
 # UX & Product Design Principles
@@ -9,33 +9,7 @@ description: UX, product design, and business-goal principles. Fetch when design
 
 **UX lives where business goals meet user needs.** JTBD captures the user side well, but the framework is usually phrased entirely from the user's perspective — which quietly hides the business outcome a design has to drive. Good UX serves both at once. If a flow only serves the user, the business gets nothing measurable; if it only serves the business, users feel manipulated and leave. The work is to find designs where both sides win.
 
-**Name the business goal alongside the JTBD.** Before designing, write both down: what the user is trying to accomplish, and what the business is trying to gain (revenue, retention, activation, qualified leads, NPS, etc.). Without both on paper, you can't evaluate trade-offs honestly, and you'll default to whichever side has the loudest voice in the room.
-
-**When user need and business goal conflict, surface the conflict — don't hide it.** A checkout flow optimized purely for conversion will frustrate users; one optimized purely for user comfort will leave money on the table. The best designs resolve the tension explicitly. The worst pretend it doesn't exist.
-
-**Rank jobs, not solutions — and score the job from both sides.** Prioritize by the customer job, not the feature you'd build for it; how hard something is to build shouldn't decide which customer needs are worth solving. But how much a job matters to the customer is only one input — it says nothing about how much the business gains from solving it, or how long it'll take us (which depends on the solution we pick). Rank on customer importance and business value together (see "UX lives where business goals meet user needs," above), then weigh against cost to solve — without letting "it's hard" bury a job that matters.
-
-**A design isn't done until you can explain how it pays back.** If you can't articulate what business outcome the design moves and how you'll measure it, the design is incomplete — no matter how polished it looks.
-
-**Define what success looks like before you design.** Knowing how the work will be measured changes the design itself. Without explicit success criteria, you'll ship and then look for metrics that flatter the result. (Decide the failure response — iterate, scope down, or pull — up front too; see "Decide in advance what happens if it doesn't work" in [product.md](./product.md).)
-
-**Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
-
-**PMs and design co-own the "why"; design owns the "what."** Which jobs the product serves — and which it deliberately doesn't — has to be agreed by both before anyone commits to a solution. From that shared why, design owns the what: the solution and its UX hierarchy. The common failure runs backward — a PM or engineer arrives with a _what_ and a _how_ already picked, then reverse-engineers a _why_ to justify shipping it fast. That's selling a solution, not solving a problem, and it usually means the why was never worked out. Pushing back with "why?" until the problem is defined is everyone's job — PM, engineering, and design alike. Design tends to feel the gap first, because it can't choose the right what without a settled why — but that's not a reason design should have to carry it alone.
-
-## Discovery & problem definition
-
-**Start from the problem, not the solution.** The default failure mode — especially on engineering-led teams with AI tools — is jumping to "let's build X" before anyone has named the problem, the job, or the customer it serves. Write the problem in plain terms first. A solution with no problem attached is throwaway work waiting to happen.
-
-**A POC has to prove something that matters — say what before you build it.** "We can build it" isn't a result. Name the hypothesis the POC tests and the decision its outcome drives. Are we proving we can launch a rocket, or that we can get to Mars? If you can't say what a successful POC would teach you, you're not ready to build it.
-
-**Map the opportunity space before you commit engineering.** That any single ask is rarely the best solution is the starting point (see "Build against the outcome" and "One solution rarely solves a big problem") — this is the discovery practice that acts on it. Chart the candidate solutions to a problem (an opportunity-solution tree works well) and carry a few into discovery, so the comparison happens before the build, not after. Being handed a fixed feature to execute skips the step where solutions get weighed against each other.
-
-**Tie every solution to a job, and every job to the vision.** A solution should clearly serve a specific job, and that job should clearly advance the product vision. When those links are missing, work still ships but moves nothing that matters — there's no agreed destination for it to serve. Agree on where you're going before debating how to get there; if the team can't agree on the destination, don't start building.
-
-**Learn the cheap way before you build the expensive way.** Validate the assumption with the lightest test that produces real signal — a fake door, a Wizard-of-Oz flow, a mocked workflow — before committing engineering. Each discovery loop carries one hypothesis and one small, observable thing it's trying to learn. Implementation follows the learning, not the reverse.
-
-**Phase by jobs, and keep one standing opportunity doc the loops reference.** Define phases as sets of jobs ("Phase 1 solves these two; Phase 2, the next") and make the sequencing visible so everyone sees why now versus later. List the jobs once in a durable opportunity doc; each discovery loop points at specific jobs instead of re-arguing the whole vision every time.
+For naming the business goal, prioritizing jobs, defining success, deciding whether the work earns the next step, and problem definition + discovery, see [product.md](./product.md) — the why/whether side of the canon.
 
 ## Designing for users
 
@@ -135,6 +109,7 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 ## Related
 
+- [product.md](./product.md) — the _why/whether_ side: business goals + prioritization, problem definition & discovery, and running the work. This file is the _what_
 - [visual-hierarchy.md](./visual-hierarchy.md) — Directing the eye once the JTBD is clear
 - [feedback.md](./feedback.md) — How to push back when framing is wrong
 - [../personas.md](../personas.md) — Who you're designing for

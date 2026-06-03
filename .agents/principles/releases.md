@@ -37,5 +37,6 @@ description: Principles for shipping releases, betas, previews, feature flags, a
 
 ## Related
 
-- [ux.md](./ux.md) — "Sunk cost doesn't earn the next step" in the Business goals + user needs section; "Turning a free capability paid is a rug pull" in the Pricing section — the free→paid mirror of the deprecation rule above
+- [product.md](./product.md) — "Sunk cost doesn't earn the next step" (Business goals & prioritization)
+- [ux.md](./ux.md) — "Turning a free capability paid is a rug pull" in the Pricing section — the free→paid mirror of the deprecation rule above
 - [feedback.md](./feedback.md) — Giving and receiving feedback on what gets shipped

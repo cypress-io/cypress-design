@@ -13,7 +13,7 @@ description: Principles for reviewing other people's work and giving design / pr
 
 **Push back when the framing is wrong, even if the deliverable looks fine.** "Looks on-brand" is not the same as "ships value." If the underlying problem isn't being solved, no amount of polish on the proposed solution fixes it.
 
-**Challenge a solution-first brief before you build from it.** A brief that leads with what to build — skipping the problem it solves and whose job it serves — isn't ready to execute; whoever receives it (PM, engineering, design, or an agent) should send it back with "what problem, whose job?" first. It's the upstream catch for "push back when the framing is wrong," and the review side of "Start from the problem, not the solution" ([ux.md](./ux.md)) — fix the missing why at the brief, before there's a deliverable to defend.
+**Challenge a solution-first brief before you build from it.** A brief that leads with what to build — skipping the problem it solves and whose job it serves — isn't ready to execute; whoever receives it (PM, engineering, design, or an agent) should send it back with "what problem, whose job?" first. It's the upstream catch for "push back when the framing is wrong," and the review side of "Start from the problem, not the solution" ([product.md](./product.md)) — fix the missing why at the brief, before there's a deliverable to defend.
 
 **Bring options and trade-offs to a review, not one solution to defend.** Showing up to sell a single predetermined idea narrows the room to "yes or no on this." Bring the problem, a few ways to solve it, and the trade-offs — the review's job is to pressure-test the framing and choose among options, not to ratify the one you're attached to.
 

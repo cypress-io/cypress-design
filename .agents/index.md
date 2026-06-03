@@ -12,13 +12,12 @@ Fetch only what the task needs. Don't preload all files.
 Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
 
 - [principles/ai.md](./principles/ai.md) — using AI to build, design, write, or review
-- [principles/ux.md](./principles/ux.md) — UX, product design, and business-goal principles (where business goals meet user needs, JTBD, restraint, pricing)
+- [principles/ux.md](./principles/ux.md) — UX & design principles (the _what_): designing for users, patterns, naming, empty states, restraint, pricing UX. The business-goal / prioritization / discovery _why_-side lives in product.md
+- [principles/product.md](./principles/product.md) — product principles (the _why/whether_): business goals + prioritization, problem definition & discovery, ownership, shipping to learn (measure before launch, don't bundle, set a review date), and post-launch decide. Fetch when planning, prioritizing, defining success, planning research, or reviewing whether shipped work is measured and followed up
 - [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
 - [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
 - [principles/learning-from-feedback.md](./principles/learning-from-feedback.md) — **fetch on every feedback exchange** (PR review, reply to a comment, Slack thread, Zoom recap) — how to spot the rule hiding in a fix and confirm it with the human before documenting
 - [principles/releases.md](./principles/releases.md) — shipping releases, betas, and previews; naming stages; managing feedback quality
-- [principles/product.md](./principles/product.md) — product principles (the why/whether side): ownership, shipping to learn (measure before launch, don't bundle, set a review date), and post-launch decide. Fetch when planning, prioritizing, or reviewing whether shipped work is measured and followed up
-
 ## Design pillars
 
 Several pillars lead with a `## Principles` section that governs the tokens and rules below it (colors, typography, spacing, iconography, illustrations). Others (voice, personas, accessibility) are organized differently — open each file for the structure that fits its content.
