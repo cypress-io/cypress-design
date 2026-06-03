@@ -13,7 +13,7 @@ description: Principles for reviewing other people's work and giving design / pr
 
 **Push back when the framing is wrong, even if the deliverable looks fine.** "Looks on-brand" is not the same as "ships value." If the underlying problem isn't being solved, no amount of polish on the proposed solution fixes it.
 
-**Bring options and tradeoffs to a review, not one solution to defend.** Showing up to sell a single predetermined idea narrows the room to "yes or no on this." Bring the problem, a few ways to solve it, and the tradeoffs — the review's job is to pressure-test the framing and choose among options, not to ratify the one you're attached to.
+**Bring options and trade-offs to a review, not one solution to defend.** Showing up to sell a single predetermined idea narrows the room to "yes or no on this." Bring the problem, a few ways to solve it, and the trade-offs — the review's job is to pressure-test the framing and choose among options, not to ratify the one you're attached to.
 
 **Ask explicitly for permission to give feedback.** "Do you want my feedback on the UX overall?" beats unsolicited critique. People hear feedback better when they've invited it.
 
