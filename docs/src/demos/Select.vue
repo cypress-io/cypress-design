@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import Select, { SelectOptionList } from '@cypress-design/vue-select'
-import { IconUserGeneralSolid } from '@cypress-design/vue-icon'
+import Button from '@cypress-design/vue-button'
+import {
+  IconUserGeneralOutline,
+  IconShapeLightningBolt,
+  IconActionInfoOutline,
+  IconArrowLeft,
+  IconObjectGear,
+  IconActionAddSmall,
+} from '@cypress-design/vue-icon'
 
 // Bind values for the interactive trigger demos at the bottom.
 const v1 = ref<string | undefined>()
@@ -12,24 +20,41 @@ const v5 = ref<string | undefined>()
 const v6 = ref<string | undefined>('u2')
 const v7 = ref<string | undefined>()
 const v8 = ref<string | undefined>()
+const v9 = ref<string | undefined>()
 const tab = ref('all')
 
 // Items for the expanded preview grid.
 const simple = [
-  { value: 'alpha', label: 'Alpha' },
-  { value: 'beta', label: 'Beta' },
-  { value: 'gamma', label: 'Gamma' },
+  { value: 'alpha', label: 'Alpha', iconLeft: IconShapeLightningBolt },
+  { value: 'beta', label: 'Beta', iconLeft: IconShapeLightningBolt },
+  { value: 'gamma', label: 'Gamma', iconLeft: IconShapeLightningBolt },
 ]
 
 const withGroups = [
   { type: 'headline' as const, label: 'Recent' },
-  { value: 'alpha', label: 'Alpha', tag: 'New' },
-  { value: 'beta', label: 'Beta' },
+  {
+    value: 'alpha',
+    label: 'Default',
+    tag: 'New',
+    iconLeft: IconShapeLightningBolt,
+  },
+  { value: 'beta', label: 'Selected', iconLeft: IconShapeLightningBolt },
   { type: 'divider' as const },
-  { type: 'headline' as const, label: 'All' },
-  { value: 'gamma', label: 'Gamma' },
-  { value: 'delta', label: 'Delta' },
-  { value: 'epsilon', label: 'Epsilon', disabled: true },
+  { type: 'headline' as const, label: 'All content types' },
+  // `iconRight` mirrors `iconLeft`'s state-aware coloring (gray default →
+  // indigo on hover/focus/active/selected → muted on disabled).
+  {
+    value: 'delta',
+    label: 'With icon right',
+    iconLeft: IconShapeLightningBolt,
+    iconRight: IconObjectGear,
+  },
+  {
+    value: 'epsilon',
+    label: 'Disabled',
+    disabled: true,
+    iconLeft: IconShapeLightningBolt,
+  },
 ]
 
 const checkboxItems = [
@@ -59,21 +84,40 @@ const userItems = [
     value: 'u1',
     label: 'Maya Patel',
     secondary: 'maya@example.com',
-    iconLeft: IconUserGeneralSolid,
+    iconLeft: IconUserGeneralOutline,
   },
   {
     type: 'user' as const,
     value: 'u2',
     label: 'Jordan Lee',
     secondary: 'jordan@example.com — Enterprise SSO',
-    iconLeft: IconUserGeneralSolid,
+    iconLeft: IconUserGeneralOutline,
   },
   {
     type: 'user' as const,
     value: 'u3',
     label: 'Sam Rivera',
     secondary: 'sam@example.com',
-    iconLeft: IconUserGeneralSolid,
+    iconLeft: IconUserGeneralOutline,
+  },
+]
+
+// Mixed content: groups + checkbox rows + user rows + button row in a
+// single list, separated by dividers. Powers the all-types tile so a
+// single panel demonstrates every content type in context.
+const withMixedContent = [
+  ...withGroups,
+  { type: 'divider' as const },
+  ...checkboxItems,
+  { type: 'divider' as const },
+  ...userItems,
+  { type: 'divider' as const },
+  {
+    type: 'button' as const,
+    key: 'add',
+    label: 'Add new',
+    iconLeft: IconActionAddSmall,
+    onClick: () => {},
   },
 ]
 
@@ -83,7 +127,8 @@ const withButton = [
   {
     type: 'button' as const,
     key: 'add',
-    label: '+ Add new',
+    label: 'Add new',
+    iconLeft: IconActionAddSmall,
     onClick: () => {},
   },
 ]
@@ -104,6 +149,19 @@ const PREVIEW_PANEL = '!static !mt-0 !z-auto'
 const previewSelected = 'beta'
 const previewSelectedUser = 'u2'
 const previewSelectedCheckbox = 'b'
+
+// Interactive state for the mixed-content tile, so clicking a checkbox
+// row actually toggles the row's selected/unchecked state. Default rows
+// still select normally; checkbox rows toggle off when re-clicked.
+const mixedSelected = ref<string | undefined>('beta')
+function onMixedSelect(item: { type?: string; value?: string }): void {
+  if (item.value === undefined) return
+  if (item.type === 'checkbox' && mixedSelected.value === item.value) {
+    mixedSelected.value = undefined
+  } else {
+    mixedSelected.value = item.value
+  }
+}
 </script>
 
 <template>
@@ -123,66 +181,62 @@ const previewSelectedCheckbox = 'b'
           :panel-class="PREVIEW_PANEL"
         />
       </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          headline · divider · tag · disabled
-        </p>
-        <SelectOptionList
-          :items="withGroups"
-          :value="previewSelected"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          checkbox rows
-        </p>
-        <SelectOptionList
-          :items="checkboxItems"
-          :value="previewSelectedCheckbox"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          user rows
-        </p>
-        <SelectOptionList
-          :items="userItems"
-          :value="previewSelectedUser"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          button row (action)
-        </p>
-        <SelectOptionList :items="withButton" :panel-class="PREVIEW_PANEL" />
-      </div>
+      <!--
+        All content types in one panel: groups, divider, tag, disabled,
+        checkbox rows, user rows, button row — plus a custom #footer slot
+        (multi-line info) so every content type is visible at once.
+        Takes 2 grid columns so it matches the width of the header+footer
+        tile below. On narrow screens (2-col grid) it stacks naturally.
+      -->
       <div class="col-span-2">
         <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          header (title · tabs · search) + footer
+          all content types + footer
         </p>
         <SelectOptionList
-          :items="withGroups"
-          :value="previewSelected"
-          header-title="Pick a value"
+          :items="withMixedContent"
+          :value="mixedSelected"
+          @select="onMixedSelect"
+          :header-button="{
+            iconLeft: IconArrowLeft,
+            onClick: () => {},
+            ariaLabel: 'Go back',
+          }"
+          :header-icon-left="IconShapeLightningBolt"
+          header-title="Header headline"
+          header-tag="New"
           :header-tabs="[
             { id: 'all', label: 'All' },
             { id: 'mine', label: 'Mine' },
           ]"
           :header-active-tab="tab"
           searchable
-          footer-label="Showing 3 of 12"
-          :footer-action="{ label: 'Manage', onClick: () => {} }"
-          :max-height="320"
+          :search-filters="false"
           :panel-class="PREVIEW_PANEL"
           @header-tab-change="(id: string) => (tab = id)"
-        />
+        >
+          <template #footer>
+            <span class="flex items-start gap-[8px]">
+              <IconActionInfoOutline
+                size="16"
+                class="text-gray-600 shrink-0 mt-[2px]"
+              />
+              <span class="text-[14px] leading-[20px] text-gray-700">
+                Selecting
+                <span class="font-medium text-gray-900">“All Projects”</span>
+                ensures all future projects are assigned to this team.
+              </span>
+            </span>
+          </template>
+        </SelectOptionList>
       </div>
-      <div>
+      <!-- Size-40 mirrors: same data + props as the size-32 tiles above,
+           just with `size="40"` so consumers can compare row heights.
+           `md:col-start-1` forces this tile to start on a new grid row so
+           it sits next to the size-40 all-content-types tile, not glued to
+           the last column of the row above. -->
+      <div class="md:col-start-1">
         <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          size 40
+          default — size 40
         </p>
         <SelectOptionList
           :items="simple"
@@ -191,38 +245,47 @@ const previewSelectedCheckbox = 'b'
           :panel-class="PREVIEW_PANEL"
         />
       </div>
-      <div>
+      <div class="col-span-2">
         <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          size 40 — groups
+          all content types + footer — size 40
         </p>
         <SelectOptionList
-          :items="withGroups"
+          :items="withMixedContent"
           size="40"
-          :value="previewSelected"
+          :value="mixedSelected"
+          @select="onMixedSelect"
+          :header-button="{
+            iconLeft: IconArrowLeft,
+            onClick: () => {},
+            ariaLabel: 'Go back',
+          }"
+          :header-icon-left="IconShapeLightningBolt"
+          header-title="Header headline"
+          header-tag="New"
+          :header-tabs="[
+            { id: 'all', label: 'All' },
+            { id: 'mine', label: 'Mine' },
+          ]"
+          :header-active-tab="tab"
+          searchable
+          :search-filters="false"
           :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          size 40 — checkbox rows
-        </p>
-        <SelectOptionList
-          :items="checkboxItems"
-          size="40"
-          :value="previewSelectedCheckbox"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
-          size 40 — user rows
-        </p>
-        <SelectOptionList
-          :items="userItems"
-          size="40"
-          :value="previewSelectedUser"
-          :panel-class="PREVIEW_PANEL"
-        />
+          @header-tab-change="(id: string) => (tab = id)"
+        >
+          <template #footer>
+            <span class="flex items-start gap-[8px]">
+              <IconActionInfoOutline
+                size="16"
+                class="text-gray-600 shrink-0 mt-[2px]"
+              />
+              <span class="text-[14px] leading-[20px] text-gray-700">
+                Selecting
+                <span class="font-medium text-gray-900">“All Projects”</span>
+                ensures all future projects are assigned to this team.
+              </span>
+            </span>
+          </template>
+        </SelectOptionList>
       </div>
     </div>
   </div>
@@ -244,60 +307,104 @@ const previewSelectedCheckbox = 'b'
           :panel-class="PREVIEW_PANEL"
         />
       </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
-          groups
-        </p>
-        <SelectOptionList
-          theme="dark"
-          :items="withGroups"
-          :value="previewSelected"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
-          checkbox rows
-        </p>
-        <SelectOptionList
-          theme="dark"
-          :items="checkboxItems"
-          :value="previewSelectedCheckbox"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
-      <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
-          user rows
-        </p>
-        <SelectOptionList
-          theme="dark"
-          :items="userItems"
-          :value="previewSelectedUser"
-          :panel-class="PREVIEW_PANEL"
-        />
-      </div>
       <div class="col-span-2">
         <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
-          header + footer
+          all content types + footer
         </p>
         <SelectOptionList
           theme="dark"
-          :items="withGroups"
-          :value="previewSelected"
-          header-title="Pick a value"
+          :items="withMixedContent"
+          :value="mixedSelected"
+          @select="onMixedSelect"
+          :header-button="{
+            iconLeft: IconArrowLeft,
+            onClick: () => {},
+            ariaLabel: 'Go back',
+          }"
+          :header-icon-left="IconShapeLightningBolt"
+          header-title="Header headline"
+          header-tag="New"
           :header-tabs="[
             { id: 'all', label: 'All' },
             { id: 'mine', label: 'Mine' },
           ]"
           :header-active-tab="tab"
           searchable
-          footer-label="Showing 3 of 12"
-          :footer-action="{ label: 'Manage', onClick: () => {} }"
-          :max-height="320"
+          :search-filters="false"
           :panel-class="PREVIEW_PANEL"
           @header-tab-change="(id: string) => (tab = id)"
+        >
+          <template #footer>
+            <span class="flex items-start gap-[8px]">
+              <IconActionInfoOutline
+                size="16"
+                class="text-gray-400 shrink-0 mt-[2px]"
+              />
+              <span class="text-[14px] leading-[20px] text-gray-400">
+                Selecting
+                <span class="font-medium text-gray-100">“All Projects”</span>
+                ensures all future projects are assigned to this team.
+              </span>
+            </span>
+          </template>
+        </SelectOptionList>
+      </div>
+      <!-- Size-40 mirrors so the dark grid offers the same size comparison.
+           See the light-mode counterpart for why `md:col-start-1` is here. -->
+      <div class="md:col-start-1">
+        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
+          default — size 40
+        </p>
+        <SelectOptionList
+          theme="dark"
+          :items="simple"
+          size="40"
+          :value="previewSelected"
+          :panel-class="PREVIEW_PANEL"
         />
+      </div>
+      <div class="col-span-2">
+        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
+          all content types + footer — size 40
+        </p>
+        <SelectOptionList
+          theme="dark"
+          :items="withMixedContent"
+          size="40"
+          :value="mixedSelected"
+          @select="onMixedSelect"
+          :header-button="{
+            iconLeft: IconArrowLeft,
+            onClick: () => {},
+            ariaLabel: 'Go back',
+          }"
+          :header-icon-left="IconShapeLightningBolt"
+          header-title="Header headline"
+          header-tag="New"
+          :header-tabs="[
+            { id: 'all', label: 'All' },
+            { id: 'mine', label: 'Mine' },
+          ]"
+          :header-active-tab="tab"
+          searchable
+          :search-filters="false"
+          :panel-class="PREVIEW_PANEL"
+          @header-tab-change="(id: string) => (tab = id)"
+        >
+          <template #footer>
+            <span class="flex items-start gap-[8px]">
+              <IconActionInfoOutline
+                size="16"
+                class="text-gray-400 shrink-0 mt-[2px]"
+              />
+              <span class="text-[14px] leading-[20px] text-gray-400">
+                Selecting
+                <span class="font-medium text-gray-100">“All Projects”</span>
+                ensures all future projects are assigned to this team.
+              </span>
+            </span>
+          </template>
+        </SelectOptionList>
       </div>
     </div>
   </div>
@@ -341,7 +448,7 @@ const previewSelectedCheckbox = 'b'
         v-model="v7"
         :items="withGroups"
         placeholder="With header + footer"
-        header-title="Pick a value"
+        header-title="Header headline"
         :header-tabs="[
           { id: 'all', label: 'All' },
           { id: 'mine', label: 'Mine' },
@@ -354,6 +461,20 @@ const previewSelectedCheckbox = 'b'
         :min-width="280"
         @header-tab-change="(id) => (tab = id)"
       />
+      <!--
+        Custom trigger: instead of the default chevron Button, render an
+        "Add new" Button with a leading plus icon. The `#trigger` slot
+        receives `{ open, selected, toggle, close }` — we wire `toggle`
+        to the Button's click.
+      -->
+      <Select v-model="v9" :items="simple" :min-width="200">
+        <template #trigger="{ toggle }">
+          <Button @click="toggle">
+            <IconActionAddSmall size="16" :interactive-colors-on-group="true" />
+            Add new
+          </Button>
+        </template>
+      </Select>
     </div>
   </div>
 

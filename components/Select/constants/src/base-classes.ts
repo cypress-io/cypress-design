@@ -25,11 +25,16 @@ export const CssItemsContainerClasses =
   'flex-1 min-h-0 overflow-y-auto p-[8px] flex flex-col gap-[1px]'
 
 // Header / footer are pinned (never scroll); items area scrolls between them.
-// Both also use 8px inset padding so their content lines up with the items area.
-export const CssHeaderContainerClasses =
-  'shrink-0 flex flex-col gap-[8px] p-[8px]'
+// Header container is just a flex column — the title row and the tabs/search
+// bundle inside it each handle their own padding. Bottom border is applied
+// here via `CssHeaderClasses` to separate the whole header from the items.
+// Footer uses 16px left inset to give the info icon breathing room against
+// the panel edge; other three sides stay at 8px.
+export const CssHeaderContainerClasses = 'shrink-0 flex flex-col'
+export const CssHeaderTabsSearchWrapperClasses =
+  'flex flex-col gap-[8px] p-[8px]'
 export const CssFooterContainerClasses =
-  'shrink-0 flex items-center justify-between gap-[8px] p-[8px]'
+  'shrink-0 flex items-center justify-between gap-[8px] pl-[16px] pr-[8px] py-[8px]'
 
 // Popover alignment relative to the trigger.
 export const CssAlignmentClasses = {

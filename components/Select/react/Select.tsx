@@ -38,11 +38,20 @@ export interface SelectProps {
 
   // Header
   headerTitle?: string
+  headerButton?: {
+    iconLeft: React.ComponentType<Record<string, unknown>>
+    onClick: () => void
+    ariaLabel?: string
+  }
+  headerIconLeft?: React.ComponentType<Record<string, unknown>>
+  headerTag?: string
+  headerIconRight?: React.ComponentType<Record<string, unknown>>
   headerTabs?: SelectHeaderTab[]
   headerActiveTab?: string
   onHeaderTabChange?: (id: string) => void
   searchable?: boolean
   searchPlaceholder?: string
+  searchFilters?: boolean
 
   // Footer
   footer?: React.ReactNode
@@ -86,11 +95,16 @@ export const Select: React.FC<SelectProps> = ({
   placeholder,
   disabled = false,
   headerTitle,
+  headerButton,
+  headerIconLeft,
+  headerTag,
+  headerIconRight,
   headerTabs,
   headerActiveTab,
   onHeaderTabChange,
   searchable = false,
   searchPlaceholder,
+  searchFilters,
   footer,
   footerLabel,
   footerAction,
@@ -134,7 +148,9 @@ export const Select: React.FC<SelectProps> = ({
   }, [items, value])
 
   // ---------- Focused index (within filtered selectables) ----------
-  const [focusedIndex, setFocusedIndex] = React.useState(0)
+  // -1 means "no row focused" — the visual focus ring + aria-activedescendant
+  // are suppressed until the user actually navigates with an arrow key.
+  const [focusedIndex, setFocusedIndex] = React.useState(-1)
   // Search query state is owned by the option list itself, but we need to
   // mirror it here so keyboard traversal sees the same filtered list. To
   // keep ownership clean for v1, traversal traverses the *unfiltered*
@@ -147,18 +163,12 @@ export const Select: React.FC<SelectProps> = ({
     [items],
   )
 
-  // Reset focused index when opening: land on the selected item, or first.
+  // Open the popover with no focused row. The first arrow keypress lands
+  // focus on the first option (or the last, on ArrowUp) — see onKeyDown.
   React.useEffect(() => {
     if (!open) return
-    if (value === undefined) {
-      setFocusedIndex(0)
-      return
-    }
-    const idx = selectableIndices.findIndex(
-      (i) => SelectConstants.getItemValue(items[i]) === value,
-    )
-    setFocusedIndex(idx >= 0 ? idx : 0)
-  }, [open, value, selectableIndices, items])
+    setFocusedIndex(-1)
+  }, [open])
 
   // ---------- Click outside ----------
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)
@@ -203,22 +213,31 @@ export const Select: React.FC<SelectProps> = ({
     }
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setFocusedIndex((i) =>
-        selectableIndices.length === 0 ? 0 : (i + 1) % selectableIndices.length,
-      )
+      setFocusedIndex((i) => {
+        const n = selectableIndices.length
+        if (n === 0) return -1
+        // First arrow press (i === -1) lands on the first option.
+        if (i === -1) return 0
+        return (i + 1) % n
+      })
       return
     }
     if (e.key === 'ArrowUp') {
       e.preventDefault()
-      setFocusedIndex((i) =>
-        selectableIndices.length === 0
-          ? 0
-          : (i - 1 + selectableIndices.length) % selectableIndices.length,
-      )
+      setFocusedIndex((i) => {
+        const n = selectableIndices.length
+        if (n === 0) return -1
+        // First arrow press (i === -1) lands on the last option — wraps
+        // symmetrically with ArrowDown-from-last.
+        if (i === -1) return n - 1
+        return (i - 1 + n) % n
+      })
       return
     }
     if (e.key === 'Enter') {
       e.preventDefault()
+      // No-op when nothing is focused yet (user hasn't pressed an arrow).
+      if (focusedIndex === -1) return
       const realIndex = selectableIndices[focusedIndex]
       if (realIndex === undefined) return
       const item = items[realIndex]
@@ -230,9 +249,15 @@ export const Select: React.FC<SelectProps> = ({
   const handleSelect = (item: SelectItem) => {
     const itemValue = SelectConstants.getItemValue(item)
     if (itemValue === undefined) return
-    if (!isValueControlled) setInternalValue(itemValue)
-    onChange?.(itemValue, item)
-    setOpen(false)
+    // Checkbox rows toggle: clicking an already-checked row unchecks it.
+    // Default rows still use plain select semantics (re-click is a no-op).
+    // We also keep the popover open on checkbox toggle since the user is
+    // likely picking multiple from a multi-select intent.
+    const isCheckboxToggle = item.type === 'checkbox' && value === itemValue
+    const nextValue = isCheckboxToggle ? undefined : itemValue
+    if (!isValueControlled) setInternalValue(nextValue)
+    onChange?.(nextValue as never, item)
+    if (item.type !== 'checkbox') setOpen(false)
   }
 
   // ---------- Trigger rendering ----------
@@ -258,8 +283,8 @@ export const Select: React.FC<SelectProps> = ({
         aria-expanded={open}
         aria-controls={popoverId}
         aria-activedescendant={
-          open
-            ? `${itemIdPrefix}-${selectableIndices[focusedIndex] ?? 0}`
+          open && focusedIndex >= 0
+            ? `${itemIdPrefix}-${selectableIndices[focusedIndex]}`
             : undefined
         }
         onClick={toggle}
@@ -294,11 +319,16 @@ export const Select: React.FC<SelectProps> = ({
           value={value}
           onSelect={handleSelect}
           headerTitle={headerTitle}
+          headerButton={headerButton}
+          headerIconLeft={headerIconLeft}
+          headerTag={headerTag}
+          headerIconRight={headerIconRight}
           headerTabs={headerTabs}
           headerActiveTab={headerActiveTab}
           onHeaderTabChange={onHeaderTabChange}
           searchable={searchable}
           searchPlaceholder={searchPlaceholder}
+          searchFilters={searchFilters}
           footer={footer}
           footerLabel={footerLabel}
           footerAction={footerAction}

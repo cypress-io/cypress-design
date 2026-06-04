@@ -76,17 +76,29 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
   }
 
   if (item.type === 'button') {
+    // Theme-aware default variant — `white` on light reads as a soft outline
+    // pill; on dark we use `outline-dark` so it doesn't sit as a stark white
+    // pill against the gray-1000 panel. Mirrors the header back-button rule.
+    const buttonVariant =
+      item.variant ?? (theme === 'dark' ? 'outline-dark' : 'white')
+    // Scale the button height with the row size so the action button doesn't
+    // look puny in a `size=40` panel.
+    const buttonSize = size === '40' ? '32' : '24'
     return (
       <div className={SelectConstants.CssButtonRowClasses}>
         <Button
-          variant={(item.variant as never) ?? 'link'}
-          size={size}
+          variant={buttonVariant as never}
+          size={buttonSize}
           onClick={(e) => {
             e.stopPropagation()
             item.onClick()
           }}
-          className="w-full justify-start"
         >
+          {item.iconLeft &&
+            React.createElement(
+              item.iconLeft as React.ComponentType<Record<string, unknown>>,
+              { size: '16', interactiveColorsOnGroup: true },
+            )}
           {item.label}
         </Button>
       </div>
@@ -146,18 +158,25 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         aria-disabled={disabled || undefined}
         data-selected={selected || undefined}
         data-focused={focused || undefined}
-        className={itemClasses}
+        className={clsx(itemClasses, SelectConstants.CssCheckboxRowClasses)}
         onClick={handleClick}
         onMouseDown={(e) => e.preventDefault()}
       >
-        <Checkbox
-          checked={selected}
-          disabled={disabled}
-          // The checkbox's own change is a no-op; the row click drives selection.
-          onChange={() => undefined}
-        />
+        <span className={SelectConstants.CssCheckboxRowCheckboxWrapperClasses}>
+          {/* The Checkbox initializes `localChecked` from `props.checked`
+             via useState (uncontrolled) and never syncs back from the
+             prop. Keying by `selected` forces a remount whenever the
+             row toggles so the visual stays in sync with our externally-
+             managed value. */}
+          <Checkbox
+            key={selected ? 'on' : 'off'}
+            checked={selected}
+            disabled={disabled}
+            onChange={() => undefined}
+          />
+        </span>
         <div className={SelectConstants.CssCheckboxRowStackClasses}>
-          <span className={SelectConstants.CssCheckboxRowLabelClasses}>
+          <span className={SelectConstants.CssCheckboxRowLabelClasses[size]}>
             {item.label}
           </span>
           {item.subText && (
@@ -185,9 +204,9 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         onClick={handleClick}
         onMouseDown={(e) => e.preventDefault()}
       >
-        {renderIcon(item.iconLeft, iconColorClass)}
+        {renderIcon(item.iconLeft, iconColorClass, '24')}
         <div className={SelectConstants.CssUserRowStackClasses}>
-          <span className={SelectConstants.CssUserRowLabelClasses}>
+          <span className={SelectConstants.CssUserRowLabelClasses[size]}>
             {item.label}
           </span>
           {item.secondary && (
@@ -222,6 +241,10 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
           {item.tag}
         </Tag>
       )}
+      {/* iconRight uses `ml-auto` so it hugs the row's right edge; reuses
+          the same state-aware icon color classes as iconLeft. */}
+      {item.iconRight &&
+        renderIcon(item.iconRight, clsx('ml-auto', iconColorClass))}
       {item.slotRight && (
         <span className="ml-auto shrink-0">{item.slotRight}</span>
       )}

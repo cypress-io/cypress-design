@@ -27,10 +27,19 @@ const props = withDefaults(
     placeholder?: string
     disabled?: boolean
     headerTitle?: string
+    headerButton?: {
+      iconLeft: unknown
+      onClick: () => void
+      ariaLabel?: string
+    }
+    headerIconLeft?: unknown
+    headerTag?: string
+    headerIconRight?: unknown
     headerTabs?: SelectHeaderTab[]
     headerActiveTab?: string
     searchable?: boolean
     searchPlaceholder?: string
+    searchFilters?: boolean
     footerLabel?: string
     footerAction?: { label: string; onClick: () => void }
     width?: CssLength
@@ -129,19 +138,15 @@ const defaultTriggerLabel = computed(() => {
 })
 
 // ---------- focused index ----------
-const focusedIndex = ref(0)
+// -1 means "no row focused" — visual focus ring + aria-activedescendant are
+// suppressed until the user actually navigates with an arrow key.
+const focusedIndex = ref(-1)
 const selectableIndices = computed(() => getSelectableIndices(props.items))
 
 watch(open, (isOpen) => {
   if (!isOpen) return
-  if (value.value === undefined) {
-    focusedIndex.value = 0
-    return
-  }
-  const idx = selectableIndices.value.findIndex(
-    (i) => SelectConstants.getItemValue(props.items[i]) === value.value,
-  )
-  focusedIndex.value = idx >= 0 ? idx : 0
+  // Open with no row focused. First arrow keypress lands focus (see onKeyDown).
+  focusedIndex.value = -1
 })
 
 // ---------- click outside ----------
@@ -186,17 +191,34 @@ function onKeyDown(e: KeyboardEvent) {
   if (e.key === 'ArrowDown') {
     e.preventDefault()
     const n = selectableIndices.value.length
-    focusedIndex.value = n === 0 ? 0 : (focusedIndex.value + 1) % n
+    if (n === 0) {
+      focusedIndex.value = -1
+    } else if (focusedIndex.value === -1) {
+      // First arrow press lands on the first option.
+      focusedIndex.value = 0
+    } else {
+      focusedIndex.value = (focusedIndex.value + 1) % n
+    }
     return
   }
   if (e.key === 'ArrowUp') {
     e.preventDefault()
     const n = selectableIndices.value.length
-    focusedIndex.value = n === 0 ? 0 : (focusedIndex.value - 1 + n) % n
+    if (n === 0) {
+      focusedIndex.value = -1
+    } else if (focusedIndex.value === -1) {
+      // First arrow press from no-focus lands on the last option — wraps
+      // symmetrically with ArrowDown-from-last.
+      focusedIndex.value = n - 1
+    } else {
+      focusedIndex.value = (focusedIndex.value - 1 + n) % n
+    }
     return
   }
   if (e.key === 'Enter') {
     e.preventDefault()
+    // No-op when nothing is focused yet (user hasn't pressed an arrow).
+    if (focusedIndex.value === -1) return
     const realIndex = selectableIndices.value[focusedIndex.value]
     if (realIndex === undefined) return
     handleSelect(props.items[realIndex])
@@ -207,10 +229,15 @@ function onKeyDown(e: KeyboardEvent) {
 function handleSelect(item: SelectItem) {
   const itemValue = SelectConstants.getItemValue(item)
   if (itemValue === undefined) return
-  if (!isValueControlled.value) internalValue.value = itemValue
-  emit('update:modelValue', itemValue)
-  emit('change', itemValue, item)
-  setOpen(false)
+  // Checkbox rows toggle: clicking an already-checked row unchecks it.
+  // Default rows still use plain select semantics (re-click is a no-op).
+  // Keep the popover open on checkbox toggle so multi-pick intent flows.
+  const isCheckboxToggle = item.type === 'checkbox' && value.value === itemValue
+  const nextValue = isCheckboxToggle ? undefined : itemValue
+  if (!isValueControlled.value) internalValue.value = nextValue
+  emit('update:modelValue', nextValue as never)
+  emit('change', nextValue as never, item)
+  if (item.type !== 'checkbox') setOpen(false)
 }
 
 function toggle() {
@@ -221,8 +248,8 @@ function close() {
 }
 
 const activeDescendantId = computed(() =>
-  open.value
-    ? `${itemIdPrefix.value}-${selectableIndices.value[focusedIndex.value] ?? 0}`
+  open.value && focusedIndex.value >= 0
+    ? `${itemIdPrefix.value}-${selectableIndices.value[focusedIndex.value]}`
     : undefined,
 )
 
@@ -275,10 +302,15 @@ const chevronClasses = computed(() => [
       :size="size"
       :value="value"
       :header-title="headerTitle"
+      :header-button="headerButton"
+      :header-icon-left="headerIconLeft"
+      :header-tag="headerTag"
+      :header-icon-right="headerIconRight"
       :header-tabs="headerTabs"
       :header-active-tab="headerActiveTab"
       :searchable="searchable"
       :search-placeholder="searchPlaceholder"
+      :search-filters="searchFilters"
       :footer-label="footerLabel"
       :footer-action="footerAction"
       :width="width"
