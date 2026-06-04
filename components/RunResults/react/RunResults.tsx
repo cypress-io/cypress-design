@@ -191,8 +191,12 @@ export const RunResults = React.forwardRef<
   return (
     <div
       ref={ref}
-      data-cy="run-results"
       {...rest}
+      // `data-cy` is set AFTER `{...rest}` so a consumer passing their own
+      // `data-cy` cannot override our fixed selector. This matches the Vue
+      // side and preserves the documented public test contract — see the
+      // `[data-cy="run-results"]` row in instructions.md.
+      data-cy="run-results"
       className={clsx(CssClasses.container, className)}
     >
       <ul className={clsx(CssClasses.list, CssTheme[theme].list)}>
