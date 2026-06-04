@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": ["./RunStatus.tsx", "./index.ts"],
+  "include": ["./RunResults.tsx", "./index.ts"],
   "compilerOptions": {
     "sourceRoot": "./",
     "outDir": "dist"

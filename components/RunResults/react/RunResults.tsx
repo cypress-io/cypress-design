@@ -12,8 +12,8 @@ import {
   CssTooltipPopperDark,
   CssTooltipPopperLight,
   TooltipColorForTheme,
-  type RunStatusProps,
-  type RunStatusTheme,
+  type RunResultsProps,
+  type RunResultsTheme,
   type StatKey,
   getSeparatorAfterKey,
   getTooltipLabel,
@@ -23,17 +23,17 @@ import {
   showRegularStat,
   statKeyToKebab,
   statValue,
-} from '@cypress-design/constants-runstatus'
+} from '@cypress-design/constants-runresults'
 
-export type { RunStatusProps } from '@cypress-design/constants-runstatus'
+export type { RunResultsProps } from '@cypress-design/constants-runresults'
 
 interface StatProps {
   statKey: StatKey
   count: number
   link: string | undefined
-  renderLink: RunStatusProps['renderLink']
+  renderLink: RunResultsProps['renderLink']
   showTooltip: boolean
-  theme: RunStatusTheme
+  theme: RunResultsTheme
   applySeparator: boolean
 }
 
@@ -146,11 +146,11 @@ const Stat: React.FC<StatProps> = ({
 // `forwardRef` so a parent can attach a `ref` to the outer pill `<div>`,
 // per architecture.md's documented API. Sibling `@cypress-design/react-textbox`
 // follows the same pattern.
-export const RunStatus = React.forwardRef<
+export const RunResults = React.forwardRef<
   HTMLDivElement,
-  RunStatusProps &
-    Omit<React.HTMLAttributes<HTMLDivElement>, keyof RunStatusProps>
->(function RunStatus(
+  RunResultsProps &
+    Omit<React.HTMLAttributes<HTMLDivElement>, keyof RunResultsProps>
+>(function RunResults(
   {
     passed,
     failed,
@@ -191,7 +191,7 @@ export const RunStatus = React.forwardRef<
   return (
     <div
       ref={ref}
-      data-cy="run-stats"
+      data-cy="run-results"
       {...rest}
       className={clsx(CssClasses.container, className)}
     >
@@ -267,4 +267,4 @@ export const RunStatus = React.forwardRef<
   )
 })
 
-export default RunStatus
+export default RunResults

@@ -7,7 +7,7 @@ import {
 } from '@cypress-design/vue-icon'
 import Tooltip from '@cypress-design/vue-tooltip'
 
-// RunStatus-only tooltip overrides.
+// RunResults-only tooltip overrides.
 //
 // The shared Tooltip hardcodes 16px / 24px / 160px-min on its inner text
 // container and gray-900 / white text color on the colored wrapper. The
@@ -16,35 +16,35 @@ import Tooltip from '@cypress-design/vue-tooltip'
 // parent cannot be overridden from a child.
 //
 // We tag the popper slot content with a marker class
-// (`cy-runstatus-tooltip-${color}` — e.g. `cy-runstatus-tooltip-dark` or
-// `cy-runstatus-tooltip-light` — applied in the popper slot below) and use
+// (`cy-runresults-tooltip-${color}` — e.g. `cy-runresults-tooltip-dark` or
+// `cy-runresults-tooltip-light` — applied in the popper slot below) and use
 // `:has()` to target the tooltip ancestors only when our marker is present.
 // The CSS lives here as a JS-injected <style> tag so consumers of
-// @cypress-design/vue-runstatus get the overrides without needing to import
+// @cypress-design/vue-runresults get the overrides without needing to import
 // a separate CSS file. SFC <style> blocks would emit a separate
 // dist/style.css that the JS bundle doesn't reference under Vite library
 // mode — so we inject at runtime.
 //
 // Color values are hard-coded so the rules work outside the docs site,
 // where the --cy-* CSS custom properties may not be loaded:
-//   gray-300 (#bfc2d4) for dark tooltips (on light RunStatus)
-//   gray-700 (#5a5f7a) for light tooltips (on dark RunStatus)
-const RUN_STATUS_TOOLTIP_STYLE_ID = 'cy-runstatus-tooltip-style'
+//   gray-300 (#bfc2d4) for dark tooltips (on light RunResults)
+//   gray-700 (#5a5f7a) for light tooltips (on dark RunResults)
+const RUN_RESULTS_TOOLTIP_STYLE_ID = 'cy-runresults-tooltip-style'
 if (typeof document !== 'undefined') {
-  if (!document.getElementById(RUN_STATUS_TOOLTIP_STYLE_ID)) {
+  if (!document.getElementById(RUN_RESULTS_TOOLTIP_STYLE_ID)) {
     const style = document.createElement('style')
-    style.id = RUN_STATUS_TOOLTIP_STYLE_ID
-    // gray-300 (#BFC2D4) for dark tooltips (on light RunStatus)
-    // gray-700 (#5A5F7A) for light tooltips (on dark RunStatus)
+    style.id = RUN_RESULTS_TOOLTIP_STYLE_ID
+    // gray-300 (#BFC2D4) for dark tooltips (on light RunResults)
+    // gray-700 (#5A5F7A) for light tooltips (on dark RunResults)
     const sizeRules =
       ' font-size: 14px; line-height: 20px; min-width: 0; white-space: nowrap; '
     style.textContent =
-      "[role='tooltip']:has(.cy-runstatus-tooltip-dark) > div { color: #bfc2d4; }" +
-      "[role='tooltip']:has(.cy-runstatus-tooltip-dark) > div > div:last-child {" +
+      "[role='tooltip']:has(.cy-runresults-tooltip-dark) > div { color: #bfc2d4; }" +
+      "[role='tooltip']:has(.cy-runresults-tooltip-dark) > div > div:last-child {" +
       sizeRules +
       '}' +
-      "[role='tooltip']:has(.cy-runstatus-tooltip-light) > div { color: #5a5f7a; }" +
-      "[role='tooltip']:has(.cy-runstatus-tooltip-light) > div > div:last-child {" +
+      "[role='tooltip']:has(.cy-runresults-tooltip-light) > div { color: #5a5f7a; }" +
+      "[role='tooltip']:has(.cy-runresults-tooltip-light) > div > div:last-child {" +
       sizeRules +
       '}'
     document.head.appendChild(style)
@@ -54,8 +54,8 @@ import {
   CssClasses,
   CssTheme,
   TooltipColorForTheme,
-  type RunStatusProps,
-  type RunStatusTheme,
+  type RunResultsProps,
+  type RunResultsTheme,
   type StatKey,
   getSeparatorAfterKey,
   getTooltipLabel,
@@ -65,13 +65,13 @@ import {
   showRegularStat,
   statKeyToKebab,
   statValue,
-} from '@cypress-design/constants-runstatus'
+} from '@cypress-design/constants-runresults'
 
 // Rendered via a render function rather than <template> because the
 // `renderLink` callback prop returns a VNode — template ergonomics don't
 // compose cleanly around a caller-provided VNode.
 export default defineComponent({
-  name: 'RunStatus',
+  name: 'RunResults',
   inheritAttrs: false,
   props: {
     // Number-or-null props use the [Number, null] array form so Vue's
@@ -94,14 +94,14 @@ export default defineComponent({
       default: null,
     },
     showSelfHealed: { type: Boolean, default: false },
-    theme: { type: String as PropType<RunStatusTheme>, default: 'light' },
+    theme: { type: String as PropType<RunResultsTheme>, default: 'light' },
     expanded: { type: Boolean, default: false },
     links: {
-      type: Object as PropType<RunStatusProps['links']>,
+      type: Object as PropType<RunResultsProps['links']>,
       default: () => ({}),
     },
     renderLink: {
-      type: Function as PropType<RunStatusProps['renderLink']>,
+      type: Function as PropType<RunResultsProps['renderLink']>,
       default: null,
     },
     showTooltip: { type: Boolean, default: true },
@@ -181,12 +181,12 @@ export default defineComponent({
           {
             default: () => tooltipTarget,
             // Marker class — picked up by the injected <style> above to apply
-            // RunStatus-only tooltip overrides per tooltip color variant.
+            // RunResults-only tooltip overrides per tooltip color variant.
             popper: () =>
               h(
                 'span',
                 {
-                  class: `cy-runstatus-tooltip-${TooltipColorForTheme[props.theme]}`,
+                  class: `cy-runresults-tooltip-${TooltipColorForTheme[props.theme]}`,
                 },
                 tooltipText,
               ),
@@ -294,7 +294,7 @@ export default defineComponent({
         'div',
         {
           ...attrs,
-          'data-cy': 'run-stats',
+          'data-cy': 'run-results',
           // Pass an array directly so Vue's runtime normalizes fallthrough
           // `attrs.class` whether it arrives as a string, array, or object
           // (e.g. parent uses `:class="['a','b']"` or `:class="{ a: true }"`).

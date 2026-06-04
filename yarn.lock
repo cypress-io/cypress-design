@@ -1385,9 +1385,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/constants-runstatus@npm:*, @cypress-design/constants-runstatus@workspace:components/RunStatus/constants":
+"@cypress-design/constants-runresults@npm:*, @cypress-design/constants-runresults@workspace:components/RunResults/constants":
   version: 0.0.0-use.local
-  resolution: "@cypress-design/constants-runstatus@workspace:components/RunStatus/constants"
+  resolution: "@cypress-design/constants-runresults@workspace:components/RunResults/constants"
   languageName: unknown
   linkType: soft
 
@@ -1677,11 +1677,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-runstatus@workspace:components/RunStatus/react":
+"@cypress-design/react-runresults@workspace:components/RunResults/react":
   version: 0.0.0-use.local
-  resolution: "@cypress-design/react-runstatus@workspace:components/RunStatus/react"
+  resolution: "@cypress-design/react-runresults@workspace:components/RunResults/react"
   dependencies:
-    "@cypress-design/constants-runstatus": "npm:*"
+    "@cypress-design/constants-runresults": "npm:*"
     "@cypress-design/react-icon": "npm:*"
     "@cypress-design/react-statusicon": "npm:*"
     "@cypress-design/react-tooltip": "npm:*"
@@ -1867,11 +1867,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-runstatus@workspace:components/RunStatus/vue":
+"@cypress-design/vue-runresults@workspace:components/RunResults/vue":
   version: 0.0.0-use.local
-  resolution: "@cypress-design/vue-runstatus@workspace:components/RunStatus/vue"
+  resolution: "@cypress-design/vue-runresults@workspace:components/RunResults/vue"
   dependencies:
-    "@cypress-design/constants-runstatus": "npm:*"
+    "@cypress-design/constants-runresults": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-icon": "npm:*"
     "@cypress-design/vue-statusicon": "npm:*"

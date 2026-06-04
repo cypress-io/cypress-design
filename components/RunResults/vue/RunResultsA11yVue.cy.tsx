@@ -1,13 +1,13 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
-import RunStatus from './RunStatus.vue'
+import RunResults from './RunResults.vue'
 import a11yAssertions from '../a11y-assertions'
-import type { RunStatusProps } from '@cypress-design/constants-runstatus'
+import type { RunResultsProps } from '@cypress-design/constants-runresults'
 
-function mountStory(props: Partial<RunStatusProps> = {}) {
+function mountStory(props: Partial<RunResultsProps> = {}) {
   mount(() => (
     <div class="p-8">
-      <RunStatus
+      <RunResults
         passed={props.passed ?? 0}
         failed={props.failed ?? 0}
         skipped={props.skipped ?? 0}
@@ -24,6 +24,6 @@ function mountStory(props: Partial<RunStatusProps> = {}) {
   ))
 }
 
-describe('<RunStatus /> Vue — Accessibility', () => {
-  a11yAssertions(mountStory)
+describe('<RunResults /> Vue — Accessibility', () => {
+  a11yAssertions(mountStory, 'vue')
 })

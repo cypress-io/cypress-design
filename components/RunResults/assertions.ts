@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-import type { RunStatusProps } from '@cypress-design/constants-runstatus'
+import type { RunResultsProps } from '@cypress-design/constants-runresults'
 
-type MountFn = (props?: Partial<RunStatusProps>) => void
+type MountFn = (props?: Partial<RunResultsProps>) => void
 
 export default function assertions(
   mountStory: MountFn,
@@ -15,17 +15,17 @@ export default function assertions(
   describe('default rendering', () => {
     it('renders only non-zero regular stats', () => {
       mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1 })
-      cy.get('[data-cy="run-stats"]').should('exist')
+      cy.get('[data-cy="run-results"]').should('exist')
       cy.get('[data-cy="total-passed"]').should('exist')
       cy.get('[data-cy="total-failed"]').should('exist')
       cy.get('[data-cy="total-pending"]').should('exist')
       cy.get('[data-cy="total-skipped"]').should('not.exist')
-      cy.percySnapshot(`RunStatus default - ${fw}`)
+      cy.percySnapshot(`RunResults default - ${fw}`)
     })
 
     it('returns nothing when all stats are zero', () => {
       mountStory({ passed: 0, failed: 0, skipped: 0, pending: 0 })
-      cy.get('[data-cy="run-stats"]').should('not.exist')
+      cy.get('[data-cy="run-results"]').should('not.exist')
     })
 
     it('still renders the pill when all regular stats are zero but showSelfHealed is true', () => {
@@ -41,7 +41,7 @@ export default function assertions(
         selfHealed: 2,
         showSelfHealed: true,
       })
-      cy.get('[data-cy="run-stats"]').should('exist')
+      cy.get('[data-cy="run-results"]').should('exist')
       cy.get('[data-cy="total-self-healed"]')
         .should('exist')
         .and('contain', '2')
@@ -68,7 +68,7 @@ export default function assertions(
       // count > 0. Guard against a regression that treats flaky like a
       // regular stat and renders a zero-count row.
       cy.get('[data-cy="total-flaky"]').should('not.exist')
-      cy.percySnapshot(`RunStatus expanded - ${fw}`)
+      cy.percySnapshot(`RunResults expanded - ${fw}`)
     })
 
     it('shows correct counts', () => {
@@ -87,7 +87,7 @@ export default function assertions(
     it('renders flaky when count > 0', () => {
       mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1, flaky: 3 })
       cy.get('[data-cy="total-flaky"]').should('exist').and('contain', '3')
-      cy.percySnapshot(`RunStatus with flaky - ${fw}`)
+      cy.percySnapshot(`RunResults with flaky - ${fw}`)
     })
 
     it('does not render flaky when count is 0', () => {
@@ -107,7 +107,7 @@ export default function assertions(
       cy.get('[data-cy="total-self-healed"]')
         .should('exist')
         .and('contain', '2')
-      cy.percySnapshot(`RunStatus with self-healed - ${fw}`)
+      cy.percySnapshot(`RunResults with self-healed - ${fw}`)
     })
 
     it('does not render self-healed when showSelfHealed is false', () => {
@@ -168,7 +168,7 @@ export default function assertions(
         'not.have.class',
         "after:content-['']",
       )
-      cy.percySnapshot(`RunStatus flaky and self-healed - ${fw}`)
+      cy.percySnapshot(`RunResults flaky and self-healed - ${fw}`)
     })
 
     it('omits separator when no regular stats follow leading stats', () => {
@@ -211,7 +211,7 @@ export default function assertions(
       cy.get('[data-cy="link-flaky"]')
         .should('exist')
         .and('have.attr', 'href', '#flaky')
-      cy.percySnapshot(`RunStatus linked stats - ${fw}`)
+      cy.percySnapshot(`RunResults linked stats - ${fw}`)
     })
 
     it('renders a <span> (no link) when no link is provided', () => {
@@ -314,6 +314,11 @@ export default function assertions(
         '[role="tooltip"]',
         '3 tests both passed and failed when retried within a run',
       ).should('be.visible')
+      // Visual baseline for the opened tooltip — locks in the popper's
+      // text size, color, padding, arrow placement, and background, so a
+      // shared-Tooltip change or token shift that breaks the override
+      // (see CssTooltipPopperDark/Light in constants) surfaces as a diff.
+      cy.percySnapshot(`RunResults with flaky tooltip open - ${fw}`)
     })
   })
 
@@ -357,7 +362,7 @@ export default function assertions(
         selfHealed: 2,
         showSelfHealed: true,
       })
-      cy.get('[data-cy="run-stats"] ul')
+      cy.get('[data-cy="run-results"] ul')
         .children()
         .each(($child) => {
           expect($child.prop('tagName')).to.eq('LI')
@@ -390,11 +395,11 @@ export default function assertions(
           flaky: '#flaky',
         },
       })
-      cy.get('[data-cy="run-stats"] ul')
+      cy.get('[data-cy="run-results"] ul')
         .should('have.class', 'bg-gray-1000')
         .and('have.class', 'text-gray-400')
         .and('have.class', 'border-gray-800')
-      cy.percySnapshot(`RunStatus dark theme - ${fw}`)
+      cy.percySnapshot(`RunResults dark theme - ${fw}`)
     })
   })
 }

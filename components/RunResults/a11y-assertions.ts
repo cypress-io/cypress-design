@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-import type { RunStatusProps } from '@cypress-design/constants-runstatus'
+import type { RunResultsProps } from '@cypress-design/constants-runresults'
 
-type MountFn = (props?: Partial<RunStatusProps>) => void
+type MountFn = (props?: Partial<RunResultsProps>) => void
 
 // Inject a focusable sentinel <button> before the mounted pill so we can
 // keyboard-Tab INTO the component (rather than programmatically focusing the
@@ -25,7 +25,10 @@ function insertSentinel(): Cypress.Chainable {
   })
 }
 
-export default function a11yAssertions(mountStory: MountFn): void {
+export default function a11yAssertions(
+  mountStory: MountFn,
+  fw: 'vue' | 'react',
+): void {
   // ---------------------------------------------------------------------------
   // Keyboard navigation
   // ---------------------------------------------------------------------------
@@ -55,9 +58,9 @@ export default function a11yAssertions(mountStory: MountFn): void {
     it('unlinked stats are not in the tab order', () => {
       mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1 })
       // No focusable elements inside the pill
-      cy.get('[data-cy="run-stats"] a, [data-cy="run-stats"] button').should(
-        'not.exist',
-      )
+      cy.get(
+        '[data-cy="run-results"] a, [data-cy="run-results"] button',
+      ).should('not.exist')
     })
 
     it('linked stats receive keyboard focus and carry focus-visible outline classes', () => {
@@ -87,6 +90,10 @@ export default function a11yAssertions(mountStory: MountFn): void {
         .should('have.class', 'focus-visible:outline')
         .and('have.class', 'focus-visible:outline-2')
         .and('have.class', 'focus-visible:outline-indigo-500')
+      // Visual baseline for the focus / focus-visible state — locks in the
+      // outline color, width, and offset so a Tailwind / token change that
+      // breaks the focus ring would surface as a Percy diff.
+      cy.percySnapshot(`RunResults focused linked stat - ${fw}`)
     })
   })
 

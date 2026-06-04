@@ -18,6 +18,7 @@ Foundational thinking that frames how we make design and product decisions. Fetc
 - [principles/feedback.md](./principles/feedback.md) — reviewing work and giving feedback
 - [principles/learning-from-feedback.md](./principles/learning-from-feedback.md) — **fetch on every feedback exchange** (PR review, reply to a comment, Slack thread, Zoom recap) — how to spot the rule hiding in a fix and confirm it with the human before documenting
 - [principles/releases.md](./principles/releases.md) — shipping releases, betas, and previews; naming stages; managing feedback quality
+
 ## Design pillars
 
 Several pillars lead with a `## Principles` section that governs the tokens and rules below it (colors, typography, spacing, iconography, illustrations). Others (voice, personas, accessibility) are organized differently — open each file for the structure that fits its content.
@@ -41,7 +42,7 @@ Fetch on demand — don't preload all of them:
 
 `Accordion` `Alert` `Button` `Checkbox` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
 `DocMenu` — sidebar navigation used in documentation sites
-`RunStatus` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
+`RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
 `StatusIcon` — passed/failed/pending/skipped/running/flaky indicator
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions

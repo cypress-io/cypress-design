@@ -1,15 +1,15 @@
-# RunStatus — Props, Events & Slots
+# RunResults — Props, Events & Slots
 
-`RunStatus` renders a pill of test-result counts (passed / failed / skipped / pending) with two independent optional leading stats — flaky and self-healed — rendered before the regular stats and separated from them by a vertical divider. Each stat is an icon + count, optionally wrapped in a link, optionally wrapped in a Tooltip. Supports `light` and `dark` themes.
+`RunResults` renders a pill of test-result counts (passed / failed / skipped / pending) with two independent optional leading stats — flaky and self-healed — rendered before the regular stats and separated from them by a vertical divider. Each stat is an icon + count, optionally wrapped in a link, optionally wrapped in a Tooltip. Supports `light` and `dark` themes.
 
 Use it in run summary cards, dashboard rows, and any list/grid view where you want compact, scannable counts of test outcomes.
 
 ## Install
 
 ```bash
-yarn add @cypress-design/vue-runstatus          # Vue
-yarn add @cypress-design/react-runstatus        # React
-yarn add @cypress-design/constants-runstatus    # shared types + CSS class constants
+yarn add @cypress-design/vue-runresults          # Vue
+yarn add @cypress-design/react-runresults        # React
+yarn add @cypress-design/constants-runresults    # shared types + CSS class constants
 ```
 
 ## Props
@@ -36,11 +36,11 @@ yarn add @cypress-design/constants-runstatus    # shared types + CSS class const
 
 The constants package exports these types for consumer use:
 
-| Type             | Description                                                                                                                                                                 |
-| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `RunStatusProps` | Full prop interface for the component.                                                                                                                                      |
-| `RunStatusTheme` | `"light" \| "dark"` — derived from `keyof typeof CssTheme`.                                                                                                                 |
-| `StatKey`        | `"passed" \| "failed" \| "skipped" \| "pending" \| "flaky" \| "selfHealed"`. Used as keys in the `links` prop. `data-cy` selectors use the kebab-case form (`self-healed`). |
+| Type              | Description                                                                                                                                                                 |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `RunResultsProps` | Full prop interface for the component.                                                                                                                                      |
+| `RunResultsTheme` | `"light" \| "dark"` — derived from `keyof typeof CssTheme`.                                                                                                                 |
+| `StatKey`         | `"passed" \| "failed" \| "skipped" \| "pending" \| "flaky" \| "selfHealed"`. Used as keys in the `links` prop. `data-cy` selectors use the kebab-case form (`self-healed`). |
 
 ## Stat order
 
@@ -68,7 +68,7 @@ Regular stats with count `0` are hidden unless `expanded` is `true`. Examples:
 
 ### Empty state
 
-When no stats render — all four regular counts are zero/null, `expanded=false`, and neither `flaky` nor `selfHealed` is set — `RunStatus` renders **nothing** (returns `null`). It does not render an empty bordered pill. The parent layout should be prepared for the component to disappear; render a skeleton or placeholder externally if you need stable layout during loading.
+When no stats render — all four regular counts are zero/null, `expanded=false`, and neither `flaky` nor `selfHealed` is set — `RunResults` renders **nothing** (returns `null`). It does not render an empty bordered pill. The parent layout should be prepared for the component to disappear; render a skeleton or placeholder externally if you need stable layout during loading.
 
 ## Themes
 
@@ -90,7 +90,7 @@ Both themes use explicit Tailwind colors mapped from the design tokens. The comp
 Use `renderLink` to integrate with a framework router (e.g. React Router, Vue Router, Next.js `Link`). It receives the resolved `href` and the inner children (icon + count) and must return a single element.
 
 ```tsx
-<RunStatus
+<RunResults
   passed={22}
   failed={4}
   skipped={0}
@@ -134,7 +134,7 @@ When `showTooltip` is `true` (default), each stat is wrapped in a Tooltip.
 
 ## Accessibility
 
-- The outer container is `<div data-cy="run-stats">`; the inner list is a semantic `<ul>` of `<li>` stats.
+- The outer container is `<div data-cy="run-results">`; the inner list is a semantic `<ul>` of `<li>` stats.
 - Linked stats render an `<a>` with `aria-label="View {status} tests"`. Unlinked stats use plain text with no extraneous role.
 - Focus styling uses `outline` (not `border`) on the `<a>` to avoid layout shift between focus states.
 - Tooltips are wired through the internal Tooltip component, which uses Floating UI's focus/pointer detection — keyboard focus on a linked stat reveals the tooltip.
@@ -146,7 +146,7 @@ These selectors are part of the public contract — existing tests in consumer a
 
 | Selector                           | Element                                                                           |
 | ---------------------------------- | --------------------------------------------------------------------------------- |
-| `[data-cy="run-stats"]`            | Outer pill container                                                              |
+| `[data-cy="run-results"]`          | Outer pill container                                                              |
 | `[data-cy="total-{status}"]`       | Each `<li>` wrapping a stat. `{status}` is kebab-case (e.g. `total-self-healed`). |
 | `[data-cy="link-{status}"]`        | The `<a>` of a linked stat. Kebab-case.                                           |
 | `[data-cy="status-icon-{status}"]` | The status icon for the stat. Kebab-case (e.g. `status-icon-self-healed`).        |
@@ -160,5 +160,5 @@ These selectors are part of the public contract — existing tests in consumer a
 - Icons are fixed at size `12`. No size prop.
 - Counts are display-only; the component does not format large numbers (e.g. `1,234`) — pass pre-formatted strings if needed via a future prop, or wait for a follow-up.
 - Self-healed renders whenever `showSelfHealed` is `true`, regardless of the `selfHealed` count (a `0` count renders as "0"). When `showSelfHealed` is `false`, the stat is hidden entirely — the consumer is expected to set the flag based on whether the run could have self-healed tests at all (e.g. `cy.prompt` was available).
-- **No loading state.** `null` and `0` counts render identically. If you need to distinguish "loading" from "zero", render a skeleton/spinner externally and conditionally mount `<RunStatus>` when data lands. Combined with the empty-state behavior above, the component returns `null` while counts are still all-null.
+- **No loading state.** `null` and `0` counts render identically. If you need to distinguish "loading" from "zero", render a skeleton/spinner externally and conditionally mount `<RunResults>` when data lands. Combined with the empty-state behavior above, the component returns `null` while counts are still all-null.
 - **No i18n.** Tooltip labels are hardcoded English strings ("View passed tests", "N tests both passed and failed when retried within a run", etc.). A `labels` override prop can be added when a real consumer needs translations.

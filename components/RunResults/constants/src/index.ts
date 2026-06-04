@@ -65,18 +65,18 @@ export const CssTheme = {
   },
 } as const
 
-export type RunStatusTheme = keyof typeof CssTheme
+export type RunResultsTheme = keyof typeof CssTheme
 
 // Tooltip color contrasts with the surface the pill sits on.
-export const TooltipColorForTheme: Record<RunStatusTheme, 'light' | 'dark'> = {
+export const TooltipColorForTheme: Record<RunResultsTheme, 'light' | 'dark'> = {
   light: 'dark',
   dark: 'light',
 }
 
-// RunStatus-specific overrides applied via Tooltip's `popperClassName`:
+// RunResults-specific overrides applied via Tooltip's `popperClassName`:
 //   - drop the 160px min-width so the tooltip auto-fits content
 //   - shrink text to 14px / 20px (DS body size; shared Tooltip defaults to 16px / 24px)
-//   - text color: gray-300 for dark tooltips (on light RunStatus), gray-700 for light tooltips (on dark RunStatus)
+//   - text color: gray-300 for dark tooltips (on light RunResults), gray-700 for light tooltips (on dark RunResults)
 // `[&>div]` targets the colored container inside the popper (where text color
 // is set on the shared Tooltip); `[&>div>div]` targets the inner text container
 // (where font-size / line-height / min-width are set on the shared Tooltip).
@@ -124,7 +124,7 @@ export function getTooltipLabel(
   return isLinked ? `View ${display} tests` : `${capitalize(display)} tests`
 }
 
-export interface RunStatusProps {
+export interface RunResultsProps {
   passed: number | null
   failed: number | null
   skipped: number | null
@@ -138,7 +138,7 @@ export interface RunStatusProps {
   selfHealed?: number | null
   showSelfHealed?: boolean
 
-  theme?: RunStatusTheme
+  theme?: RunResultsTheme
   // When true, regular stats render even with a zero count.
   // Does NOT affect leading stats. Flaky still renders only when its count
   // is > 0; self-healed renders whenever `showSelfHealed` is true (including
@@ -178,7 +178,7 @@ export function showRegularStat(
 // flaky renders only when its count > 0.
 export function getSeparatorAfterKey(
   props: Pick<
-    RunStatusProps,
+    RunResultsProps,
     | 'flaky'
     | 'selfHealed'
     | 'showSelfHealed'
@@ -207,7 +207,7 @@ export function getSeparatorAfterKey(
 // Does anything render at all? Used to short-circuit to `null` on empty state.
 export function hasAnyStat(
   props: Pick<
-    RunStatusProps,
+    RunResultsProps,
     | 'flaky'
     | 'selfHealed'
     | 'showSelfHealed'

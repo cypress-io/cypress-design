@@ -1,5 +1,5 @@
 {
-  "name": "@cypress-design/constants-runstatus",
+  "name": "@cypress-design/constants-runresults",
   "version": "0.0.0",
   "files": [
     "*"

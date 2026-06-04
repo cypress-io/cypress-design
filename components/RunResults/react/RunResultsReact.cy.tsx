@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 import * as React from 'react'
 import { mount } from 'cypress/react'
-import { RunStatus } from './RunStatus'
+import { RunResults } from './RunResults'
 import assertions from '../assertions'
-import type { RunStatusProps } from '@cypress-design/constants-runstatus'
+import type { RunResultsProps } from '@cypress-design/constants-runresults'
 
-function mountStory(props: Partial<RunStatusProps> = {}) {
+function mountStory(props: Partial<RunResultsProps> = {}) {
   mount(
     <div className="p-8">
-      <RunStatus
+      <RunResults
         passed={props.passed ?? 0}
         failed={props.failed ?? 0}
         skipped={props.skipped ?? 0}
@@ -26,7 +26,7 @@ function mountStory(props: Partial<RunStatusProps> = {}) {
   )
 }
 
-describe('<RunStatus /> React', () => {
+describe('<RunResults /> React', () => {
   assertions(mountStory, 'react')
 
   it('renders a custom link via renderLink', () => {

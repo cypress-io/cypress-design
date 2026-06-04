@@ -1,5 +1,5 @@
 {
-  "name": "@cypress-design/react-runstatus",
+  "name": "@cypress-design/vue-runresults",
   "version": "0.0.0",
   "files": [
     "*"
@@ -16,15 +16,14 @@
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:module": "yarn exec vite build",
+    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-runstatus": "*",
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-statusicon": "*",
-    "@cypress-design/react-tooltip": "*",
-    "clsx": "*"
+    "@cypress-design/constants-runresults": "*",
+    "@cypress-design/vue-icon": "*",
+    "@cypress-design/vue-statusicon": "*",
+    "@cypress-design/vue-tooltip": "*"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
