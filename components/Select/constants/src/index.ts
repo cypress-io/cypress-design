@@ -26,6 +26,13 @@ export interface SelectItemDefault {
   value: string
   label: string
   iconLeft?: IconNode
+  // Trailing 16px icon, rendered after the tag with `ml-auto` so it hugs the
+  // right edge. Picks up the same state-aware coloring as `iconLeft` (gray
+  // outline → indigo on hover/focus/active/selected, muted on disabled).
+  iconRight?: IconNode
+  // Generic escape-hatch for arbitrary trailing content (badges, counts,
+  // etc.). Sits right of `iconRight` if both are provided; consumers are
+  // responsible for any state-aware styling on `slotRight`.
   slotRight?: React.ReactNode
   tag?: string
   disabled?: boolean
@@ -66,6 +73,8 @@ export interface SelectItemButton {
   label: string
   onClick: () => void
   variant?: ButtonVariantLoose
+  // Optional leading icon, rendered inside the Button before the label.
+  iconLeft?: IconNode
 }
 
 export interface SelectItemCustom {

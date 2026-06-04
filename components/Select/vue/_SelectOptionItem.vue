@@ -83,17 +83,26 @@ function onMouseDown(e: MouseEvent) {
     <div :class="SelectConstants.CssOptionDividerClasses[theme]" />
   </div>
 
-  <!-- button row (action) -->
+  <!-- button row (action). Theme-aware default variant: `white` on light /
+       `outline-dark` on dark so the in-list action button doesn't sit as a
+       stark white pill against the gray-1000 panel. -->
   <div
     v-else-if="item.type === 'button'"
     :class="SelectConstants.CssButtonRowClasses"
   >
     <Button
-      :variant="(item.variant as never) ?? 'link'"
-      :size="size"
-      class="w-full justify-start"
+      :variant="
+        (item.variant as never) ?? (theme === 'dark' ? 'outline-dark' : 'white')
+      "
+      :size="size === '40' ? '32' : '24'"
       @click.stop="item.onClick()"
     >
+      <component
+        :is="item.iconLeft"
+        v-if="item.iconLeft"
+        size="16"
+        :interactive-colors-on-group="true"
+      />
       {{ item.label }}
     </Button>
   </div>
@@ -122,17 +131,24 @@ function onMouseDown(e: MouseEvent) {
     :aria-disabled="isDisabled || undefined"
     :data-selected="selected || undefined"
     :data-focused="focused || undefined"
-    :class="itemClasses"
+    :class="[itemClasses, SelectConstants.CssCheckboxRowClasses]"
     @click="onClick"
     @mousedown="onMouseDown"
   >
-    <Checkbox
-      :checked="selected"
-      :disabled="isDisabled"
-      @change="() => undefined"
-    />
+    <span :class="SelectConstants.CssCheckboxRowCheckboxWrapperClasses">
+      <!-- The Checkbox component owns its own `localChecked` state and
+           doesn't watch the `:checked` prop for changes. Keying it on
+           `selected` forces a remount whenever the row toggles, so the
+           visual stays in sync with the externally-managed value. -->
+      <Checkbox
+        :key="selected ? 'on' : 'off'"
+        :checked="selected"
+        :disabled="isDisabled"
+        @change="() => undefined"
+      />
+    </span>
     <div :class="SelectConstants.CssCheckboxRowStackClasses">
-      <span :class="SelectConstants.CssCheckboxRowLabelClasses">
+      <span :class="SelectConstants.CssCheckboxRowLabelClasses[size]">
         {{ item.label }}
       </span>
       <span
@@ -159,12 +175,12 @@ function onMouseDown(e: MouseEvent) {
     <component
       :is="item.iconLeft"
       v-if="item.iconLeft"
-      size="16"
+      size="24"
       :interactive-colors-on-group="true"
       :class="iconColorClass"
     />
     <div :class="SelectConstants.CssUserRowStackClasses">
-      <span :class="SelectConstants.CssUserRowLabelClasses">
+      <span :class="SelectConstants.CssUserRowLabelClasses[size]">
         {{ item.label }}
       </span>
       <span
@@ -202,6 +218,15 @@ function onMouseDown(e: MouseEvent) {
     <Tag v-if="item.tag" size="16" color="gray" :dark="theme === 'dark'">
       {{ item.tag }}
     </Tag>
+    <!-- iconRight: hugs the right edge via `ml-auto`, picks up the same
+         state-aware coloring as iconLeft. -->
+    <component
+      :is="item.iconRight"
+      v-if="item.iconRight"
+      size="16"
+      :interactive-colors-on-group="true"
+      :class="['ml-auto', iconColorClass]"
+    />
     <span v-if="item.slotRight" class="ml-auto shrink-0">
       <component :is="item.slotRight" />
     </span>

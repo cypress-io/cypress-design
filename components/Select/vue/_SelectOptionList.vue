@@ -3,7 +3,11 @@ import { computed, ref } from 'vue'
 import Tabs from '@cypress-design/vue-tabs'
 import Textbox from '@cypress-design/vue-textbox'
 import Button from '@cypress-design/vue-button'
-import { IconObjectMagnifyingGlass } from '@cypress-design/vue-icon'
+import Tag from '@cypress-design/vue-tag'
+import {
+  IconObjectMagnifyingGlass,
+  IconActionInfoOutline,
+} from '@cypress-design/vue-icon'
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
@@ -26,10 +30,28 @@ const props = withDefaults(
     size?: SelectSize
     value?: string
     headerTitle?: string
+    // Back button on the left of the title row. Pass the icon to put
+    // inside (e.g. `IconArrowLeft`); the component supplies the chrome.
+    headerButton?: {
+      iconLeft: unknown
+      onClick: () => void
+      ariaLabel?: string
+    }
+    // 16px icon shown right before the title text.
+    headerIconLeft?: unknown
+    // Small Tag rendered immediately after the title.
+    headerTag?: string
+    // 16px icon pushed to the far right of the title row.
+    headerIconRight?: unknown
     headerTabs?: SelectHeaderTab[]
     headerActiveTab?: string
     searchable?: boolean
     searchPlaceholder?: string
+    // When `searchable` is true, the search Textbox is shown. Set this to
+    // `false` to keep the Textbox visual-only (no filtering) — useful for
+    // showcase pages where every row should stay visible regardless of
+    // what the user types. Defaults to true.
+    searchFilters?: boolean
     footerLabel?: string
     footerAction?: { label: string; onClick: () => void }
     width?: CssLength
@@ -49,6 +71,7 @@ const props = withDefaults(
     align: SelectConstants.DefaultAlignment,
     searchable: false,
     searchPlaceholder: SelectConstants.DefaultSearchPlaceholder,
+    searchFilters: true,
   },
 )
 
@@ -64,7 +87,7 @@ defineSlots<{
 const searchValue = ref('')
 
 const filteredItems = computed(() =>
-  props.searchable
+  props.searchable && props.searchFilters
     ? filterAndCollapseHeadlines(props.items, searchValue.value)
     : props.items,
 )
@@ -78,12 +101,18 @@ const focusedSelectableIndex = computed(() =>
     : undefined,
 )
 
-const hasHeader = computed(
+const hasTitleRow = computed(
   () =>
     !!props.headerTitle ||
-    (props.headerTabs && props.headerTabs.length > 0) ||
-    props.searchable,
+    !!props.headerButton ||
+    !!props.headerIconLeft ||
+    !!props.headerTag ||
+    !!props.headerIconRight,
 )
+const hasTabsOrSearch = computed(
+  () => (props.headerTabs && props.headerTabs.length > 0) || props.searchable,
+)
+const hasHeader = computed(() => hasTitleRow.value || hasTabsOrSearch.value)
 const hasFooter = computed(() => !!props.footerLabel || !!props.footerAction)
 
 const panelStyle = computed(() =>
@@ -124,41 +153,105 @@ function rowId(index: number): string | undefined {
 
 <template>
   <div :id="id" role="listbox" :style="panelStyle" :class="panelClasses">
-    <div
-      v-if="hasHeader"
-      :class="[
-        SelectConstants.CssHeaderContainerClasses,
-        SelectConstants.CssHeaderClasses[theme],
-      ]"
-    >
+    <div v-if="hasHeader" :class="SelectConstants.CssHeaderContainerClasses">
+      <!-- Title row: button · iconLeft · title · tag · (spacer) · iconRight.
+           Carries its own bottom border so a separator appears between the
+           title row and whatever follows it (tabs/search bundle, or the
+           items area when there's nothing else in the header).
+           Horizontal padding varies with content — see comments next to the
+           inline `pl-*` / `pr-*` classes below. -->
       <div
-        v-if="headerTitle"
+        v-if="hasTitleRow"
         :class="[
-          SelectConstants.CssHeaderTitleClasses[theme],
-          SelectConstants.CssOptionItemPaddingClasses[size],
+          SelectConstants.CssHeaderTitleRowClasses,
+          SelectConstants.CssHeaderClasses[theme],
+          headerButton ? 'pl-[8px]' : 'pl-[16px]',
+          headerIconRight ? 'pr-[16px]' : 'pr-[8px]',
         ]"
       >
-        {{ headerTitle }}
-      </div>
-      <!-- Wrapper keeps Tabs at content width — flex-col parents otherwise
-           stretch every child to the full cross-axis (panel width). -->
-      <div v-if="headerTabs && headerTabs.length > 0" class="self-start">
-        <Tabs
-          :tabs="headerTabs as never"
-          :active-id="headerActiveTab"
-          @switch="(tab: { id: string }) => emit('header-tab-change', tab.id)"
+        <Button
+          v-if="headerButton"
+          size="32"
+          square
+          :variant="theme === 'dark' ? 'outline-dark' : 'white'"
+          :aria-label="headerButton.ariaLabel"
+          :class="SelectConstants.CssHeaderBackButtonSpacingClasses"
+          @click="headerButton.onClick()"
+        >
+          <component
+            :is="headerButton.iconLeft"
+            size="16"
+            :interactive-colors-on-group="true"
+          />
+        </Button>
+        <div :class="SelectConstants.CssHeaderTitleGroupClasses">
+          <component
+            :is="headerIconLeft"
+            v-if="headerIconLeft"
+            size="16"
+            :interactive-colors-on-group="true"
+            :class="SelectConstants.CssHeaderIconColorClasses[theme]"
+          />
+          <span
+            v-if="headerTitle"
+            :class="[
+              SelectConstants.CssHeaderTitleSizeClasses[size],
+              SelectConstants.CssHeaderTitleClasses[theme],
+            ]"
+          >
+            {{ headerTitle }}
+          </span>
+          <Tag v-if="headerTag" size="16" color="gray" :dark="theme === 'dark'">
+            {{ headerTag }}
+          </Tag>
+        </div>
+        <component
+          :is="headerIconRight"
+          v-if="headerIconRight"
+          size="16"
+          :interactive-colors-on-group="true"
+          :class="SelectConstants.CssHeaderIconColorClasses[theme]"
         />
       </div>
-      <Textbox
-        v-if="searchable"
-        :theme="theme"
-        size="32"
-        :placeholder="searchPlaceholder"
-        :icon-left="IconObjectMagnifyingGlass"
-        :model-value="searchValue"
-        :aria-label="searchPlaceholder"
-        @update:model-value="(v: string) => (searchValue = v)"
-      />
+      <!-- Tabs + search bundle: their own padding context below the title row.
+           Bottom border separates the bundle from the items area below. -->
+      <div
+        v-if="hasTabsOrSearch"
+        :class="[
+          SelectConstants.CssHeaderTabsSearchWrapperClasses,
+          SelectConstants.CssHeaderClasses[theme],
+        ]"
+      >
+        <!-- Wrapper keeps Tabs at content width — flex-col parents otherwise
+             stretch every child to the full cross-axis (panel width).
+             Dark: `dark-small` at size 32 / `dark-large` at size 40 so the
+             tabs scale with the row height. Light has no `*-small` pill
+             variant yet, so it stays on `default` for both sizes. -->
+        <div v-if="headerTabs && headerTabs.length > 0" class="self-start">
+          <Tabs
+            :variant="
+              theme === 'dark'
+                ? size === '40'
+                  ? 'dark-large'
+                  : 'dark-small'
+                : 'default'
+            "
+            :tabs="headerTabs as never"
+            :active-id="headerActiveTab"
+            @switch="(tab: { id: string }) => emit('header-tab-change', tab.id)"
+          />
+        </div>
+        <Textbox
+          v-if="searchable"
+          :theme="theme"
+          size="32"
+          :placeholder="searchPlaceholder"
+          :icon-left="IconObjectMagnifyingGlass"
+          :model-value="searchValue"
+          :aria-label="searchPlaceholder"
+          @update:model-value="(v: string) => (searchValue = v)"
+        />
+      </div>
     </div>
 
     <div :class="SelectConstants.CssItemsContainerClasses">
@@ -195,14 +288,21 @@ function rowId(index: number): string | undefined {
       <slot name="footer">
         <span
           v-if="footerLabel"
-          :class="SelectConstants.CssFooterLabelClasses[theme]"
+          :class="SelectConstants.CssFooterLabelGroupClasses"
         >
-          {{ footerLabel }}
+          <IconActionInfoOutline
+            size="16"
+            :interactive-colors-on-group="true"
+            :class="SelectConstants.CssFooterIconColorClasses[theme]"
+          />
+          <span :class="SelectConstants.CssFooterLabelClasses[theme]">
+            {{ footerLabel }}
+          </span>
         </span>
         <Button
           v-if="footerAction"
-          size="32"
-          variant="link"
+          size="24"
+          :variant="theme === 'dark' ? 'outline-dark' : 'link'"
           @click="footerAction.onClick()"
         >
           {{ footerAction.label }}
