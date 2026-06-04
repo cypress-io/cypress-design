@@ -140,7 +140,9 @@ export interface RunStatusProps {
 
   theme?: RunStatusTheme
   // When true, regular stats render even with a zero count.
-  // Does NOT affect leading stats — they only render when count > 0.
+  // Does NOT affect leading stats. Flaky still renders only when its count
+  // is > 0; self-healed renders whenever `showSelfHealed` is true (including
+  // count 0). See `getSeparatorAfterKey` and `hasAnyStat` for the exact rules.
   expanded?: boolean
 
   links?: Partial<Record<StatKey, string>>

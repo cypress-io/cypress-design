@@ -15,16 +15,20 @@ import Tooltip from '@cypress-design/vue-tooltip'
 // font and color could be set via a child wrapper, but min-width on a
 // parent cannot be overridden from a child.
 //
-// We tag the popper slot content with a marker class (see
-// `cy-runstatus-tooltip-label` below) and use `:has()` to target the
-// tooltip ancestors only when our marker is present. The CSS lives here as
-// a JS-injected <style> tag so consumers of @cypress-design/vue-runstatus
-// get the overrides without needing to import a separate CSS file. SFC
-// <style> blocks would emit a separate dist/style.css that the JS bundle
-// doesn't reference under Vite library mode — so we inject at runtime.
+// We tag the popper slot content with a marker class
+// (`cy-runstatus-tooltip-${color}` — e.g. `cy-runstatus-tooltip-dark` or
+// `cy-runstatus-tooltip-light` — applied in the popper slot below) and use
+// `:has()` to target the tooltip ancestors only when our marker is present.
+// The CSS lives here as a JS-injected <style> tag so consumers of
+// @cypress-design/vue-runstatus get the overrides without needing to import
+// a separate CSS file. SFC <style> blocks would emit a separate
+// dist/style.css that the JS bundle doesn't reference under Vite library
+// mode — so we inject at runtime.
 //
-// Color value (#afb3c7) is the gray-400 design token, hard-coded so the
-// rule works outside the docs site where --cy-gray-400 may not be loaded.
+// Color values are hard-coded so the rules work outside the docs site,
+// where the --cy-* CSS custom properties may not be loaded:
+//   gray-300 (#bfc2d4) for dark tooltips (on light RunStatus)
+//   gray-700 (#5a5f7a) for light tooltips (on dark RunStatus)
 const RUN_STATUS_TOOLTIP_STYLE_ID = 'cy-runstatus-tooltip-style'
 if (typeof document !== 'undefined') {
   if (!document.getElementById(RUN_STATUS_TOOLTIP_STYLE_ID)) {

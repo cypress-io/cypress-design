@@ -20,13 +20,13 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-runstatus": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-statusicon": "*",
     "@cypress-design/react-tooltip": "*",
     "clsx": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-runstatus": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

@@ -70,7 +70,7 @@ Each `Stat` is:
 </li>
 ```
 
-The Tooltip wraps the `<li>` in the source, not the inner element — keep that. Wrapping the `<li>` makes the whole stat surface (icon + count + padding) trigger the tooltip on hover/focus.
+The Tooltip lives **inside** the `<li>`, wrapping the inner `<a>` (linked) or `<span>` (unlinked) — _not_ the `<li>` itself. The shared `@cypress-design/{react,vue}-tooltip` renders a `<div ref=...>` around its children, and inserting that `<div>` between `<ul>` and `<li>` would violate list semantics. The whole stat surface still triggers the tooltip because the inner `<a>` / `<span>` uses `w-full` plus the `<li>`-level padding, so hover/focus anywhere on the stat hits the Tooltip's reference element.
 
 ## Separator
 
@@ -100,7 +100,7 @@ See `renderIcon` in `vue/RunStatus.vue` and the `icon` factory inside `Stat` in 
 
 ## Constants keying
 
-- **`CssClasses`** — flat object of static classes for: `container` (the pill `<div>`), `list` (the `<ul>`), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `count` (the count text `<span>`), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`).
+- **`CssClasses`** — flat object of static classes for: `container` (the pill `<div>`), `list` (the `<ul>`), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `icon` (default icon margin), `iconFlaky` (flaky icon override that drops the yellow background rect), `iconSelfHealed` (self-healed icon override that pins the rendered size to 12px), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`). The count text `<span>` has no dedicated class — it's a bare `<span>` inside the link / unlinked wrapper.
 - **`CssTheme`** — keyed by `'light' | 'dark'`, with each entry further sub-keyed by element role:
 
   - `list` — border + base text colors, applied to the `<ul>`
@@ -119,7 +119,7 @@ Icon size is a fixed `'12'` for all icons — no constant, no prop.
 
 ### Placement
 
-Per-stat: `top` for `flaky`, `top-end` for every other stat (matches cypress-services source: `placement={isFlaky ? 'top' : 'topRight'}`, with `topRight` mapped to Floating UI's `top-end` since our internal Tooltip uses Floating UI placement names).
+Per-stat: `top-start` for `flaky`, `top-end` for every other stat. The cypress-services source used `placement={isFlaky ? 'top' : 'topRight'}`; we deviate on flaky and use `top-start` so the popper is left-aligned with the stat and the arrow points at the stat itself rather than at the center of a wider popper. Non-flaky stats keep `top-end` (cypress-services' `topRight` maps cleanly to Floating UI's `top-end`, since our internal Tooltip uses Floating UI placement names).
 
 ### Color follows the inverse of `theme`
 
@@ -171,7 +171,7 @@ The `<li>` itself does not get hover styling — only the `<a>` does. This match
 
 Three-way decision per stat: no href → `<span>`; href + `renderLink` callback → caller-provided element (caller wraps in their router's link); href, no `renderLink` → native `<a href>`. See the `Stat` helper in `react/RunStatus.tsx` and `renderStat` in `vue/RunStatus.vue` for the actual implementation.
 
-`renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: VNode | ReactNode) => unknown`. `children` is the rendered icon + count (a JSX element in React, a VNode in Vue); consumers wrap it in their framework's router link.
+`renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: unknown) => unknown`. `children` is typed `unknown` because the two frameworks pass different shapes: in React it's a JSX element (the icon + count fragment), in Vue it's an **array** of `VNode`s. Consumers wrap whatever they receive in their framework's router link; the array form is fine to pass straight into a Vue router-link as its default slot content.
 
 The `aria-label` and `data-cy="link-{status}"` end up on the rendered element. The native `<a>` path applies both; the `renderLink` path delegates that responsibility to the caller (noted in `instructions.md`).
 

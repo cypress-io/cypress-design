@@ -20,12 +20,12 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/constants-runstatus": "*",
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-statusicon": "*",
     "@cypress-design/vue-tooltip": "*"
   },
   "devDependencies": {
-    "@cypress-design/constants-runstatus": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
