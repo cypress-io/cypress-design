@@ -86,6 +86,10 @@ defineSlots<{
 
 const searchValue = ref('')
 
+function onHeaderTabSwitch(tab: { id: string }) {
+  emit('header-tab-change', tab.id)
+}
+
 const filteredItems = computed(() =>
   props.searchable && props.searchFilters
     ? filterAndCollapseHeadlines(props.items, searchValue.value)
@@ -238,7 +242,7 @@ function rowId(index: number): string | undefined {
             "
             :tabs="headerTabs as never"
             :active-id="headerActiveTab"
-            @switch="(tab: { id: string }) => emit('header-tab-change', tab.id)"
+            @switch="onHeaderTabSwitch"
           />
         </div>
         <Textbox
