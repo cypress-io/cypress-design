@@ -19,7 +19,7 @@ description: Principles for directing the eye through color, icons, spacing, siz
 
 ## Related
 
-- [../colors.md](../colors.md) — Color tokens and contrast
-- [../typography.md](../typography.md) — Type scale and hierarchy
-- [../spacing.md](../spacing.md) — Spacing as a hierarchy tool
-- [ux.md](./ux.md) — JTBD and the primary job framework
+- [colors.md](https://design.cypress.io/agents/colors.md) — Color tokens and contrast
+- [typography.md](https://design.cypress.io/agents/typography.md) — Type scale and hierarchy
+- [spacing.md](https://design.cypress.io/agents/spacing.md) — Spacing as a hierarchy tool
+- [ux.md](https://design.cypress.io/agents/principles/ux.md) — JTBD and the primary job framework

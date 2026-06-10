@@ -9,7 +9,7 @@ description: UX & design principles — the "what" side: designing for users, in
 
 **UX lives where business goals meet user needs.** JTBD captures the user side well, but the framework is usually phrased entirely from the user's perspective — which quietly hides the business outcome a design has to drive. Good UX serves both at once. If a flow only serves the user, the business gets nothing measurable; if it only serves the business, users feel manipulated and leave. The work is to find designs where both sides win.
 
-For naming the business goal, prioritizing jobs, defining success, deciding whether the work earns the next step, and problem definition + discovery, see [product.md](./product.md) — the why/whether side of the canon.
+For naming the business goal, prioritizing jobs, defining success, deciding whether the work earns the next step, and problem definition + discovery, see [product.md](https://design.cypress.io/agents/principles/product.md) — the why/whether side of the canon.
 
 ## Designing for users
 
@@ -75,7 +75,7 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 **Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
 
-For errors, warnings, and other system-to-user failure messages, see [`../errors.md`](../errors.md) — the principles there (structure, tone, link conventions, no-blame, transient handling) apply whenever the product talks to the user about something that happened.
+For errors, warnings, and other system-to-user failure messages, see [`../errors.md`](https://design.cypress.io/agents/errors.md) — the principles there (structure, tone, link conventions, no-blame, transient handling) apply whenever the product talks to the user about something that happened.
 
 ## Feature naming & positioning
 
@@ -85,7 +85,7 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 **Design picks naming candidates. GTM validates.** Designers know the product surface and the user vocabulary; GTM knows how the name will land in trial calls, ads, and sales conversations. Don't finalize a feature name without that loop.
 
-**Feature placement is a statement of belief — and a price signal.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention, and shipping an enterprise-grade capability as "just config" tells them it isn't worth paying for. If the feature is real, give it real placement; if it protects the customer's business the way a security or audit product does, position and price it that way. If it doesn't deserve real placement, question why you're shipping it at all. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](./releases.md).)
+**Feature placement is a statement of belief — and a price signal.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention, and shipping an enterprise-grade capability as "just config" tells them it isn't worth paying for. If the feature is real, give it real placement; if it protects the customer's business the way a security or audit product does, position and price it that way. If it doesn't deserve real placement, question why you're shipping it at all. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](https://design.cypress.io/agents/principles/releases.md).)
 
 ## Pricing
 
@@ -99,7 +99,7 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 **Signal future monetization at first exposure — not after adoption.** If a feature will eventually be paid, restricted to a higher tier, or moved behind an enterprise plan, position it that way from day one — "preview of an enterprise capability," "free during preview, paid in the future," or similar. Letting customers anchor on it as a standard included setting and then changing the model later creates product debt and a rug-pull conversation. The moment to set the expectation is on first exposure, when customers form their mental model — not a year in, when changing it means explaining why we're now charging for something they've used freely.
 
-**Turning a free capability paid is a rug pull unless you give lead time and promise no retroactive charges.** Charging for something customers have used freely is as trust-sensitive as deprecating something they depend on, and gets the same treatment: announce before it lands, give a grace period, and state explicitly that nothing already used will be billed retroactively. Signaling monetization at first exposure (above) sets the expectation; this is the commitment that keeps the GA moment from reading as a bait-and-switch. See [releases.md](./releases.md) — the "Sunsetting in 30 days" rug-pull rule is the same logic from the deprecation side.
+**Turning a free capability paid is a rug pull unless you give lead time and promise no retroactive charges.** Charging for something customers have used freely is as trust-sensitive as deprecating something they depend on, and gets the same treatment: announce before it lands, give a grace period, and state explicitly that nothing already used will be billed retroactively. Signaling monetization at first exposure (above) sets the expectation; this is the commitment that keeps the GA moment from reading as a bait-and-switch. See [releases.md](https://design.cypress.io/agents/principles/releases.md) — the "Sunsetting in 30 days" rug-pull rule is the same logic from the deprecation side.
 
 **Sell the risk people are protecting against, not the feature.** People invest in testing because they have a business to protect — outages, regressions, brand damage. Lead with that. CI minutes and run times are useful supporting evidence, never the headline. Insurance and security companies sell risk for a reason.
 
@@ -111,8 +111,8 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 ## Related
 
-- [product.md](./product.md) — the _why/whether_ side: business goals + prioritization, problem definition & discovery, and running the work. This file is the _what_
-- [visual-hierarchy.md](./visual-hierarchy.md) — Directing the eye once the JTBD is clear
-- [feedback.md](./feedback.md) — How to push back when framing is wrong
-- [../personas.md](../personas.md) — Who you're designing for
-- [../voice.md](../voice.md) — Copy tone
+- [product.md](https://design.cypress.io/agents/principles/product.md) — the _why/whether_ side: business goals + prioritization, problem definition & discovery, and running the work. This file is the _what_
+- [visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — Directing the eye once the JTBD is clear
+- [feedback.md](https://design.cypress.io/agents/principles/feedback.md) — How to push back when framing is wrong
+- [personas.md](https://design.cypress.io/agents/personas.md) — Who you're designing for
+- [voice.md](https://design.cypress.io/agents/voice.md) — Copy tone

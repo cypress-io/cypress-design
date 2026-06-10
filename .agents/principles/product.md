@@ -5,7 +5,7 @@ description: Product principles — the why/whether side of the canon, paired wi
 
 # Product principles
 
-How product work gets decided and run — from naming the problem, to shipping, to learning whether it worked. [ux.md](./ux.md) is the _what_: the UX, the interaction, the shape of the solution. This file is the _why_ and _whether_: is this the right problem, is the job worth doing, will we know if it worked, and does the work actually get finished? Product and design decide the why together — that overlap is intentional — so this file holds the why side, to keep work from stalling, shipping with no way to measure it, or getting abandoned at "almost done."
+How product work gets decided and run — from naming the problem, to shipping, to learning whether it worked. [ux.md](https://design.cypress.io/agents/principles/ux.md) is the _what_: the UX, the interaction, the shape of the solution. This file is the _why_ and _whether_: is this the right problem, is the job worth doing, will we know if it worked, and does the work actually get finished? Product and design decide the why together — that overlap is intentional — so this file holds the why side, to keep work from stalling, shipping with no way to measure it, or getting abandoned at "almost done."
 
 **The "why" is shared; the "what" is design's.** The problem the product solves — which jobs it serves, and which it deliberately doesn't — is PM and design's to agree on together, before anyone commits to a solution. From that shared why, design owns the what: the solution and its UX hierarchy. The common failure runs backward — a PM or engineer arrives with a _what_ and a _how_ already picked, then reverse-engineers a _why_ to justify shipping it fast. That's selling a solution, not solving a problem, and it usually means the why was never worked out. Pushing back with "why?" until the problem is defined is everyone's job — PM, engineering, and design alike. Design tends to feel the gap first, because it can't choose the right what without a settled why — but that's not a reason design should have to carry it alone.
 
@@ -15,7 +15,7 @@ How product work gets decided and run — from naming the problem, to shipping, 
 
 **When user need and business goal conflict, surface the conflict — don't hide it.** A checkout flow optimized purely for conversion will frustrate users; one optimized purely for user comfort will leave money on the table. The best designs resolve the tension explicitly. The worst pretend it doesn't exist.
 
-**Rank jobs, not solutions — and score the job from both sides.** Prioritize by the customer job, not the feature you'd build for it; how hard something is to build shouldn't decide which customer needs are worth solving. But how much a job matters to the customer is only one input — it says nothing about how much the business gains from solving it, or how long it'll take us (which depends on the solution we pick). Rank on customer importance and business value together (see "UX lives where business goals meet user needs" in [ux.md](./ux.md)), then weigh against cost to solve — without letting "it's hard" bury a job that matters.
+**Rank jobs, not solutions — and score the job from both sides.** Prioritize by the customer job, not the feature you'd build for it; how hard something is to build shouldn't decide which customer needs are worth solving. But how much a job matters to the customer is only one input — it says nothing about how much the business gains from solving it, or how long it'll take us (which depends on the solution we pick). Rank on customer importance and business value together (see "UX lives where business goals meet user needs" in [ux.md](https://design.cypress.io/agents/principles/ux.md)), then weigh against cost to solve — without letting "it's hard" bury a job that matters.
 
 **Define what success looks like before you design.** Name the business outcome the work moves and how you'll measure it, up front — knowing how it'll be measured changes the design itself. Skip it and you'll ship, then hunt for metrics that flatter the result. A design you can't tie to a measurable payback isn't done, no matter how polished.
 
@@ -29,7 +29,7 @@ How product work gets decided and run — from naming the problem, to shipping, 
 
 **A POC has to prove something that matters — say what before you build it.** "We can build it" isn't a result. Name the hypothesis the POC tests and the decision its outcome drives. Are we proving we can launch a rocket, or that we can get to Mars? If you can't say what a successful POC would teach you, you're not ready to build it.
 
-**Map the opportunity space before you commit engineering.** That any single ask is rarely the best solution is the starting point (see "Build against the outcome" and "One solution rarely solves a big problem" in [ux.md](./ux.md)) — this is the discovery practice that acts on it. Chart the candidate solutions to a problem (an opportunity-solution tree works well) and carry a few into discovery, so the comparison happens before the build, not after. Being handed a fixed feature to execute skips the step where solutions get weighed against each other.
+**Map the opportunity space before you commit engineering.** That any single ask is rarely the best solution is the starting point (see "Build against the outcome" and "One solution rarely solves a big problem" in [ux.md](https://design.cypress.io/agents/principles/ux.md)) — this is the discovery practice that acts on it. Chart the candidate solutions to a problem (an opportunity-solution tree works well) and carry a few into discovery, so the comparison happens before the build, not after. Being handed a fixed feature to execute skips the step where solutions get weighed against each other.
 
 **Tie every solution to a job, and every job to the vision.** A solution should clearly serve a specific job, and that job should clearly advance the product vision. When those links are missing, work still ships but moves nothing that matters — there's no agreed destination for it to serve. Agree on where you're going before debating how to get there; if the team can't agree on the destination, don't start building.
 
@@ -55,7 +55,7 @@ In order, all before launch: define success ("Define what success looks like bef
 
 **Build the measurement before you ship, not after.** The dashboard, query, or session path that captures the metric has to exist before launch. Ship without it and you've given up the ability to know whether it worked — you can't repeat a win or catch a regression.
 
-**Don't bundle changes you want to learn from.** Several changes shipped together can't be told apart — if the number moves, you don't know which change moved it. Ship one variable at a time when the goal is learning. When you must bundle, set the confidence threshold up front so you know when there's enough signal to judge the result. (Distinct from release-slicing in [releases.md](./releases.md), which is about not stripping the value out of a release; this is about attribution.)
+**Don't bundle changes you want to learn from.** Several changes shipped together can't be told apart — if the number moves, you don't know which change moved it. Ship one variable at a time when the goal is learning. When you must bundle, set the confidence threshold up front so you know when there's enough signal to judge the result. (Distinct from release-slicing in [releases.md](https://design.cypress.io/agents/principles/releases.md), which is about not stripping the value out of a release; this is about attribution.)
 
 **Set the review date before you ship.** Put the date the team will look at results on a real calendar — don't rely on someone remembering. The date is the forcing function that turns "we'll see how it does" into an actual decision.
 
@@ -67,8 +67,8 @@ In order, all before launch: define success ("Define what success looks like bef
 
 ## Related
 
-- [ux.md](./ux.md) — the design/what side: designing for users, patterns, naming, empty states, pricing UX, restraint. "UX lives where business goals meet user needs" is the bridge between the two files
-- [feedback.md](./feedback.md) — challenging a solution-first brief before work starts
-- [releases.md](./releases.md) — release stages, betas, slicing a release honestly
-- [../product-review-checklist.md](../product-review-checklist.md) — the before/before-shipping/after checklist that operationalizes these principles
-- [../index.md](../index.md) — the router that points agents at these files
+- [ux.md](https://design.cypress.io/agents/principles/ux.md) — the design/what side: designing for users, patterns, naming, empty states, pricing UX, restraint. "UX lives where business goals meet user needs" is the bridge between the two files
+- [feedback.md](https://design.cypress.io/agents/principles/feedback.md) — challenging a solution-first brief before work starts
+- [releases.md](https://design.cypress.io/agents/principles/releases.md) — release stages, betas, slicing a release honestly
+- [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) — the before/before-shipping/after checklist that operationalizes these principles
+- [index.md](https://design.cypress.io/agents/index.md) — the router that points agents at these files

@@ -13,7 +13,7 @@ description: Principles for reviewing other people's work and giving design / pr
 
 **Push back when the framing is wrong, even if the deliverable looks fine.** "Looks on-brand" is not the same as "ships value." If the underlying problem isn't being solved, no amount of polish on the proposed solution fixes it.
 
-**Challenge a solution-first brief before you build from it.** A brief that leads with what to build isn't ready to execute — send it back with "what problem, whose job?" Fix the missing why at the brief, while it's cheap: once a deliverable exists, people defend it. (The review side of "Start from the problem" in [product.md](./product.md).)
+**Challenge a solution-first brief before you build from it.** A brief that leads with what to build isn't ready to execute — send it back with "what problem, whose job?" Fix the missing why at the brief, while it's cheap: once a deliverable exists, people defend it. (The review side of "Start from the problem" in [product.md](https://design.cypress.io/agents/principles/product.md).)
 
 **Bring options and trade-offs to a review, not one solution to defend.** Showing up to sell a single predetermined idea narrows the room to "yes or no on this." Bring the problem, a few ways to solve it, and the trade-offs — the review's job is to pressure-test the framing and choose among options, not to ratify the one you're attached to.
 
@@ -27,7 +27,7 @@ description: Principles for reviewing other people's work and giving design / pr
 
 ## Related
 
-- [learning-from-feedback.md](./learning-from-feedback.md) — fetch on every feedback exchange, from any source (teammates, other agents, Copilot, automation); shows how to spot the rule hiding in a fix and confirm it with the human before documenting
-- [../review-checklist.md](../review-checklist.md) — Mechanical checks before shipping
-- [ux.md](./ux.md) — Pushback rooted in goals and outcomes (see "Business goals + user needs" section)
-- [../voice.md](../voice.md) — Voice rules apply to feedback too
+- [learning-from-feedback.md](https://design.cypress.io/agents/principles/learning-from-feedback.md) — fetch on every feedback exchange, from any source (teammates, other agents, Copilot, automation); shows how to spot the rule hiding in a fix and confirm it with the human before documenting
+- [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) — Mechanical checks before shipping
+- [ux.md](https://design.cypress.io/agents/principles/ux.md) — Pushback rooted in goals and outcomes (see "Business goals + user needs" section)
+- [voice.md](https://design.cypress.io/agents/voice.md) — Voice rules apply to feedback too

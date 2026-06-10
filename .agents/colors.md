@@ -11,7 +11,7 @@ description: Fetch when choosing colors, picking tokens for backgrounds/text/bor
 - **Use semantic tokens, not raw hex values.** Tokens carry intent; hex carries only appearance and breaks the moment the palette evolves.
 - **Color alone can't carry meaning.** Pair color with shape, icon, label, or position — colorblind users, dimmed screens, and bright sunlight all defeat color-only signals.
 
-For the broader thinking on how color fits into visual hierarchy, see [principles/visual-hierarchy.md](./principles/visual-hierarchy.md).
+For the broader thinking on how color fits into visual hierarchy, see [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md).
 
 ## Palette
 

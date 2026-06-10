@@ -117,3 +117,4 @@ storybook
 .astro/
 .yarn/install-state.gz
 docs/public/agents/
+docs/public/llms.txt
