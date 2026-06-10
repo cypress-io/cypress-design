@@ -17,7 +17,7 @@ How product work gets decided and run — from naming the problem, to shipping, 
 
 **Rank jobs, not solutions — and score the job from both sides.** Prioritize by the customer job, not the feature you'd build for it; how hard something is to build shouldn't decide which customer needs are worth solving. But how much a job matters to the customer is only one input — it says nothing about how much the business gains from solving it, or how long it'll take us (which depends on the solution we pick). Rank on customer importance and business value together (see "UX lives where business goals meet user needs" in [ux.md](./ux.md)), then weigh against cost to solve — without letting "it's hard" bury a job that matters.
 
-**Define what success looks like before you design.** Name the business outcome the work moves and how you'll measure it, up front — knowing how it'll be measured changes the design itself. Skip it and you'll ship, then hunt for metrics that flatter the result. A design you can't tie to a measurable payback isn't done, no matter how polished. (The failure response for the chosen solution — iterate, scope down, or pull — gets locked before you ship it; see "Decide in advance what happens if it doesn't work" under Shipping to learn, below.)
+**Define what success looks like before you design.** Name the business outcome the work moves and how you'll measure it, up front — knowing how it'll be measured changes the design itself. Skip it and you'll ship, then hunt for metrics that flatter the result. A design you can't tie to a measurable payback isn't done, no matter how polished.
 
 **Sunk cost doesn't earn the next step — the work has to.** "We've already committed" / "we've already started" / "we already told customers" / "we're 80% done" are rationalizations, not reasons to continue. The work earns its way forward today on JTBD, business goal, and success criteria. If those aren't clear, prior effort doesn't change the calculus — correcting course is almost always cheaper than continuing on the strength of an old statement or a partial build. Be especially careful when the "prior commitment" wasn't a real commitment — just an offhand comment or stray promise that got repeated until it felt binding.
 
@@ -49,13 +49,15 @@ How product work gets decided and run — from naming the problem, to shipping, 
 
 ## Shipping to learn
 
-**Decide in advance what happens if it doesn't work.** When you define success, also define the failure response — iterate, scope down, or pull the feature — before the numbers come in, not after. A success metric with no pre-agreed consequence is one everyone quietly walks away from; naming the response up front makes a missed goal trigger a real decision instead of defaulting to "leave it as-is." Pairs with "Define what success looks like before you design" above, and with the sunk-cost rule above — committing to the exit before you ship is how you keep from rationalizing continuation later. The review date below is when you act on it.
+In order, all before launch: define success ("Define what success looks like before you design," above) → decide the failure response → build the measurement → put the review date on the calendar. Each step assumes the one before it — and committing to the exit before launch is what keeps sunk cost from deciding for you later.
 
-**Build the measurement before you ship, not after.** Defining the success metric isn't enough — the dashboard, query, or session path that captures it has to exist before launch. Ship without it and you've given up the ability to know whether it worked, which means you can't repeat a win or catch a regression. Pairs with "Define what success looks like before you design" above: that names the metric; this makes it observable.
+**Decide in advance what happens if it doesn't work.** When you define success, also define the failure response — iterate, scope down, or pull the feature — before the numbers come in. A success metric with no pre-agreed consequence is one everyone quietly walks away from; naming the response up front makes a missed goal trigger a real decision instead of defaulting to "leave it as-is."
+
+**Build the measurement before you ship, not after.** The dashboard, query, or session path that captures the metric has to exist before launch. Ship without it and you've given up the ability to know whether it worked — you can't repeat a win or catch a regression.
 
 **Don't bundle changes you want to learn from.** Several changes shipped together can't be told apart — if the number moves, you don't know which change moved it. Ship one variable at a time when the goal is learning. When you must bundle, set the confidence threshold up front so you know when there's enough signal to judge the result. (Distinct from release-slicing in [releases.md](./releases.md), which is about not stripping the value out of a release; this is about attribution.)
 
-**Set the review date before you ship.** Put the date the team will look at results on a real calendar, before launch — don't rely on someone remembering to check. The date is the forcing function that turns "we'll see how it does" into an actual decision. Pairs with "Decide in advance what happens if it doesn't work" above.
+**Set the review date before you ship.** Put the date the team will look at results on a real calendar — don't rely on someone remembering. The date is the forcing function that turns "we'll see how it does" into an actual decision.
 
 ## After shipping
 
