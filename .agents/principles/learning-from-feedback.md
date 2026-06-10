@@ -25,10 +25,10 @@ The same loop runs when _you_ are the one giving feedback. If you find yourself 
 Before adding anything new, check it against the principles already exposed. Surface mismatches instead of going along quietly.
 
 - **Sounds principled but isn't there.** If something is asserted as a design / UX / product principle but isn't in the principle or pillar files, say so plainly: it's reasonable, but it's a _new_ rule, not an existing one. Don't dress a preference up as an existing principle, and don't invent a principle to justify a take.
-- **Conflicts with an existing principle.** If guidance contradicts a principle that _is_ exposed, name the specific principle and the tension — reasoning before verdict (see [feedback.md](./feedback.md)). The existing principle isn't automatically right; the point is to make the conflict explicit so it's resolved deliberately, not by accident.
+- **Conflicts with an existing principle.** If guidance contradicts a principle that _is_ exposed, name the specific principle and the tension — reasoning before verdict (see [feedback.md](https://design.cypress.io/agents/principles/feedback.md)). The existing principle isn't automatically right; the point is to make the conflict explicit so it's resolved deliberately, not by accident.
 - **Additive refinement.** If a take is consistent but a principle would push it further, offer the refinement as additive — not a correction.
 
-Quote the principle verbatim back to the human in the review or reply itself. The quote is how the human confirms that this rule should be documented — or that the rule the agent _thinks_ it heard is what they actually meant. This is a live, audience-facing confirmation, not a private check. (See **"Apply the principle; don't cite it"** in [feedback.md](./feedback.md) — that rule governs how to _apply_ a settled principle in everyday feedback; the quote here is the moment you're settling a new one.)
+Quote the principle verbatim back to the human in the review or reply itself. The quote is how the human confirms that this rule should be documented — or that the rule the agent _thinks_ it heard is what they actually meant. This is a live, audience-facing confirmation, not a private check. (See **"Apply the principle; don't cite it"** in [feedback.md](https://design.cypress.io/agents/principles/feedback.md) — that rule governs how to _apply_ a settled principle in everyday feedback; the quote here is the moment you're settling a new one.)
 
 ## Adding a new principle
 
@@ -37,12 +37,12 @@ Most feedback maps back to a principle that already exists — promote only genu
 When the feedback expresses a rule that genuinely isn't covered:
 
 1. **Confirm it's new** — not a restatement or refinement of something already here.
-2. **Phrase it in the design system's voice** — a bold imperative one-liner plus a short rationale, matching the existing bullets (e.g. the Pricing section in [ux.md](./ux.md)).
+2. **Phrase it in the design system's voice** — a bold imperative one-liner plus a short rationale, matching the existing bullets (e.g. the Pricing section in [ux.md](https://design.cypress.io/agents/principles/ux.md)).
 3. **Place it** in the right file and section, and get the wording signed off.
 4. **Open a PR against this repo** (`cypress-io/cypress-design`). The PR is the record — there's no separate staging log. Consumer repos read these files from the source, so the principle is live everywhere the moment it merges.
 
 ## Related
 
-- [feedback.md](./feedback.md) — giving and receiving feedback; home of "Apply the principle; don't cite it"
-- [ux.md](./ux.md) — the largest body of principles; the voice and style to match when phrasing new ones
-- [../index.md](../index.md) — the router that points agents at these files
+- [feedback.md](https://design.cypress.io/agents/principles/feedback.md) — giving and receiving feedback; home of "Apply the principle; don't cite it"
+- [ux.md](https://design.cypress.io/agents/principles/ux.md) — the largest body of principles; the voice and style to match when phrasing new ones
+- [index.md](https://design.cypress.io/agents/index.md) — the router that points agents at these files

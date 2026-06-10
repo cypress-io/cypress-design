@@ -5,9 +5,9 @@ description: Run when reviewing a product brief, initiative, or design proposal 
 
 # Product review checklist
 
-Run before committing engineering to an initiative, before shipping it, and after it ships. If a check doesn't apply, skip it; otherwise it must pass. Each maps to a principle in [principles/ux.md](./principles/ux.md) or [principles/product.md](./principles/product.md).
+Run before committing engineering to an initiative, before shipping it, and after it ships. If a check doesn't apply, skip it; otherwise it must pass. Each maps to a principle in [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) or [principles/product.md](https://design.cypress.io/agents/principles/product.md).
 
-This is the product-rigor companion to [review-checklist.md](./review-checklist.md) (tokens, spacing, a11y). That one asks "is the surface built right?"; this one asks "should we be building it, and will we know if it worked?"
+This is the product-rigor companion to [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) (tokens, spacing, a11y). That one asks "is the surface built right?"; this one asks "should we be building it, and will we know if it worked?"
 
 ## Before starting work
 

@@ -65,7 +65,7 @@ An editorial watercolor language. Atmospheric, landscape-inspired, restrained �
 
 ### Palette (Cypress brand tokens)
 
-Always map to the design-system tokens, not raw hex. Color tokens are at `https://design.cypress.io/colors.css`; the full design-system token set (colors + spacing + typography) is at `https://design.cypress.io/tokens.css`. Both are documented in [colors.md](./colors.md).
+Always map to the design-system tokens, not raw hex. Color tokens are at `https://design.cypress.io/colors.css`; the full design-system token set (colors + spacing + typography) is at `https://design.cypress.io/tokens.css`. Both are documented in [colors.md](https://design.cypress.io/agents/colors.md).
 
 Base / background:
 
@@ -149,8 +149,8 @@ The result should feel intentional, atmospheric, restrained, and softly tied to 
 
 ## Related
 
-- [iconography.md](./iconography.md) — Icon-specific rules
-- [colors.md](./colors.md) — Exact color tokens referenced in the palette
-- [principles/ai.md](./principles/ai.md) — Using AI for generation
-- [principles/visual-hierarchy.md](./principles/visual-hierarchy.md) — How illustration supports content hierarchy
-- [index.md](./index.md) — Router for the rest of the design-system guidance
+- [iconography.md](https://design.cypress.io/agents/iconography.md) — Icon-specific rules
+- [colors.md](https://design.cypress.io/agents/colors.md) — Exact color tokens referenced in the palette
+- [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — Using AI for generation
+- [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — How illustration supports content hierarchy
+- [index.md](https://design.cypress.io/agents/index.md) — Router for the rest of the design-system guidance

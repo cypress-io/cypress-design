@@ -5,7 +5,7 @@ description: Accessibility principles and considerations. Fetch when designing i
 
 # Accessibility
 
-When and how to invest in accessibility, plus the patterns that come up most often. The mechanical checks live in [review-checklist.md](./review-checklist.md).
+When and how to invest in accessibility, plus the patterns that come up most often. The mechanical checks live in [review-checklist.md](https://design.cypress.io/agents/review-checklist.md).
 
 ## When to invest
 
@@ -29,7 +29,7 @@ Accessibility is a content concern, not only a design one. These rules apply whe
 
 **Don't rely on visuals alone.** If a reader can't see colors, images, or video, the core message must still land in the text. Provide alt text for informative images and mark decorative ones as decorative. Keep text and key UI at sufficient contrast for low-vision and color-blind readers.
 
-**Use descriptive link text.** A link must make sense on its own — "Read the Test Replay setup guide", never standalone "click here" or "learn more". (Errors and warnings share this rule; see [errors.md](./errors.md).)
+**Use descriptive link text.** A link must make sense on its own — "Read the Test Replay setup guide", never standalone "click here" or "learn more". (Errors and warnings share this rule; see [errors.md](https://design.cypress.io/agents/errors.md).)
 
 **"Disabled" and "disability" are the correct words — don't tiptoe around them.** This language moves quickly, and we'll get corrected sometimes; stay open to it.
 
@@ -42,6 +42,6 @@ When in doubt, check the [accessibility.com glossary](https://www.accessibility.
 
 ## Related
 
-- [voice.md](./voice.md) — general voice, tone, and mechanics for all copy
-- [colors.md](./colors.md) — Contrast tokens
-- [review-checklist.md](./review-checklist.md) — Mechanical a11y checks before shipping
+- [voice.md](https://design.cypress.io/agents/voice.md) — general voice, tone, and mechanics for all copy
+- [colors.md](https://design.cypress.io/agents/colors.md) — Contrast tokens
+- [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) — Mechanical a11y checks before shipping

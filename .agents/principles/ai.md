@@ -47,7 +47,7 @@ description: Principles for using AI tools to build, design, write, or review Cy
 
 **Treat agent instructions as a living artifact.** Whenever you find a gap in how an AI handles something, fix the instructions in the same pass as the work. The only way AI gets better at a job is if the guidance gets patched as the holes appear.
 
-**Encode the problem-first check into the tooling.** "Start from the problem, not the solution" ([product.md](./product.md)) applies to agents too — make the agent ask before generating instead of relying on someone to remember. Whatever the brief is called, if it leads with what to build, surface the missing problem first.
+**Encode the problem-first check into the tooling.** "Start from the problem, not the solution" ([product.md](https://design.cypress.io/agents/principles/product.md)) applies to agents too — make the agent ask before generating instead of relying on someone to remember. Whatever the brief is called, if it leads with what to build, surface the missing problem first.
 
 **Use AI to do the synthesis work, then own the conclusion.** The pattern: AI compresses the research, the human signs off on the position. Never publish or decide on AI synthesis without an explicit human endorsement of the conclusion.
 
@@ -59,6 +59,6 @@ description: Principles for using AI tools to build, design, write, or review Cy
 
 ## Related
 
-- [ux.md](./ux.md) — JTBD that gates AI work, plus business goals and success criteria before designing (see "Business goals + user needs" section)
-- [../voice.md](../voice.md) — Voice rules for all AI-generated copy
-- [../review-checklist.md](../review-checklist.md) — Mechanical gate before shipping
+- [ux.md](https://design.cypress.io/agents/principles/ux.md) — JTBD that gates AI work, plus business goals and success criteria before designing (see "Business goals + user needs" section)
+- [voice.md](https://design.cypress.io/agents/voice.md) — Voice rules for all AI-generated copy
+- [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) — Mechanical gate before shipping

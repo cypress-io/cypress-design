@@ -12,7 +12,7 @@ description: Fetch when setting font family, size, weight, line-height, or lette
 - **Body text has a job; display text has a different job.** Body is for reading at length — optimize for readability and rhythm. Display is for catching attention — optimize for impact. Don't confuse the two.
 - **Line height is invisible padding — compensate for it.** A text block with `padding: 16px` on all sides looks lopsided when the line-height already adds visible vertical space above and below the text. The result reads as more top/bottom padding than side padding. Bias toward smaller top/bottom padding (e.g. side `24px`, top/bottom `16px`) so the perceived spacing balances.
 
-For the broader thinking on how typography fits into visual hierarchy, see [principles/visual-hierarchy.md](./principles/visual-hierarchy.md).
+For the broader thinking on how typography fits into visual hierarchy, see [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md).
 
 ## Font families
 
@@ -33,4 +33,4 @@ Never set `font-family` inline — the correct stack is applied by the global co
 - `14px` — secondary/supporting information only (`text-sm`)
 - `12px` — reserve for high info-density scenarios; use sparingly (`text-xs`)
 - Headings: prefer the existing `<h1>`–`<h4>` styles in `docs/`; do not introduce new sizes.
-- Line-height stays on the 4px grid (`leading-5`, `leading-6`, `leading-7` — see [spacing.md](./spacing.md)).
+- Line-height stays on the 4px grid (`leading-5`, `leading-6`, `leading-7` — see [spacing.md](https://design.cypress.io/agents/spacing.md)).

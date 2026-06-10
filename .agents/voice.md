@@ -24,7 +24,7 @@ Lead with reader benefit; the action you want follows from understanding. See [L
 - No hype, no marketing fluff. Avoid "simply", "just", "easy", "powerful", "seamless", "delight".
 - Prefer present tense, active voice.
 - **Match register to stakes.** The voice stays constant; the register tightens as stakes rise. More instructional for tutorials and learning; calm and direct for product changes; serious and precise for security, reliability, and deprecations. Clarity always outranks personality.
-- For errors, warnings, and deprecation messages specifically — stricter rules apply (no exclamation points, no blame, structured what/why/next). See [errors.md](./errors.md).
+- For errors, warnings, and deprecation messages specifically — stricter rules apply (no exclamation points, no blame, structured what/why/next). See [errors.md](https://design.cypress.io/agents/errors.md).
 
 ## Point of view
 
@@ -44,7 +44,7 @@ People skim before they commit. Write so the structure carries the meaning on a 
 ## Confidence and certainty
 
 - **Be direct about what we know; be explicit about uncertainty when it exists.** Never imply a guarantee where there isn't one.
-- **When behavior is probabilistic or evolving, say so.** This matters most for AI-powered features — don't frame AI as autonomous or magical, don't promise correctness without guardrails, and don't imply it replaces human judgment. For the principles behind building with AI, see [principles/ai.md](./principles/ai.md).
+- **When behavior is probabilistic or evolving, say so.** This matters most for AI-powered features — don't frame AI as autonomous or magical, don't promise correctness without guardrails, and don't imply it replaces human judgment. For the principles behind building with AI, see [principles/ai.md](https://design.cypress.io/agents/principles/ai.md).
 
 ## Capitalization
 
@@ -113,7 +113,7 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - **Lead with the benefit, not the mechanism.** Open with the outcome the reader gets, or the problem it removes — then name the feature that delivers it. The reader decides whether to care based on the "why"; the "what" earns its place once they do. Keep the mechanism in the second clause or the link-out, never the lead. ("Spend less time fixing accessibility violations by hand" before "Cloud MCP exposes accessibility report data.")
 - **Stay in active voice, addressed to the reader.** The reader — or something working on their behalf — is the subject doing or receiving the benefit: "your AI agent ranks what matters", not "violations are ranked". Passive constructions bury who acts and drain the sentence of momentum.
-- **In release titles, name the searchable feature alongside the benefit.** A release index is also a scan-and-search surface, so a benefit-only title can hide what shipped. When a launch introduces a term people look for (e.g. "Cloud MCP"), prefix the benefit with it — `Cloud MCP Beta: Debug failing tests with your AI assistant`. See [releases.md](./principles/releases.md), "Release titles".
+- **In release titles, name the searchable feature alongside the benefit.** A release index is also a scan-and-search surface, so a benefit-only title can hide what shipped. When a launch introduces a term people look for (e.g. "Cloud MCP"), prefix the benefit with it — `Cloud MCP Beta: Debug failing tests with your AI assistant`. See [releases.md](https://design.cypress.io/agents/principles/releases.md), "Release titles".
 - **Open the sentence on the verb.** Lead body copy with the action the reader takes — don't start with the feature name or an "X is a…" definition that strands the benefit behind the mechanism. "Ask your coding agent any Cypress question and trust the answer" beats "`cypress-docs` is a new skill that…". Each sentence should earn its momentum from the first word:
   > Wind back the clock to any point in an application's execution and see exactly what it was doing during the point of failure. Inspect the DOM, network events, and console logs of your application from your tests exactly as they ran in CI.
   > Review videos, screenshots, and logs for every spec file from any CI test run.
@@ -122,11 +122,11 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - **Numbers.** Spell out one through nine; use numerals for 10 and above. Always use numerals for metrics, measurements, and performance data.
 - **Dates and time.** Spell out the day of the week and abbreviate the month (Tuesday, Jan 14). Use numerals with am/pm (7am, 7:30pm). Include time zones when scheduling matters.
-- **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly. Never use exclamation points in error messages or alerts — see [errors.md](./errors.md).
+- **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly. Never use exclamation points in error messages or alerts — see [errors.md](https://design.cypress.io/agents/errors.md).
 
 ## Writing about accessibility and inclusion
 
-When your copy concerns accessibility, disability, or assistive technology — alt text, link text, color reliance, and the language to use (and avoid) when referring to people with disabilities — the content rules live in [accessibility.md](./accessibility.md), "Writing about accessibility and disability". Fetch it before writing that content.
+When your copy concerns accessibility, disability, or assistive technology — alt text, link text, color reliance, and the language to use (and avoid) when referring to people with disabilities — the content rules live in [accessibility.md](https://design.cypress.io/agents/accessibility.md), "Writing about accessibility and disability". Fetch it before writing that content.
 
 ## Before you publish
 
@@ -134,8 +134,8 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 
 ## Related
 
-- [errors.md](./errors.md) — stricter overrides for errors, warnings, and deprecations
-- [accessibility.md](./accessibility.md) — content accessibility and disability language
-- [principles/ai.md](./principles/ai.md) — building, designing, and writing with AI
-- [principles/ux.md](./principles/ux.md) — where business goals meet user needs
-- [principles/releases.md](./principles/releases.md) — release titles and shipping stages
+- [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
+- [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
+- [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — building, designing, and writing with AI
+- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — where business goals meet user needs
+- [principles/releases.md](https://design.cypress.io/agents/principles/releases.md) — release titles and shipping stages

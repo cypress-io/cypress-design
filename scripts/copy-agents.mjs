@@ -1,5 +1,12 @@
-import { cpSync, mkdirSync, rmSync, readdirSync, existsSync } from 'fs'
-import { join, dirname } from 'path'
+import {
+  cpSync,
+  mkdirSync,
+  rmSync,
+  readdirSync,
+  existsSync,
+  writeFileSync,
+} from 'fs'
+import { join, dirname, relative, sep } from 'path'
 import { fileURLToPath } from 'url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -37,3 +44,27 @@ for (const entry of readdirSync(componentsDir, { withFileTypes: true })) {
     }
   }
 }
+
+// llms.txt — list every served doc as an absolute URL so agents can discover
+// (and fetch tools can unlock) the whole tree from the domain root
+const BASE_URL = 'https://design.cypress.io/agents'
+const docs = readdirSync(dest, { recursive: true, withFileTypes: true })
+  .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+  .map((entry) =>
+    relative(dest, join(entry.parentPath, entry.name)).split(sep).join('/'),
+  )
+  .sort()
+const llmsTxt = [
+  '# Cypress Design System',
+  '',
+  '> Agent-readable guidance for the Cypress Design System: design principles, tokens, voice, accessibility, and component docs. Start with the index, fetch only what the task needs.',
+  '',
+  '## Docs',
+  '',
+  `- [index.md](${BASE_URL}/index.md): router — fetch this first, it points at the rest`,
+  ...docs
+    .filter((path) => path !== 'index.md')
+    .map((path) => `- [${path}](${BASE_URL}/${path})`),
+  '',
+].join('\n')
+writeFileSync(join(root, 'docs', 'public', 'llms.txt'), llmsTxt)

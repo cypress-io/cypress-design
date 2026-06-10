@@ -11,7 +11,7 @@ When the work is a product brief, initiative, or design proposal (not just a UI 
 
 When opening a PR, lead the description with the problem and goal (why / what) before the implementation (how) — see [`.github/pull_request_template.md`](.github/pull_request_template.md). Reviewers, human and AI, evaluate against the stated goal; a description that's all _how_ steers them toward syntax nitpicks instead of substance.
 
-Everything under `/.agents/` is also served at `https://design.cypress.io/agents/` for consumer repos to fetch — same files, single source of truth.
+Everything under `/.agents/` is also served at `https://design.cypress.io/agents/` for consumer repos to fetch — same files, single source of truth. Cross-doc links in these files use absolute `https://design.cypress.io/agents/...` URLs (not relative paths) so that agents fetching one doc over HTTP can follow links to the rest — keep new links absolute. `scripts/copy-agents.mjs` also generates `llms.txt` at the domain root listing every served doc, so the whole tree is discoverable from `https://design.cypress.io/llms.txt`.
 
 ## Framing — why the design system exists and how it's structured
 

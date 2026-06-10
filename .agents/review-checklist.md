@@ -10,17 +10,17 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 ## Colors
 
 - [ ] No raw hex values (`#abc`, `#aabbcc`) or `rgb(...)` introduced. Grep the diff: `grep -nE '#[0-9a-fA-F]{3,8}\b|rgb\(|rgba\(' <changed files>`. If any match, replace with a `--cy-*` token or Tailwind class.
-- [ ] Text contrast: body text on white uses step `600` or darker; on `gray-1000` uses `300` or lighter. See [colors.md](./colors.md).
+- [ ] Text contrast: body text on white uses step `600` or darker; on `gray-1000` uses `300` or lighter. See [colors.md](https://design.cypress.io/agents/colors.md).
 - [ ] Tertiary hues (Fuchsia / Green / Magenta) only appear in syntax highlighting or chart code paths.
 
 ## Spacing
 
 - [ ] Every new spacing value (margin / padding / gap / width / height) is a multiple of 4. Grep the diff for `[0-9]+px` and confirm.
-- [ ] Tailwind spacing utilities used in preference to inline pixel values. See [spacing.md](./spacing.md).
+- [ ] Tailwind spacing utilities used in preference to inline pixel values. See [spacing.md](https://design.cypress.io/agents/spacing.md).
 
 ## Iconography
 
-- [ ] New SVGs use `strokeWidth="2"`, `stroke="currentColor"`, `fill="none"`, `strokeLinecap="round"`, `strokeLinejoin="round"`. See [iconography.md](./iconography.md).
+- [ ] New SVGs use `strokeWidth="2"`, `stroke="currentColor"`, `fill="none"`, `strokeLinecap="round"`, `strokeLinejoin="round"`. See [iconography.md](https://design.cypress.io/agents/iconography.md).
 
 ## Components
 
@@ -28,8 +28,8 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 
 ## Voice & content
 
-- [ ] User-facing strings follow [voice.md](./voice.md): sentence case, no "simply / just / easy", verb-first button labels.
-- [ ] Error messages state what happened + what to do next. See [voice.md](./voice.md).
+- [ ] User-facing strings follow [voice.md](https://design.cypress.io/agents/voice.md): sentence case, no "simply / just / easy", verb-first button labels.
+- [ ] Error messages state what happened + what to do next. See [voice.md](https://design.cypress.io/agents/voice.md).
 
 ## Accessibility
 
@@ -43,6 +43,6 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 
 ## Release
 
-- [ ] If the diff touches a published package (anything under `components/`), include a `.changeset/*.md` file — otherwise the release workflow has nothing to publish. See [implement-component](./skills/implement-component.md) for conventions (bump levels, file placement, examples).
+- [ ] If the diff touches a published package (anything under `components/`), include a `.changeset/*.md` file — otherwise the release workflow has nothing to publish. See [implement-component](https://design.cypress.io/agents/skills/implement-component.md) for conventions (bump levels, file placement, examples).
 
 If a check fails, fix the code, don't relax the rule.
