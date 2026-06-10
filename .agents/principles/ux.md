@@ -37,7 +37,7 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 **Match the effort you ask of users to the value they get back.** Every input is a cost the user pays before seeing any return. Demanding precise, hard-to-find inputs (numbers dug out of a CI dashboard) for an approximate answer is a trade users decline at the first screen. If a rough guess gets them most of the way there, ask for the guess, default the rest, and let them refine only if they want a sharper number. (Progressive disclosure governs how many things you ask; this governs what each one costs.)
 
-**Build against the outcome, not the literal request.** Customers ask for features in their own words — usually a solution they've already imagined. That's a signal, not a spec. Ask _"what outcome are you looking for?"_ — the asked-for feature is one of many possible solutions, and often not the best one.
+**Build against the outcome, not the literal request.** Customers ask for features in their own words — usually a solution they've already imagined. That's a signal, not a spec. Ask _"what outcome are you looking for?"_ The asked-for feature is one of many possible solutions, and often not the best one.
 
 **Filters and checkboxes are a smell.** If finding value in the product requires becoming a power user, the product is failing. Features of real value should be first-class citizens, not buried behind configuration.
 
