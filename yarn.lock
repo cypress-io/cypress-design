@@ -1385,6 +1385,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/constants-select@npm:*, @cypress-design/constants-select@workspace:components/Select/constants":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/constants-select@workspace:components/Select/constants"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/constants-spinner@npm:*, @cypress-design/constants-spinner@workspace:components/Spinner/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-spinner@workspace:components/Spinner/constants"
@@ -1594,7 +1600,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-button@workspace:components/Button/react":
+"@cypress-design/react-button@npm:*, @cypress-design/react-button@workspace:components/Button/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-button@workspace:components/Button/react"
   dependencies:
@@ -1671,6 +1677,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/react-select@workspace:components/Select/react":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/react-select@workspace:components/Select/react"
+  dependencies:
+    "@cypress-design/constants-select": "npm:*"
+    "@cypress-design/react-button": "npm:*"
+    "@cypress-design/react-checkbox": "npm:*"
+    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/react-tabs": "npm:*"
+    "@cypress-design/react-tag": "npm:*"
+    "@cypress-design/react-textbox": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    clsx: "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/react-spinner@npm:*, @cypress-design/react-spinner@workspace:components/Spinner/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-spinner@workspace:components/Spinner/react"
@@ -1704,7 +1726,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-tag@workspace:components/Tag/react":
+"@cypress-design/react-tag@npm:*, @cypress-design/react-tag@workspace:components/Tag/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-tag@workspace:components/Tag/react"
   dependencies:
@@ -1726,7 +1748,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-textbox@workspace:components/Textbox/react":
+"@cypress-design/react-textbox@npm:*, @cypress-design/react-textbox@workspace:components/Textbox/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-textbox@workspace:components/Textbox/react"
   dependencies:
@@ -1848,6 +1870,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/vue-select@workspace:components/Select/vue":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/vue-select@workspace:components/Select/vue"
+  dependencies:
+    "@cypress-design/constants-select": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    "@cypress-design/vue-button": "npm:*"
+    "@cypress-design/vue-checkbox": "npm:*"
+    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-tabs": "npm:*"
+    "@cypress-design/vue-tag": "npm:*"
+    "@cypress-design/vue-textbox": "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/vue-spinner@npm:*, @cypress-design/vue-spinner@workspace:components/Spinner/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-spinner@workspace:components/Spinner/vue"
@@ -1868,7 +1905,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tabs@workspace:components/Tabs/vue":
+"@cypress-design/vue-tabs@npm:*, @cypress-design/vue-tabs@workspace:components/Tabs/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tabs@workspace:components/Tabs/vue"
   dependencies:
@@ -1877,7 +1914,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tag@workspace:components/Tag/vue":
+"@cypress-design/vue-tag@npm:*, @cypress-design/vue-tag@workspace:components/Tag/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tag@workspace:components/Tag/vue"
   dependencies:
@@ -1897,7 +1934,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-textbox@workspace:components/Textbox/vue":
+"@cypress-design/vue-textbox@npm:*, @cypress-design/vue-textbox@workspace:components/Textbox/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-textbox@workspace:components/Textbox/vue"
   dependencies:

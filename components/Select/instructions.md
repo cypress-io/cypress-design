@@ -34,8 +34,8 @@ All props are optional unless noted. React and Vue expose the same prop surface,
 ### Appearance
 
 - **`theme`** — `'light' | 'dark'`, default `'light'`. Visual theme. Applied to both the trigger and the popover.
-- **`size`** — `'32' | '40'`, default `'40'`. Height (in pixels, as a string) of the default trigger and of each option row.
-- **`triggerVariant`** — `ButtonVariant`, default `'outline-gray'`. Forwarded to the default Button trigger. See [Button instructions](../Button/instructions.md) for the full set of variants. Ignored when a custom `trigger` slot is supplied.
+- **`size`** — `'32' | '40'`, default `'32'`. Height (in pixels, as a string) of the default trigger and of each option row.
+- **`triggerVariant`** — `ButtonVariant`, default `'outline-gray-light'`. Forwarded to the default Button trigger. See [Button instructions](../Button/instructions.md) for the full set of variants. Ignored when a custom `trigger` slot is supplied.
 - **`align`** — `'left' | 'right'`, default `'left'`. Horizontal alignment of the popover relative to the trigger. `'left'` aligns the popover's left edge to the trigger's left edge; `'right'` aligns the right edges.
 - **`disabled`** — `boolean`, default `false`. Disables the trigger and prevents opening the popover.
 
@@ -225,9 +225,9 @@ The Figma defines sizes `32` and `40` for the Option Item. Select forwards the s
 - Focus inside the popover is tracked via `aria-activedescendant` on the trigger so the search Textbox keeps real DOM focus while ArrowUp / ArrowDown traverse the options.
 - Keyboard support:
   - `Enter` / `Space` on the trigger → toggle open.
-  - `ArrowDown` on the trigger → open and focus the first selectable row.
-  - `ArrowUp` / `ArrowDown` inside the popover → previous / next selectable row (skips `headline`, `divider`, `button`, `disabled`).
-  - `Enter` on a focused row → select + close (selectable rows); fire `onClick` (`button` rows).
+  - `ArrowDown` on the trigger → open (does not focus a row yet; the next arrow keypress lands focus — see below).
+  - Open with no row focused. The first `ArrowDown` lands focus on the first selectable row; the first `ArrowUp` lands focus on the last. Subsequent `ArrowUp` / `ArrowDown` walk previous / next selectable rows (skipping `headline`, `divider`, `button`, and `disabled`).
+  - `Enter` on a focused row → select + close. No-op while nothing is focused. (`button` rows are intentionally excluded from keyboard traversal in v1; trigger them with the pointer. Reach via keyboard is tracked for the accessibility branch.)
   - `Escape` → close + return focus to the trigger.
   - `Tab` → close and move focus naturally.
 
