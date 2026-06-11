@@ -282,8 +282,10 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
         ) : (
           filteredItems.map((item, index) => {
             const itemValue = SelectConstants.getItemValue(item)
-            const selected =
-              itemValue !== undefined && itemValue === value && itemValue !== ''
+            // Empty string is a valid `value` per `SelectItemDefault` —
+            // `itemValue === value` already excludes `undefined` ↔ '' (since
+            // `'' !== undefined`), so no extra guard is needed.
+            const selected = itemValue !== undefined && itemValue === value
             const focused = index === focusedSelectableIndex
             const rowId = itemIdPrefix ? `${itemIdPrefix}-${index}` : undefined
             const key = (() => {

@@ -31,7 +31,10 @@ export interface SelectProps {
 
   value?: string
   defaultValue?: string
-  onChange?: (value: string, item: SelectItem) => void
+  // `value` is `undefined` when the selection is cleared — that happens when
+  // a checkbox row is re-clicked (toggle off). Consumers must handle both
+  // cases.
+  onChange?: (value: string | undefined, item: SelectItem) => void
 
   placeholder?: string
   disabled?: boolean
@@ -256,7 +259,7 @@ export const Select: React.FC<SelectProps> = ({
     const isCheckboxToggle = item.type === 'checkbox' && value === itemValue
     const nextValue = isCheckboxToggle ? undefined : itemValue
     if (!isValueControlled) setInternalValue(nextValue)
-    onChange?.(nextValue as never, item)
+    onChange?.(nextValue, item)
     if (item.type !== 'checkbox') setOpen(false)
   }
 

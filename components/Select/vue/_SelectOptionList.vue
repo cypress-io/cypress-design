@@ -273,9 +273,7 @@ function rowId(index: number): string | undefined {
         :theme="theme"
         :size="size"
         :selected="
-          itemValueOf(item) !== undefined &&
-          itemValueOf(item) === value &&
-          itemValueOf(item) !== ''
+          itemValueOf(item) !== undefined && itemValueOf(item) === value
         "
         :focused="index === focusedSelectableIndex"
         @select="(it: SelectItem) => emit('select', it)"

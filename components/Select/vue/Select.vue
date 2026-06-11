@@ -63,10 +63,12 @@ const props = withDefaults(
   },
 )
 
+// `value` is `undefined` when the selection is cleared — happens when a
+// checkbox row is re-clicked (toggle off). Consumers must handle both cases.
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void
+  (e: 'update:modelValue', value: string | undefined): void
   (e: 'update:open', open: boolean): void
-  (e: 'change', value: string, item: SelectItem): void
+  (e: 'change', value: string | undefined, item: SelectItem): void
   (e: 'header-tab-change', id: string): void
 }>()
 
@@ -235,8 +237,8 @@ function handleSelect(item: SelectItem) {
   const isCheckboxToggle = item.type === 'checkbox' && value.value === itemValue
   const nextValue = isCheckboxToggle ? undefined : itemValue
   if (!isValueControlled.value) internalValue.value = nextValue
-  emit('update:modelValue', nextValue as never)
-  emit('change', nextValue as never, item)
+  emit('update:modelValue', nextValue)
+  emit('change', nextValue, item)
   if (item.type !== 'checkbox') setOpen(false)
 }
 
