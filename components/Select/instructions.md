@@ -227,7 +227,7 @@ The Figma defines sizes `32` and `40` for the Option Item. Select forwards the s
   - `Enter` / `Space` on the trigger → toggle open.
   - `ArrowDown` on the trigger → open (does not focus a row yet; the next arrow keypress lands focus — see below).
   - Open with no row focused. The first `ArrowDown` lands focus on the first selectable row; the first `ArrowUp` lands focus on the last. Subsequent `ArrowUp` / `ArrowDown` walk previous / next selectable rows (skipping `headline`, `divider`, `button`, and `disabled`).
-  - `Enter` on a focused row → select + close (selectable rows); fire `onClick` (`button` rows). No-op while nothing is focused.
+  - `Enter` on a focused row → select + close. No-op while nothing is focused. (`button` rows are intentionally excluded from keyboard traversal in v1; trigger them with the pointer. Reach via keyboard is tracked for the accessibility branch.)
   - `Escape` → close + return focus to the trigger.
   - `Tab` → close and move focus naturally.
 

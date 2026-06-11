@@ -106,21 +106,24 @@ function setOpen(next: boolean) {
 }
 
 // ---------- selected value ----------
+// Controlled-vs-uncontrolled is locked at component setup and stays sticky.
+// Without this, a checkbox toggle-off (which emits `undefined` through
+// `update:modelValue`) would flip a v-model consumer to "uncontrolled"
+// mid-session, then fall back to a stale `internalValue` — the trigger
+// would keep displaying the cleared selection.
 const internalValue = ref<string | undefined>(props.value ?? props.modelValue)
-const isValueControlled = computed(
-  () => props.value !== undefined || props.modelValue !== undefined,
-)
+const isValueControlled =
+  props.value !== undefined || props.modelValue !== undefined
 const value = computed(() =>
-  isValueControlled.value
-    ? props.value ?? props.modelValue
-    : internalValue.value,
+  isValueControlled ? props.value ?? props.modelValue : internalValue.value,
 )
 watch(
   () => [props.value, props.modelValue],
   () => {
-    if (props.value !== undefined) internalValue.value = props.value
-    else if (props.modelValue !== undefined)
-      internalValue.value = props.modelValue
+    // Mirror the latest controlled value into `internalValue` — including
+    // `undefined` — so any path that falls back to `internalValue` stays
+    // in sync with the parent.
+    internalValue.value = props.value ?? props.modelValue
   },
 )
 
@@ -236,7 +239,7 @@ function handleSelect(item: SelectItem) {
   // Keep the popover open on checkbox toggle so multi-pick intent flows.
   const isCheckboxToggle = item.type === 'checkbox' && value.value === itemValue
   const nextValue = isCheckboxToggle ? undefined : itemValue
-  if (!isValueControlled.value) internalValue.value = nextValue
+  if (!isValueControlled) internalValue.value = nextValue
   emit('update:modelValue', nextValue)
   emit('change', nextValue, item)
   if (item.type !== 'checkbox') setOpen(false)

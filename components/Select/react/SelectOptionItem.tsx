@@ -94,11 +94,12 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
             item.onClick()
           }}
         >
-          {item.iconLeft &&
-            React.createElement(
-              item.iconLeft as React.ComponentType<Record<string, unknown>>,
-              { size: '16', interactiveColorsOnGroup: true },
-            )}
+          {item.iconLeft
+            ? React.createElement(
+                item.iconLeft as React.ComponentType<Record<string, unknown>>,
+                { size: '16', interactiveColorsOnGroup: true },
+              )
+            : null}
           {item.label}
         </Button>
       </div>
@@ -243,8 +244,9 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
       )}
       {/* iconRight uses `ml-auto` so it hugs the row's right edge; reuses
           the same state-aware icon color classes as iconLeft. */}
-      {item.iconRight &&
-        renderIcon(item.iconRight, clsx('ml-auto', iconColorClass))}
+      {item.iconRight
+        ? renderIcon(item.iconRight, clsx('ml-auto', iconColorClass))
+        : null}
       {item.slotRight && (
         <span className="ml-auto shrink-0">{item.slotRight}</span>
       )}
