@@ -221,9 +221,9 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 - Focus inside the popover is tracked via `aria-activedescendant` on the trigger so the search Textbox keeps real DOM focus while ArrowUp / ArrowDown traverse the options.
 - Keyboard support:
   - `Enter` / `Space` on the trigger → toggle open.
-  - `ArrowDown` on the trigger → open and focus the first selectable row.
-  - `ArrowUp` / `ArrowDown` inside the popover → previous / next selectable row (skips `headline`, `divider`, `button`, `disabled`).
-  - `Enter` on a focused row → select + close (selectable rows); fire `onClick` (`button` rows).
+  - `ArrowDown` on the trigger → open (does not focus a row yet; the next arrow keypress lands focus — see below).
+  - Open with no row focused. The first `ArrowDown` lands focus on the first selectable row; the first `ArrowUp` lands focus on the last. Subsequent `ArrowUp` / `ArrowDown` walk previous / next selectable rows (skipping `headline`, `divider`, `button`, and `disabled`).
+  - `Enter` on a focused row → select + close (selectable rows); fire `onClick` (`button` rows). No-op while nothing is focused.
   - `Escape` → close + return focus to the trigger.
   - `Tab` → close and move focus naturally.
 
