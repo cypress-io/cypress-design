@@ -15,9 +15,12 @@ export type SelectSize = keyof typeof CssOptionItemHeightClasses // '32' | '40'
 export type SelectAlignment = 'left' | 'right'
 
 // `IconNode` accepts any consumer-renderable node. Constants are framework-
-// agnostic in spirit but typed against React here (Textbox does the same).
-// The Vue package layers in looser prop typings.
-type IconNode = React.ComponentType<Record<string, unknown>> | React.ReactNode
+// agnostic, so the type is intentionally loose — both React (functional
+// components, JSX nodes) and Vue (`DefineSetupFnComponent`-flavored shapes
+// from `@cypress-design/vue-icon`) need to fit through. Each framework's
+// renderer does its own runtime dispatch (`<component :is>` in Vue,
+// `React.createElement` in React), so the type is just a passthrough.
+type IconNode = unknown
 
 // Sub-shapes for each row content type.
 

@@ -138,7 +138,16 @@ export const Select: React.FC<SelectProps> = ({
   }
 
   // ---------- Selected value (controlled / uncontrolled) ----------
-  const isValueControlled = valueProp !== undefined
+  // Controlled-vs-uncontrolled is locked at first observation of `value`
+  // and stays sticky. Without this, a checkbox toggle-off (which emits
+  // `undefined`) would flip a controlled consumer to "uncontrolled" mid-
+  // session, then fall back to a stale `internalValue` — the trigger
+  // would keep displaying the cleared selection.
+  const isValueControlledRef = React.useRef<boolean | null>(null)
+  if (isValueControlledRef.current === null) {
+    isValueControlledRef.current = valueProp !== undefined
+  }
+  const isValueControlled = isValueControlledRef.current
   const [internalValue, setInternalValue] = React.useState<string | undefined>(
     defaultValue,
   )
