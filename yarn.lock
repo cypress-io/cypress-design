@@ -1433,7 +1433,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/css@npm:*, @cypress-design/css@npm:1.2.0, @cypress-design/css@workspace:css":
+"@cypress-design/css@npm:*, @cypress-design/css@npm:1.3.0, @cypress-design/css@workspace:css":
   version: 0.0.0-use.local
   resolution: "@cypress-design/css@workspace:css"
   dependencies:
@@ -1769,7 +1769,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/rollup-plugin-tailwind-keep@workspace:packages/rollup-plugin-tailwind-keep"
   dependencies:
-    "@cypress-design/css": "npm:1.2.0"
+    "@cypress-design/css": "npm:1.3.0"
     tailwindcss: "npm:3.4.3"
   peerDependencies:
     vite: ^5.2.0
