@@ -106,25 +106,18 @@ function setOpen(next: boolean) {
 }
 
 // ---------- selected value ----------
-// Controlled-vs-uncontrolled is locked at component setup and stays sticky.
-// Without this, a checkbox toggle-off (which emits `undefined` through
-// `update:modelValue`) would flip a v-model consumer to "uncontrolled"
-// mid-session, then fall back to a stale `internalValue` — the trigger
-// would keep displaying the cleared selection.
+// We dropped the explicit controlled/uncontrolled discrimination because
+// any boolean ("was a value ever passed?", "is it currently defined?")
+// breaks at least one common pattern (lazy controlled state, or checkbox
+// toggle-off flipping mode mid-session). Instead, `internalValue` mirrors
+// the latest committed selection and the prop wins whenever it's defined.
+// The `??` chain lets every mode coexist: v-model / `value` consumers see
+// the prop through; uncontrolled consumers see `internalValue` through;
+// toggle-off lands `undefined` in both and the trigger correctly shows
+// the placeholder.
 const internalValue = ref<string | undefined>(props.value ?? props.modelValue)
-const isValueControlled =
-  props.value !== undefined || props.modelValue !== undefined
-const value = computed(() =>
-  isValueControlled ? props.value ?? props.modelValue : internalValue.value,
-)
-watch(
-  () => [props.value, props.modelValue],
-  () => {
-    // Mirror the latest controlled value into `internalValue` — including
-    // `undefined` — so any path that falls back to `internalValue` stays
-    // in sync with the parent.
-    internalValue.value = props.value ?? props.modelValue
-  },
+const value = computed(
+  () => props.value ?? props.modelValue ?? internalValue.value,
 )
 
 const selected = computed<SelectItem | null>(() => {
@@ -239,7 +232,11 @@ function handleSelect(item: SelectItem) {
   // Keep the popover open on checkbox toggle so multi-pick intent flows.
   const isCheckboxToggle = item.type === 'checkbox' && value.value === itemValue
   const nextValue = isCheckboxToggle ? undefined : itemValue
-  if (!isValueControlled) internalValue.value = nextValue
+  // Always mirror the latest committed selection. A v-model / `value`
+  // consumer's prop still wins on the next render (see the `?? `
+  // resolution above); this keeps the fallback path in sync when the
+  // parent later clears.
+  internalValue.value = nextValue
   emit('update:modelValue', nextValue)
   emit('change', nextValue, item)
   if (item.type !== 'checkbox') setOpen(false)

@@ -137,21 +137,25 @@ export const Select: React.FC<SelectProps> = ({
     onOpenChange?.(next)
   }
 
-  // ---------- Selected value (controlled / uncontrolled) ----------
-  // Controlled-vs-uncontrolled is locked at first observation of `value`
-  // and stays sticky. Without this, a checkbox toggle-off (which emits
-  // `undefined`) would flip a controlled consumer to "uncontrolled" mid-
-  // session, then fall back to a stale `internalValue` — the trigger
-  // would keep displaying the cleared selection.
-  const isValueControlledRef = React.useRef<boolean | null>(null)
-  if (isValueControlledRef.current === null) {
-    isValueControlledRef.current = valueProp !== undefined
-  }
-  const isValueControlled = isValueControlledRef.current
+  // ---------- Selected value ----------
+  // We dropped the explicit controlled/uncontrolled discrimination because
+  // any boolean ("`value` was/wasn't passed", "first render had a value")
+  // breaks at least one common pattern:
+  //   - Sticky-on-defined-first-render breaks lazy controlled state
+  //     (`useState<string|undefined>(undefined)` + `value={x}` — initial
+  //     `undefined` would lock as uncontrolled forever).
+  //   - Dynamic `valueProp !== undefined` breaks checkbox toggle-off
+  //     (controlled parent clears → flips to uncontrolled → falls back
+  //     to a stale internal value).
+  // Instead, `internalValue` mirrors the latest *committed* selection and
+  // the prop wins whenever it's defined. The `??` chain lets both modes
+  // coexist: controlled consumers see `valueProp` through; uncontrolled
+  // consumers see `internalValue` through; toggle-off lands `undefined`
+  // in both and the trigger correctly shows the placeholder.
   const [internalValue, setInternalValue] = React.useState<string | undefined>(
     defaultValue,
   )
-  const value = isValueControlled ? valueProp : internalValue
+  const value = valueProp ?? internalValue
 
   const selected = React.useMemo<SelectItem | null>(() => {
     if (value === undefined) return null
@@ -267,7 +271,11 @@ export const Select: React.FC<SelectProps> = ({
     // likely picking multiple from a multi-select intent.
     const isCheckboxToggle = item.type === 'checkbox' && value === itemValue
     const nextValue = isCheckboxToggle ? undefined : itemValue
-    if (!isValueControlled) setInternalValue(nextValue)
+    // Always mirror the latest committed selection into `internalValue`.
+    // A controlled consumer's prop will still win on the next render
+    // (see the `valueProp ?? internalValue` resolution above) — this just
+    // keeps the fallback path honest when the parent later clears `value`.
+    setInternalValue(nextValue)
     onChange?.(nextValue, item)
     if (item.type !== 'checkbox') setOpen(false)
   }
