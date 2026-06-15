@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 1.41.0
+
+### Minor Changes
+
+- [#687](https://github.com/cypress-io/cypress-design/pull/687) [`11e6792`](https://github.com/cypress-io/cypress-design/commit/11e67922126b7450ec4359b2cb5b79509babe82c) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add `action-test-replay` at 12px and 24px (previously 16px only), and add an opt-in `icon-light` disc behind the glyph at all three sizes. The disc is transparent by default — pass `fillColor` to show it — so existing bare usages are unchanged.
+
+### Patch Changes
+
+- Updated dependencies [[`11e6792`](https://github.com/cypress-io/cypress-design/commit/11e67922126b7450ec4359b2cb5b79509babe82c)]:
+  - @cypress-design/icon-registry@1.41.0
+
 ## 1.40.0
 
 ### Minor Changes
