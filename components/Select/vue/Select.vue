@@ -106,18 +106,31 @@ function setOpen(next: boolean) {
 }
 
 // ---------- selected value ----------
-// We dropped the explicit controlled/uncontrolled discrimination because
-// any boolean ("was a value ever passed?", "is it currently defined?")
-// breaks at least one common pattern (lazy controlled state, or checkbox
-// toggle-off flipping mode mid-session). Instead, `internalValue` mirrors
-// the latest committed selection and the prop wins whenever it's defined.
-// The `??` chain lets every mode coexist: v-model / `value` consumers see
-// the prop through; uncontrolled consumers see `internalValue` through;
-// toggle-off lands `undefined` in both and the trigger correctly shows
-// the placeholder.
+// Sticky-toward-controlled: once we ever see a defined `value` or
+// `modelValue` prop the component is "controlled" and stays that way.
+// This is the only discriminator that handles every common pattern:
+// pure uncontrolled (no v-model / `value`), pure controlled (initial
+// defined), lazy controlled (v-model bound to a ref that starts
+// `undefined` and is later set), controlled clear (parent sets the
+// value back to `undefined`), and checkbox toggle-off (component
+// emits `undefined`). In every case the prop wins once observed, so
+// a clear correctly shows the placeholder instead of falling back to
+// the last clicked row.
+const wasControlled = ref(
+  props.value !== undefined || props.modelValue !== undefined,
+)
+watch(
+  () => [props.value, props.modelValue],
+  ([v, m]) => {
+    if (v !== undefined || m !== undefined) wasControlled.value = true
+  },
+)
+const isValueControlled = computed(() => wasControlled.value)
 const internalValue = ref<string | undefined>(props.value ?? props.modelValue)
-const value = computed(
-  () => props.value ?? props.modelValue ?? internalValue.value,
+const value = computed(() =>
+  isValueControlled.value
+    ? props.value ?? props.modelValue
+    : internalValue.value,
 )
 
 const selected = computed<SelectItem | null>(() => {
@@ -232,11 +245,12 @@ function handleSelect(item: SelectItem) {
   // Keep the popover open on checkbox toggle so multi-pick intent flows.
   const isCheckboxToggle = item.type === 'checkbox' && value.value === itemValue
   const nextValue = isCheckboxToggle ? undefined : itemValue
-  // Always mirror the latest committed selection. A v-model / `value`
-  // consumer's prop still wins on the next render (see the `?? `
-  // resolution above); this keeps the fallback path in sync when the
-  // parent later clears.
-  internalValue.value = nextValue
+  // Uncontrolled consumers: track the selection internally. Controlled
+  // consumers (v-model or `value`): the parent's prop drives the next
+  // render; don't touch internalValue so a controlled clear (parent sets
+  // `value`/`modelValue` to `undefined`) shows the placeholder instead
+  // of falling back to the last clicked row.
+  if (!isValueControlled.value) internalValue.value = nextValue
   emit('update:modelValue', nextValue)
   emit('change', nextValue, item)
   if (item.type !== 'checkbox') setOpen(false)

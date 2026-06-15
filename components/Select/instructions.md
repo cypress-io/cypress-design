@@ -16,6 +16,24 @@ yarn add @cypress-design/react-select       # React
 yarn add @cypress-design/constants-select   # shared types (SelectItem, etc.)
 ```
 
+The default export is the full `Select` (trigger + popover). The panel pieces are also exported for consumers who want to render the popover inline without a trigger (e.g. expanded showcases, or building a custom shell):
+
+```ts
+// Vue
+import {
+  Select,
+  SelectOptionList,
+  SelectOptionItem,
+} from '@cypress-design/vue-select'
+
+// React
+import {
+  Select,
+  SelectOptionList,
+  SelectOptionItem,
+} from '@cypress-design/react-select'
+```
+
 ## Props
 
 All props are optional unless noted. React and Vue expose the same prop surface, with framework-idiomatic differences called out per prop. Vue uses kebab-case for attribute names and binds the value via `v-model` (mapped to `modelValue`) and the open state via `v-model:open`.
@@ -28,7 +46,7 @@ All props are optional unless noted. React and Vue expose the same prop surface,
   - Vue: optional override that takes precedence over `modelValue`. Most callers should use `v-model` / `modelValue` instead.
 - **`defaultValue`** — `string` (React only). Uncontrolled initial value.
 - **`modelValue`** — `string` (Vue only). Bound via `v-model`. Updates are emitted through `update:modelValue`.
-- **`onChange`** — `(value: string, item: SelectItem) => void` (React). Vue uses `@update:modelValue`.
+- **`onChange`** — `(value: string | undefined, item: SelectItem) => void` (React). Vue uses `@update:modelValue`. The `value` payload is `undefined` when the selection is cleared (e.g. a `checkbox` row toggled off — see Item shapes / `checkbox` below).
 - **`placeholder`** — `string`. Shown on the default trigger when nothing is selected.
 
 ### Appearance
@@ -57,14 +75,24 @@ These apply to the popover panel only — the trigger keeps its natural width. A
 
 ### Header
 
-The header is rendered above the items when at least one header prop is set.
+The header is rendered above the items when at least one header prop is set. It has two layers, each optional:
 
-- **`headerTitle`** — `string`. Section heading at the top of the popover.
-- **`headerTabs`** — `Tab[]`. Renders a [`Tabs`](../Tabs/instructions.md) row inside the header. Use with `headerActiveTab` and `onHeaderTabChange`.
+1. **Title row** — back button · iconLeft · title · tag · iconRight. Any combination, all optional.
+2. **Tabs + search row** — appears below the title row when `headerTabs` or `searchable` is set.
+
+Each layer carries its own bottom border, so when both layers are present you get two visual dividers.
+
+- **`headerTitle`** — `string`. Title text. Font scales with `size`: 14/20 at `size='32'`, 16/24 at `size='40'`. Color: gray-900 (light) / gray-300 (dark).
+- **`headerButton`** — `{ iconLeft: IconNode; onClick: () => void; ariaLabel?: string }`. Optional 32×32 square back-button on the left edge of the title row. Auto-themed: `white` variant on light, `outline-dark` on dark.
+- **`headerIconLeft`** — `IconNode`. Optional 16px icon shown between the back button and the title.
+- **`headerTag`** — `string`. Optional small gray `Tag` (size 16, theme-aware) rendered after the title.
+- **`headerIconRight`** — `IconNode`. Optional 16px icon pushed to the far right of the title row.
+- **`headerTabs`** — `Tab[]`. Renders a [`Tabs`](../Tabs/instructions.md) row inside the header. Use with `headerActiveTab` and `onHeaderTabChange`. Variant auto-selected by theme + size: `default` on light, `dark-small` (h-20/12px) at `size='32'` on dark, `dark-large` (h-24/14px) at `size='40'` on dark.
 - **`headerActiveTab`** — `string`. ID of the currently active tab. Controlled.
 - **`onHeaderTabChange`** — `(id: string) => void`. Fired when the user switches tabs.
-- **`searchable`** — `boolean`, default `false`. Renders a search [`Textbox`](../Textbox/instructions.md) in the header. The current input value filters `items` by case-insensitive substring match against each item's `label`.
+- **`searchable`** — `boolean`, default `false`. Renders a search [`Textbox`](../Textbox/instructions.md) in the header. When `searchFilters` is `true` (the default), the input value filters `items` by case-insensitive substring match against each item's `label`.
 - **`searchPlaceholder`** — `string`, default `'Search'`. Placeholder for the search Textbox.
+- **`searchFilters`** — `boolean`, default `true`. Set to `false` to keep the search Textbox visible without filtering — useful for showcase pages where every row should stay visible regardless of what the user types.
 
 ### Footer
 
@@ -105,8 +133,9 @@ interface DefaultItem {
   type?: 'default' // default when type is omitted
   value: string // selection key; emitted via onChange
   label: string // primary text
-  iconLeft?: IconNode // any Icon component or React/Vue node
-  slotRight?: ReactNode // right-side slot: icon, button, switch, etc.
+  iconLeft?: IconNode // 16px leading icon — picks up state-aware coloring (gray → indigo on hover/focus/active/selected, muted on disabled)
+  iconRight?: IconNode // 16px trailing icon — same state-aware coloring as iconLeft, hugs the right edge
+  slotRight?: ReactNode // escape hatch for arbitrary trailing content (badges, counts); sits right of iconRight if both are provided
   tag?: string | TagProps // small Tag rendered after the label
   disabled?: boolean
 }
@@ -129,9 +158,9 @@ interface DividerItem {
 }
 ```
 
-### `checkbox` (selectable, single-select)
+### `checkbox` (selectable, single-select with toggle-off)
 
-Visual affordance only — the row shows a Checkbox that mirrors the row's selected state. Clicking the row sets it as the selected value (Select remains single-select; the checkbox does not toggle independently).
+Visual affordance only — the row shows a Checkbox that mirrors the row's selected state. Select remains single-select, but clicking the row toggles: first click selects, clicking the already-checked row **deselects** (emits `undefined` through `onChange` / `update:modelValue`). The popover stays open on checkbox click, since users are typically picking from a multi-pick-shaped list.
 
 ```ts
 interface CheckboxItem {
@@ -165,9 +194,12 @@ interface ButtonItem {
   key: string // stable React/Vue key
   label: string
   onClick: () => void
-  variant?: ButtonVariant // forwarded to <Button>
+  iconLeft?: IconNode // optional 16px icon rendered inside the Button before the label
+  variant?: ButtonVariant // forwarded to <Button>; defaults to theme-aware `white` (light) / `outline-dark` (dark)
 }
 ```
+
+The Button's `size` is auto-scaled with the panel's `size`: `'24'` at `size='32'` and `'32'` at `size='40'`.
 
 ### `custom` (escape hatch)
 
@@ -183,19 +215,18 @@ interface CustomItem {
 
 ## Events
 
-| Event                  | Payload                 | Description                                       |
-| ---------------------- | ----------------------- | ------------------------------------------------- |
-| `update:modelValue`    | `string`                | Vue — emitted whenever the selection changes      |
-| `update:open`          | `boolean`               | Vue — emitted whenever the popover opens / closes |
-| `change`               | `string, SelectItem`    | Vue — emitted whenever the selection changes      |
-| `onChange` (React)     | `(value, item) => void` | Selection changed                                 |
-| `onOpenChange` (React) | `(open) => void`        | Popover open state changed                        |
+| Event                  | Payload                                      | Description                                                                                  |
+| ---------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `update:modelValue`    | `string \| undefined`                        | Vue — emitted whenever the selection changes. `undefined` when cleared (checkbox toggle-off) |
+| `update:open`          | `boolean`                                    | Vue — emitted whenever the popover opens / closes                                            |
+| `change`               | `string \| undefined, SelectItem`            | Vue — same payload as `update:modelValue`, plus the item that triggered the change           |
+| `onChange` (React)     | `(value: string \| undefined, item) => void` | Selection changed; `value` is `undefined` when cleared                                       |
+| `onOpenChange` (React) | `(open) => void`                             | Popover open state changed                                                                   |
 
 ## Slots (Vue only)
 
-- **`#trigger="{ open, selected, toggle, close }"`** — replace the default Button trigger.
-- **`#footer`** — arbitrary footer content (takes precedence over `footerLabel` / `footerAction`).
-- **`#header-extra`** — additional content rendered inside the header below the title / tabs / search (rare).
+- **`#trigger="{ open, selected, toggle, close }"`** — replace the default Button trigger. The consumer is responsible for calling `toggle()` or `close()` on the rendered element; Select still owns the popover.
+- **`#footer`** — arbitrary footer content (takes precedence over `footerLabel` / `footerAction`). Useful for rich footers like the multi-line info pattern in the demo.
 
 ## States
 
@@ -214,11 +245,11 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 
 ## Accessibility
 
-- Trigger has `role="combobox"`, `aria-expanded`, `aria-controls` (pointing at the popover), `aria-haspopup="listbox"`.
+- Trigger is a `<button type="button">` (Cypress `Button` component) with `aria-haspopup="listbox"`, `aria-expanded`, and `aria-controls` pointing at the popover. We use the "button + listbox popup" pattern (same as Radix and Headless UI) rather than `role="combobox"`, because combobox per ARIA implies an editable text input — which the default trigger isn't.
 - Popover has `role="listbox"`.
 - Selectable rows have `role="option"` + `aria-selected`. Non-selectable rows (`headline`, `divider`, `button`) have `role="presentation"`.
 - Disabled rows have `aria-disabled="true"` (they are `<div>` elements, not `<button>` / `<input>`, so the HTML `disabled` attribute does not apply).
-- Focus inside the popover is tracked via `aria-activedescendant` on the trigger so the search Textbox keeps real DOM focus while ArrowUp / ArrowDown traverse the options.
+- Focus stays on the trigger while the popover is open; arrow-key traversal is reflected via `aria-activedescendant` on the trigger, pointing at the currently-focused row's id. The visual focus ring is driven by `data-focused="true"` on the row, not by DOM focus.
 - Keyboard support:
   - `Enter` / `Space` on the trigger → toggle open.
   - `ArrowDown` on the trigger → open (does not focus a row yet; the next arrow keypress lands focus — see below).

@@ -138,24 +138,29 @@ export const Select: React.FC<SelectProps> = ({
   }
 
   // ---------- Selected value ----------
-  // We dropped the explicit controlled/uncontrolled discrimination because
-  // any boolean ("`value` was/wasn't passed", "first render had a value")
-  // breaks at least one common pattern:
-  //   - Sticky-on-defined-first-render breaks lazy controlled state
-  //     (`useState<string|undefined>(undefined)` + `value={x}` — initial
-  //     `undefined` would lock as uncontrolled forever).
-  //   - Dynamic `valueProp !== undefined` breaks checkbox toggle-off
-  //     (controlled parent clears → flips to uncontrolled → falls back
-  //     to a stale internal value).
-  // Instead, `internalValue` mirrors the latest *committed* selection and
-  // the prop wins whenever it's defined. The `??` chain lets both modes
-  // coexist: controlled consumers see `valueProp` through; uncontrolled
-  // consumers see `internalValue` through; toggle-off lands `undefined`
-  // in both and the trigger correctly shows the placeholder.
+  // Sticky-toward-controlled: once we ever see a defined `value` prop the
+  // component is "controlled" and stays that way for the rest of its life.
+  // This is the only discriminator that handles every common pattern:
+  //   - Pure uncontrolled (no `value` ever): stays uncontrolled, falls
+  //     back to `internalValue`.
+  //   - Pure controlled (initial defined): controlled from render 1, the
+  //     parent's `value` always wins.
+  //   - Lazy controlled (`useState<string|undefined>(undefined)` + `value`):
+  //     uncontrolled until the parent first sets a defined value, then
+  //     locks into controlled.
+  //   - Controlled clear (parent sets `value` to `undefined` after it was
+  //     defined): stays controlled — trigger shows the placeholder
+  //     instead of falling back to a stale `internalValue`.
+  //   - Checkbox toggle-off (component emits `undefined` via onChange):
+  //     same as controlled clear if the parent reflects it; the prop
+  //     wins and the trigger clears cleanly.
+  const wasControlledRef = React.useRef(false)
+  if (valueProp !== undefined) wasControlledRef.current = true
+  const isValueControlled = wasControlledRef.current
   const [internalValue, setInternalValue] = React.useState<string | undefined>(
     defaultValue,
   )
-  const value = valueProp ?? internalValue
+  const value = isValueControlled ? valueProp : internalValue
 
   const selected = React.useMemo<SelectItem | null>(() => {
     if (value === undefined) return null
@@ -271,11 +276,12 @@ export const Select: React.FC<SelectProps> = ({
     // likely picking multiple from a multi-select intent.
     const isCheckboxToggle = item.type === 'checkbox' && value === itemValue
     const nextValue = isCheckboxToggle ? undefined : itemValue
-    // Always mirror the latest committed selection into `internalValue`.
-    // A controlled consumer's prop will still win on the next render
-    // (see the `valueProp ?? internalValue` resolution above) — this just
-    // keeps the fallback path honest when the parent later clears `value`.
-    setInternalValue(nextValue)
+    // Uncontrolled consumers: track the selection internally. Controlled
+    // consumers: the parent's prop drives the next render; don't touch
+    // internalValue (otherwise a parent that clears `value` to `undefined`
+    // would still see the cleared trigger fall back to the last clicked
+    // row — exactly the "stale label" bug Cursor caught).
+    if (!isValueControlled) setInternalValue(nextValue)
     onChange?.(nextValue, item)
     if (item.type !== 'checkbox') setOpen(false)
   }
