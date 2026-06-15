@@ -4,4 +4,4 @@
 "@cypress-design/vue-icon": minor
 ---
 
-Add `action-test-replay` at 12px and 24px (previously 16px only).
+Add `action-test-replay` at 12px and 24px (previously 16px only), and add the two-tone `icon-light` disc fill behind the glyph at all three sizes (controllable via `fillColor`).
