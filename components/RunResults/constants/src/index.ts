@@ -25,8 +25,15 @@ export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 export const CssClasses = {
   // Outer wrapper. `inline-flex` so the component shrinks to content width.
   container: 'inline-flex pointer-events-auto',
-  // The <ul> pill itself. Theme overrides border and text colors via CssTheme.
-  list: 'flex items-center text-[14px] leading-[24px] font-medium list-none border rounded-[4px]',
+  // The <ul> pill itself. Theme provides the border color and text colors via
+  // CssTheme. The 1px border is drawn as an absolutely-positioned `::after`
+  // overlay (the inset box-shadow lives in CssTheme): it adds nothing to the
+  // 24px height, renders even where Tailwind preflight is disabled, and — being
+  // the last-painted positioned child — is drawn ABOVE the stats, so a stat's
+  // hover background can't cover it (a plain border / inset shadow / inset
+  // outline on the <ul> all get covered because the links fill the box).
+  // `pointer-events-none` keeps the overlay from intercepting link clicks.
+  list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
   // Inner <a> wrapper for linked stats.
@@ -40,13 +47,10 @@ export const CssClasses = {
   // transparent !important }`. Scoped to this component; the shared
   // IconStatusFlaky is unchanged.
   iconFlaky: 'mx-[4px] [&_path:first-child]:fill-transparent',
-  // Self-healed icon override — `IconGeneralSparkleSingleSmall` only ships
-  // a `["16"]` variant in the icon registry, but the rest of the stats
-  // render at 12px. The icon component IS an <svg>, so `w-3 h-3` on the
-  // className overrides the icon's intrinsic `width`/`height` attributes
-  // via CSS and pins the rendered size to 12 × 12 — visual consistency
-  // without depending on a 12px icon variant that doesn't exist.
-  iconSelfHealed: 'mx-[4px] w-3 h-3',
+  // Self-healed icon margin — matches the other stat icons. Uses the native
+  // 12px `general-sparkle-single` (x12) icon, so no `w-3 h-3` size override is
+  // needed.
+  iconSelfHealed: 'mx-[4px]',
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",
@@ -54,13 +58,13 @@ export const CssClasses = {
 
 export const CssTheme = {
   light: {
-    list: 'bg-white text-gray-700 border-gray-100',
-    link: 'text-gray-700 hover:bg-gray-50 focus-visible:bg-gray-50',
+    list: 'bg-white text-gray-700 after:shadow-[inset_0_0_0_1px_theme(colors.gray.100)]',
+    link: 'text-gray-700 hover:bg-gray-50 hover:text-gray-700 hover:no-underline focus:text-gray-700 focus:no-underline focus-visible:bg-gray-50',
     separator: 'after:border-gray-100',
   },
   dark: {
-    list: 'bg-gray-1000 text-gray-400 border-gray-800',
-    link: 'text-gray-300 hover:bg-gray-900 focus-visible:bg-gray-900',
+    list: 'bg-gray-1000 text-gray-400 after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+    link: 'text-gray-300 hover:bg-gray-900 hover:text-gray-300 hover:no-underline focus:text-gray-300 focus:no-underline focus-visible:bg-gray-900',
     separator: 'after:border-gray-800',
   },
 } as const
@@ -147,11 +151,16 @@ export interface RunResultsProps {
 
   links?: Partial<Record<StatKey, string>>
   // Same signature in React and Vue. `children` is whatever the framework
-  // renders for the inner icon + count.
-  renderLink?: (href: string, children: unknown) => unknown
+  // renders for the inner icon + count. `className` is the component's computed
+  // link styling (gray text, padding, no-underline, hover/focus) — apply it to
+  // your custom link so it matches the default <a>.
+  renderLink?: (href: string, children: unknown, className?: string) => unknown
 
   showTooltip?: boolean
   className?: string
+  // Override the pill's background (e.g. `bg-transparent` to blend with a
+  // colored surface). Replaces the theme's default background on the <ul>.
+  bgClassName?: string
 }
 
 // Null-safe count → numeric value for display & visibility logic.

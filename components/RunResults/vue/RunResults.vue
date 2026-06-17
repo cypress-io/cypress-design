@@ -3,7 +3,7 @@ import { defineComponent, h, type PropType, type VNode } from 'vue'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
   IconStatusFlaky,
-  IconGeneralSparkleSingleSmall,
+  IconGeneralSparkleSingle,
 } from '@cypress-design/vue-icon'
 import Tooltip from '@cypress-design/vue-tooltip'
 
@@ -122,7 +122,8 @@ export default defineComponent({
         })
       }
       if (statKey === 'selfHealed') {
-        return h(IconGeneralSparkleSingleSmall, {
+        return h(IconGeneralSparkleSingle, {
+          size: '12',
           strokeColor: 'jade-400',
           fillColor: 'jade-50',
           'data-cy': 'status-icon-self-healed',

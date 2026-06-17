@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import StatusIcon from '@cypress-design/react-statusicon'
 import {
   IconStatusFlaky,
-  IconGeneralSparkleSingleSmall,
+  IconGeneralSparkleSingle,
 } from '@cypress-design/react-icon'
 import Tooltip from '@cypress-design/react-tooltip'
 import {
@@ -62,7 +62,8 @@ const Stat: React.FC<StatProps> = ({
     }
     if (statKey === 'selfHealed') {
       return (
-        <IconGeneralSparkleSingleSmall
+        <IconGeneralSparkleSingle
+          size="12"
           strokeColor="jade-400"
           fillColor="jade-50"
           data-cy="status-icon-self-healed"
@@ -93,7 +94,7 @@ const Stat: React.FC<StatProps> = ({
   let content: React.ReactNode
   if (isLinked && link) {
     if (renderLink) {
-      content = renderLink(link, inner) as React.ReactNode
+      content = renderLink(link, inner, linkClasses) as React.ReactNode
     } else {
       content = (
         <a
@@ -165,6 +166,7 @@ export const RunResults = React.forwardRef<
     renderLink,
     showTooltip = true,
     className,
+    bgClassName,
     ...rest
   },
   ref,
@@ -199,7 +201,16 @@ export const RunResults = React.forwardRef<
       data-cy="run-results"
       className={clsx(CssClasses.container, className)}
     >
-      <ul className={clsx(CssClasses.list, CssTheme[theme].list)}>
+      <ul
+        className={clsx(
+          CssClasses.list,
+          // bgClassName replaces the theme's default background so a consumer
+          // can blend the pill with a colored surface.
+          bgClassName
+            ? CssTheme[theme].list.replace(/\bbg-\S+/, bgClassName)
+            : CssTheme[theme].list,
+        )}
+      >
         {showFlaky && (
           <Stat
             statKey="flaky"
