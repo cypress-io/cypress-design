@@ -106,6 +106,7 @@ export default defineComponent({
     },
     showTooltip: { type: Boolean, default: true },
     className: { type: String, default: undefined },
+    bgClassName: { type: String, default: undefined },
   },
   setup(props, { attrs }) {
     function joinClasses(...parts: (string | false | undefined)[]): string {
@@ -151,8 +152,12 @@ export default defineComponent({
 
       let content: VNode
       if (link) {
+        const linkClasses = joinClasses(
+          CssClasses.link,
+          CssTheme[props.theme].link,
+        )
         if (props.renderLink) {
-          content = props.renderLink(link, inner) as VNode
+          content = props.renderLink(link, inner, linkClasses) as VNode
         } else {
           content = h(
             'a',
@@ -160,7 +165,7 @@ export default defineComponent({
               href: link,
               'aria-label': label,
               'data-cy': `link-${kebab}`,
-              class: joinClasses(CssClasses.link, CssTheme[props.theme].link),
+              class: linkClasses,
             },
             inner,
           )
@@ -307,7 +312,17 @@ export default defineComponent({
           h(
             'ul',
             {
-              class: joinClasses(CssClasses.list, CssTheme[props.theme].list),
+              class: joinClasses(
+                CssClasses.list,
+                // bgClassName replaces the theme's default background so a
+                // consumer can blend the pill with a colored surface.
+                props.bgClassName
+                  ? CssTheme[props.theme].list.replace(
+                      /\bbg-\S+/,
+                      props.bgClassName,
+                    )
+                  : CssTheme[props.theme].list,
+              ),
             },
             items,
           ),
