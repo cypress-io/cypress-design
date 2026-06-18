@@ -23,10 +23,13 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // The <ul> pill — the component's root element. `inline-flex` shrinks it to
-  // its content; `pointer-events-auto` re-enables clicks if a parent disabled
-  // them. Border is an `::after` overlay — see architecture.md ("Theme strategy").
-  list: "inline-flex items-center pointer-events-auto text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
+  // The root wrapper. `inline-flex` shrinks it to content; `pointer-events-auto`
+  // re-enables clicks if a parent disabled them. It will hold multiple stat
+  // lists in the future — today it wraps a single `<ul>`.
+  container: 'inline-flex pointer-events-auto',
+  // The <ul> pill. Border is an `::after` overlay — see architecture.md
+  // ("Theme strategy").
+  list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
   // Inner <a> wrapper for linked stats.
@@ -143,11 +146,13 @@ export interface RunResultsProps {
   renderLink?: (href: string, children: unknown, className?: string) => unknown
 
   showTooltip?: boolean
-  // Classes applied to the pill <ul> (the root element), merged with the
-  // component's own classes via `tailwind-merge` so a consumer can override
-  // conflicting utilities — e.g. `bg-gray-900` / `bg-transparent` to blend the
-  // pill into a colored surface — and win the Tailwind source-order conflict.
+  // Classes for the root wrapper element (appended via `clsx`, DS convention).
   className?: string
+  // Classes for the pill `<ul>`, merged with the component's own classes via
+  // `tailwind-merge` so a consumer can override conflicting utilities — e.g.
+  // `bg-gray-900` / `bg-transparent` to blend the pill into a colored surface —
+  // and win the Tailwind source-order conflict.
+  pillClassName?: string
 }
 
 // Null-safe count → numeric value for display & visibility logic.

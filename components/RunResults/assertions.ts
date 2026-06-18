@@ -362,8 +362,7 @@ export default function assertions(
         selfHealed: 2,
         showSelfHealed: true,
       })
-      // The root element is the <ul> itself (data-cy lives on it).
-      cy.get('ul[data-cy="run-results"]')
+      cy.get('[data-cy="run-results"] ul')
         .children()
         .each(($child) => {
           expect($child.prop('tagName')).to.eq('LI')
@@ -396,8 +395,7 @@ export default function assertions(
           flaky: '#flaky',
         },
       })
-      // The pill <ul> is the root element (data-cy lives on it).
-      cy.get('[data-cy="run-results"]')
+      cy.get('[data-cy="run-results"] ul')
         .should('have.class', 'bg-gray-1000')
         .and('have.class', 'text-gray-400')
         // Border is an ::after inset shadow, not a `border-*` class.
@@ -410,20 +408,20 @@ export default function assertions(
   })
 
   // ---------------------------------------------------------------------------
-  // Background override via className (tailwind-merge)
+  // Pill background override via pillClassName (tailwind-merge)
   // ---------------------------------------------------------------------------
 
-  describe('background override', () => {
-    it('a className bg-* wins over the theme bg and keeps the rest of the theme', () => {
+  describe('pill background override', () => {
+    it('a pillClassName bg-* wins over the theme bg and keeps the rest of the theme', () => {
       mountStory({
         passed: 22,
         failed: 4,
         skipped: 0,
         pending: 1,
         theme: 'dark',
-        className: 'bg-gray-900',
+        pillClassName: 'bg-gray-900',
       })
-      cy.get('[data-cy="run-results"]')
+      cy.get('[data-cy="run-results"] ul')
         // tailwind-merge drops the theme's bg-* in favor of the consumer's...
         .should('have.class', 'bg-gray-900')
         .and('not.have.class', 'bg-gray-1000')

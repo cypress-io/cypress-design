@@ -145,11 +145,11 @@ const Stat: React.FC<StatProps> = ({
   )
 }
 
-// `forwardRef` so a parent can attach a `ref` to the pill `<ul>` (the root).
+// `forwardRef` so a parent can attach a `ref` to the root wrapper `<div>`.
 export const RunResults = React.forwardRef<
-  HTMLUListElement,
+  HTMLDivElement,
   RunResultsProps &
-    Omit<React.HTMLAttributes<HTMLUListElement>, keyof RunResultsProps>
+    Omit<React.HTMLAttributes<HTMLDivElement>, keyof RunResultsProps>
 >(function RunResults(
   {
     passed,
@@ -165,6 +165,7 @@ export const RunResults = React.forwardRef<
     renderLink,
     showTooltip = true,
     className,
+    pillClassName,
     ...rest
   },
   ref,
@@ -189,10 +190,11 @@ export const RunResults = React.forwardRef<
   const showSelfHealedStat = !!showSelfHealed
 
   return (
-    // The pill <ul> is the root. `className` lands here, merged via
-    // `tailwind-merge` so a consumer override (e.g. `bg-gray-900`) wins the
-    // Tailwind source-order conflict against the theme's `bg-*`.
-    <ul
+    // The wrapper `<div>` is the root (it will hold multiple stat lists in the
+    // future). `className` lands here per DS convention. `pillClassName` lands
+    // on the `<ul>`, merged via `tailwind-merge` so a consumer override (e.g.
+    // `bg-gray-900`) wins the Tailwind source-order conflict against the theme.
+    <div
       ref={ref}
       {...rest}
       // `data-cy` is set AFTER `{...rest}` so a consumer passing their own
@@ -200,75 +202,83 @@ export const RunResults = React.forwardRef<
       // side and preserves the documented public test contract — see the
       // `[data-cy="run-results"]` row in instructions.md.
       data-cy="run-results"
-      className={twMerge(CssClasses.list, CssTheme[theme].list, className)}
+      className={clsx(CssClasses.container, className)}
     >
-      {showFlaky && (
-        <Stat
-          statKey="flaky"
-          count={statValue(flaky)}
-          link={links?.flaky}
-          renderLink={renderLink}
-          showTooltip={showTooltip}
-          theme={theme}
-          applySeparator={separatorAfterKey === 'flaky'}
-        />
-      )}
-      {showSelfHealedStat && (
-        <Stat
-          statKey="selfHealed"
-          count={statValue(selfHealed)}
-          link={links?.selfHealed}
-          renderLink={renderLink}
-          showTooltip={showTooltip}
-          theme={theme}
-          applySeparator={separatorAfterKey === 'selfHealed'}
-        />
-      )}
-      {showRegularStat(skipped, expanded) && (
-        <Stat
-          statKey="skipped"
-          count={statValue(skipped)}
-          link={links?.skipped}
-          renderLink={renderLink}
-          showTooltip={showTooltip}
-          theme={theme}
-          applySeparator={false}
-        />
-      )}
-      {showRegularStat(pending, expanded) && (
-        <Stat
-          statKey="pending"
-          count={statValue(pending)}
-          link={links?.pending}
-          renderLink={renderLink}
-          showTooltip={showTooltip}
-          theme={theme}
-          applySeparator={false}
-        />
-      )}
-      {showRegularStat(passed, expanded) && (
-        <Stat
-          statKey="passed"
-          count={statValue(passed)}
-          link={links?.passed}
-          renderLink={renderLink}
-          showTooltip={showTooltip}
-          theme={theme}
-          applySeparator={false}
-        />
-      )}
-      {showRegularStat(failed, expanded) && (
-        <Stat
-          statKey="failed"
-          count={statValue(failed)}
-          link={links?.failed}
-          renderLink={renderLink}
-          showTooltip={showTooltip}
-          theme={theme}
-          applySeparator={false}
-        />
-      )}
-    </ul>
+      <ul
+        className={twMerge(
+          CssClasses.list,
+          CssTheme[theme].list,
+          pillClassName,
+        )}
+      >
+        {showFlaky && (
+          <Stat
+            statKey="flaky"
+            count={statValue(flaky)}
+            link={links?.flaky}
+            renderLink={renderLink}
+            showTooltip={showTooltip}
+            theme={theme}
+            applySeparator={separatorAfterKey === 'flaky'}
+          />
+        )}
+        {showSelfHealedStat && (
+          <Stat
+            statKey="selfHealed"
+            count={statValue(selfHealed)}
+            link={links?.selfHealed}
+            renderLink={renderLink}
+            showTooltip={showTooltip}
+            theme={theme}
+            applySeparator={separatorAfterKey === 'selfHealed'}
+          />
+        )}
+        {showRegularStat(skipped, expanded) && (
+          <Stat
+            statKey="skipped"
+            count={statValue(skipped)}
+            link={links?.skipped}
+            renderLink={renderLink}
+            showTooltip={showTooltip}
+            theme={theme}
+            applySeparator={false}
+          />
+        )}
+        {showRegularStat(pending, expanded) && (
+          <Stat
+            statKey="pending"
+            count={statValue(pending)}
+            link={links?.pending}
+            renderLink={renderLink}
+            showTooltip={showTooltip}
+            theme={theme}
+            applySeparator={false}
+          />
+        )}
+        {showRegularStat(passed, expanded) && (
+          <Stat
+            statKey="passed"
+            count={statValue(passed)}
+            link={links?.passed}
+            renderLink={renderLink}
+            showTooltip={showTooltip}
+            theme={theme}
+            applySeparator={false}
+          />
+        )}
+        {showRegularStat(failed, expanded) && (
+          <Stat
+            statKey="failed"
+            count={statValue(failed)}
+            link={links?.failed}
+            renderLink={renderLink}
+            showTooltip={showTooltip}
+            theme={theme}
+            applySeparator={false}
+          />
+        )}
+      </ul>
+    </div>
   )
 })
 

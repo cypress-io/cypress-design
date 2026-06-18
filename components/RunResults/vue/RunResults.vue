@@ -66,7 +66,7 @@ import {
   statKeyToKebab,
   statValue,
 } from '@cypress-design/constants-runresults'
-import clsx, { type ClassValue } from 'clsx'
+import clsx from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 // Rendered via a render function rather than <template> because the
@@ -108,6 +108,7 @@ export default defineComponent({
     },
     showTooltip: { type: Boolean, default: true },
     className: { type: String, default: undefined },
+    pillClassName: { type: String, default: undefined },
   },
   setup(props, { attrs }) {
     function joinClasses(...parts: (string | false | undefined)[]): string {
@@ -297,26 +298,34 @@ export default defineComponent({
         )
       }
 
-      // The pill <ul> is the root. `className` and fallthrough `attrs.class`
-      // are merged via `tailwind-merge` (clsx first normalizes a string/array/
-      // object `attrs.class`) so a consumer override (e.g. `bg-gray-900`) wins
-      // the Tailwind source-order conflict against the theme's `bg-*`.
-      const { class: attrsClass, ...restAttrs } = attrs
+      // The wrapper <div> is the root (it will hold multiple stat lists in the
+      // future). `className` + fallthrough `attrs.class` land here. `pillClassName`
+      // lands on the <ul>, merged via `tailwind-merge` so a consumer override
+      // (e.g. `bg-gray-900`) wins the Tailwind source-order conflict.
       return h(
-        'ul',
+        'div',
         {
-          ...restAttrs,
+          ...attrs,
           'data-cy': 'run-results',
-          class: twMerge(
-            clsx(
-              CssClasses.list,
-              CssTheme[props.theme].list,
-              props.className,
-              attrsClass as ClassValue,
-            ),
-          ),
+          // Array form lets Vue normalize a string/array/object fallthrough
+          // `attrs.class` without manual flattening.
+          class: [CssClasses.container, props.className, attrs.class],
         },
-        items,
+        [
+          h(
+            'ul',
+            {
+              class: twMerge(
+                clsx(
+                  CssClasses.list,
+                  CssTheme[props.theme].list,
+                  props.pillClassName,
+                ),
+              ),
+            },
+            items,
+          ),
+        ],
       )
     }
   },

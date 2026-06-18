@@ -29,7 +29,8 @@ A single package per framework — types and class constants are bundled in (the
 | `links`          | `Partial<Record<StatKey, string>>`                                 | —         | Per-stat pre-built URLs. Caller is responsible for URL construction (no router in the DS).                                                                                                                                                                                                                                                                                                                                                                    |
 | `renderLink`     | `(href: string, children: unknown, className?: string) => unknown` | —         | Custom link renderer. Same signature in both frameworks; `children` is the framework's native rendered icon + count (a JSX element in React, an **array** of `VNode`s in Vue), typed as `unknown` because the two shapes differ — narrow it inside your callback if you need typed access. `className` is the component's computed link styling — apply it to your link so it matches the default `<a>`. Falls back to a native `<a href>` when not provided. |
 | `showTooltip`    | `boolean`                                                          | `true`    | When `true`, wraps each stat in a Tooltip describing the stat.                                                                                                                                                                                                                                                                                                                                                                                                |
-| `className`      | `string`                                                           | —         | Classes for the pill `<ul>` (the root element), merged via `tailwind-merge`. A conflicting utility **overrides** the DS default — e.g. `"bg-gray-900"` / `"bg-transparent"` wins over the theme background — while non-conflicting classes are added.                                                                                                                                                                                                         |
+| `className`      | `string`                                                           | —         | Classes for the **root wrapper** element, appended via `clsx` (DS convention). Does not override DS classes.                                                                                                                                                                                                                                                                                                                                                  |
+| `pillClassName`  | `string`                                                           | —         | Classes for the **pill `<ul>`**, merged via `tailwind-merge`. A conflicting utility **overrides** the DS default — e.g. `"bg-gray-900"` / `"bg-transparent"` wins over the theme background — while non-conflicting classes are added.                                                                                                                                                                                                                        |
 
 `StatKey` is `"passed" | "failed" | "skipped" | "pending" | "flaky" | "selfHealed"` (camelCase, matching `StatusIcon`'s multi-word keys like `noTests`, `timedOut`). `data-cy` attributes use the kebab-case form (`total-self-healed`, `status-icon-self-healed`) — that's a DOM-attribute convention, not the API.
 
@@ -74,7 +75,7 @@ When no stats render — all four regular counts are zero/null, `expanded=false`
 ## Themes
 
 - `light` — gray-bordered pill, gray text, subtle gray hover background for linked stats.
-- `dark` — darker border, lighter text, dark hover background, darker separator. Override the pill background with `className` (e.g. `"bg-gray-900"`) to blend into a colored surface — `tailwind-merge` makes it win over the theme default.
+- `dark` — darker border, lighter text, dark hover background, darker separator. Override the pill background with `pillClassName` (e.g. `"bg-gray-900"`) to blend into a colored surface — `tailwind-merge` makes it win over the theme default.
 
 Both themes use explicit Tailwind colors mapped from the design tokens. The component does **not** read the parent `dark` class — set `theme` explicitly.
 
@@ -139,7 +140,7 @@ When `showTooltip` is `true` (default), each stat is wrapped in a Tooltip.
 
 ## Accessibility
 
-- The root element is `<ul data-cy="run-results">`, a semantic list of `<li>` stats (no wrapper `<div>`).
+- The root is `<div data-cy="run-results">` (the wrapper); inside it is a semantic `<ul>` of `<li>` stats.
 - Linked stats render an `<a>` with `aria-label="View {status} tests"`. Unlinked stats use plain text with no extraneous role.
 - Focus styling uses `outline` (not `border`) on the `<a>` to avoid layout shift between focus states.
 - Tooltips are wired through the internal Tooltip component, which uses Floating UI's focus/pointer detection — keyboard focus on a linked stat reveals the tooltip.
