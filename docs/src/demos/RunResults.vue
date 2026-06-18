@@ -73,20 +73,48 @@ import RunResults from '@cypress-design/vue-runresults'
 
     <section class="bg-gray-900 p-4 rounded">
       <h3 class="text-sm font-medium text-gray-300 mb-2">Dark theme</h3>
-      <RunResults
-        :passed="22"
-        :failed="4"
-        :skipped="0"
-        :pending="1"
-        :flaky="3"
-        :links="{
-          passed: '#passed',
-          failed: '#failed',
-          pending: '#pending',
-          flaky: '#flaky',
-        }"
-        theme="dark"
-      />
+      <div class="flex flex-col gap-3">
+        <div>
+          <p class="text-xs text-gray-400 mb-1">
+            Default background (<code>bg-gray-1000</code>)
+          </p>
+          <RunResults
+            :passed="22"
+            :failed="4"
+            :skipped="0"
+            :pending="1"
+            :flaky="3"
+            :links="{
+              passed: '#passed',
+              failed: '#failed',
+              pending: '#pending',
+              flaky: '#flaky',
+            }"
+            theme="dark"
+          />
+        </div>
+        <div>
+          <p class="text-xs text-gray-400 mb-1">
+            Blended into the <code>gray-900</code> surface via
+            <code>pill-class-name="bg-gray-900"</code>
+          </p>
+          <RunResults
+            :passed="22"
+            :failed="4"
+            :skipped="0"
+            :pending="1"
+            :flaky="3"
+            :links="{
+              passed: '#passed',
+              failed: '#failed',
+              pending: '#pending',
+              flaky: '#flaky',
+            }"
+            theme="dark"
+            pill-class-name="bg-gray-900"
+          />
+        </div>
+      </div>
     </section>
   </div>
 </template>
