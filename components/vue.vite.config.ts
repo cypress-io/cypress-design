@@ -1,34 +1,52 @@
-import type { LibraryOptions } from 'vite'
+import type { LibraryOptions, PluginOption } from 'vite'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { Plugin as TailwindKeepRollupPlugin } from '@cypress-design/rollup-plugin-tailwind-keep'
 
-// Derive a UMD global name for an externalized @cypress-design package, e.g.
-// '@cypress-design/constants-runresults' -> 'CyConstantsRunresults'.
-const umdGlobal = (name: string) =>
-  'Cy' +
-  name
-    .replace('@cypress-design/', '')
-    .replace(/(^|-)(\w)/g, (_m, _d, c) => c.toUpperCase())
-
-// Base externals shared by every vue component build.
-const baseGlobals: Record<string, string> = {
+// UMD global names for externalized deps. Each MUST match that package's own
+// `build.lib.name` (vite) / rollup `output.name` — they are not derivable from
+// the package name (e.g. `@cypress-design/vue-statusicon` -> `StatusIcon`). Only
+// the browser-global UMD build reads these; bundler/Node consumers resolve via
+// the package specifier. Add an entry here when externalizing a new dep.
+const UMD_GLOBALS: Record<string, string> = {
   vue: 'Vue',
-  '@cypress-design/icon-registry': 'CyIconRegistry',
-  '@cypress-design/vue-icon': 'CyIcon',
+  '@cypress-design/icon-registry': 'CypressIconRegistry',
   '@cypress-design/details-animation': 'CyDetailsAnimation',
+  '@cypress-design/vue-icon': 'Icon',
+  '@cypress-design/vue-statusicon': 'StatusIcon',
+  '@cypress-design/vue-tooltip': 'Tooltip',
 }
 
+// Externals shared by every vue component build.
+const baseExternal = [
+  'vue',
+  '@cypress-design/icon-registry',
+  '@cypress-design/vue-icon',
+  '@cypress-design/details-animation',
+]
+
 // `extraExternal` lets a component externalize additional workspace deps it
-// imports (e.g. its constants-* and sibling vue-* packages) so they are NOT
-// bundled into its dist — fixing "failed to resolve import" at build time and
-// ensuring those deps (notably constants-*) are picked up at runtime rather
-// than frozen as an inlined copy.
-export default (libConfig: LibraryOptions, extraExternal: string[] = []) => {
-  const globals: Record<string, string> = {
-    ...baseGlobals,
-    ...Object.fromEntries(extraExternal.map((name) => [name, umdGlobal(name)])),
-  }
+// imports (e.g. sibling vue-* packages) so they are not bundled into its dist.
+// `extraPlugins` lets a component add build plugins (e.g. vite-plugin-dts for
+// self-contained, inlined `.d.ts` output).
+export default (
+  libConfig: LibraryOptions,
+  extraExternal: string[] = [],
+  extraPlugins: PluginOption[] = [],
+) => {
+  const external = [...baseExternal, ...extraExternal]
+  const globals = Object.fromEntries(
+    external.map((name) => {
+      const global = UMD_GLOBALS[name]
+      if (!global) {
+        throw new Error(
+          `vue.vite.config: no UMD global mapped for externalized "${name}". ` +
+            `Add it to UMD_GLOBALS using the package's build.lib.name.`,
+        )
+      }
+      return [name, global]
+    }),
+  )
 
   return defineConfig({
     build: {
@@ -39,12 +57,12 @@ export default (libConfig: LibraryOptions, extraExternal: string[] = []) => {
         ...libConfig,
       },
       rollupOptions: {
-        external: Object.keys(globals),
+        external,
         output: {
           globals,
         },
       },
     },
-    plugins: [TailwindKeepRollupPlugin(), vue()],
+    plugins: [TailwindKeepRollupPlugin(), vue(), ...extraPlugins],
   })
 }

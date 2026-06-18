@@ -25,14 +25,8 @@ export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 export const CssClasses = {
   // Outer wrapper. `inline-flex` so the component shrinks to content width.
   container: 'inline-flex pointer-events-auto',
-  // The <ul> pill itself. Theme provides the border color and text colors via
-  // CssTheme. The 1px border is drawn as an absolutely-positioned `::after`
-  // overlay (the inset box-shadow lives in CssTheme): it adds nothing to the
-  // 24px height, renders even where Tailwind preflight is disabled, and — being
-  // the last-painted positioned child — is drawn ABOVE the stats, so a stat's
-  // hover background can't cover it (a plain border / inset shadow / inset
-  // outline on the <ul> all get covered because the links fill the box).
-  // `pointer-events-none` keeps the overlay from intercepting link clicks.
+  // The <ul> pill. Border is an `::after` overlay — see architecture.md
+  // ("Theme strategy").
   list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
@@ -40,16 +34,9 @@ export const CssClasses = {
   link: 'flex items-center h-full w-full px-[6px] no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
   // Inner <span> wrapper for unlinked stats.
   unlinked: 'flex items-center h-full w-full px-[6px]',
-  // Icon margin matches source `svg { margin: 0 4px }`.
   icon: 'mx-[4px]',
-  // Flaky icon override — drop the yellow background rect (first path in the
-  // SVG). Matches the source SCSS's `.flakyIcon svg path:first-child { fill:
-  // transparent !important }`. Scoped to this component; the shared
-  // IconStatusFlaky is unchanged.
+  // Flaky icon: hide the yellow background rect — see architecture.md.
   iconFlaky: 'mx-[4px] [&_path:first-child]:fill-transparent',
-  // Self-healed icon margin — matches the other stat icons. Uses the native
-  // 12px `general-sparkle-single` (x12) icon, so no `w-3 h-3` size override is
-  // needed.
   iconSelfHealed: 'mx-[4px]',
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
@@ -70,6 +57,21 @@ export const CssTheme = {
 } as const
 
 export type RunResultsTheme = keyof typeof CssTheme
+
+// The pill <ul>'s themed classes, with the background optionally overridden.
+// `bgClassName` replaces the theme's single `bg-*` token so the override always
+// wins (no Tailwind source-order conflict); a theme with no `bg-*` falls back to
+// appending. Shared by the React and Vue components.
+export function listClasses(
+  theme: RunResultsTheme,
+  bgClassName?: string,
+): string {
+  const base = CssTheme[theme].list
+  if (!bgClassName) return base
+  return /\bbg-\S+/.test(base)
+    ? base.replace(/\bbg-\S+/, bgClassName)
+    : `${base} ${bgClassName}`
+}
 
 // Tooltip color contrasts with the surface the pill sits on.
 export const TooltipColorForTheme: Record<RunResultsTheme, 'light' | 'dark'> = {

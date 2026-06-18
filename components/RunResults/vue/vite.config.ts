@@ -1,4 +1,5 @@
 import * as path from 'path'
+import dts from 'vite-plugin-dts'
 import generateViteConfig from '../../vue.vite.config'
 
 export default generateViteConfig(
@@ -6,13 +7,20 @@ export default generateViteConfig(
     entry: path.resolve(__dirname, './index.ts'),
     name: 'RunResults',
   },
-  // Externalize the workspace deps this component imports so they aren't
-  // bundled (fixes "failed to resolve @cypress-design/constants-runresults"),
-  // and so constants-runresults is consumed at runtime — picking up the latest
-  // styles instead of an inlined/frozen copy.
+  // Externalize sibling vue-* packages (separately published). constants-* is
+  // intentionally NOT listed — it's a private package bundled into this dist.
+  ['@cypress-design/vue-statusicon', '@cypress-design/vue-tooltip'],
+  // Emit a single self-contained `dist/index.d.ts`. `rollupTypes` runs
+  // api-extractor; `bundledPackages` inlines the private constants package's
+  // public types (StatKey, RunResultsTheme, RunResultsProps) so consumers —
+  // who don't install it — get working types. Sibling vue-* packages stay
+  // external (kept as `import ... from '<pkg>'`) since consumers install them.
   [
-    '@cypress-design/constants-runresults',
-    '@cypress-design/vue-statusicon',
-    '@cypress-design/vue-tooltip',
+    dts({
+      tsconfigPath: path.resolve(__dirname, './tsconfig.build.json'),
+      include: ['./*.vue', './index.ts'],
+      rollupTypes: true,
+      bundledPackages: ['@cypress-design/constants-runresults'],
+    }),
   ],
 )

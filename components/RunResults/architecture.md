@@ -90,17 +90,18 @@ The separator must **also** be suppressed when no regular stats render (all four
 
 ## Status → icon mapping
 
-| Status                                      | Icon                                               | Comes from                                                            |
-| ------------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- |
-| `passed` / `failed` / `skipped` / `pending` | `StatusIcon` with a matching `status` prop         | `@cypress-design/react-statusicon` + `@cypress-design/vue-statusicon` |
-| `flaky`                                     | `IconStatusFlaky`                                  | `@cypress-design/react-icon` + `@cypress-design/vue-icon`             |
-| `selfHealed`                                | `IconGeneralSparkleSingleSmall` (jade stroke/fill) | same as flaky                                                         |
+| Status                                      | Icon                                                        | Comes from                                                            |
+| ------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------------------- |
+| `passed` / `failed` / `skipped` / `pending` | `StatusIcon` with a matching `status` prop                  | `@cypress-design/react-statusicon` + `@cypress-design/vue-statusicon` |
+| `flaky`                                     | `IconStatusFlaky`                                           | `@cypress-design/react-icon` + `@cypress-design/vue-icon`             |
+| `selfHealed`                                | `IconGeneralSparkleSingle` — native 12px (jade stroke/fill) | same as flaky                                                         |
 
 See `renderIcon` in `vue/RunResults.vue` and the `icon` factory inside `Stat` in `react/RunResults.tsx` for the actual wiring (icon names → component, fixed `size="12"`, the flaky-yellow-bg workaround via the `iconFlaky` class).
 
 ## Constants keying
 
-- **`CssClasses`** — flat object of static classes for: `container` (the pill `<div>`), `list` (the `<ul>`), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `icon` (default icon margin), `iconFlaky` (flaky icon override that drops the yellow background rect), `iconSelfHealed` (self-healed icon override that pins the rendered size to 12px), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`). The count text `<span>` has no dedicated class — it's a bare `<span>` inside the link / unlinked wrapper.
+- **`CssClasses`** — flat object of static classes for: `container` (the pill `<div>`), `list` (the `<ul>`), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `icon` (default icon margin), `iconFlaky` (flaky icon override that drops the yellow background rect — `path:first-child` fill transparent), `iconSelfHealed` (self-healed icon margin; the native 12px icon needs no size override), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`). The count text `<span>` has no dedicated class — it's a bare `<span>` inside the link / unlinked wrapper.
+- **`listClasses(theme, bgClassName?)`** — returns `CssTheme[theme].list` with the single `bg-*` token swapped for `bgClassName` when provided (a theme with no `bg-*` falls back to appending). Shared by both frameworks so the background-override logic lives in one place. See "Theme strategy".
 - **`CssTheme`** — keyed by `'light' | 'dark'`, with each entry further sub-keyed by element role:
 
   - `list` — border + base text colors, applied to the `<ul>`
@@ -114,6 +115,17 @@ Types are derived from constants with `keyof typeof`:
 - `type RunResultsTheme = keyof typeof CssTheme`
 
 Icon size is a fixed `'12'` for all icons — no constant, no prop.
+
+## Packaging — one published package per framework
+
+`@cypress-design/constants-runresults` is **private** (`"private": true`) and exists only to share class strings, types, and pure helpers between the React and Vue builds. It is **not** published. Consumers install a single package — `@cypress-design/react-runresults` or `@cypress-design/vue-runresults` — and never see the constants package.
+
+To make that work, the constants are bundled into each component's dist:
+
+- **JS** — the constants are listed in each component's `devDependencies` (not `dependencies`), so they are not externalized: React's rollup externalizes only `Object.keys(pkg.dependencies)`, and the Vue config omits constants from `extraExternal`. The bundler inlines the constants' JS.
+- **Types** — re-exporting types `from '@cypress-design/constants-runresults'` would leak that specifier into the published `dist/index.d.ts`, pointing consumers at a package they don't install. So each package emits a **self-contained** declaration: React via `rollup-plugin-dts`, Vue via `vite-plugin-dts` (rollup types). The constants types are inlined; the real runtime deps (`react`, `clsx`, sibling `@cypress-design/*`) stay referenced by package name. Verify after a build: `dist/index.d.ts` must contain no `constants-runresults` references.
+
+The sibling `vue-statusicon` / `vue-tooltip` (and the React equivalents) stay externalized — they are separately published packages with their own consumers.
 
 ## Tooltip integration
 
@@ -154,16 +166,26 @@ The cypress-services source's `darkTheme` boolean only adjusts the separator col
 1. The pill is meant to live on dark surfaces, where the default light gray-100 border becomes invisible.
 2. The repo convention is `theme: 'light' | 'dark'` (see Textbox, Tag, TestResult — to be cross-checked in Stage 2).
 
-Approach: a single `CssTheme[theme]` lookup applied to the container. No `dark:` modifier classes; the parent's `dark` class is **not** consulted. This matches Textbox's strategy and is consistent with the "explicit theme prop" decision recorded in `implement-component.md`.
+Approach: a single `CssTheme[theme]` lookup. No `dark:` modifier classes; the parent's `dark` class is **not** consulted. This matches Textbox's strategy and is consistent with the "explicit theme prop" decision recorded in `implement-component.md`.
 
-Cross-check the exact color values against an existing dark-themed component (TestResult is the closest peer) before committing them in Stage 2. Document the chosen values in `CssTheme` with a one-line comment if any token feels non-obvious.
+### Border is an `::after` overlay, not a real border
+
+The 1px pill border is drawn as an absolutely-positioned `::after` overlay (an inset box-shadow on the pseudo-element, color from `CssTheme[theme].list`), not a `border`/`outline`/inset-shadow on the `<ul>` itself. Three reasons:
+
+1. **Height.** A real `border` adds 2px to the box, regressing the pill from 24px to 26px. The overlay adds nothing to layout.
+2. **Visible on hover.** Linked stats fill the box and paint their hover background over the `<ul>`'s own background/border. A border, inset shadow, or inset outline on the `<ul>` all get covered. The `::after` is the last-painted positioned child, so it draws _above_ the stats and stays visible. `after:pointer-events-none` keeps it from intercepting link clicks.
+3. **Preflight-independent.** Renders correctly even where a consumer disables Tailwind preflight (e.g. cypress-services).
+
+### Background override (`bgClassName`)
+
+Consumers can override only the pill background (e.g. to blend into a colored surface) via `bgClassName`. It is applied through `listClasses()`, which **replaces** the theme's `bg-*` token rather than appending a second one — appending would leave two `background-color` utilities on the `<ul>`, and which wins is decided by Tailwind's source order, not the class-attribute order, so the override could silently lose. We deliberately did **not** route the consumer `className` to the `<ul>` (it appends to the _root_ per DS convention — see Button/Textbox) and did **not** pull in `tailwind-merge` for a single-property need.
 
 ## State handling
 
-CSS pseudo-classes only. No JS state. Hover and focus styling are expressed inside the link class string in `CssClasses.link`:
+CSS pseudo-classes only. No JS state. Focus styling lives in `CssClasses.link`; the theme-dependent hover background/text lives in `CssTheme[theme].link` (no `dark:` modifiers — see Theme strategy):
 
-- `hover:bg-indigo-100` (light) / `dark:hover:bg-gray-800` (dark)
-- `focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0`
+- hover background: `hover:bg-gray-50` (light) / `hover:bg-gray-900` (dark), with `hover:no-underline` and theme-matched `hover:text-*`
+- `focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0`
 
 The `<li>` itself does not get hover styling — only the `<a>` does. This matches the source: an unlinked stat shouldn't change appearance on hover.
 
@@ -171,7 +193,7 @@ The `<li>` itself does not get hover styling — only the `<a>` does. This match
 
 Three-way decision per stat: no href → `<span>`; href + `renderLink` callback → caller-provided element (caller wraps in their router's link); href, no `renderLink` → native `<a href>`. See the `Stat` helper in `react/RunResults.tsx` and `renderStat` in `vue/RunResults.vue` for the actual implementation.
 
-`renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: unknown) => unknown`. `children` is typed `unknown` because the two frameworks pass different shapes: in React it's a JSX element (the icon + count fragment), in Vue it's an **array** of `VNode`s. Consumers wrap whatever they receive in their framework's router link; the array form is fine to pass straight into a Vue router-link as its default slot content.
+`renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: unknown, className?: string) => unknown`. `children` is typed `unknown` because the two frameworks pass different shapes: in React it's a JSX element (the icon + count fragment), in Vue it's an **array** of `VNode`s. `className` is the component's computed link styling (gray text, `px-[6px]`, no-underline, hover/focus) — the caller applies it to their router link so it matches the default `<a>`. Consumers wrap whatever they receive in their framework's router link; the array form is fine to pass straight into a Vue router-link as its default slot content.
 
 The `aria-label` and `data-cy="link-{status}"` end up on the rendered element. The native `<a>` path applies both; the `renderLink` path delegates that responsibility to the caller (noted in `instructions.md`).
 

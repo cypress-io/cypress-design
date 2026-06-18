@@ -15,17 +15,16 @@
     }
   },
   "scripts": {
-    "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn exec vite build",
-    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
+    "build": "yarn build:module",
+    "build:module": "yarn exec vite build"
   },
   "dependencies": {
-    "@cypress-design/constants-runresults": "*",
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-statusicon": "*",
     "@cypress-design/vue-tooltip": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-runresults": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

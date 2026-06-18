@@ -17,16 +17,16 @@
   "scripts": {
     "build": "yarn build:module && yarn build:types",
     "build:module": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
   },
   "dependencies": {
-    "@cypress-design/constants-runresults": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-statusicon": "*",
     "@cypress-design/react-tooltip": "*",
     "clsx": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-runresults": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

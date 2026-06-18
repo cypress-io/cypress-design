@@ -62,6 +62,7 @@ import {
   getTooltipPlacement,
   getFlakyTooltipText,
   hasAnyStat,
+  listClasses,
   showRegularStat,
   statKeyToKebab,
   statValue,
@@ -314,14 +315,7 @@ export default defineComponent({
             {
               class: joinClasses(
                 CssClasses.list,
-                // bgClassName replaces the theme's default background so a
-                // consumer can blend the pill with a colored surface.
-                props.bgClassName
-                  ? CssTheme[props.theme].list.replace(
-                      /\bbg-\S+/,
-                      props.bgClassName,
-                    )
-                  : CssTheme[props.theme].list,
+                listClasses(props.theme, props.bgClassName),
               ),
             },
             items,

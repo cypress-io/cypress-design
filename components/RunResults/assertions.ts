@@ -398,8 +398,52 @@ export default function assertions(
       cy.get('[data-cy="run-results"] ul')
         .should('have.class', 'bg-gray-1000')
         .and('have.class', 'text-gray-400')
-        .and('have.class', 'border-gray-800')
+        // Border is an ::after inset shadow, not a `border-*` class.
+        .and(
+          'have.class',
+          'after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+        )
       cy.percySnapshot(`RunResults dark theme - ${fw}`)
+    })
+  })
+
+  // ---------------------------------------------------------------------------
+  // Background override (bgClassName)
+  // ---------------------------------------------------------------------------
+
+  describe('background override', () => {
+    it('swaps the theme background and keeps the other theme classes', () => {
+      mountStory({
+        passed: 22,
+        failed: 4,
+        skipped: 0,
+        pending: 1,
+        theme: 'dark',
+        bgClassName: 'bg-gray-900',
+      })
+      cy.get('[data-cy="run-results"] ul')
+        // bgClassName replaces the single theme bg-* token...
+        .should('have.class', 'bg-gray-900')
+        .and('not.have.class', 'bg-gray-1000')
+        // ...without stripping the rest of the theme.
+        .and('have.class', 'text-gray-400')
+        .and(
+          'have.class',
+          'after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+        )
+    })
+  })
+
+  // ---------------------------------------------------------------------------
+  // Self-healed icon size
+  // ---------------------------------------------------------------------------
+
+  describe('self-healed icon', () => {
+    it('renders the native 12px icon (no w-3 h-3 size override)', () => {
+      mountStory({ passed: 1, showSelfHealed: true, selfHealed: 2 })
+      cy.get('[data-cy="status-icon-self-healed"]')
+        .should('have.attr', 'width', '12')
+        .and('have.attr', 'height', '12')
     })
   })
 }

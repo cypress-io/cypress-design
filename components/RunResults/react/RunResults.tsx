@@ -20,6 +20,7 @@ import {
   getTooltipPlacement,
   getFlakyTooltipText,
   hasAnyStat,
+  listClasses,
   showRegularStat,
   statKeyToKebab,
   statValue,
@@ -201,16 +202,7 @@ export const RunResults = React.forwardRef<
       data-cy="run-results"
       className={clsx(CssClasses.container, className)}
     >
-      <ul
-        className={clsx(
-          CssClasses.list,
-          // bgClassName replaces the theme's default background so a consumer
-          // can blend the pill with a colored surface.
-          bgClassName
-            ? CssTheme[theme].list.replace(/\bbg-\S+/, bgClassName)
-            : CssTheme[theme].list,
-        )}
-      >
+      <ul className={clsx(CssClasses.list, listClasses(theme, bgClassName))}>
         {showFlaky && (
           <Stat
             statKey="flaky"
