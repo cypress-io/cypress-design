@@ -1725,7 +1725,7 @@ __metadata:
     "@cypress-design/react-tooltip": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
-    tailwind-merge: "npm:*"
+    tailwind-merge: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
 
@@ -1915,8 +1915,7 @@ __metadata:
     "@cypress-design/vue-icon": "npm:*"
     "@cypress-design/vue-statusicon": "npm:*"
     "@cypress-design/vue-tooltip": "npm:*"
-    clsx: "npm:*"
-    tailwind-merge: "npm:*"
+    tailwind-merge: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
 
@@ -16562,10 +16561,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tailwind-merge@npm:*":
-  version: 3.6.0
-  resolution: "tailwind-merge@npm:3.6.0"
-  checksum: 10c0/a728d929f4786bcb48641db4228cc8c006a7545491783a658fb4d24d177dab960620991d17805a047309228de50ab949ca8d9e112c30183da0432367796ae186
+"tailwind-merge@npm:^2.0.0":
+  version: 2.6.1
+  resolution: "tailwind-merge@npm:2.6.1"
+  checksum: 10c0/f9b5d7ba37f6c6dc7bb7a090f08252e8d827b5abfc1031bf468c5274ce104409e7952a0075a3e009aab53adda8c6d133bc1dd9d3427e2ae5bc00306f9ce1fbff
   languageName: node
   linkType: hard
 

@@ -13,7 +13,6 @@ export default generateViteConfig(
   [
     '@cypress-design/vue-statusicon',
     '@cypress-design/vue-tooltip',
-    'clsx',
     'tailwind-merge',
   ],
   // Emit a single self-contained `dist/index.d.ts`. `rollupTypes` runs

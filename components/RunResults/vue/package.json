@@ -22,8 +22,7 @@
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-statusicon": "*",
     "@cypress-design/vue-tooltip": "*",
-    "clsx": "*",
-    "tailwind-merge": "*"
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@cypress-design/constants-runresults": "*",

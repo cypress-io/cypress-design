@@ -446,4 +446,29 @@ export default function assertions(
         .and('have.attr', 'height', '12')
     })
   })
+
+  // ---------------------------------------------------------------------------
+  // Class targeting — className → wrapper, pillClassName → <ul>
+  // ---------------------------------------------------------------------------
+
+  describe('class targeting', () => {
+    it('className lands on the root wrapper, pillClassName on the <ul>', () => {
+      mountStory({
+        passed: 22,
+        failed: 4,
+        skipped: 0,
+        pending: 1,
+        className: 'mb-2',
+        pillClassName: 'mt-1',
+      })
+      // className applies to the wrapper (which carries data-cy), not the pill.
+      cy.get('[data-cy="run-results"]')
+        .should('have.class', 'mb-2')
+        .and('not.have.class', 'mt-1')
+      // pillClassName applies to the <ul>, not the wrapper.
+      cy.get('[data-cy="run-results"] ul')
+        .should('have.class', 'mt-1')
+        .and('not.have.class', 'mb-2')
+    })
+  })
 }

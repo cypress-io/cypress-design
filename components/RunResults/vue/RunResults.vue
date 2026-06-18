@@ -66,7 +66,6 @@ import {
   statKeyToKebab,
   statValue,
 } from '@cypress-design/constants-runresults'
-import clsx from 'clsx'
 import { twMerge } from 'tailwind-merge'
 
 // Rendered via a render function rather than <template> because the
@@ -316,11 +315,9 @@ export default defineComponent({
             'ul',
             {
               class: twMerge(
-                clsx(
-                  CssClasses.list,
-                  CssTheme[props.theme].list,
-                  props.pillClassName,
-                ),
+                CssClasses.list,
+                CssTheme[props.theme].list,
+                props.pillClassName,
               ),
             },
             items,

@@ -24,7 +24,7 @@
     "@cypress-design/react-statusicon": "*",
     "@cypress-design/react-tooltip": "*",
     "clsx": "*",
-    "tailwind-merge": "*"
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@cypress-design/constants-runresults": "*",
