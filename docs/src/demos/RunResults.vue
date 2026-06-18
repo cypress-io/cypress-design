@@ -75,9 +75,9 @@ import RunResults from '@cypress-design/vue-runresults'
       <h3 class="text-sm font-medium text-gray-300 mb-2">Dark theme</h3>
       <div class="flex flex-col gap-3">
         <div>
-          <p class="text-xs text-gray-400 mb-1">
-            Default background (<code>bg-gray-1000</code>)
-          </p>
+          <h4 class="text-xs font-medium text-gray-400 mb-1">
+            Default background
+          </h4>
           <RunResults
             :passed="22"
             :failed="4"
@@ -94,10 +94,9 @@ import RunResults from '@cypress-design/vue-runresults'
           />
         </div>
         <div>
-          <p class="text-xs text-gray-400 mb-1">
-            Blended into the <code>gray-900</code> surface via
-            <code>pill-class-name="bg-gray-900"</code>
-          </p>
+          <h4 class="text-xs font-medium text-gray-400 mb-1">
+            Custom background
+          </h4>
           <RunResults
             :passed="22"
             :failed="4"
