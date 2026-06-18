@@ -10,6 +10,8 @@ import { Plugin as TailwindKeepRollupPlugin } from '@cypress-design/rollup-plugi
 // the package specifier. Add an entry here when externalizing a new dep.
 const UMD_GLOBALS: Record<string, string> = {
   vue: 'Vue',
+  clsx: 'clsx',
+  'tailwind-merge': 'tailwindMerge',
   '@cypress-design/icon-registry': 'CypressIconRegistry',
   '@cypress-design/details-animation': 'CyDetailsAnimation',
   '@cypress-design/vue-icon': 'Icon',

@@ -37,19 +37,21 @@ The cypress-services source has a sibling `FlakyBadge` React component. We don't
 Simplified render tree (React; Vue mirrors this):
 
 ```
-<div data-cy="run-results">           (outer pill: border, rounded, flex)
-  <ul>                              (list-none, flex, items-center)
-    {/* Leading stats (independent, each optional) */}
-    {flaky > 0 && <Stat status="flaky" />}
-    {showSelfHealed && <Stat status="selfHealed" />}
-    {/* Regular stats */}
-    {(expanded || skipped > 0) && <Stat status="skipped" />}
-    {(expanded || pending > 0) && <Stat status="pending" />}
-    {(expanded || passed > 0) && <Stat status="passed" />}
-    {(expanded || failed > 0) && <Stat status="failed" />}
-  </ul>
-</div>
+<ul data-cy="run-results">          (the pill: inline-flex, items-center, rounded, ::after border)
+  {/* Leading stats (independent, each optional) */}
+  {flaky > 0 && <Stat status="flaky" />}
+  {showSelfHealed && <Stat status="selfHealed" />}
+  {/* Regular stats */}
+  {(expanded || skipped > 0) && <Stat status="skipped" />}
+  {(expanded || pending > 0) && <Stat status="pending" />}
+  {(expanded || passed > 0) && <Stat status="passed" />}
+  {(expanded || failed > 0) && <Stat status="failed" />}
+</ul>
 ```
+
+The `<ul>` is the root element — there's no wrapper `<div>`. `ref`, fallthrough
+attributes, and `className` all land on it (the original wrapper became
+vestigial once the border moved to the `<ul>`'s `::after` overlay).
 
 Flaky and self-healed are conceptually independent — not a unit. They render in fixed left-to-right order when both are present, but neither implies the other.
 
@@ -100,8 +102,7 @@ See `renderIcon` in `vue/RunResults.vue` and the `icon` factory inside `Stat` in
 
 ## Constants keying
 
-- **`CssClasses`** — flat object of static classes for: `container` (the pill `<div>`), `list` (the `<ul>`), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `icon` (default icon margin), `iconFlaky` (flaky icon override that drops the yellow background rect — `path:first-child` fill transparent), `iconSelfHealed` (self-healed icon margin; the native 12px icon needs no size override), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`). The count text `<span>` has no dedicated class — it's a bare `<span>` inside the link / unlinked wrapper.
-- **`listClasses(theme, bgClassName?)`** — returns `CssTheme[theme].list` with the single `bg-*` token swapped for `bgClassName` when provided (a theme with no `bg-*` falls back to appending). Shared by both frameworks so the background-override logic lives in one place. See "Theme strategy".
+- **`CssClasses`** — flat object of static classes for: `list` (the root `<ul>` pill — `inline-flex`, `items-center`, `pointer-events-auto`, rounded, the `::after` overlay), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `icon` (default icon margin), `iconFlaky` (flaky icon override that drops the yellow background rect — `path:first-child` fill transparent), `iconSelfHealed` (self-healed icon margin; the native 12px icon needs no size override), `separatorAfter` (the separator-after modifier applied to the last leading `<li>`). The count text `<span>` has no dedicated class — it's a bare `<span>` inside the link / unlinked wrapper.
 - **`CssTheme`** — keyed by `'light' | 'dark'`, with each entry further sub-keyed by element role:
 
   - `list` — border + base text colors, applied to the `<ul>`
@@ -176,9 +177,15 @@ The 1px pill border is drawn as an absolutely-positioned `::after` overlay (an i
 2. **Visible on hover.** Linked stats fill the box and paint their hover background over the `<ul>`'s own background/border. A border, inset shadow, or inset outline on the `<ul>` all get covered. The `::after` is the last-painted positioned child, so it draws _above_ the stats and stays visible. `after:pointer-events-none` keeps it from intercepting link clicks.
 3. **Preflight-independent.** Renders correctly even where a consumer disables Tailwind preflight (e.g. cypress-services).
 
-### Background override (`bgClassName`)
+### Overriding the pill via `className` (`tailwind-merge`)
 
-Consumers can override only the pill background (e.g. to blend into a colored surface) via `bgClassName`. It is applied through `listClasses()`, which **replaces** the theme's `bg-*` token rather than appending a second one — appending would leave two `background-color` utilities on the `<ul>`, and which wins is decided by Tailwind's source order, not the class-attribute order, so the override could silently lose. We deliberately did **not** route the consumer `className` to the `<ul>` (it appends to the _root_ per DS convention — see Button/Textbox) and did **not** pull in `tailwind-merge` for a single-property need.
+There's no `bgClassName` prop and no wrapper element. The consumer `className` lands directly on the pill `<ul>` and is merged via `tailwind-merge`:
+
+```ts
+twMerge(CssClasses.list, CssTheme[theme].list, className)
+```
+
+`tailwind-merge` resolves conflicting utilities by keeping the **last** one, so `className="bg-gray-900"` wins over the theme's `bg-gray-1000` (and `bg-transparent` works) — without the Tailwind source-order problem that a plain append (`clsx`) would hit, where two `bg-*` utilities leave the winner up to stylesheet order. Non-conflicting classes (the `::after` border shadow, text size) are untouched. This is a general escape hatch for any pill utility, not just background. The Vue side normalizes a string/array/object fallthrough `class` with `clsx` before `twMerge`.
 
 ## State handling
 
@@ -207,7 +214,7 @@ The consumer decides visibility based on whether the run could have self-healed 
 
 ## Forwarding and extension points
 
-- React forwards `ref` to the outer `<div>`.
+- React forwards `ref` to the pill `<ul>` (`HTMLUListElement`).
 - React component name should not be `memo`-wrapped at the file boundary — let consumers opt into memoization. (Source is `React.memo`-wrapped; we drop that to keep the API ergonomic for `forwardRef` and ref attachment.)
 - Vue exposes the component via `defineComponent`; props are typed from the shared `RunResultsProps` interface.
 
@@ -217,7 +224,7 @@ The consumer decides visibility based on whether the run could have self-healed 
 - The separator uses `::after` on the last leading `<li>`, not a separate sibling element. Don't refactor to a sibling `<li role="separator">` — it changes the semantics (assistive tech announces it as a list item) and breaks the existing `data-cy` selector contract.
 - `null` counts are coerced to `0` for both display and "is this stat empty" logic. Don't introduce a difference between `null` and `0` without a strong reason.
 - Don't add `dark:` modifier classes anywhere — theming is via explicit `theme` lookup.
-- `className` is appended via `clsx`, not used as an override. Consumers cannot remove or replace DS classes on the container — only add to them.
+- `className` lands on the pill `<ul>` and is merged via `tailwind-merge`, so a consumer **can** override a conflicting DS utility (e.g. `bg-*`) — that's intentional (the documented escape hatch). It can't remove a non-conflicting DS class.
 - `StatKey` is camelCase (`selfHealed`) matching repo convention (see `StatusIcon`'s `noTests`, `timedOut`, `overLimit`). `data-cy` attributes use kebab-case (`status-icon-self-healed`, `total-self-healed`) — DOM convention. Convert at the boundary via a small inline helper; don't propagate kebab-case into the TS API.
 
 ## Planned / potential work

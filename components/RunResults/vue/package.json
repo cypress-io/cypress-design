@@ -21,7 +21,9 @@
   "dependencies": {
     "@cypress-design/vue-icon": "*",
     "@cypress-design/vue-statusicon": "*",
-    "@cypress-design/vue-tooltip": "*"
+    "@cypress-design/vue-tooltip": "*",
+    "clsx": "*",
+    "tailwind-merge": "*"
   },
   "devDependencies": {
     "@cypress-design/constants-runresults": "*",

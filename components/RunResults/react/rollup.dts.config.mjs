@@ -22,6 +22,7 @@ export default {
   ],
   external: [
     'clsx',
+    'tailwind-merge',
     'react',
     'react-dom',
     '@cypress-design/react-icon',

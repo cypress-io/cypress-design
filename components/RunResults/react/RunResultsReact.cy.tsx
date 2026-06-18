@@ -21,7 +21,7 @@ function mountStory(props: Partial<RunResultsProps> = {}) {
         links={props.links}
         renderLink={props.renderLink}
         showTooltip={props.showTooltip}
-        bgClassName={props.bgClassName}
+        className={props.className}
       />
     </div>,
   )

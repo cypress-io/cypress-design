@@ -23,7 +23,8 @@
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-statusicon": "*",
     "@cypress-design/react-tooltip": "*",
-    "clsx": "*"
+    "clsx": "*",
+    "tailwind-merge": "*"
   },
   "devDependencies": {
     "@cypress-design/constants-runresults": "*",

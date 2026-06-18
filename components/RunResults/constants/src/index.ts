@@ -23,11 +23,10 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // Outer wrapper. `inline-flex` so the component shrinks to content width.
-  container: 'inline-flex pointer-events-auto',
-  // The <ul> pill. Border is an `::after` overlay — see architecture.md
-  // ("Theme strategy").
-  list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
+  // The <ul> pill — the component's root element. `inline-flex` shrinks it to
+  // its content; `pointer-events-auto` re-enables clicks if a parent disabled
+  // them. Border is an `::after` overlay — see architecture.md ("Theme strategy").
+  list: "inline-flex items-center pointer-events-auto text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
   // Inner <a> wrapper for linked stats.
@@ -57,21 +56,6 @@ export const CssTheme = {
 } as const
 
 export type RunResultsTheme = keyof typeof CssTheme
-
-// The pill <ul>'s themed classes, with the background optionally overridden.
-// `bgClassName` replaces the theme's single `bg-*` token so the override always
-// wins (no Tailwind source-order conflict); a theme with no `bg-*` falls back to
-// appending. Shared by the React and Vue components.
-export function listClasses(
-  theme: RunResultsTheme,
-  bgClassName?: string,
-): string {
-  const base = CssTheme[theme].list
-  if (!bgClassName) return base
-  return /\bbg-\S+/.test(base)
-    ? base.replace(/\bbg-\S+/, bgClassName)
-    : `${base} ${bgClassName}`
-}
 
 // Tooltip color contrasts with the surface the pill sits on.
 export const TooltipColorForTheme: Record<RunResultsTheme, 'light' | 'dark'> = {
@@ -159,10 +143,11 @@ export interface RunResultsProps {
   renderLink?: (href: string, children: unknown, className?: string) => unknown
 
   showTooltip?: boolean
+  // Classes applied to the pill <ul> (the root element), merged with the
+  // component's own classes via `tailwind-merge` so a consumer can override
+  // conflicting utilities — e.g. `bg-gray-900` / `bg-transparent` to blend the
+  // pill into a colored surface — and win the Tailwind source-order conflict.
   className?: string
-  // Override the pill's background (e.g. `bg-transparent` to blend with a
-  // colored surface). Replaces the theme's default background on the <ul>.
-  bgClassName?: string
 }
 
 // Null-safe count → numeric value for display & visibility logic.

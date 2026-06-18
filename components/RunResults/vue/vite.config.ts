@@ -7,9 +7,15 @@ export default generateViteConfig(
     entry: path.resolve(__dirname, './index.ts'),
     name: 'RunResults',
   },
-  // Externalize sibling vue-* packages (separately published). constants-* is
-  // intentionally NOT listed — it's a private package bundled into this dist.
-  ['@cypress-design/vue-statusicon', '@cypress-design/vue-tooltip'],
+  // Externalize sibling vue-* packages (separately published) plus the npm
+  // class utilities. constants-* is intentionally NOT listed — it's a private
+  // package bundled into this dist.
+  [
+    '@cypress-design/vue-statusicon',
+    '@cypress-design/vue-tooltip',
+    'clsx',
+    'tailwind-merge',
+  ],
   // Emit a single self-contained `dist/index.d.ts`. `rollupTypes` runs
   // api-extractor; `bundledPackages` inlines the private constants package's
   // public types (StatKey, RunResultsTheme, RunResultsProps) so consumers —
