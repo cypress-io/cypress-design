@@ -20,6 +20,8 @@ function mountStory(props: Partial<RunResultsProps> = {}) {
         links={props.links}
         renderLink={props.renderLink}
         showTooltip={props.showTooltip}
+        className={props.className}
+        pillClassName={props.pillClassName}
       />
     </div>
   ))
@@ -40,5 +42,21 @@ describe('<RunResults /> Vue', () => {
       ),
     })
     cy.get('button[data-href="#passed"]').should('exist')
+  })
+
+  it('passes the computed link className to renderLink', () => {
+    mountStory({
+      passed: 22,
+      links: { passed: '#passed' },
+      renderLink: (href, children, className) => (
+        <button data-href={href} class={className as string}>
+          {children}
+        </button>
+      ),
+    })
+    // The custom link receives the default link styling so it matches a native <a>.
+    cy.get('button[data-href="#passed"]')
+      .should('have.class', 'no-underline')
+      .and('have.class', 'px-[6px]')
   })
 })

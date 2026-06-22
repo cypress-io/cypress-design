@@ -23,30 +23,23 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // Outer wrapper. `inline-flex` so the component shrinks to content width.
+  // The root wrapper. `inline-flex` shrinks it to content; `pointer-events-auto`
+  // re-enables clicks if a parent disabled them. It will hold multiple stat
+  // lists in the future — today it wraps a single `<ul>`.
   container: 'inline-flex pointer-events-auto',
-  // The <ul> pill itself. Theme overrides border and text colors via CssTheme.
-  list: 'flex items-center text-[14px] leading-[24px] font-medium list-none border rounded-[4px]',
+  // The <ul> pill. Border is an `::after` overlay — see architecture.md
+  // ("Theme strategy").
+  list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
   // Inner <a> wrapper for linked stats.
   link: 'flex items-center h-full w-full px-[6px] no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
   // Inner <span> wrapper for unlinked stats.
   unlinked: 'flex items-center h-full w-full px-[6px]',
-  // Icon margin matches source `svg { margin: 0 4px }`.
   icon: 'mx-[4px]',
-  // Flaky icon override — drop the yellow background rect (first path in the
-  // SVG). Matches the source SCSS's `.flakyIcon svg path:first-child { fill:
-  // transparent !important }`. Scoped to this component; the shared
-  // IconStatusFlaky is unchanged.
+  // Flaky icon: hide the yellow background rect — see architecture.md.
   iconFlaky: 'mx-[4px] [&_path:first-child]:fill-transparent',
-  // Self-healed icon override — `IconGeneralSparkleSingleSmall` only ships
-  // a `["16"]` variant in the icon registry, but the rest of the stats
-  // render at 12px. The icon component IS an <svg>, so `w-3 h-3` on the
-  // className overrides the icon's intrinsic `width`/`height` attributes
-  // via CSS and pins the rendered size to 12 × 12 — visual consistency
-  // without depending on a 12px icon variant that doesn't exist.
-  iconSelfHealed: 'mx-[4px] w-3 h-3',
+  iconSelfHealed: 'mx-[4px]',
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",
@@ -54,13 +47,13 @@ export const CssClasses = {
 
 export const CssTheme = {
   light: {
-    list: 'bg-white text-gray-700 border-gray-100',
-    link: 'text-gray-700 hover:bg-gray-50 focus-visible:bg-gray-50',
+    list: 'bg-white text-gray-700 after:shadow-[inset_0_0_0_1px_theme(colors.gray.100)]',
+    link: 'text-gray-700 hover:bg-gray-50 hover:text-gray-700 hover:no-underline focus:text-gray-700 focus:no-underline focus-visible:bg-gray-50',
     separator: 'after:border-gray-100',
   },
   dark: {
-    list: 'bg-gray-1000 text-gray-400 border-gray-800',
-    link: 'text-gray-300 hover:bg-gray-900 focus-visible:bg-gray-900',
+    list: 'bg-gray-1000 text-gray-400 after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+    link: 'text-gray-300 hover:bg-gray-900 hover:text-gray-300 hover:no-underline focus:text-gray-300 focus:no-underline focus-visible:bg-gray-900',
     separator: 'after:border-gray-800',
   },
 } as const
@@ -147,11 +140,19 @@ export interface RunResultsProps {
 
   links?: Partial<Record<StatKey, string>>
   // Same signature in React and Vue. `children` is whatever the framework
-  // renders for the inner icon + count.
-  renderLink?: (href: string, children: unknown) => unknown
+  // renders for the inner icon + count. `className` is the component's computed
+  // link styling (gray text, padding, no-underline, hover/focus) — apply it to
+  // your custom link so it matches the default <a>.
+  renderLink?: (href: string, children: unknown, className?: string) => unknown
 
   showTooltip?: boolean
+  // Classes for the root wrapper element (appended via `clsx`, DS convention).
   className?: string
+  // Classes for the pill `<ul>`, merged with the component's own classes via
+  // `tailwind-merge` so a consumer can override conflicting utilities — e.g.
+  // `bg-gray-900` / `bg-transparent` to blend the pill into a colored surface —
+  // and win the Tailwind source-order conflict.
+  pillClassName?: string
 }
 
 // Null-safe count → numeric value for display & visibility logic.

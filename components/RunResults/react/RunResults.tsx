@@ -1,9 +1,10 @@
 import * as React from 'react'
 import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
 import StatusIcon from '@cypress-design/react-statusicon'
 import {
   IconStatusFlaky,
-  IconGeneralSparkleSingleSmall,
+  IconGeneralSparkleSingle,
 } from '@cypress-design/react-icon'
 import Tooltip from '@cypress-design/react-tooltip'
 import {
@@ -62,7 +63,8 @@ const Stat: React.FC<StatProps> = ({
     }
     if (statKey === 'selfHealed') {
       return (
-        <IconGeneralSparkleSingleSmall
+        <IconGeneralSparkleSingle
+          size="12"
           strokeColor="jade-400"
           fillColor="jade-50"
           data-cy="status-icon-self-healed"
@@ -93,7 +95,7 @@ const Stat: React.FC<StatProps> = ({
   let content: React.ReactNode
   if (isLinked && link) {
     if (renderLink) {
-      content = renderLink(link, inner) as React.ReactNode
+      content = renderLink(link, inner, linkClasses) as React.ReactNode
     } else {
       content = (
         <a
@@ -143,9 +145,7 @@ const Stat: React.FC<StatProps> = ({
   )
 }
 
-// `forwardRef` so a parent can attach a `ref` to the outer pill `<div>`,
-// per architecture.md's documented API. Sibling `@cypress-design/react-textbox`
-// follows the same pattern.
+// `forwardRef` so a parent can attach a `ref` to the root wrapper `<div>`.
 export const RunResults = React.forwardRef<
   HTMLDivElement,
   RunResultsProps &
@@ -165,6 +165,7 @@ export const RunResults = React.forwardRef<
     renderLink,
     showTooltip = true,
     className,
+    pillClassName,
     ...rest
   },
   ref,
@@ -189,6 +190,10 @@ export const RunResults = React.forwardRef<
   const showSelfHealedStat = !!showSelfHealed
 
   return (
+    // The wrapper `<div>` is the root (it will hold multiple stat lists in the
+    // future). `className` lands here per DS convention. `pillClassName` lands
+    // on the `<ul>`, merged via `tailwind-merge` so a consumer override (e.g.
+    // `bg-gray-900`) wins the Tailwind source-order conflict against the theme.
     <div
       ref={ref}
       {...rest}
@@ -199,7 +204,13 @@ export const RunResults = React.forwardRef<
       data-cy="run-results"
       className={clsx(CssClasses.container, className)}
     >
-      <ul className={clsx(CssClasses.list, CssTheme[theme].list)}>
+      <ul
+        className={twMerge(
+          CssClasses.list,
+          CssTheme[theme].list,
+          pillClassName,
+        )}
+      >
         {showFlaky && (
           <Stat
             statKey="flaky"

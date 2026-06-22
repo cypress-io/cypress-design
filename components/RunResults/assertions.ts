@@ -398,8 +398,77 @@ export default function assertions(
       cy.get('[data-cy="run-results"] ul')
         .should('have.class', 'bg-gray-1000')
         .and('have.class', 'text-gray-400')
-        .and('have.class', 'border-gray-800')
+        // Border is an ::after inset shadow, not a `border-*` class.
+        .and(
+          'have.class',
+          'after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+        )
       cy.percySnapshot(`RunResults dark theme - ${fw}`)
+    })
+  })
+
+  // ---------------------------------------------------------------------------
+  // Pill background override via pillClassName (tailwind-merge)
+  // ---------------------------------------------------------------------------
+
+  describe('pill background override', () => {
+    it('a pillClassName bg-* wins over the theme bg and keeps the rest of the theme', () => {
+      mountStory({
+        passed: 22,
+        failed: 4,
+        skipped: 0,
+        pending: 1,
+        theme: 'dark',
+        pillClassName: 'bg-gray-900',
+      })
+      cy.get('[data-cy="run-results"] ul')
+        // tailwind-merge drops the theme's bg-* in favor of the consumer's...
+        .should('have.class', 'bg-gray-900')
+        .and('not.have.class', 'bg-gray-1000')
+        // ...without stripping the rest of the theme.
+        .and('have.class', 'text-gray-400')
+        .and(
+          'have.class',
+          'after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+        )
+    })
+  })
+
+  // ---------------------------------------------------------------------------
+  // Self-healed icon size
+  // ---------------------------------------------------------------------------
+
+  describe('self-healed icon', () => {
+    it('renders the native 12px icon (no w-3 h-3 size override)', () => {
+      mountStory({ passed: 1, showSelfHealed: true, selfHealed: 2 })
+      cy.get('[data-cy="status-icon-self-healed"]')
+        .should('have.attr', 'width', '12')
+        .and('have.attr', 'height', '12')
+    })
+  })
+
+  // ---------------------------------------------------------------------------
+  // Class targeting — className → wrapper, pillClassName → <ul>
+  // ---------------------------------------------------------------------------
+
+  describe('class targeting', () => {
+    it('className lands on the root wrapper, pillClassName on the <ul>', () => {
+      mountStory({
+        passed: 22,
+        failed: 4,
+        skipped: 0,
+        pending: 1,
+        className: 'mb-2',
+        pillClassName: 'mt-1',
+      })
+      // className applies to the wrapper (which carries data-cy), not the pill.
+      cy.get('[data-cy="run-results"]')
+        .should('have.class', 'mb-2')
+        .and('not.have.class', 'mt-1')
+      // pillClassName applies to the <ul>, not the wrapper.
+      cy.get('[data-cy="run-results"] ul')
+        .should('have.class', 'mt-1')
+        .and('not.have.class', 'mb-2')
     })
   })
 }

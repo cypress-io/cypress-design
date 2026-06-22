@@ -3,7 +3,7 @@ import { defineComponent, h, type PropType, type VNode } from 'vue'
 import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
   IconStatusFlaky,
-  IconGeneralSparkleSingleSmall,
+  IconGeneralSparkleSingle,
 } from '@cypress-design/vue-icon'
 import Tooltip from '@cypress-design/vue-tooltip'
 
@@ -66,6 +66,7 @@ import {
   statKeyToKebab,
   statValue,
 } from '@cypress-design/constants-runresults'
+import { twMerge } from 'tailwind-merge'
 
 // Rendered via a render function rather than <template> because the
 // `renderLink` callback prop returns a VNode — template ergonomics don't
@@ -106,6 +107,7 @@ export default defineComponent({
     },
     showTooltip: { type: Boolean, default: true },
     className: { type: String, default: undefined },
+    pillClassName: { type: String, default: undefined },
   },
   setup(props, { attrs }) {
     function joinClasses(...parts: (string | false | undefined)[]): string {
@@ -122,7 +124,8 @@ export default defineComponent({
         })
       }
       if (statKey === 'selfHealed') {
-        return h(IconGeneralSparkleSingleSmall, {
+        return h(IconGeneralSparkleSingle, {
+          size: '12',
           strokeColor: 'jade-400',
           fillColor: 'jade-50',
           'data-cy': 'status-icon-self-healed',
@@ -150,8 +153,12 @@ export default defineComponent({
 
       let content: VNode
       if (link) {
+        const linkClasses = joinClasses(
+          CssClasses.link,
+          CssTheme[props.theme].link,
+        )
         if (props.renderLink) {
-          content = props.renderLink(link, inner) as VNode
+          content = props.renderLink(link, inner, linkClasses) as VNode
         } else {
           content = h(
             'a',
@@ -159,7 +166,7 @@ export default defineComponent({
               href: link,
               'aria-label': label,
               'data-cy': `link-${kebab}`,
-              class: joinClasses(CssClasses.link, CssTheme[props.theme].link),
+              class: linkClasses,
             },
             inner,
           )
@@ -290,23 +297,28 @@ export default defineComponent({
         )
       }
 
+      // The wrapper <div> is the root (it will hold multiple stat lists in the
+      // future). `className` + fallthrough `attrs.class` land here. `pillClassName`
+      // lands on the <ul>, merged via `tailwind-merge` so a consumer override
+      // (e.g. `bg-gray-900`) wins the Tailwind source-order conflict.
       return h(
         'div',
         {
           ...attrs,
           'data-cy': 'run-results',
-          // Pass an array directly so Vue's runtime normalizes fallthrough
-          // `attrs.class` whether it arrives as a string, array, or object
-          // (e.g. parent uses `:class="['a','b']"` or `:class="{ a: true }"`).
-          // joinClasses(...) would stringify an array via `.join(' ')` on a
-          // single truthy element → invalid `"a,b"` token.
+          // Array form lets Vue normalize a string/array/object fallthrough
+          // `attrs.class` without manual flattening.
           class: [CssClasses.container, props.className, attrs.class],
         },
         [
           h(
             'ul',
             {
-              class: joinClasses(CssClasses.list, CssTheme[props.theme].list),
+              class: twMerge(
+                CssClasses.list,
+                CssTheme[props.theme].list,
+                props.pillClassName,
+              ),
             },
             items,
           ),
