@@ -1,5 +1,16 @@
 # @cypress-design/react-icon
 
+## 1.42.0
+
+### Minor Changes
+
+- [#689](https://github.com/cypress-io/cypress-design/pull/689) [`f8d476a`](https://github.com/cypress-io/cypress-design/commit/f8d476a089f9e9527fb4eb7a0476111815fc915a) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding icon general-sparkle-single
+
+### Patch Changes
+
+- Updated dependencies [[`f8d476a`](https://github.com/cypress-io/cypress-design/commit/f8d476a089f9e9527fb4eb7a0476111815fc915a)]:
+  - @cypress-design/icon-registry@1.42.0
+
 ## 1.41.0
 
 ### Minor Changes
