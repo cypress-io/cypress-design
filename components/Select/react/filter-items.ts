@@ -24,8 +24,10 @@ export function filterAndCollapseHeadlines(
     return label.toLowerCase().includes(trimmed)
   })
 
-  // Second pass: drop headlines that have no non-structural kept item before
-  // the next headline / divider.
+  // Second pass: drop a headline if no real option row survived the filter
+  // under it (looking ahead until the next headline or divider). Buttons
+  // don't count — a section that ends up containing only an action button
+  // still reads as an orphaned header to the user, so we collapse it too.
   for (let i = 0; i < items.length; i++) {
     const item = items[i]
     if (item.type !== 'headline') continue

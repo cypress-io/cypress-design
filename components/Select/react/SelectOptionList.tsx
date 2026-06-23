@@ -84,10 +84,12 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   value,
   onSelect,
   headerTitle,
-  headerButton,
-  headerIconLeft,
+  // Icon props are renamed to PascalCase locals so they can be rendered as
+  // JSX (`<HeaderIconLeft />`) instead of `React.createElement(...)`.
+  headerButton: HeaderButton,
+  headerIconLeft: HeaderIconLeft,
   headerTag,
-  headerIconRight,
+  headerIconRight: HeaderIconRight,
   headerTabs,
   headerActiveTab,
   onHeaderTabChange,
@@ -129,10 +131,10 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
 
   const hasTitleRow = Boolean(
     headerTitle ||
-      headerButton ||
-      headerIconLeft ||
+      HeaderButton ||
+      HeaderIconLeft ||
       headerTag ||
-      headerIconRight,
+      HeaderIconRight,
   )
   const hasTabsOrSearch = Boolean(
     (headerTabs && headerTabs.length > 0) || searchable,
@@ -174,34 +176,35 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                 // 8px from the row edge to the back button so the button
                 // hugs the panel edge; 16px when no button so the iconLeft
                 // / title sits inset from the edge.
-                headerButton ? 'pl-[8px]' : 'pl-[16px]',
+                HeaderButton ? 'pl-[8px]' : 'pl-[16px]',
                 // 16px between the iconRight and the panel edge so the
                 // icon has breathing room; default 8px when no iconRight.
-                headerIconRight ? 'pr-[16px]' : 'pr-[8px]',
+                HeaderIconRight ? 'pr-[16px]' : 'pr-[8px]',
               )}
             >
-              {headerButton && (
+              {HeaderButton && (
                 <Button
                   size="32"
                   square
                   variant={theme === 'dark' ? 'outline-dark' : 'white'}
-                  aria-label={headerButton.ariaLabel}
-                  onClick={headerButton.onClick}
+                  aria-label={HeaderButton.ariaLabel}
+                  onClick={HeaderButton.onClick}
                   className={SelectConstants.CssHeaderBackButtonSpacingClasses}
                 >
-                  {React.createElement(headerButton.iconLeft, {
-                    size: '16',
-                    interactiveColorsOnGroup: true,
-                  })}
+                  <HeaderButton.iconLeft
+                    size="16"
+                    interactiveColorsOnGroup={true}
+                  />
                 </Button>
               )}
               <div className={SelectConstants.CssHeaderTitleGroupClasses}>
-                {headerIconLeft &&
-                  React.createElement(headerIconLeft, {
-                    size: '16',
-                    interactiveColorsOnGroup: true,
-                    className: SelectConstants.CssHeaderIconColorClasses[theme],
-                  })}
+                {HeaderIconLeft && (
+                  <HeaderIconLeft
+                    size="16"
+                    interactiveColorsOnGroup={true}
+                    className={SelectConstants.CssHeaderIconColorClasses[theme]}
+                  />
+                )}
                 {headerTitle && (
                   <span
                     className={clsx(
@@ -218,12 +221,13 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                   </Tag>
                 )}
               </div>
-              {headerIconRight &&
-                React.createElement(headerIconRight, {
-                  size: '16',
-                  interactiveColorsOnGroup: true,
-                  className: SelectConstants.CssHeaderIconColorClasses[theme],
-                })}
+              {HeaderIconRight && (
+                <HeaderIconRight
+                  size="16"
+                  interactiveColorsOnGroup={true}
+                  className={SelectConstants.CssHeaderIconColorClasses[theme]}
+                />
+              )}
             </div>
           )}
           {hasTabsOrSearch && (
