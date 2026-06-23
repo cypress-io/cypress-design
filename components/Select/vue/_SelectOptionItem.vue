@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, defineComponent } from 'vue'
 import Checkbox from '@cypress-design/vue-checkbox'
 import Button from '@cypress-design/vue-button'
 import Tag from '@cypress-design/vue-tag'
@@ -9,6 +9,25 @@ import type {
   SelectTheme,
   SelectSize,
 } from '@cypress-design/constants-select'
+
+// Vue's `<component :is>` expects a component definition, not arbitrary
+// render output (VNodes, strings, fragments). Wrapping the consumer's
+// `render` function in a minimal functional component lets us render
+// whatever it returns — h() output, strings, fragments, or null.
+const CustomRender = defineComponent({
+  props: {
+    render: {
+      type: Function as unknown as () => (ctx: {
+        selected: boolean
+      }) => unknown,
+      required: true,
+    },
+    selected: { type: Boolean, required: true },
+  },
+  setup(props) {
+    return () => props.render({ selected: props.selected })
+  },
+})
 
 const props = defineProps<{
   item: SelectItem
@@ -119,7 +138,7 @@ function onMouseDown(e: MouseEvent) {
     @click="isCustomSelectable ? onClick($event) : undefined"
     @mousedown="onMouseDown"
   >
-    <component :is="(item.render as any)({ selected })" />
+    <CustomRender :render="item.render" :selected="selected" />
   </div>
 
   <!-- checkbox row -->
