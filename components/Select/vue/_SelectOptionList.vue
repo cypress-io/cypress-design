@@ -220,11 +220,11 @@ function rowId(index: number): string | undefined {
         </div>
         <Textbox
           v-if="searchable"
+          :model-value="searchValue"
           :theme="theme"
           size="32"
           :placeholder="searchPlaceholder"
           :icon-left="IconObjectMagnifyingGlass"
-          :model-value="searchValue"
           :aria-label="searchPlaceholder"
           @update:model-value="(v: string) => emit('update:searchValue', v)"
         />
