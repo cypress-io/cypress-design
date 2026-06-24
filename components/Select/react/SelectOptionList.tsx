@@ -11,9 +11,11 @@ import {
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
-  SelectTheme,
-  SelectSize,
-  SelectHeaderTab,
+  SelectThemingProps,
+  SelectHeaderProps,
+  SelectSearchProps,
+  SelectFooterProps,
+  SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionItem from './SelectOptionItem'
 import {
@@ -21,51 +23,23 @@ import {
   getSelectableIndices,
 } from './filter-items'
 
-export interface SelectOptionListProps {
+// Composed from the same shared groups as SelectProps so the popover's
+// chrome (header + search + footer + sizing + theming) stays a single
+// source of truth.
+export interface SelectOptionListProps
+  extends SelectThemingProps,
+    SelectHeaderProps,
+    SelectSearchProps,
+    SelectFooterProps,
+    SelectSizingProps {
   items: SelectItem[]
-  theme?: SelectTheme
-  size?: SelectSize
   value?: string
   onSelect: (item: SelectItem) => void
-
-  // Header
-  headerTitle?: string
-  // Optional small back-button on the left of the title row. Pass the icon
-  // component you want inside the button (e.g. `IconArrowLeft`); the
-  // component supplies the rest of the Button chrome.
-  headerButton?: {
-    iconLeft: React.ComponentType<Record<string, unknown>>
-    onClick: () => void
-    ariaLabel?: string
-  }
-  // Optional 16px icon shown immediately before the title text.
-  headerIconLeft?: React.ComponentType<Record<string, unknown>>
-  // Optional small tag shown right after the title (gray Tag, size 16).
-  headerTag?: string
-  // Optional 16px icon pushed to the right edge of the title row.
-  headerIconRight?: React.ComponentType<Record<string, unknown>>
-  headerTabs?: SelectHeaderTab[]
-  headerActiveTab?: string
   onHeaderTabChange?: (id: string) => void
-  searchable?: boolean
-  searchPlaceholder?: string
-  // When `searchable` is true, the search Textbox is shown. Set this to
-  // `false` to render the Textbox as a visual-only element (no filtering)
-  // — useful for showcase pages where every row should stay visible
-  // regardless of what the user types. Defaults to true.
-  searchFilters?: boolean
 
-  // Footer
+  // React-only: structured footerLabel/footerAction live in SelectFooterProps;
+  // the optional ReactNode escape hatch sits alongside them.
   footer?: React.ReactNode
-  footerLabel?: string
-  footerAction?: { label: string; onClick: () => void }
-
-  // Sizing forwarded to inline style on the panel
-  width?: SelectConstants.CssLength
-  minWidth?: SelectConstants.CssLength
-  maxWidth?: SelectConstants.CssLength
-  height?: SelectConstants.CssLength
-  maxHeight?: SelectConstants.CssLength
 
   align?: SelectConstants.SelectAlignment
   id?: string
@@ -77,6 +51,11 @@ export interface SelectOptionListProps {
   itemIdPrefix?: string
 }
 
+// React JSX needs a component type to instantiate; the shared
+// SelectHeaderProps interface uses IconNode (= unknown) so it stays
+// framework-agnostic. Re-narrow at the destructure boundary.
+type IconComponent = React.ComponentType<Record<string, unknown>>
+
 export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   items,
   theme = SelectConstants.DefaultTheme,
@@ -86,10 +65,10 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   headerTitle,
   // Icon props are renamed to PascalCase locals so they can be rendered as
   // JSX (`<HeaderIconLeft />`) instead of `React.createElement(...)`.
-  headerButton: HeaderButton,
-  headerIconLeft: HeaderIconLeft,
+  headerButton: headerButtonRaw,
+  headerIconLeft: headerIconLeftRaw,
   headerTag,
-  headerIconRight: HeaderIconRight,
+  headerIconRight: headerIconRightRaw,
   headerTabs,
   headerActiveTab,
   onHeaderTabChange,
@@ -110,6 +89,11 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   focusedIndex,
   itemIdPrefix,
 }) => {
+  const HeaderButton = headerButtonRaw as
+    | { iconLeft: IconComponent; onClick: () => void; ariaLabel?: string }
+    | undefined
+  const HeaderIconLeft = headerIconLeftRaw as IconComponent | undefined
+  const HeaderIconRight = headerIconRightRaw as IconComponent | undefined
   const [searchValue, setSearchValue] = React.useState('')
 
   const filteredItems = React.useMemo(

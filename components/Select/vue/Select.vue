@@ -5,20 +5,26 @@ import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
-  SelectTheme,
-  SelectSize,
   SelectAlignment,
-  SelectHeaderTab,
   ButtonVariantLoose,
-  CssLength,
+  SelectThemingProps,
+  SelectHeaderProps,
+  SelectSearchProps,
+  SelectFooterProps,
+  SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionList from './_SelectOptionList.vue'
 import { getSelectableIndices } from './filter-items'
 
-const props = withDefaults(
-  defineProps<{
-    theme?: SelectTheme
-    size?: SelectSize
+// Public props are composed from the shared groups in `constants-select`
+// so the surface stays in sync with SelectOptionList / SelectOptionItem.
+// Select-only fields (model value, open state, trigger override, etc.)
+// are intersected in directly below.
+type SelectComponentProps = SelectThemingProps &
+  SelectHeaderProps &
+  SelectSearchProps &
+  SelectFooterProps &
+  SelectSizingProps & {
     align?: SelectAlignment
     triggerVariant?: ButtonVariantLoose
     items: SelectItem[]
@@ -26,49 +32,28 @@ const props = withDefaults(
     value?: string
     placeholder?: string
     disabled?: boolean
-    headerTitle?: string
-    headerButton?: {
-      iconLeft: unknown
-      onClick: () => void
-      ariaLabel?: string
-    }
-    headerIconLeft?: unknown
-    headerTag?: string
-    headerIconRight?: unknown
-    headerTabs?: SelectHeaderTab[]
-    headerActiveTab?: string
-    searchable?: boolean
-    searchPlaceholder?: string
-    searchFilters?: boolean
-    footerLabel?: string
-    footerAction?: { label: string; onClick: () => void }
-    width?: CssLength
-    minWidth?: CssLength
-    maxWidth?: CssLength
-    height?: CssLength
-    maxHeight?: CssLength
     defaultOpen?: boolean
     open?: boolean
     id?: string
     popoverClass?: string
-  }>(),
-  {
-    theme: SelectConstants.DefaultTheme,
-    size: SelectConstants.DefaultSize,
-    align: SelectConstants.DefaultAlignment,
-    triggerVariant: SelectConstants.DefaultTriggerVariant,
-    searchable: false,
-    // Vue 3 quirk: Boolean props bound via `v-bind` with `undefined` are
-    // cast to `false` BEFORE the child's withDefaults applies. Without an
-    // explicit default here, omitting `searchFilters` at the call site
-    // means Select forwards `false` to SelectOptionList, disabling the
-    // filter (the row stays visual-only). Default true so search actually
-    // filters by default.
-    searchFilters: true,
-    disabled: false,
-    defaultOpen: false,
-  },
-)
+  }
+
+const props = withDefaults(defineProps<SelectComponentProps>(), {
+  theme: SelectConstants.DefaultTheme,
+  size: SelectConstants.DefaultSize,
+  align: SelectConstants.DefaultAlignment,
+  triggerVariant: SelectConstants.DefaultTriggerVariant,
+  searchable: false,
+  // Vue 3 quirk: Boolean props bound via `v-bind` with `undefined` are
+  // cast to `false` BEFORE the child's withDefaults applies. Without an
+  // explicit default here, omitting `searchFilters` at the call site
+  // means Select forwards `false` to SelectOptionList, disabling the
+  // filter (the row stays visual-only). Default true so search actually
+  // filters by default.
+  searchFilters: true,
+  disabled: false,
+  defaultOpen: false,
+})
 
 // `value` is `undefined` when the selection is cleared — happens when a
 // checkbox row is re-clicked (toggle off). Consumers must handle both cases.

@@ -20,7 +20,7 @@ export type SelectAlignment = 'left' | 'right'
 // from `@cypress-design/vue-icon`) need to fit through. Each framework's
 // renderer does its own runtime dispatch (`<component :is>` in Vue,
 // `React.createElement` in React), so the type is just a passthrough.
-type IconNode = unknown
+export type IconNode = unknown
 
 // Sub-shapes for each row content type.
 
@@ -158,6 +158,45 @@ export interface SelectSizingProps {
   maxWidth?: CssLength
   height?: CssLength
   maxHeight?: CssLength
+}
+
+// Shared prop groups — composed via `extends`/intersection by the public
+// SelectProps and the internal SelectOptionList/SelectOptionItem prop shapes.
+// Small named groups keep each concern's props together so the call-site
+// signature reads cleanly and a new field is added in exactly one place.
+
+export interface SelectThemingProps {
+  theme?: SelectTheme
+  size?: SelectSize
+}
+
+export interface SelectHeaderProps {
+  headerTitle?: string
+  headerButton?: {
+    iconLeft: IconNode
+    onClick: () => void
+    ariaLabel?: string
+  }
+  headerIconLeft?: IconNode
+  headerTag?: string
+  headerIconRight?: IconNode
+  headerTabs?: SelectHeaderTab[]
+  headerActiveTab?: string
+}
+
+export interface SelectSearchProps {
+  searchable?: boolean
+  searchPlaceholder?: string
+  // When `searchable` is true, the search Textbox is shown. Set this to
+  // `false` to render the Textbox as a visual-only element (no filtering)
+  // — useful for showcase pages where every row should stay visible
+  // regardless of what the user types. Defaults to true.
+  searchFilters?: boolean
+}
+
+export interface SelectFooterProps {
+  footerLabel?: string
+  footerAction?: { label: string; onClick: () => void }
 }
 
 /**

@@ -11,11 +11,12 @@ import {
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
-  SelectTheme,
-  SelectSize,
   SelectAlignment,
-  SelectHeaderTab,
-  CssLength,
+  SelectThemingProps,
+  SelectHeaderProps,
+  SelectSearchProps,
+  SelectFooterProps,
+  SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionItem from './_SelectOptionItem.vue'
 import {
@@ -23,57 +24,31 @@ import {
   getSelectableIndices,
 } from './filter-items'
 
-const props = withDefaults(
-  defineProps<{
+// Props share the same named groups as Select.vue so adding a header /
+// search / footer / sizing field happens in one place
+// (@cypress-design/constants-select).
+type OptionListProps = SelectThemingProps &
+  SelectHeaderProps &
+  SelectSearchProps &
+  SelectFooterProps &
+  SelectSizingProps & {
     items: SelectItem[]
-    theme?: SelectTheme
-    size?: SelectSize
     value?: string
-    headerTitle?: string
-    // Back button on the left of the title row. Pass the icon to put
-    // inside (e.g. `IconArrowLeft`); the component supplies the chrome.
-    headerButton?: {
-      iconLeft: unknown
-      onClick: () => void
-      ariaLabel?: string
-    }
-    // 16px icon shown right before the title text.
-    headerIconLeft?: unknown
-    // Small Tag rendered immediately after the title.
-    headerTag?: string
-    // 16px icon pushed to the far right of the title row.
-    headerIconRight?: unknown
-    headerTabs?: SelectHeaderTab[]
-    headerActiveTab?: string
-    searchable?: boolean
-    searchPlaceholder?: string
-    // When `searchable` is true, the search Textbox is shown. Set this to
-    // `false` to keep the Textbox visual-only (no filtering) — useful for
-    // showcase pages where every row should stay visible regardless of
-    // what the user types. Defaults to true.
-    searchFilters?: boolean
-    footerLabel?: string
-    footerAction?: { label: string; onClick: () => void }
-    width?: CssLength
-    minWidth?: CssLength
-    maxWidth?: CssLength
-    height?: CssLength
-    maxHeight?: CssLength
     align?: SelectAlignment
     id?: string
     panelClass?: string
     focusedIndex?: number
     itemIdPrefix?: string
-  }>(),
-  {
-    theme: SelectConstants.DefaultTheme,
-    size: SelectConstants.DefaultSize,
-    align: SelectConstants.DefaultAlignment,
-    searchable: false,
-    searchPlaceholder: SelectConstants.DefaultSearchPlaceholder,
-    searchFilters: true,
-  },
-)
+  }
+
+const props = withDefaults(defineProps<OptionListProps>(), {
+  theme: SelectConstants.DefaultTheme,
+  size: SelectConstants.DefaultSize,
+  align: SelectConstants.DefaultAlignment,
+  searchable: false,
+  searchPlaceholder: SelectConstants.DefaultSearchPlaceholder,
+  searchFilters: true,
+})
 
 const emit = defineEmits<{
   (e: 'select', item: SelectItem): void

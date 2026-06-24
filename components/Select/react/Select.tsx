@@ -5,11 +5,13 @@ import { IconChevronDownSmall } from '@cypress-design/react-icon'
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
-  SelectTheme,
-  SelectSize,
   SelectAlignment,
-  SelectHeaderTab,
   ButtonVariantLoose,
+  SelectThemingProps,
+  SelectHeaderProps,
+  SelectSearchProps,
+  SelectFooterProps,
+  SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionList from './SelectOptionList'
 import { getSelectableIndices } from './filter-items'
@@ -21,9 +23,15 @@ export interface SelectTriggerContext {
   close: () => void
 }
 
-export interface SelectProps {
-  theme?: SelectTheme
-  size?: SelectSize
+// Composed from the shared prop groups in `constants-select` so the surface
+// stays in sync with SelectOptionList / SelectOptionItem; only Select-only
+// fields live in the body below.
+export interface SelectProps
+  extends SelectThemingProps,
+    SelectHeaderProps,
+    SelectSearchProps,
+    SelectFooterProps,
+    SelectSizingProps {
   align?: SelectAlignment
   triggerVariant?: ButtonVariantLoose
 
@@ -39,34 +47,11 @@ export interface SelectProps {
   placeholder?: string
   disabled?: boolean
 
-  // Header
-  headerTitle?: string
-  headerButton?: {
-    iconLeft: React.ComponentType<Record<string, unknown>>
-    onClick: () => void
-    ariaLabel?: string
-  }
-  headerIconLeft?: React.ComponentType<Record<string, unknown>>
-  headerTag?: string
-  headerIconRight?: React.ComponentType<Record<string, unknown>>
-  headerTabs?: SelectHeaderTab[]
-  headerActiveTab?: string
   onHeaderTabChange?: (id: string) => void
-  searchable?: boolean
-  searchPlaceholder?: string
-  searchFilters?: boolean
 
-  // Footer
+  // React-only: the footer slot accepts arbitrary ReactNode in addition to
+  // the structured footerLabel / footerAction props from SelectFooterProps.
   footer?: React.ReactNode
-  footerLabel?: string
-  footerAction?: { label: string; onClick: () => void }
-
-  // Sizing forwarded to popover
-  width?: SelectConstants.CssLength
-  minWidth?: SelectConstants.CssLength
-  maxWidth?: SelectConstants.CssLength
-  height?: SelectConstants.CssLength
-  maxHeight?: SelectConstants.CssLength
 
   // Open state
   defaultOpen?: boolean
