@@ -89,7 +89,7 @@ Each layer carries its own bottom border, so when both layers are present you ge
 - **`headerIconRight`** — `IconNode`. Optional 16px icon pushed to the far right of the title row.
 - **`headerTabs`** — `Tab[]`. Renders a [`Tabs`](../Tabs/instructions.md) row inside the header. Use with `headerActiveTab` and `onHeaderTabChange`. Variant auto-selected by theme + size: `default` on light, `dark-small` (h-20/12px) at `size='32'` on dark, `dark-large` (h-24/14px) at `size='40'` on dark.
 - **`headerActiveTab`** — `string`. ID of the currently active tab. Controlled.
-- **`onHeaderTabChange`** — `(id: string) => void`. Fired when the user switches tabs.
+- **`onHeaderTabChange`** — `(id: string) => void` (React) / `@header-tab-change` (Vue). Fired when the user switches tabs.
 - **`searchable`** — `boolean`, default `false`. Renders a search [`Textbox`](../Textbox/instructions.md) in the header. When `searchFilters` is `true` (the default), the input value filters `items` by case-insensitive substring match against each item's `label`.
 - **`searchPlaceholder`** — `string`, default `'Search'`. Placeholder for the search Textbox.
 - **`searchFilters`** — `boolean`, default `true`. Set to `false` to keep the search Textbox visible without filtering — useful for showcase pages where every row should stay visible regardless of what the user types.
@@ -109,7 +109,7 @@ The footer is rendered below the items when at least one footer prop is set.
 ### Extension
 
 - **`className`** — applied to the outer wrapper element.
-- **`popoverClassName`** — applied to the popover panel.
+- **`popoverClassName`** (React) / **`popoverClass`** (Vue) — applied to the popover panel.
 
 ## Item shapes
 
