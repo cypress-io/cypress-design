@@ -1,36 +1,37 @@
 /// <reference types="cypress" />
 
-import type { SelectItem } from '@cypress-design/constants-select'
+import type {
+  SelectItem,
+  SelectThemingProps,
+  SelectHeaderProps,
+  SelectSearchProps,
+  SelectFooterProps,
+  SelectSizingProps,
+} from '@cypress-design/constants-select'
 
-export interface SelectMountOptions {
-  items: SelectItem[]
-  value?: string
-  defaultValue?: string
-  placeholder?: string
-  disabled?: boolean
-  searchable?: boolean
-  searchPlaceholder?: string
-  searchFilters?: boolean
-  headerTitle?: string
-  headerButton?: {
-    iconLeft: unknown
-    onClick: () => void
-    ariaLabel?: string
+// Default popover min-width used by both harnesses' mountStory so the panel
+// has a consistent shape across the shared assertions. Per-test override via
+// SelectMountOptions.minWidth (from SelectSizingProps).
+export const DEFAULT_TEST_MIN_WIDTH = 240
+
+// Composed from the same shared groups as SelectProps so adding a header /
+// search / footer / sizing field doesn't require a parallel update here.
+export type SelectMountOptions = SelectThemingProps &
+  SelectHeaderProps &
+  SelectSearchProps &
+  SelectFooterProps &
+  SelectSizingProps & {
+    items: SelectItem[]
+    value?: string
+    defaultValue?: string
+    placeholder?: string
+    disabled?: boolean
+    defaultOpen?: boolean
+    id?: string
+    onChange?: (value: string | undefined, item: SelectItem) => void
+    onOpenChange?: (open: boolean) => void
+    onHeaderTabChange?: (id: string) => void
   }
-  headerIconLeft?: unknown
-  headerTag?: string
-  headerIconRight?: unknown
-  headerTabs?: Array<{ id: string; label: string }>
-  headerActiveTab?: string
-  footerLabel?: string
-  footerAction?: { label: string; onClick: () => void }
-  defaultOpen?: boolean
-  id?: string
-  minWidth?: number | string
-  onChange?: (value: string | undefined, item: SelectItem) => void
-  onOpenChange?: (open: boolean) => void
-  onHeaderTabChange?: (id: string) => void
-}
 
 const simpleItems: SelectItem[] = [
   { label: 'Alpha', value: 'alpha' },
@@ -115,6 +116,7 @@ export default function assertions(
       cy.findByRole('listbox').should('be.visible')
       cy.findByRole('button').type('{esc}')
       cy.findByRole('listbox').should('not.exist')
+      cy.findByRole('button').should('be.focused')
     })
 
     it('closes on outside click', () => {
@@ -154,6 +156,10 @@ export default function assertions(
       const onChange = cy.stub().as('onChange')
       mountStory({ items: mixedItems, onChange })
       cy.findByRole('button').click()
+      // The row uses `aria-disabled="true"` (not native `disabled`), so
+      // Cypress's actionability check still fires the click. The component's
+      // own `onClick` early-returns on `isDisabled`, which is what the
+      // `onChange-not-called` assertion exercises.
       cy.findByRole('option', { name: 'Disabled' })
         .should('have.attr', 'aria-disabled', 'true')
         .click()
@@ -193,6 +199,7 @@ export default function assertions(
         'true',
       )
       cy.findByRole('button').type('{enter}')
+      cy.get('@onChange').should('have.been.calledOnce')
       cy.get('@onChange').its('firstCall.args.0').should('equal', 'gamma')
     })
 
@@ -227,6 +234,7 @@ export default function assertions(
       mountStory({ items: checkboxItems, onChange })
       cy.findByRole('button').click()
       cy.findByRole('option', { name: /Option A/ }).click()
+      cy.get('@onChange').should('have.been.calledOnce')
       cy.get('@onChange').its('firstCall.args.0').should('equal', 'a')
       cy.findByRole('listbox').should('be.visible')
       // Re-query the element instead of chaining — clicking after a state
@@ -237,33 +245,54 @@ export default function assertions(
         'true',
       )
       cy.findByRole('option', { name: /Option A/ }).click()
+      cy.get('@onChange').should('have.been.calledTwice')
       cy.get('@onChange').its('secondCall.args.0').should('be.undefined')
       cy.findByRole('listbox').should('be.visible')
     })
 
     // ---------------- search / filtering ----------------
+    // Each search test passes an explicit `searchPlaceholder` rather than
+    // relying on `SelectConstants.DefaultSearchPlaceholder`, so changing the
+    // default constant doesn't silently break six test invocations.
 
     it('search filters by label (case-insensitive)', () => {
-      mountStory({ items: simpleItems, searchable: true })
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
       cy.findByRole('button').click()
-      cy.findByPlaceholderText('Search').type('be')
+      cy.findByPlaceholderText('Find item').type('be')
       cy.findByRole('option', { name: 'Beta' }).should('exist')
       cy.findByRole('option', { name: 'Alpha' }).should('not.exist')
       cy.findByRole('option', { name: 'Gamma' }).should('not.exist')
     })
 
     it('orphan headlines collapse after filtering', () => {
-      mountStory({ items: mixedItems, searchable: true })
+      mountStory({
+        items: mixedItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
       cy.findByRole('button').click()
-      cy.findByPlaceholderText('Search').type('alpha')
+      cy.findByPlaceholderText('Find item').type('alpha')
       cy.findByRole('listbox').contains('Group A').should('exist')
       cy.findByRole('listbox').contains('Group B').should('not.exist')
     })
 
     it('searchFilters=false keeps every row visible while the Textbox renders', () => {
-      mountStory({ items: simpleItems, searchable: true, searchFilters: false })
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchFilters: false,
+        searchPlaceholder: 'Find item',
+      })
       cy.findByRole('button').click()
-      cy.findByPlaceholderText('Search').type('nothing-matches')
+      // Use a query that WOULD filter to one row if `searchFilters` were
+      // true (it matches only 'Beta'). The assertion passes only when the
+      // filter is genuinely disabled, not because the query happens to be
+      // unmatchable.
+      cy.findByPlaceholderText('Find item').type('be')
       cy.findByRole('option', { name: 'Alpha' }).should('exist')
       cy.findByRole('option', { name: 'Beta' }).should('exist')
       cy.findByRole('option', { name: 'Gamma' }).should('exist')
@@ -303,6 +332,7 @@ export default function assertions(
         defaultOpen: true,
       })
       cy.findByRole('listbox').contains('Mine').click()
+      cy.get('@onTab').should('have.been.calledOnce')
       cy.get('@onTab').its('firstCall.args.0').should('equal', 'mine')
     })
 

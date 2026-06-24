@@ -4,14 +4,14 @@ import * as React from 'react'
 import { mount } from 'cypress/react'
 import { IconArrowLeft } from '@cypress-design/react-icon'
 import Select from './Select'
-import assertions from '../assertions'
+import assertions, { DEFAULT_TEST_MIN_WIDTH } from '../assertions'
 import type { SelectMountOptions } from '../assertions'
 
 describe('Select', () => {
   function mountStory(options: SelectMountOptions) {
-    // Default popover min-width to 240px so the panel has a consistent shape
-    // across tests; individual tests can override via SelectMountOptions.
-    const merged = { minWidth: 240, ...options }
+    // Default popover min-width so the panel has a consistent shape across
+    // tests; individual tests can override via SelectMountOptions.
+    const merged = { minWidth: DEFAULT_TEST_MIN_WIDTH, ...options }
     mount(
       <div className="m-4">
         <Select {...(merged as React.ComponentProps<typeof Select>)} />
@@ -32,7 +32,7 @@ describe('Select', () => {
                 { label: 'Alpha', value: 'alpha' },
                 { label: 'Beta', value: 'beta' },
               ]}
-              minWidth={240}
+              minWidth={DEFAULT_TEST_MIN_WIDTH}
               value={value}
               onChange={(v) => setValue(v)}
             />
@@ -56,7 +56,7 @@ describe('Select', () => {
                 { label: 'Alpha', value: 'alpha' },
                 { label: 'Beta', value: 'beta' },
               ]}
-              minWidth={240}
+              minWidth={DEFAULT_TEST_MIN_WIDTH}
               value={value}
               placeholder="Pick one"
               onChange={(v) => setValue(v)}
@@ -80,7 +80,7 @@ describe('Select', () => {
             { label: 'Alpha', value: 'alpha' },
             { label: 'Beta', value: 'beta' },
           ]}
-          minWidth={240}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
           defaultValue="beta"
         />,
       )
@@ -91,7 +91,7 @@ describe('Select', () => {
       mount(
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
-          minWidth={240}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
           trigger={({ toggle }) => (
             <button id="custom-trigger" onClick={toggle}>
               Custom
@@ -107,7 +107,7 @@ describe('Select', () => {
       mount(
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
-          minWidth={240}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
           defaultOpen={true}
           footer={<span id="custom-footer">Custom footer</span>}
         />,

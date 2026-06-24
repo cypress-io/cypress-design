@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 import type { SelectItem } from '@cypress-design/constants-select'
 import { IconArrowLeft } from '@cypress-design/vue-icon'
-import assertions from '../assertions'
+import assertions, { DEFAULT_TEST_MIN_WIDTH } from '../assertions'
 import type { SelectMountOptions } from '../assertions'
 import Select from './Select.vue'
 
@@ -11,9 +11,9 @@ describe('<Select/>', () => {
   function mountStory(options: SelectMountOptions) {
     const { defaultValue, onChange, onOpenChange, onHeaderTabChange, ...rest } =
       options
-    // Default the popover min-width to 240px so the panel has a consistent
-    // shape across tests; individual tests can override via SelectMountOptions.
-    const merged = { minWidth: 240 as const, ...rest }
+    // Default the popover min-width so the panel has a consistent shape
+    // across tests; individual tests can override via SelectMountOptions.
+    const merged = { minWidth: DEFAULT_TEST_MIN_WIDTH, ...rest }
     mount(() => (
       <div class="m-4">
         <Select
@@ -45,7 +45,7 @@ describe('<Select/>', () => {
               { label: 'Alpha', value: 'alpha' },
               { label: 'Beta', value: 'beta' },
             ]}
-            minWidth={240}
+            minWidth={DEFAULT_TEST_MIN_WIDTH}
             modelValue={value.value}
             {...({
               'onUpdate:modelValue': (v: string | undefined) =>
@@ -69,7 +69,7 @@ describe('<Select/>', () => {
               { label: 'Alpha', value: 'alpha' },
               { label: 'Beta', value: 'beta' },
             ]}
-            minWidth={240}
+            minWidth={DEFAULT_TEST_MIN_WIDTH}
             modelValue={value.value}
             placeholder="Pick one"
             {...({
@@ -89,7 +89,10 @@ describe('<Select/>', () => {
 
     it('renders a custom trigger via the trigger slot', () => {
       mount(() => (
-        <Select items={[{ label: 'Alpha', value: 'alpha' }]} minWidth={240}>
+        <Select
+          items={[{ label: 'Alpha', value: 'alpha' }]}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
+        >
           {{
             trigger: ({ toggle }: { toggle: () => void }) => (
               <button id="custom-trigger" onClick={toggle}>
@@ -107,7 +110,7 @@ describe('<Select/>', () => {
       mount(() => (
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
-          minWidth={240}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
           defaultOpen={true}
         >
           {{
