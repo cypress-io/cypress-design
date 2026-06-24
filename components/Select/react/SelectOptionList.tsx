@@ -18,24 +18,27 @@ import type {
   SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionItem from './SelectOptionItem'
-import {
-  filterAndCollapseHeadlines,
-  getSelectableIndices,
-} from './filter-items'
+import { getSelectableIndices } from './filter-items'
 
 // Composed from the same shared groups as SelectProps so the popover's
 // chrome (header + search + footer + sizing + theming) stays a single
-// source of truth.
+// source of truth. `items` arrives ALREADY FILTERED — Select owns the
+// search query and applies `filterAndCollapseHeadlines` before passing
+// the list down, so keyboard nav and rendering agree on which rows exist.
 export interface SelectOptionListProps
   extends SelectThemingProps,
     SelectHeaderProps,
-    SelectSearchProps,
+    Omit<SelectSearchProps, 'searchFilters'>,
     SelectFooterProps,
     SelectSizingProps {
   items: SelectItem[]
   value?: string
   onSelect: (item: SelectItem) => void
   onHeaderTabChange?: (id: string) => void
+
+  // Controlled search value — Select owns the state and the filter.
+  searchValue?: string
+  onSearchValueChange?: (value: string) => void
 
   // React-only: structured footerLabel/footerAction live in SelectFooterProps;
   // the optional ReactNode escape hatch sits alongside them.
@@ -45,7 +48,7 @@ export interface SelectOptionListProps
   id?: string
   className?: string
 
-  // Keyboard-focused row index (within the *filtered* list).
+  // Keyboard-focused row index (within the rendered list).
   // Provided by Select; the panel just renders the state.
   focusedIndex?: number
   itemIdPrefix?: string
@@ -74,7 +77,8 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   onHeaderTabChange,
   searchable = false,
   searchPlaceholder = SelectConstants.DefaultSearchPlaceholder,
-  searchFilters = true,
+  searchValue = '',
+  onSearchValueChange,
   footer,
   footerLabel,
   footerAction,
@@ -94,19 +98,10 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
     | undefined
   const HeaderIconLeft = headerIconLeftRaw as IconComponent | undefined
   const HeaderIconRight = headerIconRightRaw as IconComponent | undefined
-  const [searchValue, setSearchValue] = React.useState('')
-
-  const filteredItems = React.useMemo(
-    () =>
-      searchable && searchFilters
-        ? filterAndCollapseHeadlines(items, searchValue)
-        : items,
-    [items, searchable, searchFilters, searchValue],
-  )
 
   const selectableIndices = React.useMemo(
-    () => getSelectableIndices(filteredItems),
-    [filteredItems],
+    () => getSelectableIndices(items),
+    [items],
   )
   const focusedSelectableIndex =
     typeof focusedIndex === 'number'
@@ -252,7 +247,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                   iconLeft={IconObjectMagnifyingGlass}
                   value={searchValue}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setSearchValue(e.target.value)
+                    onSearchValueChange?.(e.target.value)
                   }
                   aria-label={searchPlaceholder}
                 />
@@ -263,12 +258,12 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
       )}
 
       <div className={SelectConstants.CssItemsContainerClasses}>
-        {filteredItems.length === 0 ? (
+        {items.length === 0 ? (
           <div className={SelectConstants.CssEmptyStateClasses[theme]}>
             No results
           </div>
         ) : (
-          filteredItems.map((item, index) => {
+          items.map((item, index) => {
             const itemValue = SelectConstants.getItemValue(item)
             // Empty string is a valid `value` per `SelectItemDefault` —
             // `itemValue === value` already excludes `undefined` ↔ '' (since

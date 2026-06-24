@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import Tabs from '@cypress-design/vue-tabs'
 import Textbox from '@cypress-design/vue-textbox'
 import Button from '@cypress-design/vue-button'
@@ -19,21 +19,23 @@ import type {
   SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionItem from './_SelectOptionItem.vue'
-import {
-  filterAndCollapseHeadlines,
-  getSelectableIndices,
-} from './filter-items'
+import { getSelectableIndices } from './filter-items'
 
 // Props share the same named groups as Select.vue so adding a header /
 // search / footer / sizing field happens in one place
-// (@cypress-design/constants-select).
+// (@cypress-design/constants-select). `items` arrives ALREADY FILTERED —
+// Select owns `searchValue` and applies `filterAndCollapseHeadlines`
+// before passing the list down, so keyboard nav and rendering agree on
+// which rows exist.
 type OptionListProps = SelectThemingProps &
   SelectHeaderProps &
-  SelectSearchProps &
+  Omit<SelectSearchProps, 'searchFilters'> &
   SelectFooterProps &
   SelectSizingProps & {
     items: SelectItem[]
     value?: string
+    // Controlled search input value — Select owns the state and the filter.
+    searchValue?: string
     align?: SelectAlignment
     id?: string
     panelClass?: string
@@ -47,33 +49,24 @@ const props = withDefaults(defineProps<OptionListProps>(), {
   align: SelectConstants.DefaultAlignment,
   searchable: false,
   searchPlaceholder: SelectConstants.DefaultSearchPlaceholder,
-  searchFilters: true,
+  searchValue: '',
 })
 
 const emit = defineEmits<{
   (e: 'select', item: SelectItem): void
   (e: 'header-tab-change', id: string): void
+  (e: 'update:searchValue', value: string): void
 }>()
 
 defineSlots<{
   footer?: () => unknown
 }>()
 
-const searchValue = ref('')
-
 function onHeaderTabSwitch(tab: { id: string }) {
   emit('header-tab-change', tab.id)
 }
 
-const filteredItems = computed(() =>
-  props.searchable && props.searchFilters
-    ? filterAndCollapseHeadlines(props.items, searchValue.value)
-    : props.items,
-)
-
-const selectableIndices = computed(() =>
-  getSelectableIndices(filteredItems.value),
-)
+const selectableIndices = computed(() => getSelectableIndices(props.items))
 const focusedSelectableIndex = computed(() =>
   typeof props.focusedIndex === 'number'
     ? selectableIndices.value[props.focusedIndex]
@@ -228,20 +221,20 @@ function rowId(index: number): string | undefined {
           :icon-left="IconObjectMagnifyingGlass"
           :model-value="searchValue"
           :aria-label="searchPlaceholder"
-          @update:model-value="(v: string) => (searchValue = v)"
+          @update:model-value="(v: string) => emit('update:searchValue', v)"
         />
       </div>
     </div>
 
     <div :class="SelectConstants.CssItemsContainerClasses">
       <div
-        v-if="filteredItems.length === 0"
+        v-if="items.length === 0"
         :class="SelectConstants.CssEmptyStateClasses[theme]"
       >
         No results
       </div>
       <SelectOptionItem
-        v-for="(item, index) in filteredItems"
+        v-for="(item, index) in items"
         :key="itemKey(item, index)"
         :id="rowId(index)"
         :item="item"

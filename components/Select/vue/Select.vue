@@ -14,7 +14,10 @@ import type {
   SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionList from './_SelectOptionList.vue'
-import { getSelectableIndices } from './filter-items'
+import {
+  filterAndCollapseHeadlines,
+  getSelectableIndices,
+} from './filter-items'
 
 // Public props are composed from the shared groups in `constants-select`
 // so the surface stays in sync with SelectOptionList / SelectOptionItem.
@@ -145,11 +148,25 @@ const defaultTriggerLabel = computed(() => {
 // stretched-out button. Matches Button's `square` rule: width === height.
 const isTriggerIconOnly = computed(() => !defaultTriggerLabel.value)
 
+// ---------- search ----------
+// `searchValue` lives on Select (not OptionList) so the keyboard handler
+// and the rendered popover work off the SAME filtered list. Before this,
+// Select walked indices on the raw `items` while OptionList re-filtered
+// internally — Enter could select rows hidden by the search filter.
+const searchValue = ref('')
+const displayItems = computed(() =>
+  props.searchable && props.searchFilters
+    ? filterAndCollapseHeadlines(props.items, searchValue.value)
+    : props.items,
+)
+
 // ---------- focused index ----------
 // -1 means "no row focused" — visual focus ring + aria-activedescendant are
 // suppressed until the user actually navigates with an arrow key.
 const focusedIndex = ref(-1)
-const selectableIndices = computed(() => getSelectableIndices(props.items))
+const selectableIndices = computed(() =>
+  getSelectableIndices(displayItems.value),
+)
 
 watch(open, (isOpen) => {
   if (!isOpen) return
@@ -229,7 +246,7 @@ function onKeyDown(e: KeyboardEvent) {
     if (focusedIndex.value === -1) return
     const realIndex = selectableIndices.value[focusedIndex.value]
     if (realIndex === undefined) return
-    handleSelect(props.items[realIndex])
+    handleSelect(displayItems.value[realIndex])
   }
 }
 
@@ -319,7 +336,7 @@ const chevronClasses = computed(() => [
       v-if="open"
       :id="popoverId"
       :item-id-prefix="itemIdPrefix"
-      :items="items"
+      :items="displayItems"
       :theme="theme"
       :size="size"
       :value="value"
@@ -332,7 +349,7 @@ const chevronClasses = computed(() => [
       :header-active-tab="headerActiveTab"
       :searchable="searchable"
       :search-placeholder="searchPlaceholder"
-      :search-filters="searchFilters"
+      :search-value="searchValue"
       :footer-label="footerLabel"
       :footer-action="footerAction"
       :width="width"
@@ -343,6 +360,7 @@ const chevronClasses = computed(() => [
       :align="align"
       :focused-index="focusedIndex"
       :panel-class="popoverClass"
+      @update:search-value="(v: string) => (searchValue = v)"
       @select="(it: SelectItem) => handleSelect(it)"
       @header-tab-change="(id: string) => emit('header-tab-change', id)"
     >

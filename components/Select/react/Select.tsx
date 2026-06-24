@@ -14,7 +14,10 @@ import type {
   SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionList from './SelectOptionList'
-import { getSelectableIndices } from './filter-items'
+import {
+  filterAndCollapseHeadlines,
+  getSelectableIndices,
+} from './filter-items'
 
 export interface SelectTriggerContext {
   open: boolean
@@ -157,16 +160,22 @@ export const Select: React.FC<SelectProps> = ({
   // -1 means "no row focused" — the visual focus ring + aria-activedescendant
   // are suppressed until the user actually navigates with an arrow key.
   const [focusedIndex, setFocusedIndex] = React.useState(-1)
-  // Search query state is owned by the option list itself, but we need to
-  // mirror it here so keyboard traversal sees the same filtered list. To
-  // keep ownership clean for v1, traversal traverses the *unfiltered*
-  // selectable indices — search filtering visually hides rows but arrows
-  // still walk over the underlying list. This is documented as a known
-  // limitation in instructions.md and revisited in the accessibility
-  // branch.
+  // `searchValue` lives here (not in OptionList) so the keyboard handler
+  // and the rendered popover work off the same filtered list. Before this,
+  // Select walked indices on the raw `items` while OptionList re-filtered
+  // internally — Enter could select rows hidden by the search filter and
+  // `aria-activedescendant` pointed at non-rendered ids.
+  const [searchValue, setSearchValue] = React.useState('')
+  const displayItems = React.useMemo(
+    () =>
+      searchable && searchFilters
+        ? filterAndCollapseHeadlines(items, searchValue)
+        : items,
+    [items, searchable, searchFilters, searchValue],
+  )
   const selectableIndices = React.useMemo(
-    () => getSelectableIndices(items),
-    [items],
+    () => getSelectableIndices(displayItems),
+    [displayItems],
   )
 
   // Open the popover with no focused row. The first arrow keypress lands
@@ -246,7 +255,7 @@ export const Select: React.FC<SelectProps> = ({
       if (focusedIndex === -1) return
       const realIndex = selectableIndices[focusedIndex]
       if (realIndex === undefined) return
-      const item = items[realIndex]
+      const item = displayItems[realIndex]
       handleSelect(item)
     }
   }
@@ -339,7 +348,7 @@ export const Select: React.FC<SelectProps> = ({
         <SelectOptionList
           id={popoverId}
           itemIdPrefix={itemIdPrefix}
-          items={items}
+          items={displayItems}
           theme={theme}
           size={size}
           value={value}
@@ -354,7 +363,8 @@ export const Select: React.FC<SelectProps> = ({
           onHeaderTabChange={onHeaderTabChange}
           searchable={searchable}
           searchPlaceholder={searchPlaceholder}
-          searchFilters={searchFilters}
+          searchValue={searchValue}
+          onSearchValueChange={setSearchValue}
           footer={footer}
           footerLabel={footerLabel}
           footerAction={footerAction}

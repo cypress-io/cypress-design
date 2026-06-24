@@ -29,6 +29,16 @@ const CustomRender = defineComponent({
   },
 })
 
+// Same trick for `slotRight` on default rows. `<component :is>` only works
+// when the value is a component definition; with this helper Vue happily
+// renders VNodes, strings, fragments, or anything the consumer hands in.
+const NodeRender = defineComponent({
+  props: { node: { required: true, type: null as unknown as () => unknown } },
+  setup(props) {
+    return () => (typeof props.node === 'function' ? props.node() : props.node)
+  },
+})
+
 const props = defineProps<{
   item: SelectItem
   theme: SelectTheme
@@ -251,7 +261,7 @@ function onMouseDown(e: MouseEvent) {
       :class="['ml-auto', iconColorClass]"
     />
     <span v-if="item.slotRight" class="ml-auto shrink-0">
-      <component :is="item.slotRight" />
+      <NodeRender :node="item.slotRight" />
     </span>
   </div>
 </template>
