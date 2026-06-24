@@ -11,7 +11,7 @@ describe('Select', () => {
   function mountStory(options: SelectMountOptions) {
     // Default popover min-width to 180px so the panel has a consistent shape
     // across tests; individual tests can override via SelectMountOptions.
-    const merged = { minWidth: '180', ...options }
+    const merged = { minWidth: '240', ...options }
     mount(
       <div className="m-4">
         <Select {...(merged as React.ComponentProps<typeof Select>)} />

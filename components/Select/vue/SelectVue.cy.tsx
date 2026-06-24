@@ -13,7 +13,7 @@ describe('<Select/>', () => {
       options
     // Default the popover min-width to 180px so the panel has a consistent
     // shape across tests; individual tests can override via SelectMountOptions.
-    const merged = { minWidth: '180' as const, ...rest }
+    const merged = { minWidth: '240' as const, ...rest }
     mount(() => (
       <div class="m-4">
         <Select
