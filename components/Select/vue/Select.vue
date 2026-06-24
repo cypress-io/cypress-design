@@ -58,6 +58,13 @@ const props = withDefaults(
     align: SelectConstants.DefaultAlignment,
     triggerVariant: SelectConstants.DefaultTriggerVariant,
     searchable: false,
+    // Vue 3 quirk: Boolean props bound via `v-bind` with `undefined` are
+    // cast to `false` BEFORE the child's withDefaults applies. Without an
+    // explicit default here, omitting `searchFilters` at the call site
+    // means Select forwards `false` to SelectOptionList, disabling the
+    // filter (the row stays visual-only). Default true so search actually
+    // filters by default.
+    searchFilters: true,
     disabled: false,
     defaultOpen: false,
   },
