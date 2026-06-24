@@ -19,7 +19,10 @@ import type {
   SelectFooterProps,
   SelectSizingProps,
 } from '@cypress-design/constants-select'
-import { getSelectableIndices } from '@cypress-design/constants-select'
+import {
+  getInteractiveIndices,
+  getSelectableIndices,
+} from '@cypress-design/constants-select'
 import SelectOptionItem from './SelectOptionItem'
 
 // Composed from the same shared groups as SelectProps so the popover's
@@ -106,7 +109,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   const HeaderIconRight = headerIconRightRaw as IconComponent | undefined
 
   const selectableIndices = React.useMemo(
-    () => getSelectableIndices(items),
+    () => getInteractiveIndices(items),
     [items],
   )
   const focusedSelectableIndex =

@@ -119,7 +119,9 @@ function onMouseDown(e: MouseEvent) {
        selectable rows to assistive tech. -->
   <div
     v-else-if="item.type === 'button'"
+    :id="id"
     role="presentation"
+    :data-focused="focused || undefined"
     :class="[
       SelectConstants.CssButtonRowClasses,
       SelectConstants.CssOptionItemHeightClasses[size],

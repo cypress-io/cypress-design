@@ -229,6 +229,31 @@ export default function assertions(
       cy.get('@rowAction').should('have.been.calledOnce')
     })
 
+    it('button-row is reachable by keyboard (ArrowDown lands focus, Enter fires onClick)', () => {
+      const onClick = cy.stub().as('rowAction')
+      const items: SelectItem[] = [
+        { label: 'Alpha', value: 'alpha' },
+        { type: 'button', key: 'add', label: 'Add new', onClick },
+      ]
+      mountStory({ items, placeholder: 'Open' })
+      // 1st ArrowDown opens with no focus; 2nd lands on Alpha; 3rd wraps to
+      // the button row (no divider between, so 2 interactive rows total).
+      cy.findByRole('button', { name: 'Open' })
+        .focus()
+        .type('{downArrow}{downArrow}{downArrow}')
+      // The row wrapper (role="presentation") carries `data-focused`; the
+      // inner Button is just the action target. Walk up via `closest`.
+      cy.findByRole('listbox')
+        .findByRole('button', { name: 'Add new' })
+        .closest('[role="presentation"]')
+        .should('have.attr', 'data-focused', 'true')
+      // Enter on the focused button row should fire its onClick. Popover
+      // stays open so the consumer can decide whether to close it.
+      cy.findByRole('button', { name: 'Open' }).type('{enter}')
+      cy.get('@rowAction').should('have.been.calledOnce')
+      cy.findByRole('listbox').should('be.visible')
+    })
+
     it('checkbox row toggles on/off; popover stays open; emits undefined on untoggle', () => {
       const onChange = cy.stub().as('onChange')
       mountStory({ items: checkboxItems, onChange })

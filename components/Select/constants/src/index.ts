@@ -103,7 +103,9 @@ export type SelectItem =
   | SelectItemButton
   | SelectItemCustom
 
-// Subset of items that participate in selection / keyboard traversal.
+// Subset of items that participate in **selection** (the value the Select
+// reports). Headlines / dividers / buttons / value-less custom rows are
+// excluded.
 export type SelectableItem =
   | SelectItemDefault
   | SelectItemCheckbox
@@ -117,6 +119,14 @@ export function isSelectable(item: SelectItem): item is SelectableItem {
   if (item.type === 'user') return !item.disabled
   if (item.type === 'custom') return typeof item.value === 'string'
   return false
+}
+
+// Superset of `isSelectable` that also includes `button` rows — these are
+// not selectable (they have no value) but ARE reachable by keyboard:
+// arrows walk them, and Enter fires the row's `onClick`. Headlines and
+// dividers stay off the keyboard path.
+export function isInteractive(item: SelectItem): boolean {
+  return isSelectable(item) || item.type === 'button'
 }
 
 export function getItemValue(item: SelectItem): string | undefined {

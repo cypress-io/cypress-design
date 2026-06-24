@@ -1,5 +1,5 @@
 import type { SelectItem } from './index'
-import { getItemLabel, isSelectable } from './index'
+import { getItemLabel, isInteractive, isSelectable } from './index'
 
 /**
  * Filter items by case-insensitive substring match against `label`.
@@ -50,12 +50,26 @@ export function filterAndCollapseHeadlines(
 }
 
 /**
- * Indices of items that participate in keyboard traversal and selection.
+ * Indices of items that can be SELECTED (set as the Select's value).
+ * Used for the checkbox / aria-selected mapping. Headlines, dividers,
+ * buttons, and value-less custom rows are excluded.
  */
 export function getSelectableIndices(items: SelectItem[]): number[] {
   const out: number[] = []
   items.forEach((item, i) => {
     if (isSelectable(item)) out.push(i)
+  })
+  return out
+}
+
+/**
+ * Indices that keyboard nav walks — selectable rows plus `button` rows so
+ * in-list actions are reachable without a pointer.
+ */
+export function getInteractiveIndices(items: SelectItem[]): number[] {
+  const out: number[] = []
+  items.forEach((item, i) => {
+    if (isInteractive(item)) out.push(i)
   })
   return out
 }

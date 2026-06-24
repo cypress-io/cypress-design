@@ -13,6 +13,7 @@ import type { ButtonVariants } from '@cypress-design/constants-button'
 import * as SelectConstants from '@cypress-design/constants-select'
 import {
   filterAndCollapseHeadlines,
+  getInteractiveIndices,
   getSelectableIndices,
 } from '@cypress-design/constants-select'
 import type {
@@ -182,8 +183,11 @@ const displayItems = computed(() =>
 // -1 means "no row focused" — visual focus ring + aria-activedescendant are
 // suppressed until the user actually navigates with an arrow key.
 const focusedIndex = ref(-1)
+// Keyboard nav walks `interactive` indices (selectable rows + button rows)
+// so in-list actions are reachable. Selection logic in handleSelect still
+// distinguishes selectable rows from button rows.
 const selectableIndices = computed(() =>
-  getSelectableIndices(displayItems.value),
+  getInteractiveIndices(displayItems.value),
 )
 
 watch(open, (isOpen) => {
@@ -329,6 +333,15 @@ function handleSelect(item: SelectItem) {
   // Belt to the close-on-disabled-flip watcher above: a click that was
   // already in flight when `disabled` flipped should not mutate the value.
   if (props.disabled) return
+  // Button rows aren't selectable (no value) — they fire their own onClick
+  // when picked via keyboard. The pointer path goes through `_SelectOptionItem`
+  // and reaches the Button directly; here we only see keyboard Enter on a
+  // focused row. Don't close the popover so multi-action flows are
+  // possible; the consumer's onClick can close via `update:open` if needed.
+  if (item.type === 'button') {
+    item.onClick()
+    return
+  }
   const itemValue = SelectConstants.getItemValue(item)
   if (itemValue === undefined) return
   // Checkbox rows toggle: clicking an already-checked row unchecks it.

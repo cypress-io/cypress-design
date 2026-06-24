@@ -257,8 +257,8 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 - Keyboard support:
   - `Enter` / `Space` on the trigger → toggle open.
   - `ArrowDown` on the trigger → open (does not focus a row yet; the next arrow keypress lands focus — see below).
-  - Open with no row focused. The first `ArrowDown` lands focus on the first selectable row; the first `ArrowUp` lands focus on the last. Subsequent `ArrowUp` / `ArrowDown` walk previous / next selectable rows (skipping `headline`, `divider`, `button`, and `disabled`).
-  - `Enter` on a focused row → select + close. No-op while nothing is focused. (`button` rows are intentionally excluded from keyboard traversal in v1; trigger them with the pointer. Reach via keyboard is tracked for the accessibility branch.)
+  - Open with no row focused. The first `ArrowDown` lands focus on the first interactive row; the first `ArrowUp` lands focus on the last. Subsequent `ArrowUp` / `ArrowDown` walk previous / next interactive rows (skipping `headline`, `divider`, and `disabled`). **`button` rows are included** so in-list actions are reachable by keyboard.
+  - `Enter` on a focused row → select + close (for selectable rows), or fire the row's `onClick` (for `button` rows, which stay open afterward). No-op while nothing is focused.
   - `Escape` → close + return focus to the trigger.
   - `Tab` → close and move focus naturally.
 

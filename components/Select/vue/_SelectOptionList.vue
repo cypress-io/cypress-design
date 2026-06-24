@@ -10,7 +10,10 @@ import {
   IconActionInfoOutline,
 } from '@cypress-design/vue-icon'
 import * as SelectConstants from '@cypress-design/constants-select'
-import { getSelectableIndices } from '@cypress-design/constants-select'
+import {
+  getInteractiveIndices,
+  getSelectableIndices,
+} from '@cypress-design/constants-select'
 import type {
   SelectItem,
   SelectAlignment,
@@ -67,7 +70,7 @@ function onHeaderTabSwitch(tab: { id: string }) {
   emit('header-tab-change', tab.id)
 }
 
-const selectableIndices = computed(() => getSelectableIndices(props.items))
+const selectableIndices = computed(() => getInteractiveIndices(props.items))
 const focusedSelectableIndex = computed(() =>
   typeof props.focusedIndex === 'number'
     ? selectableIndices.value[props.focusedIndex]

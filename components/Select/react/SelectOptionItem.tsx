@@ -101,7 +101,9 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
       // <Button>; matches headline/divider so the listbox tree only
       // exposes selectable rows to assistive tech.
       <div
+        id={id}
         role="presentation"
+        data-focused={focused || undefined}
         className={clsx(
           SelectConstants.CssButtonRowClasses,
           SelectConstants.CssOptionItemHeightClasses[size],
