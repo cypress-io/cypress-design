@@ -155,6 +155,11 @@ const defaultTriggerLabel = computed(() => {
   return props.placeholder ?? ''
 })
 
+// When the trigger has no label text (no selection AND no placeholder),
+// render it as an icon-only square so the chevron alone doesn't sit in a
+// stretched-out button. Matches Button's `square` rule: width === height.
+const isTriggerIconOnly = computed(() => !defaultTriggerLabel.value)
+
 // ---------- focused index ----------
 // -1 means "no row focused" — visual focus ring + aria-activedescendant are
 // suppressed until the user actually navigates with an arrow key.
@@ -299,16 +304,25 @@ const chevronClasses = computed(() => [
         <Button
           :variant="triggerVariant as never"
           :size="size"
+          :square="isTriggerIconOnly"
           :disabled="disabled"
           type="button"
           aria-haspopup="listbox"
           :aria-expanded="open"
           :aria-controls="popoverId"
           :aria-activedescendant="activeDescendantId"
-          :class="SelectConstants.CssTriggerWidthClasses"
+          :class="
+            isTriggerIconOnly ? '' : SelectConstants.CssTriggerWidthClasses
+          "
           @click="toggle"
         >
-          <span :class="SelectConstants.CssTriggerContentClasses">
+          <span
+            v-if="isTriggerIconOnly"
+            :class="SelectConstants.CssTriggerIconOnlyClasses"
+          >
+            <IconChevronDownSmall :class="chevronClasses" />
+          </span>
+          <span v-else :class="SelectConstants.CssTriggerContentClasses">
             <span class="truncate">{{ defaultTriggerLabel }}</span>
             <IconChevronDownSmall :class="chevronClasses" />
           </span>

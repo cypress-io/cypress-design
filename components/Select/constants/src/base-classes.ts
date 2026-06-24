@@ -9,6 +9,10 @@ export const CssTriggerWidthClasses = 'w-fit'
 // Trigger content (label + chevron) layout inside the Button.
 export const CssTriggerContentClasses = 'flex items-center gap-[8px]'
 
+// Trigger content when icon-only (no label) — center the chevron inside
+// the square Button so its visual weight sits in the middle of the box.
+export const CssTriggerIconOnlyClasses = 'flex items-center justify-center'
+
 // Chevron icon rotation when the popover is open. Pair with `transition-transform`.
 export const CssChevronClasses = 'transition-transform duration-150 shrink-0'
 export const CssChevronOpenClasses = 'rotate-180'

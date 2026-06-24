@@ -293,6 +293,10 @@ export const Select: React.FC<SelectProps> = ({
 
   const defaultTriggerLabel =
     selected && 'label' in selected ? selected.label : placeholder ?? ''
+  // When the trigger has no label text (no selection AND no placeholder),
+  // render it as an icon-only square so the chevron alone doesn't sit in a
+  // stretched-out button.
+  const isTriggerIconOnly = !defaultTriggerLabel
 
   const triggerNode =
     typeof trigger === 'function' ? (
@@ -303,6 +307,7 @@ export const Select: React.FC<SelectProps> = ({
       <Button
         variant={triggerVariant as never}
         size={size}
+        square={isTriggerIconOnly}
         disabled={disabled}
         type="button"
         aria-haspopup="listbox"
@@ -314,10 +319,20 @@ export const Select: React.FC<SelectProps> = ({
             : undefined
         }
         onClick={toggle}
-        className={SelectConstants.CssTriggerWidthClasses}
+        className={
+          isTriggerIconOnly ? undefined : SelectConstants.CssTriggerWidthClasses
+        }
       >
-        <span className={SelectConstants.CssTriggerContentClasses}>
-          <span className="truncate">{defaultTriggerLabel}</span>
+        <span
+          className={
+            isTriggerIconOnly
+              ? SelectConstants.CssTriggerIconOnlyClasses
+              : SelectConstants.CssTriggerContentClasses
+          }
+        >
+          {!isTriggerIconOnly && (
+            <span className="truncate">{defaultTriggerLabel}</span>
+          )}
           <IconChevronDownSmall
             className={clsx(
               SelectConstants.CssChevronClasses,
