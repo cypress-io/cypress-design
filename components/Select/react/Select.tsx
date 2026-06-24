@@ -95,7 +95,10 @@ export const Select: React.FC<SelectProps> = ({
   onHeaderTabChange,
   searchable = false,
   searchPlaceholder,
-  searchFilters,
+  // Matches the Vue default so that callers passing `searchable` without
+  // also passing `searchFilters` still get the filter behavior the
+  // instructions document (`searchFilters` defaults to `true`).
+  searchFilters = true,
   footer,
   footerLabel,
   footerAction,
