@@ -85,7 +85,13 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
     // look puny in a `size=40` panel.
     const buttonSize = size === '40' ? '32' : '24'
     return (
-      <div className={SelectConstants.CssButtonRowClasses}>
+      <div
+        className={clsx(
+          SelectConstants.CssButtonRowClasses,
+          SelectConstants.CssOptionItemHeightClasses[size],
+          SelectConstants.CssOptionItemPaddingClasses[size],
+        )}
+      >
         <Button
           variant={buttonVariant as never}
           size={buttonSize}

@@ -107,7 +107,11 @@ function onMouseDown(e: MouseEvent) {
        stark white pill against the gray-1000 panel. -->
   <div
     v-else-if="item.type === 'button'"
-    :class="SelectConstants.CssButtonRowClasses"
+    :class="[
+      SelectConstants.CssButtonRowClasses,
+      SelectConstants.CssOptionItemHeightClasses[size],
+      SelectConstants.CssOptionItemPaddingClasses[size],
+    ]"
   >
     <Button
       :variant="
