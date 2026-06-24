@@ -9,7 +9,7 @@ import type { SelectMountOptions } from '../assertions'
 
 describe('Select', () => {
   function mountStory(options: SelectMountOptions) {
-    // Default popover min-width to 180px so the panel has a consistent shape
+    // Default popover min-width to 240px so the panel has a consistent shape
     // across tests; individual tests can override via SelectMountOptions.
     const merged = { minWidth: '240', ...options }
     mount(

@@ -11,7 +11,7 @@ describe('<Select/>', () => {
   function mountStory(options: SelectMountOptions) {
     const { defaultValue, onChange, onOpenChange, onHeaderTabChange, ...rest } =
       options
-    // Default the popover min-width to 180px so the panel has a consistent
+    // Default the popover min-width to 240px so the panel has a consistent
     // shape across tests; individual tests can override via SelectMountOptions.
     const merged = { minWidth: '240' as const, ...rest }
     mount(() => (
