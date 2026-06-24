@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 import type { SelectItem } from '@cypress-design/constants-select'
+import { IconArrowLeft } from '@cypress-design/vue-icon'
 import assertions from '../assertions'
 import type { SelectMountOptions } from '../assertions'
 import Select from './Select.vue'
@@ -10,10 +11,13 @@ describe('<Select/>', () => {
   function mountStory(options: SelectMountOptions) {
     const { defaultValue, onChange, onOpenChange, onHeaderTabChange, ...rest } =
       options
+    // Default the popover min-width to 180px so the panel has a consistent
+    // shape across tests; individual tests can override via SelectMountOptions.
+    const merged = { minWidth: '180' as const, ...rest }
     mount(() => (
       <div class="m-4">
         <Select
-          {...rest}
+          {...merged}
           modelValue={options.value ?? defaultValue}
           {...({
             // Only bridge through `change` (carries value + item). The
@@ -29,7 +33,7 @@ describe('<Select/>', () => {
     ))
   }
 
-  assertions(mountStory)
+  assertions(mountStory, { iconArrowLeft: IconArrowLeft })
 
   describe('Vue specific', () => {
     it('round-trips selection through v-model', () => {

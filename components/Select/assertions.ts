@@ -26,6 +26,7 @@ export interface SelectMountOptions {
   footerAction?: { label: string; onClick: () => void }
   defaultOpen?: boolean
   id?: string
+  minWidth?: string
   onChange?: (value: string | undefined, item: SelectItem) => void
   onOpenChange?: (open: boolean) => void
   onHeaderTabChange?: (id: string) => void
@@ -52,8 +53,16 @@ const checkboxItems: SelectItem[] = [
   { type: 'checkbox', label: 'Option B', value: 'b', subText: 'Hint' },
 ]
 
+export interface AssertionsContext {
+  // Framework-specific arrow-left icon component (Vue or React). Passed in
+  // by each harness so the shared assertions can use a real icon in the
+  // header back-button test without depending on a framework directly.
+  iconArrowLeft: unknown
+}
+
 export default function assertions(
   mountStory: (options: SelectMountOptions) => void,
+  context: AssertionsContext,
 ): void {
   describe('Select', () => {
     beforeEach(() => {
@@ -264,19 +273,12 @@ export default function assertions(
 
     it('renders the header title, back button, and tag when passed', () => {
       const onBack = cy.stub().as('onBack')
-      // A noop functional component swallows the size/interactiveColorsOnGroup
-      // props the back-button injects without forwarding them to a DOM
-      // element. Using a string ('span') would trigger a React warning about
-      // unknown DOM attributes, which the cypress/support guard treats as a
-      // test failure (cypress/support/component.ts asserts callCount(0) on
-      // console.error/warn).
-      const NoopIcon = () => null
       mountStory({
         items: simpleItems,
         headerTitle: 'Pick a thing',
         headerTag: 'New',
         headerButton: {
-          iconLeft: NoopIcon,
+          iconLeft: context.iconArrowLeft,
           onClick: onBack,
           ariaLabel: 'Go back',
         },

@@ -2,20 +2,24 @@
 
 import * as React from 'react'
 import { mount } from 'cypress/react'
+import { IconArrowLeft } from '@cypress-design/react-icon'
 import Select from './Select'
 import assertions from '../assertions'
 import type { SelectMountOptions } from '../assertions'
 
 describe('Select', () => {
   function mountStory(options: SelectMountOptions) {
+    // Default popover min-width to 180px so the panel has a consistent shape
+    // across tests; individual tests can override via SelectMountOptions.
+    const merged = { minWidth: '180', ...options }
     mount(
       <div className="m-4">
-        <Select {...(options as React.ComponentProps<typeof Select>)} />
+        <Select {...(merged as React.ComponentProps<typeof Select>)} />
       </div>,
     )
   }
 
-  assertions(mountStory)
+  assertions(mountStory, { iconArrowLeft: IconArrowLeft })
 
   describe('React specific', () => {
     it('controlled (value + onChange) round-trips', () => {
