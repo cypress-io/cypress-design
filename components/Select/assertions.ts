@@ -272,12 +272,19 @@ export default function assertions(
 
     it('renders the header title, back button, and tag when passed', () => {
       const onBack = cy.stub().as('onBack')
+      // A noop functional component swallows the size/interactiveColorsOnGroup
+      // props the back-button injects without forwarding them to a DOM
+      // element. Using a string ('span') would trigger a React warning about
+      // unknown DOM attributes, which the cypress/support guard treats as a
+      // test failure (cypress/support/component.ts asserts callCount(0) on
+      // console.error/warn).
+      const NoopIcon = () => null
       mountStory({
         items: simpleItems,
         headerTitle: 'Pick a thing',
         headerTag: 'New',
         headerButton: {
-          iconLeft: 'span', // any component-ish thing; we only verify the back-button shell
+          iconLeft: NoopIcon,
           onClick: onBack,
           ariaLabel: 'Go back',
         },
