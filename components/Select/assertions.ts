@@ -234,15 +234,7 @@ export default function assertions(
 
     // ---------------- search / filtering ----------------
 
-    // TODO(select-search-vue): Re-enable once the Vue-side reactivity bug is
-    // found. cy.type populates the search input (verified via
-    // `should('have.value', 'be')`) but the SelectOptionList's
-    // `filteredItems` computed does not re-run — Alpha keeps rendering after
-    // searching for "be". React passes the same assertions. Suspect a
-    // tracking issue between the v-model'd `searchValue` ref and the
-    // computed; not yet root-caused. Both filter tests skipped together
-    // because they share the same root cause.
-    it.skip('search filters by label (case-insensitive) [vue search bug]', () => {
+    it('search filters by label (case-insensitive)', () => {
       mountStory({ items: simpleItems, searchable: true })
       cy.findByRole('button').click()
       cy.findByPlaceholderText('Search').type('be')
@@ -251,7 +243,7 @@ export default function assertions(
       cy.findByRole('option', { name: 'Gamma' }).should('not.exist')
     })
 
-    it.skip('orphan headlines collapse after filtering [vue search bug]', () => {
+    it('orphan headlines collapse after filtering', () => {
       mountStory({ items: mixedItems, searchable: true })
       cy.findByRole('button').click()
       cy.findByPlaceholderText('Search').type('alpha')
