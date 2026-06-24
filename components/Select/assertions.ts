@@ -104,7 +104,7 @@ export default function assertions(
       mountStory({ items: simpleItems })
       cy.findByRole('button').click()
       cy.findByRole('listbox').should('be.visible')
-      cy.get('body').type('{esc}')
+      cy.findByRole('button').type('{esc}')
       cy.findByRole('listbox').should('not.exist')
     })
 
@@ -165,25 +165,25 @@ export default function assertions(
         'data-focused',
         'true',
       )
-      cy.get('body').type('{downArrow}{downArrow}') // focus Gamma
+      cy.findByRole('button').type('{downArrow}{downArrow}') // focus Gamma
       cy.findByRole('option', { name: 'Gamma' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.get('body').type('{downArrow}') // wrap → Alpha
+      cy.findByRole('button').type('{downArrow}') // wrap → Alpha
       cy.findByRole('option', { name: 'Alpha' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.get('body').type('{upArrow}') // wrap up → Gamma
+      cy.findByRole('button').type('{upArrow}') // wrap up → Gamma
       cy.findByRole('option', { name: 'Gamma' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.get('body').type('{enter}')
+      cy.findByRole('button').type('{enter}')
       cy.get('@onChange').its('firstCall.args.0').should('equal', 'gamma')
     })
 
