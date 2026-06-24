@@ -11,7 +11,7 @@ describe('Select', () => {
   function mountStory(options: SelectMountOptions) {
     // Default popover min-width to 240px so the panel has a consistent shape
     // across tests; individual tests can override via SelectMountOptions.
-    const merged = { minWidth: '240', ...options }
+    const merged = { minWidth: 240, ...options }
     mount(
       <div className="m-4">
         <Select {...(merged as React.ComponentProps<typeof Select>)} />
@@ -32,7 +32,7 @@ describe('Select', () => {
                 { label: 'Alpha', value: 'alpha' },
                 { label: 'Beta', value: 'beta' },
               ]}
-              minWidth="240"
+              minWidth={240}
               value={value}
               onChange={(v) => setValue(v)}
             />
@@ -56,7 +56,7 @@ describe('Select', () => {
                 { label: 'Alpha', value: 'alpha' },
                 { label: 'Beta', value: 'beta' },
               ]}
-              minWidth="240"
+              minWidth={240}
               value={value}
               placeholder="Pick one"
               onChange={(v) => setValue(v)}
@@ -80,7 +80,7 @@ describe('Select', () => {
             { label: 'Alpha', value: 'alpha' },
             { label: 'Beta', value: 'beta' },
           ]}
-          minWidth="240"
+          minWidth={240}
           defaultValue="beta"
         />,
       )
@@ -91,7 +91,7 @@ describe('Select', () => {
       mount(
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
-          minWidth="240"
+          minWidth={240}
           trigger={({ toggle }) => (
             <button id="custom-trigger" onClick={toggle}>
               Custom
@@ -107,7 +107,7 @@ describe('Select', () => {
       mount(
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
-          minWidth="240"
+          minWidth={240}
           defaultOpen={true}
           footer={<span id="custom-footer">Custom footer</span>}
         />,

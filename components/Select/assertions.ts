@@ -26,7 +26,7 @@ export interface SelectMountOptions {
   footerAction?: { label: string; onClick: () => void }
   defaultOpen?: boolean
   id?: string
-  minWidth?: string
+  minWidth?: number | string
   onChange?: (value: string | undefined, item: SelectItem) => void
   onOpenChange?: (open: boolean) => void
   onHeaderTabChange?: (id: string) => void
