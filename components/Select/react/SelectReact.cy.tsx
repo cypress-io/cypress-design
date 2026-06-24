@@ -32,6 +32,7 @@ describe('Select', () => {
                 { label: 'Alpha', value: 'alpha' },
                 { label: 'Beta', value: 'beta' },
               ]}
+              minWidth="240"
               value={value}
               onChange={(v) => setValue(v)}
             />
@@ -55,6 +56,7 @@ describe('Select', () => {
                 { label: 'Alpha', value: 'alpha' },
                 { label: 'Beta', value: 'beta' },
               ]}
+              minWidth="240"
               value={value}
               placeholder="Pick one"
               onChange={(v) => setValue(v)}
@@ -78,6 +80,7 @@ describe('Select', () => {
             { label: 'Alpha', value: 'alpha' },
             { label: 'Beta', value: 'beta' },
           ]}
+          minWidth="240"
           defaultValue="beta"
         />,
       )
@@ -88,6 +91,7 @@ describe('Select', () => {
       mount(
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
+          minWidth="240"
           trigger={({ toggle }) => (
             <button id="custom-trigger" onClick={toggle}>
               Custom
@@ -103,6 +107,7 @@ describe('Select', () => {
       mount(
         <Select
           items={[{ label: 'Alpha', value: 'alpha' }]}
+          minWidth="240"
           defaultOpen={true}
           footer={<span id="custom-footer">Custom footer</span>}
         />,

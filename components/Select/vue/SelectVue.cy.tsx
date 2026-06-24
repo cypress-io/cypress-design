@@ -45,6 +45,7 @@ describe('<Select/>', () => {
               { label: 'Alpha', value: 'alpha' },
               { label: 'Beta', value: 'beta' },
             ]}
+            minWidth="240"
             modelValue={value.value}
             {...({
               'onUpdate:modelValue': (v: string | undefined) =>
@@ -68,6 +69,7 @@ describe('<Select/>', () => {
               { label: 'Alpha', value: 'alpha' },
               { label: 'Beta', value: 'beta' },
             ]}
+            minWidth="240"
             modelValue={value.value}
             placeholder="Pick one"
             {...({
@@ -87,7 +89,7 @@ describe('<Select/>', () => {
 
     it('renders a custom trigger via the trigger slot', () => {
       mount(() => (
-        <Select items={[{ label: 'Alpha', value: 'alpha' }]}>
+        <Select items={[{ label: 'Alpha', value: 'alpha' }]} minWidth="240">
           {{
             trigger: ({ toggle }: { toggle: () => void }) => (
               <button id="custom-trigger" onClick={toggle}>
@@ -103,7 +105,11 @@ describe('<Select/>', () => {
 
     it('renders the footer slot when provided', () => {
       mount(() => (
-        <Select items={[{ label: 'Alpha', value: 'alpha' }]} defaultOpen={true}>
+        <Select
+          items={[{ label: 'Alpha', value: 'alpha' }]}
+          minWidth="240"
+          defaultOpen={true}
+        >
           {{
             footer: () => <span id="custom-footer">Custom footer</span>,
           }}
