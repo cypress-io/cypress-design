@@ -100,12 +100,20 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
             item.onClick()
           }}
         >
-          {item.iconLeft
-            ? React.createElement(
-                item.iconLeft as React.ComponentType<Record<string, unknown>>,
-                { size: '16', interactiveColorsOnGroup: true },
-              )
-            : null}
+          {(() => {
+            // Render iconLeft via PascalCase JSX so the icon can be either a
+            // component reference (the design-system convention) or any other
+            // ReactNode the consumer chooses to pass — matches the header-row
+            // icon rendering. Avoids `React.createElement` blowing up when
+            // someone hands us `<MyIcon />` (a JSX element) instead of
+            // `MyIcon` (the component).
+            const IconLeft = item.iconLeft as
+              | React.ComponentType<Record<string, unknown>>
+              | undefined
+            return IconLeft ? (
+              <IconLeft size="16" interactiveColorsOnGroup={true} />
+            ) : null
+          })()}
           {item.label}
         </Button>
       </div>
@@ -150,7 +158,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         onClick={isSelectable ? handleClick : undefined}
         onMouseDown={(e) => e.preventDefault()}
       >
-        {item.render({ selected })}
+        {item.render({ selected }) as React.ReactNode}
       </div>
     )
   }
@@ -253,8 +261,10 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
       {item.iconRight
         ? renderIcon(item.iconRight, clsx('ml-auto', iconColorClass))
         : null}
-      {item.slotRight && (
-        <span className="ml-auto shrink-0">{item.slotRight}</span>
+      {item.slotRight !== undefined && (
+        <span className="ml-auto shrink-0">
+          {item.slotRight as React.ReactNode}
+        </span>
       )}
     </div>
   )

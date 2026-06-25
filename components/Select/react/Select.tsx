@@ -188,6 +188,13 @@ export const Select: React.FC<SelectProps> = ({
     setFocusedIndex(-1)
   }, [open])
 
+  // Searching shrinks the visible list. Without this reset, a stale
+  // `focusedIndex` can land past the end of `selectableIndices` after a
+  // filter, leaving no row visibly focused.
+  React.useEffect(() => {
+    setFocusedIndex(-1)
+  }, [searchValue])
+
   // ---------- Click outside ----------
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)
   React.useEffect(() => {

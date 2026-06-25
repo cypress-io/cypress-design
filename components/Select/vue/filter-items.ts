@@ -11,6 +11,9 @@ export function filterAndCollapseHeadlines(
     if (item.type === 'headline' || item.type === 'divider') return true
     if (item.type === 'button') return true
     const label = getItemLabel(item)
+    // No label to match against (typically a `custom` row whose render
+    // function is the opaque escape hatch). Keep these visible across any
+    // query — they're not filterable by definition.
     if (!label) return true
     return label.toLowerCase().includes(trimmed)
   })

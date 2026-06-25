@@ -174,6 +174,13 @@ watch(open, (isOpen) => {
   focusedIndex.value = -1
 })
 
+// Searching shrinks the visible list. Without this reset, a stale
+// `focusedIndex` can land past the end of `selectableIndices` after a
+// filter, leaving no row visibly focused.
+watch(searchValue, () => {
+  focusedIndex.value = -1
+})
+
 // ---------- click outside ----------
 const wrapperRef = ref<HTMLElement | null>(null)
 function onDocumentMouseDown(e: MouseEvent) {

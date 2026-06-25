@@ -1,5 +1,3 @@
-import type * as React from 'react'
-
 export * from './base-classes'
 export * from './option-item-classes'
 export * from './option-list-classes'
@@ -36,7 +34,7 @@ export interface SelectItemDefault {
   // Generic escape-hatch for arbitrary trailing content (badges, counts,
   // etc.). Sits right of `iconRight` if both are provided; consumers are
   // responsible for any state-aware styling on `slotRight`.
-  slotRight?: React.ReactNode
+  slotRight?: IconNode
   tag?: string
   disabled?: boolean
 }
@@ -84,7 +82,7 @@ export interface SelectItemCustom {
   type: 'custom'
   value?: string
   key?: string
-  render: (ctx: { selected: boolean }) => React.ReactNode
+  render: (ctx: { selected: boolean }) => IconNode
 }
 
 export type SelectItem =
@@ -201,10 +199,18 @@ export interface SelectFooterProps {
 
 /**
  * Normalize a CSS length input to a CSS string. Plain numbers become `${n}px`.
+ *
+ * `NaN`, `Infinity`, and the empty string don't yield valid CSS — return
+ * `undefined` so `buildSizingStyle` omits the property entirely instead of
+ * shipping `'NaNpx'` or `''` (browsers ignore both, but a missing key is
+ * cleaner than a silently dropped one).
  */
 export function toCssLength(value: CssLength | undefined): string | undefined {
   if (value === undefined) return undefined
-  return typeof value === 'number' ? `${value}px` : value
+  if (typeof value === 'number') {
+    return Number.isFinite(value) ? `${value}px` : undefined
+  }
+  return value === '' ? undefined : value
 }
 
 /**
