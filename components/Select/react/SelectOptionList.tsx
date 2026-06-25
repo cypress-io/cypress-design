@@ -142,6 +142,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
     <div
       id={id}
       role="listbox"
+      aria-label={headerTitle || 'Options'}
       style={panelStyle}
       className={clsx(
         SelectConstants.CssPopoverLayoutClasses,

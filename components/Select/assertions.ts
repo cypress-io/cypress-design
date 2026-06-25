@@ -293,6 +293,33 @@ export default function assertions(
       cy.findByRole('option', { name: 'Gamma' }).should('not.exist')
     })
 
+    it('keyboard nav still walks rows while the search input is focused', () => {
+      const onChange = cy.stub().as('onChange')
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+        onChange,
+      })
+      cy.findByRole('button').click()
+      // Focus the search input and type; the wrapper's keydown listener
+      // catches bubbled arrow keys, so focus walks rows even with the
+      // input active.
+      cy.findByPlaceholderText('Find item').focus().type('a')
+      // 'a' matches Alpha and Gamma. ArrowDown lands on Alpha.
+      cy.findByPlaceholderText('Find item').type('{downArrow}')
+      cy.findByRole('option', { name: 'Alpha' }).should(
+        'have.attr',
+        'data-focused',
+        'true',
+      )
+      // Enter on the focused row selects it and closes the popover.
+      cy.findByPlaceholderText('Find item').type('{enter}')
+      cy.get('@onChange').should('have.been.calledOnce')
+      cy.get('@onChange').its('firstCall.args.0').should('equal', 'alpha')
+      cy.findByRole('listbox').should('not.exist')
+    })
+
     it('orphan headlines collapse after filtering', () => {
       mountStory({
         items: mixedItems,
@@ -321,6 +348,23 @@ export default function assertions(
       cy.findByRole('option', { name: 'Alpha' }).should('exist')
       cy.findByRole('option', { name: 'Beta' }).should('exist')
       cy.findByRole('option', { name: 'Gamma' }).should('exist')
+    })
+
+    // ---------------- accessibility ----------------
+
+    it('popover has aria-label = headerTitle when set, "Options" otherwise', () => {
+      // No headerTitle → fallback label.
+      mountStory({ items: simpleItems, defaultOpen: true })
+      cy.findByRole('listbox').should('have.attr', 'aria-label', 'Options')
+    })
+
+    it('popover aria-label uses headerTitle when provided', () => {
+      mountStory({
+        items: simpleItems,
+        headerTitle: 'Pick a team',
+        defaultOpen: true,
+      })
+      cy.findByRole('listbox').should('have.attr', 'aria-label', 'Pick a team')
     })
 
     // ---------------- header ----------------

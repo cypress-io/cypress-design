@@ -250,7 +250,7 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 ## Accessibility
 
 - Trigger is a `<button type="button">` (Cypress `Button` component) with `aria-haspopup="listbox"`, `aria-expanded`, and `aria-controls` pointing at the popover. We use the "button + listbox popup" pattern (same as Radix and Headless UI) rather than `role="combobox"`, because combobox per ARIA implies an editable text input — which the default trigger isn't.
-- Popover has `role="listbox"`.
+- Popover has `role="listbox"` and an `aria-label` so screen readers announce it on open. The label is `headerTitle` when set, otherwise the literal string `"Options"`. Consumers wanting a different label can drive it via `headerTitle`.
 - Selectable rows have `role="option"` + `aria-selected`. Non-selectable rows (`headline`, `divider`, `button`) have `role="presentation"`.
 - Disabled rows have `aria-disabled="true"` (they are `<div>` elements, not `<button>` / `<input>`, so the HTML `disabled` attribute does not apply).
 - Focus stays on the trigger while the popover is open; arrow-key traversal is reflected via `aria-activedescendant` on the trigger, pointing at the currently-focused row's id. The visual focus ring is driven by `data-focused="true"` on the row, not by DOM focus.

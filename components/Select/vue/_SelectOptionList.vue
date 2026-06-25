@@ -132,7 +132,13 @@ function rowId(index: number): string | undefined {
 </script>
 
 <template>
-  <div :id="id" role="listbox" :style="panelStyle" :class="panelClasses">
+  <div
+    :id="id"
+    role="listbox"
+    :aria-label="headerTitle || 'Options'"
+    :style="panelStyle"
+    :class="panelClasses"
+  >
     <div v-if="hasHeader" :class="SelectConstants.CssHeaderContainerClasses">
       <!-- Title row: button · iconLeft · title · tag · (spacer) · iconRight.
            Carries its own bottom border so a separator appears between the
