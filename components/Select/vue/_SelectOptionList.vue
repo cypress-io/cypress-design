@@ -114,7 +114,11 @@ function itemKey(item: SelectItem, index: number): string {
     return (item as { key: string }).key
   }
   const v = itemValueOf(item)
-  if (v) return v
+  // Empty string is a valid `value` (selection treats it as such); use
+  // `!== undefined` rather than a truthy check so a row with `value: ''`
+  // doesn't fall back to the type-and-index key and unnecessarily remount
+  // when items reorder.
+  if (v !== undefined) return v
   return `${item.type ?? 'default'}-${index}`
 }
 

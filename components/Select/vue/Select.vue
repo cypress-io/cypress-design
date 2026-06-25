@@ -174,10 +174,12 @@ watch(open, (isOpen) => {
   focusedIndex.value = -1
 })
 
-// Searching shrinks the visible list. Without this reset, a stale
-// `focusedIndex` can land past the end of `selectableIndices` after a
-// filter, leaving no row visibly focused.
-watch(searchValue, () => {
+// Anything that shrinks the visible list — typing into search or the
+// consumer swapping `items` (e.g., a header-tab change) — can leave
+// `focusedIndex` past the end of `selectableIndices`, which makes
+// `aria-activedescendant` resolve to an id ending in `undefined` and
+// hides the focus ring. Reset to -1 whenever the displayed list changes.
+watch(displayItems, () => {
   focusedIndex.value = -1
 })
 

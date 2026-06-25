@@ -273,7 +273,11 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
             const rowId = itemIdPrefix ? `${itemIdPrefix}-${index}` : undefined
             const key = (() => {
               if ('key' in item && item.key) return item.key
-              if (itemValue) return itemValue
+              // Empty string is a valid `value` (selection treats it as such);
+              // use `!== undefined` rather than a truthy check so a row with
+              // `value: ''` doesn't fall back to the type-and-index key and
+              // unnecessarily remount when items reorder.
+              if (itemValue !== undefined) return itemValue
               return `${item.type ?? 'default'}-${index}`
             })()
             return (

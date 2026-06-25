@@ -188,12 +188,14 @@ export const Select: React.FC<SelectProps> = ({
     setFocusedIndex(-1)
   }, [open])
 
-  // Searching shrinks the visible list. Without this reset, a stale
-  // `focusedIndex` can land past the end of `selectableIndices` after a
-  // filter, leaving no row visibly focused.
+  // Anything that shrinks the visible list — typing into search or the
+  // consumer swapping `items` (e.g., a header-tab change) — can leave
+  // `focusedIndex` past the end of `selectableIndices`, which makes
+  // `aria-activedescendant` resolve to an id ending in `undefined` and
+  // hides the focus ring. Reset to -1 whenever the displayed list changes.
   React.useEffect(() => {
     setFocusedIndex(-1)
-  }, [searchValue])
+  }, [displayItems])
 
   // ---------- Click outside ----------
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)
