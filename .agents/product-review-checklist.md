@@ -15,7 +15,7 @@ This is the product-rigor companion to [review-checklist.md](https://design.cypr
 - [ ] The customer job is articulated — what outcome are users after, and why can't they get it today? ("Start with jobs to be done")
 - [ ] The job is ranked by importance to the customer **and** value to the business — not by how easy it is to build. ("Rank jobs, not solutions")
 - [ ] Problem importance is backed by data: how many customers, ARR at risk, churn signal — not assumed. ("Learn the cheap way" / "Name the business goal")
-- [ ] More than one solution was considered, with pros / cons / trade-offs documented. ("Map the opportunity space before you commit engineering")
+- [ ] More than one solution was considered, and each is scored on the full cost ledger — engineering, design, UX impact, docs, and customer cost-to-adopt — not just build cost. ("Map the opportunity space before you commit engineering" / "Compare competing solutions on the full cost ledger")
 - [ ] The opportunity is sized against other priorities — is this the best use of the resource right now? ("Rank jobs, not solutions")
 - [ ] Success metrics are defined: what improves, by how much, and what would count as failure — define it now, since how you measure success shapes the solution. ("Define what success looks like before you design")
 
@@ -24,6 +24,7 @@ This is the product-rigor companion to [review-checklist.md](https://design.cypr
 - [ ] The failure response is decided before launch — iterate, scope down, or kill. ("Decide in advance what happens if it doesn't work")
 - [ ] Measurement infrastructure exists — dashboard, query, or session path — before launch. ("Build the measurement before you ship")
 - [ ] Changes ship incrementally where possible; if bundled, the confidence threshold is set. ("Don't bundle changes you want to learn from")
+- [ ] It's explicit whether this release validates the problem or the solution, and the comparison needed to read the result (e.g. an A/B) exists. ("Be clear whether a limited release validates the problem or the solution")
 - [ ] A review date is on the calendar. ("Set the review date before you ship")
 - [ ] The initiative has one clear owner, through post-launch. ("Every initiative has one owner")
 
