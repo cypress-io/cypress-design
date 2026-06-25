@@ -52,9 +52,9 @@ There are three pieces of internal state:
 2. **`selectedValue: string | undefined`** — current selection. Controlled when `value` is provided, uncontrolled otherwise.
 3. **`focusedIndex: number`** — index of the currently focused (keyboard-traversed) row inside the _filtered_ item list. Reset to the index of the selected item whenever the popover opens.
 
-Search input value is also internal state, scoped to OptionList. Header active-tab is controlled by the consumer.
+Search input value (`searchValue`) is also internal state, owned by `Select` (not `SelectOptionList`). The popover receives it as a controlled prop and emits `update:searchValue` / calls `onSearchValueChange` when the input changes. Keeping it on `Select` is what makes keyboard nav and rendering agree on the filtered list — Select computes `displayItems = filterAndCollapseHeadlines(items, searchValue)` once and feeds it to OptionList; both keyboard traversal indices and rendered rows derive from the same array. Header active-tab is controlled by the consumer.
 
-All three pieces of state live in `Select`. `SelectOptionList` receives them as props plus callback setters. `SelectOptionItem` is presentational only — it gets `selected`, `focused`, `disabled` booleans and a click handler.
+All four pieces of state live in `Select`. `SelectOptionList` receives them as props plus callback setters. `SelectOptionItem` is presentational only — it gets `selected`, `focused`, `disabled` booleans and a click handler.
 
 ## Why JS-driven focus (not real DOM focus)
 
@@ -98,7 +98,7 @@ When `maxHeight` is set and the rows would overflow, the **items area** scrolls 
 
 ## Filtering
 
-When `searchable` is true, OptionList maintains a local `searchValue` string. Items are filtered before render:
+When `searchable` is true, `Select` (not OptionList) owns the `searchValue` string and computes a derived `displayItems` array via `filterAndCollapseHeadlines(items, searchValue)`. The filtered list is passed down to OptionList as the `items` prop; OptionList does no filtering of its own. Items are filtered before render:
 
 - The filter is case-insensitive substring match against `item.label`.
 - `headline` and `divider` rows are always rendered (they're structural).
