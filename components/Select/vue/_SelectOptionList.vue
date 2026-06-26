@@ -231,8 +231,12 @@ function rowId(index: number): string | undefined {
     </div>
 
     <div :class="SelectConstants.CssItemsContainerClasses">
+      <!-- Show "No results" whenever no selectable rows match. The filter
+           keeps standalone divider and button rows (so a "+ Add new" button
+           stays visible during search) — those still render below this
+           message; we just need to call out that nothing matched. -->
       <div
-        v-if="items.length === 0"
+        v-if="selectableIndices.length === 0"
         :class="SelectConstants.CssEmptyStateClasses[theme]"
       >
         No results

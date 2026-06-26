@@ -258,42 +258,45 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
       )}
 
       <div className={SelectConstants.CssItemsContainerClasses}>
-        {items.length === 0 ? (
+        {/* Show "No results" whenever no selectable rows match. The filter
+            keeps standalone divider and button rows (so a "+ Add new"
+            button stays visible during search) — those still render below
+            this message; we just need to call out that nothing matched. */}
+        {selectableIndices.length === 0 && (
           <div className={SelectConstants.CssEmptyStateClasses[theme]}>
             No results
           </div>
-        ) : (
-          items.map((item, index) => {
-            const itemValue = SelectConstants.getItemValue(item)
-            // Empty string is a valid `value` per `SelectItemDefault` —
-            // `itemValue === value` already excludes `undefined` ↔ '' (since
-            // `'' !== undefined`), so no extra guard is needed.
-            const selected = itemValue !== undefined && itemValue === value
-            const focused = index === focusedSelectableIndex
-            const rowId = itemIdPrefix ? `${itemIdPrefix}-${index}` : undefined
-            const key = (() => {
-              if ('key' in item && item.key) return item.key
-              // Empty string is a valid `value` (selection treats it as such);
-              // use `!== undefined` rather than a truthy check so a row with
-              // `value: ''` doesn't fall back to the type-and-index key and
-              // unnecessarily remount when items reorder.
-              if (itemValue !== undefined) return itemValue
-              return `${item.type ?? 'default'}-${index}`
-            })()
-            return (
-              <SelectOptionItem
-                key={key}
-                id={rowId}
-                item={item}
-                theme={theme}
-                size={size}
-                selected={selected}
-                focused={focused}
-                onSelect={onSelect}
-              />
-            )
-          })
         )}
+        {items.map((item, index) => {
+          const itemValue = SelectConstants.getItemValue(item)
+          // Empty string is a valid `value` per `SelectItemDefault` —
+          // `itemValue === value` already excludes `undefined` ↔ '' (since
+          // `'' !== undefined`), so no extra guard is needed.
+          const selected = itemValue !== undefined && itemValue === value
+          const focused = index === focusedSelectableIndex
+          const rowId = itemIdPrefix ? `${itemIdPrefix}-${index}` : undefined
+          const key = (() => {
+            if ('key' in item && item.key) return item.key
+            // Empty string is a valid `value` (selection treats it as such);
+            // use `!== undefined` rather than a truthy check so a row with
+            // `value: ''` doesn't fall back to the type-and-index key and
+            // unnecessarily remount when items reorder.
+            if (itemValue !== undefined) return itemValue
+            return `${item.type ?? 'default'}-${index}`
+          })()
+          return (
+            <SelectOptionItem
+              key={key}
+              id={rowId}
+              item={item}
+              theme={theme}
+              size={size}
+              selected={selected}
+              focused={focused}
+              onSelect={onSelect}
+            />
+          )
+        })}
       </div>
 
       {hasFooter && (
