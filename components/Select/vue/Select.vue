@@ -250,14 +250,25 @@ function onKeyDown(e: KeyboardEvent) {
     return
   }
   if (e.key === 'Enter' || e.key === ' ') {
-    // No-op when nothing is focused yet — and crucially, do NOT
-    // preventDefault. The wrapper @keydown also fires for keys typed
-    // INTO the header search input (events bubble), so swallowing
-    // Space here would block multi-word search queries.
-    if (focusedIndex.value === -1) return
+    if (focusedIndex.value === -1) {
+      // Nothing focused yet. Two cases bubble here:
+      //  - User pressed the key on the trigger button → native button
+      //    activation would call `toggle()` and close the popover.
+      //    preventDefault so a second Enter/Space doesn't dismiss.
+      //  - User typed into the search input (events bubble through the
+      //    wrapper) → preventDefault would swallow the space and block
+      //    multi-word queries.
+      // Distinguish by the event target.
+      const target = e.target as HTMLElement | null
+      const isTextInput =
+        target instanceof HTMLInputElement &&
+        (target.type === 'text' || target.type === 'search')
+      if (!isTextInput) e.preventDefault()
+      return
+    }
     const realIndex = selectableIndices.value[focusedIndex.value]
     if (realIndex === undefined) return
-    // Both Enter and Space confirm the focused row. preventDefault
+    // A row is focused. Both Enter and Space confirm. preventDefault
     // suppresses the native button-activation that would otherwise toggle
     // the popover closed without selecting.
     e.preventDefault()
