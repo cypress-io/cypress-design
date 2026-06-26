@@ -249,7 +249,10 @@ function onKeyDown(e: KeyboardEvent) {
     }
     return
   }
-  if (e.key === 'Enter') {
+  if (e.key === 'Enter' || e.key === ' ') {
+    // Both Enter and Space confirm the focused row. Without preventDefault,
+    // Space falls through to the native button-activation behavior on the
+    // focused trigger and toggles the popover closed without selecting.
     e.preventDefault()
     // No-op when nothing is focused yet (user hasn't pressed an arrow).
     if (focusedIndex.value === -1) return

@@ -97,6 +97,18 @@ export const CssOptionItemClasses = {
   ].join(' '),
 } as const
 
+// Focus indicator for `button` row wrappers. Default rows pull the same
+// ring in through `CssOptionItemClasses` (alongside hover/selected/etc.);
+// button rows are presentational wrappers around an actual Button so we
+// only need the keyboard-focus ring — hover/active fire on the inner
+// Button directly. `rounded-[4px]` matches the default row chrome so the
+// ring sits flush against the row corners.
+export const CssButtonRowFocusClasses = {
+  light:
+    'rounded-[4px] data-[focused=true]:z-10 data-[focused=true]:bg-indigo-50 data-[focused=true]:ring-2 data-[focused=true]:ring-indigo-300 data-[focused=true]:ring-inset data-[focused=true]:outline data-[focused=true]:outline-[3px] data-[focused=true]:outline-indigo-300/35 data-[focused=true]:outline-offset-0',
+  dark: 'rounded-[4px] data-[focused=true]:z-10 data-[focused=true]:bg-gray-950 data-[focused=true]:ring-2 data-[focused=true]:ring-indigo-300 data-[focused=true]:ring-inset data-[focused=true]:outline data-[focused=true]:outline-[3px] data-[focused=true]:outline-indigo-300/35 data-[focused=true]:outline-offset-0',
+} as const
+
 // Icon (iconLeft) color per theme and per row state. Mapped from the Figma
 // `Components/Inputs/Select/Option List/.../Icon/{Fill,Outline}` variables.
 //

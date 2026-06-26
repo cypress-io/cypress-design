@@ -209,6 +209,10 @@ Full control over the row's interior. Useful for shapes the built-in types don't
 interface CustomItem {
   type: 'custom'
   value?: string
+  // Optional text label shown by the default Select trigger when this row
+  // is selected. Without it, the trigger keeps the placeholder. Use the
+  // `trigger` slot / render-prop if you need richer trigger content.
+  label?: string
   render: (ctx: { selected: boolean }) => ReactNode
 }
 ```

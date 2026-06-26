@@ -82,6 +82,13 @@ export interface SelectItemCustom {
   type: 'custom'
   value?: string
   key?: string
+  // Optional text label shown by the default Select trigger when this row
+  // is the current selection. The `render` function controls the row's
+  // interior (often complex JSX); the trigger needs a plain string. Without
+  // a `label`, selecting a custom row leaves the trigger showing the
+  // placeholder. Consumers who need richer trigger content can use the
+  // `trigger` slot / render-prop instead.
+  label?: string
   render: (ctx: { selected: boolean }) => IconNode
 }
 
@@ -136,6 +143,8 @@ export function getItemLabel(item: SelectItem): string | undefined {
   ) {
     return (item as { label: string }).label
   }
+  // `custom` items optionally expose a `label` (used by the default trigger).
+  if (item.type === 'custom') return item.label
   return undefined
 }
 
