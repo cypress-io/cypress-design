@@ -70,10 +70,18 @@ function onHeaderTabSwitch(tab: { id: string }) {
   emit('header-tab-change', tab.id)
 }
 
-const selectableIndices = computed(() => getInteractiveIndices(props.items))
+// Two different "navigable" sets for the panel:
+//   * `interactiveIndices` — rows the keyboard can land on (includes
+//     in-list `button` rows so they're keyboard-reachable);
+//   * `selectableIndices`  — rows the user can pick as a value (excludes
+//     buttons). Used only to decide whether to show "No results" — when
+//     search filters out every selectable row, the empty state still
+//     fires even if a button (e.g. "+ Add new") survives the filter.
+const interactiveIndices = computed(() => getInteractiveIndices(props.items))
+const selectableIndices = computed(() => getSelectableIndices(props.items))
 const focusedSelectableIndex = computed(() =>
   typeof props.focusedIndex === 'number'
-    ? selectableIndices.value[props.focusedIndex]
+    ? interactiveIndices.value[props.focusedIndex]
     : undefined,
 )
 

@@ -108,13 +108,24 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   const HeaderIconLeft = headerIconLeftRaw as IconComponent | undefined
   const HeaderIconRight = headerIconRightRaw as IconComponent | undefined
 
-  const selectableIndices = React.useMemo(
+  // Two different "navigable" sets for the panel:
+  //   * `interactiveIndices` — rows the keyboard can land on (includes
+  //     in-list `button` rows so they're keyboard-reachable);
+  //   * `selectableIndices`  — rows the user can pick as a value (excludes
+  //     buttons). Used only to decide whether to show "No results" — when
+  //     search filters out every selectable row, the empty state still
+  //     fires even if a button (e.g. "+ Add new") survives the filter.
+  const interactiveIndices = React.useMemo(
     () => getInteractiveIndices(items),
+    [items],
+  )
+  const selectableIndices = React.useMemo(
+    () => getSelectableIndices(items),
     [items],
   )
   const focusedSelectableIndex =
     typeof focusedIndex === 'number'
-      ? selectableIndices[focusedIndex]
+      ? interactiveIndices[focusedIndex]
       : undefined
 
   const hasTitleRow = Boolean(
