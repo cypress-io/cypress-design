@@ -114,9 +114,13 @@ function onMouseDown(e: MouseEvent) {
 
   <!-- button row (action). Theme-aware default variant: `white` on light /
        `outline-dark` on dark so the in-list action button doesn't sit as a
-       stark white pill against the gray-1000 panel. -->
+       stark white pill against the gray-1000 panel.
+       role="presentation" — the wrapper is layout chrome around the
+       <Button>; matches headline/divider so the listbox tree only exposes
+       selectable rows to assistive tech. -->
   <div
     v-else-if="item.type === 'button'"
+    role="presentation"
     :class="[
       SelectConstants.CssButtonRowClasses,
       SelectConstants.CssOptionItemHeightClasses[size],

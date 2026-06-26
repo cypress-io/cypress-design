@@ -85,7 +85,11 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
     // look puny in a `size=40` panel.
     const buttonSize = size === '40' ? '32' : '24'
     return (
+      // role="presentation" — the wrapper is layout chrome around the
+      // <Button>; matches headline/divider so the listbox tree only
+      // exposes selectable rows to assistive tech.
       <div
+        role="presentation"
         className={clsx(
           SelectConstants.CssButtonRowClasses,
           SelectConstants.CssOptionItemHeightClasses[size],
