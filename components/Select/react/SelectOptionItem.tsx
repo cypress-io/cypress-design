@@ -108,6 +108,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
           SelectConstants.CssButtonRowClasses,
           SelectConstants.CssOptionItemHeightClasses[size],
           SelectConstants.CssOptionItemPaddingClasses[size],
+          SelectConstants.CssButtonRowFocusClasses[theme],
         )}
       >
         <Button

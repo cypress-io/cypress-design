@@ -126,6 +126,7 @@ function onMouseDown(e: MouseEvent) {
       SelectConstants.CssButtonRowClasses,
       SelectConstants.CssOptionItemHeightClasses[size],
       SelectConstants.CssOptionItemPaddingClasses[size],
+      SelectConstants.CssButtonRowFocusClasses[theme],
     ]"
   >
     <Button
