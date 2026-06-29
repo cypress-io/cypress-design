@@ -51,3 +51,30 @@ import RunResults from '@cypress-design/vue-runresults'
   </div>
 </template>
 ```
+
+### Run-status pill
+
+Pass a `runStatus` object to render a leading pill with the run's build number, status icon, and optional branch segment:
+
+```vue live
+<script lang="ts" setup>
+import RunResults from '@cypress-design/vue-runresults'
+</script>
+
+<template>
+  <RunResults
+    :run-status="{
+      buildNumber: 468,
+      status: 'passed',
+      branch: 'develop',
+      variant: 'link',
+      href: '#run',
+      branchHref: '#branch',
+    }"
+    :passed="22"
+    :failed="4"
+    :skipped="0"
+    :pending="1"
+  />
+</template>
+```

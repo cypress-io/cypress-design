@@ -47,3 +47,28 @@ export default () => (
   </div>
 )
 ```
+
+### Run-status pill
+
+Pass a `runStatus` object to render a leading pill with the run's build number, status icon, and optional branch segment:
+
+```jsx live
+import { RunResults } from '@cypress-design/react-runresults'
+
+export default () => (
+  <RunResults
+    runStatus={{
+      buildNumber: 468,
+      status: 'passed',
+      branch: 'develop',
+      variant: 'link',
+      href: '#run',
+      branchHref: '#branch',
+    }}
+    passed={22}
+    failed={4}
+    skipped={0}
+    pending={1}
+  />
+)
+```

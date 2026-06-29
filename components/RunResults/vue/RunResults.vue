@@ -4,6 +4,7 @@ import { StatusIcon } from '@cypress-design/vue-statusicon'
 import {
   IconStatusFlaky,
   IconGeneralSparkleSingle,
+  IconTechnologyBranchH,
 } from '@cypress-design/vue-icon'
 import Tooltip from '@cypress-design/vue-tooltip'
 
@@ -54,8 +55,13 @@ import {
   CssClasses,
   CssTheme,
   TooltipColorForTheme,
+  RUN_STATUS_VARIANTS,
+  RUN_STATUS_TEXT_CLASSES,
+  RUN_STATUS_BORDER_CLASSES,
+  RUN_STATUS_LABELS,
   type RunResultsProps,
   type RunResultsTheme,
+  type RunStatusConfig,
   type StatKey,
   getSeparatorAfterKey,
   getTooltipLabel,
@@ -68,6 +74,12 @@ import {
 } from '@cypress-design/constants-runresults'
 import { twMerge } from 'tailwind-merge'
 
+export type {
+  RunResultsProps,
+  RunStatusConfig,
+  RunStatusKey,
+} from '@cypress-design/constants-runresults'
+
 // Rendered via a render function rather than <template> because the
 // `renderLink` callback prop returns a VNode — template ergonomics don't
 // compose cleanly around a caller-provided VNode.
@@ -75,19 +87,26 @@ export default defineComponent({
   name: 'RunResults',
   inheritAttrs: false,
   props: {
+    // Run-status pill — rendered when provided. See RunStatusConfig.
+    runStatus: {
+      type: Object as PropType<RunStatusConfig>,
+      default: undefined,
+    },
     // Number-or-null props use the [Number, null] array form so Vue's
     // runtime validator accepts `null` without emitting a dev-mode type
     // warning. The bare `Number` constructor only matches numbers; the
     // PropType cast is TypeScript-only.
-    passed: { type: [Number, null] as PropType<number | null>, required: true },
-    failed: { type: [Number, null] as PropType<number | null>, required: true },
+    // All four counts are optional (default null = 0) so callers can render
+    // only the run-status pill.
+    passed: { type: [Number, null] as PropType<number | null>, default: null },
+    failed: { type: [Number, null] as PropType<number | null>, default: null },
     skipped: {
       type: [Number, null] as PropType<number | null>,
-      required: true,
+      default: null,
     },
     pending: {
       type: [Number, null] as PropType<number | null>,
-      required: true,
+      default: null,
     },
     flaky: { type: [Number, null] as PropType<number | null>, default: null },
     selfHealed: {
@@ -215,6 +234,136 @@ export default defineComponent({
       )
     }
 
+    function renderRunStatusSegment(
+      kind: 'build-number' | 'branch',
+      icon: VNode,
+      label: VNode,
+      href: string | undefined,
+      ariaLabel: string,
+      applyDivider: boolean,
+    ): VNode {
+      const segmentBase = joinClasses(
+        CssClasses.runStatusSegment,
+        applyDivider && CssClasses.runStatusDivider,
+        applyDivider && CssTheme[props.theme].runStatusDivider,
+      )
+      const inner: VNode[] = [icon, label]
+
+      if (href) {
+        const linkClasses = joinClasses(
+          segmentBase,
+          CssClasses.runStatusLink,
+          CssTheme[props.theme].runStatusLink,
+        )
+        if (props.renderLink) {
+          return props.renderLink(href, inner, linkClasses) as VNode
+        }
+        return h(
+          'a',
+          {
+            href,
+            'aria-label': ariaLabel,
+            'data-cy': `run-status-${kind}`,
+            class: linkClasses,
+          },
+          inner,
+        )
+      }
+      return h(
+        'span',
+        {
+          'data-cy': `run-status-${kind}`,
+          class: segmentBase,
+        },
+        inner,
+      )
+    }
+
+    function renderRunStatusPill(config: RunStatusConfig): VNode {
+      const {
+        buildNumber,
+        status,
+        branch,
+        variant = 'base',
+        href,
+        branchHref,
+        pillClassName,
+      } = config
+      const { variant: iconVariant, size: iconSize } =
+        RUN_STATUS_VARIANTS[status]
+      const isLink = variant === 'link'
+
+      const pillClasses = twMerge(
+        CssClasses.runStatusPill,
+        CssTheme[props.theme].runStatusPill,
+        isLink ? RUN_STATUS_BORDER_CLASSES[status] : '',
+        pillClassName,
+      )
+
+      const buildNumberIcon = h(StatusIcon, {
+        size: iconSize,
+        status,
+        variant: iconVariant,
+        'data-cy': 'run-status-icon',
+        class: CssClasses.runStatusIcon,
+      })
+      const buildNumberLabel = h(
+        'span',
+        { class: RUN_STATUS_TEXT_CLASSES[status] },
+        `#${buildNumber}`,
+      )
+
+      const hasBranch = !!branch
+      const segments: VNode[] = [
+        renderRunStatusSegment(
+          'build-number',
+          buildNumberIcon,
+          buildNumberLabel,
+          href,
+          `View run #${buildNumber}`,
+          hasBranch,
+        ),
+      ]
+      if (hasBranch) {
+        const branchIcon = h(IconTechnologyBranchH, {
+          size: '16',
+          strokeColor: props.theme === 'dark' ? 'gray-400' : 'gray-700',
+          'data-cy': 'run-status-branch-icon',
+          class: CssClasses.runStatusIcon,
+        })
+        const branchLabel = h(
+          'span',
+          {
+            class: joinClasses(
+              CssClasses.runStatusBranchText,
+              CssTheme[props.theme].runStatusBranchText,
+            ),
+          },
+          branch,
+        )
+        segments.push(
+          renderRunStatusSegment(
+            'branch',
+            branchIcon,
+            branchLabel,
+            branchHref,
+            `View branch ${branch}`,
+            false,
+          ),
+        )
+      }
+
+      return h(
+        'span',
+        {
+          'data-cy': 'run-status',
+          title: RUN_STATUS_LABELS[status],
+          class: pillClasses,
+        },
+        segments,
+      )
+    }
+
     return () => {
       const summaryProps = {
         passed: props.passed,
@@ -227,7 +376,11 @@ export default defineComponent({
         expanded: props.expanded,
       }
 
-      if (!hasAnyStat(summaryProps)) return null
+      const showTestCounts = hasAnyStat(summaryProps)
+      const showRunStatus = !!props.runStatus
+
+      // Both pills empty → render nothing.
+      if (!showRunStatus && !showTestCounts) return null
 
       const separatorAfterKey = getSeparatorAfterKey(summaryProps)
       const showFlaky = statValue(props.flaky) > 0
@@ -297,20 +450,19 @@ export default defineComponent({
         )
       }
 
-      // The wrapper <div> is the root (it will hold multiple stat lists in the
-      // future). `className` + fallthrough `attrs.class` land here. `pillClassName`
-      // lands on the <ul>, merged via `tailwind-merge` so a consumer override
-      // (e.g. `bg-gray-900`) wins the Tailwind source-order conflict.
-      return h(
-        'div',
-        {
-          ...attrs,
-          'data-cy': 'run-results',
-          // Array form lets Vue normalize a string/array/object fallthrough
-          // `attrs.class` without manual flattening.
-          class: [CssClasses.container, props.className, attrs.class],
-        },
-        [
+      // The wrapper <div> is the root. Holds up to two pills:
+      //   1. run-status pill (rendered when `runStatus` is set)
+      //   2. test-counts pill (rendered when `hasAnyStat` is true)
+      // `className` + fallthrough `attrs.class` land here. `pillClassName`
+      // lands on the test-counts <ul>; `runStatus.pillClassName` lands on the
+      // run-status <span>. Both merged via `tailwind-merge` so a consumer
+      // override wins the Tailwind source-order conflict.
+      const children: VNode[] = []
+      if (showRunStatus) {
+        children.push(renderRunStatusPill(props.runStatus as RunStatusConfig))
+      }
+      if (showTestCounts) {
+        children.push(
           h(
             'ul',
             {
@@ -322,7 +474,18 @@ export default defineComponent({
             },
             items,
           ),
-        ],
+        )
+      }
+      return h(
+        'div',
+        {
+          ...attrs,
+          'data-cy': 'run-results',
+          // Array form lets Vue normalize a string/array/object fallthrough
+          // `attrs.class` without manual flattening.
+          class: [CssClasses.container, props.className, attrs.class],
+        },
+        children,
       )
     }
   },
