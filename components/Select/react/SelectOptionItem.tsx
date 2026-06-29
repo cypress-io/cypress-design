@@ -14,7 +14,13 @@ import type {
 
 // Consumer-passed icon component: any cypress-design Icon (or a compatible
 // component that accepts the same props minus the `name` discriminator).
-type IconComponent = React.ComponentType<Omit<OpenIconProps, 'name'>>
+// `className` is appended because `renderIcon` and the default-row JSX
+// pass it for state-aware coloring; cypress-design Icons accept it via
+// their RootIconProps surface but the public `OpenIconProps` doesn't
+// declare it.
+type IconComponent = React.ComponentType<
+  Omit<OpenIconProps, 'name'> & { className?: string }
+>
 
 export interface SelectOptionItemProps {
   item: SelectItem
