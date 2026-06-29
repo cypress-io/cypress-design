@@ -277,18 +277,22 @@ export const Select: React.FC<SelectProps> = ({
       return
     }
     if (e.key === 'Enter' || e.key === ' ') {
-      // Search input takes precedence regardless of row focus — bubbled
-      // Enter/Space from the header `Textbox` must reach the input as a
-      // character (Space) or submit (Enter), never activate a focused row.
       const target = e.target as HTMLElement | null
       const isTextInput =
         target instanceof HTMLInputElement &&
         (target.type === 'text' || target.type === 'search')
-      if (isTextInput) return
+      // Space must always reach the search input as a character — never
+      // confirm a focused row from the header `Textbox`. Enter does the
+      // opposite: standard combobox UX is "type to filter, Enter commits
+      // the highlighted row", so let Enter fall through even from search.
+      if (isTextInput && e.key === ' ') return
       if (focusedIndex === -1) {
-        // Nothing focused yet, key came from the trigger button → native
-        // button activation would call `toggle()` and close the popover.
-        // preventDefault so a second Enter/Space doesn't dismiss.
+        // Nothing focused yet. Two cases left:
+        //  - User pressed the key on the trigger button → native button
+        //    activation would re-toggle the popover. preventDefault so a
+        //    second press doesn't dismiss.
+        //  - User pressed Enter in the search input with no row focused →
+        //    nothing to commit; preventDefault is fine (no native submit).
         e.preventDefault()
         return
       }
