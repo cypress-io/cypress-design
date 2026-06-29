@@ -241,7 +241,6 @@ The Figma defines sizes `32` and `40` for the Option Item. Select forwards the s
 
 ## References
 
-- [Live demo](./ReadMe.md) renders on the design system site.
 - Light mode Figma: https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5020-18440
 - Dark mode Figma: https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5116-122756
 - Implementation details: [`architecture.md`](./architecture.md)
