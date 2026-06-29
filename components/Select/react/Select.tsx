@@ -277,20 +277,19 @@ export const Select: React.FC<SelectProps> = ({
       return
     }
     if (e.key === 'Enter' || e.key === ' ') {
+      // Search input takes precedence regardless of row focus — bubbled
+      // Enter/Space from the header `Textbox` must reach the input as a
+      // character (Space) or submit (Enter), never activate a focused row.
+      const target = e.target as HTMLElement | null
+      const isTextInput =
+        target instanceof HTMLInputElement &&
+        (target.type === 'text' || target.type === 'search')
+      if (isTextInput) return
       if (focusedIndex === -1) {
-        // Nothing focused yet. Two cases bubble here:
-        //  - User pressed the key on the trigger button → native button
-        //    activation would call `toggle()` and close the popover.
-        //    preventDefault so a second Enter/Space doesn't dismiss.
-        //  - User typed into the search input (events bubble through the
-        //    wrapper) → preventDefault would swallow the space and block
-        //    multi-word queries.
-        // Distinguish by the event target.
-        const target = e.target as HTMLElement | null
-        const isTextInput =
-          target instanceof HTMLInputElement &&
-          (target.type === 'text' || target.type === 'search')
-        if (!isTextInput) e.preventDefault()
+        // Nothing focused yet, key came from the trigger button → native
+        // button activation would call `toggle()` and close the popover.
+        // preventDefault so a second Enter/Space doesn't dismiss.
+        e.preventDefault()
         return
       }
       const realIndex = selectableIndices[focusedIndex]
