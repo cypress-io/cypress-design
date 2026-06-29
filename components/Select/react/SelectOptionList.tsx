@@ -17,8 +17,8 @@ import type {
   SelectFooterProps,
   SelectSizingProps,
 } from '@cypress-design/constants-select'
+import { getSelectableIndices } from '@cypress-design/constants-select'
 import SelectOptionItem from './SelectOptionItem'
-import { getSelectableIndices } from './filter-items'
 
 // Composed from the same shared groups as SelectProps so the popover's
 // chrome (header + search + footer + sizing + theming) stays a single

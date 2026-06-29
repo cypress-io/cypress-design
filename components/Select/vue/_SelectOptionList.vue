@@ -18,8 +18,8 @@ import type {
   SelectFooterProps,
   SelectSizingProps,
 } from '@cypress-design/constants-select'
+import { getSelectableIndices } from '@cypress-design/constants-select'
 import SelectOptionItem from './_SelectOptionItem.vue'
-import { getSelectableIndices } from './filter-items'
 
 // Props share the same named groups as Select.vue so adding a header /
 // search / footer / sizing field happens in one place

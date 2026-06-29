@@ -128,7 +128,8 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
   const disabled =
     (item.type === 'default' ||
       item.type === undefined ||
-      item.type === 'checkbox') &&
+      item.type === 'checkbox' ||
+      item.type === 'user') &&
     item.disabled === true
 
   const itemClasses = clsx(
@@ -217,6 +218,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         id={id}
         role="option"
         aria-selected={selected}
+        aria-disabled={disabled || undefined}
         data-selected={selected || undefined}
         data-focused={focused || undefined}
         className={itemClasses}

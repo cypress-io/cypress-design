@@ -2,6 +2,7 @@ export * from './base-classes'
 export * from './option-item-classes'
 export * from './option-list-classes'
 export * from './content-type-classes'
+export * from './filter-items'
 
 import { CssOptionItemHeightClasses } from './base-classes'
 
@@ -64,6 +65,7 @@ export interface SelectItemUser {
   label: string
   secondary?: string
   iconLeft?: IconNode
+  disabled?: boolean
 }
 
 export type ButtonVariantLoose = string // loose to avoid pulling in Button types
@@ -112,7 +114,7 @@ export type SelectableItem =
 export function isSelectable(item: SelectItem): item is SelectableItem {
   if (item.type === 'default' || item.type === undefined) return !item.disabled
   if (item.type === 'checkbox') return !item.disabled
-  if (item.type === 'user') return true
+  if (item.type === 'user') return !item.disabled
   if (item.type === 'custom') return typeof item.value === 'string'
   return false
 }
@@ -215,11 +217,11 @@ export interface SelectFooterProps {
  * cleaner than a silently dropped one).
  */
 export function toCssLength(value: CssLength | undefined): string | undefined {
-  if (value === undefined) return undefined
+  if (value === undefined || value === '') return undefined
   if (typeof value === 'number') {
     return Number.isFinite(value) ? `${value}px` : undefined
   }
-  return value === '' ? undefined : value
+  return value
 }
 
 /**

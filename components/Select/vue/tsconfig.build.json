@@ -1,6 +1,6 @@
 {
   "extends": "../../../tsconfig.vue.build.json",
-  "include": ["./*.vue", "./filter-items.ts", "./index.ts"],
+  "include": ["./*.vue", "./index.ts"],
   "compilerOptions": {
     "outDir": "dist",
     "rootDir": "./",

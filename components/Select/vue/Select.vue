@@ -12,12 +12,10 @@ import type {
   SelectSearchProps,
   SelectFooterProps,
   SelectSizingProps,
-} from '@cypress-design/constants-select'
-import SelectOptionList from './_SelectOptionList.vue'
-import {
   filterAndCollapseHeadlines,
   getSelectableIndices,
-} from './filter-items'
+} from '@cypress-design/constants-select'
+import SelectOptionList from './_SelectOptionList.vue'
 
 // Public props are composed from the shared groups in `constants-select`
 // so the surface stays in sync with SelectOptionList / SelectOptionItem.

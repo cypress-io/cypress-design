@@ -4,7 +4,6 @@
     "./Select.tsx",
     "./SelectOptionList.tsx",
     "./SelectOptionItem.tsx",
-    "./filter-items.ts",
     "./index.ts"
   ],
   "compilerOptions": {

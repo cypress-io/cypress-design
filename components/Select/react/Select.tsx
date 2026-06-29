@@ -12,12 +12,10 @@ import type {
   SelectSearchProps,
   SelectFooterProps,
   SelectSizingProps,
-} from '@cypress-design/constants-select'
-import SelectOptionList from './SelectOptionList'
-import {
   filterAndCollapseHeadlines,
   getSelectableIndices,
-} from './filter-items'
+} from '@cypress-design/constants-select'
+import SelectOptionList from './SelectOptionList'
 
 export interface SelectTriggerContext {
   open: boolean

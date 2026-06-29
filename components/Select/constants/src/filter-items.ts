@@ -1,5 +1,5 @@
-import type { SelectItem } from '@cypress-design/constants-select'
-import { getItemLabel, isSelectable } from '@cypress-design/constants-select'
+import type { SelectItem } from './index'
+import { getItemLabel, isSelectable } from './index'
 
 /**
  * Filter items by case-insensitive substring match against `label`.

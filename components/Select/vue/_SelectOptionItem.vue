@@ -66,7 +66,7 @@ const iconColorClass = computed(
 
 const isDisabled = computed(() => {
   const t = props.item.type
-  if (t === 'default' || t === undefined || t === 'checkbox') {
+  if (t === 'default' || t === undefined || t === 'checkbox' || t === 'user') {
     return (props.item as { disabled?: boolean }).disabled === true
   }
   return false
@@ -203,6 +203,7 @@ function onMouseDown(e: MouseEvent) {
     :id="id"
     role="option"
     :aria-selected="selected"
+    :aria-disabled="isDisabled || undefined"
     :data-selected="selected || undefined"
     :data-focused="focused || undefined"
     :class="itemClasses"
