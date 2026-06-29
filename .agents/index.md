@@ -43,6 +43,7 @@ Fetch on demand — don't preload all of them:
 `Accordion` `Alert` `Button` `Checkbox` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
 `DocMenu` — sidebar navigation used in documentation sites
 `RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
+`RunStatus` — pill of a run's identifier (status icon + build number) with optional branch segment; base vs link variant
 `StatusIcon` — passed/failed/pending/skipped/running/flaky indicator
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions
