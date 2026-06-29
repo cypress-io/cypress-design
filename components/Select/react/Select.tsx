@@ -328,7 +328,16 @@ export const Select: React.FC<SelectProps> = ({
   }
 
   // ---------- Trigger rendering ----------
-  const toggle = () => setOpen(!open)
+  // `toggle` is exposed via the trigger context to custom slots — gate it on
+  // `disabled` so a slotted control can't open the popover when the Select
+  // is disabled. (The default Button trigger already honors `disabled`
+  // natively; this only matters for the custom-trigger path.) `close` is
+  // fine to call when disabled — letting a parent force-close an open
+  // popover stays useful even when the trigger has been disabled mid-flight.
+  const toggle = () => {
+    if (disabled) return
+    setOpen(!open)
+  }
   const close = () => setOpen(false)
   const triggerCtx: SelectTriggerContext = { open, selected, toggle, close }
 

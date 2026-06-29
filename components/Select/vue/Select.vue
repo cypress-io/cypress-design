@@ -323,7 +323,15 @@ function handleSelect(item: SelectItem) {
   if (item.type !== 'checkbox') setOpen(false)
 }
 
+// `toggle` is exposed via the #trigger slot context to custom triggers —
+// gate it on `disabled` so a slotted control can't open the popover when
+// the Select is disabled. (The default Button trigger already honors
+// `disabled` natively; this only matters for the custom-trigger path.)
+// `close` is fine to call when disabled — letting a parent force-close
+// an open popover stays useful even when the trigger has been disabled
+// mid-flight.
 function toggle() {
+  if (props.disabled) return
   setOpen(!open.value)
 }
 function close() {
