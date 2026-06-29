@@ -188,14 +188,30 @@ export const Select: React.FC<SelectProps> = ({
     setFocusedIndex(-1)
   }, [open])
 
-  // Anything that shrinks the visible list — typing into search or the
-  // consumer swapping `items` (e.g., a header-tab change) — can leave
-  // `focusedIndex` past the end of `selectableIndices`, which makes
-  // `aria-activedescendant` resolve to an id ending in `undefined` and
-  // hides the focus ring. Reset to -1 whenever the displayed list changes.
+  // Reset focus when the displayed *content* changes — typing into search
+  // or the consumer swapping `items` (e.g., a header-tab change). Keying
+  // off `displayItems` identity would fire on every parent re-render that
+  // hands us a fresh inline array, dropping focus and aria-activedescendant
+  // on rerenders that didn't change what the user sees. Hash by type +
+  // key/value + label so identity churn over identical rows is a no-op.
+  const displayItemsSignature = React.useMemo(
+    () =>
+      displayItems
+        .map((i) => {
+          const it = i as {
+            type?: string
+            value?: string
+            label?: string
+            key?: string
+          }
+          return `${it.type ?? ''}|${it.key ?? it.value ?? ''}|${it.label ?? ''}`
+        })
+        .join('\n'),
+    [displayItems],
+  )
   React.useEffect(() => {
     setFocusedIndex(-1)
-  }, [displayItems])
+  }, [displayItemsSignature])
 
   // ---------- Click outside ----------
   const wrapperRef = React.useRef<HTMLDivElement | null>(null)

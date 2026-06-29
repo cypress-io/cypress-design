@@ -174,12 +174,26 @@ watch(open, (isOpen) => {
   focusedIndex.value = -1
 })
 
-// Anything that shrinks the visible list — typing into search or the
-// consumer swapping `items` (e.g., a header-tab change) — can leave
-// `focusedIndex` past the end of `selectableIndices`, which makes
-// `aria-activedescendant` resolve to an id ending in `undefined` and
-// hides the focus ring. Reset to -1 whenever the displayed list changes.
-watch(displayItems, () => {
+// Reset focus when the displayed *content* changes — typing into search
+// or the consumer swapping `items` (e.g., a header-tab change). Watching
+// `displayItems` by reference would fire on every parent re-render that
+// hands us a fresh inline array, dropping focus and aria-activedescendant
+// on rerenders that didn't change what the user sees. Hash by type +
+// key/value + label so identity churn over identical rows is a no-op.
+const displayItemsSignature = computed(() =>
+  displayItems.value
+    .map((i) => {
+      const it = i as {
+        type?: string
+        value?: string
+        label?: string
+        key?: string
+      }
+      return `${it.type ?? ''}|${it.key ?? it.value ?? ''}|${it.label ?? ''}`
+    })
+    .join('\n'),
+)
+watch(displayItemsSignature, () => {
   focusedIndex.value = -1
 })
 
