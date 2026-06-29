@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, type PropType } from 'vue'
 import Checkbox from '@cypress-design/vue-checkbox'
 import Button from '@cypress-design/vue-button'
 import Tag from '@cypress-design/vue-tag'
+import type { ButtonVariants } from '@cypress-design/constants-button'
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
@@ -17,9 +18,7 @@ import type {
 const CustomRender = defineComponent({
   props: {
     render: {
-      type: Function as unknown as () => (ctx: {
-        selected: boolean
-      }) => unknown,
+      type: Function as PropType<(ctx: { selected: boolean }) => unknown>,
       required: true,
     },
     selected: { type: Boolean, required: true },
@@ -33,7 +32,7 @@ const CustomRender = defineComponent({
 // when the value is a component definition; with this helper Vue happily
 // renders VNodes, strings, fragments, or anything the consumer hands in.
 const NodeRender = defineComponent({
-  props: { node: { required: true, type: null as unknown as () => unknown } },
+  props: { node: { required: true } },
   setup(props) {
     return () => (typeof props.node === 'function' ? props.node() : props.node)
   },
@@ -129,7 +128,8 @@ function onMouseDown(e: MouseEvent) {
   >
     <Button
       :variant="
-        (item.variant as never) ?? (theme === 'dark' ? 'outline-dark' : 'white')
+        (item.variant as ButtonVariants) ??
+        (theme === 'dark' ? 'outline-dark' : 'white')
       "
       :size="size === '40' ? '32' : '24'"
       @click.stop="item.onClick()"

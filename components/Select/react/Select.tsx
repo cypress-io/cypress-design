@@ -2,7 +2,12 @@ import * as React from 'react'
 import clsx from 'clsx'
 import Button from '@cypress-design/react-button'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
+import type { ButtonVariants } from '@cypress-design/constants-button'
 import * as SelectConstants from '@cypress-design/constants-select'
+import {
+  filterAndCollapseHeadlines,
+  getSelectableIndices,
+} from '@cypress-design/constants-select'
 import type {
   SelectItem,
   SelectAlignment,
@@ -12,8 +17,6 @@ import type {
   SelectSearchProps,
   SelectFooterProps,
   SelectSizingProps,
-  filterAndCollapseHeadlines,
-  getSelectableIndices,
 } from '@cypress-design/constants-select'
 import SelectOptionList from './SelectOptionList'
 
@@ -62,14 +65,9 @@ export interface SelectProps
   // Escape hatches
   trigger?: React.ReactNode | ((ctx: SelectTriggerContext) => React.ReactNode)
   className?: string
+  triggerClassName?: string
   popoverClassName?: string
   id?: string
-}
-
-let uidCounter = 0
-const useUid = () => {
-  const [uid] = React.useState(() => `cy-select-${++uidCounter}`)
-  return uid
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -110,10 +108,13 @@ export const Select: React.FC<SelectProps> = ({
   onOpenChange,
   trigger,
   className,
+  triggerClassName,
   popoverClassName,
   id,
 }) => {
-  const uid = useUid()
+  // `React.useId` is the canonical way to mint a per-instance, SSR-safe id.
+  const reactUid = React.useId()
+  const uid = `cy-select-${reactUid.replace(/:/g, '')}`
   const popoverId = id ? `${id}-popover` : `${uid}-popover`
   const itemIdPrefix = id ? `${id}-opt` : `${uid}-opt`
 
@@ -342,7 +343,7 @@ export const Select: React.FC<SelectProps> = ({
       trigger
     ) : (
       <Button
-        variant={triggerVariant as never}
+        variant={triggerVariant as ButtonVariants}
         size={size}
         square={isTriggerIconOnly}
         disabled={disabled}
@@ -356,9 +357,10 @@ export const Select: React.FC<SelectProps> = ({
             : undefined
         }
         onClick={toggle}
-        className={
-          isTriggerIconOnly ? undefined : SelectConstants.CssTriggerWidthClasses
-        }
+        className={clsx(
+          !isTriggerIconOnly && SelectConstants.CssTriggerWidthClasses,
+          triggerClassName,
+        )}
       >
         <span
           className={

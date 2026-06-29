@@ -3,12 +3,18 @@ import clsx from 'clsx'
 import Checkbox from '@cypress-design/react-checkbox'
 import Button from '@cypress-design/react-button'
 import Tag from '@cypress-design/react-tag'
+import type { ButtonVariants } from '@cypress-design/constants-button'
+import type { OpenIconProps } from '@cypress-design/icon-registry'
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
   SelectTheme,
   SelectSize,
 } from '@cypress-design/constants-select'
+
+// Consumer-passed icon component: any cypress-design Icon (or a compatible
+// component that accepts the same props minus the `name` discriminator).
+type IconComponent = React.ComponentType<Omit<OpenIconProps, 'name'>>
 
 export interface SelectOptionItemProps {
   item: SelectItem
@@ -30,9 +36,9 @@ function renderIcon(
     return <span className={className}>{Icon}</span>
   }
   if (typeof Icon === 'function') {
-    const IconComponent = Icon as React.ComponentType<Record<string, unknown>>
+    const Component = Icon as IconComponent
     return (
-      <IconComponent
+      <Component
         size={size}
         interactiveColorsOnGroup={true}
         className={className}
@@ -97,7 +103,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         )}
       >
         <Button
-          variant={buttonVariant as never}
+          variant={buttonVariant as ButtonVariants}
           size={buttonSize}
           onClick={(e) => {
             e.stopPropagation()
@@ -111,9 +117,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
             // icon rendering. Avoids `React.createElement` blowing up when
             // someone hands us `<MyIcon />` (a JSX element) instead of
             // `MyIcon` (the component).
-            const IconLeft = item.iconLeft as
-              | React.ComponentType<Record<string, unknown>>
-              | undefined
+            const IconLeft = item.iconLeft as IconComponent | undefined
             return IconLeft ? (
               <IconLeft size="16" interactiveColorsOnGroup={true} />
             ) : null

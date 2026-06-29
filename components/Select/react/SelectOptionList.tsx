@@ -8,6 +8,8 @@ import {
   IconObjectMagnifyingGlass,
   IconActionInfoOutline,
 } from '@cypress-design/react-icon'
+import type { OpenIconProps } from '@cypress-design/icon-registry'
+import type { Tab } from '@cypress-design/constants-tabs'
 import * as SelectConstants from '@cypress-design/constants-select'
 import type {
   SelectItem,
@@ -56,8 +58,12 @@ export interface SelectOptionListProps
 
 // React JSX needs a component type to instantiate; the shared
 // SelectHeaderProps interface uses IconNode (= unknown) so it stays
-// framework-agnostic. Re-narrow at the destructure boundary.
-type IconComponent = React.ComponentType<Record<string, unknown>>
+// framework-agnostic. Re-narrow at the destructure boundary against the
+// design-system Icon prop surface — keeps intellisense honest for header
+// icons (size, interactiveColorsOnGroup, className).
+type IconComponent = React.ComponentType<
+  Omit<OpenIconProps, 'name'> & { className?: string }
+>
 
 export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   items,
@@ -233,7 +239,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                           : 'dark-small'
                         : 'default'
                     }
-                    tabs={headerTabs as never}
+                    tabs={headerTabs as Tab[]}
                     activeId={headerActiveTab}
                     onSwitch={(tab) => onHeaderTabChange?.(tab.id)}
                   />

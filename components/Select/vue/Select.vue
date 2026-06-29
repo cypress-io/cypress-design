@@ -1,8 +1,20 @@
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
+import {
+  computed,
+  getCurrentInstance,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  watch,
+} from 'vue'
 import Button from '@cypress-design/vue-button'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
+import type { ButtonVariants } from '@cypress-design/constants-button'
 import * as SelectConstants from '@cypress-design/constants-select'
+import {
+  filterAndCollapseHeadlines,
+  getSelectableIndices,
+} from '@cypress-design/constants-select'
 import type {
   SelectItem,
   SelectAlignment,
@@ -12,8 +24,6 @@ import type {
   SelectSearchProps,
   SelectFooterProps,
   SelectSizingProps,
-  filterAndCollapseHeadlines,
-  getSelectableIndices,
 } from '@cypress-design/constants-select'
 import SelectOptionList from './_SelectOptionList.vue'
 
@@ -45,12 +55,11 @@ const props = withDefaults(defineProps<SelectComponentProps>(), {
   align: SelectConstants.DefaultAlignment,
   triggerVariant: SelectConstants.DefaultTriggerVariant,
   searchable: false,
-  // Vue 3 quirk: Boolean props bound via `v-bind` with `undefined` are
-  // cast to `false` BEFORE the child's withDefaults applies. Without an
-  // explicit default here, omitting `searchFilters` at the call site
-  // means Select forwards `false` to SelectOptionList, disabling the
-  // filter (the row stays visual-only). Default true so search actually
-  // filters by default.
+  // Vue 3 coerces an unset Boolean prop to `false`, so without an explicit
+  // default here `searchable` alone wouldn't turn the filter on. Default
+  // `true` so a consumer that omits `searchFilters` gets the filter
+  // automatically; passing `searchFilters={false}` keeps the input visible
+  // for showcase usage without filtering anything.
   searchFilters: true,
   disabled: false,
   defaultOpen: false,
@@ -76,8 +85,11 @@ defineSlots<{
 }>()
 
 // ---------- ids ----------
-let uidCounter = 0
-const uid = `cy-select-${++uidCounter}`
+// Vue 3.5 introduces `useId`, but cypress-design pins Vue 3.4 — fall back
+// to the per-instance `uid` exposed by `getCurrentInstance()`, which is
+// what Vue's own `useId` is built on. Stable, monotonically increasing.
+const vueUid = getCurrentInstance()?.uid ?? 0
+const uid = `cy-select-${vueUid}`
 const popoverId = computed(() =>
   props.id ? `${props.id}-popover` : `${uid}-popover`,
 )
@@ -342,7 +354,7 @@ const chevronClasses = computed(() => [
         :close="close"
       >
         <Button
-          :variant="triggerVariant as never"
+          :variant="triggerVariant as ButtonVariants"
           :size="size"
           :square="isTriggerIconOnly"
           :disabled="disabled"

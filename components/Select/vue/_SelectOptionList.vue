@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed, type VNode } from 'vue'
 import Tabs from '@cypress-design/vue-tabs'
+import type { Tab } from '@cypress-design/constants-tabs'
 import Textbox from '@cypress-design/vue-textbox'
 import Button from '@cypress-design/vue-button'
 import Tag from '@cypress-design/vue-tag'
@@ -9,6 +10,7 @@ import {
   IconActionInfoOutline,
 } from '@cypress-design/vue-icon'
 import * as SelectConstants from '@cypress-design/constants-select'
+import { getSelectableIndices } from '@cypress-design/constants-select'
 import type {
   SelectItem,
   SelectAlignment,
@@ -18,7 +20,6 @@ import type {
   SelectFooterProps,
   SelectSizingProps,
 } from '@cypress-design/constants-select'
-import { getSelectableIndices } from '@cypress-design/constants-select'
 import SelectOptionItem from './_SelectOptionItem.vue'
 
 // Props share the same named groups as Select.vue so adding a header /
@@ -59,7 +60,7 @@ const emit = defineEmits<{
 }>()
 
 defineSlots<{
-  footer?: () => unknown
+  footer?: () => VNode[]
 }>()
 
 function onHeaderTabSwitch(tab: { id: string }) {
@@ -212,7 +213,7 @@ function rowId(index: number): string | undefined {
                   : 'dark-small'
                 : 'default'
             "
-            :tabs="headerTabs as never"
+            :tabs="headerTabs as Tab[]"
             :active-id="headerActiveTab"
             @switch="onHeaderTabSwitch"
           />
@@ -243,8 +244,8 @@ function rowId(index: number): string | undefined {
       </div>
       <SelectOptionItem
         v-for="(item, index) in items"
-        :key="itemKey(item, index)"
         :id="rowId(index)"
+        :key="itemKey(item, index)"
         :item="item"
         :theme="theme"
         :size="size"
