@@ -7,7 +7,6 @@ import * as SelectConstants from '@cypress-design/constants-select'
 import {
   filterAndCollapseHeadlines,
   getInteractiveIndices,
-  getSelectableIndices,
 } from '@cypress-design/constants-select'
 import type {
   SelectItem,
