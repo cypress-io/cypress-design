@@ -327,7 +327,7 @@ export default defineComponent({
       if (hasBranch) {
         const branchIcon = h(IconTechnologyBranchH, {
           size: '16',
-          strokeColor: props.theme === 'dark' ? 'gray-400' : 'gray-700',
+          strokeColor: 'gray-500',
           'data-cy': 'run-status-branch-icon',
           class: CssClasses.runStatusIcon,
         })

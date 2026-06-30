@@ -56,8 +56,10 @@ export const CssClasses = {
     'no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
   // Icon spacing inside a segment.
   runStatusIcon: 'mr-[4px]',
-  // Branch text truncation — matches cypress-services CommitBranch's max-w.
-  runStatusBranchText: 'max-w-[260px] truncate',
+  // Branch text — `font-normal` overrides the pill's inherited `font-medium`
+  // (the branch label is regular weight; the build number stays medium).
+  // Max-w + truncate match cypress-services CommitBranch.
+  runStatusBranchText: 'max-w-[260px] truncate font-normal',
   // Vertical divider between segments (applied to the first segment when the
   // second segment is present). Border color comes from CssTheme[theme].runStatusDivider.
   runStatusDivider:

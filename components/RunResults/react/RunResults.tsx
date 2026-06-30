@@ -268,7 +268,7 @@ const RunStatusPill: React.FC<RunStatusPillProps> = ({
   const branchIcon = hasBranch ? (
     <IconTechnologyBranchH
       size="16"
-      strokeColor={theme === 'dark' ? 'gray-400' : 'gray-700'}
+      strokeColor="gray-500"
       data-cy="run-status-branch-icon"
       className={CssClasses.runStatusIcon}
     />
