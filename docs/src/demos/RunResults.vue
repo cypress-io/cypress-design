@@ -89,45 +89,6 @@ const RUN_STATUSES = [
 
     <section>
       <h3 class="text-sm font-medium text-gray-500 mb-2">
-        Run-status + test counts together
-      </h3>
-      <div class="flex flex-col gap-2">
-        <RunResults
-          :run-status="{
-            buildNumber: 468,
-            status: 'passed',
-            branch: 'develop',
-            variant: 'link',
-            href: '#run',
-            branchHref: '#branch',
-          }"
-          :passed="22"
-          :failed="4"
-          :skipped="0"
-          :pending="1"
-          :flaky="3"
-          :self-healed="2"
-          show-self-healed
-        />
-        <RunResults
-          :run-status="{
-            buildNumber: 469,
-            status: 'failed',
-            branch: 'feature/auth',
-            variant: 'link',
-            href: '#run',
-            branchHref: '#branch',
-          }"
-          :passed="18"
-          :failed="6"
-          :skipped="2"
-          :pending="0"
-        />
-      </div>
-    </section>
-
-    <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">
         Expanded (zeros shown)
       </h3>
       <RunResults :passed="22" :failed="4" :skipped="0" :pending="0" expanded />
@@ -147,6 +108,14 @@ const RUN_STATUSES = [
     <section>
       <h3 class="text-sm font-medium text-gray-500 mb-2">With self-healed</h3>
       <RunResults
+        :run-status="{
+          buildNumber: 468,
+          status: 'passed',
+          branch: 'develop',
+          variant: 'link',
+          href: '#run',
+          branchHref: '#branch',
+        }"
         :passed="22"
         :failed="4"
         :skipped="0"
@@ -161,6 +130,14 @@ const RUN_STATUSES = [
         Flaky and self-healed
       </h3>
       <RunResults
+        :run-status="{
+          buildNumber: 468,
+          status: 'passed',
+          branch: 'develop',
+          variant: 'link',
+          href: '#run',
+          branchHref: '#branch',
+        }"
         :passed="22"
         :failed="4"
         :skipped="0"
@@ -174,6 +151,14 @@ const RUN_STATUSES = [
     <section>
       <h3 class="text-sm font-medium text-gray-500 mb-2">Linked stats</h3>
       <RunResults
+        :run-status="{
+          buildNumber: 468,
+          status: 'passed',
+          branch: 'develop',
+          variant: 'link',
+          href: '#run',
+          branchHref: '#branch',
+        }"
         :passed="22"
         :failed="4"
         :skipped="0"
