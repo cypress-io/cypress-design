@@ -23,10 +23,10 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // The root wrapper. `inline-flex` shrinks it to content; `gap-1` puts a small
+  // The root wrapper. `inline-flex` shrinks it to content; `gap-2` puts an 8px
   // gap between the two pills when both are rendered; `pointer-events-auto`
   // re-enables clicks if a parent disabled them.
-  container: 'inline-flex items-center gap-1 pointer-events-auto',
+  container: 'inline-flex items-center gap-2 pointer-events-auto',
   // The <ul> pill (test-counts). Border is an `::after` overlay — see
   // architecture.md ("Theme strategy").
   list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
@@ -49,8 +49,9 @@ export const CssClasses = {
   // depends on `variant` + `status` (see RUN_STATUS_BORDER_CLASSES).
   runStatusPill:
     "flex items-center h-[24px] text-[14px] leading-[24px] font-medium rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
-  // Each segment <a>/<span>. Padding + flex layout.
-  runStatusSegment: 'flex items-center h-full px-[6px] whitespace-nowrap',
+  // Each segment <a>/<span>. 8px horizontal padding (pill outer edge to icon
+  // / label edge to pill outer edge), flex layout.
+  runStatusSegment: 'flex items-center h-full px-[8px] whitespace-nowrap',
   // Segment as <a>: hover/focus state plus the segment base.
   runStatusLink:
     'no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
