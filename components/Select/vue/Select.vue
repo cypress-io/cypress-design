@@ -63,6 +63,11 @@ const props = withDefaults(defineProps<SelectComponentProps>(), {
   searchFilters: true,
   disabled: false,
   defaultOpen: false,
+  // Explicit `undefined` default opts out of Vue 3's Boolean prop
+  // coercion (which would map an absent prop to `false`). That lets the
+  // initial-state seed below tell "consumer passed `:open=\"false\"`"
+  // apart from "consumer omitted `open`" via `??` vs `||`.
+  open: undefined,
 })
 
 // `value` is `undefined` when the selection is cleared — happens when a
@@ -98,12 +103,15 @@ const itemIdPrefix = computed(() =>
 )
 
 // ---------- open state ----------
-// Note: Vue normalizes absent Boolean props to `false`, so we can't reliably
-// distinguish "consumer didn't pass `open`" from "consumer passed `open=false`".
-// We use internal state as the single source of truth: `open` and `defaultOpen`
-// both seed the initial value, and updates flow out via `update:open`. A
-// consumer that wants to force-close the popover can re-key the component.
-const internalOpen = ref(props.open || props.defaultOpen)
+// Seed precedence: an explicit `open` prop wins (including `false`), and
+// `defaultOpen` is the fallback when `open` was omitted. Vue 3 normally
+// coerces an absent Boolean prop to `false`, but the explicit
+// `default: undefined` above keeps the absence observable, so `??` here
+// reads as the consumer intended.
+// Internal state is the single source of truth from this point on:
+// updates flow out via `update:open` and a parent that wants to force-
+// close mid-flight can re-key the component.
+const internalOpen = ref(props.open ?? props.defaultOpen)
 const open = computed(() => internalOpen.value)
 function setOpen(next: boolean) {
   internalOpen.value = next
