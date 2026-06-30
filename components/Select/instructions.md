@@ -76,7 +76,7 @@ The footer is rendered below the items when at least one footer prop is set.
 
 ### Trigger
 
-- **`trigger`** — `ReactNode | ((ctx) => ReactNode)` (React) / slot `#trigger="{ ctx }"` (Vue). Escape hatch to replace the default Textbox trigger. The render context (`ctx`) exposes `{ open: boolean, selected: SelectItem | null, toggle: () => void, close: () => void }`. The consumer is responsible for calling `toggle()` or `close()` on whatever element they render; Select still owns the popover.
+- **`trigger`** — `ReactNode | ((ctx) => ReactNode)` (React) / slot `#trigger="{ ctx }"` (Vue). Escape hatch to replace the default Button trigger. The render context (`ctx`) exposes `{ open: boolean, selected: SelectItem | null, toggle: () => void, close: () => void }`. The consumer is responsible for calling `toggle()` or `close()` on whatever element they render; Select still owns the popover.
 
 ### Extension
 
@@ -193,7 +193,7 @@ interface CustomItem {
 
 ## Slots (Vue only)
 
-- **`#trigger="{ open, selected, toggle, close }"`** — replace the default Textbox trigger.
+- **`#trigger="{ open, selected, toggle, close }"`** — replace the default Button trigger.
 - **`#footer`** — arbitrary footer content (takes precedence over `footerLabel` / `footerAction`).
 - **`#header-extra`** — additional content rendered inside the header below the title / tabs / search (rare).
 
@@ -210,11 +210,7 @@ The Option Item responds to the following states (all visible in the Figma):
 
 State priority: `disabled` > `focus-visible` > `active` > `hover` > `selected` > `default`.
 
-The Trigger inherits Textbox's states (`default`, `hover`, `focused`, `focus-visible`, `disabled`) and adds an open-popover state that mirrors `focus-within`.
-
-## Sizes
-
-The Figma defines sizes `32` and `40` for the Option Item. Select forwards the same `size` to its trigger, so the trigger and rows always match. `48` is accepted as a passthrough to Textbox for the trigger but the rows render at `40` in that case (the Figma does not specify a `48` row).
+The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visible`, `disabled`) and adds an open-popover state that mirrors `focus-within`.
 
 ## Accessibility
 
