@@ -22,67 +22,6 @@ const RUN_STATUSES = [
 
     <section>
       <h3 class="text-sm font-medium text-gray-500 mb-2">
-        Run-status pill — base (left) vs link (right) variant
-      </h3>
-      <div class="flex flex-col gap-2">
-        <div
-          v-for="status in RUN_STATUSES"
-          :key="`pair-${status}`"
-          class="flex items-center gap-3"
-        >
-          <RunResults
-            :run-status="{ buildNumber: 468, status, variant: 'base' }"
-          />
-          <RunResults
-            :run-status="{
-              buildNumber: 468,
-              status,
-              variant: 'link',
-              href: '#run',
-            }"
-          />
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">
-        Run-status pill — with branch segment
-      </h3>
-      <div class="flex flex-col gap-2">
-        <RunResults
-          :run-status="{
-            buildNumber: 468,
-            status: 'running',
-            branch: 'develop',
-            variant: 'base',
-          }"
-        />
-        <RunResults
-          :run-status="{
-            buildNumber: 468,
-            status: 'passed',
-            branch: 'develop',
-            variant: 'link',
-            href: '#run',
-            branchHref: '#branch',
-          }"
-        />
-        <RunResults
-          :run-status="{
-            buildNumber: 468,
-            status: 'failed',
-            branch: 'release/2026.07.01-emergency-hotfix-mobile-only',
-            variant: 'link',
-            href: '#run',
-            branchHref: '#branch',
-          }"
-        />
-      </div>
-    </section>
-
-    <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">
         Expanded (zeros shown)
       </h3>
       <RunResults :passed="22" :failed="4" :skipped="0" :pending="0" expanded />
@@ -159,6 +98,67 @@ const RUN_STATUSES = [
           flaky: '#flaky',
         }"
       />
+    </section>
+
+    <section>
+      <h3 class="text-sm font-medium text-gray-500 mb-2">
+        Run-status pill — base (left) vs link (right) variant
+      </h3>
+      <div class="flex flex-col gap-2">
+        <div
+          v-for="status in RUN_STATUSES"
+          :key="`pair-${status}`"
+          class="flex items-center gap-3"
+        >
+          <RunResults
+            :run-status="{ buildNumber: 468, status, variant: 'base' }"
+          />
+          <RunResults
+            :run-status="{
+              buildNumber: 468,
+              status,
+              variant: 'link',
+              href: '#run',
+            }"
+          />
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h3 class="text-sm font-medium text-gray-500 mb-2">
+        Run-status pill — with branch segment
+      </h3>
+      <div class="flex flex-col gap-2">
+        <RunResults
+          :run-status="{
+            buildNumber: 468,
+            status: 'running',
+            branch: 'develop',
+            variant: 'base',
+          }"
+        />
+        <RunResults
+          :run-status="{
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+            variant: 'link',
+            href: '#run',
+            branchHref: '#branch',
+          }"
+        />
+        <RunResults
+          :run-status="{
+            buildNumber: 468,
+            status: 'failed',
+            branch: 'release/2026.07.01-emergency-hotfix-mobile-only',
+            variant: 'link',
+            href: '#run',
+            branchHref: '#branch',
+          }"
+        />
+      </div>
     </section>
 
     <section class="bg-gray-900 p-4 rounded">
