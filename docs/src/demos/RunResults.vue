@@ -22,32 +22,26 @@ const RUN_STATUSES = [
 
     <section>
       <h3 class="text-sm font-medium text-gray-500 mb-2">
-        Run-status pill — base variant (no border)
+        Run-status pill — base (left) vs link (right) variant
       </h3>
       <div class="flex flex-col gap-2">
-        <RunResults
+        <div
           v-for="status in RUN_STATUSES"
-          :key="`base-${status}`"
-          :run-status="{ buildNumber: 468, status, variant: 'base' }"
-        />
-      </div>
-    </section>
-
-    <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">
-        Run-status pill — link variant (status-colored border)
-      </h3>
-      <div class="flex flex-col gap-2">
-        <RunResults
-          v-for="status in RUN_STATUSES"
-          :key="`link-${status}`"
-          :run-status="{
-            buildNumber: 468,
-            status,
-            variant: 'link',
-            href: '#run',
-          }"
-        />
+          :key="`pair-${status}`"
+          class="flex items-center gap-3"
+        >
+          <RunResults
+            :run-status="{ buildNumber: 468, status, variant: 'base' }"
+          />
+          <RunResults
+            :run-status="{
+              buildNumber: 468,
+              status,
+              variant: 'link',
+              href: '#run',
+            }"
+          />
+        </div>
       </div>
     </section>
 
@@ -211,33 +205,28 @@ const RUN_STATUSES = [
         </div>
         <div>
           <h4 class="text-xs font-medium text-gray-400 mb-1">
-            Run-status pill — base variant
+            Run-status pill — base (left) vs link (right)
           </h4>
           <div class="flex flex-col gap-2">
-            <RunResults
+            <div
               v-for="status in RUN_STATUSES"
-              :key="`dark-base-${status}`"
-              :run-status="{ buildNumber: 468, status, variant: 'base' }"
-              theme="dark"
-            />
-          </div>
-        </div>
-        <div>
-          <h4 class="text-xs font-medium text-gray-400 mb-1">
-            Run-status pill — link variant
-          </h4>
-          <div class="flex flex-col gap-2">
-            <RunResults
-              v-for="status in RUN_STATUSES"
-              :key="`dark-link-${status}`"
-              :run-status="{
-                buildNumber: 468,
-                status,
-                variant: 'link',
-                href: '#run',
-              }"
-              theme="dark"
-            />
+              :key="`dark-pair-${status}`"
+              class="flex items-center gap-3"
+            >
+              <RunResults
+                :run-status="{ buildNumber: 468, status, variant: 'base' }"
+                theme="dark"
+              />
+              <RunResults
+                :run-status="{
+                  buildNumber: 468,
+                  status,
+                  variant: 'link',
+                  href: '#run',
+                }"
+                theme="dark"
+              />
+            </div>
           </div>
         </div>
         <div>
