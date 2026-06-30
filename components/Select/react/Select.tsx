@@ -187,6 +187,19 @@ export const Select: React.FC<SelectProps> = ({
     setFocusedIndex(-1)
   }, [open])
 
+  // If a parent flips `disabled` to true while the popover is still open,
+  // close it. The trigger and `toggle()` already short-circuit on disabled,
+  // but a popover that opened before the flip stays mounted — without this,
+  // option clicks would still mutate `value` and fire `onChange` on a
+  // disabled Select, and `Escape` / `Tab` would be ignored by the early
+  // return in `onKeyDown`.
+  React.useEffect(() => {
+    if (disabled && open) setOpen(false)
+    // setOpen is a stable closure (defined inline above); only `disabled`
+    // and `open` matter for whether to fire.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disabled, open])
+
   // Reset focus when the displayed *content* changes — typing into search
   // or the consumer swapping `items` (e.g., a header-tab change). Keying
   // off `displayItems` identity would fire on every parent re-render that
@@ -309,6 +322,9 @@ export const Select: React.FC<SelectProps> = ({
 
   // ---------- Selection ----------
   const handleSelect = (item: SelectItem) => {
+    // Belt to the close-on-disabled-flip effect above: a click that was
+    // already in flight when `disabled` flipped should not mutate `value`.
+    if (disabled) return
     const itemValue = SelectConstants.getItemValue(item)
     if (itemValue === undefined) return
     // Checkbox rows toggle: clicking an already-checked row unchecks it.

@@ -192,6 +192,19 @@ watch(open, (isOpen) => {
   focusedIndex.value = -1
 })
 
+// If a parent flips `disabled` to true while the popover is still open,
+// close it. The trigger and `toggle()` already short-circuit on disabled,
+// but a popover that opened before the flip stays mounted — without this,
+// option clicks would still mutate the value and emit `update:modelValue`
+// on a disabled Select, and `Escape` / `Tab` would be ignored by the
+// early return in `onKeyDown`.
+watch(
+  () => props.disabled,
+  (d) => {
+    if (d && open.value) setOpen(false)
+  },
+)
+
 // Reset focus when the displayed *content* changes — typing into search
 // or the consumer swapping `items` (e.g., a header-tab change). Watching
 // `displayItems` by reference would fire on every parent re-render that
@@ -313,6 +326,9 @@ function onKeyDown(e: KeyboardEvent) {
 
 // ---------- selection ----------
 function handleSelect(item: SelectItem) {
+  // Belt to the close-on-disabled-flip watcher above: a click that was
+  // already in flight when `disabled` flipped should not mutate the value.
+  if (props.disabled) return
   const itemValue = SelectConstants.getItemValue(item)
   if (itemValue === undefined) return
   // Checkbox rows toggle: clicking an already-checked row unchecks it.
