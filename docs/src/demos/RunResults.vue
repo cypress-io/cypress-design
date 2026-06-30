@@ -111,10 +111,8 @@ const RUN_STATUSES = [
         :run-status="{
           buildNumber: 468,
           status: 'passed',
-          branch: 'develop',
           variant: 'link',
           href: '#run',
-          branchHref: '#branch',
         }"
         :passed="22"
         :failed="4"
@@ -133,10 +131,8 @@ const RUN_STATUSES = [
         :run-status="{
           buildNumber: 468,
           status: 'passed',
-          branch: 'develop',
           variant: 'link',
           href: '#run',
-          branchHref: '#branch',
         }"
         :passed="22"
         :failed="4"
@@ -154,10 +150,8 @@ const RUN_STATUSES = [
         :run-status="{
           buildNumber: 468,
           status: 'passed',
-          branch: 'develop',
           variant: 'link',
           href: '#run',
-          branchHref: '#branch',
         }"
         :passed="22"
         :failed="4"
