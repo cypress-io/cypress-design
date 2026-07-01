@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-select",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "files": [
     "*"
   ],
@@ -28,6 +28,7 @@
     "@cypress-design/vue-textbox": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-select": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

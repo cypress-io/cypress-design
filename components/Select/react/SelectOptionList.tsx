@@ -68,6 +68,30 @@ type IconComponent = React.ComponentType<
   Omit<OpenIconProps, 'name'> & { className?: string }
 >
 
+// Render a consumer-passed IconNode (unknown) whether it's a component
+// reference (design-system convention: `IconArrowLeft`) or a rendered
+// element (`<IconArrowLeft />`). Instantiating an already-rendered
+// element as JSX (`<Icon />`) throws — this helper mirrors the pattern
+// in SelectOptionItem so header icons accept the same two shapes as
+// option-row icons.
+function renderHeaderIcon(Icon: unknown, className: string): React.ReactNode {
+  if (!Icon) return null
+  if (React.isValidElement(Icon)) {
+    return <span className={className}>{Icon}</span>
+  }
+  if (typeof Icon === 'function') {
+    const Component = Icon as IconComponent
+    return (
+      <Component
+        size="16"
+        interactiveColorsOnGroup={true}
+        className={className}
+      />
+    )
+  }
+  return <span className={className}>{Icon as React.ReactNode}</span>
+}
+
 export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   items,
   theme = SelectConstants.DefaultTheme,
@@ -75,8 +99,9 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   value,
   onSelect,
   headerTitle,
-  // Icon props are renamed to PascalCase locals so they can be rendered as
-  // JSX (`<HeaderIconLeft />`) instead of `React.createElement(...)`.
+  // Icon props are aliased so they can flow through `renderHeaderIcon`,
+  // which handles both a component reference (design-system convention)
+  // and an already-rendered React element consumers might reasonably pass.
   headerButton: headerButtonRaw,
   headerIconLeft: headerIconLeftRaw,
   headerTag,
@@ -191,19 +216,13 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                   onClick={HeaderButton.onClick}
                   className={SelectConstants.CssHeaderBackButtonSpacingClasses}
                 >
-                  <HeaderButton.iconLeft
-                    size="16"
-                    interactiveColorsOnGroup={true}
-                  />
+                  {renderHeaderIcon(HeaderButton.iconLeft, 'shrink-0')}
                 </Button>
               )}
               <div className={SelectConstants.CssHeaderTitleGroupClasses}>
-                {HeaderIconLeft && (
-                  <HeaderIconLeft
-                    size="16"
-                    interactiveColorsOnGroup={true}
-                    className={SelectConstants.CssHeaderIconColorClasses[theme]}
-                  />
+                {renderHeaderIcon(
+                  headerIconLeftRaw,
+                  SelectConstants.CssHeaderIconColorClasses[theme],
                 )}
                 {headerTitle && (
                   <span
@@ -221,12 +240,9 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                   </Tag>
                 )}
               </div>
-              {HeaderIconRight && (
-                <HeaderIconRight
-                  size="16"
-                  interactiveColorsOnGroup={true}
-                  className={SelectConstants.CssHeaderIconColorClasses[theme]}
-                />
+              {renderHeaderIcon(
+                headerIconRightRaw,
+                SelectConstants.CssHeaderIconColorClasses[theme],
               )}
             </div>
           )}

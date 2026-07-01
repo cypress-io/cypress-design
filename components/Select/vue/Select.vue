@@ -1,12 +1,5 @@
 <script lang="ts" setup>
-import {
-  computed,
-  getCurrentInstance,
-  onBeforeUnmount,
-  onMounted,
-  ref,
-  watch,
-} from 'vue'
+import { computed, getCurrentInstance, onBeforeUnmount, ref, watch } from 'vue'
 import Button from '@cypress-design/vue-button'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import type { ButtonVariants } from '@cypress-design/constants-button'
@@ -108,15 +101,25 @@ const itemIdPrefix = computed(() =>
 // coerces an absent Boolean prop to `false`, but the explicit
 // `default: undefined` above keeps the absence observable, so `??` here
 // reads as the consumer intended.
-// Internal state is the single source of truth from this point on:
-// updates flow out via `update:open` and a parent that wants to force-
-// close mid-flight can re-key the component.
 const internalOpen = ref(props.open ?? props.defaultOpen)
 const open = computed(() => internalOpen.value)
 function setOpen(next: boolean) {
   internalOpen.value = next
   emit('update:open', next)
 }
+// `open` is documented as "fully controlled" — mirror parent-driven
+// changes into internal state on every update, matching React's
+// `open = isOpenControlled ? openProp : internalOpen` behavior. Only
+// react when the parent passes a defined value; `undefined` (the
+// explicit `withDefaults` default) means "consumer isn't controlling".
+watch(
+  () => props.open,
+  (next) => {
+    if (next !== undefined && next !== internalOpen.value) {
+      internalOpen.value = next
+    }
+  },
+)
 
 // ---------- selected value ----------
 // Sticky-toward-controlled: once we ever see a defined `value` or
@@ -201,11 +204,16 @@ watch(open, (isOpen) => {
 // option clicks would still mutate the value and emit `update:modelValue`
 // on a disabled Select, and `Escape` / `Tab` would be ignored by the
 // early return in `onKeyDown`.
+// `immediate: true` mirrors React's mount-time effect: a Select that
+// mounts with `disabled: true` AND `defaultOpen: true` (or a controlled
+// `:open="true"`) starts closed instead of rendering an open, unusable
+// popover for one frame.
 watch(
   () => props.disabled,
   (d) => {
     if (d && open.value) setOpen(false)
   },
+  { immediate: true },
 )
 
 // Reset focus when the displayed *content* changes — typing into search
@@ -232,16 +240,27 @@ watch(displayItemsSignature, () => {
 })
 
 // ---------- click outside ----------
+// Only attach the document-level mousedown listener while the popover
+// is open — mirrors React's `useEffect` gated on `open`. Prevents every
+// mounted Select on the page from dispatching a handler on every
+// document mousedown for its entire lifetime.
 const wrapperRef = ref<HTMLElement | null>(null)
 function onDocumentMouseDown(e: MouseEvent) {
-  if (!open.value) return
   if (!wrapperRef.value) return
   if (e.target instanceof Node && wrapperRef.value.contains(e.target)) return
   setOpen(false)
 }
-onMounted(() => {
-  document.addEventListener('mousedown', onDocumentMouseDown, true)
-})
+watch(
+  open,
+  (isOpen) => {
+    if (isOpen) {
+      document.addEventListener('mousedown', onDocumentMouseDown, true)
+    } else {
+      document.removeEventListener('mousedown', onDocumentMouseDown, true)
+    }
+  },
+  { immediate: true },
+)
 onBeforeUnmount(() => {
   document.removeEventListener('mousedown', onDocumentMouseDown, true)
 })

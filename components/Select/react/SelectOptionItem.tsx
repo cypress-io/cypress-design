@@ -119,18 +119,12 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
             item.onClick()
           }}
         >
-          {(() => {
-            // Render iconLeft via PascalCase JSX so the icon can be either a
-            // component reference (the design-system convention) or any other
-            // ReactNode the consumer chooses to pass — matches the header-row
-            // icon rendering. Avoids `React.createElement` blowing up when
-            // someone hands us `<MyIcon />` (a JSX element) instead of
-            // `MyIcon` (the component).
-            const IconLeft = item.iconLeft as IconComponent | undefined
-            return IconLeft ? (
-              <IconLeft size="16" interactiveColorsOnGroup={true} />
-            ) : null
-          })()}
+          {/* Route through renderIcon so the button row accepts the same
+              two shapes (component reference OR ReactElement) as
+              default-row iconLeft. Rendering the raw value as JSX
+              (`<Icon />`) throws when the consumer hands us a
+              `<MyIcon />` element instead of `MyIcon`. */}
+          {renderIcon(item.iconLeft, 'shrink-0')}
           {item.label}
         </Button>
       </div>

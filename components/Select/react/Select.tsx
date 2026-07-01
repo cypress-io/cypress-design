@@ -393,7 +393,12 @@ export const Select: React.FC<SelectProps> = ({
         aria-expanded={open}
         aria-controls={popoverId}
         aria-activedescendant={
-          open && focusedIndex >= 0
+          // Guard against `focusedIndex` still holding a stale value from
+          // before a filter shrank `selectableIndices`. The
+          // `displayItemsSignature` effect will reset it on the next
+          // commit; without this clamp, the render between the shrink and
+          // the effect emits `${itemIdPrefix}-undefined` for one frame.
+          open && focusedIndex >= 0 && focusedIndex < selectableIndices.length
             ? `${itemIdPrefix}-${selectableIndices[focusedIndex]}`
             : undefined
         }
