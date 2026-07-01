@@ -84,6 +84,19 @@ const focusedSelectableIndex = computed(() =>
     ? interactiveIndices.value[props.focusedIndex]
     : undefined,
 )
+// Set `aria-activedescendant` on the header search Textbox in addition
+// to the trigger. WAI-ARIA combobox: the attribute must live on the
+// element that has DOM focus — screen readers reading from the search
+// input won't announce the highlighted option if only the trigger
+// carries it. Clamp so a stale `focusedIndex` past a filter shrink
+// doesn't emit `${itemIdPrefix}-undefined` for one frame.
+const activeDescendantId = computed(() => {
+  const i = props.focusedIndex
+  if (typeof i !== 'number' || i < 0) return undefined
+  if (i >= interactiveIndices.value.length) return undefined
+  if (!props.itemIdPrefix) return undefined
+  return `${props.itemIdPrefix}-${interactiveIndices.value[i]}`
+})
 
 const hasTitleRow = computed(
   () =>
@@ -243,6 +256,7 @@ function rowId(index: number): string | undefined {
           :placeholder="searchPlaceholder"
           :icon-left="IconObjectMagnifyingGlass"
           :aria-label="searchPlaceholder"
+          :aria-activedescendant="activeDescendantId"
           @update:model-value="(v: string) => emit('update:searchValue', v)"
         />
       </div>

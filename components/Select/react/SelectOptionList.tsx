@@ -152,6 +152,19 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
     typeof focusedIndex === 'number'
       ? interactiveIndices[focusedIndex]
       : undefined
+  // Set `aria-activedescendant` on the header search Textbox in addition
+  // to the trigger. WAI-ARIA combobox: the attribute must live on the
+  // element that has DOM focus — screen readers reading from the search
+  // input won't announce the highlighted option if only the trigger
+  // carries it. Clamp so a stale `focusedIndex` past a filter shrink
+  // doesn't emit `${itemIdPrefix}-undefined` for one frame.
+  const activeDescendantId =
+    typeof focusedIndex === 'number' &&
+    focusedIndex >= 0 &&
+    focusedIndex < interactiveIndices.length &&
+    itemIdPrefix
+      ? `${itemIdPrefix}-${interactiveIndices[focusedIndex]}`
+      : undefined
 
   const hasTitleRow = Boolean(
     headerTitle ||
@@ -287,6 +300,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                     onSearchValueChange?.(e.target.value)
                   }
                   aria-label={searchPlaceholder}
+                  aria-activedescendant={activeDescendantId}
                 />
               )}
             </div>

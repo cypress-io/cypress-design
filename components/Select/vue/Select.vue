@@ -393,11 +393,17 @@ function close() {
   setOpen(false)
 }
 
-const activeDescendantId = computed(() =>
-  open.value && focusedIndex.value >= 0
-    ? `${itemIdPrefix.value}-${selectableIndices.value[focusedIndex.value]}`
-    : undefined,
-)
+const activeDescendantId = computed(() => {
+  // Guard against `focusedIndex` still holding a stale value from before
+  // a filter shrank `selectableIndices`. The `displayItemsSignature`
+  // watcher will reset it on the next tick; without this clamp, the
+  // render between the shrink and the reset emits
+  // `${itemIdPrefix}-undefined` for one frame. Mirrors React.
+  if (!open.value) return undefined
+  const i = focusedIndex.value
+  if (i < 0 || i >= selectableIndices.value.length) return undefined
+  return `${itemIdPrefix.value}-${selectableIndices.value[i]}`
+})
 
 const chevronClasses = computed(() => [
   SelectConstants.CssChevronClasses,
