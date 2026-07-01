@@ -13,8 +13,9 @@ Select composes existing cypress-design primitives — Button, Tabs, Checkbox, T
 ```bash
 yarn add @cypress-design/vue-select         # Vue
 yarn add @cypress-design/react-select       # React
-yarn add @cypress-design/constants-select   # shared types (SelectItem, etc.)
 ```
+
+Shared types (`SelectItem`, `SelectProps`, etc.) are re-exported from each framework package — no separate constants install needed.
 
 The default export is the full `Select` (trigger + popover). The panel pieces are also exported for consumers who want to render the popover inline without a trigger (e.g. expanded showcases, or building a custom shell):
 

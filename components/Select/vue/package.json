@@ -20,7 +20,6 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-select": "*",
     "@cypress-design/vue-button": "*",
     "@cypress-design/vue-checkbox": "*",
     "@cypress-design/vue-icon": "*",

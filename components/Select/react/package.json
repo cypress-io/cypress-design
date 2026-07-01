@@ -17,10 +17,9 @@
   "scripts": {
     "build": "yarn build:module && yarn build:types",
     "build:module": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
   },
   "dependencies": {
-    "@cypress-design/constants-select": "*",
     "@cypress-design/react-button": "*",
     "@cypress-design/react-checkbox": "*",
     "@cypress-design/react-icon": "*",
@@ -30,6 +29,7 @@
     "clsx": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-select": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
