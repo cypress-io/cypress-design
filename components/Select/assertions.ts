@@ -74,30 +74,30 @@ export default function assertions(
 
     it('renders trigger with placeholder when no value', () => {
       mountStory({ items: simpleItems, placeholder: 'Pick one' })
-      cy.findByRole('button').should('contain.text', 'Pick one')
+      cy.findByRole('combobox').should('contain.text', 'Pick one')
       cy.findByRole('listbox').should('not.exist')
     })
 
     it('reflects the selected value in the trigger label', () => {
       mountStory({ items: simpleItems, defaultValue: 'beta' })
-      cy.findByRole('button').should('contain.text', 'Beta')
+      cy.findByRole('combobox').should('contain.text', 'Beta')
     })
 
     it('opens on trigger click', () => {
       mountStory({ items: simpleItems })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByRole('listbox').should('be.visible')
     })
 
     it('opens on ArrowDown from trigger', () => {
       mountStory({ items: simpleItems })
-      cy.findByRole('button').focus().type('{downArrow}')
+      cy.findByRole('combobox').focus().type('{downArrow}')
       cy.findByRole('listbox').should('be.visible')
     })
 
     it('opens on Enter from trigger', () => {
       mountStory({ items: simpleItems })
-      cy.findByRole('button').focus().type('{enter}')
+      cy.findByRole('combobox').focus().type('{enter}')
       cy.findByRole('listbox').should('be.visible')
     })
 
@@ -106,22 +106,22 @@ export default function assertions(
       // cy.type(' ') on a focused button races with the browser's native
       // click-on-space behavior; trigger the keydown directly to exercise
       // the component's handler in isolation.
-      cy.findByRole('button').focus().trigger('keydown', { key: ' ' })
+      cy.findByRole('combobox').focus().trigger('keydown', { key: ' ' })
       cy.findByRole('listbox').should('be.visible')
     })
 
     it('closes on Escape and returns focus to the trigger', () => {
       mountStory({ items: simpleItems })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByRole('listbox').should('be.visible')
-      cy.findByRole('button').type('{esc}')
+      cy.findByRole('combobox').type('{esc}')
       cy.findByRole('listbox').should('not.exist')
-      cy.findByRole('button').should('be.focused')
+      cy.findByRole('combobox').should('be.focused')
     })
 
     it('closes on outside click', () => {
       mountStory({ items: simpleItems })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByRole('listbox').should('be.visible')
       // force: true — the body's child layout covers the body itself, so
       // Cypress's actionability check rejects an un-forced click. We're
@@ -135,7 +135,7 @@ export default function assertions(
       // Cypress refuses to click a disabled element; the disabled attribute
       // is what we're actually verifying. The listbox check confirms no
       // popover opened from any default-open or initial-state path.
-      cy.findByRole('button').should('be.disabled')
+      cy.findByRole('combobox').should('be.disabled')
       cy.findByRole('listbox').should('not.exist')
     })
 
@@ -144,18 +144,18 @@ export default function assertions(
     it('selecting a default row updates aria-selected, emits change, and closes', () => {
       const onChange = cy.stub().as('onChange')
       mountStory({ items: simpleItems, onChange })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByRole('option', { name: 'Beta' }).click()
       cy.findByRole('listbox').should('not.exist')
       cy.get('@onChange').should('have.been.calledOnce')
       cy.get('@onChange').its('firstCall.args.0').should('equal', 'beta')
-      cy.findByRole('button').should('contain.text', 'Beta')
+      cy.findByRole('combobox').should('contain.text', 'Beta')
     })
 
     it('does not select disabled rows', () => {
       const onChange = cy.stub().as('onChange')
       mountStory({ items: mixedItems, onChange })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       // The row uses `aria-disabled="true"` (not native `disabled`), so
       // Cypress's actionability check still fires the click. The component's
       // own `onClick` early-returns on `isDisabled`, which is what the
@@ -174,31 +174,31 @@ export default function assertions(
       mountStory({ items: simpleItems, onChange })
       // First ArrowDown opens the popover with no row focused; the second one
       // lands focus on the first option. See onKeyDown in Select.{tsx,vue}.
-      cy.findByRole('button').focus().type('{downArrow}{downArrow}')
+      cy.findByRole('combobox').focus().type('{downArrow}{downArrow}')
       cy.findByRole('option', { name: 'Alpha' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.findByRole('button').type('{downArrow}{downArrow}') // focus Gamma
+      cy.findByRole('combobox').type('{downArrow}{downArrow}') // focus Gamma
       cy.findByRole('option', { name: 'Gamma' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.findByRole('button').type('{downArrow}') // wrap → Alpha
+      cy.findByRole('combobox').type('{downArrow}') // wrap → Alpha
       cy.findByRole('option', { name: 'Alpha' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.findByRole('button').type('{upArrow}') // wrap up → Gamma
+      cy.findByRole('combobox').type('{upArrow}') // wrap up → Gamma
       cy.findByRole('option', { name: 'Gamma' }).should(
         'have.attr',
         'data-focused',
         'true',
       )
-      cy.findByRole('button').type('{enter}')
+      cy.findByRole('combobox').type('{enter}')
       cy.get('@onChange').should('have.been.calledOnce')
       cy.get('@onChange').its('firstCall.args.0').should('equal', 'gamma')
     })
@@ -207,7 +207,7 @@ export default function assertions(
 
     it('renders headline and divider as presentation roles', () => {
       mountStory({ items: mixedItems })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findAllByText('Group A')
         .first()
         .should('have.attr', 'role', 'presentation')
@@ -224,7 +224,7 @@ export default function assertions(
       // Placeholder gives the trigger an accessible name so the two buttons
       // (trigger + in-list action) are distinguishable in subsequent queries.
       mountStory({ items, placeholder: 'Open' })
-      cy.findByRole('button', { name: 'Open' }).click()
+      cy.findByRole('combobox', { name: 'Open' }).click()
       cy.findByRole('listbox').findByRole('button', { name: 'Add new' }).click()
       cy.get('@rowAction').should('have.been.calledOnce')
     })
@@ -238,7 +238,7 @@ export default function assertions(
       mountStory({ items, placeholder: 'Open' })
       // 1st ArrowDown opens with no focus; 2nd lands on Alpha; 3rd wraps to
       // the button row (no divider between, so 2 interactive rows total).
-      cy.findByRole('button', { name: 'Open' })
+      cy.findByRole('combobox', { name: 'Open' })
         .focus()
         .type('{downArrow}{downArrow}{downArrow}')
       // The row wrapper (role="presentation") carries `data-focused`; the
@@ -249,7 +249,7 @@ export default function assertions(
         .should('have.attr', 'data-focused', 'true')
       // Enter on the focused button row should fire its onClick. Popover
       // stays open so the consumer can decide whether to close it.
-      cy.findByRole('button', { name: 'Open' }).type('{enter}')
+      cy.findByRole('combobox', { name: 'Open' }).type('{enter}')
       cy.get('@rowAction').should('have.been.calledOnce')
       cy.findByRole('listbox').should('be.visible')
     })
@@ -257,7 +257,7 @@ export default function assertions(
     it('checkbox row toggles on/off; popover stays open; emits undefined on untoggle', () => {
       const onChange = cy.stub().as('onChange')
       mountStory({ items: checkboxItems, onChange })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByRole('option', { name: /Option A/ }).click()
       cy.get('@onChange').should('have.been.calledOnce')
       cy.get('@onChange').its('firstCall.args.0').should('equal', 'a')
@@ -286,7 +286,7 @@ export default function assertions(
         searchable: true,
         searchPlaceholder: 'Find item',
       })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByPlaceholderText('Find item').type('be')
       cy.findByRole('option', { name: 'Beta' }).should('exist')
       cy.findByRole('option', { name: 'Alpha' }).should('not.exist')
@@ -301,7 +301,7 @@ export default function assertions(
         searchPlaceholder: 'Find item',
         onChange,
       })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       // Focus the search input and type; the wrapper's keydown listener
       // catches bubbled arrow keys, so focus walks rows even with the
       // input active.
@@ -326,7 +326,7 @@ export default function assertions(
         searchable: true,
         searchPlaceholder: 'Find item',
       })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       cy.findByPlaceholderText('Find item').type('alpha')
       cy.findByRole('listbox').contains('Group A').should('exist')
       cy.findByRole('listbox').contains('Group B').should('not.exist')
@@ -339,7 +339,7 @@ export default function assertions(
         searchFilters: false,
         searchPlaceholder: 'Find item',
       })
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').click()
       // Use a query that WOULD filter to one row if `searchFilters` were
       // true (it matches only 'Beta'). The assertion passes only when the
       // filter is genuinely disabled, not because the query happens to be
@@ -382,8 +382,10 @@ export default function assertions(
         },
         defaultOpen: true,
       })
-      cy.findByRole('listbox').contains('Pick a thing').should('exist')
-      cy.findByRole('listbox').contains('New').should('exist')
+      // Header sits OUTSIDE the listbox (the listbox wraps only options);
+      // query unscoped so the title/tag are findable.
+      cy.contains('Pick a thing').should('exist')
+      cy.contains('New').should('exist')
       cy.findByRole('button', { name: 'Go back' }).click()
       cy.get('@onBack').should('have.been.calledOnce')
     })
@@ -400,7 +402,8 @@ export default function assertions(
         onHeaderTabChange,
         defaultOpen: true,
       })
-      cy.findByRole('listbox').contains('Mine').click()
+      // Header tabs sit OUTSIDE the listbox — query unscoped.
+      cy.contains('Mine').click()
       cy.get('@onTab').should('have.been.calledOnce')
       cy.get('@onTab').its('firstCall.args.0').should('equal', 'mine')
     })
@@ -415,8 +418,9 @@ export default function assertions(
         footerAction: { label: 'Apply', onClick: onAction },
         defaultOpen: true,
       })
-      cy.findByRole('listbox').contains('Helper text').should('exist')
-      cy.findByRole('listbox').findByRole('button', { name: 'Apply' }).click()
+      // Footer sits OUTSIDE the listbox — query unscoped.
+      cy.contains('Helper text').should('exist')
+      cy.findByRole('button', { name: 'Apply' }).click()
       cy.get('@onFooter').should('have.been.calledOnce')
     })
   })
