@@ -97,13 +97,16 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
     // look puny in a `size=40` panel.
     const buttonSize = size === '40' ? '32' : '24'
     return (
-      // role="presentation" — the wrapper is layout chrome around the
-      // <Button>; matches headline/divider so the listbox tree only
-      // exposes selectable rows to assistive tech.
+      // The wrapper stays purely presentational — the pill Button IS the
+      // interactive control, so the pill is the sole click target
+      // (preserved from the original behavior; the row's negative space
+      // does not trigger the action).
+      // The inner Button carries `role="option"` so the listbox sees a
+      // valid child (`aria-required-children`), and `tabindex="-1"` so
+      // the trigger's `aria-activedescendant` owns focus rather than
+      // native tab landing on the pill.
       <div
-        id={id}
         role="presentation"
-        data-focused={focused || undefined}
         className={clsx(
           SelectConstants.CssButtonRowClasses,
           SelectConstants.CssOptionItemHeightClasses[size],
@@ -114,6 +117,10 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         <Button
           variant={buttonVariant as ButtonVariants}
           size={buttonSize}
+          id={id}
+          role="option"
+          tabIndex={-1}
+          data-focused={focused || undefined}
           onClick={(e) => {
             e.stopPropagation()
             item.onClick()
@@ -194,21 +201,25 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
           // The row itself owns interactivity (role="option", aria-selected,
           // click handler, keyboard nav). The visual checkbox is a
           // decorative affordance — hide it from assistive tech so axe's
-          // `label` / `nested-interactive` rules don't fire, and set
-          // `inputTabIndex={-1}` so the input can't take keyboard focus.
+          // `label` / `nested-interactive` rules don't fire.
           aria-hidden="true"
         >
           {/* The Checkbox initializes `localChecked` from `props.checked`
              via useState (uncontrolled) and never syncs back from the
              prop. Keying by `selected` forces a remount whenever the
              row toggles so the visual stays in sync with our externally-
-             managed value. */}
+             managed value. `hideInput` removes the real <input> from
+             layout via display:none — axe's `nested-interactive` rule
+             flags a focusable input inside a clickable row even when
+             the input is tabIndex=-1 + aria-hidden, so we take it out
+             of the DOM's interactive path entirely. */}
           <Checkbox
             key={selected ? 'on' : 'off'}
             checked={selected}
             disabled={disabled}
             onChange={() => undefined}
             inputTabIndex={-1}
+            hideInput
           />
         </span>
         <div className={SelectConstants.CssCheckboxRowStackClasses}>

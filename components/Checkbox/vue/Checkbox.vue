@@ -54,10 +54,21 @@ const props = withDefaults(
      * `nested-interactive` rule.
      */
     inputTabIndex?: number
+    /**
+     * When true, the real `<input>` is removed from the accessibility
+     * tree and the layout with `display: none`. Use inside a wider
+     * interactive row (e.g. Select's checkbox-row) where the row itself
+     * is the option — axe's `nested-interactive` rule flags a focusable
+     * input inside a clickable row even when the input carries
+     * `aria-hidden` / `tabindex="-1"`; `display: none` is the one form
+     * axe accepts.
+     */
+    hideInput?: boolean
   }>(),
   {
     id: () => uid(),
     color: 'indigo',
+    hideInput: false,
   },
 )
 
@@ -113,6 +124,8 @@ const checkboxClasses = computed(() =>
       :disabled="props.disabled"
       :checked="localChecked"
       :tabindex="inputTabIndex"
+      :aria-hidden="hideInput || undefined"
+      :style="hideInput ? { display: 'none' } : undefined"
       @change="updated"
     />
     <label :class="CssClasses.labelTag" :for="id">

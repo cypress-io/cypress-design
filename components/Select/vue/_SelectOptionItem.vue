@@ -114,14 +114,14 @@ function onMouseDown(e: MouseEvent) {
   <!-- button row (action). Theme-aware default variant: `white` on light /
        `outline-dark` on dark so the in-list action button doesn't sit as a
        stark white pill against the gray-1000 panel.
-       role="presentation" — the wrapper is layout chrome around the
-       <Button>; matches headline/divider so the listbox tree only exposes
-       selectable rows to assistive tech. -->
+       Wrapper stays purely presentational — the pill Button IS the
+       interactive control, so the pill is the sole click target. The
+       inner Button carries `role="option"` so the listbox sees a valid
+       child (aria-required-children), and `tabindex="-1"` so the
+       trigger's aria-activedescendant owns focus. -->
   <div
     v-else-if="item.type === 'button'"
-    :id="id"
     role="presentation"
-    :data-focused="focused || undefined"
     :class="[
       SelectConstants.CssButtonRowClasses,
       SelectConstants.CssOptionItemHeightClasses[size],
@@ -130,6 +130,10 @@ function onMouseDown(e: MouseEvent) {
     ]"
   >
     <Button
+      :id="id"
+      role="option"
+      :tabindex="-1"
+      :data-focused="focused || undefined"
       :variant="
         (item.variant as ButtonVariants) ??
         (theme === 'dark' ? 'outline-dark' : 'white')
@@ -178,8 +182,7 @@ function onMouseDown(e: MouseEvent) {
     <!-- The row itself owns interactivity (role="option", aria-selected,
          click handler, keyboard nav). The visual checkbox is a decorative
          affordance — hide it from assistive tech so axe's `label` /
-         `nested-interactive` rules don't fire, and use `input-tab-index=-1`
-         so the input can't take keyboard focus. -->
+         `nested-interactive` rules don't fire. -->
     <span
       :class="SelectConstants.CssCheckboxRowCheckboxWrapperClasses"
       aria-hidden="true"
@@ -187,12 +190,18 @@ function onMouseDown(e: MouseEvent) {
       <!-- The Checkbox component owns its own `localChecked` state and
            doesn't watch the `:checked` prop for changes. Keying it on
            `selected` forces a remount whenever the row toggles, so the
-           visual stays in sync with the externally-managed value. -->
+           visual stays in sync with the externally-managed value.
+           `hide-input` removes the real <input> from layout via
+           display:none — axe's `nested-interactive` rule flags a
+           focusable input inside a clickable row even when the input is
+           tabindex=-1 + aria-hidden, so we take it out of the DOM's
+           interactive path entirely. -->
       <Checkbox
         :key="selected ? 'on' : 'off'"
         :checked="selected"
         :disabled="isDisabled"
         :input-tab-index="-1"
+        :hide-input="true"
         @change="() => undefined"
       />
     </span>

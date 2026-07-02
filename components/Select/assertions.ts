@@ -225,7 +225,9 @@ export default function assertions(
       // (trigger + in-list action) are distinguishable in subsequent queries.
       mountStory({ items, placeholder: 'Open' })
       cy.findByRole('combobox', { name: 'Open' }).click()
-      cy.findByRole('listbox').findByRole('button', { name: 'Add new' }).click()
+      // The button-row's inner <Button> carries role="option" so the
+      // listbox exposes only valid children (aria-required-children).
+      cy.findByRole('listbox').findByRole('option', { name: 'Add new' }).click()
       cy.get('@rowAction').should('have.been.calledOnce')
     })
 
@@ -241,11 +243,11 @@ export default function assertions(
       cy.findByRole('combobox', { name: 'Open' })
         .focus()
         .type('{downArrow}{downArrow}{downArrow}')
-      // The row wrapper (role="presentation") carries `data-focused`; the
-      // inner Button is just the action target. Walk up via `closest`.
+      // The inner Button carries role="option" + `data-focused`; the
+      // wrapper is presentational chrome. Assert focus directly on the
+      // option element.
       cy.findByRole('listbox')
-        .findByRole('button', { name: 'Add new' })
-        .closest('[role="presentation"]')
+        .findByRole('option', { name: 'Add new' })
         .should('have.attr', 'data-focused', 'true')
       // Enter on the focused button row should fire its onClick. Popover
       // stays open so the consumer can decide whether to close it.
