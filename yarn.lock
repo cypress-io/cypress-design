@@ -1426,6 +1426,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/constants-select@npm:*, @cypress-design/constants-select@workspace:components/Select/constants":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/constants-select@workspace:components/Select/constants"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/constants-spinner@npm:*, @cypress-design/constants-spinner@workspace:components/Spinner/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-spinner@workspace:components/Spinner/constants"
@@ -1638,7 +1644,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-button@workspace:components/Button/react":
+"@cypress-design/react-button@npm:*, @cypress-design/react-button@workspace:components/Button/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-button@workspace:components/Button/react"
   dependencies:
@@ -1729,6 +1735,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/react-select@workspace:components/Select/react":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/react-select@workspace:components/Select/react"
+  dependencies:
+    "@cypress-design/constants-select": "npm:*"
+    "@cypress-design/react-button": "npm:*"
+    "@cypress-design/react-checkbox": "npm:*"
+    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/react-tabs": "npm:*"
+    "@cypress-design/react-tag": "npm:*"
+    "@cypress-design/react-textbox": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    clsx: "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/react-spinner@npm:*, @cypress-design/react-spinner@workspace:components/Spinner/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-spinner@workspace:components/Spinner/react"
@@ -1762,7 +1784,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-tag@workspace:components/Tag/react":
+"@cypress-design/react-tag@npm:*, @cypress-design/react-tag@workspace:components/Tag/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-tag@workspace:components/Tag/react"
   dependencies:
@@ -1784,7 +1806,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-textbox@workspace:components/Textbox/react":
+"@cypress-design/react-textbox@npm:*, @cypress-design/react-textbox@workspace:components/Textbox/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-textbox@workspace:components/Textbox/react"
   dependencies:
@@ -1919,6 +1941,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/vue-select@workspace:components/Select/vue":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/vue-select@workspace:components/Select/vue"
+  dependencies:
+    "@cypress-design/constants-select": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    "@cypress-design/vue-button": "npm:*"
+    "@cypress-design/vue-checkbox": "npm:*"
+    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-tabs": "npm:*"
+    "@cypress-design/vue-tag": "npm:*"
+    "@cypress-design/vue-textbox": "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/vue-spinner@npm:*, @cypress-design/vue-spinner@workspace:components/Spinner/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-spinner@workspace:components/Spinner/vue"
@@ -1939,7 +1976,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tabs@workspace:components/Tabs/vue":
+"@cypress-design/vue-tabs@npm:*, @cypress-design/vue-tabs@workspace:components/Tabs/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tabs@workspace:components/Tabs/vue"
   dependencies:
@@ -1948,7 +1985,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tag@workspace:components/Tag/vue":
+"@cypress-design/vue-tag@npm:*, @cypress-design/vue-tag@workspace:components/Tag/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tag@workspace:components/Tag/vue"
   dependencies:
@@ -1968,7 +2005,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-textbox@workspace:components/Textbox/vue":
+"@cypress-design/vue-textbox@npm:*, @cypress-design/vue-textbox@workspace:components/Textbox/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-textbox@workspace:components/Textbox/vue"
   dependencies:
@@ -5646,16 +5683,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/compiler-core@npm:3.5.38":
-  version: 3.5.38
-  resolution: "@vue/compiler-core@npm:3.5.38"
+"@vue/compiler-core@npm:3.5.39":
+  version: 3.5.39
+  resolution: "@vue/compiler-core@npm:3.5.39"
   dependencies:
     "@babel/parser": "npm:^7.29.7"
-    "@vue/shared": "npm:3.5.38"
+    "@vue/shared": "npm:3.5.39"
     entities: "npm:^7.0.1"
     estree-walker: "npm:^2.0.2"
     source-map-js: "npm:^1.2.1"
-  checksum: 10c0/b2adafbed0cb15d22dc7aa875cf1701dd5d56bfdcdf83e2ff8beb75c101f993ed350c053f9e246a20db592d04447b07a7d41229987314ba88fe656977ed0a0fb
+  checksum: 10c0/97592f35505713b2024e92cf58806db0abe5519a1462c06269f71cb8ddcefa9ce680d192ddfa3ef456c741c91fb3955f2e414a27dd40ad1e145b8f051b389988
   languageName: node
   linkType: hard
 
@@ -5700,12 +5737,12 @@ __metadata:
   linkType: hard
 
 "@vue/compiler-dom@npm:^3.5.0":
-  version: 3.5.38
-  resolution: "@vue/compiler-dom@npm:3.5.38"
+  version: 3.5.39
+  resolution: "@vue/compiler-dom@npm:3.5.39"
   dependencies:
-    "@vue/compiler-core": "npm:3.5.38"
-    "@vue/shared": "npm:3.5.38"
-  checksum: 10c0/ed16a0beeba511581d89c08a70b5dfd3f4732e02ea7483a9bc6e8e3149249522d60a86a03502dab23f1b341765deb6227ea8f48daae7adeaa9881173a0b3a869
+    "@vue/compiler-core": "npm:3.5.39"
+    "@vue/shared": "npm:3.5.39"
+  checksum: 10c0/0e3fb865209b918bb59d19d1b9d8349c6474dcae977fb74a264481d9af45f65632752c7ae42a7dd552e9b6de0612678bef4db713a5f8afacaab12e17b1c5bbb6
   languageName: node
   linkType: hard
 
@@ -6006,10 +6043,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vue/shared@npm:3.5.38, @vue/shared@npm:^3.5.0":
-  version: 3.5.38
-  resolution: "@vue/shared@npm:3.5.38"
-  checksum: 10c0/42c6b2118d5632920d97f06c4883ac611f300e5158cbdef6c2b87962c4b8b89121c726cc2ff6fe1894a2266370c91c1664d0956026d27874491b2c4a213af8e8
+"@vue/shared@npm:3.5.39, @vue/shared@npm:^3.5.0":
+  version: 3.5.39
+  resolution: "@vue/shared@npm:3.5.39"
+  checksum: 10c0/2b8b008ab8c22c84a37d231f47133721ae3469e6054d1aa77eea972440657b344ace1e508ea0e025aa132cb5236dee8a5db8284d0c811fd413b25d43c78dad2f
   languageName: node
   linkType: hard
 
@@ -9512,9 +9549,9 @@ __metadata:
   linkType: hard
 
 "exsolve@npm:^1.0.8":
-  version: 1.0.8
-  resolution: "exsolve@npm:1.0.8"
-  checksum: 10c0/65e44ae05bd4a4a5d87cfdbbd6b8f24389282cf9f85fa5feb17ca87ad3f354877e6af4cd99e02fc29044174891f82d1d68c77f69234410eb8f163530e6278c67
+  version: 1.1.0
+  resolution: "exsolve@npm:1.1.0"
+  checksum: 10c0/38ecec58d6e4ddfe31b5e6773a0193057fcb8462e1c0959aee3c9441729b4db901f3b23af68963cb871fb3f83b46c49ed2f69e0ef6d5254951f483c68cc934e9
   languageName: node
   linkType: hard
 
