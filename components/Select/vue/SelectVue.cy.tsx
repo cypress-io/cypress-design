@@ -54,10 +54,10 @@ describe('<Select/>', () => {
           />
         </div>
       ))
-      cy.findByRole('button').should('contain.text', 'Alpha')
-      cy.findByRole('button').click()
+      cy.findByRole('combobox').should('contain.text', 'Alpha')
+      cy.findByRole('combobox').click()
       cy.findByRole('option', { name: 'Beta' }).click()
-      cy.findByRole('button').should('contain.text', 'Beta')
+      cy.findByRole('combobox').should('contain.text', 'Beta')
     })
 
     it('controlled clear (modelValue=undefined) shows the placeholder', () => {
@@ -82,9 +82,9 @@ describe('<Select/>', () => {
           </button>
         </div>
       ))
-      cy.findByRole('button', { name: 'Alpha' }).should('exist')
+      cy.findByRole('combobox', { name: 'Alpha' }).should('exist')
       cy.get('#clear').click()
-      cy.findByRole('button', { name: 'Pick one' }).should('exist')
+      cy.findByRole('combobox', { name: 'Pick one' }).should('exist')
     })
 
     it('renders a custom trigger via the trigger slot', () => {
