@@ -246,6 +246,7 @@ export default defineComponent({
         CssClasses.runStatusSegment,
         applyDivider && CssClasses.runStatusDivider,
         applyDivider && CssTheme[props.theme].runStatusDivider,
+        applyDivider && CssClasses.runStatusSegmentDividerAdjacent,
       )
       const inner: VNode[] = [icon, label]
 

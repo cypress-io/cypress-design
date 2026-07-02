@@ -62,9 +62,18 @@ export const CssClasses = {
   // Max-w + truncate match cypress-services CommitBranch.
   runStatusBranchText: 'max-w-[260px] truncate font-normal',
   // Vertical divider between segments (applied to the first segment when the
-  // second segment is present). Border color comes from CssTheme[theme].runStatusDivider.
+  // second segment is present). Positioned via `after:ml-2` (8px between the
+  // segment's last text/icon and the divider line) and sits flush against the
+  // first segment's right edge; the segment's right padding is dropped to `0`
+  // (see `runStatusSegmentDividerAdjacent` below) so the branch segment's own
+  // `pl-[8px]` provides the 8px from divider → branch icon.
+  // Border color comes from CssTheme[theme].runStatusDivider.
   runStatusDivider:
-    "after:content-[''] after:border-r after:h-3 after:ml-1 after:self-center",
+    "after:content-[''] after:border-r after:h-3 after:ml-2 after:self-center",
+  // Applied to the first segment when a divider is present — cancels its right
+  // padding so the divider line sits at the segment boundary and total
+  // divider → branch icon gap = branch's `pl-[8px]` = 8px.
+  runStatusSegmentDividerAdjacent: '!pr-0',
 } as const
 
 export const CssTheme = {

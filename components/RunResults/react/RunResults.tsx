@@ -181,6 +181,7 @@ const RunStatusSegment: React.FC<RunStatusSegmentProps> = ({
     CssClasses.runStatusSegment,
     applyDivider && CssClasses.runStatusDivider,
     applyDivider && CssTheme[theme].runStatusDivider,
+    applyDivider && CssClasses.runStatusSegmentDividerAdjacent,
   )
   const linkClasses = clsx(
     segmentBase,
