@@ -319,15 +319,18 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
         className={SelectConstants.CssItemsContainerClasses}
       >
         {/* Show "No results" only when an active search filter left zero
-            interactive rows (selectable rows + in-list action buttons).
-            Gating on `searchValue` prevents the false-positive on
-            purely-structural panels (headline + divider only, no search
-            typed) where "No results" would read as an error. Gating on
-            `interactiveIndices` rather than `selectableIndices` avoids
-            the self-contradiction where a disabled row matched the query
-            (kept by the filter — labels only) but is unselectable, so
-            the banner would render alongside a visible row. */}
-        {searchValue && interactiveIndices.length === 0 && (
+            *selectable* rows. `searchValue` gates out the false-positive
+            on purely-structural panels (headline + divider only, no
+            search typed) where the banner would read as an error.
+            `selectableIndices` (not `interactiveIndices`) is
+            deliberate: the filter keeps standalone divider and button
+            rows (so a "+ Add new" action stays visible during search),
+            and those rows shouldn't suppress the banner — the user
+            still has nothing they can actually pick. A disabled row
+            that matched the query by label counts as a visible-but-
+            unselectable result and (accepted trade-off) shows the
+            banner alongside it. */}
+        {searchValue && selectableIndices.length === 0 && (
           <div className={SelectConstants.CssEmptyStateClasses[theme]}>
             No results
           </div>
