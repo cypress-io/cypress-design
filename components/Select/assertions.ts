@@ -243,11 +243,15 @@ export default function assertions(
       cy.findByRole('combobox', { name: 'Open' })
         .focus()
         .type('{downArrow}{downArrow}{downArrow}')
-      // The inner Button carries role="option" + `data-focused`; the
-      // wrapper is presentational chrome. Assert focus directly on the
-      // option element.
+      // Focus is split across two elements: the inner Button carries
+      // `role="option"` (for aria-required-children + activedescendant
+      // targeting), and the wrapper carries `data-focused` (which
+      // `CssButtonRowFocusClasses` uses via `data-[focused=true]:*`
+      // selectors to render the focus ring). Assert on the wrapper
+      // reachable from the option via `.closest`.
       cy.findByRole('listbox')
         .findByRole('option', { name: 'Add new' })
+        .closest('[role="presentation"]')
         .should('have.attr', 'data-focused', 'true')
       // Enter on the focused button row should fire its onClick. Popover
       // stays open so the consumer can decide whether to close it.

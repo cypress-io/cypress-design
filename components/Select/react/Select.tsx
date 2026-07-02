@@ -380,8 +380,16 @@ export const Select: React.FC<SelectProps> = ({
   const close = () => setOpen(false)
   const triggerCtx: SelectTriggerContext = { open, selected, toggle, close }
 
+  // Compare `label` for actual definedness, not key presence: a custom
+  // item declared `{ type: 'custom', value, label: undefined, render }`
+  // still hits the `'label' in selected` branch (the key exists), which
+  // would resolve `defaultTriggerLabel` to `undefined` and silently flip
+  // the trigger to icon-only. Fall through to `placeholder` instead so
+  // consumers get the label they configured.
   const defaultTriggerLabel =
-    selected && 'label' in selected ? selected.label : placeholder ?? ''
+    selected && 'label' in selected && selected.label !== undefined
+      ? selected.label
+      : placeholder ?? ''
   // When the trigger has no label text (no selection AND no placeholder),
   // render it as an icon-only square so the chevron alone doesn't sit in a
   // stretched-out button.

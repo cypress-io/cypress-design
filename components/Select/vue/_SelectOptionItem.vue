@@ -114,14 +114,23 @@ function onMouseDown(e: MouseEvent) {
   <!-- button row (action). Theme-aware default variant: `white` on light /
        `outline-dark` on dark so the in-list action button doesn't sit as a
        stark white pill against the gray-1000 panel.
-       Wrapper stays purely presentational — the pill Button IS the
-       interactive control, so the pill is the sole click target. The
-       inner Button carries `role="option"` so the listbox sees a valid
-       child (aria-required-children), and `tabindex="-1"` so the
-       trigger's aria-activedescendant owns focus. -->
+       Roles are split so both goals hold at once:
+       - The wrapper stays purely presentational but is the STYLING
+         surface for the focus ring — `CssButtonRowFocusClasses` uses
+         `data-[focused=true]:*` selectors, so `data-focused` MUST live
+         here for the indigo bg / ring / outline to render.
+       - The inner Button is the interactive control AND the option: it
+         carries `role="option"` (so the listbox sees a valid child per
+         aria-required-children), `id` (so the trigger's
+         aria-activedescendant can point at it), and `tabindex="-1"` (so
+         native tab doesn't land on the pill while the trigger owns
+         focus).
+       The pill is still the sole click target — the wrapper has no
+       @click, so the row's negative space does not fire `onClick`. -->
   <div
     v-else-if="item.type === 'button'"
     role="presentation"
+    :data-focused="focused || undefined"
     :class="[
       SelectConstants.CssButtonRowClasses,
       SelectConstants.CssOptionItemHeightClasses[size],
@@ -133,7 +142,6 @@ function onMouseDown(e: MouseEvent) {
       :id="id"
       role="option"
       :tabindex="-1"
-      :data-focused="focused || undefined"
       :variant="
         (item.variant as ButtonVariants) ??
         (theme === 'dark' ? 'outline-dark' : 'white')

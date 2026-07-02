@@ -97,16 +97,22 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
     // look puny in a `size=40` panel.
     const buttonSize = size === '40' ? '32' : '24'
     return (
-      // The wrapper stays purely presentational — the pill Button IS the
-      // interactive control, so the pill is the sole click target
-      // (preserved from the original behavior; the row's negative space
-      // does not trigger the action).
-      // The inner Button carries `role="option"` so the listbox sees a
-      // valid child (`aria-required-children`), and `tabindex="-1"` so
-      // the trigger's `aria-activedescendant` owns focus rather than
-      // native tab landing on the pill.
+      // Roles are split so both goals hold at once:
+      // - The wrapper stays purely presentational but is the STYLING
+      //   surface for the focus ring — `CssButtonRowFocusClasses` uses
+      //   `data-[focused=true]:*` selectors, so `data-focused` MUST live
+      //   here for the indigo bg / ring / outline to render.
+      // - The inner Button is the interactive control AND the option: it
+      //   carries `role="option"` (so the listbox sees a valid child per
+      //   `aria-required-children`), `id` (so the trigger's
+      //   `aria-activedescendant` can point at it), and `tabindex="-1"`
+      //   (so native tab doesn't land on the pill while the trigger owns
+      //   focus).
+      // The pill is still the sole click target — the wrapper has no
+      // onClick, so the row's negative space does not fire `onClick`.
       <div
         role="presentation"
+        data-focused={focused || undefined}
         className={clsx(
           SelectConstants.CssButtonRowClasses,
           SelectConstants.CssOptionItemHeightClasses[size],
@@ -120,7 +126,6 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
           id={id}
           role="option"
           tabIndex={-1}
-          data-focused={focused || undefined}
           onClick={(e) => {
             e.stopPropagation()
             item.onClick()

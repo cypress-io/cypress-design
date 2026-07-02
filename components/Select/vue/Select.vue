@@ -110,30 +110,28 @@ const itemIdPrefix = computed(() =>
 )
 
 // ---------- open state ----------
-// Seed precedence: an explicit `open` prop wins (including `false`), and
-// `defaultOpen` is the fallback when `open` was omitted. Vue 3 normally
-// coerces an absent Boolean prop to `false`, but the explicit
-// `default: undefined` above keeps the absence observable, so `??` here
-// reads as the consumer intended.
-const internalOpen = ref(props.open ?? props.defaultOpen)
-const open = computed(() => internalOpen.value)
+// Controlled/uncontrolled discriminator: the consumer is "controlling" the
+// popover whenever `props.open` is defined. React uses the same shape
+// (`isOpenControlled = openProp !== undefined`) — mirror it so both
+// framework implementations honor the same three rules:
+//   1. `open` derived value comes from the prop when controlled, from
+//      internal state when not (React `open = isOpenControlled ? openProp
+//      : internalOpen`).
+//   2. `setOpen` writes internal state only when NOT controlled, so a
+//      parent that passes `:open="false"` and ignores `@update:open`
+//      cannot be overridden by an in-component write (React `if
+//      (!isOpenControlled) setInternalOpen(next)`).
+//   3. The `update:open` emit still fires either way so v-model + custom
+//      handlers keep working — the parent decides whether to honor it.
+const isOpenControlled = computed(() => props.open !== undefined)
+const internalOpen = ref(props.defaultOpen ?? false)
+const open = computed(() =>
+  isOpenControlled.value ? (props.open as boolean) : internalOpen.value,
+)
 function setOpen(next: boolean) {
-  internalOpen.value = next
+  if (!isOpenControlled.value) internalOpen.value = next
   emit('update:open', next)
 }
-// `open` is documented as "fully controlled" — mirror parent-driven
-// changes into internal state on every update, matching React's
-// `open = isOpenControlled ? openProp : internalOpen` behavior. Only
-// react when the parent passes a defined value; `undefined` (the
-// explicit `withDefaults` default) means "consumer isn't controlling".
-watch(
-  () => props.open,
-  (next) => {
-    if (next !== undefined && next !== internalOpen.value) {
-      internalOpen.value = next
-    }
-  },
-)
 
 // ---------- selected value ----------
 // Sticky-toward-controlled: once we ever see a defined `value` or
@@ -172,7 +170,16 @@ const selected = computed<SelectItem | null>(() => {
 })
 
 const defaultTriggerLabel = computed(() => {
-  if (selected.value && 'label' in selected.value) {
+  // Compare `label` for actual definedness, not key presence: a custom
+  // item declared `{ type: 'custom', value, label: undefined, render }`
+  // still hits the `'label' in selected.value` branch (the key exists),
+  // which would resolve to `undefined` and silently flip the trigger to
+  // icon-only. Fall through to `placeholder` instead.
+  if (
+    selected.value &&
+    'label' in selected.value &&
+    (selected.value as { label?: string }).label !== undefined
+  ) {
     return (selected.value as { label: string }).label
   }
   return props.placeholder ?? ''
