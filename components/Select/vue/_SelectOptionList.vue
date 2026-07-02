@@ -150,16 +150,17 @@ function itemKey(item: SelectItem, index: number): string {
 function rowId(index: number): string | undefined {
   return props.itemIdPrefix ? `${props.itemIdPrefix}-${index}` : undefined
 }
+
+// The listbox role must wrap ONLY the option items — axe flags
+// `role="listbox"` on a container that also holds non-option children
+// (header buttons, tabs, search input, footer actions). Give the items
+// container its own id (`${popoverId}-listbox`) so the trigger's
+// `aria-controls` can point at it.
+const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
 </script>
 
 <template>
-  <div
-    :id="id"
-    role="listbox"
-    :aria-label="headerTitle || 'Options'"
-    :style="panelStyle"
-    :class="panelClasses"
-  >
+  <div :id="id" :style="panelStyle" :class="panelClasses">
     <div v-if="hasHeader" :class="SelectConstants.CssHeaderContainerClasses">
       <!-- Title row: button · iconLeft · title · tag · (spacer) · iconRight.
            Carries its own bottom border so a separator appears between the
@@ -262,7 +263,12 @@ function rowId(index: number): string | undefined {
       </div>
     </div>
 
-    <div :class="SelectConstants.CssItemsContainerClasses">
+    <div
+      :id="listboxId"
+      role="listbox"
+      :aria-label="headerTitle || 'Options'"
+      :class="SelectConstants.CssItemsContainerClasses"
+    >
       <!-- Show "No results" whenever no selectable rows match. The filter
            keeps standalone divider and button rows (so a "+ Add new" button
            stays visible during search) — those still render below this

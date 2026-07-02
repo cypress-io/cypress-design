@@ -37,6 +37,15 @@ export interface CheckboxProps
    */
   label?: ReactNode
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * Forwarded to the underlying `<input type="checkbox">`. Use `-1` when
+   * the checkbox is a decorative affordance inside a wider interactive
+   * row (e.g. Select's checkbox-row) — the wrapping row carries
+   * `role="option"` + keyboard nav, and the input must not be
+   * independently focusable to satisfy axe's
+   * `nested-interactive` rule.
+   */
+  inputTabIndex?: number
 }
 
 const uid = () =>
@@ -54,6 +63,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   disabled,
   className,
   name,
+  inputTabIndex,
   ...rest
 }) => {
   const [localChecked, setChecked] = React.useState(checked)
@@ -74,6 +84,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         onChange={onChangeInput}
         disabled={disabled}
         checked={localChecked}
+        tabIndex={inputTabIndex}
       />
       <label className={CssClasses.labelTag} htmlFor={id}>
         {localChecked && (

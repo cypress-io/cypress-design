@@ -187,11 +187,15 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
     maxHeight,
   })
 
+  // The listbox role must wrap ONLY the option items — axe flags
+  // `role="listbox"` on a container that also holds non-option children
+  // (header buttons, tabs, search input, footer actions). Give the
+  // items container its own id (`${popoverId}-listbox`) so the trigger's
+  // `aria-controls` can point at it.
+  const listboxId = id ? `${id}-listbox` : undefined
   return (
     <div
       id={id}
-      role="listbox"
-      aria-label={headerTitle || 'Options'}
       style={panelStyle}
       className={clsx(
         SelectConstants.CssPopoverLayoutClasses,
@@ -308,7 +312,12 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
         </div>
       )}
 
-      <div className={SelectConstants.CssItemsContainerClasses}>
+      <div
+        id={listboxId}
+        role="listbox"
+        aria-label={headerTitle || 'Options'}
+        className={SelectConstants.CssItemsContainerClasses}
+      >
         {/* Show "No results" whenever no selectable rows match. The filter
             keeps standalone divider and button rows (so a "+ Add new"
             button stays visible during search) — those still render below

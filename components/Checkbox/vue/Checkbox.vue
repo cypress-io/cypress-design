@@ -45,6 +45,15 @@ const props = withDefaults(
      * It is very important to set this to make the checkbox accessible.
      */
     label?: string
+    /**
+     * Forwarded to the underlying `<input type="checkbox">`. Use `-1`
+     * when the checkbox is a decorative affordance inside a wider
+     * interactive row (e.g. Select's checkbox-row) — the wrapping row
+     * carries the interactive role and keyboard nav, and the input
+     * must not be independently focusable to satisfy axe's
+     * `nested-interactive` rule.
+     */
+    inputTabIndex?: number
   }>(),
   {
     id: () => uid(),
@@ -103,6 +112,7 @@ const checkboxClasses = computed(() =>
       type="checkbox"
       :disabled="props.disabled"
       :checked="localChecked"
+      :tabindex="inputTabIndex"
       @change="updated"
     />
     <label :class="CssClasses.labelTag" :for="id">

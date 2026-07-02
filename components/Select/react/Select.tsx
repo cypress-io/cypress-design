@@ -64,6 +64,11 @@ export interface SelectProps
 
   // Escape hatches
   trigger?: React.ReactNode | ((ctx: SelectTriggerContext) => React.ReactNode)
+  // Accessible name for the default trigger. Required when the trigger
+  // renders icon-only (no label and no placeholder) — falls back to
+  // `'Open dropdown'` in that case. Ignored when a custom `trigger` is
+  // supplied; the consumer is responsible for their own aria-label.
+  triggerAriaLabel?: string
   className?: string
   triggerClassName?: string
   popoverClassName?: string
@@ -107,6 +112,7 @@ export const Select: React.FC<SelectProps> = ({
   open: openProp,
   onOpenChange,
   trigger,
+  triggerAriaLabel,
   className,
   triggerClassName,
   popoverClassName,
@@ -116,6 +122,10 @@ export const Select: React.FC<SelectProps> = ({
   const reactUid = React.useId()
   const uid = `cy-select-${reactUid.replace(/:/g, '')}`
   const popoverId = id ? `${id}-popover` : `${uid}-popover`
+  // The trigger's `aria-controls` points at the inner listbox (only that
+  // element carries `role="listbox"`). Kept in sync with the id
+  // `SelectOptionList` derives internally from its `id` prop.
+  const listboxId = `${popoverId}-listbox`
   const itemIdPrefix = id ? `${id}-opt` : `${uid}-opt`
 
   // ---------- Open state (controlled / uncontrolled) ----------
@@ -389,9 +399,22 @@ export const Select: React.FC<SelectProps> = ({
         square={isTriggerIconOnly}
         disabled={disabled}
         type="button"
+        // `role="combobox"` — required for `aria-activedescendant` to be
+        // valid on the trigger (default `role="button"` doesn't accept it).
+        // Aligns with the WAI-ARIA 1.2 combobox pattern already documented
+        // in instructions.md.
+        role="combobox"
+        // Provide a discernible name when the trigger renders icon-only
+        // (no label AND no placeholder). Consumers can override via
+        // `triggerAriaLabel`; falls back to a sensible default.
+        aria-label={
+          isTriggerIconOnly
+            ? triggerAriaLabel ?? 'Open dropdown'
+            : triggerAriaLabel
+        }
         aria-haspopup="listbox"
         aria-expanded={open}
-        aria-controls={popoverId}
+        aria-controls={listboxId}
         aria-activedescendant={
           // Guard against `focusedIndex` still holding a stale value from
           // before a filter shrank `selectableIndices`. The

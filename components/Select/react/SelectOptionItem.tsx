@@ -189,7 +189,15 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
         onClick={handleClick}
         onMouseDown={(e) => e.preventDefault()}
       >
-        <span className={SelectConstants.CssCheckboxRowCheckboxWrapperClasses}>
+        <span
+          className={SelectConstants.CssCheckboxRowCheckboxWrapperClasses}
+          // The row itself owns interactivity (role="option", aria-selected,
+          // click handler, keyboard nav). The visual checkbox is a
+          // decorative affordance — hide it from assistive tech so axe's
+          // `label` / `nested-interactive` rules don't fire, and set
+          // `inputTabIndex={-1}` so the input can't take keyboard focus.
+          aria-hidden="true"
+        >
           {/* The Checkbox initializes `localChecked` from `props.checked`
              via useState (uncontrolled) and never syncs back from the
              prop. Keying by `selected` forces a remount whenever the
@@ -200,6 +208,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
             checked={selected}
             disabled={disabled}
             onChange={() => undefined}
+            inputTabIndex={-1}
           />
         </span>
         <div className={SelectConstants.CssCheckboxRowStackClasses}>

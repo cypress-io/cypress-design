@@ -40,6 +40,11 @@ type SelectComponentProps = SelectThemingProps &
     open?: boolean
     id?: string
     popoverClass?: string
+    // Accessible name for the default trigger. Required when the trigger
+    // renders icon-only (no label AND no placeholder) — falls back to
+    // 'Open dropdown' in that case. Ignored when a custom `#trigger`
+    // slot is supplied; the consumer owns their own aria-label.
+    triggerAriaLabel?: string
   }
 
 const props = withDefaults(defineProps<SelectComponentProps>(), {
@@ -91,6 +96,10 @@ const uid = `cy-select-${vueUid}`
 const popoverId = computed(() =>
   props.id ? `${props.id}-popover` : `${uid}-popover`,
 )
+// The trigger's `aria-controls` points at the inner listbox (only that
+// element carries `role="listbox"`). Kept in sync with the id
+// `SelectOptionList` derives internally from its `id` prop.
+const listboxId = computed(() => `${popoverId.value}-listbox`)
 const itemIdPrefix = computed(() =>
   props.id ? `${props.id}-opt` : `${uid}-opt`,
 )
@@ -431,9 +440,15 @@ const chevronClasses = computed(() => [
           :square="isTriggerIconOnly"
           :disabled="disabled"
           type="button"
+          role="combobox"
+          :aria-label="
+            isTriggerIconOnly
+              ? triggerAriaLabel ?? 'Open dropdown'
+              : triggerAriaLabel
+          "
           aria-haspopup="listbox"
           :aria-expanded="open"
-          :aria-controls="popoverId"
+          :aria-controls="listboxId"
           :aria-activedescendant="activeDescendantId"
           :class="
             isTriggerIconOnly ? '' : SelectConstants.CssTriggerWidthClasses

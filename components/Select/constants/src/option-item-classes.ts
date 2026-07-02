@@ -175,8 +175,12 @@ export const CssOptionItemSubTextClasses = {
 // Padding is NOT included here — render code applies the per-size
 // `CssOptionItemPaddingClasses` so the headline lines up horizontally
 // and vertically with the surrounding option rows.
+//
+// Light-mode text uses gray-700 (not gray-600) to clear WCAG 2 AA
+// contrast (4.5:1) against a white popover — gray-600 (`#747994`)
+// falls at 4.28:1, failing axe's color-contrast rule.
 export const CssOptionHeadlineClasses = {
-  light: 'font-medium text-gray-600',
+  light: 'font-medium text-gray-700',
   dark: 'font-medium text-gray-500',
 } as const
 

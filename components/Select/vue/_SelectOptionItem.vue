@@ -175,7 +175,15 @@ function onMouseDown(e: MouseEvent) {
     @click="onClick"
     @mousedown="onMouseDown"
   >
-    <span :class="SelectConstants.CssCheckboxRowCheckboxWrapperClasses">
+    <!-- The row itself owns interactivity (role="option", aria-selected,
+         click handler, keyboard nav). The visual checkbox is a decorative
+         affordance — hide it from assistive tech so axe's `label` /
+         `nested-interactive` rules don't fire, and use `input-tab-index=-1`
+         so the input can't take keyboard focus. -->
+    <span
+      :class="SelectConstants.CssCheckboxRowCheckboxWrapperClasses"
+      aria-hidden="true"
+    >
       <!-- The Checkbox component owns its own `localChecked` state and
            doesn't watch the `:checked` prop for changes. Keying it on
            `selected` forces a remount whenever the row toggles, so the
@@ -184,6 +192,7 @@ function onMouseDown(e: MouseEvent) {
         :key="selected ? 'on' : 'off'"
         :checked="selected"
         :disabled="isDisabled"
+        :input-tab-index="-1"
         @change="() => undefined"
       />
     </span>
