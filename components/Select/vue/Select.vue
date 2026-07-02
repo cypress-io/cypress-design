@@ -45,6 +45,11 @@ type SelectComponentProps = SelectThemingProps &
     // 'Open dropdown' in that case. Ignored when a custom `#trigger`
     // slot is supplied; the consumer owns their own aria-label.
     triggerAriaLabel?: string
+    // Extra class(es) forwarded to the default trigger `<Button>`. Lets
+    // consumers restyle the built-in trigger (widths, custom rounding,
+    // etc.) without dropping to a `#trigger` slot. Ignored when a custom
+    // `#trigger` slot is supplied. Mirrors React's `triggerClassName`.
+    triggerClassName?: string
   }
 
 const props = withDefaults(defineProps<SelectComponentProps>(), {
@@ -402,17 +407,29 @@ function close() {
   setOpen(false)
 }
 
+// Two consumers: the trigger (below) and the SelectOptionList header
+// search Textbox. They must not both carry `aria-activedescendant` at
+// the same time — WAI-ARIA expects the attribute only on the element
+// with DOM focus.
+// - `triggerActiveDescendantId` — used by the trigger; suppressed when
+//   `searchable` is on, because focus lands on the search Textbox which
+//   owns the attribute in that mode.
+// - `activeDescendantId` — passed to SelectOptionList, which forwards it
+//   to the search Textbox (rendered only when searchable).
+// Both share the same stale-index clamp: guard against `focusedIndex`
+// still holding a value from before a filter shrank `selectableIndices`.
+// The `displayItemsSignature` watcher will reset it on the next tick;
+// without this clamp the render between the shrink and the reset emits
+// `${itemIdPrefix}-undefined` for one frame. Mirrors React.
 const activeDescendantId = computed(() => {
-  // Guard against `focusedIndex` still holding a stale value from before
-  // a filter shrank `selectableIndices`. The `displayItemsSignature`
-  // watcher will reset it on the next tick; without this clamp, the
-  // render between the shrink and the reset emits
-  // `${itemIdPrefix}-undefined` for one frame. Mirrors React.
   if (!open.value) return undefined
   const i = focusedIndex.value
   if (i < 0 || i >= selectableIndices.value.length) return undefined
   return `${itemIdPrefix.value}-${selectableIndices.value[i]}`
 })
+const triggerActiveDescendantId = computed(() =>
+  props.searchable ? undefined : activeDescendantId.value,
+)
 
 const chevronClasses = computed(() => [
   SelectConstants.CssChevronClasses,
@@ -448,10 +465,11 @@ const chevronClasses = computed(() => [
           aria-haspopup="listbox"
           :aria-expanded="open"
           :aria-controls="listboxId"
-          :aria-activedescendant="activeDescendantId"
-          :class="
-            isTriggerIconOnly ? '' : SelectConstants.CssTriggerWidthClasses
-          "
+          :aria-activedescendant="triggerActiveDescendantId"
+          :class="[
+            isTriggerIconOnly ? '' : SelectConstants.CssTriggerWidthClasses,
+            triggerClassName,
+          ]"
           @click="toggle"
         >
           <span

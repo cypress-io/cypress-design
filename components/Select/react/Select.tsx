@@ -419,12 +419,20 @@ export const Select: React.FC<SelectProps> = ({
         aria-expanded={open}
         aria-controls={listboxId}
         aria-activedescendant={
+          // WAI-ARIA: `aria-activedescendant` must live on the element
+          // that has DOM focus. When `searchable` is on, focus lands on
+          // the header search Textbox (which owns the attribute itself),
+          // so the trigger must not carry it — otherwise both elements
+          // advertise the same active descendant at once.
           // Guard against `focusedIndex` still holding a stale value from
           // before a filter shrank `selectableIndices`. The
           // `displayItemsSignature` effect will reset it on the next
           // commit; without this clamp, the render between the shrink and
           // the effect emits `${itemIdPrefix}-undefined` for one frame.
-          open && focusedIndex >= 0 && focusedIndex < selectableIndices.length
+          open &&
+          !searchable &&
+          focusedIndex >= 0 &&
+          focusedIndex < selectableIndices.length
             ? `${itemIdPrefix}-${selectableIndices[focusedIndex]}`
             : undefined
         }
