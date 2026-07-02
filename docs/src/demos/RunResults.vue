@@ -28,7 +28,7 @@ const RUN_STATUSES = [
     </section>
 
     <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">Leading stats</h3>
+      <h3 class="text-sm font-medium text-gray-500 mb-2">Linked stats</h3>
       <RunResults
         :run-status="{
           buildNumber: 468,
@@ -43,28 +43,12 @@ const RUN_STATUSES = [
         :flaky="3"
         :self-healed="2"
         show-self-healed
-      />
-    </section>
-
-    <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">Linked stats</h3>
-      <RunResults
-        :run-status="{
-          buildNumber: 468,
-          status: 'passed',
-          variant: 'link',
-          href: '#run',
-        }"
-        :passed="22"
-        :failed="4"
-        :skipped="0"
-        :pending="1"
-        :flaky="3"
         :links="{
           passed: '#passed',
           failed: '#failed',
           pending: '#pending',
           flaky: '#flaky',
+          selfHealed: '#self-healed',
         }"
       />
     </section>
