@@ -37,6 +37,8 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 **Match the effort you ask of users to the value they get back.** Every input is a cost the user pays before seeing any return. Demanding precise, hard-to-find inputs (numbers dug out of a CI dashboard) for an approximate answer is a trade users decline at the first screen. If a rough guess gets them most of the way there, ask for the guess, default the rest, and let them refine only if they want a sharper number. (Progressive disclosure governs how many things you ask; this governs what each one costs.)
 
+**Minimize the effort before first value — or only the desperate will adopt.** A feature that needs setup, doc-reading, or CI changes before it returns anything asks the user to invest before they've felt any payoff. Most won't — they defer until the pain is bad enough to justify the work, and many never get there, so the value reaches only a narrow slice of the people it could help. The lower the upfront cost, the wider the adoption: deliver value with the least effort the user can spend, and let them tune it only if they want a sharper result. Automation is one way to cut that cost, not the goal. (Sibling to "Match the effort you ask of users to the value they get back" above — that governs the cost of a single input; this governs how much a user must do before _any_ value appears.)
+
 **Build against the outcome, not the literal request.** Customers ask for features in their own words — usually a solution they've already imagined. That's a signal, not a spec. Ask _"what outcome are you looking for?"_ The asked-for feature is one of many possible solutions, and often not the best one.
 
 **Filters and checkboxes are a smell.** If finding value in the product requires becoming a power user, the product is failing. Features of real value should be first-class citizens, not buried behind configuration.
@@ -64,6 +66,8 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 **Build for the people who buy it, not just the people who trigger it.** A lot of features are designed for the user who hits the feature day-to-day — but the person who decides to pay for it is often someone else (an EM, a director, a CTO). Design for both: the day-to-day user has to be able to use it, but the surface area, reporting, and visibility have to give the buyer reasons to keep the line item.
 
 ## Onboarding
+
+**Get the user to real value fast — within minutes, not days.** Onboarding is a funnel, and every step before the first genuine payoff is somewhere people drop off. A tour or a checklist isn't value; an actual result is. If users can't feel a real win early, most abandon and don't come back — so design onboarding around time-to-first-value: strip steps, default the decisions, and put a real outcome in front of them as fast as you can. (The activation-funnel case of "Minimize the effort before first value" in Designing for users above. "Onboarding copy leads with value" below makes the promise; this is about delivering on it quickly.)
 
 **Capture user intent upfront — and eliminate the dead ends it reveals.** Asking "what are you here to do?" early is valuable only if you actually route each answer to a working path. Surfacing intent without removing the dead ends just diagnoses the broken thing without fixing it.
 
