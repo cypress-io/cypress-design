@@ -404,13 +404,16 @@ export const Select: React.FC<SelectProps> = ({
         // Aligns with the WAI-ARIA 1.2 combobox pattern already documented
         // in instructions.md.
         role="combobox"
-        // Provide a discernible name when the trigger renders icon-only
-        // (no label AND no placeholder). Consumers can override via
-        // `triggerAriaLabel`; falls back to a sensible default.
+        // Combobox role has `nameFrom: author` — the accessible name must
+        // come from `aria-label` / `aria-labelledby`, NOT from child text.
+        // Set it to the visible label so screen readers and role-based
+        // queries (`findByRole('combobox', { name: '<label>' })`) see the
+        // same name a sighted user reads. Falls back to a sensible default
+        // when the trigger renders icon-only. Consumer-provided
+        // `triggerAriaLabel` always wins.
         aria-label={
-          isTriggerIconOnly
-            ? triggerAriaLabel ?? 'Open dropdown'
-            : triggerAriaLabel
+          triggerAriaLabel ??
+          (isTriggerIconOnly ? 'Open dropdown' : defaultTriggerLabel)
         }
         aria-haspopup="listbox"
         aria-expanded={open}

@@ -442,9 +442,8 @@ const chevronClasses = computed(() => [
           type="button"
           role="combobox"
           :aria-label="
-            isTriggerIconOnly
-              ? triggerAriaLabel ?? 'Open dropdown'
-              : triggerAriaLabel
+            triggerAriaLabel ??
+            (isTriggerIconOnly ? 'Open dropdown' : defaultTriggerLabel)
           "
           aria-haspopup="listbox"
           :aria-expanded="open"
