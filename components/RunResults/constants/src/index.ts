@@ -73,13 +73,14 @@ export const CssTheme = {
     link: 'text-gray-700 hover:bg-gray-50 hover:text-gray-700 hover:no-underline focus:text-gray-700 focus:no-underline focus-visible:bg-gray-50',
     separator: 'after:border-gray-100',
     // Run-status pill: light theme.
-    // Subtle gray-50 background to lift the pill off the page; border comes
-    // from variant (base → no border via empty class; link → status-colored
-    // shadow via RUN_STATUS_BORDER_CLASSES). Text color is set per-segment:
+    // Subtle gray-50 background and a default 1px gray-100 border via the
+    // `::after` overlay. The background persists in hover; only the border
+    // color changes to the status color (link variant only) via
+    // RUN_STATUS_BORDER_CLASSES. Text color is set per-segment:
     // status-colored on the build-number, gray-700 on the branch.
-    runStatusPill: 'bg-gray-50',
-    runStatusLink:
-      'hover:bg-gray-100 hover:no-underline focus-visible:bg-gray-100',
+    runStatusPill:
+      'bg-gray-50 after:shadow-[inset_0_0_0_1px_theme(colors.gray.100)]',
+    runStatusLink: 'hover:no-underline',
     runStatusBranchText: 'text-gray-700',
     runStatusDivider: 'after:border-gray-200',
   },
@@ -87,9 +88,9 @@ export const CssTheme = {
     list: 'bg-gray-1000 text-gray-400 after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
     link: 'text-gray-300 hover:bg-gray-900 hover:text-gray-300 hover:no-underline focus:text-gray-300 focus:no-underline focus-visible:bg-gray-900',
     separator: 'after:border-gray-800',
-    runStatusPill: 'bg-gray-900',
-    runStatusLink:
-      'hover:bg-gray-800 hover:no-underline focus-visible:bg-gray-800',
+    runStatusPill:
+      'bg-gray-950 after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+    runStatusLink: 'hover:no-underline',
     runStatusBranchText: 'text-gray-300',
     runStatusDivider: 'after:border-gray-800',
   },
@@ -147,25 +148,28 @@ export const RUN_STATUS_TEXT_CLASSES: Record<RunStatusKey, string> = {
   overLimit: 'text-orange-400',
 }
 
-// Border color for the run-status pill's `::after` overlay when variant='link'.
+// Status-colored border applied on **hover** of the run-status pill when
+// variant='link'. In the default (non-hover) state the pill wears the neutral
+// gray-100 / gray-800 border from CssTheme[theme].runStatusPill; hovering
+// swaps in the status color on the same `::after` overlay so nothing shifts.
 // <tw-keep> comments keep Tailwind's tree-shake from stripping the dynamic classes.
 export const RUN_STATUS_BORDER_CLASSES: Record<RunStatusKey, string> = {
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.jade.400)]" />
-  passed: 'after:shadow-[inset_0_0_0_1px_theme(colors.jade.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.red.400)]" />
-  failed: 'after:shadow-[inset_0_0_0_1px_theme(colors.red.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.indigo.400)]" />
-  running: 'after:shadow-[inset_0_0_0_1px_theme(colors.indigo.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.gray.400)]" />
-  cancelled: 'after:shadow-[inset_0_0_0_1px_theme(colors.gray.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
-  errored: 'after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
-  timedOut: 'after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
-  noTests: 'after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
-  // <tw-keep className="after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
-  overLimit: 'after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.jade.400)]" />
+  passed: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.jade.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.red.400)]" />
+  failed: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.red.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.indigo.400)]" />
+  running: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.indigo.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.gray.400)]" />
+  cancelled: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.gray.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  errored: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  timedOut: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  noTests: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  overLimit: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
 }
 
 // Readable label per status. Drives the `title` attribute on the pill (so
