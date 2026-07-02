@@ -38,7 +38,7 @@ A single package per framework — types and class constants are bundled in (the
 | `selfHealed`     | `number \| null`                   | —       | Self-healed test count. Rendered whenever `showSelfHealed` is `true` — the count is shown verbatim, including `0`. `null` is coerced to `0`.                                                                                                                                 |
 | `showSelfHealed` | `boolean`                          | `false` | Master gate for the self-healed stat. Consumers set this `true` when the run could have self-healed tests (e.g. `cy.prompt` was available), `false` otherwise.                                                                                                               |
 | `expanded`       | `boolean`                          | `false` | When `true`, renders all four regular stats even if their count is `0`. Does **not** affect leading stats (flaky is rendered only when count > 0; self-healed renders whenever `showSelfHealed` is `true`).                                                                  |
-| `links`          | `Partial<Record<StatKey, string>>` | —       | Per-stat pre-built URLs for the test-counts pill. Caller is responsible for URL construction (no router in the DS). The run-status pill has its own `href` / `branchHref` inside `runStatus`.                                                                                |
+| `links`          | `Partial<Record<StatKey, string>>` | —       | Per-stat pre-built URLs for the test-counts pill. Caller is responsible for URL construction (no router in the DS). The run-status pill has its own `href` inside `runStatus`.                                                                                               |
 | `pillClassName`  | `string`                           | —       | Classes for the **test-counts pill `<ul>`**, merged via `tailwind-merge`. A conflicting utility **overrides** the DS default — e.g. `"bg-gray-900"` / `"bg-transparent"` wins over the theme background. The run-status pill has its own `pillClassName` inside `runStatus`. |
 
 ### Shared
@@ -60,8 +60,7 @@ A single package per framework — types and class constants are bundled in (the
 | `status`        | `RunStatusKey`     | required | Run status. One of `"passed"`, `"failed"`, `"running"`, `"cancelled"`, `"errored"`, `"timedOut"`, `"noTests"`, `"overLimit"`. Drives the status icon and (for `variant="link"`) the border color. |
 | `branch`        | `string`           | —        | Branch name. When set, a vertical divider and a branch segment (`technology-branch-h_x16` + branch text) are rendered after `#N`.                                                                 |
 | `variant`       | `"base" \| "link"` | `"base"` | `"base"` — no outer border (in-progress / "this run" treatment). `"link"` — 1px status-colored border (jade / red / indigo / gray / orange) plus hover styling.                                   |
-| `href`          | `string`           | —        | URL for the `#N` segment. When set, that segment is wrapped in `<a href>` (or `renderLink(href, ...)`). Independent of `variant`.                                                                 |
-| `branchHref`    | `string`           | —        | URL for the branch segment, independent of `href`. Only meaningful when `branch` is set.                                                                                                          |
+| `href`          | `string`           | —        | URL for the `#N` segment. When set, that segment is wrapped in `<a href>` (or `renderLink(href, ...)`). Independent of `variant`. The branch segment is never a link — it's always plain text.    |
 | `pillClassName` | `string`           | —        | Classes for the **run-status pill**, merged via `tailwind-merge`. Conflicting utilities override the DS default.                                                                                  |
 
 ## Type exports
@@ -103,7 +102,7 @@ A pill rendered to the left of the test-counts pill, containing the run identifi
 - The `#N` segment is always rendered when `runStatus` is set.
 - The branch segment (`branch icon` + branch text) is rendered only when `runStatus.branch` is set.
 - A 1px vertical divider separates the two segments (rendered only when both are present).
-- `runStatus.variant` controls the **visual treatment** (border or not); `runStatus.href` / `runStatus.branchHref` control **clickability**. The two are orthogonal — see [Variant + linkability](#variant--linkability).
+- `runStatus.variant` controls the **visual treatment** (border or not); `runStatus.href` controls **clickability** of the `#N` segment. The two are orthogonal — see [Variant + linkability](#variant--linkability). The branch segment is always plain text.
 - `runStatus.status` drives both the inner status icon (`StatusIcon`) and, when `variant="link"`, the outer border color.
 
 The status icon is chosen internally — no consumer knob for variant / size. Variant matches `StatusIcon`'s declared variants for each status (`running` is `outline`-only; terminal statuses use `solid`). Size is fixed at `16` to match the pill height.
@@ -112,20 +111,20 @@ The status icon is chosen internally — no consumer knob for variant / size. Va
 
 - Icon: `technology-branch-h_x16` (via `@cypress-design/react-icon` / `vue-icon`).
 - Text: branch name verbatim, truncated with `max-w-[260px]` to keep long branches from breaking layout.
-- Pass `runStatus.branchHref` to make only the branch segment clickable; pass both `runStatus.href` and `runStatus.branchHref` to make both clickable to different URLs.
+- The branch segment is never a link. If the parent surface needs branch navigation, render a separate link outside the pill.
 
 If you need a standalone branch chip (without a build number), use a `Tag` with a leading icon — `RunResults`'s run-status pill always renders `#N` as the primary segment.
 
 ### Variant + linkability
 
-`variant` and `href` / `branchHref` are independent:
+`variant` and `href` are independent:
 
-| `variant` | `href`/`branchHref` set | Result                                                               |
-| --------- | ----------------------- | -------------------------------------------------------------------- |
-| `base`    | no                      | Plain pill, no border. Pure presentational.                          |
-| `base`    | yes                     | Plain pill, segment is clickable. No status-colored border.          |
-| `link`    | no                      | Status-colored border, segment is plain text. Rare but supported.    |
-| `link`    | yes                     | Status-colored border + clickable segment. The "past run" treatment. |
+| `variant` | `href` set | Result                                                               |
+| --------- | ---------- | -------------------------------------------------------------------- |
+| `base`    | no         | Plain pill, no border. Pure presentational.                          |
+| `base`    | yes        | Plain pill, segment is clickable. No status-colored border.          |
+| `link`    | no         | Status-colored border, segment is plain text. Rare but supported.    |
+| `link`    | yes        | Status-colored border + clickable segment. The "past run" treatment. |
 
 ### Status → border color
 
@@ -183,14 +182,14 @@ Both themes use explicit Tailwind colors mapped from the design tokens. The comp
 The same truthiness rule applies to all linkable elements — segments in the run-status pill and stats in the test-counts pill:
 
 - **Test-counts stats:** If `links?.[statKey]` is a **truthy string**, the stat renders inside an `<a href={links[statKey]}>` (or `renderLink(href, ...)` if provided). The whole `<li>` is clickable, with hover and focus styling.
-- **Run-status segments:** If `runStatus.href` is truthy, the `#N` segment renders as `<a>`. If `runStatus.branchHref` is truthy, the branch segment renders as `<a>`. The two are independent.
+- **Run-status build-number segment:** If `runStatus.href` is truthy, the `#N` segment renders as `<a>`. The branch segment (if present) always renders as plain `<span>` — never a link.
 - Empty strings, `null`, `undefined`, and omitted keys all count as unlinked. To make any segment / stat clickable, pass a non-empty href.
 - You can mix linked and unlinked in one render (e.g. clickable `runStatus.href`, plain branch; or linked `flaky` stat with everything else plain).
 - The truthiness check also drives the tooltip wording for stats: linked stats get `"View {status} tests"`, unlinked stats get `"{Capitalized status} tests"`. The run-status pill is not tooltip-wrapped — its `aria-label` and `title` carry status information.
 
 ### Custom link renderer
 
-Use `renderLink` to integrate with a framework router (e.g. React Router, Vue Router, Next.js `Link`). It's shared by **both** pills — same callback receives `runStatus.href` / `runStatus.branchHref` (run-status pill) and `links[statKey]` (test-counts pill). Signature: `(href, children, className?) => element`. Apply the provided `className` to your link so it matches the default `<a>` styling.
+Use `renderLink` to integrate with a framework router (e.g. React Router, Vue Router, Next.js `Link`). It's shared by **both** pills — same callback receives `runStatus.href` (run-status pill build-number segment) and `links[statKey]` (test-counts pill). Signature: `(href, children, className?) => element`. Apply the provided `className` to your link so it matches the default `<a>` styling.
 
 ```tsx
 <RunResults
@@ -200,7 +199,6 @@ Use `renderLink` to integrate with a framework router (e.g. React Router, Vue Ro
     branch: 'develop',
     variant: 'link',
     href: '/projects/abc/runs/468/overview',
-    branchHref: '/projects/abc/branches/develop',
   }}
   passed={22}
   failed={4}
@@ -251,7 +249,7 @@ When `showTooltip` is `true` (default), each stat is wrapped in a Tooltip.
 
 - The root is `<div data-cy="run-results">` (the wrapper). Inside it is, in order: the optional run-status pill (a `<span>` with its segments) and the optional test-counts pill (a semantic `<ul>` of `<li>` stats).
 - **Test-counts pill:** linked stats render an `<a>` with `aria-label="View {status} tests"`. Unlinked stats use plain text with no extraneous role. Tooltips are wired through the internal Tooltip component, which uses Floating UI's focus/pointer detection — keyboard focus on a linked stat reveals the tooltip.
-- **Run-status pill:** linked segments render an `<a>` with `aria-label="View run #{buildNumber}"` (or `aria-label="View branch {branchName}"` for the branch segment). Unlinked segments are plain text. The pill carries a `title` attribute with a readable status string (`"Passed"`, `"Running"`, etc.) so screen readers and hover-tooltips both announce it. The divider between segments is decorative (`role="presentation"`).
+- **Run-status pill:** the linked build-number segment renders an `<a>` with `aria-label="View run #{buildNumber}"`. The branch segment (if present) is always plain text — no link, no `aria-label`. The pill carries a `title` attribute with a readable status string (`"Passed"`, `"Running"`, etc.) so screen readers and hover-tooltips both announce it. The divider between segments is decorative (`role="presentation"`).
 - Focus styling on **all** linked elements uses `outline` (not `border`) to avoid layout shift between focus states.
 - Icons inside stats / segments are decorative; status meaning is conveyed by the tooltip / `aria-label` / `title`.
 

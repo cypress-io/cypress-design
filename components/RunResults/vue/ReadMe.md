@@ -69,7 +69,6 @@ import RunResults from '@cypress-design/vue-runresults'
       branch: 'develop',
       variant: 'link',
       href: '#run',
-      branchHref: '#branch',
     }"
     :passed="22"
     :failed="4"

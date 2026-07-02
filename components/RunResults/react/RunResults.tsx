@@ -235,7 +235,6 @@ const RunStatusPill: React.FC<RunStatusPillProps> = ({
     branch,
     variant = 'base',
     href,
-    branchHref,
     pillClassName,
   } = config
 
@@ -305,8 +304,8 @@ const RunStatusPill: React.FC<RunStatusPillProps> = ({
           kind="branch"
           icon={branchIcon}
           label={branchLabel}
-          href={branchHref}
-          ariaLabel={`View branch ${branch}`}
+          href={undefined}
+          ariaLabel=""
           renderLink={renderLink}
           theme={theme}
           applyDivider={false}

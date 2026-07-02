@@ -98,7 +98,6 @@ const RUN_STATUSES = [
             branch: 'develop',
             variant: 'link',
             href: '#run',
-            branchHref: '#branch',
           }"
         />
         <RunResults
@@ -108,7 +107,6 @@ const RUN_STATUSES = [
             branch: 'release/2026.07.01-emergency-hotfix-mobile-only',
             variant: 'link',
             href: '#run',
-            branchHref: '#branch',
           }"
         />
       </div>

@@ -189,10 +189,12 @@ export const RUN_STATUS_LABELS: Record<RunStatusKey, string> = {
 export interface RunStatusConfig {
   buildNumber: number
   status: RunStatusKey
+  // Branch name displayed after a vertical divider. Always rendered as plain
+  // text — the branch segment is never a link. (If the parent surface needs
+  // branch navigation, expose it as a separate link outside the pill.)
   branch?: string
   variant?: 'base' | 'link'
   href?: string
-  branchHref?: string
   // Classes for the run-status pill `<span>`, merged via `tailwind-merge`.
   pillClassName?: string
 }

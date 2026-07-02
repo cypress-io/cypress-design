@@ -63,7 +63,6 @@ export default () => (
       branch: 'develop',
       variant: 'link',
       href: '#run',
-      branchHref: '#branch',
     }}
     passed={22}
     failed={4}

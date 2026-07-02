@@ -286,7 +286,6 @@ export default defineComponent({
         branch,
         variant = 'base',
         href,
-        branchHref,
         pillClassName,
       } = config
       const { variant: iconVariant, size: iconSize } =
@@ -346,8 +345,8 @@ export default defineComponent({
             'branch',
             branchIcon,
             branchLabel,
-            branchHref,
-            `View branch ${branch}`,
+            undefined,
+            '',
             false,
           ),
         )
