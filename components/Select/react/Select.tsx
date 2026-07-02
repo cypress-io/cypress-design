@@ -195,8 +195,13 @@ export const Select: React.FC<SelectProps> = ({
 
   // Open the popover with no focused row. The first arrow keypress lands
   // focus on the first option (or the last, on ArrowUp) — see onKeyDown.
+  // Also clear any stale search query on close so reopening the popover
+  // shows the full list instead of the previous session's filtered view.
   React.useEffect(() => {
-    if (!open) return
+    if (!open) {
+      setSearchValue('')
+      return
+    }
     setFocusedIndex(-1)
   }, [open])
 
@@ -268,11 +273,18 @@ export const Select: React.FC<SelectProps> = ({
     if (e.key === 'Escape') {
       e.preventDefault()
       setOpen(false)
-      ;(
-        triggerRef.current?.querySelector(
-          'button, [tabindex]',
-        ) as HTMLElement | null
-      )?.focus()
+      // Restore focus to the trigger. The default trigger has
+      // `role="combobox"`, and the render-prop escape hatch may render a
+      // native <button>, an element with an explicit `tabindex`, or an
+      // element with an aria role — search for all of them in one go.
+      // Fall back to the wrapper itself (made focusable via `tabIndex=-1`)
+      // so keyboard focus never drops to `document.body` when the custom
+      // trigger is a plain non-interactive element (WCAG 2.4.3).
+      const target =
+        (triggerRef.current?.querySelector(
+          '[role="combobox"], button, [tabindex], [role="button"]',
+        ) as HTMLElement | null) ?? triggerRef.current
+      target?.focus()
       return
     }
     if (e.key === 'Tab') {
@@ -476,7 +488,14 @@ export const Select: React.FC<SelectProps> = ({
       className={clsx(SelectConstants.CssWrapperClasses, className)}
       onKeyDown={onKeyDown}
     >
-      <div ref={triggerRef}>{triggerNode}</div>
+      {/* `tabIndex={-1}` lets the wrapper receive programmatic focus as
+          a last-resort restore target when a custom trigger renders a
+          non-focusable element (see the Escape branch of `onKeyDown`).
+          Not in the tab order — screen readers and keyboard nav skip
+          this div. */}
+      <div ref={triggerRef} tabIndex={-1}>
+        {triggerNode}
+      </div>
       {open && (
         <SelectOptionList
           id={popoverId}

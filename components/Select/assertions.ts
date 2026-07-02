@@ -27,6 +27,7 @@ export type SelectMountOptions = SelectThemingProps &
     placeholder?: string
     disabled?: boolean
     defaultOpen?: boolean
+    open?: boolean
     id?: string
     onChange?: (value: string | undefined, item: SelectItem) => void
     onOpenChange?: (open: boolean) => void
@@ -137,6 +138,22 @@ export default function assertions(
       // popover opened from any default-open or initial-state path.
       cy.findByRole('combobox').should('be.disabled')
       cy.findByRole('listbox').should('not.exist')
+    })
+
+    it('controlled open=false wins over in-component open writes', () => {
+      // Mount with `open: false` and NO `onOpenChange` sync — the parent
+      // is asserting exclusive control of the popover state. Clicking the
+      // trigger should NOT open the popover: React gates
+      // `setInternalOpen(next)` on `!isOpenControlled`, and Vue mirrors
+      // the same rule via `isOpenControlled` computed on `props.open !==
+      // undefined`. Without both, an in-component write would flip
+      // `internalOpen` (Vue) or `internalOpen` before the derived `open`
+      // was even consulted (React), briefly rendering the popover.
+      mountStory({ items: simpleItems, open: false })
+      cy.findByRole('combobox').should('have.attr', 'aria-expanded', 'false')
+      cy.findByRole('combobox').click()
+      cy.findByRole('listbox').should('not.exist')
+      cy.findByRole('combobox').should('have.attr', 'aria-expanded', 'false')
     })
 
     // ---------------- selection ----------------

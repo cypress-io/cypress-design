@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { computed, type VNode } from 'vue'
+import {
+  computed,
+  defineComponent,
+  h,
+  isVNode,
+  type PropType,
+  type VNode,
+} from 'vue'
 import Tabs from '@cypress-design/vue-tabs'
 import type { Tab } from '@cypress-design/constants-tabs'
 import Textbox from '@cypress-design/vue-textbox'
@@ -24,6 +31,35 @@ import type {
   SelectSizingProps,
 } from '@cypress-design/constants-select'
 import SelectOptionItem from './_SelectOptionItem.vue'
+
+// `IconNode = unknown` — mirror React's two-shape dispatcher so a
+// consumer that passes an already-rendered VNode (from `h()` or JSX) to
+// `headerButton.iconLeft` / `headerIconLeft` / `headerIconRight` renders
+// alongside consumers that pass a component reference. `<component :is>`
+// alone can't handle both because Vue's dynamic-component runtime
+// expects a component definition, not a rendered node.
+const IconRender = defineComponent({
+  props: {
+    icon: { required: true },
+    size: { type: String as PropType<'16' | '24'>, default: '16' },
+    class: { type: [String, Array, Object], default: undefined },
+  },
+  setup(props) {
+    return () => {
+      const icon = props.icon
+      if (!icon) return null
+      if (isVNode(icon)) return h('span', { class: props.class as any }, [icon])
+      if (typeof icon === 'function' || typeof icon === 'object') {
+        return h(icon as any, {
+          size: props.size,
+          interactiveColorsOnGroup: true,
+          class: props.class,
+        })
+      }
+      return h('span', { class: props.class as any }, [icon as any])
+    }
+  },
+})
 
 // Props share the same named groups as Select.vue so adding a header /
 // search / footer / sizing field happens in one place
@@ -186,18 +222,13 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
           :class="SelectConstants.CssHeaderBackButtonSpacingClasses"
           @click="headerButton.onClick()"
         >
-          <component
-            :is="headerButton.iconLeft"
-            size="16"
-            :interactive-colors-on-group="true"
-          />
+          <IconRender :icon="headerButton.iconLeft" size="16" />
         </Button>
         <div :class="SelectConstants.CssHeaderTitleGroupClasses">
-          <component
-            :is="headerIconLeft"
+          <IconRender
             v-if="headerIconLeft"
+            :icon="headerIconLeft"
             size="16"
-            :interactive-colors-on-group="true"
             :class="SelectConstants.CssHeaderIconColorClasses[theme]"
           />
           <span
@@ -213,11 +244,10 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
             {{ headerTag }}
           </Tag>
         </div>
-        <component
-          :is="headerIconRight"
+        <IconRender
           v-if="headerIconRight"
+          :icon="headerIconRight"
           size="16"
-          :interactive-colors-on-group="true"
           :class="SelectConstants.CssHeaderIconColorClasses[theme]"
         />
       </div>
@@ -269,12 +299,17 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
       :aria-label="headerTitle || 'Options'"
       :class="SelectConstants.CssItemsContainerClasses"
     >
-      <!-- Show "No results" whenever no selectable rows match. The filter
-           keeps standalone divider and button rows (so a "+ Add new" button
-           stays visible during search) — those still render below this
-           message; we just need to call out that nothing matched. -->
+      <!-- Show "No results" only when an active search filter left zero
+           interactive rows (selectable rows + in-list action buttons).
+           Gating on `searchValue` prevents the false-positive on
+           purely-structural panels (headline + divider only, no search
+           typed) where "No results" would read as an error. Gating on
+           `interactiveIndices` rather than `selectableIndices` avoids
+           the self-contradiction where a disabled row matched the query
+           (kept by the filter — labels only) but is unselectable, so
+           the banner would render alongside a visible row. -->
       <div
-        v-if="selectableIndices.length === 0"
+        v-if="searchValue && interactiveIndices.length === 0"
         :class="SelectConstants.CssEmptyStateClasses[theme]"
       >
         No results

@@ -46,6 +46,21 @@ export function filterAndCollapseHeadlines(
     if (!hasContent) keep[i] = false
   }
 
+  // Third pass: drop dividers whose next kept sibling is either another
+  // divider or nothing. Without this, a filter that empties the section
+  // between two dividers (or after the last divider) leaves a bare
+  // divider floating in the popover.
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].type !== 'divider' || !keep[i]) continue
+    let nextKept: SelectItem | undefined
+    for (let j = i + 1; j < items.length; j++) {
+      if (!keep[j]) continue
+      nextKept = items[j]
+      break
+    }
+    if (!nextKept || nextKept.type === 'divider') keep[i] = false
+  }
+
   return items.filter((_, i) => keep[i])
 }
 

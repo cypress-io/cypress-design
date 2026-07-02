@@ -14,15 +14,31 @@ describe('<Select/>', () => {
     // Default the popover min-width so the panel has a consistent shape
     // across tests; individual tests can override via SelectMountOptions.
     const merged = { minWidth: DEFAULT_TEST_MIN_WIDTH, ...rest }
+    // `defaultValue` is an UNCONTROLLED seed — the harness must not flip
+    // Vue Select's sticky-controlled latch (which fires the first time
+    // `modelValue` is observed as `!== undefined` — see Select.vue
+    // `wasControlled`). We seed an internal ref instead, bridging back
+    // via `update:modelValue` so subsequent selections update the harness
+    // state without ever driving `modelValue` from the mount call — that
+    // way the shared assertion sees Vue behavior equivalent to React's
+    // `defaultValue`+internal-state path.
+    // `options.value` (controlled) still passes straight through to
+    // `modelValue`, which is the correct controlled semantic.
+    const uncontrolled = ref<string | undefined>(
+      options.value === undefined ? defaultValue : undefined,
+    )
     mount(() => (
       <div class="m-4">
         <Select
           {...merged}
-          modelValue={options.value ?? defaultValue}
+          modelValue={options.value ?? uncontrolled.value}
           {...({
+            'onUpdate:modelValue': (v: string | undefined) => {
+              if (options.value === undefined) uncontrolled.value = v
+            },
             // Only bridge through `change` (carries value + item). The
-            // `update:modelValue` event fires alongside it, so binding both
-            // would double-fire stubs in the assertions.
+            // `update:modelValue` event fires alongside it, so binding
+            // `onChange` too would double-fire stubs in the assertions.
             onChange: (v: string | undefined, item: SelectItem) =>
               onChange?.(v, item),
             'onUpdate:open': (o: boolean) => onOpenChange?.(o),

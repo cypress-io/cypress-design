@@ -51,7 +51,10 @@ function renderIcon(
       />
     )
   }
-  return <span className="shrink-0">{Icon as React.ReactNode}</span>
+  // Forward the caller-supplied className so `ml-auto` (right-hug for
+  // iconRight) and the theme-aware iconColorClass reach the DOM. Without
+  // this, a string/number iconRight lost its right-edge hug and color.
+  return <span className={className}>{Icon as React.ReactNode}</span>
 }
 
 export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({

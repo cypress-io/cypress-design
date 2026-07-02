@@ -214,7 +214,12 @@ const selectableIndices = computed(() =>
 )
 
 watch(open, (isOpen) => {
-  if (!isOpen) return
+  if (!isOpen) {
+    // Clear any stale search query on close so reopening the popover
+    // shows the full list instead of the previous session's filtered view.
+    searchValue.value = ''
+    return
+  }
   // Open with no row focused. First arrow keypress lands focus (see onKeyDown).
   focusedIndex.value = -1
 })
@@ -300,10 +305,18 @@ function onKeyDown(e: KeyboardEvent) {
   if (e.key === 'Escape') {
     e.preventDefault()
     setOpen(false)
-    const btn = triggerRef.value?.querySelector(
-      'button, [tabindex]',
-    ) as HTMLElement | null
-    btn?.focus()
+    // Restore focus to the trigger. The default trigger has
+    // `role="combobox"`, and the `#trigger` slot escape hatch may render
+    // a native <button>, an element with an explicit `tabindex`, or an
+    // element with an aria role — search for all of them in one go.
+    // Fall back to the wrapper itself (made focusable via `tabindex="-1"`)
+    // so keyboard focus never drops to `document.body` when the custom
+    // trigger is a plain non-interactive element (WCAG 2.4.3).
+    const target =
+      (triggerRef.value?.querySelector(
+        '[role="combobox"], button, [tabindex], [role="button"]',
+      ) as HTMLElement | null) ?? triggerRef.value
+    target?.focus()
     return
   }
   if (e.key === 'Tab') {
@@ -450,7 +463,12 @@ const chevronClasses = computed(() => [
     :class="[SelectConstants.CssWrapperClasses]"
     @keydown="onKeyDown"
   >
-    <div ref="triggerRef">
+    <!-- `tabindex="-1"` lets the wrapper receive programmatic focus as a
+         last-resort restore target when a #trigger slot renders a
+         non-focusable element (see the Escape branch of `onKeyDown`).
+         Not in the tab order — screen readers and keyboard nav skip
+         this div. -->
+    <div ref="triggerRef" tabindex="-1">
       <slot
         name="trigger"
         :open="open"

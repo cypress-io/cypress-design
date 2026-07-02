@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, defineComponent, type PropType } from 'vue'
+import { computed, defineComponent, h, isVNode, type PropType } from 'vue'
 import Checkbox from '@cypress-design/vue-checkbox'
 import Button from '@cypress-design/vue-button'
 import Tag from '@cypress-design/vue-tag'
@@ -35,6 +35,35 @@ const NodeRender = defineComponent({
   props: { node: { required: true } },
   setup(props) {
     return () => (typeof props.node === 'function' ? props.node() : props.node)
+  },
+})
+
+// `IconNode = unknown` — the API accepts both component references (a
+// cypress-design Icon component) AND already-rendered VNodes (from `h()`
+// or JSX). React's `renderIcon` two-shape dispatcher lives in
+// SelectOptionItem.tsx; this is the Vue mirror. Rendering a VNode
+// through `<component :is="vnode">` fails because Vue's dynamic-component
+// runtime expects a component definition, not a rendered node.
+const IconRender = defineComponent({
+  props: {
+    icon: { required: true },
+    size: { type: String as PropType<'16' | '24'>, default: '16' },
+    class: { type: [String, Array, Object], default: undefined },
+  },
+  setup(props) {
+    return () => {
+      const icon = props.icon
+      if (!icon) return null
+      if (isVNode(icon)) return h('span', { class: props.class as any }, [icon])
+      if (typeof icon === 'function' || typeof icon === 'object') {
+        return h(icon as any, {
+          size: props.size,
+          interactiveColorsOnGroup: true,
+          class: props.class,
+        })
+      }
+      return h('span', { class: props.class as any }, [icon as any])
+    }
   },
 })
 
@@ -149,12 +178,7 @@ function onMouseDown(e: MouseEvent) {
       :size="size === '40' ? '32' : '24'"
       @click.stop="item.onClick()"
     >
-      <component
-        :is="item.iconLeft"
-        v-if="item.iconLeft"
-        size="16"
-        :interactive-colors-on-group="true"
-      />
+      <IconRender v-if="item.iconLeft" :icon="item.iconLeft" size="16" />
       {{ item.label }}
     </Button>
   </div>
@@ -239,11 +263,10 @@ function onMouseDown(e: MouseEvent) {
     @click="onClick"
     @mousedown="onMouseDown"
   >
-    <component
-      :is="item.iconLeft"
+    <IconRender
       v-if="item.iconLeft"
+      :icon="item.iconLeft"
       size="24"
-      :interactive-colors-on-group="true"
       :class="iconColorClass"
     />
     <div :class="SelectConstants.CssUserRowStackClasses">
@@ -272,11 +295,10 @@ function onMouseDown(e: MouseEvent) {
     @click="onClick"
     @mousedown="onMouseDown"
   >
-    <component
-      :is="item.iconLeft"
+    <IconRender
       v-if="item.iconLeft"
+      :icon="item.iconLeft"
       size="16"
-      :interactive-colors-on-group="true"
       :class="iconColorClass"
     />
     <span :class="SelectConstants.CssOptionItemLabelClasses">
@@ -287,14 +309,17 @@ function onMouseDown(e: MouseEvent) {
     </Tag>
     <!-- iconRight: hugs the right edge via `ml-auto`, picks up the same
          state-aware coloring as iconLeft. -->
-    <component
-      :is="item.iconRight"
+    <IconRender
       v-if="item.iconRight"
+      :icon="item.iconRight"
       size="16"
-      :interactive-colors-on-group="true"
       :class="['ml-auto', iconColorClass]"
     />
-    <span v-if="item.slotRight" class="ml-auto shrink-0">
+    <!-- `!== undefined` (not truthy) so consumers can render `slotRight: 0`
+         (zero-count badge), `slotRight: ''` (empty placeholder), or
+         `slotRight: false` (a boolean rendered by a function child).
+         Matches React's `item.slotRight !== undefined && ...` gate. -->
+    <span v-if="item.slotRight !== undefined" class="ml-auto shrink-0">
       <NodeRender :node="item.slotRight" />
     </span>
   </div>
