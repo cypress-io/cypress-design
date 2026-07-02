@@ -4,6 +4,7 @@ import {
   defineComponent,
   h,
   isVNode,
+  type Component,
   type PropType,
   type VNode,
 } from 'vue'
@@ -38,25 +39,33 @@ import SelectOptionItem from './_SelectOptionItem.vue'
 // alongside consumers that pass a component reference. `<component :is>`
 // alone can't handle both because Vue's dynamic-component runtime
 // expects a component definition, not a rendered node.
+// The class binding shape Vue's runtime accepts. Not exported by 'vue'
+// itself in 3.4 — this is the same union `<Foo :class>` templates accept.
+type IconClass = string | Array<unknown> | Record<string, boolean> | undefined
 const IconRender = defineComponent({
   props: {
-    icon: { required: true },
+    icon: { type: null as unknown as PropType<unknown>, required: true },
     size: { type: String as PropType<'16' | '24'>, default: '16' },
-    class: { type: [String, Array, Object], default: undefined },
+    class: {
+      type: [String, Array, Object] as PropType<IconClass>,
+      default: undefined,
+    },
   },
   setup(props) {
     return () => {
       const icon = props.icon
       if (!icon) return null
-      if (isVNode(icon)) return h('span', { class: props.class as any }, [icon])
+      if (isVNode(icon)) return h('span', { class: props.class }, [icon])
       if (typeof icon === 'function' || typeof icon === 'object') {
-        return h(icon as any, {
+        return h(icon as Component, {
           size: props.size,
           interactiveColorsOnGroup: true,
           class: props.class,
         })
       }
-      return h('span', { class: props.class as any }, [icon as any])
+      // Fallback: primitive icons (string / number). Coerce to string so
+      // Vue's typed children slot accepts it.
+      return h('span', { class: props.class }, [String(icon)])
     }
   },
 })
