@@ -54,9 +54,12 @@ const RUN_STATUSES = [
     </section>
 
     <section>
-      <h3 class="text-sm font-medium text-gray-500 mb-2">
-        Run-status pill — base (left) vs link (right) variant
+      <h3 class="text-sm font-medium text-gray-500 mb-1">
+        Run-status pill variants
       </h3>
+      <p class="text-xs text-gray-500 mb-2">
+        Base (left) — no border. Link (right) — status-colored border on hover.
+      </p>
       <div class="flex flex-col gap-2">
         <div
           v-for="status in RUN_STATUSES"
@@ -155,9 +158,13 @@ const RUN_STATUSES = [
           />
         </div>
         <div>
-          <h4 class="text-xs font-medium text-gray-400 mb-1">
-            Run-status pill — base (left) vs link (right)
+          <h4 class="text-xs font-medium text-gray-400">
+            Run-status pill variants
           </h4>
+          <p class="text-xs text-gray-500 mb-1">
+            Base (left) — no border. Link (right) — status-colored border on
+            hover.
+          </p>
           <div class="flex flex-col gap-2">
             <div
               v-for="status in RUN_STATUSES"
