@@ -393,7 +393,12 @@ export default defineComponent({
       }
 
       const showTestCounts = hasAnyStat(summaryProps)
-      const showRunStatus = !!props.runStatus
+      // The pill only actually renders when `status` is a valid `RunStatusKey`
+      // (see the runtime guard in renderRunStatusPill). Gate `showRunStatus`
+      // on the same check so a `runStatus` with an invalid status doesn't
+      // produce an empty root wrapper when the test-counts pill is also empty.
+      const showRunStatus =
+        !!props.runStatus && !!RUN_STATUS_VARIANTS[props.runStatus.status]
 
       // Both pills empty → render nothing.
       if (!showRunStatus && !showTestCounts) return null

@@ -370,7 +370,11 @@ export const RunResults = React.forwardRef<
   }
 
   const showTestCounts = hasAnyStat(summaryProps)
-  const showRunStatus = !!runStatus
+  // The pill only actually renders when `status` is a valid `RunStatusKey`
+  // (see the runtime guard in RunStatusPill). Gate `showRunStatus` on the
+  // same check so a `runStatus` with an invalid status doesn't produce an
+  // empty root wrapper when the test-counts pill is also empty.
+  const showRunStatus = !!runStatus && !!RUN_STATUS_VARIANTS[runStatus.status]
 
   // Both pills empty → render nothing. See instructions.md "Empty state".
   if (!showRunStatus && !showTestCounts) return null
