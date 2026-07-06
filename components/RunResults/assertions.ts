@@ -471,4 +471,441 @@ export default function assertions(
         .and('not.have.class', 'mb-2')
     })
   })
+
+  // ---------------------------------------------------------------------------
+  // Run-status pill
+  // ---------------------------------------------------------------------------
+
+  describe('run-status pill', () => {
+    describe('presence and segments', () => {
+      it('renders the pill only when runStatus is provided', () => {
+        mountStory({ passed: 22, failed: 4 })
+        cy.get('[data-cy="run-status"]').should('not.exist')
+        cy.get('[data-cy="run-status-build-number"]').should('not.exist')
+      })
+
+      it('renders the pill BEFORE the test-counts pill in DOM order', () => {
+        // Contract: run-status is the leading pill; a regression that
+        // appends it after the <ul> would break the visual "identity first,
+        // counts second" ordering documented in instructions.md.
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+          passed: 22,
+        })
+        cy.get('[data-cy="run-results"]').then(($wrap) => {
+          const children = Array.from($wrap[0].children)
+          const pill = children.findIndex(
+            (c) => c.getAttribute('data-cy') === 'run-status',
+          )
+          const ul = children.findIndex((c) => c.tagName === 'UL')
+          expect(pill).to.be.at.least(0)
+          expect(ul).to.be.at.least(0)
+          expect(pill).to.be.lessThan(ul)
+        })
+      })
+
+      it('renders #N and the status icon', () => {
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status"]').should('exist')
+        cy.get('[data-cy="run-status-build-number"]')
+          .should('exist')
+          .and('contain', '#468')
+        cy.get('[data-cy="run-status-icon"]').should('exist')
+      })
+
+      it('renders the branch segment only when branch is provided', () => {
+        // Without branch → single segment, no divider.
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status-branch"]').should('not.exist')
+        // The divider is an ::after on the build-number segment; guard by
+        // asserting the divider class isn't on it when branch is absent.
+        cy.get('[data-cy="run-status-build-number"]').should(
+          'not.have.class',
+          'after:border-r',
+        )
+      })
+
+      it('renders both segments and the divider when branch is set', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+          },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status-build-number"]')
+          .should('exist')
+          .and('have.class', 'after:border-r')
+        cy.get('[data-cy="run-status-branch"]')
+          .should('exist')
+          .and('contain', 'develop')
+        cy.get('[data-cy="run-status-branch-icon"]').should('exist')
+      })
+
+      it('truncates long branch names at 260px', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch:
+              'release/2026.07.01-emergency-hotfix-mobile-only-really-long-branch',
+          },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status-branch"] > span')
+          .should('have.class', 'max-w-[260px]')
+          .and('have.class', 'truncate')
+      })
+    })
+
+    describe('link vs unlinked segments', () => {
+      it('#N is <a> when runStatus.href is set', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            href: '#run',
+          },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status-build-number"]')
+          .should('match', 'a')
+          .and('have.attr', 'href', '#run')
+      })
+
+      it('#N is <span> when runStatus.href is omitted', () => {
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status-build-number"]').should('match', 'span')
+      })
+
+      it('branch is always a <span>, never a link', () => {
+        // The branch segment is never linkable — decided in stage 2 (see
+        // instructions.md). Guard against a regression that re-adds a
+        // branchHref pass-through or wraps branch in <a> for any reason.
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+            href: '#run',
+          },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status-branch"]').should('match', 'span')
+        cy.get('[data-cy="run-status-branch"]').should('not.match', 'a')
+      })
+    })
+
+    describe('variants', () => {
+      it('base variant has no hover:after:shadow class', () => {
+        // The status-colored border is hover-only and gated on
+        // variant === 'link' via RUN_STATUS_BORDER_CLASSES. A regression
+        // that applies the hover class unconditionally would surface here.
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed', variant: 'base' },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status"]')
+          .invoke('attr', 'class')
+          .should('not.match', /hover:after:shadow-/)
+      })
+
+      it('link variant carries the status-colored hover border class', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            variant: 'link',
+            href: '#run',
+          },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status"]')
+          .invoke('attr', 'class')
+          .should('match', /hover:after:shadow-\[.*jade\.400/)
+      })
+
+      it('both variants render the same neutral resting border', () => {
+        // Both variants should paint the same gray-100 (light) / gray-800
+        // (dark) `::after` inset shadow at rest — status color is a
+        // hover-only affordance.
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed', variant: 'base' },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status"]').then(($p) => {
+          const shadow = getComputedStyle($p[0], '::after').boxShadow
+          expect(shadow).to.include('rgb(225, 227, 237)') // gray-100
+        })
+      })
+    })
+
+    describe('status colors', () => {
+      // Only sample one per palette bucket — every status uses the same
+      // 5 tokens (jade / red / indigo / gray / orange) via
+      // RUN_STATUS_TEXT_CLASSES, so exhaustive per-status assertions would
+      // be redundant. If a table entry drifts, this catches it.
+      const cases = [
+        {
+          status: 'passed' as const,
+          text: 'text-jade-400',
+          border: 'jade.400',
+        },
+        { status: 'failed' as const, text: 'text-red-400', border: 'red.400' },
+        {
+          status: 'running' as const,
+          text: 'text-indigo-400',
+          border: 'indigo.400',
+        },
+        {
+          status: 'cancelled' as const,
+          text: 'text-gray-400',
+          border: 'gray.400',
+        },
+        {
+          status: 'errored' as const,
+          text: 'text-orange-400',
+          border: 'orange.400',
+        },
+      ]
+      cases.forEach(({ status, text, border }) => {
+        it(`${status} → text ${text} + hover border ${border}`, () => {
+          mountStory({
+            runStatus: {
+              buildNumber: 468,
+              status,
+              variant: 'link',
+              href: '#run',
+            },
+            passed: 1,
+          })
+          cy.get('[data-cy="run-status-build-number"] > span').should(
+            'have.class',
+            text,
+          )
+          cy.get('[data-cy="run-status"]')
+            .invoke('attr', 'class')
+            .should(
+              'match',
+              new RegExp(
+                `hover:after:shadow-\\[.*${border.replace('.', '\\.')}`,
+              ),
+            )
+        })
+      })
+    })
+
+    describe('themes', () => {
+      it('light theme uses gray-50 bg and gray-100 border', () => {
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+          passed: 1,
+          theme: 'light',
+        })
+        cy.get('[data-cy="run-status"]').should('have.class', 'bg-gray-50')
+        cy.get('[data-cy="run-status"]').then(($p) => {
+          const shadow = getComputedStyle($p[0], '::after').boxShadow
+          expect(shadow).to.include('rgb(225, 227, 237)') // gray-100
+        })
+      })
+
+      it('dark theme uses gray-950 bg and gray-800 border', () => {
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+          passed: 1,
+          theme: 'dark',
+        })
+        cy.get('[data-cy="run-status"]').should('have.class', 'bg-gray-950')
+        cy.get('[data-cy="run-status"]').then(($p) => {
+          const shadow = getComputedStyle($p[0], '::after').boxShadow
+          expect(shadow).to.include('rgb(67, 72, 97)') // gray-800
+        })
+      })
+
+      it('branch text uses gray-700 on light, gray-300 on dark', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+          },
+          passed: 1,
+          theme: 'light',
+        })
+        cy.get('[data-cy="run-status-branch"] > span').should(
+          'have.class',
+          'text-gray-700',
+        )
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+          },
+          passed: 1,
+          theme: 'dark',
+        })
+        cy.get('[data-cy="run-status-branch"] > span').should(
+          'have.class',
+          'text-gray-300',
+        )
+      })
+    })
+
+    describe('runtime guard against invalid status', () => {
+      // The invalid-status path intentionally fires a `console.warn`, which
+      // `cypress/support/component.ts` afterEach would otherwise fail on
+      // (callCount must be 0). Reset the spy at the end of each test.
+      //
+      // `warnInvalidRunStatus` also dedupes by status name via a
+      // module-level Set, so each test uses a distinct invalid value —
+      // otherwise the warn wouldn't fire on the second test.
+      afterEach(() => {
+        cy.window().then((win) => {
+          // The support file installs a sinon spy on console.warn. Reset
+          // its call history so the global afterEach's callCount(0)
+          // assertion still passes.
+          const w = win.console.warn as unknown as {
+            resetHistory?: () => void
+          }
+          w.resetHistory?.()
+        })
+      })
+
+      it('skips the pill and does not emit an empty wrapper when only pill is present', () => {
+        // The outer showRunStatus gate treats an invalid status as
+        // "no pill", so with no test counts the whole component returns
+        // null — no orphan wrapper.
+        mountStory({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          runStatus: { buildNumber: 468, status: 'bogus-a' as any },
+        })
+        cy.get('[data-cy="run-results"]').should('not.exist')
+      })
+
+      it('renders test counts alone when runStatus.status is invalid', () => {
+        mountStory({
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          runStatus: { buildNumber: 468, status: 'bogus-b' as any },
+          passed: 22,
+        })
+        cy.get('[data-cy="run-results"]').should('exist')
+        cy.get('[data-cy="run-status"]').should('not.exist')
+        cy.get('[data-cy="total-passed"]').should('exist')
+        // Confirm the dev warning fired (locks in the documented
+        // invalid-status → skip + warn behavior). Uses the global
+        // console.warn spy installed in cypress/support/component.ts.
+        cy.window().then((win) => {
+          expect(win.console.warn).to.have.been.called
+        })
+      })
+    })
+
+    // renderLink integration for the run-status pill is framework-specific
+    // (React expects a ReactNode, Vue expects a VNode). Framework-specific
+    // tests live in each cy.tsx spec, alongside the existing renderLink
+    // test-counts assertions.
+
+    describe('data-cy contract', () => {
+      it('emits the full documented selector set when both segments render', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+            href: '#run',
+          },
+          passed: 1,
+        })
+        cy.get('[data-cy="run-status"]').should('exist')
+        cy.get('[data-cy="run-status-build-number"]').should('exist')
+        cy.get('[data-cy="run-status-icon"]').should('exist')
+        cy.get('[data-cy="run-status-branch"]').should('exist')
+        cy.get('[data-cy="run-status-branch-icon"]').should('exist')
+      })
+    })
+
+    describe('spacing', () => {
+      it('segment padding is 8px and inter-pill gap is 8px', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+          },
+          passed: 22,
+        })
+        cy.get('[data-cy="run-status-build-number"]').should(($seg) => {
+          const style = getComputedStyle($seg[0])
+          expect(style.paddingLeft).to.eq('8px')
+          // Right padding is 0 because it hosts the divider (see the
+          // `!pr-0` override in constants — runStatusSegmentDividerAdjacent).
+          expect(style.paddingRight).to.eq('0px')
+        })
+        cy.get('[data-cy="run-status-branch"]').should(($seg) => {
+          const style = getComputedStyle($seg[0])
+          expect(style.paddingLeft).to.eq('8px')
+          expect(style.paddingRight).to.eq('8px')
+        })
+        cy.get('[data-cy="run-results"]')
+          .invoke('css', 'gap')
+          .should('eq', '8px')
+      })
+    })
+
+    describe('visual regression', () => {
+      it('run-status only — light + dark matrix', () => {
+        // One Percy snapshot per theme, base+link side-by-side, one status
+        // per palette bucket. Anything richer belongs in the demo page
+        // (docs/src/demos/RunResults.vue), which already has full coverage.
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            variant: 'link',
+            href: '#run',
+          },
+        })
+        cy.percySnapshot(`RunResults run-status link/passed - ${fw}`)
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'failed',
+            variant: 'link',
+            href: '#run',
+          },
+          theme: 'dark',
+        })
+        cy.percySnapshot(`RunResults run-status link/failed dark - ${fw}`)
+      })
+
+      it('run-status + branch + test counts — combined pill row', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+            variant: 'link',
+            href: '#run',
+          },
+          passed: 22,
+          failed: 4,
+          skipped: 0,
+          pending: 1,
+          flaky: 3,
+        })
+        cy.percySnapshot(`RunResults run-status + branch + counts - ${fw}`)
+      })
+    })
+  })
 }
