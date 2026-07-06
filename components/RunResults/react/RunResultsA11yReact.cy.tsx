@@ -9,6 +9,7 @@ function mountStory(props: Partial<RunResultsProps> = {}) {
   mount(
     <div className="p-8">
       <RunResults
+        runStatus={props.runStatus}
         passed={props.passed ?? 0}
         failed={props.failed ?? 0}
         skipped={props.skipped ?? 0}
