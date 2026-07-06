@@ -193,7 +193,11 @@ export interface SelectHeaderProps {
   headerButton?: {
     iconLeft: IconNode
     onClick: () => void
-    ariaLabel?: string
+    // Required: the header back-button always renders icon-only, so an
+    // omitted label ships an unnamed control — guaranteed axe
+    // `button-name` failure. Every icon-only interactive control on the
+    // panel needs an author-supplied accessible name.
+    ariaLabel: string
   }
   headerIconLeft?: IconNode
   headerTag?: string

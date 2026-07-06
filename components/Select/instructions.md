@@ -110,7 +110,7 @@ The header is rendered above the items when at least one header prop is set. It 
 Each layer carries its own bottom border, so when both layers are present you get two visual dividers.
 
 - **`headerTitle`** — `string`. Title text. Font scales with `size`: 14/20 at `size='32'`, 16/24 at `size='40'`. Color: gray-900 (light) / gray-300 (dark).
-- **`headerButton`** — `{ iconLeft: IconNode; onClick: () => void; ariaLabel?: string }`. Optional 32×32 square back-button on the left edge of the title row. Auto-themed: `white` variant on light, `outline-dark` on dark.
+- **`headerButton`** — `{ iconLeft: IconNode; onClick: () => void; ariaLabel: string }`. Optional 32×32 square back-button on the left edge of the title row. Auto-themed: `white` variant on light, `outline-dark` on dark. `ariaLabel` is required — the back-button is icon-only, so an omitted label ships an unnamed control (guaranteed axe `button-name` failure).
 - **`headerIconLeft`** — `IconNode`. Optional 16px icon shown between the back button and the title.
 - **`headerTag`** — `string`. Optional small gray `Tag` (size 16, theme-aware) rendered after the title.
 - **`headerIconRight`** — `IconNode`. Optional 16px icon pushed to the far right of the title row.
@@ -131,7 +131,7 @@ The footer is rendered below the items when at least one footer prop is set.
 
 ### Trigger
 
-- **`trigger`** — `ReactNode | ((ctx) => ReactNode)` (React) / slot `#trigger="{ ctx }"` (Vue). Escape hatch to replace the default Button trigger. The render context (`ctx`) exposes `{ open: boolean, selected: SelectItem | null, toggle: () => void, close: () => void }`. The consumer is responsible for calling `toggle()` or `close()` on whatever element they render; Select still owns the popover.
+- **`trigger`** — `ReactNode | ((ctx) => ReactNode)` (React) / slot `#trigger="{ open, selected, toggle, close }"` (Vue). Escape hatch to replace the default Button trigger. The slot props / render-context expose `{ open: boolean, selected: SelectItem | null, toggle: () => void, close: () => void }`. The consumer is responsible for calling `toggle()` or `close()` on whatever element they render; Select still owns the popover.
 
 ### Extension
 
