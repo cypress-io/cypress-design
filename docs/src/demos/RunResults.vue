@@ -119,42 +119,52 @@ const RUN_STATUSES = [
       <h3 class="text-sm font-medium text-gray-300 mb-2">Dark theme</h3>
       <div class="flex flex-col gap-3">
         <div>
-          <h4 class="text-xs font-medium text-gray-400 mb-1">
-            Default background
-          </h4>
+          <h4 class="text-xs font-medium text-gray-400 mb-1">Default</h4>
           <RunResults
             :passed="22"
             :failed="4"
             :skipped="0"
             :pending="1"
-            :flaky="3"
-            :links="{
-              passed: '#passed',
-              failed: '#failed',
-              pending: '#pending',
-              flaky: '#flaky',
-            }"
             theme="dark"
           />
         </div>
         <div>
           <h4 class="text-xs font-medium text-gray-400 mb-1">
-            Custom background
+            Expanded (zeros shown)
           </h4>
           <RunResults
             :passed="22"
             :failed="4"
             :skipped="0"
+            :pending="0"
+            expanded
+            theme="dark"
+          />
+        </div>
+        <div>
+          <h4 class="text-xs font-medium text-gray-400 mb-1">Linked stats</h4>
+          <RunResults
+            :run-status="{
+              buildNumber: 468,
+              status: 'passed',
+              variant: 'link',
+              href: '#run',
+            }"
+            :passed="22"
+            :failed="4"
+            :skipped="0"
             :pending="1"
             :flaky="3"
+            :self-healed="2"
+            show-self-healed
             :links="{
               passed: '#passed',
               failed: '#failed',
               pending: '#pending',
               flaky: '#flaky',
+              selfHealed: '#self-healed',
             }"
             theme="dark"
-            pill-class-name="bg-gray-900"
           />
         </div>
         <div>
@@ -189,30 +199,39 @@ const RUN_STATUSES = [
         </div>
         <div>
           <h4 class="text-xs font-medium text-gray-400 mb-1">
-            Run-status + branch + test counts
+            Run-status pill — with branch segment
           </h4>
-          <RunResults
-            :run-status="{
-              buildNumber: 468,
-              status: 'passed',
-              branch: 'develop',
-              variant: 'link',
-              href: '#run',
-              branchHref: '#branch',
-            }"
-            :passed="22"
-            :failed="4"
-            :skipped="0"
-            :pending="1"
-            :flaky="3"
-            :links="{
-              passed: '#p',
-              failed: '#f',
-              pending: '#pn',
-              flaky: '#fk',
-            }"
-            theme="dark"
-          />
+          <div class="flex flex-col gap-2">
+            <RunResults
+              :run-status="{
+                buildNumber: 468,
+                status: 'running',
+                branch: 'develop',
+                variant: 'base',
+              }"
+              theme="dark"
+            />
+            <RunResults
+              :run-status="{
+                buildNumber: 468,
+                status: 'passed',
+                branch: 'develop',
+                variant: 'link',
+                href: '#run',
+              }"
+              theme="dark"
+            />
+            <RunResults
+              :run-status="{
+                buildNumber: 468,
+                status: 'failed',
+                branch: 'release/2026.07.01-emergency-hotfix-mobile-only',
+                variant: 'link',
+                href: '#run',
+              }"
+              theme="dark"
+            />
+          </div>
         </div>
       </div>
     </section>
