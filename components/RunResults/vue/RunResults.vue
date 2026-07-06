@@ -329,7 +329,11 @@ export default defineComponent({
           buildNumberIcon,
           buildNumberLabel,
           href,
-          `View run #${buildNumber}`,
+          // Fold the readable status into the aria-label. Screen readers
+          // announce aria-label in place of the visible `#468` text, so
+          // without the status word the reader never conveys whether the
+          // run passed, failed, or is still running.
+          `View run #${buildNumber} — ${RUN_STATUS_LABELS[status]}`,
           hasBranch,
         ),
       ]

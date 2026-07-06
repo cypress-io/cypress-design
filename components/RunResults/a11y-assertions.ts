@@ -162,4 +162,142 @@ export default function a11yAssertions(
       )
     })
   })
+
+  // ---------------------------------------------------------------------------
+  // Run-status pill
+  // ---------------------------------------------------------------------------
+
+  describe('run-status pill', () => {
+    describe('keyboard navigation', () => {
+      it('linked #N segment is reachable via Tab', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            href: '#run',
+          },
+        })
+        insertSentinel()
+        cy.get('[data-cy="sentinel-before-pill"]').focus()
+        cy.realPress('Tab')
+        cy.focused().should('have.attr', 'data-cy', 'run-status-build-number')
+      })
+
+      it('linked #N carries focus-visible outline classes', () => {
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            href: '#run',
+          },
+        })
+        insertSentinel()
+        cy.get('[data-cy="sentinel-before-pill"]').focus()
+        cy.realPress('Tab')
+        cy.focused().should('have.attr', 'data-cy', 'run-status-build-number')
+        // Same rationale as the test-counts focus check above — assert the
+        // Tailwind classes wired for focus-visible, not the computed
+        // :focus-visible state (unreliable in headless Cypress).
+        cy.get('[data-cy="run-status-build-number"]')
+          .should('have.class', 'focus-visible:outline')
+          .and('have.class', 'focus-visible:outline-2')
+          .and('have.class', 'focus-visible:outline-indigo-500')
+        cy.percySnapshot(`RunResults focused run-status - ${fw}`)
+      })
+
+      it('base variant with no href is not in the tab order', () => {
+        // `variant: 'base'` without href → the pill is presentational.
+        // Guard against a regression that accidentally emits an <a> when
+        // href is absent.
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed', variant: 'base' },
+        })
+        cy.get('[data-cy="run-status"] a').should('not.exist')
+      })
+
+      it('branch segment is never focusable', () => {
+        // Even with a linked `#N`, the branch segment is always plain text.
+        // Regression guard for the `branchHref` removal in commit 8408c052.
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            branch: 'develop',
+            href: '#run',
+          },
+        })
+        cy.get('[data-cy="run-status-branch"]').should('match', 'span')
+      })
+    })
+
+    describe('aria labels', () => {
+      it('linked #N announces both the run number and the readable status', () => {
+        // Screen readers read `aria-label` in place of the visible text on
+        // a link. The visible content is just `#468` — without the status
+        // word, the reader never hears whether the run passed, failed, or
+        // is still running.
+        mountStory({
+          runStatus: {
+            buildNumber: 468,
+            status: 'passed',
+            href: '#run',
+          },
+        })
+        cy.get('[data-cy="run-status-build-number"]').should(
+          'have.attr',
+          'aria-label',
+          'View run #468 — Passed',
+        )
+      })
+
+      // One `it()` per palette bucket. `mountStory` inside a forEach in a
+      // single `it()` doesn't work — Cypress queues commands, so all mounts
+      // fire synchronously and only the last DOM state gets queried.
+      ;(
+        [
+          { status: 'passed', label: 'Passed' },
+          { status: 'failed', label: 'Failed' },
+          { status: 'running', label: 'Running' },
+          { status: 'cancelled', label: 'Cancelled' },
+          { status: 'errored', label: 'Errored' },
+        ] as const
+      ).forEach(({ status, label }) => {
+        it(`aria-label for status="${status}" → "View run #468 — ${label}"`, () => {
+          mountStory({
+            runStatus: {
+              buildNumber: 468,
+              status,
+              href: '#run',
+            },
+          })
+          cy.get('[data-cy="run-status-build-number"]').should(
+            'have.attr',
+            'aria-label',
+            `View run #468 — ${label}`,
+          )
+        })
+      })
+
+      it('unlinked #N has no aria-label (bare span is fine for AT)', () => {
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+        })
+        cy.get('[data-cy="run-status-build-number"]').should(
+          'not.have.attr',
+          'aria-label',
+        )
+      })
+
+      it('pill wrapper has a title attribute for hover / non-screen-reader users', () => {
+        // `title` is a hover-tooltip fallback for users who don't have a
+        // screen reader announcing the aria-label. Screen readers prefer
+        // the aria-label on the inner <a> (test above), but for a base
+        // variant with no <a>, `title` is the only status affordance.
+        mountStory({
+          runStatus: { buildNumber: 468, status: 'passed' },
+        })
+        cy.get('[data-cy="run-status"]').should('have.attr', 'title', 'Passed')
+      })
+    })
+  })
 }
