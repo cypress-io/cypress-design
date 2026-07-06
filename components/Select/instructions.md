@@ -8,6 +8,32 @@ A single-select dropdown. The trigger is a [`Button`](../Button/instructions.md)
 
 Select composes existing cypress-design primitives — Button, Tabs, Checkbox, Textbox (for the search input), Tag, Icon — so consumers get a consistent look without taking a dependency on `react-select` or other third-party dropdown libraries.
 
+## When to use
+
+Use Select when the user picks **one value from a list** and that value sets state — a form field, a filter, an assignment. The selected value should be worth showing on the trigger after the popover closes ("Assignee: Jordan Lee").
+
+Reach for it when:
+
+- There are **5 or more options.** Fewer than that, prefer a control that keeps every option visible (radio-style rows or a segmented control) — hiding four choices behind a click costs more discoverability than it saves in space.
+- **Space is constrained.** A Select trades one click for a compact footprint. If the page has room to show the options inline, showing them is usually the better UX.
+- The options are **nouns, not actions.** Rows name things the user chooses between (projects, people, branches).
+
+## When to use something else
+
+- **Switching views** → [Tabs](../Tabs/instructions.md). If choosing an option changes what's on screen rather than setting a value, it's a view switch, not a selection.
+- **Navigation** → Menu (when it lands). Rows that take the user somewhere are links, not values.
+- **Mostly actions** → not a Select. One `type: 'button'` row for an action tightly coupled to the list (like "+ Add new") is fine; if most rows _do_ something instead of _being_ something, you want a dropdown-menu pattern instead.
+- **Free-text input with suggestions** → [Textbox](../Textbox/instructions.md). Select's search filters a closed list; it does not accept values outside `items`.
+- **Choosing several values** → nothing yet. Select is single-select; multi-select is planned (see Known limitations). Don't simulate it with `type: 'checkbox'` rows — they toggle a single value, not a set.
+
+## Content guidelines
+
+- Keep labels **short, parallel, and front-loaded** — put the differentiating word first ("Staging — us-east", not "The us-east staging environment"). Labels truncate rather than wrap.
+- **Order for the user, not the data.** Recency or frequency beats alphabetical when a "Recent" group exists; alphabetical beats insertion order everywhere else.
+- Add `searchable` past roughly **10–15 items**; add `headline` groups when the categories mean something to the user, not just to the schema.
+- Keep a `disabled` row visible only when seeing it helps ("Epsilon — upgrade to enable"). If the reason it's unavailable doesn't matter to the user, omit the row.
+- Always give the trigger a `placeholder` (or `triggerAriaLabel` when icon-only) — an unnamed combobox fails both usability and axe.
+
 ## Install
 
 ```bash
@@ -250,11 +276,11 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 
 ## Accessibility
 
-- Trigger is a `<button type="button">` (Cypress `Button` component) with `aria-haspopup="listbox"`, `aria-expanded`, and `aria-controls` pointing at the popover. We use the "button + listbox popup" pattern (same as Radix and Headless UI) rather than `role="combobox"`, because combobox per ARIA implies an editable text input — which the default trigger isn't.
-- Popover has `role="listbox"` and an `aria-label` so screen readers announce it on open. The label is `headerTitle` when set, otherwise the literal string `"Options"`. Consumers wanting a different label can drive it via `headerTitle`.
-- Selectable rows have `role="option"` + `aria-selected`. Non-selectable rows (`headline`, `divider`, `button`) have `role="presentation"`.
+- Trigger is a `<button type="button">` (Cypress `Button` component) with `role="combobox"`, `aria-haspopup="listbox"`, `aria-expanded`, and `aria-controls` pointing at the inner listbox. WAI-ARIA 1.2 broadened the combobox pattern to cover a "select-only combobox" whose value comes from a closed list of options — a trigger button that reveals a listbox is exactly that shape. `role="combobox"` also lets the trigger legally carry `aria-activedescendant` (a plain `role="button"` does not), which the keyboard-nav story below depends on. The trigger takes its accessible name from `aria-label` (author-sourced, per the combobox `nameFrom` rule) — the default is the visible label / placeholder; consumers can override with `triggerAriaLabel`, required when the trigger renders icon-only.
+- Popover has `role="listbox"` scoped to the option items only (not the whole panel — otherwise axe's `aria-required-children` flags header buttons, tabs, search inputs, and footer actions as illegal listbox children). The listbox carries an `aria-label` so screen readers announce it on open. The label is `headerTitle` when set, otherwise the literal string `"Options"`.
+- Selectable rows have `role="option"` + `aria-selected`. `button` rows carry `role="option"` on the inner `<Button>` (with `tabindex="-1"`) so the listbox sees only valid option children; the wrapper stays `role="presentation"` and hosts the focus-ring styling. `headline` and `divider` are `role="presentation"`; `divider` also has `aria-hidden="true"`.
 - Disabled rows have `aria-disabled="true"` (they are `<div>` elements, not `<button>` / `<input>`, so the HTML `disabled` attribute does not apply).
-- Focus stays on the trigger while the popover is open; arrow-key traversal is reflected via `aria-activedescendant` on the trigger, pointing at the currently-focused row's id. The visual focus ring is driven by `data-focused="true"` on the row, not by DOM focus.
+- `aria-activedescendant` lives on whichever element currently has DOM focus, per WAI-ARIA. When `searchable` is off, focus stays on the trigger and the trigger carries the attribute. When `searchable` is on, focus lands on the header search Textbox and the Textbox carries it — the trigger drops it in that mode so no two elements advertise the same active descendant at once. The visual focus ring is driven by `data-focused="true"` on the row, not by DOM focus.
 - Keyboard support:
   - `Enter` / `Space` on the trigger → toggle open.
   - `ArrowDown` on the trigger → open (does not focus a row yet; the next arrow keypress lands focus — see below).
@@ -270,6 +296,7 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 - **No virtualization.** Lists with hundreds of items will render every row to the DOM.
 - **No `radio` content type yet.** The Figma defines a radio row but cypress-design does not ship a Radio component. Once a shared Radio lands, `SelectItem` will gain a `'radio'` variant.
 - **No built-in Avatar.** `type: 'user'` rows render whatever you pass via `iconLeft`. Pass an Icon component for a consistent look.
+- **Vue has no `defaultValue` prop.** React's `defaultValue` seeds uncontrolled state without engaging controlled mode; Vue's `modelValue` doubles as both the initial value AND the controlled signal, so an initial non-`undefined` `modelValue` permanently latches the component into controlled mode. Vue consumers wanting "uncontrolled with an initial value" must bridge via a local ref (`const v = ref('alpha')` + `v-model="v"`). A dedicated `defaultValue` shim on the Vue side is planned once the sticky-controlled latch can be split cleanly from the initial-seed path.
 
 ## References
 

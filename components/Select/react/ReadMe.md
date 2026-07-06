@@ -2,26 +2,25 @@
 
 ## Install
 
-The Select component is contained in the `@cypress-design/react-select` package. You'll also want to install `@cypress-design/constants-select` to get proper types for TypeScript.
-
 ```bash
-npm install @cypress-design/react-select @cypress-design/constants-select
+npm install @cypress-design/react-select
 ```
 
 or with yarn
 
 ```bash
-yarn add @cypress-design/react-select @cypress-design/constants-select
+yarn add @cypress-design/react-select
 ```
+
+Types (`SelectItem`, `SelectItemDefault`, `SelectItemUser`, …) are re-exported from `@cypress-design/react-select` — there's no separate constants package to install.
 
 ## Usage
 
-```ts
-import Select from '@cypress-design/react-select'
-import type { SelectItem } from '@cypress-design/constants-select'
+```tsx
+import Select, { type SelectItem } from '@cypress-design/react-select'
 ```
 
-```jsx
+```tsx
 import { useState } from 'react'
 import Select from '@cypress-design/react-select'
 
@@ -32,7 +31,7 @@ const items = [
 ]
 
 export default function Example() {
-  const [value, setValue] = (useState < string) | (undefined > undefined)
+  const [value, setValue] = useState<string | undefined>(undefined)
   return (
     <Select
       items={items}
@@ -46,7 +45,7 @@ export default function Example() {
 
 ### Custom trigger
 
-```jsx
+```tsx
 <Select
   items={items}
   trigger={({ open, selected, toggle }) => (
@@ -59,7 +58,7 @@ export default function Example() {
 
 ### Header with tabs + search, footer action
 
-```jsx
+```tsx
 <Select
   items={items}
   headerTitle="Pick a value"

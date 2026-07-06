@@ -9,7 +9,6 @@ import { CssOptionItemHeightClasses } from './base-classes'
 // ---------- Public types ----------
 
 export type SelectTheme = 'light' | 'dark'
-export type SelectVariant = 'default' | 'valid' | 'invalid' | 'warning'
 export type SelectSize = keyof typeof CssOptionItemHeightClasses // '32' | '40'
 export type SelectAlignment = 'left' | 'right'
 

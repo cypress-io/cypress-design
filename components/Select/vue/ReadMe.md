@@ -2,23 +2,22 @@
 
 ## Install
 
-The Select component is contained in the `@cypress-design/vue-select` package. You'll also want to install `@cypress-design/constants-select` to get proper types for TypeScript.
-
 ```bash
-npm install @cypress-design/vue-select @cypress-design/constants-select
+npm install @cypress-design/vue-select
 ```
 
 or with yarn
 
 ```bash
-yarn add @cypress-design/vue-select @cypress-design/constants-select
+yarn add @cypress-design/vue-select
 ```
+
+Types (`SelectItem`, `SelectItemDefault`, `SelectItemUser`, …) are re-exported from `@cypress-design/vue-select` — there's no separate constants package to install.
 
 ## Usage
 
 ```ts
-import Select from '@cypress-design/vue-select'
-import type { SelectItem } from '@cypress-design/constants-select'
+import Select, { type SelectItem } from '@cypress-design/vue-select'
 ```
 
 ```vue

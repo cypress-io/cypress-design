@@ -297,6 +297,7 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
           :icon-left="IconObjectMagnifyingGlass"
           :aria-label="searchPlaceholder"
           :aria-activedescendant="activeDescendantId"
+          autofocus
           @update:model-value="(v: string) => emit('update:searchValue', v)"
         />
       </div>

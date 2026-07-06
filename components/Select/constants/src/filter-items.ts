@@ -46,10 +46,16 @@ export function filterAndCollapseHeadlines(
     if (!hasContent) keep[i] = false
   }
 
-  // Third pass: drop dividers whose next kept sibling is either another
-  // divider or nothing. Without this, a filter that empties the section
-  // between two dividers (or after the last divider) leaves a bare
-  // divider floating in the popover.
+  // Third pass: drop orphaned dividers. A divider is orphaned when it has
+  // no meaningful sibling on at least one side — either the next or the
+  // previous kept sibling is another divider or nothing. This catches:
+  //   * leading divider: the filter removed everything above it, so it
+  //     dangles at the top of the popover;
+  //   * trailing divider: the filter removed everything below it;
+  //   * adjacent dividers: a section between two dividers is emptied and
+  //     both dividers collapse into one visual seam.
+  // Look both directions so the leading-divider case (previously missed)
+  // is caught alongside the trailing-divider case.
   for (let i = 0; i < items.length; i++) {
     if (items[i].type !== 'divider' || !keep[i]) continue
     let nextKept: SelectItem | undefined
@@ -58,7 +64,15 @@ export function filterAndCollapseHeadlines(
       nextKept = items[j]
       break
     }
-    if (!nextKept || nextKept.type === 'divider') keep[i] = false
+    let prevKept: SelectItem | undefined
+    for (let j = i - 1; j >= 0; j--) {
+      if (!keep[j]) continue
+      prevKept = items[j]
+      break
+    }
+    const nextIsOrphan = !nextKept || nextKept.type === 'divider'
+    const prevIsOrphan = !prevKept || prevKept.type === 'divider'
+    if (nextIsOrphan || prevIsOrphan) keep[i] = false
   }
 
   return items.filter((_, i) => keep[i])

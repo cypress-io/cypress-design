@@ -295,6 +295,16 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
               )}
               {searchable && (
                 <Textbox
+                  // Auto-focus on mount (the popover mounts on open, so
+                  // this is equivalent to "focus on open"). Without it,
+                  // focus stays on the trigger while the Textbox owns
+                  // `aria-activedescendant` — a keyboard user arrowing
+                  // through options would trigger row highlights that no
+                  // focused element announces. WAI-ARIA combobox: the
+                  // element with DOM focus is the one that owns
+                  // `aria-activedescendant`; auto-focusing here keeps
+                  // that invariant.
+                  autoFocus
                   theme={theme}
                   size="32"
                   placeholder={searchPlaceholder}

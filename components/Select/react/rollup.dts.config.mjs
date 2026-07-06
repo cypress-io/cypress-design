@@ -20,6 +20,11 @@ export default {
     }),
     dts({ respectExternal: true }),
   ],
+  // Only list packages that are actually `dependencies` here. Listing a
+  // package as `external` that isn't in `dependencies` means strict
+  // package managers (pnpm) will fail type resolution if any type from
+  // that package survives into `dist/index.d.ts`. Grep the built dist
+  // after any change here to confirm nothing references a non-dep.
   external: [
     'clsx',
     'react',
@@ -30,7 +35,5 @@ export default {
     '@cypress-design/react-tabs',
     '@cypress-design/react-tag',
     '@cypress-design/react-textbox',
-    '@cypress-design/icon-registry',
-    '@cypress-design/details-animation',
   ],
 }

@@ -14,7 +14,6 @@ export type {
   SelectItemButton,
   SelectItemCustom,
   SelectTheme,
-  SelectVariant,
   SelectSize,
   SelectAlignment,
   SelectHeaderTab,
