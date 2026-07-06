@@ -5,6 +5,7 @@ import StatusIcon from '@cypress-design/react-statusicon'
 import {
   IconStatusFlaky,
   IconGeneralSparkleSingle,
+  IconTechnologyBranchH,
 } from '@cypress-design/react-icon'
 import Tooltip from '@cypress-design/react-tooltip'
 import {
@@ -13,8 +14,14 @@ import {
   CssTooltipPopperDark,
   CssTooltipPopperLight,
   TooltipColorForTheme,
+  RUN_STATUS_VARIANTS,
+  RUN_STATUS_TEXT_CLASSES,
+  RUN_STATUS_BORDER_CLASSES,
+  RUN_STATUS_LABELS,
+  warnInvalidRunStatus,
   type RunResultsProps,
   type RunResultsTheme,
+  type RunStatusConfig,
   type StatKey,
   getSeparatorAfterKey,
   getTooltipLabel,
@@ -26,7 +33,11 @@ import {
   statValue,
 } from '@cypress-design/constants-runresults'
 
-export type { RunResultsProps } from '@cypress-design/constants-runresults'
+export type {
+  RunResultsProps,
+  RunStatusConfig,
+  RunStatusKey,
+} from '@cypress-design/constants-runresults'
 
 interface StatProps {
   statKey: StatKey
@@ -145,6 +156,175 @@ const Stat: React.FC<StatProps> = ({
   )
 }
 
+interface RunStatusSegmentProps {
+  kind: 'build-number' | 'branch'
+  icon: React.ReactNode
+  label: React.ReactNode
+  href: string | undefined
+  ariaLabel: string
+  renderLink: RunResultsProps['renderLink']
+  theme: RunResultsTheme
+  applyDivider: boolean
+}
+
+const RunStatusSegment: React.FC<RunStatusSegmentProps> = ({
+  kind,
+  icon,
+  label,
+  href,
+  ariaLabel,
+  renderLink,
+  theme,
+  applyDivider,
+}) => {
+  const isLinked = !!href
+  const segmentBase = clsx(
+    CssClasses.runStatusSegment,
+    applyDivider && CssClasses.runStatusDivider,
+    applyDivider && CssTheme[theme].runStatusDivider,
+    applyDivider && CssClasses.runStatusSegmentDividerAdjacent,
+  )
+  const linkClasses = clsx(
+    segmentBase,
+    CssClasses.runStatusLink,
+    CssTheme[theme].runStatusLink,
+  )
+  const unlinkedClasses = segmentBase
+
+  const inner = (
+    <>
+      {icon}
+      {label}
+    </>
+  )
+
+  if (isLinked && href) {
+    if (renderLink) {
+      return renderLink(href, inner, linkClasses) as React.ReactElement
+    }
+    return (
+      <a
+        href={href}
+        aria-label={ariaLabel}
+        data-cy={`run-status-${kind}`}
+        className={linkClasses}
+      >
+        {inner}
+      </a>
+    )
+  }
+  return (
+    <span data-cy={`run-status-${kind}`} className={unlinkedClasses}>
+      {inner}
+    </span>
+  )
+}
+
+interface RunStatusPillProps {
+  config: RunStatusConfig
+  renderLink: RunResultsProps['renderLink']
+  theme: RunResultsTheme
+}
+
+const RunStatusPill: React.FC<RunStatusPillProps> = ({
+  config,
+  renderLink,
+  theme,
+}) => {
+  const {
+    buildNumber,
+    status,
+    branch,
+    variant = 'base',
+    href,
+    pillClassName,
+  } = config
+
+  // Defense-in-depth guard against runtime data drift (e.g. an un-mapped
+  // domain enum sneaking past TypeScript). The outer `showRunStatus` gate in
+  // `RunResults` already prevents mounting this component with an invalid
+  // status — and emits the dev warning via `warnInvalidRunStatus` — so this
+  // branch is unreachable in normal use. Kept in case a future refactor
+  // exposes `RunStatusPill` directly.
+  const iconConfig = RUN_STATUS_VARIANTS[status]
+  if (!iconConfig) return null
+  const { variant: iconVariant, size: iconSize } = iconConfig
+  const isLink = variant === 'link'
+
+  const pillClasses = twMerge(
+    CssClasses.runStatusPill,
+    CssTheme[theme].runStatusPill,
+    isLink && RUN_STATUS_BORDER_CLASSES[status],
+    pillClassName,
+  )
+
+  // Build-number segment: status icon + #N (with status-colored text).
+  const buildNumberIcon = (
+    <StatusIcon
+      size={iconSize}
+      status={status}
+      variant={iconVariant}
+      data-cy="run-status-icon"
+      className={CssClasses.runStatusIcon}
+    />
+  )
+  const buildNumberLabel = (
+    <span className={RUN_STATUS_TEXT_CLASSES[status]}>{`#${buildNumber}`}</span>
+  )
+
+  // Branch segment: branch icon + branch text (in neutral theme color).
+  const hasBranch = !!branch
+  const branchIcon = hasBranch ? (
+    <IconTechnologyBranchH
+      size="16"
+      strokeColor="gray-500"
+      data-cy="run-status-branch-icon"
+      className={CssClasses.runStatusIcon}
+    />
+  ) : null
+  const branchLabel = hasBranch ? (
+    <span
+      className={clsx(
+        CssClasses.runStatusBranchText,
+        CssTheme[theme].runStatusBranchText,
+      )}
+    >
+      {branch}
+    </span>
+  ) : null
+
+  return (
+    <span
+      data-cy="run-status"
+      title={RUN_STATUS_LABELS[status]}
+      className={pillClasses}
+    >
+      <RunStatusSegment
+        kind="build-number"
+        icon={buildNumberIcon}
+        label={buildNumberLabel}
+        href={href}
+        ariaLabel={`View run #${buildNumber}`}
+        renderLink={renderLink}
+        theme={theme}
+        applyDivider={hasBranch}
+      />
+      {hasBranch && (
+        <RunStatusSegment
+          kind="branch"
+          icon={branchIcon}
+          label={branchLabel}
+          href={undefined}
+          ariaLabel=""
+          renderLink={renderLink}
+          theme={theme}
+          applyDivider={false}
+        />
+      )}
+    </span>
+  )
+}
+
 // `forwardRef` so a parent can attach a `ref` to the root wrapper `<div>`.
 export const RunResults = React.forwardRef<
   HTMLDivElement,
@@ -152,6 +332,7 @@ export const RunResults = React.forwardRef<
     Omit<React.HTMLAttributes<HTMLDivElement>, keyof RunResultsProps>
 >(function RunResults(
   {
+    runStatus,
     passed,
     failed,
     skipped,
@@ -181,7 +362,18 @@ export const RunResults = React.forwardRef<
     expanded,
   }
 
-  if (!hasAnyStat(summaryProps)) return null
+  const showTestCounts = hasAnyStat(summaryProps)
+  // The run-status pill only renders when `status` is a valid `RunStatusKey`
+  // (see also the defense-in-depth guard in `RunStatusPill`). Gate
+  // `showRunStatus` on the same check so a `runStatus` with an invalid
+  // status doesn't produce an empty root wrapper when the test-counts pill
+  // is also empty. Warn once in dev when we skip due to a bad status
+  // (deduped inside `warnInvalidRunStatus`).
+  const showRunStatus = !!runStatus && !!RUN_STATUS_VARIANTS[runStatus.status]
+  if (runStatus && !showRunStatus) warnInvalidRunStatus(runStatus.status)
+
+  // Both pills empty → render nothing. See instructions.md "Empty state".
+  if (!showRunStatus && !showTestCounts) return null
 
   const separatorAfterKey = getSeparatorAfterKey(summaryProps)
   const showFlaky = statValue(flaky) > 0
@@ -190,10 +382,13 @@ export const RunResults = React.forwardRef<
   const showSelfHealedStat = !!showSelfHealed
 
   return (
-    // The wrapper `<div>` is the root (it will hold multiple stat lists in the
-    // future). `className` lands here per DS convention. `pillClassName` lands
-    // on the `<ul>`, merged via `tailwind-merge` so a consumer override (e.g.
-    // `bg-gray-900`) wins the Tailwind source-order conflict against the theme.
+    // The wrapper `<div>` is the root. Holds up to two pills:
+    //   1. run-status pill (rendered when `runStatus` is set)
+    //   2. test-counts pill (rendered when `hasAnyStat` is true)
+    // `className` lands here per DS convention. `pillClassName` lands on the
+    // test-counts `<ul>`; `runStatus.pillClassName` lands on the run-status
+    // `<span>`. Both merged via `tailwind-merge` so consumer overrides win
+    // the Tailwind source-order conflict against the theme.
     <div
       ref={ref}
       {...rest}
@@ -204,80 +399,89 @@ export const RunResults = React.forwardRef<
       data-cy="run-results"
       className={clsx(CssClasses.container, className)}
     >
-      <ul
-        className={twMerge(
-          CssClasses.list,
-          CssTheme[theme].list,
-          pillClassName,
-        )}
-      >
-        {showFlaky && (
-          <Stat
-            statKey="flaky"
-            count={statValue(flaky)}
-            link={links?.flaky}
-            renderLink={renderLink}
-            showTooltip={showTooltip}
-            theme={theme}
-            applySeparator={separatorAfterKey === 'flaky'}
-          />
-        )}
-        {showSelfHealedStat && (
-          <Stat
-            statKey="selfHealed"
-            count={statValue(selfHealed)}
-            link={links?.selfHealed}
-            renderLink={renderLink}
-            showTooltip={showTooltip}
-            theme={theme}
-            applySeparator={separatorAfterKey === 'selfHealed'}
-          />
-        )}
-        {showRegularStat(skipped, expanded) && (
-          <Stat
-            statKey="skipped"
-            count={statValue(skipped)}
-            link={links?.skipped}
-            renderLink={renderLink}
-            showTooltip={showTooltip}
-            theme={theme}
-            applySeparator={false}
-          />
-        )}
-        {showRegularStat(pending, expanded) && (
-          <Stat
-            statKey="pending"
-            count={statValue(pending)}
-            link={links?.pending}
-            renderLink={renderLink}
-            showTooltip={showTooltip}
-            theme={theme}
-            applySeparator={false}
-          />
-        )}
-        {showRegularStat(passed, expanded) && (
-          <Stat
-            statKey="passed"
-            count={statValue(passed)}
-            link={links?.passed}
-            renderLink={renderLink}
-            showTooltip={showTooltip}
-            theme={theme}
-            applySeparator={false}
-          />
-        )}
-        {showRegularStat(failed, expanded) && (
-          <Stat
-            statKey="failed"
-            count={statValue(failed)}
-            link={links?.failed}
-            renderLink={renderLink}
-            showTooltip={showTooltip}
-            theme={theme}
-            applySeparator={false}
-          />
-        )}
-      </ul>
+      {showRunStatus && (
+        <RunStatusPill
+          config={runStatus as RunStatusConfig}
+          renderLink={renderLink}
+          theme={theme}
+        />
+      )}
+      {showTestCounts && (
+        <ul
+          className={twMerge(
+            CssClasses.list,
+            CssTheme[theme].list,
+            pillClassName,
+          )}
+        >
+          {showFlaky && (
+            <Stat
+              statKey="flaky"
+              count={statValue(flaky)}
+              link={links?.flaky}
+              renderLink={renderLink}
+              showTooltip={showTooltip}
+              theme={theme}
+              applySeparator={separatorAfterKey === 'flaky'}
+            />
+          )}
+          {showSelfHealedStat && (
+            <Stat
+              statKey="selfHealed"
+              count={statValue(selfHealed)}
+              link={links?.selfHealed}
+              renderLink={renderLink}
+              showTooltip={showTooltip}
+              theme={theme}
+              applySeparator={separatorAfterKey === 'selfHealed'}
+            />
+          )}
+          {showRegularStat(skipped, expanded) && (
+            <Stat
+              statKey="skipped"
+              count={statValue(skipped)}
+              link={links?.skipped}
+              renderLink={renderLink}
+              showTooltip={showTooltip}
+              theme={theme}
+              applySeparator={false}
+            />
+          )}
+          {showRegularStat(pending, expanded) && (
+            <Stat
+              statKey="pending"
+              count={statValue(pending)}
+              link={links?.pending}
+              renderLink={renderLink}
+              showTooltip={showTooltip}
+              theme={theme}
+              applySeparator={false}
+            />
+          )}
+          {showRegularStat(passed, expanded) && (
+            <Stat
+              statKey="passed"
+              count={statValue(passed)}
+              link={links?.passed}
+              renderLink={renderLink}
+              showTooltip={showTooltip}
+              theme={theme}
+              applySeparator={false}
+            />
+          )}
+          {showRegularStat(failed, expanded) && (
+            <Stat
+              statKey="failed"
+              count={statValue(failed)}
+              link={links?.failed}
+              renderLink={renderLink}
+              showTooltip={showTooltip}
+              theme={theme}
+              applySeparator={false}
+            />
+          )}
+        </ul>
+      )}
     </div>
   )
 })

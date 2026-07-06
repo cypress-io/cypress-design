@@ -133,27 +133,31 @@ See `renderIcon` in `vue/RunResults.vue` and the `icon` factory inside `Stat` in
 
 ### Run-status pill (per-status)
 
-| `runStatus.status` | StatusIcon variant | StatusIcon size | Border (`variant="link"`) |
-| ------------------ | ------------------ | --------------- | ------------------------- |
-| `passed`           | `solid`            | `16`            | `border-jade-400`         |
-| `failed`           | `solid`            | `16`            | `border-red-400`          |
-| `running`          | `outline`          | `16`            | `border-indigo-400`       |
-| `cancelled`        | `solid`            | `16`            | `border-gray-400`         |
-| `errored`          | `solid`            | `16`            | `border-orange-400`       |
-| `timedOut`         | `solid`            | `16`            | `border-orange-400`       |
-| `noTests`          | `solid`            | `16`            | `border-orange-400`       |
-| `overLimit`        | `solid`            | `16`            | `border-orange-400`       |
+| `runStatus.status` | StatusIcon variant | StatusIcon size | Hover border (`variant="link"`) |
+| ------------------ | ------------------ | --------------- | ------------------------------- |
+| `passed`           | `solid`            | `16`            | `jade-400`                      |
+| `failed`           | `solid`            | `16`            | `red-400`                       |
+| `running`          | `outline`          | `16`            | `indigo-400`                    |
+| `cancelled`        | `solid`            | `16`            | `gray-400`                      |
+| `errored`          | `solid`            | `16`            | `orange-400`                    |
+| `timedOut`         | `solid`            | `16`            | `orange-400`                    |
+| `noTests`          | `solid`            | `16`            | `orange-400`                    |
+| `overLimit`        | `solid`            | `16`            | `orange-400`                    |
 
 `running` falls back to `outline` because that's the only variant `StatusIcon` defines for it — see `components/StatusIcon/constants/src/constants.ts`. All other statuses use `solid` (their richest variant). Branch icon is `technology-branch-h_x16` from the icon registry; size `16` to match the pill height.
 
-Mapping table lives in `constants/src/index.ts` as `RUN_STATUS_VARIANTS` (status → `{ variant, size }`) and `RUN_STATUS_BORDER_CLASSES` (status → border-color class). The component reads both at render time. **Don't inline the colors at call sites — the table is the single source of truth and is shared between React, Vue, and the icon-registry `<tw-keep>` comments.**
+The resting-state border on **both** variants is the neutral `gray-100` (light) / `gray-800` (dark) applied via `CssTheme[theme].runStatusPill`. The status color above only appears on `:hover` of a `variant="link"` pill (via `hover:after:shadow-[...]` in `RUN_STATUS_BORDER_CLASSES`).
+
+Mapping tables live in `constants/src/index.ts`: `RUN_STATUS_VARIANTS` (status → `{ variant, size }`), `RUN_STATUS_TEXT_CLASSES` (status → build-number text color), and `RUN_STATUS_BORDER_CLASSES` (status → hover border class). The component reads all three at render time. **Don't inline the colors at call sites — the tables are the single source of truth and are shared between React, Vue, and the icon-registry `<tw-keep>` comments.**
+
+**Runtime guard.** Both `RunStatusPill` (React) and `renderRunStatusPill` (Vue) look up `RUN_STATUS_VARIANTS[status]`; if the value is `undefined` (an un-mapped domain enum or partial mid-load data), they return `null` — the pill is skipped and the surrounding `RunResults` still renders. A `console.warn` fires in development. This keeps a data drift from crashing the whole tree.
 
 ## Constants keying
 
 - **`CssClasses`** — flat object of static classes. Names use a `runStatus*` prefix for the new pill so they don't collide with the existing test-counts classes:
   - **Wrapper:** `container` (the root `<div>` — `inline-flex`, gap, `pointer-events-auto`).
   - **Test-counts pill** (existing): `list` (`<ul>` — `flex`, `items-center`, rounded, the `::after` overlay), `item` (each `<li>` base), `link` (the `<a>` inside a linked stat), `unlinked` (the `<span>` inside an unlinked stat), `icon` (default icon margin), `iconFlaky` (flaky icon override — `path:first-child` fill transparent), `iconSelfHealed` (self-healed icon margin), `separatorAfter` (separator on the last leading `<li>`). The count text `<span>` has no dedicated class.
-  - **Run-status pill** (new): `runStatusPill` (the `<span>` — `flex`, `items-center`, rounded, the `::after` overlay base), `runStatusPillBase` (base-variant additions: subtle bg, no outer border), `runStatusPillLink` (link-variant additions: 1px border width — the per-status border color is appended separately from `RUN_STATUS_BORDER_CLASSES`), `runStatusSegment` (each segment base: padding, gap, items-center), `runStatusLink` (segment as `<a>`: no underline, hover/focus styles, `focus-visible:outline`), `runStatusUnlinked` (segment as `<span>`), `runStatusIcon` (icon spacing), `runStatusBranchText` (`max-w-[260px] truncate`), `runStatusDivider` (`::after` divider applied to the first segment when the second segment is present).
+  - **Run-status pill** (new): `runStatusPill` (the `<span>` — `flex`, `items-center`, rounded, the `::after` overlay base — the resting 1px gray border comes from `CssTheme[theme].runStatusPill`, applied to **both** variants), `runStatusSegment` (each segment base: padding, gap, items-center), `runStatusSegmentDividerAdjacent` (`!pr-0` — applied to the first segment when a divider is present, so the divider sits at the segment boundary), `runStatusLink` (segment as `<a>`: no underline, hover/focus styles, `focus-visible:outline`), `runStatusIcon` (icon spacing, applies to both status and branch icons), `runStatusBranchText` (`max-w-[260px] truncate font-normal`), `runStatusDivider` (`::after` divider applied to the first segment when the second segment is present).
 - **`CssTheme`** — keyed by `'light' | 'dark'`, with each entry further sub-keyed by element role:
 
   - `list` — border + base text colors, applied to the test-counts `<ul>`
@@ -164,7 +168,7 @@ Mapping table lives in `constants/src/index.ts` as `RUN_STATUS_VARIANTS` (status
   - `runStatusDivider` — `after:border-*` color for the segment divider
 
 - **`RUN_STATUS_VARIANTS`** — `Record<RunStatusKey, { variant: VariantStatusIconProps['variant']; size: '16' }>`. Used by both React and Vue to pick the StatusIcon variant/size.
-- **`RUN_STATUS_BORDER_CLASSES`** — `Record<RunStatusKey, string>`. Used only when `variant === 'link'`. Must carry `<tw-keep>` comments so Tailwind's tree-shaker keeps the border colors.
+- **`RUN_STATUS_BORDER_CLASSES`** — `Record<RunStatusKey, string>` of `hover:after:shadow-[...]` classes. Applied only when `variant === 'link'`, and only fires on hover (the pill's default gray border comes from `CssTheme[theme].runStatusPill`). Must carry `<tw-keep>` comments so Tailwind's tree-shaker keeps the dynamic hover-border colors.
 
 Types are derived from constants with `keyof typeof`:
 
@@ -279,7 +283,7 @@ See the `Stat` helper in `react/RunResults.tsx` and `renderStat` / `renderSegmen
 
 `renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: unknown, className?: string) => unknown`. **One callback for both pills** — it's called separately for each linkable element with the matching href. `children` is typed `unknown` because the two frameworks pass different shapes: in React it's a JSX element (icon + count, or icon + label), in Vue it's an **array** of `VNode`s. `className` is the element's computed link styling (gray text, `px-[6px]`, no-underline, hover/focus) — the caller applies it to their router link so it matches the default `<a>`. The class strings differ slightly between the test-counts and run-status pills (different padding / icon spacing), so the caller should always apply the `className` received in that specific call, not a global one.
 
-For the test-counts pill, the `aria-label` and `data-cy="link-{status}"` end up on the rendered element. For the run-status pill, `aria-label="View run #{buildNumber}"` (or `"View branch {branchName}"`) and `data-cy="run-status-{kind}"`. The native `<a>` path applies both; the `renderLink` path delegates that responsibility to the caller (noted in `instructions.md`).
+For the test-counts pill, the `aria-label` and `data-cy="link-{status}"` end up on the rendered element. For the run-status pill's build-number segment, `aria-label="View run #{buildNumber}"` and `data-cy="run-status-build-number"`. The branch segment is always a plain `<span>` (never a link) with `data-cy="run-status-branch"` and no `aria-label`. The native `<a>` path applies aria-label + data-cy; the `renderLink` path delegates aria-label responsibility to the caller (noted in `instructions.md`).
 
 ## Self-healed gating
 

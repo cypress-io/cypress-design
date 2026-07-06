@@ -23,12 +23,12 @@ export const LeadingStatKeys = ['flaky', 'selfHealed'] as const
 export type LeadingStatKey = (typeof LeadingStatKeys)[number]
 
 export const CssClasses = {
-  // The root wrapper. `inline-flex` shrinks it to content; `pointer-events-auto`
-  // re-enables clicks if a parent disabled them. It will hold multiple stat
-  // lists in the future — today it wraps a single `<ul>`.
-  container: 'inline-flex pointer-events-auto',
-  // The <ul> pill. Border is an `::after` overlay — see architecture.md
-  // ("Theme strategy").
+  // The root wrapper. `inline-flex` shrinks it to content; `gap-2` puts an 8px
+  // gap between the two pills when both are rendered; `pointer-events-auto`
+  // re-enables clicks if a parent disabled them.
+  container: 'inline-flex items-center gap-2 pointer-events-auto',
+  // The <ul> pill (test-counts). Border is an `::after` overlay — see
+  // architecture.md ("Theme strategy").
   list: "flex items-center text-[14px] leading-[24px] font-medium list-none rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
   // Each <li> stat.
   item: 'h-full whitespace-nowrap flex items-center',
@@ -43,6 +43,37 @@ export const CssClasses = {
   // Separator after the last leading <li>. Border color comes from CssTheme.
   separatorAfter:
     "after:content-[''] after:border-r after:h-3 after:mx-1 after:self-center",
+
+  // === RUN-STATUS PILL ===
+  // Same `::after` overlay pattern as the test-counts pill. Border color
+  // depends on `variant` + `status` (see RUN_STATUS_BORDER_CLASSES).
+  runStatusPill:
+    "flex items-center h-[24px] text-[14px] leading-[24px] font-medium rounded-[4px] relative after:content-[''] after:pointer-events-none after:absolute after:inset-0 after:rounded-[4px]",
+  // Each segment <a>/<span>. 8px horizontal padding (pill outer edge to icon
+  // / label edge to pill outer edge), flex layout.
+  runStatusSegment: 'flex items-center h-full px-[8px] whitespace-nowrap',
+  // Segment as <a>: hover/focus state plus the segment base.
+  runStatusLink:
+    'no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
+  // Icon spacing inside a segment.
+  runStatusIcon: 'mr-[4px]',
+  // Branch text — `font-normal` overrides the pill's inherited `font-medium`
+  // (the branch label is regular weight; the build number stays medium).
+  // Max-w + truncate match cypress-services CommitBranch.
+  runStatusBranchText: 'max-w-[260px] truncate font-normal',
+  // Vertical divider between segments (applied to the first segment when the
+  // second segment is present). Positioned via `after:ml-2` (8px between the
+  // segment's last text/icon and the divider line) and sits flush against the
+  // first segment's right edge; the segment's right padding is dropped to `0`
+  // (see `runStatusSegmentDividerAdjacent` below) so the branch segment's own
+  // `pl-[8px]` provides the 8px from divider → branch icon.
+  // Border color comes from CssTheme[theme].runStatusDivider.
+  runStatusDivider:
+    "after:content-[''] after:border-r after:h-3 after:ml-2 after:self-center",
+  // Applied to the first segment when a divider is present — cancels its right
+  // padding so the divider line sits at the segment boundary and total
+  // divider → branch icon gap = branch's `pl-[8px]` = 8px.
+  runStatusSegmentDividerAdjacent: '!pr-0',
 } as const
 
 export const CssTheme = {
@@ -50,13 +81,153 @@ export const CssTheme = {
     list: 'bg-white text-gray-700 after:shadow-[inset_0_0_0_1px_theme(colors.gray.100)]',
     link: 'text-gray-700 hover:bg-gray-50 hover:text-gray-700 hover:no-underline focus:text-gray-700 focus:no-underline focus-visible:bg-gray-50',
     separator: 'after:border-gray-100',
+    // Run-status pill: light theme.
+    // Subtle gray-50 background and a default 1px gray-100 border via the
+    // `::after` overlay. The background persists in hover; only the border
+    // color changes to the status color (link variant only) via
+    // RUN_STATUS_BORDER_CLASSES. Text color is set per-segment:
+    // status-colored on the build-number, gray-700 on the branch.
+    runStatusPill:
+      'bg-gray-50 after:shadow-[inset_0_0_0_1px_theme(colors.gray.100)]',
+    runStatusLink: 'hover:no-underline',
+    runStatusBranchText: 'text-gray-700',
+    runStatusDivider: 'after:border-gray-200',
   },
   dark: {
     list: 'bg-gray-1000 text-gray-400 after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
     link: 'text-gray-300 hover:bg-gray-900 hover:text-gray-300 hover:no-underline focus:text-gray-300 focus:no-underline focus-visible:bg-gray-900',
     separator: 'after:border-gray-800',
+    runStatusPill:
+      'bg-gray-950 after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
+    runStatusLink: 'hover:no-underline',
+    runStatusBranchText: 'text-gray-300',
+    runStatusDivider: 'after:border-gray-800',
   },
 } as const
+
+// === RUN-STATUS PILL CONSTANTS ===
+
+// Run-applicable status keys (subset of StatusIcon's statusTypes).
+// Drives the status icon, border color, text color, and aria-label / title.
+export type RunStatusKey =
+  | 'passed'
+  | 'failed'
+  | 'running'
+  | 'cancelled'
+  | 'errored'
+  | 'timedOut'
+  | 'noTests'
+  | 'overLimit'
+
+// StatusIcon variant + size chosen per run status. `running` only supports
+// `outline` in StatusIcon; all terminal statuses use `solid`.
+export const RUN_STATUS_VARIANTS: Record<
+  RunStatusKey,
+  { variant: 'outline' | 'solid'; size: '16' }
+> = {
+  passed: { variant: 'solid', size: '16' },
+  failed: { variant: 'solid', size: '16' },
+  running: { variant: 'outline', size: '16' },
+  cancelled: { variant: 'solid', size: '16' },
+  errored: { variant: 'solid', size: '16' },
+  timedOut: { variant: 'solid', size: '16' },
+  noTests: { variant: 'solid', size: '16' },
+  overLimit: { variant: 'solid', size: '16' },
+}
+
+// Text color for the build-number segment per status. Branch segment uses the
+// theme's default text color (see CssTheme[theme].runStatusBranchText).
+// <tw-keep> comments keep Tailwind's tree-shake from stripping the dynamic classes.
+export const RUN_STATUS_TEXT_CLASSES: Record<RunStatusKey, string> = {
+  // <tw-keep className="text-jade-400" />
+  passed: 'text-jade-400',
+  // <tw-keep className="text-red-400" />
+  failed: 'text-red-400',
+  // <tw-keep className="text-indigo-400" />
+  running: 'text-indigo-400',
+  // <tw-keep className="text-gray-400" />
+  cancelled: 'text-gray-400',
+  // <tw-keep className="text-orange-400" />
+  errored: 'text-orange-400',
+  // <tw-keep className="text-orange-400" />
+  timedOut: 'text-orange-400',
+  // <tw-keep className="text-orange-400" />
+  noTests: 'text-orange-400',
+  // <tw-keep className="text-orange-400" />
+  overLimit: 'text-orange-400',
+}
+
+// Status-colored border applied on **hover** of the run-status pill when
+// variant='link'. In the default (non-hover) state the pill wears the neutral
+// gray-100 / gray-800 border from CssTheme[theme].runStatusPill; hovering
+// swaps in the status color on the same `::after` overlay so nothing shifts.
+// <tw-keep> comments keep Tailwind's tree-shake from stripping the dynamic classes.
+export const RUN_STATUS_BORDER_CLASSES: Record<RunStatusKey, string> = {
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.jade.400)]" />
+  passed: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.jade.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.red.400)]" />
+  failed: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.red.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.indigo.400)]" />
+  running: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.indigo.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.gray.400)]" />
+  cancelled: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.gray.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  errored: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  timedOut: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  noTests: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+  // <tw-keep className="hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]" />
+  overLimit: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
+}
+
+// Dev-mode warning for invalid `runStatus.status` values. Deduped per status
+// via a module-level Set so the same message doesn't spam the console under
+// React StrictMode / re-renders. No-op in production. Shared between the
+// React and Vue outer wrappers (they both compute `showRunStatus` and need to
+// warn once when the pill gets skipped).
+const warnedRunStatuses: Set<string> = new Set()
+export function warnInvalidRunStatus(status: string): void {
+  if (
+    typeof process === 'undefined' ||
+    process.env?.NODE_ENV === 'production'
+  ) {
+    return
+  }
+  if (warnedRunStatuses.has(status)) return
+  warnedRunStatuses.add(status)
+  // eslint-disable-next-line no-console
+  console.warn(
+    `[RunResults] runStatus.status="${status}" is not a valid RunStatusKey; skipping the run-status pill. Valid values: ${Object.keys(RUN_STATUS_VARIANTS).join(', ')}.`,
+  )
+}
+
+// Readable label per status. Drives the `title` attribute on the pill (so
+// screen readers + hover-tooltips announce the run status).
+export const RUN_STATUS_LABELS: Record<RunStatusKey, string> = {
+  passed: 'Passed',
+  failed: 'Failed',
+  running: 'Running',
+  cancelled: 'Cancelled',
+  errored: 'Errored',
+  timedOut: 'Timed out',
+  noTests: 'No tests',
+  overLimit: 'Over limit',
+}
+
+// Config object passed via the `runStatus` prop.
+export interface RunStatusConfig {
+  buildNumber: number
+  status: RunStatusKey
+  // Branch name displayed after a vertical divider. Always rendered as plain
+  // text — the branch segment is never a link. (If the parent surface needs
+  // branch navigation, expose it as a separate link outside the pill.)
+  branch?: string
+  variant?: 'base' | 'link'
+  href?: string
+  // Classes for the run-status pill `<span>`, merged via `tailwind-merge`.
+  pillClassName?: string
+}
 
 export type RunResultsTheme = keyof typeof CssTheme
 
@@ -118,10 +289,16 @@ export function getTooltipLabel(
 }
 
 export interface RunResultsProps {
-  passed: number | null
-  failed: number | null
-  skipped: number | null
-  pending: number | null
+  // Run-status pill — rendered when provided. See RunStatusConfig.
+  runStatus?: RunStatusConfig
+
+  // Test-counts pill — all four are optional (default 0). Null and undefined
+  // are coerced to 0. Were previously required; relaxed so callers can render
+  // only the run-status pill.
+  passed?: number | null
+  failed?: number | null
+  skipped?: number | null
+  pending?: number | null
   flaky?: number | null
 
   // Self-healed (independent of flaky). Rendered whenever `showSelfHealed`
