@@ -181,6 +181,27 @@ export const RUN_STATUS_BORDER_CLASSES: Record<RunStatusKey, string> = {
   overLimit: 'hover:after:shadow-[inset_0_0_0_1px_theme(colors.orange.400)]',
 }
 
+// Dev-mode warning for invalid `runStatus.status` values. Deduped per status
+// via a module-level Set so the same message doesn't spam the console under
+// React StrictMode / re-renders. No-op in production. Shared between the
+// React and Vue outer wrappers (they both compute `showRunStatus` and need to
+// warn once when the pill gets skipped).
+const warnedRunStatuses: Set<string> = new Set()
+export function warnInvalidRunStatus(status: string): void {
+  if (
+    typeof process === 'undefined' ||
+    process.env?.NODE_ENV === 'production'
+  ) {
+    return
+  }
+  if (warnedRunStatuses.has(status)) return
+  warnedRunStatuses.add(status)
+  // eslint-disable-next-line no-console
+  console.warn(
+    `[RunResults] runStatus.status="${status}" is not a valid RunStatusKey; skipping the run-status pill. Valid values: ${Object.keys(RUN_STATUS_VARIANTS).join(', ')}.`,
+  )
+}
+
 // Readable label per status. Drives the `title` attribute on the pill (so
 // screen readers + hover-tooltips announce the run status).
 export const RUN_STATUS_LABELS: Record<RunStatusKey, string> = {

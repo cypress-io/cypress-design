@@ -59,6 +59,7 @@ import {
   RUN_STATUS_TEXT_CLASSES,
   RUN_STATUS_BORDER_CLASSES,
   RUN_STATUS_LABELS,
+  warnInvalidRunStatus,
   type RunResultsProps,
   type RunResultsTheme,
   type RunStatusConfig,
@@ -290,22 +291,14 @@ export default defineComponent({
         pillClassName,
       } = config
 
-      // Runtime guard: if `status` isn't in the union (e.g. mid-load data or
-      // an un-mapped domain enum), the destructure below would throw and take
-      // the whole RunResults tree with it. Skip the pill instead — the
-      // test-counts pill still renders — and warn in dev.
+      // Defense-in-depth guard against runtime data drift (e.g. an un-mapped
+      // domain enum sneaking past TypeScript). The outer `showRunStatus`
+      // gate below already prevents this function running with an invalid
+      // status — and emits the dev warning via `warnInvalidRunStatus` — so
+      // this branch is unreachable in normal use. Kept in case a future
+      // refactor calls `renderRunStatusPill` directly.
       const iconConfig = RUN_STATUS_VARIANTS[status]
-      if (!iconConfig) {
-        if (
-          typeof process !== 'undefined' &&
-          process.env?.NODE_ENV !== 'production'
-        ) {
-          console.warn(
-            `[RunResults] runStatus.status="${status}" is not a valid RunStatusKey; skipping the run-status pill. Valid values: ${Object.keys(RUN_STATUS_VARIANTS).join(', ')}.`,
-          )
-        }
-        return null
-      }
+      if (!iconConfig) return null
       const { variant: iconVariant, size: iconSize } = iconConfig
       const isLink = variant === 'link'
 
@@ -393,12 +386,17 @@ export default defineComponent({
       }
 
       const showTestCounts = hasAnyStat(summaryProps)
-      // The pill only actually renders when `status` is a valid `RunStatusKey`
-      // (see the runtime guard in renderRunStatusPill). Gate `showRunStatus`
-      // on the same check so a `runStatus` with an invalid status doesn't
-      // produce an empty root wrapper when the test-counts pill is also empty.
+      // The run-status pill only renders when `status` is a valid
+      // `RunStatusKey` (see also the defense-in-depth guard in
+      // `renderRunStatusPill`). Gate `showRunStatus` on the same check so a
+      // `runStatus` with an invalid status doesn't produce an empty root
+      // wrapper when the test-counts pill is also empty. Warn once in dev
+      // when we skip due to a bad status (deduped inside `warnInvalidRunStatus`).
       const showRunStatus =
         !!props.runStatus && !!RUN_STATUS_VARIANTS[props.runStatus.status]
+      if (props.runStatus && !showRunStatus) {
+        warnInvalidRunStatus(props.runStatus.status)
+      }
 
       // Both pills empty → render nothing.
       if (!showRunStatus && !showTestCounts) return null
