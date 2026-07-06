@@ -280,7 +280,7 @@ export default defineComponent({
       )
     }
 
-    function renderRunStatusPill(config: RunStatusConfig): VNode {
+    function renderRunStatusPill(config: RunStatusConfig): VNode | null {
       const {
         buildNumber,
         status,
@@ -289,8 +289,24 @@ export default defineComponent({
         href,
         pillClassName,
       } = config
-      const { variant: iconVariant, size: iconSize } =
-        RUN_STATUS_VARIANTS[status]
+
+      // Runtime guard: if `status` isn't in the union (e.g. mid-load data or
+      // an un-mapped domain enum), the destructure below would throw and take
+      // the whole RunResults tree with it. Skip the pill instead — the
+      // test-counts pill still renders — and warn in dev.
+      const iconConfig = RUN_STATUS_VARIANTS[status]
+      if (!iconConfig) {
+        if (
+          typeof process !== 'undefined' &&
+          process.env?.NODE_ENV !== 'production'
+        ) {
+          console.warn(
+            `[RunResults] runStatus.status="${status}" is not a valid RunStatusKey; skipping the run-status pill. Valid values: ${Object.keys(RUN_STATUS_VARIANTS).join(', ')}.`,
+          )
+        }
+        return null
+      }
+      const { variant: iconVariant, size: iconSize } = iconConfig
       const isLink = variant === 'link'
 
       const pillClasses = twMerge(
@@ -459,7 +475,8 @@ export default defineComponent({
       // override wins the Tailwind source-order conflict.
       const children: VNode[] = []
       if (showRunStatus) {
-        children.push(renderRunStatusPill(props.runStatus as RunStatusConfig))
+        const pill = renderRunStatusPill(props.runStatus as RunStatusConfig)
+        if (pill) children.push(pill)
       }
       if (showTestCounts) {
         children.push(

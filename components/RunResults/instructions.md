@@ -54,14 +54,14 @@ A single package per framework — types and class constants are bundled in (the
 
 ### `RunStatusConfig` shape
 
-| Field           | Type               | Default  | Description                                                                                                                                                                                       |
-| --------------- | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `buildNumber`   | `number`           | required | Build number to display. Rendered as `#${buildNumber}`. Not formatted — pass a small integer.                                                                                                     |
-| `status`        | `RunStatusKey`     | required | Run status. One of `"passed"`, `"failed"`, `"running"`, `"cancelled"`, `"errored"`, `"timedOut"`, `"noTests"`, `"overLimit"`. Drives the status icon and (for `variant="link"`) the border color. |
-| `branch`        | `string`           | —        | Branch name. When set, a vertical divider and a branch segment (`technology-branch-h_x16` + branch text) are rendered after `#N`.                                                                 |
-| `variant`       | `"base" \| "link"` | `"base"` | `"base"` — no outer border (in-progress / "this run" treatment). `"link"` — 1px status-colored border (jade / red / indigo / gray / orange) plus hover styling.                                   |
-| `href`          | `string`           | —        | URL for the `#N` segment. When set, that segment is wrapped in `<a href>` (or `renderLink(href, ...)`). Independent of `variant`. The branch segment is never a link — it's always plain text.    |
-| `pillClassName` | `string`           | —        | Classes for the **run-status pill**, merged via `tailwind-merge`. Conflicting utilities override the DS default.                                                                                  |
+| Field           | Type               | Default  | Description                                                                                                                                                                                                                                                            |
+| --------------- | ------------------ | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `buildNumber`   | `number`           | required | Build number to display. Rendered as `#${buildNumber}`. Not formatted — pass a small integer.                                                                                                                                                                          |
+| `status`        | `RunStatusKey`     | required | Run status. One of `"passed"`, `"failed"`, `"running"`, `"cancelled"`, `"errored"`, `"timedOut"`, `"noTests"`, `"overLimit"`. Drives the status icon and (for `variant="link"`) the border color.                                                                      |
+| `branch`        | `string`           | —        | Branch name. When set, a vertical divider and a branch segment (`technology-branch-h_x16` + branch text) are rendered after `#N`.                                                                                                                                      |
+| `variant`       | `"base" \| "link"` | `"base"` | Both variants show a 1px neutral gray border at rest. `"link"` swaps the border to the `status` color (jade / red / indigo / gray / orange) on hover; `"base"` has no hover state. Use `"link"` when the pill navigates elsewhere (past runs, base run, related runs). |
+| `href`          | `string`           | —        | URL for the `#N` segment. When set, that segment is wrapped in `<a href>` (or `renderLink(href, ...)`). Independent of `variant`. The branch segment is never a link — it's always plain text.                                                                         |
+| `pillClassName` | `string`           | —        | Classes for the **run-status pill**, merged via `tailwind-merge`. Conflicting utilities override the DS default.                                                                                                                                                       |
 
 ## Type exports
 
@@ -102,8 +102,8 @@ A pill rendered to the left of the test-counts pill, containing the run identifi
 - The `#N` segment is always rendered when `runStatus` is set.
 - The branch segment (`branch icon` + branch text) is rendered only when `runStatus.branch` is set.
 - A 1px vertical divider separates the two segments (rendered only when both are present).
-- `runStatus.variant` controls the **visual treatment** (border or not); `runStatus.href` controls **clickability** of the `#N` segment. The two are orthogonal — see [Variant + linkability](#variant--linkability). The branch segment is always plain text.
-- `runStatus.status` drives both the inner status icon (`StatusIcon`) and, when `variant="link"`, the outer border color.
+- Both variants render an identical 1px neutral gray border at rest. `runStatus.variant` controls the **hover affordance**: `"link"` swaps the border to the `status` color on hover; `"base"` has no hover state. `runStatus.href` controls **clickability** of the `#N` segment. See [Variant + linkability](#variant--linkability). The branch segment is always plain text.
+- `runStatus.status` drives the inner status icon (`StatusIcon`) and, when `variant="link"`, the hover-state border color.
 
 The status icon is chosen internally — no consumer knob for variant / size. Variant matches `StatusIcon`'s declared variants for each status (`running` is `outline`-only; terminal statuses use `solid`). Size is fixed at `16` to match the pill height.
 
@@ -117,18 +117,18 @@ If you need a standalone branch chip (without a build number), use a `Tag` with 
 
 ### Variant + linkability
 
-`variant` and `href` are independent:
+`variant` and `href` are independent — `variant` controls the hover affordance, `href` controls whether the `#N` segment is a link. All pills wear the same neutral 1px border at rest.
 
-| `variant` | `href` set | Result                                                               |
-| --------- | ---------- | -------------------------------------------------------------------- |
-| `base`    | no         | Plain pill, no border. Pure presentational.                          |
-| `base`    | yes        | Plain pill, segment is clickable. No status-colored border.          |
-| `link`    | no         | Status-colored border, segment is plain text. Rare but supported.    |
-| `link`    | yes        | Status-colored border + clickable segment. The "past run" treatment. |
+| `variant` | `href` set | Result                                                                                                                            |
+| --------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `base`    | no         | Neutral 1px border. No hover feedback. No link. Pure presentational.                                                              |
+| `base`    | yes        | Neutral 1px border. `#N` is clickable. No hover-color feedback — usually `"link"` is more appropriate when the pill is clickable. |
+| `link`    | no         | Neutral 1px border at rest, status color on hover, but no link. Rare — the hover affordance suggests a target that doesn't exist. |
+| `link`    | yes        | Neutral 1px border at rest, status color on hover, `#N` is clickable. The canonical "past-run / other run" treatment.             |
 
-### Status → border color
+### Status → hover border color
 
-The status-colored border only renders when `variant="link"`. Colors are reused tokens (no new tokens):
+The status color appears **only on hover** of a `variant="link"` pill. In the resting state both variants show the neutral gray border. Colors are reused tokens (no new tokens):
 
 | `runStatus.status`                               | Border       |
 | ------------------------------------------------ | ------------ |
@@ -280,6 +280,6 @@ These selectors are part of the public contract — existing tests in consumer a
 - Counts and build numbers are display-only; the component does not format large numbers (e.g. `1,234`) — pass small integers, or wait for a follow-up.
 - Run-status pill is **not** Tooltip-wrapped — `showTooltip` only affects the test-counts pill. Wrap `<RunResults>` externally if you need a tooltip on the run-status pill.
 - Self-healed renders whenever `showSelfHealed` is `true`, regardless of the `selfHealed` count (a `0` count renders as "0"). When `showSelfHealed` is `false`, the stat is hidden entirely — the consumer is expected to set the flag based on whether the run could have self-healed tests at all (e.g. `cy.prompt` was available).
-- **No loading state.** `null` and `0` counts render identically. If you need to distinguish "loading" from "zero", render a skeleton/spinner externally and conditionally mount `<RunResults>` when data lands. With both pills omitted, the component returns `null`.
+- **No loading state.** `null` and `0` counts render identically. If you need to distinguish "loading" from "zero", render a skeleton/spinner externally and conditionally mount `<RunResults>` when data lands. With both pills omitted, the component returns `null`. If `runStatus.status` is set to a value outside `RunStatusKey` (e.g. an un-mapped domain enum), the run-status pill is skipped and a warning is logged in development.
 - **No re-run badge.** The "Re-run" pill that cypress-services attaches to `RunsListItem`'s build number is a separate concern — render it as a sibling outside `<RunResults>`.
 - **No i18n.** Tooltip / aria-label / title strings are hardcoded English ("View passed tests", "View run #N", "Passed", "N tests both passed and failed when retried within a run", etc.). A `labels` override prop can be added when a real consumer needs translations.
