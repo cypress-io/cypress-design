@@ -57,7 +57,7 @@ const RUN_STATUSES = [
       <h3 class="text-sm font-medium text-gray-500 mb-1">
         Run-status pill variants
       </h3>
-      <p class="text-xs text-gray-500 mb-2">
+      <p class="text-base !leading-5 text-gray-700 mb-2">
         Base (left) — no border. Link (right) — status-colored border on hover.
       </p>
       <div class="flex flex-col gap-2">
@@ -161,7 +161,7 @@ const RUN_STATUSES = [
           <h4 class="text-xs font-medium text-gray-400">
             Run-status pill variants
           </h4>
-          <p class="text-xs text-gray-500 mb-1">
+          <p class="text-base !leading-5 text-gray-300 mb-1">
             Base (left) — no border. Link (right) — status-colored border on
             hover.
           </p>
