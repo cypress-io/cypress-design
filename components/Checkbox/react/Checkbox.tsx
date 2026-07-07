@@ -37,6 +37,24 @@ export interface CheckboxProps
    */
   label?: ReactNode
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * Forwarded to the underlying `<input type="checkbox">`. Use `-1` when
+   * the checkbox is a decorative affordance inside a wider interactive
+   * row (e.g. Select's checkbox-row) — the wrapping row carries
+   * `role="option"` + keyboard nav, and the input must not be
+   * independently focusable to satisfy axe's
+   * `nested-interactive` rule.
+   */
+  inputTabIndex?: number
+  /**
+   * When true, the real `<input>` is removed from the accessibility tree
+   * and the layout with `display: none`. Use inside a wider interactive
+   * row (e.g. Select's checkbox-row) where the row itself is the option
+   * — axe's `nested-interactive` rule flags a focusable input inside a
+   * clickable row even when the input carries `aria-hidden` /
+   * `tabindex="-1"`; `display: none` is the one form axe accepts.
+   */
+  hideInput?: boolean
 }
 
 const uid = () =>
@@ -54,6 +72,8 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   disabled,
   className,
   name,
+  inputTabIndex,
+  hideInput = false,
   ...rest
 }) => {
   const [localChecked, setChecked] = React.useState(checked)
@@ -74,6 +94,9 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
         onChange={onChangeInput}
         disabled={disabled}
         checked={localChecked}
+        tabIndex={inputTabIndex}
+        aria-hidden={hideInput || undefined}
+        style={hideInput ? { display: 'none' } : undefined}
       />
       <label className={CssClasses.labelTag} htmlFor={id}>
         {localChecked && (

@@ -1,0 +1,118 @@
+/// <reference types="cypress" />
+
+import * as React from 'react'
+import { mount } from 'cypress/react'
+import { IconArrowLeft } from '@cypress-design/react-icon'
+import Select from './Select'
+import assertions, { DEFAULT_TEST_MIN_WIDTH } from '../assertions'
+import type { SelectMountOptions } from '../assertions'
+
+describe('Select', () => {
+  function mountStory(options: SelectMountOptions) {
+    // Default popover min-width so the panel has a consistent shape across
+    // tests; individual tests can override via SelectMountOptions.
+    const merged = { minWidth: DEFAULT_TEST_MIN_WIDTH, ...options }
+    mount(
+      <div className="m-4">
+        <Select {...(merged as React.ComponentProps<typeof Select>)} />
+      </div>,
+    )
+  }
+
+  assertions(mountStory, { iconArrowLeft: IconArrowLeft })
+
+  describe('React specific', () => {
+    it('controlled (value + onChange) round-trips', () => {
+      const Wrapper = () => {
+        const [value, setValue] = React.useState<string | undefined>('alpha')
+        return (
+          <div className="m-4">
+            <Select
+              items={[
+                { label: 'Alpha', value: 'alpha' },
+                { label: 'Beta', value: 'beta' },
+              ]}
+              minWidth={DEFAULT_TEST_MIN_WIDTH}
+              value={value}
+              onChange={(v) => setValue(v)}
+            />
+          </div>
+        )
+      }
+      mount(<Wrapper />)
+      cy.findByRole('combobox').should('contain.text', 'Alpha')
+      cy.findByRole('combobox').click()
+      cy.findByRole('option', { name: 'Beta' }).click()
+      cy.findByRole('combobox').should('contain.text', 'Beta')
+    })
+
+    it('controlled clear (value=undefined) shows the placeholder', () => {
+      const Wrapper = () => {
+        const [value, setValue] = React.useState<string | undefined>('alpha')
+        return (
+          <div className="m-4">
+            <Select
+              items={[
+                { label: 'Alpha', value: 'alpha' },
+                { label: 'Beta', value: 'beta' },
+              ]}
+              minWidth={DEFAULT_TEST_MIN_WIDTH}
+              value={value}
+              placeholder="Pick one"
+              onChange={(v) => setValue(v)}
+            />
+            <button id="clear" onClick={() => setValue(undefined)}>
+              Clear
+            </button>
+          </div>
+        )
+      }
+      mount(<Wrapper />)
+      cy.findByRole('combobox', { name: 'Alpha' }).should('exist')
+      cy.get('#clear').click()
+      cy.findByRole('combobox', { name: 'Pick one' }).should('exist')
+    })
+
+    it('defaultValue seeds the uncontrolled initial selection', () => {
+      mount(
+        <Select
+          items={[
+            { label: 'Alpha', value: 'alpha' },
+            { label: 'Beta', value: 'beta' },
+          ]}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
+          defaultValue="beta"
+        />,
+      )
+      cy.findByRole('combobox').should('contain.text', 'Beta')
+    })
+
+    it('renders a custom trigger via the render-prop', () => {
+      mount(
+        <Select
+          items={[{ label: 'Alpha', value: 'alpha' }]}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
+          trigger={({ toggle }) => (
+            <button id="custom-trigger" onClick={toggle}>
+              Custom
+            </button>
+          )}
+        />,
+      )
+      cy.get('#custom-trigger').should('contain.text', 'Custom').click()
+      cy.findByRole('listbox').should('be.visible')
+    })
+
+    it('renders the footer node when provided', () => {
+      mount(
+        <Select
+          items={[{ label: 'Alpha', value: 'alpha' }]}
+          minWidth={DEFAULT_TEST_MIN_WIDTH}
+          defaultOpen={true}
+          footer={<span id="custom-footer">Custom footer</span>}
+        />,
+      )
+      cy.get('#custom-footer').should('contain.text', 'Custom footer')
+    })
+  })
+})
