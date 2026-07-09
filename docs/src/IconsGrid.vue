@@ -1,11 +1,28 @@
 <script lang="ts" setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed, reactive, onMounted, watch } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import IconButton from './IconButton.vue'
 import AnimatedIcons from './AnimatedIcons.vue'
 
 const search = ref('')
 const $searchInput = ref<HTMLInputElement>()
+
+const ICON_SEARCH_STORAGE_KEY = 'cypress-design:icons:search'
+onMounted(() => {
+  const persistedSearch = window.localStorage.getItem(ICON_SEARCH_STORAGE_KEY)
+  if (persistedSearch) {
+    search.value = persistedSearch
+  }
+})
+watch(search, (nextSearch) => {
+  if (typeof window === 'undefined') return
+  const trimmed = nextSearch.trim()
+  if (!trimmed) {
+    window.localStorage.removeItem(ICON_SEARCH_STORAGE_KEY)
+    return
+  }
+  window.localStorage.setItem(ICON_SEARCH_STORAGE_KEY, trimmed)
+})
 
 const anyIconFound = computed(() => {
   return Object.keys(iconsMetadata).some((iconName) =>
