@@ -1,5 +1,20 @@
 # @cypress-design/vue-icon
 
+## 2.0.0
+
+### Major Changes
+
+- [#702](https://github.com/cypress-io/cypress-design/pull/702) [`7f0c84a`](https://github.com/cypress-io/cypress-design/commit/7f0c84acb31d231a09ead4969da3c5aea286c385) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add `building-house` and `building-office-small` at 24px (`IconBuildingHouse`, `IconBuildingOfficeSmall`). Add `technology-dollar` at 24px (previously 16px only), using the existing well-centered 24px dollar glyph already proven in production on cypress.io's Pricing nav dropdown.
+
+  **Breaking:** rename `general-office-building` to `building-office-large` (`IconGeneralOfficeBuilding` → `IconBuildingOfficeLarge`), grouping it under the same `building-*` family as the two new icons above. Update imports accordingly.
+
+  Fix `cypress-studio` (16px, 24px, 48px): the glyph shipped on the `icon-light` class instead of `icon-dark`, so `strokeColor` never applied and the icon rendered washed-out via `fillColor` only. Consumers coloring the icon via `fillColor` will need to switch to `strokeColor`.
+
+### Patch Changes
+
+- Updated dependencies [[`7f0c84a`](https://github.com/cypress-io/cypress-design/commit/7f0c84acb31d231a09ead4969da3c5aea286c385)]:
+  - @cypress-design/icon-registry@2.0.0
+
 ## 1.42.0
 
 ### Minor Changes
