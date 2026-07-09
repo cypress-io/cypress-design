@@ -13,8 +13,13 @@ const UMD_GLOBALS: Record<string, string> = {
   'tailwind-merge': 'tailwindMerge',
   '@cypress-design/icon-registry': 'CypressIconRegistry',
   '@cypress-design/details-animation': 'CyDetailsAnimation',
+  '@cypress-design/vue-button': 'Button',
+  '@cypress-design/vue-checkbox': 'Checkbox',
   '@cypress-design/vue-icon': 'Icon',
   '@cypress-design/vue-statusicon': 'StatusIcon',
+  '@cypress-design/vue-tabs': 'Tabs',
+  '@cypress-design/vue-tag': 'Tag',
+  '@cypress-design/vue-textbox': 'Textbox',
   '@cypress-design/vue-tooltip': 'Tooltip',
 }
 
