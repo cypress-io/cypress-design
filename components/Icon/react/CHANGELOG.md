@@ -1,5 +1,18 @@
 # @cypress-design/react-icon
 
+## 3.0.0
+
+### Major Changes
+
+- [#706](https://github.com/cypress-io/cypress-design/pull/706) [`6ad912b`](https://github.com/cypress-io/cypress-design/commit/6ad912ba9800292f3b47c5c0a46b8ea2a2a30859) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - **Breaking:** remove `technology-dollar` (`IconTechnologyDollar`) — it was a duplicate of `currency-usd` (`IconCurrencyUsd`), the correctly-named icon in the currency family (`currency-eur`, `currency-gbp`, `currency-inr`, `currency-rub`). `currency-usd` now ships at 24px in addition to 16px. Consumers of `IconTechnologyDollar` should switch to `IconCurrencyUsd`.
+
+### Patch Changes
+
+- [#704](https://github.com/cypress-io/cypress-design/pull/704) [`7a8dedb`](https://github.com/cypress-io/cypress-design/commit/7a8dedbb34f5f680d935cd2939c15b4783a27d3f) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fix `technology-dollar`'s 16px glyph being off-center: the `viewBox` was `0 0 10 16` instead of a proper `0 0 16 16` square (the artwork itself was already symmetric within its own bounds — this was purely a coordinate-space mismatch, not a redraw).
+
+- Updated dependencies [[`7a8dedb`](https://github.com/cypress-io/cypress-design/commit/7a8dedbb34f5f680d935cd2939c15b4783a27d3f), [`6ad912b`](https://github.com/cypress-io/cypress-design/commit/6ad912ba9800292f3b47c5c0a46b8ea2a2a30859)]:
+  - @cypress-design/icon-registry@3.0.0
+
 ## 2.0.0
 
 ### Major Changes
