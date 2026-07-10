@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-statusicon",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "files": [
     "*"
   ],
@@ -20,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "^2.0.0",
+    "@cypress-design/react-icon": "^3.0.0",
     "clsx": "*"
   },
   "devDependencies": {
