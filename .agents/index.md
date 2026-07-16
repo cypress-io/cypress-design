@@ -12,7 +12,7 @@ Fetch only what the task needs. Don't preload all files.
 Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
 
 - [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — using AI to build, design, write, or review
-- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — UX & design principles (the _what_): designing for users, patterns, naming, empty states, restraint, pricing UX. The business-goal / prioritization / discovery _why_-side lives in product.md
+- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — UX & design principles (the _what_): designing for users, patterns, naming, empty states, restraint, AI-powered features, pricing UX. The business-goal / prioritization / discovery _why_-side lives in product.md
 - [principles/product.md](https://design.cypress.io/agents/principles/product.md) — product principles (the _why/whether_): business goals + prioritization, problem definition & discovery, ownership, shipping to learn (measure before launch, don't bundle, set a review date), and post-launch decide. Fetch when planning, prioritizing, defining success, planning research, or reviewing whether shipped work is measured and followed up
 - [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
 - [principles/feedback.md](https://design.cypress.io/agents/principles/feedback.md) — reviewing work and giving feedback

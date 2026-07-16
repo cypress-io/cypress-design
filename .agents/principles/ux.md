@@ -1,6 +1,6 @@
 ---
 name: ux
-description: UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.
+description: UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.
 ---
 
 # UX & Product Design Principles
@@ -15,17 +15,21 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 **Start with jobs to be done, not the screen.** If the JTBD isn't clear, the UX won't be either — no matter how nice the pixels look. Intuitive design follows from clarity about the underlying job; it doesn't precede it.
 
-**Respect the primary job. Don't optimize for secondary ones.** Every secondary job you try to support competes with the main one for attention and visual real estate. A clean UI that nails the primary task beats a busy UI that tries to support every edge case.
+**Respect the primary job. Don't optimize for secondary ones.** Every secondary job you try to support competes with the main one for attention and visual real estate. A clean UI that nails the primary task beats a busy UI that tries to support every edge case. This applies to data, not just layout — a surface built to help someone do the primary job (find failures to fix) shouldn't silently include data that serves a different job (flaky tests that ultimately passed), even when it's technically related; it dilutes the one number the person came to act on.
 
 **New features are sub-jobs of existing ones — don't let the feature become the job.** Most "new features" map back to a job the product already serves. Find the parent job first, then design the new capability as a sub-job under it. Designing a feature as if it's a new job creates a UI that competes with the rest of the product instead of extending it.
 
 **Don't solve UX problems by throwing more UI and text at them.** When users keep tripping, the instinct is to add a tooltip, banner, empty state, or guide. That's a bandaid. The real fix is to eliminate the root cause in the interaction itself. Bandaids accumulate; intuitive design compounds.
+
+**Put the fix next to the diagnosis, not just the explanation.** A surface that tells someone what's wrong — an error, a diagnostic summary, an AI-generated explanation of what's failing — isn't done once it explains the problem; the specific next action needs to sit right next to that explanation, not somewhere the person has to go find or construct separately. Explaining a problem without attaching a way to act on it just relocates the work instead of removing it.
 
 **Don't interrupt the user's task with uninvited overlays.** Tour pop-ups, coach marks, and in-app announcements fire context-blind — they land while someone is debugging a failed test or about to ship a PR, exactly when an interruption costs the most. The intent is usually pure; the mechanism isn't, and a technical audience dismisses them before reading a word. A feature that needs a guided tour to be usable isn't intuitive yet — fix the interface, don't narrate it. Genuine news belongs where users find it on their own terms, not blocking the task they came to do.
 
 **Ship the simplest version first. Complexity is earned by real user confusion, not anticipated edge cases.** Adding more UI to anticipate confusion you haven't seen yet usually creates the confusion. Start minimal, watch what trips users up, and only add when the confusion is real.
 
 **Reduce surfaces to a small set of recognizable patterns.** UX is pattern recognition. When two adjacent surfaces behave by different rules, users have to relearn each one. Pick the smallest workable set of patterns and apply them consistently across the product.
+
+**Converge a forked pattern back to the shared component instead of patching the fork.** A page-specific "row" or "card" built as a one-off tends to quietly fall behind the shared version — missing an action, an icon, or a link the shared component already handles. If a surface behaves differently from its siblings or is missing something they get for free, check whether it's running its own fork of a shared pattern before writing new code to fix it; folding it back into the shared component is usually cheaper than debugging the fork.
 
 **Don't follow another product's vocabulary down a rabbit hole.** If a vendor's term is confusing in your context, replace it with one that fits your users. Borrowing a vendor's data is fine; inheriting their UX debt is not.
 
@@ -73,6 +77,8 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 **Onboarding copy leads with value, not product actions.** "Manage your test runs" is not a value proposition — it's a task description. Flip every onboarding line to lead with what the user gains (faster debugging, replayable failures, clearer signal across CI), not what they do.
 
+**Gate advanced capability behind demonstrated intent — don't grant it all by default at signup.** Unlocking a feature's full surface (enterprise-tier analytics, every integration) the moment someone signs up doesn't teach you anything if they haven't engaged enough to evaluate it — you've added surface area with nobody positioned to value it. Grant the next tier of capability once there's a real signal of engagement (an active team, a usage threshold), not on a timer since signup.
+
 ## Empty states and dead ends
 
 **Never give people a dead end. They should always know how to proceed.** Any state a user can land in — empty, error, partial, end-of-flow, no-results — needs a clear path forward. "No items found" without a try-this-instead, "request failed" without a recovery action, "you're done" without a next step are all dead ends, even when they're technically accurate. Anticipating every state the user can reach, and designing how they exit it, is a UX baseline — not a polish item.
@@ -90,6 +96,12 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 **Design picks naming candidates. GTM validates.** Designers know the product surface and the user vocabulary; GTM knows how the name will land in trial calls, ads, and sales conversations. Don't finalize a feature name without that loop.
 
 **Feature placement is a statement of belief — and a price signal.** Burying a high-value feature in settings tells everyone — customers, sales, and the rest of the team — that you don't believe it deserves attention, and shipping an enterprise-grade capability as "just config" tells them it isn't worth paying for. If the feature is real, give it real placement; if it protects the customer's business the way a security or audit product does, position and price it that way. If it doesn't deserve real placement, question why you're shipping it at all. (This is about how the _real_ feature ships — a deliberately quiet dev preview is a separate choice; see [releases.md](https://design.cypress.io/agents/principles/releases.md).)
+
+## AI-powered features
+
+**An agentic "do everything" action needs the same explicit scope as a button label.** "Name the exact scope of every action" (above) applies with more force once the action is autonomous: a mislabeled button confuses a user, but an unscoped agent told to "fix all the errors" can't tell a fix inside the current change from an unrelated flaky test three files away, and will touch both. Give the action an explicit boundary, or have it ask/prioritize before acting broadly — don't assume "fix everything" is safe just because a human would understand the shorthand.
+
+**Publish agent-facing instructions at one canonical, fetched-at-use-time location — the same pattern this design system uses on itself.** Embedding a full procedure inside a feature's prompt means every consumer holds a frozen copy; improving it later requires finding and updating each embed, which doesn't happen in practice, so consumers drift onto a stale version. Publish it once at a stable, versioned reference instead, and have every consumer fetch it fresh at the time it's used — the same reasoning that keeps this design system itself a live source agents read from a URL rather than a copy-pasted snapshot.
 
 ## Pricing
 
