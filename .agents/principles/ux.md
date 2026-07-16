@@ -21,6 +21,8 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 **Don't solve UX problems by throwing more UI and text at them.** When users keep tripping, the instinct is to add a tooltip, banner, empty state, or guide. That's a bandaid. The real fix is to eliminate the root cause in the interaction itself. Bandaids accumulate; intuitive design compounds.
 
+**Put the fix next to the diagnosis, not just the explanation.** A surface that tells someone what's wrong — an error, a diagnostic summary, an AI-generated explanation of what's failing — isn't done once it explains the problem; the specific next action needs to sit right next to that explanation, not somewhere the person has to go find or construct separately. Explaining a problem without attaching a way to act on it just relocates the work instead of removing it.
+
 **Don't interrupt the user's task with uninvited overlays.** Tour pop-ups, coach marks, and in-app announcements fire context-blind — they land while someone is debugging a failed test or about to ship a PR, exactly when an interruption costs the most. The intent is usually pure; the mechanism isn't, and a technical audience dismisses them before reading a word. A feature that needs a guided tour to be usable isn't intuitive yet — fix the interface, don't narrate it. Genuine news belongs where users find it on their own terms, not blocking the task they came to do.
 
 **Ship the simplest version first. Complexity is earned by real user confusion, not anticipated edge cases.** Adding more UI to anticipate confusion you haven't seen yet usually creates the confusion. Start minimal, watch what trips users up, and only add when the confusion is real.
@@ -79,7 +81,7 @@ For naming the business goal, prioritizing jobs, defining success, deciding whet
 
 ## Empty states and dead ends
 
-**Never give people a dead end. They should always know how to proceed.** Any state a user can land in — empty, error, partial, end-of-flow, no-results — needs a clear path forward. "No items found" without a try-this-instead, "request failed" without a recovery action, "you're done" without a next step are all dead ends, even when they're technically accurate. Anticipating every state the user can reach, and designing how they exit it, is a UX baseline — not a polish item. This applies beyond empty and error states — any surface that diagnoses a problem for the user (an AI-generated summary of what's failing, for instance) should put the specific next action right next to the explanation, not leave the person to find or construct it separately.
+**Never give people a dead end. They should always know how to proceed.** Any state a user can land in — empty, error, partial, end-of-flow, no-results — needs a clear path forward. "No items found" without a try-this-instead, "request failed" without a recovery action, "you're done" without a next step are all dead ends, even when they're technically accurate. Anticipating every state the user can reach, and designing how they exit it, is a UX baseline — not a polish item.
 
 **Empty states without a signal or CTA look like bugs.** If a section has nothing in it and gives no hint of what to do next, users assume the page is broken. Every empty state needs a one-line explanation ("you haven't connected any integrations yet") and a path forward ("Connect one →").
 
