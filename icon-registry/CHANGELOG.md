@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 3.1.0
+
+### Minor Changes
+
+- [#708](https://github.com/cypress-io/cypress-design/pull/708) [`f2de3a5`](https://github.com/cypress-io/cypress-design/commit/f2de3a58c6620e5f50a1c2f1ff03133326b453a8) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add three pencil icon variants: `object-pencil-small` at 16px (`IconObjectPencilSmall`) — a compact, solid-fill glyph — and `object-pencil` at 16px and 24px (`IconObjectPencil`) — the standard dual-tone pen-over-notebook glyph with `strokeColor` + `fillColor` slots.
+
 ## 3.0.0
 
 ### Major Changes
