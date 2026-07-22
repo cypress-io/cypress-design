@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 3.2.0
+
+### Minor Changes
+
+- [#710](https://github.com/cypress-io/cypress-design/pull/710) [`10a04a6`](https://github.com/cypress-io/cypress-design/commit/10a04a66e6d8211b4e2ab70c9434da30a7c6925d) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add `time-clock-small` at 16px (`IconTimeClockSmall`) — a compact dual-tone clock glyph with `strokeColor` + `fillColor` slots, sized down from the existing `time-clock` 16px so it reads at rows and dense UI.
+
+### Patch Changes
+
+- Updated dependencies [[`10a04a6`](https://github.com/cypress-io/cypress-design/commit/10a04a66e6d8211b4e2ab70c9434da30a7c6925d)]:
+  - @cypress-design/icon-registry@3.2.0
+
 ## 3.1.0
 
 ### Minor Changes
