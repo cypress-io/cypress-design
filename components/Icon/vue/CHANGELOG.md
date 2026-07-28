@@ -1,5 +1,16 @@
 # @cypress-design/vue-icon
 
+## 3.3.0
+
+### Minor Changes
+
+- [#713](https://github.com/cypress-io/cypress-design/pull/713) [`46c2293`](https://github.com/cypress-io/cypress-design/commit/46c2293516960b1d5316561ab8ce098daedff4bd) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add three horizontal menu-dots icon variants: `menu-dots-horizontal-small` at 16px (`IconMenuDotsHorizontalSmall`) — a compact three-dot glyph for tight rows — and `menu-dots-horizontal` at 16px and 24px (`IconMenuDotsHorizontal`) — the standard three-dot overflow-menu glyph. Companions to the existing `menu-dots-vertical`.
+
+### Patch Changes
+
+- Updated dependencies [[`46c2293`](https://github.com/cypress-io/cypress-design/commit/46c2293516960b1d5316561ab8ce098daedff4bd)]:
+  - @cypress-design/icon-registry@3.3.0
+
 ## 3.2.0
 
 ### Minor Changes
