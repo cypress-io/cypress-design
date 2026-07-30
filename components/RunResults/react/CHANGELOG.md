@@ -1,5 +1,11 @@
 # @cypress-design/react-runresults
 
+## 1.1.1
+
+### Patch Changes
+
+- [#712](https://github.com/cypress-io/cypress-design/pull/712) [`432414f`](https://github.com/cypress-io/cypress-design/commit/432414fb53eaf646c098b818cced1207df5dbd7f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Fix UMD build interop so default-imported sibling `@cypress-design/react-*` components resolve via `.default` (Rollup `interop: 'auto'`), removing the need for consumer-side ESM aliases.
+
 ## 1.1.0
 
 ### Minor Changes
