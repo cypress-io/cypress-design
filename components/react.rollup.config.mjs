@@ -11,6 +11,14 @@ export default ({ input, plugins = [], external = [] }) => ({
       file: './dist/index.umd.js',
       format: 'cjs',
       exports: 'auto',
+      // Rollup 3+ defaults `output.interop` to 'default', which emits bare
+      // `require('@cypress-design/react-*')` for default-imported sibling
+      // packages. Those siblings are `__esModule` with the component on
+      // `.default`, so a bare require returns the module namespace object and
+      // React tries to render a module -> crash. 'auto' emits a runtime
+      // `_interopDefault` (`__esModule` check) so defaults resolve via
+      // `.default`, removing the need for consumer-side ESM aliases.
+      interop: 'auto',
       sourcemap: true,
     },
     {
