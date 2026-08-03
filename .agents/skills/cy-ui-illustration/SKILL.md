@@ -13,27 +13,19 @@ The full ruleset lives in [ui-illustrations.md](https://design.cypress.io/agents
 
 These are the bar. Before building anything, **Read the bundled reference PNG closest to your target** and study how it abstracts, then open its Figma node for geometry and tokens. All are 16:9-family frames with base-4 spacing, whole-pixel values, and real text only where the feature's story needs it.
 
-Bundled in `references/`:
+Bundled in `references/`. **Read at most the one or two closest to your task** — the table below exists so you can choose from text instead of loading every image:
 
-| File                                | Source node                             | Why it's here                                                                                                                                                              |
-| ----------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `a11y-inspect-element-1216x646.png` | `BqeqqHqeczSnbLJZxdnaOO` / `11:95347`   | The large-size source used throughout this skill's development — surround, highlights, tooltip, sidebar                                                                    |
-| `test-replay-800x425.png`           | `YmEYv6Nc5M16JenMpj3i0V` / `1829:32735` | **The design team's own 800×425 shrink of the 1286×680 Test Replay** — the direct answer key for "how a human downsizes": what got deleted, what reflowed, what stayed 1:1 |
-| `test-replay-devtools-800x425.png`  | `YmEYv6Nc5M16JenMpj3i0V` / `3482:20320` | 800×425 with the devtools Network split — panel proportions and dark-theme abstraction at small size                                                                       |
+| File                                | Source node                             | What it teaches                                                                                                            |
+| ----------------------------------- | --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `a11y-analytics-800x425.png`        | `BqeqqHqeczSnbLJZxdnaOO` / `1:3167`     | Chart + rules-list layout at the standard size: stat chips, severity tags, element counts                                  |
+| `a11y-analytics-472x284.png`        | `BqeqqHqeczSnbLJZxdnaOO` / `1:4888`     | The same illustration compressed a second tier — what survives at Small                                                    |
+| `a11y-inspect-element-1216x646.png` | `BqeqqHqeczSnbLJZxdnaOO` / `11:95347`   | Large-size source: injected-app surround, DOM highlights, dark tooltip, sidebar over canvas                                |
+| `test-replay-800x425.png`           | `YmEYv6Nc5M16JenMpj3i0V` / `1829:32735` | **The team's own downsize of the 1286×680 Test Replay** — the answer key: what got deleted, what reflowed, what stayed 1:1 |
+| `test-replay-devtools-800x425.png`  | `YmEYv6Nc5M16JenMpj3i0V` / `3482:20320` | Dark theme with devtools Network split at small size                                                                       |
+| `ui-coverage-report-800x425.png`    | `SNNT319HHXs6N2qUpgZ9jD` / `1:510`      | Analytics-report layout: metric tiles, tables, link lists                                                                  |
+| `app-studio-recording-800x425.svg`  | `enlqSvcI3ijlWRVmHtiAzG` / `1:3602`     | Cypress App / Studio recording — full vector source, inspectable construction                                              |
 
-## The full corpus
-
-Every UI illustration the team has created (some authored as prototypes for fake product videos) lives in these five files. Search here first — for any Cypress product surface, an illustration probably already exists in some size:
-
-| File                                 | Key                      | Pages                               |
-| ------------------------------------ | ------------------------ | ----------------------------------- |
-| Illustrations — Accessibility (v1.x) | `BqeqqHqeczSnbLJZxdnaOO` | Analytics                           |
-| Illustrations — Cypress Cloud (v1.x) | `YmEYv6Nc5M16JenMpj3i0V` | Visual Reviews / Test Replay        |
-| Illustrations — Cypress App (v1.x)   | `enlqSvcI3ijlWRVmHtiAzG` | Studio :: Recording, **Components** |
-| Illustrations — UI Coverage (v1.x)   | `SNNT319HHXs6N2qUpgZ9jD` | Analytics Report                    |
-| Illustrations — Social (v1.x)        | `WXRcsE7gOaNcDi1V8SvXH0` | 2026 / Q1                           |
-
-`get_metadata` with the file key and no node id lists pages; drill from there. The `__Components__` page in the Cypress App file holds shared illustration parts.
+Comparing `a11y-analytics-800x425.png` against `a11y-analytics-472x284.png` is the fastest way to internalize the method: same story, two authored sizes, every delta a deliberate deletion or reflow.
 
 Many illustrations ship in multiple authored sizes (Large 1286×680, Medium/Static 800×425, animated step series). **Before downsizing anything, check whether the design team already authored the small size** — if it exists, it is the spec, not an input to reinterpret.
 
