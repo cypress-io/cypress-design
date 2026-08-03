@@ -50,6 +50,19 @@ If you can delete a string and the illustration still makes the paragraph's poin
 
 **Never** invent a UI affordance the product doesn't have. Abstraction removes detail; it does not add features.
 
+## The composite mode — social and blog
+
+The two illustration languages are not either/or. Social cards and blog heroes routinely layer them: the dark atmospheric background from [illustrations.md](https://design.cypress.io/agents/illustrations.md) underneath, a UI illustration composited on top, and a marketing layer over both. Reference set: the Social file (`WXRcsE7gOaNcDi1V8SvXH0`), authored at **1200×630** (the OG-image ratio).
+
+The recurring construction:
+
+- **Background**: the house dark field (`--cy-gray-1000` base with subtle texture) — never flat black, never a plain gradient
+- **UI layer**: a full or cropped product-UI illustration, built to the rules in this doc, bleeding off one or two frame edges; sometimes a whole existing illustration reused verbatim, sometimes a purpose-built fragment
+- **Marketing layer**: product lockup or logo, a short display-type headline, and often a version pill (`v15.11.0`) with `npm install cypress`
+- Composition splits text-column against UI-column, or stacks a centered lockup above the UI
+
+The UI layer follows this doc; the background follows illustrations.md; backgrounds have evolved over the years, so match the most recent quarter's page in the Social file rather than the oldest example found. When building a social/blog composite, all three layers are one deliverable — don't ship a UI illustration on a flat background where the house field is expected.
+
 ## Where assets come from
 
 A strict hierarchy. Every rung you skip shows up as a pattern the reader doesn't recognize.
