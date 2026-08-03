@@ -27,6 +27,19 @@ Bundled in `references/`. **Read at most the one or two closest to your task** �
 
 Comparing `a11y-analytics-800x425.png` against `a11y-analytics-472x284.png` is the fastest way to internalize the method: same story, two authored sizes, every delta a deliberate deletion or reflow.
 
+## The full corpus
+
+Every UI illustration the team has created (some authored as prototypes for fake product videos) lives in these files. Search here first — for any Cypress product surface, an illustration probably already exists in some size. `get_metadata` with the file key and no node id lists pages; drill from there.
+
+| File                                 | Key                      | Pages / contents                                                                                             |
+| ------------------------------------ | ------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| Illustrations — Accessibility (v1.x) | `BqeqqHqeczSnbLJZxdnaOO` | Analytics                                                                                                    |
+| Illustrations — Cypress Cloud (v1.x) | `YmEYv6Nc5M16JenMpj3i0V` | Visual Reviews / Test Replay                                                                                 |
+| Illustrations — Cypress App (v1.x)   | `enlqSvcI3ijlWRVmHtiAzG` | Studio :: Recording, **Components** (shared parts)                                                           |
+| Illustrations — UI Coverage (v1.x)   | `SNNT319HHXs6N2qUpgZ9jD` | Analytics Report                                                                                             |
+| Illustrations — Social (v1.x)        | `WXRcsE7gOaNcDi1V8SvXH0` | 2026 / Q1                                                                                                    |
+| Component — Windows (v1.0)           | `EVfe4zg4hZPqZses82RhfI` | `Window / Browser` chrome — `Downscaled` false/true = 40px/24px toolbar; spec in ui-illustrations.md § Frame |
+
 Many illustrations ship in multiple authored sizes (Large 1286×680, Medium/Static 800×425, animated step series). **Before downsizing anything, check whether the design team already authored the small size** — if it exists, it is the spec, not an input to reinterpret.
 
 | Illustration                     | Figma file                                                                        | What it demonstrates                                                                                            |
