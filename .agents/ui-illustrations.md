@@ -73,6 +73,20 @@ Toolbar height depends on `Browser`'s own rendered width, via container query �
 
 **Worked example — the common case.** `Browser` renders at 800px wide, which is below the 896px threshold: mockup 800×450, toolbar ~25px, so the **content asset is 800×425**. At ≥896px redo the math with the ~41px toolbar; never reuse 425 at a different width.
 
+**The browser chrome itself is a component: `Window / Browser`** (Figma file `Component — Windows (v1.0)`, key `EVfe4zg4hZPqZses82RhfI`, node `1:718`). Never draw browser chrome by hand — use its spec. It has one boolean, `Downscaled`, and the two variants are the source of the two toolbar tiers above:
+
+|                 | `Downscaled=False`                  | `Downscaled=True`                                |
+| --------------- | ----------------------------------- | ------------------------------------------------ |
+| Toolbar height  | 40px                                | 24px                                             |
+| Toolbar padding | 16px                                | 8px                                              |
+| Traffic lights  | 52×12 (12px dots)                   | 32×8 (8px dots)                                  |
+| URL input       | 12px text, 4px radius, restart icon | 8px text, 14px tall, 3px radius, no restart icon |
+| Frame radius    | 8px                                 | 6px                                              |
+
+Shared by both: white frame, 1px `rgba(27,30,46,0.15)` border, `#F3F4FA` toolbar with `#E1E3ED` bottom border, centered URL input at 37.5% width (`#D0D2E0` border, `#9095AD` text, "localhost:8080"), traffic lights + back/forward chevrons left, plus + grid actions right, soft drop shadow.
+
+`Downscaled=True` is a deliberate miniature — used when the browser should read as a small window inside a larger composition. Its 8px URL text is authored, not a violation of the no-scaling rule: the variant exists precisely so miniaturization is a designed state rather than a transform. Pick the variant by role — a hero browser gets `False`, an inset or secondary window gets `True` — not by canvas size alone; both appear at small and large sizes across the corpus.
+
 Full sizing rules live in the cypress.io repo at `.agents/architecture/illustrations.md`.
 
 ## Method
