@@ -104,6 +104,8 @@ Toolbar height depends on `Browser`'s own rendered width, via container query �
 
 Shared by both: white frame, 1px `rgba(27,30,46,0.15)` border, `#F3F4FA` toolbar with `#E1E3ED` bottom border, centered URL input at 37.5% width (`#D0D2E0` border, `#9095AD` text, "localhost:8080"), traffic lights + back/forward chevrons left, plus + grid actions right, soft drop shadow.
 
+**URL semantics — two address bars is the convention, not a mistake.** The outer `Window / Browser` chrome shows where the _product_ runs: `localhost:3000` (or similar) when faking Cypress App in a browser window, `cloud.cypress.io` for Cloud surfaces. The address bar _inside_ an App illustration shows the URL under test (e.g. `localhost:3000/guild`). Both can — and often do — appear in one assembled mockup. Pick the outer URL by which product the illustration depicts, never by what the inner bar says.
+
 `Downscaled=True` is a deliberate miniature — used when the browser should read as a small window inside a larger composition. Its 8px URL text is authored, not a violation of the no-scaling rule: the variant exists precisely so miniaturization is a designed state rather than a transform. Pick the variant by role — a hero browser gets `False`, an inset or secondary window gets `True` — not by canvas size alone; both appear at small and large sizes across the corpus.
 
 Full sizing rules live in the cypress.io repo at `.agents/architecture/illustrations.md`.
