@@ -149,6 +149,7 @@ The result should feel intentional, atmospheric, restrained, and softly tied to 
 
 ## Related
 
+- [ui-illustrations.md](https://design.cypress.io/agents/ui-illustrations.md) — shrinking a product screen into an abstracted UI illustration; a different discipline from the watercolor style above
 - [iconography.md](https://design.cypress.io/agents/iconography.md) — Icon-specific rules
 - [colors.md](https://design.cypress.io/agents/colors.md) — Exact color tokens referenced in the palette
 - [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — Using AI for generation
