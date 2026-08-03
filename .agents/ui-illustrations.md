@@ -291,7 +291,7 @@ Build the illustration as a standalone HTML file sized to the logical frame, the
 
 ## Related
 
-- `.agents/skills/cy-ui-illustration.md` — the invocable procedure built on these rules, with the canonical reference set and render workflow
+- [cy-ui-illustration skill](https://design.cypress.io/agents/skills/cy-ui-illustration/SKILL.md) — the invocable procedure built on these rules, with the canonical reference set and render workflow
 
 - [illustrations.md](https://design.cypress.io/agents/illustrations.md) — watercolor / marketing illustration craft; the house style for non-UI imagery
 - [iconography.md](https://design.cypress.io/agents/iconography.md) — icon construction and one-icon-per-concept

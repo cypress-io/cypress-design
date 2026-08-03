@@ -29,6 +29,7 @@ Several pillars lead with a `## Principles` section that governs the tokens and 
 - [iconography.md](https://design.cypress.io/agents/iconography.md) — creating or styling icons
 - [illustrations.md](https://design.cypress.io/agents/illustrations.md) — illustration principles, style, theme, and guidelines
 - [ui-illustrations.md](https://design.cypress.io/agents/ui-illustrations.md) — shrinking a product screen into an abstracted illustration that pairs with a paragraph without going stale when the product changes
+  - Creating one? Use the [cy-ui-illustration skill](https://design.cypress.io/agents/skills/cy-ui-illustration/SKILL.md) — the production procedure, canonical reference set, and render workflow. The doc above is the standard reviews cite.
 - [voice.md](https://design.cypress.io/agents/voice.md) — UI copy, errors, empty states, tone, capitalization, product naming, mechanics (numbers, dates, punctuation)
 - [errors.md](https://design.cypress.io/agents/errors.md) — errors, warnings, deprecations, and other system-to-user failure messages; distilled from the cypress-error-messages skill in aihub
 - [personas.md](https://design.cypress.io/agents/personas.md) — who uses Cypress and what they need
