@@ -1,6 +1,6 @@
 ---
 name: cy-ui-illustration
-description: Build a Cypress UI illustration — an abstracted, deliberately simplified picture of a product screen that pairs with marketing copy at 16:9 (or Browser-inset sizes like 800×425) without going stale when the product changes. Use when asked to create, resize, or adapt a product-UI illustration for cypress.io, docs, blog posts, or feature pages. Covers the source-first workflow (Figma geometry → tokens → assets → HTML → @2x render), the canonical reference set, and the delivery checklist.
+description: Build a Cypress UI illustration — an abstracted, deliberately simplified picture of a product screen that pairs with marketing copy at 16:9 (or Browser-inset sizes like 800×425) without going stale when the product changes. Use when asked to create, resize, or adapt a product-UI illustration for any surface — blog, landing pages, product pages, docs, empty states, social media. Covers the source-first workflow (Figma geometry → tokens → assets → HTML → @2x render), the canonical reference set, and the delivery checklist.
 ---
 
 # cy-ui-illustration

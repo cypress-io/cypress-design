@@ -7,7 +7,13 @@ description: Fetch when producing a shrunken, abstracted illustration of a produ
 
 A UI illustration is a small, deliberately abstracted picture of a product screen. It sits next to a paragraph, shows the reader where a feature lives and what it does, and then stops. It is not a screenshot and must not age like one.
 
+**Creating one? Use the skill.** `.agents/skills/cy-ui-illustration/` is the production entry point — procedure, reference set, render workflow. This doc is the standard that the skill builds against and that reviews cite.
+
 ## Why they exist
+
+**The goal is one voice.** Every illustration should feel like a single lead brand designer made it — intentional choices, one recognizable language across blog, landing pages, product pages, empty states, and social. That consistency is the hardest thing for any design team to hold, and it is the entire reason this standard is written down: work is judged against this doc so the set stays unified no matter who (or what) produced each piece.
+
+**Close, not accurate.** An illustration reflects the Cypress brand and products, but it does not have to match the shipped product pixel-for-pixel. Simplifying the UI so the story is easier to follow is not a compromise — it is the craft. The fidelity rules in this doc (real tokens, real components, real geometry) exist to make the _simplified_ version feel intentional rather than approximate; they are in service of readability, never of replication.
 
 **Screenshots create maintenance debt; UI illustrations don't.** A real screenshot pins the page to the product's current pixels — every visual change in the app invalidates every marketing surface that shows it. A UI illustration carries the same story at a fraction of the upkeep because it only commits to the parts of the UI that are durable.
 
