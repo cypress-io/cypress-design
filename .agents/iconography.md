@@ -18,3 +18,23 @@ For illustration craft (style, framing, lighting, theme, and guidelines), see [i
 - **All line icons use a 2px stroke** ("flat icon" style). Avoid 1px or 1.5px strokes — they read too thin at small sizes.
 - Apply this to `strokeWidth="2"` on every `<svg>` line icon. SVGs should use `stroke="currentColor"`, `fill="none"`, `strokeLinecap="round"`, `strokeLinejoin="round"`.
 - Brand logos are exempt — leave them as-is.
+
+## Two-tone icons carry hardcoded light-mode fills
+
+Some `icon-registry` SVGs are two-tone: a `currentColor` layer plus a separate light layer with a **hardcoded light-mode hex fill baked into the path** (e.g. earth ships `fill="#D0D2E0"`). That's invisible on a light background but renders as a wrong-toned light-gray blob the moment the icon sits on a dark surface — the icon needs an explicit override, not just a `color` change.
+
+Two class conventions exist on these paths and both need handling:
+
+- Separate paths: `class="icon-light"` / `class="icon-dark"`
+- Combined single-path icons: `class="icon-light-fill icon-dark-stroke"` (e.g. the lightning bolt)
+
+Working pattern: set `color` on the `<svg>` for the dark/`currentColor` layer, and override the light layer via a CSS custom property so callers can opt in per-context —
+
+```css
+svg .icon-light,
+svg .icon-light-fill {
+  fill: var(--il, transparent);
+}
+```
+
+— then pass the sampled fill (or `transparent` to suppress it) as `--il` wherever the icon sits on a dark background. Don't assume a two-tone icon "just works" on a dark surface without checking its light layer first.

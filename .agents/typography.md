@@ -26,6 +26,8 @@ Brand-heavy properties (marketing, docs, public-facing sites) use Google Fonts t
 
 Never set `font-family` inline — the correct stack is applied by the global context.
 
+**A font-weight utility needs a matching face.** `font-bold`/`font-medium`/etc. only render correctly if a face for that exact family + weight is actually loaded. A weight with no real face silently falls back to the browser's synthetic bold/oblique, which looks visibly weaker than the real weight at large sizes — changing the Tailwind class won't fix that; the missing face has to be added wherever this repo loads its fonts (a self-hosted `@font-face` block, a Google Fonts `<link>` with that weight listed, etc.). Check before assuming a new weight "just works."
+
 ## Scale & spacing
 
 - Use the type scale exposed by Tailwind defaults via `@cypress-design/css`.

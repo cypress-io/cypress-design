@@ -134,6 +134,10 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 
 ## Related
 
+- [voice-clarity.md](https://design.cypress.io/agents/voice-clarity.md) — pronoun/referent clarity
+- [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula
+- [voice-punctuation.md](https://design.cypress.io/agents/voice-punctuation.md) — the two-em-dash trap
+- [voice-terminology.md](https://design.cypress.io/agents/voice-terminology.md) — jargon and competitor-name collisions
 - [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
 - [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — building, designing, and writing with AI

@@ -144,6 +144,8 @@ Two patterns from this source that are easy to get wrong:
 - **The dark element tooltip** is `#2E3247`, 4px radius, 28px tall, 4px/8px padding, 8px gap, with a centered rounded caller on its bottom edge. Contents: the corner-bracket + red X errored-element icon (exact SVGs from the illustration file, `#E45770`), then SF Mono Semibold 12/20 — selector base in white, class/id in `#C8A7F5`, dimensions in `#BFC2D4`. The selector is one token (`img.hero-avatar`, no space). Center the caller on the highlighted element; never let a tooltip overlap the app's own chrome or clip at the frame edge.
 - **DOM highlight overlays** are a 4-layer component, not a dashed border: `#E45770` fill at 45% opacity over the element, 1px solid `#E45770` inner stroke at 60%, 1px dashed **white** stroke with `mix-blend-mode: soft-light`, and — selected state only — a 2px solid `#E45770` outer stroke at −3px with 3px radius. Reuse this construction; do not invent a substitute.
 
+**Verify colors by pixel-sampling the render, not by reading generated code.** `get_design_context` names the obvious tokens but misses per-icon fills and tokens applied inside instances. Pull `get_screenshot` at high resolution and sample actual pixels for icon stroke _and_ fill colors (they can differ per context), and for any surface darker or lighter than the frame's base — `get_variable_defs` won't surface a token that's only applied inside a nested instance. Use the real ramp token once you've confirmed it; never approximate with an off-palette hex because the generated code didn't name one.
+
 ### 2. Author at design-system 1:1
 
 **Everything sits on a base-4 grid.** Paddings, gaps, and container insets are 4, 8, 12, 16, 20, 24… Grids stretch their cards to fill the container — a fixed-width card leaving an awkward remainder strip against the container edge is a layout bug, not a crop. Sidebar-style panels anchor flush to the frame edges they own (top/left/bottom), not floating with margins, when they represent chrome overlaying a canvas.
@@ -236,6 +238,17 @@ Light gray rounded shapes are the primary material of a UI illustration — most
 - **Avatars** are illustrated characters, never photographs and never a generic person glyph.
 - **Add a focal accent when simplification leaves a region flat.** Deleting detail can drain a large area of interest; a single saturated shape restores the read. Subtraction isn't uniform — sometimes the smaller version needs an element the source didn't have.
 
+## Accessibility boundary
+
+A UI illustration built from real DOM — window chrome, terminal-style text lines, status glyphs, fake buttons — reads to a screen reader as unlabeled noise unless it is explicitly marked as an illustration: glyphs get verbalized one by one, fake buttons get announced as plain text, and none of it is flagged as decorative or non-interactive.
+
+Every such illustration needs one of these boundaries:
+
+- **No real interactive elements inside** → `role="img"` plus a one-sentence `aria-label` on the container describing the scenario. The whole subtree flattens to a single described image.
+- **Real links or buttons mixed into the fake UI** → `aria-hidden="true"` on the decorative subtrees only, so the interactive elements stay reachable and nothing else is announced.
+
+This boundary fixes assistive tech, not search indexing — crawlers still read the fake text as page copy. Keeping fake text minimal (placeholder bars over invented prose, per the text-is-opt-in rule above) is what controls that side.
+
 ## Deliver at @2x and verify
 
 Design at logical size, ship at 2×. Blurry assets undercut everything else on the page.
@@ -270,6 +283,7 @@ Build the illustration as a standalone HTML file sized to the logical frame, the
 - [ ] Kept text matches the source character for character
 - [ ] Placeholder bars vary in width and follow the height roles
 - [ ] Every reused pattern (tooltip, highlight, tag, card) matches its Figma component — no invented substitutes
+- [ ] Fake-UI DOM has an accessibility boundary: `role="img"` + `aria-label` if nothing inside is real, `aria-hidden` on decorative subtrees if it is
 - [ ] Figurative/branded art is a real asset (Figma export or committed generation), never hand-drawn
 - [ ] Element inventory done: each source element present, intentionally removed, or flagged
 - [ ] Rendered at @2x, dimensions verified, compared against the source

@@ -31,6 +31,7 @@ Several pillars lead with a `## Principles` section that governs the tokens and 
 - [ui-illustrations.md](https://design.cypress.io/agents/ui-illustrations.md) — shrinking a product screen into an abstracted illustration that pairs with a paragraph without going stale when the product changes
   - Creating one? Use the [cy-ui-illustration skill](https://design.cypress.io/agents/skills/cy-ui-illustration/SKILL.md) — the production procedure, canonical reference set, and render workflow. The doc above is the standard reviews cite.
 - [voice.md](https://design.cypress.io/agents/voice.md) — UI copy, errors, empty states, tone, capitalization, product naming, mechanics (numbers, dates, punctuation)
+  - [voice-clarity.md](https://design.cypress.io/agents/voice-clarity.md), [voice-headings.md](https://design.cypress.io/agents/voice-headings.md), [voice-punctuation.md](https://design.cypress.io/agents/voice-punctuation.md), [voice-terminology.md](https://design.cypress.io/agents/voice-terminology.md) — narrower supplements; fetch only when the task matches (pronoun clarity, feature headlines, em dashes, jargon/naming collisions)
 - [errors.md](https://design.cypress.io/agents/errors.md) — errors, warnings, deprecations, and other system-to-user failure messages; distilled from the cypress-error-messages skill in aihub
 - [personas.md](https://design.cypress.io/agents/personas.md) — who uses Cypress and what they need
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — when to invest in a11y and the patterns to follow on the surfaces you ship
@@ -46,7 +47,7 @@ Fetch on demand — don't preload all of them:
 `DocMenu` — sidebar navigation used in documentation sites
 `RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
 `Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
-`StatusIcon` — passed/failed/pending/skipped/running/flaky indicator
+`StatusIcon` — run/spec/group/test-result status indicator (passed, failed, failing, running, unclaimed, placeholder, cancelled, noTests, errored, timedOut, overLimit, skipped, pending)
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions
 
