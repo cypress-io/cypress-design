@@ -8,8 +8,9 @@ description: Fetch when choosing colors, picking tokens for backgrounds/text/bor
 ## Principles
 
 - **Color has meaning. Don't waste it.** Decorative color (random tag colors, accent colors with no semantic load) implies a signal that isn't there. Reserve color for meaning; use neutrals where meaning isn't required.
-- **Use semantic tokens, not raw hex values.** Tokens carry intent; hex carries only appearance and breaks the moment the palette evolves.
+- **Use semantic tokens, not raw hex values.** Tokens carry intent; hex carries only appearance and breaks the moment the palette evolves. This includes arbitrary alpha modifiers on a token (`gray-1000/[.08]`) — if you need a wash or tint, that's a sign a dedicated token is missing, not a license to fabricate one inline. Never reach for `!important` to force a color to win a specificity fight; fix the selector instead.
 - **Color alone can't carry meaning.** Pair color with shape, icon, label, or position — colorblind users, dimmed screens, and bright sunlight all defeat color-only signals.
+- **Use the component's own API before styling around it.** If a component exposes a color/variant prop (e.g. a `fillColor` prop), use it — don't duplicate the component with a CSS override or a second copy just to change its color.
 
 For the broader thinking on how color fits into visual hierarchy, see [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md).
 
@@ -24,13 +25,19 @@ The full color palette is hosted at `https://design.cypress.io/colors.css` (full
 - **Gray** — `--cy-gray-25` → `--cy-gray-1100` (14 steps). Neutrals, text, borders, surfaces.
 - **Jade** — `--cy-jade-50` → `--cy-jade-1000`. Cypress green. Success, passing tests, healthy state. **Never use for generic confirmation.**
 - **Teal** — `--cy-teal-50` → `--cy-teal-1000`. Brand signature. `--cy-teal-600` (#00595D) is the brand anchor.
-- **Indigo** — `--cy-indigo-50` → `--cy-indigo-1000`. Links, focus rings, interactivity. `--cy-indigo-500` (#4956E3) is the link anchor.
+- **Indigo** — `--cy-indigo-50` → `--cy-indigo-1000`. Links, focus rings, interactivity, and the **running/in-progress** status (see StatusIcon). `--cy-indigo-500` (#4956E3) is the link anchor; `indigo-400` is the running-status anchor.
 
 ## Secondary (semantic accents)
 
 - **Purple** — accent, complement to teal.
 - **Red** — error, failing tests, destructive actions. Use sparingly.
-- **Orange** — warning, flaky, pending, degraded. Warmer than red.
+- **Orange** — warning, flaky, pending, degraded, and **errored** status. Warmer than red — reserve red for a hard failure, orange for "something's off but it didn't fail cleanly."
+
+Status colors specifically (passed/failed/running/skipped/errored/queued) are locked in as component tokens, not free choices — see `components/StatusIcon/instructions.md` before picking a color for any run/spec/test status indicator rather than inferring one from this page's general descriptions.
+
+## Match the product surface's palette
+
+Don't default to indigo/teal everywhere. Cloud product surfaces (dashboard, run results) lean jade/teal; other surfaces have their own established palette. Check what the surrounding page already uses before introducing a new hue, and keep divider/border shades consistent within one surface instead of several near-identical grays.
 
 ## Tertiary (generated content only)
 
