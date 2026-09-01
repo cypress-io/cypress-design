@@ -40,6 +40,8 @@ People skim before they commit. Write so the structure carries the meaning on a 
 - **Plain language over academic phrasing.** Favor the everyday word. Breaking a strict grammar rule is fine when it improves clarity.
 - **Cut buzzwords and vague verbs.** "Use Cypress to automate your tests", not "leverage Cypress to automate your tests".
 - **Write for an international audience.** Avoid idioms, slang, and culturally specific phrases — prefer globally understandable terms.
+- **Give every pronoun a clear antecedent.** "This", "that", "it", and "which" need an actual noun in the prior sentence to point to — not a verb, not the general gist. Read the sentence containing the pronoun in isolation: if you can't answer "referring to what, specifically?" in a word or short phrase pulled verbatim from what came before, rewrite — merge the clauses, or name the thing again instead of pronoun-ing it. ("...to find the exact point where they diverged. **That difference** is the cause" has no noun for "difference" to point to; `diverged` is a verb.)
+- **Describe the job, not the jargon.** Planning-doc shorthand (ticket language, spec terms like "human out of the loop") reads fine internally and either puzzles or actively misleads a reader who hasn't seen the ticket. Before shipping a term the reader has to already know, check whether a first-time visitor would decode it, and — the dangerous case — whether a half-right guess would invert your meaning rather than just confuse. When either check fails, say what actually happens instead of naming it.
 
 ## Confidence and certainty
 
@@ -97,6 +99,7 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 - **`cy.prompt`** is a code identifier — keep it verbatim and lowercase, never "Cy.prompt" or "Cy.Prompt".
 - Integration partner names keep their own branding: **GitHub**, **GitLab**, **Bitbucket**, **Slack**, **MS Teams**, **Jira**, **Okta**, **Azure AD**.
 - **SSO** and **CI/CD** are written in caps.
+- **Check generic shorthand against competitor names before using it.** Shortening a feature name to a generic-sounding term can collide with a real competitor's brand — always write **Test Replay** in full, never bare "replay" ("replaying the test", "replay data"): **Replay.io** is a competitor, and the unqualified word reads as a generic capability rather than this specific Cypress feature. Before shortening any other feature name in body copy, check whether the shorthand is also a competitor's product or company name.
 
 ## Abbreviations and acronyms
 
@@ -122,7 +125,7 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - **Numbers.** Spell out one through nine; use numerals for 10 and above. Always use numerals for metrics, measurements, and performance data.
 - **Dates and time.** Spell out the day of the week and abbreviate the month (Tuesday, Jan 14). Use numerals with am/pm (7am, 7:30pm). Include time zones when scheduling matters.
-- **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly. Never use exclamation points in error messages or alerts — see [errors.md](https://design.cypress.io/agents/errors.md).
+- **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly, and never two in one sentence — a second em-dash aside asks the reader to hold two interruptions open at once and forces a re-read to find the actual subject and verb; reach for a comma, a colon, or a second sentence instead. (Two em-dash asides in two separate sentences are fine — this is a per-sentence rule.) Never use exclamation points in error messages or alerts — see [errors.md](https://design.cypress.io/agents/errors.md).
 
 ## Writing about accessibility and inclusion
 
@@ -134,10 +137,7 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 
 ## Related
 
-- [voice-clarity.md](https://design.cypress.io/agents/voice-clarity.md) — pronoun/referent clarity
-- [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula
-- [voice-punctuation.md](https://design.cypress.io/agents/voice-punctuation.md) — the two-em-dash trap
-- [voice-terminology.md](https://design.cypress.io/agents/voice-terminology.md) — jargon and competitor-name collisions
+- [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula (a narrow supplement — fetch only when writing a spotlight title, nav label, or other single-feature headline)
 - [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
 - [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — building, designing, and writing with AI

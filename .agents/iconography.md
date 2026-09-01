@@ -19,22 +19,10 @@ For illustration craft (style, framing, lighting, theme, and guidelines), see [i
 - Apply this to `strokeWidth="2"` on every `<svg>` line icon. SVGs should use `stroke="currentColor"`, `fill="none"`, `strokeLinecap="round"`, `strokeLinejoin="round"`.
 - Brand logos are exempt — leave them as-is.
 
-## Two-tone icons carry hardcoded light-mode fills
+## Two-tone icons: coloring the light and dark layers
 
-Some `icon-registry` SVGs are two-tone: a `currentColor` layer plus a separate light layer with a **hardcoded light-mode hex fill baked into the path** (e.g. earth ships `fill="#D0D2E0"`). That's invisible on a light background but renders as a wrong-toned light-gray blob the moment the icon sits on a dark surface — the icon needs an explicit override, not just a `color` change.
+Some `icon-registry` icons are two-tone — a `currentColor`-driven layer plus a second "light" layer (some ship a hardcoded light-mode hex baked into the path itself, e.g. earth's `fill="#D0D2E0"`). That reads fine on a light background but renders as a wrong-toned blob the moment the icon sits on a dark surface — it needs an explicit color, not just inheriting `color`.
 
-Two class conventions exist on these paths and both need handling:
+**Through the real `Icon` component (the normal case):** set its color props — `fillColor`/`strokeColor` for the primary layer, `secondaryFillColor`/`secondaryStrokeColor` for the light/secondary layer (see [components/Icon/instructions.md](https://design.cypress.io/agents/components/Icon/instructions.md)). These drive the design system's Tailwind plugin (`icon-light`/`icon-dark`/`icon-light-secondary`/`icon-dark-secondary` utility classes) — check the available color channels for a given glyph on the Icons page before assuming it has a secondary channel to set.
 
-- Separate paths: `class="icon-light"` / `class="icon-dark"`
-- Combined single-path icons: `class="icon-light-fill icon-dark-stroke"` (e.g. the lightning bolt)
-
-Working pattern: set `color` on the `<svg>` for the dark/`currentColor` layer, and override the light layer via a CSS custom property so callers can opt in per-context —
-
-```css
-svg .icon-light,
-svg .icon-light-fill {
-  fill: var(--il, transparent);
-}
-```
-
-— then pass the sampled fill (or `transparent` to suppress it) as `--il` wherever the icon sits on a dark background. Don't assume a two-tone icon "just works" on a dark surface without checking its light layer first.
+**Hand-inlining raw registry SVG markup** (e.g. building a standalone illustration render) bypasses that plugin, so the `icon-light`/`icon-dark` classes baked into the path need a manual CSS mapping instead of a component prop — see [ui-illustrations.md](https://design.cypress.io/agents/ui-illustrations.md) → "Make the icons actually render" for that pattern. Don't assume a two-tone icon "just works" on a dark surface in either path without checking its light/secondary layer first.
