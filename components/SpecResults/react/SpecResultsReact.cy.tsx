@@ -156,6 +156,22 @@ describe('<SpecResults /> React', () => {
     )
   })
 
+  it('stacks based on its own container width, not the viewport', () => {
+    // The viewport stays at Cypress's default (>640px) -- only the wrapper
+    // narrows. If this were still a viewport sm: media query, it would stay
+    // row-direction here; a @container query correctly stacks it instead.
+    mount(
+      <div className="p-8" style={{ width: 300 }}>
+        <SpecResults
+          results={{ failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 }}
+        />
+      </div>,
+    )
+    cy.get('[data-cy="spec-results-pill-failed"]')
+      .parent()
+      .should('have.css', 'flex-direction', 'column')
+  })
+
   it('pills link to the Specs tab filtered to the right status(es)', () => {
     mountStory({
       results: { failed: 1, errored: 1, skipped: 1, passed: 1 },

@@ -130,12 +130,21 @@ export const STATUS_FILTER_VALUES: Record<StripStatus, string[]> = {
 // system's own theme hardcodes `borderRadius.DEFAULT`/`.md` to a literal 4px
 // (not a rem value), so the bare `rounded` utilities are already immune and
 // don't need converting.
+//
+// The stacking breakpoint is a container query (`@container` on `strip`,
+// `@[576px]:` on `row`/`pills`) rather than a viewport `sm:` media query, so
+// the strip stacks based on its own rendered width -- correct even when it's
+// embedded somewhere narrower than the viewport (a sidebar, a split pane).
+// `@[576px]:` is an arbitrary-value container variant, not the
+// `@tailwindcss/container-queries` plugin's named `@sm:` -- that plugin's
+// default `containers.sm` is `24rem`, which would hit the exact rem/px bug
+// above at the one consumer that needs px in the first place.
 export const CssClasses = {
   strip:
-    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] sm:min-h-[56px]',
-  row: 'flex flex-col items-start gap-[8px] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between',
+    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] @container @[576px]:min-h-[56px]',
+  row: 'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center @[576px]:justify-between',
   pills:
-    'flex flex-col items-start gap-[8px] sm:flex-row sm:flex-wrap sm:items-center',
+    'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center',
   pill: 'group inline-flex h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
   count: 'text-gray-900 font-semibold',
   bar: 'absolute -inset-x-px -bottom-px flex h-[4px] gap-px overflow-hidden rounded-b bg-gray-100/50',

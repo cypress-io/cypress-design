@@ -61,7 +61,7 @@ A status with a count of zero is not rendered at all.
 - Hover: the pill's text and icon take on the status's own hue (label at `-500`, the bold count a shade darker at `-600`) rather than a generic link color, plus a `gray-50` background — reads as "go to this status," not a generic hover.
 - Cancel run fires `onCancel`. The component does not confirm or disable itself; the caller owns that flow.
 - The bar is not interactive — it's the same breakdown as the pills, drawn as proportion. The running segment animates (shimmer) while live; queued track is empty (gray-100 at 50% opacity) so progress reads without relying on color.
-- Below Tailwind's `sm` breakpoint (640px viewport width) the pills and Cancel button stack vertically and left-align.
+- Below 576px of the strip's own rendered width the pills and Cancel button stack vertically and left-align. This is a container query (`@container` on the strip itself), not a viewport media query, so it responds to the strip's actual available width even when that's narrower than the viewport (a sidebar, a split pane) — not just the browser window.
 
 ## Accessibility
 
