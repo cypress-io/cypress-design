@@ -175,42 +175,64 @@ export function RunOverview({ run }) {
     the data model. Needs no project or run identifiers; navigation is relative and cancellation is
     handed back to the caller.
   </p>
-  <table class="w-full border-collapse bg-white border border-gray-100 rounded overflow-hidden text-base mb-4">
-    <thead>
-      <tr>
-        <th class="text-base font-brand-heading text-gray-1000 font-medium py-3 pr-4 border-b border-gray-100 text-left">Prop</th>
-        <th class="text-base font-brand-heading text-gray-1000 font-medium p-3 px-4 border-b border-gray-100 text-left">Type</th>
-        <th class="text-base font-brand-heading text-gray-1000 font-medium p-3 px-4 border-b border-gray-100 text-left">Default</th>
-        <th class="text-base font-brand-heading text-gray-1000 font-medium py-3 pl-4 border-b border-gray-100 text-left">Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="font-brand-mono text-sm font-medium whitespace-nowrap py-3 pr-4 border-b border-gray-100 align-top">results</td>
-        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">SpecResultCounts</td>
-        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
-        <td class="text-gray-700 py-3 pl-4 border-b border-gray-100 align-top">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> as numbers. Omitted keys are zero. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code> combine into one pill.</td>
-      </tr>
-      <tr>
-        <td class="font-brand-mono text-sm font-medium whitespace-nowrap py-3 pr-4 border-b border-gray-100 align-top">onCancel</td>
-        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">() ⇒ void</td>
-        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
-        <td class="text-gray-700 py-3 pl-4 border-b border-gray-100 align-top">When present, renders the Cancel run button and fires on click. Omit once the run completes.</td>
-      </tr>
-      <tr>
-        <td class="font-brand-mono text-sm font-medium whitespace-nowrap py-3 pr-4 border-b border-gray-100 align-top">scheduledToComplete</td>
-        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">string</td>
-        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
-        <td class="text-gray-700 py-3 pl-4 border-b border-gray-100 align-top">Remaining delay, e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">"60s"</code> (the project default). When set and nothing is running or queued, the remaining pill shows this time instead of a spec count.</td>
-      </tr>
-      <tr>
-        <td class="font-brand-mono text-sm font-medium whitespace-nowrap py-3 pr-4 align-top">label</td>
-        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 align-top">string</td>
-        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 align-top">"specs"</td>
-        <td class="text-gray-700 py-3 pl-4 align-top">Noun appended to each pill ("28 passed specs"). Singular is derived by dropping the trailing "s". Pass <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">""</code> when the list below is already titled "Specs", so pills read "28 passed".</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="mb-4">
+    <div class="mb-10">
+      <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">results</code>
+      <div>
+        <div class="flex gap-6 py-3 border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> as numbers. Omitted keys are zero. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code> combine into one pill.</div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">SpecResultCounts</code></div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-10">
+      <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">onCancel</code>
+      <div>
+        <div class="flex gap-6 py-3 border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">When present, renders the Cancel run button and fires on click. Omit once the run completes.</div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">() ⇒ void</code></div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-10">
+      <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">scheduledToComplete</code>
+      <div>
+        <div class="flex gap-6 py-3 border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">Remaining delay, e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">"60s"</code> (the project default). When set and nothing is running or queued, the remaining pill shows this time instead of a spec count.</div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">string</code></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">label</code>
+      <div>
+        <div class="flex gap-6 py-3 border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">Noun appended to each pill ("28 passed specs"). Singular is derived by dropping the trailing "s". Pass <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">""</code> when the list below is already titled "Specs", so pills read "28 passed".</div>
+        </div>
+        <div class="flex gap-6 py-3 border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">string</code></div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Default</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">"specs"</code></div>
+        </div>
+      </div>
+    </div>
+  </div>
   <p class="text-sm text-gray-600 max-w-[680px] m-0">
     React only for now — Vue is a planned fast-follow.
   </p>
