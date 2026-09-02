@@ -23,23 +23,31 @@ export const PILL_STATUS_ORDER = STATUS_ORDER.filter(
 )
 
 // The public prop shape. Plain per-status totals -- the caller folds Cloud's
-// RunInstanceStatusEnum onto these six keys (TIMEDOUT -> errored,
-// NOTESTS/CANCELLED -> skipped, UNCLAIMED -> queued); this component knows
-// nothing about that enum.
+// RunInstanceStatusEnum onto these seven keys (TIMEDOUT -> errored,
+// UNCLAIMED -> queued); this component knows nothing about that enum.
+// `skipped` and `cancelled` are separate inputs (NOTESTS and CANCELLED
+// respectively) but render as one combined "skipped" pill -- the component
+// does that summing, not the caller. The pill's link still filters the Specs
+// tab on both real statuses (STATUS_FILTER_VALUES.SKIPPED below).
 export interface SpecResultCounts {
   failed?: number
   errored?: number
   passed?: number
   skipped?: number
+  cancelled?: number
   running?: number
   queued?: number
 }
 
-const COUNT_KEY: Record<keyof SpecResultCounts, StripStatus> = {
+// The single-key, 1:1 statuses. `skipped`/`cancelled` both feed SKIPPED and
+// are summed separately in buildSpecResultsView, not looked up here.
+const COUNT_KEY: Record<
+  Exclude<keyof SpecResultCounts, 'skipped' | 'cancelled'>,
+  StripStatus
+> = {
   failed: 'FAILED',
   errored: 'ERRORED',
   passed: 'PASSED',
-  skipped: 'SKIPPED',
   running: 'RUNNING',
   queued: 'UNCLAIMED',
 }
@@ -196,10 +204,12 @@ export function buildSpecResultsView(
 ) {
   const suffix = options.label ?? 'specs'
   const counts: Partial<Record<StripStatus, number>> = {}
-  ;(Object.keys(COUNT_KEY) as (keyof SpecResultCounts)[]).forEach((key) => {
+  ;(Object.keys(COUNT_KEY) as (keyof typeof COUNT_KEY)[]).forEach((key) => {
     const n = results[key]
     if (n) counts[COUNT_KEY[key]] = n
   })
+  const skippedTotal = (results.skipped ?? 0) + (results.cancelled ?? 0)
+  if (skippedTotal) counts.SKIPPED = skippedTotal
 
   const total = Object.values(counts).reduce((sum, n) => sum + (n ?? 0), 0)
   const indeterminate = total === 0

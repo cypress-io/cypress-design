@@ -14,22 +14,25 @@ A single package to install — types and class constants are bundled in (there 
 
 ## Props
 
-| Prop                  | Type               | Default   | Description                                                                                                                          |
-| --------------------- | ------------------ | --------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `results`             | `SpecResultCounts` | required  | `{ failed?, errored?, passed?, skipped?, running?, queued? }` — plain numbers. Omitted keys are zero.                                |
-| `onCancel`            | `() => void`       | —         | When present, renders the Cancel run button and fires on click. Omit once the run completes.                                         |
-| `scheduledToComplete` | `string`           | —         | Remaining delay, e.g. `"60s"`. When set and nothing is running or queued, the trailing pill shows this time instead of a spec count. |
-| `label`               | `string`           | `"specs"` | Noun appended to each pill (`"28 passed specs"`). Singular is derived by dropping the trailing `"s"`. Pass `""` to drop it entirely. |
+| Prop                  | Type               | Default   | Description                                                                                                                                                                                                                  |
+| --------------------- | ------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `results`             | `SpecResultCounts` | required  | `{ failed?, errored?, passed?, skipped?, cancelled?, running?, queued? }` — plain numbers. Omitted keys are zero. `skipped` and `cancelled` are separate inputs that combine into one "skipped" pill (see "Status mapping"). |
+| `onCancel`            | `() => void`       | —         | When present, renders the Cancel run button and fires on click. Omit once the run completes.                                                                                                                                 |
+| `scheduledToComplete` | `string`           | —         | Remaining delay, e.g. `"60s"`. When set and nothing is running or queued, the trailing pill shows this time instead of a spec count.                                                                                         |
+| `label`               | `string`           | `"specs"` | Noun appended to each pill (`"28 passed specs"`). Singular is derived by dropping the trailing `"s"`. Pass `""` to drop it entirely.                                                                                         |
 
 `SpecResultCounts` is exported from the package (bundled in, not a separate install).
 
 ## Status mapping
 
-The caller folds Cloud's `RunInstanceStatusEnum` onto the six `results` keys — this component knows nothing about that enum:
+The caller folds Cloud's `RunInstanceStatusEnum` onto the `results` keys — this component knows nothing about that enum:
 
 - `TIMEDOUT` → `errored`
-- `NOTESTS`, `CANCELLED` → `skipped`
+- `NOTESTS` → `skipped`
+- `CANCELLED` → `cancelled`
 - `UNCLAIMED` → `queued`
+
+`skipped` and `cancelled` stay separate inputs — the component sums them into one combined "skipped" pill (`skipped + cancelled`), and that pill's link filters the Specs tab on both `NOTESTS` and `CANCELLED`. Callers do not pre-sum these two counts themselves.
 
 ## Pill order
 

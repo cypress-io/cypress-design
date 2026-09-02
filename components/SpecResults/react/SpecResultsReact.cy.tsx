@@ -118,6 +118,19 @@ describe('<SpecResults /> React', () => {
     )
   })
 
+  it('skipped and cancelled are separate inputs that combine into one pill and link', () => {
+    mountStory({
+      results: { passed: 20, skipped: 1, cancelled: 2 },
+    })
+    cy.get('[data-cy="spec-results-pill-skipped"]')
+      .should('contain.text', '3 skipped specs')
+      .should(
+        'have.attr',
+        'href',
+        '../specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
+      )
+  })
+
   it('label="" drops the trailing noun from every pill', () => {
     mountStory({ results: { failed: 1, passed: 28, skipped: 2 }, label: '' })
     cy.get('[data-cy="spec-results-pill-failed"]').should(
