@@ -162,6 +162,14 @@ describe('<SpecResults /> React', () => {
       .should('be.visible')
       .should('contain.text', '2 specs skipped with no tests')
       .should('contain.text', '1 spec skipped via Auto Cancellation')
+    // The Auto Cancellation row borrows the DS's lightning-bolt icon
+    // (indigo, "time saved") rather than reusing the plain skipped icon.
+    cy.contains(
+      '[data-cy="spec-results-pill-skipped-tooltip"] div',
+      'Auto Cancellation',
+    )
+      .find('svg')
+      .should('have.class', 'icon-dark-indigo-500')
   })
 
   it('skipped pill still shows the reason on hover even with only one cause', () => {

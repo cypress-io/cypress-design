@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@cypress-design/react-button": "*",
+    "@cypress-design/react-icon": "*",
     "@cypress-design/react-statusicon": "*",
     "@cypress-design/react-tooltip": "*",
     "clsx": "*"

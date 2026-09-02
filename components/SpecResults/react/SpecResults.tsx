@@ -2,6 +2,7 @@ import type { FC } from 'react'
 import React from 'react'
 import cs from 'clsx'
 import { OutlineStatusIcon } from '@cypress-design/react-statusicon'
+import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 import Button from '@cypress-design/react-button'
 import Tooltip from '@cypress-design/react-tooltip'
 import {
@@ -114,7 +115,15 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 >
                   {tooltip.rows.map((row, rowIndex) => (
                     <div key={rowIndex} className={CssClasses.tooltipRow}>
-                      <OutlineStatusIcon status={row.icon} size="16" />
+                      {row.icon === 'lightning-bolt' ? (
+                        <IconShapeLightningBolt
+                          size="16"
+                          strokeColor="indigo-500"
+                          fillColor="indigo-200"
+                        />
+                      ) : (
+                        <OutlineStatusIcon status={row.icon} size="16" />
+                      )}
                       <span>
                         <span className={CssClasses.tooltipRowCount}>
                           {row.countText}

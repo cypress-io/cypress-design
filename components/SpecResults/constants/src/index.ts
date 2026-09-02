@@ -200,7 +200,10 @@ export interface TickGroup {
 // clarifying what the state means (the pill itself is already the link to
 // go change it, so this never duplicates that as its own link).
 export interface TooltipRow {
-  icon: OutlineStatusIconName
+  /** 'lightning-bolt' is the DS's own "time saved" icon (Textbox, etc.) --
+   * Auto Cancellation stopped a run early, so it borrows that same meaning
+   * rather than reusing the plain skipped/ban icon a second time in one row. */
+  icon: OutlineStatusIconName | 'lightning-bolt'
   countText: string
   label: string
 }
@@ -338,7 +341,7 @@ export function buildSpecResultsView(
                     : null,
                   results.cancelled
                     ? {
-                        icon: STATUS_META.SKIPPED.icon,
+                        icon: 'lightning-bolt',
                         countText: String(results.cancelled),
                         label: `${specNoun(results.cancelled)} skipped via Auto Cancellation`,
                       }

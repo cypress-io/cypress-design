@@ -29,6 +29,8 @@ Singular/plural (`"1 failed spec"` vs `"18 passed specs"`) is handled once, in `
 
 The scheduled-to-complete pill always gets a `text` tooltip explaining the delay is a project setting, since that pill has no numeric split to break down at all.
 
+`TooltipRow.icon` is `OutlineStatusIconName | 'lightning-bolt'` -- every row is a real status icon except Auto Cancellation, which uses `IconShapeLightningBolt` from `@cypress-design/react-icon` (not `@cypress-design/react-statusicon`) instead of reusing the plain skipped/ban icon a second time in the same tooltip. The lightning bolt is this design system's existing "time saved" icon (see `Textbox`'s own usage) -- Auto Cancellation stopped a run early, so it borrows that established meaning. `SpecResults.tsx` branches on `row.icon === 'lightning-bolt'` to pick which icon component to render, since the two live in different packages with different prop shapes (`OutlineStatusIcon` takes `status`; `IconShapeLightningBolt` takes `strokeColor`/`fillColor`).
+
 `SpecResults.tsx` branches on `tooltip.kind` to decide which of two small layouts to render inside `Tooltip`'s `popper` -- a `flex-col` list of icon+count+label rows, or a plain sentence. Both reuse the same `popperClassName` override (`CssClasses.tooltipPopper`): `!min-w-0` so the tooltip auto-fits its content instead of the shared Tooltip's 160px default, `!text-left` since this content is never the shared Tooltip's usual single centered line, and `!text-gray-300` for body text on the dark tooltip (matching `RunResults`' own dark-tooltip color, since the shared Tooltip's own default is plain white).
 
 ## Running-tick shimmer
