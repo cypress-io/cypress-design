@@ -140,8 +140,16 @@ export const STATUS_FILTER_VALUES: Record<StripStatus, string[]> = {
 // default `containers.sm` is `24rem`, which would hit the exact rem/px bug
 // above at the one consumer that needs px in the first place.
 export const CssClasses = {
+  // min-h-[56px] is unconditional, not @[576px]:-gated -- a container query
+  // can only be consumed by a container's descendants, never by the element
+  // that establishes @container itself (confirmed via getComputedStyle: the
+  // gated version computed min-height: 0px at every width, silently never
+  // matching). A plain floor works at every width anyway: it only has any
+  // effect on the single-line desktop layout where natural content height
+  // is under 56px -- the stacked/narrow layout's natural height already
+  // exceeds it, so the floor is a no-op there, not a regression.
   strip:
-    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] @container @[576px]:min-h-[56px]',
+    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] min-h-[56px] @container',
   row: 'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center @[576px]:justify-between',
   pills:
     'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center',
