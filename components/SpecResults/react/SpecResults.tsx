@@ -75,7 +75,15 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
                 className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
               >
-                <OutlineStatusIcon status={pill.icon} size="16" />
+                <OutlineStatusIcon
+                  status={pill.icon}
+                  size="16"
+                  className={
+                    pill.icon === 'running'
+                      ? CssClasses.runningTrackOnLight
+                      : undefined
+                  }
+                />
                 <span>
                   {pill.countText && (
                     <span
@@ -120,13 +128,31 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   {tooltip.rows.map((row, rowIndex) => (
                     <div key={rowIndex} className={CssClasses.tooltipRow}>
                       {row.icon === 'lightning-bolt' ? (
+                        // Inverted from the light-background version
+                        // (indigo-500 stroke / indigo-200 fill): on this
+                        // dark tooltip, the stroke needs to be the lighter
+                        // of the two so the outline actually reads against
+                        // the dark background, with the fill as the richer
+                        // color underneath it. indigo-300, not indigo-200,
+                        // so the stroke itself isn't the brightest thing in
+                        // the row -- one shade darker than a first pass.
                         <IconShapeLightningBolt
                           size="16"
-                          strokeColor="indigo-500"
-                          fillColor="indigo-200"
+                          strokeColor="indigo-300"
+                          fillColor="indigo-500"
                         />
                       ) : (
-                        <OutlineStatusIcon status={row.icon} size="16" />
+                        <OutlineStatusIcon
+                          status={row.icon}
+                          size="16"
+                          className={
+                            row.icon === 'running'
+                              ? CssClasses.runningTrackOnDark
+                              : row.icon === 'unclaimed'
+                                ? CssClasses.queuedTrackOnDark
+                                : undefined
+                          }
+                        />
                       )}
                       <span>
                         <span className={CssClasses.tooltipRowCount}>

@@ -151,18 +151,16 @@ export const CssClasses = {
   tick: 'box-border rounded transition-all duration-500 ease-in-out',
   tickFirst: 'rounded-tl-none',
   tickLast: 'rounded-tr-none',
-  // Overrides applied via Tooltip's `popperClassName` (see RunResults for
-  // the same pattern) -- `[&>div]` is the tooltip's outer color block,
-  // `[&>div>div]` its padded inner content container. `!` is required
-  // because the shared Tooltip sets these same properties on the same
-  // elements. Text stays the shared Tooltip's own 16px/24px default (already
-  // matches this component's own pill text, unlike RunResults' smaller
-  // body). The shared Tooltip's own p-[8px] reads cramped once a tooltip
-  // has more than one line in it (title + body + link), so this bumps it to
-  // p-[12px] -- matching the strip's own top padding -- alongside the
-  // alignment/width/color overrides.
+  // Overrides applied via Tooltip's `popperClassName` -- `[&>div]` is the
+  // tooltip's outer color block, `[&>div>div]` its padded inner content
+  // container. `!` is required because the shared Tooltip sets these same
+  // properties on the same elements. text-[14px]/leading-[20px] matches
+  // RunResults' own tooltip convention (the shared Tooltip's bare default is
+  // 16px/24px, sized for a single short label, not multi-row content). The
+  // shared Tooltip's own p-[8px] reads cramped once a tooltip has more than
+  // one line in it (title + body + link), so this bumps it to p-[12px].
   tooltipPopper:
-    '[&>div]:!text-gray-300 [&>div>div]:!min-w-0 [&>div>div]:!text-left [&>div>div]:!p-[12px]',
+    '[&>div]:!text-gray-300 [&>div>div]:!min-w-0 [&>div>div]:!text-left [&>div>div]:!p-[12px] [&>div>div]:!text-[14px] [&>div>div]:!leading-[20px]',
   tooltipRows: 'flex flex-col gap-[6px]',
   tooltipRow: 'flex items-center gap-[6px]',
   tooltipRowCount: 'text-white font-semibold',
@@ -172,6 +170,22 @@ export const CssClasses = {
   // point is to make "you can click this" obvious without relying on the
   // reader already knowing the pill underneath the tooltip is itself a link.
   tooltipLink: 'text-indigo-300 underline hover:text-indigo-200',
+  // The running icon's track defaults to gray-100 (`icon-light-gray-100`,
+  // set via STATUS_META's color config, not this file) -- tuned for
+  // nothing in particular, and too faint on both surfaces it actually
+  // appears on. Overridden per surface instead of changing the shared
+  // icon's own default, since "faint enough to read as a track, not a
+  // second stroke" depends on what's behind it.
+  runningTrackOnLight: '!icon-light-gray-200',
+  runningTrackOnDark: '!icon-light-gray-700',
+  // The queued/unclaimed icon has no separate light/dark layer (a single
+  // `icon-dark`-classed ring, unlike running's two-layer track+arc) and
+  // defaults to gray-100 -- meant to read as faint against white, but
+  // that's the opposite of subtle against this tooltip's own dark
+  // background, where near-white reads as the brightest thing in the row.
+  // Same gray-700 as running's dark-tooltip override, different selector
+  // suffix (`icon-dark`, not `icon-light`) since it's a different layer.
+  queuedTrackOnDark: '!icon-dark-gray-700',
 } as const
 
 // Text/number hover classes per status -- on hover the neutral gray steps
@@ -382,8 +396,8 @@ export function buildSpecResultsView(
         // General settings page almost verbatim, rather than a paraphrase
         // that could quietly drift from what the setting page itself says.
         title: 'Run Completion Delay',
-        text: "The number of seconds a run waits for new groups to join before transitioning to 'completed.'",
-        linkLabel: 'Update settings',
+        text: 'The number of seconds a run waits for new groups to join before transitioning to completed.',
+        linkLabel: 'Update setting',
       },
     })
   }

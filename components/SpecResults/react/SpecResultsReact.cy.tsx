@@ -113,7 +113,7 @@ describe('<SpecResults /> React', () => {
     // itself) rather than relying on the reader knowing to click through
     // the tooltip to the pill underneath.
     cy.get('[data-cy="spec-results-pill-running-tooltip"] a')
-      .should('contain.text', 'Update settings')
+      .should('contain.text', 'Update setting')
       .should('have.attr', 'href', '../../settings/general')
   })
 
@@ -175,7 +175,7 @@ describe('<SpecResults /> React', () => {
       'Auto Cancellation',
     )
       .find('svg')
-      .should('have.class', 'icon-dark-indigo-500')
+      .should('have.class', 'icon-dark-indigo-300')
   })
 
   it('skipped pill still shows the reason on hover even with only one cause', () => {
