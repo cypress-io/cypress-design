@@ -106,7 +106,7 @@ export function RunOverview({ run }) {
       <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: scheduled to complete</div>
       <SpecResults
         client:only="react"
-        results={{ failed: 1, passed: 28, skipped: 2 }}
+        results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }}
         scheduledToComplete="60s"
       />
     </div>
@@ -116,7 +116,7 @@ export function RunOverview({ run }) {
     </div>
     <div>
       <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: with failed specs</div>
-      <SpecResults client:only="react" results={{ failed: 1, passed: 28, skipped: 2 }} />
+      <SpecResults client:only="react" results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }} />
     </div>
     <div>
       <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: with errored specs</div>
@@ -129,7 +129,7 @@ export function RunOverview({ run }) {
       <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Removed specs label with <code class="font-brand-mono text-sm bg-white px-1.5 py-0.5 rounded border border-gray-100">label=""</code></div>
       <SpecResults
         client:only="react"
-        results={{ failed: 1, passed: 28, skipped: 2 }}
+        results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }}
         label=""
       />
     </div>
