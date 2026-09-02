@@ -157,13 +157,21 @@ export const CssClasses = {
   // because the shared Tooltip sets these same properties on the same
   // elements. Text stays the shared Tooltip's own 16px/24px default (already
   // matches this component's own pill text, unlike RunResults' smaller
-  // body), so only alignment/width/color need overriding here.
+  // body). The shared Tooltip's own p-[8px] reads cramped once a tooltip
+  // has more than one line in it (title + body + link), so this bumps it to
+  // p-[12px] -- matching the strip's own top padding -- alongside the
+  // alignment/width/color overrides.
   tooltipPopper:
-    '[&>div]:!text-gray-300 [&>div>div]:!min-w-0 [&>div>div]:!text-left',
+    '[&>div]:!text-gray-300 [&>div>div]:!min-w-0 [&>div>div]:!text-left [&>div>div]:!p-[12px]',
   tooltipRows: 'flex flex-col gap-[6px]',
   tooltipRow: 'flex items-center gap-[6px]',
   tooltipRowCount: 'text-white font-semibold',
-  tooltipText: 'max-w-[220px]',
+  tooltipText: 'flex flex-col gap-[6px] max-w-[220px]',
+  tooltipTitle: 'text-white font-semibold',
+  // Underlined so it doesn't just look like the rest of the sentence -- the
+  // point is to make "you can click this" obvious without relying on the
+  // reader already knowing the pill underneath the tooltip is itself a link.
+  tooltipLink: 'text-indigo-300 underline hover:text-indigo-200',
 } as const
 
 // Text/number hover classes per status -- on hover the neutral gray steps
@@ -210,7 +218,11 @@ export interface TooltipRow {
 
 export type PillTooltip =
   | { kind: 'breakdown'; rows: TooltipRow[] }
-  | { kind: 'text'; text: string }
+  // `linkLabel` reuses the pill's own `href` (the tooltip never needs a
+  // second URL) -- it exists so the component can render an explicit,
+  // clickable call to action inside the tooltip itself, rather than relying
+  // on the reader already knowing the pill underneath is the real link.
+  | { kind: 'text'; title: string; text: string; linkLabel: string }
 
 export interface Pill {
   status: StripStatus
@@ -366,7 +378,12 @@ export function buildSpecResultsView(
       rest: 'remaining',
       tooltip: {
         kind: 'text',
-        text: "Held open in case more parallel groups arrive. Configured as your project's completion delay in General settings.",
+        // Mirrors the real setting's own name and description on the
+        // General settings page almost verbatim, rather than a paraphrase
+        // that could quietly drift from what the setting page itself says.
+        title: 'Run Completion Delay',
+        text: "The number of seconds a run waits for new groups to join before transitioning to 'completed.'",
+        linkLabel: 'Update settings',
       },
     })
   }

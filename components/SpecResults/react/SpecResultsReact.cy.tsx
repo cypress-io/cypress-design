@@ -107,8 +107,14 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-pill-running"]').realHover()
     cy.get('[data-cy="spec-results-pill-running-tooltip"]')
       .should('be.visible')
-      .should('contain.text', "project's completion delay")
-      .should('contain.text', 'General settings')
+      .should('contain.text', 'Run Completion Delay')
+      .should('contain.text', 'new groups to join')
+    // The tooltip carries its own clickable CTA (same href as the pill
+    // itself) rather than relying on the reader knowing to click through
+    // the tooltip to the pill underneath.
+    cy.get('[data-cy="spec-results-pill-running-tooltip"] a')
+      .should('contain.text', 'Update settings')
+      .should('have.attr', 'href', '../../settings/general')
   })
 
   it('complete: all specs passed has no remaining pill or Cancel button', () => {

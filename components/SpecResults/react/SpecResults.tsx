@@ -106,7 +106,11 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   className={CssClasses.tooltipText}
                   data-cy={`spec-results-pill-${pill.status.toLowerCase()}-tooltip`}
                 >
-                  {tooltip.text}
+                  <div className={CssClasses.tooltipTitle}>{tooltip.title}</div>
+                  <div>{tooltip.text}</div>
+                  <a href={pill.href} className={CssClasses.tooltipLink}>
+                    {tooltip.linkLabel}
+                  </a>
                 </div>
               ) : (
                 <div
@@ -139,6 +143,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 key={`${pill.status}-${index}`}
                 color="dark"
                 placement="top"
+                interactive
                 popperClassName={CssClasses.tooltipPopper}
                 popper={popperContent}
               >
