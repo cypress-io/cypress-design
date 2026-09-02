@@ -7,7 +7,7 @@ Ported from `frontend/packages/dashboard/src/specs/SpecsStatusStripPrototype.tsx
 ## File layout
 
 - `constants/src/index.ts` — everything that isn't JSX: the `StripStatus` union and fixed `STATUS_ORDER`/`PILL_STATUS_ORDER`, the public `SpecResultCounts` prop type, per-status metadata (`STATUS_META`: icon name, label, hover color, tick class), the Specs-tab filter-value mapping (`STATUS_FILTER_VALUES`), all Tailwind class strings (`CssClasses`, `HOVER_TEXT_CLASS`, `HOVER_COUNT_CLASS`), and the one real algorithm, `buildSpecResultsView()`.
-- `react/SpecResults.tsx` — a thin render layer over `buildSpecResultsView()`. It owns nothing but JSX, icon components (`@cypress-design/react-statusicon`), and the Cancel button (`@cypress-design/react-button`).
+- `react/SpecResults.tsx` — a thin render layer over `buildSpecResultsView()`. It owns nothing but JSX, icon components (`@cypress-design/react-statusicon`), the Cancel button (`@cypress-design/react-button`), and tooltips (`@cypress-design/react-tooltip`, same pattern `RunResults` uses).
 - `constants` is `"private": true` (see `package.json`) — its types are inlined into the react package's bundled `.d.ts` via `rollup.dts.config.mjs` (same pattern as `RunResults`). Consumers only ever install `@cypress-design/react-spec-results`.
 
 ## `buildSpecResultsView()`
@@ -19,6 +19,17 @@ This is where the actual logic lives, kept out of the component so it's independ
 - **`indeterminate`**, **`isComplete`**, **`remaining`**, **`total`** — the derived state flags the component (and the "scheduled" branch) key off of.
 
 Singular/plural (`"1 failed spec"` vs `"18 passed specs"`) is handled once, in `withSuffix()`, by dropping the trailing `"s"` off whatever `label` was passed — not by a separate singular string table.
+
+## Pill tooltips
+
+`Pill.tooltip` is `{ kind: 'breakdown', rows: TooltipRow[] } | { kind: 'text', text: string } | undefined`, computed alongside the pill itself in `buildSpecResultsView()` rather than re-derived in the component. Two pills combine two real statuses into one number (`skipped` = `NOTESTS` + `CANCELLED`; the remaining pill = `RUNNING` + `UNCLAIMED`), but they gate their `breakdown` tooltip differently -- deliberately, not an oversight:
+
+- **`skipped`** always attaches a tooltip, with one row per nonzero cause (so a single-cause total still gets one row, not two). "N specs skipped" never says _which_ real status a spec has -- unlike "N specs passed," it isn't self-explanatory on its own, so the reason is worth surfacing even when there's nothing to split.
+- **The remaining pill** only attaches a tooltip when **both** `running` and `queued` are nonzero. "N specs remaining" already fully explains itself when every remaining spec is in the same state (all running, or all still queued) -- a tooltip there would just repeat the pill's own text.
+
+The scheduled-to-complete pill always gets a `text` tooltip explaining the delay is a project setting, since that pill has no numeric split to break down at all.
+
+`SpecResults.tsx` branches on `tooltip.kind` to decide which of two small layouts to render inside `Tooltip`'s `popper` -- a `flex-col` list of icon+count+label rows, or a plain sentence. Both reuse the same `popperClassName` override (`CssClasses.tooltipPopper`): `!min-w-0` so the tooltip auto-fits its content instead of the shared Tooltip's 160px default, `!text-left` since this content is never the shared Tooltip's usual single centered line, and `!text-gray-300` for body text on the dark tooltip (matching `RunResults`' own dark-tooltip color, since the shared Tooltip's own default is plain white).
 
 ## Running-tick shimmer
 

@@ -99,6 +99,18 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-cancel"]').should('not.exist')
   })
 
+  it('scheduled to complete: explains the delay on hover', () => {
+    mountStory({
+      results: { failed: 1, passed: 28, skipped: 2 },
+      scheduledToComplete: '60s',
+    })
+    cy.get('[data-cy="spec-results-pill-running"]').realHover()
+    cy.get('[data-cy="spec-results-pill-running-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', "project's completion delay")
+      .should('contain.text', 'General settings')
+  })
+
   it('complete: all specs passed has no remaining pill or Cancel button', () => {
     mountStory({ results: { passed: 31 } })
     cy.get('[data-cy="spec-results-pill-passed"]').should(
@@ -138,6 +150,42 @@ describe('<SpecResults /> React', () => {
         'href',
         'specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
       )
+  })
+
+  it('skipped pill shows a no-tests/auto-cancellation breakdown on hover when both are nonzero', () => {
+    mountStory({
+      results: { passed: 20, skipped: 2, cancelled: 1 },
+    })
+    // Use realHover so Floating UI's hover interaction fires correctly.
+    cy.get('[data-cy="spec-results-pill-skipped"]').realHover()
+    cy.get('[data-cy="spec-results-pill-skipped-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', '2 specs skipped with no tests')
+      .should('contain.text', '1 spec skipped via Auto Cancellation')
+  })
+
+  it('skipped pill still shows the reason on hover even with only one cause', () => {
+    mountStory({ results: { passed: 20, skipped: 3 } })
+    cy.get('[data-cy="spec-results-pill-skipped"]').realHover()
+    cy.get('[data-cy="spec-results-pill-skipped-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', '3 specs skipped with no tests')
+      .should('not.contain.text', 'Auto Cancellation')
+  })
+
+  it('remaining pill shows a running/queued breakdown on hover when both are nonzero', () => {
+    mountStory({ results: { passed: 10, running: 2, queued: 5 } })
+    cy.get('[data-cy="spec-results-pill-running"]').realHover()
+    cy.get('[data-cy="spec-results-pill-running-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', '2 specs running')
+      .should('contain.text', '5 specs queued')
+  })
+
+  it('remaining pill has no tooltip when only queued specs exist', () => {
+    mountStory({ results: { queued: 20 } })
+    cy.get('[data-cy="spec-results-pill-running"]').realHover()
+    cy.get('[role="tooltip"]').should('not.exist')
   })
 
   it('label="" drops the trailing noun from every pill', () => {

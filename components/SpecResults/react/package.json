@@ -22,6 +22,7 @@
   "dependencies": {
     "@cypress-design/react-button": "*",
     "@cypress-design/react-statusicon": "*",
+    "@cypress-design/react-tooltip": "*",
     "clsx": "*"
   },
   "devDependencies": {

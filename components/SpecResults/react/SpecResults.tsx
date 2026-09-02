@@ -3,6 +3,7 @@ import React from 'react'
 import cs from 'clsx'
 import { OutlineStatusIcon } from '@cypress-design/react-statusicon'
 import Button from '@cypress-design/react-button'
+import Tooltip from '@cypress-design/react-tooltip'
 import {
   CssClasses,
   HOVER_TEXT_CLASS,
@@ -66,30 +67,76 @@ export const SpecResults: FC<SpecResultsProps> = ({
     <div className={CssClasses.strip} data-cy="spec-results">
       <div className={CssClasses.row}>
         <div className={CssClasses.pills}>
-          {pills.map((pill, index) => (
-            <a
-              key={`${pill.status}-${index}`}
-              href={pill.href}
-              data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
-              className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
-            >
-              <OutlineStatusIcon status={pill.icon} size="16" />
-              <span>
-                {pill.countText && (
-                  <span
-                    className={cs(
-                      CssClasses.count,
-                      HOVER_COUNT_CLASS[pill.hover],
-                    )}
-                  >
-                    {pill.countText}
-                  </span>
-                )}
-                {pill.countText ? ' ' : ''}
-                {pill.rest}
-              </span>
-            </a>
-          ))}
+          {pills.map((pill, index) => {
+            const link = (
+              <a
+                href={pill.href}
+                data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
+                className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
+              >
+                <OutlineStatusIcon status={pill.icon} size="16" />
+                <span>
+                  {pill.countText && (
+                    <span
+                      className={cs(
+                        CssClasses.count,
+                        HOVER_COUNT_CLASS[pill.hover],
+                      )}
+                    >
+                      {pill.countText}
+                    </span>
+                  )}
+                  {pill.countText ? ' ' : ''}
+                  {pill.rest}
+                </span>
+              </a>
+            )
+            if (!pill.tooltip) {
+              return (
+                <React.Fragment key={`${pill.status}-${index}`}>
+                  {link}
+                </React.Fragment>
+              )
+            }
+            const tooltip = pill.tooltip
+            const popperContent =
+              tooltip.kind === 'text' ? (
+                <div
+                  className={CssClasses.tooltipText}
+                  data-cy={`spec-results-pill-${pill.status.toLowerCase()}-tooltip`}
+                >
+                  {tooltip.text}
+                </div>
+              ) : (
+                <div
+                  className={CssClasses.tooltipRows}
+                  data-cy={`spec-results-pill-${pill.status.toLowerCase()}-tooltip`}
+                >
+                  {tooltip.rows.map((row, rowIndex) => (
+                    <div key={rowIndex} className={CssClasses.tooltipRow}>
+                      <OutlineStatusIcon status={row.icon} size="16" />
+                      <span>
+                        <span className={CssClasses.tooltipRowCount}>
+                          {row.countText}
+                        </span>{' '}
+                        {row.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )
+            return (
+              <Tooltip
+                key={`${pill.status}-${index}`}
+                color="dark"
+                placement="top"
+                popperClassName={CssClasses.tooltipPopper}
+                popper={popperContent}
+              >
+                {link}
+              </Tooltip>
+            )
+          })}
         </div>
         {onCancel && (
           <div className="w-full border-t border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">

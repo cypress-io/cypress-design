@@ -151,6 +151,19 @@ export const CssClasses = {
   tick: 'box-border rounded transition-all duration-500 ease-in-out',
   tickFirst: 'rounded-tl-none',
   tickLast: 'rounded-tr-none',
+  // Overrides applied via Tooltip's `popperClassName` (see RunResults for
+  // the same pattern) -- `[&>div]` is the tooltip's outer color block,
+  // `[&>div>div]` its padded inner content container. `!` is required
+  // because the shared Tooltip sets these same properties on the same
+  // elements. Text stays the shared Tooltip's own 16px/24px default (already
+  // matches this component's own pill text, unlike RunResults' smaller
+  // body), so only alignment/width/color need overriding here.
+  tooltipPopper:
+    '[&>div]:!text-gray-300 [&>div>div]:!min-w-0 [&>div>div]:!text-left',
+  tooltipRows: 'flex flex-col gap-[6px]',
+  tooltipRow: 'flex items-center gap-[6px]',
+  tooltipRowCount: 'text-white font-semibold',
+  tooltipText: 'max-w-[220px]',
 } as const
 
 // Text/number hover classes per status -- on hover the neutral gray steps
@@ -178,6 +191,24 @@ export interface TickGroup {
   count: number
 }
 
+// A pill's combined count can fold together two real statuses (skipped =
+// NOTESTS + CANCELLED; remaining = RUNNING + UNCLAIMED). A `breakdown`
+// tooltip breaks that back out, one row per contributing status -- only
+// present when both sides are actually nonzero, since a single-cause total
+// is already fully explained by the pill's own text. The scheduled-to-
+// complete pill has no numeric split to explain, just a `text` tooltip
+// clarifying what the state means (the pill itself is already the link to
+// go change it, so this never duplicates that as its own link).
+export interface TooltipRow {
+  icon: OutlineStatusIconName
+  countText: string
+  label: string
+}
+
+export type PillTooltip =
+  | { kind: 'breakdown'; rows: TooltipRow[] }
+  | { kind: 'text'; text: string }
+
 export interface Pill {
   status: StripStatus
   href: string
@@ -186,6 +217,7 @@ export interface Pill {
   /** Pre-rendered pieces so the component just needs to interpolate: `<b>{countText}</b> {rest}`. */
   countText: string
   rest: string
+  tooltip?: PillTooltip
 }
 
 // Singular is derived by dropping the trailing "s" off `suffix` -- "1 failed
@@ -195,6 +227,8 @@ const withSuffix = (count: number, suffix: string): string => {
   if (!suffix) return ''
   return ' ' + (count === 1 ? suffix.replace(/s$/, '') : suffix)
 }
+
+const specNoun = (count: number): string => (count === 1 ? 'spec' : 'specs')
 
 // Relative to a run tab's own URL (.../runs/:id/<tab>) -- "specs" (not
 // "../specs") is what actually lands on .../runs/:id/specs. A leading "../"
@@ -247,6 +281,8 @@ export function buildSpecResultsView(
       // but none claimed yet (counts.RUNNING is 0) still needs this pill.
       if (status === 'RUNNING') {
         if (!remaining) return
+        const runningCount = counts.RUNNING ?? 0
+        const queuedCount = counts.UNCLAIMED ?? 0
         pills.push({
           status,
           href: buildFilterUrl(['RUNNING', 'UNCLAIMED']),
@@ -254,6 +290,24 @@ export function buildSpecResultsView(
           icon: meta.icon,
           countText: String(remaining),
           rest: `${remaining === 1 ? 'spec' : 'specs'} remaining`,
+          tooltip:
+            runningCount && queuedCount
+              ? {
+                  kind: 'breakdown',
+                  rows: [
+                    {
+                      icon: STATUS_META.RUNNING.icon,
+                      countText: String(runningCount),
+                      label: `${specNoun(runningCount)} running`,
+                    },
+                    {
+                      icon: STATUS_META.UNCLAIMED.icon,
+                      countText: String(queuedCount),
+                      label: `${specNoun(queuedCount)} queued`,
+                    },
+                  ],
+                }
+              : undefined,
         })
         return
       }
@@ -266,6 +320,32 @@ export function buildSpecResultsView(
         icon: meta.icon,
         countText: String(count),
         rest: `${meta.label}${withSuffix(count, suffix)}`,
+        tooltip:
+          status === 'SKIPPED'
+            ? {
+                kind: 'breakdown',
+                // Unlike the remaining pill, this always renders -- a
+                // "skipped" spec is never self-explanatory the way "18
+                // passed" is, so even a single-cause total still gets a
+                // tooltip naming which real status it came from.
+                rows: [
+                  results.skipped
+                    ? {
+                        icon: STATUS_META.SKIPPED.icon,
+                        countText: String(results.skipped),
+                        label: `${specNoun(results.skipped)} skipped with no tests`,
+                      }
+                    : null,
+                  results.cancelled
+                    ? {
+                        icon: STATUS_META.SKIPPED.icon,
+                        countText: String(results.cancelled),
+                        label: `${specNoun(results.cancelled)} skipped via Auto Cancellation`,
+                      }
+                    : null,
+                ].filter((row): row is TooltipRow => row !== null),
+              }
+            : undefined,
       })
     })
   }
@@ -281,6 +361,10 @@ export function buildSpecResultsView(
       icon: STATUS_META.RUNNING.icon,
       countText: options.scheduledToComplete,
       rest: 'remaining',
+      tooltip: {
+        kind: 'text',
+        text: "Held open in case more parallel groups arrive. Configured as your project's completion delay in General settings.",
+      },
     })
   }
 
