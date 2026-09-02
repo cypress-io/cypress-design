@@ -6,13 +6,28 @@ order: 4
 
 import SpecResults from '../../demos/SpecResults.astro'
 
-# SpecResults
+<section class="max-w-[780px] pb-6 border-b border-gray-100 mb-10">
+  <p class="text-xs uppercase text-purple-500 font-semibold mb-[14px] m-0">Patterns · Cypress Cloud</p>
+  <h1 class="font-brand-heading font-semibold text-[56px] leading-[1.04] m-0 mb-[18px] text-gray-1000">
+    SpecResults, <em class="italic text-gray-700 font-medium">the run's status at a glance.</em>
+  </h1>
+  <p class="text-[18px] leading-[1.55] text-gray-700 max-w-[680px] m-0 mb-7">
+    How many specs failed, errored, passed, or skipped, and how many are still to come — one row,
+    at the top of every run tab. Each count links into the Specs tab filtered to that status; a
+    bar along the bottom shows the same breakdown as proportion.
+  </p>
+  <div class="flex flex-wrap gap-6 items-center text-sm text-gray-600">
+    <span><strong class="text-gray-900 font-medium">6 statuses</strong> · fixed order, zero counts hidden</span>
+    <span><strong class="text-gray-900 font-medium">React only</strong> · Vue is a planned fast-follow</span>
+    <span class="inline-flex items-center gap-2 px-2 py-1 border border-gray-100 rounded-full bg-white text-xs text-gray-700 font-brand-mono">
+      @cypress-design/react-spec-results
+    </span>
+  </div>
+</section>
 
-## Usage
+## Live
 
-A run's status at a glance: how many specs failed, errored, passed, or skipped, and how many are still running or queued. Each count links to the Specs tab filtered to that status, and a bar along the bottom shows the same breakdown as proportion. Sits at the top of a run's detail tabs in Cypress Cloud.
-
-<div class="border border-gray-100 rounded-lg my-4 p-4 bg-gray-25">
+<div class="border border-gray-100 rounded-lg my-4 p-6 bg-gray-25">
   <SpecResults />
 </div>
 
@@ -27,4 +42,32 @@ export default () => (
 )
 ```
 
-Package: `@cypress-design/react-spec-results` — React only for now, Vue is a planned fast-follow. See [`instructions.md`](https://design.cypress.io/agents/components/SpecResults/instructions.md) for the full props reference, every state (indeterminate, scheduled-to-complete, complete), and the status-mapping contract callers are expected to follow.
+## When to use it
+
+SpecResults sits at the top of a run's detail tabs and answers "how is this run going?" before anyone scrolls or opens the Specs tab. It replaces the old `NoticeSpecsQueuedRunning` well pattern in Cypress Cloud. It is not a general-purpose progress bar — the statuses, their order, and the copy are fixed to Cypress Cloud's spec lifecycle.
+
+## States
+
+Everything renders off `results` and whether `onCancel` is passed — there's no separate `state` prop.
+
+- **Indeterminate** — every count is zero (no spec isolation yet, or nothing claimed). Falls back to a single "Testing in progress" pill and a fully animated bar.
+- **Running** — `running` or `queued` is above zero. A trailing pill sums both as "N specs remaining." Queued specs never get a pill of their own.
+- **Scheduled to complete** — every group has finished but the project's completion delay is still holding the run open. The trailing pill swaps a spec count for a countdown ("60s remaining") and links to Project Settings instead of the Specs tab. Don't pass `onCancel` here — cancelling would stamp a finished run as cancelled.
+- **Complete** — nothing running or queued, no `scheduledToComplete`. The remaining pill and Cancel button both disappear.
+
+## Props
+
+| Prop                  | Type               | Default   | Description                                                                                                                          |
+| --------------------- | ------------------ | --------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `results`             | `SpecResultCounts` | required  | `{ failed?, errored?, passed?, skipped?, running?, queued? }` — plain numbers. Omitted keys are zero.                                     |
+| `onCancel`            | `() => void`       | —         | Renders the Cancel run button and fires on click. Omit once the run completes.                                                            |
+| `scheduledToComplete` | `string`           | —         | Remaining delay, e.g. `"60s"`. Shown instead of a spec count on the trailing pill when nothing is running or queued.                      |
+| `label`               | `string`           | `"specs"` | Noun appended to each pill (`"28 passed specs"`). Singular drops the trailing `"s"`. Pass `""` to drop it entirely.                       |
+
+The caller folds Cloud's `RunInstanceStatusEnum` onto the six `results` keys — `TIMEDOUT` → `errored`, `NOTESTS`/`CANCELLED` → `skipped`, `UNCLAIMED` → `queued`. The component has no knowledge of that enum.
+
+## Interaction
+
+Every pill (except the scheduled-to-complete pill) is a plain relative `<a href="../specs?specStatus=[...]">` — no router dependency, works from any tab under `/projects/:id/runs/:id/*`. On hover, a pill's text and icon take on the status's own hue rather than a generic link color, so the hover reads as "go to this status." Below Tailwind's `sm` breakpoint the pills and Cancel button stack vertically and left-align.
+
+See [`components/SpecResults/instructions.md`](https://design.cypress.io/agents/components/SpecResults/instructions.md) for the full agent-facing reference, including data-cy selectors and known limitations.
