@@ -40,11 +40,23 @@ function findComponentsRoot(): string {
 
 const COMPONENTS_ROOT = findComponentsRoot()
 
+/**
+ * Packages under components/ that are documented as Patterns
+ * (docs/src/pages/patterns/) instead of appearing in the Components index.
+ * The package itself still lives under components/<Name>/ -- that's where
+ * the build/publish tooling expects it -- this only controls which docs nav
+ * section and route it surfaces under.
+ */
+const PATTERN_ONLY = new Set(['SpecResults'])
+
 /** Returns metadata for all components in the monorepo. */
 export function getAllComponents(): ComponentMeta[] {
   const root = COMPONENTS_ROOT
   return readdirSync(root, { withFileTypes: true })
-    .filter((d) => d.isDirectory() && !d.name.startsWith('.'))
+    .filter(
+      (d) =>
+        d.isDirectory() && !d.name.startsWith('.') && !PATTERN_ONLY.has(d.name),
+    )
     .map((d) => {
       const dir = resolve(root, d.name)
       const frameworks = FRAMEWORKS.filter((fw) => existsSync(resolve(dir, fw)))

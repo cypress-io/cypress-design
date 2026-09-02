@@ -47,10 +47,18 @@ Fetch on demand — don't preload all of them:
 `DocMenu` — sidebar navigation used in documentation sites
 `RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
 `Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
-`SpecResults` — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar. React only for now.
 `StatusIcon` — run/spec/group/test-result status indicator (passed, failed, failing, running, unclaimed, placeholder, cancelled, noTests, errored, timedOut, overLimit, skipped, pending)
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions
+
+## Patterns
+
+Compositions built from existing components, documented as recipes rather than standalone installable packages -- except where noted, there is no dedicated npm package to install; copy the pattern into your own code. Fetch `instructions.md` the same way as for a component.
+
+`Card` — a bordered surface, just a CSS class
+`Button Bar` — `flex`/`gap` layout for a row of action buttons
+`Test Results List` — `TestResult` items composed into a scrollable, groupable list
+`SpecResults` — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar. Unlike the other patterns here, this one **is** a real installable package (`@cypress-design/react-spec-results`, React only for now) since its state-derivation logic isn't something every caller should reimplement — see `components/SpecResults/instructions.md`.
 
 ## Before marking done
 

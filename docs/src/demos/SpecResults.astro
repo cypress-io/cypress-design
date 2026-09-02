@@ -1,0 +1,17 @@
+---
+import { SpecResults } from '@cypress-design/react-spec-results'
+---
+
+<div class="flex flex-col gap-4">
+  <SpecResults
+    client:only="react"
+    results={{ failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 }}
+    onCancel={() => {}}
+  />
+  <SpecResults
+    client:only="react"
+    results={{ failed: 1, passed: 28, skipped: 2 }}
+    scheduledToComplete="60s"
+  />
+  <SpecResults client:only="react" results={{ failed: 1, passed: 28, skipped: 2 }} />
+</div>
