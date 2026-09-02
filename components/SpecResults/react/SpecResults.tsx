@@ -92,7 +92,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
           ))}
         </div>
         {onCancel && (
-          <div className="w-full border-t border-gray-100 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+          <div className="w-full border-t border-gray-50 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
             <Button
               variant="outline-red"
               size="24"
