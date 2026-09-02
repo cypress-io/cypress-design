@@ -1,6 +1,6 @@
 <svg viewBox="0 0 16 16" fill="none"
   xmlns="http://www.w3.org/2000/svg">
-  <circle cx="8" cy="8" r="6" stroke="#1B1E2E" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-light"/>
+  <circle cx="8" cy="8" r="6" stroke="#E1E3ED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-light"/>
   <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-dasharray="10 28" stroke-linecap="round" stroke-linejoin="round" class="icon-dark">
     <animate attributeName="stroke-dashoffset" values="36.6;0" dur="1s" repeatCount="indefinite" />
   </circle>
