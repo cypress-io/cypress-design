@@ -132,7 +132,7 @@ export const STATUS_FILTER_VALUES: Record<StripStatus, string[]> = {
 // don't need converting.
 export const CssClasses = {
   strip:
-    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] sm:h-[56px] sm:pt-0 sm:pb-[4px]',
+    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] sm:min-h-[56px] sm:pt-0 sm:pb-[4px]',
   row: 'flex flex-col items-start gap-[8px] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between',
   pills:
     'flex flex-col items-start gap-[8px] sm:flex-row sm:flex-wrap sm:items-center',
