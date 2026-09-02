@@ -9,7 +9,7 @@ export const frontmatter = { title: 'SpecResults', order: 4 }
 const tocHeadings = [
   { depth: 2, slug: 'usage', text: 'Basic usage' },
   { depth: 2, slug: 'states', text: 'Component states' },
-  { depth: 2, slug: 'props', text: 'API' },
+  { depth: 2, slug: 'props', text: 'Props' },
   { depth: 2, slug: 'interaction', text: 'Interaction' },
   { depth: 2, slug: 'purpose', text: 'When to use it' },
   { depth: 2, slug: 'guidelines', text: 'Guidelines' },
@@ -169,7 +169,7 @@ export function RunOverview({ run }) {
   </table>
 
   <!-- API -->
-  <h2 id="props" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">API</h2>
+  <h2 id="props" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Props</h2>
   <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
     Presentational. Takes plain counts rather than Cloud's instance list, so it knows nothing about
     the data model. Needs no project or run identifiers; navigation is relative and cancellation is
@@ -179,7 +179,7 @@ export function RunOverview({ run }) {
     <div class="mb-10">
       <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">results</code>
       <div>
-        <div class="flex gap-6 py-3 border-b border-gray-100">
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
           <div class="text-gray-700 flex-1">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> as numbers. Omitted keys are zero. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code> combine into one pill.</div>
         </div>
@@ -192,7 +192,7 @@ export function RunOverview({ run }) {
     <div class="mb-10">
       <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">onCancel</code>
       <div>
-        <div class="flex gap-6 py-3 border-b border-gray-100">
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
           <div class="text-gray-700 flex-1">When present, renders the Cancel run button and fires on click. Omit once the run completes.</div>
         </div>
@@ -205,7 +205,7 @@ export function RunOverview({ run }) {
     <div class="mb-10">
       <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">scheduledToComplete</code>
       <div>
-        <div class="flex gap-6 py-3 border-b border-gray-100">
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
           <div class="text-gray-700 flex-1">Remaining delay, e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">"60s"</code> (the project default). When set and nothing is running or queued, the remaining pill shows this time instead of a spec count.</div>
         </div>
@@ -218,7 +218,7 @@ export function RunOverview({ run }) {
     <div>
       <code class="font-brand-mono text-base bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">label</code>
       <div>
-        <div class="flex gap-6 py-3 border-b border-gray-100">
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
           <div class="text-gray-700 flex-1">Noun appended to each pill ("28 passed specs"). Singular is derived by dropping the trailing "s". Pass <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">""</code> when the list below is already titled "Specs", so pills read "28 passed".</div>
         </div>
