@@ -59,7 +59,7 @@ export function RunOverview({ run }) {
   <h2 id="usage" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Basic usage</h2>
   <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
     Pass per-status counts. The component hides empty statuses, applies a fixed order, and derives
-    singular/plural copy. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> only while the run is <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">RUNNING</code>.
+    singular/plural copy. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code> only while the run is <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">RUNNING</code>.
   </p>
   <div class="border border-gray-100 rounded-t bg-gray-25 p-8">
     <SpecResultsCancelable
@@ -77,7 +77,7 @@ export function RunOverview({ run }) {
   <!-- Component states -->
   <h2 id="states" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Component states</h2>
   <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
-    Everything is derived from the spec statuses and whether <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> is passed. Statuses appear in a fixed
+    Everything is derived from the spec statuses and whether <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code> is passed. Statuses appear in a fixed
     order — failed, errored, passed, skipped, remaining — and a status with a count of zero is not
     rendered at all.
   </p>
@@ -138,11 +138,11 @@ export function RunOverview({ run }) {
     <tbody>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Running</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top"><code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">running</code> or <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">queued</code> is above zero. A trailing "N specs remaining" pill sums both; the Cancel run button is shown when <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> is passed. Queued specs have no pill of their own — they appear only in the bar and the remaining count.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top"><code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code> or <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> is above zero. A trailing "N specs remaining" pill sums both; the Cancel run button is shown when <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code> is passed. Queued specs have no pill of their own — they appear only in the bar and the remaining count.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Scheduled to complete</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Every group has finished but the run is held open by the project's completion delay in case more parallel groups arrive. Results are final-looking, and the trailing pill switches from a spec count to a time — "60s remaining", with the running spinner — and links to the project's General settings where the delay is configured. The bar keeps a small running block at its end so the run still reads as live. 60s is the project default. Don't pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> here — cancelling would stamp a finished run as cancelled.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Every group has finished but the run is held open by the project's completion delay in case more parallel groups arrive. Results are final-looking, and the trailing pill switches from a spec count to a time — "60s remaining", with the running spinner — and links to the project's General settings where the delay is configured. The bar keeps a small running block at its end so the run still reads as live. 60s is the project default. Don't pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code> here — cancelling would stamp a finished run as cancelled.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Complete</td>
@@ -154,7 +154,7 @@ export function RunOverview({ run }) {
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Status mapping</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">The caller folds Cloud's instance enum into the six <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">results</code> keys: <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">TIMEDOUT</code> → errored, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">NOTESTS</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">CANCELLED</code> → skipped, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">UNCLAIMED</code> → queued.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">The caller folds Cloud's instance enum into the six <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">results</code> keys: <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">TIMEDOUT</code> → errored, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">NOTESTS</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">CANCELLED</code> → skipped, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">UNCLAIMED</code> → queued.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Singular</td>
@@ -188,7 +188,7 @@ export function RunOverview({ run }) {
         <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">results</td>
         <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">SpecResultCounts</td>
         <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">queued</code> as numbers. Omitted keys are zero.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> as numbers. Omitted keys are zero.</td>
       </tr>
       <tr>
         <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">onCancel</td>
@@ -200,13 +200,13 @@ export function RunOverview({ run }) {
         <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">scheduledToComplete</td>
         <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">string</td>
         <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Remaining delay, e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">"60s"</code> (the project default). When set and nothing is running or queued, the remaining pill shows this time instead of a spec count.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Remaining delay, e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">"60s"</code> (the project default). When set and nothing is running or queued, the remaining pill shows this time instead of a spec count.</td>
       </tr>
       <tr>
         <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 align-top">label</td>
         <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 align-top">string</td>
         <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 align-top">"specs"</td>
-        <td class="text-gray-700 p-3 px-4 align-top">Noun appended to each pill ("28 passed specs"). Singular is derived by dropping the trailing "s". Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">""</code> when the list below is already titled "Specs", so pills read "28 passed".</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Noun appended to each pill ("28 passed specs"). Singular is derived by dropping the trailing "s". Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">""</code> when the list below is already titled "Specs", so pills read "28 passed".</td>
       </tr>
     </tbody>
   </table>
@@ -224,11 +224,11 @@ export function RunOverview({ run }) {
     <tbody>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Pill click</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Navigates route-relatively to <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">../specs?specStatus=[…]</code>. The errored pill filters on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">ERRORED</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">TIMEDOUT</code>, skipped on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">NOTESTS</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">CANCELLED</code>, remaining on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">RUNNING</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">UNCLAIMED</code>. Works from any tab under <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">/projects/:id/runs/:id/</code>.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Navigates route-relatively to <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">../specs?specStatus=[…]</code>. The errored pill filters on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">ERRORED</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">TIMEDOUT</code>, skipped on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">NOTESTS</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">CANCELLED</code>, remaining on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">RUNNING</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">UNCLAIMED</code>. Works from any tab under <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">/projects/:id/runs/:id/</code>.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Scheduled pill</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Links to <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">../../settings/general</code>, where the run completion delay lives — the old notice's "Manage" link.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Links to <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">../../settings/general</code>, where the run completion delay lives — the old notice's "Manage" link.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Pill hover</td>
@@ -236,7 +236,7 @@ export function RunOverview({ run }) {
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Cancel run</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Fires <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code>. The component doesn't confirm or disable itself — the caller owns that flow.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Fires <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code>. The component doesn't confirm or disable itself — the caller owns that flow.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Bar</td>
@@ -244,7 +244,7 @@ export function RunOverview({ run }) {
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 align-top">Narrow widths</td>
-        <td class="text-gray-700 p-3 px-4 align-top">Below Tailwind's <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">sm</code> breakpoint (640px) the pills and Cancel button stack vertically.</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Below Tailwind's <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">sm</code> breakpoint (640px) the pills and Cancel button stack vertically.</td>
       </tr>
     </tbody>
   </table>
@@ -263,11 +263,11 @@ export function RunOverview({ run }) {
     <tbody>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Running state</td>
-        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Every tab on the Run Details page(s), with <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code>. A breakdown of the run's progress.</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Every tab on the Run Details page(s), with <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code>. A breakdown of the run's progress.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 align-top">Completed state</td>
-        <td class="text-gray-700 p-3 px-4 align-top">Specs tab only, as the overview of the list below. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">label=""</code> there since the list is already titled "Specs".</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Specs tab only, as the overview of the list below. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">label=""</code> there since the list is already titled "Specs".</td>
       </tr>
     </tbody>
   </table>
@@ -279,7 +279,7 @@ export function RunOverview({ run }) {
     the component already carries both.
   </p>
   <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
-    Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> only while the run can actually be cancelled. A disabled cancel on a finished run is chrome with no job.
+    Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code> only while the run can actually be cancelled. A disabled cancel on a finished run is chrome with no job.
   </p>
 
 </BaseLayout>
