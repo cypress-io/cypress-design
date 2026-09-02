@@ -187,8 +187,11 @@ const withSuffix = (count: number, suffix: string): string => {
   return ' ' + (count === 1 ? suffix.replace(/s$/, '') : suffix)
 }
 
+// Relative to a run tab's own URL (.../runs/:id/<tab>) -- "specs" (not
+// "../specs") is what actually lands on .../runs/:id/specs. A leading "../"
+// resolves one level too far up and drops the run id entirely.
 const buildFilterUrl = (statuses: StripStatus[]): string =>
-  `../specs?specStatus=${encodeURIComponent(
+  `specs?specStatus=${encodeURIComponent(
     JSON.stringify(statuses.flatMap((s) => STATUS_FILTER_VALUES[s])),
   )}`
 

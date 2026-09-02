@@ -26,7 +26,9 @@ The running tick's animated gradient (`SpecResults.tsx`, `ensureShimmerStyle()`)
 
 ## Why plain `<a>`, not a router-aware link
 
-Unlike `RunResults` (which exposes `renderLink` for router integration), every href here is always relative to a Cypress Cloud run page (`../specs?...`, `../../settings/general`) and the only known consumer (`cypress-services`) already uses plain anchors for this exact pattern (confirmed working with React Router's `<Link>`, which renders to an `<a>` under the hood — a bare `<a>` works identically for same-origin relative navigation). Add a `renderLink`-style prop if a second consumer needs SPA-internal navigation without a full page load.
+Unlike `RunResults` (which exposes `renderLink` for router integration), every href here is always relative to a Cypress Cloud run page (`specs?...`, `../../settings/general`) and the only known consumer (`cypress-services`) already uses plain anchors for this exact pattern (confirmed working with React Router's `<Link>`, which renders to an `<a>` under the hood — a bare `<a>` works identically for same-origin relative navigation). Add a `renderLink`-style prop if a second consumer needs SPA-internal navigation without a full page load.
+
+Note the asymmetry: `specs` has no leading `../` (every tab, including Specs itself, is already a path segment directly under `:id` -- `../specs` resolves one level too far up and drops the run id), while the settings link genuinely needs `../../` to climb out of `runs/:id/` entirely and back to the project root.
 
 ## Known issue: literal px, not Tailwind's rem-based scale
 

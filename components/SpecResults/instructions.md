@@ -56,7 +56,7 @@ A status with a count of zero is not rendered at all.
 
 ## Interaction
 
-- Every pill (except the scheduled-to-complete pill) is a plain relative `<a href="../specs?specStatus=[...]">` — no router dependency. It resolves correctly from any tab under `/projects/:id/runs/:id/*`.
+- Every pill (except the scheduled-to-complete pill) is a plain relative `<a href="specs?specStatus=[...]">` — no router dependency. It resolves correctly from any tab under `/projects/:id/runs/:id/*` (a leading `../` would drop the run id, since every tab is itself a path segment under `:id`).
 - `errored` filters on `ERRORED` + `TIMEDOUT`; `skipped` filters on `NOTESTS` + `CANCELLED`; the remaining pill filters on `RUNNING` + `UNCLAIMED`.
 - Hover: the pill's text and icon take on the status's own hue (label at `-500`, the bold count a shade darker at `-600`) rather than a generic link color, plus a `gray-50` background — reads as "go to this status," not a generic hover.
 - Cancel run fires `onCancel`. The component does not confirm or disable itself; the caller owns that flow.

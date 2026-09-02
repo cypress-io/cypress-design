@@ -136,7 +136,7 @@ describe('<SpecResults /> React', () => {
       .should(
         'have.attr',
         'href',
-        '../specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
+        'specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
       )
   })
 
@@ -163,17 +163,17 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-pill-failed"]').should(
       'have.attr',
       'href',
-      '../specs?specStatus=' + encodeURIComponent('["FAILED"]'),
+      'specs?specStatus=' + encodeURIComponent('["FAILED"]'),
     )
     cy.get('[data-cy="spec-results-pill-errored"]').should(
       'have.attr',
       'href',
-      '../specs?specStatus=' + encodeURIComponent('["ERRORED","TIMEDOUT"]'),
+      'specs?specStatus=' + encodeURIComponent('["ERRORED","TIMEDOUT"]'),
     )
     cy.get('[data-cy="spec-results-pill-skipped"]').should(
       'have.attr',
       'href',
-      '../specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
+      'specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
     )
   })
 })
