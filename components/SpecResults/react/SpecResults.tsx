@@ -92,20 +92,22 @@ export const SpecResults: FC<SpecResultsProps> = ({
           ))}
         </div>
         {onCancel && (
-          <Button
-            variant="outline-red"
-            size="24"
-            data-cy="spec-results-cancel"
-            className="flex-shrink-0 !bg-white gap-[4px]"
-            onClick={onCancel}
-          >
-            <OutlineStatusIcon
-              status="skipped"
-              size="16"
-              className="!icon-dark-red-500"
-            />
-            Cancel run
-          </Button>
+          <div className="w-full border-t border-gray-100 pt-[8px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0">
+            <Button
+              variant="outline-red"
+              size="24"
+              data-cy="spec-results-cancel"
+              className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
+              onClick={onCancel}
+            >
+              <OutlineStatusIcon
+                status="skipped"
+                size="16"
+                className="!icon-dark-red-500"
+              />
+              Cancel run
+            </Button>
+          </div>
         )}
       </div>
       <div className={CssClasses.bar} data-cy="spec-results-bar">
