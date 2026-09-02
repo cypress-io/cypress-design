@@ -1432,6 +1432,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/constants-spec-results@npm:*, @cypress-design/constants-spec-results@workspace:components/SpecResults/constants":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/constants-spec-results@workspace:components/SpecResults/constants"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/constants-spinner@npm:*, @cypress-design/constants-spinner@workspace:components/Spinner/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-spinner@workspace:components/Spinner/constants"
@@ -1746,6 +1752,18 @@ __metadata:
     "@cypress-design/react-tabs": "npm:*"
     "@cypress-design/react-tag": "npm:*"
     "@cypress-design/react-textbox": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    clsx: "npm:*"
+  languageName: unknown
+  linkType: soft
+
+"@cypress-design/react-spec-results@workspace:components/SpecResults/react":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/react-spec-results@workspace:components/SpecResults/react"
+  dependencies:
+    "@cypress-design/constants-spec-results": "npm:*"
+    "@cypress-design/react-button": "npm:*"
+    "@cypress-design/react-statusicon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
