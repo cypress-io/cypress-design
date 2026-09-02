@@ -1763,7 +1763,9 @@ __metadata:
   dependencies:
     "@cypress-design/constants-spec-results": "npm:*"
     "@cypress-design/react-button": "npm:*"
+    "@cypress-design/react-icon": "npm:*"
     "@cypress-design/react-statusicon": "npm:*"
+    "@cypress-design/react-tooltip": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
