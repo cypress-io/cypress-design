@@ -61,7 +61,7 @@ export function RunOverview({ run }) {
     Pass per-status counts. The component hides empty statuses, applies a fixed order, and derives
     singular/plural copy. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code> only while the run is <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">RUNNING</code>.
   </p>
-  <div class="border border-gray-100 rounded-t bg-gray-25 p-8">
+  <div class="border border-gray-100 rounded-t bg-gray-25 px-6 py-8">
     <SpecResultsCancelable
       client:only="react"
       results={{ failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 }}
@@ -81,7 +81,7 @@ export function RunOverview({ run }) {
     order — failed, errored, passed, skipped, remaining — and a status with a count of zero is not
     rendered at all.
   </p>
-  <div class="border border-gray-100 rounded bg-gray-25 p-8 flex flex-col gap-8 mb-4">
+  <div class="border border-gray-100 rounded bg-gray-25 px-6 py-8 flex flex-col gap-8 mb-4">
     <div>
       <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: spec count not yet known</div>
       <SpecResultsCancelable client:only="react" results={{}} />
