@@ -96,7 +96,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
             variant="outline-red"
             size="24"
             data-cy="spec-results-cancel"
-            className="flex-shrink-0 !bg-white gap-1"
+            className="flex-shrink-0 !bg-white gap-[4px]"
             onClick={onCancel}
           >
             <OutlineStatusIcon

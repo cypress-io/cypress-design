@@ -115,15 +115,22 @@ export const STATUS_FILTER_VALUES: Record<StripStatus, string[]> = {
   UNCLAIMED: ['UNCLAIMED'],
 }
 
+// Every spacing/sizing value below is a literal `[Npx]` arbitrary value, not
+// Tailwind's named rem-based scale (`h-6`, `text-base`, `gap-2`, ...) -- see
+// the "Known issue" note in architecture.md for why. `rounded`/`rounded-b`/
+// `rounded-tl-none`/`rounded-tr-none` are the one exception: this design
+// system's own theme hardcodes `borderRadius.DEFAULT`/`.md` to a literal 4px
+// (not a rem value), so the bare `rounded` utilities are already immune and
+// don't need converting.
 export const CssClasses = {
   strip:
-    'relative flex flex-col justify-center gap-3 border border-solid border-gray-100 rounded bg-white pl-2.5 pr-4 pt-3 pb-4 sm:h-14 sm:pt-0 sm:pb-1',
-  row: 'flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between',
+    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] sm:h-[56px] sm:pt-0 sm:pb-[4px]',
+  row: 'flex flex-col items-start gap-[8px] sm:flex-row sm:flex-wrap sm:items-center sm:justify-between',
   pills:
-    'flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center',
-  pill: 'group inline-flex h-6 items-center gap-1.5 px-1.5 rounded text-base font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
+    'flex flex-col items-start gap-[8px] sm:flex-row sm:flex-wrap sm:items-center',
+  pill: 'group inline-flex h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
   count: 'text-gray-900 font-semibold',
-  bar: 'absolute -inset-x-px -bottom-px flex h-1 gap-px overflow-hidden rounded-b bg-gray-100/50',
+  bar: 'absolute -inset-x-px -bottom-px flex h-[4px] gap-px overflow-hidden rounded-b bg-gray-100/50',
   tick: 'box-border rounded transition-all duration-500 ease-in-out',
   tickFirst: 'rounded-tl-none',
   tickLast: 'rounded-tr-none',

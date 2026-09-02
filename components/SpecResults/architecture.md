@@ -28,6 +28,38 @@ The running tick's animated gradient (`SpecResults.tsx`, `ensureShimmerStyle()`)
 
 Unlike `RunResults` (which exposes `renderLink` for router integration), every href here is always relative to a Cypress Cloud run page (`../specs?...`, `../../settings/general`) and the only known consumer (`cypress-services`) already uses plain anchors for this exact pattern (confirmed working with React Router's `<Link>`, which renders to an `<a>` under the hood — a bare `<a>` works identically for same-origin relative navigation). Add a `renderLink`-style prop if a second consumer needs SPA-internal navigation without a full page load.
 
+## Known issue: literal px, not Tailwind's rem-based scale
+
+`CssClasses` in `constants/src/index.ts` uses arbitrary `[Npx]` values everywhere
+(`h-[24px]`, `gap-[8px]`, `text-[16px]`, ...) instead of Tailwind's named
+spacing/sizing scale (`h-6`, `gap-2`, `text-base`), which is built on a 4px
+base unit at a standard 16px root font-size (`0.25rem` = 4px). The one
+exception is `rounded`/`rounded-b`/`rounded-tl-none`/`rounded-tr-none` --
+this design system's own Tailwind theme hardcodes `borderRadius.DEFAULT`/
+`.md` to a literal `4px` rather than a rem value, so those are already
+immune and don't need converting.
+
+**This is a workaround for a bug in Cypress Cloud (the dashboard app in
+`cypress-services`), not a flaw in this component or in this design system.**
+`cypress-services`'s dashboard still vendors `bootstrap-sass`, whose
+`_scaffolding.scss` sets `html { font-size: 10px }` globally -- instead of
+the standard 16px. Every rem-based Tailwind utility on that page therefore
+renders at 62.5% of its documented value (`gap-2`, nominally 8px, measures
+5px there), regardless of which package it comes from. This component is the
+first `@cypress-design/*` package built with that specific consumer's bug in
+mind, since it was ported directly out of a `cypress-services` prototype
+(see "Origin" above) where the bug was already diagnosed and worked around
+this same way (tracked as `PD-32` in that repo's own tracker). A consumer
+with a normal 16px root is unaffected either way -- `[24px]` and `h-6` render
+identically there; the arbitrary value only matters for the one buggy
+consumer.
+
+**Do not "fix" this by switching back to the named scale** without first
+confirming the root font-size bug has been fixed at the source in whichever
+app you're checking against -- that fix is a large, separate migration (a
+full visual regression pass across that app), not something to do as a side
+effect of touching this component.
+
 ## Vue
 
 Not implemented yet (deferred scope decision, see PR description). When it ships: reuse `constants/src/index.ts` as-is (it's framework-agnostic already), and Vue's live demo (`docs/src/demos/SpecResults.vue`) unblocks the standard `docs/src/pages/components/[component].astro` auto-render, which currently has nothing to render for this component.
