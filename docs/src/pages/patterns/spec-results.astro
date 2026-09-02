@@ -1,0 +1,285 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import { Code } from 'astro:components'
+import { SpecResults } from '@cypress-design/react-spec-results'
+import SpecResultsCancelable from './SpecResultsCancelable'
+
+export const frontmatter = { title: 'SpecResults', order: 4 }
+
+const tocHeadings = [
+  { depth: 2, slug: 'usage', text: 'Basic usage' },
+  { depth: 2, slug: 'states', text: 'Component states' },
+  { depth: 2, slug: 'props', text: 'API' },
+  { depth: 2, slug: 'interaction', text: 'Interaction' },
+  { depth: 2, slug: 'purpose', text: 'When to use it' },
+  { depth: 2, slug: 'guidelines', text: 'Guidelines' },
+]
+
+const usageSnippet = `import { SpecResults } from '@cypress-design/react-spec-results'
+
+export function RunOverview({ run }) {
+  return (
+    <SpecResults
+      results={{
+        failed: run.totalFailed,
+        errored: run.totalErrored,
+        passed: run.totalPassed,
+        skipped: run.totalSkipped,
+        running: run.totalRunning,
+        queued: run.totalQueued,
+      }}
+      onCancel={run.status === 'RUNNING' ? () => cancelRun(run.id) : undefined}
+    />
+  )
+}`
+---
+
+<BaseLayout title="SpecResults" tocHeadings={tocHeadings} rawContent={true}>
+
+  <!-- Hero -->
+  <section class="max-w-[780px] pb-6 border-b border-gray-100 mb-0">
+    <p class="text-xs uppercase tracking-[2px] text-purple-500 font-semibold mb-[14px] m-0">Patterns · Cypress Cloud</p>
+    <h1 class="font-brand-heading font-semibold text-[56px] leading-[1.04] m-0 mb-[18px] text-gray-1000">
+      SpecResults, <em class="italic text-gray-700 font-medium">the run progress at a glance.</em>
+    </h1>
+    <p class="text-[18px] leading-[1.55] text-gray-700 max-w-[680px] m-0 mb-7">
+      The run's headline in one row: how many specs failed, errored, passed, skipped, and how many
+      are still to come. Each count links into the Specs tab filtered to that status, and a bar
+      along the bottom edge shows the same breakdown as proportion. While the run is live it
+      carries the Cancel run action.
+    </p>
+    <div class="flex flex-wrap gap-6 items-center text-sm text-gray-600">
+      <span class="inline-flex items-center h-7 px-3 border border-gray-100 rounded-full bg-white text-sm text-purple-500 font-brand-mono">
+        @cypress-design/react-spec-results
+      </span>
+    </div>
+  </section>
+
+  <!-- Basic usage -->
+  <h2 id="usage" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Basic usage</h2>
+  <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
+    Pass per-status counts. The component hides empty statuses, applies a fixed order, and derives
+    singular/plural copy. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> only while the run is <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">RUNNING</code>.
+  </p>
+  <div class="border border-gray-100 rounded-t bg-gray-25 p-8">
+    <SpecResultsCancelable
+      client:only="react"
+      results={{ failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 }}
+    />
+  </div>
+  <Code
+    code={usageSnippet}
+    lang="tsx"
+    theme="github-dark"
+    class="block rounded-b font-brand-mono text-sm leading-[1.6] px-5 py-4 mb-6"
+  />
+
+  <!-- Component states -->
+  <h2 id="states" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Component states</h2>
+  <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
+    Everything is derived from the spec statuses and whether <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> is passed. Statuses appear in a fixed
+    order — failed, errored, passed, skipped, remaining — and a status with a count of zero is not
+    rendered at all.
+  </p>
+  <div class="border border-gray-100 rounded bg-gray-25 p-8 flex flex-col gap-8 mb-4">
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: spec count not yet known</div>
+      <SpecResultsCancelable client:only="react" results={{}} />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: nothing finished yet</div>
+      <SpecResultsCancelable client:only="react" results={{ running: 4, queued: 20 }} />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: partial results</div>
+      <SpecResultsCancelable
+        client:only="react"
+        results={{ failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 }}
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: all passing so far</div>
+      <SpecResultsCancelable client:only="react" results={{ passed: 22, running: 2 }} />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Running :: scheduled to complete</div>
+      <SpecResults
+        client:only="react"
+        results={{ failed: 1, passed: 28, skipped: 2 }}
+        scheduledToComplete="60s"
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: all specs passed</div>
+      <SpecResults client:only="react" results={{ passed: 31 }} />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: with failed specs</div>
+      <SpecResults client:only="react" results={{ failed: 1, passed: 28, skipped: 2 }} />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: with errored specs</div>
+      <SpecResults
+        client:only="react"
+        results={{ failed: 2, errored: 3, passed: 15, skipped: 1 }}
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Removed specs label with <code class="font-brand-mono text-sm bg-white px-1.5 py-0.5 rounded border border-gray-100">label=""</code></div>
+      <SpecResults
+        client:only="react"
+        results={{ failed: 1, passed: 28, skipped: 2 }}
+        label=""
+      />
+    </div>
+  </div>
+
+  <table class="w-full border-collapse bg-white border border-gray-100 rounded overflow-hidden text-base mb-4">
+    <tbody>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Running</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top"><code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">running</code> or <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">queued</code> is above zero. A trailing "N specs remaining" pill sums both; the Cancel run button is shown when <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> is passed. Queued specs have no pill of their own — they appear only in the bar and the remaining count.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Scheduled to complete</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Every group has finished but the run is held open by the project's completion delay in case more parallel groups arrive. Results are final-looking, and the trailing pill switches from a spec count to a time — "60s remaining", with the running spinner — and links to the project's General settings where the delay is configured. The bar keeps a small running block at its end so the run still reads as live. 60s is the project default. Don't pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> here — cancelling would stamp a finished run as cancelled.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Complete</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Nothing running or queued and no scheduled delay. The remaining pill and Cancel button disappear.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Just started</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Only the remaining pill renders until the first spec finishes.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Status mapping</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">The caller folds Cloud's instance enum into the six <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">results</code> keys: <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">TIMEDOUT</code> → errored, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">NOTESTS</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">CANCELLED</code> → skipped, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">UNCLAIMED</code> → queued.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Singular</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">A count of 1 drops the trailing "s": "1 failed spec", "1 spec remaining".</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 align-top">Indeterminate</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Every count at zero (no spec isolation, or nothing claimed yet). Falls back to a single "Testing in progress" pill and a fully animated bar.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- API -->
+  <h2 id="props" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">API</h2>
+  <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
+    Presentational. Takes plain counts rather than Cloud's instance list, so it knows nothing about
+    the data model. Needs no project or run identifiers; navigation is relative and cancellation is
+    handed back to the caller.
+  </p>
+  <table class="w-full border-collapse bg-white border border-gray-100 rounded overflow-hidden text-base mb-4">
+    <thead>
+      <tr>
+        <th class="text-xs text-gray-600 uppercase font-semibold p-3 px-4 border-b border-gray-100 text-left">Prop</th>
+        <th class="text-xs text-gray-600 uppercase font-semibold p-3 px-4 border-b border-gray-100 text-left">Type</th>
+        <th class="text-xs text-gray-600 uppercase font-semibold p-3 px-4 border-b border-gray-100 text-left">Default</th>
+        <th class="text-xs text-gray-600 uppercase font-semibold p-3 px-4 border-b border-gray-100 text-left">Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">results</td>
+        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">SpecResultCounts</td>
+        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">queued</code> as numbers. Omitted keys are zero.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">onCancel</td>
+        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">() ⇒ void</td>
+        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">When present, renders the Cancel run button and fires on click. Omit once the run completes.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">scheduledToComplete</td>
+        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">string</td>
+        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 border-b border-gray-100 align-top">—</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Remaining delay, e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">"60s"</code> (the project default). When set and nothing is running or queued, the remaining pill shows this time instead of a spec count.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono font-medium whitespace-nowrap p-3 px-4 align-top">label</td>
+        <td class="font-brand-mono text-sm text-purple-500 whitespace-nowrap p-3 px-4 align-top">string</td>
+        <td class="font-brand-mono text-sm text-gray-600 whitespace-nowrap p-3 px-4 align-top">"specs"</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Noun appended to each pill ("28 passed specs"). Singular is derived by dropping the trailing "s". Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">""</code> when the list below is already titled "Specs", so pills read "28 passed".</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="text-sm text-gray-600 max-w-[680px] m-0">
+    React only for now — Vue is a planned fast-follow.
+  </p>
+
+  <!-- Interaction -->
+  <h2 id="interaction" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Interaction</h2>
+  <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
+    Every pill is a link to the Specs tab filtered to that status, so the summary doubles as
+    navigation.
+  </p>
+  <table class="w-full border-collapse bg-white border border-gray-100 rounded overflow-hidden text-base mb-4">
+    <tbody>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Pill click</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Navigates route-relatively to <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">../specs?specStatus=[…]</code>. The errored pill filters on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">ERRORED</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">TIMEDOUT</code>, skipped on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">NOTESTS</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">CANCELLED</code>, remaining on <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">RUNNING</code> + <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">UNCLAIMED</code>. Works from any tab under <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">/projects/:id/runs/:id/</code>.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Scheduled pill</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Links to <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">../../settings/general</code>, where the run completion delay lives — the old notice's "Manage" link.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Pill hover</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Text and icon take on the status's own hue rather than a generic link color, so the hover reads as "go to this status".</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Cancel run</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Fires <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code>. The component doesn't confirm or disable itself — the caller owns that flow.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Bar</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Not interactive. It's the same breakdown as the pills drawn as proportion; the running block animates while the run is live, and queued specs are left as empty track (gray-100 at 50% opacity) so progress is legible without color.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 align-top">Narrow widths</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Below Tailwind's <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">sm</code> breakpoint (640px) the pills and Cancel button stack vertically.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- When to use it -->
+  <h2 id="purpose" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">When to use it</h2>
+  <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
+    SpecResults sits at the top of the Run Details tabs and answers "how is this run going?" before
+    anyone scrolls. While a run is in progress it appears on every tab as a breakdown of that
+    progress; once the run completes it stays only on the Specs tab, where it serves as the
+    overview of the list below. It exists so the run's headline — what failed, what's left —
+    doesn't have to be reconstructed by scanning the spec list. It is not a general-purpose
+    progress bar: the statuses, order, and copy are fixed to Cypress Cloud's spec lifecycle.
+  </p>
+  <table class="w-full border-collapse bg-white border border-gray-100 rounded overflow-hidden text-base mb-4">
+    <tbody>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 border-b border-gray-100 align-top">Running state</td>
+        <td class="text-gray-700 p-3 px-4 border-b border-gray-100 align-top">Every tab on the Run Details page(s), with <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code>. A breakdown of the run's progress.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium p-3 px-4 align-top">Completed state</td>
+        <td class="text-gray-700 p-3 px-4 align-top">Specs tab only, as the overview of the list below. Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">label=""</code> there since the list is already titled "Specs".</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Guidelines -->
+  <h2 id="guidelines" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Guidelines</h2>
+  <p class="text-base text-gray-700 max-w-[680px] mb-4 m-0">
+    Use it once per tab, at the top. Don't add a separate progress bar or "N of M complete" line —
+    the component already carries both.
+  </p>
+  <p class="text-base text-gray-700 max-w-[680px] mb-7 m-0">
+    Pass <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">onCancel</code> only while the run can actually be cancelled. A disabled cancel on a finished run is chrome with no job.
+  </p>
+
+</BaseLayout>
