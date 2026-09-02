@@ -229,10 +229,12 @@ export function buildSpecResultsView(
     })
   } else {
     PILL_STATUS_ORDER.forEach((status) => {
-      const count = counts[status]
-      if (!count) return
       const meta = STATUS_META[status]
+      // The remaining pill sums running + queued, so it must key off
+      // `remaining` rather than `counts.RUNNING` -- a run with specs queued
+      // but none claimed yet (counts.RUNNING is 0) still needs this pill.
       if (status === 'RUNNING') {
+        if (!remaining) return
         pills.push({
           status,
           href: buildFilterUrl(['RUNNING', 'UNCLAIMED']),
@@ -241,16 +243,18 @@ export function buildSpecResultsView(
           countText: String(remaining),
           rest: `${remaining === 1 ? 'spec' : 'specs'} remaining`,
         })
-      } else {
-        pills.push({
-          status,
-          href: buildFilterUrl([status]),
-          hover: meta.hover,
-          icon: meta.icon,
-          countText: String(count),
-          rest: `${meta.label}${withSuffix(count, suffix)}`,
-        })
+        return
       }
+      const count = counts[status]
+      if (!count) return
+      pills.push({
+        status,
+        href: buildFilterUrl([status]),
+        hover: meta.hover,
+        icon: meta.icon,
+        countText: String(count),
+        rest: `${meta.label}${withSuffix(count, suffix)}`,
+      })
     })
   }
 

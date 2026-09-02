@@ -22,6 +22,15 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy^="spec-results-pill-"]').should('have.length', 1)
   })
 
+  it('running: queued only (nothing claimed yet) still shows the remaining pill', () => {
+    mountStory({ results: { queued: 20 } })
+    cy.get('[data-cy="spec-results-pill-running"]').should(
+      'contain.text',
+      '20 specs remaining',
+    )
+    cy.get('[data-cy^="spec-results-pill-"]').should('have.length', 1)
+  })
+
   it('running: nothing finished yet shows only the remaining pill', () => {
     mountStory({ results: { running: 4, queued: 20 } })
     cy.get('[data-cy="spec-results-pill-running"]').should(
