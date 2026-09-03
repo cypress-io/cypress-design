@@ -1,4 +1,4 @@
-const cypressCSS = require('@cypress-design/css')
+const cypressCSS = require('@cypress-design/css/tailwind')
 const filePaths = [
   './index.html',
   './src/**/*.{vue,js,ts,jsx,tsx}',
