@@ -93,6 +93,37 @@ app you're checking against -- that fix is a large, separate migration (a
 full visual regression pass across that app), not something to do as a side
 effect of touching this component.
 
+## Known issue: cypress-services doesn't supply Tailwind's border-style preflight default
+
+`SpecResults.tsx`'s three dividers (the `description` slot's bottom border, and
+the two button rows' top borders) use `[border-bottom-style:solid]` /
+`[border-top-style:solid]` -- an arbitrary-value selector -- instead of a plain
+`border-b`/`border-t` alone or the named `border-solid` utility. Both of those
+more obvious options render **no visible border at all** in `cypress-services`:
+`border-b`/`border-t` only ever set `border-*-width`, and normally rely on
+Tailwind's own preflight (`*, ::before, ::after { border-style: solid }`) to
+supply the style half -- but that app's compiled CSS doesn't carry that
+declaration (leading suspect: its legacy `bootstrap-sass` reset, already
+tracked as migration debt in that repo's own `STYLE_GUIDE.md`, though not
+confirmed further than that). Confirmed via `getComputedStyle`: width and
+color compute correctly, `border-*-style` computes `none`.
+
+**The named `border-solid` utility is not a safe fix either** -- it was tried
+first and reverted. `cypress-services` already uses `border-solid` elsewhere in
+its own source, so adding it here caused Tailwind's JIT to (re)generate that
+utility's CSS rule, which then applied to _every_ element in that app already
+carrying the class -- including an unrelated, already-correct `Button`
+component's border, which went from a clean 1px on all sides to an uneven
+1.5px on three of them. The arbitrary-value selector avoids this because it
+compiles to a selector no other class name can coincide with.
+
+This is a workaround for a gap in one consumer's build, not a flaw in this
+component -- a consumer with a normal, complete Tailwind preflight doesn't need
+it (a bare `border-b`/`border-t` already renders correctly there). Tracked as
+[PD-42](https://cypress-io.atlassian.net/browse/PD-42) to fix at the actual
+source (the `cypress-services` Tailwind/PostCSS pipeline) so future components
+don't need this same per-component patch.
+
 ## Vue
 
 Not implemented yet (deferred scope decision, see PR description). When it ships: reuse `constants/src/index.ts` as-is (it's framework-agnostic already), and Vue's live demo (`docs/src/demos/SpecResults.vue`) unblocks the standard `docs/src/pages/components/[component].astro` auto-render, which currently has nothing to render for this component.
