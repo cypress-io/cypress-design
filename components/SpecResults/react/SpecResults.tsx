@@ -1,8 +1,11 @@
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
 import cs from 'clsx'
 import { OutlineStatusIcon } from '@cypress-design/react-statusicon'
-import { IconShapeLightningBolt } from '@cypress-design/react-icon'
+import {
+  IconShapeLightningBolt,
+  IconActionArchive,
+} from '@cypress-design/react-icon'
 import Button from '@cypress-design/react-button'
 import Tooltip from '@cypress-design/react-tooltip'
 import {
@@ -19,10 +22,16 @@ export interface SpecResultsProps {
   results: SpecResultCounts
   /** Renders the Cancel run button and fires on click. Omit once the run completes. */
   onCancel?: () => void
+  /** Renders the Archive run button and fires on click. Shown once the run is complete (mirrors onCancel's "only while running" split) -- pass this instead of onCancel once results stop changing. */
+  onArchive?: () => void
   /** Remaining project completion delay (e.g. "60s"). When set and nothing is running or queued, the trailing pill shows this instead of a spec count. */
   scheduledToComplete?: string
   /** Noun appended to each pill ("28 passed specs"). Singular drops the trailing "s". Pass "" when the surrounding list is already titled "Specs". */
   label?: string
+  /** Extra context about the run's own outcome (timed out, errored, manually/auto cancelled, no tests at all) -- renders below the pills, inside this same card, separated by a thin divider rather than a second bordered panel. The caller owns the content; this component only provides the slot. */
+  description?: ReactNode
+  /** Overrides the derived "is this run complete" state. A timed-out/abandoned run still has specs the recorder never claimed -- indistinguishable from a genuinely live `queued` count by pure totals alone -- so without this override it reads as still running and Archive never shows. Pass `true` once the caller knows independently (e.g. run.status === 'TIMEDOUT') that nothing is actually still executing. */
+  isComplete?: boolean
 }
 
 // Tailwind's JIT can't synthesize a `linear-gradient(...)` + `@keyframes` pair
@@ -55,17 +64,38 @@ function ensureShimmerStyle() {
 export const SpecResults: FC<SpecResultsProps> = ({
   results,
   onCancel,
+  onArchive,
   scheduledToComplete,
   label = 'specs',
+  description,
+  isComplete: isCompleteOverride,
 }) => {
   ensureShimmerStyle()
-  const { pills, groups } = buildSpecResultsView(results, {
-    label,
-    scheduledToComplete,
-  })
+  const {
+    pills,
+    groups,
+    isComplete: derivedIsComplete,
+  } = buildSpecResultsView(results, { label, scheduledToComplete })
+  const isComplete = isCompleteOverride ?? derivedIsComplete
 
   return (
-    <div className={CssClasses.strip} data-cy="spec-results">
+    <div
+      className={cs(
+        CssClasses.strip,
+        description
+          ? CssClasses.stripPaddingWithDescription
+          : CssClasses.stripPadding,
+      )}
+      data-cy="spec-results"
+    >
+      {description && (
+        <div
+          className="border-b border-gray-100/80 pb-[16px] text-[14px] leading-[20px] text-gray-700"
+          data-cy="spec-results-description"
+        >
+          {description}
+        </div>
+      )}
       <div className={CssClasses.row}>
         <div className={CssClasses.pills}>
           {pills.map((pill, index) => {
@@ -73,7 +103,11 @@ export const SpecResults: FC<SpecResultsProps> = ({
               <a
                 href={pill.href}
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
-                className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
+                className={cs(
+                  CssClasses.pill,
+                  HOVER_TEXT_CLASS[pill.hover],
+                  index === 0 && '-ml-[6px]',
+                )}
               >
                 <OutlineStatusIcon
                   status={pill.icon}
@@ -193,6 +227,24 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 className="!icon-dark-red-500"
               />
               Cancel run
+            </Button>
+          </div>
+        )}
+        {isComplete && onArchive && (
+          <div className="w-full border-t border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+            <Button
+              variant="outline-gray-light"
+              size="24"
+              data-cy="spec-results-archive"
+              className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
+              onClick={onArchive}
+            >
+              <IconActionArchive
+                size="16"
+                strokeColor="gray-500"
+                fillColor="gray-200"
+              />
+              Archive run
             </Button>
           </div>
         )}

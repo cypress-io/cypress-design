@@ -127,6 +127,23 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-cancel"]').should('not.exist')
   })
 
+  it('isComplete overrides a still-queued run to show the Archive button', () => {
+    mountStory({
+      results: { passed: 3, errored: 2, queued: 20 },
+      onArchive: () => {},
+      isComplete: true,
+    })
+    cy.get('[data-cy="spec-results-archive"]').should('exist')
+  })
+
+  it('without the isComplete override, a still-queued run hides Archive', () => {
+    mountStory({
+      results: { passed: 3, errored: 2, queued: 20 },
+      onArchive: () => {},
+    })
+    cy.get('[data-cy="spec-results-archive"]').should('not.exist')
+  })
+
   it('complete: with failed specs', () => {
     mountStory({ results: { failed: 1, passed: 28, skipped: 2 } })
     cy.get('[data-cy="spec-results-pill-failed"]').should(
@@ -178,6 +195,30 @@ describe('<SpecResults /> React', () => {
       .should('have.class', 'icon-dark-indigo-300')
   })
 
+  it('skipped pill shows Manual Cancellation instead of Auto when cancelledReason is manual', () => {
+    mountStory({
+      results: {
+        passed: 20,
+        skipped: 2,
+        cancelled: 1,
+        cancelledReason: 'manual',
+      },
+    })
+    cy.get('[data-cy="spec-results-pill-skipped"]').realHover()
+    cy.get('[data-cy="spec-results-pill-skipped-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', '1 spec skipped via Manual Cancellation')
+      .should('not.contain.text', 'Auto Cancellation')
+    // Manual Cancellation reuses the plain skipped/ban icon, not the
+    // lightning bolt -- nothing was "saved" by automation here.
+    cy.contains(
+      '[data-cy="spec-results-pill-skipped-tooltip"] div',
+      'Manual Cancellation',
+    )
+      .find('svg')
+      .should('not.have.class', 'icon-dark-indigo-300')
+  })
+
   it('skipped pill still shows the reason on hover even with only one cause', () => {
     mountStory({ results: { passed: 20, skipped: 3 } })
     cy.get('[data-cy="spec-results-pill-skipped"]').realHover()
@@ -196,10 +237,22 @@ describe('<SpecResults /> React', () => {
       .should('contain.text', '5 specs queued')
   })
 
-  it('remaining pill has no tooltip when only queued specs exist', () => {
+  it('remaining pill still shows a tooltip naming the cause when only queued specs exist', () => {
     mountStory({ results: { queued: 20 } })
     cy.get('[data-cy="spec-results-pill-running"]').realHover()
-    cy.get('[role="tooltip"]').should('not.exist')
+    cy.get('[data-cy="spec-results-pill-running-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', '20 specs queued')
+      .should('not.contain.text', 'running')
+  })
+
+  it('remaining pill still shows a tooltip naming the cause when only running specs exist', () => {
+    mountStory({ results: { passed: 1, running: 3 } })
+    cy.get('[data-cy="spec-results-pill-running"]').realHover()
+    cy.get('[data-cy="spec-results-pill-running-tooltip"]')
+      .should('be.visible')
+      .should('contain.text', '3 specs running')
+      .should('not.contain.text', 'queued')
   })
 
   it('label="" drops the trailing noun from every pill', () => {

@@ -37,12 +37,18 @@ export interface SpecResultCounts {
   cancelled?: number
   running?: number
   queued?: number
+  /** Whether `cancelled` specs were stopped by Smart Orchestration
+   * (Auto Cancellation) or a person clicking Cancel Run (Manual
+   * Cancellation) -- a run-level fact, not per-spec, so one value covers
+   * every `cancelled` spec in this result set. Defaults to 'auto' (this
+   * component's original, only-ever-auto behavior) when omitted. */
+  cancelledReason?: 'auto' | 'manual'
 }
 
 // The single-key, 1:1 statuses. `skipped`/`cancelled` both feed SKIPPED and
 // are summed separately in buildSpecResultsView, not looked up here.
 const COUNT_KEY: Record<
-  Exclude<keyof SpecResultCounts, 'skipped' | 'cancelled'>,
+  Exclude<keyof SpecResultCounts, 'skipped' | 'cancelled' | 'cancelledReason'>,
   StripStatus
 > = {
   failed: 'FAILED',
@@ -149,7 +155,12 @@ export const CssClasses = {
   // is under 56px -- the stacked/narrow layout's natural height already
   // exceeds it, so the floor is a no-op there, not a regression.
   strip:
-    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white pl-[10px] pr-[16px] pt-[12px] pb-[16px] min-h-[56px] @container',
+    'relative flex flex-col justify-center gap-[12px] border border-solid border-gray-100 rounded bg-white min-h-[56px] @container',
+  // Split out from `strip` so the react component can pick one or the other
+  // based on whether `description` is present, rather than layering a
+  // second padding utility on top and hoping it wins the cascade.
+  stripPadding: 'pl-[16px] pr-[16px] pt-[12px] pb-[16px]',
+  stripPaddingWithDescription: 'p-[24px]',
   row: 'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center @[576px]:justify-between',
   pills:
     'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center',
@@ -327,24 +338,30 @@ export function buildSpecResultsView(
           icon: meta.icon,
           countText: String(remaining),
           rest: `${remaining === 1 ? 'spec' : 'specs'} remaining`,
-          tooltip:
-            runningCount && queuedCount
-              ? {
-                  kind: 'breakdown',
-                  rows: [
-                    {
+          // Always renders, same reasoning as SKIPPED below -- "2 specs
+          // remaining" doesn't say whether they're running or still queued,
+          // so even a single-cause total still gets a tooltip naming it.
+          tooltip: {
+            kind: 'breakdown',
+            rows: (
+              [
+                runningCount
+                  ? {
                       icon: STATUS_META.RUNNING.icon,
                       countText: String(runningCount),
                       label: `${specNoun(runningCount)} running`,
-                    },
-                    {
+                    }
+                  : null,
+                queuedCount
+                  ? {
                       icon: STATUS_META.UNCLAIMED.icon,
                       countText: String(queuedCount),
                       label: `${specNoun(queuedCount)} queued`,
-                    },
-                  ],
-                }
-              : undefined,
+                    }
+                  : null,
+              ] as (TooltipRow | null)[]
+            ).filter((row): row is TooltipRow => row !== null),
+          },
         })
         return
       }
@@ -374,11 +391,17 @@ export function buildSpecResultsView(
                       }
                     : null,
                   results.cancelled
-                    ? {
-                        icon: 'lightning-bolt',
-                        countText: String(results.cancelled),
-                        label: `${specNoun(results.cancelled)} skipped via Auto Cancellation`,
-                      }
+                    ? results.cancelledReason === 'manual'
+                      ? {
+                          icon: STATUS_META.SKIPPED.icon,
+                          countText: String(results.cancelled),
+                          label: `${specNoun(results.cancelled)} skipped via Manual Cancellation`,
+                        }
+                      : {
+                          icon: 'lightning-bolt',
+                          countText: String(results.cancelled),
+                          label: `${specNoun(results.cancelled)} skipped via Auto Cancellation`,
+                        }
                     : null,
                 ].filter((row): row is TooltipRow => row !== null),
               }
