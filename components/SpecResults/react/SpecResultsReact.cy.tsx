@@ -99,6 +99,15 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-cancel"]').should('not.exist')
   })
 
+  it('scheduled to complete: hides Archive even though nothing is running or queued', () => {
+    mountStory({
+      results: { failed: 1, passed: 28, skipped: 2 },
+      scheduledToComplete: '60s',
+      onArchive: () => {},
+    })
+    cy.get('[data-cy="spec-results-archive"]').should('not.exist')
+  })
+
   it('scheduled to complete: explains the delay on hover', () => {
     mountStory({
       results: { failed: 1, passed: 28, skipped: 2 },

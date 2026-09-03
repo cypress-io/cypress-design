@@ -162,8 +162,12 @@ export const CssClasses = {
   stripPadding: 'pl-[16px] pr-[16px] pt-[12px] pb-[16px]',
   stripPaddingWithDescription: 'p-[24px]',
   row: 'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center @[576px]:justify-between',
+  // -ml-[6px] cancels every pill's own px-[6px] on the container itself,
+  // not just the first pill -- a per-pill index===0 check only fixes row
+  // one; stacked (<576px) and wrapped (>=576px, >1 row) layouts both put
+  // more than one pill at the left edge, and each needs the same offset.
   pills:
-    'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center',
+    'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center -ml-[6px]',
   pill: 'group inline-flex h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
   count: 'text-gray-900 font-semibold',
   bar: 'absolute -inset-x-px -bottom-px flex h-[4px] gap-px overflow-hidden rounded-b bg-gray-100/50',
@@ -308,7 +312,15 @@ export function buildSpecResultsView(
   const total = Object.values(counts).reduce((sum, n) => sum + (n ?? 0), 0)
   const indeterminate = total === 0
   const remaining = (counts.RUNNING ?? 0) + (counts.UNCLAIMED ?? 0)
-  const isComplete = !indeterminate && remaining === 0
+  // Nothing left running or queued -- but that alone doesn't mean the run
+  // is complete: it's also the trigger for the scheduled-to-complete branch
+  // below, which fires precisely when nothing remains yet the run is still
+  // held open by the completion delay.
+  const allSpecsFinished = !indeterminate && remaining === 0
+  // A run held open by the completion delay has nothing left running or
+  // queued, but it isn't complete -- it's still live, just waiting on the
+  // delay window to close.
+  const isComplete = allSpecsFinished && !options.scheduledToComplete
 
   const pills: Pill[] = []
 
@@ -413,7 +425,7 @@ export function buildSpecResultsView(
   // A run whose groups are all done but held open by the project's
   // completion delay: swap the remaining pill's spec count for a countdown,
   // linking to the settings page that controls the delay.
-  if (options.scheduledToComplete && isComplete) {
+  if (options.scheduledToComplete && allSpecsFinished) {
     pills.push({
       status: 'RUNNING',
       href: '../../settings/general',
@@ -447,7 +459,7 @@ export function buildSpecResultsView(
   if (indeterminate) groups.push({ status: 'RUNNING', count: 1 })
   // Scheduled-to-complete: a small running block at the end of the bar (~1/24
   // of the width, at least one spec's worth) so the run still reads as live.
-  if (options.scheduledToComplete && isComplete && !indeterminate) {
+  if (options.scheduledToComplete && allSpecsFinished && !indeterminate) {
     groups.push({
       status: 'RUNNING',
       count: Math.max(1, Math.round(total / 24)),

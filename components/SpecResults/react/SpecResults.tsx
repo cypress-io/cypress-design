@@ -103,11 +103,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
               <a
                 href={pill.href}
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
-                className={cs(
-                  CssClasses.pill,
-                  HOVER_TEXT_CLASS[pill.hover],
-                  index === 0 && '-ml-[6px]',
-                )}
+                className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
               >
                 <OutlineStatusIcon
                   status={pill.icon}
