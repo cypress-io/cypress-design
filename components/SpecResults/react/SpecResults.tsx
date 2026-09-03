@@ -90,7 +90,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
     >
       {description && (
         <div
-          className="border-b border-gray-100/80 pb-[16px] text-[14px] leading-[20px] text-gray-700"
+          className="border-b border-solid border-gray-100/80 pb-[16px] text-[14px] leading-[20px] text-gray-700"
           data-cy="spec-results-description"
         >
           {description}
@@ -209,7 +209,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
           })}
         </div>
         {onCancel && (
-          <div className="w-full border-t border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+          <div className="w-full border-t border-solid border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
             <Button
               variant="outline-red"
               size="24"
@@ -227,7 +227,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
           </div>
         )}
         {isComplete && onArchive && (
-          <div className="w-full border-t border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+          <div className="w-full border-t border-solid border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
             <Button
               variant="outline-gray-light"
               size="24"
