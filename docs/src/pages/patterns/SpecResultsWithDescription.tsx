@@ -50,9 +50,8 @@ const DESCRIPTIONS: Record<Variant, React.ReactNode> = {
         <span>
           <b>Eric Koston</b> manually cancelled this run{' '}
           <span className="font-medium" title="Sep 3, 2026, 9:42 AM">
-            2m ago
+            2m ago.
           </span>
-          .
         </span>
       </p>
     </>

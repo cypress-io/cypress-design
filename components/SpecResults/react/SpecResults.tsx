@@ -22,7 +22,7 @@ export interface SpecResultsProps {
   results: SpecResultCounts
   /** Renders the Cancel run button and fires on click. Omit once the run completes. */
   onCancel?: () => void
-  /** Renders the Archive run button and fires on click. Shown once the run is complete (mirrors onCancel's "only while running" split) -- pass this instead of onCancel once results stop changing. */
+  /** Renders the Archive run button once the run is complete, and fires on click. */
   onArchive?: () => void
   /** Remaining project completion delay (e.g. "60s"). When set and nothing is running or queued, the trailing pill shows this instead of a spec count. */
   scheduledToComplete?: string

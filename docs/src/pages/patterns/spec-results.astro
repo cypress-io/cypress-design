@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro'
 import { Code } from 'astro:components'
 import { SpecResults } from '@cypress-design/react-spec-results'
 import SpecResultsCancelable from './SpecResultsCancelable'
+import SpecResultsArchivable from './SpecResultsArchivable'
+import SpecResultsWithDescription from './SpecResultsWithDescription'
 
 export const frontmatter = { title: 'SpecResults', order: 4 }
 
@@ -111,23 +113,64 @@ export function RunOverview({ run }) {
       />
     </div>
     <div>
-      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: all specs passed</div>
-      <SpecResults client:only="react" results={{ passed: 31 }} />
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Completed :: all specs passed</div>
+      <SpecResultsArchivable client:only="react" results={{ passed: 31 }} />
     </div>
     <div>
-      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: with failed specs</div>
-      <SpecResults client:only="react" results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }} />
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Completed :: with failed specs</div>
+      <SpecResultsArchivable client:only="react" results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }} />
     </div>
     <div>
-      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run completed :: with errored specs</div>
-      <SpecResults
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Completed :: with errored specs</div>
+      <SpecResultsArchivable
         client:only="react"
         results={{ failed: 2, errored: 3, passed: 15, skipped: 1 }}
       />
     </div>
     <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Timed out</div>
+      <SpecResultsWithDescription
+        client:only="react"
+        results={{ passed: 3, errored: 2, queued: 20 }}
+        variant="timedout"
+        isComplete={true}
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Errored</div>
+      <SpecResultsWithDescription
+        client:only="react"
+        results={{ passed: 473, failed: 1, errored: 2 }}
+        variant="errored"
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Manually cancelled</div>
+      <SpecResultsWithDescription
+        client:only="react"
+        results={{ passed: 76, cancelled: 361, cancelledReason: 'manual' }}
+        variant="cancelled-manual"
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run :: automatically cancelled</div>
+      <SpecResultsWithDescription
+        client:only="react"
+        results={{ passed: 10, failed: 1, cancelled: 3, cancelledReason: 'auto' }}
+        variant="cancelled-auto"
+      />
+    </div>
+    <div>
+      <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Run has no tests</div>
+      <SpecResultsWithDescription
+        client:only="react"
+        results={{ skipped: 3 }}
+        variant="no-tests"
+      />
+    </div>
+    <div>
       <div class="font-brand-heading text-sm leading-5 font-medium text-gray-900 mb-3">Removed specs label with <code class="font-brand-mono text-sm bg-white px-1.5 py-0.5 rounded border border-gray-100">label=""</code></div>
-      <SpecResults
+      <SpecResultsArchivable
         client:only="react"
         results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }}
         label=""
@@ -181,7 +224,7 @@ export function RunOverview({ run }) {
       <div>
         <div class="flex gap-6 py-3 border-t border-b border-gray-100">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
-          <div class="text-gray-700 flex-1">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> as numbers. Omitted keys are zero. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code> combine into one pill.</div>
+          <div class="text-gray-700 flex-1">Object with <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">failed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">errored</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">passed</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">running</code>, <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> as numbers, plus <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelledReason</code> (<code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">'auto' | 'manual'</code>, default <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">'auto'</code>) for the <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code> count's tooltip row. Omitted keys are zero. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">skipped</code> and <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">cancelled</code> combine into one pill.</div>
         </div>
         <div class="flex gap-6 py-3">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
@@ -203,6 +246,19 @@ export function RunOverview({ run }) {
       </div>
     </div>
     <div class="mb-16">
+      <code class="font-brand-mono text-sm bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">onArchive</code>
+      <div>
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">Renders the Archive run button once the run is complete, and fires on click.</div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">() ⇒ void</code></div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-16">
       <code class="font-brand-mono text-sm bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">scheduledToComplete</code>
       <div>
         <div class="flex gap-6 py-3 border-t border-b border-gray-100">
@@ -215,7 +271,7 @@ export function RunOverview({ run }) {
         </div>
       </div>
     </div>
-    <div>
+    <div class="mb-16">
       <code class="font-brand-mono text-sm bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">label</code>
       <div>
         <div class="flex gap-6 py-3 border-t border-b border-gray-100">
@@ -229,6 +285,32 @@ export function RunOverview({ run }) {
         <div class="flex gap-6 py-3">
           <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Default</div>
           <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">"specs"</code></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <code class="font-brand-mono text-sm bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">description</code>
+      <div>
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">Extra context about the run's own outcome (timed out, errored, manually/auto cancelled, no tests at all) — the caller owns the content. Renders above the pills, inside this same card, separated by a thin divider rather than a second bordered panel.</div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">ReactNode</code></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <code class="font-brand-mono text-sm bg-gray-50 px-2 py-1 rounded border border-gray-100 inline-flex items-center text-purple-500 mb-3">isComplete</code>
+      <div>
+        <div class="flex gap-6 py-3 border-t border-b border-gray-100">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Description</div>
+          <div class="text-gray-700 flex-1">Overrides the derived "is this run complete" state. A timed-out/abandoned run can still carry a nonzero <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">queued</code> count (specs the recorder never claimed), which reads as still running and hides Archive — pass <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">true</code> once the caller independently knows nothing is still executing (e.g. <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">run.status === 'TIMEDOUT'</code>).</div>
+        </div>
+        <div class="flex gap-6 py-3">
+          <div class="w-[100px] shrink-0 font-brand-heading text-sm font-medium text-gray-1000">Type</div>
+          <div class="flex-1"><code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">boolean</code></div>
         </div>
       </div>
     </div>
@@ -260,6 +342,10 @@ export function RunOverview({ run }) {
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium py-3 pr-4 border-b border-gray-100 align-top">Cancel run</td>
         <td class="text-gray-700 py-3 pl-4 border-b border-gray-100 align-top">Fires <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onCancel</code>. The component doesn't confirm or disable itself — the caller owns that flow.</td>
+      </tr>
+      <tr>
+        <td class="font-brand-mono text-sm w-[200px] font-medium py-3 pr-4 border-b border-gray-100 align-top">Archive run</td>
+        <td class="text-gray-700 py-3 pl-4 border-b border-gray-100 align-top">Fires <code class="font-brand-mono text-sm bg-gray-50 px-1 rounded border border-gray-100 inline-flex items-center h-5 text-purple-500">onArchive</code>. Shown once the run is complete instead of Cancel run — same "no confirm, caller owns the flow" contract.</td>
       </tr>
       <tr>
         <td class="font-brand-mono text-sm w-[200px] font-medium py-3 pr-4 border-b border-gray-100 align-top">Bar</td>
