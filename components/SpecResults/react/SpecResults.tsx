@@ -217,11 +217,6 @@ export const SpecResults: FC<SpecResultsProps> = ({
               className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
               onClick={onCancel}
             >
-              <OutlineStatusIcon
-                status="skipped"
-                size="16"
-                className="!icon-dark-red-500"
-              />
               Cancel run
             </Button>
           </div>
