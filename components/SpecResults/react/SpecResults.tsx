@@ -1,6 +1,7 @@
-import type { FC, ReactNode } from 'react'
+import type { FC, MouseEvent, ReactNode } from 'react'
 import React from 'react'
 import cs from 'clsx'
+import { useInRouterContext, useNavigate } from 'react-router-dom'
 import { OutlineStatusIcon } from '@cypress-design/react-statusicon'
 import {
   IconShapeLightningBolt,
@@ -61,6 +62,84 @@ function ensureShimmerStyle() {
   document.head.appendChild(style)
 }
 
+type PillLinkProps = {
+  href: string
+  className?: string
+  'data-cy'?: string
+  children: ReactNode
+}
+
+// Client-side nav instead of a full page reload -- the only reason pill
+// links exist at all is to jump to the Specs/Test Results tab pre-filtered
+// by status, and those tabs already live inside the same app shell.
+//
+// This intentionally does NOT use react-router-dom's own relative-path
+// resolution (`<Link to="specs?...">`): v6 resolves a relative `to`
+// against the full current URL, including whatever the caller's own
+// wildcard route match consumed, not just against "one tab's worth" of
+// path -- from `/runs/6/specs`, `to="specs?..."` resolves to the nonsense
+// `/runs/6/specs/specs?...` rather than staying on `/runs/6/specs?...`.
+// A real `<a href>`'s resolution doesn't have that problem (relative to
+// the current URL, replacing only the last segment, same as any browser
+// link), so this keeps `href` exactly as authored and lets the browser's
+// own `URL` resolution compute the target -- correct regardless of which
+// tab the pill was clicked from or how deep that tab's own sub-routing
+// goes -- then hands that resolved path to the router instead of letting
+// the click fall through to a real navigation.
+//
+// Split into two components (rather than one that conditionally calls
+// useNavigate) because react-router-dom's hooks throw when called outside
+// a <Router> -- this component's own docs demos render with none -- and a
+// hook can't be called conditionally within a single component instance.
+// PillLink checks safely (useInRouterContext never throws) and mounts
+// this one only once a Router is confirmed present; otherwise it renders
+// a plain, unmodified anchor.
+const RoutedPillLink: FC<PillLinkProps> = ({ href, children, ...rest }) => {
+  const navigate = useNavigate()
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    // Let modified/non-primary clicks fall through to native
+    // open-in-new-tab / open-in-new-window / download behavior.
+    if (
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return
+    }
+    event.preventDefault()
+    const resolved = new URL(href, window.location.href)
+    navigate(resolved.pathname + resolved.search + resolved.hash)
+  }
+
+  return (
+    <a href={href} onClick={handleClick} {...rest}>
+      {children}
+    </a>
+  )
+}
+
+const PillLink: FC<PillLinkProps> = ({ href, children, ...rest }) => {
+  const inRouterContext = useInRouterContext()
+
+  if (inRouterContext) {
+    return (
+      <RoutedPillLink href={href} {...rest}>
+        {children}
+      </RoutedPillLink>
+    )
+  }
+
+  return (
+    <a href={href} {...rest}>
+      {children}
+    </a>
+  )
+}
+
 export const SpecResults: FC<SpecResultsProps> = ({
   results,
   onCancel,
@@ -100,7 +179,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
         <div className={CssClasses.pills}>
           {pills.map((pill, index) => {
             const link = (
-              <a
+              <PillLink
                 href={pill.href}
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
                 className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
@@ -128,7 +207,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   {pill.countText ? ' ' : ''}
                   {pill.rest}
                 </span>
-              </a>
+              </PillLink>
             )
             if (!pill.tooltip) {
               return (
@@ -146,9 +225,9 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 >
                   <div className={CssClasses.tooltipTitle}>{tooltip.title}</div>
                   <div>{tooltip.text}</div>
-                  <a href={pill.href} className={CssClasses.tooltipLink}>
+                  <PillLink href={pill.href} className={CssClasses.tooltipLink}>
                     {tooltip.linkLabel}
-                  </a>
+                  </PillLink>
                 </div>
               ) : (
                 <div
