@@ -1,0 +1,35 @@
+{
+  "name": "@cypress-design/react-spec-results",
+  "version": "0.0.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "rollup -c ./rollup.config.mjs",
+    "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
+  },
+  "dependencies": {
+    "@cypress-design/react-button": "*",
+    "@cypress-design/react-icon": "*",
+    "@cypress-design/react-statusicon": "*",
+    "@cypress-design/react-tooltip": "*",
+    "clsx": "*",
+    "react-router-dom": "^6.30.4"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-spec-results": "*",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
+  "license": "MIT"
+}

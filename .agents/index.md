@@ -47,6 +47,7 @@ Fetch on demand — don't preload all of them:
 `DocMenu` — sidebar navigation used in documentation sites
 `RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
 `Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
+`SpecResults` — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar. React only for now (`@cypress-design/react-spec-results`)
 `StatusIcon` — run/spec/group/test-result status indicator (passed, failed, failing, running, unclaimed, placeholder, cancelled, noTests, errored, timedOut, overLimit, skipped, pending)
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions
