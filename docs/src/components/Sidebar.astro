@@ -23,19 +23,14 @@ const docPages = Object.entries(docPageGlob)
   }))
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
 
-const patternGlob = import.meta.glob<{
-  frontmatter?: { title?: string; order?: number }
-}>(['../pages/patterns/*.mdx', '../pages/patterns/*.astro'], { eager: true })
+const patternGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: number } }>(
+  '../pages/patterns/*.mdx',
+  { eager: true },
+)
 const patternPages = Object.entries(patternGlob)
   .map(([path, mod]) => ({
-    href: path.replace('../pages', '').replace(/\.(mdx|astro)$/, ''),
-    label:
-      mod.frontmatter?.title ??
-      path
-        .split('/')
-        .pop()
-        ?.replace(/\.(mdx|astro)$/, '') ??
-      '',
+    href: path.replace('../pages', '').replace('.mdx', ''),
+    label: mod.frontmatter?.title ?? path.split('/').pop()?.replace('.mdx', '') ?? '',
     order: mod.frontmatter?.order ?? 99,
   }))
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))

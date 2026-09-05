@@ -87,7 +87,7 @@ A status with a count of zero is not rendered at all.
 ## Known limitations
 
 - **Sizing is literal px, not Tailwind's rem-based scale.** This is a workaround for a Cypress Cloud dashboard bug (a legacy `bootstrap-sass` global sets the page's root font-size to 10px instead of 16px, so every rem-based utility renders at 62.5% of normal there) -- not a flaw in this component. See `architecture.md` for the full explanation before "fixing" it back to the named scale.
-- **React only for now.** No Vue implementation yet — planned as a fast-follow. The docs site's live demo (normally a `.vue` SFC) is not wired up for this component until Vue ships; see `architecture.md`.
+- **React only for now.** No Vue implementation yet — planned as a fast-follow; see `architecture.md`.
 - **No i18n.** All copy ("specs", "remaining", "Testing in progress") is hardcoded English.
 - **No custom link renderer.** Unlike `RunResults`, there is no `renderLink`/router-integration prop — pills are always plain `<a>` tags. This is intentional: the hrefs are always route-relative to a Cypress Cloud run page, so no router integration has been needed yet.
 - **Order is fixed.** No prop to reorder or hide individual pills beyond what a zero count already hides.
