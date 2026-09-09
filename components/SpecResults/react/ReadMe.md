@@ -27,6 +27,7 @@ export default () => (
   <SpecResults
     results={{ failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 }}
     onCancel={() => {}}
+    trackingContext="Run - Detail - Overview Tab"
   />
 )
 ```
@@ -37,7 +38,10 @@ A completed run drops the remaining pill and the Cancel button automatically:
 import { SpecResults } from '@cypress-design/react-spec-results'
 
 export default () => (
-  <SpecResults results={{ failed: 1, passed: 28, skipped: 2 }} />
+  <SpecResults
+    results={{ failed: 1, passed: 28, skipped: 2 }}
+    trackingContext="Run - Detail - Overview Tab"
+  />
 )
 ```
 
@@ -50,6 +54,7 @@ export default () => (
   <SpecResults
     results={{ failed: 1, passed: 28, skipped: 2 }}
     scheduledToComplete="60s"
+    trackingContext="Run - Detail - Overview Tab"
   />
 )
 ```
