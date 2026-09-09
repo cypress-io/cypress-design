@@ -59,7 +59,7 @@ A status with a count of zero is not rendered at all.
 
 ## Interaction
 
-- Every pill (except the scheduled-to-complete pill) is a plain relative `<a href="specs?specStatus=[...]">` — no router dependency. It resolves correctly from any tab under `/projects/:id/runs/:id/*` (a leading `../` would drop the run id, since every tab is itself a path segment under `:id`).
+- Every pill (except the scheduled-to-complete pill) is an `<a href="specs?specStatus=[...]">` relative to the run tab's URL. Inside a react-router `Router` the click navigates client-side; otherwise it is a plain link. The relative href resolves correctly only from exactly `/projects/:id/runs/:id/<tab>` (see `architecture.md`, Decisions).
 - `errored` filters on `ERRORED` + `TIMEDOUT`; `skipped` filters on `NOTESTS` + `CANCELLED`; the remaining pill filters on `RUNNING` + `UNCLAIMED`.
 - Hover: the pill's text and icon take on the status's own hue (label at `-500`, the bold count a shade darker at `-600`) rather than a generic link color, plus a `gray-50` background — reads as "go to this status," not a generic hover.
 - Cancel run fires `onCancel`. The component does not confirm or disable itself; the caller owns that flow.
@@ -89,5 +89,5 @@ A status with a count of zero is not rendered at all.
 - **Sizing is literal px, not Tailwind's rem-based scale.** This is a workaround for a Cypress Cloud dashboard bug (a legacy `bootstrap-sass` global sets the page's root font-size to 10px instead of 16px, so every rem-based utility renders at 62.5% of normal there) -- not a flaw in this component. See `architecture.md` for the full explanation before "fixing" it back to the named scale.
 - **React only for now.** No Vue implementation yet — planned as a fast-follow; see `architecture.md`.
 - **No i18n.** All copy ("specs", "remaining", "Testing in progress") is hardcoded English.
-- **No custom link renderer.** Unlike `RunResults`, there is no `renderLink`/router-integration prop — pills are always plain `<a>` tags. This is intentional: the hrefs are always route-relative to a Cypress Cloud run page, so no router integration has been needed yet.
+- **No custom link renderer yet.** Unlike `RunResults`, there is no `renderLink` prop; pills use react-router's `useNavigate` when a `Router` is present and plain `<a>` navigation otherwise. Moving to a consumer-supplied link renderer is under review.
 - **Order is fixed.** No prop to reorder or hide individual pills beyond what a zero count already hides.
