@@ -3,15 +3,6 @@
 Why the component is built the way it is. The source is the reference for
 _how_; `instructions.md` is the usage contract.
 
-## Origin
-
-Ported from a design-iteration prototype in `cypress-services`
-(`frontend/packages/dashboard/src/specs/SpecsStatusStripPrototype.tsx`, PR
-#14230). The port takes plain per-status counts instead of Cloud's GraphQL
-instance list so it has no data-model dependency, and adds one state the
-prototype lacked: "scheduled to complete" (a run held open by the project's
-completion delay after every group finished).
-
 ## Where the logic lives
 
 `buildSpecResultsView()` in `constants/src/index.ts` derives everything the
@@ -23,6 +14,9 @@ as `RunResults`), so consumers install one package.
 
 ## Decisions
 
+- **Takes plain per-status counts, not Cloud's GraphQL instance list.** Keeps
+  the component itself free of any data-model dependency; the caller does the
+  status mapping (see `instructions.md`, "Status mapping").
 - **Two pills combine two real statuses** (`skipped` = `NOTESTS` + `CANCELLED`;
   the remaining pill = `RUNNING` + `UNCLAIMED`) and both always carry a
   breakdown tooltip, even for a single cause: "3 skipped specs" or "5 specs
