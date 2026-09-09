@@ -66,6 +66,7 @@ type PillLinkProps = {
   href: string
   className?: string
   'data-cy'?: string
+  'data-fs-element'?: string
   children: ReactNode
 }
 
@@ -182,6 +183,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
               <PillLink
                 href={pill.href}
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
+                data-fs-element={`spec-results-pill-${pill.status.toLowerCase()}`}
                 className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
               >
                 <OutlineStatusIcon
@@ -225,7 +227,11 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 >
                   <div className={CssClasses.tooltipTitle}>{tooltip.title}</div>
                   <div>{tooltip.text}</div>
-                  <PillLink href={pill.href} className={CssClasses.tooltipLink}>
+                  <PillLink
+                    href={pill.href}
+                    data-fs-element={`spec-results-pill-${pill.status.toLowerCase()}-tooltip-link`}
+                    className={CssClasses.tooltipLink}
+                  >
                     {tooltip.linkLabel}
                   </PillLink>
                 </div>
@@ -293,6 +299,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
               variant="outline-red"
               size="24"
               data-cy="spec-results-cancel"
+              data-fs-element="spec-results-cancel"
               className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
               onClick={onCancel}
             >
@@ -306,6 +313,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
               variant="outline-gray-light"
               size="24"
               data-cy="spec-results-archive"
+              data-fs-element="spec-results-archive"
               className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
               onClick={onArchive}
             >
