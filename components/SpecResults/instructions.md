@@ -23,7 +23,7 @@ A single package to install — types and class constants are bundled in (there 
 | `label`               | `string`           | `"specs"` | Noun appended to each pill (`"28 passed specs"`). Singular is derived by dropping the trailing `"s"`. Pass `""` to drop it entirely.                                                                                                                                                                                                                   |
 | `description`         | `ReactNode`        | —         | Extra context about the run's own outcome (timed out, errored, manually/auto cancelled, no tests at all) — the caller owns the content. Renders above the pills, inside this same card, separated by a thin divider rather than a second bordered panel.                                                                                               |
 | `isComplete`          | `boolean`          | —         | Overrides the derived "is this run complete" state. A timed-out/abandoned run can still carry a nonzero `queued` count (specs the recorder never claimed), which reads as still running and hides Archive — pass `true` once the caller independently knows nothing is still executing (e.g. `run.status === 'TIMEDOUT'`).                             |
-| `trackingContext`     | `string`           | —         | Your page/tab path, e.g. `"Run - Detail - Overview Tab"`. Prefixes every `data-fs-element` label (see "FullStory tracking" below). **Pass this on every real integration** — without it, every place this component is used reports the identical label, so FullStory can't tell which page a click came from.                                         |
+| `trackingContext`     | `string`           | —         | Your page/tab path, e.g. `"Run - Detail"`. Prefixes every `data-fs-element` label (see "FullStory tracking" below). **Pass this on every real integration** — without it, every place this component is used reports the identical label, so FullStory can't tell which page a click came from.                                                        |
 
 `SpecResultCounts` is exported from the package (bundled in, not a separate install).
 
@@ -96,17 +96,17 @@ Every clickable element in this component carries a `data-fs-element` attribute 
 | Cancel run button     | `"Spec Results - Cancel Run"`                                           |
 | Archive run button    | `"Spec Results - Archive Run"`                                          |
 
-**Always pass `trackingContext` when you wire this component into a real page.** `SpecResults` is dropped onto several different tabs of a run (Overview, Test Results, Errors, Specs, Properties). Without `trackingContext`, the Archive button on every one of those tabs reports the exact same `"Spec Results - Archive Run"` label — FullStory can't tell them apart, which is the same "everything's just a button" problem this attribute exists to avoid. Pass your own page/tab path instead:
+**Always pass `trackingContext` when you wire this component into a real page.** Without it, every place `SpecResults` is used reports the exact same `"Spec Results - Archive Run"` label — FullStory can't tell one integration from another, which is the same "everything's just a button" problem this attribute exists to avoid. Pass your own page context instead:
 
 ```tsx
 <SpecResults
   results={results}
   onArchive={handleArchive}
-  trackingContext="Run - Detail - Overview Tab"
+  trackingContext="Run - Detail"
 />
 ```
 
-That renders `data-fs-element="Run - Detail - Overview Tab - Spec Results - Archive Run"` — now distinguishable from the same button on the Test Results tab (`"Run - Detail - Test Results Tab - Spec Results - Archive Run"`) or any other tab. One prop, set once per integration, covers every interactive element inside the component — you never need to label the pills or buttons individually.
+That renders `data-fs-element="Run - Detail - Spec Results - Archive Run"`. One prop, set once per integration, covers every interactive element inside the component — you never need to label the pills or buttons individually.
 
 ## Known limitations
 
