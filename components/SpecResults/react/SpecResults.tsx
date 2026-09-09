@@ -33,7 +33,7 @@ export interface SpecResultsProps {
   description?: ReactNode
   /** Overrides the derived "is this run complete" state. A timed-out/abandoned run still has specs the recorder never claimed -- indistinguishable from a genuinely live `queued` count by pure totals alone -- so without this override it reads as still running and Archive never shows. Pass `true` once the caller knows independently (e.g. run.status === 'TIMEDOUT') that nothing is actually still executing. */
   isComplete?: boolean
-  /** Prefixes every `data-fs-element` FullStory label with `"${trackingContext} - "`, e.g. `"Run - Detail - Overview Tab"`. Pass the caller's own page/tab context so the same button rendered on five different tabs is distinguishable in FullStory -- without it, every interactive element still gets a real (not generic) label, just one shared across every place this component renders. */
+  /** Recommended for every real integration. Prefixes every `data-fs-element` FullStory label with `"${trackingContext} - "`, e.g. `"Run - Detail - Overview Tab"`. Pass the caller's own page/tab context so the same button rendered on five different tabs is distinguishable in FullStory -- without it, every interactive element still gets a real (not generic) label, just one shared across every place this component renders. See instructions.md ("FullStory tracking") for the full default-label table and an example. */
   trackingContext?: string
 }
 
