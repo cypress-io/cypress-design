@@ -33,7 +33,20 @@ export interface SpecResultsProps {
   description?: ReactNode
   /** Overrides the derived "is this run complete" state. A timed-out/abandoned run still has specs the recorder never claimed -- indistinguishable from a genuinely live `queued` count by pure totals alone -- so without this override it reads as still running and Archive never shows. Pass `true` once the caller knows independently (e.g. run.status === 'TIMEDOUT') that nothing is actually still executing. */
   isComplete?: boolean
+  /** Prefixes every `data-fs-element` FullStory label with `"${trackingContext} - "`, e.g. `"Run - Detail - Overview Tab"`. Pass the caller's own page/tab context so the same button rendered on five different tabs is distinguishable in FullStory -- without it, every interactive element still gets a real (not generic) label, just one shared across every place this component renders. */
+  trackingContext?: string
 }
+
+const capitalize = (word: string) =>
+  word.charAt(0).toUpperCase() + word.slice(1)
+
+// Every interactive element gets a real, human-readable FullStory label by
+// default (never a generic "button") so FullStory session replay is useful
+// out of the box -- see `.agents/policies/tracking-attributes.md`. Prefixing
+// with the caller's `trackingContext` is what makes the same button
+// distinguishable across every page/tab this component is dropped onto.
+const fsLabel = (name: string, trackingContext?: string) =>
+  trackingContext ? `${trackingContext} - ${name}` : name
 
 // Tailwind's JIT can't synthesize a `linear-gradient(...)` + `@keyframes` pair
 // from arbitrary utility values in a way that's portable across every
@@ -149,6 +162,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
   label = 'specs',
   description,
   isComplete: isCompleteOverride,
+  trackingContext,
 }) => {
   ensureShimmerStyle()
   const {
@@ -183,7 +197,10 @@ export const SpecResults: FC<SpecResultsProps> = ({
               <PillLink
                 href={pill.href}
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
-                data-fs-element={`spec-results-pill-${pill.status.toLowerCase()}`}
+                data-fs-element={fsLabel(
+                  `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs`,
+                  trackingContext,
+                )}
                 className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
               >
                 <OutlineStatusIcon
@@ -229,7 +246,10 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   <div>{tooltip.text}</div>
                   <PillLink
                     href={pill.href}
-                    data-fs-element={`spec-results-pill-${pill.status.toLowerCase()}-tooltip-link`}
+                    data-fs-element={fsLabel(
+                      `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs Tooltip Link`,
+                      trackingContext,
+                    )}
                     className={CssClasses.tooltipLink}
                   >
                     {tooltip.linkLabel}
@@ -299,7 +319,10 @@ export const SpecResults: FC<SpecResultsProps> = ({
               variant="outline-red"
               size="24"
               data-cy="spec-results-cancel"
-              data-fs-element="spec-results-cancel"
+              data-fs-element={fsLabel(
+                'Spec Results - Cancel Run',
+                trackingContext,
+              )}
               className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
               onClick={onCancel}
             >
@@ -313,7 +336,10 @@ export const SpecResults: FC<SpecResultsProps> = ({
               variant="outline-gray-light"
               size="24"
               data-cy="spec-results-archive"
-              data-fs-element="spec-results-archive"
+              data-fs-element={fsLabel(
+                'Spec Results - Archive Run',
+                trackingContext,
+              )}
               className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
               onClick={onArchive}
             >

@@ -10,13 +10,18 @@ import type { SpecResultsProps } from '@cypress-design/react-spec-results'
 const noop = () => {}
 
 const Heading = ({ children }: { children: React.ReactNode }) => (
-  <p className="font-semibold text-[16px] text-gray-900 mb-[4px]">{children}</p>
+  // Demo content renders inside the docs page's `.markdown` wrapper, whose
+  // `.markdown p` rule outranks a plain `mt-0`/`mb-0` utility on specificity
+  // -- force it with Tailwind's `!` modifier instead.
+  <p className="!mt-0 font-semibold text-[16px] !leading-4 text-gray-900 !mb-[4px]">
+    {children}
+  </p>
 )
 
 const TIMED_OUT = (
   <>
     <Heading>Run timed out</Heading>
-    <p>
+    <p className="!mb-0 !leading-6">
       The run started, but never completed. This can happen when the run is
       cancelled from CI or when Cypress crashes during running tests. Check your
       CI logs for more information.
@@ -27,7 +32,7 @@ const TIMED_OUT = (
 const ERRORED = (
   <>
     <Heading>Run errored</Heading>
-    <p>
+    <p className="!mb-0 !leading-6">
       We detected that the Chrome Renderer process just crashed. We have failed
       the current spec but will continue running the next spec.
     </p>
@@ -37,7 +42,7 @@ const ERRORED = (
 const CANCELLED_MANUAL = (
   <>
     <Heading>Run manually cancelled</Heading>
-    <p className="flex items-center gap-[6px]">
+    <p className="!mb-0 flex items-center gap-[6px]">
       <span
         aria-hidden="true"
         className="inline-block h-[16px] w-[16px] rounded-full bg-gray-200"
@@ -55,9 +60,11 @@ const CANCELLED_MANUAL = (
 const CANCELLED_AUTO = (
   <>
     <Heading>Run automatically cancelled</Heading>
-    <p className="leading-snug">
+    <p className="!mb-0 !leading-6">
       Cypress automatically cancelled this run when{' '}
-      <code className="font-mono font-semibold">example/actions-0.spec.js</code>{' '}
+      <code className="font-mono font-semibold bg-gray-50 border-gray-100">
+        example/actions-0.spec.js
+      </code>{' '}
       failed. You can manage this behavior in Project Settings.
     </p>
   </>
@@ -66,7 +73,7 @@ const CANCELLED_AUTO = (
 const NO_TESTS = (
   <>
     <Heading>No tests found</Heading>
-    <p>This run has no tests.</p>
+    <p className="!mb-0">This run has no tests.</p>
   </>
 )
 

@@ -168,7 +168,11 @@ export const CssClasses = {
   // more than one pill at the left edge, and each needs the same offset.
   pills:
     'flex flex-col items-start gap-[8px] @[576px]:flex-row @[576px]:flex-wrap @[576px]:items-center -ml-[6px]',
-  pill: 'group inline-flex h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
+  // `align-middle` matters only when Tooltip wraps a pill in its own plain
+  // block div -- without it, the default `vertical-align: baseline` reserves
+  // descender space below the inline-flex pill, inflating that wrapper div
+  // ~3px taller than an un-tooltipped sibling pill and shifting the pill up.
+  pill: 'group inline-flex align-middle h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
   count: 'text-gray-900 font-semibold',
   bar: 'absolute -inset-x-px -bottom-px flex h-[4px] gap-px overflow-hidden rounded-b bg-gray-100/50',
   tick: 'box-border rounded transition-all duration-500 ease-in-out',
