@@ -313,7 +313,7 @@ describe('<SpecResults /> React', () => {
       .children()
       .should('have.length', 5)
       .then(($segments) => {
-        const flexValues = [...$segments].map((el) => el.style.flex)
+        const flexValues = $segments.toArray().map((el) => el.style.flex)
         expect(flexValues).to.deep.equal([
           '1 0 0%',
           '18 0 0%',
