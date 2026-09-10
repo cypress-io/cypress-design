@@ -1,5 +1,15 @@
 # @cypress-design/vue-statusicon
 
+## 1.0.1
+
+### Patch Changes
+
+- [#719](https://github.com/cypress-io/cypress-design/pull/719) [`f9ee6ab`](https://github.com/cypress-io/cypress-design/commit/f9ee6abd21606fc192bc48a231f055deec94451a) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fix the errored/timedOut/overLimit/noTests status icon's circle radius reaching all the way to the SVG's edge (0–16, no margin) instead of matching every other status icon's inset circle (radius 5–7, a 1px margin from the edge).
+
+- Updated dependencies [[`f9ee6ab`](https://github.com/cypress-io/cypress-design/commit/f9ee6abd21606fc192bc48a231f055deec94451a)]:
+  - @cypress-design/icon-registry@3.3.1
+  - @cypress-design/vue-icon@3.3.1
+
 ## 1.0.0
 
 ### Major Changes
