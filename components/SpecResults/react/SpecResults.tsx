@@ -152,6 +152,15 @@ const PillLink: FC<PillLinkProps> = ({ href, children, ...rest }) => {
   )
 }
 
+// Shared wrapper for the Cancel/Archive row -- a full-width divider above
+// the button on the stacked (<576px) layout, sitting inline beside the
+// pills once there's room.
+const ButtonRowWrapper: FC<{ children: ReactNode }> = ({ children }) => (
+  <div className="w-full border-t [border-top-style:solid] border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+    {children}
+  </div>
+)
+
 export const SpecResults: FC<SpecResultsProps> = ({
   results,
   onCancel,
@@ -166,10 +175,14 @@ export const SpecResults: FC<SpecResultsProps> = ({
     pills,
     groups,
     isComplete: derivedIsComplete,
-  } = buildSpecResultsView(results, {
-    scheduledToComplete,
-    isComplete: isCompleteOverride,
-  })
+  } = React.useMemo(
+    () =>
+      buildSpecResultsView(results, {
+        scheduledToComplete,
+        isComplete: isCompleteOverride,
+      }),
+    [results, scheduledToComplete, isCompleteOverride],
+  )
   const isComplete = isCompleteOverride ?? derivedIsComplete
 
   return (
@@ -192,7 +205,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
       )}
       <div className={CssClasses.row}>
         <div className={CssClasses.pills}>
-          {pills.map((pill, index) => {
+          {pills.map((pill) => {
             const content = (
               <>
                 <OutlineStatusIcon
@@ -250,11 +263,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
               </span>
             )
             if (!pill.tooltip) {
-              return (
-                <React.Fragment key={`${pill.status}-${index}`}>
-                  {link}
-                </React.Fragment>
-              )
+              return <React.Fragment key={pill.status}>{link}</React.Fragment>
             }
             const tooltip = pill.tooltip
             const popperContent =
@@ -326,7 +335,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
               )
             return (
               <Tooltip
-                key={`${pill.status}-${index}`}
+                key={pill.status}
                 color="dark"
                 placement="top"
                 interactive
@@ -339,7 +348,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
           })}
         </div>
         {!isComplete && onCancel && (
-          <div className="w-full border-t [border-top-style:solid] border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+          <ButtonRowWrapper>
             <Button
               variant="outline-red"
               size="24"
@@ -348,15 +357,15 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 'Spec Results - Cancel Run',
                 trackingContext,
               )}
-              className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
+              className="flex-shrink-0 bg-white !px-[6px] gap-[6px]"
               onClick={onCancel}
             >
               Cancel run
             </Button>
-          </div>
+          </ButtonRowWrapper>
         )}
         {isComplete && onArchive && (
-          <div className="w-full border-t [border-top-style:solid] border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+          <ButtonRowWrapper>
             <Button
               variant="outline-gray-light"
               size="24"
@@ -365,7 +374,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 'Spec Results - Archive Run',
                 trackingContext,
               )}
-              className="flex-shrink-0 !bg-white !px-[6px] gap-[6px]"
+              className="flex-shrink-0 bg-white !px-[6px] gap-[6px]"
               onClick={onArchive}
             >
               <IconActionArchive
@@ -375,13 +384,13 @@ export const SpecResults: FC<SpecResultsProps> = ({
               />
               Archive run
             </Button>
-          </div>
+          </ButtonRowWrapper>
         )}
       </div>
       <div className={CssClasses.bar} data-cy="spec-results-bar">
         {groups.map((group, index) => (
           <div
-            key={index}
+            key={group.status}
             className={cs(
               CssClasses.tick,
               index === 0 && CssClasses.tickFirst,

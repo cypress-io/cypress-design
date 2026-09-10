@@ -110,6 +110,22 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-archive"]').should('not.exist')
   })
 
+  it('an isComplete override takes precedence over scheduledToComplete: no countdown pill, Archive shows', () => {
+    mountStory({
+      results: { failed: 1, passed: 28, skipped: 2 },
+      scheduledToComplete: '60s',
+      isComplete: true,
+      onArchive: () => {},
+    })
+    cy.get('[data-cy="spec-results-pill-running"]').should('not.exist')
+    cy.get('[data-cy="spec-results-archive"]').should('exist')
+    // The tick-bar shouldn't carry the trailing "still live" running
+    // segment either once isComplete says otherwise.
+    cy.get('[data-cy="spec-results-bar"] .cy-spec-results-running-tick').should(
+      'not.exist',
+    )
+  })
+
   it('scheduled to complete: explains the delay on hover', () => {
     mountStory({
       results: { failed: 1, passed: 28, skipped: 2 },

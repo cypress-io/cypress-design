@@ -291,6 +291,12 @@ const withSuffix = (count: number): string =>
 
 const specNoun = (count: number): string => (count === 1 ? 'spec' : 'specs')
 
+// Both breakdown tooltips (remaining: running/queued; skipped: no-tests/
+// cancelled) build up to two conditional rows and drop whichever cause is
+// zero -- shared here instead of each hand-rolling the same filter.
+const compactRows = (rows: (TooltipRow | null)[]): TooltipRow[] =>
+  rows.filter((row): row is TooltipRow => row !== null)
+
 // Relative to a run tab's own URL (.../runs/:id/<tab>) -- "specs" (not
 // "../specs") is what actually lands on .../runs/:id/specs. A leading "../"
 // resolves one level too far up and drops the run id entirely.
@@ -390,24 +396,22 @@ export function buildSpecResultsView(
           // so even a single-cause total still gets a tooltip naming it.
           tooltip: {
             kind: 'breakdown',
-            rows: (
-              [
-                runningCount
-                  ? {
-                      icon: STATUS_META.RUNNING.icon,
-                      countText: String(runningCount),
-                      label: `${specNoun(runningCount)} running`,
-                    }
-                  : null,
-                queuedCount
-                  ? {
-                      icon: STATUS_META.UNCLAIMED.icon,
-                      countText: String(queuedCount),
-                      label: `${specNoun(queuedCount)} queued`,
-                    }
-                  : null,
-              ] as (TooltipRow | null)[]
-            ).filter((row): row is TooltipRow => row !== null),
+            rows: compactRows([
+              runningCount
+                ? {
+                    icon: STATUS_META.RUNNING.icon,
+                    countText: String(runningCount),
+                    label: `${specNoun(runningCount)} running`,
+                  }
+                : null,
+              queuedCount
+                ? {
+                    icon: STATUS_META.UNCLAIMED.icon,
+                    countText: String(queuedCount),
+                    label: `${specNoun(queuedCount)} queued`,
+                  }
+                : null,
+            ]),
           },
         })
         return
@@ -429,7 +433,7 @@ export function buildSpecResultsView(
                 // "skipped" spec is never self-explanatory the way "18
                 // passed" is, so even a single-cause total still gets a
                 // tooltip naming which real status it came from.
-                rows: [
+                rows: compactRows([
                   results.skipped
                     ? {
                         icon: STATUS_META.SKIPPED.icon,
@@ -450,7 +454,7 @@ export function buildSpecResultsView(
                           label: `${specNoun(results.cancelled)} skipped via Auto Cancellation`,
                         }
                     : null,
-                ].filter((row): row is TooltipRow => row !== null),
+                ]),
               }
             : undefined,
       })
@@ -460,7 +464,7 @@ export function buildSpecResultsView(
   // A run whose groups are all done but held open by the project's
   // completion delay: swap the remaining pill's spec count for a countdown,
   // linking to the settings page that controls the delay.
-  if (options.scheduledToComplete && allSpecsFinished) {
+  if (options.scheduledToComplete && allSpecsFinished && !options.isComplete) {
     pills.push({
       status: 'RUNNING',
       href: '../../settings/general',
@@ -483,17 +487,14 @@ export function buildSpecResultsView(
     })
   }
 
-  const groups: TickGroup[] = []
-  const sorted = (Object.keys(counts) as StripStatus[])
-    .slice()
+  // `counts` has at most one entry per status (it's a Partial<Record<...>>,
+  // never an array with duplicates), so each status is already its own
+  // contiguous run -- no need to walk every individual spec to collapse
+  // runs that can't occur. A direct map is O(distinct statuses), not
+  // O(total specs).
+  const groups: TickGroup[] = (Object.keys(counts) as StripStatus[])
     .sort((a, b) => STATUS_ORDER.indexOf(a) - STATUS_ORDER.indexOf(b))
-  sorted.forEach((status) => {
-    for (let i = 0; i < (counts[status] ?? 0); i++) {
-      const last = groups[groups.length - 1]
-      if (last && last.status === status) last.count++
-      else groups.push({ status, count: 1 })
-    }
-  })
+    .map((status) => ({ status, count: counts[status] ?? 0 }))
   if (indeterminate) groups.push({ status: 'RUNNING', count: 1 })
   // Complete with zero specs found: fill the whole bar as errored, matching
   // the "0 specs found" pill -- this reads as a problem worth attention,
@@ -503,7 +504,12 @@ export function buildSpecResultsView(
   }
   // Scheduled-to-complete: a small running block at the end of the bar (~1/24
   // of the width, at least one spec's worth) so the run still reads as live.
-  if (options.scheduledToComplete && allSpecsFinished && !indeterminate) {
+  if (
+    options.scheduledToComplete &&
+    allSpecsFinished &&
+    !indeterminate &&
+    !options.isComplete
+  ) {
     groups.push({
       status: 'RUNNING',
       count: Math.max(1, Math.round(total / 24)),
