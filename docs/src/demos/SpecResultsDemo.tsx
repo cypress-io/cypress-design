@@ -1,6 +1,7 @@
 import React from 'react'
 import { SpecResults } from '@cypress-design/react-spec-results'
 import type { SpecResultsProps } from '@cypress-design/react-spec-results'
+import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 
 // The whole demo is a single `client:only="react"` island (see
 // SpecResults.astro). Astro serializes island props to JSON, which drops
@@ -59,13 +60,21 @@ const CANCELLED_MANUAL = (
 
 const CANCELLED_AUTO = (
   <>
-    <Heading>Run automatically cancelled</Heading>
-    <p className="!mb-0 !leading-6">
-      Cypress automatically cancelled this run when{' '}
-      <code className="font-mono font-semibold bg-gray-50 border-gray-100">
-        example/actions-0.spec.js
-      </code>{' '}
-      failed. You can manage this behavior in Project Settings.
+    <div className="!mb-[12px] flex items-center gap-[6px]">
+      <IconShapeLightningBolt
+        size="16"
+        fillColor="purple-200"
+        strokeColor="purple-500"
+        className="shrink-0"
+      />
+      <p className="!m-0 text-[16px] font-semibold !leading-none text-gray-900">
+        Automatically cancelled by Smart Orchestration
+      </p>
+    </div>
+    <p className="!mb-0 !leading-[20px]">
+      To save CI time and surface failures faster, Cypress automatically
+      cancelled this run after <b>1 test failed</b>. You can adjust this
+      threshold in <a href="#">Project Settings</a>.
     </p>
   </>
 )
