@@ -21,14 +21,12 @@ import {
 export interface SpecResultsProps {
   /** Per-status totals. Omitted keys are zero; every key at zero renders the indeterminate "Testing in progress" state. */
   results: SpecResultCounts
-  /** Renders the Cancel run button and fires on click. Omit once the run completes. */
+  /** Renders the Cancel run button and fires on click. Hidden automatically once the run is complete. */
   onCancel?: () => void
   /** Renders the Archive run button once the run is complete, and fires on click. */
   onArchive?: () => void
   /** Remaining project completion delay (e.g. "60s"). When set and nothing is running or queued, the trailing pill shows this instead of a spec count. */
   scheduledToComplete?: string
-  /** Noun appended to each pill ("28 passed specs"). Singular drops the trailing "s". Pass "" when the surrounding list is already titled "Specs". */
-  label?: string
   /** Extra context about the run's own outcome (timed out, errored, manually/auto cancelled, no tests at all) -- renders below the pills, inside this same card, separated by a thin divider rather than a second bordered panel. The caller owns the content; this component only provides the slot. */
   description?: ReactNode
   /** Overrides the derived "is this run complete" state. A timed-out/abandoned run still has specs the recorder never claimed -- indistinguishable from a genuinely live `queued` count by pure totals alone -- so without this override it reads as still running and Archive never shows. Pass `true` once the caller knows independently (e.g. run.status === 'TIMEDOUT') that nothing is actually still executing. */
@@ -159,7 +157,6 @@ export const SpecResults: FC<SpecResultsProps> = ({
   onCancel,
   onArchive,
   scheduledToComplete,
-  label = 'specs',
   description,
   isComplete: isCompleteOverride,
   trackingContext,
@@ -169,7 +166,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
     pills,
     groups,
     isComplete: derivedIsComplete,
-  } = buildSpecResultsView(results, { label, scheduledToComplete })
+  } = buildSpecResultsView(results, { scheduledToComplete })
   const isComplete = isCompleteOverride ?? derivedIsComplete
 
   return (
@@ -313,7 +310,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
             )
           })}
         </div>
-        {onCancel && (
+        {!isComplete && onCancel && (
           <div className="w-full border-t [border-top-style:solid] border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
             <Button
               variant="outline-red"

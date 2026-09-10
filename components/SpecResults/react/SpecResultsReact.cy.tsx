@@ -126,8 +126,8 @@ describe('<SpecResults /> React', () => {
       .should('have.attr', 'href', '../../settings/general')
   })
 
-  it('complete: all specs passed has no remaining pill or Cancel button', () => {
-    mountStory({ results: { passed: 31 } })
+  it('complete: all specs passed has no remaining pill, and hides Cancel even if onCancel is passed', () => {
+    mountStory({ results: { passed: 31 }, onCancel: () => {} })
     cy.get('[data-cy="spec-results-pill-passed"]').should(
       'contain.text',
       '31 passed specs',
@@ -262,22 +262,6 @@ describe('<SpecResults /> React', () => {
       .should('be.visible')
       .should('contain.text', '3 specs running')
       .should('not.contain.text', 'queued')
-  })
-
-  it('label="" drops the trailing noun from every pill', () => {
-    mountStory({ results: { failed: 1, passed: 28, skipped: 2 }, label: '' })
-    cy.get('[data-cy="spec-results-pill-failed"]').should(
-      'contain.text',
-      '1 failed',
-    )
-    cy.get('[data-cy="spec-results-pill-passed"]').should(
-      'contain.text',
-      '28 passed',
-    )
-    cy.get('[data-cy="spec-results-pill-failed"]').should(
-      'not.contain.text',
-      'spec',
-    )
   })
 
   it('stacks based on its own container width, not the viewport', () => {

@@ -177,19 +177,6 @@ export default function SpecResultsDemo() {
         description={NO_TESTS}
         onArchive={noop}
       />
-      <Example
-        title={
-          <>
-            Removed specs label with{' '}
-            <code className="font-mono text-sm bg-white px-1.5 py-0.5 rounded border border-gray-100">
-              label=""
-            </code>
-          </>
-        }
-        results={{ failed: 1, passed: 28, skipped: 1, cancelled: 1 }}
-        label=""
-        onArchive={noop}
-      />
     </div>
   )
 }

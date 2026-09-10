@@ -276,13 +276,9 @@ export interface Pill {
   tooltip?: PillTooltip
 }
 
-// Singular is derived by dropping the trailing "s" off `suffix` -- "1 failed
-// spec" vs "18 passed specs". Pass suffix="" to drop it entirely (e.g. when
-// this strip renders directly above a list already titled "Specs").
-const withSuffix = (count: number, suffix: string): string => {
-  if (!suffix) return ''
-  return ' ' + (count === 1 ? suffix.replace(/s$/, '') : suffix)
-}
+// "1 failed spec" vs "18 passed specs".
+const withSuffix = (count: number): string =>
+  ' ' + (count === 1 ? 'spec' : 'specs')
 
 const specNoun = (count: number): string => (count === 1 ? 'spec' : 'specs')
 
@@ -302,9 +298,8 @@ const buildFilterUrl = (statuses: StripStatus[]): string =>
  */
 export function buildSpecResultsView(
   results: SpecResultCounts,
-  options: { label?: string; scheduledToComplete?: string } = {},
+  options: { scheduledToComplete?: string } = {},
 ) {
-  const suffix = options.label ?? 'specs'
   const counts: Partial<Record<StripStatus, number>> = {}
   ;(Object.keys(COUNT_KEY) as (keyof typeof COUNT_KEY)[]).forEach((key) => {
     const n = results[key]
@@ -389,7 +384,7 @@ export function buildSpecResultsView(
         hover: meta.hover,
         icon: meta.icon,
         countText: String(count),
-        rest: `${meta.label}${withSuffix(count, suffix)}`,
+        rest: `${meta.label}${withSuffix(count)}`,
         tooltip:
           status === 'SKIPPED'
             ? {
