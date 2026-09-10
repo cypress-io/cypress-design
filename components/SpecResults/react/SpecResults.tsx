@@ -233,7 +233,11 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs`,
                   trackingContext,
                 )}
-                className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
+                className={cs(
+                  CssClasses.pill,
+                  CssClasses.pillInteractive,
+                  HOVER_TEXT_CLASS[pill.hover],
+                )}
               >
                 {content}
               </PillLink>

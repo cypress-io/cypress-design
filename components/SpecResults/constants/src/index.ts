@@ -172,7 +172,14 @@ export const CssClasses = {
   // block div -- without it, the default `vertical-align: baseline` reserves
   // descender space below the inline-flex pill, inflating that wrapper div
   // ~3px taller than an un-tooltipped sibling pill and shifting the pill up.
-  pill: 'group inline-flex align-middle h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
+  // Base layout/visual styles shared by every pill, interactive or not.
+  pill: 'group inline-flex align-middle h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline text-gray-700',
+  // Hover/focus treatment for real, clickable pills only -- the
+  // non-interactive "0 specs found" span (no href, nothing to click) gets
+  // just `pill` above so it never shows a hover background or focus ring
+  // for an action that doesn't exist.
+  pillInteractive:
+    'transition-colors duration-150 hover:bg-gray-50 hover:no-underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
   count: 'text-gray-900 font-semibold',
   bar: 'absolute -inset-x-px -bottom-px flex h-[4px] gap-px overflow-hidden rounded-b bg-gray-100/50',
   tick: 'box-border rounded transition-all duration-500 ease-in-out',
