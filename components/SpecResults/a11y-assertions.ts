@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-import type { SpecResultsProps } from './react/SpecResults'
+import type { SpecResultsProps } from '@cypress-design/react-spec-results'
 
 type MountFn = (props: SpecResultsProps) => void
 
