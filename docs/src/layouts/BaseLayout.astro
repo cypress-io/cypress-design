@@ -22,9 +22,10 @@ interface Props {
   tocHeadings?: { depth: number; slug: string; text: string }[]
   editPath?: string
   rawContent?: boolean
+  fullWidth?: boolean
 }
 
-const { title, headings = [], tocHeadings, editPath, rawContent = false } = Astro.props
+const { title, headings = [], tocHeadings, editPath, rawContent = false, fullWidth = false } = Astro.props
 // MDX frontmatter spreads into props; some Astro versions only expose custom keys via .frontmatter
 const frontmatterTocHeadings = (Astro.props as { frontmatter?: { tocHeadings?: typeof headings } }).frontmatter?.tocHeadings
 const outlineHeadings = tocHeadings ?? frontmatterTocHeadings ?? headings
@@ -130,7 +131,12 @@ const currentPath = Astro.url.pathname
       </aside>
 
       <!-- Main content -->
-      <main class="w-full max-w-[800px] mx-6 min-[1420px]:mx-auto md:mt-6 min-w-0">
+      <main
+        class:list={[
+          'w-full mx-6 md:mt-6 min-w-0',
+          fullWidth ? 'md:mr-8' : 'max-w-[800px] min-[1420px]:mx-auto',
+        ]}
+      >
         <div class="relative">
           {editPath && <EditButton editPath={editPath} />}
           {rawContent ? (
@@ -147,7 +153,7 @@ const currentPath = Astro.url.pathname
 
       <!-- Right TOC (desktop only) -->
       {
-        outlineHeadings.length > 0 && (
+        !fullWidth && outlineHeadings.length > 0 && (
           <aside class="hidden xl:block">
             <div class="w-[300px]">
               <Outline headings={outlineHeadings} />
