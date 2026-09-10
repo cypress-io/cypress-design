@@ -76,6 +76,29 @@ Components are published to npm as individual packages via Changesets (`.changes
 - `yarn build:docs` — Builds component packages, generates design tokens CSS, builds Astro site
 - Deployed to `design.cypress.io` via Vercel (main branch)
 
+### Gotcha: editing a component's source does not change what consumers see
+
+Every component package's `exports` (`package.json`) point at `./dist/*`, a
+rollup bundle — not the `.tsx`/`.ts` source directly. The docs site, a
+linked/workspace consumer in another repo, and any other consumer all import
+that built `dist/` output. If `yarn dev`'s watcher isn't running (or isn't
+covering that package), editing source has **zero visible effect** anywhere
+until the package is rebuilt — this looks exactly like "the fix didn't work"
+when the real fix was never built. Confirm which case you're in by comparing
+mtimes: `stat -f "%Sm %N" components/<Component>/react/dist/*.js
+components/<Component>/react/*.tsx` — if `dist/` is older than your edit, it
+hasn't been rebuilt yet.
+
+To rebuild one package: `yarn workspace @cypress-design/react-<component>
+run build:module`. If that fails with `command not found: rollup` (seen in
+sandboxed/non-interactive shells where `yarn run` doesn't prepend
+`node_modules/.bin` to `PATH`), invoke rollup directly instead: from the
+package's `react/` dir, run
+`~/Sites/cypress-design/node_modules/.bin/rollup -c ./rollup.config.mjs`
+(the binary is hoisted to the repo root regardless of which package you're
+building). Re-check the `dist/` mtime to confirm before telling anyone the
+change is live.
+
 ## Hosted Styles
 
 Stylesheets are generated and hosted on `design.cypress.io` so build-free consumers (Claude Design, plain HTML pages, docs, email previews) can load them directly:

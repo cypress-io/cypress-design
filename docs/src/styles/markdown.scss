@@ -46,9 +46,28 @@
     }
   }
 
-  /* Inline code (not inside a pre) */
-  :not(pre) > code {
-    @apply bg-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-brand-mono text-gray-900;
+  /* Inline code (not inside a pre). min-h-[22px] is a floor, not a cap --
+     it only stops the chip rendering SHORTER than 22px, it doesn't stop it
+     rendering taller. The surrounding text's line-height is what actually
+     sizes a single-line chip's content box (inline-flex inherits it), and
+     that ancestor line-height varies by context -- leading-7 (28px, fixed)
+     in a plain paragraph, but scaled up further inside a heading's own
+     larger font-size. A fixed leading-4 override fixed the paragraph case
+     but was then shorter than text-[0.875em]'s own font-size once that
+     em-value scaled up inside an h2, clipping the chip's background behind
+     the text. leading-none (a unitless 1, not a fixed px value) scales
+     proportionally with text-[0.875em] in any context instead -- always at
+     least as tall as the text's own font-size, so it can never clip, while
+     min-h-[22px] still guarantees the floor for small body-text contexts
+     where line-height:1 alone would compute shorter than 22px, and a long
+     snippet in a docs table can still wrap and grow past that floor across
+     multiple lines instead of a fixed h-[22px] clipping/overflowing it.
+     :not(.block) excludes a caller-styled block code box (e.g. the
+     SpecResults demo's specPattern value) from the chip treatment --
+     this rule is intentionally unlayered (see file header), so it would
+     otherwise always beat that element's own `block` utility class. */
+  :not(pre) > code:not(.block) {
+    @apply inline-flex items-center min-h-[22px] leading-none bg-gray-25 border border-gray-100/75 px-1 rounded text-[0.875em] font-brand-mono text-purple-500;
   }
 
   h1,
