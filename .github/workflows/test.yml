@@ -134,3 +134,9 @@ jobs:
           # build finalization"). strategy.job-total tracks the `container`
           # matrix size automatically.
           PERCY_PARALLEL_TOTAL: ${{ strategy.job-total }}
+          # Percy derives its parallel nonce from GITHUB_RUN_ID alone, so a
+          # re-run of a failed shard reuses the build the first attempt already
+          # finalized and dies with "Can only finalize pending builds". Include
+          # the attempt, mirroring `ci-build-id` above, so every re-run gets a
+          # fresh Percy build.
+          PERCY_PARALLEL_NONCE: ${{ github.run_id }}-${{ github.run_attempt }}
