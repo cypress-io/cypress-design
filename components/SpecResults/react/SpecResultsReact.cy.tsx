@@ -83,9 +83,11 @@ describe('<SpecResults /> React', () => {
     )
   })
 
-  it('running: shows the Cancel run button only when onCancel is passed', () => {
-    mountStory({ results: { passed: 1, running: 1 }, onCancel: () => {} })
-    cy.get('[data-cy="spec-results-cancel"]').should('exist')
+  it('running: shows the Cancel run button only when onCancel is passed, and fires it on click', () => {
+    const onCancel = cy.stub().as('onCancel')
+    mountStory({ results: { passed: 1, running: 1 }, onCancel })
+    cy.get('[data-cy="spec-results-cancel"]').should('exist').click()
+    cy.get('@onCancel').should('have.been.calledOnce')
   })
 
   it('scheduled to complete: swaps the remaining pill for a countdown and links to settings', () => {
@@ -136,13 +138,15 @@ describe('<SpecResults /> React', () => {
     cy.get('[data-cy="spec-results-cancel"]').should('not.exist')
   })
 
-  it('isComplete overrides a still-queued run to show the Archive button', () => {
+  it('isComplete overrides a still-queued run to show the Archive button, and fires onArchive on click', () => {
+    const onArchive = cy.stub().as('onArchive')
     mountStory({
       results: { passed: 3, errored: 2, queued: 20 },
-      onArchive: () => {},
+      onArchive,
       isComplete: true,
     })
-    cy.get('[data-cy="spec-results-archive"]').should('exist')
+    cy.get('[data-cy="spec-results-archive"]').should('exist').click()
+    cy.get('@onArchive').should('have.been.calledOnce')
   })
 
   it('without the isComplete override, a still-queued run hides Archive', () => {
@@ -299,5 +303,66 @@ describe('<SpecResults /> React', () => {
       'href',
       'specs?specStatus=' + encodeURIComponent('["NOTESTS","CANCELLED"]'),
     )
+  })
+
+  it('the tick-bar renders one segment per distinct status, in order, sized by proportion', () => {
+    mountStory({
+      results: { failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 },
+    })
+    cy.get('[data-cy="spec-results-bar"]')
+      .children()
+      .should('have.length', 5)
+      .then(($segments) => {
+        const flexValues = [...$segments].map((el) => el.style.flex)
+        expect(flexValues).to.deep.equal([
+          '1 0 0%',
+          '18 0 0%',
+          '1 0 0%',
+          '2 0 0%',
+          '3 0 0%',
+        ])
+      })
+  })
+
+  it('the running segment shimmers; the trailing queued segment is an empty track', () => {
+    mountStory({
+      results: { failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 },
+    })
+    // failed, passed, skipped, running, unclaimed -- fixed STATUS_ORDER.
+    cy.get('[data-cy="spec-results-bar"]')
+      .children()
+      .eq(3)
+      .should('have.class', 'cy-spec-results-running-tick')
+    cy.get('[data-cy="spec-results-bar"]')
+      .children()
+      .eq(4)
+      .should('have.class', 'bg-transparent')
+  })
+
+  it('running and queued render as separate tick-bar segments, unlike the combined remaining pill', () => {
+    mountStory({ results: { running: 2, queued: 3 } })
+    cy.get('[data-cy="spec-results-pill-running"]').should(
+      'contain.text',
+      '5 specs remaining',
+    )
+    cy.get('[data-cy="spec-results-bar"]').children().should('have.length', 2)
+  })
+
+  it('a single-status complete run fills the bar with one flush segment', () => {
+    mountStory({ results: { passed: 31 } })
+    cy.get('[data-cy="spec-results-bar"]')
+      .children()
+      .should('have.length', 1)
+      .should('have.class', 'bg-jade-400')
+      .should('have.class', 'rounded-tl-none')
+      .should('have.class', 'rounded-tr-none')
+  })
+
+  it('the bar fills fully orange when the run is complete with zero specs found', () => {
+    mountStory({ results: {}, isComplete: true })
+    cy.get('[data-cy="spec-results-bar"]')
+      .children()
+      .should('have.length', 1)
+      .should('have.class', 'bg-orange-400')
   })
 })

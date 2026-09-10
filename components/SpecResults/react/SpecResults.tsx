@@ -193,16 +193,8 @@ export const SpecResults: FC<SpecResultsProps> = ({
       <div className={CssClasses.row}>
         <div className={CssClasses.pills}>
           {pills.map((pill, index) => {
-            const link = (
-              <PillLink
-                href={pill.href}
-                data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
-                data-fs-element={fsLabel(
-                  `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs`,
-                  trackingContext,
-                )}
-                className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
-              >
+            const content = (
+              <>
                 <OutlineStatusIcon
                   status={pill.icon}
                   size="16"
@@ -217,7 +209,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                     <span
                       className={cs(
                         CssClasses.count,
-                        HOVER_COUNT_CLASS[pill.hover],
+                        pill.href && HOVER_COUNT_CLASS[pill.hover],
                       )}
                     >
                       {pill.countText}
@@ -226,7 +218,32 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   {pill.countText ? ' ' : ''}
                   {pill.rest}
                 </span>
+              </>
+            )
+            // No href means there's nothing to link to (e.g. "0 specs
+            // found") -- a plain, non-interactive span instead of an <a>,
+            // so it's correctly out of the keyboard tab order and doesn't
+            // pick up the hover-to-status-color treatment that implies a
+            // click does something.
+            const link = pill.href ? (
+              <PillLink
+                href={pill.href}
+                data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
+                data-fs-element={fsLabel(
+                  `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs`,
+                  trackingContext,
+                )}
+                className={cs(CssClasses.pill, HOVER_TEXT_CLASS[pill.hover])}
+              >
+                {content}
               </PillLink>
+            ) : (
+              <span
+                data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
+                className={CssClasses.pill}
+              >
+                {content}
+              </span>
             )
             if (!pill.tooltip) {
               return (
@@ -245,7 +262,11 @@ export const SpecResults: FC<SpecResultsProps> = ({
                   <div className={CssClasses.tooltipTitle}>{tooltip.title}</div>
                   <div>{tooltip.text}</div>
                   <PillLink
-                    href={pill.href}
+                    // The 'text' tooltip kind is only ever attached to the
+                    // scheduled-to-complete pill, which always has an href
+                    // -- unlike the non-interactive "0 specs found" pill,
+                    // which has no tooltip at all.
+                    href={pill.href!}
                     data-fs-element={fsLabel(
                       `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs Tooltip Link`,
                       trackingContext,

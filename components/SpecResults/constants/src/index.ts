@@ -172,7 +172,7 @@ export const CssClasses = {
   // block div -- without it, the default `vertical-align: baseline` reserves
   // descender space below the inline-flex pill, inflating that wrapper div
   // ~3px taller than an un-tooltipped sibling pill and shifting the pill up.
-  pill: 'group inline-flex align-middle h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700',
+  pill: 'group inline-flex align-middle h-[24px] items-center gap-[6px] px-[6px] rounded text-[16px] leading-[24px] font-normal no-underline transition-colors duration-150 hover:bg-gray-50 hover:no-underline text-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0',
   count: 'text-gray-900 font-semibold',
   bar: 'absolute -inset-x-px -bottom-px flex h-[4px] gap-px overflow-hidden rounded-b bg-gray-100/50',
   tick: 'box-border rounded transition-all duration-500 ease-in-out',
@@ -196,7 +196,8 @@ export const CssClasses = {
   // Underlined so it doesn't just look like the rest of the sentence -- the
   // point is to make "you can click this" obvious without relying on the
   // reader already knowing the pill underneath the tooltip is itself a link.
-  tooltipLink: 'text-indigo-300 underline hover:text-indigo-200',
+  tooltipLink:
+    'text-indigo-300 underline hover:text-indigo-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-0',
   // The running icon's track defaults to gray-100 (`icon-light-gray-100`,
   // set via STATUS_META's color config, not this file) -- tuned for
   // nothing in particular, and too faint on both surfaces it actually
@@ -267,7 +268,8 @@ export type PillTooltip =
 
 export interface Pill {
   status: StripStatus
-  href: string
+  /** Omitted for a non-interactive pill (e.g. "0 specs found") -- there's no Specs-tab content to link to. */
+  href?: string
   hover: HoverColor
   icon: OutlineStatusIconName
   /** Pre-rendered pieces so the component just needs to interpolate: `<b>{countText}</b> {rest}`. */
@@ -336,6 +338,18 @@ export function buildSpecResultsView(
       icon: STATUS_META.RUNNING.icon,
       countText: '',
       rest: 'Testing in progress',
+    })
+  } else if (total === 0) {
+    // Genuinely complete with zero specs (e.g. specPattern matched nothing)
+    // -- not a link, since there's no Specs tab content to filter to.
+    // Borrows the errored status's icon/color so it reads as worth
+    // attention rather than a neutral empty state.
+    pills.push({
+      status: 'ERRORED',
+      hover: 'orange',
+      icon: STATUS_META.ERRORED.icon,
+      countText: '0',
+      rest: 'specs found',
     })
   } else {
     PILL_STATUS_ORDER.forEach((status) => {
@@ -461,6 +475,12 @@ export function buildSpecResultsView(
     }
   })
   if (indeterminate) groups.push({ status: 'RUNNING', count: 1 })
+  // Complete with zero specs found: fill the whole bar as errored, matching
+  // the "0 specs found" pill -- this reads as a problem worth attention,
+  // not a neutral empty run.
+  if (!indeterminate && total === 0) {
+    groups.push({ status: 'ERRORED', count: 1 })
+  }
   // Scheduled-to-complete: a small running block at the end of the bar (~1/24
   // of the width, at least one spec's worth) so the run still reads as live.
   if (options.scheduledToComplete && allSpecsFinished && !indeterminate) {
