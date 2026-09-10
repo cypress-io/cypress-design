@@ -126,3 +126,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          # Without this, Percy doesn't know how many `--parallel` shards to
+          # expect and waits on a bogus default (observed as 100000000) that
+          # never arrives, so the build never auto-finalizes even though
+          # every shard's own `percy exec` reports success -- every build on
+          # every branch, including main, has been failing this way ("Missing
+          # build finalization"). strategy.job-total tracks the `container`
+          # matrix size automatically.
+          PERCY_PARALLEL_TOTAL: ${{ strategy.job-total }}
