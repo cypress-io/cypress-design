@@ -48,7 +48,7 @@
 
   /* Inline code (not inside a pre) */
   :not(pre) > code {
-    @apply bg-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-brand-mono text-gray-900;
+    @apply bg-gray-50 border border-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-brand-mono text-purple-500;
   }
 
   h1,
