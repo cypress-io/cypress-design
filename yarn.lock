@@ -1682,7 +1682,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-icon@npm:*, @cypress-design/react-icon@npm:^3.0.0, @cypress-design/react-icon@workspace:components/Icon/react":
+"@cypress-design/react-icon@npm:*, @cypress-design/react-icon@workspace:components/Icon/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-icon@workspace:components/Icon/react"
   dependencies:
@@ -1788,7 +1788,7 @@ __metadata:
   resolution: "@cypress-design/react-statusicon@workspace:components/StatusIcon/react"
   dependencies:
     "@cypress-design/constants-statusicon": "npm:*"
-    "@cypress-design/react-icon": "npm:^3.0.0"
+    "@cypress-design/react-icon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
