@@ -298,7 +298,7 @@ const buildFilterUrl = (statuses: StripStatus[]): string =>
  */
 export function buildSpecResultsView(
   results: SpecResultCounts,
-  options: { scheduledToComplete?: string } = {},
+  options: { scheduledToComplete?: string; isComplete?: boolean } = {},
 ) {
   const counts: Partial<Record<StripStatus, number>> = {}
   ;(Object.keys(COUNT_KEY) as (keyof typeof COUNT_KEY)[]).forEach((key) => {
@@ -309,7 +309,12 @@ export function buildSpecResultsView(
   if (skippedTotal) counts.SKIPPED = skippedTotal
 
   const total = Object.values(counts).reduce((sum, n) => sum + (n ?? 0), 0)
-  const indeterminate = total === 0
+  // All-zero counts normally means "no counts known yet" (a run that just
+  // started) -- but a caller who already knows the run is complete (e.g.
+  // NOTESTS with zero specs claimed) is telling us zero is the real,
+  // final count, not a placeholder. Respect that instead of showing an
+  // animated "Testing in progress" pill for a run that will never start.
+  const indeterminate = total === 0 && !options.isComplete
   const remaining = (counts.RUNNING ?? 0) + (counts.UNCLAIMED ?? 0)
   // Nothing left running or queued -- but that alone doesn't mean the run
   // is complete: it's also the trigger for the scheduled-to-complete branch

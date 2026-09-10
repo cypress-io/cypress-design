@@ -19,7 +19,7 @@ import {
 } from '@cypress-design/constants-spec-results'
 
 export interface SpecResultsProps {
-  /** Per-status totals. Omitted keys are zero; every key at zero renders the indeterminate "Testing in progress" state. */
+  /** Per-status totals. Omitted keys are zero; every key at zero renders the indeterminate "Testing in progress" state -- unless `isComplete` is also passed, in which case zero is treated as the real, final count (no pills, an empty bar) rather than "not known yet". */
   results: SpecResultCounts
   /** Renders the Cancel run button and fires on click. Hidden automatically once the run is complete. */
   onCancel?: () => void
@@ -166,7 +166,10 @@ export const SpecResults: FC<SpecResultsProps> = ({
     pills,
     groups,
     isComplete: derivedIsComplete,
-  } = buildSpecResultsView(results, { scheduledToComplete })
+  } = buildSpecResultsView(results, {
+    scheduledToComplete,
+    isComplete: isCompleteOverride,
+  })
   const isComplete = isCompleteOverride ?? derivedIsComplete
 
   return (

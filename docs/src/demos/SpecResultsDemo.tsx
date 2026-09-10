@@ -79,10 +79,34 @@ const CANCELLED_AUTO = (
   </>
 )
 
-const NO_TESTS = (
+// NOTESTS covers two different real causes, and callers should tell them
+// apart rather than showing the same generic copy for both: a spec that
+// ran but had nothing inside it (results still show 1 skipped spec) is a
+// different story from a specPattern that matched no files at all (zero
+// specs, nothing ever ran).
+const NO_TESTS_EMPTY_SPEC = (
   <>
     <Heading>No tests found</Heading>
-    <p className="!mb-0">This run has no tests.</p>
+    <p className="!mb-0 !leading-[20px]">
+      Cypress ran 3 specs, but found no tests inside them.
+    </p>
+  </>
+)
+
+const NO_TESTS_NO_MATCH = (
+  <>
+    <Heading>No spec files were found</Heading>
+    <p className="!mb-0 !leading-[20px]">
+      No spec files matched the{' '}
+      <code className="font-mono font-semibold bg-gray-50 border-gray-100 text-purple-500">
+        specPattern
+      </code>{' '}
+      in your Cypress config file when this run was recorded.
+      <br />
+      <code className="font-mono font-semibold bg-gray-50 border-gray-100">
+        specPattern: &apos;cypress/e2e/billing/**/*.cy.ts&apos;
+      </code>
+    </p>
   </>
 )
 
@@ -172,9 +196,16 @@ export default function SpecResultsDemo() {
         onArchive={noop}
       />
       <Example
-        title="Run has no tests"
+        title="No tests :: specs ran, but had none inside them"
         results={{ skipped: 3 }}
-        description={NO_TESTS}
+        description={NO_TESTS_EMPTY_SPEC}
+        onArchive={noop}
+      />
+      <Example
+        title="No tests :: specPattern matched nothing"
+        results={{}}
+        description={NO_TESTS_NO_MATCH}
+        isComplete
         onArchive={noop}
       />
     </div>
