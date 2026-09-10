@@ -465,23 +465,28 @@ export function buildSpecResultsView(
   // completion delay: swap the remaining pill's spec count for a countdown,
   // linking to the settings page that controls the delay.
   if (options.scheduledToComplete && allSpecsFinished && !options.isComplete) {
+    // 'soon' (the delay is unknown, or has already elapsed) is already a
+    // plain-language answer, not a countdown value -- "soon remaining"
+    // reads as two answers stacked on top of each other. Read it as one
+    // phrase instead, with nothing bolded as if it were a real number.
+    const isSoon = options.scheduledToComplete === 'soon'
     pills.push({
       status: 'RUNNING',
       href: '../../settings/general',
       hover: 'indigo',
-      // The queued icon, not the running spinner -- by the scheduled-to-
-      // complete point every group has actually finished, so nothing is
-      // still executing. Only the completion delay is still counting down.
-      icon: STATUS_META.UNCLAIMED.icon,
-      countText: options.scheduledToComplete,
-      rest: 'remaining',
+      icon: STATUS_META.RUNNING.icon,
+      countText: isSoon ? '' : options.scheduledToComplete,
+      rest: isSoon ? 'Completing soon' : 'remaining',
       tooltip: {
         kind: 'text',
-        // Mirrors the real setting's own name and description on the
-        // General settings page almost verbatim, rather than a paraphrase
-        // that could quietly drift from what the setting page itself says.
+        // Deliberately NOT a verbatim copy of the General settings page's
+        // own description ("The number of seconds...") -- that wording
+        // reads fine next to a plain numeric input, but the pill above
+        // shows a rounded, human duration ("2m", not "120s"), so a tooltip
+        // that still says "seconds" reads as contradicting what's right
+        // above it.
         title: 'Run Completion Delay',
-        text: 'The number of seconds a run waits for new groups to join before transitioning to completed.',
+        text: 'The amount of time a run waits for new groups to join before transitioning to completed.',
         linkLabel: 'Update setting',
       },
     })
