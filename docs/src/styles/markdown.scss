@@ -46,18 +46,21 @@
     }
   }
 
-  /* Inline code (not inside a pre). inline-flex + min-h-[22px] fixes the
-     chip's own height regardless of the surrounding paragraph's line-height
-     (leading-7 elsewhere in .markdown) -- without it, the chip inherits
-     that line-height and renders taller than intended. min-h (not h) lets
-     a long snippet in a docs table still wrap across multiple lines
-     instead of a fixed single-line box clipping/overflowing it.
+  /* Inline code (not inside a pre). min-h-[22px] is a floor, not a cap --
+     it only stops the chip rendering SHORTER than 22px, it doesn't stop it
+     rendering taller. The surrounding paragraph's leading-7 (28px) is what
+     actually inflates a single-line chip past 22px, since inline-flex sizes
+     its content box off the inherited line-height. leading-4 overrides that
+     inheritance so a single line settles back down near the 22px floor;
+     min-h then only kicks in to guarantee that floor, and still lets a long
+     snippet in a docs table wrap and grow past it across multiple lines
+     instead of a fixed h-[22px] clipping/overflowing it.
      :not(.block) excludes a caller-styled block code box (e.g. the
      SpecResults demo's specPattern value) from the chip treatment --
      this rule is intentionally unlayered (see file header), so it would
      otherwise always beat that element's own `block` utility class. */
   :not(pre) > code:not(.block) {
-    @apply inline-flex items-center min-h-[22px] bg-gray-25 border border-gray-100/75 px-1 rounded text-[0.875em] font-brand-mono text-purple-500;
+    @apply inline-flex items-center min-h-[22px] leading-4 bg-gray-25 border border-gray-100/75 px-1 rounded text-[0.875em] font-brand-mono text-purple-500;
   }
 
   h1,
