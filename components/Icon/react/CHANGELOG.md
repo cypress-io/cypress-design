@@ -1,5 +1,12 @@
 # @cypress-design/react-icon
 
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`f9ee6ab`](https://github.com/cypress-io/cypress-design/commit/f9ee6abd21606fc192bc48a231f055deec94451a)]:
+  - @cypress-design/icon-registry@3.3.1
+
 ## 3.3.0
 
 ### Minor Changes
