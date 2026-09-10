@@ -46,9 +46,12 @@
     }
   }
 
-  /* Inline code (not inside a pre) */
+  /* Inline code (not inside a pre). inline-flex + h-[22px] fixes the chip's
+     own height regardless of the surrounding paragraph's line-height
+     (leading-7 elsewhere in .markdown) -- without it, the chip inherits
+     that line-height and renders taller than intended. */
   :not(pre) > code {
-    @apply bg-gray-50 border border-gray-100 px-1.5 py-0.5 rounded text-[0.875em] font-brand-mono text-purple-500;
+    @apply inline-flex items-center h-[22px] bg-gray-25 border border-gray-100/75 px-1 rounded text-[0.875em] font-brand-mono text-purple-500;
   }
 
   h1,

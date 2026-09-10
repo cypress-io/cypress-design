@@ -22,7 +22,7 @@ const Heading = ({ children }: { children: React.ReactNode }) => (
 const TIMED_OUT = (
   <>
     <Heading>Run timed out</Heading>
-    <p className="!mb-0 !leading-6">
+    <p className="!mb-0 !leading-[20px]">
       The run started, but never completed. This can happen when the run is
       cancelled from CI or when Cypress crashes during running tests. Check your
       CI logs for more information.
@@ -33,7 +33,7 @@ const TIMED_OUT = (
 const ERRORED = (
   <>
     <Heading>Run errored</Heading>
-    <p className="!mb-0 !leading-6">
+    <p className="!mb-0 !leading-[20px]">
       We detected that the Chrome Renderer process just crashed. We have failed
       the current spec but will continue running the next spec.
     </p>
@@ -103,7 +103,7 @@ const NO_TESTS_NO_MATCH = (
       </code>{' '}
       in your Cypress config file when this run was recorded.
       <br />
-      <code className="font-mono block mt-[12px] px-[12px] border border-gray-100 bg-gray-50 rounded-[4px] text-purple-500">
+      <code className="font-mono block mt-[12px] mb-[4px] px-[12px] border border-gray-100 bg-gray-50 rounded-[4px] text-purple-500">
         specPattern: &apos;cypress/e2e/billing/**/*.cy.ts&apos;
       </code>
     </p>
