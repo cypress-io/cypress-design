@@ -321,6 +321,43 @@ describe('<SpecResults /> React', () => {
     )
   })
 
+  it('renderLink overrides pill navigation, receiving href, content, and the className/data-cy/data-fs-element props', () => {
+    const renderLink = cy
+      .stub()
+      .callsFake((href: string, children: React.ReactNode, props) => (
+        <a href={href} {...props} data-testid="custom-link">
+          {children}
+        </a>
+      ))
+      .as('renderLink')
+    mountStory({
+      results: { failed: 1 },
+      renderLink,
+      trackingContext: 'Run - Detail',
+    })
+    cy.get('[data-cy="spec-results-pill-failed"]')
+      .should('have.attr', 'data-testid', 'custom-link')
+      .should(
+        'have.attr',
+        'href',
+        'specs?specStatus=' + encodeURIComponent('["FAILED"]'),
+      )
+      .should(
+        'have.attr',
+        'data-fs-element',
+        'Run - Detail - Spec Results - Failed Specs',
+      )
+      .should('contain.text', '1 failed spec')
+    cy.get('@renderLink').should('have.been.called')
+  })
+
+  it('without renderLink, pills fall back to a plain <a>', () => {
+    mountStory({ results: { failed: 1 } })
+    cy.get('[data-cy="spec-results-pill-failed"]').should(($el) => {
+      expect($el.prop('tagName')).to.equal('A')
+    })
+  })
+
   it('the tick-bar renders one segment per distinct status, in order, sized by proportion', () => {
     mountStory({
       results: { failed: 1, passed: 18, skipped: 1, running: 2, queued: 3 },

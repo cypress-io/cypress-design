@@ -24,8 +24,7 @@
     "@cypress-design/react-icon": "*",
     "@cypress-design/react-statusicon": "*",
     "@cypress-design/react-tooltip": "*",
-    "clsx": "*",
-    "react-router-dom": "^6.30.4"
+    "clsx": "*"
   },
   "devDependencies": {
     "@cypress-design/constants-spec-results": "*",

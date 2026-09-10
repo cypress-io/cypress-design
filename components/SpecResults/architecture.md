@@ -40,13 +40,13 @@ as `RunResults`), so consumers install one package.
 - **`isComplete` can be overridden by the caller.** A timed-out run still has
   specs the recorder never claimed, indistinguishable from a live queue by
   counts alone, so the caller passes what it knows from run status.
-- **Pill links are `<a>` elements with hrefs relative to a run tab URL**
-  (`specs?specStatus=…`, `../../settings/general`). Inside a react-router
-  `Router` they navigate client-side (`useNavigate`); elsewhere they are plain
-  anchors. Known limitation, under review: the relative form only resolves
-  correctly from exactly `/runs/:id/<tab>`, and the `react-router-dom`
-  dependency belongs with the consumer (the `renderLink` pattern `RunResults`
-  uses).
+- **Pill links are plain `<a>` elements with hrefs relative to a run tab URL**
+  (`specs?specStatus=…`, `../../settings/general`) -- SpecResults has no
+  router dependency of its own. Pass `renderLink` (same pattern `RunResults`
+  uses) to navigate client-side instead; see `instructions.md` ("Custom link
+  renderer") for a worked example and the react-router-dom v6 relative-path
+  gotcha. The relative href form only resolves correctly from exactly
+  `/runs/:id/<tab>`, regardless of which link renderer is in play.
 
 ## Gotchas
 

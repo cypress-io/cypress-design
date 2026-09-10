@@ -1,7 +1,6 @@
-import type { FC, MouseEvent, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
 import cs from 'clsx'
-import { useInRouterContext, useNavigate } from 'react-router-dom'
 import { OutlineStatusIcon } from '@cypress-design/react-statusicon'
 import {
   IconShapeLightningBolt,
@@ -33,6 +32,21 @@ export interface SpecResultsProps {
   isComplete?: boolean
   /** Recommended for every real integration. Prefixes every `data-fs-element` FullStory label with `"${trackingContext} - "`, e.g. `"Run - Detail"`. Pass the caller's own page/tab context so the same button rendered on five different tabs is distinguishable in FullStory -- without it, every interactive element still gets a real (not generic) label, just one shared across every place this component renders. See instructions.md ("FullStory tracking") for the full default-label table and an example. */
   trackingContext?: string
+  /** Custom link renderer for framework routing (e.g. React Router's `<Link>`, Next.js `<Link>`) so pill clicks navigate client-side instead of doing a full page load. Receives the resolved `href`, the pill's rendered content, and a `props` object (`className`, `data-cy`, `data-fs-element`) to spread onto your own link element so it keeps this component's styling, test selectors, and FullStory tracking. Falls back to a plain `<a href>` when omitted -- SpecResults has no router dependency of its own. See instructions.md ("Custom link renderer") for a worked example. */
+  renderLink?: SpecResultsRenderLink
+}
+
+/** See `SpecResultsProps.renderLink`. */
+export type SpecResultsRenderLink = (
+  href: string,
+  children: ReactNode,
+  props: SpecResultsRenderLinkProps,
+) => ReactNode
+
+export interface SpecResultsRenderLinkProps {
+  className: string
+  'data-cy': string
+  'data-fs-element': string
 }
 
 const capitalize = (word: string) =>
@@ -78,75 +92,42 @@ type PillLinkProps = {
   className?: string
   'data-cy'?: string
   'data-fs-element'?: string
+  renderLink?: SpecResultsRenderLink
   children: ReactNode
 }
 
-// Client-side nav instead of a full page reload -- the only reason pill
-// links exist at all is to jump to the Specs/Test Results tab pre-filtered
-// by status, and those tabs already live inside the same app shell.
-//
-// This intentionally does NOT use react-router-dom's own relative-path
-// resolution (`<Link to="specs?...">`): v6 resolves a relative `to`
-// against the full current URL, including whatever the caller's own
-// wildcard route match consumed, not just against "one tab's worth" of
-// path -- from `/runs/6/specs`, `to="specs?..."` resolves to the nonsense
-// `/runs/6/specs/specs?...` rather than staying on `/runs/6/specs?...`.
-// A real `<a href>`'s resolution doesn't have that problem (relative to
-// the current URL, replacing only the last segment, same as any browser
-// link), so this keeps `href` exactly as authored and lets the browser's
-// own `URL` resolution compute the target -- correct regardless of which
-// tab the pill was clicked from or how deep that tab's own sub-routing
-// goes -- then hands that resolved path to the router instead of letting
-// the click fall through to a real navigation.
-//
-// Split into two components (rather than one that conditionally calls
-// useNavigate) because react-router-dom's hooks throw when called outside
-// a <Router> -- this component's own docs demos render with none -- and a
-// hook can't be called conditionally within a single component instance.
-// PillLink checks safely (useInRouterContext never throws) and mounts
-// this one only once a Router is confirmed present; otherwise it renders
-// a plain, unmodified anchor.
-const RoutedPillLink: FC<PillLinkProps> = ({ href, children, ...rest }) => {
-  const navigate = useNavigate()
-
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
-    // Let modified/non-primary clicks fall through to native
-    // open-in-new-tab / open-in-new-window / download behavior.
-    if (
-      event.defaultPrevented ||
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
-      return
-    }
-    event.preventDefault()
-    const resolved = new URL(href, window.location.href)
-    navigate(resolved.pathname + resolved.search + resolved.hash)
-  }
-
-  return (
-    <a href={href} onClick={handleClick} {...rest}>
-      {children}
-    </a>
-  )
-}
-
-const PillLink: FC<PillLinkProps> = ({ href, children, ...rest }) => {
-  const inRouterContext = useInRouterContext()
-
-  if (inRouterContext) {
+// No router dependency of its own -- the caller's renderLink (if any) owns
+// client-side navigation entirely; see SpecResultsProps.renderLink and
+// instructions.md ("Custom link renderer") for the react-router-dom v6
+// gotcha worth knowing before wiring one up (relative `to` resolves against
+// the full current URL, not "one tab's worth" of path).
+const PillLink: FC<PillLinkProps> = ({
+  href,
+  children,
+  renderLink,
+  className,
+  'data-cy': dataCy,
+  'data-fs-element': dataFsElement,
+}) => {
+  if (renderLink) {
     return (
-      <RoutedPillLink href={href} {...rest}>
-        {children}
-      </RoutedPillLink>
+      <>
+        {renderLink(href, children, {
+          className: className ?? '',
+          'data-cy': dataCy ?? '',
+          'data-fs-element': dataFsElement ?? '',
+        })}
+      </>
     )
   }
 
   return (
-    <a href={href} {...rest}>
+    <a
+      href={href}
+      className={className}
+      data-cy={dataCy}
+      data-fs-element={dataFsElement}
+    >
       {children}
     </a>
   )
@@ -169,6 +150,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
   description,
   isComplete: isCompleteOverride,
   trackingContext,
+  renderLink,
 }) => {
   ensureShimmerStyle()
   const {
@@ -241,6 +223,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
             const link = pill.href ? (
               <PillLink
                 href={pill.href}
+                renderLink={renderLink}
                 data-cy={`spec-results-pill-${pill.status.toLowerCase()}`}
                 data-fs-element={fsLabel(
                   `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs`,
@@ -280,6 +263,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                     // -- unlike the non-interactive "0 specs found" pill,
                     // which has no tooltip at all.
                     href={pill.href!}
+                    renderLink={renderLink}
                     data-fs-element={fsLabel(
                       `Spec Results - ${capitalize(STATUS_META[pill.status].label)} Specs Tooltip Link`,
                       trackingContext,

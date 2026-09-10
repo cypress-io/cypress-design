@@ -14,15 +14,16 @@ A single package to install — types and class constants are bundled in (there 
 
 ## Props
 
-| Prop                  | Type               | Default  | Description                                                                                                                                                                                                                                                                                                                                            |
-| --------------------- | ------------------ | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `results`             | `SpecResultCounts` | required | `{ failed?, errored?, passed?, skipped?, cancelled?, running?, queued?, cancelledReason? }` — plain numbers, plus `cancelledReason?: 'auto' \| 'manual'` (default `'auto'`) for the `cancelled` count's tooltip row. Omitted keys are zero. `skipped` and `cancelled` are separate inputs that combine into one "skipped" pill (see "Status mapping"). |
-| `onCancel`            | `() => void`       | —        | When present, renders the Cancel run button and fires on click. Hidden automatically once the run is complete.                                                                                                                                                                                                                                         |
-| `onArchive`           | `() => void`       | —        | Renders the Archive run button once the run is complete, and fires on click.                                                                                                                                                                                                                                                                           |
-| `scheduledToComplete` | `string`           | —        | Remaining delay, e.g. `"60s"`. When set and nothing is running or queued, the trailing pill shows this time instead of a spec count.                                                                                                                                                                                                                   |
-| `description`         | `ReactNode`        | —        | Extra context about the run's own outcome (timed out, errored, manually/auto cancelled, no tests at all) — the caller owns the content. Renders above the pills, inside this same card, separated by a thin divider rather than a second bordered panel.                                                                                               |
-| `isComplete`          | `boolean`          | —        | Overrides the derived "is this run complete" state. A timed-out/abandoned run can still carry a nonzero `queued` count (specs the recorder never claimed), which reads as still running and hides Archive — pass `true` once the caller independently knows nothing is still executing (e.g. `run.status === 'TIMEDOUT'`).                             |
-| `trackingContext`     | `string`           | —        | Your page/tab path, e.g. `"Run - Detail"`. Prefixes every `data-fs-element` label (see "FullStory tracking" below). **Pass this on every real integration** — without it, every place this component is used reports the identical label, so FullStory can't tell which page a click came from.                                                        |
+| Prop                  | Type                                   | Default  | Description                                                                                                                                                                                                                                                                                                                                            |
+| --------------------- | -------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `results`             | `SpecResultCounts`                     | required | `{ failed?, errored?, passed?, skipped?, cancelled?, running?, queued?, cancelledReason? }` — plain numbers, plus `cancelledReason?: 'auto' \| 'manual'` (default `'auto'`) for the `cancelled` count's tooltip row. Omitted keys are zero. `skipped` and `cancelled` are separate inputs that combine into one "skipped" pill (see "Status mapping"). |
+| `onCancel`            | `() => void`                           | —        | When present, renders the Cancel run button and fires on click. Hidden automatically once the run is complete.                                                                                                                                                                                                                                         |
+| `onArchive`           | `() => void`                           | —        | Renders the Archive run button once the run is complete, and fires on click.                                                                                                                                                                                                                                                                           |
+| `scheduledToComplete` | `string`                               | —        | Remaining delay, e.g. `"60s"`. When set and nothing is running or queued, the trailing pill shows this time instead of a spec count.                                                                                                                                                                                                                   |
+| `description`         | `ReactNode`                            | —        | Extra context about the run's own outcome (timed out, errored, manually/auto cancelled, no tests at all) — the caller owns the content. Renders above the pills, inside this same card, separated by a thin divider rather than a second bordered panel.                                                                                               |
+| `isComplete`          | `boolean`                              | —        | Overrides the derived "is this run complete" state. A timed-out/abandoned run can still carry a nonzero `queued` count (specs the recorder never claimed), which reads as still running and hides Archive — pass `true` once the caller independently knows nothing is still executing (e.g. `run.status === 'TIMEDOUT'`).                             |
+| `trackingContext`     | `string`                               | —        | Your page/tab path, e.g. `"Run - Detail"`. Prefixes every `data-fs-element` label (see "FullStory tracking" below). **Pass this on every real integration** — without it, every place this component is used reports the identical label, so FullStory can't tell which page a click came from.                                                        |
+| `renderLink`          | `(href, children, props) => ReactNode` | —        | Custom link renderer for framework routing — see "Custom link renderer" below. Falls back to a plain `<a href>` when omitted; SpecResults has no router dependency of its own.                                                                                                                                                                         |
 
 `SpecResultCounts` is exported from the package (bundled in, not a separate install).
 
@@ -60,7 +61,7 @@ A status with a count of zero is not rendered at all.
 
 ## Interaction
 
-- Every pill (except the scheduled-to-complete pill) is an `<a href="specs?specStatus=[...]">` relative to the run tab's URL. Inside a react-router `Router` the click navigates client-side; otherwise it is a plain link. The relative href resolves correctly only from exactly `/projects/:id/runs/:id/<tab>` (see `architecture.md`, Decisions).
+- Every pill's `href` is `specs?specStatus=[...]`, relative to the run tab's URL, and resolves correctly only from exactly `/projects/:id/runs/:id/<tab>` (see `architecture.md`, Decisions). By default it's a plain `<a href>` (full page load); pass `renderLink` to navigate client-side instead — see "Custom link renderer" below.
 - `errored` filters on `ERRORED` + `TIMEDOUT`; `skipped` filters on `NOTESTS` + `CANCELLED`; the remaining pill filters on `RUNNING` + `UNCLAIMED`.
 - Hover: the pill's text and icon take on the status's own hue (label at `-500`, the bold count a shade darker at `-600`) rather than a generic link color, plus a `gray-50` background — reads as "go to this status," not a generic hover.
 - Cancel run fires `onCancel`. The component does not confirm or disable itself; the caller owns that flow.
@@ -70,7 +71,7 @@ A status with a count of zero is not rendered at all.
 
 ## Accessibility
 
-- Pills are native `<a>` elements — keyboard-focusable and activatable by default, with a visible `focus-visible` state via the DS Button/link conventions.
+- Pills are native `<a>` elements by default — keyboard-focusable and activatable by default, with a visible `focus-visible` state via the DS Button/link conventions. A custom `renderLink` inherits this as long as it spreads the given `className` onto a real link element (an `<a>`, or a router `Link` that renders one).
 - Status meaning is conveyed by both the icon and the text label, not color alone.
 - The Cancel and Archive buttons are both the DS `Button` component (`@cypress-design/react-button`, `variant="outline-red"` / `"outline-gray-light"` respectively), each carrying its own accessible name ("Cancel run" / "Archive run") and focus styling.
 
@@ -108,10 +109,49 @@ Every clickable element in this component carries a `data-fs-element` attribute 
 
 That renders `data-fs-element="Run - Detail - Spec Results - Archive Run"`. One prop, set once per integration, covers every interactive element inside the component — you never need to label the pills or buttons individually.
 
+## Custom link renderer
+
+SpecResults has no router dependency of its own — every pill is a plain `<a href>` by default (a full page load). Use `renderLink` to integrate with a framework router (React Router, Next.js `Link`, etc.) so clicks navigate client-side instead. It receives the resolved `href`, the pill's rendered content (icon + count + label), and a `props` object (`className`, `data-cy`, `data-fs-element`) to spread onto your own link element so it keeps this component's styling, test selectors, and FullStory tracking. It must return a single element.
+
+```tsx
+import { Link, useNavigate } from 'react-router-dom'
+
+;<SpecResults
+  results={results}
+  onArchive={handleArchive}
+  renderLink={(href, children, props) => (
+    <Link to={href} {...props}>
+      {children}
+    </Link>
+  )}
+/>
+```
+
+**react-router-dom v6 gotcha:** don't reach for `<Link to={href}>` naively from a wildcard-routed tab — v6 resolves a relative `to` against the full current URL, including whatever the caller's own wildcard route match already consumed, not just "one tab's worth" of path. From `/runs/6/specs`, `to="specs?..."` can resolve to the nonsense `/runs/6/specs/specs?...` instead of staying on `/runs/6/specs?...`. Resolve the href against `window.location.href` yourself first and hand the router a real path, e.g.:
+
+```tsx
+renderLink={(href, children, props) => {
+  const navigate = useNavigate()
+  const resolved = new URL(href, window.location.href)
+  return (
+    <a
+      href={href}
+      {...props}
+      onClick={(e) => {
+        if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+        e.preventDefault()
+        navigate(resolved.pathname + resolved.search + resolved.hash)
+      }}
+    >
+      {children}
+    </a>
+  )
+}}
+```
+
 ## Known limitations
 
 - **Sizing is literal px, not Tailwind's rem-based scale.** This is a workaround for a Cypress Cloud dashboard bug (a legacy `bootstrap-sass` global sets the page's root font-size to 10px instead of 16px, so every rem-based utility renders at 62.5% of normal there) -- not a flaw in this component. See `architecture.md` for the full explanation before "fixing" it back to the named scale.
 - **React only for now.** No Vue implementation yet — planned as a fast-follow; see `architecture.md`.
 - **No i18n.** All copy ("specs", "remaining", "Testing in progress") is hardcoded English.
-- **No custom link renderer yet.** Unlike `RunResults`, there is no `renderLink` prop; pills use react-router's `useNavigate` when a `Router` is present and plain `<a>` navigation otherwise. Moving to a consumer-supplied link renderer is under review.
 - **Order is fixed.** No prop to reorder or hide individual pills beyond what a zero count already hides.
