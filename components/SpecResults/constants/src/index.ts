@@ -361,11 +361,21 @@ export function buildSpecResultsView(
         if (!remaining) return
         const runningCount = counts.RUNNING ?? 0
         const queuedCount = counts.UNCLAIMED ?? 0
+        // The animated running icon claims something is actually in
+        // flight -- only true if runningCount is nonzero. Two cases where
+        // it isn't: (1) a caller-confirmed-complete run (e.g. TIMEDOUT)
+        // can still carry a nonzero remaining count that's specs the
+        // recorder never claimed, not specs in progress; (2) a run that's
+        // only queued so far, nothing claimed yet. Either way the static
+        // queued icon is the honest one.
         pills.push({
           status,
           href: buildFilterUrl(['RUNNING', 'UNCLAIMED']),
           hover: meta.hover,
-          icon: meta.icon,
+          icon:
+            options.isComplete || !runningCount
+              ? STATUS_META.UNCLAIMED.icon
+              : meta.icon,
           countText: String(remaining),
           rest: `${remaining === 1 ? 'spec' : 'specs'} remaining`,
           // Always renders, same reasoning as SKIPPED below -- "2 specs
@@ -448,7 +458,10 @@ export function buildSpecResultsView(
       status: 'RUNNING',
       href: '../../settings/general',
       hover: 'indigo',
-      icon: STATUS_META.RUNNING.icon,
+      // The queued icon, not the running spinner -- by the scheduled-to-
+      // complete point every group has actually finished, so nothing is
+      // still executing. Only the completion delay is still counting down.
+      icon: STATUS_META.UNCLAIMED.icon,
       countText: options.scheduledToComplete,
       rest: 'remaining',
       tooltip: {
