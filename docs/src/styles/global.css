@@ -19,3 +19,9 @@
 [data-fw='astro'] [data-only]:not([data-only~='astro']) {
   display: none;
 }
+
+/* Inline `code` spans in markdown prose -- excludes fenced code blocks
+   (`<pre><code>`), which get their own syntax-highlighter styling. */
+.markdown :not(pre) > code {
+  @apply bg-gray-50 border border-gray-100 text-purple-500;
+}

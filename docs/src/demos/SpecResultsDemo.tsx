@@ -88,7 +88,7 @@ const NO_TESTS_EMPTY_SPEC = (
   <>
     <Heading>No tests found</Heading>
     <p className="!mb-0 !leading-[20px]">
-      Cypress ran 3 specs, but found no tests inside them.
+      Cypress attempted to run 3 specs, but found no tests inside of them.
     </p>
   </>
 )
@@ -98,12 +98,12 @@ const NO_TESTS_NO_MATCH = (
     <Heading>No spec files were found</Heading>
     <p className="!mb-0 !leading-[20px]">
       No spec files matched the{' '}
-      <code className="font-mono font-semibold bg-gray-50 border-gray-100 text-purple-500">
+      <code className="font-mono border border-gray-100 text-purple-500">
         specPattern
       </code>{' '}
       in your Cypress config file when this run was recorded.
       <br />
-      <code className="font-mono font-semibold bg-gray-50 border-gray-100">
+      <code className="font-mono block mt-[12px] px-[12px] border border-gray-100 bg-gray-50 rounded-[4px] text-purple-500">
         specPattern: &apos;cypress/e2e/billing/**/*.cy.ts&apos;
       </code>
     </p>
@@ -174,7 +174,7 @@ export default function SpecResultsDemo() {
       />
       <Example
         title="Errored"
-        results={{ passed: 473, failed: 1, errored: 2 }}
+        results={{ errored: 476 }}
         description={ERRORED}
         onArchive={noop}
       />
