@@ -98,12 +98,12 @@ const NO_TESTS_NO_MATCH = (
     <Heading>No spec files were found</Heading>
     <p className="!mb-0 !leading-[20px]">
       No spec files matched the{' '}
-      <code className="font-mono border border-gray-100 text-purple-500">
+      <code className="font-mono px-[4px] border border-gray-100 bg-gray-25 rounded text-[12px] text-purple-500">
         specPattern
       </code>{' '}
       in your Cypress config file when this run was recorded.
       <br />
-      <code className="font-mono block mt-[12px] mb-[4px] px-[12px] border border-gray-100 bg-gray-50 rounded-[4px] text-purple-500">
+      <code className="font-mono block min-h-[32px] leading-[24px] mt-[12px] mb-[4px] px-[12px] py-[4px] border border-gray-100 bg-gray-25 rounded-[4px] text-purple-500">
         specPattern: &apos;cypress/e2e/billing/**/*.cy.ts&apos;
       </code>
     </p>
