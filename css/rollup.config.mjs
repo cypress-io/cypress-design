@@ -8,7 +8,7 @@ const external = Object.keys(pkg.dependencies)
 
 const exports = Object.keys(pkg.exports)
   .filter((r) => r !== '.' && !r.endsWith('.json'))
-  .map((r) => r.replace(/^\.\/dist\//, ''))
+  .map((r) => r.replace(/^\.\/dist\//, '').replace(/^\.\//, ''))
 
 const config = ({ input, outputFile }) => {
   return {
