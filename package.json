@@ -26,7 +26,7 @@
     "test": "vitest",
     "eslint": "eslint",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
-    "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" && turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\"",
+    "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" && turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/favicon\"",
     "dev": "yarn start",
     "docs": "yarn start",
     "start": "NODE_ENV=development concurrently -n const,icons,astro \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"yarn astro dev --root docs --port 4321\"",

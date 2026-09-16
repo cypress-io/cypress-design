@@ -1607,6 +1607,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/favicon@workspace:packages/favicon":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/favicon@workspace:packages/favicon"
+  dependencies:
+    typescript: "npm:5.4.5"
+  bin:
+    cypress-favicon: ./bin/copy-assets.mjs
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:icon-registry":
   version: 0.0.0-use.local
   resolution: "@cypress-design/icon-registry@workspace:icon-registry"
