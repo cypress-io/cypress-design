@@ -1512,6 +1512,7 @@ __metadata:
     "@changesets/cli": "npm:^2.29.2"
     "@cypress-design/constants-tabs": "npm:*"
     "@cypress-design/css": "npm:*"
+    "@cypress-design/favicon": "npm:*"
     "@cypress-design/react-icon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-docmenu": "npm:*"
@@ -1607,7 +1608,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/favicon@workspace:packages/favicon":
+"@cypress-design/favicon@npm:*, @cypress-design/favicon@workspace:packages/favicon":
   version: 0.0.0-use.local
   resolution: "@cypress-design/favicon@workspace:packages/favicon"
   dependencies:
