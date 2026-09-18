@@ -2,7 +2,8 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { FAVICON_ASSETS, FAVICON_LINKS } from '@cypress-design/favicon'
 
-const base = '/favicons'
+// The site serves these at its root, so the page shows the very files it ships itself.
+const base = ''
 
 const ICO_SIZES = [16, 24, 32, 48, 64]
 

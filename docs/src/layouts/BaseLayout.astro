@@ -37,7 +37,15 @@ const currentPath = Astro.url.pathname
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{pageTitle}</title>
-    <link rel="shortcut icon" href="/favicon.ico" />
+    {/*
+      Only the SVG is declared. Measured against Chrome 153 and Safari 26.5: a declared
+      rel="icon" ICO beats the SVG in both engines regardless of the sizes attribute or
+      document order, and Chrome does not even download the SVG. favicon.ico is still
+      shipped and still served from the site root, which is where crawlers, unfurlers and
+      Safari before 26 look for it by convention. See /favicons for the full reasoning.
+    */}
+    <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="stylesheet" href="/colors.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

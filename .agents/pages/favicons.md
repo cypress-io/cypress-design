@@ -6,9 +6,10 @@ Documents `@cypress-design/favicon` — the favicon assets and the head markup t
 
 - Sidebar lists **Favicons** immediately after **Icons** (`order: 5` in the mdx frontmatter; Icons
   is 4). The sidebar builds from a glob over `docs/src/pages/*.mdx`, sorted by `order`.
-- Every asset renders from `/favicons/*`, copied out of the package by
-  `packages/favicon/bin/copy-assets.mjs`. `build:docs` re-runs that copy, so the page can never show
-  artwork that differs from what the package ships.
+- Every asset renders from the site root (`/favicon.svg`, `/favicon.ico`, …) — the same files the
+  docs site itself ships, copied out of the package by `packages/favicon/bin/copy-assets.mjs`.
+  `build:docs` re-runs that copy, so the page cannot show artwork that differs from what is shipped,
+  and the site dogfoods the package it documents.
 - The file table is generated from `FAVICON_ASSETS` / `FAVICON_LINKS` imported from the package, not
   hand-written, so counts cannot drift.
 - The adaptive SVG section states the reader's current colour scheme and repaints when it changes.
