@@ -1,0 +1,115 @@
+---
+layout: '../layouts/BaseLayout.astro'
+title: Favicons
+order: 5
+---
+
+import FaviconAssets from '../FaviconAssets.vue'
+
+# Favicons
+
+The Cypress favicon and its companion icon files, shipped as
+[`@cypress-design/favicon`](https://www.npmjs.com/package/@cypress-design/favicon).
+
+```sh
+yarn add @cypress-design/favicon
+```
+
+<FaviconAssets client:load />
+
+## Using it
+
+A favicon never enters the document. The browser fetches it as a standalone URL and paints it into
+its own chrome — the tab strip, bookmarks, history — usually before your JavaScript bundle exists.
+So unlike everything else in the design system, this package puts real files on disk rather than
+handing you a module to import.
+
+Copy the assets into whatever directory your site serves statically, as a prebuild step:
+
+```jsonc
+{
+  "scripts": {
+    "prebuild": "cypress-favicon public", // `static` for Docusaurus
+  },
+}
+```
+
+Then declare the markup from the shared constant instead of hand-writing it:
+
+```ts
+import { FAVICON_LINKS, MANIFEST_ICONS } from '@cypress-design/favicon'
+```
+
+```astro
+{FAVICON_LINKS.map((link) => <link {...link} />)}
+```
+
+`faviconLinksHtml()` renders the same list as a string, for templates that take one.
+
+## Two tags this package deliberately omits
+
+Both were carried for years across Cypress sites on pre-2021 guidance. Each was tested against a
+real browser rather than a support table, and neither survived. The measurements below are from
+Chrome 153 and Safari 26.5, September 2026.
+
+### No `rel="icon"` for `favicon.ico`
+
+The widely copied recipe declares the ICO with `sizes="any"` so browsers prefer the SVG:
+
+```html
+<!-- do not do this -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+```
+
+It does the opposite. Serving five markup variants and watching which file each engine actually
+fetched:
+
+| Markup                          | Chrome 153      | Safari 26.5 | Fetched      |
+| ------------------------------- | --------------- | ----------- | ------------ |
+| SVG first, `sizes="any"` on ICO | ICO             | ICO         | **ICO only** |
+| `sizes="any"` on both           | ICO             | ICO         | **ICO only** |
+| Explicit sizes on the ICO       | ICO             | ICO         | **ICO only** |
+| ICO first, SVG last             | ICO             | ICO         | both         |
+| **SVG only, no ICO link**       | **SVG, adapts** | **SVG**     | SVG          |
+
+A declared ICO wins outright in both engines regardless of attributes or document order — and in
+three of the four cases Chrome never even downloaded the SVG. Declaring only the SVG is the one
+markup that works.
+
+The ICO is still shipped and still served. Clients that want it — Safari before 26, crawlers,
+unfurlers, RSS readers — request `/favicon.ico` from the origin root by convention, without reading
+your markup. Keep the file at the root and leave it undeclared.
+
+### No `rel="mask-icon"`
+
+Safari required a flat monochrome `safari-pinned-tab.svg` for pinned tabs from Safari 9 (2015).
+Safari 12 (2018) started using the regular favicon there instead, and it has not been needed since.
+Verified inert in Safari 26.5: pinning a tab renders the full-colour favicon whether or not the tag
+is declared. Apple's guidance for it is archived, and apple.com no longer ships it.
+
+## How the assets are made
+
+One adaptive SVG is the source of truth. Every raster is exported from a dark-variant copy of it
+with the palette resolved to literal hex — the adaptive file is never rasterised directly, because a
+renderer that quietly ignores CSS custom properties would export the light variant without
+complaining.
+
+- **`favicon.ico`** is a real ICO container holding five PNG frames at 16/24/32/48/64. Each frame
+  gets an unsharp mask, which raises measured edge energy at 16px from 160 to 230 — the gradient
+  ring is about one pixel thick at that size and needs the help.
+- **Large rasters are supersampled 4×, then downscaled.** The ring is drawn as four separate quarter
+  paths; where they meet at 12/3/6/9 o'clock each edge antialiases independently, coverage sums to
+  just under 1, and the navy disc shows through as hairlines. At 512px that seam measured 25.5/255
+  deep. Supersampling removes it.
+- **The ICO is baked from the dark variant** with the disc filled. It cannot adapt, so it has to be
+  one image that survives on a light or a dark tab strip; a filled disc gives the wordmark its own
+  background either way. The icon this replaced had a fully transparent centre and was effectively
+  invisible on a dark tab strip.
+
+## Known limitation
+
+Safari renders `favicon.svg` but never evaluates `prefers-color-scheme` — it always resolves light,
+in both appearances. A Safari dark-mode tab therefore shows the light variant while Chrome and
+Firefox show the dark one. It stays legible, because the white disc still gives the mark a
+background, but the two are not identical.
