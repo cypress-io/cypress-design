@@ -8,9 +8,10 @@
  *   cypress-favicon public
  *   cypress-favicon static --quiet
  */
-import { copyFile, mkdir, readdir } from 'node:fs/promises'
+import { copyFile, mkdir } from 'node:fs/promises'
 import { dirname, join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { FAVICON_ASSETS } from '../dist/index.es.mjs'
 
 const ASSETS_DIR = resolve(dirname(fileURLToPath(import.meta.url)), '../assets')
 
@@ -26,13 +27,16 @@ if (!target) {
 const targetDir = resolve(process.cwd(), target)
 await mkdir(targetDir, { recursive: true })
 
-const files = await readdir(ASSETS_DIR)
+// Copy the declared list rather than whatever happens to sit in assets/, so a
+// stray file can never reach a consumer's static directory.
 await Promise.all(
-  files.map((file) => copyFile(join(ASSETS_DIR, file), join(targetDir, file))),
+  FAVICON_ASSETS.map((file) =>
+    copyFile(join(ASSETS_DIR, file), join(targetDir, file)),
+  ),
 )
 
 if (!quiet) {
   console.log(
-    `@cypress-design/favicon: copied ${files.length} assets to ${target}/`,
+    `@cypress-design/favicon: copied ${FAVICON_ASSETS.length} assets to ${target}/`,
   )
 }

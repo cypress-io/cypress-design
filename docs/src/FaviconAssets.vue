@@ -7,44 +7,48 @@ const base = ''
 
 const ICO_SIZES = [16, 24, 32, 48, 64]
 
-const files: { name: string; dims: string; alpha: string; used: string }[] = [
-  {
-    name: 'favicon.svg',
+// Rows are driven by FAVICON_ASSETS so the table cannot list a file the package
+// does not ship, or miss one it does. Only the prose is keyed by filename; an
+// asset added without an entry here still renders, with its description blank.
+const DETAIL: Record<string, { dims: string; alpha: string; used: string }> = {
+  'favicon.svg': {
     dims: 'vector',
     alpha: 'n/a',
     used: 'Chrome, Edge, Firefox, Safari — adapts to light/dark',
   },
-  {
-    name: 'favicon.ico',
+  'favicon.ico': {
     dims: '16/24/32/48/64',
     alpha: 'yes',
     used: 'Safari before 26, crawlers, unfurlers, RSS readers',
   },
-  {
-    name: 'apple-touch-icon.png',
+  'apple-touch-icon.png': {
     dims: '180×180',
     alpha: 'no',
     used: 'iOS home screen',
   },
-  {
-    name: 'android-chrome-192x192.png',
+  'android-chrome-192x192.png': {
     dims: '192×192',
     alpha: 'yes',
     used: 'Android, installed PWAs',
   },
-  {
-    name: 'android-chrome-256x256.png',
+  'android-chrome-256x256.png': {
     dims: '256×256',
     alpha: 'yes',
     used: 'Android, installed PWAs',
   },
-  {
-    name: 'android-chrome-512x512.png',
+  'android-chrome-512x512.png': {
     dims: '512×512',
     alpha: 'yes',
     used: 'Android splash screens',
   },
-]
+}
+
+const files = FAVICON_ASSETS.map((name) => ({
+  name,
+  dims: DETAIL[name]?.dims ?? '—',
+  alpha: DETAIL[name]?.alpha ?? '—',
+  used: DETAIL[name]?.used ?? '',
+}))
 
 const scheme = ref<'light' | 'dark'>('light')
 let mq: MediaQueryList | undefined
@@ -203,8 +207,8 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
       </div>
       <p class="!my-0 text-[12.5px] text-gray-600">
         {{ FAVICON_ASSETS.length }} files, {{ FAVICON_LINKS.length }} link tags
-        — both read from the package, so this table cannot drift from what is
-        shipped.
+        — every row is generated from the package's own asset list, so this
+        table cannot drift from what ships.
       </p>
     </section>
   </div>
