@@ -2,8 +2,23 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { FAVICON_ASSETS, FAVICON_LINKS } from '@cypress-design/favicon'
 
-// The site serves these at its root, so the page shows the very files it ships itself.
-const base = ''
+// Resolved through Vite rather than written as absolute paths. These are the
+// same bytes the site serves at its root, but importing them means the showcase
+// renders anywhere it is mounted -- Cypress's component-test dev server does not
+// serve a public directory, so absolute paths 404 there.
+import faviconSvg from '@cypress-design/favicon/assets/favicon.svg?url'
+import faviconIco from '@cypress-design/favicon/assets/favicon.ico?url'
+import appleTouch from '@cypress-design/favicon/assets/apple-touch-icon.png?url'
+import android192 from '@cypress-design/favicon/assets/android-chrome-192x192.png?url'
+import android512 from '@cypress-design/favicon/assets/android-chrome-512x512.png?url'
+
+const SRC: Record<string, string> = {
+  'favicon.svg': faviconSvg,
+  'favicon.ico': faviconIco,
+  'apple-touch-icon.png': appleTouch,
+  'android-chrome-192x192.png': android192,
+  'android-chrome-512x512.png': android512,
+}
 
 const ICO_SIZES = [16, 24, 32, 48, 64]
 
@@ -84,7 +99,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
               class="flex items-center gap-[7px] rounded-t-[9px] px-[13px] py-[9px] text-[11px] whitespace-nowrap"
               style="background: #ffffff; color: #5a6072"
             >
-              <img :src="`${base}/favicon.ico`" :width="s" :height="s" alt="" />
+              <img :src="SRC['favicon.ico']" :width="s" :height="s" alt="" />
               {{ s }}
             </div>
           </div>
@@ -100,7 +115,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
               class="flex items-center gap-[7px] rounded-t-[9px] px-[13px] py-[9px] text-[11px] whitespace-nowrap"
               style="background: #35363a; color: #9aa0ae"
             >
-              <img :src="`${base}/favicon.ico`" :width="s" :height="s" alt="" />
+              <img :src="SRC['favicon.ico']" :width="s" :height="s" alt="" />
               {{ s }}
             </div>
           </div>
@@ -125,7 +140,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
           :key="s"
           class="flex flex-col items-center gap-[8px]"
         >
-          <img :src="`${base}/favicon.svg`" :width="s" :height="s" alt="" />
+          <img :src="SRC['favicon.svg']" :width="s" :height="s" alt="" />
           <span class="text-[11px] text-gray-600">{{ s }}</span>
         </div>
       </div>
@@ -144,7 +159,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
       >
         <div class="flex flex-col items-center gap-[8px]">
           <img
-            :src="`${base}/apple-touch-icon.png`"
+            :src="SRC['apple-touch-icon.png']"
             width="90"
             height="90"
             alt=""
@@ -153,7 +168,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
         </div>
         <div class="flex flex-col items-center gap-[8px]">
           <img
-            :src="`${base}/android-chrome-192x192.png`"
+            :src="SRC['android-chrome-192x192.png']"
             width="90"
             height="90"
             alt=""
@@ -162,7 +177,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
         </div>
         <div class="flex flex-col items-center gap-[8px]">
           <img
-            :src="`${base}/android-chrome-512x512.png`"
+            :src="SRC['android-chrome-512x512.png']"
             width="90"
             height="90"
             alt=""
