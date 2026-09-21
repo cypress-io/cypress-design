@@ -35,6 +35,7 @@ jobs:
             ./icon-registry/dist
             ./components
             ./packages/details-animation/dist
+            ./packages/favicon/dist
             ./node_modules
 
       - name: Reinstall dependencies and regenerate build files
