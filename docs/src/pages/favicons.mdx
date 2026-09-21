@@ -34,17 +34,55 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 }
 ```
 
-Then declare the markup from the shared constant instead of hand-writing it:
+Then declare the markup. Which form you use depends on what your head layer accepts — all three are
+derived from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-```ts
-import { FAVICON_LINKS, MANIFEST_ICONS } from '@cypress-design/favicon'
-```
+### Astro — use the component
 
 ```astro
-{FAVICON_LINKS.map((link) => <link {...link} />)}
+---
+import Favicon from '@cypress-design/favicon/astro'
+---
+<head>
+  <Favicon />
+</head>
 ```
 
-`faviconLinksHtml()` renders the same list as a string, for templates that take one.
+Pass `links` to narrow the list, for a site that ships no web manifest:
+
+```astro
+<Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
+```
+
+### Docusaurus — `faviconHeadTags()`
+
+A Docusaurus plugin injects tag descriptors, not markup, so there is no component to render into:
+
+```js
+const { faviconHeadTags } = require('@cypress-design/favicon')
+
+injectHtmlTags: () => ({ headTags: faviconHeadTags() })
+```
+
+### EJS and other server-rendered HTML — `faviconLinksHtml()`
+
+```ejs
+<head>
+  <%- faviconLinksHtml() %>
+</head>
+```
+
+### Why the component does not cover everything
+
+The component renders `<link>` elements, so it needs a framework doing the rendering at the moment
+the `<head>` is assembled. Astro qualifies. A Docusaurus plugin returns descriptors before any
+component tree exists, and an EJS template has no component runtime at all — Cypress Cloud's auth
+pages ship **zero `<script>` tags**, so there is nothing for a component to mount into.
+
+A client-side React component _can_ reach the head after hydration, but a favicon is fetched during
+the initial HTML parse. Injecting the tag later means the browser has already requested
+`/favicon.ico` and moved on — which is why the string and descriptor forms exist rather than being a
+shortcoming of the component.
 
 ## Two tags this package deliberately omits
 

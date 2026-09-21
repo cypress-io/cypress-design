@@ -86,3 +86,27 @@ export function faviconLinksHtml(links: FaviconLink[] = FAVICON_LINKS): string {
     })
     .join('\n')
 }
+
+/** A head tag in the shape Docusaurus's `injectHtmlTags` expects. */
+export interface HeadTag {
+  tagName: 'link'
+  attributes: Record<string, string>
+}
+
+/**
+ * FAVICON_LINKS reshaped for head layers that take tag descriptors rather than
+ * markup -- Docusaurus plugins, principally:
+ *
+ *   injectHtmlTags: () => ({ headTags: faviconHeadTags() })
+ */
+export function faviconHeadTags(
+  links: FaviconLink[] = FAVICON_LINKS,
+): HeadTag[] {
+  return links.map((link) => {
+    const attributes: Record<string, string> = {}
+    Object.entries(link).forEach(([key, value]) => {
+      attributes[key] = String(value)
+    })
+    return { tagName: 'link' as const, attributes }
+  })
+}

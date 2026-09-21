@@ -25,17 +25,60 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 }
 ```
 
-Then declare the markup from the shared constant rather than hand-writing it:
+Then declare the markup. Which form you use depends on what your head layer accepts — all three
+come from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-```ts
-import { FAVICON_LINKS, MANIFEST_ICONS } from '@cypress-design/favicon'
-```
+### Astro — use the component
 
 ```astro
-{FAVICON_LINKS.map((link) => <link {...link} />)}
+---
+import Favicon from '@cypress-design/favicon/astro'
+---
+<head>
+  <Favicon />
+</head>
 ```
 
-For templates that take a string, `faviconLinksHtml()` renders the same list.
+Pass `links` to narrow the list, e.g. for a site that ships no web manifest:
+
+```astro
+<Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
+```
+
+### Head layers that take tag descriptors — Docusaurus
+
+A Docusaurus plugin injects objects, not markup, so there is no component to render:
+
+```js
+const { faviconHeadTags } = require('@cypress-design/favicon')
+
+module.exports = async function favIcon() {
+  return {
+    name: 'docusaurus-plugin-favicon',
+    injectHtmlTags: () => ({ headTags: faviconHeadTags() }),
+  }
+}
+```
+
+### Head layers that take a string — EJS, and anything server-rendered
+
+```ejs
+<head>
+  <%- faviconLinksHtml() %>
+</head>
+```
+
+This is the form to reach for when the page has no JavaScript runtime at all. Cypress Cloud's auth
+pages are the case in point: they are server-rendered HTML with zero `<script>` tags, so nothing can
+mount there.
+
+### Why not a component everywhere
+
+The component renders `<link>` elements, so it needs a framework doing the rendering at the point the
+`<head>` is built. Astro does. A Docusaurus plugin hands back descriptors before any component tree
+exists, and an EJS template has no component runtime. A client-side React component _can_ reach the
+head after hydration, but a favicon is fetched during the initial HTML parse — so injecting it later
+means the browser has already asked for `/favicon.ico` and moved on.
 
 ## Two things deliberately absent
 

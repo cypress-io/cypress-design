@@ -8,7 +8,8 @@
     "dist",
     "src",
     "assets",
-    "bin"
+    "bin",
+    "astro"
   ],
   "exports": {
     ".": {
@@ -17,7 +18,8 @@
       "types": "./dist/index.d.ts"
     },
     "./assets/*": "./assets/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./astro": "./astro/Favicon.astro"
   },
   "bin": {
     "cypress-favicon": "./bin/copy-assets.mjs"
