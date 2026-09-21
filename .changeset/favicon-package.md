@@ -1,5 +1,5 @@
 ---
-'@cypress-design/favicon': minor
+'@cypress-design/favicon': major
 ---
 
 Add `@cypress-design/favicon`: the Cypress favicon assets plus the head markup that declares them.
