@@ -1,0 +1,18 @@
+---
+'@cypress-design/vue-favicon': major
+'@cypress-design/react-favicon': major
+---
+
+Add `@cypress-design/vue-favicon` and `@cypress-design/react-favicon`: components that render the
+favicon head tags from `FAVICON_LINKS`.
+
+Server-rendered, so Astro inlines plain `<link>` elements with no client JavaScript. Both take an
+optional `links` prop for sites that ship a subset of the surfaces.
+
+Use the build matching the framework the consuming site registers with Astro. This is not
+cosmetic: Astro finds a renderer by asking each registered one in turn, and `@astrojs/react`'s check
+throws on a compiled Vue SFC rather than returning false — so a Vue component on a React-first site
+crashes every page. cypress.io registers Vue only; the design system docs register React first.
+
+Head layers that cannot render a component — Docusaurus plugins, EJS templates — use
+`faviconHeadTags()` or `faviconLinksHtml()` from `@cypress-design/favicon`.

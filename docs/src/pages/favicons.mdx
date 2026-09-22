@@ -37,16 +37,22 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 Then declare the markup. Which form you use depends on what your head layer accepts — all three are
 derived from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-### Astro — use the component
+### Astro — use the component for your framework
 
 ```astro
 ---
-import Favicon from '@cypress-design/favicon/astro'
+// the build matching the framework your site registers with Astro
+import Favicon from '@cypress-design/vue-favicon'   // cypress.io — Vue only
+// import Favicon from '@cypress-design/react-favicon' // design docs — React first
 ---
 <head>
   <Favicon />
 </head>
 ```
+
+Picking the wrong one is not merely redundant: Astro finds a renderer by asking each registered one
+in turn, and `@astrojs/react`'s check throws on a compiled Vue component rather than returning
+false — so a Vue component on a React-first site crashes every page.
 
 Pass `links` to narrow the list, for a site that ships no web manifest:
 
