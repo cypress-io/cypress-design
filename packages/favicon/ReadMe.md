@@ -28,22 +28,23 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 Then declare the markup. Which form you use depends on what your head layer accepts — all three
 come from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-### cypress.io and the design system docs (Astro) — use the component for your framework
+### Astro
 
 ```astro
 ---
-// the build matching the framework your site registers with Astro
-import Favicon from '@cypress-design/vue-favicon'   // cypress.io — Vue only
-// import Favicon from '@cypress-design/react-favicon' // design docs — React first
+// use the build matching a framework your Astro config registers
+import Favicon from '@cypress-design/vue-favicon'
+// or, on a site whose Astro config registers React:
+// import Favicon from '@cypress-design/react-favicon'
 ---
 <head>
   <Favicon />
 </head>
 ```
 
-Picking the wrong one is not merely redundant: Astro finds a renderer by asking each registered one
+Picking the wrong one is not merely redundant. Astro finds a renderer by asking each registered one
 in turn, and `@astrojs/react`'s check throws on a compiled Vue component rather than returning
-false — so a Vue component on a React-first site crashes every page.
+false — so a Vue component on a site that registers React first crashes every page.
 
 Pass `links` to narrow the list, e.g. for a site that ships no web manifest:
 
@@ -51,9 +52,9 @@ Pass `links` to narrow the list, e.g. for a site that ships no web manifest:
 <Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
 ```
 
-### Cypress Docs (Docusaurus) — tag descriptors
+### Docusaurus
 
-Cypress Docs runs on [Docusaurus](https://docusaurus.io), whose plugins inject objects rather than markup — there is no component to render:
+A Docusaurus plugin injects objects rather than markup, so there is no component to render:
 
 ```js
 const { faviconHeadTags } = require('@cypress-design/favicon')
@@ -66,7 +67,7 @@ module.exports = async function favIcon() {
 }
 ```
 
-### Cypress Cloud (EJS) and anything server-rendered — a string
+### EJS and other server-rendered HTML
 
 ```ejs
 <head>
@@ -74,8 +75,8 @@ module.exports = async function favIcon() {
 </head>
 ```
 
-Cypress Cloud renders its pages with [EJS](https://ejs.co) templates, which take a string. This is also the only form that works when a page has no JavaScript at all — Cloud's auth pages are
-server-rendered HTML with zero `<script>` tags, so nothing can mount there.
+EJS templates take a string. This is also the only form that works on a page with no JavaScript at
+all — a server-rendered page with no `<script>` tags has nothing for a component to mount into.
 
 ### Why not a component everywhere
 

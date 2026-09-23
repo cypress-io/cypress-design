@@ -44,7 +44,6 @@ Page-specific acceptance criteria and known issues live in `/.agents/pages/<page
 Available pages:
 
 - `pages/colors.md` — `/colors` page sections, palette behavior, TOC, known issues
-- `pages/favicons.md` — `/favicons` page, the favicon package, and why two common link tags are omitted
 
 ## Skills
 

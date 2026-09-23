@@ -1,6 +1,10 @@
-# Page: /favicons
+# Favicon — architecture
 
-Documents `@cypress-design/favicon` — the favicon assets and the head markup that declares them.
+Implementation notes for the Favicon component and the `/favicons` documentation page.
+
+The docs site passes a `links` prop to drop the manifest tag, because that site ships no
+`site.webmanifest`. A site using the defaults needs only `<Favicon />` and no import of
+`FAVICON_LINKS`.
 
 ## Acceptance criteria
 

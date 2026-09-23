@@ -8,11 +8,27 @@ import FaviconAssets from '../FaviconAssets.vue'
 
 # Favicons
 
-The Cypress favicon and its companion icon files, shipped as
-[`@cypress-design/favicon`](https://www.npmjs.com/package/@cypress-design/favicon).
+The Cypress favicon and its companion icon files. For the component's props and per-framework
+install instructions, see [Favicon](/components/Favicon) under Components.
+
+## Which package do I install?
+
+Three packages, and you need **one or two** of them — installing a component does not give you both
+frameworks.
+
+| Package                         | What it gives you                                                                                                                                                           | Install it when                         |
+| ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `@cypress-design/favicon`       | The asset files, the `cypress-favicon` CLI that copies them into your static directory, and `FAVICON_LINKS` / `MANIFEST_ICONS` / `faviconHeadTags()` / `faviconLinksHtml()` | **Always.** Every site needs the assets |
+| `@cypress-design/vue-favicon`   | `<Favicon />`, a Vue build                                                                                                                                                  | Your Astro config registers Vue         |
+| `@cypress-design/react-favicon` | `<Favicon />`, a React build                                                                                                                                                | Your Astro config registers React       |
+
+The two component packages are alternatives, not a pair — each is a build of the same component for
+one framework, and each depends on `@cypress-design/favicon` for the link data. A site whose head is
+not rendered by a component (Docusaurus, EJS) installs only the first package and calls a function.
 
 ```sh
 yarn add @cypress-design/favicon
+yarn add @cypress-design/vue-favicon   # or react-favicon, if you want the component
 ```
 
 <FaviconAssets client:load />
@@ -37,22 +53,23 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 Then declare the markup. Which form you use depends on what your head layer accepts — all three are
 derived from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-### cypress.io and this site (Astro) — use the component for your framework
+### Astro
 
 ```astro
 ---
-// the build matching the framework your site registers with Astro
-import Favicon from '@cypress-design/vue-favicon'   // cypress.io — Vue only
-// import Favicon from '@cypress-design/react-favicon' // design docs — React first
+// use the build matching a framework your Astro config registers
+import Favicon from '@cypress-design/vue-favicon'
+// or, on a site whose Astro config registers React:
+// import Favicon from '@cypress-design/react-favicon'
 ---
 <head>
   <Favicon />
 </head>
 ```
 
-Picking the wrong one is not merely redundant: Astro finds a renderer by asking each registered one
+Picking the wrong one is not merely redundant. Astro finds a renderer by asking each registered one
 in turn, and `@astrojs/react`'s check throws on a compiled Vue component rather than returning
-false — so a Vue component on a React-first site crashes every page.
+false — so a Vue component on a site that registers React first crashes every page.
 
 Pass `links` to narrow the list, for a site that ships no web manifest:
 
@@ -60,9 +77,10 @@ Pass `links` to narrow the list, for a site that ships no web manifest:
 <Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
 ```
 
-### Cypress Docs (Docusaurus) — `faviconHeadTags()`
+### Docusaurus
 
-Cypress Docs runs on [Docusaurus](https://docusaurus.io), whose plugins inject tag descriptors rather than markup — there is no component to render into:
+A Docusaurus plugin injects tag descriptors rather than markup, so there is no component to
+render into:
 
 ```js
 const { faviconHeadTags } = require('@cypress-design/favicon')
@@ -70,7 +88,7 @@ const { faviconHeadTags } = require('@cypress-design/favicon')
 injectHtmlTags: () => ({ headTags: faviconHeadTags() })
 ```
 
-### Cypress Cloud (EJS) and other server-rendered HTML — `faviconLinksHtml()`
+### EJS and other server-rendered HTML
 
 ```ejs
 <head>
@@ -82,8 +100,8 @@ injectHtmlTags: () => ({ headTags: faviconHeadTags() })
 
 The component renders `<link>` elements, so it needs a framework doing the rendering at the moment
 the `<head>` is assembled. Astro qualifies. A Docusaurus plugin returns descriptors before any
-component tree exists, and an EJS template has no component runtime at all — Cypress Cloud's auth
-pages ship **zero `<script>` tags**, so there is nothing for a component to mount into.
+component tree exists, and an EJS template has no component runtime at all — a page that ships
+**zero `<script>` tags** has nothing for a component to mount into.
 
 A client-side React component _can_ reach the head after hydration, but a favicon is fetched during
 the initial HTML parse. Injecting the tag later means the browser has already requested

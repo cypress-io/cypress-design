@@ -1,13 +1,14 @@
 # Favicon
 
-Renders the favicon `<link>` tags into `<head>`. No visual output, no interactivity, no state — it
+Renders the favicon `<link>` tags into `<head>`. The asset set itself, and the reasoning behind the
+markup, are documented on the [Favicons](/favicons) page. No visual output, no interactivity, no state — it
 exists so consumers stop hand-writing markup that is easy to get subtly wrong.
 
 ## Import
 
 ```ts
-import Favicon from '@cypress-design/vue-favicon' // cypress.io
-import Favicon from '@cypress-design/react-favicon' // design system docs
+import Favicon from '@cypress-design/vue-favicon'
+import Favicon from '@cypress-design/react-favicon'
 ```
 
 ## Props
@@ -24,10 +25,10 @@ Astro finds a component's renderer by asking each registered renderer in turn. `
 check reads `Component["$$typeof"].toString()` for any object, and a compiled Vue SFC is a plain
 object with no `$$typeof`, so it throws rather than returning false. On a site that registers React
 before Vue, a server-rendered Vue component therefore crashes every page before Vue is ever asked.
-Verified on the design system docs site, which registers both.
+Verified on an Astro site that registers both.
 
-- **cypress.io** registers Vue only → `vue-favicon`.
-- **Design system docs** registers React and Vue, React first → `react-favicon`.
+- Astro config registers Vue only → `vue-favicon`.
+- Astro config registers React, or React before Vue → `react-favicon`.
 
 ## When not to use it at all
 
@@ -36,8 +37,8 @@ surfaces have none:
 
 - **Docusaurus** returns tag descriptors from a plugin before any component tree exists — use
   `faviconHeadTags()`.
-- **EJS templates** have no component runtime; Cloud's auth views ship zero `<script>` tags — use
-  `faviconLinksHtml()`.
+- **EJS templates** have no component runtime; a page with zero `<script>` tags has nothing for a
+  component to mount into — use `faviconLinksHtml()`.
 
 A client-side component _can_ reach the head after hydration, but a favicon is fetched during the
 initial HTML parse, so the tag would arrive after the browser has already requested `/favicon.ico`.

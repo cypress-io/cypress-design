@@ -39,7 +39,6 @@ import { FAVICON_LINKS } from '@cypress-design/favicon'
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{pageTitle}</title>
-    {/* This site ships no web manifest, so drop that one tag. */}
     <Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
     <link rel="stylesheet" href="/colors.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
