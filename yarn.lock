@@ -1698,6 +1698,7 @@ __metadata:
   resolution: "@cypress-design/react-favicon@workspace:components/Favicon/react"
   dependencies:
     "@cypress-design/favicon": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
   languageName: unknown
   linkType: soft
 
@@ -1932,6 +1933,7 @@ __metadata:
   resolution: "@cypress-design/vue-favicon@workspace:components/Favicon/vue"
   dependencies:
     "@cypress-design/favicon": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
   languageName: unknown
   linkType: soft
 
