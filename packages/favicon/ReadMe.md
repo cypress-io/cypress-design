@@ -28,7 +28,7 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 Then declare the markup. Which form you use depends on what your head layer accepts — all three
 come from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-### Astro — use the component for your framework
+### cypress.io and the design system docs (Astro) — use the component for your framework
 
 ```astro
 ---
@@ -51,9 +51,9 @@ Pass `links` to narrow the list, e.g. for a site that ships no web manifest:
 <Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
 ```
 
-### Head layers that take tag descriptors — Docusaurus
+### Cypress Docs (Docusaurus) — tag descriptors
 
-A Docusaurus plugin injects objects, not markup, so there is no component to render:
+Cypress Docs runs on [Docusaurus](https://docusaurus.io), whose plugins inject objects rather than markup — there is no component to render:
 
 ```js
 const { faviconHeadTags } = require('@cypress-design/favicon')
@@ -66,7 +66,7 @@ module.exports = async function favIcon() {
 }
 ```
 
-### Head layers that take a string — EJS, and anything server-rendered
+### Cypress Cloud (EJS) and anything server-rendered — a string
 
 ```ejs
 <head>
@@ -74,9 +74,8 @@ module.exports = async function favIcon() {
 </head>
 ```
 
-This is the form to reach for when the page has no JavaScript runtime at all. Cypress Cloud's auth
-pages are the case in point: they are server-rendered HTML with zero `<script>` tags, so nothing can
-mount there.
+Cypress Cloud renders its pages with [EJS](https://ejs.co) templates, which take a string. This is also the only form that works when a page has no JavaScript at all — Cloud's auth pages are
+server-rendered HTML with zero `<script>` tags, so nothing can mount there.
 
 ### Why not a component everywhere
 

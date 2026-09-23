@@ -37,7 +37,7 @@ Copy the assets into whatever directory your site serves statically, as a prebui
 Then declare the markup. Which form you use depends on what your head layer accepts — all three are
 derived from the same `FAVICON_LINKS` array, so they cannot disagree with each other.
 
-### Astro — use the component for your framework
+### cypress.io and this site (Astro) — use the component for your framework
 
 ```astro
 ---
@@ -60,9 +60,9 @@ Pass `links` to narrow the list, for a site that ships no web manifest:
 <Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
 ```
 
-### Docusaurus — `faviconHeadTags()`
+### Cypress Docs (Docusaurus) — `faviconHeadTags()`
 
-A Docusaurus plugin injects tag descriptors, not markup, so there is no component to render into:
+Cypress Docs runs on [Docusaurus](https://docusaurus.io), whose plugins inject tag descriptors rather than markup — there is no component to render into:
 
 ```js
 const { faviconHeadTags } = require('@cypress-design/favicon')
@@ -70,7 +70,7 @@ const { faviconHeadTags } = require('@cypress-design/favicon')
 injectHtmlTags: () => ({ headTags: faviconHeadTags() })
 ```
 
-### EJS and other server-rendered HTML — `faviconLinksHtml()`
+### Cypress Cloud (EJS) and other server-rendered HTML — `faviconLinksHtml()`
 
 ```ejs
 <head>
