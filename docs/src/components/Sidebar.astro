@@ -24,16 +24,42 @@ const docPages = Object.entries(docPageGlob)
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
 
 const patternGlob = import.meta.glob<{ frontmatter?: { title?: string; order?: number } }>(
-  '../pages/patterns/*.mdx',
+  '../pages/patterns/**/*.{mdx,astro}',
   { eager: true },
 )
-const patternPages = Object.entries(patternGlob)
-  .map(([path, mod]) => ({
-    href: path.replace('../pages', '').replace('.mdx', ''),
-    label: mod.frontmatter?.title ?? path.split('/').pop()?.replace('.mdx', '') ?? '',
-    order: mod.frontmatter?.order ?? 99,
-  }))
+const allPatternEntries = Object.entries(patternGlob)
+  .map(([path, mod]) => {
+    const filename = path.split('/').pop()?.replace(/\.(mdx|astro)$/, '') ?? ''
+    const isIndex = filename === 'index'
+    const href = path.replace('../pages', '').replace(/\.(mdx|astro)$/, '').replace(/\/index$/, '')
+    const segments = href.replace('/patterns/', '').split('/').filter(Boolean)
+    const groupKey = segments.length > 1 ? segments[0] : null
+    return {
+      href,
+      label: mod.frontmatter?.title ?? filename,
+      groupKey,
+      isIndex,
+      order: mod.frontmatter?.order ?? 99,
+    }
+  })
+  .filter((e) => !e.isIndex)
   .sort((a, b) => a.order - b.order || a.label.localeCompare(b.label))
+
+const rootPatternPages = allPatternEntries.filter((e) => !e.groupKey)
+const groupedPatternMap = new Map<string, typeof allPatternEntries>()
+for (const entry of allPatternEntries.filter((e) => e.groupKey)) {
+  const items = groupedPatternMap.get(entry.groupKey!) ?? []
+  items.push(entry)
+  groupedPatternMap.set(entry.groupKey!, items)
+}
+
+const patternItems = [
+  ...rootPatternPages.map((p) => ({ label: p.label, href: p.href })),
+  ...Array.from(groupedPatternMap.entries()).map(([key, pages]) => ({
+    label: key.charAt(0).toUpperCase() + key.slice(1),
+    items: pages.map((p) => ({ label: p.label, href: p.href })),
+  })),
+]
 
 const items = [
   ...docPages.map((p) => ({ label: p.label, href: p.href })),
@@ -41,8 +67,8 @@ const items = [
     label: 'Components',
     items: componentNames.map((name) => ({ label: name, href: `/components/${name}` })),
   },
-  ...(patternPages.length > 0
-    ? [{ label: 'Patterns', items: patternPages.map((p) => ({ label: p.label, href: p.href })) }]
+  ...(patternItems.length > 0
+    ? [{ label: 'Patterns', items: patternItems }]
     : []),
 ]
 ---

@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+import CloudPlans from '../../../demos/CloudPlans.vue'
+
+export const frontmatter = {
+  title: 'Plans',
+  order: 1,
+}
+
+const tocHeadings = [
+  { depth: 2, slug: 'overview', text: 'Overview' },
+  { depth: 2, slug: 'cards', text: 'Plan Cards' },
+]
+---
+
+<BaseLayout title="Cloud Plans" rawContent={true} fullWidth={true}>
+  <CloudPlans client:load />
+</BaseLayout>
