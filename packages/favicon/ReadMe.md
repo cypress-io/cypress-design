@@ -1,10 +1,12 @@
 # @cypress-design/favicon
 
-The Cypress favicon, its companion icon files, and the head markup that declares them.
+The Cypress favicon assets and the head markup that declares them.
 
-```sh
-yarn add @cypress-design/favicon
-```
+**Most sites should not install this directly.** If your `<head>` is rendered by Astro, install
+`@cypress-design/vue-favicon` or `@cypress-design/react-favicon` instead — each brings this package,
+its icon files and its copy command with it. Install this package on its own only when your head
+cannot render a component: a Docusaurus plugin, an EJS template, or other server-rendered HTML.
+Full documentation: [Favicon](https://design.cypress.io/components/Favicon).
 
 ## Why this is a file copy, not an import
 

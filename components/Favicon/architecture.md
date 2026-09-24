@@ -1,6 +1,6 @@
 # Favicon — architecture
 
-Implementation notes for the Favicon component and the `/favicons` documentation page.
+Implementation notes for the Favicon component and its documentation page, `/components/Favicon`.
 
 The docs site passes a `links` prop to drop the manifest tag, because that site ships no
 `site.webmanifest`. A site using the defaults needs only `<Favicon />` and no import of
@@ -8,8 +8,13 @@ The docs site passes a `links` prop to drop the manifest tag, because that site 
 
 ## Acceptance criteria
 
-- Sidebar lists **Favicons** immediately after **Icons** (`order: 5` in the mdx frontmatter; Icons
-  is 4). The sidebar builds from a glob over `docs/src/pages/*.mdx`, sorted by `order`.
+- The component lives in the Components section at `/components/Favicon`, generated from
+  `components/Favicon/` like every other component: the framework tabs render the per-framework
+  ReadMes, `instructions.md` renders below them, and `docs/src/demos/Favicon.vue` renders the asset
+  showcase at the top. There is no separate top-level page.
+- One install per site. The component packages depend on `@cypress-design/favicon` and each ships
+  its own `cypress-favicon` bin that imports the base package's `./cli` export — package managers
+  only link commands from direct dependencies, so without it a site would need both packages.
 - The showcase imports its images from the package with Vite's `?url`, rather than writing absolute
   paths. Same bytes either way, but it means the component renders under Cypress too — the
   component-test dev server serves no public directory, so absolute paths 404 there. The docs site

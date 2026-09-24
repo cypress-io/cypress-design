@@ -2,7 +2,8 @@
   "name": "@cypress-design/vue-favicon",
   "version": "0.0.0",
   "files": [
-    "./dist/*"
+    "./dist/*",
+    "./bin/*"
   ],
   "typings": "dist/index.d.ts",
   "main": "dist/index.umd.js",
@@ -25,5 +26,8 @@
   "license": "MIT",
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
+  "bin": {
+    "cypress-favicon": "./bin/cypress-favicon.mjs"
   }
 }

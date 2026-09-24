@@ -30,8 +30,7 @@ const frontmatterTocHeadings = (Astro.props as { frontmatter?: { tocHeadings?: t
 const outlineHeadings = tocHeadings ?? frontmatterTocHeadings ?? headings
 const pageTitle = title ? `${title} — Cypress Design System` : 'Cypress Design System'
 const currentPath = Astro.url.pathname
-import Favicon from '@cypress-design/react-favicon'
-import { FAVICON_LINKS } from '@cypress-design/favicon'
+import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
 ---
 
 <html lang="en" data-fw="vue">

@@ -17,7 +17,8 @@
       "types": "./dist/index.d.ts"
     },
     "./assets/*": "./assets/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./cli": "./bin/copy-assets.mjs"
   },
   "bin": {
     "cypress-favicon": "./bin/copy-assets.mjs"

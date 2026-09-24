@@ -1,11 +1,32 @@
-# @cypress-design/react-favicon
+# Favicon
 
-Renders the Cypress favicon head tags. Server-rendered — Astro inlines the output as plain `<link>`
-elements with no client JavaScript.
+## Install
 
-```sh
+```bash
 yarn add @cypress-design/react-favicon
 ```
+
+This is the only package you need. It brings the icon files, the link data and the copy command
+with it.
+
+Use this build when your Astro config registers React. The `vue-favicon` build renders the same
+tags for sites that register Vue instead — see _Picking a build_ below for why the choice
+matters.
+
+## Copy the icon files
+
+A favicon is fetched by the browser as a plain URL before any JavaScript runs, so the icon files
+have to exist in your site's static directory. Add the copy as a prebuild step:
+
+```json
+{
+  "scripts": {
+    "prebuild": "cypress-favicon public"
+  }
+}
+```
+
+## Render the tags
 
 ```astro
 ---
@@ -16,24 +37,17 @@ import Favicon from '@cypress-design/react-favicon'
 </head>
 ```
 
-## Props
+The component is server-rendered: Astro inlines plain `<link>` elements and ships no JavaScript
+for it.
 
-| Prop    | Type            | Default         | Notes                                                                |
-| ------- | --------------- | --------------- | -------------------------------------------------------------------- |
-| `links` | `FaviconLink[]` | `FAVICON_LINKS` | Narrow the tag list, for a site that ships a subset of the surfaces. |
+## Narrow the tag list
+
+Pass `links` when your site ships only some of the surfaces — for example, a site with no web
+manifest:
 
 ```astro
 ---
-import Favicon from '@cypress-design/react-favicon'
-import { FAVICON_LINKS } from '@cypress-design/favicon'
+import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
 ---
 <Favicon links={FAVICON_LINKS.filter((l) => l.rel !== 'manifest')} />
 ```
-
-## Before you reach for this
-
-The component only renders the `<link>` tags. The asset files still have to exist at the site root,
-which is a separate build step — see [`@cypress-design/favicon`](../../../packages/favicon/ReadMe.md).
-
-If your head layer cannot render a component — a Docusaurus plugin, an EJS template — use
-`faviconHeadTags()` or `faviconLinksHtml()` from that package instead.

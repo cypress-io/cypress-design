@@ -25,5 +25,8 @@
   "license": "MIT",
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
+  "bin": {
+    "cypress-favicon": "./bin/cypress-favicon.mjs"
   }
 }

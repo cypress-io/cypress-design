@@ -16,3 +16,7 @@ crashes every page. cypress.io registers Vue only; the design system docs regist
 
 Head layers that cannot render a component — Docusaurus plugins, EJS templates — use
 `faviconHeadTags()` or `faviconLinksHtml()` from `@cypress-design/favicon`.
+
+Each component package is the only install a site needs: it depends on `@cypress-design/favicon`,
+re-exports `FAVICON_LINKS`, and ships its own `cypress-favicon` command — package managers only link
+commands from direct dependencies, so the base package's command would otherwise be missing.

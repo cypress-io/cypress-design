@@ -1699,6 +1699,8 @@ __metadata:
   dependencies:
     "@cypress-design/favicon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+  bin:
+    cypress-favicon: ./bin/cypress-favicon.mjs
   languageName: unknown
   linkType: soft
 
@@ -1934,6 +1936,8 @@ __metadata:
   dependencies:
     "@cypress-design/favicon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+  bin:
+    cypress-favicon: ./bin/cypress-favicon.mjs
   languageName: unknown
   linkType: soft
 
