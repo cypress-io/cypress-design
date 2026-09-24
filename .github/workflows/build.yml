@@ -55,4 +55,5 @@ jobs:
             ./icon-registry/dist
             ./components/**/dist
             ./packages/details-animation/dist
+            ./packages/favicon/dist
             ./node_modules

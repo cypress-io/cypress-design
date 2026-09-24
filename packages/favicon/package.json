@@ -1,0 +1,35 @@
+{
+  "name": "@cypress-design/favicon",
+  "version": "0.0.0",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "assets",
+    "bin"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./assets/*": "./assets/*",
+    "./package.json": "./package.json",
+    "./cli": "./bin/copy-assets.mjs"
+  },
+  "bin": {
+    "cypress-favicon": "./bin/copy-assets.mjs"
+  },
+  "scripts": {
+    "build": "yarn build:types && yarn build:lib",
+    "build:types": "tsc -p ./tsconfig.build.json --noEmit false --emitDeclarationOnly",
+    "build:lib": "rollup -c ./rollup.config.mjs"
+  },
+  "devDependencies": {
+    "typescript": "5.4.5"
+  },
+  "license": "MIT"
+}

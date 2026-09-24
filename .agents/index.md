@@ -43,7 +43,7 @@ Fetch on demand — don't preload all of them:
 - `instructions.md` — props, variants, states, accessibility. Load when using or referencing a component. (`https://design.cypress.io/agents/components/<Name>/instructions.md`)
 - `<framework>/ReadMe.md` — install command, import path, code examples. Load only the one matching the project (`react/` or `vue/`).
 
-`Accordion` `Alert` `Button` `Checkbox` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
+`Accordion` `Alert` `Button` `Checkbox` `Favicon` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
 `DocMenu` — sidebar navigation used in documentation sites
 `RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
 `Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
