@@ -10,7 +10,9 @@ export interface TextboxPropsJsx extends TextboxPropsBase {
 }
 
 type ReactTextboxProps = TextboxPropsJsx &
-  Omit<React.HTMLProps<HTMLInputElement>, 'size'>
+  // `onChange` comes from TextboxPropsJsx; omitting HTMLProps' version keeps
+  // the handler's event typed as a ChangeEvent (so `event.target.value` works).
+  Omit<React.HTMLProps<HTMLInputElement>, 'size' | 'onChange'>
 
 export const Textbox = React.forwardRef<HTMLInputElement, ReactTextboxProps>(
   (
