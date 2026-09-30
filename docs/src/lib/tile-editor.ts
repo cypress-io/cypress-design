@@ -230,7 +230,13 @@ async function createSession(tile: HTMLElement): Promise<Session> {
   error.className =
     '!my-0 !mt-4 text-sm text-red-500 font-brand-mono whitespace-pre-wrap'
   error.setAttribute('role', 'status')
-  preview.append(output, error)
+  // Tailwind CSS is generated at build time from the repo's files, so a class
+  // the site never uses has no styles here. Say so rather than fail silently.
+  const note = document.createElement('p')
+  note.className = '!my-0 !mt-4 text-xs text-gray-600'
+  note.textContent =
+    "Tailwind classes that aren't used elsewhere on this site won't apply in this preview. Component props and content changes will."
+  preview.append(output, error, note)
 
   const showError = (err: unknown) => {
     error.textContent = message(err)
@@ -276,6 +282,7 @@ async function createSession(tile: HTMLElement): Promise<Session> {
       mounted.unmount()
       output.remove()
       error.remove()
+      note.remove()
       if (island) island.hidden = false
       input.value = input.defaultValue
       code.innerHTML = originalLines

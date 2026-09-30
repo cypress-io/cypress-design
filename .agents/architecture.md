@@ -21,7 +21,7 @@
 - Component page (`/docs/src/pages/components/[component].astro`) auto-renders it with framework tabs
 - Each demo is a `.vue` SFC or `.astro` component
 - Tile-based pages (every component with a demo except Favicon, which renders nothing visible) use `/docs/src/demos/<Name>/` instead: `tiles.ts` lists the ladder in page order, `vue/<Tile>.vue` and `react/<Tile>.tsx` hold one self-contained example each (the file is shown verbatim as the tile's code), and `AllStates.{vue,astro,tsx}` is the all-states gallery shown under the page title, above the framework tabs. Missing React tiles render a placeholder and are listed in `/docs/src/demos/MISSING.md`.
-- Each tile's code block is editable in place (a transparent textarea over the Shiki-highlighted code) with a Copy button, and a Reset button once edited. Edits re-highlight and re-run the tile in the browser (`/docs/src/lib/tile-editor.ts`); imports resolve through `/docs/src/lib/tile-modules.ts`, so add new component packages there.
+- Each tile's code block is editable in place (a transparent textarea over the Shiki-highlighted code) with a Copy button, and a Reset button once edited. Edits re-highlight and re-run the tile in the browser (`/docs/src/lib/tile-editor.ts`); imports resolve through `/docs/src/lib/tile-modules.ts`, so add new component packages there. Styling in edited tiles is limited to Tailwind classes the site already generates (build-time CSS); the preview says so once a tile is edited.
 - New demo tiles reuse the item data, labels, and placeholders from the component's existing demo (its `AllStates.vue` or the single-demo file). Don't invent new sample content; only write new data when no existing example covers that feature.
 
 ## Claude Code
