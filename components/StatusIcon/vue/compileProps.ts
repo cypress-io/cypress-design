@@ -24,16 +24,22 @@ export const compileProps = (
     variantName: string
   },
 ) => {
-  const compProps = computed(() => {
-    const { statuses, variantName } = injections
-    const { status, size, ...attributes } = props
+  // Undefined when the status/size pair has no icon asset (an unknown status
+  // or size), so the component can render nothing instead of throwing.
+  const iconContents = computed(() => {
+    const { statuses } = injections
+    const { status, size = '24' } = props
     const statusInfo = status ? statuses[status] : statuses.placeholder
+    return statusInfo?.[`size${size}Icon` as keyof IconSet]
+  })
 
-    const iconInfo = status
-      ? StatusForColor[status]
-      : StatusForColor.placeholder
+  const compProps = computed(() => {
+    const { variantName } = injections
+    const { status, size = '24', ...attributes } = props
 
-    const { data: iconData } = statusInfo[`size${size}Icon`]
+    const iconInfo =
+      (status ? StatusForColor[status] : undefined) ??
+      StatusForColor.placeholder
 
     const classes = ['inline-block']
 
@@ -48,10 +54,13 @@ export const compileProps = (
       name: `status_${status}_${size}_${variantName}`,
       compiledClasses: [...compiledClasses, ...classes],
       size,
-      body: iconData,
+      body: iconContents.value?.data ?? '',
       ...attributes,
     }
   })
 
-  return compileVueIconProperties(compProps)
+  return {
+    ...compileVueIconProperties(compProps),
+    hasIcon: computed(() => !!iconContents.value),
+  }
 }
