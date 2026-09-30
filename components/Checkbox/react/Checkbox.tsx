@@ -19,7 +19,10 @@ export interface CheckboxProps
    */
   name?: string
   /**
-   * Is the checkbox checked when it is first rendered.
+   * Is the checkbox checked.
+   * When set, the checkbox is controlled and always reflects this value:
+   * update it from `onChange` to toggle the box.
+   * When omitted, the checkbox manages its own state and starts unchecked.
    */
   checked?: boolean
   /**
@@ -36,7 +39,10 @@ export interface CheckboxProps
    * It is very important to set this to make the checkbox accessible.
    */
   label?: ReactNode
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+  /**
+   * Called with the native change event when the user toggles the checkbox.
+   */
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
   /**
    * Forwarded to the underlying `<input type="checkbox">`. Use `-1` when
    * the checkbox is a decorative affordance inside a wider interactive
@@ -65,7 +71,7 @@ const uid = () =>
 
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id = uid(),
-  checked = false,
+  checked,
   onChange,
   color = 'indigo',
   label,
@@ -76,11 +82,15 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   hideInput = false,
   ...rest
 }) => {
-  const [localChecked, setChecked] = React.useState(checked)
+  const isControlled = checked !== undefined
+  const [uncontrolledChecked, setChecked] = React.useState(false)
+  const localChecked = isControlled ? checked : uncontrolledChecked
 
   function onChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
-    setChecked(!localChecked)
-    onChange(event)
+    if (!isControlled) {
+      setChecked(!uncontrolledChecked)
+    }
+    onChange?.(event)
   }
 
   return (

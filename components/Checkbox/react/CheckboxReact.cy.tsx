@@ -2,19 +2,22 @@ import * as React from 'react'
 import { mount } from 'cypress/react'
 import { Checkbox } from './Checkbox'
 
+const ControlledCheckbox = () => {
+  const [isChecked, setChecked] = React.useState(true)
+  return (
+    <Checkbox
+      label="Welcome guide settings"
+      id="welcome-opt-out"
+      checked={isChecked}
+      onChange={() => setChecked(!isChecked)}
+      className="px-2 py-1 m-2 border border-gray-300 rounded"
+    />
+  )
+}
+
 describe('Checkbox', () => {
   it('changes when the label is clicked', () => {
-    let isChecked = true
-
-    mount(
-      <Checkbox
-        label="Welcome guide settings"
-        id="welcome-opt-out"
-        checked={isChecked}
-        onChange={() => (isChecked = !isChecked)}
-        className="px-2 py-1 m-2 border border-gray-300 rounded"
-      />,
-    )
+    mount(<ControlledCheckbox />)
 
     cy.get('input[type="checkbox"]').should('be.checked')
     cy.percySnapshot()
@@ -24,20 +27,48 @@ describe('Checkbox', () => {
   })
 
   it('changes when checkbox is clicked', () => {
-    let isChecked = true
-
-    mount(
-      <Checkbox
-        label="Welcome guide settings"
-        id="welcome-opt-out"
-        checked={isChecked}
-        onChange={() => (isChecked = !isChecked)}
-        className="px-2 py-1 m-2 border border-gray-300 rounded"
-      />,
-    )
+    mount(<ControlledCheckbox />)
 
     cy.get('input[type="checkbox"]').should('be.checked')
     cy.get('svg').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+  })
+
+  it('follows the checked prop when it changes', () => {
+    const Parent = () => {
+      const [isChecked, setChecked] = React.useState(false)
+      return (
+        <>
+          <Checkbox label="Controlled" checked={isChecked} />
+          <button onClick={() => setChecked(!isChecked)}>Toggle</button>
+        </>
+      )
+    }
+    mount(<Parent />)
+
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.contains('button', 'Toggle').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('button', 'Toggle').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+  })
+
+  it('stays in sync with checked when onChange does not update it', () => {
+    const onChange = cy.stub().as('onChange')
+    mount(<Checkbox label="Locked" checked onChange={onChange} />)
+
+    cy.contains('Locked').click()
+    cy.get('@onChange').should('have.been.calledOnce')
+    cy.get('input[type="checkbox"]').should('be.checked')
+  })
+
+  it('toggles on its own without checked or onChange', () => {
+    mount(<Checkbox label="Uncontrolled" />)
+
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.contains('Uncontrolled').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('Uncontrolled').click()
     cy.get('input[type="checkbox"]').should('not.be.checked')
   })
 
@@ -53,7 +84,6 @@ describe('Checkbox', () => {
           'sunt in culpa qui officia deserunt mollit anim id est laborum.',
         ].join(' ')}
         id="lorem-checkbox"
-        onChange={() => {}}
       />,
     )
 
