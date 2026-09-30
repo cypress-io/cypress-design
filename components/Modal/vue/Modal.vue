@@ -25,11 +25,22 @@ const emit = defineEmits<{
   (event: 'update:show', value: boolean): void
 }>()
 
-const props = defineProps<{
-  title?: string
-  show?: boolean
-  helpLink?: string
-  fullscreen?: boolean
+const props = withDefaults(
+  defineProps<{
+    title?: string
+    show?: boolean
+    helpLink?: string
+    helpLinkLabel?: string
+    fullscreen?: boolean
+  }>(),
+  {
+    helpLinkLabel: 'Need help',
+  },
+)
+
+defineSlots<{
+  default?: () => any
+  closeIcon?: () => any
 }>()
 
 const $dialog = ref<HTMLDialogElement>()
@@ -81,6 +92,13 @@ function closeOnClickBackdrop(event: MouseEvent) {
     internalShow.value = false
   }
 }
+
+// Escape fires `cancel` on the native dialog. Stop the browser closing it
+// behind our back and close through the same path as the close button.
+function closeOnCancel(event: Event) {
+  event.preventDefault()
+  internalShow.value = false
+}
 </script>
 
 <template>
@@ -93,6 +111,7 @@ function closeOnClickBackdrop(event: MouseEvent) {
         : ClassModalStandardDimensions,
     ]"
     @click="closeOnClickBackdrop"
+    @cancel="closeOnCancel"
   >
     <div :class="ClassTitleBox">
       <div id="cy_modal_label" :class="ClassTitle">
@@ -104,8 +123,9 @@ function closeOnClickBackdrop(event: MouseEvent) {
         :href="helpLink"
         :class="ClassHelpLink"
         target="_blank"
+        rel="noopener noreferrer"
       >
-        Need help
+        {{ helpLinkLabel }}
         <IconActionQuestionMarkCircle
           class="ml-[4px]"
           stroke-color="indigo-500"
@@ -118,12 +138,14 @@ function closeOnClickBackdrop(event: MouseEvent) {
         :class="[ClassCloseButton, 'group']"
         @click="internalShow = false"
       >
-        <IconActionDelete
-          class="children:transition-all"
-          stroke-color="gray-400"
-          hover-stroke-color="gray-700"
-          interactive-colors-on-group
-        />
+        <slot name="closeIcon">
+          <IconActionDelete
+            class="children:transition-all"
+            stroke-color="gray-400"
+            hover-stroke-color="gray-700"
+            interactive-colors-on-group
+          />
+        </slot>
       </button>
     </div>
     <div :class="ClassContent">

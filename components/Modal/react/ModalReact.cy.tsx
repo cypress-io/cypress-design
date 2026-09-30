@@ -8,6 +8,7 @@ import assertions from '../assertions'
 const ComponentUsingModal = (options: {
   title?: string
   helpLink?: string
+  helpLinkLabel?: string
   fullscreen?: boolean
 }) => {
   const [visibleModal, setVisibleModal] = React.useState(false)
@@ -37,6 +38,7 @@ describe('Modal', () => {
     options: {
       title?: string
       helpLink?: string
+      helpLinkLabel?: string
       fullscreen?: boolean
     } = {},
   ) {
