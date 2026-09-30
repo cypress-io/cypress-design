@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Component, onMounted, ref, toRaw, useSlots } from 'vue'
+import { Component, onMounted, ref, toRaw, useSlots, watch } from 'vue'
 import { CssClasses } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
@@ -113,6 +113,17 @@ const $details = ref<HTMLDetailsElement | null>(null)
 const $summary = ref<HTMLElement | null>(null)
 const openState = ref(props.open ?? false)
 
+// Follow the `open` prop when it changes after mount
+watch(
+  () => props.open,
+  (open) => {
+    openState.value = open ?? false
+    if ($details.value) {
+      $details.value.open = openState.value
+    }
+  },
+)
+
 onMounted(function () {
   if ($details.value && $content.value) {
     new DetailsAnimation($details.value, $content.value)
@@ -148,9 +159,13 @@ function handleSummaryClick(event: MouseEvent) {
 }
 
 function handleToggle() {
-  openState.value = $details.value?.open ?? false
+  const open = $details.value?.open ?? false
+  // A summary click already updated openState and called onToggle.
+  // Only report toggles that did not come from a click.
+  if (open === openState.value) return
+  openState.value = open
   if (props.onToggle) {
-    props.onToggle(openState.value)
+    props.onToggle(open)
   }
 }
 </script>
