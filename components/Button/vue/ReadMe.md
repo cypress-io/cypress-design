@@ -2,7 +2,7 @@
 
 ## Install
 
-The button component is contained in the `@cypress-design/react-button` package. You'll also want to install `@cypress-design/constants-button` to get proper types for TypeScript.
+The button component is contained in the `@cypress-design/vue-button` package. You'll also want to install `@cypress-design/constants-button` to get proper types for TypeScript.
 
 ```bash
 npm install @cypress-design/vue-button @cypress-design/constants-button
@@ -97,7 +97,7 @@ const darkVariants = [
       </div>
       <div class="flex gap-[8px] items-center">
         🚫
-        <Button :variant="variant" :size="48" disabled="true"> Button </Button>
+        <Button :variant="variant" size="48" disabled> Button </Button>
       </div>
     </div>
   </div>

@@ -9,10 +9,11 @@ yarn add @cypress-design/react-spinner      # React
 
 ## Props
 
-| Prop      | Type                | Default   | Description                                     |
-| --------- | ------------------- | --------- | ----------------------------------------------- |
-| `variant` | `"light" \| "dark"` | `"light"` | Color theme — use `"dark"` on light backgrounds |
-| `size`    | `string \| number`  | `"24"`    | Diameter in px                                  |
+| Prop      | Type                | Default   | Description                                                                                                                                      |
+| --------- | ------------------- | --------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `variant` | `"light" \| "dark"` | `"light"` | Color theme. `"light"` (gray-1000 logo, jade-300 ring) is for light backgrounds; `"dark"` (gray-700 logo, gray-500 ring) is for dark backgrounds |
+
+The spinner renders at a fixed 48×48px. There is no `size` prop.
 
 ## Events
 
