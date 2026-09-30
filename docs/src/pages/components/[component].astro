@@ -10,11 +10,11 @@
  *      (demo tiles when the component has them, then Install + Usage + code
  *      examples — live fences stripped to static by remark plugin)
  *   3. instructions.md — hand-written props/events/slots reference (if present)
- *   4. All-states gallery (tile-based components only)
  *
- * Components with docs/src/demos/<Name>/tiles.ts get the tile ladder inside
- * each framework section plus demos/<Name>/AllStates.{vue,astro,tsx} at the
- * bottom (.vue and .tsx mount client-only; .astro renders on the server).
+ * Components with docs/src/demos/<Name>/tiles.ts show demos/<Name>/AllStates.
+ * {vue,astro,tsx} under the title, above the tabs (.vue and .tsx mount
+ * client-only; .astro renders on the server), and the tile ladder inside
+ * each framework section.
  * Everything else keeps the single demo block above the tabs.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro'
@@ -114,6 +114,16 @@ const hasAllStates = hasAllStatesVue || hasAllStatesReact || !!AllStatesAstro
     </div>
   )}
 
+  {/* All-states gallery — every content type, theme, and size at once. Sits
+      under the page title, above the tabs; the tiles below teach one thing each. */}
+  {hasAllStates && (
+    <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
+      {hasAllStatesVue && <Demo client:only="vue" name={`${component}/AllStates`} />}
+      {hasAllStatesReact && <DemoReact client:only="react" name={`${component}/AllStates`} />}
+      {AllStatesAstro && <AllStatesAstro />}
+    </div>
+  )}
+
   <FrameworkTabs frameworks={frameworks} />
 
   {/* Per-framework sections */}
@@ -155,18 +165,6 @@ const hasAllStates = hasAllStatesVue || hasAllStatesReact || !!AllStatesAstro
   {InstructionsContent && (
     <div class="component-instructions markdown mt-8 pt-8 border-t border-gray-100">
       <InstructionsContent />
-    </div>
-  )}
-
-  {/* All-states gallery — every content type, theme, and size at once, for visual QA */}
-  {hasAllStates && (
-    <div class="mt-8 pt-8 border-t border-gray-100">
-      <h2>All states</h2>
-      <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
-        {hasAllStatesVue && <Demo client:only="vue" name={`${component}/AllStates`} />}
-        {hasAllStatesReact && <DemoReact client:only="react" name={`${component}/AllStates`} />}
-        {AllStatesAstro && <AllStatesAstro />}
-      </div>
     </div>
   )}
 </BaseLayout>
