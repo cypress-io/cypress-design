@@ -2,8 +2,10 @@
 /**
  * DemoTile — one rung of a component's demo ladder.
  *
- * Renders: title → live preview → the tile's source file, verbatim, with a
- * Copy button on the code block.
+ * Renders: title → live preview → the tile's source file, verbatim, with
+ * Copy and Edit buttons on the code block. Edit swaps the code for an
+ * editor and re-renders the preview as you type (lib/tile-editor.ts, loaded
+ * on first click); Reset puts the original back.
  * The code block *is* the file (read with ?raw), so what readers copy is
  * exactly what renders above it.
  *
@@ -40,11 +42,11 @@ const source = sources[framework][`../demos/${component}/${framework}/${name}.${
 const demoName = `${component}/${framework}/${name}`
 ---
 
-<section class="demo-tile my-8">
+<section class="demo-tile my-8" data-tile data-framework={framework}>
   <h3>{title}</h3>
   {source ? (
     <>
-      <div class="p-6 bg-gray-50 border border-gray-100 rounded-t-lg">
+      <div class="p-6 bg-gray-50 border border-gray-100 rounded-t-lg" data-tile-preview>
         {framework === 'vue' ? (
           <Demo client:only="vue" name={demoName} />
         ) : (
@@ -53,13 +55,10 @@ const demoName = `${component}/${framework}/${name}`
       </div>
       <div class="relative">
         <Code code={source.trim()} lang={ext} class="!mt-0 !rounded-t-none" />
-        <button
-          type="button"
-          data-copy-code
-          class="absolute top-3 right-3 rounded border border-gray-700 bg-gray-900 px-2 py-1 text-xs font-medium text-gray-300 hover:text-white hover:border-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400"
-        >
-          Copy
-        </button>
+        <div class="absolute top-3 right-3 flex gap-2">
+          <button type="button" data-edit-code class="tile-action">Edit</button>
+          <button type="button" data-copy-code class="tile-action">Copy</button>
+        </div>
       </div>
     </>
   ) : (
@@ -70,11 +69,27 @@ const demoName = `${component}/${framework}/${name}`
 </section>
 
 <script>
-  // One delegated listener for every tile's Copy button. The button sits
-  // next to Shiki's <pre>, whose textContent is the tile file verbatim.
+  // Delegated listeners for every tile's Copy / Edit buttons.
   document.addEventListener('click', async (event) => {
-    const button = (event.target as Element).closest<HTMLButtonElement>('[data-copy-code]')
-    const code = button?.parentElement?.querySelector('pre')?.textContent
+    const target = event.target as Element
+    const tile = target.closest<HTMLElement>('[data-tile]')
+    const edit = target.closest<HTMLButtonElement>('[data-edit-code]')
+    if (tile && edit) {
+      const { startEditing, stopEditing } = await import('../lib/tile-editor')
+      if (edit.textContent?.trim() === 'Reset') {
+        stopEditing(tile)
+        edit.textContent = 'Edit'
+      } else {
+        edit.textContent = 'Reset'
+        await startEditing(tile)
+      }
+      return
+    }
+
+    // Copy what's shown: the editor's text while editing, else Shiki's <pre>,
+    // whose textContent is the tile file verbatim.
+    const button = target.closest<HTMLButtonElement>('[data-copy-code]')
+    const code = tile?.querySelector('textarea')?.value ?? tile?.querySelector('pre')?.textContent
     if (!button || code == null) return
     try {
       await navigator.clipboard.writeText(code)
@@ -90,3 +105,9 @@ const demoName = `${component}/${framework}/${name}`
     setTimeout(() => (button.textContent = 'Copy'), 1500)
   })
 </script>
+
+<style>
+  .tile-action {
+    @apply rounded border border-gray-700 bg-gray-900 px-2 py-1 text-xs font-medium text-gray-300 hover:text-white hover:border-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400;
+  }
+</style>

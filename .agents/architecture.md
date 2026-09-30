@@ -20,7 +20,8 @@
 - `/docs/src/demos/` is the single source of truth for live examples
 - Component page (`/docs/src/pages/components/[component].astro`) auto-renders it with framework tabs
 - Each demo is a `.vue` SFC or `.astro` component
-- Tile-based pages (Select so far) use `/docs/src/demos/<Name>/` instead: `tiles.ts` lists the ladder in page order, `vue/<Tile>.vue` and `react/<Tile>.tsx` hold one self-contained example each (the file is shown verbatim as the tile's code), and `AllStates.{vue,astro,tsx}` is the visual-QA gallery at the page bottom. Missing React tiles render a placeholder and are listed in `/docs/src/demos/MISSING.md`.
+- Tile-based pages (every component with a demo except Favicon, which renders nothing visible) use `/docs/src/demos/<Name>/` instead: `tiles.ts` lists the ladder in page order, `vue/<Tile>.vue` and `react/<Tile>.tsx` hold one self-contained example each (the file is shown verbatim as the tile's code), and `AllStates.{vue,astro,tsx}` is the visual-QA gallery at the page bottom. Missing React tiles render a placeholder and are listed in `/docs/src/demos/MISSING.md`.
+- Each tile has Copy and Edit buttons. Edit runs the tile in the browser (`/docs/src/lib/tile-editor.ts`); imports resolve through `/docs/src/lib/tile-modules.ts`, so add new component packages there.
 - New demo tiles reuse the item data, labels, and placeholders from the component's existing demo (its `AllStates.vue` or the single-demo file). Don't invent new sample content; only write new data when no existing example covers that feature.
 
 ## Claude Code
