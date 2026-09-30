@@ -90,6 +90,11 @@ type OptionListProps = SelectThemingProps &
     panelClass?: string
     focusedIndex?: number
     itemIdPrefix?: string
+    // Focus the search Textbox on mount. Inside Select the list mounts on
+    // open, so this is "focus on open". Set `false` when rendering the list
+    // inline (e.g. a docs showcase) so page load doesn't steal focus and
+    // scroll to it.
+    searchAutoFocus?: boolean
   }
 
 const props = withDefaults(defineProps<OptionListProps>(), {
@@ -99,6 +104,7 @@ const props = withDefaults(defineProps<OptionListProps>(), {
   searchable: false,
   searchPlaceholder: SelectConstants.DefaultSearchPlaceholder,
   searchValue: '',
+  searchAutoFocus: true,
 })
 
 const emit = defineEmits<{
@@ -297,7 +303,7 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
           :icon-left="IconObjectMagnifyingGlass"
           :aria-label="searchPlaceholder"
           :aria-activedescendant="activeDescendantId"
-          autofocus
+          :autofocus="searchAutoFocus"
           @update:model-value="(v: string) => emit('update:searchValue', v)"
         />
       </div>
