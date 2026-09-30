@@ -7,13 +7,20 @@
  * Structure rendered per page:
  *   1. <FrameworkTabs> — tab buttons for each supported framework
  *   2. Per-framework sections inside <F only="<fw>"> wrappers
- *      (Install + Usage + code examples — live fences stripped to static by remark plugin)
- *   4. instructions.md — hand-written props/events/slots reference (if present)
+ *      (demo tiles when the component has them, then Install + Usage + code
+ *      examples — live fences stripped to static by remark plugin)
+ *   3. instructions.md — hand-written props/events/slots reference (if present)
+ *   4. All-states gallery (tile-based components only)
+ *
+ * Components with docs/src/demos/<Name>/tiles.ts get the tile ladder inside
+ * each framework section plus demos/<Name>/AllStates.vue at the bottom.
+ * Everything else keeps the single demo block above the tabs.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import F from '../../components/F.astro'
 import FrameworkTabs from '../../components/FrameworkTabs.astro'
 import Demo from '../../components/Demo.vue'
+import DemoTilesList from '../../components/DemoTilesList.astro'
 import { getAllComponents } from '../../lib/components'
 
 // Per-component live demos at docs/src/demos/<Name>.{astro,vue}.
@@ -27,6 +34,8 @@ const astroDemoModules = import.meta.glob('../../demos/*.astro', { eager: true }
   { default: any }
 >
 const vueDemoModules = import.meta.glob('../../demos/*.vue')
+const tileManifests = import.meta.glob('../../demos/*/tiles.ts')
+const allStatesModules = import.meta.glob('../../demos/*/AllStates.vue')
 
 // ---------------------------------------------------------------------------
 // Static paths — one route per component directory
@@ -81,12 +90,14 @@ const InstructionsContent = hasInstructions
 
 const AstroDemo = astroDemoModules[`../../demos/${component}.astro`]?.default ?? null
 const hasVueDemo = `../../demos/${component}.vue` in vueDemoModules
+const hasTiles = `../../demos/${component}/tiles.ts` in tileManifests
+const hasAllStates = `../../demos/${component}/AllStates.vue` in allStatesModules
 ---
 
 <BaseLayout title={component}>
   <h1 class="markdown-title">{component}</h1>
 
-  {(AstroDemo || hasVueDemo) && (
+  {!hasTiles && (AstroDemo || hasVueDemo) && (
     <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
       {AstroDemo && <AstroDemo />}
       {hasVueDemo && <Demo client:only="vue" name={component} />}
@@ -96,18 +107,20 @@ const hasVueDemo = `../../demos/${component}.vue` in vueDemoModules
   <FrameworkTabs frameworks={frameworks} />
 
   {/* Per-framework sections */}
-  {frameworks.includes('vue') && VueContent && (
+  {frameworks.includes('vue') && (VueContent || hasTiles) && (
     <F only="vue">
+      {hasTiles && <DemoTilesList component={component} framework="vue" />}
       <div class="component-framework markdown">
-        <VueContent />
+        {VueContent && <VueContent />}
       </div>
     </F>
   )}
 
-  {frameworks.includes('react') && ReactContent && (
+  {frameworks.includes('react') && (ReactContent || hasTiles) && (
     <F only="react">
+      {hasTiles && <DemoTilesList component={component} framework="react" />}
       <div class="component-framework markdown">
-        <ReactContent />
+        {ReactContent && <ReactContent />}
       </div>
     </F>
   )}
@@ -132,6 +145,16 @@ const hasVueDemo = `../../demos/${component}.vue` in vueDemoModules
   {InstructionsContent && (
     <div class="component-instructions markdown mt-8 pt-8 border-t border-gray-100">
       <InstructionsContent />
+    </div>
+  )}
+
+  {/* All-states gallery — every content type, theme, and size at once, for visual QA */}
+  {hasAllStates && (
+    <div class="mt-8 pt-8 border-t border-gray-100">
+      <h2>All states</h2>
+      <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
+        <Demo client:only="vue" name={`${component}/AllStates`} />
+      </div>
     </div>
   )}
 </BaseLayout>
