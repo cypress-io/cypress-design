@@ -39,25 +39,25 @@ export default () => {
         items={[
           {
             label: 'Runs',
-            icon: (props) => <IconTechnologyServerAlt {...props} />,
+            icon: IconTechnologyServerAlt,
             iconActive: IconAnimatedTechnologyServer,
             href: '#runs',
           },
           {
             label: 'Reviews',
-            icon: (props) => <IconGeneralChatBubble {...props} />,
+            icon: IconGeneralChatBubble,
             iconActive: IconAnimatedGeneralChatBubble,
             href: '#reviews',
           },
           {
             label: 'Branches',
-            icon: (props) => <IconTechnologyGitBranches {...props} />,
+            icon: IconTechnologyGitBranches,
             iconActive: IconAnimatedTechnologyGitBranches,
             href: '#branches',
           },
           {
             label: 'Insights',
-            icon: (props) => <IconViewPieChart {...props} />,
+            icon: IconViewPieChart,
             iconActive: IconAnimatedViewChart,
             href: '#insights',
             items: [
@@ -75,7 +75,7 @@ export default () => {
           },
           {
             label: 'Specs',
-            icon: (props) => <IconWindowCodeEditor {...props} />,
+            icon: IconWindowCodeEditor,
             iconActive: ({ animated, ...props }) => (
               <IconWindowCodeEditor {...props} />
             ),
@@ -84,7 +84,7 @@ export default () => {
 
           {
             label: 'Settings',
-            icon: (props) => <IconObjectGear {...props} />,
+            icon: IconObjectGear,
             iconActive: IconAnimatedObjectGear,
             href: '#settings',
           },

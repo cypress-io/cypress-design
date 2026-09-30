@@ -16,7 +16,10 @@ interface NavMenuProps {
   activePath?: string
 }
 
-type NavMenuItemIcon = React.FC<
+// A plain component signature rather than `React.FC`: `FC`'s `propTypes`
+// makes the props invariant, so icons that ship at more sizes than 24px
+// (e.g. `size?: '16' | '24'`) would be rejected.
+type NavMenuItemIcon = React.JSXElementConstructor<
   {
     size?: '24'
     strokeColor?: WindiColor
