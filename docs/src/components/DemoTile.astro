@@ -2,7 +2,8 @@
 /**
  * DemoTile — one rung of a component's demo ladder.
  *
- * Renders: title → live preview → the tile's source file, verbatim.
+ * Renders: title → live preview → the tile's source file, verbatim, with a
+ * Copy button on the code block.
  * The code block *is* the file (read with ?raw), so what readers copy is
  * exactly what renders above it.
  *
@@ -50,7 +51,16 @@ const demoName = `${component}/${framework}/${name}`
           <DemoReact client:only="react" name={demoName} />
         )}
       </div>
-      <Code code={source.trim()} lang={ext} class="!mt-0 !rounded-t-none" />
+      <div class="relative">
+        <Code code={source.trim()} lang={ext} class="!mt-0 !rounded-t-none" />
+        <button
+          type="button"
+          data-copy-code
+          class="absolute top-3 right-3 rounded border border-gray-700 bg-gray-900 px-2 py-1 text-xs font-medium text-gray-300 hover:text-white hover:border-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400"
+        >
+          Copy
+        </button>
+      </div>
     </>
   ) : (
     <div class="p-6 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-600">
@@ -58,3 +68,25 @@ const demoName = `${component}/${framework}/${name}`
     </div>
   )}
 </section>
+
+<script>
+  // One delegated listener for every tile's Copy button. The button sits
+  // next to Shiki's <pre>, whose textContent is the tile file verbatim.
+  document.addEventListener('click', async (event) => {
+    const button = (event.target as Element).closest<HTMLButtonElement>('[data-copy-code]')
+    const code = button?.parentElement?.querySelector('pre')?.textContent
+    if (!button || code == null) return
+    try {
+      await navigator.clipboard.writeText(code)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = code
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      textarea.remove()
+    }
+    button.textContent = 'Copied'
+    setTimeout(() => (button.textContent = 'Copy'), 1500)
+  })
+</script>
