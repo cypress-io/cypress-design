@@ -1570,7 +1570,7 @@ __metadata:
     rollup-plugin-dts: "npm:^6.4.1"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-sourcemaps: "npm:^0.6.3"
-    shiki: "npm:^1.6.2"
+    shiki: "npm:^4.0.2"
     sucrase: "npm:^3.35.0"
     turbo: "npm:^2.1.1"
     typescript: "npm:5.4.5"
@@ -4666,13 +4666,6 @@ __metadata:
   version: 0.4.1
   resolution: "@sec-ant/readable-stream@npm:0.4.1"
   checksum: 10c0/64e9e9cf161e848067a5bf60cdc04d18495dc28bb63a8d9f8993e4dd99b91ad34e4b563c85de17d91ffb177ec17a0664991d2e115f6543e73236a906068987af
-  languageName: node
-  linkType: hard
-
-"@shikijs/core@npm:1.6.2":
-  version: 1.6.2
-  resolution: "@shikijs/core@npm:1.6.2"
-  checksum: 10c0/011068de5299c3f8508ccb6cb0432b573bedd521a9d66e4ba1b8ed28960d7a7a7c813a566452ca0959aab159793bec658c2c1f06cb0b4eff2885794dea72cfb6
   languageName: node
   linkType: hard
 
@@ -15974,15 +15967,6 @@ __metadata:
   version: 1.8.1
   resolution: "shell-quote@npm:1.8.1"
   checksum: 10c0/8cec6fd827bad74d0a49347057d40dfea1e01f12a6123bf82c4649f3ef152fc2bc6d6176e6376bffcd205d9d0ccb4f1f9acae889384d20baff92186f01ea455a
-  languageName: node
-  linkType: hard
-
-"shiki@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "shiki@npm:1.6.2"
-  dependencies:
-    "@shikijs/core": "npm:1.6.2"
-  checksum: 10c0/c563a22f47890d46626822b50635217f95ce5d4a28f4a62cabe689c3786602a41f0bba58f13ae36399ff24525cd9eadc034022a4be57226ffd8ed4a9aeec946d
   languageName: node
   linkType: hard
 
