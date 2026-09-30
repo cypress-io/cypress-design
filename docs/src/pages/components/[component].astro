@@ -13,13 +13,15 @@
  *   4. All-states gallery (tile-based components only)
  *
  * Components with docs/src/demos/<Name>/tiles.ts get the tile ladder inside
- * each framework section plus demos/<Name>/AllStates.vue at the bottom.
+ * each framework section plus demos/<Name>/AllStates.{vue,astro,tsx} at the
+ * bottom (.vue and .tsx mount client-only; .astro renders on the server).
  * Everything else keeps the single demo block above the tabs.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import F from '../../components/F.astro'
 import FrameworkTabs from '../../components/FrameworkTabs.astro'
 import Demo from '../../components/Demo.vue'
+import DemoReact from '../../components/DemoReact'
 import DemoTilesList from '../../components/DemoTilesList.astro'
 import { getAllComponents } from '../../lib/components'
 
@@ -35,7 +37,12 @@ const astroDemoModules = import.meta.glob('../../demos/*.astro', { eager: true }
 >
 const vueDemoModules = import.meta.glob('../../demos/*.vue')
 const tileManifests = import.meta.glob('../../demos/*/tiles.ts')
-const allStatesModules = import.meta.glob('../../demos/*/AllStates.vue')
+const allStatesVue = import.meta.glob('../../demos/*/AllStates.vue')
+const allStatesReact = import.meta.glob('../../demos/*/AllStates.tsx')
+const allStatesAstro = import.meta.glob('../../demos/*/AllStates.astro', { eager: true }) as Record<
+  string,
+  { default: any }
+>
 
 // ---------------------------------------------------------------------------
 // Static paths — one route per component directory
@@ -91,7 +98,10 @@ const InstructionsContent = hasInstructions
 const AstroDemo = astroDemoModules[`../../demos/${component}.astro`]?.default ?? null
 const hasVueDemo = `../../demos/${component}.vue` in vueDemoModules
 const hasTiles = `../../demos/${component}/tiles.ts` in tileManifests
-const hasAllStates = `../../demos/${component}/AllStates.vue` in allStatesModules
+const hasAllStatesVue = `../../demos/${component}/AllStates.vue` in allStatesVue
+const hasAllStatesReact = `../../demos/${component}/AllStates.tsx` in allStatesReact
+const AllStatesAstro = allStatesAstro[`../../demos/${component}/AllStates.astro`]?.default ?? null
+const hasAllStates = hasAllStatesVue || hasAllStatesReact || !!AllStatesAstro
 ---
 
 <BaseLayout title={component}>
@@ -153,7 +163,9 @@ const hasAllStates = `../../demos/${component}/AllStates.vue` in allStatesModule
     <div class="mt-8 pt-8 border-t border-gray-100">
       <h2>All states</h2>
       <div class="demo-wrapper p-6 bg-gray-50 border border-gray-100 rounded-lg my-6">
-        <Demo client:only="vue" name={`${component}/AllStates`} />
+        {hasAllStatesVue && <Demo client:only="vue" name={`${component}/AllStates`} />}
+        {hasAllStatesReact && <DemoReact client:only="react" name={`${component}/AllStates`} />}
+        {AllStatesAstro && <AllStatesAstro />}
       </div>
     </div>
   )}
