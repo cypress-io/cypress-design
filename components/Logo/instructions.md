@@ -41,9 +41,13 @@ A faded, decorative version of `CypressMark` used as a background element.
 
 ### Props
 
-| Prop   | Type      | Default | Description                                          |
-| ------ | --------- | ------- | ---------------------------------------------------- |
-| `dark` | `boolean` | `false` | Use dark-background tint instead of light-background |
+| Prop   | Type      | Default                          | Description                                                                                                                              |
+| ------ | --------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `dark` | `boolean` | `false` (Vue) / required (React) | Renders a dark watermark (gray at 40% opacity) for light surfaces. When `false`, renders a translucent white watermark for dark surfaces |
+
+---
+
+All three components render an `<svg>` sized from the asset's `viewBox`. Extra attributes such as `class`/`className`, `width`, and `height` are passed through to it.
 
 ---
 

@@ -9,21 +9,26 @@ yarn add @cypress-design/react-modal      # React
 
 ## Props
 
-| Prop                  | Type      | Default        | Description                                 |
-| --------------------- | --------- | -------------- | ------------------------------------------- |
-| `modelValue` / `open` | `boolean` | `false`        | Controls visibility (v-model)               |
-| `title`               | `string`  | —              | Title text in the header bar                |
-| `helpLink`            | `string`  | —              | URL for a help link shown in the header     |
-| `helpLinkText`        | `string`  | `"Learn more"` | Label for the help link                     |
-| `fullscreen`          | `boolean` | `false`        | Expands modal to near-fullscreen dimensions |
-| `dismissible`         | `boolean` | `true`         | Shows the ✕ close button                    |
+| Prop                     | Type        | Default | Description                                                                                                                   |
+| ------------------------ | ----------- | ------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `show`                   | `boolean`   | `false` | Controls visibility. Vue: bind with `v-model:show`. React: controlled — set it to `false` from `onClose`                      |
+| `title`                  | `string`    | —       | Title text in the header bar                                                                                                  |
+| `helpLink`               | `string`    | —       | URL for a "Need help" link shown in the header. The label is fixed. Vue opens it in a new tab; React opens it in the same tab |
+| `fullscreen`             | `boolean`   | `false` | Expands modal to near-fullscreen dimensions                                                                                   |
+| `className` (React only) | `string`    | —       | Extra classes added to the `<dialog>` element                                                                                 |
+| `closeIcon` (React only) | `ReactNode` | —       | Replaces the default ✕ icon inside the close button                                                                           |
+
+The close button is always shown.
 
 ## Events
 
-| Event               | Payload   | Description                                                        |
-| ------------------- | --------- | ------------------------------------------------------------------ |
-| `update:modelValue` | `boolean` | Emitted when open state changes                                    |
-| `close`             | —         | Emitted when the modal requests closing (close button or backdrop) |
+| Event               | Payload   | Description                                                                                                |
+| ------------------- | --------- | ---------------------------------------------------------------------------------------------------------- |
+| `update:show` (Vue) | `boolean` | Emitted whenever the open state changes, including when the modal closes itself (close button or backdrop) |
+| `close` (Vue)       | —         | Emitted whenever the modal closes: close button, backdrop click, or `show` set to `false`                  |
+| `onClose` (React)   | —         | Called when the close button or backdrop is clicked. The modal stays open until you set `show` to `false`  |
+
+In Vue, clicking the close button or the backdrop closes the modal on its own. In React, nothing closes until `show` changes.
 
 ### close
 
@@ -37,20 +42,24 @@ yarn add @cypress-design/react-modal      # React
 />
 ```
 
-### update:modelValue
+### update:show
 
 ```vue
 <Modal
-  @update:modelValue="(value: boolean) => {
+  @update:show="(value: boolean) => {
     // your code here
   }"
 />
 ```
 
+### onClose
+
+```tsx
+<Modal show={visible} onClose={() => setVisible(false)} />
+```
+
 ## Slots
 
-| Slot      | Description                           |
-| --------- | ------------------------------------- |
-| `default` | Main body content                     |
-| `title`   | Custom title (overrides `title` prop) |
-| `footer`  | Footer area, typically action buttons |
+| Slot      | Description                                        |
+| --------- | -------------------------------------------------- |
+| `default` | Main body content. In React, pass it as `children` |
