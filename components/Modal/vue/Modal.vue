@@ -39,8 +39,8 @@ const props = withDefaults(
 )
 
 defineSlots<{
-  default?: () => any
-  closeIcon?: () => any
+  default?: () => unknown
+  closeIcon?: () => unknown
 }>()
 
 const $dialog = ref<HTMLDialogElement>()
