@@ -27,29 +27,24 @@ interface Mounted {
 // Highlighting
 // ---------------------------------------------------------------------------
 
-let highlighter: Promise<import('shiki/core').HighlighterCore> | undefined
+// Imported from shiki's main entry (not shiki/core etc.) so the repo's
+// `moduleResolution: "Node"` type check can resolve it. Only the two
+// languages and the one theme below are loaded, on first edit.
+function loadHighlighter() {
+  return import('shiki').then(
+    ({ createHighlighter, createJavaScriptRegexEngine }) =>
+      createHighlighter({
+        themes: ['github-dark'],
+        langs: ['vue', 'tsx'],
+        engine: createJavaScriptRegexEngine(),
+      }),
+  )
+}
+
+let highlighter: ReturnType<typeof loadHighlighter> | undefined
 
 function getHighlighter() {
-  highlighter ??= (async () => {
-    const [
-      { createHighlighterCore },
-      { createJavaScriptRegexEngine },
-      vue,
-      tsx,
-      theme,
-    ] = await Promise.all([
-      import('shiki/core'),
-      import('shiki/engine/javascript'),
-      import('shiki/langs/vue.mjs'),
-      import('shiki/langs/tsx.mjs'),
-      import('shiki/themes/github-dark.mjs'),
-    ])
-    return createHighlighterCore({
-      themes: [theme.default],
-      langs: [vue.default, tsx.default],
-      engine: createJavaScriptRegexEngine(),
-    })
-  })()
+  highlighter ??= loadHighlighter()
   return highlighter
 }
 

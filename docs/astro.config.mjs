@@ -31,11 +31,7 @@ export default defineConfig({
       include: [
         'sucrase',
         'vue/compiler-sfc',
-        'shiki/core',
-        'shiki/engine/javascript',
-        'shiki/langs/vue.mjs',
-        'shiki/langs/tsx.mjs',
-        'shiki/themes/github-dark.mjs',
+        'shiki',
       ],
     },
     server: {
