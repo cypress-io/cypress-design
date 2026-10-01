@@ -22,9 +22,14 @@ export interface CheckboxProps
    * Is the checkbox checked.
    * When set, the checkbox is controlled and always reflects this value:
    * update it from `onChange` to toggle the box.
-   * When omitted, the checkbox manages its own state and starts unchecked.
+   * When omitted, the checkbox manages its own state (see `defaultChecked`).
    */
   checked?: boolean
+  /**
+   * Starting state for a self-managed checkbox (when `checked` is omitted).
+   * Ignored when `checked` is set.
+   */
+  defaultChecked?: boolean
   /**
    * The color of the background in the checkbox.
    * The checkmark will always be white.
@@ -72,6 +77,7 @@ const uid = () =>
 export const Checkbox: FunctionComponent<CheckboxProps> = ({
   id = uid(),
   checked,
+  defaultChecked = false,
   onChange,
   color = 'indigo',
   label,
@@ -83,7 +89,7 @@ export const Checkbox: FunctionComponent<CheckboxProps> = ({
   ...rest
 }) => {
   const isControlled = checked !== undefined
-  const [uncontrolledChecked, setChecked] = React.useState(false)
+  const [uncontrolledChecked, setChecked] = React.useState(defaultChecked)
   const localChecked = isControlled ? checked : uncontrolledChecked
 
   function onChangeInput(event: React.ChangeEvent<HTMLInputElement>) {
