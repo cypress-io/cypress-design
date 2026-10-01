@@ -303,6 +303,16 @@ export default function assertions(
     // relying on `SelectConstants.DefaultSearchPlaceholder`, so changing the
     // default constant doesn't silently break six test invocations.
 
+    it('focuses the search input when the popover opens', () => {
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
+      cy.findByRole('combobox').click()
+      cy.findByPlaceholderText('Find item').should('have.focus')
+    })
+
     it('search filters by label (case-insensitive)', () => {
       mountStory({
         items: simpleItems,
