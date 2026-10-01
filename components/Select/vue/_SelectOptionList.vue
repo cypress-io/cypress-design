@@ -4,6 +4,8 @@ import {
   defineComponent,
   h,
   isVNode,
+  onMounted,
+  ref,
   type Component,
   type PropType,
   type VNode,
@@ -105,6 +107,16 @@ const props = withDefaults(defineProps<OptionListProps>(), {
   searchPlaceholder: SelectConstants.DefaultSearchPlaceholder,
   searchValue: '',
   searchAutoFocus: true,
+})
+
+// Focus the search input in code: the HTML `autofocus` attribute is ignored
+// for elements inserted after the page has loaded, which is when the popover
+// mounts. Keeps DOM focus on the element that owns `aria-activedescendant`.
+const $search = ref<{ $el?: Element } | null>(null)
+onMounted(() => {
+  if (props.searchable && props.searchAutoFocus) {
+    $search.value?.$el?.querySelector?.('input')?.focus()
+  }
 })
 
 const emit = defineEmits<{
@@ -296,6 +308,7 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
         </div>
         <Textbox
           v-if="searchable"
+          ref="$search"
           :model-value="searchValue"
           :theme="theme"
           size="32"
@@ -303,7 +316,6 @@ const listboxId = computed(() => (props.id ? `${props.id}-listbox` : undefined))
           :icon-left="IconObjectMagnifyingGlass"
           :aria-label="searchPlaceholder"
           :aria-activedescendant="activeDescendantId"
-          :autofocus="searchAutoFocus"
           @update:model-value="(v: string) => emit('update:searchValue', v)"
         />
       </div>
