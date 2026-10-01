@@ -39,6 +39,18 @@ export default function assertions(
     cy.get('details').should('not.have.attr', 'open')
   })
 
+  // Real (trusted) clicks run microtasks between listeners, unlike
+  // `.click()`; Vue used to re-render `open` in between and the accordion
+  // could never be closed by a user.
+  it('opens and closes with real clicks', () => {
+    mountStory()
+    cy.get('details summary').realClick()
+    cy.get('details').should('have.attr', 'open')
+    cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
+    cy.get('details summary').realClick()
+    cy.get('details').should('not.have.attr', 'open')
+  })
+
   it('displays a separator when separator:true', () => {
     mountStory({ separator: true })
     // the separator has a width of 1px. For some reason cypress detects it as invisible.
