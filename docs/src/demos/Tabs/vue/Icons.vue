@@ -13,26 +13,26 @@ const tabs = [
     id: 'ov',
     label: 'Overview',
     icon: IconActionPlayVideo,
-    ['aria-controls']: 'tabpanel-id-1',
+    ['aria-controls']: 'vue-icons-panel-1',
   },
   {
     id: 'cl',
     label: 'Command Log',
     icon: IconActionRecord,
-    ['aria-controls']: 'tabpanel-id-2',
+    ['aria-controls']: 'vue-icons-panel-2',
   },
   {
     id: 'err',
     label: 'Errors',
     iconAfter: IconSecurityLockLocked,
     tag: '13',
-    ['aria-controls']: 'tabpanel-id-3',
+    ['aria-controls']: 'vue-icons-panel-3',
   },
   {
     id: 'reco',
     label: 'Recommendations',
     icon: IconGeneralCrosshairs,
-    ['aria-controls']: 'tabpanel-id-4',
+    ['aria-controls']: 'vue-icons-panel-4',
   },
 ]
 </script>

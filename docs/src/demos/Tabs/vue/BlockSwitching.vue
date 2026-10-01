@@ -4,10 +4,27 @@ import Tabs from '@cypress-design/vue-tabs'
 
 const allowMove = ref(true)
 const tabs = [
-  { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
-  { id: 'cl', label: 'Command Log', ['aria-controls']: 'tabpanel-id-2' },
-  { id: 'err', label: 'Errors', tag: '13', ['aria-controls']: 'tabpanel-id-3' },
-  { id: 'reco', label: 'Recommendations', ['aria-controls']: 'tabpanel-id-4' },
+  {
+    id: 'ov',
+    label: 'Overview',
+    ['aria-controls']: 'vue-block-switching-panel-1',
+  },
+  {
+    id: 'cl',
+    label: 'Command Log',
+    ['aria-controls']: 'vue-block-switching-panel-2',
+  },
+  {
+    id: 'err',
+    label: 'Errors',
+    tag: '13',
+    ['aria-controls']: 'vue-block-switching-panel-3',
+  },
+  {
+    id: 'reco',
+    label: 'Recommendations',
+    ['aria-controls']: 'vue-block-switching-panel-4',
+  },
 ]
 </script>
 

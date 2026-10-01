@@ -2,10 +2,27 @@
 import Tabs from '@cypress-design/vue-tabs'
 
 const tabs = [
-  { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
-  { id: 'cl', label: 'Command Log', ['aria-controls']: 'tabpanel-id-2' },
-  { id: 'err', label: 'Errors', tag: '13', ['aria-controls']: 'tabpanel-id-3' },
-  { id: 'reco', label: 'Recommendations', ['aria-controls']: 'tabpanel-id-4' },
+  {
+    id: 'ov',
+    label: 'Overview',
+    ['aria-controls']: 'vue-indigo-light-panel-1',
+  },
+  {
+    id: 'cl',
+    label: 'Command Log',
+    ['aria-controls']: 'vue-indigo-light-panel-2',
+  },
+  {
+    id: 'err',
+    label: 'Errors',
+    tag: '13',
+    ['aria-controls']: 'vue-indigo-light-panel-3',
+  },
+  {
+    id: 'reco',
+    label: 'Recommendations',
+    ['aria-controls']: 'vue-indigo-light-panel-4',
+  },
 ]
 </script>
 

@@ -137,16 +137,44 @@ async function mountVue(
 ): Promise<Mounted> {
   const { createApp } = await import('vue')
   let app: ReturnType<typeof createApp> | null = null
+  let current: HTMLElement | null = null
   return {
     update(component) {
+      // Mount the new version next to the old one, laid out but invisible,
+      // and only swap it in if it rendered without throwing — so a runtime
+      // error keeps the last good preview on screen.
+      const next = document.createElement('div')
+      next.style.cssText = 'position:absolute;inset:0;visibility:hidden'
+      el.style.position = 'relative'
+      el.append(next)
+      let failed: unknown
+      const nextApp = createApp(component as Parameters<typeof createApp>[0])
+      nextApp.config.errorHandler = (err) => {
+        failed ??= err
+        onError(err)
+      }
+      try {
+        nextApp.mount(next)
+      } catch (err) {
+        failed ??= err
+      }
+      if (failed) {
+        nextApp.unmount()
+        next.remove()
+        onError(failed)
+        return
+      }
       app?.unmount()
-      app = createApp(component as Parameters<typeof createApp>[0])
-      app.config.errorHandler = (err) => onError(err)
-      app.mount(el)
+      current?.remove()
+      next.style.cssText = ''
+      app = nextApp
+      current = next
     },
     unmount() {
       app?.unmount()
+      current?.remove()
       app = null
+      current = null
     },
   }
 }
@@ -157,6 +185,9 @@ async function mountReact(
 ): Promise<Mounted> {
   const React = await import('react')
   const { createRoot } = await import('react-dom/client')
+  // The last version that rendered without throwing; shown again when a
+  // newer version fails, so a runtime error doesn't blank the preview.
+  let lastGood: React.ComponentType | null = null
   class Boundary extends React.Component<
     { children: React.ReactNode },
     { failed: boolean }
@@ -169,8 +200,15 @@ async function mountReact(
       onError(err)
     }
     render() {
-      return this.state.failed ? null : this.props.children
+      if (!this.state.failed) return this.props.children
+      return lastGood ? React.createElement(lastGood) : null
     }
+  }
+  function Committed({ component }: { component: React.ComponentType }) {
+    React.useEffect(() => {
+      lastGood = component
+    }, [component])
+    return React.createElement(component)
   }
   const root = createRoot(el)
   let version = 0
@@ -181,23 +219,26 @@ async function mountReact(
       root.render(
         React.createElement(Boundary, {
           key: version,
-          children: React.createElement(component as React.ComponentType),
+          children: React.createElement(Committed, {
+            component: component as React.ComponentType,
+          }),
         }),
       )
     },
     unmount() {
       root.unmount()
+      lastGood = null
     },
   }
 }
 
 // ---------------------------------------------------------------------------
-// Editing session — created on the first edit, torn down by reset
+// Editing session — created on the first edit, reused after Reset
 // ---------------------------------------------------------------------------
 
 interface Session {
   schedule(): void
-  teardown(): void
+  restore(): void
 }
 
 // Promises, so keystrokes that land while a session is starting share it.
@@ -217,9 +258,11 @@ async function createSession(tile: HTMLElement): Promise<Session> {
   const code = tile.querySelector<HTMLElement>('pre code')!
   const originalLines = code.innerHTML
 
-  // Live output replaces the static island once an edit first renders; until
-  // then (e.g. the first keystroke breaks the code) the original stays up.
-  const island = preview.firstElementChild as HTMLElement | null
+  // The static island stays up until an edit first renders (e.g. if the
+  // first keystroke breaks the code). Then it's removed and unmounted, not
+  // hidden, so anything it opened goes away too (an open Modal, its body
+  // scroll lock, a portaled popover).
+  let island = preview.querySelector<HTMLElement>(':scope > astro-island')
   const output = document.createElement('div')
   const error = document.createElement('p')
   error.className =
@@ -243,7 +286,7 @@ async function createSession(tile: HTMLElement): Promise<Session> {
 
   let run = 0
   const render = async () => {
-    const current = ++run
+    const current = run
     const value = input.value
     const [lines] = await Promise.all([
       highlightedLines(value, framework).catch(() => plainLines(value)),
@@ -253,7 +296,13 @@ async function createSession(tile: HTMLElement): Promise<Session> {
           if (current !== run) return
           error.textContent = ''
           mounted.update(component)
-          if (island) island.hidden = true
+          if (island) {
+            island.remove()
+            // Astro only unmounts removed islands on page transitions; fire
+            // its unmount event so the framework renderer tears the app down.
+            island.dispatchEvent(new CustomEvent('astro:unmount'))
+            island = null
+          }
         } catch (err) {
           if (current === run) showError(err) // keep the last good render
         }
@@ -265,22 +314,25 @@ async function createSession(tile: HTMLElement): Promise<Session> {
   let timer: ReturnType<typeof setTimeout> | undefined
   return {
     schedule() {
-      // Keep the <pre> the same shape as the textarea right away; colors and
-      // the preview catch up once typing pauses.
+      // Invalidate any render still in flight for older text, and keep the
+      // <pre> the same shape as the textarea right away; colors and the
+      // preview catch up once typing pauses.
+      run += 1
+      note.hidden = false
       code.innerHTML = plainLines(input.value)
       clearTimeout(timer)
       timer = setTimeout(render, 250)
     },
-    teardown() {
+    restore() {
       clearTimeout(timer)
       run += 1
-      mounted.unmount()
-      output.remove()
-      error.remove()
-      note.remove()
-      if (island) island.hidden = false
       input.value = input.defaultValue
       code.innerHTML = originalLines
+      error.textContent = ''
+      note.hidden = true
+      // Once the island is gone, the original preview comes back by
+      // rendering the file's own code through the editor.
+      if (!island) void render()
     },
   }
 }
@@ -297,7 +349,5 @@ export async function update(tile: HTMLElement): Promise<void> {
 
 /** Put the tile back to its original code and preview. */
 export async function reset(tile: HTMLElement): Promise<void> {
-  const session = sessions.get(tile)
-  sessions.delete(tile)
-  ;(await session)?.teardown()
+  ;(await sessions.get(tile))?.restore()
 }

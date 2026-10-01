@@ -72,7 +72,7 @@ const hintId = `tile-hint-${component}-${framework}-${name}`
           </div>
         </div>
         <p id={hintId} class="sr-only">
-          Edit the code to update the preview. Tab indents; press Escape, then Tab, to leave the editor.
+          Edit the code to update the preview. Once you start typing, Tab indents; press Escape, then Tab, to leave the editor.
         </p>
         <div class="absolute top-3 right-3 flex gap-2">
           <button type="button" data-reset-code class="tile-action" hidden>Reset</button>
@@ -98,11 +98,27 @@ const hintId = `tile-hint-${component}-${framework}-${name}`
     if (!input.matches?.('[data-tile-code]')) return
     const tile = tileOf(input)
     if (!tile) return
+    input.dataset.typed = 'true'
     tile.querySelector<HTMLButtonElement>('[data-reset-code]')!.hidden = input.value === input.defaultValue
     await (await editor()).update(tile)
   })
 
-  // Tab indents. Escape, then Tab, moves focus on so keyboard users aren't trapped.
+  // Tab indents, but only once someone has started editing this box, so
+  // keyboard users tabbing down the page aren't caught in every code block.
+  // Escape, then Tab, always moves focus on.
+  const insert = (input: HTMLTextAreaElement, text: string) => {
+    // execCommand keeps the edit in the browser's undo history.
+    if (!document.execCommand('insertText', false, text)) {
+      input.setRangeText(text, input.selectionStart, input.selectionEnd, 'end')
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+    }
+  }
+  document.addEventListener('focusin', (event) => {
+    const input = event.target as HTMLTextAreaElement
+    if (!input.matches?.('[data-tile-code]')) return
+    delete input.dataset.typed
+    delete input.dataset.escaped
+  })
   document.addEventListener('keydown', (event) => {
     const input = event.target as HTMLTextAreaElement
     if (!input.matches?.('[data-tile-code]')) return
@@ -110,13 +126,25 @@ const hintId = `tile-hint-${component}-${framework}-${name}`
       input.dataset.escaped = 'true'
       return
     }
-    if (event.key === 'Tab' && !event.shiftKey && input.dataset.escaped !== 'true') {
-      event.preventDefault()
-      input.setRangeText('  ', input.selectionStart, input.selectionEnd, 'end')
-      input.dispatchEvent(new Event('input', { bubbles: true }))
+    if (event.key !== 'Tab') {
+      delete input.dataset.escaped
+      if (event.key.length === 1 || event.key === 'Backspace' || event.key === 'Enter') {
+        input.dataset.typed = 'true'
+      }
       return
     }
-    delete input.dataset.escaped
+    if (event.shiftKey || input.dataset.typed !== 'true' || input.dataset.escaped === 'true') return
+    event.preventDefault()
+    const { value, selectionStart, selectionEnd } = input
+    if (selectionStart === selectionEnd) {
+      insert(input, '  ')
+      return
+    }
+    // A selection: indent every selected line instead of replacing it.
+    const lineStart = value.lastIndexOf('\n', selectionStart - 1) + 1
+    const block = value.slice(lineStart, selectionEnd)
+    input.setSelectionRange(lineStart, selectionEnd)
+    insert(input, block.replace(/^/gm, '  '))
   })
 
   document.addEventListener('click', async (event) => {
