@@ -43,6 +43,11 @@ export const Modal: React.FC<ModalProps> = ({
   closeIcon,
 }) => {
   const dialogRef = React.useRef<HTMLDialogElement>(null)
+  const showRef = React.useRef(show)
+  showRef.current = show
+  // Set while handling `cancel`, so the native `close` that may follow the
+  // same Escape doesn't call onClose a second time.
+  const handledCancel = React.useRef(false)
 
   React.useEffect(() => {
     if (show) {
@@ -86,10 +91,25 @@ export const Modal: React.FC<ModalProps> = ({
   >(
     (event) => {
       event.preventDefault()
+      handledCancel.current = true
+      setTimeout(() => (handledCancel.current = false))
       onClose?.()
     },
     [onClose],
   )
+
+  // Safety net for a native close we didn't initiate — e.g. a repeated
+  // Escape, which the browser won't let us cancel. Give the parent the chance
+  // to close; if it keeps `show` true, reopen so the dialog matches `show`
+  // (and the scroll lock stays consistent).
+  const syncOnNativeClose = React.useCallback(() => {
+    if (!showRef.current) return
+    if (!handledCancel.current) onClose?.()
+    setTimeout(() => {
+      const dialog = dialogRef.current
+      if (showRef.current && dialog && !dialog.open) dialog.showModal()
+    })
+  }, [onClose])
 
   return (
     show &&
@@ -105,6 +125,7 @@ export const Modal: React.FC<ModalProps> = ({
         )}
         onClick={closeOnClickBackdrop}
         onCancel={closeOnCancel}
+        onClose={syncOnNativeClose}
       >
         <div className={ClassTitleBox}>
           <div id="cy_modal_label" className={ClassTitle}>

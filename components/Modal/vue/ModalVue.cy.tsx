@@ -87,10 +87,20 @@ describe('<Modal/>', () => {
       </div>
     ))
     cy.contains('Open Modal').click()
-    // Escape makes the browser fire `cancel` on the dialog
-    cy.findByRole('dialog').should('be.visible').trigger('cancel')
+    cy.findByRole('dialog').should('be.visible')
+    cy.realPress('Escape')
     cy.get('@updateShow').should('have.been.calledWith', false)
     cy.get('@close').should('have.been.calledOnce')
     cy.findByRole('dialog').should('not.exist')
+  })
+
+  it('opens as a real modal when mounted with show already true', () => {
+    mount(() => (
+      <Modal show title="Open on mount">
+        <p>Contents</p>
+      </Modal>
+    ))
+    cy.get('dialog').should('have.prop', 'open', true)
+    cy.get('body').should('have.class', 'cy-modal-overflow-hidden')
   })
 })

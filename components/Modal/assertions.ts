@@ -45,8 +45,7 @@ export default function assertions(
     cy.findByRole('button', { name: 'Open Modal' }).click()
     cy.findByRole('dialog').should('be.visible')
     cy.get('body').should('have.class', 'cy-modal-overflow-hidden')
-    // Escape makes the browser fire `cancel` on the dialog
-    cy.findByRole('dialog').trigger('cancel')
+    cy.realPress('Escape')
     cy.findByRole('dialog').should('not.exist')
     cy.get('body').should('not.have.class', 'cy-modal-overflow-hidden')
   })

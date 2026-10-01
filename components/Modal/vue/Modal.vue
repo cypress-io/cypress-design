@@ -59,6 +59,12 @@ onMounted(() => {
     modalTarget.id = 'modal-target'
     document.body.appendChild(modalTarget)
   }
+  // Mounted with `show` already true: the watcher below only reacts to
+  // changes, so open it as a real modal (backdrop, top layer, scroll lock).
+  if (internalShow.value) {
+    disableBodyScroll()
+    $dialog.value?.showModal()
+  }
 })
 
 watch(internalShow, (val) => {
@@ -99,6 +105,13 @@ function closeOnCancel(event: Event) {
   event.preventDefault()
   internalShow.value = false
 }
+
+// Safety net for any native close we didn't initiate (a repeated Escape the
+// browser won't let us cancel, `<form method="dialog">`, `dialog.close()`):
+// bring our state, events, and the scroll lock back in line.
+function syncOnNativeClose() {
+  if (internalShow.value) internalShow.value = false
+}
 </script>
 
 <template>
@@ -112,6 +125,7 @@ function closeOnCancel(event: Event) {
     ]"
     @click="closeOnClickBackdrop"
     @cancel="closeOnCancel"
+    @close="syncOnNativeClose"
   >
     <div :class="ClassTitleBox">
       <div id="cy_modal_label" :class="ClassTitle">
