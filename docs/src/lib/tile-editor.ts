@@ -19,7 +19,8 @@ import { tileModules } from './tile-modules'
 type Framework = 'vue' | 'react'
 
 interface Mounted {
-  update(component: unknown): void
+  /** Render a new version; `onRendered` runs only if it rendered without throwing. */
+  update(component: unknown, onRendered: () => void): void
   unmount(): void
 }
 
@@ -139,13 +140,13 @@ async function mountVue(
   let app: ReturnType<typeof createApp> | null = null
   let current: HTMLElement | null = null
   return {
-    update(component) {
-      // Mount the new version next to the old one, laid out but invisible,
-      // and only swap it in if it rendered without throwing — so a runtime
-      // error keeps the last good preview on screen.
+    update(component, onRendered) {
+      // Mount the new version next to the old one — in normal flow, so it
+      // measures at its real width, but invisible — and only swap it in if it
+      // rendered without throwing, so a runtime error keeps the last good
+      // preview. Mount and swap run in one task, so nothing paints in between.
       const next = document.createElement('div')
-      next.style.cssText = 'position:absolute;inset:0;visibility:hidden'
-      el.style.position = 'relative'
+      next.style.visibility = 'hidden'
       el.append(next)
       let failed: unknown
       const nextApp = createApp(component as Parameters<typeof createApp>[0])
@@ -166,9 +167,10 @@ async function mountVue(
       }
       app?.unmount()
       current?.remove()
-      next.style.cssText = ''
+      next.style.visibility = ''
       app = nextApp
       current = next
+      onRendered()
     },
     unmount() {
       app?.unmount()
@@ -204,16 +206,23 @@ async function mountReact(
       return lastGood ? React.createElement(lastGood) : null
     }
   }
-  function Committed({ component }: { component: React.ComponentType }) {
+  function Committed({
+    component,
+    onRendered,
+  }: {
+    component: React.ComponentType
+    onRendered: () => void
+  }) {
     React.useEffect(() => {
       lastGood = component
-    }, [component])
+      onRendered()
+    }, [component, onRendered])
     return React.createElement(component)
   }
   const root = createRoot(el)
   let version = 0
   return {
-    update(component) {
+    update(component, onRendered) {
       // A new key per edit resets the boundary after a fixed error.
       version += 1
       root.render(
@@ -221,6 +230,7 @@ async function mountReact(
           key: version,
           children: React.createElement(Committed, {
             component: component as React.ComponentType,
+            onRendered,
           }),
         }),
       )
@@ -295,14 +305,16 @@ async function createSession(tile: HTMLElement): Promise<Session> {
           const component = await evaluate(await toModuleCode(value, framework))
           if (current !== run) return
           error.textContent = ''
-          mounted.update(component)
-          if (island) {
+          // Retire the original island only once an edit has actually
+          // rendered — a version that compiles but throws keeps it on screen.
+          mounted.update(component, () => {
+            if (!island) return
             island.remove()
             // Astro only unmounts removed islands on page transitions; fire
             // its unmount event so the framework renderer tears the app down.
             island.dispatchEvent(new CustomEvent('astro:unmount'))
             island = null
-          }
+          })
         } catch (err) {
           if (current === run) showError(err) // keep the last good render
         }
