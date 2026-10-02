@@ -74,9 +74,9 @@ describe('Checkbox', () => {
 
   it('starts checked with defaultChecked and still toggles on its own', () => {
     mount(<Checkbox label="Starts checked" defaultChecked />)
-    cy.get('input').should('be.checked')
-    cy.get('input').click()
-    cy.get('input').should('not.be.checked')
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('Starts checked').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
   })
 
   it('keeps its width when label is long', () => {
