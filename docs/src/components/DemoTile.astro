@@ -1,0 +1,60 @@
+---
+/**
+ * DemoTile — one rung of a component's demo ladder.
+ *
+ * Renders: title → live preview → the tile's source file, verbatim.
+ * The code block *is* the file (read with ?raw), so what readers copy is
+ * exactly what renders above it.
+ *
+ * Tiles live at docs/src/demos/<component>/<framework>/<name>.{vue,tsx}.
+ * When the framework's file doesn't exist yet (React tiles ship in
+ * follow-ups), a placeholder points readers to the Vue tab.
+ *
+ * Props:
+ *   component — component directory name, e.g. 'Select'
+ *   name      — tile file name without extension, e.g. 'Default'
+ *   framework — 'vue' | 'react'
+ *   title     — heading shown above the tile (defaults to `name`)
+ */
+import { Code } from 'astro:components'
+import Demo from './Demo.vue'
+import DemoReact from './DemoReact'
+
+interface Props {
+  component: string
+  name: string
+  framework: 'vue' | 'react'
+  title?: string
+}
+
+const { component, name, framework, title = name } = Astro.props
+
+const sources = {
+  vue: import.meta.glob('../demos/*/vue/*.vue', { query: '?raw', import: 'default', eager: true }),
+  react: import.meta.glob('../demos/*/react/*.tsx', { query: '?raw', import: 'default', eager: true }),
+} as Record<'vue' | 'react', Record<string, string>>
+
+const ext = framework === 'vue' ? 'vue' : 'tsx'
+const source = sources[framework][`../demos/${component}/${framework}/${name}.${ext}`]
+const demoName = `${component}/${framework}/${name}`
+---
+
+<section class="demo-tile my-8">
+  <h3>{title}</h3>
+  {source ? (
+    <>
+      <div class="p-6 bg-gray-50 border border-gray-100 rounded-t-lg">
+        {framework === 'vue' ? (
+          <Demo client:only="vue" name={demoName} />
+        ) : (
+          <DemoReact client:only="react" name={demoName} />
+        )}
+      </div>
+      <Code code={source.trim()} lang={ext} class="!mt-0 !rounded-t-none" />
+    </>
+  ) : (
+    <div class="p-6 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-600">
+      React demo coming — see the Vue tab.
+    </div>
+  )}
+</section>
