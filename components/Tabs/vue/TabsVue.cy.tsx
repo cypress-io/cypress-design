@@ -73,6 +73,51 @@ describe('<Tabs/>', () => {
       cy.get('#fa').should('have.attr', 'aria-controls', 'tabpanel-id-2')
     })
 
+    it('updates v-model:active-id on click and arrow keys', () => {
+      const activeId = ref('ov')
+      mount(() => (
+        <Tabs
+          tabs={[
+            { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
+            { id: 'err', label: 'Errors', ['aria-controls']: 'tabpanel-id-2' },
+          ]}
+          v-model:activeId={activeId.value}
+        />
+      ))
+
+      cy.contains('Errors')
+        .click()
+        .then(() => {
+          expect(activeId.value).to.equal('err')
+        })
+      cy.contains('button', 'Errors')
+        .type('{leftArrow}')
+        .then(() => {
+          expect(activeId.value).to.equal('ov')
+        })
+    })
+
+    it('does not emit update:activeId when switch is prevented', () => {
+      const onUpdate = cy.stub().as('onUpdate')
+      mount(() => (
+        <Tabs
+          tabs={[
+            { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
+            { id: 'err', label: 'Errors', ['aria-controls']: 'tabpanel-id-2' },
+          ]}
+          activeId="ov"
+          onSwitch={(_: Tab, e: { preventDefault: () => void }) =>
+            e.preventDefault()
+          }
+          {...{ 'onUpdate:activeId': onUpdate }}
+        />
+      ))
+
+      cy.contains('Errors').click()
+      cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
+      cy.get('@onUpdate').should('not.have.been.called')
+    })
+
     it('renders a custom tab', () => {
       mount(() => (
         <Tabs

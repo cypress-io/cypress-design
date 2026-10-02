@@ -32,10 +32,10 @@ interface Tab {
 
 ## Events
 
-| Event             | Payload       | Description                                                                     |
-| ----------------- | ------------- | ------------------------------------------------------------------------------- |
-| `switch`          | `SwitchEvent` | Emitted before the active tab changes. Call `event.preventDefault()` to cancel. |
-| `update:activeId` | `string`      | Emitted after a tab switch with the new active tab id                           |
+| Event             | Payload       | Description                                                                                                                                   |
+| ----------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `switch`          | `SwitchEvent` | Emitted before the active tab changes. Call `event.preventDefault()` to cancel.                                                               |
+| `update:activeId` | `string`      | Emitted with the new active tab id after a switch by click or arrow key. Not emitted when `switch` is cancelled. Supports `v-model:active-id` |
 
 ### switch
 

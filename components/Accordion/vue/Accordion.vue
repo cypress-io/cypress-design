@@ -1,5 +1,5 @@
 <template>
-  <details ref="$details" :open="openState">
+  <details ref="$details" :open="initialOpen">
     <summary
       ref="$summary"
       :class="[CssClasses.summary, headingClassName ?? CssClasses.summaryColor]"
@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Component, onMounted, ref, toRaw, useSlots } from 'vue'
+import { Component, onMounted, ref, toRaw, useSlots, watch } from 'vue'
 import { CssClasses } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
@@ -112,10 +112,37 @@ const $content = ref(null)
 const $details = ref<HTMLDetailsElement | null>(null)
 const $summary = ref<HTMLElement | null>(null)
 const openState = ref(props.open ?? false)
+// Bound once. Re-binding `open` to openState would let Vue patch the element
+// between our capture listener and DetailsAnimation's click listener, so the
+// animation would see the new state and undo it (a real click could never
+// close the accordion). After mount, DetailsAnimation and the watcher below
+// own the element's `open`.
+const initialOpen = props.open ?? false
+let detailsAnimation: DetailsAnimation | undefined
+
+// Follow the `open` prop when it changes after mount
+watch(
+  () => props.open,
+  (open) => {
+    openState.value = open ?? false
+    if (!$details.value) return
+    // Cancel an in-flight open/close animation first, or its finish handler
+    // would set `open` back the other way.
+    if (detailsAnimation?.animation) {
+      detailsAnimation.animation.cancel()
+      detailsAnimation.animation = null
+      if ($content.value) {
+        const content = $content.value as HTMLElement
+        content.style.height = content.style.overflow = ''
+      }
+    }
+    $details.value.open = openState.value
+  },
+)
 
 onMounted(function () {
   if ($details.value && $content.value) {
-    new DetailsAnimation($details.value, $content.value)
+    detailsAnimation = new DetailsAnimation($details.value, $content.value)
   }
 
   if ($details.value) {
@@ -136,7 +163,8 @@ function handleSummaryClick(event: MouseEvent) {
     const result = props.onClickSummary(event)
     if (result === false) {
       event.preventDefault()
-      event.stopPropagation()
+      // Also stop DetailsAnimation's listener on the same element.
+      event.stopImmediatePropagation()
       return
     }
   }
@@ -148,9 +176,13 @@ function handleSummaryClick(event: MouseEvent) {
 }
 
 function handleToggle() {
-  openState.value = $details.value?.open ?? false
+  const open = $details.value?.open ?? false
+  // A summary click already updated openState and called onToggle.
+  // Only report toggles that did not come from a click.
+  if (open === openState.value) return
+  openState.value = open
   if (props.onToggle) {
-    props.onToggle(openState.value)
+    props.onToggle(open)
   }
 }
 </script>

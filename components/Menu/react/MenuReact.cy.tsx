@@ -32,7 +32,7 @@ describe('<Menu />', () => {
               {
                 key: 'runs',
                 label: 'Runs',
-                icon: (props) => <IconTechnologyServerAlt {...props} />,
+                icon: IconTechnologyServerAlt,
                 iconActive: IconAnimatedTechnologyServer,
                 href: '#runs',
                 className: 'runs-li',
@@ -46,19 +46,19 @@ describe('<Menu />', () => {
               },
               {
                 label: 'Reviews',
-                icon: (props) => <IconGeneralChatBubble {...props} />,
+                icon: IconGeneralChatBubble,
                 iconActive: IconAnimatedGeneralChatBubble,
                 href: '#reviews',
               },
               {
                 label: 'Branches',
-                icon: (props) => <IconTechnologyGitBranches {...props} />,
+                icon: IconTechnologyGitBranches,
                 iconActive: IconAnimatedTechnologyGitBranches,
                 href: '#branches',
               },
               {
                 label: 'Insights',
-                icon: (props) => <IconViewPieChart {...props} />,
+                icon: IconViewPieChart,
                 iconActive: IconAnimatedViewChart,
                 href: '#insights',
                 submenuClassName: 'submenu-insights',
@@ -87,13 +87,13 @@ describe('<Menu />', () => {
               },
               {
                 label: 'Specs',
-                icon: (props) => <IconWindowCodeEditor {...props} />,
+                icon: IconWindowCodeEditor,
                 iconActive: IconWindowCodeEditor,
                 href: '#specs',
               },
               {
                 label: 'Settings',
-                icon: (props) => <IconObjectGear {...props} />,
+                icon: IconObjectGear,
                 iconActive: IconAnimatedObjectGear,
                 href: '#settings',
               },

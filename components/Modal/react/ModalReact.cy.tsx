@@ -8,6 +8,7 @@ import assertions from '../assertions'
 const ComponentUsingModal = (options: {
   title?: string
   helpLink?: string
+  helpLinkLabel?: string
   fullscreen?: boolean
 }) => {
   const [visibleModal, setVisibleModal] = React.useState(false)
@@ -37,10 +38,27 @@ describe('Modal', () => {
     options: {
       title?: string
       helpLink?: string
+      helpLinkLabel?: string
       fullscreen?: boolean
     } = {},
   ) {
     mount(<ComponentUsingModal {...options} />)
   }
   assertions(mountStory)
+
+  it('stays open and scroll-locked on repeated Escape when the parent keeps it open', () => {
+    const onClose = cy.stub().as('onClose')
+    mount(
+      <Modal show title="Confirm first" onClose={onClose}>
+        <p>Unsaved changes</p>
+      </Modal>,
+    )
+    cy.findByRole('dialog').should('be.visible')
+    cy.realPress('Escape')
+    cy.realPress('Escape')
+    cy.get('@onClose').should('have.been.called')
+    cy.findByRole('dialog').should('be.visible')
+    cy.get('dialog').should('have.prop', 'open', true)
+    cy.get('body').should('have.class', 'cy-modal-overflow-hidden')
+  })
 })

@@ -95,7 +95,7 @@ defineExpose({
     :style="{
       paddingLeft: depth >= 1 ? `${(depth - 1) * 12 + 48}px` : undefined,
     }"
-    :href="group.href"
+    :href="collapsible ? undefined : group.href"
     @click="
       () => {
         if (collapsible) {
