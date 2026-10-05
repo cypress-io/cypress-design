@@ -50,6 +50,14 @@ jobs:
       - name: Lint all files
         run: yarn eslint .
 
+      - name: Check externalized internal deps are runtime dependencies
+        run: node scripts/check-external-deps.mjs
+
+      # A major of an internal package must ship with bumps for the packages
+      # whose npm range for it would otherwise go stale.
+      - name: Check dependents of internal majors are bumped
+        run: node scripts/stale-dependents.mjs --check
+
       - name: Run Eslint Plugin Tests
         run: yarn test:eslint-plugin
 

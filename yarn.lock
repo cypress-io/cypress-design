@@ -1570,6 +1570,7 @@ __metadata:
     rollup-plugin-dts: "npm:^6.4.1"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-sourcemaps: "npm:^0.6.3"
+    semver: "npm:^7.7.4"
     shiki: "npm:^1.6.2"
     turbo: "npm:^2.1.1"
     typescript: "npm:5.4.5"
