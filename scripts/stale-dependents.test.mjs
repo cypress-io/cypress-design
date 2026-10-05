@@ -15,7 +15,6 @@ const workspace = (name, version, dependencies = {}, extra = {}) => ({
   pkg: { name, version, dependencies, ...extra },
 })
 
-// vue-icon at 3.3.2 locally; vue-accordion depends on it as `*`.
 const workspaces = (accordionVersion = '1.0.0') => [
   workspace(ICON, '3.3.2'),
   workspace(ACCORDION, accordionVersion, { [ICON]: '*' }),

@@ -49,11 +49,9 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Safety net for the PR check: add a changeset republishing any package
-      # whose published range for an internal dependency excludes that
-      # dependency's version. Packages already waiting to publish (local
-      # version ahead of npm) are skipped, so a merged version PR's own bumps
-      # don't trigger another version PR in place of the publish.
+      # Safety net for the PR check. It skips packages whose local version is
+      # ahead of npm, so a merged version PR still publishes instead of
+      # opening another version PR.
       - name: Bump dependents with stale internal ranges
         run: node scripts/stale-dependents.mjs --write
 

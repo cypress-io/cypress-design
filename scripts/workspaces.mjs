@@ -8,13 +8,8 @@ export const repoRoot = join(
   '..',
 )
 
-/**
- * Every workspace except the repo root, with its parsed package.json.
- *
- * `yarn workspaces list --json` emits newline-delimited JSON, one workspace
- * per line as `{"location": "<rel-path>", "name": "<pkg>"}`. The root
- * (location `.`) is dropped: its dependencies aren't published.
- */
+// The root workspace (location `.`) is dropped: its dependencies aren't
+// published.
 export function loadWorkspaces(root = repoRoot) {
   const stdout = execFileSync('yarn', ['workspaces', 'list', '--json'], {
     cwd: root,

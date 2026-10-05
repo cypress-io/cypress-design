@@ -12,8 +12,6 @@
  * a package's own `vite.config.ts` / `rollup.config.mjs` adds. React rollup
  * configs also externalize `Object.keys(pkg.dependencies)`, which can't cause
  * this bug and isn't modelled.
- *
- *   node scripts/check-external-deps.mjs
  */
 import { existsSync, readFileSync, readdirSync, statSync } from 'fs'
 import { join } from 'path'
@@ -47,20 +45,13 @@ const stripComments = (code) =>
 const internalLiterals = (code) =>
   [...code.matchAll(/['"](@cypress-design\/[\w.-]+)['"]/g)].map((m) => m[1])
 
-/**
- * `@cypress-design/*` names a build config externalizes on its own. Literals
- * inside `bundledPackages: [...]` (vite-plugin-dts) are inlined, not external.
- */
+// `bundledPackages` (vite-plugin-dts) lists packages it inlines, not externals.
 export function externalsInConfig(code) {
   return internalLiterals(
     stripComments(code).replace(/bundledPackages\s*:\s*\[[^\]]*\]/g, ''),
   )
 }
 
-/**
- * The `@cypress-design/*` literals in `const <name> = [...]` or
- * `<name>: [...]` of a shared config.
- */
 export function externalsInSharedConfig(code, arrayName) {
   const match = stripComments(code).match(
     new RegExp(`${arrayName}\\s*[:=]\\s*\\[([^\\]]*)\\]`),
@@ -68,11 +59,8 @@ export function externalsInSharedConfig(code, arrayName) {
   return match ? internalLiterals(match[1]) : []
 }
 
-/**
- * Bare `@cypress-design/*` specifiers imported by a source file. Rollup and
- * vite match string externals against the exact specifier, so a subpath
- * import (`pkg/sub`) is bundled and doesn't count.
- */
+// Rollup and vite match string externals against the exact specifier, so a
+// subpath import (`pkg/sub`) is bundled and doesn't count.
 export function internalImports(code) {
   const specifiers = [
     ...code.matchAll(
@@ -82,10 +70,6 @@ export function internalImports(code) {
   return specifiers.filter((s) => s.split('/').length === 2)
 }
 
-/**
- * Problems for one workspace: imports that are external but not a runtime
- * dependency.
- */
 export function checkWorkspace({ name, pkg, imports, externals }) {
   const runtime = new Set([
     ...Object.keys(pkg.dependencies || {}),

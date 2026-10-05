@@ -24,9 +24,6 @@ const BUMPS = ['patch', 'minor', 'major']
 
 const maxBump = (a, b) => (BUMPS.indexOf(a) >= BUMPS.indexOf(b) ? a : b)
 
-/**
- * Parse the frontmatter of a changeset file into `{ [pkg]: bump }`.
- */
 export function parseChangeset(content) {
   const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/)
   if (!match) return {}
@@ -40,9 +37,6 @@ export function parseChangeset(content) {
   return bumps
 }
 
-/**
- * The highest pending bump per package across every `.changeset/*.md`.
- */
 export function readPendingBumps(changesetDir) {
   if (!existsSync(changesetDir)) return {}
   const pending = {}
@@ -57,9 +51,8 @@ export function readPendingBumps(changesetDir) {
 }
 
 /**
- * The version each workspace will release at once pending changesets are
- * applied. Packages in a `fixed` group share the group's highest bump and
- * version, the way `changeset version` treats them.
+ * Packages in a `fixed` group share the group's highest bump and version, the
+ * way `changeset version` treats them.
  */
 export function releaseVersions(workspaces, pending, fixed = []) {
   const local = Object.fromEntries(
@@ -88,10 +81,6 @@ export function releaseVersions(workspaces, pending, fixed = []) {
 }
 
 /**
- * Report every published, non-private workspace whose npm `latest` manifest
- * has an internal-dependency range that excludes the version that dependency
- * is at (or will release at, given pending changesets).
- *
  * Skipped, because the next publish already fixes them:
  * - packages not on npm yet (their first publish writes a fresh range),
  * - packages whose local version differs from npm `latest` (already waiting
@@ -112,8 +101,6 @@ export async function findStaleDependents({
   const isPublishedWorkspace = (name) =>
     byName.has(name) && !byName.get(name).pkg.private
 
-  // A package with a pending bump (its own, or its fixed group's) republishes
-  // anyway, with a fresh range.
   const candidates = workspaces.filter(
     (ws) => !ws.pkg.private && versions[ws.name] === ws.pkg.version,
   )
@@ -132,8 +119,8 @@ export async function findStaleDependents({
       for (const dep of internalDeps) {
         const range = published.dependencies?.[dep]
         const version = versions[dep]
-        // A dep that wasn't in the published manifest at all means the package
-        // gained it locally, which only ships with a changeset of its own.
+        // Missing from the published manifest means the package gained the dep
+        // locally, which only ships with a changeset of its own.
         if (!range) continue
         if (!semver.satisfies(version, range, { includePrerelease: true })) {
           stale.push({
@@ -152,10 +139,8 @@ export async function findStaleDependents({
   return results.filter(Boolean).sort((a, b) => a.name.localeCompare(b.name))
 }
 
-/**
- * One changeset that bumps every stale package `minor`, named by a hash of its
- * content so repeated release runs write the same file instead of piling up.
- */
+// Named by a content hash so repeated release runs rewrite the same file
+// instead of piling up.
 export function renderChangeset(stalePackages) {
   const frontmatter = stalePackages
     .map((pkg) => `'${pkg.name}': minor`)

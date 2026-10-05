@@ -113,8 +113,7 @@ external (`baseExternal` in `components/vue.vite.config.ts`, `external` in
 so it has to be in `dependencies` — consumers never install devDependencies.
 **`node scripts/check-external-deps.mjs`** (PR CI, `test.yml`) fails when a
 published package imports an externalized `@cypress-design/*` package that it
-doesn't list in `dependencies` or `peerDependencies`. `vue-modal` shipped with
-`vue-icon` only in devDependencies before this check existed.
+doesn't list in `dependencies` or `peerDependencies`.
 
 ### Gotcha: editing a component's source does not change what consumers see
 
