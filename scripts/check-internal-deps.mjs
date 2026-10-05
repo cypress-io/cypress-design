@@ -2,10 +2,10 @@
  * Check how published packages declare their `@cypress-design/*` runtime
  * dependencies.
  *
- * - Every one is a `workspace:^<version>` range that includes the dependency's
- *   current version. Changesets bumps a dependent only when a release falls
- *   outside its range, and `*` never does, so a `*` dependent would stay on
- *   the old major on npm.
+ * - Every one in `dependencies` is a `workspace:^<version>` range that
+ *   includes the dependency's current version. Changesets bumps a dependent
+ *   only when a release falls outside its range, and `*` never does, so a `*`
+ *   dependent would stay on the old major on npm.
  * - Every `@cypress-design/*` import left in the built `dist/` is listed in
  *   `dependencies` or `peerDependencies`. devDependencies are bundled unless
  *   the build marks them external, and npm never installs a package's
@@ -42,7 +42,9 @@ export function checkPackage(pkg, versions, distImports) {
   const dev = pkg.devDependencies || {}
   const problems = []
 
-  for (const [dep, range] of Object.entries(runtime)) {
+  // Only `dependencies`: set-version.mjs resolves `workspace:` ranges there
+  // before publish, so a `workspace:` peer would reach npm as-is.
+  for (const [dep, range] of Object.entries(pkg.dependencies || {})) {
     if (!versions.has(dep)) continue
     const version = versions.get(dep)
     const expected = `workspace:^${version}`

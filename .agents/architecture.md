@@ -105,8 +105,10 @@ the plain semver range (and external `*` deps to `^<latest on npm>`), then
 **`node scripts/check-internal-deps.mjs`** (PR CI, `test.yml`) fails when a
 published package:
 
-- declares an `@cypress-design/*` runtime dependency as anything but a
-  `workspace:^<version>` range that includes the dependency's current version;
+- declares an `@cypress-design/*` package in `dependencies` as anything but a
+  `workspace:^<version>` range that includes the dependency's current version
+  (peerDependencies keep plain ranges: `set-version.mjs` only resolves
+  `workspace:` in `dependencies`);
 - imports an `@cypress-design/*` package from its built `dist/*.mjs` (read with
   `es-module-lexer`) without listing it in `dependencies` or
   `peerDependencies`. devDependencies are bundled unless the build marks them

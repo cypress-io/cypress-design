@@ -37,6 +37,11 @@ describe('checkPackage ranges', () => {
     ])
   })
 
+  it('leaves peerDependencies ranges alone', () => {
+    const pkg = { name: MODAL, peerDependencies: { [ICON]: '^3.0.0' } }
+    expect(checkPackage(pkg, versions, null)).toEqual([])
+  })
+
   it('ignores devDependencies and non-workspace packages', () => {
     const pkg = {
       name: MODAL,
