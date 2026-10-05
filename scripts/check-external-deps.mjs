@@ -1,84 +1,41 @@
 /**
- * Fail when a published package imports an `@cypress-design/*` package that
- * its build externalizes but lists only in `devDependencies`.
+ * Fail when a published package's build imports an `@cypress-design/*` package
+ * it doesn't list in `dependencies` or `peerDependencies`.
  *
- * devDependencies are bundled into `dist/` — unless the build marks them
- * external, in which case `dist/` keeps a bare `import` that consumers can't
- * resolve, because npm never installs a package's devDependencies.
- *
- * Externals come from the shared build configs (`baseExternal` in
- * `components/vue.vite.config.ts`, `external` in
- * `components/react.rollup.config.mjs`) plus any `@cypress-design/*` literal
- * a package's own `vite.config.ts` / `rollup.config.mjs` adds. React rollup
- * configs also externalize `Object.keys(pkg.dependencies)`, which can't cause
- * this bug and isn't modelled.
+ * devDependencies are bundled into `dist/` unless the build marks them
+ * external. Any `@cypress-design/*` import still in `dist/` was externalized,
+ * so consumers have to install it, and npm never installs a package's
+ * devDependencies. Reading `dist/` keeps this independent of how each build
+ * config declares its externals. Run it after `yarn build:components`.
  */
-import { existsSync, readFileSync, readdirSync, statSync } from 'fs'
+import { existsSync, readFileSync, readdirSync } from 'fs'
 import { join } from 'path'
 import * as url from 'url'
-import { isInternal, loadWorkspaces, repoRoot } from './workspaces.mjs'
+import manypkg from '@manypkg/get-packages'
+import { init, parse } from 'es-module-lexer'
 
-const SHARED_CONFIGS = [
-  {
-    importPattern: /vue\.vite\.config/,
-    file: 'components/vue.vite.config.ts',
-    array: 'baseExternal',
-  },
-  {
-    importPattern: /react\.rollup\.config/,
-    file: 'components/react.rollup.config.mjs',
-    array: 'external',
-  },
-]
-const BUILD_CONFIGS = [
-  'vite.config.ts',
-  'rollup.config.mjs',
-  'rollup.config.js',
-]
-const SOURCE_EXT = /\.(m?[jt]sx?|vue)$/
-const SKIP_FILE = /\.(cy|test|spec|stories)\.|\.d\.ts$/
-const SKIP_DIR = new Set(['node_modules', 'dist', 'bin', '__snapshots__'])
+const repoRoot = url.fileURLToPath(new URL('..', import.meta.url))
 
-const stripComments = (code) =>
-  code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/(^|[^:])\/\/.*$/gm, '$1')
+// CommonJS; depending on the build, the default import is either the exports
+// object or wraps it in `default`.
+const { getPackages } = manypkg.getPackages ? manypkg : manypkg.default
 
-const internalLiterals = (code) =>
-  [...code.matchAll(/['"](@cypress-design\/[\w.-]+)['"]/g)].map((m) => m[1])
+const INTERNAL = /^@cypress-design\/[^/]+/
 
-// `bundledPackages` (vite-plugin-dts) lists packages it inlines, not externals.
-export function externalsInConfig(code) {
-  return internalLiterals(
-    stripComments(code).replace(/bundledPackages\s*:\s*\[[^\]]*\]/g, ''),
-  )
+export async function internalImports(code) {
+  await init
+  const [imports] = parse(code)
+  return imports.map((i) => i.n?.match(INTERNAL)?.[0]).filter(Boolean)
 }
 
-export function externalsInSharedConfig(code, arrayName) {
-  const match = stripComments(code).match(
-    new RegExp(`${arrayName}\\s*[:=]\\s*\\[([^\\]]*)\\]`),
-  )
-  return match ? internalLiterals(match[1]) : []
-}
-
-// Rollup and vite match string externals against the exact specifier, so a
-// subpath import (`pkg/sub`) is bundled and doesn't count.
-export function internalImports(code) {
-  const specifiers = [
-    ...code.matchAll(
-      /\b(?:from|import)\s*\(?\s*['"](@cypress-design\/[^'"]+)['"]/g,
-    ),
-  ].map((m) => m[1])
-  return specifiers.filter((s) => s.split('/').length === 2)
-}
-
-export function checkWorkspace({ name, pkg, imports, externals }) {
+export function checkPackage(pkg, imports) {
   const runtime = new Set([
     ...Object.keys(pkg.dependencies || {}),
     ...Object.keys(pkg.peerDependencies || {}),
   ])
   const dev = new Set(Object.keys(pkg.devDependencies || {}))
   return [...new Set(imports)]
-    .filter((dep) => isInternal(dep) && dep !== name)
-    .filter((dep) => externals.includes(dep) && !runtime.has(dep))
+    .filter((dep) => dep !== pkg.name && !runtime.has(dep))
     .sort()
     .map((dep) => ({
       dependency: dep,
@@ -86,74 +43,54 @@ export function checkWorkspace({ name, pkg, imports, externals }) {
     }))
 }
 
-function sourceFiles(dir) {
-  const files = []
-  for (const entry of readdirSync(dir)) {
-    if (SKIP_DIR.has(entry)) continue
-    const full = join(dir, entry)
-    if (statSync(full).isDirectory()) files.push(...sourceFiles(full))
-    else if (
-      SOURCE_EXT.test(entry) &&
-      !SKIP_FILE.test(entry) &&
-      !BUILD_CONFIGS.includes(entry)
-    ) {
-      files.push(full)
-    }
-  }
-  return files
+const esmEntry = (pkg) => pkg.exports?.['.']?.import ?? pkg.module
+
+function esmFiles(dir) {
+  return readdirSync(dir, { recursive: true })
+    .filter((file) => file.endsWith('.mjs'))
+    .map((file) => join(dir, file))
 }
 
-function workspaceExternals(dir) {
-  const externals = []
-  for (const configFile of BUILD_CONFIGS) {
-    const path = join(dir, configFile)
-    if (!existsSync(path)) continue
-    const code = readFileSync(path, 'utf8')
-    externals.push(...externalsInConfig(code))
-    for (const shared of SHARED_CONFIGS) {
-      if (!shared.importPattern.test(code)) continue
-      externals.push(
-        ...externalsInSharedConfig(
-          readFileSync(join(repoRoot, shared.file), 'utf8'),
-          shared.array,
-        ),
-      )
-    }
-  }
-  return externals
-}
-
-function main() {
+async function main() {
+  const { packages } = await getPackages(repoRoot)
   const problems = []
-  for (const ws of loadWorkspaces()) {
-    if (ws.pkg.private) continue
-    const dir = join(repoRoot, ws.location)
-    const imports = sourceFiles(dir).flatMap((file) =>
-      internalImports(readFileSync(file, 'utf8')),
+  const unbuilt = []
+  for (const { dir, packageJson: pkg } of packages) {
+    const entry = esmEntry(pkg)
+    if (pkg.private || !entry) continue
+    if (!existsSync(join(dir, entry))) {
+      unbuilt.push(pkg.name)
+      continue
+    }
+    const imports = []
+    for (const file of esmFiles(join(dir, 'dist'))) {
+      imports.push(...(await internalImports(readFileSync(file, 'utf8'))))
+    }
+    const found = checkPackage(pkg, imports)
+    if (found.length) problems.push({ pkg, found })
+  }
+
+  if (unbuilt.length) {
+    console.error(
+      `Build these packages before running this check:\n  ${unbuilt.join('\n  ')}`,
     )
-    const found = checkWorkspace({
-      name: ws.name,
-      pkg: ws.pkg,
-      imports,
-      externals: workspaceExternals(dir),
-    })
-    if (found.length) problems.push({ ws, found })
+    process.exit(2)
   }
 
   if (problems.length === 0) {
     console.log(
-      'Every externalized @cypress-design/* import is a runtime dependency.',
+      'Every @cypress-design/* import in dist/ is a runtime dependency.',
     )
     return
   }
 
   console.error(
-    'These packages import an @cypress-design/* package their build keeps external,\n' +
-      'so dist/ imports it at runtime, but consumers never install it:\n\n' +
+    'These packages import an @cypress-design/* package from dist/ that\n' +
+      'consumers never install:\n\n' +
       problems
         .map(
-          ({ ws, found }) =>
-            `  ${ws.name} (${ws.location}/package.json)\n` +
+          ({ pkg, found }) =>
+            `  ${pkg.name}\n` +
             found.map((f) => `    ${f.dependency}: ${f.reason}`).join('\n'),
         )
         .join('\n') +

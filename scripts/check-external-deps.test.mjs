@@ -1,87 +1,47 @@
 import { describe, it, expect } from 'vitest'
-import {
-  checkWorkspace,
-  externalsInConfig,
-  externalsInSharedConfig,
-  internalImports,
-} from './check-external-deps.mjs'
+import { checkPackage, internalImports } from './check-external-deps.mjs'
 
 const ICON = '@cypress-design/vue-icon'
+const MODAL = '@cypress-design/vue-modal'
 
-describe('checkWorkspace', () => {
-  const run = (pkg) =>
-    checkWorkspace({
-      name: '@cypress-design/vue-modal',
-      pkg,
-      imports: [ICON, '@cypress-design/constants-modal'],
-      externals: ['vue', ICON],
-    })
-
-  it('flags an externalized import listed only in devDependencies', () => {
+describe('checkPackage', () => {
+  it('flags a dist import listed only in devDependencies', () => {
     expect(
-      run({
-        devDependencies: {
-          [ICON]: '*',
-          '@cypress-design/constants-modal': '*',
-        },
-      }),
+      checkPackage({ name: MODAL, devDependencies: { [ICON]: '*' } }, [ICON]),
     ).toEqual([{ dependency: ICON, reason: 'only in devDependencies' }])
   })
 
-  it('passes when the externalized import is a dependency or peer', () => {
-    expect(run({ dependencies: { [ICON]: '*' } })).toEqual([])
-    expect(run({ peerDependencies: { [ICON]: '*' } })).toEqual([])
-  })
-
-  it('ignores bundled (non-external) devDependencies', () => {
-    expect(
-      run({
-        dependencies: { [ICON]: '*' },
-        devDependencies: { '@cypress-design/constants-modal': '*' },
-      }),
-    ).toEqual([])
-  })
-})
-
-describe('config parsing', () => {
-  it('reads baseExternal from the shared vue config', () => {
-    const code = `
-      // '@cypress-design/vue-commented-out'
-      const baseExternal = [
-        'vue',
-        '@cypress-design/icon-registry',
-        '@cypress-design/vue-icon',
-      ]
-      const other = ['@cypress-design/not-external']`
-    expect(externalsInSharedConfig(code, 'baseExternal')).toEqual([
-      '@cypress-design/icon-registry',
-      '@cypress-design/vue-icon',
+  it('flags a dist import that is not listed at all', () => {
+    expect(checkPackage({ name: MODAL }, [ICON])).toEqual([
+      { dependency: ICON, reason: 'not in dependencies' },
     ])
   })
 
-  it('reads extra externals but not bundledPackages from a package config', () => {
-    const code = `
-      export default generateViteConfig({ name: 'Select' }, [
-        '@cypress-design/vue-button',
-      ], [
-        dts({ bundledPackages: ['@cypress-design/constants-select'] }),
-      ])`
-    expect(externalsInConfig(code)).toEqual(['@cypress-design/vue-button'])
+  it('passes when the dist import is a dependency or peer', () => {
+    expect(
+      checkPackage({ name: MODAL, dependencies: { [ICON]: '*' } }, [ICON]),
+    ).toEqual([])
+    expect(
+      checkPackage({ name: MODAL, peerDependencies: { [ICON]: '*' } }, [ICON]),
+    ).toEqual([])
+  })
+
+  it('ignores a package importing itself', () => {
+    expect(checkPackage({ name: MODAL }, [MODAL])).toEqual([])
   })
 })
 
 describe('internalImports', () => {
-  it('finds static, side-effect and dynamic imports, skipping subpaths', () => {
+  it('finds static, re-export and dynamic imports, reduced to package names', async () => {
     const code = `
       import { IconX } from '@cypress-design/vue-icon'
-      import '@cypress-design/css'
-      const m = import('@cypress-design/vue-tooltip')
-      import x from '@cypress-design/icon-registry/dist/x'
+      export { a } from '@cypress-design/vue-tooltip'
+      const m = import('@cypress-design/icon-registry/dist/x')
       import vue from 'vue'`
-    expect(internalImports(code)).toEqual([
+    expect(await internalImports(code)).toEqual([
       ICON,
-      '@cypress-design/css',
       '@cypress-design/vue-tooltip',
+      '@cypress-design/icon-registry',
     ])
   })
 })

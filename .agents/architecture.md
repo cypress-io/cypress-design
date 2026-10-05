@@ -92,8 +92,9 @@ republishes it. Two checks cover this:
 - **`node scripts/stale-dependents.mjs --check`** (PR CI, `test.yml`) — for
   each published workspace, fetches its npm `latest` manifest and checks that
   the range for every internal entry in its local `dependencies` includes that
-  dependency's version, after applying pending `.changeset/*.md` bumps
-  (including `fixed` groups). It fails and lists the packages to bump. It
+  dependency's version, after applying pending `.changeset/*.md` bumps (via
+  `@changesets/get-release-plan`, so `fixed` groups and config match
+  `changeset version`). It fails and lists the packages to bump. It
   skips packages not on npm yet, packages whose local version differs from
   npm `latest` (already waiting to publish), and packages with a pending
   bump of their own. Fix it by adding a `minor` for each listed package.
@@ -111,9 +112,11 @@ external (`baseExternal` in `components/vue.vite.config.ts`, `external` in
 `components/react.rollup.config.mjs`, or the extra externals a package's own
 `vite.config.ts` / `rollup.config.mjs` adds) stays a bare `import` in `dist/`,
 so it has to be in `dependencies` — consumers never install devDependencies.
-**`node scripts/check-external-deps.mjs`** (PR CI, `test.yml`) fails when a
-published package imports an externalized `@cypress-design/*` package that it
-doesn't list in `dependencies` or `peerDependencies`.
+**`node scripts/check-external-deps.mjs`** (PR CI, `test.yml`) reads each
+published package's built `dist/*.mjs` with `es-module-lexer` and fails when
+an `@cypress-design/*` import there isn't in `dependencies` or
+`peerDependencies`. It reads `dist/` rather than the build configs, so it needs
+the packages built first (`yarn build:components`).
 
 ### Gotcha: editing a component's source does not change what consumers see
 
