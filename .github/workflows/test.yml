@@ -50,9 +50,6 @@ jobs:
       - name: Lint all files
         run: yarn eslint .
 
-      - name: Check dependents of internal majors are bumped
-        run: node scripts/stale-dependents.mjs --check
-
       - name: Run Eslint Plugin Tests
         run: yarn test:eslint-plugin
 
@@ -61,8 +58,8 @@ jobs:
           yarn turbo run build --filter=@cypress-design/css
           yarn workspace @cypress-design/icon-registry build
 
-      - name: Check internal imports in dist/ are runtime dependencies
-        run: node scripts/check-external-deps.mjs
+      - name: Check internal runtime dependencies
+        run: node scripts/check-internal-deps.mjs
 
       - name: Run Unit Tests
         run: yarn test

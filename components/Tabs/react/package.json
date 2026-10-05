@@ -20,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-tabs": "*",
+    "@cypress-design/constants-tabs": "workspace:^1.2.2",
     "clsx": "*"
   },
   "devDependencies": {

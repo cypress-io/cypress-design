@@ -20,8 +20,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/details-animation": "*",
-    "@cypress-design/react-icon": "*",
+    "@cypress-design/details-animation": "workspace:^1.0.0",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
     "clsx": "*"
   },
   "devDependencies": {

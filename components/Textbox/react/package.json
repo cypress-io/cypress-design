@@ -20,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-textbox": "*",
+    "@cypress-design/constants-textbox": "workspace:^1.0.1",
     "clsx": "*"
   },
   "devDependencies": {

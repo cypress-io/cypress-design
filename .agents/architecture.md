@@ -78,45 +78,41 @@ Components are published to npm as individual packages via Changesets (`.changes
 
 ### Internal dependency ranges
 
-Internal deps are declared as `"*"` in every `package.json` — keep it that
-way. Pinning real ranges breaks `yarn install --immutable` on release PRs
-(see [#722](https://github.com/cypress-io/cypress-design/pull/722)). Right before publish, `scripts/set-version.mjs` rewrites each `*`
-to `^<current workspace version>`, so the range inside each npm tarball is
-frozen at that package's last publish.
+An `@cypress-design/*` package in a published package's `dependencies` is
+declared as `workspace:^<its current version>`, e.g.
+`"@cypress-design/vue-icon": "workspace:^3.3.2"`. devDependencies are bundled
+into `dist/`, so they (and the private root and `test/*` apps) stay `"*"`.
 
-Changesets never bumps a `*` dependent, because `*` always "satisfies". Minor
-and patch releases of a dependency are still picked up through `^`, but after
-a **major** every dependent stays on the old major on npm until something
-republishes it. Two checks cover this:
+Changesets republishes a dependent only when a dependency's release falls
+outside the dependent's range. With a real `^` range, a **major** of a
+dependency bumps every dependent (a `patch`) and rewrites its range in the
+version PR; minor and patch releases stay in range and leave dependents alone.
+`*` is never out of range, so a dependent declared with `*` would stay on the
+old major on npm.
+`scripts/changesets-workspace-ranges.test.mjs` runs the real release plan
+against a fixture with the repo's `.changeset/config.json` to hold Changesets
+to this.
 
-- **`node scripts/stale-dependents.mjs --check`** (PR CI, `test.yml`) — for
-  each published workspace, fetches its npm `latest` manifest and checks that
-  the range for every internal entry in its local `dependencies` includes that
-  dependency's version, after applying pending `.changeset/*.md` bumps (via
-  `@changesets/get-release-plan`, so `fixed` groups and config match
-  `changeset version`). It fails and lists the packages to bump. It
-  skips packages not on npm yet, packages whose local version differs from
-  npm `latest` (already waiting to publish), and packages with a pending
-  bump of their own. Fix it by adding a `minor` for each listed package.
-- **`node scripts/stale-dependents.mjs --write`** (`release.yml`, before
-  `changesets/action`) — the safety net: writes
-  `.changeset/auto-stale-dependents-<hash>.md` bumping each stale package
-  `minor`, so the next version PR republishes them. The skip for packages
-  already waiting to publish is what keeps this from writing a changeset in
-  the run that publishes a merged version PR.
+Because Changesets rewrites those ranges, `yarn.lock` changes in every version
+PR. `changesets/action` runs `yarn version-packages` (`changeset version`, then
+`yarn install --mode=update-lockfile`) so the version PR still passes
+`yarn install --immutable` — the failure behind
+[#722](https://github.com/cypress-io/cypress-design/pull/722). Publishing runs
+`yarn release`: `scripts/set-version.mjs` resolves each `workspace:` range to
+the plain semver range (and external `*` deps to `^<latest on npm>`), then
+`changeset publish`.
 
-### Externalized dependencies must be runtime dependencies
+**`node scripts/check-internal-deps.mjs`** (PR CI, `test.yml`) fails when a
+published package:
 
-devDependencies are bundled into `dist/`. A dependency the build keeps
-external (`baseExternal` in `components/vue.vite.config.ts`, `external` in
-`components/react.rollup.config.mjs`, or the extra externals a package's own
-`vite.config.ts` / `rollup.config.mjs` adds) stays a bare `import` in `dist/`,
-so it has to be in `dependencies` — consumers never install devDependencies.
-**`node scripts/check-external-deps.mjs`** (PR CI, `test.yml`) reads each
-published package's built `dist/*.mjs` with `es-module-lexer` and fails when
-an `@cypress-design/*` import there isn't in `dependencies` or
-`peerDependencies`. It reads `dist/` rather than the build configs, so it needs
-the packages built first (`yarn build:components`).
+- declares an `@cypress-design/*` runtime dependency as anything but a
+  `workspace:^<version>` range that includes the dependency's current version;
+- imports an `@cypress-design/*` package from its built `dist/*.mjs` (read with
+  `es-module-lexer`) without listing it in `dependencies` or
+  `peerDependencies`. devDependencies are bundled unless the build marks them
+  external, and consumers never install devDependencies. It reads `dist/`
+  rather than the build configs, so it needs the packages built first
+  (`yarn build:components`).
 
 ### Gotcha: editing a component's source does not change what consumers see
 

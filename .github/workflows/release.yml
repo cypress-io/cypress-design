@@ -49,15 +49,6 @@ jobs:
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      # Safety net for the PR check. It skips packages whose local version is
-      # ahead of npm, so a merged version PR still publishes instead of
-      # opening another version PR.
-      - name: Bump dependents with stale internal ranges
-        run: node scripts/stale-dependents.mjs --write
-
-      - name: Set version numbers
-        run: node scripts/set-version.mjs
-
       - name: Remove changeset pre if it exists
         run: yarn changeset pre exit
         continue-on-error: true
@@ -66,7 +57,11 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn changeset publish
+          # `version-packages` refreshes yarn.lock after Changesets rewrites the
+          # `workspace:^` ranges, so the version PR still installs with
+          # `--immutable`.
+          version: yarn version-packages
+          publish: yarn release
           commit: 'ci(changesets): version packages'
           title: 'ci(changesets): version packages'
         env:

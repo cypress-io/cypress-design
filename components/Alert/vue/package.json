@@ -24,8 +24,8 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/details-animation": "*",
-    "@cypress-design/vue-icon": "*"
+    "@cypress-design/details-animation": "workspace:^1.0.0",
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   },
   "devDependencies": {
     "@cypress-design/constants-alert": "*",

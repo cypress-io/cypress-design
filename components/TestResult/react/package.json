@@ -19,8 +19,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-statusicon": "*",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
+    "@cypress-design/react-statusicon": "workspace:^1.0.5",
     "clsx": "*"
   },
   "devDependencies": {

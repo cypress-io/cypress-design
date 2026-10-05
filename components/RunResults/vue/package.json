@@ -19,9 +19,9 @@
     "build:module": "yarn exec vite build"
   },
   "dependencies": {
-    "@cypress-design/vue-icon": "*",
-    "@cypress-design/vue-statusicon": "*",
-    "@cypress-design/vue-tooltip": "*",
+    "@cypress-design/vue-icon": "workspace:^3.3.2",
+    "@cypress-design/vue-statusicon": "workspace:^1.0.1",
+    "@cypress-design/vue-tooltip": "workspace:^2.1.0",
     "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {

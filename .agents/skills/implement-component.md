@@ -145,7 +145,7 @@ Each branch should be reviewed and merged before starting the next branch.
      ```
 
    - For _changes_ to an already-published package, use the normal semver rule: `major` for breaking API changes, `minor` for new features, `patch` for bug fixes.
-   - **A `major` of an internal package has to come with bumps for its dependents.** Every package that lists it in `dependencies` is on npm with a `^` range for the old major, and Changesets won't bump them for you (internal deps are `*`). Add a `minor` for each one in the same changeset; `node scripts/stale-dependents.mjs --check` fails the PR and lists them until you do. See [Publishing and Deployment](https://design.cypress.io/agents/architecture.md#publishing-and-deployment).
+   - **Depend on another `@cypress-design/*` package at runtime with `workspace:^<its version>`**, not `"*"` (devDependencies stay `"*"`). Changesets then republishes your package when that dependency ships a major. `node scripts/check-internal-deps.mjs` fails the PR otherwise. See [Publishing and Deployment](https://design.cypress.io/agents/architecture.md#publishing-and-deployment).
    - Place the changeset file on the `{component-name}-component` branch (alongside the new `package.json` files). It travels through the rest of the stack and merges to `main` with the rest of the work.
    - Once merged, `changesets/action@v1` opens an automated "ci(changesets): version packages" PR that bumps versions and generates `CHANGELOG.md`. When that PR merges, npm publish happens automatically.
 

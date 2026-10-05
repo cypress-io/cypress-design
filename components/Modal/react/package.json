@@ -19,7 +19,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "*",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
     "clsx": "*"
   },
   "devDependencies": {
