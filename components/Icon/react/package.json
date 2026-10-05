@@ -4,6 +4,7 @@
   "files": [
     "*"
   ],
+  "sideEffects": false,
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
