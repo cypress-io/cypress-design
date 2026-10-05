@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, type DefineComponent, provide } from 'vue'
+import { ref, type Component, provide } from 'vue'
 import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
 import DocGroupElements from './_DocGroupElements.vue'
 
@@ -8,7 +8,7 @@ withDefaults(
     items: (NavItemLink | NavGroup)[]
     activePath?: string
     collapsible?: boolean
-    linkComponent?: DefineComponent | 'a'
+    linkComponent?: Component | 'a'
   }>(),
   {
     linkComponent: 'a',

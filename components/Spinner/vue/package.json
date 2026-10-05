@@ -18,6 +18,7 @@
       "require": "./dist/style.css"
     },
     "./sfc": {
+      "types": "./dist/Spinner.vue.d.ts",
       "import": "./Spinner.vue",
       "require": "./Spinner.vue"
     }

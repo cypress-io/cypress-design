@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import {
   watch,
-  type DefineComponent,
+  type Component,
   ref,
   onMounted,
   inject,
@@ -16,7 +16,7 @@ const props = withDefaults(
     active: boolean
     collapsible: boolean
     depth?: number
-    linkComponent: DefineComponent | 'a'
+    linkComponent: Component | 'a'
   }>(),
   {
     depth: -1,
