@@ -1,5 +1,14 @@
 # @cypress-design/react-icon
 
+## 3.3.2
+
+### Patch Changes
+
+- [#731](https://github.com/cypress-io/cypress-design/pull/731) [`677c0c0`](https://github.com/cypress-io/cypress-design/commit/677c0c00f3ea3e37e89b38710b919bc03cabec0c) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Fix tree shaking in `@cypress-design/vue-icon`: importing a single named icon (for example `IconActionPlaySmall`) now bundles about 13 KB instead of every icon plus the full icon registry (about 960 KB). Both icon packages are now marked `"sideEffects": false`. The default `Icon` component still includes every icon because it looks icons up by name at runtime, so prefer named imports.
+
+- Updated dependencies []:
+  - @cypress-design/icon-registry@3.3.2
+
 ## 3.3.1
 
 ### Patch Changes
