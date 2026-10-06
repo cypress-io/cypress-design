@@ -1,0 +1,22 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import Modal from '@cypress-design/vue-modal'
+import Button from '@cypress-design/vue-button'
+
+const visible = ref(false)
+</script>
+
+<template>
+  <!-- `help-link` adds a "Need help" link to the header. -->
+  <Modal
+    v-model:show="visible"
+    title="Modal title"
+    help-link="https://docs.cypress.io"
+  >
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id perspiciatis hic
+    ad minima ex recusandae autem incidunt, perferendis, illo voluptatum
+    repudiandae iste voluptate reiciendis quam officiis voluptas laboriosam
+    eligendi explicabo!
+  </Modal>
+  <Button @click="visible = true">Open modal</Button>
+</template>

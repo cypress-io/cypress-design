@@ -2,7 +2,12 @@
 /**
  * DemoTile — one rung of a component's demo ladder.
  *
- * Renders: title → live preview → the tile's source file, verbatim.
+ * Renders: title → live preview → the tile's source file, verbatim, with a
+ * Copy button. The code block is editable in place: a transparent textarea
+ * sits over Shiki's highlighted <pre>, so clicking into the code is all it
+ * takes. The first keystroke loads lib/tile-editor.ts, which re-highlights
+ * and re-renders the preview as you type; Reset (shown once the code
+ * differs from the file) puts the original back.
  * The code block *is* the file (read with ?raw), so what readers copy is
  * exactly what renders above it.
  *
@@ -37,20 +42,43 @@ const sources = {
 const ext = framework === 'vue' ? 'vue' : 'tsx'
 const source = sources[framework][`../demos/${component}/${framework}/${name}.${ext}`]
 const demoName = `${component}/${framework}/${name}`
+const code = source?.trim() ?? ''
+const hintId = `tile-hint-${component}-${framework}-${name}`
 ---
 
-<section class="demo-tile my-8">
+<section class="demo-tile my-8" data-tile data-framework={framework}>
   <h3>{title}</h3>
   {source ? (
     <>
-      <div class="p-6 bg-gray-50 border border-gray-100 rounded-t-lg">
+      <div class="p-6 bg-gray-50 border border-gray-100 rounded-t-lg" data-tile-preview>
         {framework === 'vue' ? (
           <Demo client:only="vue" name={demoName} />
         ) : (
           <DemoReact client:only="react" name={demoName} />
         )}
       </div>
-      <Code code={source.trim()} lang={ext} class="!mt-0 !rounded-t-none" />
+      <div class="relative">
+        <div class="tile-scroll overflow-x-auto rounded-b-lg">
+          <div class="relative w-max min-w-full">
+            <Code code={code} lang={ext} class="tile-highlight" aria-hidden="true" tabindex="-1" />
+            <textarea
+              data-tile-code
+              class="tile-input"
+              spellcheck="false"
+              autocomplete="off"
+              autocapitalize="off"
+              aria-label={`${title} code`}
+              aria-describedby={hintId}>{code}</textarea>
+          </div>
+        </div>
+        <p id={hintId} class="sr-only">
+          Edit the code to update the preview. Once you start typing, Tab indents; press Escape, then Tab, to leave the editor.
+        </p>
+        <div class="absolute top-3 right-3 flex gap-2">
+          <button type="button" data-reset-code class="tile-action" hidden>Reset</button>
+          <button type="button" data-copy-code class="tile-action">Copy</button>
+        </div>
+      </div>
     </>
   ) : (
     <div class="p-6 bg-gray-50 border border-gray-100 rounded-lg text-sm text-gray-600">
@@ -58,3 +86,123 @@ const demoName = `${component}/${framework}/${name}`
     </div>
   )}
 </section>
+
+<script>
+  const tileOf = (el: Element) => el.closest<HTMLElement>('[data-tile]')
+  const editor = () => import('../lib/tile-editor')
+
+  // Edits: show Reset once the code differs from the file, then hand the
+  // tile to the editor (loaded on the first keystroke anywhere on the page).
+  document.addEventListener('input', async (event) => {
+    const input = event.target as HTMLTextAreaElement
+    if (!input.matches?.('[data-tile-code]')) return
+    const tile = tileOf(input)
+    if (!tile) return
+    input.dataset.typed = 'true'
+    tile.querySelector<HTMLButtonElement>('[data-reset-code]')!.hidden = input.value === input.defaultValue
+    await (await editor()).update(tile)
+  })
+
+  // Tab indents, but only once someone has started editing this box, so
+  // keyboard users tabbing down the page aren't caught in every code block.
+  // Escape, then Tab, always moves focus on.
+  const insert = (input: HTMLTextAreaElement, text: string) => {
+    // execCommand keeps the edit in the browser's undo history.
+    if (!document.execCommand('insertText', false, text)) {
+      input.setRangeText(text, input.selectionStart, input.selectionEnd, 'end')
+      input.dispatchEvent(new Event('input', { bubbles: true }))
+    }
+  }
+  document.addEventListener('focusin', (event) => {
+    const input = event.target as HTMLTextAreaElement
+    if (!input.matches?.('[data-tile-code]')) return
+    delete input.dataset.typed
+    delete input.dataset.escaped
+  })
+  document.addEventListener('keydown', (event) => {
+    const input = event.target as HTMLTextAreaElement
+    if (!input.matches?.('[data-tile-code]')) return
+    if (event.key === 'Escape') {
+      input.dataset.escaped = 'true'
+      return
+    }
+    if (event.key !== 'Tab') {
+      delete input.dataset.escaped
+      if (event.key.length === 1 || event.key === 'Backspace' || event.key === 'Enter') {
+        input.dataset.typed = 'true'
+      }
+      return
+    }
+    if (event.shiftKey || input.dataset.typed !== 'true' || input.dataset.escaped === 'true') return
+    event.preventDefault()
+    const { value, selectionStart, selectionEnd } = input
+    if (selectionStart === selectionEnd) {
+      insert(input, '  ')
+      return
+    }
+    // A selection: indent every selected line instead of replacing it.
+    const lineStart = value.lastIndexOf('\n', selectionStart - 1) + 1
+    const block = value.slice(lineStart, selectionEnd)
+    input.setSelectionRange(lineStart, selectionEnd)
+    insert(input, block.replace(/^/gm, '  '))
+  })
+
+  document.addEventListener('click', async (event) => {
+    const target = event.target as Element
+    const tile = tileOf(target)
+    if (!tile) return
+
+    const reset = target.closest<HTMLButtonElement>('[data-reset-code]')
+    if (reset) {
+      reset.hidden = true
+      await (await editor()).reset(tile)
+      tile.querySelector<HTMLTextAreaElement>('[data-tile-code]')?.focus()
+      return
+    }
+
+    // Copy what's in the editor — the file itself until someone edits it.
+    const copy = target.closest<HTMLButtonElement>('[data-copy-code]')
+    const code = tile.querySelector<HTMLTextAreaElement>('[data-tile-code]')?.value
+    if (!copy || code == null) return
+    try {
+      await navigator.clipboard.writeText(code)
+    } catch {
+      const textarea = document.createElement('textarea')
+      textarea.value = code
+      document.body.appendChild(textarea)
+      textarea.select()
+      document.execCommand('copy')
+      textarea.remove()
+    }
+    copy.textContent = 'Copied'
+    setTimeout(() => (copy.textContent = 'Copy'), 1500)
+  })
+</script>
+
+<style>
+  .tile-action {
+    @apply rounded border border-gray-700 bg-gray-900 px-2 py-1 text-xs font-medium text-gray-300 hover:text-white hover:border-gray-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-400;
+  }
+
+  /* The highlighted <pre> is the visible layer; the textarea on top holds the
+     caret and selection. Both must share font, size, line height, padding,
+     and whitespace rules exactly, or the caret drifts from the text. */
+  :global(.markdown .demo-tile pre.tile-highlight) {
+    @apply m-0 rounded-none max-w-none overflow-visible px-6 py-4 text-sm;
+    line-height: 1.5;
+  }
+  .tile-input {
+    @apply absolute inset-0 h-full w-full resize-none overflow-hidden border-0 bg-transparent px-6 py-4 font-brand-mono text-sm outline-none caret-gray-100;
+    line-height: 1.5;
+    tab-size: 4;
+    white-space: pre;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .tile-input::selection {
+    @apply bg-indigo-400/40;
+  }
+  .tile-scroll:has(.tile-input:focus-visible) {
+    @apply outline outline-2 -outline-offset-2 outline-indigo-400;
+  }
+</style>
