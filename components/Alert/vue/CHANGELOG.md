@@ -1,5 +1,11 @@
 # @cypress-design/vue-alert
 
+## 1.1.0
+
+### Minor Changes
+
+- [#733](https://github.com/cypress-io/cypress-design/pull/733) [`5e916fb`](https://github.com/cypress-io/cypress-design/commit/5e916fbe2b83d1503ed80820a85a8705bdcaeef1) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Depend on `@cypress-design/vue-icon` and `@cypress-design/react-icon` 3.x. These packages were last published against icon 1.x, so installs stayed on 1.x and missed the 3.x fixes, including tree-shakable named icon imports. None of the icons these components use were renamed or removed in 2.0 or 3.0, so there are no API changes. `@cypress-design/vue-modal` now also lists `@cypress-design/vue-icon` as a dependency instead of a devDependency, since its build imports it at runtime.
+
 ## 1.0.0
 
 ### Major Changes
