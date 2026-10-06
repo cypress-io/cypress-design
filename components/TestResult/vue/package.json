@@ -20,6 +20,7 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
+    "@cypress-design/icon-registry": "workspace:^3.3.2",
     "@cypress-design/vue-icon": "workspace:^3.3.2",
     "@cypress-design/vue-statusicon": "workspace:^1.0.1"
   },

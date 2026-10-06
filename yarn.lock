@@ -1816,6 +1816,7 @@ __metadata:
   resolution: "@cypress-design/react-statusicon@workspace:components/StatusIcon/react"
   dependencies:
     "@cypress-design/constants-statusicon": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
@@ -2058,6 +2059,7 @@ __metadata:
   resolution: "@cypress-design/vue-testresult@workspace:components/TestResult/vue"
   dependencies:
     "@cypress-design/constants-testresult": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.3.2"
     "@cypress-design/vue-statusicon": "workspace:^1.0.1"
