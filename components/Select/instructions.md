@@ -120,6 +120,7 @@ Each layer carries its own bottom border, so when both layers are present you ge
 - **`searchable`** — `boolean`, default `false`. Renders a search [`Textbox`](../Textbox/instructions.md) in the header. When `searchFilters` is `true` (the default), the input value filters `items` by case-insensitive substring match against each item's `label`.
 - **`searchPlaceholder`** — `string`, default `'Search'`. Placeholder for the search Textbox.
 - **`searchFilters`** — `boolean`, default `true`. Set to `false` to keep the search Textbox visible without filtering — useful for showcase pages where every row should stay visible regardless of what the user types.
+- **`searchAutoFocus`** — `boolean`, default `true`. `SelectOptionList` only. Focuses the search Textbox when the list mounts — inside `Select` that means on open. Set `false` when rendering the list inline on a page (e.g. an expanded showcase) so it doesn't take focus and scroll the page on load.
 
 ### Footer
 

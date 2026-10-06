@@ -1,0 +1,33 @@
+---
+/**
+ * DemoTilesList — renders a component's demo ladder, one <DemoTile> per
+ * entry in docs/src/demos/<component>/tiles.ts, in manifest order.
+ *
+ * The manifest is framework-agnostic; the page renders this list once per
+ * framework inside its <F only="…"> wrapper.
+ */
+import DemoTile from './DemoTile.astro'
+
+export interface TileEntry {
+  name: string
+  title: string
+}
+
+interface Props {
+  component: string
+  framework: 'vue' | 'react'
+}
+
+const { component, framework } = Astro.props
+
+const manifests = import.meta.glob<TileEntry[]>('../demos/*/tiles.ts', {
+  import: 'default',
+  eager: true,
+})
+const tiles = manifests[`../demos/${component}/tiles.ts`] ?? []
+---
+
+<h2>Examples</h2>
+{tiles.map((tile) => (
+  <DemoTile component={component} name={tile.name} title={tile.title} framework={framework} />
+))}

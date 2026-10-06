@@ -303,6 +303,16 @@ export default function assertions(
     // relying on `SelectConstants.DefaultSearchPlaceholder`, so changing the
     // default constant doesn't silently break six test invocations.
 
+    it('focuses the search input when the popover opens', () => {
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
+      cy.findByRole('combobox').click()
+      cy.findByPlaceholderText('Find item').should('have.focus')
+    })
+
     it('search filters by label (case-insensitive)', () => {
       mountStory({
         items: simpleItems,
@@ -325,10 +335,11 @@ export default function assertions(
         onChange,
       })
       cy.findByRole('combobox').click()
-      // Focus the search input and type; the wrapper's keydown listener
-      // catches bubbled arrow keys, so focus walks rows even with the
-      // input active.
-      cy.findByPlaceholderText('Find item').focus().type('a')
+      // The search input is focused on open; type into it. The wrapper's
+      // keydown listener catches bubbled arrow keys, so focus walks rows even
+      // with the input active. (No `.focus()`: re-focusing an already-focused
+      // input fires a synthetic focus event that Textbox's validator rejects.)
+      cy.findByPlaceholderText('Find item').should('have.focus').type('a')
       // 'a' matches Alpha and Gamma. ArrowDown lands on Alpha.
       cy.findByPlaceholderText('Find item').type('{downArrow}')
       cy.findByRole('option', { name: 'Alpha' }).should(
