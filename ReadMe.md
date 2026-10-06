@@ -85,6 +85,17 @@ See [the component ReadMe](./components/) for the list of available components a
 - Foundation page: `/docs/src/pages/` (colors, icons, typography)
 - Pattern page: `/docs/src/pages/patterns/` (multi-component examples)
 
+### Set up Node and Yarn
+
+You need Node.js 22.12 or later. The repo pins Yarn 4.9.1 in `package.json` (`packageManager`), and Corepack (bundled with Node) provides it:
+
+```bash
+corepack enable
+yarn --version   # 4.9.1 inside the repo
+```
+
+If `yarn --version` prints 1.x (or you see `This project's package.json defines "packageManager": "yarn@4.9.1"`), a separately installed Yarn 1 is ahead of Corepack on your `PATH`. Remove it (`brew uninstall yarn` or `npm uninstall -g yarn`) and run `corepack enable` again. If `corepack enable` fails with a permissions error, run it with `sudo`. To avoid changing anything globally, prefix commands with `corepack` instead, for example `corepack yarn install`.
+
 ### Running the docs locally
 
 ```bash

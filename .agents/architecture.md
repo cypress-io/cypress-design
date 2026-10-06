@@ -72,6 +72,7 @@ Components are published to npm as individual packages via Changesets (`.changes
 
 **Local dev:**
 
+- Yarn 4.9.1 comes from Corepack (`packageManager` in `package.json`). Run `corepack enable` before any `yarn` command. If `yarn --version` prints 1.x, or a command fails with `This project's package.json defines "packageManager": "yarn@4.9.1"`, a global Yarn 1 is shadowing Corepack. Use `corepack yarn <command>`, or remove the global Yarn 1 (`brew uninstall yarn` / `npm uninstall -g yarn`) and run `corepack enable` again. See the README's “Set up Node and Yarn”.
 - `yarn dev` — Watches icon SVGs, component constants, and Astro source (hot-reload)
 - `yarn build:docs` — Builds component packages, generates design tokens CSS, builds Astro site
 - Deployed to `design.cypress.io` via Vercel (main branch)
