@@ -41,9 +41,9 @@ A faded, decorative version of `CypressMark` used as a background element.
 
 ### Props
 
-| Prop   | Type      | Default                          | Description                                                                                                                              |
-| ------ | --------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `dark` | `boolean` | `false` (Vue) / required (React) | Renders a dark watermark (gray at 40% opacity) for light surfaces. When `false`, renders a translucent white watermark for dark surfaces |
+| Prop   | Type      | Default | Description                                                                                                                              |
+| ------ | --------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `dark` | `boolean` | `false` | Renders a dark watermark (gray at 40% opacity) for light surfaces. When `false`, renders a translucent white watermark for dark surfaces |
 
 ---
 

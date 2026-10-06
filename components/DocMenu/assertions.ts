@@ -116,6 +116,20 @@ export default function assertions(
     })
   })
 
+  it('does not put href on a collapsible group header', () => {
+    mountStory(
+      [
+        {
+          label: 'Group with href',
+          href: '/group',
+          items: [{ label: 'Child', href: '/child' }],
+        },
+      ],
+      '/child',
+    )
+    cy.contains('button', 'Group with href').should('not.have.attr', 'href')
+  })
+
   it('expands a section where an element is activated', () => {
     mountCustomLinkStory()
     cy.findByText('Foo', { selector: 'button' }).should(

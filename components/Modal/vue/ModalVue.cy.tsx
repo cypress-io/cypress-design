@@ -25,4 +25,82 @@ describe('<Modal/>', () => {
   }
 
   assertions(mountStory)
+
+  it('adds a class to the dialog', () => {
+    const visible = ref(false)
+    mount(() => (
+      <div>
+        <button onClick={() => (visible.value = true)}>Open Modal</button>
+        <Modal
+          v-model:show={visible.value}
+          title="Modal"
+          class="custom-modal-class"
+        >
+          <p>Content</p>
+        </Modal>
+      </div>
+    ))
+    cy.contains('Open Modal').click()
+    cy.findByRole('dialog').should('have.class', 'custom-modal-class')
+  })
+
+  it('replaces the close icon with the closeIcon slot', () => {
+    const visible = ref(false)
+    mount(() => (
+      <div>
+        <button onClick={() => (visible.value = true)}>Open Modal</button>
+        <Modal v-model:show={visible.value} title="Modal">
+          {{
+            default: () => <p>Content</p>,
+            closeIcon: () => <span data-cy="custom-close-icon">x</span>,
+          }}
+        </Modal>
+      </div>
+    ))
+    cy.contains('Open Modal').click()
+    cy.findByRole('button', { name: 'Close' }).within(() => {
+      cy.get('[data-cy="custom-close-icon"]').should('exist')
+      cy.get('svg').should('not.exist')
+    })
+  })
+
+  it('emits update:show and close on Escape', () => {
+    const visible = ref(false)
+    const onUpdateShow = cy.stub().as('updateShow')
+    const onClose = cy.stub().as('close')
+    mount(() => (
+      <div>
+        <button onClick={() => (visible.value = true)}>Open Modal</button>
+        <Modal
+          show={visible.value}
+          title="Modal"
+          onClose={onClose}
+          {...({
+            'onUpdate:show': (value: boolean) => {
+              visible.value = value
+              onUpdateShow(value)
+            },
+          } as Record<string, unknown>)}
+        >
+          <p>Content</p>
+        </Modal>
+      </div>
+    ))
+    cy.contains('Open Modal').click()
+    cy.findByRole('dialog').should('be.visible')
+    cy.realPress('Escape')
+    cy.get('@updateShow').should('have.been.calledWith', false)
+    cy.get('@close').should('have.been.calledOnce')
+    cy.findByRole('dialog').should('not.exist')
+  })
+
+  it('opens as a real modal when mounted with show already true', () => {
+    mount(() => (
+      <Modal show title="Open on mount">
+        <p>Contents</p>
+      </Modal>
+    ))
+    cy.get('dialog').should('have.prop', 'open', true)
+    cy.get('body').should('have.class', 'cy-modal-overflow-hidden')
+  })
 })

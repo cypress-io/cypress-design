@@ -8,7 +8,7 @@ function uid() {
 </script>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { IconCheckmarkSmall } from '@cypress-design/vue-icon'
 import {
   CssCheckboxColors,
@@ -27,7 +27,8 @@ const props = withDefaults(
      */
     name?: string
     /**
-     * Is the checkbox checked when it is first rendered.
+     * Is the checkbox checked.
+     * The checkbox follows this prop when it changes.
      */
     checked?: boolean
     /**
@@ -72,13 +73,22 @@ const props = withDefaults(
   },
 )
 
-const localChecked = ref(
-  (Array.isArray(props.modelValue)
-    ? props.name
-      ? props.modelValue.includes(props.name)
-      : false
-    : props.modelValue) || props.checked,
-)
+function checkedFromProps() {
+  return (
+    (Array.isArray(props.modelValue)
+      ? props.name
+        ? props.modelValue.includes(props.name)
+        : false
+      : props.modelValue) || props.checked
+  )
+}
+
+const localChecked = ref(checkedFromProps())
+
+// follow `checked` / `modelValue` when the parent changes them after mount
+watch(checkedFromProps, (value) => {
+  localChecked.value = value
+})
 
 const emit = defineEmits<{
   'update:modelValue': [value: boolean | Array<string>]
