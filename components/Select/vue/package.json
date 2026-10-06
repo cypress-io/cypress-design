@@ -20,12 +20,12 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/vue-button": "*",
-    "@cypress-design/vue-checkbox": "*",
-    "@cypress-design/vue-icon": "*",
-    "@cypress-design/vue-tabs": "*",
-    "@cypress-design/vue-tag": "*",
-    "@cypress-design/vue-textbox": "*"
+    "@cypress-design/vue-button": "workspace:^1.13.0",
+    "@cypress-design/vue-checkbox": "workspace:^1.0.0",
+    "@cypress-design/vue-icon": "workspace:^3.3.2",
+    "@cypress-design/vue-tabs": "workspace:^1.2.2",
+    "@cypress-design/vue-tag": "workspace:^1.1.0",
+    "@cypress-design/vue-textbox": "workspace:^1.0.1"
   },
   "devDependencies": {
     "@cypress-design/constants-select": "*",

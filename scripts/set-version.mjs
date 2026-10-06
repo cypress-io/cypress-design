@@ -24,6 +24,16 @@ async function getNpmRegistryVersion(dep) {
   return info.version
 }
 
+/**
+ * The range Yarn writes when it packs a `workspace:` dependency: `*`, `^` and
+ * `~` take the workspace's current version; anything else is kept.
+ */
+function resolveWorkspaceRange(range, version) {
+  if (range === '*') return version
+  if (range === '^' || range === '~') return `${range}${version}`
+  return range
+}
+
 async function run() {
   // Yarn Berry replacement for Yarn 1's `yarn workspaces info`:
   //   `yarn workspaces list --json` emits newline-delimited JSON, one
@@ -62,6 +72,16 @@ async function run() {
       const depsUpdated = []
       await Promise.all(
         Object.entries(pkg.dependencies).map(async ([dep, version]) => {
+          // Only Yarn's packer rewrites the `workspace:` protocol; `npm
+          // publish` would ship it as-is.
+          if (version.startsWith('workspace:')) {
+            pkg.dependencies[dep] = resolveWorkspaceRange(
+              version.slice('workspace:'.length),
+              versions[dep],
+            )
+            depsUpdated.push(dep)
+            return
+          }
           if (version !== '*') return
           if (versions[dep]) {
             pkg.dependencies[dep] = `^${versions[dep]}`

@@ -72,9 +72,50 @@ Components are published to npm as individual packages via Changesets (`.changes
 
 **Local dev:**
 
+- Yarn 4.9.1 comes from Corepack (`packageManager` in `package.json`). Run `corepack enable` before any `yarn` command. If `yarn --version` prints 1.x, or a command fails with `This project's package.json defines "packageManager": "yarn@4.9.1"`, a global Yarn 1 is shadowing Corepack. Use `corepack yarn <command>`, or remove the global Yarn 1 (`brew uninstall yarn` / `npm uninstall -g yarn`) and run `corepack enable` again. Repos without a `packageManager` field still get Yarn 1 through Corepack's global default (`corepack install --global yarn@1.22.22`). See the README's “Set up Node and Yarn”.
 - `yarn dev` — Watches icon SVGs, component constants, and Astro source (hot-reload)
 - `yarn build:docs` — Builds component packages, generates design tokens CSS, builds Astro site
 - Deployed to `design.cypress.io` via Vercel (main branch)
+
+### Internal dependency ranges
+
+An `@cypress-design/*` package in a published package's `dependencies` is
+declared as `workspace:^<its current version>`, e.g.
+`"@cypress-design/vue-icon": "workspace:^3.3.2"`. devDependencies are bundled
+into `dist/`, so they (and the private root and `test/*` apps) stay `"*"`.
+
+Changesets republishes a dependent only when a dependency's release falls
+outside the dependent's range. With a real `^` range, a **major** of a
+dependency bumps every dependent (a `patch`) and rewrites its range in the
+version PR; minor and patch releases stay in range and leave dependents alone.
+`*` is never out of range, so a dependent declared with `*` would stay on the
+old major on npm.
+`scripts/changesets-workspace-ranges.test.mjs` runs the real release plan
+against a fixture with the repo's `.changeset/config.json` to hold Changesets
+to this.
+
+Because Changesets rewrites those ranges, `yarn.lock` changes in every version
+PR. `changesets/action` runs `yarn version-packages` (`changeset version`, then
+`yarn install --mode=update-lockfile`) so the version PR still passes
+`yarn install --immutable` — the failure behind
+[#722](https://github.com/cypress-io/cypress-design/pull/722). Publishing runs
+`yarn release`: `scripts/set-version.mjs` resolves each `workspace:` range to
+the plain semver range (and external `*` deps to `^<latest on npm>`), then
+`changeset publish`.
+
+**`node scripts/check-internal-deps.mjs`** (PR CI, `test.yml`) fails when a
+published package:
+
+- declares an `@cypress-design/*` package in `dependencies` as anything but a
+  `workspace:^<version>` range that includes the dependency's current version
+  (peerDependencies keep plain ranges: `set-version.mjs` only resolves
+  `workspace:` in `dependencies`);
+- imports an `@cypress-design/*` package from its built `dist/*.mjs` (read with
+  `es-module-lexer`) without listing it in `dependencies` or
+  `peerDependencies`. devDependencies are bundled unless the build marks them
+  external, and consumers never install devDependencies. It reads `dist/`
+  rather than the build configs, so it needs the packages built first
+  (`yarn build:components`).
 
 ### Gotcha: editing a component's source does not change what consumers see
 

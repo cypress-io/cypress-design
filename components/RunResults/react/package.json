@@ -20,9 +20,9 @@
     "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-statusicon": "*",
-    "@cypress-design/react-tooltip": "*",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
+    "@cypress-design/react-statusicon": "workspace:^1.0.5",
+    "@cypress-design/react-tooltip": "workspace:^2.1.0",
     "clsx": "*",
     "tailwind-merge": "^2.0.0"
   },
