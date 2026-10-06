@@ -1,5 +1,11 @@
 # @cypress-design/vue-testresult
 
+## 1.1.1
+
+### Patch Changes
+
+- [#735](https://github.com/cypress-io/cypress-design/pull/735) [`cf29612`](https://github.com/cypress-io/cypress-design/commit/cf296129df3dca8d73a8691e79ca6c25fa5aa05f) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - List `@cypress-design/icon-registry` in `dependencies`. The build keeps it external, so the published bundle imports it at runtime, and it previously resolved only because the icon packages install it too.
+
 ## 1.1.0
 
 ### Minor Changes
