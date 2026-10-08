@@ -20,7 +20,7 @@ Then configure your tailwind.config.cjs using the following template
 
 ```js
 // tailwind.config.cjs
-const { TailwindConfig } = require('@cypress-design/css')
+const { TailwindConfig } = require('@cypress-design/css/tailwind')
 
 module.exports = TailwindConfig([
   './index.html',

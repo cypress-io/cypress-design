@@ -2,8 +2,8 @@
 import {
   TailwindConfig,
   TailwindIconExtractor,
-  colors,
-} from '@cypress-design/css'
+} from '@cypress-design/css/tailwind'
+import { colors } from '@cypress-design/css'
 import _ from 'lodash'
 import * as path from 'path'
 import { dirname } from 'path'
