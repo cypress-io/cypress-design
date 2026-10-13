@@ -1,5 +1,11 @@
 # @cypress-design/vue-tabs
 
+## 1.2.3
+
+### Patch Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - `v-model:active-id` now updates when a tab is clicked, not only on arrow-key navigation. `update:activeId` is still skipped when a `switch` handler calls `preventDefault()`.
+
 ## 1.2.2
 
 ### Patch Changes

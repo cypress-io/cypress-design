@@ -1677,7 +1677,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-checkbox@npm:*, @cypress-design/react-checkbox@workspace:^1.0.2, @cypress-design/react-checkbox@workspace:components/Checkbox/react":
+"@cypress-design/react-checkbox@npm:*, @cypress-design/react-checkbox@workspace:^2.0.0, @cypress-design/react-checkbox@workspace:components/Checkbox/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-checkbox@workspace:components/Checkbox/react"
   dependencies:
@@ -1775,11 +1775,11 @@ __metadata:
   dependencies:
     "@cypress-design/constants-select": "npm:*"
     "@cypress-design/react-button": "workspace:^1.13.0"
-    "@cypress-design/react-checkbox": "workspace:^1.0.2"
+    "@cypress-design/react-checkbox": "workspace:^2.0.0"
     "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/react-tabs": "workspace:^1.2.2"
     "@cypress-design/react-tag": "workspace:^1.1.0"
-    "@cypress-design/react-textbox": "workspace:^1.0.1"
+    "@cypress-design/react-textbox": "workspace:^1.0.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1855,7 +1855,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-textbox@workspace:^1.0.1, @cypress-design/react-textbox@workspace:components/Textbox/react":
+"@cypress-design/react-textbox@workspace:^1.0.2, @cypress-design/react-textbox@workspace:components/Textbox/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-textbox@workspace:components/Textbox/react"
   dependencies:

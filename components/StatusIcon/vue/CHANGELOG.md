@@ -1,5 +1,11 @@
 # @cypress-design/vue-statusicon
 
+## 1.0.2
+
+### Patch Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - StatusIcon (Vue): `SolidStatusIcon`, `OutlineStatusIcon` and `SimpleStatusIcon` default `size` to `'24'`, like React. Leaving `size` out used to throw during render and take down the app. A `size`/`status` pair with no icon asset now renders nothing instead of throwing.
+
 ## 1.0.1
 
 ### Patch Changes
