@@ -20,13 +20,29 @@ const tabs = [
     ['aria-controls']: 'vue-underline-panel-4',
   },
 ]
+
+// Tab ids become element ids, so each Tabs on the page gets its own set.
+const tabsFor = (prefix: string) =>
+  tabs.map((tab) => ({ ...tab, id: `${prefix}-${tab.id}` }))
 </script>
 
 <template>
   <!-- A bottom border marks the active tab; center centers the tabs over a fading line. -->
   <div class="flex flex-col gap-4">
-    <Tabs :tabs="tabs" active-id="ov" variant="underline-small" />
-    <Tabs :tabs="tabs" active-id="ov" variant="underline-center" />
-    <Tabs :tabs="tabs" active-id="ov" variant="underline-large" />
+    <Tabs
+      :tabs="tabsFor('vue-underline-small')"
+      active-id="vue-underline-small-ov"
+      variant="underline-small"
+    />
+    <Tabs
+      :tabs="tabsFor('vue-underline-center')"
+      active-id="vue-underline-center-ov"
+      variant="underline-center"
+    />
+    <Tabs
+      :tabs="tabsFor('vue-underline-large')"
+      active-id="vue-underline-large-ov"
+      variant="underline-large"
+    />
   </div>
 </template>

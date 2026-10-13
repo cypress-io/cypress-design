@@ -3,23 +3,23 @@ import Tabs from '@cypress-design/vue-tabs'
 
 const tabs = [
   {
-    id: 'ov',
+    id: 'vue-indigo-light-ov',
     label: 'Overview',
     ['aria-controls']: 'vue-indigo-light-panel-1',
   },
   {
-    id: 'cl',
+    id: 'vue-indigo-light-cl',
     label: 'Command Log',
     ['aria-controls']: 'vue-indigo-light-panel-2',
   },
   {
-    id: 'err',
+    id: 'vue-indigo-light-err',
     label: 'Errors',
     tag: '13',
     ['aria-controls']: 'vue-indigo-light-panel-3',
   },
   {
-    id: 'reco',
+    id: 'vue-indigo-light-reco',
     label: 'Recommendations',
     ['aria-controls']: 'vue-indigo-light-panel-4',
   },
@@ -28,5 +28,5 @@ const tabs = [
 
 <template>
   <!-- Same layout as the default, with an indigo active tab. -->
-  <Tabs :tabs="tabs" active-id="ov" variant="indigo-light" />
+  <Tabs :tabs="tabs" active-id="vue-indigo-light-ov" variant="indigo-light" />
 </template>

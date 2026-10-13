@@ -16,12 +16,24 @@ const tabs = [
   },
 ]
 
+// Tab ids become element ids, so each Tabs on the page gets its own set.
+const tabsFor = (prefix: string) =>
+  tabs.map((tab) => ({ ...tab, id: `${prefix}-${tab.id}` }))
+
 // For dark surfaces, in two sizes.
 export default function Dark() {
   return (
     <div className="flex flex-col items-start gap-4">
-      <Tabs tabs={tabs} activeId="ov" variant="dark-small" />
-      <Tabs tabs={tabs} activeId="ov" variant="dark-large" />
+      <Tabs
+        tabs={tabsFor('react-dark-small')}
+        activeId="react-dark-small-ov"
+        variant="dark-small"
+      />
+      <Tabs
+        tabs={tabsFor('react-dark-large')}
+        activeId="react-dark-large-ov"
+        variant="dark-large"
+      />
     </div>
   )
 }

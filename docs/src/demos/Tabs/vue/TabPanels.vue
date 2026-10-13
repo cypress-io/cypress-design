@@ -2,22 +2,26 @@
 import { ref } from 'vue'
 import Tabs from '@cypress-design/vue-tabs'
 
-const activeId = ref('ov')
+const activeId = ref('vue-tab-panels-ov')
 const tabs = [
-  { id: 'ov', label: 'Overview', ['aria-controls']: 'vue-tab-panels-panel-1' },
   {
-    id: 'cl',
+    id: 'vue-tab-panels-ov',
+    label: 'Overview',
+    ['aria-controls']: 'vue-tab-panels-panel-1',
+  },
+  {
+    id: 'vue-tab-panels-cl',
     label: 'Command Log',
     ['aria-controls']: 'vue-tab-panels-panel-2',
   },
   {
-    id: 'err',
+    id: 'vue-tab-panels-err',
     label: 'Errors',
     tag: '13',
     ['aria-controls']: 'vue-tab-panels-panel-3',
   },
   {
-    id: 'reco',
+    id: 'vue-tab-panels-reco',
     label: 'Recommendations',
     ['aria-controls']: 'vue-tab-panels-panel-4',
   },

@@ -3,23 +3,23 @@ import Tabs from '@cypress-design/react-tabs'
 
 const tabs = [
   {
-    id: 'ov',
+    id: 'react-block-switching-ov',
     label: 'Overview',
     ['aria-controls']: 'react-block-switching-panel-1',
   },
   {
-    id: 'cl',
+    id: 'react-block-switching-cl',
     label: 'Command Log',
     ['aria-controls']: 'react-block-switching-panel-2',
   },
   {
-    id: 'err',
+    id: 'react-block-switching-err',
     label: 'Errors',
     tag: '13',
     ['aria-controls']: 'react-block-switching-panel-3',
   },
   {
-    id: 'reco',
+    id: 'react-block-switching-reco',
     label: 'Recommendations',
     ['aria-controls']: 'react-block-switching-panel-4',
   },
@@ -40,7 +40,7 @@ export default function BlockSwitching() {
       </label>
       <Tabs
         tabs={tabs}
-        activeId="ov"
+        activeId="react-block-switching-ov"
         onSwitch={(_tab, e) => {
           if (!allowMove) e.preventDefault()
         }}

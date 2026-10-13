@@ -9,26 +9,26 @@ import {
 // `icon` renders before the label, `iconAfter` after it.
 const tabs = [
   {
-    id: 'ov',
+    id: 'react-icons-ov',
     label: 'Overview',
     icon: IconActionPlayVideo,
     ['aria-controls']: 'react-icons-panel-1',
   },
   {
-    id: 'cl',
+    id: 'react-icons-cl',
     label: 'Command Log',
     icon: IconActionRecord,
     ['aria-controls']: 'react-icons-panel-2',
   },
   {
-    id: 'err',
+    id: 'react-icons-err',
     label: 'Errors',
     iconAfter: IconSecurityLockLocked,
     tag: '13',
     ['aria-controls']: 'react-icons-panel-3',
   },
   {
-    id: 'reco',
+    id: 'react-icons-reco',
     label: 'Recommendations',
     icon: IconGeneralCrosshairs,
     ['aria-controls']: 'react-icons-panel-4',
@@ -36,5 +36,5 @@ const tabs = [
 ]
 
 export default function Icons() {
-  return <Tabs tabs={tabs} activeId="ov" />
+  return <Tabs tabs={tabs} activeId="react-icons-ov" />
 }

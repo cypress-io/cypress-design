@@ -5,23 +5,23 @@ import Tabs from '@cypress-design/vue-tabs'
 const allowMove = ref(true)
 const tabs = [
   {
-    id: 'ov',
+    id: 'vue-block-switching-ov',
     label: 'Overview',
     ['aria-controls']: 'vue-block-switching-panel-1',
   },
   {
-    id: 'cl',
+    id: 'vue-block-switching-cl',
     label: 'Command Log',
     ['aria-controls']: 'vue-block-switching-panel-2',
   },
   {
-    id: 'err',
+    id: 'vue-block-switching-err',
     label: 'Errors',
     tag: '13',
     ['aria-controls']: 'vue-block-switching-panel-3',
   },
   {
-    id: 'reco',
+    id: 'vue-block-switching-reco',
     label: 'Recommendations',
     ['aria-controls']: 'vue-block-switching-panel-4',
   },
@@ -36,7 +36,7 @@ const tabs = [
   <!-- Calling preventDefault() in the switch handler keeps the current tab. -->
   <Tabs
     :tabs="tabs"
-    active-id="ov"
+    active-id="vue-block-switching-ov"
     @switch="
       (_tab, e) => {
         if (!allowMove) e.preventDefault()

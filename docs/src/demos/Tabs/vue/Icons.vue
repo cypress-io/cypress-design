@@ -10,26 +10,26 @@ import {
 // `icon` renders before the label, `iconAfter` after it.
 const tabs = [
   {
-    id: 'ov',
+    id: 'vue-icons-ov',
     label: 'Overview',
     icon: IconActionPlayVideo,
     ['aria-controls']: 'vue-icons-panel-1',
   },
   {
-    id: 'cl',
+    id: 'vue-icons-cl',
     label: 'Command Log',
     icon: IconActionRecord,
     ['aria-controls']: 'vue-icons-panel-2',
   },
   {
-    id: 'err',
+    id: 'vue-icons-err',
     label: 'Errors',
     iconAfter: IconSecurityLockLocked,
     tag: '13',
     ['aria-controls']: 'vue-icons-panel-3',
   },
   {
-    id: 'reco',
+    id: 'vue-icons-reco',
     label: 'Recommendations',
     icon: IconGeneralCrosshairs,
     ['aria-controls']: 'vue-icons-panel-4',
@@ -38,5 +38,5 @@ const tabs = [
 </script>
 
 <template>
-  <Tabs :tabs="tabs" active-id="ov" />
+  <Tabs :tabs="tabs" active-id="vue-icons-ov" />
 </template>

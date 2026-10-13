@@ -213,7 +213,10 @@ async function mountReact(
     component: React.ComponentType
     onRendered: () => void
   }) {
-    React.useEffect(() => {
+    // Layout effect: runs after React commits but before the browser paints,
+    // so the original island is retired in the same frame the new preview
+    // appears (no frame with both on screen). Never reached if render threw.
+    React.useLayoutEffect(() => {
       lastGood = component
       onRendered()
     }, [component, onRendered])

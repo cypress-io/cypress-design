@@ -3,23 +3,23 @@ import Tabs from '@cypress-design/react-tabs'
 
 const tabs = [
   {
-    id: 'ov',
+    id: 'react-tab-panels-ov',
     label: 'Overview',
     ['aria-controls']: 'react-tab-panels-panel-1',
   },
   {
-    id: 'cl',
+    id: 'react-tab-panels-cl',
     label: 'Command Log',
     ['aria-controls']: 'react-tab-panels-panel-2',
   },
   {
-    id: 'err',
+    id: 'react-tab-panels-err',
     label: 'Errors',
     tag: '13',
     ['aria-controls']: 'react-tab-panels-panel-3',
   },
   {
-    id: 'reco',
+    id: 'react-tab-panels-reco',
     label: 'Recommendations',
     ['aria-controls']: 'react-tab-panels-panel-4',
   },
@@ -27,7 +27,7 @@ const tabs = [
 
 // Tabs doesn't render panels: track the active id and show the matching one.
 export default function TabPanels() {
-  const [activeId, setActiveId] = useState('ov')
+  const [activeId, setActiveId] = useState('react-tab-panels-ov')
   return (
     <>
       <Tabs

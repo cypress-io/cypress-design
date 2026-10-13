@@ -16,12 +16,24 @@ const tabs = [
     ['aria-controls']: 'vue-dark-panel-4',
   },
 ]
+
+// Tab ids become element ids, so each Tabs on the page gets its own set.
+const tabsFor = (prefix: string) =>
+  tabs.map((tab) => ({ ...tab, id: `${prefix}-${tab.id}` }))
 </script>
 
 <template>
   <!-- For dark surfaces, in two sizes. -->
   <div class="flex flex-col items-start gap-4">
-    <Tabs :tabs="tabs" active-id="ov" variant="dark-small" />
-    <Tabs :tabs="tabs" active-id="ov" variant="dark-large" />
+    <Tabs
+      :tabs="tabsFor('vue-dark-small')"
+      active-id="vue-dark-small-ov"
+      variant="dark-small"
+    />
+    <Tabs
+      :tabs="tabsFor('vue-dark-large')"
+      active-id="vue-dark-large-ov"
+      variant="dark-large"
+    />
   </div>
 </template>
