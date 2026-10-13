@@ -23,7 +23,7 @@ You can either use the default spinner and import the styles manually.
 ```vue live
 <script setup>
 import Spinner from '@cypress-design/vue-spinner'
-import '@cypress-design/vue-spinner/styles.css'
+import '@cypress-design/vue-spinner/style.css'
 </script>
 
 <template>

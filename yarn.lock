@@ -1361,7 +1361,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/color-constants@npm:*, @cypress-design/color-constants@workspace:packages/color-constants":
+"@cypress-design/color-constants@npm:*, @cypress-design/color-constants@workspace:^1.1.0, @cypress-design/color-constants@workspace:packages/color-constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/color-constants@workspace:packages/color-constants"
   dependencies:
@@ -1452,11 +1452,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/constants-tabs@npm:*, @cypress-design/constants-tabs@workspace:components/Tabs/constants":
+"@cypress-design/constants-tabs@npm:*, @cypress-design/constants-tabs@workspace:^1.2.2, @cypress-design/constants-tabs@workspace:components/Tabs/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-tabs@workspace:components/Tabs/constants"
   dependencies:
-    "@cypress-design/icon-registry": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
@@ -1474,7 +1474,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/constants-textbox@npm:*, @cypress-design/constants-textbox@workspace:components/Textbox/constants":
+"@cypress-design/constants-textbox@npm:*, @cypress-design/constants-textbox@workspace:^1.0.1, @cypress-design/constants-textbox@workspace:components/Textbox/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-textbox@workspace:components/Textbox/constants"
   languageName: unknown
@@ -1508,8 +1508,11 @@ __metadata:
     "@astrojs/react": "npm:^5.0.4"
     "@astrojs/vue": "npm:^6.0.1"
     "@bahmutov/cypress-esbuild-preprocessor": "npm:^2.2.1"
+    "@changesets/apply-release-plan": "npm:^7.0.12"
     "@changesets/changelog-github": "npm:^0.5.0"
     "@changesets/cli": "npm:^2.29.2"
+    "@changesets/config": "npm:^3.1.1"
+    "@changesets/get-release-plan": "npm:^4.0.10"
     "@cypress-design/constants-tabs": "npm:*"
     "@cypress-design/css": "npm:*"
     "@cypress-design/favicon": "npm:*"
@@ -1520,6 +1523,7 @@ __metadata:
     "@cypress-design/vue-tooltip": "npm:*"
     "@eslint/compat": "npm:^1.0.3"
     "@eslint/js": "npm:^9.4.0"
+    "@manypkg/get-packages": "npm:^1.1.3"
     "@microsoft/api-extractor": "npm:^7.58.9"
     "@percy/cli": "npm:1.28.7"
     "@percy/cypress": "npm:3.1.2"
@@ -1548,6 +1552,7 @@ __metadata:
     cypress-axe: "npm:^1.6.0"
     cypress-real-events: "npm:^1.14.0"
     dedent: "npm:^1.5.3"
+    es-module-lexer: "npm:^2.0.0"
     esbuild: "npm:^0.21.4"
     eslint: "npm:^9"
     eslint-import-resolver-typescript: "npm:^3.6.1"
@@ -1570,6 +1575,7 @@ __metadata:
     rollup-plugin-dts: "npm:^6.4.1"
     rollup-plugin-postcss: "npm:^4.0.2"
     rollup-plugin-sourcemaps: "npm:^0.6.3"
+    semver: "npm:^7.7.4"
     shiki: "npm:^1.6.2"
     turbo: "npm:^2.1.1"
     typescript: "npm:5.4.5"
@@ -1582,7 +1588,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/details-animation@npm:*, @cypress-design/details-animation@workspace:packages/details-animation":
+"@cypress-design/details-animation@workspace:^1.0.0, @cypress-design/details-animation@workspace:packages/details-animation":
   version: 0.0.0-use.local
   resolution: "@cypress-design/details-animation@workspace:packages/details-animation"
   languageName: unknown
@@ -1608,7 +1614,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/favicon@npm:*, @cypress-design/favicon@workspace:packages/favicon":
+"@cypress-design/favicon@npm:*, @cypress-design/favicon@workspace:^1.0.0, @cypress-design/favicon@workspace:packages/favicon":
   version: 0.0.0-use.local
   resolution: "@cypress-design/favicon@workspace:packages/favicon"
   dependencies:
@@ -1618,11 +1624,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:icon-registry":
+"@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:^3.3.2, @cypress-design/icon-registry@workspace:icon-registry":
   version: 0.0.0-use.local
   resolution: "@cypress-design/icon-registry@workspace:icon-registry"
   dependencies:
-    "@cypress-design/color-constants": "npm:*"
+    "@cypress-design/color-constants": "workspace:^1.1.0"
     "@types/lodash-es": "npm:^4.17.12"
     dedent: "npm:^1.5.3"
     globby: "npm:^14.0.1"
@@ -1639,8 +1645,8 @@ __metadata:
   resolution: "@cypress-design/react-accordion@workspace:components/Accordion/react"
   dependencies:
     "@cypress-design/constants-accordion": "npm:*"
-    "@cypress-design/details-animation": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/details-animation": "workspace:^1.0.0"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1651,8 +1657,8 @@ __metadata:
   resolution: "@cypress-design/react-alert@workspace:components/Alert/react"
   dependencies:
     "@cypress-design/constants-alert": "npm:*"
-    "@cypress-design/details-animation": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/details-animation": "workspace:^1.0.0"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
     postcss: "npm:^8.4.38"
@@ -1661,7 +1667,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-button@npm:*, @cypress-design/react-button@workspace:components/Button/react":
+"@cypress-design/react-button@workspace:^1.13.0, @cypress-design/react-button@workspace:components/Button/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-button@workspace:components/Button/react"
   dependencies:
@@ -1671,12 +1677,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-checkbox@npm:*, @cypress-design/react-checkbox@workspace:components/Checkbox/react":
+"@cypress-design/react-checkbox@npm:*, @cypress-design/react-checkbox@workspace:^1.0.2, @cypress-design/react-checkbox@workspace:components/Checkbox/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-checkbox@workspace:components/Checkbox/react"
   dependencies:
     "@cypress-design/constants-checkbox": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1687,7 +1693,7 @@ __metadata:
   resolution: "@cypress-design/react-docmenu@workspace:components/DocMenu/react"
   dependencies:
     "@cypress-design/constants-docmenu": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1697,18 +1703,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-favicon@workspace:components/Favicon/react"
   dependencies:
-    "@cypress-design/favicon": "npm:*"
+    "@cypress-design/favicon": "workspace:^1.0.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
   bin:
     cypress-favicon: ./bin/cypress-favicon.mjs
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-icon@npm:*, @cypress-design/react-icon@workspace:components/Icon/react":
+"@cypress-design/react-icon@npm:*, @cypress-design/react-icon@workspace:^3.3.2, @cypress-design/react-icon@workspace:components/Icon/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-icon@workspace:components/Icon/react"
   dependencies:
-    "@cypress-design/icon-registry": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@types/lodash": "npm:^4.17.4"
     clsx: "npm:*"
@@ -1721,7 +1727,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-logo@workspace:components/Logo/react"
   dependencies:
-    "@cypress-design/icon-registry": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1744,7 +1750,7 @@ __metadata:
   dependencies:
     "@cypress-design/constants-modal": "npm:*"
     "@cypress-design/css": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
     clsx: "npm:*"
   languageName: unknown
   linkType: soft
@@ -1754,9 +1760,9 @@ __metadata:
   resolution: "@cypress-design/react-runresults@workspace:components/RunResults/react"
   dependencies:
     "@cypress-design/constants-runresults": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
-    "@cypress-design/react-statusicon": "npm:*"
-    "@cypress-design/react-tooltip": "npm:*"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-statusicon": "workspace:^1.0.5"
+    "@cypress-design/react-tooltip": "workspace:^2.1.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
     tailwind-merge: "npm:^2.0.0"
@@ -1768,12 +1774,12 @@ __metadata:
   resolution: "@cypress-design/react-select@workspace:components/Select/react"
   dependencies:
     "@cypress-design/constants-select": "npm:*"
-    "@cypress-design/react-button": "npm:*"
-    "@cypress-design/react-checkbox": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
-    "@cypress-design/react-tabs": "npm:*"
-    "@cypress-design/react-tag": "npm:*"
-    "@cypress-design/react-textbox": "npm:*"
+    "@cypress-design/react-button": "workspace:^1.13.0"
+    "@cypress-design/react-checkbox": "workspace:^1.0.2"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-tabs": "workspace:^1.2.2"
+    "@cypress-design/react-tag": "workspace:^1.1.0"
+    "@cypress-design/react-textbox": "workspace:^1.0.1"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1784,10 +1790,10 @@ __metadata:
   resolution: "@cypress-design/react-spec-results@workspace:components/SpecResults/react"
   dependencies:
     "@cypress-design/constants-spec-results": "npm:*"
-    "@cypress-design/react-button": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
-    "@cypress-design/react-statusicon": "npm:*"
-    "@cypress-design/react-tooltip": "npm:*"
+    "@cypress-design/react-button": "workspace:^1.13.0"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-statusicon": "workspace:^1.0.5"
+    "@cypress-design/react-tooltip": "workspace:^2.1.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1805,28 +1811,29 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-statusicon@npm:*, @cypress-design/react-statusicon@workspace:components/StatusIcon/react":
+"@cypress-design/react-statusicon@workspace:^1.0.5, @cypress-design/react-statusicon@workspace:components/StatusIcon/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-statusicon@workspace:components/StatusIcon/react"
   dependencies:
     "@cypress-design/constants-statusicon": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-tabs@npm:*, @cypress-design/react-tabs@workspace:components/Tabs/react":
+"@cypress-design/react-tabs@npm:*, @cypress-design/react-tabs@workspace:^1.2.2, @cypress-design/react-tabs@workspace:components/Tabs/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-tabs@workspace:components/Tabs/react"
   dependencies:
-    "@cypress-design/constants-tabs": "npm:*"
+    "@cypress-design/constants-tabs": "workspace:^1.2.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-tag@npm:*, @cypress-design/react-tag@workspace:components/Tag/react":
+"@cypress-design/react-tag@workspace:^1.1.0, @cypress-design/react-tag@workspace:components/Tag/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-tag@workspace:components/Tag/react"
   dependencies:
@@ -1841,24 +1848,24 @@ __metadata:
   resolution: "@cypress-design/react-testresult@workspace:components/TestResult/react"
   dependencies:
     "@cypress-design/constants-testresult": "npm:*"
-    "@cypress-design/react-icon": "npm:*"
-    "@cypress-design/react-statusicon": "npm:*"
+    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-statusicon": "workspace:^1.0.5"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-textbox@npm:*, @cypress-design/react-textbox@workspace:components/Textbox/react":
+"@cypress-design/react-textbox@workspace:^1.0.1, @cypress-design/react-textbox@workspace:components/Textbox/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-textbox@workspace:components/Textbox/react"
   dependencies:
-    "@cypress-design/constants-textbox": "npm:*"
+    "@cypress-design/constants-textbox": "workspace:^1.0.1"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-tooltip@npm:*, @cypress-design/react-tooltip@workspace:components/Tooltip/react":
+"@cypress-design/react-tooltip@npm:*, @cypress-design/react-tooltip@workspace:^2.1.0, @cypress-design/react-tooltip@workspace:components/Tooltip/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-tooltip@workspace:components/Tooltip/react"
   dependencies:
@@ -1884,9 +1891,9 @@ __metadata:
   resolution: "@cypress-design/vue-accordion@workspace:components/Accordion/vue"
   dependencies:
     "@cypress-design/constants-accordion": "npm:*"
-    "@cypress-design/details-animation": "npm:*"
+    "@cypress-design/details-animation": "workspace:^1.0.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
@@ -1895,13 +1902,13 @@ __metadata:
   resolution: "@cypress-design/vue-alert@workspace:components/Alert/vue"
   dependencies:
     "@cypress-design/constants-alert": "npm:*"
-    "@cypress-design/details-animation": "npm:*"
+    "@cypress-design/details-animation": "workspace:^1.0.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-button@npm:*, @cypress-design/vue-button@workspace:components/Button/vue":
+"@cypress-design/vue-button@npm:*, @cypress-design/vue-button@workspace:^1.13.0, @cypress-design/vue-button@workspace:components/Button/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-button@workspace:components/Button/vue"
   dependencies:
@@ -1910,13 +1917,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-checkbox@npm:*, @cypress-design/vue-checkbox@workspace:components/Checkbox/vue":
+"@cypress-design/vue-checkbox@npm:*, @cypress-design/vue-checkbox@workspace:^1.0.0, @cypress-design/vue-checkbox@workspace:components/Checkbox/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-checkbox@workspace:components/Checkbox/vue"
   dependencies:
     "@cypress-design/constants-checkbox": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
@@ -1926,7 +1933,7 @@ __metadata:
   dependencies:
     "@cypress-design/constants-docmenu": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
@@ -1934,18 +1941,18 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-favicon@workspace:components/Favicon/vue"
   dependencies:
-    "@cypress-design/favicon": "npm:*"
+    "@cypress-design/favicon": "workspace:^1.0.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
   bin:
     cypress-favicon: ./bin/cypress-favicon.mjs
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-icon@npm:*, @cypress-design/vue-icon@workspace:components/Icon/vue":
+"@cypress-design/vue-icon@npm:*, @cypress-design/vue-icon@workspace:^3.3.2, @cypress-design/vue-icon@workspace:components/Icon/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-icon@workspace:components/Icon/vue"
   dependencies:
-    "@cypress-design/icon-registry": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@types/lodash": "npm:^4.17.4"
     dedent: "npm:^1.5.3"
@@ -1957,7 +1964,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-logo@workspace:components/Logo/vue"
   dependencies:
-    "@cypress-design/icon-registry": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
   languageName: unknown
   linkType: soft
@@ -1977,7 +1984,7 @@ __metadata:
   resolution: "@cypress-design/vue-modal@workspace:components/Modal/vue"
   dependencies:
     "@cypress-design/constants-modal": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
@@ -1987,9 +1994,9 @@ __metadata:
   dependencies:
     "@cypress-design/constants-runresults": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
-    "@cypress-design/vue-statusicon": "npm:*"
-    "@cypress-design/vue-tooltip": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
+    "@cypress-design/vue-statusicon": "workspace:^1.0.1"
+    "@cypress-design/vue-tooltip": "workspace:^2.1.0"
     tailwind-merge: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
@@ -2000,12 +2007,12 @@ __metadata:
   dependencies:
     "@cypress-design/constants-select": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-button": "npm:*"
-    "@cypress-design/vue-checkbox": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
-    "@cypress-design/vue-tabs": "npm:*"
-    "@cypress-design/vue-tag": "npm:*"
-    "@cypress-design/vue-textbox": "npm:*"
+    "@cypress-design/vue-button": "workspace:^1.13.0"
+    "@cypress-design/vue-checkbox": "workspace:^1.0.0"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
+    "@cypress-design/vue-tabs": "workspace:^1.2.2"
+    "@cypress-design/vue-tag": "workspace:^1.1.0"
+    "@cypress-design/vue-textbox": "workspace:^1.0.1"
   languageName: unknown
   linkType: soft
 
@@ -2018,27 +2025,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-statusicon@npm:*, @cypress-design/vue-statusicon@workspace:components/StatusIcon/vue":
+"@cypress-design/vue-statusicon@workspace:^1.0.1, @cypress-design/vue-statusicon@workspace:components/StatusIcon/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-statusicon@workspace:components/StatusIcon/vue"
   dependencies:
     "@cypress-design/constants-statusicon": "npm:*"
-    "@cypress-design/icon-registry": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tabs@npm:*, @cypress-design/vue-tabs@workspace:components/Tabs/vue":
+"@cypress-design/vue-tabs@workspace:^1.2.2, @cypress-design/vue-tabs@workspace:components/Tabs/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tabs@workspace:components/Tabs/vue"
   dependencies:
-    "@cypress-design/constants-tabs": "npm:*"
+    "@cypress-design/constants-tabs": "workspace:^1.2.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tag@npm:*, @cypress-design/vue-tag@workspace:components/Tag/vue":
+"@cypress-design/vue-tag@workspace:^1.1.0, @cypress-design/vue-tag@workspace:components/Tag/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tag@workspace:components/Tag/vue"
   dependencies:
@@ -2052,13 +2059,14 @@ __metadata:
   resolution: "@cypress-design/vue-testresult@workspace:components/TestResult/vue"
   dependencies:
     "@cypress-design/constants-testresult": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    "@cypress-design/vue-icon": "npm:*"
-    "@cypress-design/vue-statusicon": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
+    "@cypress-design/vue-statusicon": "workspace:^1.0.1"
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-textbox@npm:*, @cypress-design/vue-textbox@workspace:components/Textbox/vue":
+"@cypress-design/vue-textbox@workspace:^1.0.1, @cypress-design/vue-textbox@workspace:components/Textbox/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-textbox@workspace:components/Textbox/vue"
   dependencies:
@@ -2067,7 +2075,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-tooltip@npm:*, @cypress-design/vue-tooltip@workspace:components/Tooltip/vue":
+"@cypress-design/vue-tooltip@npm:*, @cypress-design/vue-tooltip@workspace:^2.1.0, @cypress-design/vue-tooltip@workspace:components/Tooltip/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-tooltip@workspace:components/Tooltip/vue"
   dependencies:

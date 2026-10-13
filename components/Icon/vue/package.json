@@ -1,9 +1,10 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "files": [
     "*"
   ],
+  "sideEffects": false,
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
@@ -21,7 +22,7 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",

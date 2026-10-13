@@ -141,7 +141,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       <>
         <Head
           onClick={() => toggleMenu(!open)}
-          href={group.href}
+          href={collapsible ? undefined : group.href}
           className={clsx(CssClasses.button, {
             [CssClasses.topButton]: depth === 0,
             [CssClasses.leafButton]: depth,

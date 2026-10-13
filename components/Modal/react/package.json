@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-modal",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "files": [
     "*"
   ],
@@ -9,6 +9,7 @@
   "main": "./dist/index.umd.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.es.mjs",
       "require": "./dist/index.umd.js"
     }
@@ -19,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "*",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
     "clsx": "*"
   },
   "devDependencies": {

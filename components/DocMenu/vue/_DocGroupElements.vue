@@ -30,7 +30,7 @@ export interface DocGroupEventsEmitted {
 </script>
 
 <script lang="ts" setup>
-import { DefineComponent, computed, ref } from 'vue'
+import { type Component, computed, ref } from 'vue'
 import { NavGroup, NavItemLink } from '@cypress-design/constants-docmenu'
 import DocGroup from './_DocGroup.vue'
 import DocLink from './_DocLink.vue'
@@ -39,7 +39,7 @@ const props = defineProps<{
   items: (NavGroup | NavItemLink)[]
   activePath?: string
   collapsible: boolean
-  linkComponent: DefineComponent | 'a'
+  linkComponent: Component | 'a'
   depth: number
 }>()
 

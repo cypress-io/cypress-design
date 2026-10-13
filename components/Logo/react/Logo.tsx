@@ -27,8 +27,8 @@ export const CypressMark: React.FC<
 }
 
 export const CypressWatermark: React.FC<
-  React.SVGProps<SVGSVGElement> & { dark: boolean }
-> = ({ dark, className, ...rest }) => {
+  React.SVGProps<SVGSVGElement> & { dark?: boolean }
+> = ({ dark = false, className, ...rest }) => {
   return (
     <CypressMark
       {...rest}

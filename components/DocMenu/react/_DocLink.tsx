@@ -56,7 +56,15 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     // send the top position to the parent
     React.useEffect(setActiveMarkerPosition, [onActive, active])
 
+    // Only scroll when the active item changes, not on first mount (matches
+    // Vue). Scrolling on mount yanked the page to any menu rendered with an
+    // active item, e.g. a docs demo below the fold.
+    const isFirstRun = React.useRef(true)
     React.useEffect(() => {
+      if (isFirstRun.current) {
+        isFirstRun.current = false
+        return
+      }
       // if active check if the item is visible in the
       // viewport and scrollIntoView if not
       setTimeout(() => {

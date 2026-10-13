@@ -223,6 +223,7 @@ const iconProps = computed(() => {
           )
           if (switchEvent.defaultPrevented) return
           activeId = id
+          emit('update:activeId', id)
         }
       "
       @keyup.left="navigate(-1)"
