@@ -8,11 +8,11 @@ import { compileProps } from './compileProps'
 export default defineComponent({
   props: ['size', 'status'],
   setup(props: SVGAttributes & VariantStatusIconProps) {
-    const { componentProps } = compileProps(props, {
+    const { componentProps, hasIcon } = compileProps(props, {
       variantName: 'outline',
       statuses: outline.statuses,
     })
 
-    return () => h('svg', componentProps.value)
+    return () => (hasIcon.value ? h('svg', componentProps.value) : null)
   },
 })

@@ -27,6 +27,8 @@ interface NavMenuItem {
 }
 ```
 
+Items can also take an `icon` and an animated `iconActive`. Menu renders `icon` at 24px. In React, pass any icon component that ships at 24px directly (`icon: IconObjectGear`), including icons that also ship at 16px.
+
 ### `NavMenuGroup` shape
 
 ```ts

@@ -58,6 +58,9 @@ jobs:
           yarn turbo run build --filter=@cypress-design/css
           yarn workspace @cypress-design/icon-registry build
 
+      - name: Check internal runtime dependencies
+        run: node scripts/check-internal-deps.mjs
+
       - name: Run Unit Tests
         run: yarn test
 

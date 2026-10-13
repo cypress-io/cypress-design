@@ -97,7 +97,7 @@ export default () => {
           ))}
           <div key={variant} className="flex gap-[8px] items-center">
             🚫
-            <Button variant={variant} size="48" disabled="true">
+            <Button variant={variant} size="48" disabled>
               Button
             </Button>
           </div>

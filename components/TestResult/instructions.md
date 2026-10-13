@@ -10,17 +10,25 @@ yarn add @cypress-design/constants-testresult    # shared types + TestResults fi
 
 ## Props
 
-All props are derived from the `TestResultData` interface plus a required `status`:
+All props are derived from the `TestResultData` interface:
 
-| Prop         | Type                                                                                 | Default  | Description                                            |
-| ------------ | ------------------------------------------------------------------------------------ | -------- | ------------------------------------------------------ |
-| `status`     | `"passed" \| "failed" \| "pending" \| "skipped" \| "running" \| "notRun" \| "flaky"` | required | Result status                                          |
-| `names`      | `string[]`                                                                           | required | Spec path segments — last item is the test title       |
-| `duration`   | `number`                                                                             | —        | Test duration in ms                                    |
-| `groups`     | `string[]`                                                                           | —        | Sub-group labels (enables the expand/collapse chevron) |
-| `isNew`      | `boolean`                                                                            | `false`  | Shows a "new" badge                                    |
-| `isModified` | `boolean`                                                                            | `false`  | Shows a "modified" badge                               |
-| `isFlaky`    | `boolean`                                                                            | `false`  | Shows a flaky indicator icon                           |
+| Prop       | Type                                                                                                                                                                             | Default  | Description                                             |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------- |
+| `status`   | `"running" \| "failing" \| "passed" \| "failed" \| "unclaimed" \| "placeholder" \| "cancelled" \| "noTests" \| "errored" \| "timedOut" \| "overLimit" \| "skipped" \| "pending"` | required | Result status, shown as a solid status icon             |
+| `names`    | `string[]`                                                                                                                                                                       | required | Hierarchy of the test — the last item is the test title |
+| `added`    | `boolean`                                                                                                                                                                        | `false`  | Shows an "added" icon                                   |
+| `modified` | `boolean`                                                                                                                                                                        | `false`  | Shows a "modified" icon                                 |
+| `flaky`    | `boolean`                                                                                                                                                                        | `false`  | Shows a flaky icon                                      |
+
+React only:
+
+| Prop        | Type              | Default | Description                                                                                 |
+| ----------- | ----------------- | ------- | ------------------------------------------------------------------------------------------- |
+| `groups`    | `React.ReactNode` | —       | Content rendered in the groups section below the row. The section is hidden when it's falsy |
+| `children`  | `React.ReactNode` | —       | Per-row actions (e.g. a Test Replay button), rendered at the end of the row                 |
+| `className` | `string`          | —       | Extra classes for the container                                                             |
+
+React also passes any other `div` attributes (e.g. `onClick`) through to the container.
 
 ## Events
 
@@ -38,9 +46,13 @@ All props are derived from the `TestResultData` interface plus a required `statu
 />
 ```
 
+In React, pass `onClick` instead.
+
 ## Slots
 
-| Slot      | Description                                         |
-| --------- | --------------------------------------------------- |
-| `actions` | Per-row action buttons (e.g. Test Replay button)    |
-| `groups`  | Content rendered inside the expanded groups section |
+Vue only. In React, pass actions as `children` and groups as the `groups` prop.
+
+| Slot      | Description                                              |
+| --------- | -------------------------------------------------------- |
+| `actions` | Per-row action buttons (e.g. Test Replay button)         |
+| `groups`  | Content rendered inside the groups section below the row |

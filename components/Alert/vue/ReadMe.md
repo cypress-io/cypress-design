@@ -18,7 +18,7 @@ yarn add @cypress-design/vue-alert
 import Alert from '@cypress-design/vue-alert'
 ```
 
-The simplest is to use with plain text. By default, type is `info`.
+The simplest is to use with plain text. By default, `variant` is `info`.
 
 ```jsx live
 <Alert variant="error">Great Scott!!</Alert>

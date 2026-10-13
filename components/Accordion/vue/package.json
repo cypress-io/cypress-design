@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-accordion",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "files": [
     "*"
   ],
@@ -21,8 +21,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@cypress-design/details-animation": "*",
-    "@cypress-design/vue-icon": "*"
+    "@cypress-design/details-animation": "workspace:^1.0.0",
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   },
   "devDependencies": {
     "@cypress-design/constants-accordion": "*",

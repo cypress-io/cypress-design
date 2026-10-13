@@ -21,7 +21,7 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/favicon": "*"
+    "@cypress-design/favicon": "workspace:^1.0.0"
   },
   "license": "MIT",
   "devDependencies": {

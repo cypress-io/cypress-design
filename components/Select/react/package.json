@@ -20,12 +20,12 @@
     "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
   },
   "dependencies": {
-    "@cypress-design/react-button": "*",
-    "@cypress-design/react-checkbox": "*",
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-tabs": "*",
-    "@cypress-design/react-tag": "*",
-    "@cypress-design/react-textbox": "*",
+    "@cypress-design/react-button": "workspace:^1.13.0",
+    "@cypress-design/react-checkbox": "workspace:^1.0.2",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
+    "@cypress-design/react-tabs": "workspace:^1.2.2",
+    "@cypress-design/react-tag": "workspace:^1.1.0",
+    "@cypress-design/react-textbox": "workspace:^1.0.1",
     "clsx": "*"
   },
   "devDependencies": {

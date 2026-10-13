@@ -26,11 +26,14 @@ const iconsComponents = Object.keys(iconsMetadata).map((name) => {
     return acc
   }, {})
 
+  // The PURE annotation lets bundlers drop icons the consumer never imports.
+  // Without it, each defineComponent() call is assumed to have side effects
+  // and every icon (plus the whole icon registry) ends up in the bundle.
   return dedent`
-  export const Icon${pascalCaseName} = defineComponent<Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
+  export const Icon${pascalCaseName} = /* @__PURE__ */ defineComponent<Omit<iconsRegistry.Icon${pascalCaseName}Props, 'name'> & {
     class?: any
   }>({
-    ...__iconComponentOpts__, 
+    props: __iconComponentProps__,
     setup(props: iconsRegistry.NamelessIcon${pascalCaseName}Props & {
     class?: any
   }, { attrs }: { attrs: Omit<SVGAttributes, 'name' | 'class'> }) {
@@ -60,9 +63,13 @@ import type { ComputedRef, SVGAttributes, Ref } from 'vue'
 import * as iconsRegistry from '@cypress-design/icon-registry'
 import { compileVueIconProperties, useShouldRenderDefs } from './compileProperties'
 
-const __iconComponentOpts__ = {
-  props: [...iconsRegistry.ICON_COLOR_PROP_NAMES, 'interactiveColorsOnGroup', 'size', 'class', 'alt'] as string[],
-} as any
+// Shared by every icon. Referenced directly (not spread into the options) and
+// built with a PURE concat() rather than an array spread, so esbuild and
+// rollup can prove the module has no top-level side effects and drop unused
+// icons along with the rest of the icon registry.
+const __iconComponentProps__ = /* @__PURE__ */ (
+  iconsRegistry.ICON_COLOR_PROP_NAMES as readonly string[]
+).concat(['interactiveColorsOnGroup', 'size', 'class', 'alt']) as any
 
 function useIconProps(props: SVGAttributes & Omit<iconsRegistry.IconProps, 'name'>, iconBodiesAndDefs: Record<string, {body: string, defs?: string}>, availableSizes: string[], name: string) {
   return computed(() => {
