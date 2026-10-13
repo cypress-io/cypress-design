@@ -174,5 +174,6 @@ Generation runs from `@cypress-design/css` (`build:colors-css`) and writes into 
 **When adding component docs:**
 
 1. Write `/components/{Component}/instructions.md` (consumer docs)
-2. Add demo to `/docs/src/demos/{Component}.vue` (live example)
-3. Component page (`/docs/src/pages/components/[component].astro`) automatically picks it up
+2. Add tiles under `/docs/src/demos/{Component}/`: `tiles.ts` (ladder order), one file per tile in `vue/` and `react/` (only for frameworks the component ships), and optionally `AllStates.{vue,astro,tsx}` for the gallery. Reuse the component's existing demo data.
+3. Register each new package in `/docs/src/lib/tile-modules.ts`, or editing its tiles fails with "The editor can't import …"
+4. Component page (`/docs/src/pages/components/[component].astro`) picks up the tiles automatically. A component with only `/docs/src/demos/{Component}.vue` keeps the older single-demo layout.

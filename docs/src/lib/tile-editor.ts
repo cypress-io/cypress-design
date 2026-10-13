@@ -45,7 +45,11 @@ function loadHighlighter() {
 let highlighter: ReturnType<typeof loadHighlighter> | undefined
 
 function getHighlighter() {
-  highlighter ??= loadHighlighter()
+  // Forget a failed load so the next edit retries instead of reusing it.
+  highlighter ??= loadHighlighter().catch((err) => {
+    highlighter = undefined
+    throw err
+  })
   return highlighter
 }
 
@@ -365,6 +369,8 @@ export async function update(tile: HTMLElement): Promise<void> {
   if (!session) {
     session = createSession(tile)
     sessions.set(tile, session)
+    // Forget a failed start so the next keystroke retries.
+    session.catch(() => sessions.delete(tile))
   }
   ;(await session).schedule()
 }
