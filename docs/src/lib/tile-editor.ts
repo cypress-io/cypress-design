@@ -273,7 +273,6 @@ async function createSession(tile: HTMLElement): Promise<Session> {
   const preview = tile.querySelector<HTMLElement>('[data-tile-preview]')!
   const input = tile.querySelector<HTMLTextAreaElement>('[data-tile-code]')!
   const code = tile.querySelector<HTMLElement>('pre code')!
-  const originalLines = code.innerHTML
 
   // The static island stays up until an edit first renders (e.g. if the
   // first keystroke breaks the code). Then it's removed and unmounted, not
@@ -353,12 +352,26 @@ async function createSession(tile: HTMLElement): Promise<Session> {
       clearTimeout(timer)
       run += 1
       input.value = input.defaultValue
-      code.innerHTML = originalLines
       error.textContent = ''
       note.hidden = true
-      // Once the island is gone, the original preview comes back by
-      // rendering the file's own code through the editor.
-      if (!island) void render()
+      if (!island) {
+        // The island is gone: re-render the file's own code through the
+        // editor, which also re-highlights it.
+        void render()
+        return
+      }
+      // The original preview is still up, so only the code needs restoring.
+      // Re-highlight the file rather than restoring a snapshot: by the time
+      // the session starts, the first keystroke has already replaced the
+      // highlighted block with plain text.
+      const current = run
+      const value = input.value
+      code.innerHTML = plainLines(value)
+      void highlightedLines(value, framework)
+        .catch(() => plainLines(value))
+        .then((lines) => {
+          if (current === run) code.innerHTML = lines
+        })
     },
   }
 }
