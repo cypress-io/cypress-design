@@ -1,5 +1,20 @@
 # @cypress-design/vue-checkbox
 
+## 1.2.0
+
+### Minor Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Checkbox now follows `checked` (and in Vue, `modelValue`) when it changes after mount, so it can be controlled from outside; Vue `v-model`, including the array mode tied to `name`, keeps working.
+
+  **Breaking (React):** passing `checked` now makes the checkbox controlled — it shows exactly `checked`, so update it from `onChange` to toggle the box. Previously `checked` only set the starting state. If you used `checked` as a starting value, switch to the new `defaultChecked` prop:
+
+  ```diff
+  - <Checkbox checked onChange={save} />
+  + <Checkbox defaultChecked onChange={save} />
+  ```
+
+  `onChange` is now optional. Omitting both `checked` and `defaultChecked` keeps the self-managed box that starts unchecked.
+
 ## 1.1.0
 
 ### Minor Changes

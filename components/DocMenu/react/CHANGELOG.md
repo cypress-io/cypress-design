@@ -1,5 +1,13 @@
 # @cypress-design/react-docmenu
 
+## 1.1.1
+
+### Patch Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - DocMenu: a collapsible group header renders as a `<button>` and no longer carries the group's `href`, which isn't valid on a button.
+
+  React DocMenu no longer scrolls the page to the active item when it first mounts, only when the active item changes, matching Vue.
+
 ## 1.1.0
 
 ### Minor Changes

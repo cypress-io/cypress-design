@@ -1,5 +1,16 @@
 # @cypress-design/react-testresult
 
+## 1.1.1
+
+### Patch Changes
+
+- [#728](https://github.com/cypress-io/cypress-design/pull/728) [`7807cfd`](https://github.com/cypress-io/cypress-design/commit/7807cfdba9d330f24f3b4912a9ad41cedf2193cb) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Fix types for consumers using TypeScript's `bundler` module resolution (the default for Vite and most modern setups):
+
+  - `react-logo`, `react-menu`, `react-modal`, `react-testresult`: add the `types` condition to `exports`, so TypeScript finds `dist/index.d.ts` instead of reporting the package as untyped.
+  - `vue-spinner`: the `./sfc` subpath now points TypeScript at `dist/Spinner.vue.d.ts`.
+  - `vue-docmenu`: `linkComponent` accepts any Vue component (`Component | 'a'`); the previous `DefineComponent | 'a'` type rejected real components.
+  - `react-textbox`: `onChange` receives a `ChangeEvent`, so `event.target.value` type-checks.
+
 ## 1.1.0
 
 ### Minor Changes

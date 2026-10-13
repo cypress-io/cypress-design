@@ -1,5 +1,13 @@
 # @cypress-design/react-select
 
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f), [`7807cfd`](https://github.com/cypress-io/cypress-design/commit/7807cfdba9d330f24f3b4912a9ad41cedf2193cb)]:
+  - @cypress-design/react-checkbox@2.0.0
+  - @cypress-design/react-textbox@1.0.2
+
 ## 1.0.1
 
 ### Patch Changes
