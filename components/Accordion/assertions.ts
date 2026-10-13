@@ -39,6 +39,18 @@ export default function assertions(
     cy.get('details').should('not.have.attr', 'open')
   })
 
+  // Real (trusted) clicks run microtasks between listeners, unlike
+  // `.click()`; Vue used to re-render `open` in between and the accordion
+  // could never be closed by a user.
+  it('opens and closes with real clicks', () => {
+    mountStory()
+    cy.get('details summary').realClick()
+    cy.get('details').should('have.attr', 'open')
+    cy.contains('Lorem ipsum, dolor sit amet').should('be.visible')
+    cy.get('details summary').realClick()
+    cy.get('details').should('not.have.attr', 'open')
+  })
+
   it('displays a separator when separator:true', () => {
     mountStory({ separator: true })
     // the separator has a width of 1px. For some reason cypress detects it as invisible.
@@ -105,6 +117,36 @@ export default function assertions(
       .then(() => {
         expect(onToggle).to.have.been.calledWith(true)
       })
+  })
+
+  it('calls onToggle once per open and once per close', () => {
+    const onToggle = cy.stub()
+    mountStory({ onToggle })
+
+    cy.get('details summary').click()
+    cy.wait(50) // let the native toggle event fire
+    cy.then(() => {
+      expect(onToggle).to.have.been.calledOnceWith(true)
+    })
+
+    cy.get('details summary').click()
+    cy.wait(300) // let the close animation finish
+    cy.then(() => {
+      expect(onToggle).to.have.been.calledTwice
+      expect(onToggle.secondCall).to.have.been.calledWith(false)
+    })
+  })
+
+  it('does not toggle when onClickSummary returns false', () => {
+    const onToggle = cy.stub()
+    mountStory({ onClickSummary: () => false, onToggle })
+
+    cy.get('details summary').click()
+    cy.wait(50)
+    cy.get('details').should('not.have.attr', 'open')
+    cy.then(() => {
+      expect(onToggle).not.to.have.been.called
+    })
   })
 
   it('should not show a separator if no icon is provided', () => {

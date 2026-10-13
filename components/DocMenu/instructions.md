@@ -42,7 +42,7 @@ interface NavGroup {
 ```
 
 - `collapsed` — when `true`, the group starts closed. A group that contains the active item opens when `activePath` changes. In React it also opens on first render and can't be closed while it holds the active item.
-- `href` — the group header renders as a link to it when the menu's `collapsible` is `false`. The header is highlighted when `href` matches `activePath`.
+- `href` — the group header renders as a link to it when the menu's `collapsible` is `false`. When `collapsible` is `true` the header is a toggle `<button>` and `href` isn't rendered on it. Either way, the header is highlighted when `href` matches `activePath`.
 
 ## Events
 

@@ -18,6 +18,8 @@ yarn add @cypress-design/constants-statusicon    # shared types
 
 This is the live prop type from `@cypress-design/constants-statusicon` (`constants.ts`) — treat it, not this file's prose, as the source of truth if they ever disagree.
 
+The tree-shakable `SolidStatusIcon`, `OutlineStatusIcon` and `SimpleStatusIcon` take the same `size` and `status` props with the same defaults. In Vue, a `size`/`status` pair with no icon asset (an unknown status or a size outside the list) renders nothing instead of throwing.
+
 ## Events
 
 _None._

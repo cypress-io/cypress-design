@@ -25,11 +25,22 @@ const emit = defineEmits<{
   (event: 'update:show', value: boolean): void
 }>()
 
-const props = defineProps<{
-  title?: string
-  show?: boolean
-  helpLink?: string
-  fullscreen?: boolean
+const props = withDefaults(
+  defineProps<{
+    title?: string
+    show?: boolean
+    helpLink?: string
+    helpLinkLabel?: string
+    fullscreen?: boolean
+  }>(),
+  {
+    helpLinkLabel: 'Need help',
+  },
+)
+
+defineSlots<{
+  default?: () => unknown
+  closeIcon?: () => unknown
 }>()
 
 const $dialog = ref<HTMLDialogElement>()
@@ -47,6 +58,12 @@ onMounted(() => {
     const modalTarget = document.createElement('div')
     modalTarget.id = 'modal-target'
     document.body.appendChild(modalTarget)
+  }
+  // Mounted with `show` already true: the watcher below only reacts to
+  // changes, so open it as a real modal (backdrop, top layer, scroll lock).
+  if (internalShow.value) {
+    disableBodyScroll()
+    $dialog.value?.showModal()
   }
 })
 
@@ -81,6 +98,20 @@ function closeOnClickBackdrop(event: MouseEvent) {
     internalShow.value = false
   }
 }
+
+// Escape fires `cancel` on the native dialog. Stop the browser closing it
+// behind our back and close through the same path as the close button.
+function closeOnCancel(event: Event) {
+  event.preventDefault()
+  internalShow.value = false
+}
+
+// Safety net for any native close we didn't initiate (a repeated Escape the
+// browser won't let us cancel, `<form method="dialog">`, `dialog.close()`):
+// bring our state, events, and the scroll lock back in line.
+function syncOnNativeClose() {
+  if (internalShow.value) internalShow.value = false
+}
 </script>
 
 <template>
@@ -93,6 +124,8 @@ function closeOnClickBackdrop(event: MouseEvent) {
         : ClassModalStandardDimensions,
     ]"
     @click="closeOnClickBackdrop"
+    @cancel="closeOnCancel"
+    @close="syncOnNativeClose"
   >
     <div :class="ClassTitleBox">
       <div id="cy_modal_label" :class="ClassTitle">
@@ -104,8 +137,9 @@ function closeOnClickBackdrop(event: MouseEvent) {
         :href="helpLink"
         :class="ClassHelpLink"
         target="_blank"
+        rel="noopener noreferrer"
       >
-        Need help
+        {{ helpLinkLabel }}
         <IconActionQuestionMarkCircle
           class="ml-[4px]"
           stroke-color="indigo-500"
@@ -118,12 +152,14 @@ function closeOnClickBackdrop(event: MouseEvent) {
         :class="[ClassCloseButton, 'group']"
         @click="internalShow = false"
       >
-        <IconActionDelete
-          class="children:transition-all"
-          stroke-color="gray-400"
-          hover-stroke-color="gray-700"
-          interactive-colors-on-group
-        />
+        <slot name="closeIcon">
+          <IconActionDelete
+            class="children:transition-all"
+            stroke-color="gray-400"
+            hover-stroke-color="gray-700"
+            interactive-colors-on-group
+          />
+        </slot>
       </button>
     </div>
     <div :class="ClassContent">

@@ -22,6 +22,7 @@ import {
 export interface ModalProps {
   title?: string
   helpLink?: string
+  helpLinkLabel?: string
   children?: React.ReactNode
   show?: boolean
   onClose?: () => void
@@ -34,6 +35,7 @@ export const Modal: React.FC<ModalProps> = ({
   show = false,
   title,
   helpLink,
+  helpLinkLabel = 'Need help',
   onClose,
   children,
   fullscreen = false,
@@ -41,6 +43,11 @@ export const Modal: React.FC<ModalProps> = ({
   closeIcon,
 }) => {
   const dialogRef = React.useRef<HTMLDialogElement>(null)
+  const showRef = React.useRef(show)
+  showRef.current = show
+  // Set while handling `cancel`, so the native `close` that may follow the
+  // same Escape doesn't call onClose a second time.
+  const handledCancel = React.useRef(false)
 
   React.useEffect(() => {
     if (show) {
@@ -77,6 +84,33 @@ export const Modal: React.FC<ModalProps> = ({
     [onClose],
   )
 
+  // Escape fires `cancel` on the native dialog. Stop the browser closing it
+  // behind our back and let the parent close it through `onClose`.
+  const closeOnCancel = React.useCallback<
+    React.ReactEventHandler<HTMLDialogElement>
+  >(
+    (event) => {
+      event.preventDefault()
+      handledCancel.current = true
+      setTimeout(() => (handledCancel.current = false))
+      onClose?.()
+    },
+    [onClose],
+  )
+
+  // Safety net for a native close we didn't initiate — e.g. a repeated
+  // Escape, which the browser won't let us cancel. Give the parent the chance
+  // to close; if it keeps `show` true, reopen so the dialog matches `show`
+  // (and the scroll lock stays consistent).
+  const syncOnNativeClose = React.useCallback(() => {
+    if (!showRef.current) return
+    if (!handledCancel.current) onClose?.()
+    setTimeout(() => {
+      const dialog = dialogRef.current
+      if (showRef.current && dialog && !dialog.open) dialog.showModal()
+    })
+  }, [onClose])
+
   return (
     show &&
     createPortal(
@@ -90,6 +124,8 @@ export const Modal: React.FC<ModalProps> = ({
           className,
         )}
         onClick={closeOnClickBackdrop}
+        onCancel={closeOnCancel}
+        onClose={syncOnNativeClose}
       >
         <div className={ClassTitleBox}>
           <div id="cy_modal_label" className={ClassTitle}>
@@ -97,8 +133,13 @@ export const Modal: React.FC<ModalProps> = ({
           </div>
           {helpLink ? <div className={ClassHelpLinkDash} /> : null}
           {helpLink ? (
-            <a href={helpLink} className={ClassHelpLink}>
-              Need help
+            <a
+              href={helpLink}
+              className={ClassHelpLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {helpLinkLabel}
               <IconActionQuestionMarkCircle
                 className="ml-[4px]"
                 stroke-color="indigo-500"

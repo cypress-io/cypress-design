@@ -20,9 +20,9 @@ yarn add @cypress-design/react-accordion      # React
 | `descriptionClassName` | `string`                                      | —       | Replaces the description's default color class (`text-gray-700`)                                                |
 | `headingClassName`     | `string`                                      | —       | Replaces the header's default background (`bg-white`)                                                           |
 | `fullWidthContent`     | `boolean`                                     | `false` | Removes the padded wrapper around the body so content can run edge to edge                                      |
-| `open`                 | `boolean`                                     | `false` | Expanded state. React keeps it in sync when the prop changes; Vue reads it only once, as the initial state      |
+| `open`                 | `boolean`                                     | `false` | Expanded state. Both frameworks follow the prop when it changes after mount                                     |
 | `onClickSummary`       | `(event: MouseEvent) => boolean \| undefined` | —       | Called when the header is clicked, before toggling. Return `false` to skip the open-state update and `onToggle` |
-| `onToggle`             | `(open: boolean) => void`                     | —       | Called with the new open state when the accordion opens or closes                                               |
+| `onToggle`             | `(open: boolean) => void`                     | —       | Called once with the new open state each time the user opens or closes the accordion                            |
 
 In React, other native `<details>` attributes are passed through to the root element.
 
