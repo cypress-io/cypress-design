@@ -312,11 +312,18 @@ async function createSession(tile: HTMLElement): Promise<Session> {
           // rendered — a version that compiles but throws keeps it on screen.
           mounted.update(component, () => {
             if (!island) return
-            island.remove()
-            // Astro only unmounts removed islands on page transitions; fire
-            // its unmount event so the framework renderer tears the app down.
-            island.dispatchEvent(new CustomEvent('astro:unmount'))
+            const retired = island
             island = null
+            // Hide now, so the swap lands in the same frame as the new
+            // preview; unmount after the current render has finished (React
+            // warns when a root is unmounted mid-commit).
+            retired.hidden = true
+            setTimeout(() => {
+              retired.remove()
+              // Astro only unmounts removed islands on page transitions; fire
+              // its unmount event so the renderer tears the app down.
+              retired.dispatchEvent(new CustomEvent('astro:unmount'))
+            })
           })
         } catch (err) {
           if (current === run) showError(err) // keep the last good render
