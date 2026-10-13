@@ -313,6 +313,24 @@ export default function assertions(
       cy.findByPlaceholderText('Find item').should('have.focus')
     })
 
+    it('returns focus to the trigger after selecting from a searchable list', () => {
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
+      // Keyboard: type, arrow to a row, Enter.
+      cy.findByRole('combobox').click()
+      cy.findByPlaceholderText('Find item').type('be{downArrow}{enter}')
+      cy.findByRole('listbox').should('not.exist')
+      cy.findByRole('combobox').should('have.focus')
+      // Pointer: click a row.
+      cy.findByRole('combobox').click()
+      cy.findByRole('option', { name: 'Gamma' }).click()
+      cy.findByRole('listbox').should('not.exist')
+      cy.findByRole('combobox').should('have.focus')
+    })
+
     it('search filters by label (case-insensitive)', () => {
       mountStory({
         items: simpleItems,
