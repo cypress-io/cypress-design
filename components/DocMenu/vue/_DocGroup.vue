@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref, watch, inject } from 'vue'
+import { computed, type Component, ref, watch, inject } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, CssClasses } from '@cypress-design/constants-docmenu'
 import DocGroupElements, {
@@ -12,7 +12,7 @@ const props = withDefaults(
     group: NavGroup
     activePath?: string
     collapsible: boolean
-    linkComponent: DefineComponent | 'a'
+    linkComponent: Component | 'a'
     depth?: number
   }>(),
   {
