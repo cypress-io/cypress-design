@@ -261,6 +261,20 @@ export const Select: React.FC<SelectProps> = ({
 
   // ---------- Keyboard ----------
   const triggerRef = React.useRef<HTMLDivElement | null>(null)
+  // Move focus back to the trigger after the popover closes (Escape, or a
+  // selection — when searchable, focus was in the search input, which is
+  // gone). The default trigger has `role="combobox"`; the render-prop may
+  // render a native <button>, an element with an explicit `tabindex`, or an
+  // element with an aria role — search for all of them in one go. Fall back
+  // to the wrapper itself (made focusable via `tabIndex=-1`) so keyboard
+  // focus never drops to `document.body` (WCAG 2.4.3).
+  const focusTrigger = () => {
+    const target =
+      (triggerRef.current?.querySelector(
+        '[role="combobox"], button, [tabindex], [role="button"]',
+      ) as HTMLElement | null) ?? triggerRef.current
+    target?.focus()
+  }
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (disabled) return
     if (!open) {
@@ -273,18 +287,7 @@ export const Select: React.FC<SelectProps> = ({
     if (e.key === 'Escape') {
       e.preventDefault()
       setOpen(false)
-      // Restore focus to the trigger. The default trigger has
-      // `role="combobox"`, and the render-prop escape hatch may render a
-      // native <button>, an element with an explicit `tabindex`, or an
-      // element with an aria role — search for all of them in one go.
-      // Fall back to the wrapper itself (made focusable via `tabIndex=-1`)
-      // so keyboard focus never drops to `document.body` when the custom
-      // trigger is a plain non-interactive element (WCAG 2.4.3).
-      const target =
-        (triggerRef.current?.querySelector(
-          '[role="combobox"], button, [tabindex], [role="button"]',
-        ) as HTMLElement | null) ?? triggerRef.current
-      target?.focus()
+      focusTrigger()
       return
     }
     if (e.key === 'Tab') {
@@ -375,7 +378,10 @@ export const Select: React.FC<SelectProps> = ({
     // row — exactly the "stale label" bug Cursor caught).
     if (!isValueControlled) setInternalValue(nextValue)
     onChange?.(nextValue, item)
-    if (item.type !== 'checkbox') setOpen(false)
+    if (item.type !== 'checkbox') {
+      setOpen(false)
+      focusTrigger()
+    }
   }
 
   // ---------- Trigger rendering ----------

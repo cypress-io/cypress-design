@@ -44,6 +44,11 @@ export interface SelectOptionListProps
   // Controlled search value — Select owns the state and the filter.
   searchValue?: string
   onSearchValueChange?: (value: string) => void
+  // Focus the search Textbox on mount. Inside Select the list mounts on
+  // open, so this is "focus on open". Set `false` when rendering the list
+  // inline (e.g. a docs showcase) so page load doesn't steal focus and
+  // scroll to it.
+  searchAutoFocus?: boolean
 
   // React-only: structured footerLabel/footerAction live in SelectFooterProps;
   // the optional ReactNode escape hatch sits alongside them.
@@ -112,6 +117,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
   searchable = false,
   searchPlaceholder = SelectConstants.DefaultSearchPlaceholder,
   searchValue = '',
+  searchAutoFocus = true,
   onSearchValueChange,
   footer,
   footerLabel,
@@ -304,7 +310,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                   // element with DOM focus is the one that owns
                   // `aria-activedescendant`; auto-focusing here keeps
                   // that invariant.
-                  autoFocus
+                  autoFocus={searchAutoFocus}
                   theme={theme}
                   size="32"
                   placeholder={searchPlaceholder}

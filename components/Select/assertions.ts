@@ -303,6 +303,34 @@ export default function assertions(
     // relying on `SelectConstants.DefaultSearchPlaceholder`, so changing the
     // default constant doesn't silently break six test invocations.
 
+    it('focuses the search input when the popover opens', () => {
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
+      cy.findByRole('combobox').click()
+      cy.findByPlaceholderText('Find item').should('have.focus')
+    })
+
+    it('returns focus to the trigger after selecting from a searchable list', () => {
+      mountStory({
+        items: simpleItems,
+        searchable: true,
+        searchPlaceholder: 'Find item',
+      })
+      // Keyboard: type, arrow to a row, Enter.
+      cy.findByRole('combobox').click()
+      cy.findByPlaceholderText('Find item').type('be{downArrow}{enter}')
+      cy.findByRole('listbox').should('not.exist')
+      cy.findByRole('combobox').should('have.focus')
+      // Pointer: click a row.
+      cy.findByRole('combobox').click()
+      cy.findByRole('option', { name: 'Gamma' }).click()
+      cy.findByRole('listbox').should('not.exist')
+      cy.findByRole('combobox').should('have.focus')
+    })
+
     it('search filters by label (case-insensitive)', () => {
       mountStory({
         items: simpleItems,
@@ -325,10 +353,11 @@ export default function assertions(
         onChange,
       })
       cy.findByRole('combobox').click()
-      // Focus the search input and type; the wrapper's keydown listener
-      // catches bubbled arrow keys, so focus walks rows even with the
-      // input active.
-      cy.findByPlaceholderText('Find item').focus().type('a')
+      // The search input is focused on open; type into it. The wrapper's
+      // keydown listener catches bubbled arrow keys, so focus walks rows even
+      // with the input active. (No `.focus()`: re-focusing an already-focused
+      // input fires a synthetic focus event that Textbox's validator rejects.)
+      cy.findByPlaceholderText('Find item').should('have.focus').type('a')
       // 'a' matches Alpha and Gamma. ArrowDown lands on Alpha.
       cy.findByPlaceholderText('Find item').type('{downArrow}')
       cy.findByRole('option', { name: 'Alpha' }).should(

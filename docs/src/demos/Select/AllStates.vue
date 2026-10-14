@@ -211,6 +211,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :header-active-tab="tab"
           searchable
           :search-filters="false"
+          :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
           @header-tab-change="(id: string) => (tab = id)"
         >
@@ -269,6 +270,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :header-active-tab="tab"
           searchable
           :search-filters="false"
+          :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
           @header-tab-change="(id: string) => (tab = id)"
         >
@@ -331,6 +333,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :header-active-tab="tab"
           searchable
           :search-filters="false"
+          :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
           @header-tab-change="(id: string) => (tab = id)"
         >
@@ -388,6 +391,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :header-active-tab="tab"
           searchable
           :search-filters="false"
+          :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
           @header-tab-change="(id: string) => (tab = id)"
         >
