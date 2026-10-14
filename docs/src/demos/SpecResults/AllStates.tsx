@@ -3,8 +3,8 @@ import { SpecResults } from '@cypress-design/react-spec-results'
 import type { SpecResultsProps } from '@cypress-design/react-spec-results'
 import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 
-// The whole demo is a single `client:only="react"` island (see
-// SpecResults.astro). Astro serializes island props to JSON, which drops
+// The whole demo is a single `client:only="react"` island (mounted by
+// the component page template). Astro serializes island props to JSON, which drops
 // functions and React nodes, so `onCancel` / `onArchive` / `description`
 // have to be created on this side of the boundary rather than passed in
 // from the .astro file.
