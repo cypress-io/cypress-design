@@ -1,5 +1,13 @@
 # @cypress-design/vue-select
 
+## 1.2.0
+
+### Minor Changes
+
+- [#725](https://github.com/cypress-io/cypress-design/pull/725) [`cd2a75b`](https://github.com/cypress-io/cypress-design/commit/cd2a75b8086a45d807f3543975e54fca392e0594) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add `searchAutoFocus` to `SelectOptionList` (default `true`). Vue now focuses the search input in code when the popover opens; it relied on the HTML `autofocus` attribute, which browsers ignore after page load, so the search box never got focus. Set it to `false` when rendering the list inline on a page so the search Textbox doesn't take focus and scroll the page on load.
+
+  After a selection closes the popover, focus returns to the trigger (as Escape already did). With `searchable`, focus was in the search input, which goes away when the popover closes, so keyboard focus used to drop to the page.
+
 ## 1.1.0
 
 ### Minor Changes
