@@ -22,6 +22,11 @@
       "require": "./dist/colors.cjs.js",
       "types": "./dist/colors.d.ts"
     },
+    "./tailwind": {
+      "import": "./dist/tailwind.es.mjs",
+      "require": "./dist/tailwind.cjs.js",
+      "types": "./dist/tailwind.d.ts"
+    },
     "./dist/color-constants": {
       "import": "./dist/color-constants.es.mjs",
       "require": "./dist/color-constants.cjs.js",
@@ -51,6 +56,13 @@
     "rollup-plugin-postcss": "^4.0.2",
     "ts-node": "^10.9.2",
     "typescript": "5.4.5"
+  },
+  "typesVersions": {
+    "*": {
+      "tailwind": [
+        "./dist/tailwind.d.ts"
+      ]
+    }
   },
   "license": "MIT"
 }
