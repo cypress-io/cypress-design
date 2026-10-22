@@ -1,3 +1,7 @@
+<script lang="ts">
+let idCounter = 0
+</script>
+
 <script lang="ts" setup>
 import type {
   Placement,
@@ -7,7 +11,16 @@ import type {
 } from '@floating-ui/dom'
 import { computePosition, flip, offset, arrow, shift } from '@floating-ui/dom'
 import type { Ref } from 'vue'
-import { watch, computed, ref, onBeforeMount, onMounted } from 'vue'
+import * as Vue from 'vue'
+import {
+  watch,
+  computed,
+  ref,
+  nextTick,
+  onBeforeMount,
+  onMounted,
+  useAttrs,
+} from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -74,6 +87,26 @@ const dropShadowFilter: Ref<string | undefined> = ref(undefined)
 const placementSideFinal = ref(props.placement)
 const show = ref(false)
 const tooltipHovered = ref(false)
+const keyboardOpen = ref(false)
+const mounted = ref(false)
+const lastTrigger: Ref<HTMLElement | null> = ref(null)
+
+// `useId` keeps ids stable across SSR and hydration, but it only exists from Vue 3.5
+const tooltipId = `cy-tooltip-${
+  (Vue as unknown as { useId?: () => string }).useId?.() ?? `${++idCounter}`
+}`
+
+const describedBy = computed(() =>
+  mounted.value && !props.disabled && tooltip.value ? tooltipId : undefined,
+)
+
+// `attrs` isn't reactive, so this stays a function the render re-evaluates
+const attrs = useAttrs()
+const wrapperIsTrigger = () => (attrs.tabindex ?? attrs.tabIndex) !== undefined
+
+const visible = computed(
+  () => show.value || props.open || (tooltipHovered.value && props.interactive),
+)
 
 const ROTATE_MAP = {
   bottom: 180,
@@ -128,9 +161,13 @@ watch(
   },
 )
 
+// Bumped on every hide so a placement still computing doesn't reopen a tooltip that was closed meanwhile
+let placeRequest = 0
+
 async function placeTooltip() {
   if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value)
     return
+  const request = placeRequest
 
   const {
     x,
@@ -180,10 +217,117 @@ async function placeTooltip() {
   positionComputed.value = true
   placementSideFinal.value = placementSide
 
-  show.value = true
+  if (request === placeRequest) show.value = true
+}
+
+function hide() {
+  if (props.open || keyboardOpen.value) return
+  placeRequest++
+  show.value = false
+}
+
+const FOCUSABLE_SELECTOR =
+  'a[href], button, input, select, textarea, summary, [tabindex], [contenteditable]:not([contenteditable="false"])'
+
+function getFocusableElements(container: HTMLElement | null) {
+  if (!container) return []
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+  ).filter(
+    (el) =>
+      el.tabIndex >= 0 &&
+      !el.matches(':disabled') &&
+      !(el instanceof HTMLInputElement && el.type === 'hidden'),
+  )
+}
+
+function isInside(node: EventTarget | null) {
+  return (
+    node instanceof Node &&
+    (!!reference.value?.contains(node) || !!tooltip.value?.contains(node))
+  )
+}
+
+function onReferenceFocusIn(event: FocusEvent) {
+  if (props.disabled) return
+  const target = event.target as HTMLElement
+  // A mouse click also focuses the trigger; only keyboard focus should pin the tooltip open
+  if (!target.matches(':focus-visible')) return
+  lastTrigger.value = target
+  keyboardOpen.value = true
+  placeTooltip()
+}
+
+// Keeps a hover-opened popper from hiding under keyboard focus once the pointer leaves
+function onPopperFocusIn(event: FocusEvent) {
+  if ((event.target as HTMLElement).matches(':focus-visible'))
+    keyboardOpen.value = true
+}
+
+function onFocusOut(event: FocusEvent) {
+  if (isInside(event.relatedTarget)) return
+  closeFromKeyboard()
+}
+
+function closeFromKeyboard() {
+  if (!keyboardOpen.value) return
+  keyboardOpen.value = false
+  if (!reference.value?.matches(':hover')) hide()
+}
+
+function dismiss() {
+  keyboardOpen.value = false
+  tooltipHovered.value = false
+  hide()
+}
+
+function onReferenceKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    dismiss()
+    return
+  }
+  if (
+    event.key !== 'Tab' ||
+    event.shiftKey ||
+    !props.interactive ||
+    !visible.value
+  )
+    return
+  const [first] = getFocusableElements(tooltip.value)
+  if (!first) return
+  lastTrigger.value = event.target as HTMLElement
+  event.preventDefault()
+  first.focus()
+}
+
+function onPopperKeydown(event: KeyboardEvent) {
+  if (event.key === 'Escape') {
+    event.preventDefault()
+    lastTrigger.value?.focus()
+    dismiss()
+    return
+  }
+  if (event.key !== 'Tab' || !lastTrigger.value) return
+  const focusables = getFocusableElements(tooltip.value)
+  if (event.shiftKey && event.target === focusables[0]) {
+    event.preventDefault()
+    lastTrigger.value.focus()
+  } else if (
+    !event.shiftKey &&
+    event.target === focusables[focusables.length - 1] &&
+    tooltip.value
+  ) {
+    // Refocusing the trigger without preventDefault lets the browser's Tab continue from the
+    // trigger's place in the page; `inert` stops it landing back in the popper at the end of <body>
+    const popper = tooltip.value
+    lastTrigger.value.focus()
+    popper.inert = true
+    setTimeout(() => (popper.inert = false))
+  }
 }
 
 onMounted(() => {
+  mounted.value = true
   watch(
     () => [
       props.open,
@@ -194,11 +338,14 @@ onMounted(() => {
       props.shiftOptions,
       props.offsetOptions,
     ],
-    () => {
-      if (props.open && !props.disabled) {
+    async () => {
+      if ((props.open || keyboardOpen.value) && !props.disabled) {
         placeTooltip()
       } else {
+        placeRequest++
         show.value = false
+        await nextTick()
+        if (!tooltip.value?.matches(':hover')) tooltipHovered.value = false
       }
     },
     { immediate: true },
@@ -210,14 +357,18 @@ onMounted(() => {
   <div
     v-bind="$attrs"
     ref="reference"
+    :aria-describedby="wrapperIsTrigger() ? describedBy : undefined"
     @mouseover="!disabled && !open && placeTooltip()"
-    @focus="!disabled && !open && placeTooltip()"
-    @blur="!open && (show = false)"
-    @mouseout="!open && (show = false)"
-    @keydown.escape="!open && (show = false)"
+    @mouseout="hide()"
+    @focusin="onReferenceFocusIn"
+    @focusout="onFocusOut"
+    @keydown="onReferenceKeydown"
   >
-    <!-- @slot element to hover on to open the tooltip -->
-    <slot />
+    <!--
+      @slot element to hover on to open the tooltip
+      @binding {string | undefined} describedBy id of the tooltip content, for `aria-describedby` on the trigger
+    -->
+    <slot v-bind="{ describedBy }" />
     <teleport v-if="!disabled" to="#portal-target">
       <div
         ref="tooltip"
@@ -230,17 +381,16 @@ onMounted(() => {
         class="absolute"
         :class="[
           {
-            invisible:
-              !show &&
-              positionComputed &&
-              !(tooltipHovered && props.interactive) &&
-              !open,
+            invisible: !visible && positionComputed,
             '-top-[10000px] invisible': !positionComputed,
           },
           props.interactive ? 'p-[16px]' : undefined,
         ]"
-        @mouseover="!open && (tooltipHovered = true)"
-        @mouseout="!open && (tooltipHovered = false)"
+        @mouseover="tooltipHovered = true"
+        @mouseout="tooltipHovered = false"
+        @focusin="onPopperFocusIn"
+        @focusout="onFocusOut"
+        @keydown="onPopperKeydown"
       >
         <div
           class="border rounded shadow-tooltip"
@@ -278,8 +428,10 @@ onMounted(() => {
             :class="colors.background"
           >
             <span class="sr-only">Tooltip: </span>
-            <!-- @slot content of the tooltip -->
-            <slot name="popper" />
+            <div :id="tooltipId">
+              <!-- @slot content of the tooltip -->
+              <slot name="popper" />
+            </div>
           </div>
         </div>
       </div>

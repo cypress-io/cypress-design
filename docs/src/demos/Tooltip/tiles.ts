@@ -5,4 +5,5 @@ export default [
   { name: 'Default', title: 'Default' },
   { name: 'Dark', title: 'Dark' },
   { name: 'Placement', title: 'Placement' },
+  { name: 'Interactive', title: 'Interactive' },
 ]

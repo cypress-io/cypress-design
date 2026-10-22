@@ -202,4 +202,81 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
     cy.findByText('Offset 5px').should('be.visible')
     cy.percySnapshot()
   })
+  describe('keyboard', () => {
+    const InteractiveTooltip = ({
+      withAfter = true,
+    }: {
+      withAfter?: boolean
+    }) => (
+      <div className="mt-[200px] flex gap-4 p-4">
+        <button data-cy="before">before</button>
+        <Tooltip
+          interactive
+          placement="top"
+          popper={
+            <div>
+              Tooltip copy <a href="#learn-more">Learn more</a>
+            </div>
+          }
+        >
+          <button data-cy="trigger">trigger text</button>
+        </Tooltip>
+        {withAfter ? <button data-cy="after">after</button> : null}
+      </div>
+    )
+
+    it('opens on keyboard focus and closes on Escape', () => {
+      mount(<InteractiveTooltip />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.get('[role="tooltip"]').should('be.visible')
+      cy.realPress('Escape')
+      cy.get('[role="tooltip"]').should('not.exist')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+    })
+
+    it('tabs from the trigger into the popper, back, and on to the next control', () => {
+      mount(<InteractiveTooltip />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+      cy.get('[role="tooltip"]').should('be.visible')
+      cy.realPress(['Shift', 'Tab'])
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'after')
+      cy.get('[role="tooltip"]').should('not.exist')
+    })
+
+    it('closes on Escape from inside the popper and returns focus to the trigger', () => {
+      mount(<InteractiveTooltip />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+      cy.realPress('Escape')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.get('[role="tooltip"]').should('not.exist')
+    })
+
+    it('does not loop back into the popper when the trigger is the last control', () => {
+      mount(<InteractiveTooltip withAfter={false} />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+      cy.realPress('Tab')
+      cy.get('[role="tooltip"]').should('not.exist')
+    })
+
+    it('does not stay open after a mouse click', () => {
+      mount(<InteractiveTooltip />)
+      cy.get('[data-cy="trigger"]').realClick()
+      cy.get('[data-cy="after"]').realHover()
+      cy.get('[role="tooltip"]').should('not.exist')
+    })
+  })
 })

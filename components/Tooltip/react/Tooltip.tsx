@@ -77,6 +77,21 @@ const ROTATE_MAP = {
   right: 90,
 }
 
+const FOCUSABLE_SELECTOR =
+  'a[href], button, input, select, textarea, summary, [tabindex], [contenteditable]:not([contenteditable="false"])'
+
+function getFocusableElements(container: HTMLElement | null) {
+  if (!container) return []
+  return Array.from(
+    container.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
+  ).filter(
+    (el) =>
+      el.tabIndex >= 0 &&
+      !el.matches(':disabled') &&
+      !(el instanceof HTMLInputElement && el.type === 'hidden'),
+  )
+}
+
 export const Tooltip: React.FC<
   TooltipProps & React.HTMLProps<HTMLDivElement>
 > = ({
@@ -98,6 +113,7 @@ export const Tooltip: React.FC<
   ...rest
 }) => {
   const arrowRef = React.useRef(null)
+  const lastTriggerRef = React.useRef<HTMLElement | null>(null)
   const [open, setOpen] = React.useState(_open)
 
   React.useEffect(() => {
@@ -141,6 +157,54 @@ export const Tooltip: React.FC<
       enabled: !_open,
     }),
   ])
+
+  const onReferenceKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    rest.onKeyDown?.(event)
+    if (event.key !== 'Tab' || event.shiftKey || !interactive || !open) return
+    const [first] = getFocusableElements(refs.floating.current)
+    if (!first) return
+    lastTriggerRef.current = event.target as HTMLElement
+    event.preventDefault()
+    first.focus()
+  }
+
+  const onPopperKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    const trigger = lastTriggerRef.current
+    if (event.key === 'Escape') {
+      trigger?.focus()
+      if (!_open) setOpen(false)
+      return
+    }
+    if (event.key !== 'Tab' || !trigger) return
+    const focusables = getFocusableElements(refs.floating.current)
+    if (event.shiftKey && event.target === focusables[0]) {
+      event.preventDefault()
+      trigger.focus()
+    } else if (
+      !event.shiftKey &&
+      event.target === focusables[focusables.length - 1] &&
+      refs.floating.current
+    ) {
+      // Refocusing the trigger without preventDefault lets the browser's Tab continue from the
+      // trigger's place in the page; `inert` stops it landing back in the popper at the end of <body>
+      const popperEl = refs.floating.current
+      trigger.focus()
+      popperEl.inert = true
+      setTimeout(() => (popperEl.inert = false))
+    }
+  }
+
+  const onPopperBlur = (event: React.FocusEvent<HTMLDivElement>) => {
+    const next = event.relatedTarget
+    if (
+      _open ||
+      (next instanceof Node &&
+        (refs.floating.current?.contains(next) ||
+          refs.domReference.current?.contains(next)))
+    )
+      return
+    setOpen(false)
+  }
 
   const placementSide = calculatedPlacement.split(
     '-',
@@ -188,7 +252,7 @@ export const Tooltip: React.FC<
         ref={refs.setReference}
         className={className}
         {...rest}
-        {...getReferenceProps()}
+        {...getReferenceProps({ onKeyDown: onReferenceKeyDown })}
       >
         {children}
       </div>
@@ -203,7 +267,10 @@ export const Tooltip: React.FC<
                 style={{ ...floatingStyles, zIndex: 100 }}
                 role="tooltip"
                 className={popperClassName}
-                {...getFloatingProps()}
+                {...getFloatingProps({
+                  onKeyDown: onPopperKeyDown,
+                  onBlur: onPopperBlur,
+                })}
               >
                 <div
                   className={clsx('rounded shadow-tooltip border', [

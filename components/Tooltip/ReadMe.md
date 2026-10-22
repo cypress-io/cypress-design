@@ -17,6 +17,6 @@ import Tooltip from '@cypress-design/vue-tooltip'
 </DemoWrapper>
 
 Use the tooltip component to display a message when the user hovers over an element.
-For accessibility, it also triggers on focus.
+For accessibility, it also opens on keyboard focus and closes on Escape. With `interactive`, Tab moves from the trigger into the tooltip's links, and on to the next control after the last one.
 
 [figma::Tooltip](https://www.figma.com/design/HDdGELnzXrEdg5qgC4SrAz/Component---Tooltips--v1.0--latest?node-id=901-2172)

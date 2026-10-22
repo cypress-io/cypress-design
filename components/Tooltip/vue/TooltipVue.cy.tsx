@@ -2,6 +2,7 @@
 import { mount } from 'cypress/vue'
 import assertions from '../assertions'
 import { ComponentProps } from '../../vue-utils'
+import { ref } from 'vue'
 import Tooltip from './Tooltip.vue'
 
 const TooltipMulti = ({
@@ -211,5 +212,176 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
     cy.findByText('Offset 40px').should('be.visible')
     cy.findByText('Offset 5px').should('be.visible')
     cy.percySnapshot()
+  })
+  describe('keyboard', () => {
+    const InteractiveTooltip = ({
+      withAfter = true,
+    }: {
+      withAfter?: boolean
+    }) => (
+      <div class="mt-[200px] flex gap-4 p-4">
+        <button data-cy="before">before</button>
+        <Tooltip interactive placement="top">
+          {{
+            default: ({ describedBy }: { describedBy?: string }) => (
+              <button data-cy="trigger" aria-describedby={describedBy}>
+                trigger text
+              </button>
+            ),
+            popper: () => (
+              <div>
+                Tooltip copy <a href="#learn-more">Learn more</a>
+              </div>
+            ),
+          }}
+        </Tooltip>
+        {withAfter ? <button data-cy="after">after</button> : null}
+      </div>
+    )
+
+    it('opens on keyboard focus and closes on Escape', () => {
+      mount(() => <InteractiveTooltip />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.get('[role="tooltip"]').should('be.visible')
+      cy.realPress('Escape')
+      cy.get('[role="tooltip"]').should('not.be.visible')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+    })
+
+    it('tabs from the trigger into the popper, back, and on to the next control', () => {
+      mount(() => <InteractiveTooltip />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+      cy.get('[role="tooltip"]').should('be.visible')
+      cy.realPress(['Shift', 'Tab'])
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'after')
+      cy.get('[role="tooltip"]').should('not.be.visible')
+    })
+
+    it('closes on Escape from inside the popper and returns focus to the trigger', () => {
+      mount(() => <InteractiveTooltip />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+      cy.realPress('Escape')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.get('[role="tooltip"]').should('not.be.visible')
+    })
+
+    it('does not loop back into the popper when the trigger is the last control', () => {
+      mount(() => <InteractiveTooltip withAfter={false} />)
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+      cy.realPress('Tab')
+      cy.get('[role="tooltip"] a').should('not.be.focused')
+      cy.get('[role="tooltip"]').should('not.be.visible')
+    })
+
+    it('skips disabled and tabindex="-1" controls in the popper', () => {
+      mount(() => (
+        <div class="mt-[200px] flex gap-4 p-4">
+          <button data-cy="before">before</button>
+          <Tooltip interactive placement="top">
+            {{
+              default: () => <button data-cy="trigger">trigger text</button>,
+              popper: () => (
+                <div>
+                  <button disabled>disabled</button>
+                  <a href="#skipped" tabindex={-1}>
+                    skipped
+                  </a>
+                  <a href="#reachable">reachable</a>
+                </div>
+              ),
+            }}
+          </Tooltip>
+          <button data-cy="after">after</button>
+        </div>
+      ))
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'reachable')
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'after')
+    })
+
+    it('describes the trigger with the tooltip copy', () => {
+      mount(() => <InteractiveTooltip />)
+      cy.get('[data-cy="trigger"]')
+        .should('have.attr', 'aria-describedby')
+        .then((id) => {
+          cy.get(`[id="${id}"]`).should('have.text', 'Tooltip copy Learn more')
+        })
+    })
+
+    it('describes a focusable wrapper with the tooltip copy', () => {
+      mount(() => (
+        <Tooltip
+          class="mt-[200px] inline-block"
+          // @ts-expect-error TSX in volar has a tendency to be a bit wrong, this would work in a template
+          tabindex={0}
+        >
+          {{
+            default: () => <span>Focus me</span>,
+            popper: () => <span>Extra information</span>,
+          }}
+        </Tooltip>
+      ))
+      cy.contains('[tabindex="0"]', 'Focus me')
+        .should('have.attr', 'aria-describedby')
+        .then((id) => {
+          cy.get(`[id="${id}"]`).should('have.text', 'Extra information')
+        })
+    })
+
+    it('does not stay open after a mouse click', () => {
+      mount(() => <InteractiveTooltip />)
+      cy.get('[data-cy="trigger"]').realClick()
+      cy.get('[data-cy="after"]').realHover()
+      cy.get('[role="tooltip"]').should('not.be.visible')
+    })
+
+    it('releases a hover that ended while the trigger had keyboard focus', () => {
+      mount(() => <InteractiveTooltip />)
+      cy.get('[data-cy="trigger"]').realHover()
+      cy.get('[role="tooltip"]').should('be.visible').realHover()
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.get('[data-cy="after"]').realHover()
+      cy.realPress('Tab')
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'after')
+      cy.get('[role="tooltip"]').should('not.be.visible')
+    })
+  })
+
+  it('releases a popper hover once a controlled `open` turns false', () => {
+    const open = ref(true)
+    mount(() => (
+      <div class="mt-[200px] flex gap-4 p-4">
+        <Tooltip interactive placement="top" open={open.value}>
+          {{
+            default: () => <span>trigger text</span>,
+            popper: () => <div>controlled</div>,
+          }}
+        </Tooltip>
+        <button data-cy="after">after</button>
+      </div>
+    ))
+    cy.get('[role="tooltip"]').should('be.visible').realHover()
+    cy.get('[data-cy="after"]').realHover()
+    cy.then(() => (open.value = false))
+    cy.get('[role="tooltip"]').should('not.be.visible')
   })
 })
