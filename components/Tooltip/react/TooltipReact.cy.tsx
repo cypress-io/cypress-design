@@ -278,5 +278,98 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
       cy.get('[data-cy="after"]').realHover()
       cy.get('[role="tooltip"]').should('not.exist')
     })
+
+    it('describes a focusable child through the render function', () => {
+      mount(
+        <div className="mt-[200px] flex gap-4 p-4">
+          <button data-cy="before">before</button>
+          <Tooltip placement="top" popper="Tooltip copy">
+            {({ describedBy }) => (
+              <button data-cy="trigger" aria-describedby={describedBy}>
+                trigger text
+              </button>
+            )}
+          </Tooltip>
+        </div>,
+      )
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.get('[data-cy="trigger"]')
+        .should('have.attr', 'aria-describedby')
+        .then((id) => {
+          cy.get(`[id="${id}"]`).should('have.text', 'Tooltip copy')
+        })
+    })
+
+    it('returns focus to the trigger on Escape after clicking into the popper', () => {
+      mount(<InteractiveTooltip />)
+      cy.get('[data-cy="trigger"]').realHover()
+      cy.contains('a', 'Learn more').should('be.visible').realClick()
+      cy.realPress('Escape')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.get('[role="tooltip"]').should('not.exist')
+    })
+
+    it('tabs through every focusable in the reference before entering the popper', () => {
+      mount(
+        <div className="mt-[200px] flex gap-4 p-4">
+          <button data-cy="before">before</button>
+          <Tooltip
+            interactive
+            placement="top"
+            popper={<a href="#learn-more">Learn more</a>}
+          >
+            <button data-cy="first">first</button>
+            <button data-cy="second">second</button>
+          </Tooltip>
+        </div>,
+      )
+      cy.get('[data-cy="before"]').focus()
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'first')
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'second')
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Learn more')
+    })
+  })
+
+  describe('inside a modal dialog', () => {
+    beforeEach(() => {
+      mount(
+        <dialog>
+          <button data-cy="before">before</button>
+          <Tooltip
+            interactive
+            placement="top"
+            popper={<a href="#learn-more">Learn more</a>}
+          >
+            <button data-cy="trigger">trigger text</button>
+          </Tooltip>
+          <button data-cy="after">after</button>
+        </dialog>,
+      )
+      cy.get('dialog').then(($dialog) =>
+        ($dialog[0] as HTMLDialogElement).showModal(),
+      )
+      cy.focused().should('have.attr', 'data-cy', 'before')
+    })
+
+    it('lets Tab move past the trigger when the popper is inert', () => {
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'trigger')
+      cy.realPress('Tab')
+      cy.focused().should('have.attr', 'data-cy', 'after')
+    })
+
+    it('closes only the tooltip on the first Escape', () => {
+      cy.realPress('Tab')
+      cy.get('[role="tooltip"]').should('exist')
+      cy.realPress('Escape')
+      cy.get('[role="tooltip"]').should('not.exist')
+      cy.get('dialog').should('have.attr', 'open')
+      cy.realPress('Escape')
+      cy.get('dialog').should('not.have.attr', 'open')
+    })
   })
 })

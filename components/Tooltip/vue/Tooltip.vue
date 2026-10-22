@@ -90,14 +90,16 @@ const tooltipHovered = ref(false)
 const keyboardOpen = ref(false)
 const mounted = ref(false)
 const lastTrigger: Ref<HTMLElement | null> = ref(null)
+const content: Ref<HTMLElement | null> = ref(null)
 
-// `useId` keeps ids stable across SSR and hydration, but it only exists from Vue 3.5
+// `useId` only exists from Vue 3.5. The counter fallback can differ between server and
+// client, which is why `describedBy` reads the id back from the rendered element.
 const tooltipId = `cy-tooltip-${
   (Vue as unknown as { useId?: () => string }).useId?.() ?? `${++idCounter}`
 }`
 
 const describedBy = computed(() =>
-  mounted.value && !props.disabled && tooltip.value ? tooltipId : undefined,
+  mounted.value && !props.disabled ? content.value?.id || undefined : undefined,
 )
 
 // `attrs` isn't reactive, so this stays a function the render re-evaluates
@@ -248,11 +250,19 @@ function isInside(node: EventTarget | null) {
   )
 }
 
+// Text fields match :focus-visible even when clicked, so a pointer press is tracked too
+let pointerPressed = false
+
+function onReferencePointerDown() {
+  pointerPressed = true
+  setTimeout(() => (pointerPressed = false))
+}
+
 function onReferenceFocusIn(event: FocusEvent) {
   if (props.disabled) return
   const target = event.target as HTMLElement
   // A mouse click also focuses the trigger; only keyboard focus should pin the tooltip open
-  if (!target.matches(':focus-visible')) return
+  if (pointerPressed || !target.matches(':focus-visible')) return
   lastTrigger.value = target
   keyboardOpen.value = true
   placeTooltip()
@@ -281,9 +291,34 @@ function dismiss() {
   hide()
 }
 
+function getReferenceFocusables() {
+  const el = reference.value
+  if (!el) return []
+  const descendants = getFocusableElements(el)
+  return wrapperIsTrigger() && el.tabIndex >= 0
+    ? [el, ...descendants]
+    : descendants
+}
+
+// The trigger focus returns to: the last one used, or the reference's last focusable when
+// the popper was reached some other way (a click, or tab order from the end of the page)
+function getTrigger() {
+  const last = lastTrigger.value
+  if (last?.isConnected && reference.value?.contains(last)) return last
+  return getReferenceFocusables().at(-1) ?? null
+}
+
+// Escape is only consumed when it closes something, so an enclosing dialog's Escape still works
+function consumeEscape(event: KeyboardEvent) {
+  if ((!visible.value && !keyboardOpen.value) || props.open) return false
+  event.preventDefault()
+  event.stopPropagation()
+  return true
+}
+
 function onReferenceKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
-    dismiss()
+    if (consumeEscape(event)) dismiss()
     return
   }
   if (
@@ -293,34 +328,39 @@ function onReferenceKeydown(event: KeyboardEvent) {
     !visible.value
   )
     return
+  // Other focusables inside the reference come first in tab order
+  if (event.target !== getReferenceFocusables().at(-1)) return
   const [first] = getFocusableElements(tooltip.value)
   if (!first) return
+  first.focus()
+  // An inert popper (outside an open modal dialog) can't take focus; let Tab go on normally
+  if (first.ownerDocument.activeElement !== first) return
   lastTrigger.value = event.target as HTMLElement
   event.preventDefault()
-  first.focus()
 }
 
 function onPopperKeydown(event: KeyboardEvent) {
+  const trigger = getTrigger()
   if (event.key === 'Escape') {
-    event.preventDefault()
-    lastTrigger.value?.focus()
+    if (!consumeEscape(event)) return
+    trigger?.focus()
     dismiss()
     return
   }
-  if (event.key !== 'Tab' || !lastTrigger.value) return
+  if (event.key !== 'Tab' || !trigger) return
   const focusables = getFocusableElements(tooltip.value)
   if (event.shiftKey && event.target === focusables[0]) {
     event.preventDefault()
-    lastTrigger.value.focus()
+    trigger.focus()
   } else if (
     !event.shiftKey &&
-    event.target === focusables[focusables.length - 1] &&
+    event.target === focusables.at(-1) &&
     tooltip.value
   ) {
     // Refocusing the trigger without preventDefault lets the browser's Tab continue from the
     // trigger's place in the page; `inert` stops it landing back in the popper at the end of <body>
     const popper = tooltip.value
-    lastTrigger.value.focus()
+    trigger.focus()
     popper.inert = true
     setTimeout(() => (popper.inert = false))
   }
@@ -360,6 +400,7 @@ onMounted(() => {
     :aria-describedby="wrapperIsTrigger() ? describedBy : undefined"
     @mouseover="!disabled && !open && placeTooltip()"
     @mouseout="hide()"
+    @pointerdown="onReferencePointerDown"
     @focusin="onReferenceFocusIn"
     @focusout="onFocusOut"
     @keydown="onReferenceKeydown"
@@ -428,7 +469,7 @@ onMounted(() => {
             :class="colors.background"
           >
             <span class="sr-only">Tooltip: </span>
-            <div :id="tooltipId">
+            <div :id="tooltipId" ref="content">
               <!-- @slot content of the tooltip -->
               <slot name="popper" />
             </div>

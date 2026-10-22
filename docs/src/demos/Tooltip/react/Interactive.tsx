@@ -5,7 +5,6 @@ export default function Interactive() {
   return (
     <Tooltip
       interactive
-      tabIndex={0}
       className="inline-block py-2"
       popper={
         <>
@@ -16,7 +15,11 @@ export default function Interactive() {
         </>
       }
     >
-      <span>Focus me / interactive</span>
+      {({ describedBy }) => (
+        <button type="button" aria-describedby={describedBy}>
+          Focus me / interactive
+        </button>
+      )}
     </Tooltip>
   )
 }

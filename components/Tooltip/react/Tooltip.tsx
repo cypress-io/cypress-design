@@ -29,7 +29,13 @@ export interface TooltipProps {
    */
   color?: 'light' | 'dark'
   className?: string
-  children?: React.ReactNode
+  /**
+   * The trigger. Pass a function to get `describedBy`, the id of the tooltip
+   * content, for `aria-describedby` on a focusable child.
+   */
+  children?:
+    | React.ReactNode
+    | ((props: { describedBy: string | undefined }) => React.ReactNode)
   /**
    * The content of the tooltip.
    */
@@ -93,7 +99,7 @@ function getFocusableElements(container: HTMLElement | null) {
 }
 
 export const Tooltip: React.FC<
-  TooltipProps & React.HTMLProps<HTMLDivElement>
+  TooltipProps & Omit<React.HTMLProps<HTMLDivElement>, 'children'>
 > = ({
   placement,
   color = 'light',
@@ -114,6 +120,7 @@ export const Tooltip: React.FC<
 }) => {
   const arrowRef = React.useRef(null)
   const lastTriggerRef = React.useRef<HTMLElement | null>(null)
+  const contentId = React.useId()
   const [open, setOpen] = React.useState(_open)
 
   React.useEffect(() => {
@@ -158,21 +165,56 @@ export const Tooltip: React.FC<
     }),
   ])
 
+  const getReferenceFocusables = () => {
+    const el = refs.domReference.current as HTMLElement | null
+    if (!el) return []
+    const descendants = getFocusableElements(el)
+    return el.hasAttribute('tabindex') && el.tabIndex >= 0
+      ? [el, ...descendants]
+      : descendants
+  }
+
+  // The trigger focus returns to: the last one used, or the reference's last focusable when
+  // the popper was reached some other way (a click, or tab order from the end of the page)
+  const getTrigger = () => {
+    const last = lastTriggerRef.current
+    if (last?.isConnected && refs.domReference.current?.contains(last))
+      return last
+    return getReferenceFocusables().at(-1) ?? null
+  }
+
+  // Escape is only consumed when it closes something, so an enclosing dialog's Escape still works
+  const closeOnEscape = (event: React.KeyboardEvent) => {
+    if (!open || _open) return false
+    event.preventDefault()
+    event.stopPropagation()
+    setOpen(false)
+    return true
+  }
+
   const onReferenceKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     rest.onKeyDown?.(event)
+    if (event.key === 'Escape') {
+      closeOnEscape(event)
+      return
+    }
     if (event.key !== 'Tab' || event.shiftKey || !interactive || !open) return
+    // Other focusables inside the reference come first in tab order
+    if (event.target !== getReferenceFocusables().at(-1)) return
     const [first] = getFocusableElements(refs.floating.current)
     if (!first) return
+    first.focus()
+    // An inert popper (outside an open modal dialog) can't take focus; let Tab go on normally
+    if (first.ownerDocument.activeElement !== first) return
     lastTriggerRef.current = event.target as HTMLElement
     event.preventDefault()
-    first.focus()
   }
 
   const onPopperKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const trigger = lastTriggerRef.current
+    const trigger = getTrigger()
     if (event.key === 'Escape') {
       trigger?.focus()
-      if (!_open) setOpen(false)
+      closeOnEscape(event)
       return
     }
     if (event.key !== 'Tab' || !trigger) return
@@ -182,7 +224,7 @@ export const Tooltip: React.FC<
       trigger.focus()
     } else if (
       !event.shiftKey &&
-      event.target === focusables[focusables.length - 1] &&
+      event.target === focusables.at(-1) &&
       refs.floating.current
     ) {
       // Refocusing the trigger without preventDefault lets the browser's Tab continue from the
@@ -246,15 +288,20 @@ export const Tooltip: React.FC<
 
   const colors = getColors()
 
+  const describedBy = open && !disabled ? contentId : undefined
+  const referenceProps = getReferenceProps({ onKeyDown: onReferenceKeyDown })
+  // With a render function the focusable child carries the description, not the wrapper
+  if (typeof children === 'function') delete referenceProps['aria-describedby']
+
   return (
     <>
       <div
         ref={refs.setReference}
         className={className}
         {...rest}
-        {...getReferenceProps({ onKeyDown: onReferenceKeyDown })}
+        {...referenceProps}
       >
-        {children}
+        {typeof children === 'function' ? children({ describedBy }) : children}
       </div>
       {disabled
         ? null
@@ -308,7 +355,7 @@ export const Tooltip: React.FC<
                     )}
                   >
                     <span className="sr-only">Tooltip: </span>
-                    {popper}
+                    <div id={contentId}>{popper}</div>
                   </div>
                 </div>
               </div>,

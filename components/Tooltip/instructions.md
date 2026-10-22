@@ -42,7 +42,7 @@ _None_ — the tooltip manages its own show/hide via hover and keyboard focus (o
 | Tab       | On the trigger, `interactive` and open | Moves focus to the first focusable element in the tooltip (disabled and `tabindex="-1"` skipped) |
 | Shift+Tab | On the first focusable in the tooltip  | Returns focus to the trigger                                                                     |
 | Tab       | On the last focusable in the tooltip   | Continues to the page control after the trigger, and closes the tooltip                          |
-| Escape    | On the trigger or inside the tooltip   | Closes the tooltip and leaves focus on the trigger                                               |
+| Escape    | On the trigger or inside the tooltip   | Closes the tooltip and leaves focus on the trigger. An enclosing dialog stays open               |
 
 The trigger has to be focusable. Use a native `<button>` or `<a href>` in the default slot, or put `tabindex="0"` on the Tooltip itself when the wrapper is the trigger.
 
@@ -53,4 +53,4 @@ The tooltip is rendered in a portal at the end of `<body>`, so it's never reache
 The tooltip content has an id, and the trigger should point at it with `aria-describedby` so the copy is read as the trigger's description.
 
 - **Vue:** the default slot passes `describedBy`. Bind it to your trigger: `<template #default="{ describedBy }"><button :aria-describedby="describedBy">…</button></template>`. When the Tooltip itself has a `tabindex`, it sets `aria-describedby` on its own wrapper. The value is only set after mount, once the tooltip content is in the DOM, so it never points at a missing id.
-- **React:** `aria-describedby` is set on the Tooltip wrapper while the tooltip is open. Put `tabIndex={0}` on the Tooltip so the wrapper is the trigger.
+- **React:** pass a function as `children` to get `describedBy`: `<Tooltip popper="…">{({ describedBy }) => <button aria-describedby={describedBy}>…</button>}</Tooltip>`. The tooltip content only exists while it's open, so `describedBy` is `undefined` while closed. With plain children and `tabIndex={0}` on the Tooltip, the wrapper gets `aria-describedby` instead.
