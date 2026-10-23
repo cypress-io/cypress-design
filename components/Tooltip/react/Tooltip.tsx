@@ -213,6 +213,8 @@ export const Tooltip: React.FC<
   const onPopperKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     const trigger = getTrigger()
     if (event.key === 'Escape') {
+      if (!open || _open) return
+      // Focus first: refocusing the trigger reopens through useFocus, and the close has to land last
       trigger?.focus()
       closeOnEscape(event)
       return
@@ -238,13 +240,20 @@ export const Tooltip: React.FC<
 
   const onPopperBlur = (event: React.FocusEvent<HTMLDivElement>) => {
     const next = event.relatedTarget
-    if (
-      _open ||
-      (next instanceof Node &&
-        (refs.floating.current?.contains(next) ||
-          refs.domReference.current?.contains(next)))
-    )
+    if (_open) return
+    if (next instanceof Node) {
+      if (
+        refs.floating.current?.contains(next) ||
+        refs.domReference.current?.contains(next)
+      )
+        return
+    } else if (
+      // Focus went nowhere: a click on the popper's text, a new tab, or the window losing focus
+      refs.floating.current?.matches(':hover') ||
+      !document.hasFocus()
+    ) {
       return
+    }
     setOpen(false)
   }
 

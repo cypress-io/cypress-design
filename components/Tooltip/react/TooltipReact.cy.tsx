@@ -334,6 +334,55 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
     })
   })
 
+  it('stays open when clicking plain text inside a focused popper', () => {
+    mount(
+      <div className="mt-[200px] flex gap-4 p-4">
+        <button data-cy="before">before</button>
+        <Tooltip
+          interactive
+          placement="top"
+          popper={
+            <>
+              <span data-cy="copy">Tooltip copy</span>{' '}
+              <a href="#learn-more">Learn more</a>
+            </>
+          }
+        >
+          <button data-cy="trigger">trigger text</button>
+        </Tooltip>
+      </div>,
+    )
+    cy.get('[data-cy="before"]').focus()
+    cy.realPress('Tab')
+    cy.realPress('Tab')
+    cy.focused().should('have.text', 'Learn more')
+    cy.get('[data-cy="copy"]').realClick()
+    cy.get('[role="tooltip"]').should('be.visible')
+  })
+
+  it('keeps focus in a controlled tooltip on Escape', () => {
+    mount(
+      <div className="mt-[200px] flex gap-4 p-4">
+        <button data-cy="before">before</button>
+        <Tooltip
+          interactive
+          open
+          placement="top"
+          popper={<a href="#learn-more">Learn more</a>}
+        >
+          <button data-cy="trigger">trigger text</button>
+        </Tooltip>
+      </div>,
+    )
+    cy.get('[data-cy="before"]').focus()
+    cy.realPress('Tab')
+    cy.realPress('Tab')
+    cy.focused().should('have.text', 'Learn more')
+    cy.realPress('Escape')
+    cy.focused().should('have.text', 'Learn more')
+    cy.get('[role="tooltip"]').should('be.visible')
+  })
+
   describe('inside a modal dialog', () => {
     beforeEach(() => {
       mount(

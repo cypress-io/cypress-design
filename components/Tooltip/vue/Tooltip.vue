@@ -250,19 +250,24 @@ function isInside(node: EventTarget | null) {
   )
 }
 
-// Text fields match :focus-visible even when clicked, so a pointer press is tracked too
-let pointerPressed = false
+// Text fields match :focus-visible even when clicked, so a pointer press is tracked too.
+// A tap focuses only after touchend, so the window has to outlast a long press.
+const POINTER_FOCUS_WINDOW_MS = 1000
+let lastPointerDown = -Infinity
 
 function onReferencePointerDown() {
-  pointerPressed = true
-  setTimeout(() => (pointerPressed = false))
+  lastPointerDown = performance.now()
 }
 
 function onReferenceFocusIn(event: FocusEvent) {
   if (props.disabled) return
   const target = event.target as HTMLElement
   // A mouse click also focuses the trigger; only keyboard focus should pin the tooltip open
-  if (pointerPressed || !target.matches(':focus-visible')) return
+  if (
+    performance.now() - lastPointerDown < POINTER_FOCUS_WINDOW_MS ||
+    !target.matches(':focus-visible')
+  )
+    return
   lastTrigger.value = target
   keyboardOpen.value = true
   placeTooltip()
