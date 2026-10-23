@@ -62,6 +62,10 @@ Each component may have:
 
 Not every component has all files yet — add them when a component is created or meaningfully revised. When adding a new component, update the component list in `/.agents/index.md`.
 
+## Changelog entries
+
+Before writing or editing a `.changeset/*.md` file, read `/.agents/changelog.md`. Its text becomes the package's CHANGELOG entry, so it describes only the user-facing impact, never the implementation.
+
 ## Pages
 
 Page-specific acceptance criteria and known issues live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
