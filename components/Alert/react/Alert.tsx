@@ -184,7 +184,7 @@ export const Alert: React.FC<
           {details && (
             <details
               className={clsx(
-                'border-t-1 cursor-pointer border-t p-[16px]',
+                'cursor-pointer border-t p-[16px]',
                 variantClasses.bodyClass,
                 variantClasses.borderClass,
               )}

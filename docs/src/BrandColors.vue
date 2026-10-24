@@ -63,7 +63,7 @@ const colorsForColorway = (colorway: string) => {
         class="relative h-16"
         :class="`bg-${color.name} text-${color.textColor}`"
       >
-        <div class="text-md mx-2 my-1">
+        <div class="mx-2 my-1">
           {{ color.name }}
         </div>
         <div class="absolute inset-x-2 bottom-2 text-right text-sm">
