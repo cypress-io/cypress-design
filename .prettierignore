@@ -15,3 +15,8 @@ node_modules
 
 # symlinks to .agents/skills — prettier cannot process symlinked files
 .claude/commands/
+
+# generated at build time and gitignored in their own directories
+docs/public/tokens.css
+icon-registry/src/icons.ts
+components/Icon/*/_TreeShakableIcons.ts

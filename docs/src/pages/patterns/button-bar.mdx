@@ -12,7 +12,7 @@ import ButtonBar from '../../demos/ButtonBar.astro'
 
 If you have to make a button bar, you can use the `flex` and `gap` classes to make it look nice.
 
-<div class="border border-gray-100 rounded-lg my-4 overflow-hidden">
+<div class="my-4 overflow-hidden rounded-lg border border-gray-100">
   <ButtonBar />
 </div>
 
@@ -22,11 +22,11 @@ import Button from '@cypress-design/vue-button'
 </script>
 
 <template>
-  <div class="bg-white rounded">
+  <div class="rounded bg-white">
     <div class="p-4">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit.
     </div>
-    <div class="p-4 flex flex-wrap gap-4 border-t border-t-gray-50">
+    <div class="flex flex-wrap gap-4 border-t border-t-gray-50 p-4">
       <Button variant="outline-indigo" size="32">Primary Action</Button>
       <Button variant="link" size="32">Cancel</Button>
       <div class="md:flex-grow" />

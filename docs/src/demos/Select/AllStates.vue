@@ -144,11 +144,9 @@ const long = Array.from({ length: 24 }, (_, i) => ({
 // trigger-based examples below use the default absolute popover.
 const PREVIEW_PANEL = '!static !mt-0 !z-auto'
 
-// Tracked selected values for the preview panels (read-only is fine; the
+// Tracked selected value for the preview panels (read-only is fine; the
 // `value` prop highlights the corresponding row without managing state).
 const previewSelected = 'beta'
-const previewSelectedUser = 'u2'
-const previewSelectedCheckbox = 'b'
 
 // Interactive state for the mixed-content tile, so clicking a checkbox
 // row actually toggles the row's selected/unchecked state. Default rows
@@ -166,13 +164,13 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
 
 <template>
   <!-- Expanded panels — see every content type at a glance, no clicks. -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Expanded panels — content types
   </p>
-  <div class="bg-white p-4 rounded mb-2">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
+  <div class="mb-2 rounded bg-white p-4">
+    <div class="grid grid-cols-2 items-start gap-4 md:grid-cols-4">
       <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
           default
         </p>
         <SelectOptionList
@@ -189,13 +187,12 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         tile below. On narrow screens (2-col grid) it stacks naturally.
       -->
       <div class="col-span-2">
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
           all content types + footer
         </p>
         <SelectOptionList
           :items="withMixedContent"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -213,13 +210,14 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
             <span class="flex items-start gap-[8px]">
               <IconActionInfoOutline
                 size="16"
-                class="text-gray-600 shrink-0 mt-[2px]"
+                class="mt-[2px] shrink-0 text-gray-600"
               />
               <span class="text-[14px] leading-[20px] text-gray-700">
                 Selecting
@@ -236,7 +234,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
            it sits next to the size-40 all-content-types tile, not glued to
            the last column of the row above. -->
       <div class="md:col-start-1">
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
           default — size 40
         </p>
         <SelectOptionList
@@ -247,14 +245,13 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         />
       </div>
       <div class="col-span-2">
-        <p class="text-[11px] uppercase tracking-wide text-gray-500 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
           all content types + footer — size 40
         </p>
         <SelectOptionList
           :items="withMixedContent"
           size="40"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -272,13 +269,14 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
             <span class="flex items-start gap-[8px]">
               <IconActionInfoOutline
                 size="16"
-                class="text-gray-600 shrink-0 mt-[2px]"
+                class="mt-[2px] shrink-0 text-gray-600"
               />
               <span class="text-[14px] leading-[20px] text-gray-700">
                 Selecting
@@ -293,13 +291,13 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
   </div>
 
   <!-- Dark expanded preview -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Expanded panels — dark mode
   </p>
-  <div class="bg-gray-1000 p-4 rounded mb-4">
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 items-start">
+  <div class="mb-4 rounded bg-gray-1000 p-4">
+    <div class="grid grid-cols-2 items-start gap-4 md:grid-cols-4">
       <div>
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
           default
         </p>
         <SelectOptionList
@@ -310,14 +308,13 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         />
       </div>
       <div class="col-span-2">
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
           all content types + footer
         </p>
         <SelectOptionList
           theme="dark"
           :items="withMixedContent"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -335,13 +332,14 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
             <span class="flex items-start gap-[8px]">
               <IconActionInfoOutline
                 size="16"
-                class="text-gray-400 shrink-0 mt-[2px]"
+                class="mt-[2px] shrink-0 text-gray-400"
               />
               <span class="text-[14px] leading-[20px] text-gray-400">
                 Selecting
@@ -355,7 +353,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
       <!-- Size-40 mirrors so the dark grid offers the same size comparison.
            See the light-mode counterpart for why `md:col-start-1` is here. -->
       <div class="md:col-start-1">
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
           default — size 40
         </p>
         <SelectOptionList
@@ -367,7 +365,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         />
       </div>
       <div class="col-span-2">
-        <p class="text-[11px] uppercase tracking-wide text-gray-600 mb-1">
+        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
           all content types + footer — size 40
         </p>
         <SelectOptionList
@@ -375,7 +373,6 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :items="withMixedContent"
           size="40"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -393,13 +390,14 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
             <span class="flex items-start gap-[8px]">
               <IconActionInfoOutline
                 size="16"
-                class="text-gray-400 shrink-0 mt-[2px]"
+                class="mt-[2px] shrink-0 text-gray-400"
               />
               <span class="text-[14px] leading-[20px] text-gray-400">
                 Selecting
@@ -414,11 +412,11 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
   </div>
 
   <!-- Interactive triggers below — confirm the popover-anchored behavior. -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Interactive triggers
   </p>
-  <div class="bg-white p-4 rounded mb-4">
-    <div class="flex gap-6 flex-wrap items-start">
+  <div class="mb-4 rounded bg-white p-4">
+    <div class="flex flex-wrap items-start gap-6">
       <Select v-model="v1" :items="simple" placeholder="Pick one" />
       <Select v-model="v2" :items="simple" placeholder="Pre-selected" />
       <Select :items="simple" placeholder="Disabled" disabled />
@@ -483,10 +481,10 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
   </div>
 
   <!-- Alignment + sizing -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Alignment (right) + maxHeight (scroll)
   </p>
-  <div class="bg-white p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-white p-4">
     <div class="flex justify-end">
       <Select
         v-model="v8"
@@ -500,11 +498,11 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
   </div>
 
   <!-- Dark interactive triggers -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Dark mode — interactive triggers
   </p>
-  <div class="bg-gray-1000 p-4 rounded mb-4">
-    <div class="flex gap-6 flex-wrap items-start">
+  <div class="mb-4 rounded bg-gray-1000 p-4">
+    <div class="flex flex-wrap items-start gap-6">
       <Select
         theme="dark"
         :items="withGroups"

@@ -229,7 +229,7 @@ describe('Ref Forwarding', () => {
     )
 
     cy.then(() => {
-      expect(inputRef.current).not.to.equal(null)
+      expect(inputRef.current).to.exist
       expect(inputRef.current?.tagName).to.equal('INPUT')
       expect(inputRef.current?.placeholder).to.equal('Test input')
     })

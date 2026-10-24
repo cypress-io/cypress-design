@@ -24,7 +24,7 @@ const showModal = ref(false)
 </script>
 
 <template>
-  <div class="my-40 mx-auto justify-center flex gap-4">
+  <div class="mx-auto my-40 flex justify-center gap-4">
     <IconBrowserChrome class="h-32 w-32" />
     <IconBrowserSafari class="h-32 w-32" />
     <IconBrowserMozillaFirefox class="h-32 w-32" />
@@ -32,10 +32,10 @@ const showModal = ref(false)
     <IconBrowserEdge class="h-32 w-32" />
   </div>
   <div
-    class="@container/main mb-4 overflow-hidden max-w-[600px] mx-auto text-center"
+    class="mx-auto mb-4 max-w-[600px] overflow-hidden text-center @container/main"
   >
     <h2 class="p-4">Example of container query usage</h2>
-    <div class="grid grid-cols-1 @[30rem]/main:grid-cols-3 gap-4">
+    <div class="grid grid-cols-1 gap-4 @[30rem]/main:grid-cols-3">
       <div class="bg-gray-100 p-4">1</div>
       <div class="bg-gray-100 p-4">2</div>
       <div class="bg-gray-100 p-4">3</div>
@@ -44,7 +44,7 @@ const showModal = ref(false)
       <div class="bg-gray-100 p-4">6</div>
     </div>
   </div>
-  <div class="group w-[500px] text-center mx-auto">
+  <div class="group mx-auto w-[500px] text-center">
     <Icon
       name="general-grid-2x2"
       size="16"
@@ -52,9 +52,9 @@ const showModal = ref(false)
       fill-color="gray-100"
     />
     <Checkbox
+      id="Sample"
       v-model="checked"
       label="Checkbox"
-      id="Sample"
       @update:model-value=""
     />
     <p v-if="checked">Checked</p>
@@ -82,7 +82,7 @@ const showModal = ref(false)
         <IconActionQuestionMarkCircle fillColor="jade-50" />
       </template>
     </Accordion>
-    <div class="group p-4 bg-jade-50">
+    <div class="group bg-jade-50 p-4">
       <IconObjectMagnifyingGlass
         interactive-colors-on-group
         strokeColor="jade-600"

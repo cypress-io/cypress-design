@@ -1,0 +1,12 @@
+# voice.md, Writing for people: "Use Cypress to automate your tests", not
+# "leverage Cypress to automate your tests".
+extends: substitution
+message: "Use '%s' instead of '%s'."
+link: https://design.cypress.io/agents/voice.md#writing-for-people
+level: warning
+ignorecase: true
+swap:
+  leverage: use
+  leverages: uses
+  leveraging: using
+  leveraged: used

@@ -9,18 +9,18 @@ const colors = Object.keys(CssColor) as Array<keyof typeof CssColor>
 <template>
   <Tag size="24" color="jade" class="px-[8px]">Tag</Tag>
   <div
-    class="flex flex-row flex-wrap items-start justify-center gap-6 mt-5 bg-gray-700"
+    class="mt-5 flex flex-row flex-wrap items-start justify-center gap-6 bg-gray-700"
   >
     <div
       v-for="size of sizes"
       :key="size"
-      class="flex flex-col items-center justify-center gap-3 p-4 my-4 bg-white rounded-lg"
+      class="my-4 flex flex-col items-center justify-center gap-3 rounded-lg bg-white p-4"
     >
       <h3 class="text-right">{{ size }}</h3>
       <div
         v-for="color of colors"
         :key="color"
-        class="flex items-center gap-4 justify-stretch"
+        class="flex items-center justify-stretch gap-4"
       >
         <div class="flex items-center justify-center">
           <Tag :size="size" :color="color">{{ color }}</Tag>

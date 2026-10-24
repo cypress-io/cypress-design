@@ -12,17 +12,17 @@ const groupShowed = reactive<Record<string, boolean>>({})
 </script>
 
 <template>
-  <div class="bg-white p-4 max-h-[400px] overflow-hidden overflow-y-auto">
+  <div class="max-h-[400px] overflow-hidden overflow-y-auto bg-white p-4">
     <TestResult v-for="tr of TestResults" :key="tr.id" v-bind="tr">
       <template #actions>
         <Button
           v-if="!tr.groups"
           variant="outline-light"
           size="32"
-          class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+          class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
         >
           <IconActionTestReplay />
-          <span class="hidden @lg/test-result:inline ml-[8px]"
+          <span class="ml-[8px] hidden @lg/test-result:inline"
             >Test Replay</span
           >
         </Button>
@@ -30,7 +30,7 @@ const groupShowed = reactive<Record<string, boolean>>({})
           v-else
           variant="outline-light"
           size="32"
-          class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+          class="hidden h-[32px] !px-[8px] @xl/test-result:inline-block"
           @click="groupShowed[tr.id] = !groupShowed[tr.id]"
         >
           <IconChevronRightSmall
@@ -46,16 +46,16 @@ const groupShowed = reactive<Record<string, boolean>>({})
         <div
           v-for="group in tr.groups"
           :key="group"
-          class="px-[16px] py-[10px] border border-gray-100 border-t-0 first:border-t flex items-center"
+          class="flex items-center border border-t-0 border-gray-100 px-[16px] py-[10px] first:border-t"
         >
           <span class="flex-1">{{ group }}</span>
           <Button
             variant="outline-light"
             size="32"
-            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+            class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
           >
             <IconActionTestReplay />
-            <span class="hidden @lg/test-result:inline ml-[8px]"
+            <span class="ml-[8px] hidden @lg/test-result:inline"
               >Test Replay</span
             >
           </Button>

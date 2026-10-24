@@ -25,7 +25,7 @@ export default ({
         return (
           <div
             class={clsx(
-              'flex flex-col items-center gap-3 justify-center mt-4 p-2',
+              'mt-4 flex flex-col items-center justify-center gap-3 p-2',
               {
                 'bg-gray-1000 text-white': darkModeVariants.includes(variant),
               },
@@ -38,7 +38,7 @@ export default ({
                 return (
                   <div class="flex items-center justify-center">
                     <span
-                      class={clsx('text-sm mr-4', {
+                      class={clsx('mr-4 text-sm', {
                         'text-gray-300': darkModeVariants.includes(variant),
                         'text-gray-700': !darkModeVariants.includes(variant),
                       })}

@@ -1,0 +1,8 @@
+# voice.md, Naming rules: Cypress Cloud — don't precede with "the".
+extends: existence
+message: "Write 'Cypress Cloud', not 'the Cypress Cloud'."
+link: https://design.cypress.io/agents/voice.md#naming-rules
+level: warning
+ignorecase: true
+tokens:
+  - 'the Cypress Cloud'

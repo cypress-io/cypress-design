@@ -9,12 +9,12 @@ import assertions from '../assertions'
 describe('Tag', () => {
   function mountStory() {
     mount(
-      <div className="flex flex-row flex-wrap items-start justify-center bg-gray-700 gap-6">
+      <div className="flex flex-row flex-wrap items-start justify-center gap-6 bg-gray-700">
         {(Object.keys(CssSize) as Array<keyof typeof CssSize>).map((size) => {
           return (
             <div
               key={`size-${size}`}
-              className="flex flex-col items-center gap-3 justify-center my-4 p-4 bg-white rounded-lg"
+              className="my-4 flex flex-col items-center justify-center gap-3 rounded-lg bg-white p-4"
             >
               <h3 className="text-right">{size}</h3>
               {(Object.keys(CssColor) as Array<keyof typeof CssColor>).map(

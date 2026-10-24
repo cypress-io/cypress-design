@@ -15,7 +15,7 @@ describe('Logo', () => {
             <CypressLockUp variant={v as keyof typeof logoLockUp} key={v} />
           ))}
         </div>
-        <div class="flex mt-4 gap-4">
+        <div class="mt-4 flex gap-4">
           {Object.keys(logoMark).map((v) => (
             <CypressMark variant={v as keyof typeof logoMark} key={v} />
           ))}

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import IconButton from './IconButton.vue'
 import AnimatedIcons from './AnimatedIcons.vue'
+
+type IconMeta = (typeof iconsMetadata)[keyof typeof iconsMetadata]
 
 const search = ref('')
 const $searchInput = ref<HTMLInputElement>()
@@ -19,35 +21,35 @@ const groupedIconsMetadata = computed(() =>
       if (search.value && !iconName.includes(search.value)) return acc
       const iconGroup = iconName.split('-')[0]
       if (!acc[iconGroup]) {
-        acc[iconGroup] = {} as Record<keyof typeof iconsMetadata, any>
+        acc[iconGroup] = {} as Record<keyof typeof iconsMetadata, IconMeta>
       }
       acc[iconGroup][iconName as keyof typeof iconsMetadata] = iconMeta
       return acc
     },
-    {} as Record<string, Record<keyof typeof iconsMetadata, any>>,
+    {} as Record<string, Record<keyof typeof iconsMetadata, IconMeta>>,
   ),
 )
 </script>
 
 <template>
-  <div class="bg-gray-50 rounded p-[16px] my-[24px] relative">
+  <div class="relative my-[24px] rounded bg-gray-50 p-[16px]">
     <input
       ref="$searchInput"
-      type="search"
       v-model="search"
+      type="search"
       placeholder="Search Icons"
-      class="w-full border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded bg-white"
+      class="mb-[16px] block w-full rounded border-2 border-solid border-gray-200 bg-white px-[8px] py-[4px] focus:border-indigo-300"
     />
     <div v-if="!anyIconFound">
       <p class="text-center text-gray-500">No icons found</p>
     </div>
     <div
       v-for="(icons, groupName) of groupedIconsMetadata"
-      class="bg-white py-[16px] mb-[16px]"
+      class="mb-[16px] bg-white py-[16px]"
     >
       <h2
         :id="groupName"
-        class="text-[24px] text-center !mb-4 !mt-0 capitalize"
+        class="!mb-4 !mt-0 text-center text-[24px] capitalize"
       >
         {{ groupName }}
         <a class="header-anchor absolute ml-[8px]" :href="`#${groupName}`"
@@ -57,7 +59,7 @@ const groupedIconsMetadata = computed(() =>
       <div
         class="flex"
         :class="{
-          'max-w-full flex-wrap px-[24px] gap-[16px]': !search.length,
+          'max-w-full flex-wrap gap-[16px] px-[24px]': !search.length,
           'flex-col items-start gap-[8px]': search.length,
         }"
       >
