@@ -98,7 +98,7 @@ const dismissed = ref(false)
       running your whole application. Generate the config in just a few clicks.
     </template>
     <template #footer>
-      <div class="p-4 flex flex-wrap overflow-x-hidden gap-4">
+      <div class="flex flex-wrap gap-4 overflow-x-hidden p-4">
         <Button variant="outline-indigo" size="32">Quick setup</Button>
         <Button variant="link" size="32">Read our guides</Button>
         <div class="md:flex-grow md:grow" />

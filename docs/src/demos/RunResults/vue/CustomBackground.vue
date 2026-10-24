@@ -4,7 +4,7 @@ import RunResults from '@cypress-design/vue-runresults'
 
 <template>
   <!-- `pill-class-name` is merged with tailwind-merge, so it wins over the theme background. -->
-  <div class="bg-gray-900 p-4 rounded">
+  <div class="rounded bg-gray-900 p-4">
     <RunResults
       :passed="22"
       :failed="4"

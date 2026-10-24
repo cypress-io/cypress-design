@@ -14,13 +14,13 @@ import Button from '@cypress-design/vue-button'
 </script>
 
 <template>
-  <div class="bg-white rounded">
+  <div class="rounded bg-white">
     <div class="p-4">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio.
       Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
     </div>
     <div
-      class="p-4 flex flex-wrap overflow-x-hidden gap-4 border-t-gray-50 border-t"
+      class="flex flex-wrap gap-4 overflow-x-hidden border-t border-t-gray-50 p-4"
     >
       <Button variant="outline-indigo" size="32">Primary Action</Button>
       <Button variant="link" size="32">Cancel</Button>

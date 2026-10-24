@@ -15,5 +15,5 @@ const prettier = (files) => {
 }
 
 export default {
-  '*.{js,ts,jsx,tsx,vue,css,md}': prettier,
+  '*.{js,ts,jsx,tsx,vue,css,scss,md,mdx}': prettier,
 }

@@ -82,21 +82,21 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
   <div class="my-[24px] flex flex-col gap-[32px]">
     <!-- how it looks in a tab -->
     <section class="flex flex-col gap-[12px]">
-      <h3 class="!mt-0 !mb-0 text-[18px]">In a browser tab</h3>
+      <h3 class="!mb-0 !mt-0 text-[18px]">In a browser tab</h3>
       <p class="!my-0 text-[14px] text-gray-700">
         The real <code>favicon.ico</code> at the sizes a browser actually
         renders, on Chrome's light and dark tab colours.
       </p>
       <div class="grid gap-[12px] md:grid-cols-2">
         <div
-          class="rounded-t-[10px] px-[11px] pt-[11px] overflow-x-auto"
+          class="overflow-x-auto rounded-t-[10px] px-[11px] pt-[11px]"
           style="background: #dee1e6"
         >
-          <div class="flex gap-[2px] items-end min-w-min">
+          <div class="flex min-w-min items-end gap-[2px]">
             <div
               v-for="s of ICO_SIZES"
               :key="`l${s}`"
-              class="flex items-center gap-[7px] rounded-t-[9px] px-[13px] py-[9px] text-[11px] whitespace-nowrap"
+              class="flex items-center gap-[7px] whitespace-nowrap rounded-t-[9px] px-[13px] py-[9px] text-[11px]"
               style="background: #ffffff; color: #5a6072"
             >
               <img :src="SRC['favicon.ico']" :width="s" :height="s" alt="" />
@@ -105,14 +105,14 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
           </div>
         </div>
         <div
-          class="rounded-t-[10px] px-[11px] pt-[11px] overflow-x-auto"
+          class="overflow-x-auto rounded-t-[10px] px-[11px] pt-[11px]"
           style="background: #202124"
         >
-          <div class="flex gap-[2px] items-end min-w-min">
+          <div class="flex min-w-min items-end gap-[2px]">
             <div
               v-for="s of ICO_SIZES"
               :key="`d${s}`"
-              class="flex items-center gap-[7px] rounded-t-[9px] px-[13px] py-[9px] text-[11px] whitespace-nowrap"
+              class="flex items-center gap-[7px] whitespace-nowrap rounded-t-[9px] px-[13px] py-[9px] text-[11px]"
               style="background: #35363a; color: #9aa0ae"
             >
               <img :src="SRC['favicon.ico']" :width="s" :height="s" alt="" />
@@ -125,7 +125,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
 
     <!-- the adaptive svg -->
     <section class="flex flex-col gap-[12px]">
-      <h3 class="!mt-0 !mb-0 text-[18px]">favicon.svg — the adaptive one</h3>
+      <h3 class="!mb-0 !mt-0 text-[18px]">favicon.svg — the adaptive one</h3>
       <p class="!my-0 text-[14px] text-gray-700">
         One file, two palettes, swapped with <code>prefers-color-scheme</code>.
         Your system is currently <b>{{ scheme }}</b
@@ -133,7 +133,7 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
         it repaints.
       </p>
       <div
-        class="flex gap-[24px] items-end flex-wrap rounded p-[24px] bg-gray-50"
+        class="flex flex-wrap items-end gap-[24px] rounded bg-gray-50 p-[24px]"
       >
         <div
           v-for="s of [16, 24, 32, 48, 64, 128]"
@@ -148,14 +148,14 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
 
     <!-- the rest -->
     <section class="flex flex-col gap-[12px]">
-      <h3 class="!mt-0 !mb-0 text-[18px]">The other surfaces</h3>
+      <h3 class="!mb-0 !mt-0 text-[18px]">The other surfaces</h3>
       <p class="!my-0 text-[14px] text-gray-700">
         Each renders a single fixed image and never adapts. The apple-touch icon
         is deliberately opaque: iOS composites on white, so transparent corners
         produce a hard edge.
       </p>
       <div
-        class="flex gap-[28px] items-end flex-wrap rounded p-[24px] bg-gray-50"
+        class="flex flex-wrap items-end gap-[28px] rounded bg-gray-50 p-[24px]"
       >
         <div class="flex flex-col items-center gap-[8px]">
           <img
@@ -189,9 +189,9 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
 
     <!-- inventory -->
     <section class="flex flex-col gap-[12px]">
-      <h3 class="!mt-0 !mb-0 text-[18px]">What ships</h3>
+      <h3 class="!mb-0 !mt-0 text-[18px]">What ships</h3>
       <div class="overflow-x-auto">
-        <table class="w-full text-[14px] border-collapse">
+        <table class="w-full border-collapse text-[14px]">
           <thead>
             <tr class="text-left text-gray-600">
               <th class="py-[8px] pr-[16px] font-medium">File</th>

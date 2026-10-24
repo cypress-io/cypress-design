@@ -12,7 +12,7 @@ describe('<Checkbox />', () => {
           label="Welcome guide settings"
           id="welcome-opt-out"
           checked
-          class="px-2 py-1 m-2 border border-gray-300 rounded"
+          class="m-2 rounded border border-gray-300 px-2 py-1"
         />
       )
     })
@@ -31,7 +31,7 @@ describe('<Checkbox />', () => {
           label="Welcome guide settings"
           id="welcome-opt-out"
           checked
-          class="px-2 py-1 m-2 border border-gray-300 rounded"
+          class="m-2 rounded border border-gray-300 px-2 py-1"
         />
       )
     })
@@ -89,10 +89,10 @@ describe('<Checkbox />', () => {
           <Checkbox
             label="Welcome guide settings"
             v-model={isChecked.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <div
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
             data-cy="result"
           >
             isChecked = {isChecked.value.toString()}
@@ -138,22 +138,22 @@ describe('<Checkbox />', () => {
             name="first-checkbox"
             label="First checkbox"
             v-model={checkedValues.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <Checkbox
             name="second-checkbox"
             label="Second checkbox"
             v-model={checkedValues.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <Checkbox
             name="third-checkbox"
             label="Third checkbox"
             v-model={checkedValues.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <div
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
             data-cy="result"
           >
             {JSON.stringify(checkedValues.value)}

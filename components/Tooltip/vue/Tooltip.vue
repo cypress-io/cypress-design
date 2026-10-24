@@ -235,7 +235,7 @@ onMounted(() => {
               positionComputed &&
               !(tooltipHovered && props.interactive) &&
               !open,
-            '-top-[10000px] invisible': !positionComputed,
+            'invisible -top-[10000px]': !positionComputed,
           },
           props.interactive ? 'p-[16px]' : undefined,
         ]"
@@ -243,7 +243,7 @@ onMounted(() => {
         @mouseout="!open && (tooltipHovered = false)"
       >
         <div
-          class="border rounded shadow-tooltip"
+          class="rounded border shadow-tooltip"
           :class="[colors.background, colors.block]"
         >
           <svg
@@ -274,7 +274,7 @@ onMounted(() => {
             />
           </svg>
           <div
-            class="rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20"
+            class="relative z-20 min-w-[160px] rounded p-[8px] text-center text-[16px] leading-[24px]"
             :class="colors.background"
           >
             <span class="sr-only">Tooltip: </span>
