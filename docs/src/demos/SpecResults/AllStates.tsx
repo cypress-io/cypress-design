@@ -14,7 +14,7 @@ const Heading = ({ children }: { children: React.ReactNode }) => (
   // Demo content renders inside the docs page's `.markdown` wrapper, whose
   // `.markdown p` rule outranks a plain `mt-0`/`mb-0` utility on specificity
   // -- force it with Tailwind's `!` modifier instead.
-  <p className="!mt-0 font-semibold text-[16px] !leading-4 text-gray-900 !mb-[4px]">
+  <p className="!mb-[4px] !mt-0 text-[16px] font-semibold !leading-4 text-gray-900">
     {children}
   </p>
 )
@@ -98,12 +98,12 @@ const NO_TESTS_NO_MATCH = (
     <Heading>No spec files were found</Heading>
     <p className="!mb-0 !leading-[20px]">
       No spec files matched the{' '}
-      <code className="font-mono px-[4px] border border-gray-100 bg-gray-25 rounded text-[12px] text-purple-500">
+      <code className="rounded border border-gray-100 bg-gray-25 px-[4px] font-mono text-[12px] text-purple-500">
         specPattern
       </code>{' '}
       in your Cypress config file when this run was recorded.
       <br />
-      <code className="font-mono block min-h-[32px] leading-[24px] mt-[12px] mb-[4px] px-[12px] py-[4px] border border-gray-100 bg-gray-25 rounded-[4px] text-purple-500">
+      <code className="mb-[4px] mt-[12px] block min-h-[32px] rounded-[4px] border border-gray-100 bg-gray-25 px-[12px] py-[4px] font-mono leading-[24px] text-purple-500">
         specPattern: &apos;cypress/e2e/billing/**/*.cy.ts&apos;
       </code>
     </p>
@@ -115,7 +115,7 @@ const Example = ({
   ...props
 }: SpecResultsProps & { title: React.ReactNode }) => (
   <div>
-    <div className="text-sm leading-5 font-medium text-gray-900 mb-3">
+    <div className="mb-3 text-sm font-medium leading-5 text-gray-900">
       {title}
     </div>
     <SpecResults {...props} />

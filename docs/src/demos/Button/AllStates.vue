@@ -22,10 +22,10 @@ const darkVariants = [
 
 <template>
   <!-- Basic usage -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Basic
   </p>
-  <div class="flex items-center gap-4 mb-4">
+  <div class="mb-4 flex items-center gap-4">
     <Button>
       <IconActionQuestionMarkCircle class="mr-2" fill-color="indigo-400" />
       Button
@@ -33,10 +33,10 @@ const darkVariants = [
   </div>
 
   <!-- Square icon buttons at all sizes -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Square — all sizes
   </p>
-  <div class="flex gap-4 items-center mb-6">
+  <div class="mb-6 flex items-center gap-4">
     <Button v-for="size of squareSizes" :key="size" :size="size" square>
       <IconActionQuestionMarkCircle
         fill-color="indigo-400"
@@ -49,14 +49,14 @@ const darkVariants = [
   </div>
 
   <!-- All variants × sizes -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     All variants — each size + disabled (🚫)
   </p>
   <div class="flex flex-wrap justify-stretch gap-2">
     <div
       v-for="(_, variant) in VariantClassesTable"
       :key="variant"
-      class="p-2 py-3 flex flex-col items-center gap-4 rounded min-w-[180px]"
+      class="flex min-w-[180px] flex-col items-center gap-4 rounded p-2 py-3"
       :class="{
         'bg-gray-1000 text-white': darkVariants.includes(variant),
         'bg-white text-gray-900': !darkVariants.includes(variant),
@@ -66,13 +66,13 @@ const darkVariants = [
       <div
         v-for="(_, size) in SizeClassesTable"
         :key="size"
-        class="flex gap-2 items-center"
+        class="flex items-center gap-2"
       >
-        <span class="text-xs w-6">{{ size }}</span>
+        <span class="w-6 text-xs">{{ size }}</span>
         <Button :variant="variant" :size="size">Button</Button>
       </div>
-      <div class="flex gap-2 items-center">
-        <span class="text-xs w-6">🚫</span>
+      <div class="flex items-center gap-2">
+        <span class="w-6 text-xs">🚫</span>
         <Button :variant="variant" size="48" disabled>Button</Button>
       </div>
     </div>

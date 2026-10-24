@@ -54,7 +54,7 @@ const colorsForColorway = (colorway: string) => {
 
 <template>
   <div
-    class="grid md:grid-rows-[repeat(11,minmax(0,1fr))] md:grid-flow-col gap-x-[8px] my-[16px]"
+    class="my-[16px] grid gap-x-[8px] md:grid-flow-col md:grid-rows-[repeat(11,minmax(0,1fr))]"
   >
     <template v-for="colorway of brandPalettes[palette]" :key="colorway">
       <div
@@ -63,10 +63,10 @@ const colorsForColorway = (colorway: string) => {
         class="relative h-16"
         :class="`bg-${color.name} text-${color.textColor}`"
       >
-        <div class="mx-2 my-1 text-md">
+        <div class="text-md mx-2 my-1">
           {{ color.name }}
         </div>
-        <div class="absolute bottom-2 inset-x-2 text-sm text-right">
+        <div class="absolute inset-x-2 bottom-2 text-right text-sm">
           {{ color.hex }}
         </div>
       </div>

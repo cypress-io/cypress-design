@@ -3,7 +3,7 @@ import RunResults from '@cypress-design/react-runresults'
 // `pillClassName` is merged with tailwind-merge, so it wins over the theme background.
 export default function CustomBackground() {
   return (
-    <div className="bg-gray-900 p-4 rounded">
+    <div className="rounded bg-gray-900 p-4">
       <RunResults
         passed={22}
         failed={4}

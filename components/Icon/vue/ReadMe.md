@@ -94,7 +94,7 @@ import { IconObjectBook } from '@cypress-design/vue-icon'
 </script>
 
 <template>
-  <button class="group hover:text-jade-800 flex items-center gap-[8px]">
+  <button class="group flex items-center gap-[8px] hover:text-jade-800">
     <IconObjectBook
       size="16"
       strokeColor="blue-600"

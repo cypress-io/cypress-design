@@ -206,7 +206,7 @@ export const Tooltip: React.FC<
                 {...getFloatingProps()}
               >
                 <div
-                  className={clsx('rounded shadow-tooltip border', [
+                  className={clsx('rounded border shadow-tooltip', [
                     colors.background,
                     colors.block,
                   ])}
@@ -236,7 +236,7 @@ export const Tooltip: React.FC<
                   </svg>
                   <div
                     className={clsx(
-                      'rounded text-[16px] leading-[24px] min-w-[160px] text-center p-[8px] relative z-20',
+                      'relative z-20 min-w-[160px] rounded p-[8px] text-center text-[16px] leading-[24px]',
                       colors.background,
                     )}
                   >

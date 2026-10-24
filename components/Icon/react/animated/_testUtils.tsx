@@ -21,7 +21,7 @@ export function iconTests(
         animated={false}
         width={400}
         height={400}
-        className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+        className="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500"
       />,
     )
   })
@@ -36,7 +36,7 @@ export function iconTests(
             animated={isActive}
             width={400}
             height={400}
-            className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400 m-[50px]"
+            className="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500 m-[50px]"
             onClick={() => setIsActive(!isActive)}
           />
         </>
@@ -72,25 +72,25 @@ export function iconTests(
 
   it('renders both side by side', { viewportWidth: 900 }, () => {
     mount(
-      <div className="bg-black flex gap-4 text-center text-2xl">
+      <div className="flex gap-4 bg-black text-center text-2xl">
         <div>
-          <h2 className="text-indigo-200 drop-shadow-md font-bold">
+          <h2 className="font-bold text-indigo-200 drop-shadow-md">
             not animated
           </h2>
           <Icon
             animated={false}
             width={400}
             height={400}
-            className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+            className="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500"
           />
         </div>
         <div>
-          <h2 className="text-indigo-200 drop-shadow-md font-bold">animated</h2>
+          <h2 className="font-bold text-indigo-200 drop-shadow-md">animated</h2>
           <Icon
             animated={true}
             width={400}
             height={400}
-            className="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+            className="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500"
           />
         </div>
       </div>,

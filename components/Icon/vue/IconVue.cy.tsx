@@ -49,17 +49,17 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
   it('renders multiple times an icon with defs with the generic Icon component', () => {
     mount(() => (
       <div class="p-2">
-        <Icon name="browser-webkit" class="w-16 h-16 hidden" />
-        <Icon name="browser-webkit" class="w-16 h-16" />
+        <Icon name="browser-webkit" class="hidden h-16 w-16" />
+        <Icon name="browser-webkit" class="h-16 w-16" />
       </div>
     ))
   })
 
   it('renders multiple times an icon with defs', () => {
     mount(() => (
-      <div class="p-2 flex">
-        <IconBrowserWebkit class="w-16 h-16 hidden" />
-        <IconBrowserWebkit class="w-16 h-16" />
+      <div class="flex p-2">
+        <IconBrowserWebkit class="hidden h-16 w-16" />
+        <IconBrowserWebkit class="h-16 w-16" />
       </div>
     ))
   })
@@ -68,9 +68,9 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     cy.viewport(200, 100)
     const iconVisible = ref(true)
     mount(() => (
-      <div class="p-2 flex">
-        {iconVisible.value ? <IconBrowserWebkit class="w-16 h-16" /> : null}
-        <IconBrowserWebkit class="w-16 h-16" />
+      <div class="flex p-2">
+        {iconVisible.value ? <IconBrowserWebkit class="h-16 w-16" /> : null}
+        <IconBrowserWebkit class="h-16 w-16" />
         <button onClick={() => (iconVisible.value = !iconVisible.value)}>
           toggle
         </button>
@@ -86,11 +86,11 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     cy.viewport(200, 100)
     const iconVisible = ref(true)
     mount(() => (
-      <div class="p-2 flex">
+      <div class="flex p-2">
         <IconBrowserWebkit
-          class={`w-16 h-16 ${iconVisible.value ? '' : 'hidden'}`}
+          class={`h-16 w-16 ${iconVisible.value ? '' : 'hidden'}`}
         />
-        <IconBrowserWebkit class="w-16 h-16" />
+        <IconBrowserWebkit class="h-16 w-16" />
         <button onClick={() => (iconVisible.value = !iconVisible.value)}>
           toggle
         </button>
@@ -104,9 +104,9 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
     cy.viewport(200, 200)
     const iconName = ref<'browser-edge' | 'browser-safari'>('browser-safari')
     mount(() => (
-      <div class="p-2 flex flex-col h-screen items-center justify-center">
-        <Icon name={iconName.value} class="w-16 h-16 hidden" />
-        <Icon name={iconName.value} class="w-16 h-16" />
+      <div class="flex h-screen flex-col items-center justify-center p-2">
+        <Icon name={iconName.value} class="hidden h-16 w-16" />
+        <Icon name={iconName.value} class="h-16 w-16" />
         <button
           onClick={() =>
             (iconName.value =
@@ -124,13 +124,13 @@ describe('Icon', { viewportWidth: 80, viewportHeight: 80 }, () => {
   })
 
   it('renders a title element when passed an alt prop', () => {
-    mount(() => <IconBrowserWebkit class="w-16 h-16" alt="This is a title" />)
+    mount(() => <IconBrowserWebkit class="h-16 w-16" alt="This is a title" />)
 
     cy.get('svg title').should('have.text', 'This is a title')
   })
 
   it('renders class passed only once', () => {
-    mount(() => <IconBrowserWebkit class="w-16 h-16" />)
+    mount(() => <IconBrowserWebkit class="h-16 w-16" />)
 
     cy.get('svg[width="16"]').should('have.attr', 'class', 'w-16 h-16')
   })

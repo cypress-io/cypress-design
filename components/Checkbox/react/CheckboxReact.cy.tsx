@@ -10,7 +10,7 @@ const ControlledCheckbox = () => {
       id="welcome-opt-out"
       checked={isChecked}
       onChange={() => setChecked(!isChecked)}
-      className="px-2 py-1 m-2 border border-gray-300 rounded"
+      className="m-2 rounded border border-gray-300 px-2 py-1"
     />
   )
 }

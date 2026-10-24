@@ -9,7 +9,7 @@ const size = computed(() => sizes[sizeSlider.value])
 </script>
 
 <template>
-  <div class="flex items-center gap-4 mb-4">
+  <div class="mb-4 flex items-center gap-4">
     Size <input type="range" min="0" max="4" step="1" v-model="sizeSlider" />
     {{ size }}
   </div>

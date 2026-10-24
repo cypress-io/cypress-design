@@ -184,7 +184,7 @@ export const Alert: React.FC<
           {details && (
             <details
               className={clsx(
-                'p-[16px] border-t border-t-1 cursor-pointer',
+                'border-t-1 cursor-pointer border-t p-[16px]',
                 variantClasses.bodyClass,
                 variantClasses.borderClass,
               )}
@@ -197,7 +197,7 @@ export const Alert: React.FC<
                 )}
               >
                 <IconChevronDownSmall
-                  className="my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
+                  className="my-[4px] mr-[8px] -rotate-90 transform transition open:rotate-0"
                   strokeColor={variantClasses.iconChevronColor}
                 />
                 {detailsTitle}

@@ -179,16 +179,16 @@ const sizeClasses = computed(() => {
     <details
       v-if="slots.details"
       ref="detailsRef"
-      class="p-[16px] border-t border-t-1"
+      class="border-t-1 border-t p-[16px]"
       :class="[variantClasses.bodyClass, variantClasses.borderClass]"
     >
       <summary
-        class="flex font-medium cursor-pointer details-none"
+        class="flex cursor-pointer font-medium details-none"
         :class="variantClasses.detailsHeaderClass"
       >
         <IconChevronDownSmall
           :strokeColor="variantClasses.iconChevronColor"
-          class="icon my-[4px] mr-[8px] transition transform -rotate-90 open:rotate-0"
+          class="icon my-[4px] mr-[8px] -rotate-90 transform transition open:rotate-0"
         />
         {{ props.detailsTitle }}
       </summary>

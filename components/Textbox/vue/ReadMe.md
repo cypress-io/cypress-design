@@ -45,7 +45,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-white p-4 rounded">
+  <div class="rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox variant="default" placeholder="Default placeholder" />
       <Textbox variant="valid" placeholder="Valid placeholder" />
@@ -66,7 +66,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-white p-4 rounded">
+  <div class="rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox variant="default" value="Default" />
       <Textbox variant="valid" value="Valid" />
@@ -88,7 +88,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-gray-1000 p-4 rounded">
+  <div class="rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" variant="default" placeholder="Default" />
       <Textbox theme="dark" variant="valid" placeholder="Valid" />
@@ -107,7 +107,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-gray-1000 p-4 rounded">
+  <div class="rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" variant="default" value="Default" />
       <Textbox theme="dark" variant="valid" value="Valid" />
@@ -129,7 +129,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-white p-4 rounded">
+  <div class="rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox size="32" value="Size 32" />
       <Textbox size="40" value="Size 40" />
@@ -147,7 +147,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-gray-1000 p-4 rounded">
+  <div class="rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" size="32" value="Size 32" />
       <Textbox theme="dark" size="40" value="Size 40" />
@@ -167,7 +167,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-white p-4 rounded">
+  <div class="rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox size="40" :rounded="false" value="Not rounded" />
       <Textbox size="40" :rounded="true" value="Rounded" />
@@ -184,7 +184,7 @@ import Textbox from '@cypress-design/vue-textbox'
 </script>
 
 <template>
-  <div class="bg-gray-1000 p-4 rounded">
+  <div class="rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" size="40" :rounded="false" value="Not rounded" />
       <Textbox theme="dark" size="40" :rounded="true" value="Rounded" />
@@ -204,7 +204,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
 </script>
 
 <template>
-  <div class="bg-white p-4 rounded">
+  <div class="rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox
         :divider="true"
@@ -297,7 +297,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
 </script>
 
 <template>
-  <div class="bg-gray-1000 p-4 rounded">
+  <div class="rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox
         :divider="true"
