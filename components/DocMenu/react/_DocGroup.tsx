@@ -14,7 +14,7 @@ import {
   type LinkComponentType,
 } from './_DocLink'
 
-export interface DocGroupProps {
+interface DocGroupProps {
   group: NavGroup
   context: Context
   onActivePosition: (opts: { top: number; height: number }) => void
@@ -40,7 +40,7 @@ const hasActiveItemRecursively = (
   })
 }
 
-export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
+const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
   (
     {
       group,

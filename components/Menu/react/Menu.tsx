@@ -172,9 +172,12 @@ const MenuItem = ({
   )
 }
 
-export const Menu: React.FC<
-  NavMenuProps & React.HTMLProps<HTMLUListElement>
-> = ({ items, activePath, className, ...rest }) => {
+const Menu: React.FC<NavMenuProps & React.HTMLProps<HTMLUListElement>> = ({
+  items,
+  activePath,
+  className,
+  ...rest
+}) => {
   return (
     <ul className={clsx('bg-gray-1000 text-gray-500', className)} {...rest}>
       {items.map((item) => {

@@ -1,4 +1,6 @@
 export { default } from './StatusIcon'
+export { StatusIcon } from './StatusIcon'
+export type { StatusIconProps } from './StatusIcon'
 export { OutlineStatusIcon } from './_OutlineStatusIcon'
 export { SimpleStatusIcon } from './_SimpleStatusIcon'
 export { SolidStatusIcon } from './_SolidStatusIcon'

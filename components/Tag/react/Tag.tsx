@@ -11,7 +11,7 @@ export interface TagProps {
   className?: string
 }
 
-export const Tag: React.FC<
+const Tag: React.FC<
   TagProps & Omit<React.HTMLProps<HTMLSpanElement>, 'size'>
 > = ({ className, children, size, color, dark, outline, ...rest }) => {
   const colorKey = dark

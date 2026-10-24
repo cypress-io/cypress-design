@@ -33,7 +33,7 @@ export interface TabsProps {
   renderTab?: (tab: Tab) => React.ReactNode
 }
 
-export const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
+const Tabs: React.FC<TabsProps & React.HTMLProps<HTMLDivElement>> = ({
   tabs,
   onSwitch,
   variant = 'default',

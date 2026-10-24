@@ -73,7 +73,7 @@ export interface AlertProps {
   size?: AlertSize
 }
 
-export const Alert: React.FC<
+const Alert: React.FC<
   AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size' | 'title'>
 > = ({
   variant,

@@ -56,7 +56,7 @@ export interface AccordionProps {
   onToggle?: (open: boolean) => void
 }
 
-export const Accordion: React.FC<
+const Accordion: React.FC<
   AccordionProps & React.HTMLProps<HTMLDetailsElement>
 > = ({
   title,

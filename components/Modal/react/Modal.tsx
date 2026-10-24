@@ -31,7 +31,7 @@ export interface ModalProps {
   closeIcon?: React.ReactNode
 }
 
-export const Modal: React.FC<ModalProps> = ({
+const Modal: React.FC<ModalProps> = ({
   show = false,
   title,
   helpLink,

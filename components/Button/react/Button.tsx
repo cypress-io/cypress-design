@@ -10,13 +10,13 @@ import {
   CssSizeClassesTableSquare,
 } from '@cypress-design/constants-button'
 
-export interface ButtonPropsJsx extends ButtonProps {
+interface ButtonPropsJsx extends ButtonProps {
   onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void
   className?: string
   children?: React.ReactNode
 }
 
-type ReactButtonProps = ButtonPropsJsx &
+export type ReactButtonProps = ButtonPropsJsx &
   (ButtonPropsJsx extends React.HTMLProps<HTMLAnchorElement>
     ? React.HTMLProps<HTMLAnchorElement>
     : Omit<React.HTMLProps<HTMLButtonElement>, 'size'>)

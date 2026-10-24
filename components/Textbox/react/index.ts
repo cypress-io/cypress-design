@@ -1,4 +1,6 @@
 export { default } from './Textbox'
+export { Textbox } from './Textbox'
+export type { ReactTextboxProps as TextboxProps } from './Textbox'
 export {
   CssVariantClasses as VariantClasses,
   CssStaticClasses as StaticClasses,

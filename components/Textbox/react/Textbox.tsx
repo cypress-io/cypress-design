@@ -3,13 +3,13 @@ import * as React from 'react'
 import * as TextboxConstants from '@cypress-design/constants-textbox'
 import type { TextboxProps as TextboxPropsBase } from '@cypress-design/constants-textbox'
 
-export interface TextboxPropsJsx extends TextboxPropsBase {
+interface TextboxPropsJsx extends TextboxPropsBase {
   labelLeft?: string | React.ReactNode
   labelRight?: string | React.ReactNode
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-type ReactTextboxProps = TextboxPropsJsx &
+export type ReactTextboxProps = TextboxPropsJsx &
   // `onChange` comes from TextboxPropsJsx; omitting HTMLProps' version keeps
   // the handler's event typed as a ChangeEvent (so `event.target.value` works).
   Omit<React.HTMLProps<HTMLInputElement>, 'size' | 'onChange'>

@@ -77,9 +77,7 @@ const ROTATE_MAP = {
   right: 90,
 }
 
-export const Tooltip: React.FC<
-  TooltipProps & React.HTMLProps<HTMLDivElement>
-> = ({
+const Tooltip: React.FC<TooltipProps & React.HTMLProps<HTMLDivElement>> = ({
   placement,
   color = 'light',
   className,

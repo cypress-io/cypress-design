@@ -17,7 +17,7 @@ export interface TestResultProps extends TestResultData {
   groups?: React.ReactNode
 }
 
-export const TestResult: React.FC<
+const TestResult: React.FC<
   TestResultProps & React.HTMLProps<HTMLDivElement>
 > = ({
   status,
