@@ -61,6 +61,12 @@ The `@cypress-design/css` package exports design tokens as CSS custom properties
 
 **Use Tailwind for all styling.** This design system is all-in on Tailwind utilities — no SASS, CSS Modules, or CSS-in-JS.
 
+**Class order and token use are flagged by tooling, not yet enforced.** Nothing here fails CI: the ESLint rules are warnings, and CI doesn't run `prettier --check`.
+
+- Prettier (`prettier-plugin-tailwindcss`, configured in `.prettierrc.json`) sorts classes in `class`/`className` attributes, `clsx()` calls, and `@apply`. The pre-commit hook runs it on staged files; otherwise run `yarn prettier --write`. Don't hand-order classes. `twMerge()` arguments are left unsorted on purpose: tailwind-merge keeps the last of two conflicting classes, so their order is meaningful.
+- ESLint (`eslint-plugin-tailwindcss`, configured in `eslint.config.js`) warns on arbitrary values (`text-[#123456]`, `px-[16px]`) and on classes that aren't in the Tailwind config. Reach for a design token first. A legitimate non-Tailwind hook class goes in the `whitelist` setting there, not an inline disable. A class built at runtime (`` `grid-cols-${n}` ``) belongs in script next to its `<tw-include>` comment, where the rule doesn't read it.
+- Gaps: Prettier doesn't sort classes in `.astro` files, which have no Prettier plugin installed. The ESLint rules cover `components/*/{react,vue}/` and `docs/src/` (`.astro` included), but only see class attributes and `clsx()`/`twMerge()` arguments, so class strings in `components/*/constants` objects aren't checked.
+
 ### Technical Debt: WindiCSS
 
 **Do not write new WindiCSS code.** The codebase has remnants from a previous migration. The largest holdover is the `WindiColor` type in `icon-registry/src/icons.ts` — it leaks into every icon component prop definition (`@cypress-design/react-icon`, `@cypress-design/vue-icon`).

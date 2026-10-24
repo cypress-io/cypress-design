@@ -301,6 +301,6 @@ The Trigger inherits Button's states (`default`, `hover`, `focused`, `focus-visi
 
 ## References
 
-- Light mode Figma: https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5020-18440
-- Dark mode Figma: https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5116-122756
+- Light mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5020-18440>
+- Dark mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5116-122756>
 - Implementation details: [`architecture.md`](./architecture.md)

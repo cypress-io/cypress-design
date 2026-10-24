@@ -42,6 +42,7 @@ export interface TextboxProps {
   /**
    * Icon component on the left side
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any icon component, whatever its props
   iconLeft?: React.ComponentType<any> | React.ReactNode
   /**
    * Whether to show a divider between iconLeft and input
@@ -50,6 +51,7 @@ export interface TextboxProps {
   /**
    * Icon component on the right side
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- any icon component, whatever its props
   iconRight?: React.ComponentType<any> | React.ReactNode
   /**
    * Label text or element on the right side

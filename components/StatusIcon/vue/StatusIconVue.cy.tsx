@@ -156,7 +156,7 @@ describe('StatusIcon', () => {
               />
               {variant.value}
             </div>
-            <div class="ml-20 h-20 w-[160px] flex items-center justify-center">
+            <div class="ml-20 flex h-20 w-[160px] items-center justify-center">
               <StatusIcon
                 variant={variant.value}
                 size={size.value}

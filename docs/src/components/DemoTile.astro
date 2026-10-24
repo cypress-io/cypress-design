@@ -115,6 +115,7 @@ const hintId = `tile-hint-${component}-${framework}-${name}`
       // The editor failed to load (offline, or the page is older than the
       // deployed site). Show the textarea's own text so editing still works,
       // and say why the preview isn't updating.
+      // eslint-disable-next-line no-console -- keep the cause visible to whoever debugs the page
       console.error(err)
       if (tile.dataset.plain) return
       tile.dataset.plain = 'true'

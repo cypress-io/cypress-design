@@ -1,6 +1,6 @@
 ---
 name: ux
-description: UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.
+description: 'UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.'
 ---
 
 # UX & Product Design Principles

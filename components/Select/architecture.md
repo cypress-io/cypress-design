@@ -4,7 +4,7 @@ How the Select component is built. Read this when extending, fixing, or rebuildi
 
 ## File layout
 
-```
+```text
 components/Select/
 ├── ReadMe.md                       # Public Astro/VitePress docs (live demos)
 ├── instructions.md                 # Consumer-facing usage doc

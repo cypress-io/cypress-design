@@ -36,10 +36,10 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
             <Button
               variant="outline-light"
               size="32"
-              class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+              class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
             >
               <IconActionTestReplay />
-              <span class="hidden @lg/test-result:inline ml-[8px]">
+              <span class="ml-[8px] hidden @lg/test-result:inline">
                 Test Replay
               </span>
             </Button>
@@ -47,7 +47,7 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
           <Button
             variant="outline-light"
             size="32"
-            class="!px-[8px] hidden @xl/test-result:inline-block"
+            class="hidden !px-[8px] @xl/test-result:inline-block"
             aria-label="expand"
             onClick={() => {
               if (result.groups) {
@@ -60,7 +60,7 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
               <IconChevronDownSmall
                 stroke-color="gray-500"
                 class={{
-                  'transition-transform transform': true,
+                  'transform transition-transform': true,
                   'rotate-180': showGroupBox.value,
                 }}
               />
@@ -73,16 +73,16 @@ const TestResultSut = (result: TestResultData & { groups?: string[] }) => {
           showGroupBox.value ? (
             <div class="flex flex-col">
               {result.groups?.map((group) => (
-                <div class="px-[16px] py-[12px] border border-gray-100 flex mb-[-1px] h-[56px]">
+                <div class="mb-[-1px] flex h-[56px] border border-gray-100 px-[16px] py-[12px]">
                   <span class="flex-1">{group}</span>
                   <Button
                     variant="outline-light"
                     size="32"
-                    class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+                    class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
                     aria-label="test replay"
                   >
                     <IconActionTestReplay />
-                    <span class="hidden @lg/test-result:inline ml-[8px]">
+                    <span class="ml-[8px] hidden @lg/test-result:inline">
                       Test Replay
                     </span>
                   </Button>

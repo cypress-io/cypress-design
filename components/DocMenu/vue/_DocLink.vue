@@ -102,7 +102,7 @@ const itemWithoutLabel = computed(() => {
 </script>
 
 <template>
-  <li ref="$container" class="list-none p-0 scroll-my-10">
+  <li ref="$container" class="scroll-my-10 list-none p-0">
     <component
       :is="linkComponent"
       v-bind="itemWithoutLabel"
@@ -111,7 +111,7 @@ const itemWithoutLabel = computed(() => {
         'text-indigo-500 dark:text-indigo-400': active,
         'text-gray-700 dark:text-gray-500': !active,
         'py-[8px] text-[16px] leading-[24px]': depth < 0,
-        'leading-[20px] text-[14px] py-[12px]': depth >= 0,
+        'py-[12px] text-[14px] leading-[20px]': depth >= 0,
       }"
       :style="{
         paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
@@ -119,10 +119,10 @@ const itemWithoutLabel = computed(() => {
     >
       <div
         v-if="depth >= 0"
-        class="left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full"
+        class="absolute bottom-[4px] left-[6.5px] top-[4px] z-10 w-[4px] rounded-full"
         :class="{
           hidden: !markerIsMoving || !active,
-          'group-hover:block bg-gray-300': !active && collapsible,
+          'bg-gray-300 group-hover:block': !active && collapsible,
           'bg-indigo-500': active && markerIsMoving,
         }"
       />

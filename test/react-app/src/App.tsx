@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, type ReactNode } from 'react'
 import logo from './logo.svg'
 import Checkbox from '@cypress-design/react-checkbox'
 import {
@@ -22,7 +22,7 @@ function LinkComponent({
 }: {
   href: string
   className?: string
-  children?: any
+  children?: ReactNode
 }) {
   return (
     <a

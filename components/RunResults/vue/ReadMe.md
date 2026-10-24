@@ -38,7 +38,7 @@ import RunResults from '@cypress-design/vue-runresults'
 </script>
 
 <template>
-  <div class="bg-gray-900 p-4 rounded">
+  <div class="rounded bg-gray-900 p-4">
     <RunResults
       theme="dark"
       pill-class-name="bg-gray-900"

@@ -1,0 +1,16 @@
+# voice.md, Tone: avoid "simply", "just", "easy", "powerful", "seamless",
+# "delight". "just" lives in Just.yml at suggestion level.
+extends: existence
+message: "Avoid '%s'. State what happens instead."
+link: https://design.cypress.io/agents/voice.md#tone
+level: warning
+ignorecase: true
+tokens:
+  - simply
+  - easy
+  - easily
+  - powerful
+  - seamless
+  - seamlessly
+  - delight
+  - delightful

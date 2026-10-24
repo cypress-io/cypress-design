@@ -34,7 +34,7 @@ Override the pill background (e.g. to blend into a colored surface) with `pillCl
 import { RunResults } from '@cypress-design/react-runresults'
 
 export default () => (
-  <div className="bg-gray-900 p-4 rounded">
+  <div className="rounded bg-gray-900 p-4">
     <RunResults
       theme="dark"
       pillClassName="bg-gray-900"

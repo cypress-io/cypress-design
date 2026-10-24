@@ -13,6 +13,7 @@
  * The result is CommonJS; `require` resolves against tile-modules.ts, so
  * edited tiles run against the same component builds as the page.
  */
+import type { ComponentType, ReactNode } from 'react'
 import { transform } from 'sucrase'
 import { tileModules } from './tile-modules'
 
@@ -193,9 +194,9 @@ async function mountReact(
   const { createRoot } = await import('react-dom/client')
   // The last version that rendered without throwing; shown again when a
   // newer version fails, so a runtime error doesn't blank the preview.
-  let lastGood: React.ComponentType | null = null
+  let lastGood: ComponentType | null = null
   class Boundary extends React.Component<
-    { children: React.ReactNode },
+    { children: ReactNode },
     { failed: boolean }
   > {
     state = { failed: false }
@@ -214,7 +215,7 @@ async function mountReact(
     component,
     onRendered,
   }: {
-    component: React.ComponentType
+    component: ComponentType
     onRendered: () => void
   }) {
     // Layout effect: runs after React commits but before the browser paints,
@@ -236,7 +237,7 @@ async function mountReact(
         React.createElement(Boundary, {
           key: version,
           children: React.createElement(Committed, {
-            component: component as React.ComponentType,
+            component: component as ComponentType,
             onRendered,
           }),
         }),
