@@ -64,11 +64,13 @@ Not every component has all files yet — add them when a component is created o
 
 ## Pages
 
-Page-specific acceptance criteria and known issues live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
+Page-specific acceptance criteria live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
+
+Track bugs and deferred follow-up work in GitHub issues, not in these files or anywhere else under `/.agents/`. Agents read these files as guidance, so a to-do list here turns into stale instructions.
 
 Available pages:
 
-- `pages/colors.md` — `/colors` page sections, palette behavior, TOC, known issues
+- `pages/colors.md` — `/colors` page sections, palette behavior, TOC
 
 ## Skills
 
