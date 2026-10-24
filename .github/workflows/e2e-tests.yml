@@ -44,12 +44,11 @@ jobs:
         run: yarn cypress install
 
       - name: Run E2E Tests - React App (Dev Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
-          start: yarn --cwd test/react-app dev --host 127.0.0.1
-          wait-on: 'http://127.0.0.1:5173'
-          config: baseUrl=http://127.0.0.1:5173/
+          start: yarn --cwd test/react-app dev
+          wait-on: 'http://localhost:5173'
           browser: chrome
           record: true
           group: 'E2E Tests - React Dev'
@@ -96,12 +95,11 @@ jobs:
         run: yarn --cwd test/react-app build
 
       - name: Run E2E Tests - React App (Build Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
-          start: yarn --cwd test/react-app preview --port=5173 --host 127.0.0.1
-          wait-on: 'http://127.0.0.1:5173'
-          config: baseUrl=http://127.0.0.1:5173/
+          start: yarn --cwd test/react-app preview --port=5173
+          wait-on: 'http://localhost:5173'
           browser: chrome
           record: true
           group: 'E2E Tests - React Build'
@@ -145,12 +143,11 @@ jobs:
         run: yarn cypress install
 
       - name: Run E2E Tests - Vue App (Dev Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
-          start: yarn --cwd test/vue-app dev --host 127.0.0.1
-          wait-on: 'http://127.0.0.1:5173'
-          config: baseUrl=http://127.0.0.1:5173/
+          start: yarn --cwd test/vue-app dev
+          wait-on: 'http://localhost:5173'
           browser: chrome
           record: true
           group: 'E2E Tests - Vue Dev'
@@ -200,12 +197,11 @@ jobs:
         run: yarn --cwd test/vue-app build
 
       - name: Run E2E Tests - Vue App (Build Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
-          start: yarn --cwd test/vue-app preview --port=5173 --host 127.0.0.1
-          wait-on: 'http://127.0.0.1:5173'
-          config: baseUrl=http://127.0.0.1:5173/
+          start: yarn --cwd test/vue-app preview --port=5173
+          wait-on: 'http://localhost:5173'
           browser: chrome
           record: true
           group: 'E2E Tests - Vue Build'
