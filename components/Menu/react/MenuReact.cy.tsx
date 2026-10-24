@@ -88,7 +88,9 @@ describe('<Menu />', () => {
               {
                 label: 'Specs',
                 icon: IconWindowCodeEditor,
-                iconActive: IconWindowCodeEditor,
+                iconActive: ({ animated: _, ...props }) => (
+                  <IconWindowCodeEditor {...props} />
+                ),
                 href: '#specs',
               },
               {

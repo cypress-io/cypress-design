@@ -1,7 +1,7 @@
 {
   "name": "@cypress-design/eslint-plugin",
   "version": "0.1.1",
-  "description": "a plugin to help migration to @cypress-design",
+  "description": "ESLint rules that ship with the Cypress Design System",
   "keywords": [
     "eslint",
     "eslintplugin",
@@ -15,7 +15,7 @@
   "exports": "./lib/index.js",
   "scripts": {
     "lint": "npm-run-all \"lint:*\"",
-    "lint:eslint-docs": "npm-run-all \"update:eslint-docs -- --check\"",
+    "lint:eslint-docs": "eslint-doc-generator --check",
     "lint:js": "eslint .",
     "test": "mocha tests --recursive",
     "update:eslint-docs": "eslint-doc-generator"
@@ -26,11 +26,13 @@
     "requireindex": "^1.2.0"
   },
   "devDependencies": {
+    "@typescript-eslint/parser": "^7.12.0",
     "eslint": "^9.4.0",
     "eslint-doc-generator": "^1.7.1",
     "eslint-import-resolver-node": "^0.3.9",
     "mocha": "^10.4.0",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.3.0"
   },
   "engines": {
     "node": "^14.17.0 || ^16.0.0 || >= 18.0.0"
