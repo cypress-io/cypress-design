@@ -1,6 +1,6 @@
 # @cypress-design/color-constants
 
-**Purpose: avoid circular dependencies**
+**Purpose:** avoid circular dependencies.
 
 This package holds all color constants for both the css and some component packages.
 

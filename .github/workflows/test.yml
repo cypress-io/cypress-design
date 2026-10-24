@@ -53,6 +53,19 @@ jobs:
       - name: Check formatting
         run: yarn prettier --check .
 
+      - name: Lint Markdown structure
+        run: yarn lint:md
+
+      # Rules live in .vale/styles/Cypress and report warnings and suggestions, so this
+      # step surfaces voice issues without failing the build yet
+      - name: Install Vale
+        run: |
+          curl -sSfL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_Linux_64-bit.tar.gz | tar -xz -C "$RUNNER_TEMP" vale
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Lint prose against voice rules
+        run: yarn lint:prose
+
       - name: Run Eslint Plugin Tests
         run: yarn test:eslint-plugin
 
