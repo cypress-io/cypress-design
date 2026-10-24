@@ -44,7 +44,7 @@ jobs:
         run: yarn cypress install
 
       - name: Run E2E Tests - React App (Dev Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           start: yarn --cwd test/react-app dev
@@ -95,7 +95,7 @@ jobs:
         run: yarn --cwd test/react-app build
 
       - name: Run E2E Tests - React App (Build Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           start: yarn --cwd test/react-app preview --port=5173
@@ -143,7 +143,7 @@ jobs:
         run: yarn cypress install
 
       - name: Run E2E Tests - Vue App (Dev Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           start: yarn --cwd test/vue-app dev
@@ -197,7 +197,7 @@ jobs:
         run: yarn --cwd test/vue-app build
 
       - name: Run E2E Tests - Vue App (Build Mode)
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           start: yarn --cwd test/vue-app preview --port=5173
