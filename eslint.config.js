@@ -106,22 +106,6 @@ export default defineConfig([
   },
   {
     files: [
-      '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
-      '{packages,css,icon-registry}/**/testUtils.ts',
-      'components/*/*.test.ts',
-    ],
-    languageOptions: {
-      parser: tseslint.parser,
-      globals: globals.node,
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
-    },
-    plugins: { '@typescript-eslint': tseslint.plugin },
-    rules: testRules,
-  },
-  {
-    files: [
       '{packages,css,icon-registry}/**/*.{ts,tsx}',
       'components/*/constants/src/**/*.ts',
       'docs/src/**/*.ts',
@@ -137,6 +121,21 @@ export default defineConfig([
     rules: {
       'no-console': 'error',
     },
+  },
+  {
+    files: [
+      '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
+      '{packages,css,icon-registry}/**/testUtils.ts',
+      'components/*/*.test.ts',
+    ],
+    extends: [tseslint.configs.recommended],
+    languageOptions: {
+      globals: globals.node,
+      parserOptions: {
+        project: ['./tsconfig.json'],
+      },
+    },
+    rules: testRules,
   },
   {
     files: [...reactFiles, ...reactTestFiles],
