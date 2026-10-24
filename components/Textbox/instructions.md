@@ -138,6 +138,6 @@ Hover, active, and focus styling applies to the entire control — labels and ic
 ## References
 
 - [Live demos](./ReadMe.md) render on the design system site.
-- Light mode Figma: https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=911-826
-- Dark mode Figma: https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5752-24044
+- Light mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=911-826>
+- Dark mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5752-24044>
 - Implementation details: [`architecture.md`](./architecture.md)

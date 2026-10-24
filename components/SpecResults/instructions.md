@@ -115,7 +115,6 @@ SpecResults has no router dependency of its own — every pill is a plain `<a hr
 
 ```tsx
 import { Link, useNavigate } from 'react-router-dom'
-
 ;<SpecResults
   results={results}
   onArchive={handleArchive}

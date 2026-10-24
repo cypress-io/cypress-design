@@ -5,7 +5,7 @@ Install it in your project to render the components properly.
 
 To do that, follow the two steps below:
 
-## Install the CSS package in your dev dependencies:
+## Install the CSS package in your dev dependencies
 
 ```bash
 yarn add -D @cypress-design/css
@@ -35,7 +35,7 @@ The Tailwind font utilities exposed by this package:
 | `font-system-mono`   | System monospace stack  | Fallback / system UI mono                |
 | `font-mono`          | System monospace stack  | Convenience alias for `font-system-mono` |
 
-## For projects using this package:
+## For projects using this package
 
 We bundle all the css imported to any of the files in this package into one file in the dist folder - `index.css` so that users of this package can import the css styles of this package and use it in their projects.
 
@@ -43,27 +43,27 @@ We bundle all the css imported to any of the files in this package into one file
 
 When building this package, we have a script `generate-colors-css.ts` to generate the file `colors.css` which recreates all the `cyColors` from `color-constants.ts` as css variables. If a color needs to be added or updated, only the object `cyColors` in `color-constants.ts` needs to be updated. Then, we need to rebuild the package so that `colors.css` can be regenerated so you should run:
 
-```base
+```bash
 cd css && yarn build
 ```
 
-### To use those css variables in the project using this package:
+### To use those css variables in the project using this package
 
 In your `.css` files add:
 
-```
-@import "@cypress-design/css/index.css";
+```css
+@import '@cypress-design/css/index.css';
 ```
 
 In your `.scss` files add:
 
-```
-@use "@cypress-design/css/index.css" as *
+```scss
+@use '@cypress-design/css/index.css' as *;
 ```
 
 and then you can use the variables from `colors.css` like this:
 
-```
+```css
 border: 1px solid var(--cy-gray-800);
 ```
 
