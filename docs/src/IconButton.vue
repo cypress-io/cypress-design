@@ -10,7 +10,13 @@ const { upperFirst, camelCase } = _
 const props = defineProps<{
   iconName: string
   groupName: string
-  meta: Record<string, string[]>
+  meta: {
+    availableSizes: readonly string[]
+    hasStrokeColor: readonly string[] | false
+    hasFillColor: readonly string[] | false
+    hasSecondaryStrokeColor: readonly string[] | false
+    hasSecondaryFillColor: readonly string[] | false
+  }
   focused: boolean
 }>()
 

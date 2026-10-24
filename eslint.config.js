@@ -6,12 +6,14 @@ import vue from 'eslint-plugin-vue'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
+import astro from 'eslint-plugin-astro'
 import { fixupPluginRules } from '@eslint/compat'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
 
 const config = [
   js.configs.recommended,
+  ...astro.configs['flat/recommended'],
   {
     files: [
       'icon-registry/**/*.js',
@@ -24,7 +26,13 @@ const config = [
     },
   },
   {
-    files: ['scripts/**/*', '**/rollup.config.{mjs,js}', '**/vite.config.ts'],
+    files: [
+      'scripts/**/*',
+      '**/rollup.config.{mjs,js}',
+      '**/vite.config.ts',
+      'components/*.vite.config.ts',
+      'cypress.config.ts',
+    ],
     languageOptions: {
       parser: typescriptParser,
       globals: globals.node,
@@ -50,6 +58,7 @@ const config = [
     files: [
       '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
       '{packages,css,icon-registry}/**/testUtils.ts',
+      'components/*/*.test.ts',
     ],
     languageOptions: {
       parser: typescriptParser,
@@ -66,7 +75,12 @@ const config = [
     },
   },
   {
-    files: ['{packages,css,icon-registry}/**/*.{ts,tsx}'],
+    files: [
+      '{packages,css,icon-registry}/**/*.{ts,tsx}',
+      'components/*/constants/src/**/*.ts',
+      'docs/src/**/*.ts',
+    ],
+    ignores: ['docs/src/**/*.cy.ts', '**/*.astro/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       globals: { ...globals.node, ...globals.browser },
@@ -84,7 +98,12 @@ const config = [
   },
 
   {
-    files: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
+    files: [
+      'components/*/react/**/*.{cy,rootStory,rootstory}.tsx',
+      'components/*/react/**/_testUtils.tsx',
+      'components/*/{assertions,a11y-assertions}.ts',
+      'cypress/**/*.ts',
+    ],
     languageOptions: {
       parser: typescriptParser,
       globals: {
@@ -115,8 +134,15 @@ const config = [
     },
   },
   {
-    files: ['components/*/react/*.tsx'],
-    ignores: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
+    files: [
+      'components/*/react/**/*.{ts,tsx}',
+      'docs/src/**/*.tsx',
+      'test/react-app/src/**/*.{ts,tsx}',
+    ],
+    ignores: [
+      'components/*/react/**/*.{cy,rootStory,rootstory}.tsx',
+      'components/*/react/**/_testUtils.tsx',
+    ],
     languageOptions: {
       parser: typescriptParser,
       globals: globals.browser,
@@ -137,8 +163,16 @@ const config = [
     },
   },
   {
-    files: ['components/*/vue/*.{ts,tsx,vue}'],
-    ignores: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
+    files: [
+      'components/*/vue/**/*.{ts,tsx,vue}',
+      'components/vue-utils.ts',
+      'docs/src/**/*.vue',
+      'test/vue-app/src/**/*.{ts,vue}',
+    ],
+    ignores: [
+      'components/*/vue/**/*.{cy,rootStory,rootstory}.tsx',
+      'components/*/vue/**/_testUtils.tsx',
+    ],
     languageOptions: {
       parser: vueParser,
       globals: globals.browser,
@@ -161,7 +195,11 @@ const config = [
     },
   },
   {
-    files: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
+    files: [
+      'components/*/vue/**/*.{cy,rootStory,rootstory}.tsx',
+      'components/*/vue/**/_testUtils.tsx',
+      'docs/src/**/*.cy.ts',
+    ],
     languageOptions: {
       parser: vueParser,
       globals: {
@@ -198,9 +236,46 @@ const config = [
     },
   },
   {
+    // None of the enabled rules need type information, and these can't resolve
+    // through their block's `project`: no listed tsconfig includes them, or (docs
+    // .vue) the root tsconfig's program is first built by a non-Vue block, so it
+    // never sees .vue files. Listing each area's own tsconfig instead builds one
+    // TypeScript program per package and runs out of heap.
+    files: [
+      'components/*/*.test.ts',
+      'components/*/constants/src/**/*.ts',
+      'docs/src/**/*.{tsx,vue}',
+      'test/*-app/src/**/*.{ts,tsx,vue}',
+    ],
+    languageOptions: {
+      parserOptions: { project: null },
+    },
+  },
+  {
+    // Demo tiles are shown verbatim as copyable examples: logging is how they
+    // show a handler fired, and an inline disable would appear in the example
+    files: ['docs/src/demos/**/*.vue'],
+    rules: {
+      'no-console': 'off',
+    },
+  },
+  {
+    files: ['docs/src/**/*.astro', 'docs/src/**/*.astro/*.ts'],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.browser },
+    },
+    plugins: { '@typescript-eslint': typescriptEslint },
+    rules: {
+      ...typescriptEslint.configs.recommended.rules,
+      'no-console': 'error',
+      'no-debugger': 'error',
+    },
+  },
+  {
     ignores: [
       '**/dist/**/*',
       '**/cache/**/*',
+      'docs/.astro/**/*',
       '**/iconsData/**/*',
       '**/_TreeShakableIcons.ts',
       'icon-registry/src/icons.ts',

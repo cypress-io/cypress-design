@@ -1,9 +1,6 @@
 import * as React from 'react'
 import { mount } from 'cypress/react'
-import {
-  HasSecondaryFillColor,
-  HasSecondaryStrokeColor,
-} from '@cypress-design/icon-registry'
+import { HasSecondaryStrokeColor } from '@cypress-design/icon-registry'
 import { AnimatedProps } from './compileAttributes'
 
 export function iconTests(

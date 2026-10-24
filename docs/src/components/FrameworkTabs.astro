@@ -64,7 +64,9 @@ const icons: Record<string, string | null> = {
     history.replaceState(null, '', url.toString())
     try {
       localStorage.setItem('fw', fw)
-    } catch (_) {}
+    } catch (_) {
+      // Storage can be blocked; the URL param still carries the choice
+    }
     // Sync tab active styles and ARIA state
     document.querySelectorAll<HTMLButtonElement>('[data-fw-tab]').forEach((btn) => {
       const active = btn.dataset.fwTab === fw

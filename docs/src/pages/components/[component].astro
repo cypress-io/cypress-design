@@ -17,6 +17,7 @@
  * each framework section.
  * Everything else keeps the single demo block above the tabs.
  */
+import type { AstroInstance } from 'astro'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 import F from '../../components/F.astro'
 import FrameworkTabs from '../../components/FrameworkTabs.astro'
@@ -33,7 +34,7 @@ import { getAllComponents } from '../../lib/components'
 // because Astro's client:only requires static imports.
 const astroDemoModules = import.meta.glob('../../demos/*.astro', { eager: true }) as Record<
   string,
-  { default: any }
+  Pick<AstroInstance, 'default'>
 >
 const vueDemoModules = import.meta.glob('../../demos/*.vue')
 const tileManifests = import.meta.glob('../../demos/*/tiles.ts')
@@ -41,7 +42,7 @@ const allStatesVue = import.meta.glob('../../demos/*/AllStates.vue')
 const allStatesReact = import.meta.glob('../../demos/*/AllStates.tsx')
 const allStatesAstro = import.meta.glob('../../demos/*/AllStates.astro', { eager: true }) as Record<
   string,
-  { default: any }
+  Pick<AstroInstance, 'default'>
 >
 
 // ---------------------------------------------------------------------------
