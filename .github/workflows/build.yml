@@ -43,13 +43,13 @@ jobs:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096
 
+      # No restore-keys: this step runs after the build, so a fallback restore
+      # would unpack an older run's dist and node_modules over the fresh build.
       - name: Cache node_modules and built dist files
         id: cache-node-modules-dist
         uses: actions/cache@v4
         with:
           key: cache-${{ inputs.nonce }}
-          restore-keys: |
-            cache-
           path: |
             ./css/dist
             ./icon-registry/dist
