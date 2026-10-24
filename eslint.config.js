@@ -15,9 +15,22 @@ const reactHooks = fixupPluginRules(reactHooksRaw)
 // The preset also sets `files: ['**/*.vue']` and its own vue-eslint-parser,
 // which would override the parser setup below, so only its plugin and rules
 // are applied to the Vue blocks.
-const vueA11yRecommended = vueA11y.configs['flat/recommended'].find(
+const vueA11yRecommendedConfig = vueA11y.configs['flat/recommended'].find(
   (c) => c.rules,
 )
+const vueA11yRecommended = {
+  plugins: vueA11yRecommendedConfig.plugins,
+  rules: {
+    ...vueA11yRecommendedConfig.rules,
+    // The default requires a label to both nest its control and point at it
+    // with `for`. Either one is a valid association in HTML, and it's what
+    // jsx-a11y accepts for React.
+    'vuejs-accessibility/label-has-for': [
+      'error',
+      { required: { some: ['nesting', 'id'] } },
+    ],
+  },
+}
 
 const reactTestFiles = [
   'components/*/react/**/*.{cy,rootStory,rootstory}.tsx',

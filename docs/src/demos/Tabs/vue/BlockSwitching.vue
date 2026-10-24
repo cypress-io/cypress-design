@@ -29,15 +29,8 @@ const tabs = [
 </script>
 
 <template>
-  <label
-    for="vue-block-switching-allow-move"
-    class="mb-4 flex items-center gap-2"
-  >
-    <input
-      id="vue-block-switching-allow-move"
-      v-model="allowMove"
-      type="checkbox"
-    />
+  <label class="mb-4 flex items-center gap-2">
+    <input v-model="allowMove" type="checkbox" />
     Allow tab move
   </label>
   <!-- Calling preventDefault() in the switch handler keeps the current tab. -->

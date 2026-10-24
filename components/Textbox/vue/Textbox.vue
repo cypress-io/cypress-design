@@ -204,7 +204,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -- the wrapper label nests the input (see architecture.md); the rule's default also requires an `id`/`for` pair -->
   <label :class="wrapperClasses">
     <!-- Label Left -->
     <span
