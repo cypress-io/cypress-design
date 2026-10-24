@@ -27,9 +27,13 @@ const nodeTooling = [
   'cypress.config.ts',
 ]
 
-const testRules = {
-  '@typescript-eslint/no-empty-function': 'off',
-  '@typescript-eslint/no-explicit-any': 'off',
+const tests = {
+  plugins: { 'no-only-tests': noOnlyTests },
+  rules: {
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-only-tests/no-only-tests': 'error',
+  },
 }
 
 const cypressTests = {
@@ -45,10 +49,10 @@ const cypressTests = {
       Cypress: 'readonly',
     },
   },
-  plugins: { 'no-only-tests': noOnlyTests },
+  plugins: tests.plugins,
   rules: {
-    ...testRules,
-    'no-only-tests/no-only-tests': 'error',
+    ...tests.rules,
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
   },
 }
 
@@ -135,7 +139,7 @@ export default defineConfig([
         project: ['./tsconfig.json'],
       },
     },
-    rules: testRules,
+    ...tests,
   },
   {
     files: [...reactFiles, ...reactTestFiles],
@@ -171,13 +175,6 @@ export default defineConfig([
   {
     files: vueTestFiles,
     ...cypressTests,
-    rules: {
-      ...cypressTests.rules,
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
-    },
   },
   {
     files: vueFiles,
