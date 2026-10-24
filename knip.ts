@@ -43,9 +43,22 @@ const config: KnipConfig = {
     'components/*/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
     },
+    'components/TestResult/vue': {
+      entry: ['index.ts', '**/*.cy.tsx'],
+      // The build bundles vue-statusicon, which imports icon-registry and
+      // leaves it external, so the built dist imports it at runtime.
+      ignoreDependencies: ['@cypress-design/icon-registry'],
+    },
+    css: {
+      // Rollup's postcss plugin loads the root `postcss.config.mjs`.
+      ignoreDependencies: ['autoprefixer'],
+    },
     'packages/eslint-plugin': {
-      // Loaded at runtime with `requireindex`.
+      // Rules are loaded at runtime with `requireindex`.
       entry: ['lib/rules/*.js'],
+      // `eslint-module-utils/resolve` falls back to the `node` resolver,
+      // which it requires by name, when no `import/resolver` is configured.
+      ignoreDependencies: ['eslint-import-resolver-node'],
     },
     'icon-registry': {
       entry: ['*.mjs', 'svgo.config.js', 'svgo-plugins/*.js'],
