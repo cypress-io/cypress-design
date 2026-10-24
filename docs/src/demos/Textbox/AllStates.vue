@@ -5,10 +5,10 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
 
 <template>
   <!-- Variants — placeholders -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Variants — placeholder
   </p>
-  <div class="bg-white p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox variant="default" placeholder="Default placeholder" />
       <Textbox variant="valid" placeholder="Valid placeholder" />
@@ -18,10 +18,10 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
   </div>
 
   <!-- Variants — values -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Variants — value
   </p>
-  <div class="bg-white p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox variant="default" value="Default" />
       <Textbox variant="valid" value="Valid" />
@@ -32,10 +32,10 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
   </div>
 
   <!-- Dark mode — placeholders -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Dark mode — placeholder
   </p>
-  <div class="bg-gray-1000 p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" variant="default" placeholder="Default" />
       <Textbox theme="dark" variant="valid" placeholder="Valid" />
@@ -45,10 +45,10 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
   </div>
 
   <!-- Dark mode — values -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Dark mode — value
   </p>
-  <div class="bg-gray-1000 p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" variant="default" value="Default" />
       <Textbox theme="dark" variant="valid" value="Valid" />
@@ -59,17 +59,17 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
   </div>
 
   <!-- Sizes -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Sizes
   </p>
-  <div class="bg-white p-4 rounded mb-2">
+  <div class="mb-2 rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox size="32" value="Size 32" />
       <Textbox size="40" value="Size 40" />
       <Textbox size="48" value="Size 48" />
     </div>
   </div>
-  <div class="bg-gray-1000 p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" size="32" value="Size 32" />
       <Textbox theme="dark" size="40" value="Size 40" />
@@ -78,16 +78,16 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
   </div>
 
   <!-- Rounded -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Rounded
   </p>
-  <div class="bg-white p-4 rounded mb-2">
+  <div class="mb-2 rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox size="40" :rounded="false" value="Not rounded" />
       <Textbox size="40" :rounded="true" value="Rounded" />
     </div>
   </div>
-  <div class="bg-gray-1000 p-4 rounded mb-4">
+  <div class="mb-4 rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox theme="dark" size="40" :rounded="false" value="Not rounded" />
       <Textbox theme="dark" size="40" :rounded="true" value="Rounded" />
@@ -95,10 +95,10 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
   </div>
 
   <!-- Options: icons, labels, divider -->
-  <p class="text-xs font-semibold uppercase tracking-wide text-gray-400 mb-2">
+  <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-gray-400">
     Options — icons · labels · divider
   </p>
-  <div class="bg-white p-4 rounded mb-2">
+  <div class="mb-2 rounded bg-white p-4">
     <div class="flex flex-col gap-4">
       <Textbox
         :divider="true"
@@ -179,7 +179,7 @@ import { IconShapeLightningBolt } from '@cypress-design/vue-icon'
       />
     </div>
   </div>
-  <div class="bg-gray-1000 p-4 rounded">
+  <div class="rounded bg-gray-1000 p-4">
     <div class="flex flex-col gap-4">
       <Textbox
         :divider="true"

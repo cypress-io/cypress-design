@@ -10,9 +10,9 @@ const TooltipMulti = ({
   tabindex = 1,
   disabled,
 }: ComponentProps<typeof Tooltip> & { tabindex?: number } = {}) => (
-  <div class="flex flex-col items-center center gap-20">
+  <div class="center flex flex-col items-center gap-20">
     <Tooltip
-      class="w-1/2 p-4 bg-red-200"
+      class="w-1/2 bg-red-200 p-4"
       placement={placement}
       color={color}
       // @ts-expect-error TSX in volar has a tendency to be a bit wrong, this would work in a template
@@ -21,11 +21,11 @@ const TooltipMulti = ({
     >
       {{
         default: () => <div>Hover Me (dynamic: {placement?.toString()})</div>,
-        popper: () => <div class="p-4 bg-jade-200">PopovDyn</div>,
+        popper: () => <div class="bg-jade-200 p-4">PopovDyn</div>,
       }}
     </Tooltip>
     <Tooltip
-      class="w-1/2 p-4 bg-red-200"
+      class="w-1/2 bg-red-200 p-4"
       color={color}
       placement="top"
       forcePlacement
@@ -33,12 +33,12 @@ const TooltipMulti = ({
       {{
         default: () => <div>Force Placement to the top</div>,
         popper: () => (
-          <div class="h-[200px] flex items-center justify-center">Popov</div>
+          <div class="flex h-[200px] items-center justify-center">Popov</div>
         ),
       }}
     </Tooltip>
     <Tooltip
-      class="w-1/2 p-4 bg-red-200"
+      class="w-1/2 bg-red-200 p-4"
       color={color}
       placement={placement}
       interactive
@@ -51,7 +51,7 @@ const TooltipMulti = ({
     {(['top', 'right', 'bottom', 'left', 'top-start'] as const).map(
       (placement) => (
         <Tooltip
-          class="w-1/2 p-4 bg-indigo-200"
+          class="w-1/2 bg-indigo-200 p-4"
           placement={placement}
           color={color}
           // @ts-expect-error TSX in volar has a tendency to be a bit wrong
@@ -61,7 +61,7 @@ const TooltipMulti = ({
           {{
             default: () => <div>Hover Me ({placement})</div>,
             popper: () => (
-              <div class="p-4 bg-jade-200 text-gray-900">
+              <div class="bg-jade-200 p-4 text-gray-900">
                 Popover ({placement})
               </div>
             ),
@@ -81,7 +81,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
       mount(() => (
         <Tooltip
           {...rest}
-          class="m-4 p-4 bg-red-300 w-[150px]"
+          class="m-4 w-[150px] bg-red-300 p-4"
           // @ts-expect-error TSX in volar has a tendency to be a bit wrong, this would work in a template
           tabindex={tabindex}
           placement="bottom-start"
@@ -108,7 +108,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   it('open', () => {
     mount(() => (
       <div class="text-center">
-        <Tooltip class="border inline-block m-16 p-3" open>
+        <Tooltip class="m-16 inline-block border p-3" open>
           {{
             default: () => 'make sure its open',
             popper: () => <div>should be visible</div>,
@@ -121,7 +121,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('arrowPadding', () => {
     mount(() => (
-      <div class="flex flex-col items-center center gap-20 bg-gray-1000">
+      <div class="center flex flex-col items-center gap-20 bg-gray-1000">
         {(
           [
             'bottom-start',
@@ -135,14 +135,14 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
           ] as const
         ).map((placement) => (
           <Tooltip
-            class="w-1/2 p-4 bg-indigo-200"
+            class="w-1/2 bg-indigo-200 p-4"
             placement={placement}
             arrowPadding={1}
             open
           >
             {{
               default: () => <div>Hover Me ({placement})</div>,
-              popper: () => <div class="p-4 bg-jade-200 text-gray-900">H</div>,
+              popper: () => <div class="bg-jade-200 p-4 text-gray-900">H</div>,
             }}
           </Tooltip>
         ))}
@@ -154,9 +154,9 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('shiftOptions', () => {
     mount(() => (
-      <div class="flex items-center justify-center h-[400px] w-[200px]">
+      <div class="flex h-[400px] w-[200px] items-center justify-center">
         <Tooltip
-          class="p-4 bg-indigo-200"
+          class="bg-indigo-200 p-4"
           placement="bottom"
           shiftOptions={{ padding: 50 }}
           open
@@ -164,7 +164,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
           {{
             default: () => <div>Tooltip with custom shift padding</div>,
             popper: () => (
-              <div class="p-4 bg-jade-200 text-gray-900">
+              <div class="bg-jade-200 p-4 text-gray-900">
                 Custom shift padding of 50px
               </div>
             ),
@@ -178,9 +178,9 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('offsetOptions', () => {
     mount(() => (
-      <div class="flex flex-col items-center center gap-40">
+      <div class="center flex flex-col items-center gap-40">
         <Tooltip
-          class="p-4 bg-indigo-200"
+          class="bg-indigo-200 p-4"
           placement="bottom"
           offsetOptions={40}
           open
@@ -188,12 +188,12 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
           {{
             default: () => <div>Tooltip with offset 40px</div>,
             popper: () => (
-              <div class="p-4 bg-jade-200 text-gray-900">Offset 40px</div>
+              <div class="bg-jade-200 p-4 text-gray-900">Offset 40px</div>
             ),
           }}
         </Tooltip>
         <Tooltip
-          class="p-4 bg-red-200"
+          class="bg-red-200 p-4"
           placement="bottom"
           offsetOptions={5}
           open
@@ -201,7 +201,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
           {{
             default: () => <div>Tooltip with offset 5px</div>,
             popper: () => (
-              <div class="p-4 bg-jade-200 text-gray-900">Offset 5px</div>
+              <div class="bg-jade-200 p-4 text-gray-900">Offset 5px</div>
             ),
           }}
         </Tooltip>

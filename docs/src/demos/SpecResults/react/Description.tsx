@@ -10,7 +10,7 @@ export default function Description() {
       onArchive={() => {}}
       description={
         <>
-          <p className="!mt-0 !mb-[4px] text-[16px] font-semibold !leading-4 text-gray-900">
+          <p className="!mb-[4px] !mt-0 text-[16px] font-semibold !leading-4 text-gray-900">
             Run timed out
           </p>
           <p className="!mb-0 !leading-[20px]">

@@ -28,7 +28,7 @@ export default ({
           <div
             key={variant}
             className={clsx(
-              'flex flex-col items-center gap-3 justify-center mt-4 p-2',
+              'mt-4 flex flex-col items-center justify-center gap-3 p-2',
               {
                 'bg-gray-1000 text-white': darkModeVariants.includes(variant),
               },
@@ -42,7 +42,7 @@ export default ({
                   <div key={size} className="flex items-center justify-center">
                     <span
                       className={clsx(
-                        'text-sm mr-4',
+                        'mr-4 text-sm',
                         darkModeVariants.includes(variant)
                           ? 'text-gray-300'
                           : 'text-gray-900',

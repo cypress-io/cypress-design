@@ -17,10 +17,10 @@ const TooltipStoryMulti = ({
   disabled?: boolean
   tabindex?: number
 } = {}) => (
-  <div className="flex flex-col items-center center gap-20">
+  <div className="center flex flex-col items-center gap-20">
     <Tooltip
-      className="w-1/2 p-4 bg-red-200"
-      popper={<div className="p-4 text-gray-800 bg-jade-200">PopovDyn</div>}
+      className="w-1/2 bg-red-200 p-4"
+      popper={<div className="bg-jade-200 p-4 text-gray-800">PopovDyn</div>}
       color={color}
       placement={placement}
       tabIndex={tabindex}
@@ -29,9 +29,9 @@ const TooltipStoryMulti = ({
       <div>Hover Me (dynamic: {placement?.toString()})</div>
     </Tooltip>
     <Tooltip
-      className="w-1/2 p-4 bg-red-200"
+      className="w-1/2 bg-red-200 p-4"
       popper={
-        <div className="h-[200px] flex items-center justify-center">Popov</div>
+        <div className="flex h-[200px] items-center justify-center">Popov</div>
       }
       color={color}
       placement="top"
@@ -40,7 +40,7 @@ const TooltipStoryMulti = ({
       <div>Force Placement to the top</div>
     </Tooltip>
     <Tooltip
-      className="w-1/2 p-4 bg-red-200"
+      className="w-1/2 bg-red-200 p-4"
       popper={<div>PopovInt</div>}
       color={color}
       placement={placement}
@@ -51,14 +51,14 @@ const TooltipStoryMulti = ({
     {(['top', 'right', 'bottom', 'left', 'top-start'] as const).map(
       (placement) => (
         <Tooltip
-          className="w-1/2 p-4 bg-indigo-200"
+          className="w-1/2 bg-indigo-200 p-4"
           placement={placement}
           key={placement}
           color={color}
           tabIndex={tabindex}
           disabled={disabled}
           popper={
-            <div className="p-4 text-gray-800 bg-jade-200">
+            <div className="bg-jade-200 p-4 text-gray-800">
               Popover ({placement})
             </div>
           }
@@ -88,7 +88,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
               Quisquam, voluptatum.
             </div>
           }
-          className="m-4 p-4 bg-red-300 w-[150px]"
+          className="m-4 w-[150px] bg-red-300 p-4"
         >
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
           voluptatum.
@@ -105,7 +105,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
     mount(
       <div className="text-center">
         <Tooltip
-          className="border inline-block m-16 p-3"
+          className="m-16 inline-block border p-3"
           popper="should be visible"
           open
         >
@@ -118,7 +118,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('arrowPadding', () => {
     mount(
-      <div className="flex flex-col items-center center gap-20 bg-gray-1000">
+      <div className="center flex flex-col items-center gap-20 bg-gray-1000">
         {(
           [
             'bottom-start',
@@ -133,11 +133,11 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
         ).map((placement) => (
           <Tooltip
             key={placement}
-            className="w-1/2 p-4 bg-indigo-200"
+            className="w-1/2 bg-indigo-200 p-4"
             placement={placement}
             arrowPadding={1}
             open
-            popper={<div className="p-4 bg-jade-200 text-gray-900">H</div>}
+            popper={<div className="bg-jade-200 p-4 text-gray-900">H</div>}
           >
             <div>Hover Me ({placement})</div>
           </Tooltip>
@@ -150,14 +150,14 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('shiftOptions', () => {
     mount(
-      <div className="flex items-center justify-center h-[400px] w-[200px]">
+      <div className="flex h-[400px] w-[200px] items-center justify-center">
         <Tooltip
-          className="p-4 bg-indigo-200"
+          className="bg-indigo-200 p-4"
           placement="bottom"
           shiftOptions={{ padding: 50 }}
           open
           popper={
-            <div className="p-4 bg-jade-200 text-gray-900">
+            <div className="bg-jade-200 p-4 text-gray-900">
               Custom shift padding of 50px
             </div>
           }
@@ -172,25 +172,25 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
   it('offsetOptions', () => {
     mount(
-      <div className="flex flex-col items-center center gap-40">
+      <div className="center flex flex-col items-center gap-40">
         <Tooltip
-          className="p-4 bg-indigo-200"
+          className="bg-indigo-200 p-4"
           placement="bottom"
           offsetOptions={40}
           open
           popper={
-            <div className="p-4 bg-jade-200 text-gray-900">Offset 40px</div>
+            <div className="bg-jade-200 p-4 text-gray-900">Offset 40px</div>
           }
         >
           <div>Tooltip with offset 40px</div>
         </Tooltip>
         <Tooltip
-          className="p-4 bg-red-200"
+          className="bg-red-200 p-4"
           placement="bottom"
           offsetOptions={5}
           open
           popper={
-            <div className="p-4 bg-jade-200 text-gray-900">Offset 5px</div>
+            <div className="bg-jade-200 p-4 text-gray-900">Offset 5px</div>
           }
         >
           <div>Tooltip with offset 5px</div>

@@ -1,3 +1,4 @@
+import path from 'node:path'
 import globals from 'globals'
 import js from '@eslint/js'
 import typescriptParser from '@typescript-eslint/parser'
@@ -8,6 +9,7 @@ import noOnlyTests from 'eslint-plugin-no-only-tests'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
 import astro from 'eslint-plugin-astro'
 import { fixupPluginRules } from '@eslint/compat'
+import tailwind from 'eslint-plugin-tailwindcss'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
 
@@ -269,6 +271,53 @@ const config = [
       ...typescriptEslint.configs.recommended.rules,
       'no-console': 'error',
       'no-debugger': 'error',
+    },
+  },
+  {
+    files: [
+      'components/*/react/**/*.{ts,tsx}',
+      'components/*/vue/**/*.{ts,tsx,vue}',
+      'docs/src/**/*.{ts,tsx,vue,astro}',
+    ],
+    plugins: { tailwindcss: tailwind },
+    settings: {
+      tailwindcss: {
+        config: path.join(import.meta.dirname, 'tailwind.config.mjs'),
+        callees: ['clsx', 'twMerge'],
+        // Non-Tailwind hook classes: `chevron` and `icon` mark component
+        // parts, `icon-light`/`icon-dark` mark the SVG paths tw-icon-plugin
+        // colors, and the rest are styled in docs .astro <style> blocks or
+        // docs/src/styles/markdown.scss
+        whitelist: [
+          'chevron',
+          'icon',
+          'icon-(light|dark)',
+          'header-anchor',
+          'markdown(-title)?',
+          'component-framework',
+          'demo-tile',
+          'tile-(scroll|highlight|input|action)',
+          'swatch',
+          'sw-copied',
+        ],
+      },
+    },
+    rules: {
+      // prettier-plugin-tailwindcss owns class order
+      'tailwindcss/classnames-order': 'off',
+      'tailwindcss/no-arbitrary-value': 'warn',
+      'tailwindcss/no-custom-classname': 'warn',
+    },
+  },
+  {
+    // Tests pass made-up classes on purpose to check they reach the DOM
+    files: [
+      'components/*/{react,vue}/**/*.{cy,rootStory,rootstory}.tsx',
+      'components/*/{react,vue}/**/_testUtils.tsx',
+      'docs/src/**/*.cy.ts',
+    ],
+    rules: {
+      'tailwindcss/no-custom-classname': 'off',
     },
   },
   {

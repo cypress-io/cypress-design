@@ -22,9 +22,9 @@ import Spinner from '@cypress-design/react-spinner'
 import Spinner from '@cypress-design/react-spinner'
 
 export default () => (
-  <div className="flex flex-col items-center justify-center gap-[12px] h-[20vh]">
+  <div className="flex h-[20vh] flex-col items-center justify-center gap-[12px]">
     <Spinner />
-    <h2 className="text-gray-700 text-size-16px leading-[24px]">
+    <h2 className="text-size-16px leading-[24px] text-gray-700">
       Initializing something really important...
     </h2>
   </div>
