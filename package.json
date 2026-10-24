@@ -25,6 +25,8 @@
     "cy:open": "cypress open",
     "test": "vitest",
     "eslint": "eslint",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
     "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" && turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/favicon\"",
     "dev": "yarn start",

@@ -50,6 +50,9 @@ jobs:
       - name: Lint all files
         run: yarn eslint .
 
+      - name: Check formatting
+        run: yarn prettier --check .
+
       - name: Run Eslint Plugin Tests
         run: yarn test:eslint-plugin
 

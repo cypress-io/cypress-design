@@ -15,5 +15,9 @@ const prettier = (files) => {
 }
 
 export default {
-  '*.{js,ts,jsx,tsx,vue,css,md}': prettier,
+  // ESLint runs first so Prettier has the final say on formatting.
+  // --no-warn-ignored keeps files excluded by eslint.config.js from
+  // producing warnings when lint-staged passes them explicitly.
+  '*.{js,mjs,cjs,ts,jsx,tsx,vue}': ['eslint --fix --no-warn-ignored', prettier],
+  '*.{css,md}': prettier,
 }
