@@ -78,4 +78,4 @@ Available skills:
 
 - `skill(implement-component)` — use when implementing a new component, or adding a variant/size/state to an existing one, from a Figma spec.
 - `skill(cy-ui-illustration)` — use when creating, resizing, or adapting a UI illustration of a product screen (marketing pages, docs, blog); source-first Figma workflow, canonical reference set, @2x render and verify.
-- `skill(cy-review-pr-comments)` — use to review the latest GitHub Copilot review comments on the PR for the current branch, triage them, update `.agents/known-issues.md`, and reply to or resolve each comment appropriately.
+- `skill(cy-review-pr-comments)` — use to review the latest GitHub Copilot review comments on the PR for the current branch, triage them, open GitHub issues for follow-ups, and reply to or resolve each comment appropriately.
