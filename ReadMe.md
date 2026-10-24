@@ -193,7 +193,10 @@ yarn cy        # Open Cypress (interactive mode, watches for changes)
 yarn cy:run    # CLI mode (headless)
 yarn test      # Unit tests (vitest)
 yarn eslint    # Linting
+yarn knip      # Dead code: unused files, exports, and dependencies
 ```
+
+`knip.ts` holds the knip config. If knip flags something that is used, teach the config how it’s reached (an `entry` or a narrow `ignoreDependencies`) rather than ignoring the file.
 
 ### Recent Changes: Astro Migration
 
