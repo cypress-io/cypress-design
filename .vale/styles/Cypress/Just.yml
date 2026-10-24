@@ -1,0 +1,10 @@
+# voice.md, Tone: avoid "just". A suggestion rather than a warning, since
+# "just" also means "a moment ago" ("your agent just wrote"). "not just"
+# means "not only", so it isn't flagged.
+extends: existence
+message: "Avoid '%s' when it minimizes effort. State what happens instead."
+link: https://design.cypress.io/agents/voice.md#tone
+level: suggestion
+ignorecase: true
+tokens:
+  - '(?<!not )just'

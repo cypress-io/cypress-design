@@ -197,7 +197,7 @@ yarn lint:md    # Markdown structure (markdownlint-cli2)
 yarn lint:prose # Voice rules from .agents/voice.md (Vale)
 ```
 
-`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH` (`brew install vale` on macOS). Its rules live in `.vale/styles/Cypress/`; each one cites the line in `.agents/voice.md` it enforces. They report warnings only for now.
+`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH` (`brew install vale` on macOS). Its rules live in `.vale/styles/Cypress/`; each one cites the line in `.agents/voice.md` it enforces. They report warnings and suggestions only, so nothing fails yet.
 
 ### Recent Changes: Astro Migration
 

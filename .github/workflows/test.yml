@@ -53,7 +53,7 @@ jobs:
       - name: Lint Markdown structure
         run: yarn lint:md
 
-      # Rules live in .vale/styles/Cypress and report at warning level, so this
+      # Rules live in .vale/styles/Cypress and report warnings and suggestions, so this
       # step surfaces voice issues without failing the build yet
       - name: Install Vale
         run: |
