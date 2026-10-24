@@ -25,7 +25,8 @@
   },
   "devDependencies": {
     "@cypress-design/constants-statusicon": "*",
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "clsx": "*"
   },
   "license": "MIT"
 }

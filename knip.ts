@@ -6,7 +6,9 @@ import type { KnipConfig } from 'knip'
 const scriptBlocks = /<script\b[^>]*>([\s\S]*?)<\/script>/g
 
 const config: KnipConfig = {
-  ignore: ['**/dist/**'],
+  // `docs/public/` holds static files served as-is, including the generated
+  // token stylesheets that `docs/.gitignore` hides from git.
+  ignore: ['**/dist/**', 'docs/public/**'],
   // `@cypress-design/rollup-plugin-tailwind-keep` is imported from the shared
   // `components/*.rollup.config.mjs` and `components/vue.vite.config.ts`, which
   // belong to the root workspace. `@percy/cli` only runs as the Cypress action's
@@ -61,7 +63,7 @@ const config: KnipConfig = {
       ignoreDependencies: ['eslint-import-resolver-node'],
     },
     'icon-registry': {
-      entry: ['*.mjs', 'svgo.config.js', 'svgo-plugins/*.js'],
+      entry: ['*.mjs', 'svgo-plugins/*.js'],
     },
   },
 }

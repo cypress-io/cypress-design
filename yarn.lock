@@ -1560,6 +1560,7 @@ __metadata:
     semver: "npm:^7.7.4"
     shiki: "npm:^4.0.2"
     sucrase: "npm:^3.35.0"
+    tailwindcss: "npm:^3.4.3"
     turbo: "npm:^2.1.1"
     typescript: "npm:5.4.5"
     vite: "npm:^5.4.19"
@@ -1616,6 +1617,7 @@ __metadata:
     hash-sum: "npm:^2.0.0"
     lodash-es: "npm:^4.17.21"
     rollup: "npm:^4.18.0"
+    svgo: "npm:^4.0.1"
     typescript: "npm:5.4.5"
     xml2js: "npm:^0.6.2"
   languageName: unknown
@@ -1645,7 +1647,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-button@workspace:^1.13.0, @cypress-design/react-button@workspace:components/Button/react":
+"@cypress-design/react-button@npm:*, @cypress-design/react-button@workspace:^1.13.0, @cypress-design/react-button@workspace:components/Button/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-button@workspace:components/Button/react"
   dependencies:
@@ -1716,6 +1718,7 @@ __metadata:
   resolution: "@cypress-design/react-menu@workspace:components/Menu/react"
   dependencies:
     "@cypress-design/constants-menu": "npm:*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/react-icon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
@@ -1751,7 +1754,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-select@workspace:components/Select/react"
   dependencies:
+    "@cypress-design/constants-button": "npm:*"
     "@cypress-design/constants-select": "npm:*"
+    "@cypress-design/icon-registry": "npm:*"
     "@cypress-design/react-button": "workspace:^1.13.0"
     "@cypress-design/react-checkbox": "workspace:^2.0.0"
     "@cypress-design/react-icon": "workspace:^3.3.2"
@@ -1826,6 +1831,7 @@ __metadata:
   resolution: "@cypress-design/react-testresult@workspace:components/TestResult/react"
   dependencies:
     "@cypress-design/constants-testresult": "npm:*"
+    "@cypress-design/react-button": "npm:*"
     "@cypress-design/react-icon": "workspace:^3.3.2"
     "@cypress-design/react-statusicon": "workspace:^1.0.5"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
@@ -1892,6 +1898,7 @@ __metadata:
   dependencies:
     "@cypress-design/constants-button": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    clsx: "npm:*"
   languageName: unknown
   linkType: soft
 
@@ -1983,6 +1990,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-select@workspace:components/Select/vue"
   dependencies:
+    "@cypress-design/constants-button": "npm:*"
     "@cypress-design/constants-select": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-button": "workspace:^1.13.0"
@@ -2011,6 +2019,7 @@ __metadata:
     "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.3.2"
+    clsx: "npm:*"
   languageName: unknown
   linkType: soft
 
@@ -2039,6 +2048,7 @@ __metadata:
     "@cypress-design/constants-testresult": "npm:*"
     "@cypress-design/icon-registry": "workspace:^3.3.2"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    "@cypress-design/vue-button": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.3.2"
     "@cypress-design/vue-statusicon": "workspace:^1.0.1"
   languageName: unknown

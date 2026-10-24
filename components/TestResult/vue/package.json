@@ -26,7 +26,8 @@
   },
   "devDependencies": {
     "@cypress-design/constants-testresult": "*",
-    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*",
+    "@cypress-design/vue-button": "*"
   },
   "license": "MIT"
 }
