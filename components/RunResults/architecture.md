@@ -4,7 +4,7 @@ How the RunResults component is built. Read this when extending, fixing, or rebu
 
 ## File layout
 
-```
+```text
 components/RunResults/
 ├── instructions.md           # Consumer-facing usage doc
 ├── architecture.md           # This file — implementation notes
@@ -36,7 +36,7 @@ The cypress-services source has a sibling `FlakyBadge` React component. We don't
 
 Simplified render tree (React; Vue mirrors this):
 
-```
+```text
 <div data-cy="run-results">          (root wrapper: inline-flex; will hold multiple lists in future)
   <ul>                              (the pill: flex, items-center, rounded, ::after border)
     {/* Leading stats (independent, each optional) */}
@@ -64,7 +64,7 @@ Before the JSX above, compute `hasAnyStat = (flaky > 0) || showSelfHealed || (ex
 
 Each `Stat` is:
 
-```
+```text
 <li data-cy="total-{status}">
   <Tooltip overlay={…}>            (only when showTooltip)
     <a|span>                       (<a> when links?.[status] is a truthy href, else <span>)

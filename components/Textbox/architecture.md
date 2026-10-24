@@ -4,7 +4,7 @@ How the Textbox component is built. Read this when extending, fixing, or rebuild
 
 ## File layout
 
-```
+```text
 components/Textbox/
 ├── ReadMe.md                 # Public VitePress docs (live demos)
 ├── instructions.md           # Consumer-facing usage doc
@@ -74,7 +74,7 @@ The divider is only rendered when **both** `divider={true}` **and** `iconLeft` i
 
 Simplified render tree (React; Vue mirrors this):
 
-```
+```text
 <label>  (wrapper; handles hover/focus-within/focus-visible)
   {labelLeft && <span>…</span>}
   <div>  (inputContainer; padding + horizontal flex)

@@ -1,0 +1,9 @@
+# voice.md, Naming rules: write "Cypress", never "Cypress.io".
+extends: existence
+message: "Write 'Cypress', not 'Cypress.io'."
+link: https://design.cypress.io/agents/voice.md#naming-rules
+level: warning
+ignorecase: false
+nonword: true
+tokens:
+  - '\bCypress\.io\b'

@@ -1,0 +1,24 @@
+{
+  "config": {
+    // Prettier owns whitespace, list markers, emphasis style, and line wrapping
+    "extends": "markdownlint/style/prettier",
+    // Component ReadMes and docs pages embed Vue components, <details>, and
+    // HTML props tables on purpose
+    "no-inline-html": false,
+    // Legacy VitePress pages must open with a Vue `<script setup>` block, and
+    // the PR template opens with an HTML comment followed by `##` sections
+    "first-line-heading": false,
+    // Component docs repeat section names ("Props", "Install") under
+    // different parents
+    "no-duplicate-heading": { "siblings_only": true },
+    // A frontmatter `title` sets the page <title>, not a second body heading
+    "single-title": { "front_matter_title": "" },
+  },
+  "globs": ["**/*.md"],
+  "ignores": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/CHANGELOG.md",
+    ".changeset/*.md",
+  ],
+}

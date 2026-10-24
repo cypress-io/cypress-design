@@ -1,0 +1,17 @@
+# voice.md, Tone: avoid "simply", "just", "easy", "powerful", "seamless",
+# "delight". "not just" means "not only", so it isn't flagged.
+extends: existence
+message: "Avoid '%s'. State what happens instead."
+link: https://design.cypress.io/agents/voice.md#tone
+level: warning
+ignorecase: true
+tokens:
+  - simply
+  - '(?<!not )just'
+  - easy
+  - easily
+  - powerful
+  - seamless
+  - seamlessly
+  - delight
+  - delightful
