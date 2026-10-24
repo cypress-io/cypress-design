@@ -49,6 +49,7 @@ jobs:
           install: false
           start: yarn --cwd test/react-app dev --host 127.0.0.1
           wait-on: 'http://127.0.0.1:5173'
+          config: baseUrl=http://127.0.0.1:5173/
           browser: chrome
           record: true
           group: 'E2E Tests - React Dev'
@@ -100,6 +101,7 @@ jobs:
           install: false
           start: yarn --cwd test/react-app preview --port=5173 --host 127.0.0.1
           wait-on: 'http://127.0.0.1:5173'
+          config: baseUrl=http://127.0.0.1:5173/
           browser: chrome
           record: true
           group: 'E2E Tests - React Build'
@@ -148,6 +150,7 @@ jobs:
           install: false
           start: yarn --cwd test/vue-app dev --host 127.0.0.1
           wait-on: 'http://127.0.0.1:5173'
+          config: baseUrl=http://127.0.0.1:5173/
           browser: chrome
           record: true
           group: 'E2E Tests - Vue Dev'
@@ -202,6 +205,7 @@ jobs:
           install: false
           start: yarn --cwd test/vue-app preview --port=5173 --host 127.0.0.1
           wait-on: 'http://127.0.0.1:5173'
+          config: baseUrl=http://127.0.0.1:5173/
           browser: chrome
           record: true
           group: 'E2E Tests - Vue Build'
