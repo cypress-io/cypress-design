@@ -1575,6 +1575,7 @@ __metadata:
     semver: "npm:^7.7.4"
     shiki: "npm:^4.0.2"
     sucrase: "npm:^3.35.0"
+    tailwindcss: "npm:^3.4.3"
     turbo: "npm:^2.1.1"
     typescript: "npm:5.4.5"
     vite: "npm:^5.4.19"
