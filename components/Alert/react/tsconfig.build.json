@@ -3,8 +3,7 @@
   "include": [
     "./Alert.tsx",
     "./index.ts",
-    "../constants.ts",
-    "./css-modules.d.ts"
+    "../constants.ts"
   ],
   "compilerOptions": {
     "sourceRoot": "./",

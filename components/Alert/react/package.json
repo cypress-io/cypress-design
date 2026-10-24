@@ -26,10 +26,7 @@
   },
   "devDependencies": {
     "@cypress-design/constants-alert": "*",
-    "@cypress-design/rollup-plugin-tailwind-keep": "*",
-    "postcss": "^8.4.38",
-    "rollup-plugin-postcss": "^4.0.2",
-    "sass": "^1.77.4"
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"
 }
