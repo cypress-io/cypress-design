@@ -1,0 +1,15 @@
+# voice.md, Naming rules: partner names keep their own branding, SSO and CI/CD
+# are written in caps, and `cy.prompt` stays lowercase.
+extends: substitution
+message: "Use '%s' instead of '%s'."
+link: https://design.cypress.io/agents/voice.md#naming-rules
+level: warning
+ignorecase: false
+swap:
+  Github: GitHub
+  Gitlab: GitLab
+  BitBucket: Bitbucket
+  JIRA: Jira
+  '[Cc]i/[Cc]d|CI/cd|ci/CD': CI/CD
+  '[Ss]so': SSO
+  'Cy\.[Pp]rompt': cy.prompt
