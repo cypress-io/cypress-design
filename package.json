@@ -33,9 +33,8 @@
     "docs": "yarn start",
     "start": "NODE_ENV=development concurrently -n const,icons,astro \"node ./scripts/watch-constants.mjs\" \"node ./scripts/watch-icons.mjs\" \"yarn astro dev --root docs --port 4321\"",
     "build:docs": "node scripts/copy-agents.mjs && yarn workspace @cypress-design/css build:colors-css && yarn build:components && node packages/favicon/bin/copy-assets.mjs docs/public --quiet && yarn astro build --root docs",
-    "postinstall": "node scripts/capitalize-icon.mjs && yarn build:components",
+    "postinstall": "husky && node scripts/capitalize-icon.mjs && yarn build:components",
     "new:component": "hygen component new",
-    "prepare": "husky",
     "version-packages": "changeset version && yarn install --no-immutable --mode=update-lockfile",
     "release": "node scripts/set-version.mjs && changeset publish"
   },
