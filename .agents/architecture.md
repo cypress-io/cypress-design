@@ -61,11 +61,11 @@ The `@cypress-design/css` package exports design tokens as CSS custom properties
 
 **Use Tailwind for all styling.** This design system is all-in on Tailwind utilities — no SASS, CSS Modules, or CSS-in-JS.
 
-**Class order and token use are enforced by tooling.**
+**Class order and token use are flagged by tooling, not yet enforced.** Nothing here fails CI: the ESLint rules are warnings, and CI doesn't run `prettier --check`.
 
-- Prettier (`prettier-plugin-tailwindcss`, configured in `.prettierrc.json`) sorts classes in `class`/`className` attributes, `clsx()` and `twMerge()` calls, and `@apply`. Don't hand-order classes; run `yarn prettier --write`.
-- ESLint (`eslint-plugin-tailwindcss`, configured in `eslint.config.js`) warns on arbitrary values (`text-[#123456]`, `px-[16px]`) and on classes that aren't in the Tailwind config. Reach for a design token first. A legitimate non-Tailwind hook class goes in the `whitelist` setting there, not an inline disable.
-- Gaps: neither tool reads `.astro` files yet, and the ESLint rules only see class attributes and `clsx()`/`twMerge()` arguments, so class strings in `components/*/constants` objects aren't checked.
+- Prettier (`prettier-plugin-tailwindcss`, configured in `.prettierrc.json`) sorts classes in `class`/`className` attributes, `clsx()` calls, and `@apply`. The pre-commit hook runs it on staged files; otherwise run `yarn prettier --write`. Don't hand-order classes. `twMerge()` arguments are left unsorted on purpose: tailwind-merge keeps the last of two conflicting classes, so their order is meaningful.
+- ESLint (`eslint-plugin-tailwindcss`, configured in `eslint.config.js`) warns on arbitrary values (`text-[#123456]`, `px-[16px]`) and on classes that aren't in the Tailwind config. Reach for a design token first. A legitimate non-Tailwind hook class goes in the `whitelist` setting there, not an inline disable. A class built at runtime (`` `grid-cols-${n}` ``) belongs in script next to its `<tw-include>` comment, where the rule doesn't read it.
+- Gaps: neither tool reads `.astro` files yet. The ESLint rules only see class attributes and `clsx()`/`twMerge()` arguments in files directly under `components/*/{react,vue}/` and in `docs/src/`, so class strings in `components/*/constants` objects and in component subfolders (such as `components/Icon/*/animated/`) aren't checked.
 
 ### Technical Debt: WindiCSS
 

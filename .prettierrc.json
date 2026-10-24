@@ -3,5 +3,5 @@
   "semi": false,
   "plugins": ["prettier-plugin-tailwindcss"],
   "tailwindConfig": "./tailwind.config.mjs",
-  "tailwindFunctions": ["clsx", "twMerge"]
+  "tailwindFunctions": ["clsx"]
 }

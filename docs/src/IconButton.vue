@@ -84,6 +84,10 @@ function focus() {
 
 const $button = ref<HTMLDivElement>()
 const $closeButton = ref<HTMLButtonElement>()
+
+const sizesGridCols = computed(
+  () => `grid-cols-${Math.min(props.meta.availableSizes.length, 4)}`,
+)
 // <tw-include class="grid-cols-1 grid-cols-2 grid-cols-3 grid-cols-4"/>
 </script>
 
@@ -154,10 +158,7 @@ const $closeButton = ref<HTMLButtonElement>()
 
     <div
       class="grid grow gap-[16px] transition-all duration-1000"
-      :class="{
-        [`grid-cols-${Math.min(meta.availableSizes.length, 4)}`]: !localFocused,
-        [`grid-cols-5 justify-items-center`]: localFocused,
-      }"
+      :class="localFocused ? 'grid-cols-5 justify-items-center' : sizesGridCols"
     >
       <IconSized
         v-for="size in meta.availableSizes"
