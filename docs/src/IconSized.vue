@@ -1,16 +1,28 @@
 <script lang="ts" setup>
 import Icon from '@cypress-design/vue-icon'
-import { ref } from 'vue'
+import { ref, type Component } from 'vue'
 import ColorSelector from './ColorSelector.vue'
-const IconAny = Icon as any
+// `name` and the colors are runtime strings, not Icon's literal unions
+const IconAny: Component = Icon
+
+// The sizes an icon supports a color in, or `false` when it has none
+type ColorSizes = readonly string[] | false
 
 defineProps<{
   focused: boolean
   groupName: string
   iconName: string
   size: string
-  meta: Record<string, string[]>
+  meta: {
+    hasStrokeColor: ColorSizes
+    hasFillColor: ColorSizes
+    hasSecondaryStrokeColor: ColorSizes
+    hasSecondaryFillColor: ColorSizes
+  }
 }>()
+
+const supports = (sizes: ColorSizes, size: string) =>
+  sizes !== false && sizes.includes(size)
 
 const strokeColor = ref('indigo-500')
 const fillColor = ref('jade-200')
@@ -46,23 +58,23 @@ const secondaryFillColor = ref('orange-300')
       class="text-center text-teal-500"
     >
       <ColorSelector
+        v-if="supports(meta.hasStrokeColor, size)"
         v-model="strokeColor"
-        v-if="meta.hasStrokeColor.includes?.(size)"
         >s</ColorSelector
       >
       <ColorSelector
+        v-if="supports(meta.hasFillColor, size)"
         v-model="fillColor"
-        v-if="meta.hasFillColor.includes?.(size)"
         >f</ColorSelector
       >
       <ColorSelector
+        v-if="supports(meta.hasSecondaryStrokeColor, size)"
         v-model="secondaryStrokeColor"
-        v-if="meta.hasSecondaryStrokeColor.includes?.(size)"
         >s+</ColorSelector
       >
       <ColorSelector
+        v-if="supports(meta.hasSecondaryFillColor, size)"
         v-model="secondaryFillColor"
-        v-if="meta.hasSecondaryFillColor.includes?.(size)"
         >f+</ColorSelector
       >
     </div>

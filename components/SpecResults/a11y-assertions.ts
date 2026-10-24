@@ -24,7 +24,7 @@ function insertSentinel(): Cypress.Chainable {
   })
 }
 
-export default function a11yAssertions(mountStory: MountFn, fw: 'react'): void {
+export default function a11yAssertions(mountStory: MountFn): void {
   // ---------------------------------------------------------------------------
   // Keyboard navigation
   // ---------------------------------------------------------------------------

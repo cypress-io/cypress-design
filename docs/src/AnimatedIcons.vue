@@ -30,9 +30,9 @@ const animated = reactive({
     <p class="m-4 text-gray-800">Click to see the animation start</p>
     <div class="flex flex-wrap justify-center gap-[16px] bg-white p-8">
       <div
-        class="flex flex-col items-center gap-[8px]"
         v-for="(Icon, iconName) of animatedIcons"
         :key="iconName"
+        class="flex flex-col items-center gap-[8px]"
       >
         <component
           :is="Icon"

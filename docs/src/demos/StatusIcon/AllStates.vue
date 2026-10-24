@@ -10,7 +10,7 @@ const size = computed(() => sizes[sizeSlider.value])
 
 <template>
   <div class="mb-4 flex items-center gap-4">
-    Size <input type="range" min="0" max="4" step="1" v-model="sizeSlider" />
+    Size <input v-model="sizeSlider" type="range" min="0" max="4" step="1" />
     {{ size }}
   </div>
   <table>

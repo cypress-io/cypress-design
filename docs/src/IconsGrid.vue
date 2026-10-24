@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import IconButton from './IconButton.vue'
 import AnimatedIcons from './AnimatedIcons.vue'
+
+type IconMeta = (typeof iconsMetadata)[keyof typeof iconsMetadata]
 
 const search = ref('')
 const $searchInput = ref<HTMLInputElement>()
@@ -19,12 +21,12 @@ const groupedIconsMetadata = computed(() =>
       if (search.value && !iconName.includes(search.value)) return acc
       const iconGroup = iconName.split('-')[0]
       if (!acc[iconGroup]) {
-        acc[iconGroup] = {} as Record<keyof typeof iconsMetadata, any>
+        acc[iconGroup] = {} as Record<keyof typeof iconsMetadata, IconMeta>
       }
       acc[iconGroup][iconName as keyof typeof iconsMetadata] = iconMeta
       return acc
     },
-    {} as Record<string, Record<keyof typeof iconsMetadata, any>>,
+    {} as Record<string, Record<keyof typeof iconsMetadata, IconMeta>>,
   ),
 )
 </script>
@@ -33,8 +35,8 @@ const groupedIconsMetadata = computed(() =>
   <div class="relative my-[24px] rounded bg-gray-50 p-[16px]">
     <input
       ref="$searchInput"
-      type="search"
       v-model="search"
+      type="search"
       placeholder="Search Icons"
       class="mb-[16px] block w-full rounded border-2 border-solid border-gray-200 bg-white px-[8px] py-[4px] focus:border-indigo-300"
     />

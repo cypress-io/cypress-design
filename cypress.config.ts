@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { defineConfig } from 'cypress'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
@@ -52,7 +51,7 @@ export default defineConfig({
   e2e: {
     experimentalStudio: true,
     baseUrl: 'http://localhost:5173/',
-    setupNodeEvents(on, config) {
+    setupNodeEvents(on) {
       on('file:preprocessor', createBundler())
     },
   },
