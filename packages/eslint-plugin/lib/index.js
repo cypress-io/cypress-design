@@ -4,15 +4,23 @@
  */
 'use strict'
 
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-
 const requireIndex = require('requireindex')
+const { name, version } = require('../package.json')
 
-//------------------------------------------------------------------------------
-// Plugin Definition
-//------------------------------------------------------------------------------
+const plugin = {
+  meta: { name, version },
+  rules: requireIndex(__dirname + '/rules'),
+  configs: {},
+}
 
-// import all rules in lib/rules
-module.exports.rules = requireIndex(__dirname + '/rules')
+// The config references the plugin object itself so consumers only need
+// `...cypressDesign.configs.recommended` in their flat config.
+plugin.configs.recommended = {
+  name: '@cypress-design/recommended',
+  plugins: { '@cypress-design': plugin },
+  rules: {
+    '@cypress-design/no-windicss': 'error',
+  },
+}
+
+module.exports = plugin

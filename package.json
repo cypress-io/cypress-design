@@ -49,6 +49,7 @@
     "@changesets/get-release-plan": "^4.0.10",
     "@cypress-design/constants-tabs": "*",
     "@cypress-design/css": "*",
+    "@cypress-design/eslint-plugin": "*",
     "@cypress-design/favicon": "*",
     "@cypress-design/react-icon": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*",

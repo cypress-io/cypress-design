@@ -7,6 +7,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
 import { fixupPluginRules } from '@eslint/compat'
+import cypressDesign from '@cypress-design/eslint-plugin'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
 
@@ -44,6 +45,12 @@ const config = [
     files: ['packages/eslint-plugin/**/*.js'],
     languageOptions: {
       globals: globals.node,
+    },
+  },
+  {
+    files: ['packages/eslint-plugin/tests/**/*.js'],
+    languageOptions: {
+      globals: globals.mocha,
     },
   },
   {
@@ -196,6 +203,28 @@ const config = [
         { argsIgnorePattern: '^_' },
       ],
     },
+  },
+  {
+    // Mirrors the globs above so the rule only reaches files that already have a parser.
+    files: [
+      '**/*.{js,cjs,mjs}',
+      'scripts/**/*',
+      '**/vite.config.ts',
+      '{packages,css,icon-registry}/**/*.{ts,tsx}',
+      'components/*/react/*.tsx',
+      'components/*/vue/*.{ts,tsx,vue}',
+    ],
+    // Known WindiCSS debt (see .agents/architecture.md). Remove entries as
+    // they're migrated; don't add new ones.
+    ignores: [
+      'icon-registry/src/icons.ts',
+      'components/Icon/react/index.ts',
+      'components/Icon/vue/index.ts',
+      'components/Menu/react/Menu.tsx',
+      'components/Alert/constants/src/index.ts',
+      'components/StatusIcon/constants/src/constants.ts',
+    ],
+    ...cypressDesign.configs.recommended,
   },
   {
     ignores: [
