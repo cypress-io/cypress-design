@@ -53,7 +53,7 @@ import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
         var VALID_FW = ['vue', 'react', 'vanilla', 'astro']
         var fw =
           new URLSearchParams(location.search).get('fw') ||
-          (function () { try { return localStorage.getItem('fw') } catch (_) {} })() ||
+          (function () { try { return localStorage.getItem('fw') } catch (_) { /* storage blocked */ } })() ||
           'vue'
         if (!VALID_FW.includes(fw)) fw = 'vue'
         document.documentElement.setAttribute('data-fw', fw)
