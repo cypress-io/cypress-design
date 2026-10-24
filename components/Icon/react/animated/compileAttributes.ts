@@ -5,11 +5,12 @@ import {
   getComponentAttributes,
 } from '@cypress-design/icon-registry'
 import clsx from 'clsx'
+import type { SVGProps } from 'react'
 
 export interface AnimatedProps
   extends HasStrokeColor,
     HasFillColor,
-    React.SVGProps<SVGSVGElement> {
+    SVGProps<SVGSVGElement> {
   interactiveColorsOnGroup?: boolean
   className?: string
 }
@@ -21,7 +22,7 @@ export default function compileAttributes(fullRest: AnimatedProps) {
   })
 
   const rest = Object.entries(fullRest).reduce(
-    (acc: Record<string, any>, [key, value]) => {
+    (acc: Record<string, unknown>, [key, value]) => {
       if (
         ICON_COLOR_PROP_NAMES.includes(
           key as (typeof ICON_COLOR_PROP_NAMES)[number],

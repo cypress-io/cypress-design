@@ -52,9 +52,9 @@ const showModal = ref(false)
       fill-color="gray-100"
     />
     <Checkbox
+      id="Sample"
       v-model="checked"
       label="Checkbox"
-      id="Sample"
       @update:model-value=""
     />
     <p v-if="checked">Checked</p>

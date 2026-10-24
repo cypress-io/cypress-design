@@ -144,11 +144,9 @@ const long = Array.from({ length: 24 }, (_, i) => ({
 // trigger-based examples below use the default absolute popover.
 const PREVIEW_PANEL = '!static !mt-0 !z-auto'
 
-// Tracked selected values for the preview panels (read-only is fine; the
+// Tracked selected value for the preview panels (read-only is fine; the
 // `value` prop highlights the corresponding row without managing state).
 const previewSelected = 'beta'
-const previewSelectedUser = 'u2'
-const previewSelectedCheckbox = 'b'
 
 // Interactive state for the mixed-content tile, so clicking a checkbox
 // row actually toggles the row's selected/unchecked state. Default rows
@@ -195,7 +193,6 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         <SelectOptionList
           :items="withMixedContent"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -213,6 +210,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
@@ -254,7 +252,6 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :items="withMixedContent"
           size="40"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -272,6 +269,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
@@ -317,7 +315,6 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           theme="dark"
           :items="withMixedContent"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -335,6 +332,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
@@ -375,7 +373,6 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :items="withMixedContent"
           size="40"
           :value="mixedSelected"
-          @select="onMixedSelect"
           :header-button="{
             iconLeft: IconArrowLeft,
             onClick: () => {},
@@ -393,6 +390,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           :search-filters="false"
           :search-auto-focus="false"
           :panel-class="PREVIEW_PANEL"
+          @select="onMixedSelect"
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>

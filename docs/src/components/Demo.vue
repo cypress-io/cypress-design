@@ -1,5 +1,12 @@
 <script lang="ts" setup>
-import { defineAsyncComponent, onBeforeUnmount, onMounted, ref } from 'vue'
+import {
+  defineAsyncComponent,
+  onBeforeUnmount,
+  onMounted,
+  ref,
+  type AsyncComponentLoader,
+  type Component,
+} from 'vue'
 
 // `name` is the demo's path under docs/src/demos/, minus the extension:
 //   'Button'             → demos/Button.vue            (single-demo pages)
@@ -15,10 +22,10 @@ const demoLoaders = import.meta.glob([
   '../demos/*/vue/*.vue',
 ])
 
-const demoMap: Record<string, any> = Object.fromEntries(
+const demoMap: Record<string, Component> = Object.fromEntries(
   Object.entries(demoLoaders).map(([path, loader]) => {
     const name = path.replace('../demos/', '').replace(/\.vue$/, '')
-    return [name, defineAsyncComponent(loader as any)]
+    return [name, defineAsyncComponent(loader as AsyncComponentLoader)]
   }),
 )
 
@@ -47,6 +54,6 @@ onBeforeUnmount(() => observer?.disconnect())
 
 <template>
   <div ref="root" style="min-height: 1px">
-    <component v-if="visible && demoMap[name]" :is="demoMap[name]" />
+    <component :is="demoMap[name]" v-if="visible && demoMap[name]" />
   </div>
 </template>
