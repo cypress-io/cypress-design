@@ -156,8 +156,8 @@ export class DetailsAnimation {
     this.isClosing = false
     this.isExpanding = false
     // Remove the overflow hidden and the fixed height
-    this.content
-      ? (this.content.style.height = this.content.style.overflow = '')
-      : null
+    if (this.content) {
+      this.content.style.height = this.content.style.overflow = ''
+    }
   }
 }
