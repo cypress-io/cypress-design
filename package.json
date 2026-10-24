@@ -26,7 +26,7 @@
     "test": "vitest",
     "eslint": "eslint",
     "lint:md": "markdownlint-cli2",
-    "lint:prose": "vale --glob='!{**/node_modules/**,**/dist/**,**/CHANGELOG.md,.changeset/**}' .",
+    "lint:prose": "vale --glob='!{**/node_modules/**,**/dist/**,**/CHANGELOG.md,.changeset/**,docs/public/agents/**}' .",
     "test:eslint-plugin": "yarn workspace @cypress-design/eslint-plugin run test",
     "build:components": "turbo run --no-daemon build --filter=\"@cypress-design/constants-*\" && turbo run --no-daemon build --filter=\"@cypress-design/vue-*\" --filter=\"@cypress-design/react-*\" --filter=\"@cypress-design/favicon\"",
     "dev": "yarn start",
