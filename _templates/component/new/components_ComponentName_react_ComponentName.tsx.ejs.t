@@ -16,7 +16,7 @@ export const <%= h.inflection.camelize(name, false) %>: React.FC<
 > = ({ id, label, className, ...rest }) => {
   return (
     <div {...rest} id={id} className={clsx('bg-jade-100', className)}>
-      <label>{label}</label>
+      <span>{label}</span>
       Render Function for <%= h.inflection.camelize(name, false) %>
       <p>{SharedSettings.foo}</p>
     </div>

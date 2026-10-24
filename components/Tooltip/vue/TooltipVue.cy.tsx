@@ -136,6 +136,37 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
     cy.findByText('nested trigger tooltip').should('not.be.visible')
   })
 
+  it('stays open while focus moves between elements inside the trigger', () => {
+    mount(() => (
+      <div class="text-center">
+        <Tooltip class="inline-block m-16">
+          {{
+            default: () => (
+              <span>
+                <button>First</button>
+                <button>Second</button>
+              </span>
+            ),
+            popper: () => <div>multi trigger tooltip</div>,
+          }}
+        </Tooltip>
+      </div>
+    ))
+    cy.contains('button', 'First').focus()
+    cy.findByText('multi trigger tooltip').should('be.visible')
+    cy.get('[role="tooltip"]').then(($tooltip) => {
+      const hiddenStates: boolean[] = []
+      new MutationObserver(() =>
+        hiddenStates.push($tooltip[0].classList.contains('invisible')),
+      ).observe($tooltip[0], { attributeFilter: ['class'] })
+      cy.realPress('Tab')
+      cy.focused().should('have.text', 'Second')
+      cy.findByText('multi trigger tooltip')
+        .should('be.visible')
+        .then(() => expect(hiddenStates).not.to.include(true))
+    })
+  })
+
   it('arrowPadding', () => {
     mount(() => (
       <div class="flex flex-col items-center center gap-20 bg-gray-1000">

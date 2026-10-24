@@ -161,7 +161,6 @@ const config = [
   {
     files: ['components/*/vue/**/*.{ts,tsx,vue}'],
     ignores: vueTestFiles,
-    processor: vue.processors['.vue'],
     languageOptions: {
       parser: vueParser,
       globals: globals.browser,
@@ -221,6 +220,21 @@ const config = [
         'error',
         { argsIgnorePattern: '^_' },
       ],
+    },
+  },
+  {
+    files: ['components/*/vue/**/*.vue'],
+    processor: vue.processors['.vue'],
+  },
+  {
+    // vuejs-accessibility only reads `.vue` templates, so JSX render functions
+    // and test mounts get the JSX rules instead.
+    files: ['components/*/vue/**/*.tsx'],
+    plugins: jsxA11y.flatConfigs.recommended.plugins,
+    rules: {
+      ...jsxA11y.flatConfigs.recommended.rules,
+      // Only recognizes React's `htmlFor`; Vue JSX associates labels with `for`.
+      'jsx-a11y/label-has-associated-control': 'off',
     },
   },
   {

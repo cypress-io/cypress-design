@@ -20,6 +20,7 @@ describe('<DocMenu/>', () => {
         },
         setup(props, { slots }) {
           return () => (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- link fixture; only records the clicked href
             <span onClick={() => (selectedHref.value = props.href)}>
               {slots.default?.()} + href: {props.href}
             </span>

@@ -74,11 +74,7 @@ const CANCELLED_AUTO = (
     <p className="!mb-0 !leading-[20px]">
       To save CI time and surface failures faster, Cypress automatically
       cancelled this run after <b>1 test failed</b>. You can adjust this
-      threshold in{' '}
-      <a href="https://docs.cypress.io/cloud/features/smart-orchestration/run-cancellation">
-        Project Settings
-      </a>
-      .
+      threshold in Project Settings.
     </p>
   </>
 )

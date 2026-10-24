@@ -128,6 +128,13 @@ watch(
   },
 )
 
+// Focus moving between elements inside the trigger keeps the tooltip open.
+function hideOnFocusOut(event: FocusEvent) {
+  if (props.open) return
+  if (reference.value?.contains(event.relatedTarget as Node | null)) return
+  show.value = false
+}
+
 async function placeTooltip() {
   if (props.disabled || !reference.value || !tooltip.value || !arrowRef.value)
     return
@@ -213,7 +220,7 @@ onMounted(() => {
     ref="reference"
     @mouseover="!disabled && !open && placeTooltip()"
     @focusin="!disabled && !open && placeTooltip()"
-    @focusout="!open && (show = false)"
+    @focusout="hideOnFocusOut"
     @mouseout="!open && (show = false)"
     @keydown.escape="!open && (show = false)"
   >

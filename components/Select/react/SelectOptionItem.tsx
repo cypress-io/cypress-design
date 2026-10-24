@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus --
-   Rows never take DOM focus: the trigger or search input keeps it and points
-   at the active row with `aria-activedescendant`, and Select handles the arrow
-   and Enter keys (see architecture.md, "Why JS-driven focus"). */
 import * as React from 'react'
 import clsx from 'clsx'
 import Checkbox from '@cypress-design/react-checkbox'
@@ -61,6 +57,11 @@ function renderIcon(
   return <span className={className}>{Icon as React.ReactNode}</span>
 }
 
+// Selectable rows never take DOM focus: the trigger or search input keeps it
+// and points at the active row with `aria-activedescendant`, and Select
+// handles the arrow and Enter keys (see architecture.md, "Why JS-driven
+// focus"). The a11y rules asking those rows for key handlers and focusability
+// are disabled per row below.
 export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
   item,
   theme,
@@ -179,6 +180,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
   if (item.type === 'custom') {
     const isSelectable = typeof item.value === 'string'
     return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events -- rows use aria-activedescendant, see above
       <div
         id={id}
         role={isSelectable ? 'option' : 'presentation'}
@@ -198,6 +200,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
   // Checkbox row
   if (item.type === 'checkbox') {
     return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- rows use aria-activedescendant, see above
       <div
         id={id}
         role="option"
@@ -254,6 +257,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
   // User row
   if (item.type === 'user') {
     return (
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- rows use aria-activedescendant, see above
       <div
         id={id}
         role="option"
@@ -282,6 +286,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
 
   // Default row (type === 'default' or undefined)
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus -- rows use aria-activedescendant, see above
     <div
       id={id}
       role="option"

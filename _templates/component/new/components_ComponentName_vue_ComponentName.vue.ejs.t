@@ -3,7 +3,7 @@ to: components/<%= h.inflection.camelize(name, false) %>/vue/<%= h.inflection.ca
 ---
 <template>
   <div :id="id" class="bg-jade-100">
-    <label>{{ label }}</label>
+    <span>{{ label }}</span>
     Template for <%= h.inflection.camelize(name, false) %>
     <p>{{ SharedSettings.foo }}</p>
   </div>

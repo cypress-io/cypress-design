@@ -133,11 +133,11 @@ function onMouseDown(e: MouseEvent) {
 </script>
 
 <template>
-  <!-- eslint-disable vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus, vuejs-accessibility/no-static-element-interactions --
-       Rows never take DOM focus: the trigger or search input keeps it and
-       points at the active row with `aria-activedescendant`, and Select
-       handles the arrow and Enter keys (see architecture.md, "Why JS-driven
-       focus"). -->
+  <!-- Selectable rows never take DOM focus: the trigger or search input keeps
+       it and points at the active row with `aria-activedescendant`, and
+       Select handles the arrow and Enter keys (see architecture.md, "Why
+       JS-driven focus"). The a11y rules asking those rows for key handlers
+       and focusability are disabled per row below. -->
   <!-- headline (non-interactive) -->
   <div
     v-if="item.type === 'headline'"
@@ -205,6 +205,7 @@ function onMouseDown(e: MouseEvent) {
   </div>
 
   <!-- custom row -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- rows use aria-activedescendant, see above -->
   <div
     v-else-if="item.type === 'custom'"
     :id="id"
@@ -220,6 +221,7 @@ function onMouseDown(e: MouseEvent) {
   </div>
 
   <!-- checkbox row -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus -- rows use aria-activedescendant, see above -->
   <div
     v-else-if="item.type === 'checkbox'"
     :id="id"
@@ -272,6 +274,7 @@ function onMouseDown(e: MouseEvent) {
   </div>
 
   <!-- user row -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus -- rows use aria-activedescendant, see above -->
   <div
     v-else-if="item.type === 'user'"
     :id="id"
@@ -304,6 +307,7 @@ function onMouseDown(e: MouseEvent) {
   </div>
 
   <!-- default row (type === 'default' or undefined) -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus -- rows use aria-activedescendant, see above -->
   <div
     v-else
     :id="id"
