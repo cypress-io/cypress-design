@@ -1,5 +1,11 @@
 # @cypress-design/react-alert
 
+## 1.1.1
+
+### Patch Changes
+
+- [#743](https://github.com/cypress-io/cypress-design/pull/743) [`10ef679`](https://github.com/cypress-io/cypress-design/commit/10ef679b32a253d90f98231cd529ae198290dd96) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Remove `border-t-1` from the details footer. It isn't a Tailwind class and generated no CSS; the border comes from `border-t`, so the Alert looks the same.
+
 ## 1.1.0
 
 ### Minor Changes
