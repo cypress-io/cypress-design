@@ -40,7 +40,7 @@ Measurements were taken 16–18 September 2026 against Chrome 153.0.8010.48 and 
 markup variants and recording which file each engine fetched. Re-verify before citing them as
 current; favicon behaviour has shifted between browser versions before.
 
-## Known issues
+## Limitations
 
 - Safari renders the SVG but never evaluates `prefers-color-scheme`, so its dark-mode tab shows the
   light variant. Documented on the page as a known limitation; accepted, not a bug to fix.

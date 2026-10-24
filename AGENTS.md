@@ -64,11 +64,13 @@ Not every component has all files yet — add them when a component is created o
 
 ## Pages
 
-Page-specific acceptance criteria and known issues live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
+Page-specific acceptance criteria live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
+
+Track bugs and deferred follow-up work in GitHub issues, not in these files or anywhere else under `/.agents/`. Agents read these files as guidance, so a to-do list here turns into stale instructions.
 
 Available pages:
 
-- `pages/colors.md` — `/colors` page sections, palette behavior, TOC, known issues
+- `pages/colors.md` — `/colors` page sections, palette behavior, TOC
 
 ## Skills
 
@@ -78,4 +80,4 @@ Available skills:
 
 - `skill(implement-component)` — use when implementing a new component, or adding a variant/size/state to an existing one, from a Figma spec.
 - `skill(cy-ui-illustration)` — use when creating, resizing, or adapting a UI illustration of a product screen (marketing pages, docs, blog); source-first Figma workflow, canonical reference set, @2x render and verify.
-- `skill(cy-review-pr-comments)` — use to review the latest GitHub Copilot review comments on the PR for the current branch, triage them, update `.agents/known-issues.md`, and reply to or resolve each comment appropriately.
+- `skill(cy-review-pr-comments)` — use to review the latest GitHub Copilot review comments on the PR for the current branch, triage them, open GitHub issues for follow-ups, and reply to or resolve each comment appropriately.
