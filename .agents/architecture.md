@@ -61,6 +61,12 @@ The `@cypress-design/css` package exports design tokens as CSS custom properties
 
 **Use Tailwind for all styling.** This design system is all-in on Tailwind utilities — no SASS, CSS Modules, or CSS-in-JS.
 
+**Class order and token use are enforced by tooling.**
+
+- Prettier (`prettier-plugin-tailwindcss`, configured in `.prettierrc.json`) sorts classes in `class`/`className` attributes, `clsx()` and `twMerge()` calls, and `@apply`. Don't hand-order classes; run `yarn prettier --write`.
+- ESLint (`eslint-plugin-tailwindcss`, configured in `eslint.config.js`) warns on arbitrary values (`text-[#123456]`, `px-[16px]`) and on classes that aren't in the Tailwind config. Reach for a design token first. A legitimate non-Tailwind hook class goes in the `whitelist` setting there, not an inline disable.
+- Gaps: neither tool reads `.astro` files yet, and the ESLint rules only see class attributes and `clsx()`/`twMerge()` arguments, so class strings in `components/*/constants` objects aren't checked.
+
 ### Technical Debt: WindiCSS
 
 **Do not write new WindiCSS code.** The codebase has remnants from a previous migration. The largest holdover is the `WindiColor` type in `icon-registry/src/icons.ts` — it leaks into every icon component prop definition (`@cypress-design/react-icon`, `@cypress-design/vue-icon`).

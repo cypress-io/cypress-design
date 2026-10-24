@@ -1,3 +1,4 @@
+import path from 'node:path'
 import globals from 'globals'
 import js from '@eslint/js'
 import typescriptParser from '@typescript-eslint/parser'
@@ -7,8 +8,15 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
 import { fixupPluginRules } from '@eslint/compat'
+import tailwind from 'eslint-plugin-tailwindcss'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
+
+// The docs site is only linted for Tailwind usage, so turn off the core rules
+// that js.configs.recommended applies to every file.
+const coreRulesOff = Object.fromEntries(
+  Object.keys(js.configs.recommended.rules).map((rule) => [rule, 'off']),
+)
 
 const config = [
   js.configs.recommended,
@@ -195,6 +203,62 @@ const config = [
         'error',
         { argsIgnorePattern: '^_' },
       ],
+    },
+  },
+  {
+    files: ['docs/src/**/*.{ts,tsx}'],
+    languageOptions: {
+      parser: typescriptParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+    rules: coreRulesOff,
+  },
+  {
+    files: ['docs/src/**/*.vue'],
+    languageOptions: {
+      parser: vueParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.vue'],
+      },
+    },
+    rules: coreRulesOff,
+  },
+  {
+    files: [
+      'components/*/react/*.tsx',
+      'components/*/vue/*.{ts,tsx,vue}',
+      'docs/src/**/*.{ts,tsx,vue}',
+    ],
+    plugins: { tailwindcss: tailwind },
+    settings: {
+      tailwindcss: {
+        config: path.join(import.meta.dirname, 'tailwind.config.mjs'),
+        callees: ['clsx', 'twMerge'],
+        // Non-Tailwind hook classes: `chevron` and `icon` mark component
+        // parts, `header-anchor` matches the heading anchors on docs pages
+        whitelist: ['chevron', 'icon', 'header-anchor'],
+      },
+    },
+    rules: {
+      // prettier-plugin-tailwindcss owns class order
+      'tailwindcss/classnames-order': 'off',
+      'tailwindcss/no-arbitrary-value': 'warn',
+      'tailwindcss/no-custom-classname': 'warn',
+    },
+  },
+  {
+    // Tests pass made-up classes on purpose to check they reach the DOM
+    files: [
+      'components/*/{react,vue}/*.{cy,rootStory,rootstory}.tsx',
+      'docs/src/**/*.cy.ts',
+    ],
+    rules: {
+      'tailwindcss/no-custom-classname': 'off',
     },
   },
   {
