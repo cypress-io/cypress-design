@@ -147,8 +147,6 @@ const PREVIEW_PANEL = '!static !mt-0 !z-auto'
 // Tracked selected values for the preview panels (read-only is fine; the
 // `value` prop highlights the corresponding row without managing state).
 const previewSelected = 'beta'
-const previewSelectedUser = 'u2'
-const previewSelectedCheckbox = 'b'
 
 // Interactive state for the mixed-content tile, so clicking a checkbox
 // row actually toggles the row's selected/unchecked state. Default rows

@@ -1,4 +1,4 @@
-import { DefineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 
 export function iconTests(Icon: any) {

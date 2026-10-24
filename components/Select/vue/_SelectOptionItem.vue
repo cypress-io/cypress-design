@@ -133,6 +133,11 @@ function onMouseDown(e: MouseEvent) {
 </script>
 
 <template>
+  <!-- eslint-disable vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/interactive-supports-focus, vuejs-accessibility/no-static-element-interactions --
+       Rows never take DOM focus: the trigger or search input keeps it and
+       points at the active row with `aria-activedescendant`, and Select
+       handles the arrow and Enter keys (see architecture.md, "Why JS-driven
+       focus"). -->
   <!-- headline (non-interactive) -->
   <div
     v-if="item.type === 'headline'"
@@ -185,6 +190,7 @@ function onMouseDown(e: MouseEvent) {
     <Button
       :id="id"
       role="option"
+      aria-selected="false"
       :tabindex="-1"
       :variant="
         (item.variant as ButtonVariants) ??

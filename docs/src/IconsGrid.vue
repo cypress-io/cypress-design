@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, computed, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import { iconsMetadata } from '@cypress-design/icon-registry'
 import IconButton from './IconButton.vue'
 import AnimatedIcons from './AnimatedIcons.vue'
@@ -36,6 +36,7 @@ const groupedIconsMetadata = computed(() =>
       type="search"
       v-model="search"
       placeholder="Search Icons"
+      aria-label="Search icons"
       class="w-full border-solid border-2 block mb-[16px] px-[8px] py-[4px] border-gray-200 focus:border-indigo-300 rounded bg-white"
     />
     <div v-if="!anyIconFound">

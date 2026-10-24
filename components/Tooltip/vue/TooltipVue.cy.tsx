@@ -119,6 +119,23 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
     cy.findByText('should be visible').should('be.visible')
   })
 
+  it('opens when a focusable element inside the trigger is focused', () => {
+    mount(() => (
+      <div class="text-center">
+        <Tooltip class="inline-block m-16">
+          {{
+            default: () => <button>Info</button>,
+            popper: () => <div>nested trigger tooltip</div>,
+          }}
+        </Tooltip>
+      </div>
+    ))
+    cy.contains('button', 'Info').focus()
+    cy.findByText('nested trigger tooltip').should('be.visible')
+    cy.contains('button', 'Info').blur()
+    cy.findByText('nested trigger tooltip').should('not.be.visible')
+  })
+
   it('arrowPadding', () => {
     mount(() => (
       <div class="flex flex-col items-center center gap-20 bg-gray-1000">

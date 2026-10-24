@@ -19,6 +19,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- the row can hold its own action buttons (`actions` slot), so it can't become a <button>. Keyboard access to the row click needs an API decision (e.g. a link target) -->
   <div
     data-cy="cd-tr-container"
     :class="CssClasses.container"

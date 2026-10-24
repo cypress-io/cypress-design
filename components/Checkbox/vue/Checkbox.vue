@@ -138,6 +138,7 @@ const checkboxClasses = computed(() =>
       :style="hideInput ? { display: 'none' } : undefined"
       @change="updated"
     />
+    <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -- associated through `for`/`id`; the rule's default also requires nesting, which this sibling layout can't do -->
     <label :class="CssClasses.labelTag" :for="id">
       <IconCheckmarkSmall
         v-if="localChecked"

@@ -30,6 +30,7 @@ defineEmits<{
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -- re-emits `mousedown` for the consumer; the links inside are the interactive elements -->
   <ul
     v-for="item of items"
     :key="item.key || item.label"

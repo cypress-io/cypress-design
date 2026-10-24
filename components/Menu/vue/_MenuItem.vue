@@ -46,6 +46,7 @@ const handleMouseLeave = () => {
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -- mouseleave only clears the pointer press state set on mousedown; keyboard activation never sets it -->
   <a
     :href="href"
     :class="[

@@ -115,6 +115,7 @@ function syncOnNativeClose() {
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- backdrop click is a pointer shortcut; Escape and the close button cover keyboard users -->
   <dialog
     ref="$dialog"
     :class="[

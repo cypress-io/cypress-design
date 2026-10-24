@@ -6,9 +6,27 @@ import vue from 'eslint-plugin-vue'
 import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import vueA11y from 'eslint-plugin-vuejs-accessibility'
 import { fixupPluginRules } from '@eslint/compat'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
+
+// The preset also sets `files: ['**/*.vue']` and its own vue-eslint-parser,
+// which would override the parser setup below, so only its plugin and rules
+// are applied to the Vue blocks.
+const vueA11yRecommended = vueA11y.configs['flat/recommended'].find(
+  (c) => c.rules,
+)
+
+const reactTestFiles = [
+  'components/*/react/**/*.{cy,rootStory,rootstory}.tsx',
+  'components/*/react/**/_testUtils.tsx',
+]
+const vueTestFiles = [
+  'components/*/vue/**/*.{cy,rootStory,rootstory}.tsx',
+  'components/*/vue/**/_testUtils.tsx',
+]
 
 const config = [
   js.configs.recommended,
@@ -84,7 +102,7 @@ const config = [
   },
 
   {
-    files: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
+    files: reactTestFiles,
     languageOptions: {
       parser: typescriptParser,
       globals: {
@@ -102,6 +120,7 @@ const config = [
       },
     },
     plugins: {
+      ...jsxA11y.flatConfigs.recommended.plugins,
       '@typescript-eslint': typescriptEslint,
       'react-hooks': reactHooks,
       'no-only-tests': noOnlyTests,
@@ -109,14 +128,15 @@ const config = [
     rules: {
       ...typescriptEslint.configs.recommended.rules,
       ...reactHooksRaw.configs.recommended.rules,
+      ...jsxA11y.flatConfigs.recommended.rules,
       '@typescript-eslint/no-empty-function': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       'no-only-tests/no-only-tests': 'error',
     },
   },
   {
-    files: ['components/*/react/*.tsx'],
-    ignores: ['components/*/react/*.{cy,rootStory,rootstory}.tsx'],
+    files: ['components/*/react/**/*.tsx'],
+    ignores: reactTestFiles,
     languageOptions: {
       parser: typescriptParser,
       globals: globals.browser,
@@ -126,19 +146,22 @@ const config = [
       },
     },
     plugins: {
+      ...jsxA11y.flatConfigs.recommended.plugins,
       '@typescript-eslint': typescriptEslint,
       'react-hooks': reactHooks,
     },
     rules: {
       ...typescriptEslint.configs.recommended.rules,
       ...reactHooksRaw.configs.recommended.rules,
+      ...jsxA11y.flatConfigs.recommended.rules,
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'warn',
     },
   },
   {
-    files: ['components/*/vue/*.{ts,tsx,vue}'],
-    ignores: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
+    files: ['components/*/vue/**/*.{ts,tsx,vue}'],
+    ignores: vueTestFiles,
+    processor: vue.processors['.vue'],
     languageOptions: {
       parser: vueParser,
       globals: globals.browser,
@@ -150,18 +173,21 @@ const config = [
       },
     },
     plugins: {
+      ...vueA11yRecommended.plugins,
       '@typescript-eslint': typescriptEslint,
       vue,
     },
     rules: {
       ...typescriptEslint.configs.recommended.rules,
       ...vue.configs.recommended.rules,
+      ...vueA11yRecommended.rules,
+      'vue/comment-directive': 'error',
       'no-console': 'error',
       'no-debugger': 'error',
     },
   },
   {
-    files: ['components/*/vue/*.{cy,rootStory,rootstory}.tsx'],
+    files: vueTestFiles,
     languageOptions: {
       parser: vueParser,
       globals: {
@@ -195,6 +221,51 @@ const config = [
         'error',
         { argsIgnorePattern: '^_' },
       ],
+    },
+  },
+  {
+    files: ['docs/src/**/*.tsx'],
+    languageOptions: {
+      parser: typescriptParser,
+      globals: globals.browser,
+      sourceType: 'module',
+    },
+    plugins: jsxA11y.flatConfigs.recommended.plugins,
+    rules: jsxA11y.flatConfigs.recommended.rules,
+  },
+  {
+    files: ['docs/src/**/*.vue'],
+    processor: vue.processors['.vue'],
+    languageOptions: {
+      parser: vueParser,
+      globals: globals.browser,
+      sourceType: 'module',
+      parserOptions: {
+        parser: '@typescript-eslint/parser',
+        extraFileExtensions: ['.vue'],
+      },
+    },
+    plugins: {
+      ...vueA11yRecommended.plugins,
+      '@typescript-eslint': typescriptEslint,
+      vue,
+    },
+    rules: {
+      ...vueA11yRecommended.rules,
+      'vue/comment-directive': 'error',
+      // The core rule reads type-only parameters (e.g. in `defineEmits`) as
+      // unused variables.
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': 'error',
+    },
+  },
+  {
+    // The rule kebab-cases component names before matching, so it reads the
+    // design system's own `<Select>` component as a native `<select>`. Select
+    // labels its trigger itself (`placeholder` / `triggerAriaLabel`).
+    files: ['docs/src/demos/Select/**/*.vue'],
+    rules: {
+      'vuejs-accessibility/form-control-has-label': 'off',
     },
   },
   {

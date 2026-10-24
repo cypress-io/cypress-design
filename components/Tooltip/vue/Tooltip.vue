@@ -207,18 +207,20 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -- listens for hover and focus bubbling up from the slotted trigger -->
   <div
     v-bind="$attrs"
     ref="reference"
     @mouseover="!disabled && !open && placeTooltip()"
-    @focus="!disabled && !open && placeTooltip()"
-    @blur="!open && (show = false)"
+    @focusin="!disabled && !open && placeTooltip()"
+    @focusout="!open && (show = false)"
     @mouseout="!open && (show = false)"
     @keydown.escape="!open && (show = false)"
   >
     <!-- @slot element to hover on to open the tooltip -->
     <slot />
     <teleport v-if="!disabled" to="#portal-target">
+      <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- keeps an interactive tooltip open while the pointer crosses into it; keyboard users open it by focusing the trigger -->
       <div
         ref="tooltip"
         role="tooltip"

@@ -1,3 +1,7 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/interactive-supports-focus --
+   Rows never take DOM focus: the trigger or search input keeps it and points
+   at the active row with `aria-activedescendant`, and Select handles the arrow
+   and Enter keys (see architecture.md, "Why JS-driven focus"). */
 import * as React from 'react'
 import clsx from 'clsx'
 import Checkbox from '@cypress-design/react-checkbox'
@@ -128,6 +132,7 @@ export const SelectOptionItem: React.FC<SelectOptionItemProps> = ({
           size={buttonSize}
           id={id}
           role="option"
+          aria-selected={false}
           tabIndex={-1}
           onClick={(e) => {
             e.stopPropagation()

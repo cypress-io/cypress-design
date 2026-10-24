@@ -464,6 +464,7 @@ const chevronClasses = computed(() => [
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -- delegated keydown from the trigger / search input, which keep DOM focus (see architecture.md) -->
   <div
     ref="wrapperRef"
     :class="[SelectConstants.CssWrapperClasses]"

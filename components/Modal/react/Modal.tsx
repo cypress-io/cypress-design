@@ -114,6 +114,7 @@ export const Modal: React.FC<ModalProps> = ({
   return (
     show &&
     createPortal(
+      // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions -- backdrop click is a pointer shortcut; Escape and the close button cover keyboard users
       <dialog
         ref={dialogRef}
         className={clsx(

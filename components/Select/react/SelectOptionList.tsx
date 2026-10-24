@@ -310,6 +310,7 @@ export const SelectOptionList: React.FC<SelectOptionListProps> = ({
                   // element with DOM focus is the one that owns
                   // `aria-activedescendant`; auto-focusing here keeps
                   // that invariant.
+                  // eslint-disable-next-line jsx-a11y/no-autofocus
                   autoFocus={searchAutoFocus}
                   theme={theme}
                   size="32"

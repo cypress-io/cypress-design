@@ -489,6 +489,7 @@ export const Select: React.FC<SelectProps> = ({
     )
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions -- delegated keydown from the trigger / search input, which keep DOM focus (see architecture.md)
     <div
       ref={wrapperRef}
       className={clsx(SelectConstants.CssWrapperClasses, className)}

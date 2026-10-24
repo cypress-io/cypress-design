@@ -88,6 +88,7 @@ const $closeButton = ref<HTMLButtonElement>()
 </script>
 
 <template>
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -- backdrop click is a pointer shortcut; Escape and the close button cover keyboard users -->
   <div
     v-if="overlay"
     class="absolute w-full h-full top-0 left-0 z-10 bg-gray-500 transition transition-opacity"
@@ -102,6 +103,7 @@ const $closeButton = ref<HTMLButtonElement>()
     class="bg-indigo-500 rounded"
     :style="placeholderStyle"
   />
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -- once open, the tile holds its own buttons (close, copy), so it can't take role="button" -->
   <div
     ref="$button"
     tabindex="0"
@@ -118,6 +120,8 @@ const $closeButton = ref<HTMLButtonElement>()
     }"
     :style="localFocused ? buttonStyle : undefined"
     @click="!focused ? focus() : undefined"
+    @keydown.enter.self.prevent="!focused ? focus() : undefined"
+    @keydown.space.self.prevent="!focused ? focus() : undefined"
     @keyup.escape="localFocused = false"
   >
     <button
