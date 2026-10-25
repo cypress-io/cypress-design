@@ -12,10 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -47,7 +47,7 @@ jobs:
       # would unpack an older run's dist and node_modules over the fresh build.
       - name: Cache node_modules and built dist files
         id: cache-node-modules-dist
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           key: cache-${{ inputs.nonce }}
           path: |
