@@ -1,11 +1,12 @@
 import path from 'node:path'
 import globals from 'globals'
 import js from '@eslint/js'
-import typescriptParser from '@typescript-eslint/parser'
+import { defineConfig, globalIgnores } from 'eslint/config'
+import tseslint from 'typescript-eslint'
 import vueParser from 'vue-eslint-parser'
 import vue from 'eslint-plugin-vue'
-import typescriptEslint from '@typescript-eslint/eslint-plugin'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
+import chaiFriendly from 'eslint-plugin-chai-friendly'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
 import astro from 'eslint-plugin-astro'
 import { fixupPluginRules } from '@eslint/compat'
@@ -14,9 +15,70 @@ import cypressDesign from '@cypress-design/eslint-plugin'
 
 const reactHooks = fixupPluginRules(reactHooksRaw)
 
-const config = [
+const componentTests = (framework) => [
+  `components/*/${framework}/**/*.{cy,rootStory,rootstory}.tsx`,
+  `components/*/${framework}/**/_testUtils.tsx`,
+]
+
+const nodeTooling = [
+  'scripts/**/*',
+  '**/rollup.config.{mjs,js}',
+  '**/vite.config.ts',
+  'components/*.vite.config.ts',
+  'cypress.config.ts',
+]
+
+const tests = {
+  plugins: { 'no-only-tests': noOnlyTests },
+  rules: {
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-explicit-any': 'off',
+    'no-only-tests/no-only-tests': 'error',
+  },
+}
+
+const cypressTests = {
+  extends: [chaiFriendly.configs.recommendedFlat],
+  languageOptions: {
+    globals: {
+      ...globals.node,
+      ...globals.browser,
+      ...globals.mocha,
+      ...globals.chai,
+      expect: 'readonly',
+      cy: 'readonly',
+      Cypress: 'readonly',
+    },
+  },
+  plugins: tests.plugins,
+  rules: {
+    ...tests.rules,
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+  },
+}
+
+const reactFiles = [
+  'components/*/react/**/*.{ts,tsx}',
+  'docs/src/**/*.tsx',
+  'test/react-app/src/**/*.{ts,tsx}',
+]
+const reactTestFiles = [
+  ...componentTests('react'),
+  'components/*/{assertions,a11y-assertions}.ts',
+  'cypress/**/*.ts',
+]
+
+const vueFiles = [
+  'components/*/vue/**/*.{ts,tsx,vue}',
+  'components/vue-utils.ts',
+  'docs/src/**/*.vue',
+  'test/vue-app/src/**/*.{ts,vue}',
+]
+const vueTestFiles = [...componentTests('vue'), 'docs/src/**/*.cy.ts']
+
+export default defineConfig([
   js.configs.recommended,
-  ...astro.configs['flat/recommended'],
+  astro.configs['flat/recommended'],
   {
     files: [
       'icon-registry/**/*.js',
@@ -25,29 +87,6 @@ const config = [
     ],
     languageOptions: {
       sourceType: 'commonjs',
-      globals: globals.node,
-    },
-  },
-  {
-    files: [
-      'scripts/**/*',
-      '**/rollup.config.{mjs,js}',
-      '**/vite.config.ts',
-      'components/*.vite.config.ts',
-      'cypress.config.ts',
-    ],
-    languageOptions: {
-      parser: typescriptParser,
-      globals: globals.node,
-    },
-    rules: {
-      'no-console': 'off',
-    },
-  },
-  {
-    files: ['**/*.mjs'],
-    languageOptions: {
-      parser: typescriptParser,
       globals: globals.node,
     },
   },
@@ -64,23 +103,16 @@ const config = [
     },
   },
   {
-    files: [
-      '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
-      '{packages,css,icon-registry}/**/testUtils.ts',
-      'components/*/*.test.ts',
-    ],
+    files: [...nodeTooling, '**/*.mjs'],
     languageOptions: {
-      parser: typescriptParser,
+      parser: tseslint.parser,
       globals: globals.node,
-      sourceType: 'module',
-      parserOptions: {
-        project: ['./tsconfig.json'],
-      },
     },
-    plugins: { '@typescript-eslint': typescriptEslint },
+  },
+  {
+    files: nodeTooling,
     rules: {
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
+      'no-console': 'off',
     },
   },
   {
@@ -90,162 +122,72 @@ const config = [
       'docs/src/**/*.ts',
     ],
     ignores: ['docs/src/**/*.cy.ts', '**/*.astro/*.ts'],
+    extends: [tseslint.configs.recommended],
     languageOptions: {
-      parser: typescriptParser,
       globals: { ...globals.node, ...globals.browser },
-      sourceType: 'module',
       parserOptions: {
         project: ['./tsconfig.json'],
       },
     },
-    plugins: { '@typescript-eslint': typescriptEslint },
     rules: {
-      ...typescriptEslint.configs.recommended.rules,
       'no-console': 'error',
-      'no-debugger': 'error',
     },
   },
-
   {
     files: [
-      'components/*/react/**/*.{cy,rootStory,rootstory}.tsx',
-      'components/*/react/**/_testUtils.tsx',
-      'components/*/{assertions,a11y-assertions}.ts',
-      'cypress/**/*.ts',
+      '{packages,css,icon-registry}/**/*.{test,cy}.{ts,tsx}',
+      '{packages,css,icon-registry}/**/testUtils.ts',
+      'components/*/*.test.ts',
     ],
+    extends: [tseslint.configs.recommended],
     languageOptions: {
-      parser: typescriptParser,
-      globals: {
-        ...globals.node,
-        ...globals.browser,
-        ...globals.mocha,
-        ...globals.chai,
-        expect: 'readonly',
-        cy: 'readonly',
-        Cypress: 'readonly',
+      globals: globals.node,
+      parserOptions: {
+        project: ['./tsconfig.json'],
       },
-      sourceType: 'module',
+    },
+    ...tests,
+  },
+  {
+    files: [...reactFiles, ...reactTestFiles],
+    extends: [tseslint.configs.recommended],
+    languageOptions: {
+      globals: globals.browser,
       parserOptions: {
         project: ['./tsconfig.react.json'],
       },
     },
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-      'react-hooks': reactHooks,
-      'no-only-tests': noOnlyTests,
-    },
-    rules: {
-      ...typescriptEslint.configs.recommended.rules,
-      ...reactHooksRaw.configs.recommended.rules,
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      'no-only-tests/no-only-tests': 'error',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
-    },
+    plugins: { 'react-hooks': reactHooks },
+    rules: reactHooksRaw.configs.recommended.rules,
   },
   {
-    files: [
-      'components/*/react/**/*.{ts,tsx}',
-      'docs/src/**/*.tsx',
-      'test/react-app/src/**/*.{ts,tsx}',
-    ],
-    ignores: [
-      'components/*/react/**/*.{cy,rootStory,rootstory}.tsx',
-      'components/*/react/**/_testUtils.tsx',
-    ],
-    languageOptions: {
-      parser: typescriptParser,
-      globals: globals.browser,
-      sourceType: 'module',
-      parserOptions: {
-        project: ['./tsconfig.react.json'],
-      },
-    },
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-      'react-hooks': reactHooks,
-    },
-    rules: {
-      ...typescriptEslint.configs.recommended.rules,
-      ...reactHooksRaw.configs.recommended.rules,
-      'react-hooks/rules-of-hooks': 'error',
-      'react-hooks/exhaustive-deps': 'warn',
-    },
+    files: reactTestFiles,
+    ...cypressTests,
   },
   {
-    files: [
-      'components/*/vue/**/*.{ts,tsx,vue}',
-      'components/vue-utils.ts',
-      'docs/src/**/*.vue',
-      'test/vue-app/src/**/*.{ts,vue}',
-    ],
-    ignores: [
-      'components/*/vue/**/*.{cy,rootStory,rootstory}.tsx',
-      'components/*/vue/**/_testUtils.tsx',
-    ],
+    files: [...vueFiles, ...vueTestFiles],
+    extends: [tseslint.configs.recommended],
     languageOptions: {
       parser: vueParser,
       globals: globals.browser,
-      sourceType: 'module',
       parserOptions: {
-        parser: '@typescript-eslint/parser',
+        parser: tseslint.parser,
         extraFileExtensions: ['.vue'],
         project: ['./tsconfig.vue.json', './tsconfig.json'],
       },
     },
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-      vue,
-    },
+    plugins: { vue },
+    rules: vue.configs.recommended.rules,
+  },
+  {
+    files: vueTestFiles,
+    ...cypressTests,
+  },
+  {
+    files: vueFiles,
+    ignores: componentTests('vue'),
     rules: {
-      ...typescriptEslint.configs.recommended.rules,
-      ...vue.configs.recommended.rules,
       'no-console': 'error',
-      'no-debugger': 'error',
-    },
-  },
-  {
-    files: [
-      'components/*/vue/**/*.{cy,rootStory,rootstory}.tsx',
-      'components/*/vue/**/_testUtils.tsx',
-      'docs/src/**/*.cy.ts',
-    ],
-    languageOptions: {
-      parser: vueParser,
-      globals: {
-        ...globals.node,
-        ...globals.browser,
-        ...globals.mocha,
-        ...globals.chai,
-        expect: 'readonly',
-        cy: 'readonly',
-        Cypress: 'readonly',
-      },
-      sourceType: 'module',
-      parserOptions: {
-        parser: '@typescript-eslint/parser',
-        extraFileExtensions: ['.vue'],
-        project: ['./tsconfig.vue.json', './tsconfig.json'],
-      },
-    },
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-      'no-only-tests': noOnlyTests,
-      vue,
-    },
-    rules: {
-      ...typescriptEslint.configs.recommended.rules,
-      ...vue.configs.recommended.rules,
-      'no-only-tests/no-only-tests': 'error',
-      '@typescript-eslint/no-empty-function': 'off',
-      '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_' },
-      ],
     },
   },
   {
@@ -277,11 +219,12 @@ const config = [
     languageOptions: {
       globals: { ...globals.node, ...globals.browser },
     },
-    plugins: { '@typescript-eslint': typescriptEslint },
+    // Rules only: extending tseslint.configs.recommended would also swap in its
+    // parser, replacing astro-eslint-parser on .astro files
+    plugins: { '@typescript-eslint': tseslint.plugin },
     rules: {
-      ...typescriptEslint.configs.recommended.rules,
+      ...tseslint.plugin.configs.recommended.rules,
       'no-console': 'error',
-      'no-debugger': 'error',
     },
   },
   {
@@ -323,8 +266,8 @@ const config = [
   {
     // Tests pass made-up classes on purpose to check they reach the DOM
     files: [
-      'components/*/{react,vue}/**/*.{cy,rootStory,rootstory}.tsx',
-      'components/*/{react,vue}/**/_testUtils.tsx',
+      ...componentTests('react'),
+      ...componentTests('vue'),
       'docs/src/**/*.cy.ts',
     ],
     rules: {
@@ -345,17 +288,13 @@ const config = [
     ],
     ...cypressDesign.configs.recommended,
   },
-  {
-    ignores: [
-      '**/dist/**/*',
-      '**/cache/**/*',
-      'docs/.astro/**/*',
-      '**/iconsData/**/*',
-      '**/_TreeShakableIcons.ts',
-      'icon-registry/src/icons.ts',
-      'icon-registry/src/iconsList.ts',
-    ],
-  },
-]
-
-export default config
+  globalIgnores([
+    '**/dist/**/*',
+    '**/cache/**/*',
+    'docs/.astro/**/*',
+    '**/iconsData/**/*',
+    '**/_TreeShakableIcons.ts',
+    'icon-registry/src/icons.ts',
+    'icon-registry/src/iconsList.ts',
+  ]),
+])
