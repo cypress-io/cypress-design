@@ -49,6 +49,11 @@ const config: KnipConfig = {
     'components/*/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
     },
+    // Favicon has no component tests, so the shared `**/*.cy.tsx` entry
+    // matches nothing there. Knip's defaults already find `index.ts` and
+    // `rollup.config.mjs`.
+    'components/Favicon/react': {},
+    'components/Favicon/vue': {},
     'components/TestResult/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
       // The build bundles vue-statusicon, which imports icon-registry and
