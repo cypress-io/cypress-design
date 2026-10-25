@@ -486,7 +486,7 @@ export default function assertions(
       it('closed disabled', () => {
         mountStory({ items: simpleItems, defaultValue: 'beta', disabled: true })
         cy.findByRole('combobox').should('be.disabled')
-        cy.percySnapshotUnlessInVueGallery()
+        cy.percySnapshot()
       })
 
       it('open with mixed rows and a selection', () => {
@@ -511,7 +511,7 @@ export default function assertions(
           defaultOpen: true,
         })
         cy.findByRole('listbox').should('be.visible')
-        cy.percySnapshotUnlessInVueGallery()
+        cy.percySnapshot()
       })
 
       it('open with header, search, and footer', () => {

@@ -1,15 +1,16 @@
 /// <reference types="cypress" />
 
 // Floating UI positions tooltips asynchronously and React renders them at the
-// viewport's top-left corner until it does, so a snapshot taken too early
-// shows every tooltip stacked in the corner.
+// document's top-left corner until it does, so a snapshot taken too early
+// shows every tooltip stacked in the corner. Compare in document coordinates:
+// focusing a trigger can scroll the page, which moves that corner on screen.
 export function waitForTooltipsToPosition(): void {
   cy.get('[role="tooltip"]').should(($tooltips) => {
     $tooltips.each((_, tooltip) => {
+      const win = tooltip.ownerDocument.defaultView!
       const { top, left } = tooltip.getBoundingClientRect()
-      expect(top !== 0 || left !== 0, 'tooltip has been positioned').to.equal(
-        true,
-      )
+      const atOrigin = top + win.scrollY === 0 && left + win.scrollX === 0
+      expect(atOrigin, 'tooltip still at the document origin').to.equal(false)
     })
   })
 }

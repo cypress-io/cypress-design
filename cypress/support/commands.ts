@@ -47,12 +47,17 @@ Cypress.Commands.add('findByTestId', (id) => {
   return cy.get(`[data-cy=${id}]`)
 })
 
+// Windows reports spec paths with backslashes.
+function specPath(): string {
+  return Cypress.spec.relative.replace(/\\/g, '/')
+}
+
 // React and Vue specs share assertion files and often the same test titles, so
 // Percy's default name (the test's full title) would collide and Percy drops
 // the duplicate. Suffix the framework so both get a baseline.
 function defaultSnapshotName(): string {
   const title = Cypress.currentTest.titlePath.join(' ')
-  const framework = Cypress.spec.relative.match(/\/(react|vue)\//)?.[1]
+  const framework = specPath().match(/\/(react|vue)\//)?.[1]
   return framework ? `${title} - ${framework}` : title
 }
 
@@ -84,7 +89,7 @@ Cypress.Commands.overwrite('percySnapshot', (originalFn, name, options) => {
 // (docs/src/demos/AllStatesVue.cy.ts). Shared assertions still snapshot them
 // for React, which has no gallery, without paying for a Vue duplicate.
 Cypress.Commands.add('percySnapshotUnlessInVueGallery', (name?: string) => {
-  if (!Cypress.spec.relative.includes('/vue/')) {
+  if (!specPath().includes('/vue/')) {
     cy.percySnapshot(name)
   }
 })
