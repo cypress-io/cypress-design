@@ -48,7 +48,7 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=4096
 
       - name: Lint all files
-        run: yarn eslint .
+        run: yarn lint
 
       - name: Check formatting
         run: yarn prettier --check .
