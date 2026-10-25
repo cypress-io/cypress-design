@@ -28,7 +28,8 @@ export default defineConfig({
         plugins: [
           vue(),
           vueJsx({
-            exclude: '**/react/**/*',
+            // Docs `.tsx` demos are React, as on the docs site itself.
+            exclude: ['**/react/**/*', 'docs/src/**/*.tsx'],
           }),
           // to allow for both react and vue JSX to be used we do not use esbuild to compile JSX,
           // we use sucrase (about as fast)
