@@ -43,6 +43,6 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 
 ## Release
 
-- [ ] If the diff touches a published package (anything under `components/`), include a `.changeset/*.md` file — otherwise the release workflow has nothing to publish. See [implement-component](https://design.cypress.io/agents/skills/implement-component.md) for conventions (bump levels, file placement, examples).
+- [ ] If the diff touches a published package (anything under `components/`), include a `.changeset/*.md` file — otherwise the release workflow has nothing to publish. See [implement-component](https://design.cypress.io/agents/skills/implement-component.md) for conventions (bump levels, first-release versions, an example).
 
 If a check fails, fix the code, don't relax the rule.
