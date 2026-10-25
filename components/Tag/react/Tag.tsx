@@ -2,7 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { CssColor, CssShared, CssSize } from '@cypress-design/constants-tag'
 
-export interface TagProps {
+interface TagProps {
   size: keyof typeof CssSize
   color: keyof typeof CssColor
   dark?: boolean

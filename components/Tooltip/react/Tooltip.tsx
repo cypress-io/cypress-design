@@ -19,7 +19,7 @@ import {
   ShiftOptions,
 } from '@floating-ui/react'
 
-export interface TooltipProps {
+interface TooltipProps {
   /**
    * Where the tooltip should be placed relative to the target.
    */

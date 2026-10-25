@@ -12,7 +12,7 @@ import {
   IconDocumentAddedSquarePlus,
 } from '@cypress-design/react-icon'
 
-export interface TestResultProps extends TestResultData {
+interface TestResultProps extends TestResultData {
   className?: string
   groups?: React.ReactNode
 }

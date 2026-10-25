@@ -29,10 +29,15 @@ jobs:
         env:
           CI: true
 
+      # knip reads the root package.json, so give it back the committed one.
+      - name: Restore package.json
+        run: git checkout -- package.json
+
       # knip loads postcss.config.mjs and the component Vite/Rollup configs,
-      # which import these packages' built dist.
+      # which import the built css and rollup-plugin-tailwind-keep. The icon
+      # build below imports color-constants.
       - name: Build config dependencies
-        run: yarn turbo run build --filter=@cypress-design/rollup-plugin-tailwind-keep
+        run: yarn turbo run build --filter=@cypress-design/rollup-plugin-tailwind-keep --filter=@cypress-design/color-constants
 
       # Generates the icon sources that icon-registry and the Icon components
       # import but don't commit.

@@ -7,7 +7,7 @@ import {
   SwitchEvent,
 } from '@cypress-design/constants-tabs'
 
-export interface TabsProps {
+interface TabsProps {
   /**
    * The tabs to display
    */

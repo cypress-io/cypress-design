@@ -17,7 +17,7 @@ import {
   CssAlertClasses,
 } from '@cypress-design/constants-alert'
 
-export interface AlertProps {
+interface AlertProps {
   /**
    * Title of the alert
    */

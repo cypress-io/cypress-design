@@ -4,7 +4,7 @@ import { CssClasses } from '@cypress-design/constants-accordion'
 import { DetailsAnimation } from '@cypress-design/details-animation'
 import { IconChevronDownSmall } from '@cypress-design/react-icon'
 
-export interface AccordionProps {
+interface AccordionProps {
   /**
    * Main indigo title.
    * [NOTE] Its color and font can be customized using `titleClassName`.

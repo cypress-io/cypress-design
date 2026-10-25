@@ -16,7 +16,7 @@ interface ButtonPropsJsx extends ButtonProps {
   children?: React.ReactNode
 }
 
-export type ReactButtonProps = ButtonPropsJsx &
+type ReactButtonProps = ButtonPropsJsx &
   (ButtonPropsJsx extends React.HTMLProps<HTMLAnchorElement>
     ? React.HTMLProps<HTMLAnchorElement>
     : Omit<React.HTMLProps<HTMLButtonElement>, 'size'>)

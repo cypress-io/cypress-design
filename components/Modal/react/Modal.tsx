@@ -19,7 +19,7 @@ import {
   freeBodyScroll,
 } from '@cypress-design/constants-modal'
 
-export interface ModalProps {
+interface ModalProps {
   title?: string
   helpLink?: string
   helpLinkLabel?: string

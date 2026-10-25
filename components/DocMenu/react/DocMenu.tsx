@@ -5,7 +5,7 @@ import { DocGroupElements } from './_DocGroup'
 
 export type NavItem = NavGroup | NavItemLink
 
-export interface DocMenuProps extends React.HTMLAttributes<HTMLUListElement> {
+interface DocMenuProps extends React.HTMLAttributes<HTMLUListElement> {
   items: NavItem[]
   activePath?: string
   collapsible?: boolean

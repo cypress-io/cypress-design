@@ -19,13 +19,15 @@ const config: KnipConfig = {
   ],
   // CI downloads the Vale binary; it isn't an npm package.
   ignoreBinaries: ['vale'],
-  rules: {
-    // Components export both a named and a default binding on purpose.
-    duplicates: 'off',
+  ignoreIssues: {
+    // React components export both a named and a default binding on purpose.
+    'components/*/react/**': ['duplicates'],
   },
   compilers: {
+    // `;` keeps a statement left open at the end of one block from running
+    // into the next.
     vue: (text: string) =>
-      [...text.matchAll(scriptBlocks)].map(([, body]) => body).join('\n'),
+      [...text.matchAll(scriptBlocks)].map(([, body]) => body).join('\n;\n'),
   },
   workspaces: {
     '.': {

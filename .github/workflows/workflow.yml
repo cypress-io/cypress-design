@@ -74,7 +74,7 @@ jobs:
   release:
     name: Release
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: [build, make-nonce, test, e2e-test, template-test]
+    needs: [build, make-nonce, test, e2e-test, template-test, health-check]
     uses: ./.github/workflows/release.yml
     secrets: inherit
     with:
@@ -83,7 +83,7 @@ jobs:
   release-next:
     name: Release Next
     if: github.ref == 'refs/heads/next' && github.event_name == 'push'
-    needs: [build, make-nonce, test, e2e-test, template-test]
+    needs: [build, make-nonce, test, e2e-test, template-test, health-check]
     uses: ./.github/workflows/release-next.yml
     secrets: inherit
     with:
