@@ -1,3 +1,8 @@
+---
+name: components/Checkbox/instructions
+description: 'Checkbox API — checkbox input: props, events, and slots. Fetch when using, reviewing, or referencing Checkbox in a Vue or React project.'
+---
+
 # Checkbox — Props, Events & Slots
 
 ## Install

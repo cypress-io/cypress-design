@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import { frontmatterDescription } from './frontmatter-description.mjs'
+import {
+  frontmatterDescription,
+  withFrontmatter,
+} from './frontmatter-description.mjs'
 
 const doc = (description) =>
   `---\nname: colors\ndescription: ${description}\n---\n\n# Colors\n`
@@ -39,6 +42,24 @@ describe('frontmatterDescription', () => {
   it('throws on a block scalar it would otherwise drop', () => {
     expect(() => frontmatterDescription(doc('>\n  Folded text'))).toThrow(
       /single-line/,
+    )
+  })
+})
+
+describe('withFrontmatter', () => {
+  it('prepends fields that frontmatterDescription reads back', () => {
+    const description =
+      'React examples for Button (`@cypress-design/react-button`): "quoted" too.'
+    const md = withFrontmatter('# Button\n', { name: 'Button', description })
+    expect(md).toMatch(
+      /^---\nname: "Button"\ndescription: .*\n---\n\n# Button\n$/,
+    )
+    expect(frontmatterDescription(md)).toBe(description)
+  })
+
+  it('refuses markdown that already has frontmatter', () => {
+    expect(() => withFrontmatter(doc('x'), { description: 'y' })).toThrow(
+      /already has frontmatter/,
     )
   })
 })

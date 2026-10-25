@@ -80,6 +80,9 @@ jobs:
       - name: Check agent index matches doc descriptions
         run: node scripts/agents-index.mjs --check
 
+      - name: Check every served agent doc has a description
+        run: node scripts/copy-agents.mjs
+
       - name: Run Unit Tests
         run: yarn test
 

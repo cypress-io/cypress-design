@@ -1,3 +1,8 @@
+---
+name: components/Select/instructions
+description: 'Select API — single-select dropdown with a swappable Button trigger, optional header and footer, and pluggable row types: when to use it, content guidelines, props, item shapes, events, slots, states, and accessibility. Fetch when using, reviewing, or referencing Select in a Vue or React project.'
+---
+
 # Select — usage
 
 How to use the Select component. Anything documented here is supported; anything missing isn't.

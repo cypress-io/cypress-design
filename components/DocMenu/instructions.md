@@ -1,3 +1,8 @@
+---
+name: components/DocMenu/instructions
+description: 'DocMenu API — sidebar navigation used in documentation sites: props, events, and slots. Fetch when using, reviewing, or referencing DocMenu in a Vue or React project.'
+---
+
 # DocMenu — Props, Events & Slots
 
 ## Install

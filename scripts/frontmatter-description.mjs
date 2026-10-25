@@ -25,3 +25,17 @@ export function frontmatterDescription(markdown) {
   }
   return value
 }
+
+/**
+ * Prepend frontmatter to markdown that has none. Values are double-quoted so
+ * any punctuation in a generated description stays valid YAML.
+ */
+export function withFrontmatter(markdown, fields) {
+  if (/^---\r?\n/.test(markdown)) {
+    throw new Error('Markdown already has frontmatter')
+  }
+  const lines = Object.entries(fields).map(
+    ([key, value]) => `${key}: ${JSON.stringify(value)}`,
+  )
+  return `---\n${lines.join('\n')}\n---\n\n${markdown}`
+}

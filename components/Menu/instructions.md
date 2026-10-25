@@ -1,3 +1,8 @@
+---
+name: components/Menu/instructions
+description: 'Menu API — menu list: props, events, and slots. Fetch when using, reviewing, or referencing Menu in a Vue or React project.'
+---
+
 # Menu — Props, Events & Slots
 
 ## Install

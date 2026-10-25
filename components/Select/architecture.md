@@ -1,3 +1,8 @@
+---
+name: components/Select/architecture
+description: "How Select is built — file layout, state ownership, JS-driven focus, popover positioning and sizing, filtering, click-outside and ESC, trigger swap, custom rows, and extension points. Fetch alongside instructions.md when changing Select's implementation; skip when only using it."
+---
+
 # Select — architecture
 
 How the Select component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](./instructions.md).
