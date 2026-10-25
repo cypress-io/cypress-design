@@ -11,8 +11,8 @@ import { readdirSync, existsSync } from 'fs'
 import { resolve } from 'path'
 
 /** Frameworks checked in preference order. */
-export const FRAMEWORKS = ['vue', 'react', 'vanilla', 'astro'] as const
-export type Framework = (typeof FRAMEWORKS)[number]
+const FRAMEWORKS = ['vue', 'react', 'vanilla', 'astro'] as const
+type Framework = (typeof FRAMEWORKS)[number]
 
 export interface ComponentMeta {
   name: string
@@ -52,17 +52,4 @@ export function getAllComponents(): ComponentMeta[] {
       return { name: d.name, frameworks, hasInstructions }
     })
     .sort((a, b) => a.name.localeCompare(b.name))
-}
-
-/**
- * Returns metadata for a single component by name.
- * Returns null if the component directory does not exist.
- */
-export function getComponent(name: string): ComponentMeta | null {
-  const root = COMPONENTS_ROOT
-  const dir = resolve(root, name)
-  if (!existsSync(dir)) return null
-  const frameworks = FRAMEWORKS.filter((fw) => existsSync(resolve(dir, fw)))
-  const hasInstructions = existsSync(resolve(dir, 'instructions.md'))
-  return { name, frameworks, hasInstructions }
 }

@@ -26,6 +26,7 @@
   },
   "devDependencies": {
     "@cypress-design/constants-testresult": "*",
+    "@cypress-design/react-button": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

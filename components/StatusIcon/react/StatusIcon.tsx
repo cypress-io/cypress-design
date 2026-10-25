@@ -6,7 +6,7 @@ import OutlineStatusIcon from './_OutlineStatusIcon'
 import SimpleStatusIcon from './_SimpleStatusIcon'
 import SolidStatusIcon from './_SolidStatusIcon'
 
-export type StatusIconProps = {
+type StatusIconProps = {
   /**
    * The size of the icon's canvas, in pixels.
    */

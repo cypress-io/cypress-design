@@ -29,7 +29,9 @@
     "clsx": "*"
   },
   "devDependencies": {
+    "@cypress-design/constants-button": "*",
     "@cypress-design/constants-select": "*",
+    "@cypress-design/icon-registry": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

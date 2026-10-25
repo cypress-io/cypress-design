@@ -19,7 +19,7 @@ import {
   ShiftOptions,
 } from '@floating-ui/react'
 
-export interface TooltipProps {
+interface TooltipProps {
   /**
    * Where the tooltip should be placed relative to the target.
    */
@@ -77,9 +77,7 @@ const ROTATE_MAP = {
   right: 90,
 }
 
-export const Tooltip: React.FC<
-  TooltipProps & React.HTMLProps<HTMLDivElement>
-> = ({
+const Tooltip: React.FC<TooltipProps & React.HTMLProps<HTMLDivElement>> = ({
   placement,
   color = 'light',
   className,
