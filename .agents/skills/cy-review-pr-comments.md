@@ -1,373 +1,100 @@
 ---
 name: cy-review-pr-comments
-description: Use to review the latest unresolved review comments on the PR for the current branch — from any author (you, Copilot, or teammates) — triage them, agree a plan with the user before executing, open GitHub issues for follow-ups, and reply to or resolve each comment appropriately.
+description: Use to review the unresolved review comments on the PR for the current branch — from any author (you, Copilot, or teammates) — triage them, agree a plan with the user before acting, open GitHub issues for follow-ups, and reply to each comment. Never resolves threads.
 ---
 
 # cy-review-pr-comments
 
-Review the unresolved PR comments for the current branch — **from any author**: your own review notes, Copilot, or teammates — triage each one, open a GitHub issue for actionable items deferred to later, and reply to or resolve comments appropriately. **Agree the plan with the user before executing any replies/resolves (Step 4.5).**
+Triage every unresolved review comment on the current branch's PR, agree the plan with the user, then make the fixes, open issues for deferred work, and reply.
 
-**Token strategy:** Steps 1–2 (fetch) and Steps 5–6 (act) run in this session. Step 3 (classify + draft replies) is delegated to a cheap sub-agent so this session never loads the full comment corpus into its context.
+**Never resolve a thread.** The person who opened it resolves it once they've confirmed the reply or the fix. Your reply is the hand-off.
 
-## Goal
-
-1. Fetch all open, unresolved review comments on the PR for the current branch, regardless of author.
-2. Delegate classification and reply drafting to a cheap sub-agent.
-3. Review the sub-agent's JSON output.
-4. **Present the triage plan and get the user's go-ahead before executing (Step 4.5).**
-5. Open a GitHub issue for each bucket-C item not fixed this round.
-6. Post replies and resolve threads.
-
----
-
-## Step 1 — Find the PR
+## Step 1 — Fetch what needs a reply
 
 ```bash
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
-gh pr list --head "$BRANCH" --json number,url,headRefName --limit 1
-```
-
-Extract the PR number. If there is no open PR for this branch, stop and tell the user.
-
----
-
-## Step 2 — Fetch review comments from any author (unresolved only)
-
-Fetch every unresolved review comment, regardless of who wrote it — your own review notes, Copilot, and teammates all count. The only authors we deliberately drop are automated **status/CI bots** (e.g. `cypress[bot]` run-result summaries), which are noise, not feedback.
-
-```bash
-PR=<number>
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
-OWNER="${REPO%/*}"
-NAME="${REPO#*/}"
+PR=$(gh pr view --json number -q .number)   # stop if there's no open PR
+ME=$(gh api user -q .login)
+```
 
-# Authors to drop: automated status/CI bots that post run summaries, not feedback.
-# Everything else (you, Copilot, teammates) is in scope. Extend this regex if other
-# status bots show up — do NOT add real reviewers.
-NOISE_BOTS='^(cypress\[bot\]|github-actions\[bot\]|codecov\[bot\])$'
+**Inline threads.** Keep threads that are unresolved and whose last comment isn't yours. Since you never resolve, a thread you've already answered stays unresolved; skipping it stops a re-run from replying twice. Paginate — `first:100` alone misses threads on large PRs.
 
-# Get IDs of already-resolved threads so we can skip them. Apply the SAME `NOISE_BOTS`
-# exclusion used below — otherwise a resolved thread owned by a filtered bot would inflate
-# RESOLVED_COUNT and break the `TOTAL_INSCOPE == RESOLVED_COUNT + UNRESOLVED_COUNT` check.
-# Paginate via `endCursor` — `first:100` alone misses threads on large PRs.
-# gh api --jq can't take `--arg`, so emit {id, login} and apply the noise filter in a
-# standalone jq (which can).
-RESOLVED_IDS=$(gh api graphql --paginate -f query='
+```bash
+gh api graphql --paginate -F owner="${REPO%/*}" -F repo="${REPO#*/}" -F pr="$PR" -f query='
   query($owner:String!, $repo:String!, $pr:Int!, $endCursor:String) {
-    repository(owner:$owner, name:$repo) {
-      pullRequest(number:$pr) {
-        reviewThreads(first:100, after:$endCursor) {
-          pageInfo { hasNextPage endCursor }
-          nodes {
-            isResolved
-            comments(first:1) {
-              nodes { databaseId author { login } }
-            }
-          }
+    repository(owner:$owner, name:$repo) { pullRequest(number:$pr) {
+      reviewThreads(first:100, after:$endCursor) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          isResolved path line
+          rootComment: comments(first:1) { nodes { databaseId author { login } body url } }
+          lastComment: comments(last:1) { nodes { author { login } } }
         }
       }
-    }
-  }
-' -f owner="$OWNER" -f repo="$NAME" -F pr=$PR \
-  --jq '.data.repository.pullRequest.reviewThreads.nodes[]
-        | select(.isResolved == true)
-        | {id: .comments.nodes[0].databaseId, login: .comments.nodes[0].author.login}' \
-  | jq -s --arg noise "$NOISE_BOTS" '[.[] | select(.login | test($noise) | not) | .id]')
+    } }
+  }' --jq '.data.repository.pullRequest.reviewThreads.nodes[]
+           | select(.isResolved | not)
+           | {path, line, root: .rootComment.nodes[0], lastAuthor: .lastComment.nodes[0].author.login}' \
+  | jq -s --arg me "$ME" '[.[] | select(.lastAuthor != $me)]'
+```
 
-# Inline review comments — root comments only, any author except noise bots, excluding
-# already-resolved threads.
-# IMPORTANT: filter to ROOT comments (`in_reply_to_id == null`). A review thread is keyed
-# by its root comment; replies share the thread's resolved state but have their own ids.
-# `RESOLVED_IDS` only holds each thread's first (root) comment id, so without this filter a
-# reply inside a resolved thread leaks back in as "unresolved" (and the sanity math below
-# breaks). Triaging root comments also means one row per thread, which is what you want.
-# IMPORTANT: pipe to standalone `jq` (not `gh api --jq`). `gh api --jq` does NOT
-# forward `--argjson`/`--arg` to the underlying jq, so the filters would silently no-op.
-gh api "repos/$REPO/pulls/$PR/comments" --paginate \
-  | jq --argjson resolved "$RESOLVED_IDS" --arg noise "$NOISE_BOTS" \
-    '[.[] | select(.in_reply_to_id == null)
-          | select(.user.login | test($noise) | not)
-          | select(.id as $id | $resolved | index($id) | not)
-          | {id, author: .user.login, body, path, line, original_line, pull_request_review_id, html_url}]'
+`gh api --jq` doesn't forward `--arg`/`--argjson`, so any filter that needs a variable goes in a standalone `jq`, as above.
 
-# Top-level review bodies (any author except noise bots). Pipe to standalone `jq`
-# so `--arg` is honored (gh api --jq does not forward it).
+**Top-level review comments** have no resolved state, so filter them by time: keep human reviews with a body, submitted after your last comment on the PR. Skip Copilot's review bodies — they summarize its inline comments, which you're already triaging.
+
+```bash
+SINCE=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
+  | jq -rs --arg me "$ME" '[.[][] | select(.user.login == $me) | .created_at] | max // ""')
 gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
-  | jq --arg noise "$NOISE_BOTS" '[.[] | select(.user.login | test($noise) | not)
-        | select(.body != "")
-        | {id, author: .user.login, body, html_url}]'
+  | jq -s --arg since "$SINCE" '[.[][] | select(.body != "")
+      | select(.user.type != "Bot" and (.user.login | test("copilot"; "i") | not))
+      | select(.submitted_at > $since)
+      | {id, author: .user.login, body, html_url}]'
 ```
 
-Collect the output as a compact JSON array — this is the only data the sub-agent needs. Keep the `author` field on each item so the sub-agent (and you) can weight feedback by source. If the filtered array is empty, stop and tell the user there are no unresolved comments to triage.
+If both lists are empty, tell the user there's nothing to triage and stop.
 
-### Sanity check before dispatching to the sub-agent
+## Step 2 — Triage each comment
 
-Before passing comments to the sub-agent, verify the filter actually ran. Compute three counts and confirm the math:
+Read the code each comment points at and the branch diff (`git diff origin/main...HEAD`), then put it in one bucket:
 
-```bash
-# Count ROOT comments only — one per thread — so this matches RESOLVED_IDS (also one
-# root id per resolved thread) and the root-only fetch above.
-TOTAL_INSCOPE=$(gh api "repos/$REPO/pulls/$PR/comments" --paginate \
-  | jq --arg noise "$NOISE_BOTS" '[.[] | select(.in_reply_to_id == null) | select(.user.login | test($noise) | not)] | length')
-RESOLVED_COUNT=$(echo "$RESOLVED_IDS" | jq 'length')
-UNRESOLVED_COUNT=<length of the filtered array you just produced>
-```
+- **A — Already fixed.** A later commit addressed it. Confirm in the diff; don't infer it from the comment.
+- **B — Out of scope.** It flags an intentional pattern, contradicts the repo's guidance, or doesn't hold up. Name the file that says so: `/.agents/architecture.md` for code and styling, the pillar docs routed from `/.agents/index.md` for design, or the component's `instructions.md`.
+- **C — Actionable.** A real problem not fixed yet. Either fix it this round or defer it to an issue.
 
-`TOTAL_INSCOPE` MUST equal `RESOLVED_COUNT + UNRESOLVED_COUNT`. If it doesn't, the resolved-thread filter is broken — STOP and investigate before invoking the sub-agent. Otherwise the sub-agent will dutifully classify already-fixed comments as "Already Fixed" and produce a plan that posts redundant replies on resolved threads. (Both sides count one root comment per thread; `RESOLVED_IDS` spans all authors, matching the all-author scope of the fetch.)
+Weight by author:
 
----
+- **Humans** set the conventions. Their requests are almost always A or C; if you can't tell what they meant, say so in the reply rather than putting it in B.
+- **Copilot** is often wrong. Evaluate it on the merits and prefer B when in doubt — a well-reasoned out-of-scope reply beats an unnecessary code change.
 
-## Step 3 — Delegate to a cheap sub-agent
+## Step 3 — Agree the plan before acting
 
-Spawn the smallest/cheapest model available and ask it to classify every comment and draft a reply for each. Pass only the comment JSON and the triage rules — do not give it the full codebase or architecture docs.
+Don't change code, open issues, or post replies until the user signs off. Show one row per comment, with the reply you'll post:
 
-### Claude Code
+| #   | Author  | Where            | Bucket | Action                           | Reply                                   |
+| --- | ------- | ---------------- | ------ | -------------------------------- | --------------------------------------- |
+| 1   | jdoe    | `Tooltip.vue:36` | C      | Fix this round                   | Fixed in `<sha>`: …                     |
+| 2   | Copilot | `Plans.vue:12`   | B      | No change (intentional, see doc) | Out of scope: … See `.agents/colors.md` |
 
-```bash
-claude --model claude-haiku-4-5 --print "$(cat <<'PROMPT'
-You are triaging PR review comments for the cypress-io/cypress-design repository. Comments come from
-mixed authors — identified by the `author` field on each item: the repo owner/teammates (humans)
-and Copilot (the `copilot`/`*-bot` reviewer). Classify each comment into exactly one bucket and
-draft a short reply.
+Honor scoped answers ("skip #2", "defer #1") and apply the user's corrections before you continue.
 
-Weight feedback by author:
-- HUMAN authors (repo owner, teammates): treat as high-signal intent. Do NOT bucket-B a human's own
-  comment as "misunderstands the codebase" — they set the conventions. If a human asks for a change,
-  it is almost always bucket C (actionable) unless it's already fixed (bucket A). When unsure what a
-  human meant, say so in the reply rather than dismissing it.
-- COPILOT: often wrong. Do not default to agreeing. Evaluate on merits — many comments flag
-  intentional patterns, misunderstand the codebase, or add no value. Prefer bucket B over C when
-  there is genuine doubt.
+## Step 4 — Act
 
-BUCKETS
-A  Already Fixed   — the concern was addressed in a later commit; code no longer exists or was changed.
-B  Irrelevant      — flags an intentional repo pattern, misunderstands the codebase, or lacks the context to be actionable.
-C  Actionable      — a real issue not yet fixed, confirmed after independent evaluation.
+1. **Fix** the approved C items, run the checks `AGENTS.md` names before pushing, and push. A "Fixed in `<sha>`" reply needs a pushed commit to point at.
+2. **Open an issue** for each deferred C item, before its reply so the reply can link it. Search first (`gh issue list --state open --search "<keywords>"`) and comment on an existing issue rather than opening a duplicate. Lead the body with the problem, then where (`path:line`), then a link to the review comment. Only apply labels the repo already has. Follow-ups go in issues, never in agent-facing files — `AGENTS.md` explains why.
+3. **Reply** once per thread:
+   - Inline: `gh api "repos/$REPO/pulls/$PR/comments" -X POST -f body="<reply>" -F in_reply_to=<root databaseId>`
+   - Top-level reviews: one PR comment answering all of them, not one per review: `gh api "repos/$REPO/issues/$PR/comments" -X POST -f body="<reply>"`
+4. **Re-request review** from each human whose changes-requested review you addressed: `gh pr edit "$PR" --add-reviewer <login>`.
 
-REPO POLICIES (use these to identify bucket B comments)
-- Tailwind-only: no SASS, CSS Modules, or styled-components
-- No hex colors: always use design tokens / Tailwind classes
-- WindiCSS remnants are tracked migration debt — do not fix now
-- "Consider adding comments" suggestions are out of scope unless they explain a non-obvious WHY
-- Accessibility covered in a component's instructions.md is already handled
-- Anything contradicting .agents/architecture.md or the design pillar files (.agents/index.md routes to colors, typography, spacing, iconography, voice)
+Replies are plain text, two to four sentences: "Fixed in `<sha>`: …", "Out of scope: … See `<file>`.", or "Tracked in #<issue>: …".
 
-REPLY TEMPLATES (2–4 sentences, plain text, no markdown headers)
-A: "Fixed — [what changed and why it satisfies the concern]."
-B: "Closing as out-of-scope: [one sentence on the repo policy]. See [file] for details."
-C: "Acknowledged. [One sentence on the planned fix]. Tracked in #ISSUE." (Step 5 fills in the issue number)
+## Re-requesting Copilot
 
-For bucket C also output:
-- category: one of "User Experience" | "Security & Privacy" | "Accessibility & Standards" | "Developer Experience" | "Code Quality"
-- severity: one of "Critical" | "High" | "Medium" | "Low" | "Possible"
-- title: short noun phrase (≤8 words)
-- description: one sentence
+Re-request only when production code changed since its last review. Use `gh pr edit "$PR" --add-reviewer "@copilot"`; the raw `requested_reviewers` REST call silently does nothing once Copilot has reviewed the PR.
 
-OUTPUT: a single JSON array — one object per comment, no extra text.
-Schema: [{id, bucket, reply, category?, severity?, title?, description?}]
+Copilot finds something on almost every pass. Stop re-requesting when any of these is true:
 
-COMMENTS:
-<paste compact JSON array here>
-PROMPT
-)"
-```
-
-### Other agents (Codex, Gemini CLI, etc.)
-
-Use the equivalent "non-interactive, cheapest model" flag for your tool. Pass the same prompt above. The output must be the JSON array — instruct the model accordingly.
-
-### Fallback (no sub-agent support)
-
-If your environment cannot spawn a sub-agent, perform the classification yourself using the same rules above, then continue to Step 4.
-
----
-
-## Step 4 — Review sub-agent output
-
-Parse the JSON array. Sanity-check:
-
-- Every input comment has exactly one output object.
-- Bucket C entries have `category`, `severity`, `title`, and `description`.
-- Reply text looks reasonable (no hallucinated file names, correct bucket tone).
-
-**Do not rubber-stamp the sub-agent output.** For every bucket C entry, read the flagged code yourself and confirm the concern is real. Downgrade to bucket B if the comment flags an intentional pattern or doesn't hold up under scrutiny. It is expected and desirable to push back on Copilot — a well-reasoned bucket B reply is better than an unnecessary code change. (Don't apply that skepticism to a human author's own comments — see Step 3.)
-
----
-
-## Step 4.5 — Agree the plan before executing
-
-**Do not post replies, resolve threads, or open issues until the user has signed off on the plan.** Figuring out _what to do_ with each comment is a separate step from _doing it_ — surface the triage first.
-
-Present a compact table the user can skim — one row per comment:
-
-| #   | Author     | Where            | Bucket | Proposed action                                        | Code change?     |
-| --- | ---------- | ---------------- | ------ | ------------------------------------------------------ | ---------------- |
-| 1   | ryanjwilke | `Tooltip.vue:36` | C      | Drop redundant comment; move rationale into spacing.md | yes (this round) |
-| 2   | Copilot    | `Plans.vue:12`   | B      | Close out-of-scope (intentional pattern)               | no               |
-
-For each row also show the one-line reply you'll post. Then ask for a go-ahead. Honor scoped answers — the user may approve some rows and defer or override others (e.g. "reply but don't resolve #1", "skip #2"). Apply any bucket/severity/action corrections the user gives before proceeding.
-
-Only after the user approves do you move to Step 5. Bucket-C code changes the user approves should be made (and verified) **before** you post the matching "Fixed in `<sha>`" reply.
-
-In a fully autonomous run (`CI=true`, no human present), skip the interactive sign-off but still produce the table in your output as the record of what you decided, then proceed.
-
----
-
-## Step 5 — Open a GitHub issue for each deferred bucket C
-
-Every bucket-C item that isn't fixed in this round gets a GitHub issue. Issues are the one place follow-up work is tracked. Don't record it in `.agents/`, `AGENTS.md`, a component's `architecture.md` or `instructions.md`, or any other agent-facing file: agents read those as guidance, so a to-do list there turns into stale instructions.
-
-Open the issues before posting replies (Step 6), so each reply can link its issue.
-
-### Check for an existing issue first
-
-```bash
-gh issue list --repo "$REPO" --state open --search "<title keywords>" --json number,title,url
-```
-
-If an open issue already covers the problem, reuse it: comment on it with a link to the new review comment instead of opening a duplicate.
-
-### Create the issue
-
-Lead with the problem, as AGENTS.md asks for PR descriptions:
-
-```bash
-gh issue create --repo "$REPO" \
-  --title "<Component>: <title>" \
-  --body-file - <<'BODY'
-## Problem
-
-<description: what's wrong and who it affects>
-
-## Where
-
-`path/to/file.ts:line`
-
-## Source
-
-Raised by <author> in <review comment html_url> on #<PR>.
-
-**Category:** <category> · **Severity:** <severity>
-BODY
-```
-
-Only apply labels the repo already has (`gh label list`); don't create new ones.
-
-### Category assignment
-
-Assign each issue to its most critical category:
-
-- XSS risk → Security & Privacy
-- Missing `aria-label` breaking keyboard nav → Accessibility & Standards
-- Flaky test masking a regression → Developer Experience
-
----
-
-## Step 6 — Reply and resolve, one thread at a time
-
-For every entry in the sub-agent's JSON output, do reply-then-resolve **back-to-back before moving to the next entry**. Don't batch all replies and then all resolves — that splits the audit trail and makes it easy to leave threads dangling when something interrupts you mid-loop.
-
-### Resolve-or-leave-open rule
-
-Resolve immediately after posting the reply when the reply says any of:
-
-- **"Fixed in `<sha>`"** — Bucket A, or Bucket C you fixed inline in this same round.
-- **"Closing as out-of-scope"** / Copilot misread / intentional pattern — Bucket B.
-
-Leave the thread **open** only when the reply says the work is **tracked for later** in a GitHub issue — a real Bucket C you've opened an issue for but haven't fixed in this round. Those threads are the visible signal that follow-up is owed.
-
-### 6a. Post the reply
-
-Inline comments — use `in_reply_to`:
-
-```bash
-gh api "repos/$REPO/pulls/$PR/comments" \
-  -X POST \
-  -f body="<reply>" \
-  -F in_reply_to=<comment_id>
-```
-
-Top-level review bodies — post as a PR issue comment:
-
-```bash
-gh api "repos/$REPO/issues/$PR/comments" \
-  -X POST \
-  -f body="<reply>"
-```
-
-### 6b. Resolve the thread (skip only for tracked-for-later Bucket C)
-
-```bash
-# 1. Get thread node IDs (paginated — `first:100` alone misses threads on large PRs)
-gh api graphql --paginate -f query='
-  query($owner:String!, $repo:String!, $pr:Int!, $endCursor:String) {
-    repository(owner:$owner, name:$repo) {
-      pullRequest(number:$pr) {
-        reviewThreads(first:100, after:$endCursor) {
-          pageInfo { hasNextPage endCursor }
-          nodes {
-            id
-            isResolved
-            comments(first:1) { nodes { databaseId } }
-          }
-        }
-      }
-    }
-  }
-' -f owner="$OWNER" -f repo="$NAME" -F pr=$PR \
-  --jq '.data.repository.pullRequest.reviewThreads.nodes[]
-        | select(.comments.nodes[0].databaseId == <comment_id>)
-        | .id'
-
-# 2. Resolve
-gh api graphql -f query='
-  mutation($threadId:ID!) {
-    resolveReviewThread(input:{threadId:$threadId}) {
-      thread { isResolved }
-    }
-  }
-' -f threadId="<thread_node_id>"
-```
-
-**Perf tip:** fetch all thread node IDs once at the start of Step 6 (single graphql call → map of `databaseId → threadId`) instead of one round-trip per comment.
-
----
-
-## Step 7 — Re-request Copilot review (optional)
-
-If this round addressed Copilot findings and you want another pass, add Copilot to `requested_reviewers`:
-
-```bash
-gh pr edit "$PR" --add-reviewer "@copilot"
-```
-
-**Use the `gh` CLI, not the raw REST call.** `gh api -X POST .../requested_reviewers -f 'reviewers[]=Copilot'` silently no-ops when Copilot has already reviewed the PR. `gh pr edit --add-reviewer "@copilot"` handles the "re-request after prior review" case correctly.
-
-Skip this step if the only changes since the previous review round are reply text or doc edits Copilot already saw (no production code changes).
-
-### Hard stop conditions (break the death spiral)
-
-Copilot can loop indefinitely — every push triggers a new pass, and it often finds _something_ (often a Low nit or a hallucinated path). Stop and declare done when any of these fire:
-
-1. **3-round cap.** After 3 re-review rounds on a single PR, stop regardless of new findings.
-2. **Zero-Medium+ rule.** If a round produces only Low severity, "Possible", or "consider…"-class findings, do not re-trigger Copilot. Reply, resolve, and stop.
-3. **Hallucination guard.** If Copilot flags the same nonexistent path or symbol twice across rounds (verified by `ls` / `grep` returning nothing), stop. Post a single reply pointing out the file does not exist; do not round-trip further.
-4. **No-code-change rule.** If the only changes since the previous round are reply text or doc edits Copilot already reviewed, skip the re-request entirely.
-
----
-
-## Checklist
-
-- [ ] Comments fetched from all authors (you, Copilot, teammates); only status/CI bots filtered out
-- [ ] Already-resolved threads filtered out before classification
-- [ ] `TOTAL_INSCOPE == RESOLVED_COUNT + UNRESOLVED_COUNT` sanity check passed before sub-agent dispatch
-- [ ] Stopped early if no unresolved comments remain
-- [ ] All unresolved comments (any author) have a sub-agent classification
-- [ ] Sub-agent output reviewed for correctness; human-authored comments weighted as high-signal (not auto-bucket-B)
-- [ ] Triage plan presented and user signed off before any replies, resolves or new issues (Step 4.5)
-- [ ] Each bucket-C item not fixed this round has a GitHub issue (existing one reused where it fits), opened before its reply
-- [ ] No follow-ups recorded in `.agents/` or other agent-facing files
-- [ ] Every comment has a posted reply, with the matching resolve call made immediately after (not batched)
-- [ ] Threads where the reply said "fixed" or "out of scope" are resolved on GitHub (covers Bucket A, B, and any Bucket C fixed inline in this round)
-- [ ] Threads where the reply links a tracking issue are left open
-- [ ] Copilot re-review triggered only if there were Copilot findings and production code changed (Step 7)
+- It has reviewed this PR three times.
+- A round produced only nits, "consider …" suggestions, or low-severity findings.
+- It flagged the same nonexistent path or symbol twice. Reply once saying the file doesn't exist, and stop.
