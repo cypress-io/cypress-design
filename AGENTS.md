@@ -27,6 +27,19 @@ The design system is what unblocks everyone else. Mature design systems exist be
 - **Ship the rules with the package.** When a project installs the design system, the agent instructions, lint rules, and conventions that govern correct use should come along automatically. Manually documenting the rules elsewhere creates drift; bundled rules stay in sync with the code they constrain.
 - **Migrate to the design system globally-first, then incrementally.** Components used across multiple products (buttons, modals, form controls, tags) are where one swap multiplies across the most surfaces — standardize those first. Then swap less-used components in piece by piece. Big-bang migrations rarely land; incremental swaps compound.
 
+## Writing agent guidance
+
+Applies to `AGENTS.md`, everything under `/.agents/`, and the component `instructions.md` / `architecture.md` files. Agents follow these files literally, so a stale line is worse than a missing one.
+
+- **Point to the source of truth instead of copying it.** Name the file, config key, or script that holds the fact (`workspaces` in `package.json`, `eslint.config.js`, `.github/workflows/`) rather than restating versions, script bodies, file lists, or settings that will drift. Copy only what the source can't say: the rule and the _why_.
+- **Prefer repo paths over URLs for repo facts.** A path in backticks is checkable with one command; a link to a GitHub line or external page breaks silently. Cross-doc links between `.agents/` files are the exception — keep those absolute (see above).
+- **Verify every claim before committing it.** Check that each path exists, each command runs, and each described behavior matches the code. Write commands that work on any contributor's machine and in cloud sessions — no personal paths (`~/Sites/...`) or OS-only flags (`stat -f`).
+- **Present state only.** No migration history, "this branch", or roadmaps. Planned and deferred work goes in GitHub issues; an agent reading a plan here may try to build it.
+- **Keep always-loaded files short.** `AGENTS.md`, `architecture.md`, and `index.md` load on every task. Put task-specific detail in a skill, a pillar, or a component's `architecture.md`, loaded on demand.
+- **One owner per fact.** If another file already covers it, link to that file instead of repeating it.
+- **Give every served doc frontmatter** — each `.agents/` file and each component `instructions.md` / `architecture.md` — with a one-line `description` that says when to load it. (Framework `ReadMe.md` files are also npm READMEs, so `copy-agents.mjs` generates theirs; don't add frontmatter to them.) PR CI fails if a served doc has none. The description is the only place that says when to load a doc: `scripts/agents-index.mjs` generates the doc lists in `index.md` from it, and `scripts/copy-agents.mjs` lists it in `llms.txt`. To list a new doc in the index, add its path to a `docs:` marker in `index.md`; after changing a description or marker, run `node scripts/agents-index.mjs` and commit the result (PR CI fails otherwise).
+- **Update guidance in the same PR as the code it describes.** When you change a path, script, or behavior, search these files for references to it.
+
 ## Code comments
 
 - **Prefer none** — Always prefer no code comment if the code is self-explanatory.
@@ -74,10 +87,6 @@ Available pages:
 
 ## Skills
 
-Task-specific guidance lives in `/.agents/skills/<skill-name>.md` (or `/.agents/skills/<skill-name>/SKILL.md` when the skill bundles reference assets). Each skill has YAML frontmatter with a `description` telling you when to load it. Read the relevant skill(s) before starting matching work; don't load them preemptively.
+Task-specific guidance lives in `/.agents/skills/<skill-name>.md` (or `/.agents/skills/<skill-name>/SKILL.md` when the skill bundles reference assets). Each skill has YAML frontmatter with a `description` telling you when to load it — list `/.agents/skills/` and read those descriptions to find the right one. Read the relevant skill(s) before starting matching work; don't load them preemptively.
 
-Available skills:
-
-- `skill(implement-component)` — use when implementing a new component, or adding a variant/size/state to an existing one, from a Figma spec.
-- `skill(cy-ui-illustration)` — use when creating, resizing, or adapting a UI illustration of a product screen (marketing pages, docs, blog); source-first Figma workflow, canonical reference set, @2x render and verify.
-- `skill(cy-review-pr-comments)` — use to review the latest GitHub Copilot review comments on the PR for the current branch, triage them, open GitHub issues for follow-ups, and reply to or resolve each comment appropriately.
+`/.claude/commands/` exposes skills as slash commands. Each entry is a symlink into `/.agents/skills/`, never a copy — a copy drifts from the skill it was made from.

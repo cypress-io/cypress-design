@@ -1,3 +1,8 @@
+---
+name: components/Alert/instructions
+description: 'Alert API — status message with info, success, warning, error, neutral, and clear variants: props, events, and slots. Fetch when using, reviewing, or referencing Alert in a Vue or React project.'
+---
+
 # Alert — Props, Events & Slots
 
 ## Install

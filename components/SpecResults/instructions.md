@@ -1,3 +1,8 @@
+---
+name: components/SpecResults/instructions
+description: "SpecResults API — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar: props, status mapping, pill order, interaction, accessibility, data-cy selectors, and FullStory tracking. React only. Fetch when using, reviewing, or referencing SpecResults."
+---
+
 # SpecResults — Props, Events & Slots
 
 `SpecResults` renders a run's headline in one row: how many specs failed, errored, passed, skipped, and how many are still to come. Each pill is a link into the Specs tab filtered to that status, and a 4px bar along the bottom edge shows the same breakdown as proportion. While the run is live it optionally carries the Cancel run action.
