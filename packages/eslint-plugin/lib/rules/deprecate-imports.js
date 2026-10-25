@@ -21,6 +21,23 @@ module.exports = {
       recommended: false,
       url: 'https://github.com/cypress-io/cypress-design/blob/main/packages/eslint-plugin/docs/rules/deprecate-imports.md', // URL to the documentation page for this rule
     },
+    // ESLint 9.21+ reads this object for its deprecation report; older
+    // versions only check that `deprecated` is truthy.
+    deprecated: {
+      message:
+        'This rule will be removed in a future release. The built-in ESLint rule `no-restricted-imports` covers the same cases without an import resolver. Move each entry to `no-restricted-imports` and put the docs link in its `message`.',
+      url: 'https://github.com/cypress-io/cypress-design/blob/main/packages/eslint-plugin/docs/rules/deprecate-imports.md#migrating-to-no-restricted-imports',
+      deprecatedSince: '0.2.0',
+      replacedBy: [
+        {
+          plugin: { name: 'eslint', url: 'https://eslint.org' },
+          rule: {
+            name: 'no-restricted-imports',
+            url: 'https://eslint.org/docs/latest/rules/no-restricted-imports',
+          },
+        },
+      ],
+    },
     fixable: false, // Or `code` or `whitespace`
     schema: [
       {
