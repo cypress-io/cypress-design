@@ -53,15 +53,21 @@ WCAG 2.2 sets the floor, and these are the ratios we hold to:
 
 Pick the step by surface and hue. Gray needs one step darker than the other hues on light surfaces: `gray-600` is only 4.28:1 on white and 3.90:1 on `gray-50`.
 
-| Use                                | On white or `gray-50`                                | On `gray-1000`     |
-| ---------------------------------- | ---------------------------------------------------- | ------------------ |
-| Body text (4.5:1)                  | Gray **700** or darker. Other hues **600** or darker | **300** or lighter |
-| Fine print (7:1)                   | Gray **800** or darker. Other hues **700** or darker | **300** or lighter |
-| Large text, meaningful icons (3:1) | Gray **600** or darker. Other hues **500** or darker | **400** or lighter |
+- **Body text (4.5:1)**
+  - On white or `gray-50`: gray **700** or darker. Other hues **600** or darker.
+  - On `gray-1000`: **300** or lighter.
+- **Fine print (7:1)**
+  - On white or `gray-50`: gray **800** or darker. Other hues **700** or darker.
+  - On `gray-1000`: **300** or lighter.
+- **Large text and meaningful icons (3:1)**
+  - On white or `gray-50`: gray **600** or darker. Other hues **500** or darker.
+  - On `gray-1000`: **400** or lighter.
+
+A few cases need more care:
 
 - **Links:** `indigo-500` is 5.64:1 on white and 5.14:1 on `gray-50`, so it passes AA for link text. Other hues' 500 steps don't all hold up on `gray-50` (`orange-500` drops to 4.20:1), so don't generalize from indigo.
 - **Placeholder text needs 4.5:1 like any other text.** WCAG exempts disabled controls, logos, and purely decorative text, but not placeholders. Don't reach for `gray-500` or `gray-600` for placeholders on light surfaces.
-- **Any other background needs its own check.** The table is measured against white, `gray-50`, and `gray-1000` only. On tinted fills (`jade-50`, `gray-100`) or other dark surfaces, check the actual pair with a contrast checker before shipping.
+- **Any other background needs its own check.** The steps above are measured against white, `gray-50`, and `gray-1000` only. On tinted fills (`jade-50`, `gray-100`) or other dark surfaces, check the actual pair with a contrast checker before shipping.
 
 ## Pairings that work
 
