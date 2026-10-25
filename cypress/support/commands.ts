@@ -47,13 +47,11 @@ Cypress.Commands.add('findByTestId', (id) => {
   return cy.get(`[data-cy=${id}]`)
 })
 
-// Custom commands are typed by augmenting Cypress's global namespace, and
-// JQuery is a global type from Cypress's bundled typings
+// Custom commands are typed by augmenting Cypress's global namespace
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
-      // eslint-disable-next-line no-undef
       findByTestId(id: string): Chainable<JQuery<HTMLElement>>
     }
   }

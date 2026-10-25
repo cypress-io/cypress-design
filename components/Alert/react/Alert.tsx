@@ -116,7 +116,7 @@ export const Alert: React.FC<
 
   const dismiss = React.useCallback(() => {
     setDismissed(true)
-    onDismiss && onDismiss()
+    onDismiss?.()
     clearDurationTimeout()
   }, [clearDurationTimeout, setDismissed, onDismiss])
 
