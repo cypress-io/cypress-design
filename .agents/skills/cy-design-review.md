@@ -20,7 +20,7 @@ Structured design and product review against the Cypress design principles, voic
 
 2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review.
 
-3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
+3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
 
 4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
 
@@ -81,6 +81,6 @@ Structured design and product review against the Cypress design principles, voic
 
 ## Don't
 
-- Don't run on internal-only surfaces (private dashboards, throwaway docs) unless explicitly asked — see `https://design.cypress.io/agents/principles/ux.md` on prioritizing public-facing work.
+- Don't run on internal-only surfaces (private dashboards, throwaway docs) unless explicitly asked.
 - Don't deliver findings without the WHY behind each one.
 - Don't gate-keep — if the framing is right and the work is good, say so directly.

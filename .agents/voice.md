@@ -140,4 +140,3 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 - [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula (a narrow supplement — fetch only when writing a spotlight title, nav label, or other single-feature headline)
 - [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
-- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — where business goals meet user needs

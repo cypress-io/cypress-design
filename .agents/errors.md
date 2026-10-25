@@ -57,6 +57,5 @@ For the pre-write checklist, the full message structure pattern, and five annota
 ## Related
 
 - [voice.md](https://design.cypress.io/agents/voice.md) — tone, POV, capitalization that applies to all copy
-- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — "Never give people a dead end" and the empty-state rule (the broader UX framing that messages are one application of)
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — broader accessibility patterns
 - [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) — mechanical checks before shipping

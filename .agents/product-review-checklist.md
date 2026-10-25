@@ -12,7 +12,7 @@ This is the product-rigor companion to [review-checklist.md](https://design.cypr
 ## Before starting work
 
 - [ ] The problem is written down, independent of any solution.
-- [ ] The customer job is articulated — what outcome are users after, and why can't they get it today? (see "Start with jobs to be done" in [principles/ux.md](https://design.cypress.io/agents/principles/ux.md))
+- [ ] The customer job is articulated — what outcome are users after, and why can't they get it today?
 - [ ] The job is ranked by importance to the customer **and** value to the business — not by how cheap it is to build.
 - [ ] Problem importance is backed by data: how many customers, ARR at risk, churn signal — not assumed.
 - [ ] More than one solution was considered, and each is scored on the full cost ledger — engineering, design, UX impact, docs, and customer cost-to-adopt — not just build cost.
