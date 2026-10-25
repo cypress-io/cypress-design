@@ -10,6 +10,7 @@ import {
 import { join, dirname, relative, sep } from 'path'
 import { fileURLToPath } from 'url'
 import { frontmatterDescription } from './frontmatter-description.mjs'
+import { renderIndexFile } from './agents-index.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dest = join(root, 'docs', 'public', 'agents')
@@ -20,6 +21,7 @@ mkdirSync(dest, { recursive: true })
 
 // Design system guidance
 cpSync(join(root, '.agents'), dest, { recursive: true })
+writeFileSync(join(dest, 'index.md'), renderIndexFile(join(root, '.agents')))
 
 // Component docs (served at /agents/components/<Name>/...)
 const componentsDir = join(root, 'components')

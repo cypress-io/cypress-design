@@ -77,6 +77,9 @@ jobs:
       - name: Check internal runtime dependencies
         run: node scripts/check-internal-deps.mjs
 
+      - name: Check agent index matches doc descriptions
+        run: node scripts/agents-index.mjs --check
+
       - name: Run Unit Tests
         run: yarn test
 

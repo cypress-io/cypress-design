@@ -37,7 +37,7 @@ Applies to `AGENTS.md`, everything under `/.agents/`, and the component `instruc
 - **Present state only.** No migration history, "this branch", or roadmaps. Planned and deferred work goes in GitHub issues; an agent reading a plan here may try to build it.
 - **Keep always-loaded files short.** `AGENTS.md`, `architecture.md`, and `index.md` load on every task. Put task-specific detail in a skill, a pillar, or a component's `architecture.md`, loaded on demand.
 - **One owner per fact.** If another file already covers it, link to that file instead of repeating it.
-- **Give every `.agents/` file frontmatter** with a one-line `description` that says when to load it. `scripts/copy-agents.mjs` lists it beside the file in `llms.txt`, so agents in other repos can pick a doc without fetching it first.
+- **Give every `.agents/` file frontmatter** with a one-line `description` that says when to load it. It's the only place that says so: `scripts/agents-index.mjs` generates the doc lists in `index.md` from it, and `scripts/copy-agents.mjs` lists it in `llms.txt`. To list a new doc in the index, add its path to a `docs:` marker in `index.md`; after changing a description or marker, run `node scripts/agents-index.mjs` and commit the result (PR CI fails otherwise).
 - **Update guidance in the same PR as the code it describes.** When you change a path, script, or behavior, search these files for references to it.
 
 ## Code comments
