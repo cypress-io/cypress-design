@@ -6,9 +6,13 @@ import type { KnipConfig } from 'knip'
 const scriptBlocks = /<script\b[^>]*>([\s\S]*?)<\/script>/g
 
 const config: KnipConfig = {
+  // Listing only these add-on types keeps every default type enabled too.
+  include: ['nsExports', 'nsTypes'],
+  // A hint left in the output teaches people to skim past real findings.
+  treatConfigHintsAsErrors: true,
   // `docs/public/` holds static files served as-is, including the generated
   // token stylesheets that `docs/.gitignore` hides from git.
-  ignore: ['**/dist/**', 'docs/public/**'],
+  ignore: ['docs/public/**'],
   // `@cypress-design/rollup-plugin-tailwind-keep` is imported from the shared
   // `components/*.rollup.config.mjs` and `components/vue.vite.config.ts`, which
   // belong to the root workspace. `@percy/cli` only runs as the Cypress action's
@@ -22,6 +26,11 @@ const config: KnipConfig = {
   ignoreIssues: {
     // React components export both a named and a default binding on purpose.
     'components/*/react/**': ['duplicates'],
+    // Once built, the published Tooltip types import `@floating-ui/core` and
+    // `@floating-ui/utils`, which reach the package only through
+    // `@floating-ui/dom`. Unlike `ignore`, `ignoreIssues` doesn't raise an
+    // unused-pattern hint where `dist/` hasn't been built, as in CI.
+    'components/Tooltip/vue/dist/**': ['unlisted'],
   },
   compilers: {
     // `;` keeps a statement left open at the end of one block from running
@@ -49,6 +58,11 @@ const config: KnipConfig = {
     'components/*/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
     },
+    // Favicon has no component tests, so the shared `**/*.cy.tsx` entry
+    // matches nothing there. Knip's defaults already find `index.ts` and
+    // `rollup.config.mjs`.
+    'components/Favicon/react': {},
+    'components/Favicon/vue': {},
     'components/TestResult/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
       // The build bundles vue-statusicon, which imports icon-registry and
