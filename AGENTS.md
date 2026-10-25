@@ -88,3 +88,5 @@ Available pages:
 ## Skills
 
 Task-specific guidance lives in `/.agents/skills/<skill-name>.md` (or `/.agents/skills/<skill-name>/SKILL.md` when the skill bundles reference assets). Each skill has YAML frontmatter with a `description` telling you when to load it — list `/.agents/skills/` and read those descriptions to find the right one. Read the relevant skill(s) before starting matching work; don't load them preemptively.
+
+`/.claude/commands/` exposes skills as slash commands. Each entry is a symlink into `/.agents/skills/`, never a copy — a copy drifts from the skill it was made from.
