@@ -12,15 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
 
       - name: Setup Yarn
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -28,7 +28,7 @@ jobs:
         run: corepack enable
 
       - name: Restore cached build files
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           key: ${{ inputs.nonce }}
           path: |
@@ -100,9 +100,9 @@ jobs:
       - uses: browser-actions/setup-chrome@latest
       - run: echo "BROWSER_PATH=$(which chrome)" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
 
@@ -111,7 +111,7 @@ jobs:
 
       - name: Restore cached build files
         id: cache-node-modules-dist
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           key: cache-${{ inputs.nonce }}
           path: |
@@ -131,7 +131,7 @@ jobs:
         run: yarn cypress install
 
       - name: Cypress run CT
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           component: true
