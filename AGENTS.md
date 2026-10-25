@@ -9,6 +9,10 @@ Before claiming any UI / visual / content task is done, run `/.agents/review-che
 
 When the work is a product brief, initiative, or design proposal (not just a UI surface), also run `/.agents/product-review-checklist.md` — problem defined before solution, alternatives compared, success metric + measurement infrastructure, review date, and a post-launch keep/iterate/kill decision.
 
+Before pushing, run the checks in `ReadMe.md` under "Before you push" — CI runs more than the pre-commit hook does — and add a changeset if the diff touches a published package (see `/.agents/architecture.md` under "Publishing"). Never bypass the hook with `--no-verify`.
+
+PRs are squash-merged, so the PR title becomes the commit on `main`. Write it as a Conventional Commit, `type(scope): sentence` (for example `docs(agents): recommend contrast steps that meet WCAG AA`), following `git log --oneline` on `main`. Branch commit messages are discarded at merge; keep them short.
+
 When opening a PR, lead the description with the problem and goal (why / what) before the implementation (how) — see [`.github/pull_request_template.md`](.github/pull_request_template.md). Reviewers, human and AI, evaluate against the stated goal; a description that's all _how_ steers them toward syntax nitpicks instead of substance.
 
 Everything under `/.agents/` is also served at `https://design.cypress.io/agents/` for consumer repos to fetch — same files, single source of truth. Cross-doc links in these files use absolute `https://design.cypress.io/agents/...` URLs (not relative paths) so that agents fetching one doc over HTTP can follow links to the rest — keep new links absolute. `scripts/copy-agents.mjs` also generates `llms.txt` at the domain root listing every served doc, so the whole tree is discoverable from `https://design.cypress.io/llms.txt`.
