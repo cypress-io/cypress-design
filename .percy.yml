@@ -4,20 +4,9 @@ snapshot:
   # captured at whatever frame Percy's renderer happens to reach, and a
   # focused input's blinking caret may or may not be drawn. Render every
   # snapshot in its resting state instead.
-  #
-  # The serialized DOM can't carry a dialog's modal state: `showModal()` puts
-  # it in the top layer, centered over a ::backdrop, but Percy renders a plain
-  # `<dialog open>` in the page flow. Restore the browser's modal centering
-  # and paint the Modal's backdrop (gray-900 at 80%) behind it; the backdrop
-  # blur has no equivalent outside the top layer.
   percy-css: |
     *, *::before, *::after {
       animation: none !important;
       transition: none !important;
       caret-color: transparent !important;
-    }
-    dialog[open] {
-      inset: 0;
-      margin: auto;
-      box-shadow: 0 0 0 10000px rgb(46 50 71 / 0.8);
     }
