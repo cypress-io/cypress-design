@@ -1,11 +1,11 @@
 ---
 name: cy-design-review
-description: Run a structured design and product review against Cypress design principles before shipping work that creates or changes a user-facing surface. Use across any Cypress repo (cypress.io, cypress-cloud, cypress-services, cypress-app, cypress-design, etc.) when reviewing a PR, evaluating a prototype, critiquing AI-generated UI / copy / illustration, or before claiming any design / UX / product task done. Triggers automatically when an agent is creating or modifying pages, components, marketing surfaces, blog posts, illustrations, copy, or making UX / product decisions on Cypress surfaces.
+description: Run a structured design and product review against the Cypress design guidance before shipping work that creates or changes a user-facing surface. Use across any Cypress repo (cypress.io, cypress-cloud, cypress-services, cypress-app, cypress-design, etc.) when reviewing a PR, evaluating a prototype, critiquing AI-generated UI / copy / illustration, or before claiming any design / UX / product task done. Triggers automatically when an agent is creating or modifying pages, components, marketing surfaces, blog posts, illustrations, copy, or making UX / product decisions on Cypress surfaces.
 ---
 
 # cy-design-review
 
-Structured design and product review against the Cypress design principles, voice, and review-checklist hosted at `https://design.cypress.io/agents/`. Pairs with the mechanical checklist (`review-checklist.md`), which handles token / spacing / a11y violations.
+Structured design and product review against the Cypress design pillars, voice, and review-checklist hosted at `https://design.cypress.io/agents/`. Pairs with the mechanical checklist (`review-checklist.md`), which handles token / spacing / a11y violations.
 
 ## When to run
 
@@ -24,9 +24,9 @@ Structured design and product review against the Cypress design principles, voic
 
 4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
 
-5. **Walk the work against each fetched principle.** For each, ask: does this design honor or violate it? Note violations with a one-line _why_.
+5. **Walk the work against each fetched pillar.** For each, ask: does this design honor or violate it? Note violations with a one-line _why_.
 
-6. **Cluster findings by section.** UX, visual hierarchy, copy, accessibility, AI quality, etc. Use numbered lists.
+6. **Cluster findings by section.** Copy, accessibility, product rigor, etc. Use numbered lists.
 
 7. **Lead with framing problems if any exist.** If the design solves the wrong JTBD, ignores business goals, or skipped the design process, that lands first — visual nits second.
 
@@ -42,19 +42,10 @@ Structured design and product review against the Cypress design principles, voic
 
 ## Findings
 
-### UX
-1. <finding> — <why>
-
-### Visual hierarchy
-1. <finding> — <why>
-
 ### Copy (if applicable)
 1. <finding> — <why>
 
 ### Accessibility
-1. <finding> — <why>
-
-### AI quality (if applicable)
 1. <finding> — <why>
 
 ### Product rigor (if reviewing a brief / initiative / product decision)
