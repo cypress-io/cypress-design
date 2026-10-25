@@ -1,3 +1,8 @@
+---
+name: components/Button/instructions
+description: 'Button API — variants, sizes, and states: props, events, and slots. Fetch when using, reviewing, or referencing Button in a Vue or React project.'
+---
+
 # Button — Props, Events & Slots
 
 ## Install

@@ -1,3 +1,8 @@
+---
+name: components/TestResult/instructions
+description: 'TestResult API — single test result row with status, title, and actions: props, events, and slots. Fetch when using, reviewing, or referencing TestResult in a Vue or React project.'
+---
+
 # TestResult — Props, Events & Slots
 
 ## Install

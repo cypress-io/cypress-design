@@ -1,3 +1,8 @@
+---
+name: components/Spinner/instructions
+description: 'Spinner API — loading indicator: props, events, and slots. Fetch when using, reviewing, or referencing Spinner in a Vue or React project.'
+---
+
 # Spinner — Props, Events & Slots
 
 ## Install
