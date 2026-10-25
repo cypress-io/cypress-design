@@ -13,9 +13,8 @@ Fetch only what the task needs. Don't preload all files.
 
 Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
 
-<!-- docs: principles/ai.md principles/ux.md principles/product.md principles/visual-hierarchy.md principles/feedback.md principles/learning-from-feedback.md principles/releases.md -->
+<!-- docs: principles/ux.md principles/product.md principles/visual-hierarchy.md principles/feedback.md principles/learning-from-feedback.md principles/releases.md -->
 
-- [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — Principles for using AI tools to build, design, write, or review Cypress work. Fetch when generating UI / copy / illustration with AI, deciding whether AI is the right tool, or reviewing AI output.
 - [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.
 - [principles/product.md](https://design.cypress.io/agents/principles/product.md) — Product principles — the why/whether side of the canon, paired with ux.md (the design/what side). Which jobs are worth doing, how the problem gets defined and explored, how success is set, and how the work is run from problem to shipped to learned-from. Fetch when planning or prioritizing an initiative, defining success, planning research, deciding what to ship, or reviewing whether shipped work is measured and followed up.
 - [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — Principles for directing the eye through color, icons, spacing, size, and position. Fetch when designing or reviewing layouts, deciding what to emphasize on a page, or diagnosing a "busy" interface.

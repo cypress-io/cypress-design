@@ -46,7 +46,7 @@ People skim before they commit. Write so the structure carries the meaning on a 
 ## Confidence and certainty
 
 - **Be direct about what we know; be explicit about uncertainty when it exists.** Never imply a guarantee where there isn't one.
-- **When behavior is probabilistic or evolving, say so.** This matters most for AI-powered features — don't frame AI as autonomous or magical, don't promise correctness without guardrails, and don't imply it replaces human judgment. For the principles behind building with AI, see [principles/ai.md](https://design.cypress.io/agents/principles/ai.md).
+- **When behavior is probabilistic or evolving, say so.** This matters most for AI-powered features — don't frame AI as autonomous or magical, don't promise correctness without guardrails, and don't imply it replaces human judgment.
 
 ## Capitalization
 
@@ -140,6 +140,5 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 - [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula (a narrow supplement — fetch only when writing a spotlight title, nav label, or other single-feature headline)
 - [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
-- [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — building, designing, and writing with AI
 - [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — where business goals meet user needs
 - [principles/releases.md](https://design.cypress.io/agents/principles/releases.md) — release titles and shipping stages
