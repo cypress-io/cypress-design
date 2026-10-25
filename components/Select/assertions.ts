@@ -480,13 +480,13 @@ export default function assertions(
       it('closed with placeholder', () => {
         mountStory({ items: simpleItems, placeholder: 'Pick one' })
         cy.findByRole('combobox').should('contain.text', 'Pick one')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
 
       it('closed disabled', () => {
         mountStory({ items: simpleItems, defaultValue: 'beta', disabled: true })
         cy.findByRole('combobox').should('be.disabled')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
 
       it('open with mixed rows and a selection', () => {
@@ -511,7 +511,7 @@ export default function assertions(
           defaultOpen: true,
         })
         cy.findByRole('listbox').should('be.visible')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
 
       it('open with header, search, and footer', () => {
@@ -532,7 +532,7 @@ export default function assertions(
         })
         cy.findByRole('listbox').should('be.visible')
         cy.contains('Helper text').should('be.visible')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
 
       it('open with header tabs', () => {
@@ -546,7 +546,7 @@ export default function assertions(
           defaultOpen: true,
         })
         cy.findByRole('listbox').should('be.visible')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
 
       it('open in dark theme at size 40', () => {
@@ -558,7 +558,7 @@ export default function assertions(
           defaultOpen: true,
         })
         cy.findByRole('listbox').should('be.visible')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
     })
   })

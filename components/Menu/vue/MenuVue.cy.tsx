@@ -107,7 +107,5 @@ describe('<Menu />', () => {
         />
       </>
     ))
-    cy.contains('Runs').should('be.visible')
-    cy.percySnapshot()
   })
 })

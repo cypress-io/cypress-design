@@ -80,12 +80,22 @@ Cypress.Commands.overwrite('percySnapshot', (originalFn, name, options) => {
   return originalFn(name || defaultSnapshotName(), options)
 })
 
+// For resting states that a component's Vue all-states gallery already shows
+// (docs/src/demos/AllStatesVue.cy.ts). Shared assertions still snapshot them
+// for React, which has no gallery, without paying for a Vue duplicate.
+Cypress.Commands.add('percySnapshotUnlessInVueGallery', (name?: string) => {
+  if (!Cypress.spec.relative.includes('/vue/')) {
+    cy.percySnapshot(name)
+  }
+})
+
 // Custom commands are typed by augmenting Cypress's global namespace
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Cypress {
     interface Chainable {
       findByTestId(id: string): Chainable<JQuery<HTMLElement>>
+      percySnapshotUnlessInVueGallery(name?: string): Chainable<void>
     }
   }
 }

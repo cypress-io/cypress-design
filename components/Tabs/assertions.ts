@@ -81,7 +81,7 @@ export default function assertions(
           variant: variant as keyof typeof CssVariants,
         })
         cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
-        cy.percySnapshot()
+        cy.percySnapshotUnlessInVueGallery()
       })
     })
   })
