@@ -1,5 +1,20 @@
 /// <reference types="cypress" />
 
+// Floating UI positions tooltips asynchronously and React renders them at the
+// document's top-left corner until it does, so a snapshot taken too early
+// shows every tooltip stacked in the corner. Compare in document coordinates:
+// focusing a trigger can scroll the page, which moves that corner on screen.
+export function waitForTooltipsToPosition(): void {
+  cy.get('[role="tooltip"]').should(($tooltips) => {
+    $tooltips.each((_, tooltip) => {
+      const win = tooltip.ownerDocument.defaultView!
+      const { top, left } = tooltip.getBoundingClientRect()
+      const atOrigin = top + win.scrollY === 0 && left + win.scrollX === 0
+      expect(atOrigin, 'tooltip still at the document origin').to.equal(false)
+    })
+  })
+}
+
 export default function assertions(
   mountStory: (options?: any) => void,
   fw: 'react' | 'vue',
@@ -9,10 +24,12 @@ export default function assertions(
 
     cy.contains('[tabindex="0"]', 'Hover Me (dynamic: )').focus()
     cy.contains('PopovDyn').should('be.visible')
+    waitForTooltipsToPosition()
     cy.percySnapshot()
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="0"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
+      waitForTooltipsToPosition()
       cy.percySnapshot(`tooltip-light-${placement}-${fw}`)
     })
   })
@@ -29,10 +46,12 @@ export default function assertions(
 
     cy.contains('[tabindex="0"]', 'Hover Me (dynamic: )').focus()
     cy.contains('PopovDyn').should('be.visible')
+    waitForTooltipsToPosition()
     cy.percySnapshot()
     ;['top', 'right', 'bottom', 'left', 'top-start'].forEach((placement) => {
       cy.contains('[tabindex="0"]', `Hover Me (${placement})`).focus()
       cy.contains(`Popover (${placement})`).should('be.visible')
+      waitForTooltipsToPosition()
       cy.percySnapshot(`tooltip-dark-${placement}-${fw}`)
     })
   })

@@ -67,5 +67,6 @@ export default function assertions(
       fullscreen: true,
     })
     cy.findByRole('button', { name: 'Open Modal' }).click()
+    cy.findByRole('dialog').should('be.visible')
   })
 }

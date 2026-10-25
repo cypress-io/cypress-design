@@ -20,7 +20,7 @@ export default function assertions(
       cy.get('[data-cy="total-failed"]').should('exist')
       cy.get('[data-cy="total-pending"]').should('exist')
       cy.get('[data-cy="total-skipped"]').should('not.exist')
-      cy.percySnapshot(`RunResults default - ${fw}`)
+      cy.percySnapshotUnlessInVueGallery(`RunResults default - ${fw}`)
     })
 
     it('returns nothing when all stats are zero', () => {
@@ -68,7 +68,7 @@ export default function assertions(
       // count > 0. Guard against a regression that treats flaky like a
       // regular stat and renders a zero-count row.
       cy.get('[data-cy="total-flaky"]').should('not.exist')
-      cy.percySnapshot(`RunResults expanded - ${fw}`)
+      cy.percySnapshotUnlessInVueGallery(`RunResults expanded - ${fw}`)
     })
 
     it('shows correct counts', () => {
@@ -87,7 +87,7 @@ export default function assertions(
     it('renders flaky when count > 0', () => {
       mountStory({ passed: 22, failed: 4, skipped: 0, pending: 1, flaky: 3 })
       cy.get('[data-cy="total-flaky"]').should('exist').and('contain', '3')
-      cy.percySnapshot(`RunResults with flaky - ${fw}`)
+      cy.percySnapshotUnlessInVueGallery(`RunResults with flaky - ${fw}`)
     })
 
     it('does not render flaky when count is 0', () => {
@@ -107,7 +107,7 @@ export default function assertions(
       cy.get('[data-cy="total-self-healed"]')
         .should('exist')
         .and('contain', '2')
-      cy.percySnapshot(`RunResults with self-healed - ${fw}`)
+      cy.percySnapshotUnlessInVueGallery(`RunResults with self-healed - ${fw}`)
     })
 
     it('does not render self-healed when showSelfHealed is false', () => {
@@ -168,7 +168,9 @@ export default function assertions(
         'not.have.class',
         "after:content-['']",
       )
-      cy.percySnapshot(`RunResults flaky and self-healed - ${fw}`)
+      cy.percySnapshotUnlessInVueGallery(
+        `RunResults flaky and self-healed - ${fw}`,
+      )
     })
 
     it('omits separator when no regular stats follow leading stats', () => {
@@ -211,7 +213,7 @@ export default function assertions(
       cy.get('[data-cy="link-flaky"]')
         .should('exist')
         .and('have.attr', 'href', '#flaky')
-      cy.percySnapshot(`RunResults linked stats - ${fw}`)
+      cy.percySnapshotUnlessInVueGallery(`RunResults linked stats - ${fw}`)
     })
 
     it('renders a <span> (no link) when no link is provided', () => {
@@ -403,7 +405,15 @@ export default function assertions(
           'have.class',
           'after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
         )
-      cy.percySnapshot(`RunResults dark theme - ${fw}`)
+      cy.document().should((doc) => {
+        const openTooltips = Array.from(
+          doc.querySelectorAll('[role="tooltip"]'),
+        ).filter((el) => getComputedStyle(el).visibility !== 'hidden')
+        expect(openTooltips, 'no tooltip open in the snapshot').to.have.length(
+          0,
+        )
+      })
+      cy.percySnapshotUnlessInVueGallery(`RunResults dark theme - ${fw}`)
     })
   })
 

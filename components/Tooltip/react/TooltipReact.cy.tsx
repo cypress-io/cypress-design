@@ -3,7 +3,7 @@
 import * as React from 'react'
 import { mount } from 'cypress/react'
 import type { Placement } from '@floating-ui/react'
-import assertions from '../assertions'
+import assertions, { waitForTooltipsToPosition } from '../assertions'
 import Tooltip from './Tooltip'
 
 const TooltipStoryMulti = ({
@@ -145,6 +145,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
       </div>,
     )
 
+    waitForTooltipsToPosition()
     cy.percySnapshot()
   })
 
@@ -200,6 +201,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
     cy.findByText('Offset 40px').should('be.visible')
     cy.findByText('Offset 5px').should('be.visible')
+    waitForTooltipsToPosition()
     cy.percySnapshot()
   })
 })

@@ -112,5 +112,7 @@ describe('<Menu />', () => {
     }
 
     mount(<SUT />)
+    cy.contains('Runs').should('be.visible')
+    cy.percySnapshot()
   })
 })

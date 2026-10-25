@@ -1,0 +1,12 @@
+version: 2
+snapshot:
+  # Infinite animations (Spinner, the SpecResults running shimmer) would be
+  # captured at whatever frame Percy's renderer happens to reach, and a
+  # focused input's blinking caret may or may not be drawn. Render every
+  # snapshot in its resting state instead.
+  percy-css: |
+    *, *::before, *::after {
+      animation: none !important;
+      transition: none !important;
+      caret-color: transparent !important;
+    }

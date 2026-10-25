@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 import { mount } from 'cypress/vue'
-import assertions from '../assertions'
+import assertions, { waitForTooltipsToPosition } from '../assertions'
 import { ComponentProps } from '../../vue-utils'
 import Tooltip from './Tooltip.vue'
 
@@ -149,6 +149,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
       </div>
     ))
 
+    waitForTooltipsToPosition()
     cy.percySnapshot()
   })
 
@@ -210,6 +211,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
     cy.findByText('Offset 40px').should('be.visible')
     cy.findByText('Offset 5px').should('be.visible')
+    waitForTooltipsToPosition()
     cy.percySnapshot()
   })
 })

@@ -16,7 +16,7 @@ export default function assertions(
   it('renders with value', () => {
     mountStory({ value: 'Test value' })
     cy.get('input').should('have.value', 'Test value')
-    cy.percySnapshot()
+    cy.percySnapshotUnlessInVueGallery()
   })
 
   it('handles input changes - uncontrolled component', () => {
