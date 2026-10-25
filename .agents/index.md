@@ -13,11 +13,10 @@ Fetch only what the task needs. Don't preload all files.
 
 Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
 
-<!-- docs: principles/ux.md principles/visual-hierarchy.md principles/releases.md -->
+<!-- docs: principles/ux.md principles/visual-hierarchy.md -->
 
 - [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens.
 - [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — Principles for directing the eye through color, icons, spacing, size, and position. Fetch when designing or reviewing layouts, deciding what to emphasize on a page, or diagnosing a "busy" interface.
-- [principles/releases.md](https://design.cypress.io/agents/principles/releases.md) — Principles for shipping releases, betas, previews, feature flags, and deprecations. Fetch when planning a release, scoping a beta, managing feature flags, or sunsetting a feature.
 
 <!-- /docs -->
 
