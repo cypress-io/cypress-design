@@ -20,10 +20,10 @@ describe('Checkbox', () => {
     mount(<ControlledCheckbox />)
 
     cy.get('input[type="checkbox"]').should('be.checked')
-    cy.percySnapshot()
+    cy.percySnapshot('Checkbox checked - react')
     cy.contains('Welcome guide settings').click()
     cy.get('input[type="checkbox"]').should('not.be.checked')
-    cy.percySnapshot()
+    cy.percySnapshot('Checkbox unchecked - react')
   })
 
   it('changes when checkbox is clicked', () => {
@@ -94,8 +94,7 @@ describe('Checkbox', () => {
       />,
     )
 
-    cy.percySnapshot()
-
     cy.get('label span:first-child').invoke('outerWidth').should('equal', 16)
+    cy.percySnapshot()
   })
 })

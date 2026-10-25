@@ -1,3 +1,8 @@
+---
+name: components/Tooltip/instructions
+description: 'Tooltip API — tooltip shown on hover or controlled with the open prop: props, events, and slots. Fetch when using, reviewing, or referencing Tooltip in a Vue or React project.'
+---
+
 # Tooltip — Props, Events & Slots
 
 ## Install

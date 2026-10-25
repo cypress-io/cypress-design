@@ -1,3 +1,8 @@
+---
+name: components/RunResults/instructions
+description: 'RunResults API — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats: props, stat order, themes, linking, tooltips, accessibility, and data-cy selectors. Fetch when using, reviewing, or referencing RunResults in a Vue or React project.'
+---
+
 # RunResults — Props, Events & Slots
 
 `RunResults` renders a pill of test-result counts (passed / failed / skipped / pending) with two independent optional leading stats — flaky and self-healed — rendered before the regular stats and separated from them by a vertical divider. Each stat is an icon + count, optionally wrapped in a link, optionally wrapped in a Tooltip. Supports `light` and `dark` themes.

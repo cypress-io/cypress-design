@@ -1,5 +1,14 @@
 # @cypress-design/react-menu
 
+## 1.3.2
+
+### Patch Changes
+
+- [#758](https://github.com/cypress-io/cypress-design/pull/758) [`9c9f95a`](https://github.com/cypress-io/cypress-design/commit/9c9f95aebfffdce9f408cfcd13104cacd08fb1b3) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Declare `@cypress-design/icon-registry` as a dependency. The published `Menu.d.ts` imports its `WindiColor` type, so TypeScript consumers on strict package managers (pnpm) couldn’t resolve the Menu prop types without installing it themselves.
+
+- Updated dependencies []:
+  - @cypress-design/icon-registry@3.4.0
+
 ## 1.3.1
 
 ### Patch Changes

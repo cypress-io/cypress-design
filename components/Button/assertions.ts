@@ -25,6 +25,7 @@ export default function assertions(
       'text-decoration-line',
       'underline',
     )
+    cy.percySnapshotUnlessInVueGallery()
   })
 
   it('renders variants', () => {
@@ -43,7 +44,7 @@ export default function assertions(
       'text-decoration-line',
       'underline',
     )
-    cy.percySnapshot()
+    cy.percySnapshotUnlessInVueGallery()
   })
 
   it('is clickable', () => {

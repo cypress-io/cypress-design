@@ -18,10 +18,10 @@ describe('<Checkbox />', () => {
     })
 
     cy.get('input[type="checkbox"]').should('be.checked')
-    cy.percySnapshot()
+    cy.percySnapshot('Checkbox checked - vue')
     cy.contains('Welcome guide settings').click()
     cy.get('input[type="checkbox"]').should('not.be.checked')
-    cy.percySnapshot()
+    cy.percySnapshot('Checkbox unchecked - vue')
   })
 
   it('changes when checkbox is clicked', () => {

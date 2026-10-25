@@ -26,7 +26,7 @@
     "test": "vitest",
     "eslint": "eslint",
     "knip": "knip",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 152",
     "lint:md": "markdownlint-cli2",
     "lint:prose": "vale --glob='!{**/node_modules/**,**/dist/**,**/CHANGELOG.md,.changeset/**,docs/public/agents/**}' .",
     "format:check": "prettier --check .",

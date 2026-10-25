@@ -3,14 +3,14 @@
 import * as React from 'react'
 import { mount } from 'cypress/react'
 import type { Placement } from '@floating-ui/react'
-import assertions from '../assertions'
+import assertions, { waitForTooltipsToPosition } from '../assertions'
 import Tooltip from './Tooltip'
 
 const TooltipStoryMulti = ({
   color = 'light',
   placement,
   disabled,
-  tabindex = 1,
+  tabindex = 0,
 }: {
   color?: 'light' | 'dark'
   placement?: Placement
@@ -76,7 +76,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
       typeof TooltipStoryMulti
     >[0] = {},
   ) {
-    const { single, tabindex = 1, ...rest } = options
+    const { single, tabindex = 0, ...rest } = options
     if (single) {
       mount(
         <Tooltip
@@ -145,6 +145,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
       </div>,
     )
 
+    waitForTooltipsToPosition()
     cy.percySnapshot()
   })
 
@@ -200,6 +201,7 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
 
     cy.findByText('Offset 40px').should('be.visible')
     cy.findByText('Offset 5px').should('be.visible')
+    waitForTooltipsToPosition()
     cy.percySnapshot()
   })
 })

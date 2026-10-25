@@ -1,3 +1,8 @@
+---
+name: components/Favicon/architecture
+description: 'How the Favicon component and its /components/Favicon docs page are built — acceptance criteria, why the two omitted tags are documented so heavily, and limitations. Fetch alongside instructions.md when changing Favicon or its docs page; skip when only using it.'
+---
+
 # Favicon — architecture
 
 Implementation notes for the Favicon component and its documentation page, `/components/Favicon`.

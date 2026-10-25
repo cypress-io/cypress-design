@@ -1,3 +1,8 @@
+---
+name: components/RunResults/architecture
+description: "How RunResults is built — file layout, render structure, status-to-icon mapping, constants keying, packaging, tooltip integration, themes, state, and link rendering. Fetch alongside instructions.md when changing RunResults's implementation; skip when only using it."
+---
+
 # RunResults — architecture
 
 How the RunResults component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](./instructions.md).

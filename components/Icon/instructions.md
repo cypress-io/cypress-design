@@ -1,3 +1,8 @@
+---
+name: components/Icon/instructions
+description: 'Icon API — tree-shaken named icon exports: usage, shared props, events, and slots. Fetch when using, reviewing, or referencing Icon in a Vue or React project.'
+---
+
 # Icon — Props, Events & Slots
 
 ## Install

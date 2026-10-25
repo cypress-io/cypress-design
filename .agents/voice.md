@@ -1,6 +1,6 @@
 ---
 name: voice
-description: Fetch when writing user-facing copy — UI strings, error messages, empty states, marketing prose, docs body. Skip for code comments and internal logs.
+description: Fetch when writing user-facing copy — UI strings, error messages, empty states, marketing prose, docs body. Covers tone, capitalization, product naming, and mechanics (numbers, dates, punctuation). Skip for code comments and internal logs.
 ---
 
 # Voice

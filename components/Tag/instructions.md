@@ -1,3 +1,8 @@
+---
+name: components/Tag/instructions
+description: 'Tag API — small colored label: props, events, and slots. Fetch when using, reviewing, or referencing Tag in a Vue or React project.'
+---
+
 # Tag — Props, Events & Slots
 
 ## Install

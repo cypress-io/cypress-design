@@ -1,3 +1,8 @@
+---
+name: components/StatusIcon/instructions
+description: 'StatusIcon API — run/spec/group/test-result status indicator: props, events, slots, and how to choose a status, color, and variant. Fetch when using, reviewing, or referencing StatusIcon in a Vue or React project.'
+---
+
 # StatusIcon — Props, Events & Slots
 
 ## Install

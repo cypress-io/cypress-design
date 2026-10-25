@@ -6,7 +6,7 @@ export default function assertions(mountStory: (options?: any) => void): void {
   })
 
   afterEach(() => {
-    cy.percySnapshot(
+    cy.percySnapshotUnlessInVueGallery(
       Cypress.spec.name +
         ' - ' +
         Cypress.currentTest.titlePath.join('_') +

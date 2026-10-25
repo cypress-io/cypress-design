@@ -1,3 +1,8 @@
+---
+name: components/Logo/instructions
+description: 'Logo API — the CypressMark, CypressLockUp, and CypressWatermark components: props, events, and slots. Fetch when using, reviewing, or referencing Logo in a Vue or React project.'
+---
+
 # Logo — Props, Events & Slots
 
 The Logo package exports three separate components. Import the one you need.
