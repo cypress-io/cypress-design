@@ -25,7 +25,6 @@
   },
   "devDependencies": {
     "@cypress-design/constants-modal": "*",
-    "@cypress-design/css": "*",
     "@cypress-design/rollup-plugin-tailwind-keep": "*"
   },
   "license": "MIT"

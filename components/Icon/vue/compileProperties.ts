@@ -10,11 +10,6 @@ import {
 } from 'vue'
 import type { SVGAttributes } from 'vue'
 
-export type VueComponentClassObject =
-  | Record<string, boolean>
-  | string
-  | Array<Record<string, boolean> | string>
-
 /**
  * Icon names of the SVGs whose defs already appear in the DOM
  */

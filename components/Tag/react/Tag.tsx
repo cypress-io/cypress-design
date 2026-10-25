@@ -2,7 +2,7 @@ import * as React from 'react'
 import clsx from 'clsx'
 import { CssColor, CssShared, CssSize } from '@cypress-design/constants-tag'
 
-export interface TagProps {
+interface TagProps {
   size: keyof typeof CssSize
   color: keyof typeof CssColor
   dark?: boolean
@@ -11,7 +11,7 @@ export interface TagProps {
   className?: string
 }
 
-export const Tag: React.FC<
+const Tag: React.FC<
   TagProps & Omit<React.HTMLProps<HTMLSpanElement>, 'size'>
 > = ({ className, children, size, color, dark, outline, ...rest }) => {
   const colorKey = dark

@@ -1,6 +1,3 @@
-const REGEX_SPECIAL = /[\\^$.*+?()[\]{}|]/g
-const REGEX_HAS_SPECIAL = RegExp(REGEX_SPECIAL.source)
-
 /**
  * @param {string|RegExp|Array<string|RegExp>} source
  */
@@ -22,15 +19,6 @@ export function pattern(source: RegExp | string | (RegExp | string)[]) {
 }
 
 /**
- * @param {string|RegExp|Array<string|RegExp>} source
- */
-export function withoutCapturing(
-  source: RegExp | string | (RegExp | string)[],
-) {
-  return new RegExp(`(?:${toSource(source)})`, 'g')
-}
-
-/**
  * @param {Array<string|RegExp>} sources
  */
 export function any(sources: (RegExp | string)[]) {
@@ -49,10 +37,4 @@ export function optional(source: RegExp | string) {
  */
 export function zeroOrMore(source: RegExp | string | (RegExp | string)[]) {
   return `(?:${toSource(source)})*`
-}
-
-export function escape(string: string) {
-  return string && REGEX_HAS_SPECIAL.test(string)
-    ? string.replace(REGEX_SPECIAL, '\\$&')
-    : string || ''
 }

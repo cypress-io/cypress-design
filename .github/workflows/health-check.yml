@@ -1,0 +1,51 @@
+name: Health Check
+
+on:
+  workflow_call:
+
+jobs:
+  knip:
+    name: Dead code (knip)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      # knip only needs what the steps below build, so skip building every
+      # component and run alongside Build instead of after it.
+      - name: Remove Postinstall Script
+        run: npm pkg delete scripts.postinstall
+
+      - name: Install Dependencies
+        run: yarn install --immutable
+        env:
+          CI: true
+
+      # knip reads the root package.json, so give it back the committed one.
+      - name: Restore package.json
+        run: git checkout -- package.json
+
+      # knip loads postcss.config.mjs and the component Vite/Rollup configs,
+      # which import the built css and rollup-plugin-tailwind-keep. The icon
+      # build below imports color-constants.
+      - name: Build config dependencies
+        run: yarn turbo run build --filter=@cypress-design/rollup-plugin-tailwind-keep --filter=@cypress-design/color-constants
+
+      # Generates the icon sources that icon-registry and the Icon components
+      # import but don't commit.
+      - name: Generate icon files
+        run: |
+          yarn workspace @cypress-design/icon-registry build
+          yarn workspace @cypress-design/react-icon run build:codegen
+          yarn workspace @cypress-design/vue-icon run build:codegen
+
+      - name: Find unused files, exports and dependencies
+        run: yarn knip
