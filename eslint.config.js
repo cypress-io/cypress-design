@@ -180,6 +180,13 @@ export default defineConfig([
     rules: vue.configs.recommended.rules,
   },
   {
+    // The legacy recommended config above leaves these out (they come from
+    // `base`), and without them `<!-- eslint-disable -->` in templates is ignored
+    files: ['**/*.vue'],
+    processor: vue.processors.vue,
+    rules: { 'vue/comment-directive': 'error' },
+  },
+  {
     files: vueTestFiles,
     ...cypressTests,
   },
@@ -261,6 +268,13 @@ export default defineConfig([
       'tailwindcss/classnames-order': 'off',
       'tailwindcss/no-arbitrary-value': 'warn',
       'tailwindcss/no-custom-classname': 'warn',
+    },
+  },
+  {
+    // Components cleared of arbitrary values; keep them that way
+    files: ['components/Alert/{react,vue}/**/*.{ts,tsx,vue}'],
+    rules: {
+      'tailwindcss/no-arbitrary-value': 'error',
     },
   },
   {

@@ -73,6 +73,9 @@ interface AlertProps {
   size?: AlertSize
 }
 
+// Spacing uses literal px, not the rem-based scale: Cloud's dashboard sets a
+// 10px root font-size, which would render rem utilities at 62.5% (see
+// https://design.cypress.io/agents/spacing.md)
 const Alert: React.FC<
   AlertProps & Omit<React.HTMLProps<HTMLDivElement>, 'size' | 'title'>
 > = ({
@@ -151,6 +154,7 @@ const Alert: React.FC<
           {...rest}
         >
           <div
+            // eslint-disable-next-line tailwindcss/no-arbitrary-value
             className={clsx(
               variantClasses.headerClass,
               'flex p-[16px]',
@@ -159,6 +163,7 @@ const Alert: React.FC<
           >
             {!noIcon && Icon && (
               <Icon
+                // eslint-disable-next-line tailwindcss/no-arbitrary-value
                 className="my-[4px] mr-[8px]"
                 strokeColor={variantClasses.iconColor}
               />
@@ -166,6 +171,7 @@ const Alert: React.FC<
             <div className="flex-1 font-medium">{title}</div>
             {dismissible && (
               <button
+                // eslint-disable-next-line tailwindcss/no-arbitrary-value
                 className="m-[4px] ml-[8px] h-[16px]"
                 onClick={dismiss}
                 aria-label="Dismiss"
@@ -177,12 +183,14 @@ const Alert: React.FC<
             )}
           </div>
           {children && (
+            // eslint-disable-next-line tailwindcss/no-arbitrary-value
             <div className={clsx('p-[16px]', variantClasses.bodyClass)}>
               {children}
             </div>
           )}
           {details && (
             <details
+              // eslint-disable-next-line tailwindcss/no-arbitrary-value
               className={clsx(
                 'cursor-pointer border-t p-[16px]',
                 variantClasses.bodyClass,
@@ -197,12 +205,14 @@ const Alert: React.FC<
                 )}
               >
                 <IconChevronDownSmall
+                  // eslint-disable-next-line tailwindcss/no-arbitrary-value
                   className="my-[4px] mr-[8px] -rotate-90 transform transition open:rotate-0"
                   strokeColor={variantClasses.iconChevronColor}
                 />
                 {detailsTitle}
               </summary>
               <div ref={contentRef}>
+                {/* eslint-disable-next-line tailwindcss/no-arbitrary-value */}
                 <div className="mt-[16px]">{details}</div>{' '}
               </div>
             </details>

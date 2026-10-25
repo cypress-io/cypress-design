@@ -6,14 +6,14 @@ import Alert from './Alert.vue'
 export default () => {
   const displayTimedAlert = ref(false)
   return (
-    <div class="flex flex-col gap-[16px] p-4">
+    <div class="flex flex-col gap-4 p-4">
       <Alert variant="error" detailsTitle="Stack trace" data-cy="alert-1">
         {{
           default: () => 'Spec not found',
           body: () => (
             <>
               There is no spec matching the following location:
-              <code class="m-[8px] rounded bg-red-100 px-[2px] text-red-600">
+              <code class="m-2 rounded bg-red-100 px-0.5 text-red-600">
                 path/to/spec.cy.js
               </code>
               <br />
@@ -23,7 +23,7 @@ export default () => {
             </>
           ),
           details: () => (
-            <pre class="overflow-x-auto rounded border border-red-500 bg-white px-[16px] py-[8px]">
+            <pre class="overflow-x-auto rounded border border-red-500 bg-white px-4 py-2">
               {dedent`Uncaught Error: Error occurred in defineConfig()
             Trace: add called with  2 and 3
                 at sum (/home/dev/Documents/stacktrace.js:2:13)
@@ -62,7 +62,7 @@ export default () => {
         }}
       </Alert>
       <button
-        class="rounded border p-[8px]"
+        class="rounded border p-2"
         onClick={() => (displayTimedAlert.value = true)}
       >
         open alert for 5 seconds

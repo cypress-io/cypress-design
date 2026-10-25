@@ -10,7 +10,7 @@ const AlertStory = () => {
   const [displayTimedAlert, setDisplayTimedAlert] = React.useState(false)
 
   return (
-    <div className="flex flex-col gap-[16px] p-4">
+    <div className="flex flex-col gap-4 p-4">
       <Alert
         variant="error"
         title="Spec not found"
@@ -18,7 +18,7 @@ const AlertStory = () => {
         data-cy="alert-1"
         key="alert-1"
         details={
-          <pre className="overflow-x-auto rounded border border-red-500 bg-white px-[16px] py-[8px]">
+          <pre className="overflow-x-auto rounded border border-red-500 bg-white px-4 py-2">
             {dedent`Uncaught Error: Error occurred in defineConfig()
             Trace: add called with  2 and 3
                 at sum (/home/dev/Documents/stacktrace.js:2:13)
@@ -56,7 +56,7 @@ const AlertStory = () => {
         }
       >
         There is no spec matching the following location:
-        <code className="m-[8px] rounded bg-red-100 px-[2px] text-red-600">
+        <code className="m-2 rounded bg-red-100 px-0.5 text-red-600">
           path/to/spec.cy.js
         </code>
         <br />
@@ -65,7 +65,7 @@ const AlertStory = () => {
         choose from the list of specs below
       </Alert>
       <button
-        className="rounded border p-[8px]"
+        className="rounded border p-2"
         onClick={() => setDisplayTimedAlert(true)}
       >
         open alert for 5 seconds

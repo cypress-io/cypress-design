@@ -18,6 +18,10 @@ import {
   CssAlertClasses,
 } from '@cypress-design/constants-alert'
 
+// Spacing uses literal px, not the rem-based scale: Cloud's dashboard sets a
+// 10px root font-size, which would render rem utilities at 62.5% (see
+// https://design.cypress.io/agents/spacing.md)
+
 const dismissed = ref(false)
 
 const slots = useSlots()
@@ -163,19 +167,23 @@ const sizeClasses = computed(() => {
         <!-- @slot title of the alert -->
         <slot />
       </div>
+      <!-- eslint-disable tailwindcss/no-arbitrary-value -->
       <button
         v-if="dismissible"
         class="m-[4px] ml-[8px] h-[16px]"
         aria-label="Dismiss"
         @click="dismiss"
       >
+        <!-- eslint-enable tailwindcss/no-arbitrary-value -->
         <IconActionDeleteLarge :stroke-color="variantClasses.iconCloseColor" />
       </button>
     </div>
+    <!-- eslint-disable-next-line tailwindcss/no-arbitrary-value -->
     <div v-if="slots.body" class="p-[16px]" :class="variantClasses.bodyClass">
       <!-- @slot body/details of the alert -->
       <slot name="body" />
     </div>
+    <!-- eslint-disable tailwindcss/no-arbitrary-value -->
     <details
       v-if="slots.details"
       ref="detailsRef"
@@ -190,6 +198,7 @@ const sizeClasses = computed(() => {
           :strokeColor="variantClasses.iconChevronColor"
           class="icon my-[4px] mr-[8px] -rotate-90 transform transition open:rotate-0"
         />
+        <!-- eslint-enable tailwindcss/no-arbitrary-value -->
         {{ props.detailsTitle }}
       </summary>
       <div ref="contentRef">
