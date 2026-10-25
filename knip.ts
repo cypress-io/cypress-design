@@ -53,7 +53,10 @@ const config: KnipConfig = {
     },
     css: {
       // Rollup's postcss plugin loads the root `postcss.config.mjs`.
-      ignoreDependencies: ['autoprefixer'],
+      // `color-constants` is never imported, but it makes
+      // `turbo run build --filter=@cypress-design/css` build it first, which
+      // CI relies on before building icon-registry.
+      ignoreDependencies: ['autoprefixer', '@cypress-design/color-constants'],
     },
     'packages/eslint-plugin': {
       // Rules are loaded at runtime with `requireindex`.

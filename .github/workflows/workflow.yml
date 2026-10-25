@@ -35,6 +35,10 @@ jobs:
       - name: Display
         run: echo ${{ toJSON(steps.nonce.outputs.nonce) }}
 
+  health-check:
+    name: Health Check
+    uses: ./.github/workflows/health-check.yml
+
   build:
     name: Build
     needs: [make-nonce]
