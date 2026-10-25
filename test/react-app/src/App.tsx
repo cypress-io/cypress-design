@@ -46,7 +46,8 @@ function App() {
   const [showOtherModal, setShowOtherModal] = useState(false)
 
   return (
-    <div className="App">
+    <main className="App">
+      <h1 className="sr-only">React test app</h1>
       <header className="App-header">
         <Tabs
           variant="underline-small"
@@ -102,7 +103,7 @@ function App() {
         </p>
         <p>
           <a
-            className="App-link"
+            className="text-indigo-500"
             href="https://reactjs.org"
             target="_blank"
             rel="noopener noreferrer"
@@ -111,7 +112,7 @@ function App() {
           </a>
           {' | '}
           <a
-            className="App-link"
+            className="text-indigo-500"
             href="https://vitejs.dev/guide/features.html"
             target="_blank"
             rel="noopener noreferrer"
@@ -194,7 +195,7 @@ function App() {
         fillColor="jade-500"
         secondaryStrokeColor="red-400"
       />
-    </div>
+    </main>
   )
 }
 
