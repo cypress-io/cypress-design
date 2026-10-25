@@ -129,6 +129,5 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 - [product.md](https://design.cypress.io/agents/principles/product.md) — the _why/whether_ side: business goals + prioritization, problem definition & discovery, and running the work. This file is the _what_
 - [visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — Directing the eye once the JTBD is clear
-- [feedback.md](https://design.cypress.io/agents/principles/feedback.md) — How to push back when framing is wrong
 - [personas.md](https://design.cypress.io/agents/personas.md) — Who you're designing for
 - [voice.md](https://design.cypress.io/agents/voice.md) — Copy tone

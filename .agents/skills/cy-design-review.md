@@ -20,13 +20,13 @@ Structured design and product review against the Cypress design principles, voic
 
 2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review — fetch `https://design.cypress.io/agents/principles/product.md` and apply its "Business goals & prioritization" section.
 
-3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`, `https://design.cypress.io/agents/principles/feedback.md` (delivery rules for any review). As applicable: `https://design.cypress.io/agents/principles/product.md` (a brief, initiative, or product decision — product principles: ownership, shipping to learn, post-launch follow-through), `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
+3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/principles/product.md` (a brief, initiative, or product decision — product principles: ownership, shipping to learn, post-launch follow-through), `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
 
 4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
 
 5. **Walk the work against each fetched principle.** For each, ask: does this design honor or violate it? Note violations with a one-line _why_.
 
-6. **Cluster findings by section.** UX, visual hierarchy, copy, accessibility, AI quality, etc. Use numbered lists — see `https://design.cypress.io/agents/principles/feedback.md` for delivery rules.
+6. **Cluster findings by section.** UX, visual hierarchy, copy, accessibility, AI quality, etc. Use numbered lists.
 
 7. **Lead with framing problems if any exist.** If the design solves the wrong JTBD, ignores business goals, or skipped the design process, that lands first — visual nits second.
 

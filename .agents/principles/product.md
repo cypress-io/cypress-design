@@ -80,7 +80,6 @@ In order, all before launch: define success ("Define what success looks like bef
 ## Related
 
 - [ux.md](https://design.cypress.io/agents/principles/ux.md) — the design/what side: designing for users, patterns, naming, empty states, pricing UX, restraint. "UX lives where business goals meet user needs" is the bridge between the two files
-- [feedback.md](https://design.cypress.io/agents/principles/feedback.md) — challenging a solution-first brief before work starts
 - [releases.md](https://design.cypress.io/agents/principles/releases.md) — release stages, betas, slicing a release honestly
 - [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) — the before/before-shipping/after checklist that operationalizes these principles
 - [index.md](https://design.cypress.io/agents/index.md) — the router that points agents at these files
