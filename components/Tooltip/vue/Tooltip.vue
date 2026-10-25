@@ -207,14 +207,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <!-- Wraps the slotted trigger, which is what users hover and focus -->
+  <!-- Wraps the slotted trigger, which is what users hover and focus.
+       focusin/focusout bubble, so focus on a slotted control counts -->
   <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <div
     v-bind="$attrs"
     ref="reference"
     @mouseover="!disabled && !open && placeTooltip()"
-    @focus="!disabled && !open && placeTooltip()"
-    @blur="!open && (show = false)"
+    @focusin="!disabled && !open && placeTooltip()"
+    @focusout="!open && (show = false)"
     @mouseout="!open && (show = false)"
     @keydown.escape="!open && (show = false)"
   >

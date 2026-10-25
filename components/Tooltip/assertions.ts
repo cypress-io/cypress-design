@@ -37,6 +37,15 @@ export default function assertions(
     })
   })
 
+  it('opens while a focusable element inside the trigger has focus', () => {
+    mountStory({ single: true, buttonTrigger: true })
+    cy.contains('button', 'Open tooltip').focus()
+    cy.contains('popit').should('be.visible')
+    cy.contains('button', 'Open tooltip').blur()
+    // React unmounts a closed tooltip; Vue keeps it rendered but invisible
+    cy.contains('popit').should(fw === 'react' ? 'not.exist' : 'not.be.visible')
+  })
+
   it('shifts when overflowing', () => {
     mountStory({ single: true })
     cy.contains('[tabindex="1"]', 'Lorem ipsum').focus()

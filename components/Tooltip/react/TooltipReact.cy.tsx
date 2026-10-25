@@ -72,16 +72,16 @@ const TooltipStoryMulti = ({
 
 describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
   function mountStory(
-    options: { single?: boolean } & Parameters<
+    options: { single?: boolean; buttonTrigger?: boolean } & Parameters<
       typeof TooltipStoryMulti
     >[0] = {},
   ) {
-    const { single, tabindex = 1, ...rest } = options
+    const { single, buttonTrigger, tabindex = 1, ...rest } = options
     if (single) {
       mount(
         <Tooltip
           {...rest}
-          tabIndex={tabindex}
+          tabIndex={buttonTrigger ? undefined : tabindex}
           popper={
             <div className="w-[300px]">
               popit: Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -90,8 +90,11 @@ describe('Tooltip', { viewportHeight: 800, viewportWidth: 800 }, () => {
           }
           className="m-4 w-[150px] bg-red-300 p-4"
         >
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
-          voluptatum.
+          {buttonTrigger ? (
+            <button type="button">Open tooltip</button>
+          ) : (
+            'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.'
+          )}
         </Tooltip>,
       )
     } else {

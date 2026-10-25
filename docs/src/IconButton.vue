@@ -49,6 +49,11 @@ watch(localFocused, (value) => {
     }
 
     overlay.value = false
+
+    // Closing removes the focused close button; keep keyboard users on the card
+    if ($button.value?.contains(document.activeElement)) {
+      nextTick(() => $button.value?.focus())
+    }
   }
 })
 
@@ -91,6 +96,19 @@ function focus() {
 const $button = ref<HTMLDivElement>()
 const $closeButton = ref<HTMLButtonElement>()
 
+// Like a native button, a key only opens the card if it went down on the card:
+// the keyup of an Enter that closed the card lands here too
+let keyDownOnCard = false
+
+function onKeyDown() {
+  keyDownOnCard = true
+}
+
+function onKeyUp() {
+  if (keyDownOnCard && !focused.value) focus()
+  keyDownOnCard = false
+}
+
 const sizesGridCols = computed(
   () => `grid-cols-${Math.min(props.meta.availableSizes.length, 4)}`,
 )
@@ -114,7 +132,9 @@ const sizesGridCols = computed(
     class="rounded bg-indigo-500"
     :style="placeholderStyle"
   />
-  <!-- A button while collapsed; the rule can't read the bound role -->
+  <!-- A button while collapsed; the rule can't read the bound role. Opens on
+       keyup so no key event from the same press lands on the close button
+       that takes focus -->
   <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <div
     ref="$button"
@@ -133,8 +153,10 @@ const sizesGridCols = computed(
     }"
     :style="localFocused ? buttonStyle : undefined"
     @click="!focused ? focus() : undefined"
-    @keydown.enter.self="!focused ? focus() : undefined"
-    @keydown.space.self.prevent="!focused ? focus() : undefined"
+    @keydown.enter.self="onKeyDown"
+    @keydown.space.self.prevent="onKeyDown"
+    @keyup.enter.self="onKeyUp"
+    @keyup.space.self="onKeyUp"
     @keyup.escape="localFocused = false"
   >
     <button

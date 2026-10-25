@@ -74,21 +74,27 @@ const TooltipMulti = ({
 
 describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   function mountStory(
-    options: { single?: boolean } & Parameters<typeof TooltipMulti>[0] = {},
+    options: { single?: boolean; buttonTrigger?: boolean } & Parameters<
+      typeof TooltipMulti
+    >[0] = {},
   ) {
-    const { single, tabindex = 1, ...rest } = options
+    const { single, buttonTrigger, tabindex = 1, ...rest } = options
     if (single) {
       mount(() => (
         <Tooltip
           {...rest}
           class="m-4 w-[150px] bg-red-300 p-4"
           // @ts-expect-error TSX in volar has a tendency to be a bit wrong, this would work in a template
-          tabindex={tabindex}
+          tabindex={buttonTrigger ? undefined : tabindex}
           placement="bottom-start"
         >
           {{
             default: () =>
-              'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.',
+              buttonTrigger ? (
+                <button type="button">Open tooltip</button>
+              ) : (
+                'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatum.'
+              ),
             popper: () => (
               <div class="w-[300px]">
                 popit: Lorem ipsum dolor sit amet consectetur adipisicing elit.
