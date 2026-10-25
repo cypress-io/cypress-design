@@ -31,12 +31,12 @@ const secondaryFillColor = ref('orange-300')
 </script>
 
 <template>
-  <div class="flex items-end gap-[8px]">
+  <div class="flex items-end gap-2">
     <div
-      class="flex min-w-[32px] flex-col items-center justify-end gap-x-[16px] gap-y-[4px] py-[4px]"
+      class="flex min-w-8 flex-col items-center justify-end gap-x-4 gap-y-1 py-1"
       :class="{
-        'border-l border-gray-300 pl-[4px]': focused,
-        'px-[8px] md:w-[164px] md:px-[4px]': !focused,
+        'border-l border-gray-300 pl-1': focused,
+        'px-2 md:w-40 md:px-1': !focused,
       }"
     >
       <IconAny
@@ -47,7 +47,7 @@ const secondaryFillColor = ref('orange-300')
         :secondary-stroke-color="secondaryStrokeColor"
         :secondary-fill-color="secondaryFillColor"
       />
-      <p class="mt-1 text-[12px] text-gray-500">
+      <p class="mt-1 text-xs text-gray-500">
         <span v-if="!focused">{{ iconName.slice(groupName.length + 1) }}</span>
         {{ size }}
       </p>

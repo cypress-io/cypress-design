@@ -5,9 +5,9 @@ export default function Watermark() {
   return (
     <div className="flex items-center gap-8">
       <div className="rounded bg-gray-1000 p-4">
-        <CypressWatermark className="h-[48px] w-[48px]" dark={false} />
+        <CypressWatermark className="size-12" dark={false} />
       </div>
-      <CypressWatermark className="h-[48px] w-[48px]" dark />
+      <CypressWatermark className="size-12" dark />
     </div>
   )
 }

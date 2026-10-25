@@ -56,7 +56,7 @@ const darkVariants = [
     <div
       v-for="(_, variant) in VariantClassesTable"
       :key="variant"
-      class="flex min-w-[180px] flex-col items-center gap-4 rounded p-2 py-3"
+      class="flex min-w-48 flex-col items-center gap-4 rounded p-2 py-3"
       :class="{
         'bg-gray-1000 text-white': darkVariants.includes(variant),
         'bg-white text-gray-900': !darkVariants.includes(variant),

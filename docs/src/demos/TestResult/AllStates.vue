@@ -9,25 +9,23 @@ import {
 </script>
 
 <template>
-  <div class="max-h-[400px] overflow-hidden overflow-y-auto bg-white p-4">
+  <div class="max-h-96 overflow-hidden overflow-y-auto bg-white p-4">
     <TestResult v-for="tr in TestResults" :key="tr.id" v-bind="tr">
       <template #actions>
         <Button
           v-if="!tr.groups"
           variant="outline-light"
           size="32"
-          class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
+          class="h-8 !px-2 @lg/test-result:!px-3"
         >
           <IconActionTestReplay />
-          <span class="ml-[8px] hidden @lg/test-result:inline"
-            >Test Replay</span
-          >
+          <span class="ml-2 hidden @lg/test-result:inline">Test Replay</span>
         </Button>
         <Button
           v-else
           variant="outline-light"
           size="32"
-          class="hidden h-[32px] !px-[8px] @xl/test-result:inline-block"
+          class="hidden h-8 !px-2 @xl/test-result:inline-block"
         >
           <IconChevronRightSmall stroke-color="gray-500" />
         </Button>
@@ -36,18 +34,16 @@ import {
         <div
           v-for="group in tr.groups"
           :key="group"
-          class="flex items-center border border-t-0 border-gray-100 px-[16px] py-[10px] first:border-t"
+          class="flex items-center border border-t-0 border-gray-100 px-4 py-2.5 first:border-t"
         >
           <span class="flex-1">{{ group }}</span>
           <Button
             variant="outline-light"
             size="32"
-            class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
+            class="h-8 !px-2 @lg/test-result:!px-3"
           >
             <IconActionTestReplay />
-            <span class="ml-[8px] hidden @lg/test-result:inline"
-              >Test Replay</span
-            >
+            <span class="ml-2 hidden @lg/test-result:inline">Test Replay</span>
           </Button>
         </div>
       </template>

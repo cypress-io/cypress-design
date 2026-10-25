@@ -240,8 +240,8 @@ export default defineConfig([
         callees: ['clsx', 'twMerge'],
         // Non-Tailwind hook classes: `chevron` and `icon` mark component
         // parts, `icon-light`/`icon-dark` mark the SVG paths tw-icon-plugin
-        // colors, and the rest are styled in docs .astro <style> blocks or
-        // docs/src/styles/markdown.scss
+        // colors, and the rest are styled in docs .astro/.vue <style> blocks
+        // or docs/src/styles/markdown.scss
         whitelist: [
           'chevron',
           'icon',
@@ -253,6 +253,7 @@ export default defineConfig([
           'tile-(scroll|highlight|input|action)',
           'swatch',
           'sw-copied',
+          'chrome-tab(-strip(-light|-dark)?)?',
         ],
       },
     },
@@ -261,6 +262,16 @@ export default defineConfig([
       'tailwindcss/classnames-order': 'off',
       'tailwindcss/no-arbitrary-value': 'warn',
       'tailwindcss/no-custom-classname': 'warn',
+    },
+  },
+  {
+    // The docs site shows the design system in use, so an off-token value
+    // there teaches the wrong thing. Docs-only layout values are named in
+    // tailwind.config.mjs or live in a component <style> block instead.
+    files: ['docs/src/**/*.{ts,tsx,vue,astro}'],
+    rules: {
+      'tailwindcss/no-arbitrary-value': 'error',
+      'tailwindcss/no-custom-classname': 'error',
     },
   },
   {

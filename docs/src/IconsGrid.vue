@@ -32,35 +32,32 @@ const groupedIconsMetadata = computed(() =>
 </script>
 
 <template>
-  <div class="relative my-[24px] rounded bg-gray-50 p-[16px]">
+  <div class="relative my-6 rounded bg-gray-50 p-4">
     <input
       ref="$searchInput"
       v-model="search"
       type="search"
       placeholder="Search Icons"
-      class="mb-[16px] block w-full rounded border-2 border-solid border-gray-200 bg-white px-[8px] py-[4px] focus:border-indigo-300"
+      class="mb-4 block w-full rounded border-2 border-solid border-gray-200 bg-white px-2 py-1 focus:border-indigo-300"
     />
     <div v-if="!anyIconFound">
       <p class="text-center text-gray-500">No icons found</p>
     </div>
     <div
       v-for="(icons, groupName) of groupedIconsMetadata"
-      class="mb-[16px] bg-white py-[16px]"
+      class="mb-4 bg-white py-4"
     >
-      <h2
-        :id="groupName"
-        class="!mb-4 !mt-0 text-center text-[24px] capitalize"
-      >
+      <h2 :id="groupName" class="!mb-4 !mt-0 text-center text-2xl capitalize">
         {{ groupName }}
-        <a class="header-anchor absolute ml-[8px]" :href="`#${groupName}`"
+        <a class="header-anchor absolute ml-2" :href="`#${groupName}`"
           >&ZeroWidthSpace;</a
         >
       </h2>
       <div
         class="flex"
         :class="{
-          'max-w-full flex-wrap gap-[16px] px-[24px]': !search.length,
-          'flex-col items-start gap-[8px]': search.length,
+          'max-w-full flex-wrap gap-4 px-6': !search.length,
+          'flex-col items-start gap-2': search.length,
         }"
       >
         <IconButton

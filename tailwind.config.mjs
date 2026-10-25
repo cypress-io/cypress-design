@@ -114,6 +114,19 @@ const outlineSafelist = [
 export default {
   presets: [TailwindConfig()],
   darkMode: 'class',
+  theme: {
+    extend: {
+      // Docs-site frame: the fixed header, the two side rails, and the reading
+      // column. Each is reused across layout files, and none is a design token,
+      // so they live here rather than in the @cypress-design/css preset.
+      spacing: { 'docs-header': '72px' },
+      width: { 'docs-sidebar': '250px', 'docs-outline': '300px' },
+      maxWidth: { 'docs-content': '800px' },
+      // The hex label and WCAG badge inside a /colors swatch. They sit below
+      // the type scale on purpose: the swatch is a miniature, not body text.
+      fontSize: { 'docs-swatch-hex': '9.5px', 'docs-swatch-grade': '8px' },
+    },
+  },
   content: {
     files,
     extract: ['vue', 'jsx', 'tsx', 'ts', 'md'].reduce(

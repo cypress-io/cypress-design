@@ -14,7 +14,7 @@ const Heading = ({ children }: { children: React.ReactNode }) => (
   // Demo content renders inside the docs page's `.markdown` wrapper, whose
   // `.markdown p` rule outranks a plain `mt-0`/`mb-0` utility on specificity
   // -- force it with Tailwind's `!` modifier instead.
-  <p className="!mb-[4px] !mt-0 text-[16px] font-semibold !leading-4 text-gray-900">
+  <p className="!mb-1 !mt-0 text-base font-semibold !leading-4 text-gray-900">
     {children}
   </p>
 )
@@ -22,7 +22,7 @@ const Heading = ({ children }: { children: React.ReactNode }) => (
 const TIMED_OUT = (
   <>
     <Heading>Run timed out</Heading>
-    <p className="!mb-0 !leading-[20px]">
+    <p className="!mb-0 !leading-5">
       The run started, but never completed. This can happen when the run is
       cancelled from CI or when Cypress crashes during running tests. Check your
       CI logs for more information.
@@ -33,7 +33,7 @@ const TIMED_OUT = (
 const ERRORED = (
   <>
     <Heading>Run errored</Heading>
-    <p className="!mb-0 !leading-[20px]">
+    <p className="!mb-0 !leading-5">
       We detected that the Chrome Renderer process just crashed. We have failed
       the current spec but will continue running the next spec.
     </p>
@@ -43,10 +43,10 @@ const ERRORED = (
 const CANCELLED_MANUAL = (
   <>
     <Heading>Run manually cancelled</Heading>
-    <p className="!mb-0 flex items-center gap-[6px]">
+    <p className="!mb-0 flex items-center gap-1.5">
       <span
         aria-hidden="true"
-        className="inline-block h-[16px] w-[16px] rounded-full bg-gray-200"
+        className="inline-block size-4 rounded-full bg-gray-200"
       />
       <span>
         <b>Eric Koston</b> manually cancelled this run{' '}
@@ -60,18 +60,18 @@ const CANCELLED_MANUAL = (
 
 const CANCELLED_AUTO = (
   <>
-    <div className="!mb-[12px] flex items-center gap-[6px]">
+    <div className="!mb-3 flex items-center gap-1.5">
       <IconShapeLightningBolt
         size="16"
         fillColor="purple-200"
         strokeColor="purple-500"
         className="shrink-0"
       />
-      <p className="!m-0 text-[16px] font-semibold !leading-none text-gray-900">
+      <p className="!m-0 text-base font-semibold !leading-none text-gray-900">
         Automatically cancelled by Smart Orchestration
       </p>
     </div>
-    <p className="!mb-0 !leading-[20px]">
+    <p className="!mb-0 !leading-5">
       To save CI time and surface failures faster, Cypress automatically
       cancelled this run after <b>1 test failed</b>. You can adjust this
       threshold in <a href="#">Project Settings</a>.
@@ -87,7 +87,7 @@ const CANCELLED_AUTO = (
 const NO_TESTS_EMPTY_SPEC = (
   <>
     <Heading>No tests found</Heading>
-    <p className="!mb-0 !leading-[20px]">
+    <p className="!mb-0 !leading-5">
       Cypress attempted to run 3 specs, but found no tests inside of them.
     </p>
   </>
@@ -96,14 +96,14 @@ const NO_TESTS_EMPTY_SPEC = (
 const NO_TESTS_NO_MATCH = (
   <>
     <Heading>No spec files were found</Heading>
-    <p className="!mb-0 !leading-[20px]">
+    <p className="!mb-0 !leading-5">
       No spec files matched the{' '}
-      <code className="rounded border border-gray-100 bg-gray-25 px-[4px] font-mono text-[12px] text-purple-500">
+      <code className="rounded border border-gray-100 bg-gray-25 px-1 font-mono text-xs text-purple-500">
         specPattern
       </code>{' '}
       in your Cypress config file when this run was recorded.
       <br />
-      <code className="mb-[4px] mt-[12px] block min-h-[32px] rounded-[4px] border border-gray-100 bg-gray-25 px-[12px] py-[4px] font-mono leading-[24px] text-purple-500">
+      <code className="mb-1 mt-3 block min-h-8 rounded border border-gray-100 bg-gray-25 px-3 py-1 font-mono leading-6 text-purple-500">
         specPattern: &apos;cypress/e2e/billing/**/*.cy.ts&apos;
       </code>
     </p>

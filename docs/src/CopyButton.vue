@@ -23,7 +23,7 @@ function copyCode(text: string) {
 <template>
   <span class="relative">
     <button
-      class="invisible w-[32px] text-[12px] text-indigo-500 group-hover:visible"
+      class="invisible w-8 text-xs text-indigo-500 group-hover:visible"
       :class="{
         'opacity-0': copiedSuccess,
         'opacity-100': !copiedSuccess,
@@ -34,7 +34,7 @@ function copyCode(text: string) {
     </button>
     <span
       v-if="copiedSuccess"
-      class="absolute right-0 top-1 inline-block w-[40px] text-[12px] text-green-500"
+      class="absolute right-0 top-1 inline-block w-10 text-xs text-green-500"
       >copied</span
     >
   </span>

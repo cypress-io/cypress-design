@@ -17,7 +17,7 @@ const size = computed(() => sizes[sizeSlider.value])
     <tbody>
       <tr>
         <th>&nbsp;</th>
-        <th v-for="variant in variants" :key="variant" class="w-[100px]">
+        <th v-for="variant in variants" :key="variant" class="w-24">
           {{ variant }}
         </th>
       </tr>

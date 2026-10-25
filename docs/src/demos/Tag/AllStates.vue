@@ -7,7 +7,7 @@ const colors = Object.keys(CssColor) as Array<keyof typeof CssColor>
 </script>
 
 <template>
-  <Tag size="24" color="jade" class="px-[8px]">Tag</Tag>
+  <Tag size="24" color="jade" class="px-2">Tag</Tag>
   <div
     class="mt-5 flex flex-row flex-wrap items-start justify-center gap-6 bg-gray-700"
   >
