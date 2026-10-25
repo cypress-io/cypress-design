@@ -1,8 +1,10 @@
-# voice.md, Naming rules: Cypress Cloud — don't precede with "the".
+# voice.md, Naming rules: Cypress Cloud — don't precede with "the". When
+# "Cypress Cloud" modifies a following noun ("the Cypress Cloud UI"), "the"
+# belongs to that noun, so those aren't flagged.
 extends: existence
 message: "Write 'Cypress Cloud', not 'the Cypress Cloud'."
 link: https://design.cypress.io/agents/voice.md#naming-rules
-level: warning
+level: error
 ignorecase: true
 tokens:
-  - 'the Cypress Cloud'
+  - 'the Cypress Cloud(?! (?:UI|app|API|CLI|MCP|dashboard|interface|page|docs|documentation|settings|account|login|organizations?|orgs?|projects?|runs?|teams?|plans?|integrations?)\b)'

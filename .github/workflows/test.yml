@@ -56,8 +56,8 @@ jobs:
       - name: Lint Markdown structure
         run: yarn lint:md
 
-      # Rules live in .vale/styles/Cypress and report warnings and suggestions, so this
-      # step surfaces voice issues without failing the build yet
+      # Rules live in .vale/styles/Cypress. Mechanical naming rules are errors and fail
+      # the build; judgment-call rules are warnings and only report
       - name: Install Vale
         run: |
           curl -sSfL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_Linux_64-bit.tar.gz | tar -xz -C "$RUNNER_TEMP" vale

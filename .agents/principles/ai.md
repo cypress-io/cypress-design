@@ -17,7 +17,7 @@ description: Principles for using AI tools to build, design, write, or review Cy
 
 **Speed without review creates debt — product, design, UX, code, all of it.** AI lets people jump in and ship pages, features, or copy that pass their own litmus test but miss the bar of someone who actually knows the craft. The output looks done; the debt is invisible until someone with expertise has to unwind it. AI-produced work also blurs what was specified vs. "vibed," so documentation and review become as load-bearing as the output itself.
 
-**Using AI is table stakes. Using it well is the actual competitive advantage.** Adoption is the easy part — everyone has Cursor and Claude open. The gains now come from workflow structure, planning patterns, review loops, context management, and deciding when to refactor versus rewrite. Those skills are becoming as important as knowing the tools exist.
+**Using AI is table stakes. Using it well is the actual competitive advantage.** Adoption isn't the differentiator — everyone has Cursor and Claude open. The gains now come from workflow structure, planning patterns, review loops, context management, and deciding when to refactor versus rewrite. Those skills are becoming as important as knowing the tools exist.
 
 **More AI output means more failure surface.** Quality loops, testability, code review, and observability aren't optional at AI scale — they're the whole game. When generation is cheap, the constraint shifts to whether you can detect and contain the failures that inevitably ship. Build the quality infrastructure to match the output rate, not the team size.
 

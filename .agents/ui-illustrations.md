@@ -216,7 +216,7 @@ Frequently needed, by way of example:
 
 #### Make the icons actually render
 
-Getting the right icon into the file is half the job; getting it to render reliably is the other half. When this goes wrong it goes wrong silently — the layout looks finished and the marks are simply absent.
+Getting the right icon into the file is half the job; getting it to render reliably is the other half. When this goes wrong it goes wrong silently — the layout looks finished and the marks are absent.
 
 - **Inline the SVG markup. Never `<img src="…svg">`, never an icon webfont, never a CDN stylesheet.** Any external request is a race the headless screenshot can lose, and when it loses, every glyph renders as an empty box. Read the registry file and paste its markup into the HTML.
 - **Set color explicitly.** Registry icons carry `fill="none"` on the root and expect the `Icon` component to supply color. Inlined raw they default to dark navy, not to your text color. Apply `fill: currentColor` (or per-path fills) and set `color` on the parent.

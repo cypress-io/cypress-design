@@ -1,9 +1,11 @@
-# voice.md, Naming rules: write "Cypress", never "Cypress.io".
+# voice.md, Naming rules: write "Cypress", never "Cypress.io". The website is
+# the lowercase domain, cypress.io, which this rule doesn't match. The legal
+# entity "Cypress.io, Inc." is a name, not a product reference.
 extends: existence
 message: "Write 'Cypress', not 'Cypress.io'."
 link: https://design.cypress.io/agents/voice.md#naming-rules
-level: warning
+level: error
 ignorecase: false
 nonword: true
 tokens:
-  - '\bCypress\.io\b'
+  - '\bCypress\.io\b(?!,? Inc\b)'
