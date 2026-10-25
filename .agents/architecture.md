@@ -33,7 +33,7 @@
 - `/.agents/skills/` — Task-specific guidance for component work, PR reviews, etc.
 - `/.agents/review-checklist.md` — Run before claiming any UI / visual / content task done
 
-**Before you push:** run every check in the README’s [Before you push](https://github.com/cypress-io/cypress-design#before-you-push) table. The pre-commit hook covers ESLint, Prettier, and markdownlint on staged files only; Vale, knip, the type checks, and the internal-deps check run only when you run them or in CI.
+**Before you push:** run every check in the README’s [Before you push](https://github.com/cypress-io/cypress-design#before-you-push) table (`ReadMe.md` at the repo root), plus `yarn test` and `yarn test:eslint-plugin`. The pre-commit hook covers ESLint, Prettier, and markdownlint on staged files only; everything else runs only when you run it or in CI.
 
 **Configuration:**
 

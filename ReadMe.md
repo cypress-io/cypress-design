@@ -189,9 +189,10 @@ Finally, you should see the `prompt.js` file has been removed. Revert that chang
 ### Running tests
 
 ```bash
-yarn cy         # Open Cypress (interactive mode, watches for changes)
-yarn cy:run     # CLI mode (headless)
-yarn test       # Unit tests (vitest)
+yarn cy                 # Open Cypress (interactive mode, watches for changes)
+yarn cy:run             # CLI mode (headless)
+yarn test               # Unit tests (vitest)
+yarn test:eslint-plugin # Tests for @cypress-design/eslint-plugin rules
 ```
 
 ### Before you push
@@ -208,6 +209,7 @@ CI runs these checks on every PR (`.github/workflows/test.yml`, plus knip in `he
 | Types         | `yarn vue-tsc --noEmit -p .`<br>`yarn vue-tsc --noEmit -p ./tsconfig.vue.json`<br>`yarn tsc --noEmit -p ./tsconfig.react.json` | Type errors in the docs site, Vue, and React code                                                                                            | No                |
 | Internal deps | `node scripts/check-internal-deps.mjs`                                                                                         | Wrong `@cypress-design/*` ranges or undeclared imports in published packages ([details](.agents/architecture.md#internal-dependency-ranges)) | No                |
 
+- **Tests:** CI also runs `yarn test` and `yarn test:eslint-plugin`, plus the Cypress component tests. See [Running tests](#running-tests).
 - **knip:** `knip.ts` holds the config. If knip flags something that is used, teach the config how it’s reached (an `entry` or a narrow `ignoreDependencies`) rather than ignoring the file.
 - **Internal deps:** reads each package’s built `dist/`. `yarn install` builds them; after editing a package, run `yarn build:components` first.
 - **Vale:** rules live in `.vale/styles/Cypress/`, and each one cites the line in `.agents/voice.md` it enforces.

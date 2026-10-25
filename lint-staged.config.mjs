@@ -13,9 +13,12 @@ const realFiles = (files) =>
     }
   })
 
+// lint-staged splits a command string on spaces unless they're quoted
+const quote = (files) => files.map((f) => JSON.stringify(f)).join(' ')
+
 const prettier = (files) => {
   const real = realFiles(files)
-  return real.length ? `prettier --write ${real.join(' ')}` : []
+  return real.length ? `prettier --write ${quote(real)}` : []
 }
 
 // --no-globs stops markdownlint-cli2 from also linting every file matched by
@@ -23,9 +26,7 @@ const prettier = (files) => {
 // root-anchored ignores there (`.changeset/*.md`) don't match absolute paths.
 const markdownlint = (files) => {
   const real = realFiles(files).map((f) => relative(process.cwd(), f))
-  return real.length
-    ? `markdownlint-cli2 --no-globs --fix ${real.join(' ')}`
-    : []
+  return real.length ? `markdownlint-cli2 --no-globs --fix ${quote(real)}` : []
 }
 
 export default {
