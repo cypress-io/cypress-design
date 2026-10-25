@@ -204,6 +204,9 @@ export default defineComponent({
 </script>
 
 <template>
+  <!-- Associated by nesting; the rule's default also demands `for`/`id`,
+       and the input's `id` is the consumer's to set -->
+  <!-- eslint-disable-next-line vuejs-accessibility/label-has-for -->
   <label :class="wrapperClasses">
     <!-- Label Left -->
     <span

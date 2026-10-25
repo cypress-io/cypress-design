@@ -98,6 +98,8 @@ const sizesGridCols = computed(
 </script>
 
 <template>
+  <!-- Backdrop click is the pointer counterpart of Escape on the card -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -->
   <div
     v-if="overlay"
     class="absolute left-0 top-0 z-10 h-full w-full bg-gray-500 transition transition-opacity"
@@ -112,9 +114,12 @@ const sizesGridCols = computed(
     class="rounded bg-indigo-500"
     :style="placeholderStyle"
   />
+  <!-- A button while collapsed; the rule can't read the bound role -->
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <div
     ref="$button"
     tabindex="0"
+    :role="focused ? undefined : 'button'"
     class="flex min-h-[72px] flex-wrap items-center gap-x-[16px] overflow-hidden rounded bg-indigo-50"
     :class="{
       'mx-[16px] !cursor-default justify-end px-[8px] pb-[4px] md:flex-nowrap md:justify-start':
@@ -128,6 +133,8 @@ const sizesGridCols = computed(
     }"
     :style="localFocused ? buttonStyle : undefined"
     @click="!focused ? focus() : undefined"
+    @keydown.enter.self="!focused ? focus() : undefined"
+    @keydown.space.self.prevent="!focused ? focus() : undefined"
     @keyup.escape="localFocused = false"
   >
     <button

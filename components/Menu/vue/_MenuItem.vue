@@ -46,6 +46,9 @@ const handleMouseLeave = () => {
 </script>
 
 <template>
+  <!-- mouseleave only cancels the pressed look mousedown sets, which keyboard
+       activation never shows -->
+  <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events -->
   <a
     :href="href"
     :class="[

@@ -5,6 +5,7 @@ const emit = defineEmits<{
 
 defineProps<{
   modelValue?: string
+  label: string
 }>()
 
 function emitValue(event: Event) {
@@ -20,6 +21,7 @@ function emitValue(event: Event) {
 <template>
   <div class="relative h-[20px] leading-[20px]">
     <select
+      :aria-label="label"
       class="absolute bottom-0 left-0 right-0 top-0 cursor-pointer opacity-0"
       @change="emitValue"
     >

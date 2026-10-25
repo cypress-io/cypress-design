@@ -30,8 +30,12 @@ export default function BlockSwitching() {
   const [allowMove, setAllowMove] = useState(true)
   return (
     <>
-      <label className="mb-4 flex items-center gap-2">
+      <label
+        htmlFor="react-block-switching-allow-move"
+        className="mb-4 flex items-center gap-2"
+      >
         <input
+          id="react-block-switching-allow-move"
           type="checkbox"
           checked={allowMove}
           onChange={(e) => setAllowMove(e.target.checked)}

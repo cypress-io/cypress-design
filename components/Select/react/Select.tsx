@@ -489,6 +489,9 @@ export const Select: React.FC<SelectProps> = ({
     )
 
   return (
+    // Catches keys bubbling up from the trigger and the search input, which
+    // own focus while the listbox is open
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
     <div
       ref={wrapperRef}
       className={clsx(SelectConstants.CssWrapperClasses, className)}

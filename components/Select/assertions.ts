@@ -244,7 +244,10 @@ export default function assertions(
       cy.findByRole('combobox', { name: 'Open' }).click()
       // The button-row's inner <Button> carries role="option" so the
       // listbox exposes only valid children (aria-required-children).
-      cy.findByRole('listbox').findByRole('option', { name: 'Add new' }).click()
+      cy.findByRole('listbox')
+        .findByRole('option', { name: 'Add new' })
+        .should('have.attr', 'aria-selected', 'false')
+        .click()
       cy.get('@rowAction').should('have.been.calledOnce')
     })
 

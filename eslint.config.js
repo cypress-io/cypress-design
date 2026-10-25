@@ -8,6 +8,8 @@ import vue from 'eslint-plugin-vue'
 import noOnlyTests from 'eslint-plugin-no-only-tests'
 import chaiFriendly from 'eslint-plugin-chai-friendly'
 import reactHooksRaw from 'eslint-plugin-react-hooks'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import vueA11y from 'eslint-plugin-vuejs-accessibility'
 import astro from 'eslint-plugin-astro'
 import { fixupPluginRules } from '@eslint/compat'
 import tailwind from 'eslint-plugin-tailwindcss'
@@ -161,6 +163,19 @@ export default defineConfig([
     rules: reactHooksRaw.configs.recommended.rules,
   },
   {
+    files: ['components/*/react/**/*.tsx', 'docs/src/**/*.tsx'],
+    extends: [jsxA11y.flatConfigs.recommended],
+  },
+  {
+    // Tests stand in for consumer components (router links and the like) with
+    // plain clickable elements; the component under test is what gets linted
+    files: componentTests('react'),
+    rules: {
+      'jsx-a11y/click-events-have-key-events': 'off',
+      'jsx-a11y/no-static-element-interactions': 'off',
+    },
+  },
+  {
     files: reactTestFiles,
     ...cypressTests,
   },
@@ -178,6 +193,32 @@ export default defineConfig([
     },
     plugins: { vue },
     rules: vue.configs.recommended.rules,
+  },
+  {
+    // Applies `<!-- eslint-disable -->` comments in templates. Part of the
+    // plugin's base config, which `vue.configs.recommended.rules` leaves out
+    files: ['**/*.vue'],
+    plugins: { vue },
+    processor: vue.processors['.vue'],
+    rules: { 'vue/comment-directive': 'error' },
+  },
+  {
+    files: ['components/*/vue/**/*.vue', 'docs/src/**/*.vue'],
+    extends: vueA11y.configs['flat/recommended'],
+    // The preset bundles its own (newer) vue-eslint-parser; keep the one the
+    // Vue block above is configured and tested against
+    languageOptions: { parser: vueParser },
+  },
+  {
+    // The rule matches tag names case-insensitively, so it reads the
+    // `<Select>` component as a native `<select>`. Its trigger is a labelled
+    // combobox (see components/Select/instructions.md). Configured here
+    // because demo tiles are shown verbatim and an inline disable would
+    // appear in the example
+    files: ['docs/src/demos/Select/**/*.vue'],
+    rules: {
+      'vuejs-accessibility/form-control-has-label': 'off',
+    },
   },
   {
     files: vueTestFiles,

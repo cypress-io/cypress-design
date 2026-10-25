@@ -38,6 +38,7 @@ const groupedIconsMetadata = computed(() =>
       v-model="search"
       type="search"
       placeholder="Search Icons"
+      aria-label="Search icons"
       class="mb-[16px] block w-full rounded border-2 border-solid border-gray-200 bg-white px-[8px] py-[4px] focus:border-indigo-300"
     />
     <div v-if="!anyIconFound">

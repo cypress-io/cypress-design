@@ -207,6 +207,8 @@ onMounted(() => {
 </script>
 
 <template>
+  <!-- Wraps the slotted trigger, which is what users hover and focus -->
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <div
     v-bind="$attrs"
     ref="reference"
@@ -219,6 +221,9 @@ onMounted(() => {
     <!-- @slot element to hover on to open the tooltip -->
     <slot />
     <teleport v-if="!disabled" to="#portal-target">
+      <!-- Keeps an `interactive` tooltip open while the pointer moves onto
+           it; keyboard show/hide is handled on the trigger above -->
+      <!-- eslint-disable-next-line vuejs-accessibility/mouse-events-have-key-events, vuejs-accessibility/no-static-element-interactions -->
       <div
         ref="tooltip"
         role="tooltip"

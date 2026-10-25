@@ -115,6 +115,9 @@ function syncOnNativeClose() {
 </script>
 
 <template>
+  <!-- Backdrop click is the pointer counterpart of Escape, which `@cancel`
+       handles -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -->
   <dialog
     ref="$dialog"
     :class="[

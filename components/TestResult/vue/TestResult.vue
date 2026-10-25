@@ -19,6 +19,9 @@ const emit = defineEmits<{
 </script>
 
 <template>
+  <!-- The documented row `click` event is pointer-only; keyboard users rely
+       on the buttons in the `actions` slot -->
+  <!-- eslint-disable-next-line vuejs-accessibility/click-events-have-key-events, vuejs-accessibility/no-static-element-interactions -->
   <div
     data-cy="cd-tr-container"
     :class="CssClasses.container"

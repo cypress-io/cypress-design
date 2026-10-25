@@ -60,21 +60,25 @@ const secondaryFillColor = ref('orange-300')
       <ColorSelector
         v-if="supports(meta.hasStrokeColor, size)"
         v-model="strokeColor"
+        label="Stroke color"
         >s</ColorSelector
       >
       <ColorSelector
         v-if="supports(meta.hasFillColor, size)"
         v-model="fillColor"
+        label="Fill color"
         >f</ColorSelector
       >
       <ColorSelector
         v-if="supports(meta.hasSecondaryStrokeColor, size)"
         v-model="secondaryStrokeColor"
+        label="Secondary stroke color"
         >s+</ColorSelector
       >
       <ColorSelector
         v-if="supports(meta.hasSecondaryFillColor, size)"
         v-model="secondaryFillColor"
+        label="Secondary fill color"
         >f+</ColorSelector
       >
     </div>

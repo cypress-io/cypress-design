@@ -464,6 +464,9 @@ const chevronClasses = computed(() => [
 </script>
 
 <template>
+  <!-- Catches keys bubbling up from the trigger and the search input, which
+       own focus while the listbox is open -->
+  <!-- eslint-disable-next-line vuejs-accessibility/no-static-element-interactions -->
   <div
     ref="wrapperRef"
     :class="[SelectConstants.CssWrapperClasses]"
