@@ -1,5 +1,12 @@
 # @cypress-design/vue-icon
 
+## 3.4.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypress-design/icon-registry@3.4.0
+
 ## 3.3.2
 
 ### Patch Changes

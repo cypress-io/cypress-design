@@ -1621,7 +1621,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:^3.3.2, @cypress-design/icon-registry@workspace:icon-registry":
+"@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:^3.3.2, @cypress-design/icon-registry@workspace:^3.4.0, @cypress-design/icon-registry@workspace:icon-registry":
   version: 0.0.0-use.local
   resolution: "@cypress-design/icon-registry@workspace:icon-registry"
   dependencies:
@@ -1644,7 +1644,7 @@ __metadata:
   dependencies:
     "@cypress-design/constants-accordion": "npm:*"
     "@cypress-design/details-animation": "workspace:^1.0.0"
-    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1656,7 +1656,7 @@ __metadata:
   dependencies:
     "@cypress-design/constants-alert": "npm:*"
     "@cypress-design/details-animation": "workspace:^1.0.0"
-    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1688,7 +1688,7 @@ __metadata:
   resolution: "@cypress-design/react-docmenu@workspace:components/DocMenu/react"
   dependencies:
     "@cypress-design/constants-docmenu": "npm:*"
-    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1705,11 +1705,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-icon@npm:*, @cypress-design/react-icon@workspace:^3.3.2, @cypress-design/react-icon@workspace:components/Icon/react":
+"@cypress-design/react-icon@npm:*, @cypress-design/react-icon@workspace:^3.3.2, @cypress-design/react-icon@workspace:^3.4.0, @cypress-design/react-icon@workspace:components/Icon/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-icon@workspace:components/Icon/react"
   dependencies:
-    "@cypress-design/icon-registry": "workspace:^3.3.2"
+    "@cypress-design/icon-registry": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@types/lodash": "npm:^4.17.4"
     clsx: "npm:*"
@@ -1733,7 +1733,7 @@ __metadata:
   resolution: "@cypress-design/react-menu@workspace:components/Menu/react"
   dependencies:
     "@cypress-design/constants-menu": "npm:*"
-    "@cypress-design/icon-registry": "workspace:^3.3.2"
+    "@cypress-design/icon-registry": "workspace:^3.4.0"
     "@cypress-design/react-icon": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
@@ -1745,7 +1745,7 @@ __metadata:
   resolution: "@cypress-design/react-modal@workspace:components/Modal/react"
   dependencies:
     "@cypress-design/constants-modal": "npm:*"
-    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1809,13 +1809,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/react-statusicon@workspace:^1.0.5, @cypress-design/react-statusicon@workspace:components/StatusIcon/react":
+"@cypress-design/react-statusicon@workspace:^1.0.5, @cypress-design/react-statusicon@workspace:^1.1.0, @cypress-design/react-statusicon@workspace:components/StatusIcon/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-statusicon@workspace:components/StatusIcon/react"
   dependencies:
     "@cypress-design/constants-statusicon": "npm:*"
-    "@cypress-design/icon-registry": "workspace:^3.3.2"
-    "@cypress-design/react-icon": "workspace:^3.3.2"
+    "@cypress-design/icon-registry": "workspace:^3.4.0"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1847,8 +1847,8 @@ __metadata:
   dependencies:
     "@cypress-design/constants-testresult": "npm:*"
     "@cypress-design/react-button": "npm:*"
-    "@cypress-design/react-icon": "workspace:^3.3.2"
-    "@cypress-design/react-statusicon": "workspace:^1.0.5"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
+    "@cypress-design/react-statusicon": "workspace:^1.1.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
   languageName: unknown
@@ -1952,7 +1952,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-icon@workspace:components/Icon/vue"
   dependencies:
-    "@cypress-design/icon-registry": "workspace:^3.3.2"
+    "@cypress-design/icon-registry": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@types/lodash": "npm:^4.17.4"
     dedent: "npm:^1.5.3"
