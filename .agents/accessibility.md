@@ -1,6 +1,6 @@
 ---
 name: accessibility
-description: Accessibility principles and considerations. Fetch when designing interactive elements, modals, custom inputs, animations, evaluating whether a flow works for users on keyboard / assistive tech, or writing copy about accessibility or disability.
+description: When to invest in accessibility and the patterns to follow on the surfaces you ship. Fetch when designing interactive elements, modals, custom inputs, animations, evaluating whether a flow works for users on keyboard / assistive tech, or writing copy about accessibility or disability.
 ---
 
 # Accessibility

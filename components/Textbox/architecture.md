@@ -1,3 +1,8 @@
+---
+name: components/Textbox/architecture
+description: "How Textbox is built — file layout, the <label> wrapper, CSS-only state handling, focus and hover propagation, icon rendering, divider coupling, and extension points. Fetch alongside instructions.md when changing Textbox's implementation; skip when only using it."
+---
+
 # Textbox — architecture
 
 How the Textbox component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](./instructions.md).

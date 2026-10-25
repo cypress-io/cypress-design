@@ -1,3 +1,8 @@
+---
+name: components/Tabs/instructions
+description: 'Tabs API — tab bar: props, events, and slots. Fetch when using, reviewing, or referencing Tabs in a Vue or React project.'
+---
+
 # Tabs — Props, Events & Slots
 
 ## Install

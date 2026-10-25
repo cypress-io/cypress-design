@@ -1,3 +1,8 @@
+---
+name: components/SpecResults/architecture
+description: "How SpecResults is built — where the logic lives (buildSpecResultsView), design decisions, gotchas, and the Vue status. Fetch alongside instructions.md when changing SpecResults's implementation; skip when only using it."
+---
+
 # SpecResults — Architecture
 
 Why the component is built the way it is. The source is the reference for

@@ -1,3 +1,8 @@
+---
+name: components/Modal/instructions
+description: 'Modal API — native <dialog> modal and how it closes in Vue vs React: props, events, and slots. Fetch when using, reviewing, or referencing Modal in a Vue or React project.'
+---
+
 # Modal — Props, Events & Slots
 
 ## Install

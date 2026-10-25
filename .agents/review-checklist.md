@@ -10,7 +10,7 @@ Run through these before you say "done." If a check doesn't apply (e.g. no copy 
 ## Colors
 
 - [ ] No raw hex values (`#abc`, `#aabbcc`) or `rgb(...)` introduced. Grep the diff: `grep -nE '#[0-9a-fA-F]{3,8}\b|rgb\(|rgba\(' <changed files>`. If any match, replace with a `--cy-*` token or Tailwind class.
-- [ ] Text contrast: body text on white uses step `600` or darker; on `gray-1000` uses `300` or lighter. See [colors.md](https://design.cypress.io/agents/colors.md).
+- [ ] Text contrast: body text on white or `gray-50` uses gray `700` or darker (`600` or darker for other hues); on `gray-1000` uses `300` or lighter. Fine print needs 7:1; large text and meaningful icons need 3:1. See [colors.md](https://design.cypress.io/agents/colors.md) for every use and surface.
 - [ ] Tertiary hues (Fuchsia / Green / Magenta) only appear in syntax highlighting or chart code paths.
 
 ## Spacing

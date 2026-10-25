@@ -76,13 +76,29 @@ describe('<Tabs/>', () => {
     it('updates v-model:active-id on click and arrow keys', () => {
       const activeId = ref('ov')
       mount(() => (
-        <Tabs
-          tabs={[
-            { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
-            { id: 'err', label: 'Errors', ['aria-controls']: 'tabpanel-id-2' },
-          ]}
-          v-model:activeId={activeId.value}
-        />
+        <div>
+          <Tabs
+            tabs={[
+              {
+                id: 'ov',
+                label: 'Overview',
+                ['aria-controls']: 'tabpanel-id-1',
+              },
+              {
+                id: 'err',
+                label: 'Errors',
+                ['aria-controls']: 'tabpanel-id-2',
+              },
+            ]}
+            v-model:activeId={activeId.value}
+          />
+          <div id="tabpanel-id-1" role="tabpanel">
+            Tab Panel 1
+          </div>
+          <div id="tabpanel-id-2" role="tabpanel">
+            Tab Panel 2
+          </div>
+        </div>
       ))
 
       cy.contains('Errors')
@@ -100,17 +116,33 @@ describe('<Tabs/>', () => {
     it('does not emit update:activeId when switch is prevented', () => {
       const onUpdate = cy.stub().as('onUpdate')
       mount(() => (
-        <Tabs
-          tabs={[
-            { id: 'ov', label: 'Overview', ['aria-controls']: 'tabpanel-id-1' },
-            { id: 'err', label: 'Errors', ['aria-controls']: 'tabpanel-id-2' },
-          ]}
-          activeId="ov"
-          onSwitch={(_: Tab, e: { preventDefault: () => void }) =>
-            e.preventDefault()
-          }
-          {...{ 'onUpdate:activeId': onUpdate }}
-        />
+        <div>
+          <Tabs
+            tabs={[
+              {
+                id: 'ov',
+                label: 'Overview',
+                ['aria-controls']: 'tabpanel-id-1',
+              },
+              {
+                id: 'err',
+                label: 'Errors',
+                ['aria-controls']: 'tabpanel-id-2',
+              },
+            ]}
+            activeId="ov"
+            onSwitch={(_: Tab, e: { preventDefault: () => void }) =>
+              e.preventDefault()
+            }
+            {...{ 'onUpdate:activeId': onUpdate }}
+          />
+          <div id="tabpanel-id-1" role="tabpanel">
+            Tab Panel 1
+          </div>
+          <div id="tabpanel-id-2" role="tabpanel">
+            Tab Panel 2
+          </div>
+        </div>
       ))
 
       cy.contains('Errors').click()
@@ -120,19 +152,24 @@ describe('<Tabs/>', () => {
 
     it('renders a custom tab', () => {
       mount(() => (
-        <Tabs
-          tabs={[
-            {
-              id: 'ia',
-              label: 'Initial Active',
-              ['aria-controls']: 'tabpanel-id-1',
-            },
-          ]}
-        >
-          {{
-            tab: (tab: Tab) => <div>{tab.label} - Custom Tab</div>,
-          }}
-        </Tabs>
+        <div>
+          <Tabs
+            tabs={[
+              {
+                id: 'ia',
+                label: 'Initial Active',
+                ['aria-controls']: 'tabpanel-id-1',
+              },
+            ]}
+          >
+            {{
+              tab: (tab: Tab) => <div>{tab.label} - Custom Tab</div>,
+            }}
+          </Tabs>
+          <div id="tabpanel-id-1" role="tabpanel">
+            Tab Panel 1
+          </div>
+        </div>
       ))
 
       cy.contains('Custom Tab').should('exist')

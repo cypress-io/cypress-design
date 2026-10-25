@@ -1,10 +1,14 @@
-# voice.md, Tone: avoid "just". A suggestion rather than a warning, since
-# "just" also means "a moment ago" ("your agent just wrote"). "not just"
-# means "not only", so it isn't flagged.
+# voice.md, Tone: avoid "just" when it minimizes effort ("just run", "you just
+# need to"). Other senses are fine: "not only" ("don't just trust it"), "a
+# moment ago" ("your agent just wrote", "you've just run"), and "exactly"
+# ("just like"), so only "just" before an instruction is flagged.
+# A warning, not an error: "just add" can still mean "only add", and "the
+# agent just set it" reads as past tense.
 extends: existence
 message: "Avoid '%s' when it minimizes effort. State what happens instead."
 link: https://design.cypress.io/agents/voice.md#tone
-level: suggestion
+level: warning
 ignorecase: true
 tokens:
-  - '(?<!not )just'
+  - "(?<!(?:not|n't|n’t|have|has|had|'ve|’ve) )just (?:add|call|change|click|copy|drop|enable|import|install|open|pass|paste|point|run|select|set|swap|type|update|use|wrap)"
+  - '(?:you|we) just (?:need|have) to'

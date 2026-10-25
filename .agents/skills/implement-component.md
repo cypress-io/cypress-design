@@ -34,12 +34,14 @@ Figma design should be provided with the following specifications:
   components/{ComponentName}/
     ├── constants/          # Shared styles (used by both React and Vue)
     ├── react/             # React implementation
-    │   └── {ComponentName}React.cy.tsx  # React Cypress tests
+    │   ├── {ComponentName}React.cy.tsx  # React Cypress tests
+    │   └── ReadMe.md      # Install, import, examples (also the npm README)
     ├── vue/               # Vue implementation
-    │   └── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
+    │   ├── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
+    │   └── ReadMe.md      # Install, import, examples (also the npm README)
     ├── assertions.ts      # Shared test assertions (optional)
-    ├── ReadMe.md          # Component overview
-    └── instructions.md    # Component-specific agent instructions (if needed)
+    ├── instructions.md    # Agent-facing usage doc
+    └── architecture.md    # Agent-facing implementation doc
   ```
 
 ### Implementation Requirements
@@ -48,7 +50,7 @@ Each component must include:
 
 - **TypeScript types** - Proper interfaces for props, exported from constants
 - **Cypress tests** - Component tests in `{ComponentName}.cy.tsx` files
-- **Visual documentation** - VitePress documentation showing all states, sizes, and variants
+- **Visual documentation** - Docs-site demo tiles showing all states, sizes, and variants (see step 2b)
 - **Accessibility** - WCAG 2.1 compliant with proper ARIA attributes
 
 ### Component-Specific Instructions
@@ -88,22 +90,14 @@ Each branch should be reviewed and merged before starting the next branch.
      - Create shared visual styles in constants file (see "Constants Structure" section)
      - Implement React component in `components/{ComponentName}/react/{ComponentName}.tsx`
      - Implement Vue component in `components/{ComponentName}/vue/{ComponentName}.vue`
-     - Create/update `components/{ComponentName}/ReadMe.md` — this is the public docs page rendered on the design system site. Keep it terse: a `<script setup>` block importing the Vue component, a short prose description, one or more `<DemoWrapper>` live demos covering the main variants, and a Figma link. Don't put spec tables or state matrices here.
+     - Create/update `components/{ComponentName}/react/ReadMe.md` and `vue/ReadMe.md` — install command, import path, and code examples for that framework. They're also the npm package READMEs, so don't add frontmatter; the docs site and `scripts/copy-agents.mjs` read them as-is. Don't put spec tables or state matrices here.
+     - Give `instructions.md` and `architecture.md` frontmatter with a one-line `description` (see "Writing agent guidance" in `/AGENTS.md`); PR CI fails without it.
      - Create `components/{ComponentName}/instructions.md` — agent-facing **usage** doc. Document every supported variant, size, state, theme, slot, and prop, plus accessibility notes and known limitations, so an agent can _use_ the component confidently without reading the source. Treat anything documented here as supported; anything missing isn't. Do not include file layout, constants structure, or internal interaction-model rationale here — that's for `architecture.md`.
      - Create `components/{ComponentName}/architecture.md` — agent-facing **implementation** doc. Required for every component. Document the file layout, constants keying strategy, wrapper/structural choices (e.g. "wrapper is a `<label>` so clicking focuses the input"), state-handling approach (CSS pseudo-classes vs. JS state), extension points, and any gotchas that matter when rebuilding or extending the component. For trivial components, this can be short, but it must exist so future agents know where things live and why. **Focus on intent, not implementation.** The Vue/React source files are the source of truth for _how_; this doc covers _why_ and _where_. Don't reproduce class strings, JSX bodies, or full code samples that already live in the component files — link to the source file by name and summarize the decision in prose. Duplicating implementation here means two places to maintain.
-     - Add the new component to the `## Components` list in `/AGENTS.md` so agents can discover it.
-   - **2b) VitePress Documentation:**
-     - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
-     - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
-     - Include interactive code examples using ` ```jsx live ` and ` ```vue live ` blocks
-     - **Documentation structure:**
-       - Component description
-       - All variants/types
-       - All sizes
-       - All states (with examples)
-       - Props API reference
-       - Usage examples
-     - Follow the same structure as existing component documentation
+     - Add the new component to the `## Components` list in `/.agents/index.md` so agents can discover it.
+   - **2b) Docs site demos:**
+     - Follow "When adding component docs" in `/.agents/architecture.md`: demo tiles under `docs/src/demos/{ComponentName}/` covering every variant, size, and state, and the package registered in `docs/src/lib/tile-modules.ts`. The component page picks them up automatically.
+     - Use an existing component's tiles (Button, Tag, Checkbox) as the pattern to follow.
 
 3. **Generate Cypress Tests**
 
@@ -204,7 +198,7 @@ export type ComponentVariant = keyof typeof CssVariantClasses
 - **Use Tailwind CSS only** - No inline styles, no CSS modules, no styled-components
 - **Do not use inline styles** in `/react` or `/vue` component files
 - Use `clsx` (React) or computed classes (Vue) to combine class strings
-- Components' visual styles should be easy to extend and modify by humans
+- Humans should be able to extend and modify components' visual styles
 - For theme support, use Tailwind's `dark:` variant with explicit colors from Figma
 
 ## Icons

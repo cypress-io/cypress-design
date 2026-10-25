@@ -1,3 +1,8 @@
+---
+name: components/Accordion/instructions
+description: 'Accordion API — expandable section with a header and collapsible content: props, events, and slots. Fetch when using, reviewing, or referencing Accordion in a Vue or React project.'
+---
+
 # Accordion — Props, Events & Slots
 
 ## Install

@@ -16,8 +16,8 @@ export default () => (
         <th class="text-left">Used for</th>
       </tr>
       <tr key="h1">
-        <th />
-        <th />
+        <td />
+        <td />
         {sizes.map((size) => {
           return (
             <th key={`heading-${size}`} class="text-left">
@@ -25,7 +25,7 @@ export default () => (
             </th>
           )
         })}
-        <th />
+        <td />
       </tr>
     </thead>
     <tbody>

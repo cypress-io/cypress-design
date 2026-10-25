@@ -1,3 +1,8 @@
+---
+name: components/Favicon/instructions
+description: 'Favicon — renders the Cypress favicon <link> tags into <head>. Covers which package to install, props, picking a build, using the assets without the component, and the two deliberately omitted tags. Fetch when adding or changing favicons on a Cypress site.'
+---
+
 # Favicon — Props, Setup & Reference
 
 Renders the Cypress favicon `<link>` tags into `<head>`. No visual output, no interactivity, no

@@ -7,7 +7,7 @@ import Tooltip from './Tooltip.vue'
 const TooltipMulti = ({
   color = 'light',
   placement,
-  tabindex = 1,
+  tabindex = 0,
   disabled,
 }: ComponentProps<typeof Tooltip> & { tabindex?: number } = {}) => (
   <div class="center flex flex-col items-center gap-20">
@@ -21,7 +21,7 @@ const TooltipMulti = ({
     >
       {{
         default: () => <div>Hover Me (dynamic: {placement?.toString()})</div>,
-        popper: () => <div class="bg-jade-200 p-4">PopovDyn</div>,
+        popper: () => <div class="bg-jade-200 p-4 text-gray-800">PopovDyn</div>,
       }}
     </Tooltip>
     <Tooltip
@@ -76,7 +76,7 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
   function mountStory(
     options: { single?: boolean } & Parameters<typeof TooltipMulti>[0] = {},
   ) {
-    const { single, tabindex = 1, ...rest } = options
+    const { single, tabindex = 0, ...rest } = options
     if (single) {
       mount(() => (
         <Tooltip

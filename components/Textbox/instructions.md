@@ -1,3 +1,8 @@
+---
+name: components/Textbox/instructions
+description: 'Textbox API — single-line text input with optional labels, icons, and divider: props, events, slots, states, and accessibility. Fetch when using, reviewing, or referencing Textbox in a Vue or React project.'
+---
+
 # Textbox — usage
 
 How to use the Textbox component. Anything documented here is supported; anything missing isn't.
