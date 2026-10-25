@@ -4,10 +4,12 @@ import {
   rmSync,
   readdirSync,
   existsSync,
+  readFileSync,
   writeFileSync,
 } from 'fs'
 import { join, dirname, relative, sep } from 'path'
 import { fileURLToPath } from 'url'
+import { frontmatterDescription } from './frontmatter-description.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const dest = join(root, 'docs', 'public', 'agents')
@@ -46,7 +48,9 @@ for (const entry of readdirSync(componentsDir, { withFileTypes: true })) {
 }
 
 // llms.txt — list every served doc as an absolute URL so agents can discover
-// (and fetch tools can unlock) the whole tree from the domain root
+// (and fetch tools can unlock) the whole tree from the domain root. Each
+// entry carries its frontmatter description so agents can pick a doc
+// without fetching it first.
 const BASE_URL = 'https://design.cypress.io/agents'
 const docs = readdirSync(dest, { recursive: true, withFileTypes: true })
   .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
@@ -64,7 +68,13 @@ const llmsTxt = [
   `- [index.md](${BASE_URL}/index.md): router — fetch this first, it points at the rest`,
   ...docs
     .filter((path) => path !== 'index.md')
-    .map((path) => `- [${path}](${BASE_URL}/${path})`),
+    .map((path) => {
+      const link = `- [${path}](${BASE_URL}/${path})`
+      const description = frontmatterDescription(
+        readFileSync(join(dest, path), 'utf8'),
+      )
+      return description ? `${link}: ${description}` : link
+    }),
   '',
 ].join('\n')
 writeFileSync(join(root, 'docs', 'public', 'llms.txt'), llmsTxt)
