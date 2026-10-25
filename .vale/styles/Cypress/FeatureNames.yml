@@ -1,6 +1,8 @@
 # voice.md, Product and feature names: feature names are always capitalized,
 # even in sentence-case text. Only multi-word names are listed: single words
 # like "replay" or "insights" are also ordinary English.
+# "UI coverage" is the UI Coverage product name, but lowercase it's also the
+# general capability ("improve UI coverage"), so it lives here too.
 # A warning, not an error: some of these are also everyday phrases ("branch
 # review comments", "a test replay of the bug").
 extends: substitution
@@ -9,6 +11,7 @@ link: https://design.cypress.io/agents/voice.md#product-and-feature-names
 level: warning
 ignorecase: false
 swap:
+  '[Uu][Ii] coverage|ui Coverage': UI Coverage
   '[Tt]est replay|test Replay': Test Replay
   '[Ss]mart orchestration|smart Orchestration': Smart Orchestration
   '[Bb]ranch review|branch Review': Branch Review
