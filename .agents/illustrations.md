@@ -37,7 +37,7 @@ An editorial watercolor language. Atmospheric, landscape-inspired, restrained â€
 - Pigment is embedded in the darkness, not sitting on top of paper.
 - No visible white or off-white paper anywhere in the image.
 - No borders, torn edges, canvas edges, paper margins, or paper texture artifacts.
-- Edges and washes bleed into the canvas background with no visible boundary.
+- Edges and washes bleed seamlessly into the canvas background with no visible boundary.
 
 ### Style
 

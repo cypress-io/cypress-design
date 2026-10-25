@@ -8,4 +8,4 @@ level: error
 ignorecase: false
 nonword: true
 tokens:
-  - '\bCypress\.io\b(?!, Inc\.)'
+  - '\bCypress\.io\b(?!,? Inc\b)'
