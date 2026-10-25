@@ -1,5 +1,6 @@
 # voice.md, Writing for people: "Use Cypress to automate your tests", not
 # "leverage Cypress to automate your tests".
+# A warning, not an error: "leverage" is also a plain noun ("pricing leverage").
 extends: substitution
 message: "Use '%s' instead of '%s'."
 link: https://design.cypress.io/agents/voice.md#writing-for-people

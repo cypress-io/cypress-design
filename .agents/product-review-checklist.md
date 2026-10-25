@@ -13,7 +13,7 @@ This is the product-rigor companion to [review-checklist.md](https://design.cypr
 
 - [ ] The problem is written down, independent of any solution. ("Start from the problem, not the solution")
 - [ ] The customer job is articulated — what outcome are users after, and why can't they get it today? ("Start with jobs to be done")
-- [ ] The job is ranked by importance to the customer **and** value to the business — not by how easy it is to build. ("Rank jobs, not solutions")
+- [ ] The job is ranked by importance to the customer **and** value to the business — not by how cheap it is to build. ("Rank jobs, not solutions")
 - [ ] Problem importance is backed by data: how many customers, ARR at risk, churn signal — not assumed. ("Learn the cheap way" / "Name the business goal")
 - [ ] More than one solution was considered, and each is scored on the full cost ledger — engineering, design, UX impact, docs, and customer cost-to-adopt — not just build cost. ("Map the opportunity space before you commit engineering" / "Compare competing solutions on the full cost ledger")
 - [ ] The opportunity is sized against other priorities — is this the best use of the resource right now? ("Rank jobs, not solutions")

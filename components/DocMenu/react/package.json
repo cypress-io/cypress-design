@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-docmenu",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "files": [
     "*"
   ],
@@ -20,7 +20,7 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "workspace:^3.3.2",
+    "@cypress-design/react-icon": "workspace:^3.4.0",
     "clsx": "*"
   },
   "devDependencies": {

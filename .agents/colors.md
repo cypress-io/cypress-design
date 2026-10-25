@@ -45,18 +45,37 @@ Don't default to indigo/teal everywhere. Cloud product surfaces (dashboard, run 
 
 ## Contrast guidance
 
-- For text on white, reach for **600 or darker**.
-- For text on dark surfaces (gray-1000), reach for **300 or lighter**.
-- The middle steps (400–500) are for fills, borders, and decorative surfaces — not body text.
-- Body text needs WCAG AA (4.5:1); fine print needs AAA (7:1).
+WCAG 2.2 sets the floor, and these are the ratios we hold to:
+
+- **Body text: 4.5:1** (AA).
+- **Fine print: 7:1** (AAA), such as captions and footnotes.
+- **Large text and meaningful non-text UI: 3:1.** Large text is 24px and up, or 18.66px and up in bold. Non-text UI is icons, input borders, and focus rings that carry meaning.
+
+Pick the step by surface and hue. Gray needs one step darker than the other hues on light surfaces: `gray-600` is only 4.28:1 on white and 3.90:1 on `gray-50`.
+
+- **Body text (4.5:1)**
+  - On white or `gray-50`: gray **700** or darker. Other hues **600** or darker.
+  - On `gray-1000`: **300** or lighter.
+- **Fine print (7:1)**
+  - On white or `gray-50`: gray **800** or darker. Other hues **700** or darker.
+  - On `gray-1000`: **300** or lighter.
+- **Large text and meaningful icons (3:1)**
+  - On white or `gray-50`: gray **600** or darker. Other hues **500** or darker.
+  - On `gray-1000`: **400** or lighter.
+
+A few cases need more care:
+
+- **Links:** `indigo-500` is 5.64:1 on white and 5.14:1 on `gray-50`, so it passes AA for link text. Other hues' 500 steps don't all hold up on `gray-50` (`orange-500` drops to 4.20:1), so don't generalize from indigo.
+- **Placeholder text needs 4.5:1 like any other text.** WCAG exempts disabled controls, logos, and purely decorative text, but not placeholders. Don't reach for `gray-500` or `gray-600` for placeholders on light surfaces.
+- **Any other background needs its own check.** The steps above are measured against white, `gray-50`, and `gray-1000` only. On tinted fills (`jade-50`, `gray-100`) or other dark surfaces, check the actual pair with a contrast checker before shipping.
 
 ## Pairings that work
 
-Proven on white surfaces:
+These pair well visually on white surfaces. The ratio between the two colors sets what the pair can carry:
 
-- `jade-200` + `teal-600`
-- `purple-300` + `indigo-700`
-- `indigo-400` + `gray-1000`
-- `indigo-400` + `teal-200`
-- `orange-300` + `purple-700`
-- `jade-200` + `indigo-800`
+- `jade-200` + `indigo-800` (7.96:1): any text, including fine print.
+- `orange-300` + `purple-700` (6.65:1): body text.
+- `jade-200` + `teal-600` (5.74:1): body text.
+- `purple-300` + `indigo-700` (4.38:1): large text, icons, and illustration. Not body text.
+- `indigo-400` + `gray-1000` (4.05:1): large text, icons, and illustration. Not body text.
+- `indigo-400` + `teal-200` (2.57:1): decoration only. Never text or meaningful icons.

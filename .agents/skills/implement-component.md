@@ -204,7 +204,7 @@ export type ComponentVariant = keyof typeof CssVariantClasses
 - **Use Tailwind CSS only** - No inline styles, no CSS modules, no styled-components
 - **Do not use inline styles** in `/react` or `/vue` component files
 - Use `clsx` (React) or computed classes (Vue) to combine class strings
-- Components' visual styles should be easy to extend and modify by humans
+- Humans should be able to extend and modify components' visual styles
 - For theme support, use Tailwind's `dark:` variant with explicit colors from Figma
 
 ## Icons
