@@ -44,7 +44,7 @@
 **Supported:**
 
 - [x] React — Cypress Cloud, Cypress Docs
-- [x] Vue — Cypress.io, Cypress App
+- [x] Vue — cypress.io (marketing site), Cypress App
 
 **Planned (not yet implemented):**
 
@@ -61,7 +61,10 @@ The `@cypress-design/css` package exports design tokens as CSS custom properties
 
 **Use Tailwind for all styling.** This design system is all-in on Tailwind utilities — no SASS, CSS Modules, or CSS-in-JS.
 
-**Class order and token use are flagged by tooling, not yet enforced.** Nothing here fails CI: the ESLint rules are warnings, and CI doesn't run `prettier --check`.
+**Class order and token use are enforced by tooling.** CI runs `prettier --check`, so unsorted classes fail the build. The ESLint rules below are warnings, but `yarn lint` (which CI runs) caps the total with `--max-warnings` in the root `package.json`, so the count can only go down:
+
+- New code mustn't add warnings. If `yarn lint` fails on the cap, fix the warnings your change introduced; don't raise the cap.
+- A PR that fixes warnings lowers the cap to the new total in the same change. Run `yarn lint` and use the count it prints.
 
 - Prettier (`prettier-plugin-tailwindcss`, configured in `.prettierrc.json`) sorts classes in `class`/`className` attributes, `clsx()` calls, and `@apply`. The pre-commit hook runs it on staged files; otherwise run `yarn prettier --write`. Don't hand-order classes. `twMerge()` arguments are left unsorted on purpose: tailwind-merge keeps the last of two conflicting classes, so their order is meaningful.
 - ESLint (`eslint-plugin-tailwindcss`, configured in `eslint.config.js`) warns on arbitrary values (`text-[#123456]`, `px-[16px]`) and on classes that aren't in the Tailwind config. Reach for a design token first. A legitimate non-Tailwind hook class goes in the `whitelist` setting there, not an inline disable. A class built at runtime (`` `grid-cols-${n}` ``) belongs in script next to its `<tw-include>` comment, where the rule doesn't read it.

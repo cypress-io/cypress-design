@@ -89,7 +89,7 @@ showing it, the same way you'd check for spec-sheet order.
 - Weak: "`cypress tap` doesn't write your tests — it's how your agent verifies what it
   just wrote."
 - Strong: "Know whether what your agent just wrote actually works: `cypress tap` runs the
-  spec, reads the failure exactly as the Cypress app shows it, and inspects the DOM at the
+  spec, reads the failure exactly as the Cypress App shows it, and inspects the DOM at the
   moment a command ran."
 
 The fix is the same move as the spec-sheet-order rule above: find the positive job the

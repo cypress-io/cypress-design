@@ -17,8 +17,8 @@ export const Story = () => (
         <th className="text-left">Used for</th>
       </tr>
       <tr key="h1">
-        <th />
-        <th />
+        <td />
+        <td />
         {sizes.map((size) => {
           return (
             <th key={`heading-${size}`} className="text-left">
@@ -26,7 +26,7 @@ export const Story = () => (
             </th>
           )
         })}
-        <th />
+        <td />
       </tr>
     </thead>
     <tbody>

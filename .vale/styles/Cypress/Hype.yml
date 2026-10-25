@@ -1,5 +1,9 @@
 # voice.md, Tone: avoid "simply", "just", "easy", "powerful", "seamless",
-# "delight". "just" lives in Just.yml at suggestion level.
+# "delight". "just" lives in Just.yml.
+# A warning, not an error: whether a word oversells takes judgment ("the easy
+# part" isn't a claim about Cypress). Negations ("isn't easy", "can't easily")
+# and hazard warnings ("easy to get wrong") say the opposite of hype, so
+# they're skipped.
 extends: existence
 message: "Avoid '%s'. State what happens instead."
 link: https://design.cypress.io/agents/voice.md#tone
@@ -7,8 +11,8 @@ level: warning
 ignorecase: true
 tokens:
   - simply
-  - easy
-  - easily
+  - "(?<!(?:not|n't|n’t) )easy(?! to (?:get (?:\\w+ )?wrong|miss|overlook|forget|leave|lose|break)\\b)"
+  - "(?<!(?:not|n't|n’t) )easily"
   - powerful
   - seamless
   - seamlessly
