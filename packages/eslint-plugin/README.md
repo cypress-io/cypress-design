@@ -62,34 +62,25 @@ export default [
     plugins: { '@cypress-design': cypressDesign },
     rules: {
       '@cypress-design/no-windicss': 'error',
-      '@cypress-design/deprecate-imports': [
-        'warn',
-        [
-          {
-            name: 'Button',
-            source: ['**/components/Button/*'],
-            docs: 'https://design.cypress.io/components/button',
-          },
-        ],
-      ],
     },
   },
 ]
 ```
 
-The `deprecate-imports` rules resolve each import to a file path before matching it against `source`, so they need an import resolver in `settings`. See the [`deprecate-imports` docs](docs/rules/deprecate-imports.md) for an example.
+The `deprecate-imports` and `deprecate-imports-again` rules are deprecated and will be removed in a future release. To steer code away from local components that have a design-system version, use ESLint's built-in `no-restricted-imports` rule instead. The [`deprecate-imports` docs](docs/rules/deprecate-imports.md#migrating-to-no-restricted-imports) show how to move each entry over.
 
 ## Rules
 
 <!-- begin auto-generated rules list -->
 
 💼 Configurations enabled in.\
-✅ Set in the `recommended` configuration.
+✅ Set in the `recommended` configuration.\
+❌ Deprecated.
 
-| Name                                                             | Description                                                           | 💼  |
-| :--------------------------------------------------------------- | :-------------------------------------------------------------------- | :-- |
-| [deprecate-imports](docs/rules/deprecate-imports.md)             | list the imports you want to warn on and the docs to fix it           |     |
-| [deprecate-imports-again](docs/rules/deprecate-imports-again.md) | list the imports you want to warn on and the docs to fix it           |     |
-| [no-windicss](docs/rules/no-windicss.md)                         | Disallow new WindiCSS imports and references to the `WindiColor` type | ✅  |
+| Name                                                             | Description                                                           | 💼  | ❌  |
+| :--------------------------------------------------------------- | :-------------------------------------------------------------------- | :-- | :-- |
+| [deprecate-imports](docs/rules/deprecate-imports.md)             | list the imports you want to warn on and the docs to fix it           |     | ❌  |
+| [deprecate-imports-again](docs/rules/deprecate-imports-again.md) | list the imports you want to warn on and the docs to fix it           |     | ❌  |
+| [no-windicss](docs/rules/no-windicss.md)                         | Disallow new WindiCSS imports and references to the `WindiColor` type | ✅  |     |
 
 <!-- end auto-generated rules list -->
