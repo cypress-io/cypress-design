@@ -6,6 +6,10 @@ import type { KnipConfig } from 'knip'
 const scriptBlocks = /<script\b[^>]*>([\s\S]*?)<\/script>/g
 
 const config: KnipConfig = {
+  // Listing only these add-on types keeps every default type enabled too.
+  include: ['nsExports', 'nsTypes'],
+  // A hint left in the output teaches people to skim past real findings.
+  treatConfigHintsAsErrors: true,
   // `docs/public/` holds static files served as-is, including the generated
   // token stylesheets that `docs/.gitignore` hides from git.
   ignore: ['**/dist/**', 'docs/public/**'],
