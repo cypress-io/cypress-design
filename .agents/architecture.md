@@ -11,7 +11,7 @@ Each section names the file that holds the truth. When this doc and that file di
 
 The workspace list in the root `package.json` (`workspaces`) is the authoritative map. In short:
 
-- `components/<Name>/` — reusable UI used across 2+ Cypress products. Each framework or constants folder is its own npm package. Ship React and Vue unless there's a reason not to; check the folder for which ones a component has.
+- `components/<Name>/` — reusable UI used across 2+ Cypress products. Each framework or constants folder is its own npm package. Ship React (Cypress Cloud, Cypress Docs) and Vue (cypress.io marketing site, Cypress App) unless there's a reason not to; check the folder for which ones a component has.
 - `packages/` — build tools and utilities used by components but not components themselves (ESLint plugin, Tailwind/rollup plugins, color constants).
 - `css/` — `@cypress-design/css`, the design tokens.
 - `icon-registry/` — icon SVGs and the generator for the icon types.
