@@ -217,8 +217,11 @@ CI runs these checks on every PR (`.github/workflows/test.yml`, plus knip in `he
 `yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH`. CI pins Vale 3.25.1, so install that version to see the same results (`brew install vale` gets the latest, which can disagree with CI):
 
 ```bash
-# Apple silicon. Swap in macOS_64-bit (Intel Mac), Linux_64-bit, or Linux_arm64
-curl -sSfL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_macOS_arm64.tar.gz | sudo tar -xz -C /usr/local/bin vale
+# macOS_arm64 (Apple silicon), macOS_64-bit (Intel Mac), Linux_64-bit, or Linux_arm64
+VALE_PLATFORM=macOS_arm64
+# A fresh macOS install has no /usr/local/bin, but it's on the default PATH
+sudo mkdir -p /usr/local/bin
+curl -sSfL "https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_${VALE_PLATFORM}.tar.gz" | sudo tar -xz -C /usr/local/bin vale
 vale --version # vale version 3.25.1
 ```
 
