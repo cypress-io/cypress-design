@@ -66,6 +66,11 @@ function defaultSnapshotName(): string {
 // through. Wait for every finite animation (CSS transitions, CSS animations
 // and WAAPI, e.g. the Accordion's details-animation) and for web fonts first.
 // Infinite animations never finish; `.percy.yml` freezes those instead.
+//
+// Percy re-renders the serialized DOM at its own widths (375 and 1280 by
+// default), but positions measured by script, like a Floating UI tooltip's
+// inline top/left, are only right at the width the test laid out at. Render at
+// that width unless the test asks for others. Percy's minimum width is 120.
 Cypress.Commands.overwrite('percySnapshot', (originalFn, name, options) => {
   cy.document({ log: false }).should((doc) => {
     const running = doc
@@ -82,7 +87,12 @@ Cypress.Commands.overwrite('percySnapshot', (originalFn, name, options) => {
       'loaded',
     )
   })
-  return originalFn(name || defaultSnapshotName(), options)
+  return cy.window({ log: false }).then((win) =>
+    originalFn(name || defaultSnapshotName(), {
+      widths: [Math.max(120, win.innerWidth)],
+      ...options,
+    }),
+  )
 })
 
 // For resting states that a component's Vue all-states gallery already shows
