@@ -94,7 +94,7 @@ const docs = readdirSync(dest, { recursive: true, withFileTypes: true })
 const llmsTxt = [
   '# Cypress Design System',
   '',
-  '> Agent-readable guidance for the Cypress Design System: design principles, tokens, voice, accessibility, and component docs. Start with the index, fetch only what the task needs.',
+  '> Agent-readable guidance for the Cypress Design System: tokens, voice, accessibility, and component docs. Start with the index, fetch only what the task needs.',
   '',
   '## Docs',
   '',

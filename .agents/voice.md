@@ -46,7 +46,7 @@ People skim before they commit. Write so the structure carries the meaning on a 
 ## Confidence and certainty
 
 - **Be direct about what we know; be explicit about uncertainty when it exists.** Never imply a guarantee where there isn't one.
-- **When behavior is probabilistic or evolving, say so.** This matters most for AI-powered features — don't frame AI as autonomous or magical, don't promise correctness without guardrails, and don't imply it replaces human judgment. For the principles behind building with AI, see [principles/ai.md](https://design.cypress.io/agents/principles/ai.md).
+- **When behavior is probabilistic or evolving, say so.** This matters most for AI-powered features — don't frame AI as autonomous or magical, don't promise correctness without guardrails, and don't imply it replaces human judgment.
 
 ## Capitalization
 
@@ -116,7 +116,7 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - **Lead with the benefit, not the mechanism.** Open with the outcome the reader gets, or the problem it removes — then name the feature that delivers it. The reader decides whether to care based on the "why"; the "what" earns its place once they do. Keep the mechanism in the second clause or the link-out, never the lead. ("Spend less time fixing accessibility violations by hand" before "Cloud MCP exposes accessibility report data.")
 - **Stay in active voice, addressed to the reader.** The reader — or something working on their behalf — is the subject doing or receiving the benefit: "your AI agent ranks what matters", not "violations are ranked". Passive constructions bury who acts and drain the sentence of momentum.
-- **In release titles, name the searchable feature alongside the benefit.** A release index is also a scan-and-search surface, so a benefit-only title can hide what shipped. When a launch introduces a term people look for (e.g. "Cloud MCP"), prefix the benefit with it — `Cloud MCP Beta: Debug failing tests with your AI assistant`. See [releases.md](https://design.cypress.io/agents/principles/releases.md), "Release titles".
+- **In release titles, name the searchable feature alongside the benefit.** A release index is also a scan-and-search surface, so a benefit-only title can hide what shipped. When a launch introduces a term people look for (e.g. "Cloud MCP"), prefix the benefit with it — `Cloud MCP Beta: Debug failing tests with your AI assistant`.
 - **Open the sentence on the verb.** Lead body copy with the action the reader takes — don't start with the feature name or an "X is a…" definition that strands the benefit behind the mechanism. "Ask your coding agent any Cypress question and trust the answer" beats "`cypress-docs` is a new skill that…". Each sentence should earn its momentum from the first word:
   > Wind back the clock to any point in an application's execution and see exactly what it was doing during the point of failure. Inspect the DOM, network events, and console logs of your application from your tests exactly as they ran in CI.
   > Review videos, screenshots, and logs for every spec file from any CI test run.
@@ -140,6 +140,3 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 - [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula (a narrow supplement — fetch only when writing a spotlight title, nav label, or other single-feature headline)
 - [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
-- [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — building, designing, and writing with AI
-- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — where business goals meet user needs
-- [principles/releases.md](https://design.cypress.io/agents/principles/releases.md) — release titles and shipping stages

@@ -4,7 +4,7 @@
 ## What & why
 
 <!-- The problem this solves and why it matters. What's the goal?
-     For principles/docs: what feedback or real situation prompted this, and what should
+     For agent guidance docs: what feedback or real situation prompted this, and what should
      a reader now do differently? -->
 
 ## How
