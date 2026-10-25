@@ -14,6 +14,7 @@ export default function assertions(
     mountStory({ title: 'Modal' })
     cy.contains('Open Modal').click()
     cy.findByRole('dialog').should('be.visible')
+    cy.percySnapshot()
   })
 
   it('renders with helpLink', () => {
@@ -24,6 +25,7 @@ export default function assertions(
       .should('have.attr', 'href', 'https://www.google.com')
       .should('have.attr', 'target', '_blank')
       .should('have.attr', 'rel', 'noopener noreferrer')
+    cy.percySnapshot()
   })
 
   it('renders a custom helpLinkLabel', () => {
@@ -67,5 +69,7 @@ export default function assertions(
       fullscreen: true,
     })
     cy.findByRole('button', { name: 'Open Modal' }).click()
+    cy.findByRole('dialog').should('be.visible')
+    cy.percySnapshot()
   })
 }

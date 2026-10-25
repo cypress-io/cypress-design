@@ -80,6 +80,8 @@ export default function assertions(
           activeId: 'ov',
           variant: variant as keyof typeof CssVariants,
         })
+        cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
+        cy.percySnapshot()
       })
     })
   })

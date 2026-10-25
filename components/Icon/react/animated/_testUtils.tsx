@@ -92,5 +92,7 @@ export function iconTests(
         </div>
       </div>,
     )
+    cy.get('svg').should('have.length', 2)
+    cy.percySnapshot()
   })
 }

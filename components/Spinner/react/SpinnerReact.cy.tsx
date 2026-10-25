@@ -7,6 +7,8 @@ import { Spinner } from './Spinner'
 describe('Spinner', () => {
   it('renders', () => {
     mount(<Spinner />)
+    cy.get('svg').should('be.visible')
+    cy.percySnapshot()
   })
 
   it('renders dark', () => {
@@ -15,5 +17,7 @@ describe('Spinner', () => {
         <Spinner variant="dark" />
       </div>,
     )
+    cy.get('svg').should('be.visible')
+    cy.percySnapshot()
   })
 })

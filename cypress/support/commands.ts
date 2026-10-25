@@ -47,6 +47,39 @@ Cypress.Commands.add('findByTestId', (id) => {
   return cy.get(`[data-cy=${id}]`)
 })
 
+// React and Vue specs share assertion files and often the same test titles, so
+// Percy's default name (the test's full title) would collide and Percy drops
+// the duplicate. Suffix the framework so both get a baseline.
+function defaultSnapshotName(): string {
+  const title = Cypress.currentTest.titlePath.join(' ')
+  const framework = Cypress.spec.relative.match(/\/(react|vue)\//)?.[1]
+  return framework ? `${title} - ${framework}` : title
+}
+
+// Percy serializes the DOM as it stands, so a snapshot taken mid-transition
+// captures whatever inline height or opacity the animation is passing
+// through. Wait for every finite animation (CSS transitions, CSS animations
+// and WAAPI, e.g. the Accordion's details-animation) and for web fonts first.
+// Infinite animations never finish; `.percy.yml` freezes those instead.
+Cypress.Commands.overwrite('percySnapshot', (originalFn, name, options) => {
+  cy.document({ log: false }).should((doc) => {
+    const running = doc
+      .getAnimations()
+      .filter(
+        (animation) =>
+          animation.playState === 'running' &&
+          animation.effect?.getComputedTiming().endTime !== Infinity,
+      )
+    expect(running, 'animations still running before snapshot').to.have.length(
+      0,
+    )
+    expect(doc.fonts.status, 'web fonts loaded before snapshot').to.equal(
+      'loaded',
+    )
+  })
+  return originalFn(name || defaultSnapshotName(), options)
+})
+
 // Custom commands are typed by augmenting Cypress's global namespace
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

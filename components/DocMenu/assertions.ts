@@ -87,6 +87,9 @@ export default function assertions(
 ): void {
   it('renders', () => {
     mountStory(menuItems, 'eight')
+    cy.contains('Overview Item 1').should('be.visible')
+    cy.findByTestId('doc-menu-active-marker').should('be.visible')
+    cy.percySnapshot()
   })
 
   it('closes the menu', () => {

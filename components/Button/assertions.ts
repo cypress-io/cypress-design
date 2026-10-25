@@ -25,6 +25,7 @@ export default function assertions(
       'text-decoration-line',
       'underline',
     )
+    cy.percySnapshot()
   })
 
   it('renders variants', () => {

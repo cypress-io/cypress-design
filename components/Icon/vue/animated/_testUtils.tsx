@@ -82,5 +82,7 @@ export function iconTests(Icon: any) {
         </div>
       </div>
     ))
+    cy.get('svg').should('have.length', 2)
+    cy.percySnapshot()
   })
 }

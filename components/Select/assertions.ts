@@ -475,5 +475,91 @@ export default function assertions(
       cy.findByRole('button', { name: 'Apply' }).click()
       cy.get('@onFooter').should('have.been.calledOnce')
     })
+
+    describe('snapshots', () => {
+      it('closed with placeholder', () => {
+        mountStory({ items: simpleItems, placeholder: 'Pick one' })
+        cy.findByRole('combobox').should('contain.text', 'Pick one')
+        cy.percySnapshot()
+      })
+
+      it('closed disabled', () => {
+        mountStory({ items: simpleItems, defaultValue: 'beta', disabled: true })
+        cy.findByRole('combobox').should('be.disabled')
+        cy.percySnapshot()
+      })
+
+      it('open with mixed rows and a selection', () => {
+        mountStory({
+          items: mixedItems,
+          defaultValue: 'beta',
+          defaultOpen: true,
+        })
+        cy.findByRole('listbox').should('be.visible')
+        cy.findByRole('option', { name: /Beta/ }).should(
+          'have.attr',
+          'aria-selected',
+          'true',
+        )
+        cy.percySnapshot()
+      })
+
+      it('open with checkbox rows', () => {
+        mountStory({
+          items: checkboxItems,
+          defaultValue: 'b',
+          defaultOpen: true,
+        })
+        cy.findByRole('listbox').should('be.visible')
+        cy.percySnapshot()
+      })
+
+      it('open with header, search, and footer', () => {
+        mountStory({
+          items: simpleItems,
+          headerTitle: 'Pick a thing',
+          headerTag: 'New',
+          headerButton: {
+            iconLeft: context.iconArrowLeft,
+            onClick: () => {},
+            ariaLabel: 'Go back',
+          },
+          searchable: true,
+          searchPlaceholder: 'Search',
+          footerLabel: 'Helper text',
+          footerAction: { label: 'Apply', onClick: () => {} },
+          defaultOpen: true,
+        })
+        cy.findByRole('listbox').should('be.visible')
+        cy.contains('Helper text').should('be.visible')
+        cy.percySnapshot()
+      })
+
+      it('open with header tabs', () => {
+        mountStory({
+          items: simpleItems,
+          headerTabs: [
+            { id: 'all', label: 'All' },
+            { id: 'mine', label: 'Mine' },
+          ],
+          headerActiveTab: 'all',
+          defaultOpen: true,
+        })
+        cy.findByRole('listbox').should('be.visible')
+        cy.percySnapshot()
+      })
+
+      it('open in dark theme at size 40', () => {
+        mountStory({
+          items: mixedItems,
+          defaultValue: 'alpha',
+          theme: 'dark',
+          size: '40',
+          defaultOpen: true,
+        })
+        cy.findByRole('listbox').should('be.visible')
+        cy.percySnapshot()
+      })
+    })
   })
 }
