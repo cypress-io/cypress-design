@@ -200,7 +200,7 @@ yarn lint:prose # Voice rules from .agents/voice.md (Vale)
 
 `knip.ts` holds the knip config, and CI runs `yarn knip` in the Health Check job on every PR. If knip flags something that is used, teach the config how it’s reached (an `entry` or a narrow `ignoreDependencies`) rather than ignoring the file.
 
-`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH` (`brew install vale` on macOS). Its rules live in `.vale/styles/Cypress/`; each one cites the line in `.agents/voice.md` it enforces. They report warnings and suggestions only, so nothing fails yet.
+`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH` (`brew install vale` on macOS). Its rules live in `.vale/styles/Cypress/`; each one cites the line in `.agents/voice.md` it enforces. Mechanical naming rules (`ProductNames`, `Branding`, `CypressIo`, `TheCypressCloud`) are errors and fail CI. Rules that need judgment (`Hype`, `Just`, `Leverage`) are warnings that report without failing.
 
 ### Recent Changes: Astro Migration
 

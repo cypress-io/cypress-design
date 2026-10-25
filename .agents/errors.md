@@ -21,7 +21,7 @@ Errors, warnings, deprecations, and other system-to-user messages — wherever t
 
 **"Our team has been notified" only appears when monitoring actually captures the failure.** False reassurance is a trust violation. If the error isn't being captured by Sentry or equivalent, the language can't appear — full stop.
 
-**Transient errors must say so explicitly, and give the right recovery.** Tell the user when it will resolve if you know ("will reset in 5 minutes"). Use "refresh" for messages in the Cypress app or Cloud UI; use "try again later" for CLI and test output. Pick the recovery action that matches the surface.
+**Transient errors must say so explicitly, and give the right recovery.** Tell the user when it will resolve if you know ("will reset in 5 minutes"). Use "refresh" for messages in the Cypress App or Cypress Cloud UI; use "try again later" for CLI and test output. Pick the recovery action that matches the surface.
 
 ## Voice + accessibility
 

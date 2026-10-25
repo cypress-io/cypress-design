@@ -44,7 +44,7 @@
 **Supported:**
 
 - [x] React — Cypress Cloud, Cypress Docs
-- [x] Vue — Cypress.io, Cypress App
+- [x] Vue — cypress.io (marketing site), Cypress App
 
 **Planned (not yet implemented):**
 

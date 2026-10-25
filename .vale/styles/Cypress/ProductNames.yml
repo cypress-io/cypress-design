@@ -1,11 +1,12 @@
 # voice.md, Product and feature names: names are always capitalized, even in
 # sentence-case text. Naming rules: "UI Coverage — never 'UI Code Coverage'".
 # Only multi-word names are listed: single words like "replay" or "insights"
-# are also ordinary English.
+# are also ordinary English. An error: each swap is a fixed spelling, so a hit
+# is always a real miss.
 extends: substitution
 message: "Use '%s' instead of '%s'."
 link: https://design.cypress.io/agents/voice.md#product-and-feature-names
-level: warning
+level: error
 ignorecase: false
 swap:
   'UI Code Coverage': UI Coverage

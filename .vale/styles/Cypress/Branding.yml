@@ -1,9 +1,11 @@
 # voice.md, Naming rules: partner names keep their own branding, SSO and CI/CD
-# are written in caps, and `cy.prompt` stays lowercase.
+# are written in caps, and `cy.prompt` stays lowercase. An error: matching is
+# case-sensitive and code spans are skipped, so lowercase URLs and identifiers
+# don't trip it.
 extends: substitution
 message: "Use '%s' instead of '%s'."
 link: https://design.cypress.io/agents/voice.md#naming-rules
-level: warning
+level: error
 ignorecase: false
 swap:
   Github: GitHub
