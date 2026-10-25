@@ -29,6 +29,12 @@ Cypress.on(
 )
 
 beforeEach(() => {
+  // `realHover` moves the real CDP cursor, and it stays put between tests.
+  // Chrome fires a synthetic mousemove when new content lays out under it, so
+  // the next test's component would open a hover tooltip on its own, sometimes
+  // before its snapshot and sometimes after. Park the cursor in the corner.
+  cy.get('html', { log: false }).realMouseMove(0, 0, { position: 'topLeft' })
+
   cy.window().then((win) => {
     cy.spy(win.console, 'error')
     cy.spy(win.console, 'warn')

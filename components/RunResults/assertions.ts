@@ -403,6 +403,14 @@ export default function assertions(
           'have.class',
           'after:shadow-[inset_0_0_0_1px_theme(colors.gray.800)]',
         )
+      cy.document().should((doc) => {
+        const openTooltips = Array.from(
+          doc.querySelectorAll('[role="tooltip"]'),
+        ).filter((el) => getComputedStyle(el).visibility !== 'hidden')
+        expect(openTooltips, 'no tooltip open in the snapshot').to.have.length(
+          0,
+        )
+      })
       cy.percySnapshot(`RunResults dark theme - ${fw}`)
     })
   })
