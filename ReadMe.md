@@ -192,15 +192,37 @@ Finally, you should see the `prompt.js` file has been removed. Revert that chang
 yarn cy         # Open Cypress (interactive mode, watches for changes)
 yarn cy:run     # CLI mode (headless)
 yarn test       # Unit tests (vitest)
-yarn eslint     # Linting
-yarn knip       # Dead code: unused files, exports, and dependencies
-yarn lint:md    # Markdown structure (markdownlint-cli2)
-yarn lint:prose # Voice rules from .agents/voice.md (Vale)
 ```
 
-`knip.ts` holds the knip config, and CI runs `yarn knip` in the Health Check job on every PR. If knip flags something that is used, teach the config how it’s reached (an `entry` or a narrow `ignoreDependencies`) rather than ignoring the file.
+### Before you push
 
-`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH` (`brew install vale` on macOS). Its rules live in `.vale/styles/Cypress/`; each one cites the line in `.agents/voice.md` it enforces. They report warnings and suggestions only, so nothing fails yet.
+CI runs these checks on every PR (`.github/workflows/test.yml`, plus knip in `health-check.yml`). The pre-commit hook fixes what it can in your staged files. Run the rest yourself before you push.
+
+| Check         | Command                                                                                                                        | Catches                                                                                                                                      | Pre-commit hook   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------- |
+| ESLint        | `yarn lint`                                                                                                                    | Code errors, plus warnings for Tailwind arbitrary values and unknown classes                                                                 | Yes, with `--fix` |
+| Prettier      | `yarn format:check`                                                                                                            | Formatting and Tailwind class order. `yarn prettier --write .` fixes both                                                                    | Yes, writes fixes |
+| markdownlint  | `yarn lint:md`                                                                                                                 | Markdown structure: heading levels, code fences without a language, broken in-page links                                                     | Yes, with `--fix` |
+| Vale          | `yarn lint:prose`                                                                                                              | Voice rules from `.agents/voice.md`. Warnings and suggestions only, so it doesn’t fail CI yet                                                | No                |
+| knip          | `yarn knip`                                                                                                                    | Unused files, exports, and dependencies                                                                                                      | No                |
+| Types         | `yarn vue-tsc --noEmit -p .`<br>`yarn vue-tsc --noEmit -p ./tsconfig.vue.json`<br>`yarn tsc --noEmit -p ./tsconfig.react.json` | Type errors in the docs site, Vue, and React code                                                                                            | No                |
+| Internal deps | `node scripts/check-internal-deps.mjs`                                                                                         | Wrong `@cypress-design/*` ranges or undeclared imports in published packages ([details](.agents/architecture.md#internal-dependency-ranges)) | No                |
+
+- **knip:** `knip.ts` holds the config. If knip flags something that is used, teach the config how it’s reached (an `entry` or a narrow `ignoreDependencies`) rather than ignoring the file.
+- **Internal deps:** reads each package’s built `dist/`. `yarn install` builds them; after editing a package, run `yarn build:components` first.
+- **Vale:** rules live in `.vale/styles/Cypress/`, and each one cites the line in `.agents/voice.md` it enforces.
+
+#### Install Vale
+
+`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH`. CI pins Vale 3.25.1, so install that version to see the same results (`brew install vale` gets the latest, which can disagree with CI):
+
+```bash
+# Apple silicon. Swap in macOS_64-bit (Intel Mac), Linux_64-bit, or Linux_arm64
+curl -sSfL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_macOS_arm64.tar.gz | sudo tar -xz -C /usr/local/bin vale
+vale --version # vale version 3.25.1
+```
+
+On Windows, download `vale_3.25.1_Windows_64-bit.zip` from the [v3.25.1 release](https://github.com/errata-ai/vale/releases/tag/v3.25.1) and put `vale.exe` on your `PATH`.
 
 ### Recent Changes: Astro Migration
 

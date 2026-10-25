@@ -33,6 +33,8 @@
 - `/.agents/skills/` — Task-specific guidance for component work, PR reviews, etc.
 - `/.agents/review-checklist.md` — Run before claiming any UI / visual / content task done
 
+**Before you push:** run every check in the README’s [Before you push](https://github.com/cypress-io/cypress-design#before-you-push) table. The pre-commit hook covers ESLint, Prettier, and markdownlint on staged files only; Vale, knip, the type checks, and the internal-deps check run only when you run them or in CI.
+
 **Configuration:**
 
 - `/.claude/launch.json` — Dev server setup
@@ -61,7 +63,7 @@ The `@cypress-design/css` package exports design tokens as CSS custom properties
 
 **Use Tailwind for all styling.** This design system is all-in on Tailwind utilities — no SASS, CSS Modules, or CSS-in-JS.
 
-**Class order and token use are flagged by tooling, not yet enforced.** Nothing here fails CI: the ESLint rules are warnings, and CI doesn't run `prettier --check`.
+**Class order is enforced; token use is only flagged.** CI runs `prettier --check`, so unsorted classes fail the build, but the ESLint rules below are warnings.
 
 - Prettier (`prettier-plugin-tailwindcss`, configured in `.prettierrc.json`) sorts classes in `class`/`className` attributes, `clsx()` calls, and `@apply`. The pre-commit hook runs it on staged files; otherwise run `yarn prettier --write`. Don't hand-order classes. `twMerge()` arguments are left unsorted on purpose: tailwind-merge keeps the last of two conflicting classes, so their order is meaningful.
 - ESLint (`eslint-plugin-tailwindcss`, configured in `eslint.config.js`) warns on arbitrary values (`text-[#123456]`, `px-[16px]`) and on classes that aren't in the Tailwind config. Reach for a design token first. A legitimate non-Tailwind hook class goes in the `whitelist` setting there, not an inline disable. A class built at runtime (`` `grid-cols-${n}` ``) belongs in script next to its `<tw-include>` comment, where the rule doesn't read it.
