@@ -4,7 +4,8 @@ import { renderIndex } from './agents-index.mjs'
 const docs = {
   'colors.md':
     '---\nname: colors\ndescription: Fetch when choosing colors.\n---\n',
-  'principles/ux.md': '---\nname: ux\ndescription: \'The "what" side.\'\n---\n',
+  'pages/colors.md':
+    '---\nname: colors-page\ndescription: \'The "/colors" page.\'\n---\n',
   'personas.md': '# Personas\n',
 }
 const readDoc = (path) => docs[path]
@@ -14,15 +15,15 @@ const index = (body) => `# Index\n\n## Pillars\n\n${body}\n\n## Components\n`
 describe('renderIndex', () => {
   it('fills a list from frontmatter descriptions, in marker order', () => {
     const rendered = renderIndex(
-      index('<!-- docs: principles/ux.md colors.md -->\n<!-- /docs -->'),
+      index('<!-- docs: pages/colors.md colors.md -->\n<!-- /docs -->'),
       readDoc,
     )
     expect(rendered).toBe(
       index(
         [
-          '<!-- docs: principles/ux.md colors.md -->',
+          '<!-- docs: pages/colors.md colors.md -->',
           '',
-          '- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — The "what" side.',
+          '- [pages/colors.md](https://design.cypress.io/agents/pages/colors.md) — The "/colors" page.',
           '- [colors.md](https://design.cypress.io/agents/colors.md) — Fetch when choosing colors.',
           '',
           '<!-- /docs -->',

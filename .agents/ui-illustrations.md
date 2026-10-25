@@ -311,5 +311,4 @@ Build the illustration as a standalone HTML file sized to the logical frame, the
 - [iconography.md](https://design.cypress.io/agents/iconography.md) — icon construction and one-icon-per-concept
 - [spacing.md](https://design.cypress.io/agents/spacing.md) — layout dimensions and gaps
 - [colors.md](https://design.cypress.io/agents/colors.md) — tokens for card surfaces, borders, and status color
-- [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — directing the eye once the detail is gone
 - `cypress.io` repo, `.agents/architecture/illustrations.md` — the 16:9 site rule, `Browser.astro` chrome math, and per-page sizing

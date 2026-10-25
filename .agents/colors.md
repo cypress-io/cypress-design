@@ -12,8 +12,6 @@ description: Fetch when choosing colors, picking tokens for backgrounds/text/bor
 - **Color alone can't carry meaning.** Pair color with shape, icon, label, or position — colorblind users, dimmed screens, and bright sunlight all defeat color-only signals.
 - **Use the component's own API before styling around it.** If a component exposes a color/variant prop (e.g. a `fillColor` prop), use it — don't duplicate the component with a CSS override or a second copy just to change its color.
 
-For the broader thinking on how color fits into visual hierarchy, see [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md).
-
 ## Palette
 
 The full color palette is hosted at `https://design.cypress.io/colors.css` (full token set at `https://design.cypress.io/tokens.css`). Import it (`<link rel="stylesheet" href="https://design.cypress.io/colors.css">`) or copy the `:root` block into any new HTML file. Never invent new hex values when one of these works.
