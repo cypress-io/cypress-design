@@ -45,6 +45,7 @@ Tooling enforces class order and token use:
 - Yarn version: `packageManager` in `package.json`. Setup steps, including fixing a global Yarn 1 shadowing Corepack, are in `ReadMe.md` under "Set up Node and Yarn".
 - Scripts: the root `package.json` `scripts`. The usual ones are `yarn dev` (watchers + Astro dev server) and `yarn build:docs`.
 - CI: `.github/workflows/`.
+- Before you push: run the checks in `ReadMe.md` under "Before you push". The pre-commit hook covers only ESLint, Prettier, and markdownlint, on staged files.
 
 ### Gotcha: editing source doesn't change what consumers see
 
