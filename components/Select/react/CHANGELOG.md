@@ -1,0 +1,31 @@
+# @cypress-design/react-select
+
+## 1.1.0
+
+### Minor Changes
+
+- [#725](https://github.com/cypress-io/cypress-design/pull/725) [`cd2a75b`](https://github.com/cypress-io/cypress-design/commit/cd2a75b8086a45d807f3543975e54fca392e0594) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add `searchAutoFocus` to `SelectOptionList` (default `true`). Vue now focuses the search input in code when the popover opens; it relied on the HTML `autofocus` attribute, which browsers ignore after page load, so the search box never got focus. Set it to `false` when rendering the list inline on a page so the search Textbox doesn't take focus and scroll the page on load.
+
+  After a selection closes the popover, focus returns to the trigger (as Escape already did). With `searchable`, focus was in the search input, which goes away when the popover closes, so keyboard focus used to drop to the page.
+
+## 1.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f), [`7807cfd`](https://github.com/cypress-io/cypress-design/commit/7807cfdba9d330f24f3b4912a9ad41cedf2193cb)]:
+  - @cypress-design/react-checkbox@2.0.0
+  - @cypress-design/react-textbox@1.0.2
+
+## 1.0.1
+
+### Patch Changes
+
+- [#712](https://github.com/cypress-io/cypress-design/pull/712) [`432414f`](https://github.com/cypress-io/cypress-design/commit/432414fb53eaf646c098b818cced1207df5dbd7f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Fix UMD build interop so default-imported sibling `@cypress-design/react-*` components resolve via `.default` (Rollup `interop: 'auto'`), removing the need for consumer-side ESM aliases.
+
+## 1.0.0
+
+### Major Changes
+
+- [#697](https://github.com/cypress-io/cypress-design/pull/697) [`a67692f`](https://github.com/cypress-io/cypress-design/commit/a67692fff10236374e2e10ae68384abeb14048f1) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add the Select component: a single-select dropdown with a Button trigger (swappable via the `#trigger` slot / render prop) and a popover panel that supports headline / divider / default / checkbox / user / button / custom rows, optional header (title, back button, iconLeft / tag / iconRight, tabs, search) and footer (label + action or arbitrary content), theme-aware light/dark styling, size `32` / `40`, configurable width / minWidth / maxWidth / height / maxHeight, and left/right alignment. Selection is controlled or uncontrolled; open state is controlled or uncontrolled. Keyboard navigation walks selectable rows and in-list `button` rows via `aria-activedescendant`, with Enter/Space to commit, Escape/Tab to dismiss. Case-insensitive search filters items by label and collapses orphaned headline groups. `type: 'button'` rows fire their own `onClick` without changing the value.
+
+  The `constants-select` package is bundled into the React and Vue packages — consumers install a single package.

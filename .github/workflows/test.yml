@@ -12,21 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Setup Yarn
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
-          cache: 'yarn'
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Restore cached build files
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           key: ${{ inputs.nonce }}
           path: |
@@ -34,22 +36,35 @@ jobs:
             ./icon-registry/dist
             ./components
             ./packages/details-animation/dist
+            ./packages/favicon/dist
             ./node_modules
 
       - name: Reinstall dependencies and regenerate build files
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
         env:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096
 
-      - name: Install eslint plugin dependencies
-        run: |
-          yarn workspace @cypress-design/eslint-plugin install --frozen-lockfile
-
       - name: Lint all files
         run: yarn eslint .
+
+      - name: Check formatting
+        run: yarn prettier --check .
+
+      - name: Lint Markdown structure
+        run: yarn lint:md
+
+      # Rules live in .vale/styles/Cypress and report warnings and suggestions, so this
+      # step surfaces voice issues without failing the build yet
+      - name: Install Vale
+        run: |
+          curl -sSfL https://github.com/errata-ai/vale/releases/download/v3.25.1/vale_3.25.1_Linux_64-bit.tar.gz | tar -xz -C "$RUNNER_TEMP" vale
+          echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
+
+      - name: Lint prose against voice rules
+        run: yarn lint:prose
 
       - name: Run Eslint Plugin Tests
         run: yarn test:eslint-plugin
@@ -58,6 +73,9 @@ jobs:
         run: |
           yarn turbo run build --filter=@cypress-design/css
           yarn workspace @cypress-design/icon-registry build
+
+      - name: Check internal runtime dependencies
+        run: node scripts/check-internal-deps.mjs
 
       - name: Run Unit Tests
         run: yarn test
@@ -82,16 +100,18 @@ jobs:
       - uses: browser-actions/setup-chrome@latest
       - run: echo "BROWSER_PATH=$(which chrome)" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
-          node-version: 20
-          cache: 'yarn'
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Restore cached build files
         id: cache-node-modules-dist
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           key: cache-${{ inputs.nonce }}
           path: |
@@ -99,18 +119,19 @@ jobs:
             ./icon-registry/dist
             ./components
             ./packages/details-animation/dist
+            ./packages/favicon/dist
             ./node_modules
-            
+
       - name: Reinstall dependencies and regenerate build files
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
 
       - name: Install Cypress
         run: yarn cypress install
 
       - name: Cypress run CT
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           component: true
@@ -126,3 +147,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
           PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          # Without this, Percy doesn't know how many `--parallel` shards to
+          # expect and waits on a bogus default (observed as 100000000) that
+          # never arrives, so the build never auto-finalizes even though
+          # every shard's own `percy exec` reports success -- every build on
+          # every branch, including main, has been failing this way ("Missing
+          # build finalization"). strategy.job-total tracks the `container`
+          # matrix size automatically.
+          PERCY_PARALLEL_TOTAL: ${{ strategy.job-total }}
+          # Percy derives its parallel nonce from GITHUB_RUN_ID alone, so a
+          # re-run of a failed shard reuses the build the first attempt already
+          # finalized and dies with "Can only finalize pending builds". Include
+          # the attempt, mirroring `ci-build-id` above, so every re-run gets a
+          # fresh Percy build.
+          PERCY_PARALLEL_NONCE: ${{ github.run_id }}-${{ github.run_attempt }}

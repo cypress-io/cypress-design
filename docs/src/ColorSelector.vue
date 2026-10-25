@@ -1,11 +1,10 @@
 <script lang="ts" setup>
-import { WindiColor } from '@cypress-design/vue-icon'
 const emit = defineEmits<{
-  (event: 'update:modelValue', value?: WindiColor): void
+  (event: 'update:modelValue', value?: string): void
 }>()
 
 defineProps<{
-  modelValue?: WindiColor
+  modelValue?: string
 }>()
 
 function emitValue(event: Event) {
@@ -13,15 +12,15 @@ function emitValue(event: Event) {
   if (value === 'default') {
     emit('update:modelValue', undefined)
   } else {
-    emit('update:modelValue', value as WindiColor)
+    emit('update:modelValue', value)
   }
 }
 </script>
 
 <template>
-  <div class="relative leading-[20px] h-[20px]">
+  <div class="relative h-[20px] leading-[20px]">
     <select
-      class="absolute opacity-0 left-0 right-0 top-0 bottom-0 cursor-pointer"
+      class="absolute bottom-0 left-0 right-0 top-0 cursor-pointer opacity-0"
       @change="emitValue"
     >
       <option></option>
@@ -36,7 +35,7 @@ function emitValue(event: Event) {
     </select>
     <div class="whitespace-nowrap">
       <slot /><span
-        class="ml-1 w-2 h-2 inline-block"
+        class="ml-1 inline-block h-2 w-2"
         :class="`bg-${modelValue}`"
       >
       </span>

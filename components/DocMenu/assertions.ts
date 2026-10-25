@@ -104,16 +104,30 @@ export default function assertions(
     cy.contains('sub menu').click()
 
     cy.contains('Google Authentication').scrollIntoView()
-    cy.wait(300)
     cy.contains('li', 'Google Authentication').then(($el) => {
-      const top = $el[0].getBoundingClientRect().top
-      cy.get('[data-cy="doc-menu-active-marker"]').then(($marker) => {
+      // The marker animates into place with a CSS transition, so retry until it settles
+      cy.get('[data-cy="doc-menu-active-marker"]').should(($marker) => {
+        const top = $el[0].getBoundingClientRect().top
         expect(Math.abs($marker[0].getBoundingClientRect().top - top)).to.below(
           10,
           `marker should be close to the active item`,
         )
       })
     })
+  })
+
+  it('does not put href on a collapsible group header', () => {
+    mountStory(
+      [
+        {
+          label: 'Group with href',
+          href: '/group',
+          items: [{ label: 'Child', href: '/child' }],
+        },
+      ],
+      '/child',
+    )
+    cy.contains('button', 'Group with href').should('not.have.attr', 'href')
   })
 
   it('expands a section where an element is activated', () => {

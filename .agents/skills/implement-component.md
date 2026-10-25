@@ -1,0 +1,306 @@
+---
+name: implement-component
+description: Use when implementing a new component (or a new variant, size, or state of an existing component) from Figma into the cypress-design repository. Covers the 4-stage workflow (instructions, component, tests, accessibility), React + Vue structure, shared constants, Tailwind styling rules, theme/state patterns, and accessibility requirements.
+---
+
+# Component implementation guidance
+
+## Goal
+
+Implement `{component}` from Figma into the cypress-design repository, following existing design system patterns.
+
+**Note:** Check for component-specific instructions in `components/{ComponentName}/instructions.md` for detailed implementation guidance.
+
+## Figma
+
+Figma design should be provided with the following specifications:
+
+- **Component types/variants** (e.g., default, valid, invalid, warning)
+- **Component states** (e.g., default, hover, active, focus-visible, disabled, placeholder)
+- **Component size variants** (e.g., 32, 40, 48)
+- **Light and dark mode designs** - Separate designs for each mode
+- **Theme support** - If applicable, specify if component supports `'light'` or `'dark'` themes (Note: `'auto'` theme for automatic system preference detection is not currently implemented but may be a future consideration)
+
+**Important:** See "Styling Guidelines" section for color extraction guidelines.
+
+## Code Structure
+
+### Component Organization
+
+- Use the existing structure in the cypress-design repo. Check other components (Button, Tag, Checkbox) for reference.
+- Components are implemented in both React and Vue
+- Each component follows this structure:
+  ```text
+  components/{ComponentName}/
+    ├── constants/          # Shared styles (used by both React and Vue)
+    ├── react/             # React implementation
+    │   └── {ComponentName}React.cy.tsx  # React Cypress tests
+    ├── vue/               # Vue implementation
+    │   └── {ComponentName}Vue.cy.tsx    # Vue Cypress tests
+    ├── assertions.ts      # Shared test assertions (optional)
+    ├── ReadMe.md          # Component overview
+    └── instructions.md    # Component-specific agent instructions (if needed)
+  ```
+
+### Implementation Requirements
+
+Each component must include:
+
+- **TypeScript types** - Proper interfaces for props, exported from constants
+- **Cypress tests** - Component tests in `{ComponentName}.cy.tsx` files
+- **Visual documentation** - VitePress documentation showing all states, sizes, and variants
+- **Accessibility** - WCAG 2.1 compliant with proper ARIA attributes
+
+### Component-Specific Instructions
+
+- If a component has complex requirements, create `components/{ComponentName}/instructions.md`
+- Component-specific instructions override or supplement these global instructions
+- Always check for component-specific instructions first
+
+## Execution Workflow
+
+Component implementation should follow a staged approach. Complete each stage before moving to the next:
+
+### Branching Strategy
+
+To make the code easier for review by developers and catch API issues early, split the implementation into 4 branches:
+
+- **`{component-name}-instructions`** (step 1): Agent instructions and plan
+- **`{component-name}-component`** (step 2): Component creation — also where the `.changeset/*.md` release-intent file lives (step 5)
+- **`{component-name}-tests`** (step 3): Cypress test generation
+- **`{component-name}-accessibility`** (step 4): Accessibility optimization
+
+Each branch should be reviewed and merged before starting the next branch.
+
+1. **Agent Instructions and Plan**
+
+   - Create or update `components/{ComponentName}/instructions.md` with component-specific requirements
+   - Document the component API with all props, variants, and usage examples
+   - List all possible variants and expectations of how to use the component
+   - Example: `<Button type="Submit" variant="indigo-dark" disabled>Submit</Button>`
+   - Document any deviations from global patterns or special considerations
+   - Define component-specific constants structure, prop types, and styling patterns
+   - **Get feedback on API design before any code is written** - this helps catch API issues much easier in the agent instructions first
+
+2. **Component Creation**
+
+   - **2a) Core Components:**
+     - Create shared visual styles in constants file (see "Constants Structure" section)
+     - Implement React component in `components/{ComponentName}/react/{ComponentName}.tsx`
+     - Implement Vue component in `components/{ComponentName}/vue/{ComponentName}.vue`
+     - Create/update `components/{ComponentName}/ReadMe.md` — this is the public docs page rendered on the design system site. Keep it terse: a `<script setup>` block importing the Vue component, a short prose description, one or more `<DemoWrapper>` live demos covering the main variants, and a Figma link. Don't put spec tables or state matrices here.
+     - Create `components/{ComponentName}/instructions.md` — agent-facing **usage** doc. Document every supported variant, size, state, theme, slot, and prop, plus accessibility notes and known limitations, so an agent can _use_ the component confidently without reading the source. Treat anything documented here as supported; anything missing isn't. Do not include file layout, constants structure, or internal interaction-model rationale here — that's for `architecture.md`.
+     - Create `components/{ComponentName}/architecture.md` — agent-facing **implementation** doc. Required for every component. Document the file layout, constants keying strategy, wrapper/structural choices (e.g. "wrapper is a `<label>` so clicking focuses the input"), state-handling approach (CSS pseudo-classes vs. JS state), extension points, and any gotchas that matter when rebuilding or extending the component. For trivial components, this can be short, but it must exist so future agents know where things live and why. **Focus on intent, not implementation.** The Vue/React source files are the source of truth for _how_; this doc covers _why_ and _where_. Don't reproduce class strings, JSX bodies, or full code samples that already live in the component files — link to the source file by name and summarize the decision in prose. Duplicating implementation here means two places to maintain.
+     - Add the new component to the `## Components` list in `/AGENTS.md` so agents can discover it.
+   - **2b) VitePress Documentation:**
+     - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
+     - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
+     - Include interactive code examples using ` ```jsx live ` and ` ```vue live ` blocks
+     - **Documentation structure:**
+       - Component description
+       - All variants/types
+       - All sizes
+       - All states (with examples)
+       - Props API reference
+       - Usage examples
+     - Follow the same structure as existing component documentation
+
+3. **Generate Cypress Tests**
+
+   - Create component test file `components/{ComponentName}/react/{ComponentName}React.cy.tsx`
+   - Create component test file `components/{ComponentName}/vue/{ComponentName}Vue.cy.tsx`
+   - Test all states, sizes, variants, and accessibility features
+   - Include visual regression tests with `cy.percySnapshot()` (via Percy) - capture snapshots for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.)
+   - See "Testing" section for detailed testing requirements
+
+4. **Optimize Component for Accessibility**
+
+   - **Automated testing** - We use feedback from Cypress Accessibility to make accessibility improvements - address all issues identified by Cypress Accessibility.
+   - **WCAG 2.1 compliance** - Review and implement WCAG 2.1 Level AA compliance requirements
+   - **Keyboard navigation** - Ensure keyboard navigation works correctly (Tab, Enter, Space, Arrow keys as appropriate). All interactive elements must be keyboard accessible.
+   - **Focus management** - Verify focus management and focus-visible indicators. Use `focus-visible` for keyboard focus indicators (not mouse clicks).
+   - **ARIA attributes** - Add appropriate `aria-*` attributes:
+     - `aria-label` or `aria-labelledby` for labeled elements
+     - `aria-invalid` for error states
+     - `aria-describedby` for help text or error messages
+     - `aria-disabled` when appropriate
+   - **Semantic HTML** - Ensure semantic HTML is used appropriately (e.g., `<button>`, `<input>`, etc.)
+   - **Testing** - Test with keyboard-only navigation to verify focus indicators are visible. Verify screen reader compatibility.
+
+5. **Add a Changeset (required for release)**
+
+   Every PR that adds a new package or modifies a published one **must** include a `.changeset/*.md` file. Without one, the release workflow (`changesets/action@v1` in `.github/workflows/release.yml`) has nothing to publish.
+
+   - Run `yarn changeset` and follow the prompts, or hand-write `.changeset/{component-name}.md`.
+   - **For brand-new packages, use `major` and start `package.json` at `0.0.0`.** Set each new package's `version` to `"0.0.0"` in its `package.json` and write the changeset with `major` for all three. Changesets will bump `0.0.0` → `1.0.0` on the version-packages PR, so the first npm publish lands at `1.0.0` — a semver-honest "first stable release". Don't follow the older `patch`-from-`1.0.0` pattern some prior components used (it publishes the first release as `1.0.1` and labels the changelog entry "Patch Changes", which reads as a fix to a 1.0.0 that never existed):
+
+     ```md
+     ---
+     '@cypress-design/constants-{component}': major
+     '@cypress-design/react-{component}': major
+     '@cypress-design/vue-{component}': major
+     ---
+
+     Adding {Component} component — one-sentence summary of what it does.
+     ```
+
+   - For _changes_ to an already-published package, use the normal semver rule: `major` for breaking API changes, `minor` for new features, `patch` for bug fixes.
+   - **Depend on another `@cypress-design/*` package at runtime with `workspace:^<its version>`**, not `"*"` (devDependencies stay `"*"`). Changesets then republishes your package when that dependency ships a major. `node scripts/check-internal-deps.mjs` fails the PR otherwise. See [Publishing and Deployment](https://design.cypress.io/agents/architecture.md#publishing-and-deployment).
+   - Place the changeset file on the `{component-name}-component` branch (alongside the new `package.json` files). It travels through the rest of the stack and merges to `main` with the rest of the work.
+   - Once merged, `changesets/action@v1` opens an automated "ci(changesets): version packages" PR that bumps versions and generates `CHANGELOG.md`. When that PR merges, npm publish happens automatically.
+
+6. **Cleanup before merge**
+
+   Working/scratch files used during the port don't belong in the long-term tree once the component ships. Before approving the final PR in the stack:
+
+   - If you created a `components/{ComponentName}/plan.md` (or any other working doc capturing the migration plan, design deltas, "decisions" log, etc.), **delete it**. Once the component is built and published, the plan is dead code — its content is now in the commit history, the changeset, and (where it's still useful) in `architecture.md` or `instructions.md`.
+   - Remove any references to the deleted file from `architecture.md` and `instructions.md`.
+   - Delete debug printlines, commented-out code, and TODO comments that the implementation made redundant.
+
+For detailed requirements on each stage, refer to the relevant sections in this document (e.g., "Documentation", "Testing").
+
+## Styling & Tokens
+
+### Design Tokens
+
+- **Never use hex values** - Always use design tokens from `@cypress-design/css`
+- Use Tailwind color classes (e.g., `bg-indigo-500`, `text-gray-800`)
+- See "Styling Guidelines" section for color extraction guidelines
+
+### Constants Structure
+
+- **Shared styles live in `components/{ComponentName}/constants/src/index.ts`**
+- Styles in constants must be reusable by both React and Vue
+- Organize constants to map directly to visual states
+- Minimize conditional logic in component files - use constant lookups instead
+
+**Common constant patterns:**
+
+```typescript
+export const CssStaticClasses = '...' // Base classes for all variants
+export const CssSizeClasses = { '32': '...', '40': '...' } as const
+export const CssVariantClasses = { 'light-default': '...' } as const
+export type ComponentSize = keyof typeof CssSizeClasses
+export type ComponentVariant = keyof typeof CssVariantClasses
+```
+
+### Styling Guidelines
+
+#### Core Principles
+
+**Color Extraction:**
+
+- Extract exact color values from Figma designs for both light and dark modes
+- Light and dark mode colors do NOT map 1:1 with Tailwind's automatic dark mode mapping
+- Use explicit values from Figma - don't assume Tailwind will automatically map light mode colors to dark mode colors
+
+**Color Application:**
+
+- Apply colors explicitly via props or CSS classes
+- Do not rely on CSS inheritance or automatic color mapping
+
+**General Guidelines:**
+
+- **Use Tailwind CSS only** - No inline styles, no CSS modules, no styled-components
+- **Do not use inline styles** in `/react` or `/vue` component files
+- Use `clsx` (React) or computed classes (Vue) to combine class strings
+- Components' visual styles should be easy to extend and modify by humans
+- For theme support, use Tailwind's `dark:` variant with explicit colors from Figma
+
+## Icons
+
+- **Reuse existing Icon components** - Use `@cypress-design/react-icon` or `@cypress-design/vue-icon`
+- **Do not hardcode icons** - Always use the Icon component from the design system
+- **Icon colors** - Extract exact icon colors from Figma for each theme/state combination (see "Styling Guidelines")
+- Apply icon colors explicitly via props (e.g., `strokeColor`, `fillColor`) - see "Styling Guidelines" for color application guidelines
+
+## TypeScript
+
+- Define prop interfaces in the constants file (shared between React and Vue)
+- React components extend HTML element props where appropriate
+- Vue components use `defineComponent` with proper TypeScript types
+- Export types for consumers: `export type {ComponentName}Props`, `export type {ComponentName}Size`, etc.
+
+### Type Derivation Pattern
+
+Derive types from constants using `keyof typeof` to ensure types stay in sync with constants:
+
+```typescript
+export const CssSizeClasses = {
+  '32': '...',
+  '40': '...',
+  '48': '...',
+} as const
+
+// Derive type from constants - types automatically stay in sync
+export type ComponentSize = keyof typeof CssSizeClasses
+
+// Export defaults with proper typing
+export const DefaultSize: ComponentSize = '40'
+export const DefaultVariant: ComponentVariant = 'default'
+```
+
+**Benefits:**
+
+- Types stay in sync with constants automatically (single source of truth)
+- Type safety - can't use invalid values
+- Prevents type drift when constants change
+
+- **Avoid deprecated APIs**: Do not use deprecated event handlers like `onKeyPress` (React) or `@keypress` (Vue). Use `onKeyDown` or `onKeyUp` instead. Reference [MDN documentation](https://developer.mozilla.org/en-US/docs/Web/API/Element/keypress_event) for deprecated properties.
+
+## Testing
+
+- **Cypress component tests** - Test all states, sizes, and variants
+- **Visual regression** - Capture Percy snapshots (`cy.percySnapshot()`) for each component state (default, hover, active, focus-visible, disabled, placeholder, etc.) to ensure all states match Figma designs
+- **Accessibility testing** - See Step 4 "Optimize Component for Accessibility" for comprehensive accessibility testing guidance, including Cypress Accessibility automated testing
+
+## Common Patterns
+
+### Theme Support
+
+If component supports themes (`'light' | 'dark'`):
+
+- `'light'` - Only light mode classes (no `dark:` variants)
+- `'dark'` - Only dark mode classes
+- Use Tailwind's class-based dark mode (`darkMode: 'class'`)
+- See "Styling Guidelines" section for color extraction guidelines
+
+**Note:** Automatic theme switching based on system/user preference (`'auto'` theme) is not currently implemented. If this feature is needed in the future, it would combine both: base classes (light) + `dark:` classes (explicit dark colors from Figma), where the parent/root element controls which is active via the `dark` class.
+
+### State Management
+
+- Use CSS pseudo-classes where possible (`:hover`, `:focus`, `:active`, `:focus-visible`)
+- For JavaScript-detected states, use conditional class application
+- Define state priority logic (e.g., disabled overrides all other states)
+- Minimize JavaScript state detection - prefer CSS when possible
+
+### Form Controls / Input-like Components
+
+**Focus and borders:**
+
+- Use **`outline`** for focus-visible (not `border`) - outline doesn't affect layout and is better for accessibility. Example: `focus-visible:outline-2 focus-visible:outline-indigo-500 focus-visible:outline-offset-0`
+- Use **`border`** for hover/active states on the wrapper (e.g. `hover:border-gray-300`)
+- For composite controls (label + input + icon), put hover/focus states on the **wrapper** and use **`focus-within`** so the whole control responds when the inner input is focused
+
+**Active vs focus-visible:**
+
+- **`:focus-visible`** - For keyboard focus; use for focus ring (with `outline` as above). Browsers show it only when focus was achieved via keyboard (Tab), not on mouse click - intentional for accessibility.
+- **`:active`** / **`:focus`** - For "currently focused and user is interacting" (e.g. typing in input). Can use `border` on wrapper. CSS handles state detection; no JavaScript needed for active/focus-visible.
+
+**Placeholder state (inputs):**
+
+- Placeholder state is not a CSS pseudo-class. Use JavaScript (e.g. empty value + placeholder attribute) and apply placeholder styles from constants when value is empty; use default state styles when value is present.
+
+**Constants for multi-state components:**
+
+- Use flat keys that encode theme, variant, and state (e.g. `theme-type-state`: `'light-default-hover'`). Document state priority order (e.g. disabled > placeholder > focus-visible > active > hover > default). Not every combination may need a constant (e.g. disabled often overrides others).
+
+**Input-like components:**
+
+- Support standard attributes (`value`/`defaultValue`/`v-model`, `disabled`, `placeholder`, `aria-*`, `onChange`/`onInput`/`onFocus`/`onBlur`). Map `disabled` and empty value + placeholder to the correct visual state classes from constants.
+
+## Common Pitfalls
+
+- Use **outline** for focus-visible, not border (accessibility and layout)
+- Placeholder state for inputs requires **JavaScript** (empty value + placeholder), not only CSS
+- **State priority:** Disabled should override other states; document and implement a clear order

@@ -56,7 +56,15 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     // send the top position to the parent
     React.useEffect(setActiveMarkerPosition, [onActive, active])
 
+    // Only scroll when the active item changes, not on first mount (matches
+    // Vue). Scrolling on mount yanked the page to any menu rendered with an
+    // active item, e.g. a docs demo below the fold.
+    const isFirstRun = React.useRef(true)
     React.useEffect(() => {
+      if (isFirstRun.current) {
+        isFirstRun.current = false
+        return
+      }
       // if active check if the item is visible in the
       // viewport and scrollIntoView if not
       setTimeout(() => {
@@ -86,14 +94,14 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
     }))
 
     return (
-      <li ref={activeLIRef} className="list-none p-0 scroll-my-10">
+      <li ref={activeLIRef} className="scroll-my-10 list-none p-0">
         <LinkComponent
           {...itemRest}
           className={clsx('group relative block w-full pl-[24px]', {
             'text-indigo-500 dark:text-indigo-400': active,
             'text-gray-700 dark:text-gray-500': !active,
             'py-[8px] text-[16px] leading-[24px]': depth < 0,
-            'leading-[20px] text-[14px] py-[12px]': depth >= 0,
+            'py-[12px] text-[14px] leading-[20px]': depth >= 0,
           })}
           style={{
             paddingLeft: depth >= 0 ? `${depth * 12 + 48}px` : undefined,
@@ -102,10 +110,10 @@ export const DocLink = React.forwardRef<DocLinkForward, DocLinkProps>(
           {depth >= 0 ? (
             <div
               className={clsx(
-                'left-[6.5px] absolute top-[4px] bottom-[4px] w-[4px] z-10 rounded-full',
+                'absolute bottom-[4px] left-[6.5px] top-[4px] z-10 w-[4px] rounded-full',
                 {
                   hidden: !markerIsMoving || !active,
-                  'group-hover:block bg-gray-300':
+                  'bg-gray-300 group-hover:block':
                     !active && context.collapsible,
                   'bg-indigo-500 dark:bg-indigo-400': active && markerIsMoving,
                 },

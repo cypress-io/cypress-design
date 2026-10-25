@@ -1,0 +1,35 @@
+{
+  "name": "@cypress-design/vue-select",
+  "version": "1.2.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "yarn exec vite build",
+    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
+  },
+  "dependencies": {
+    "@cypress-design/vue-button": "workspace:^1.13.0",
+    "@cypress-design/vue-checkbox": "workspace:^1.0.0",
+    "@cypress-design/vue-icon": "workspace:^3.3.2",
+    "@cypress-design/vue-tabs": "workspace:^1.2.2",
+    "@cypress-design/vue-tag": "workspace:^1.1.0",
+    "@cypress-design/vue-textbox": "workspace:^1.0.1"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-select": "*",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
+  "license": "MIT"
+}

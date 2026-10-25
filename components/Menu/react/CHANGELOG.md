@@ -1,5 +1,18 @@
 # @cypress-design/react-menu
 
+## 1.3.1
+
+### Patch Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - The React Menu `icon` type now accepts icon components that ship at more sizes than 24px (for example 16px and 24px), so they can be passed directly instead of being wrapped as `(props) => <Icon {...props} />`. Runtime behavior is unchanged.
+
+- [#728](https://github.com/cypress-io/cypress-design/pull/728) [`7807cfd`](https://github.com/cypress-io/cypress-design/commit/7807cfdba9d330f24f3b4912a9ad41cedf2193cb) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Fix types for consumers using TypeScript's `bundler` module resolution (the default for Vite and most modern setups):
+
+  - `react-logo`, `react-menu`, `react-modal`, `react-testresult`: add the `types` condition to `exports`, so TypeScript finds `dist/index.d.ts` instead of reporting the package as untyped.
+  - `vue-spinner`: the `./sfc` subpath now points TypeScript at `dist/Spinner.vue.d.ts`.
+  - `vue-docmenu`: `linkComponent` accepts any Vue component (`Component | 'a'`); the previous `DefineComponent | 'a'` type rejected real components.
+  - `react-textbox`: `onChange` receives a `ChangeEvent`, so `event.target.value` type-checks.
+
 ## 1.3.0
 
 ### Minor Changes

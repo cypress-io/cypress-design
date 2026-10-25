@@ -1,5 +1,34 @@
 # @cypress-design/react-statusicon
 
+## 1.0.6
+
+### Patch Changes
+
+- [#735](https://github.com/cypress-io/cypress-design/pull/735) [`cf29612`](https://github.com/cypress-io/cypress-design/commit/cf296129df3dca8d73a8691e79ca6c25fa5aa05f) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - List `@cypress-design/icon-registry` in `dependencies`. The build keeps it external, so the published bundle imports it at runtime, and it previously resolved only because the icon packages install it too.
+
+## 1.0.5
+
+### Patch Changes
+
+- [#719](https://github.com/cypress-io/cypress-design/pull/719) [`f9ee6ab`](https://github.com/cypress-io/cypress-design/commit/f9ee6abd21606fc192bc48a231f055deec94451a) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fix the errored/timedOut/overLimit/noTests status icon's circle radius reaching all the way to the SVG's edge (0–16, no margin) instead of matching every other status icon's inset circle (radius 5–7, a 1px margin from the edge).
+
+- Updated dependencies []:
+  - @cypress-design/react-icon@3.3.1
+
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`7a8dedb`](https://github.com/cypress-io/cypress-design/commit/7a8dedbb34f5f680d935cd2939c15b4783a27d3f), [`6ad912b`](https://github.com/cypress-io/cypress-design/commit/6ad912ba9800292f3b47c5c0a46b8ea2a2a30859)]:
+  - @cypress-design/react-icon@3.0.0
+
+## 1.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`7f0c84a`](https://github.com/cypress-io/cypress-design/commit/7f0c84acb31d231a09ead4969da3c5aea286c385)]:
+  - @cypress-design/react-icon@2.0.0
+
 ## 1.0.2
 
 ### Patch Changes

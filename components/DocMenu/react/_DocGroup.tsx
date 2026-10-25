@@ -141,7 +141,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
       <>
         <Head
           onClick={() => toggleMenu(!open)}
-          href={group.href}
+          href={collapsible ? undefined : group.href}
           className={clsx(CssClasses.button, {
             [CssClasses.topButton]: depth === 0,
             [CssClasses.leafButton]: depth,
@@ -176,7 +176,7 @@ export const DocGroup = React.forwardRef<DocGroupForward, DocGroupProps>(
             'relative',
             collapsible
               ? {
-                  'transition-all grid': true,
+                  'grid transition-all': true,
                   'grid-rows-[0fr]': !open,
                   'grid-rows-[1fr]': open,
                 }

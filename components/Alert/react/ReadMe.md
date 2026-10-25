@@ -18,7 +18,7 @@ yarn add @cypress-design/react-alert
 import Alert from '@cypress-design/react-alert'
 ```
 
-The simplest is to use with plain text. The only prop that is required is the `title`. By default, type is `info`.
+The simplest is to use with plain text. The only prop that is required is the `title`. By default, `variant` is `info`.
 
 ```jsx live
 import Alert from '@cypress-design/react-alert'
@@ -124,7 +124,7 @@ export const AlertComp = () => {
         </>
       }
       footer={
-        <div className="p-4 flex flex-wrap overflow-x-hidden gap-4">
+        <div className="flex flex-wrap gap-4 overflow-x-hidden p-4">
           <Button variant="outline-indigo" size="32">
             Quick setup
           </Button>

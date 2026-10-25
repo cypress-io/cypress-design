@@ -1,11 +1,6 @@
 {
   "extends": "../../../tsconfig.react.build.json",
-  "include": [
-    "./Alert.tsx",
-    "./index.ts",
-    "../constants.ts",
-    "./css-modules.d.ts"
-  ],
+  "include": ["./Alert.tsx", "./index.ts", "../constants.ts"],
   "compilerOptions": {
     "sourceRoot": "./",
     "outDir": "dist"

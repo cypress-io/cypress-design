@@ -1,0 +1,6 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": ["./*.tsx", "./*.ts"],
+  "exclude": ["./rollup.config.mjs"],
+  "compilerOptions": { "outDir": "dist", "rootDir": "./", "composite": false }
+}

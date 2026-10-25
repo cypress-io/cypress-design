@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import BrandCard from './components/BrandCard.astro'
+import PairingCard from './components/PairingCard.astro'
+import ColorPalette from './components/ColorPalette.astro'
+import ColorLegend from './components/ColorLegend.astro'
+
+export const frontmatter = { title: 'Colors', order: 3 }
+
+const tocHeadings = [
+  { depth: 2, slug: 'brand', text: 'Brand colors' },
+  { depth: 2, slug: 'primary', text: 'Primary colors' },
+  { depth: 3, slug: 'scale-gray', text: 'Gray' },
+  { depth: 3, slug: 'scale-jade', text: 'Jade' },
+  { depth: 3, slug: 'scale-teal', text: 'Teal' },
+  { depth: 3, slug: 'scale-indigo', text: 'Indigo' },
+  { depth: 2, slug: 'secondary', text: 'Secondary colors' },
+  { depth: 3, slug: 'scale-purple', text: 'Purple' },
+  { depth: 3, slug: 'scale-red', text: 'Red' },
+  { depth: 3, slug: 'scale-orange', text: 'Orange' },
+  { depth: 2, slug: 'tertiary', text: 'Tertiary colors' },
+  { depth: 3, slug: 'scale-fuchsia', text: 'Fuchsia' },
+  { depth: 3, slug: 'scale-green', text: 'Green' },
+  { depth: 3, slug: 'scale-magenta', text: 'Magenta' },
+  { depth: 2, slug: 'a11y', text: 'Color contrast' },
+  { depth: 2, slug: 'pairings', text: 'Complementary colors' },
+  { depth: 2, slug: 'usage', text: 'Token reference' },
+  { depth: 3, slug: 'usage-js', text: 'JS variables' },
+  { depth: 3, slug: 'usage-css', text: 'CSS variables' },
+  { depth: 3, slug: 'usage-tailwind', text: 'Tailwind classes' },
+]
+---
+
+<BaseLayout title="Colors" tocHeadings={tocHeadings} rawContent={true}>
+
+  <!-- Hero -->
+  <section class="max-w-[780px] pb-6 border-b border-gray-100 mb-0">
+    <p class="text-xs uppercase text-purple-500 font-semibold mb-[14px] m-0">Foundations · v2.0</p>
+    <h1 class="font-brand-heading font-semibold text-[56px] leading-[1.04] m-0 mb-[18px] text-gray-1000">
+      Colors, <em class="italic text-gray-700 font-medium">with intent.</em>
+    </h1>
+    <p class="text-[18px] leading-[1.55] text-gray-700 max-w-[680px] m-0 mb-7">
+      Every hue in the Cypress palette is tuned for a specific job — from the teal that carries
+      the brand, to the jade that marks a passing test, to the neutrals that hold an interface
+      together. Copy a value, drop it in.
+    </p>
+    <div class="flex flex-wrap gap-6 items-center text-sm text-gray-600">
+      <span><strong class="text-gray-900 font-medium">10 hues</strong> · 113 swatches</span>
+      <span><strong class="text-gray-900 font-medium">WCAG-scored</strong> against light and dark surfaces</span>
+      <span class="inline-flex items-center gap-2 px-2 py-1 border border-gray-100 rounded-full bg-white text-xs text-gray-700">
+        <span
+          class="w-2 h-2 rounded-full border border-gray-500 inline-block shrink-0"
+          style="background:linear-gradient(135deg,#fff 0 50%,#1B1E2E 50% 100%)"
+        ></span>
+        Dark mode pairings · on the roadmap
+      </span>
+    </div>
+  </section>
+
+  <!-- Brand colors -->
+  <h2 id="brand" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Brand colors</h2>
+  <p class="text-base text-gray-700 max-w-[640px] mb-7 m-0">
+    Teal, jade, and indigo do 80% of the work in Cypress interfaces. Everything else is support —
+    semantic roles, surfaces, and the occasional accent.
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+    <BrandCard
+      name="Teal"
+      chipColor="#00595D"
+      desc="The Cypress signature. Brand surfaces, primary marketing, and the hue users associate first with the product."
+      code="teal-600 · #00595D"
+    />
+    <BrandCard
+      name="Jade"
+      chipColor="#69D3A7"
+      desc="Cypress green — reserved for success, passing tests, and the healthy state of a system. Never use jade for neutral confirmation."
+      code="jade-300 · #69D3A7"
+    />
+    <BrandCard
+      name="Indigo"
+      chipColor="#4956E3"
+      desc="Links, focus rings, and the places attention should land first. The accent that signals interactivity across product surfaces."
+      code="indigo-500 · #4956E3"
+    />
+  </div>
+
+  <!-- Full palette -->
+  <div class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">The full palette</div>
+  <p class="text-base text-gray-700 max-w-[640px] mb-7 m-0">
+    Ten scales, grouped by role. <strong class="text-gray-900 font-semibold">Primary</strong> carries the brand;
+    <strong class="text-gray-900 font-semibold">Secondary</strong> handles semantic accents;
+    <strong class="text-gray-900 font-semibold">Tertiary</strong> is reserved for generated content like syntax
+    highlighting and chart series. Click any swatch to copy the Tailwind class.
+  </p>
+
+  <ColorLegend />
+
+  <div class="mt-9">
+    <ColorPalette />
+  </div>
+
+  <!-- Reading contrast -->
+  <h2 id="a11y" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Reading the contrast scores</h2>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
+    Each swatch is scored as a <em>text</em> color — the color you'd set a paragraph to if the swatch were
+    the background. <strong class="font-semibold text-gray-900">AA</strong> requires a 4.5:1 contrast
+    ratio for body text; <strong class="font-semibold text-gray-900">AAA</strong> requires 7:1. Icons,
+    dividers, and decorative fills can use any step, but text should always pick a step that passes on its background.
+  </p>
+  <p class="text-base text-gray-700 max-w-[640px] mb-7 m-0">
+    A good rule of thumb: for text on white, reach for a
+    <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">600</code> or darker.
+    For text on dark surfaces, reach for a
+    <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">300</code> or lighter.
+    The middle steps (<code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">400</code>–<code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">500</code>) are for fills, borders, and decorative surfaces.
+  </p>
+
+  <!-- Pairings -->
+  <h2 id="pairings" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Fresh complementary color pairings</h2>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
+    Tokens read as a list, but they earn their keep in combination. These pairings are tuned for
+    product surfaces, illustration accents, and icon duos — proven on white, ready to lift.
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-2 mb-5">
+    <PairingCard bigColor="#A3E7CB" smallColor="#00595D" token1="jade-200" token2="teal-600" />
+    <PairingCard bigColor="#2F3AB0" smallColor="#C8A7F5" token1="indigo-700" token2="purple-300" />
+    <PairingCard bigColor="#1B1E2E" smallColor="#6470F3" token1="gray-1000" token2="indigo-400" />
+    <PairingCard bigColor="#6470F3" smallColor="#90D9E6" token1="indigo-400" token2="teal-200" />
+    <PairingCard bigColor="#4B1A83" smallColor="#EDBB4A" token1="purple-700" token2="orange-300" />
+    <PairingCard bigColor="#252E8F" smallColor="#A3E7CB" token1="indigo-800" token2="jade-200" />
+  </div>
+
+  <!-- Usage -->
+  <h2 id="usage" class="font-brand-heading font-semibold text-[30px] mt-16 mb-2 text-gray-1000">Token reference</h2>
+
+  <h3 id="usage-js" class="font-brand-heading font-semibold text-xl mt-8 mb-1 text-gray-1000">JS variables</h3>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">Import colors in JavaScript or TypeScript:</p>
+  <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-brand-mono overflow-x-auto mb-8"><code><span class="text-indigo-300">import</span> <span class="text-gray-200">{'{ colors }'}</span> <span class="text-indigo-300">from</span> <span class="text-jade-300">'@cypress-design/css'</span>
+<span class="text-gray-500">// e.g. colors.jade[400], colors.indigo[700]</span></code></pre>
+
+  <h3 id="usage-css" class="font-brand-heading font-semibold text-xl mt-8 mb-1 text-gray-1000">CSS variables</h3>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
+    Color tokens are available as CSS custom properties after linking <code class="font-brand-mono text-sm bg-gray-50 px-1.5 py-0.5 rounded border border-gray-100">colors.css</code>:
+  </p>
+  <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-brand-mono overflow-x-auto mb-8"><code><span class="text-gray-300">color: </span><span class="text-jade-300">var(--cy-indigo-500)</span><span class="text-gray-300">;</span>
+<span class="text-gray-300">background: </span><span class="text-jade-300">var(--cy-jade-200)</span><span class="text-gray-300">;</span></code></pre>
+
+  <h3 id="usage-tailwind" class="font-brand-heading font-semibold text-xl mt-8 mb-1 text-gray-1000">Tailwind classes</h3>
+  <p class="text-base text-gray-700 max-w-[640px] mb-4 m-0">
+    All design system color tokens are available as <a href="https://tailwindcss.com/docs/text-color" class="text-indigo-500 hover:underline">Tailwind text color</a> and <a href="https://tailwindcss.com/docs/background-color" class="text-indigo-500 hover:underline">background color</a> utility classes. Use these when styling components or building new UI — they keep colors consistent with the design tokens and respond correctly to light/dark mode.
+  </p>
+  <pre class="bg-gray-1000 text-gray-100 rounded-lg p-5 text-sm font-brand-mono overflow-x-auto mb-4"><code><span class="text-gray-500">&lt;</span><span class="text-red-300">div</span> <span class="text-indigo-300">class</span><span class="text-gray-400">=</span><span class="text-jade-300">"text-white bg-jade-400"</span><span class="text-gray-500">&gt;</span><span class="text-gray-200">background of jade 400</span><span class="text-gray-500">&lt;/</span><span class="text-red-300">div</span><span class="text-gray-500">&gt;</span>
+<span class="text-gray-500">&lt;</span><span class="text-red-300">div</span> <span class="text-indigo-300">class</span><span class="text-gray-400">=</span><span class="text-jade-300">"text-indigo-700"</span><span class="text-gray-500">&gt;</span><span class="text-gray-200">text of indigo 700</span><span class="text-gray-500">&lt;/</span><span class="text-red-300">div</span><span class="text-gray-500">&gt;</span></code></pre>
+
+  <a href="https://www.figma.com/file/1WJ3GVQyMV5e7xVxPg3yID/Design-System%2C-v1.x---%40latest?type=design&node-id=969-9732" class="text-indigo-500 hover:underline text-sm" target="_blank" rel="noopener noreferrer">Open colors in Figma</a>
+
+  <!-- Pager -->
+  <nav class="flex justify-between gap-4 mt-20 pt-6 border-t border-gray-100">
+    <a href="/install" class="flex-1 p-4 border border-gray-100 rounded flex flex-col gap-0.5 no-underline transition-colors hover:border-gray-400 bg-white">
+      <span class="text-xs uppercase text-gray-600 font-semibold">← Previous</span>
+      <span class="font-brand-heading text-lg font-semibold text-gray-1000">Install</span>
+    </a>
+    <a href="/icons" class="flex-1 p-4 border border-gray-100 rounded flex flex-col gap-0.5 no-underline transition-colors hover:border-gray-400 bg-white text-right items-end">
+      <span class="text-xs uppercase text-gray-600 font-semibold">Next →</span>
+      <span class="font-brand-heading text-lg font-semibold text-gray-1000">Icons</span>
+    </a>
+  </nav>
+
+</BaseLayout>

@@ -19,7 +19,6 @@ export default function assertions(
       'text-decoration-line',
       'underline',
     )
-    // @ts-ignore
     cy.get('@firstButton').realHover()
     cy.get('@firstButton').should(
       'not.have.css',
@@ -38,7 +37,6 @@ export default function assertions(
       'text-decoration-line',
       'underline',
     )
-    // @ts-ignore
     cy.get('@firstButton').realHover()
     cy.get('@firstButton').should(
       'have.css',

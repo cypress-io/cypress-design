@@ -19,7 +19,7 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
       return (
         <div className="p-4">
           <div
-            className="rounded-full p-4 bg-jade-300 mb-4 px-6 inline-block"
+            className="mb-4 inline-block rounded-full bg-jade-300 p-4 px-6"
             data-cy="counter"
           >
             {val}

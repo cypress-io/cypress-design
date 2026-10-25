@@ -7,5 +7,35 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "eslint.validate": ["javascript", "typescript", "vue"],
-  "cSpell.words": ["clsx", "docmenu"]
+  "cSpell.words": ["clsx", "docmenu"],
+  "files.exclude": {
+    "**/.astro": true,
+    "**/.git": true,
+    "**/.wrangler": true,
+    "**/.turbo": true,
+    "**/.DS_Store": true,
+    "**/.eslintcache": true,
+    "**/node_modules": true,
+    "**/dist": true,
+    ".yarn/": true,
+    "tmp/": true,
+    "yarn-error.log": true
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.expand": false,
+  "explorer.fileNesting.patterns": {
+    ".env": "*.env, .env.*, .envrc, env.d.ts",
+    "astro.config.ts": ".env*, tailwind.config.*, tsconfig*, .dev*",
+    "package.json": "yarn*, .dev*, .prettier*, .gitignore, .codeiumignore, .node-version, .npmrc, .nvmrc, .percy*, .yarn*, sentry.client.config.*, tsconfig*, cypress.config.*, postcss.config.*, tailwind.config.*, eslint.config.*, turbo.json",
+    "env.d.ts": "*.d.ts",
+    "*.cjs": "$(capture).cjs.map, $(capture).*.cjs, $(capture)_*.cjs",
+    "*.css": "$(capture).css.map, $(capture).*.css",
+    "*.js": "$(capture).js.map, $(capture).*.js, $(capture)_*.js, $(capture).d.ts, $(capture).d.ts.map, $(capture).js.flow",
+    "README.md": "AGENTS.md, CLAUDE.md, LICENSE",
+    "*.md": "$(capture).*",
+    "*.mjs": "$(capture).mjs.map, $(capture).*.mjs, $(capture)_*.mjs",
+    "*.ts": "$(capture).js, $(capture).d.ts.map, $(capture).*.ts, $(capture)_*.js, $(capture)_*.ts",
+    "*.tsx": "$(capture).ts, $(capture).*.tsx, $(capture)_*.ts, $(capture)_*.tsx, $(capture).css, $(capture).module.css, $(capture).less, $(capture).module.less, $(capture).module.less.d.ts, $(capture).scss, $(capture).module.scss, $(capture).module.scss.d.ts, $(capture).css.ts",
+    "*.vue": "$(capture).*.ts, $(capture).*.js, $(capture).story.vue"
+  }
 }

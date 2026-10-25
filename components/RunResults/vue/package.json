@@ -1,0 +1,32 @@
+{
+  "name": "@cypress-design/vue-runresults",
+  "version": "1.2.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "module": "./dist/index.es.mjs",
+  "main": "./dist/index.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module",
+    "build:module": "yarn exec vite build"
+  },
+  "dependencies": {
+    "@cypress-design/vue-icon": "workspace:^3.3.2",
+    "@cypress-design/vue-statusicon": "workspace:^1.0.1",
+    "@cypress-design/vue-tooltip": "workspace:^2.1.0",
+    "tailwind-merge": "^2.0.0"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-runresults": "*",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
+  "license": "MIT"
+}

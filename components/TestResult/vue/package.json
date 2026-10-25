@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-testresult",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "files": [
     "*"
   ],
@@ -16,12 +16,13 @@
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+    "build:module": "yarn exec vite build",
+    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/vue-icon": "*",
-    "@cypress-design/vue-statusicon": "*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2",
+    "@cypress-design/vue-icon": "workspace:^3.3.2",
+    "@cypress-design/vue-statusicon": "workspace:^1.0.1"
   },
   "devDependencies": {
     "@cypress-design/constants-testresult": "*",

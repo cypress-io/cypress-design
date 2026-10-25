@@ -2,7 +2,12 @@
 import { mount } from 'cypress/vue'
 
 import { sizes, statuses, variants } from '@cypress-design/constants-statusicon'
-import { StatusIcon } from '@cypress-design/vue-statusicon'
+import {
+  StatusIcon,
+  OutlineStatusIcon,
+  SimpleStatusIcon,
+  SolidStatusIcon,
+} from '@cypress-design/vue-statusicon'
 import StatusIconStory from './StatusIcon.rootstory'
 import { computed, defineComponent, ref } from 'vue'
 
@@ -56,6 +61,38 @@ describe('StatusIcon', () => {
     cy.then(function () {
       expect(this.firstIcon).to.eq(this.secondIcon)
     })
+  })
+
+  it('defaults the tree-shakable icons to size 24', () => {
+    mount(() => {
+      return (
+        <div>
+          <SolidStatusIcon status="passed" />
+          <OutlineStatusIcon status="passed" />
+          <SimpleStatusIcon status="passed" />
+        </div>
+      )
+    })
+
+    cy.get('svg').should('have.length', 3)
+    cy.get('svg').each(($svg) => {
+      cy.wrap($svg).should('have.attr', 'width', '24')
+    })
+  })
+
+  it('renders nothing for a status/size pair with no icon', () => {
+    mount(() => {
+      return (
+        <div>
+          <SolidStatusIcon size="20" status="passed" />
+          <SolidStatusIcon size="16" status="notAStatus" />
+          <span>still rendered</span>
+        </div>
+      )
+    })
+
+    cy.contains('still rendered').should('be.visible')
+    cy.get('svg').should('not.exist')
   })
 
   const VariableStatusIcon = defineComponent({
@@ -119,7 +156,7 @@ describe('StatusIcon', () => {
               />
               {variant.value}
             </div>
-            <div class="ml-20 h-20 w-[160px] flex items-center justify-center">
+            <div class="ml-20 flex h-20 w-[160px] items-center justify-center">
               <StatusIcon
                 variant={variant.value}
                 size={size.value}

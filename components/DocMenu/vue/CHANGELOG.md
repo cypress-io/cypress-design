@@ -1,5 +1,26 @@
 # @cypress-design/vue-docmenu
 
+## 1.1.1
+
+### Patch Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - DocMenu: a collapsible group header renders as a `<button>` and no longer carries the group's `href`, which isn't valid on a button.
+
+  React DocMenu no longer scrolls the page to the active item when it first mounts, only when the active item changes, matching Vue.
+
+- [#728](https://github.com/cypress-io/cypress-design/pull/728) [`7807cfd`](https://github.com/cypress-io/cypress-design/commit/7807cfdba9d330f24f3b4912a9ad41cedf2193cb) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Fix types for consumers using TypeScript's `bundler` module resolution (the default for Vite and most modern setups):
+
+  - `react-logo`, `react-menu`, `react-modal`, `react-testresult`: add the `types` condition to `exports`, so TypeScript finds `dist/index.d.ts` instead of reporting the package as untyped.
+  - `vue-spinner`: the `./sfc` subpath now points TypeScript at `dist/Spinner.vue.d.ts`.
+  - `vue-docmenu`: `linkComponent` accepts any Vue component (`Component | 'a'`); the previous `DefineComponent | 'a'` type rejected real components.
+  - `react-textbox`: `onChange` receives a `ChangeEvent`, so `event.target.value` type-checks.
+
+## 1.1.0
+
+### Minor Changes
+
+- [#733](https://github.com/cypress-io/cypress-design/pull/733) [`5e916fb`](https://github.com/cypress-io/cypress-design/commit/5e916fbe2b83d1503ed80820a85a8705bdcaeef1) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Depend on `@cypress-design/vue-icon` and `@cypress-design/react-icon` 3.x. These packages were last published against icon 1.x, so installs stayed on 1.x and missed the 3.x fixes, including tree-shakable named icon imports. None of the icons these components use were renamed or removed in 2.0 or 3.0, so there are no API changes. `@cypress-design/vue-modal` now also lists `@cypress-design/vue-icon` as a dependency instead of a devDependency, since its build imports it at runtime.
+
 ## 1.0.0
 
 ### Major Changes

@@ -18,8 +18,6 @@ yarn add @cypress-design/react-docmenu
 import DocMenu from '@cypress-design/react-docmenu'
 ```
 
-### Default usage
-
 ```tsx live
 export default () => (
   <DocMenu

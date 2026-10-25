@@ -1,0 +1,1 @@
+../../.agents/skills/cy-resolve-pr-comments.md

@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-accordion",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "files": [
     "*"
   ],
@@ -16,13 +16,13 @@
   },
   "scripts": {
     "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+    "build:module": "yarn exec vite build",
+    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "license": "MIT",
   "dependencies": {
-    "@cypress-design/details-animation": "*",
-    "@cypress-design/vue-icon": "*"
+    "@cypress-design/details-animation": "workspace:^1.0.0",
+    "@cypress-design/vue-icon": "workspace:^3.3.2"
   },
   "devDependencies": {
     "@cypress-design/constants-accordion": "*",

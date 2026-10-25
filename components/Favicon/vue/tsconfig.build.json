@@ -1,0 +1,10 @@
+{
+  "extends": "../../../tsconfig.vue.build.json",
+  "include": ["./*.vue", "./*.ts"],
+  "exclude": ["./vite.config.ts"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "./",
+    "composite": false
+  }
+}

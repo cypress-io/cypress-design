@@ -1,3 +1,9 @@
-export GIT_BRANCH=$VERCEL_GIT_COMMIT_REF
+#!/usr/bin/env bash
+set -euo pipefail
+
+export GIT_BRANCH=${VERCEL_GIT_COMMIT_REF:-main}
 echo "Building docs for branch $GIT_BRANCH"
-yarn vitepress build docs
+# Regenerate hosted token stylesheets into docs/public/ so Vercel serves
+# them at design.cypress.io/{colors,tokens}.css.
+yarn workspace @cypress-design/css build:colors-css
+yarn astro build --root docs

@@ -4,7 +4,7 @@ import * as React from 'react'
 import { mount } from 'cypress/react'
 import { logoLockUp, logoMark } from '@cypress-design/icon-registry'
 import assertions from '../assertions'
-import { CypressLockUp, CypressMark } from './Logo'
+import { CypressLockUp, CypressMark, CypressWatermark } from './Logo'
 
 describe('Logo', () => {
   function mountStory() {
@@ -15,7 +15,7 @@ describe('Logo', () => {
             <CypressLockUp variant={v as keyof typeof logoLockUp} key={v} />
           ))}
         </div>
-        <div className="flex mt-4 gap-4">
+        <div className="mt-4 flex gap-4">
           {Object.keys(logoMark).map((v) => (
             <CypressMark variant={v as keyof typeof logoMark} key={v} />
           ))}
@@ -24,4 +24,9 @@ describe('Logo', () => {
     )
   }
   assertions(mountStory)
+
+  it('renders CypressWatermark without the dark prop', () => {
+    mount(<CypressWatermark data-cy="watermark" />)
+    cy.get('[data-cy="watermark"]').should('have.class', 'text-white/20')
+  })
 })

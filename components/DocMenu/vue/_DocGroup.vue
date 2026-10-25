@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, type DefineComponent, ref, watch, inject } from 'vue'
+import { computed, type Component, ref, watch, inject } from 'vue'
 import { IconChevronDownSmall } from '@cypress-design/vue-icon'
 import { NavGroup, CssClasses } from '@cypress-design/constants-docmenu'
 import DocGroupElements, {
@@ -12,7 +12,7 @@ const props = withDefaults(
     group: NavGroup
     activePath?: string
     collapsible: boolean
-    linkComponent: DefineComponent | 'a'
+    linkComponent: Component | 'a'
     depth?: number
   }>(),
   {
@@ -95,7 +95,7 @@ defineExpose({
     :style="{
       paddingLeft: depth >= 1 ? `${(depth - 1) * 12 + 48}px` : undefined,
     }"
-    :href="group.href"
+    :href="collapsible ? undefined : group.href"
     @click="
       () => {
         if (collapsible) {
@@ -125,7 +125,7 @@ defineExpose({
   </component>
   <div
     ref="$listWrapper"
-    class="grid transition-all relative"
+    class="relative grid transition-all"
     :class="{
       'grid-rows-[0fr]': !open && collapsible,
       'grid-rows-[1fr]': open || !collapsible,

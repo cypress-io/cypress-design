@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/react-testresult",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "files": [
     "*"
   ],
@@ -9,6 +9,7 @@
   "main": "./dist/index.umd.js",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.es.mjs",
       "require": "./dist/index.umd.js"
     }
@@ -19,8 +20,8 @@
     "build:types": "tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/react-icon": "*",
-    "@cypress-design/react-statusicon": "*",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
+    "@cypress-design/react-statusicon": "workspace:^1.0.5",
     "clsx": "*"
   },
   "devDependencies": {

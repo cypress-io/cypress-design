@@ -1,0 +1,59 @@
+---
+name: index
+description: Router for Cypress Design System agent guidance. Fetch this first; it points at the specific guidance file(s) needed for the current task.
+---
+
+# Cypress Design System — agent index
+
+Fetch only what the task needs. Don't preload all files.
+
+## Principles
+
+Foundational thinking that frames how we make design and product decisions. Fetch when starting design, product, UX, illustration, or AI-assisted work — the pillar files apply the principles to specific tokens and rules.
+
+- [principles/ai.md](https://design.cypress.io/agents/principles/ai.md) — using AI to build, design, write, or review
+- [principles/ux.md](https://design.cypress.io/agents/principles/ux.md) — UX & design principles (the _what_): designing for users, patterns, naming, empty states, restraint, AI-powered features, pricing UX. The business-goal / prioritization / discovery _why_-side lives in product.md
+- [principles/product.md](https://design.cypress.io/agents/principles/product.md) — product principles (the _why/whether_): business goals + prioritization, problem definition & discovery, ownership, shipping to learn (measure before launch, don't bundle, set a review date), and post-launch decide. Fetch when planning, prioritizing, defining success, planning research, or reviewing whether shipped work is measured and followed up
+- [principles/visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — directing the eye with color, icons, spacing, size
+- [principles/feedback.md](https://design.cypress.io/agents/principles/feedback.md) — reviewing work and giving feedback
+- [principles/learning-from-feedback.md](https://design.cypress.io/agents/principles/learning-from-feedback.md) — **fetch on every feedback exchange** (PR review, reply to a comment, Slack thread, Zoom recap) — how to spot the rule hiding in a fix and confirm it with the human before documenting
+- [principles/releases.md](https://design.cypress.io/agents/principles/releases.md) — shipping releases, betas, and previews; naming stages; managing feedback quality
+
+## Design pillars
+
+Several pillars lead with a `## Principles` section that governs the tokens and rules below it (colors, typography, spacing, iconography, illustrations). Others (voice, personas, accessibility) are organized differently — open each file for the structure that fits its content.
+
+- [colors.md](https://design.cypress.io/agents/colors.md) — color tokens, contrast, pairings
+- [typography.md](https://design.cypress.io/agents/typography.md) — font, size, weight, line-height
+- [spacing.md](https://design.cypress.io/agents/spacing.md) — margins, padding, gaps, layout dimensions
+- [iconography.md](https://design.cypress.io/agents/iconography.md) — creating or styling icons
+- [illustrations.md](https://design.cypress.io/agents/illustrations.md) — illustration principles, style, theme, and guidelines
+- [ui-illustrations.md](https://design.cypress.io/agents/ui-illustrations.md) — shrinking a product screen into an abstracted illustration that pairs with a paragraph without going stale when the product changes
+  - Creating one? Use the [cy-ui-illustration skill](https://design.cypress.io/agents/skills/cy-ui-illustration/SKILL.md) — the production procedure, canonical reference set, and render workflow. The doc above is the standard reviews cite.
+- [voice.md](https://design.cypress.io/agents/voice.md) — UI copy, errors, empty states, tone, capitalization, product naming, mechanics (numbers, dates, punctuation)
+  - [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — narrow supplement for one case: writing a feature-spotlight title, nav label, or other single-feature headline
+- [errors.md](https://design.cypress.io/agents/errors.md) — errors, warnings, deprecations, and other system-to-user failure messages; distilled from the cypress-error-messages skill in aihub
+- [personas.md](https://design.cypress.io/agents/personas.md) — who uses Cypress and what they need
+- [accessibility.md](https://design.cypress.io/agents/accessibility.md) — when to invest in a11y and the patterns to follow on the surfaces you ship
+
+## Components
+
+Fetch on demand — don't preload all of them:
+
+- `instructions.md` — props, variants, states, accessibility. Load when using or referencing a component. (`https://design.cypress.io/agents/components/<Name>/instructions.md`)
+- `<framework>/ReadMe.md` — install command, import path, code examples. Load only the one matching the project (`react/` or `vue/`).
+
+`Accordion` `Alert` `Button` `Checkbox` `Favicon` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
+`DocMenu` — sidebar navigation used in documentation sites
+`RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
+`Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
+`SpecResults` — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar. React only for now (`@cypress-design/react-spec-results`)
+`StatusIcon` — run/spec/group/test-result status indicator (passed, failed, failing, running, unclaimed, placeholder, cancelled, noTests, errored, timedOut, overLimit, skipped, pending)
+`Tag` — small colored label
+`TestResult` — single test result row with status, title, and actions
+
+## Before marking done
+
+Run [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) against your diff (tokens, spacing, a11y — is the surface built right?).
+
+When the work is a product brief, initiative, or design proposal — not just a UI surface — also run [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) (problem defined, alternatives compared, success metric + measurement, review date, post-launch decision — should we be building it, and will we know if it worked?).

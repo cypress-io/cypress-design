@@ -40,7 +40,7 @@ All variants with placeholder text:
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-white p-4 rounded">
+  <div className="rounded bg-white p-4">
     <div className="flex flex-col gap-4">
       <Textbox variant="default" placeholder="Default placeholder" />
       <Textbox variant="valid" placeholder="Valid placeholder" />
@@ -58,7 +58,7 @@ All variants with values:
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-white p-4 rounded">
+  <div className="rounded bg-white p-4">
     <div className="flex flex-col gap-4">
       <Textbox variant="default" defaultValue="Default" />
       <Textbox variant="valid" defaultValue="Valid" />
@@ -77,7 +77,7 @@ All variants in dark mode with placeholders:
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-gray-1000 p-4 rounded">
+  <div className="rounded bg-gray-1000 p-4">
     <div className="flex flex-col gap-4">
       <Textbox theme="dark" variant="default" placeholder="Default" />
       <Textbox theme="dark" variant="valid" placeholder="Valid" />
@@ -93,7 +93,7 @@ All variants in dark mode with values:
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-gray-1000 p-4 rounded">
+  <div className="rounded bg-gray-1000 p-4">
     <div className="flex flex-col gap-4">
       <Textbox theme="dark" variant="default" defaultValue="Default" />
       <Textbox theme="dark" variant="valid" defaultValue="Valid" />
@@ -112,7 +112,7 @@ The Textbox supports three sizes: `32`, `40` (default), and `48`.
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-white p-4 rounded">
+  <div className="rounded bg-white p-4">
     <div className="flex flex-col gap-4">
       <Textbox size="32" defaultValue="Size 32" />
       <Textbox size="40" defaultValue="Size 40" />
@@ -127,7 +127,7 @@ Dark mode:
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-gray-1000 p-4 rounded">
+  <div className="rounded bg-gray-1000 p-4">
     <div className="flex flex-col gap-4">
       <Textbox theme="dark" size="32" defaultValue="Size 32" />
       <Textbox theme="dark" size="40" defaultValue="Size 40" />
@@ -144,7 +144,7 @@ The Textbox supports a `rounded` prop to toggle between rounded and square corne
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-white p-4 rounded">
+  <div className="rounded bg-white p-4">
     <div className="flex flex-col gap-4">
       <Textbox size="40" rounded={false} defaultValue="Not rounded" />
       <Textbox size="40" rounded={true} defaultValue="Rounded" />
@@ -158,7 +158,7 @@ Dark mode:
 ```jsx live
 import Textbox from '@cypress-design/react-textbox'
 export default () => (
-  <div className="bg-gray-1000 p-4 rounded">
+  <div className="rounded bg-gray-1000 p-4">
     <div className="flex flex-col gap-4">
       <Textbox
         theme="dark"
@@ -180,7 +180,7 @@ The Textbox supports various combinations of optional elements. All sizes with l
 import Textbox from '@cypress-design/react-textbox'
 import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 export default () => (
-  <div className="bg-white p-4 rounded">
+  <div className="rounded bg-white p-4">
     <div className="flex flex-col gap-4">
       <Textbox
         divider
@@ -279,7 +279,7 @@ Dark mode:
 import Textbox from '@cypress-design/react-textbox'
 import { IconShapeLightningBolt } from '@cypress-design/react-icon'
 export default () => (
-  <div className="bg-gray-1000 p-4 rounded">
+  <div className="rounded bg-gray-1000 p-4">
     <div className="flex flex-col gap-4">
       <Textbox
         divider

@@ -1,5 +1,21 @@
 # @cypress-design/vue-modal
 
+## 1.2.0
+
+### Minor Changes
+
+- [#730](https://github.com/cypress-io/cypress-design/pull/730) [`218898a`](https://github.com/cypress-io/cypress-design/commit/218898a2137faf409b7bed8190ffae646264e26f) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Modal: Escape now closes through the component's normal close path. Before, the native `<dialog>` closed but the component stayed open and the page stayed scroll-locked. Vue emits `update:show(false)` and `close`; React calls `onClose`.
+
+  Add a `helpLinkLabel` prop (default `"Need help"`) to both frameworks. The help link now opens in a new tab with `rel="noopener noreferrer"` in both (React used to open it in the same tab).
+
+  Vue: add a `closeIcon` slot that replaces the default close icon, matching React's `closeIcon` prop. A `class` on `<Modal>` lands on the `<dialog>`, matching React's `className`.
+
+## 1.1.0
+
+### Minor Changes
+
+- [#733](https://github.com/cypress-io/cypress-design/pull/733) [`5e916fb`](https://github.com/cypress-io/cypress-design/commit/5e916fbe2b83d1503ed80820a85a8705bdcaeef1) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Depend on `@cypress-design/vue-icon` and `@cypress-design/react-icon` 3.x. These packages were last published against icon 1.x, so installs stayed on 1.x and missed the 3.x fixes, including tree-shakable named icon imports. None of the icons these components use were renamed or removed in 2.0 or 3.0, so there are no API changes. `@cypress-design/vue-modal` now also lists `@cypress-design/vue-icon` as a dependency instead of a devDependency, since its build imports it at runtime.
+
 ## 1.0.0
 
 ### Major Changes

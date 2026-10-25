@@ -1,0 +1,9 @@
+{
+  "extends": "../../../tsconfig.react.build.json",
+  "include": ["./SpecResults.tsx", "./index.ts"],
+  "compilerOptions": {
+    "declarationMap": false,
+    "sourceMap": false,
+    "outDir": "dist/dts"
+  }
+}

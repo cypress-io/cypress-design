@@ -1,0 +1,167 @@
+/*
+ * Prose and code-block styles for .markdown content areas.
+ * Applied to the <div class="markdown"> wrapper in BaseLayout.
+ *
+ * Note: NOT wrapped in `@layer markdown` so these rules are unlayered
+ * and win over Tailwind base resets (which set `h1 { font-size: inherit }`).
+ */
+
+/* Page-level component title (rendered above demos in [component].astro) */
+.markdown-title {
+  @apply mb-6 font-brand-heading text-4xl font-semibold;
+}
+
+.markdown {
+  /* Code blocks rendered by Astro/Shiki: <pre class="astro-code"><code>…</code></pre> */
+  pre.astro-code {
+    @apply relative my-4 max-w-[calc(100vw_-_48px)] overflow-x-auto rounded px-6 py-4 text-sm md:max-w-none;
+    line-height: 1.5;
+
+    /*
+     * Shiki wraps each source line in <span class="line"> with a literal `\n`
+     * between spans. Inheriting `white-space: pre` from <pre> would render
+     * each newline as an extra line break (doubling the visual height).
+     * `normal` on `code` collapses them; `.line` re-enables `pre` for its
+     * own content so indentation is preserved.
+     */
+    code {
+      @apply bg-transparent p-0 font-brand-mono;
+      direction: ltr;
+      text-align: left;
+      tab-size: 4;
+      hyphens: none;
+      white-space: normal;
+    }
+
+    /* Each Shiki-rendered source line — keep indentation spaces verbatim. */
+    .line {
+      display: block;
+      white-space: pre;
+    }
+
+    /* Empty lines render as empty <span class="line"> — give them
+       exactly one line height so blank rows don't collapse. */
+    .line:empty::before {
+      content: '\200B'; /* zero-width space */
+    }
+  }
+
+  /* Inline code (not inside a pre). min-h-[22px] is a floor, not a cap --
+     it only stops the chip rendering SHORTER than 22px, it doesn't stop it
+     rendering taller. The surrounding text's line-height is what actually
+     sizes a single-line chip's content box (inline-flex inherits it), and
+     that ancestor line-height varies by context -- leading-7 (28px, fixed)
+     in a plain paragraph, but scaled up further inside a heading's own
+     larger font-size. A fixed leading-4 override fixed the paragraph case
+     but was then shorter than text-[0.875em]'s own font-size once that
+     em-value scaled up inside an h2, clipping the chip's background behind
+     the text. leading-none (a unitless 1, not a fixed px value) scales
+     proportionally with text-[0.875em] in any context instead -- always at
+     least as tall as the text's own font-size, so it can never clip, while
+     min-h-[22px] still guarantees the floor for small body-text contexts
+     where line-height:1 alone would compute shorter than 22px, and a long
+     snippet in a docs table can still wrap and grow past that floor across
+     multiple lines instead of a fixed h-[22px] clipping/overflowing it.
+     :not(.block) excludes a caller-styled block code box (e.g. the
+     SpecResults demo's specPattern value) from the chip treatment --
+     this rule is intentionally unlayered (see file header), so it would
+     otherwise always beat that element's own `block` utility class. */
+  :not(pre) > code:not(.block) {
+    @apply inline-flex min-h-[22px] items-center rounded border border-gray-100/75 bg-gray-25 px-1 font-brand-mono text-[0.875em] leading-none text-purple-500;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply mb-1 font-brand-heading font-semibold;
+  }
+
+  h1 {
+    @apply mb-8 font-brand-heading text-4xl font-semibold;
+  }
+
+  /* The per-framework ReadMes each start with the component name as h1.
+     Since the page already shows it once at the top via .markdown-title,
+     suppress the duplicate inside per-framework sections. */
+  .component-framework > h1:first-child {
+    display: none;
+  }
+
+  h2 {
+    @apply mt-10 border-b border-gray-100 pb-2 text-3xl text-gray-900;
+  }
+
+  h3 {
+    @apply mt-4 text-xl text-gray-700;
+  }
+
+  h4 {
+    @apply mt-2 text-base text-gray-500;
+  }
+
+  h5 {
+    @apply mt-0 text-base text-gray-300;
+  }
+
+  p {
+    @apply my-3 leading-7;
+  }
+
+  ul:not([class]) {
+    @apply list-disc py-2 pl-6;
+
+    li::marker {
+      @apply text-indigo-500;
+    }
+  }
+
+  ol:not([class]) {
+    @apply list-decimal py-2 pl-6;
+  }
+
+  blockquote {
+    @apply relative my-4 border-l-[4px] border-l-gray-500 bg-gray-50 px-4 py-2;
+  }
+
+  a:not([class]) {
+    @apply text-indigo-500;
+
+    &:hover {
+      @apply underline;
+    }
+  }
+
+  hr {
+    @apply my-6;
+  }
+
+  .figma-link {
+    background: url(/Figma-logo.svg) no-repeat 14px center;
+    background-size: auto 50%;
+    @apply mt-6 inline-block rounded border border-gray-100 py-2 pl-10 pr-4 text-gray-900;
+
+    &:hover {
+      @apply bg-indigo-50/50 no-underline;
+    }
+
+    &:after {
+      content: '↗️';
+      @apply ml-2 font-bold text-gray-500;
+    }
+  }
+
+  table:not([class]) {
+    @apply my-4 w-full border-collapse text-sm;
+
+    th {
+      @apply border-b border-gray-200 pb-2 pr-4 text-left font-semibold text-gray-900;
+    }
+
+    td {
+      @apply border-b border-gray-100 py-2 pr-4 align-top text-gray-700;
+    }
+  }
+}

@@ -12,7 +12,7 @@ describe('<Checkbox />', () => {
           label="Welcome guide settings"
           id="welcome-opt-out"
           checked
-          class="px-2 py-1 m-2 border border-gray-300 rounded"
+          class="m-2 rounded border border-gray-300 px-2 py-1"
         />
       )
     })
@@ -31,13 +31,33 @@ describe('<Checkbox />', () => {
           label="Welcome guide settings"
           id="welcome-opt-out"
           checked
-          class="px-2 py-1 m-2 border border-gray-300 rounded"
+          class="m-2 rounded border border-gray-300 px-2 py-1"
         />
       )
     })
 
     cy.get('input[type="checkbox"]').should('be.checked')
     cy.get('svg').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+  })
+
+  it('follows the checked prop when it changes', () => {
+    const isChecked = ref(false)
+    mount(() => {
+      return (
+        <div>
+          <Checkbox label="Controlled" checked={isChecked.value} />
+          <button onClick={() => (isChecked.value = !isChecked.value)}>
+            Toggle
+          </button>
+        </div>
+      )
+    })
+
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.contains('button', 'Toggle').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('button', 'Toggle').click()
     cy.get('input[type="checkbox"]').should('not.be.checked')
   })
 
@@ -69,10 +89,10 @@ describe('<Checkbox />', () => {
           <Checkbox
             label="Welcome guide settings"
             v-model={isChecked.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <div
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
             data-cy="result"
           >
             isChecked = {isChecked.value.toString()}
@@ -87,6 +107,28 @@ describe('<Checkbox />', () => {
     cy.get('[data-cy="result"]').should('contain', 'isChecked = true')
   })
 
+  it('follows vModel when the parent changes it', () => {
+    const isChecked = ref(false)
+    mount(() => {
+      return (
+        <div>
+          <Checkbox label="Welcome guide settings" v-model={isChecked.value} />
+          <button onClick={() => (isChecked.value = !isChecked.value)}>
+            Toggle
+          </button>
+        </div>
+      )
+    })
+
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.contains('button', 'Toggle').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('Welcome guide settings').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.contains('button', 'Toggle').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+  })
+
   it("renders vModel when it's an array", () => {
     const checkedValues = ref([])
     mount(() => {
@@ -96,22 +138,22 @@ describe('<Checkbox />', () => {
             name="first-checkbox"
             label="First checkbox"
             v-model={checkedValues.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <Checkbox
             name="second-checkbox"
             label="Second checkbox"
             v-model={checkedValues.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <Checkbox
             name="third-checkbox"
             label="Third checkbox"
             v-model={checkedValues.value}
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
           />
           <div
-            class="px-2 py-1 m-2 border border-gray-300 rounded"
+            class="m-2 rounded border border-gray-300 px-2 py-1"
             data-cy="result"
           >
             {JSON.stringify(checkedValues.value)}
@@ -131,5 +173,30 @@ describe('<Checkbox />', () => {
     )
     cy.contains('Second checkbox').click()
     cy.get('[data-cy="result"]').should('contain', '["first-checkbox"]')
+  })
+
+  it('follows an array vModel when the parent changes it', () => {
+    const checkedValues = ref<string[]>([])
+    mount(() => {
+      return (
+        <div>
+          <Checkbox
+            name="first-checkbox"
+            label="First checkbox"
+            v-model={checkedValues.value}
+          />
+          <button onClick={() => (checkedValues.value = ['first-checkbox'])}>
+            Select first
+          </button>
+          <button onClick={() => (checkedValues.value = [])}>Clear</button>
+        </div>
+      )
+    })
+
+    cy.get('input[type="checkbox"]').should('not.be.checked')
+    cy.contains('button', 'Select first').click()
+    cy.get('input[type="checkbox"]').should('be.checked')
+    cy.contains('button', 'Clear').click()
+    cy.get('input[type="checkbox"]').should('not.be.checked')
   })
 })

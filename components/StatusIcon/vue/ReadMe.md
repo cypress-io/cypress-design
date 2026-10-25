@@ -15,7 +15,7 @@ yarn add @cypress-design/vue-statusicon
 ## Usage
 
 ```ts
-import StatusIcon from '@cypress-design/vue-statusicon'
+import { StatusIcon } from '@cypress-design/vue-statusicon'
 ```
 
 The simple way of using the StatusIcon component

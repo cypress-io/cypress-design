@@ -16,16 +16,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: 20
-          cache: 'yarn'
+          node-version: 22
+
+      - name: Enable Corepack
+        run: corepack enable
 
       - name: Restore cached build files
-        uses: actions/cache@v4
+        uses: actions/cache@v6
         with:
           key: cache-${{ inputs.nonce }}
           path: |
@@ -33,12 +35,13 @@ jobs:
             ./icon-registry/dist
             ./components
             ./packages/details-animation/dist
+            ./packages/favicon/dist
             ./node_modules
-            
+
       - name: Reinstall dependencies and regenerate build files
         if: steps.cache-node-modules-dist.outputs.cache-hit != 'true'
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
         env:
           CI: true
           NODE_OPTIONS: --max_old_space_size=4096
@@ -52,9 +55,10 @@ jobs:
         run: yarn new:component --name ComponentName
 
       - name: Re-link Dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --no-immutable
         env:
           CI: true
+          YARN_ENABLE_HARDENED_MODE: 0
 
       - name: Build Component for Vue
         run: yarn turbo run build --filter=@cypress-design/vue-componentname...
@@ -70,7 +74,7 @@ jobs:
 
       # run cypress component tests
       - name: Cypress run CT
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           component: true

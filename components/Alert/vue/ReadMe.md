@@ -18,7 +18,7 @@ yarn add @cypress-design/vue-alert
 import Alert from '@cypress-design/vue-alert'
 ```
 
-The simplest is to use with plain text. By default, type is `info`.
+The simplest is to use with plain text. By default, `variant` is `info`.
 
 ```jsx live
 <Alert variant="error">Great Scott!!</Alert>
@@ -98,7 +98,7 @@ const dismissed = ref(false)
       running your whole application. Generate the config in just a few clicks.
     </template>
     <template #footer>
-      <div class="p-4 flex flex-wrap overflow-x-hidden gap-4">
+      <div class="flex flex-wrap gap-4 overflow-x-hidden p-4">
         <Button variant="outline-indigo" size="32">Quick setup</Button>
         <Button variant="link" size="32">Read our guides</Button>
         <div class="md:flex-grow md:grow" />

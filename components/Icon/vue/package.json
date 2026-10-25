@@ -1,9 +1,10 @@
 {
   "name": "@cypress-design/vue-icon",
-  "version": "1.39.0",
+  "version": "3.3.2",
   "files": [
     "*"
   ],
+  "sideEffects": false,
   "typings": "./dist/index.d.ts",
   "main": "./dist/index.umd.js",
   "module": "./dist/index.es.mjs",
@@ -17,17 +18,17 @@
   "scripts": {
     "build": "yarn build:codegen && yarn build:module && yarn build:types",
     "build:codegen": "node ./generate-icons.js",
-    "build:module": "yarn vite build",
-    "build:types": "yarn vue-tsc --project ./tsconfig.build.json"
+    "build:module": "yarn exec vite build",
+    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/icon-registry": "*"
+    "@cypress-design/icon-registry": "workspace:^3.3.2"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*",
     "@types/lodash": "^4.17.4",
-    "lodash": "^4.17.21",
-    "dedent": "^1.5.3"
+    "dedent": "^1.5.3",
+    "lodash": "^4.17.21"
   },
   "license": "MIT"
 }

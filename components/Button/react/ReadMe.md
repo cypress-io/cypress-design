@@ -37,7 +37,7 @@ Square buttons
 import { IconActionPower } from '@cypress-design/react-icon'
 import Button from '@cypress-design/react-button'
 export default () => (
-  <div className="flex gap-4 items-center">
+  <div className="flex items-center gap-4">
     {[20, 24, 32, 40, 48].map((size) => (
       <Button key={size} size={size} square>
         <IconActionPower
@@ -78,7 +78,7 @@ export default () => {
       {Object.keys(VariantClassesTable).map((variant) => (
         <div
           key={variant}
-          className="px-[8px] py-[12px] flex flex-col items-center gap-[16px] rounded min-w-[180px]"
+          className="flex min-w-[180px] flex-col items-center gap-[16px] rounded px-[8px] py-[12px]"
           style={{
             backgroundColor: darkModeVariants.includes(variant)
               ? '#1a202c'
@@ -88,16 +88,16 @@ export default () => {
         >
           {variant}
           {Object.keys(SizeClassesTable).map((size) => (
-            <div key={size} className="flex gap-[8px] items-center">
+            <div key={size} className="flex items-center gap-[8px]">
               {size}
               <Button variant={variant} size={size}>
                 Button
               </Button>
             </div>
           ))}
-          <div key={variant} className="flex gap-[8px] items-center">
+          <div key={variant} className="flex items-center gap-[8px]">
             🚫
-            <Button variant={variant} size="48" disabled="true">
+            <Button variant={variant} size="48" disabled>
               Button
             </Button>
           </div>

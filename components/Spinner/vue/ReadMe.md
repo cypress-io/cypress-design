@@ -23,13 +23,13 @@ You can either use the default spinner and import the styles manually.
 ```vue live
 <script setup>
 import Spinner from '@cypress-design/vue-spinner'
-import '@cypress-design/vue-spinner/styles.css'
+import '@cypress-design/vue-spinner/style.css'
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-[12px] h-[20vh]">
+  <div class="flex h-[20vh] flex-col items-center justify-center gap-[12px]">
     <Spinner />
-    <h2 class="text-gray-700 text-size-16px leading-[24px]">
+    <h2 class="text-size-16px leading-[24px] text-gray-700">
       Initializing something really important...
     </h2>
   </div>
@@ -46,9 +46,9 @@ import Spinner from '@cypress-design/vue-spinner/sfc'
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center gap-[12px] h-[20vh]">
+  <div class="flex h-[20vh] flex-col items-center justify-center gap-[12px]">
     <Spinner />
-    <h2 class="text-gray-700 text-size-16px leading-[24px]">
+    <h2 class="text-size-16px leading-[24px] text-gray-700">
       Initializing something really important...
     </h2>
   </div>

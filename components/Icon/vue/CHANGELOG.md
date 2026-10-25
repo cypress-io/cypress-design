@@ -1,5 +1,115 @@
 # @cypress-design/vue-icon
 
+## 3.3.2
+
+### Patch Changes
+
+- [#731](https://github.com/cypress-io/cypress-design/pull/731) [`677c0c0`](https://github.com/cypress-io/cypress-design/commit/677c0c00f3ea3e37e89b38710b919bc03cabec0c) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Fix tree shaking in `@cypress-design/vue-icon`: importing a single named icon (for example `IconActionPlaySmall`) now bundles about 13 KB instead of every icon plus the full icon registry (about 960 KB). Both icon packages are now marked `"sideEffects": false`. The default `Icon` component still includes every icon because it looks icons up by name at runtime, so prefer named imports.
+
+- Updated dependencies []:
+  - @cypress-design/icon-registry@3.3.2
+
+## 3.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`f9ee6ab`](https://github.com/cypress-io/cypress-design/commit/f9ee6abd21606fc192bc48a231f055deec94451a)]:
+  - @cypress-design/icon-registry@3.3.1
+
+## 3.3.0
+
+### Minor Changes
+
+- [#713](https://github.com/cypress-io/cypress-design/pull/713) [`46c2293`](https://github.com/cypress-io/cypress-design/commit/46c2293516960b1d5316561ab8ce098daedff4bd) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add three horizontal menu-dots icon variants: `menu-dots-horizontal-small` at 16px (`IconMenuDotsHorizontalSmall`) — a compact three-dot glyph for tight rows — and `menu-dots-horizontal` at 16px and 24px (`IconMenuDotsHorizontal`) — the standard three-dot overflow-menu glyph. Companions to the existing `menu-dots-vertical`.
+
+### Patch Changes
+
+- Updated dependencies [[`46c2293`](https://github.com/cypress-io/cypress-design/commit/46c2293516960b1d5316561ab8ce098daedff4bd)]:
+  - @cypress-design/icon-registry@3.3.0
+
+## 3.2.0
+
+### Minor Changes
+
+- [#710](https://github.com/cypress-io/cypress-design/pull/710) [`10a04a6`](https://github.com/cypress-io/cypress-design/commit/10a04a66e6d8211b4e2ab70c9434da30a7c6925d) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add `time-clock-small` at 16px (`IconTimeClockSmall`) — a compact dual-tone clock glyph with `strokeColor` + `fillColor` slots, sized down from the existing `time-clock` 16px so it reads at rows and dense UI.
+
+### Patch Changes
+
+- Updated dependencies [[`10a04a6`](https://github.com/cypress-io/cypress-design/commit/10a04a66e6d8211b4e2ab70c9434da30a7c6925d)]:
+  - @cypress-design/icon-registry@3.2.0
+
+## 3.1.0
+
+### Minor Changes
+
+- [#708](https://github.com/cypress-io/cypress-design/pull/708) [`f2de3a5`](https://github.com/cypress-io/cypress-design/commit/f2de3a58c6620e5f50a1c2f1ff03133326b453a8) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Add three pencil icon variants: `object-pencil-small` at 16px (`IconObjectPencilSmall`) — a compact, solid-fill glyph — and `object-pencil` at 16px and 24px (`IconObjectPencil`) — the standard dual-tone pen-over-notebook glyph with `strokeColor` + `fillColor` slots.
+
+### Patch Changes
+
+- Updated dependencies [[`f2de3a5`](https://github.com/cypress-io/cypress-design/commit/f2de3a58c6620e5f50a1c2f1ff03133326b453a8)]:
+  - @cypress-design/icon-registry@3.1.0
+
+## 3.0.0
+
+### Major Changes
+
+- [#706](https://github.com/cypress-io/cypress-design/pull/706) [`6ad912b`](https://github.com/cypress-io/cypress-design/commit/6ad912ba9800292f3b47c5c0a46b8ea2a2a30859) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - **Breaking:** remove `technology-dollar` (`IconTechnologyDollar`) — it was a duplicate of `currency-usd` (`IconCurrencyUsd`), the correctly-named icon in the currency family (`currency-eur`, `currency-gbp`, `currency-inr`, `currency-rub`). `currency-usd` now ships at 24px in addition to 16px. Consumers of `IconTechnologyDollar` should switch to `IconCurrencyUsd`.
+
+### Patch Changes
+
+- [#704](https://github.com/cypress-io/cypress-design/pull/704) [`7a8dedb`](https://github.com/cypress-io/cypress-design/commit/7a8dedbb34f5f680d935cd2939c15b4783a27d3f) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Fix `technology-dollar`'s 16px glyph being off-center: the `viewBox` was `0 0 10 16` instead of a proper `0 0 16 16` square (the artwork itself was already symmetric within its own bounds — this was purely a coordinate-space mismatch, not a redraw).
+
+- Updated dependencies [[`7a8dedb`](https://github.com/cypress-io/cypress-design/commit/7a8dedbb34f5f680d935cd2939c15b4783a27d3f), [`6ad912b`](https://github.com/cypress-io/cypress-design/commit/6ad912ba9800292f3b47c5c0a46b8ea2a2a30859)]:
+  - @cypress-design/icon-registry@3.0.0
+
+## 2.0.0
+
+### Major Changes
+
+- [#702](https://github.com/cypress-io/cypress-design/pull/702) [`7f0c84a`](https://github.com/cypress-io/cypress-design/commit/7f0c84acb31d231a09ead4969da3c5aea286c385) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add `building-house` and `building-office-small` at 24px (`IconBuildingHouse`, `IconBuildingOfficeSmall`). Add `technology-dollar` at 24px (previously 16px only), using the existing well-centered 24px dollar glyph already proven in production on cypress.io's Pricing nav dropdown.
+
+  **Breaking:** rename `general-office-building` to `building-office-large` (`IconGeneralOfficeBuilding` → `IconBuildingOfficeLarge`), grouping it under the same `building-*` family as the two new icons above. Update imports accordingly.
+
+  Fix `cypress-studio` (16px, 24px, 48px): the glyph shipped on the `icon-light` class instead of `icon-dark`, so `strokeColor` never applied and the icon rendered washed-out via `fillColor` only. Consumers coloring the icon via `fillColor` will need to switch to `strokeColor`.
+
+### Patch Changes
+
+- Updated dependencies [[`7f0c84a`](https://github.com/cypress-io/cypress-design/commit/7f0c84acb31d231a09ead4969da3c5aea286c385)]:
+  - @cypress-design/icon-registry@2.0.0
+
+## 1.42.0
+
+### Minor Changes
+
+- [#689](https://github.com/cypress-io/cypress-design/pull/689) [`f8d476a`](https://github.com/cypress-io/cypress-design/commit/f8d476a089f9e9527fb4eb7a0476111815fc915a) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding icon general-sparkle-single
+
+### Patch Changes
+
+- Updated dependencies [[`f8d476a`](https://github.com/cypress-io/cypress-design/commit/f8d476a089f9e9527fb4eb7a0476111815fc915a)]:
+  - @cypress-design/icon-registry@1.42.0
+
+## 1.41.0
+
+### Minor Changes
+
+- [#687](https://github.com/cypress-io/cypress-design/pull/687) [`11e6792`](https://github.com/cypress-io/cypress-design/commit/11e67922126b7450ec4359b2cb5b79509babe82c) Thanks [@ryanjwilke](https://github.com/ryanjwilke)! - Add `action-test-replay` at 12px and 24px (previously 16px only), and add an opt-in `icon-light` disc behind the glyph at all three sizes. The disc is transparent by default — pass `fillColor` to show it — so existing bare usages are unchanged.
+
+### Patch Changes
+
+- Updated dependencies [[`11e6792`](https://github.com/cypress-io/cypress-design/commit/11e67922126b7450ec4359b2cb5b79509babe82c)]:
+  - @cypress-design/icon-registry@1.41.0
+
+## 1.40.0
+
+### Minor Changes
+
+- [#656](https://github.com/cypress-io/cypress-design/pull/656) [`1c5ff10`](https://github.com/cypress-io/cypress-design/commit/1c5ff10c4bb4f1fc64f6bfb8c5d8332e1212bfd2) Thanks [@tbiethman](https://github.com/tbiethman)! - Add `security-shield-failed` (12px and 16px) and `security-shield-check` (12px).
+
+### Patch Changes
+
+- Updated dependencies [[`1c5ff10`](https://github.com/cypress-io/cypress-design/commit/1c5ff10c4bb4f1fc64f6bfb8c5d8332e1212bfd2)]:
+  - @cypress-design/icon-registry@1.40.0
+
 ## 1.39.0
 
 ### Minor Changes

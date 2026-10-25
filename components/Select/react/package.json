@@ -1,0 +1,36 @@
+{
+  "name": "@cypress-design/react-select",
+  "version": "1.1.0",
+  "files": [
+    "*"
+  ],
+  "typings": "./dist/index.d.ts",
+  "main": "./dist/index.umd.js",
+  "module": "./dist/index.es.mjs",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.mjs",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "yarn build:module && yarn build:types",
+    "build:module": "rollup -c ./rollup.config.mjs",
+    "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
+  },
+  "dependencies": {
+    "@cypress-design/react-button": "workspace:^1.13.0",
+    "@cypress-design/react-checkbox": "workspace:^2.0.0",
+    "@cypress-design/react-icon": "workspace:^3.3.2",
+    "@cypress-design/react-tabs": "workspace:^1.2.2",
+    "@cypress-design/react-tag": "workspace:^1.1.0",
+    "@cypress-design/react-textbox": "workspace:^1.0.2",
+    "clsx": "*"
+  },
+  "devDependencies": {
+    "@cypress-design/constants-select": "*",
+    "@cypress-design/rollup-plugin-tailwind-keep": "*"
+  },
+  "license": "MIT"
+}

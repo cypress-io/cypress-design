@@ -47,7 +47,6 @@ export default function assertions(mountStory: (options?: any) => void): void {
       // Collapse the group
       cy.get('@container').click().log('Collapse the group')
       cy.get('@container').invoke('height').should('equal', 56)
-      cy
     })
   })
 
