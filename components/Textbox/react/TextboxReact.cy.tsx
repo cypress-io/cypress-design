@@ -261,7 +261,7 @@ describe('Ref Forwarding', () => {
 
     mount(
       <div>
-        <Textbox ref={inputRef} />
+        <Textbox ref={inputRef} aria-label="Test input" />
         <button
           onClick={() => {
             if (inputRef.current) {
