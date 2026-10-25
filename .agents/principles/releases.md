@@ -37,5 +37,4 @@ description: Principles for shipping releases, betas, previews, feature flags, a
 
 ## Related
 
-- [product.md](https://design.cypress.io/agents/principles/product.md) — "Sunk cost doesn't earn the next step" (Business goals & prioritization)
 - [ux.md](https://design.cypress.io/agents/principles/ux.md) — "Turning a free capability paid is a rug pull" in the Pricing section — the free→paid mirror of the deprecation rule above

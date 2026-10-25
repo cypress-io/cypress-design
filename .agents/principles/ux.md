@@ -1,6 +1,6 @@
 ---
 name: ux
-description: 'UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens. For the "why" side — business goals, prioritizing jobs, defining success, and problem discovery — see product.md.'
+description: 'UX & design principles — the "what" side: designing for users, interaction patterns, feature naming, empty states, restraint, AI-powered features, and pricing UX. Fetch when designing new flows, evaluating proposed UX, or reviewing screens.'
 ---
 
 # UX & Product Design Principles
@@ -8,8 +8,6 @@ description: 'UX & design principles — the "what" side: designing for users, i
 ## Business goals + user needs
 
 **UX lives where business goals meet user needs.** JTBD captures the user side well, but the framework is usually phrased entirely from the user's perspective — which quietly hides the business outcome a design has to drive. Good UX serves both at once. If a flow only serves the user, the business gets nothing measurable; if it only serves the business, users feel manipulated and leave. The work is to find designs where both sides win.
-
-For naming the business goal, prioritizing jobs, defining success, deciding whether the work earns the next step, and problem definition + discovery, see [product.md](https://design.cypress.io/agents/principles/product.md) — the why/whether side of the canon.
 
 ## Designing for users
 
@@ -127,7 +125,6 @@ For errors, warnings, and other system-to-user failure messages, see [`../errors
 
 ## Related
 
-- [product.md](https://design.cypress.io/agents/principles/product.md) — the _why/whether_ side: business goals + prioritization, problem definition & discovery, and running the work. This file is the _what_
 - [visual-hierarchy.md](https://design.cypress.io/agents/principles/visual-hierarchy.md) — Directing the eye once the JTBD is clear
 - [personas.md](https://design.cypress.io/agents/personas.md) — Who you're designing for
 - [voice.md](https://design.cypress.io/agents/voice.md) — Copy tone

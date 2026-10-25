@@ -18,9 +18,9 @@ Structured design and product review against the Cypress design principles, voic
 
 1. **Identify the surface and the job.** What is this — page, component, copy, illustration, AI-generated output? Who is the user (fetch `https://design.cypress.io/agents/personas.md`) and what's the JTBD? If you can't answer this, stop and ask the requester.
 
-2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review — fetch `https://design.cypress.io/agents/principles/product.md` and apply its "Business goals & prioritization" section.
+2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review.
 
-3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/principles/product.md` (a brief, initiative, or product decision — product principles: ownership, shipping to learn, post-launch follow-through), `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
+3. **Fetch the relevant principles.** Always: `https://design.cypress.io/agents/principles/ux.md`, `https://design.cypress.io/agents/principles/visual-hierarchy.md`. As applicable: `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
 
 4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
 
