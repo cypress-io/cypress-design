@@ -73,11 +73,9 @@ A few cases need more care:
 
 These pair well visually on white surfaces. The ratio between the two colors sets what the pair can carry:
 
-| Pair                        | Ratio  | Safe for                                         |
-| --------------------------- | ------ | ------------------------------------------------ |
-| `jade-200` + `indigo-800`   | 7.96:1 | Any text, including fine print                   |
-| `orange-300` + `purple-700` | 6.65:1 | Body text                                        |
-| `jade-200` + `teal-600`     | 5.74:1 | Body text                                        |
-| `purple-300` + `indigo-700` | 4.38:1 | Large text, icons, illustration — not body text  |
-| `indigo-400` + `gray-1000`  | 4.05:1 | Large text, icons, illustration — not body text  |
-| `indigo-400` + `teal-200`   | 2.57:1 | Decoration only — never text or meaningful icons |
+- `jade-200` + `indigo-800` (7.96:1): any text, including fine print.
+- `orange-300` + `purple-700` (6.65:1): body text.
+- `jade-200` + `teal-600` (5.74:1): body text.
+- `purple-300` + `indigo-700` (4.38:1): large text, icons, and illustration. Not body text.
+- `indigo-400` + `gray-1000` (4.05:1): large text, icons, and illustration. Not body text.
+- `indigo-400` + `teal-200` (2.57:1): decoration only. Never text or meaningful icons.
