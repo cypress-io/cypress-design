@@ -18,6 +18,9 @@ declare module 'tailwindcss/lib/public/resolve-config.js' {
 
 declare module 'tailwindcss/lib/lib/generateRules.js' {
   import type { Context } from 'tailwindcss/lib/Context'
-  function* resolveMatches(candidates: string, context: Context): string[][]
+  function resolveMatches(
+    candidate: string,
+    context: Context,
+  ): Generator<[unknown, unknown]>
   export { resolveMatches }
 }

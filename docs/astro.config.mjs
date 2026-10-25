@@ -28,11 +28,7 @@ export default defineConfig({
     // The tile editor (docs/src/lib/tile-editor.ts) loads these on first
     // use; pre-bundling them stops dev from reloading the page mid-edit.
     optimizeDeps: {
-      include: [
-        'sucrase',
-        'vue/compiler-sfc',
-        'shiki',
-      ],
+      include: ['sucrase', 'vue/compiler-sfc', 'shiki'],
     },
     server: {
       // Allow Vite to serve files from the monorepo root so component imports

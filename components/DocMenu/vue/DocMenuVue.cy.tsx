@@ -130,7 +130,7 @@ describe('<DocMenu/>', () => {
         <div class="p-4">
           <button
             onClick={() => (pathState.value = '/faa6')}
-            class="p-2 m-2 rounded bg-gray-100 border border-gray-300"
+            class="m-2 rounded border border-gray-300 bg-gray-100 p-2"
           >
             Set path to <code>/faa6</code>
           </button>

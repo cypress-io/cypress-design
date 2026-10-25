@@ -57,7 +57,7 @@ const DocMenu: React.FC<DocMenuProps> = ({
       {showMarker && !markerIsMoving && collapsible ? (
         <div
           data-cy="doc-menu-active-marker"
-          className="absolute h-[36px] w-[4px] z-50 rounded-full bg-indigo-500 dark:bg-indigo-400 ml-[6.5px] mt-[4px]"
+          className="absolute z-50 ml-[6.5px] mt-[4px] h-[36px] w-[4px] rounded-full bg-indigo-500 dark:bg-indigo-400"
           style={{
             top: `${activeTop}px`,
             height: `${activeHeight - 8}px`,

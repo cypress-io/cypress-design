@@ -36,7 +36,7 @@ Structured design and product review against the Cypress design principles, voic
 
 ## Output format
 
-```
+```text
 ## Framing
 (if the JTBD, persona, or business goal is unclear or wrong, name it here)
 

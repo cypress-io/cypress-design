@@ -14,5 +14,5 @@ function mountStory(props: SpecResultsProps) {
 }
 
 describe('<SpecResults /> React — Accessibility', () => {
-  a11yAssertions(mountStory, 'react')
+  a11yAssertions(mountStory)
 })

@@ -1,6 +1,6 @@
 ---
 name: pages/colors
-description: Acceptance criteria and known issues for the /colors docs page. Load when making changes to the colors page or verifying it after a build.
+description: Acceptance criteria for the /colors docs page. Load when making changes to the colors page or verifying it after a build.
 ---
 
 # Colors Page — Acceptance Criteria
@@ -40,13 +40,3 @@ description: Acceptance criteria and known issues for the /colors docs page. Loa
 
 - Page renders without the `.markdown` prose wrapper (no auto-styled `<p>`, `<ul>`, etc.)
 - No component is wrapped in an unwanted `<p>` tag by the MDX/Astro processor
-
-## Known Issues
-
-### User Experience
-
-### Developer Experience
-
-- **[Low / Won't fix now] ColorPalette deep relative import** — `ColorPalette.astro` imports `cyColors` via `../../../../../css/src/color-constants` rather than through `@cypress-design/css`. Not resolving because `yarn dev` does not watch-build `css/dist/`; switching to the package import would require a manual `yarn workspace @cypress-design/css build:lib` on every color change during local dev. The relative path hits the TypeScript source directly and Astro compiles it on the fly, which is the better DX for now. Revisit once `css/src/**/*.ts` is added to `watch-constants.mjs`. `docs/src/pages/colors/components/ColorPalette.astro:3` _(PR #660, Copilot)_
-
-### Code Quality

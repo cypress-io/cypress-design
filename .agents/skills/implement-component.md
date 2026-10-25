@@ -30,7 +30,7 @@ Figma design should be provided with the following specifications:
 - Use the existing structure in the cypress-design repo. Check other components (Button, Tag, Checkbox) for reference.
 - Components are implemented in both React and Vue
 - Each component follows this structure:
-  ```
+  ```text
   components/{ComponentName}/
     ├── constants/          # Shared styles (used by both React and Vue)
     ├── react/             # React implementation
@@ -95,7 +95,7 @@ Each branch should be reviewed and merged before starting the next branch.
    - **2b) VitePress Documentation:**
      - Create `docs/components/react/{ComponentName}.md` with all variants, sizes, and states
      - Create `docs/components/vue/{ComponentName}.md` with all variants, sizes, and states
-     - Include interactive code examples using ``jsx live` and ``vue live` blocks
+     - Include interactive code examples using ` ```jsx live ` and ` ```vue live ` blocks
      - **Documentation structure:**
        - Component description
        - All variants/types

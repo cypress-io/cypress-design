@@ -137,7 +137,7 @@ const PillLink: FC<PillLinkProps> = ({
 // the button on the stacked (<576px) layout, sitting inline beside the
 // pills once there's room.
 const ButtonRowWrapper: FC<{ children: ReactNode }> = ({ children }) => (
-  <div className="w-full border-t [border-top-style:solid] border-gray-100/80 pt-[12px] mt-[6px] @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0 @[576px]:mt-0">
+  <div className="mt-[6px] w-full border-t border-gray-100/80 pt-[12px] [border-top-style:solid] @[576px]:mt-0 @[576px]:w-auto @[576px]:border-t-0 @[576px]:pt-0">
     {children}
   </div>
 )
@@ -179,7 +179,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
     >
       {description && (
         <div
-          className="border-b [border-bottom-style:solid] border-gray-100/80 pb-[16px] text-[14px] leading-[20px] text-gray-700"
+          className="border-b border-gray-100/80 pb-[16px] text-[14px] leading-[20px] text-gray-700 [border-bottom-style:solid]"
           data-cy="spec-results-description"
         >
           {description}
@@ -341,7 +341,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 'Spec Results - Cancel Run',
                 trackingContext,
               )}
-              className="flex-shrink-0 bg-white !px-[6px] gap-[6px]"
+              className="flex-shrink-0 gap-[6px] bg-white !px-[6px]"
               onClick={onCancel}
             >
               Cancel run
@@ -358,7 +358,7 @@ export const SpecResults: FC<SpecResultsProps> = ({
                 'Spec Results - Archive Run',
                 trackingContext,
               )}
-              className="flex-shrink-0 bg-white !px-[6px] gap-[6px]"
+              className="flex-shrink-0 gap-[6px] bg-white !px-[6px]"
               onClick={onArchive}
             >
               <IconActionArchive

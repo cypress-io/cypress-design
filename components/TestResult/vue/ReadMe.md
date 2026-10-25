@@ -43,7 +43,7 @@ const toggled = ref(false)
         <Button
           variant="outline-light"
           size="32"
-          class="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+          class="hidden h-[32px] !px-[8px] @xl/test-result:inline-block"
           @click="toggled = !toggled"
         >
           <IconChevronRightSmall
@@ -58,16 +58,16 @@ const toggled = ref(false)
       <template v-if="toggled" #groups>
         <div
           v-for="group in ['Chrome', 'Firefox']"
-          class="px-[16px] py-[8px] border border-gray-100 flex items-center"
+          class="flex items-center border border-gray-100 px-[16px] py-[8px]"
         >
           <span class="flex-1">{{ group }}</span>
           <Button
             variant="outline-light"
             size="32"
-            class="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+            class="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
           >
             <IconActionTestReplay />
-            <span class="hidden @lg/test-result:inline ml-[8px]">
+            <span class="ml-[8px] hidden @lg/test-result:inline">
               Test Replay
             </span>
           </Button>

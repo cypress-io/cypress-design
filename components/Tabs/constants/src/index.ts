@@ -18,15 +18,18 @@ export interface Tab {
   /**
    * icon on the left side of the label
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- a React or a Vue icon component
   icon?: any
   /**
    * icon on the right side of the label
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- a React or a Vue icon component
   iconAfter?: any
   /**
    * icon on the left side of the label
    * (overrides icon prop)
    */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- a React or a Vue icon component
   iconBefore?: any
   tag?: string
   /**
@@ -34,6 +37,7 @@ export interface Tab {
    * NOTE: the link will be prevented from navigating. It is only there for accessibility, semantics, SEO and right click -> open in new tab
    */
   href?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- passed through to the DOM as-is
   [key: `data-${string}`]: any
   /**
    * aria-controls attribute is required for accessibility. It should be set to the id of the tab panel that this tab controls

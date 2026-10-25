@@ -49,11 +49,11 @@ const handleMouseLeave = () => {
   <a
     :href="href"
     :class="[
-      'flex gap-4 group',
+      'group flex gap-4',
       {
         'text-gray-500': !visuallyActive,
         'text-indigo-300': visuallyActive,
-        'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
+        'mx-7 border-l border-gray-800 p-2 px-7': !icon || !iconActive,
         'p-4': icon && iconActive,
       },
     ]"
@@ -64,7 +64,7 @@ const handleMouseLeave = () => {
     <template v-if="icon">
       <template v-if="iconActive">
         <span
-          class="relative inline-flex w-[24px] h-[24px] shrink-0 items-center justify-center align-middle"
+          class="relative inline-flex h-[24px] w-[24px] shrink-0 items-center justify-center align-middle"
         >
           <Icon
             v-show="!visuallyActive"
@@ -81,7 +81,7 @@ const handleMouseLeave = () => {
             :animated="animated"
             width="24"
             height="24"
-            class="absolute inset-0 transition-opacity icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+            class="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500 absolute inset-0 transition-opacity"
           />
         </span>
       </template>
@@ -94,7 +94,7 @@ const handleMouseLeave = () => {
           hoverStrokeColor="gray-400"
           interactiveColorsOnGroup
           :class="{
-            'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400':
+            'icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500':
               active,
           }"
         />

@@ -6,7 +6,7 @@
 
 The documentation website for this repo is published after each commit to the main branch.
 
-You can find the last published version at https://design.cypress.io
+You can find the last published version at <https://design.cypress.io>.
 
 ### Install the CSS package
 
@@ -28,7 +28,7 @@ module.exports = TailwindConfig([
 ])
 ```
 
-Check it out in the docs [here](https://design.cypress.io/colors)
+See the [color tokens in the docs](https://design.cypress.io/colors).
 
 ### Install each component independently
 
@@ -189,14 +189,18 @@ Finally, you should see the `prompt.js` file has been removed. Revert that chang
 ### Running tests
 
 ```bash
-yarn cy        # Open Cypress (interactive mode, watches for changes)
-yarn cy:run    # CLI mode (headless)
-yarn test      # Unit tests (vitest)
-yarn eslint    # Linting
-yarn knip      # Dead code: unused files, exports, and dependencies
+yarn cy         # Open Cypress (interactive mode, watches for changes)
+yarn cy:run     # CLI mode (headless)
+yarn test       # Unit tests (vitest)
+yarn eslint     # Linting
+yarn knip       # Dead code: unused files, exports, and dependencies
+yarn lint:md    # Markdown structure (markdownlint-cli2)
+yarn lint:prose # Voice rules from .agents/voice.md (Vale)
 ```
 
 `knip.ts` holds the knip config, and CI runs `yarn knip` in the Health Check job on every PR. If knip flags something that is used, teach the config how it’s reached (an `entry` or a narrow `ignoreDependencies`) rather than ignoring the file.
+
+`yarn lint:prose` needs the [Vale](https://vale.sh/docs/install) binary on your `PATH` (`brew install vale` on macOS). Its rules live in `.vale/styles/Cypress/`; each one cites the line in `.agents/voice.md` it enforces. They report warnings and suggestions only, so nothing fails yet.
 
 ### Recent Changes: Astro Migration
 

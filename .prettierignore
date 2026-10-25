@@ -15,3 +15,17 @@ node_modules
 
 # symlinks to .agents/skills — prettier cannot process symlinked files
 .claude/commands/
+
+# generated at install/build time, git-ignored by nested .gitignore files
+# that prettier doesn't read
+**/_TreeShakableIcons.ts
+icon-registry/src/iconsList.ts
+icon-registry/src/icons.ts
+icon-registry/src/animated-icons.ts
+icon-registry/src/logos.ts
+icon-registry/src/iconsData
+docs/components
+docs/cache
+docs/.astro
+docs/public/colors.css
+docs/public/tokens.css

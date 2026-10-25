@@ -1,4 +1,4 @@
-import { DefineComponent, ref } from 'vue'
+import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 
 export function iconTests(Icon: any) {
@@ -8,7 +8,7 @@ export function iconTests(Icon: any) {
         animated={false}
         width={400}
         height={400}
-        class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+        class="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500"
       />
     ))
   })
@@ -24,7 +24,7 @@ export function iconTests(Icon: any) {
           animated={isAnimated.value}
           width={400}
           height={400}
-          class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400 m-[50px]"
+          class="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500 m-[50px]"
           onClick={() => {
             isAnimated.value = !isAnimated.value
           }}
@@ -61,23 +61,23 @@ export function iconTests(Icon: any) {
 
   it('renders both side by side', { viewportWidth: 900 }, () => {
     mount(() => (
-      <div class="bg-black flex gap-4 text-center text-2xl">
+      <div class="flex gap-4 bg-black text-center text-2xl">
         <div>
-          <h2 class="text-indigo-200 font-bold">not animated</h2>
+          <h2 class="font-bold text-indigo-200">not animated</h2>
           <Icon
             animated={false}
             width={400}
             height={400}
-            class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+            class="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500"
           />
         </div>
         <div>
-          <h2 class="text-indigo-200 font-bold">animated</h2>
+          <h2 class="font-bold text-indigo-200">animated</h2>
           <Icon
             animated={true}
             width={400}
             height={400}
-            class="icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400"
+            class="icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500"
           />
         </div>
       </div>

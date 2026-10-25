@@ -125,7 +125,7 @@ defineExpose({
   </component>
   <div
     ref="$listWrapper"
-    class="grid transition-all relative"
+    class="relative grid transition-all"
     :class="{
       'grid-rows-[0fr]': !open && collapsible,
       'grid-rows-[1fr]': open || !collapsible,

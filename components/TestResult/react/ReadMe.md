@@ -40,15 +40,15 @@ export const Demo = () => {
         groups={
           toggled
             ? ['Chrome', 'Firefox'].map((group) => (
-                <div className="px-[16px] py-[8px] border border-gray-100 flex">
+                <div className="flex border border-gray-100 px-[16px] py-[8px]">
                   <span className="flex-1">{group}</span>
                   <Button
                     variant="outline-light"
                     size="32"
-                    className="!px-[8px] @lg/test-result:!px-[12px] h-[32px]"
+                    className="h-[32px] !px-[8px] @lg/test-result:!px-[12px]"
                   >
                     <IconActionTestReplay />
-                    <span className="hidden @lg/test-result:inline ml-[8px]">
+                    <span className="ml-[8px] hidden @lg/test-result:inline">
                       Test Replay
                     </span>
                   </Button>
@@ -60,7 +60,7 @@ export const Demo = () => {
         <Button
           variant="outline-light"
           size="32"
-          className="!px-[8px] hidden @xl/test-result:inline-block h-[32px]"
+          className="hidden h-[32px] !px-[8px] @xl/test-result:inline-block"
           onClick={() => setToggled(!toggled)}
         >
           <IconChevronRightSmall

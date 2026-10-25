@@ -1,13 +1,13 @@
 ---
 name: cy-review-pr-comments
-description: Use to review the latest unresolved review comments on the PR for the current branch — from any author (you, Copilot, or teammates) — triage them, agree a plan with the user before executing, update .agents/known-issues.md, and reply to or resolve each comment appropriately.
+description: Use to review the latest unresolved review comments on the PR for the current branch — from any author (you, Copilot, or teammates) — triage them, agree a plan with the user before executing, open GitHub issues for follow-ups, and reply to or resolve each comment appropriately.
 ---
 
 # cy-review-pr-comments
 
-Review the unresolved PR comments for the current branch — **from any author**: your own review notes, Copilot, or teammates — triage each one, route actionable items to `.agents/known-issues.md`, and reply to or resolve comments appropriately. **Agree the plan with the user before executing any replies/resolves (Step 4.5).**
+Review the unresolved PR comments for the current branch — **from any author**: your own review notes, Copilot, or teammates — triage each one, open a GitHub issue for actionable items deferred to later, and reply to or resolve comments appropriately. **Agree the plan with the user before executing any replies/resolves (Step 4.5).**
 
-**Token strategy:** Steps 1–2 (fetch) and Step 5 (act) run in this session. Step 3 (classify + draft replies) is delegated to a cheap sub-agent so this session never loads the full comment corpus into its context.
+**Token strategy:** Steps 1–2 (fetch) and Steps 5–6 (act) run in this session. Step 3 (classify + draft replies) is delegated to a cheap sub-agent so this session never loads the full comment corpus into its context.
 
 ## Goal
 
@@ -15,7 +15,8 @@ Review the unresolved PR comments for the current branch — **from any author**
 2. Delegate classification and reply drafting to a cheap sub-agent.
 3. Review the sub-agent's JSON output.
 4. **Present the triage plan and get the user's go-ahead before executing (Step 4.5).**
-5. Post replies, resolve threads, and append bucket-C items to `.agents/known-issues.md`.
+5. Open a GitHub issue for each bucket-C item not fixed this round.
+6. Post replies and resolve threads.
 
 ---
 
@@ -154,7 +155,7 @@ REPO POLICIES (use these to identify bucket B comments)
 REPLY TEMPLATES (2–4 sentences, plain text, no markdown headers)
 A: "Fixed — [what changed and why it satisfies the concern]."
 B: "Closing as out-of-scope: [one sentence on the repo policy]. See [file] for details."
-C: "Acknowledged. [One sentence on the planned fix]. Tracked in .agents/known-issues.md."
+C: "Acknowledged. [One sentence on the planned fix]. Tracked in #ISSUE." (Step 5 fills in the issue number)
 
 For bucket C also output:
 - category: one of "User Experience" | "Security & Privacy" | "Accessibility & Standards" | "Developer Experience" | "Code Quality"
@@ -195,7 +196,7 @@ Parse the JSON array. Sanity-check:
 
 ## Step 4.5 — Agree the plan before executing
 
-**Do not post replies, resolve threads, or write to `.agents/known-issues.md` until the user has signed off on the plan.** Figuring out _what to do_ with each comment is a separate step from _doing it_ — surface the triage first.
+**Do not post replies, resolve threads, or open issues until the user has signed off on the plan.** Figuring out _what to do_ with each comment is a separate step from _doing it_ — surface the triage first.
 
 Present a compact table the user can skim — one row per comment:
 
@@ -212,7 +213,57 @@ In a fully autonomous run (`CI=true`, no human present), skip the interactive si
 
 ---
 
-## Step 5 — Reply and resolve, one thread at a time
+## Step 5 — Open a GitHub issue for each deferred bucket C
+
+Every bucket-C item that isn't fixed in this round gets a GitHub issue. Issues are the one place follow-up work is tracked. Don't record it in `.agents/`, `AGENTS.md`, a component's `architecture.md` or `instructions.md`, or any other agent-facing file: agents read those as guidance, so a to-do list there turns into stale instructions.
+
+Open the issues before posting replies (Step 6), so each reply can link its issue.
+
+### Check for an existing issue first
+
+```bash
+gh issue list --repo "$REPO" --state open --search "<title keywords>" --json number,title,url
+```
+
+If an open issue already covers the problem, reuse it: comment on it with a link to the new review comment instead of opening a duplicate.
+
+### Create the issue
+
+Lead with the problem, as AGENTS.md asks for PR descriptions:
+
+```bash
+gh issue create --repo "$REPO" \
+  --title "<Component>: <title>" \
+  --body-file - <<'BODY'
+## Problem
+
+<description: what's wrong and who it affects>
+
+## Where
+
+`path/to/file.ts:line`
+
+## Source
+
+Raised by <author> in <review comment html_url> on #<PR>.
+
+**Category:** <category> · **Severity:** <severity>
+BODY
+```
+
+Only apply labels the repo already has (`gh label list`); don't create new ones.
+
+### Category assignment
+
+Assign each issue to its most critical category:
+
+- XSS risk → Security & Privacy
+- Missing `aria-label` breaking keyboard nav → Accessibility & Standards
+- Flaky test masking a regression → Developer Experience
+
+---
+
+## Step 6 — Reply and resolve, one thread at a time
 
 For every entry in the sub-agent's JSON output, do reply-then-resolve **back-to-back before moving to the next entry**. Don't batch all replies and then all resolves — that splits the audit trail and makes it easy to leave threads dangling when something interrupts you mid-loop.
 
@@ -223,9 +274,9 @@ Resolve immediately after posting the reply when the reply says any of:
 - **"Fixed in `<sha>`"** — Bucket A, or Bucket C you fixed inline in this same round.
 - **"Closing as out-of-scope"** / Copilot misread / intentional pattern — Bucket B.
 
-Leave the thread **open** only when the reply says the work is **tracked for later** in `.agents/known-issues.md` — a real Bucket C you've logged but haven't fixed in this round. Those threads are the visible signal that follow-up is owed.
+Leave the thread **open** only when the reply says the work is **tracked for later** in a GitHub issue — a real Bucket C you've opened an issue for but haven't fixed in this round. Those threads are the visible signal that follow-up is owed.
 
-### 5a. Post the reply
+### 6a. Post the reply
 
 Inline comments — use `in_reply_to`:
 
@@ -244,7 +295,7 @@ gh api "repos/$REPO/issues/$PR/comments" \
   -f body="<reply>"
 ```
 
-### 5b. Resolve the thread (skip only for tracked-for-later Bucket C)
+### 6b. Resolve the thread (skip only for tracked-for-later Bucket C)
 
 ```bash
 # 1. Get thread node IDs (paginated — `first:100` alone misses threads on large PRs)
@@ -278,49 +329,7 @@ gh api graphql -f query='
 ' -f threadId="<thread_node_id>"
 ```
 
-**Perf tip:** fetch all thread node IDs once at the start of Step 5 (single graphql call → map of `databaseId → threadId`) instead of one round-trip per comment.
-
----
-
-## Step 6 — Update `.agents/known-issues.md`
-
-For every bucket C entry that is **not fixed inline this round**, add an item to `.agents/known-issues.md` (create the file if it doesn't exist).
-
-### File structure
-
-```markdown
-# Known Issues
-
-## Known Issues
-
-### User Experience
-
-### Security & Privacy
-
-### Accessibility & Standards
-
-### Developer Experience
-
-### Code Quality
-```
-
-### Entry format
-
-```markdown
-- **[Severity] Title** — Description. `path/to/file.ts:line` _(PR #NNN, <author>)_
-```
-
-### Sorting rule
-
-Keep severity tags (**Critical** → **High** → **Medium** → **Low** → **Possible**) and **always re-sort the entire category top-to-bottom by severity** after adding or editing an item — don't just append.
-
-### Category assignment
-
-Assign each issue to its most critical category:
-
-- XSS risk → Security & Privacy
-- Missing `aria-label` breaking keyboard nav → Accessibility & Standards
-- Flaky test masking a regression → Developer Experience
+**Perf tip:** fetch all thread node IDs once at the start of Step 6 (single graphql call → map of `databaseId → threadId`) instead of one round-trip per comment.
 
 ---
 
@@ -355,9 +364,10 @@ Copilot can loop indefinitely — every push triggers a new pass, and it often f
 - [ ] Stopped early if no unresolved comments remain
 - [ ] All unresolved comments (any author) have a sub-agent classification
 - [ ] Sub-agent output reviewed for correctness; human-authored comments weighted as high-signal (not auto-bucket-B)
-- [ ] Triage plan presented and user signed off before any replies/resolves/known-issues writes (Step 4.5)
+- [ ] Triage plan presented and user signed off before any replies, resolves or new issues (Step 4.5)
+- [ ] Each bucket-C item not fixed this round has a GitHub issue (existing one reused where it fits), opened before its reply
+- [ ] No follow-ups recorded in `.agents/` or other agent-facing files
 - [ ] Every comment has a posted reply, with the matching resolve call made immediately after (not batched)
 - [ ] Threads where the reply said "fixed" or "out of scope" are resolved on GitHub (covers Bucket A, B, and any Bucket C fixed inline in this round)
-- [ ] Threads where the reply said "tracked under Known Issues" are left open
-- [ ] Bucket C entries appended to `.agents/known-issues.md`, sorted by severity within each category
+- [ ] Threads where the reply links a tracking issue are left open
 - [ ] Copilot re-review triggered only if there were Copilot findings and production code changed (Step 7)

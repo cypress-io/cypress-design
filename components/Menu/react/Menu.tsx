@@ -67,7 +67,7 @@ const IconComputed: React.FC<{
         hoverStrokeColor="gray-400"
         interactiveColorsOnGroup={interactiveColorsOnGroup}
         className={clsx({
-          'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400':
+          'icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500':
             active,
         })}
       />
@@ -75,7 +75,7 @@ const IconComputed: React.FC<{
   }
 
   return (
-    <span className="relative inline-flex w-[24px] h-[24px] shrink-0 items-center justify-center align-middle">
+    <span className="relative inline-flex h-[24px] w-[24px] shrink-0 items-center justify-center align-middle">
       <Icon
         size="24"
         strokeColor="gray-600"
@@ -95,7 +95,7 @@ const IconComputed: React.FC<{
         className={clsx(
           'absolute inset-0 transition-opacity',
           active ? 'opacity-100' : 'opacity-0',
-          'icon-dark-secondary-indigo-500 icon-light-indigo-300 icon-dark-indigo-400',
+          'icon-light-indigo-300 icon-dark-indigo-400 icon-dark-secondary-indigo-500',
         )}
       />
     </span>
@@ -131,7 +131,7 @@ const MenuItem = ({
         group: interactiveColorsOnGroup,
         'text-gray-500': !visuallyActive,
         'text-indigo-300': visuallyActive,
-        'p-2 px-7 mx-7 border-l border-gray-800': !icon || !iconActive,
+        'mx-7 border-l border-gray-800 p-2 px-7': !icon || !iconActive,
         'p-4': icon && iconActive,
         [`${anchorClassName}`]: anchorClassName,
       })}

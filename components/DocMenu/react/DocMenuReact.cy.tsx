@@ -45,7 +45,7 @@ describe('<DocMenu/>', () => {
         const [activeHref, setActiveHref] = React.useState<string | undefined>()
 
         return (
-          <div className="w-[400px] mt-[60px] mx-[24px] absolute">
+          <div className="absolute mx-[24px] mt-[60px] w-[400px]">
             <DocMenu
               activePath={activeHref}
               LinkComponent={({ href, className, children, style }) => (
@@ -153,7 +153,7 @@ describe('<DocMenu/>', () => {
         <div className="p-4">
           <button
             onClick={() => setPathState('/faa6')}
-            className="p-2 m-2 rounded bg-gray-100 border border-gray-300"
+            className="m-2 rounded border border-gray-300 bg-gray-100 p-2"
           >
             Set path to <code>/faa6</code>
           </button>

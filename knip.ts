@@ -17,6 +17,8 @@ const config: KnipConfig = {
     '@cypress-design/rollup-plugin-tailwind-keep',
     '@percy/cli',
   ],
+  // CI downloads the Vale binary; it isn't an npm package.
+  ignoreBinaries: ['vale'],
   rules: {
     // Components export both a named and a default binding on purpose.
     duplicates: 'off',
@@ -59,8 +61,9 @@ const config: KnipConfig = {
       ignoreDependencies: ['autoprefixer', '@cypress-design/color-constants'],
     },
     'packages/eslint-plugin': {
-      // Rules are loaded at runtime with `requireindex`.
-      entry: ['lib/rules/*.js'],
+      // Rules are loaded at runtime with `requireindex`, and
+      // `eslint-doc-generator` loads its rc file by name.
+      entry: ['lib/rules/*.js', '.eslint-doc-generatorrc.js'],
       // `eslint-module-utils/resolve` falls back to the `node` resolver,
       // which it requires by name, when no `import/resolver` is configured.
       ignoreDependencies: ['eslint-import-resolver-node'],

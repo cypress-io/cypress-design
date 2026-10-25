@@ -1,6 +1,5 @@
 export default function throttle(callback: () => void, limit: number) {
   let waiting = false // Initially, we're not waiting
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return function () {
     // We return a throttled function
     if (!waiting) {
