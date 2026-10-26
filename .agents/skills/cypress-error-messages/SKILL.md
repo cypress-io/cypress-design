@@ -105,19 +105,7 @@ Not every message needs all sections. A simple command misuse error (Example 5 b
 
 ### If the user doesn't have an `on.cypress.io` link yet
 
-Ask them to create one. The process is:
-
-1. Add a new entry to `data/links.yml` in the `cypress-services` repo:
-   ```yaml
-   - slug: your-slug-here
-     redirect: https://docs.cypress.io/your/target/path
-   ```
-2. Open a pull request to the `develop` branch. [See an example PR](https://github.com/cypress-io/cypress-services/pull/5597/files).
-3. Request a review in the `#team-cloud-foundations` Slack channel.
-4. After approval, ask someone in `#team-cloud-foundations` to merge the PR (not everyone has merge access). Deployment happens automatically once the PR is merged.
-5. Verify the link works at both:
-   - `https://on-staging.cypress.io/your-slug` (staging)
-   - `https://on.cypress.io/your-slug` (production)
+Ask them to create one: a new slug goes in `data/links.yml` in the `cypress-services` repo. The Cloud Foundations team reviews and merges those changes, and they deploy automatically. Before shipping, confirm the slug resolves at `https://on.cypress.io/your-slug`.
 
 Once the slug exists, the link format is: `https://on.cypress.io/your-slug`
 
