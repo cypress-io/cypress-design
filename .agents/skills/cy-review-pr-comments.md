@@ -14,10 +14,12 @@ Triage every unresolved review comment on the current branch's PR, agree the pla
 ```bash
 REPO=$(gh repo view --json nameWithOwner -q .nameWithOwner)
 PR=$(gh pr view --json number -q .number)   # stop if there's no open PR
-ME=$(gh api user -q .login)
+MARK='<!-- cy-review-pr-comments -->'
 ```
 
-**Inline threads.** Keep threads that are unresolved and whose last comment isn't yours. Since you never resolve, a thread you've already answered stays unresolved; skipping it stops a re-run from replying twice. Paginate — `first:100` alone misses threads on large PRs.
+Every reply this skill posts ends with `$MARK`. You usually post as the user's own GitHub account, so the login can't tell your replies from the user's own review notes; the marker can.
+
+**Inline threads.** Keep threads that are unresolved and whose last comment doesn't carry the marker. Since you never resolve, a thread you've already answered stays unresolved; skipping it stops a re-run from replying twice. Paginate — `first:100` alone misses threads on large PRs.
 
 ```bash
 gh api graphql --paginate -F owner="${REPO%/*}" -F repo="${REPO#*/}" -F pr="$PR" -f query='
@@ -28,23 +30,23 @@ gh api graphql --paginate -F owner="${REPO%/*}" -F repo="${REPO#*/}" -F pr="$PR"
         nodes {
           isResolved path line
           rootComment: comments(first:1) { nodes { databaseId author { login } body url } }
-          lastComment: comments(last:1) { nodes { author { login } } }
+          lastComment: comments(last:1) { nodes { body } }
         }
       }
     } }
   }' --jq '.data.repository.pullRequest.reviewThreads.nodes[]
            | select(.isResolved | not)
-           | {path, line, root: .rootComment.nodes[0], lastAuthor: .lastComment.nodes[0].author.login}' \
-  | jq -s --arg me "$ME" '[.[] | select(.lastAuthor != $me)]'
+           | {path, line, root: .rootComment.nodes[0], lastBody: .lastComment.nodes[0].body}' \
+  | jq -s --arg mark "$MARK" '[.[] | select(.lastBody | contains($mark) | not) | del(.lastBody)]'
 ```
 
 `gh api --jq` doesn't forward `--arg`/`--argjson`, so any filter that needs a variable goes in a standalone `jq`, as above.
 
-**Top-level review comments** have no resolved state, so filter them by time: keep human reviews with a body, submitted after your last comment on the PR. Skip Copilot's review bodies — they summarize its inline comments, which you're already triaging.
+**Top-level review comments** have no resolved state, so filter them by time: keep human reviews with a body, submitted after your last marked PR comment. Skip Copilot's review bodies — they summarize its inline comments, which you're already triaging.
 
 ```bash
 SINCE=$(gh api "repos/$REPO/issues/$PR/comments" --paginate \
-  | jq -rs --arg me "$ME" '[.[][] | select(.user.login == $me) | .created_at] | max // ""')
+  | jq -rs --arg mark "$MARK" '[.[][] | select(.body | contains($mark)) | .created_at] | max // ""')
 gh api "repos/$REPO/pulls/$PR/reviews" --paginate \
   | jq -s --arg since "$SINCE" '[.[][] | select(.body != "")
       | select(.user.type != "Bot" and (.user.login | test("copilot"; "i") | not))
@@ -87,7 +89,7 @@ Honor scoped answers ("skip #2", "defer #1") and apply the user's corrections be
    - Top-level reviews: one PR comment answering all of them, not one per review: `gh api "repos/$REPO/issues/$PR/comments" -X POST -f body="<reply>"`
 4. **Re-request review** from each human whose changes-requested review you addressed: `gh pr edit "$PR" --add-reviewer <login>`.
 
-Replies are plain text, two to four sentences: "Fixed in `<sha>`: …", "Out of scope: … See `<file>`.", or "Tracked in #<issue>: …".
+Replies are plain text, two to four sentences: "Fixed in `<sha>`: …", "Out of scope: … See `<file>`.", or "Tracked in #<issue>: …". End every reply with `$MARK` on its own line; GitHub doesn't render it.
 
 ## Re-requesting Copilot
 

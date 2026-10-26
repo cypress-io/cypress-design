@@ -27,7 +27,8 @@ function playwrightChromium() {
 }
 
 function onPath(name) {
-  return spawnSync('which', [name], { encoding: 'utf8' }).stdout.trim()
+  // stdout is null when `which` itself isn't installed.
+  return spawnSync('which', [name], { encoding: 'utf8' }).stdout?.trim()
 }
 
 function findChrome() {

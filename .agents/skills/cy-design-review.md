@@ -16,7 +16,7 @@ Review a user-facing surface against the Cypress design guidance hosted at `http
 3. **Load the guidance that applies.** Use [index.md](https://design.cypress.io/agents/index.md) to pick the design docs and components the surface touches. Load [voice.md](https://design.cypress.io/agents/voice.md) if copy changed.
 4. **Walk the work against each doc you loaded.** Note every place it departs from the guidance, with a one-line why.
 5. **Run the checklists.** [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) for every surface. Add [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) for a brief, initiative, or design proposal.
-6. **Write it up** in the format below, as a PR review if you're reviewing a PR, otherwise in your reply.
+6. **Write it up** in the format below, in your reply. If you're reviewing a PR, offer to post it as a PR review, and post only once the user agrees: the author and reviewers see it.
 
 ## Writing findings
 

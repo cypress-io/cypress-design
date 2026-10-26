@@ -73,7 +73,7 @@ Map light and dark separately. Dark-mode colors don't follow from light-mode one
 
 **States.** Prefer CSS pseudo-classes (`:hover`, `:active`, `:focus-visible`, `:focus-within`) to JavaScript state. Decide which state wins when several apply, implement it, and record it in `architecture.md`. Disabled always wins, e.g. disabled > placeholder > focus-visible > active > hover > default. For multi-state components, key constants as `theme-variant-state` (`'light-default-hover'`); combinations the priority order makes unreachable don't need a key.
 
-**Icons.** Use `@cypress-design/react-icon` / `@cypress-design/vue-icon`, never inline SVG. Set icon colors per theme and state through the icon's color props.
+**Icons.** Use `@cypress-design/react-icon` / `@cypress-design/vue-icon` for every icon, and set its colors per theme and state through the icon's color props. Inline SVG is for shapes that aren't icons, like Spinner's ring or Tooltip's arrow.
 
 ## Form controls and input-like components
 
@@ -103,7 +103,7 @@ Address every issue Cypress Accessibility reports on the component's tests. Then
 
 Add a `.changeset/*.md` file (`yarn changeset`); `/.agents/architecture.md` under "Publishing" covers how releases work and the `workspace:^` rule for internal dependencies.
 
-For a brand-new component, set each new package's `version` to `"0.0.0"` and mark all three `major`, so the first publish is `1.0.0`:
+For a brand-new component, mark all three packages `major`. From the scaffold's `0.0.1`, that makes the first publish `1.0.0`:
 
 ```md
 ---

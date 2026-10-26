@@ -41,6 +41,17 @@ Every UI illustration the team has made (some as prototypes for product videos) 
 | Component — Windows (v1.0)           | `EVfe4zg4hZPqZses82RhfI` | `Window / Browser` chrome; see ui-illustrations.md § Frame and aspect ratio                                                                                            |
 | Heroes App (v1.1)                    | `nHuTFOXFgAfbS04LqPgK5v` | The cy.heroes cast (`614:2927`) — export portraits from here, never regenerate them                                                                                    |
 
+Patterns worth borrowing from these files:
+
+| Illustration                     | File          | What it demonstrates                                                                                            |
+| -------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------- |
+| Accessibility — inspect element  | Accessibility | Injected-app gray surround, DOM highlight 4-layer overlay, dark selector tooltip, sidebar overlaying app canvas |
+| Cloud — Test Replay              | Cypress Cloud | Dark chrome, code panel with error state, replay timeline with progress dot, devtools split                     |
+| Cloud — Branch Review            | Cypress Cloud | Two-panel review layout, diff badges (▲2 ▼1), severity tags, selected-row treatment                             |
+| Cloud — Test detail + Cypress AI | Cypress Cloud | Overlay panel over dimmed content, action button row, AI attribution rows                                       |
+| Cloud — integrations / settings  | Cypress Cloud | Settings list patterns: toggles, tabs, locked inputs                                                            |
+| Cloud — Run duration chart       | Cypress Cloud | Rounded bar chart, commit dots on branch line, callout value pill                                               |
+
 Many illustrations ship in several authored sizes (Large 1286×680, Medium 800×425, animated step series). **Before downsizing anything, check whether the design team already authored the small size** — if it exists, it's the spec, not an input to reinterpret.
 
 `get_metadata`, `get_design_context`, `get_screenshot`, and `download_assets` are Figma connector tools. Complete the connector's own setup (session, required skills) before the first call.
@@ -61,11 +72,11 @@ Each step names the section of ui-illustrations.md that holds its rules.
 
 1. **Fetch the rules** — all of ui-illustrations.md.
 2. **Find the source** in the tables above, and check for an authored version at your target size.
-3. **Read the source before producing pixels** (§ Method, step 1; § Where assets come from). Geometry from `get_metadata` on the node, never from a screenshot; tokens and construction from `get_design_context`; portraits, logos, and baked art from `download_assets`.
+3. **Read the source before producing pixels** (§ Method, step 1; § Where assets come from). Geometry from `get_metadata` on the node, never from a screenshot; tokens and construction from `get_design_context`; portraits, logos, and baked art from `download_assets`. If a symbol is a flattened image, window regions out of the export at 1:1 with `background-position` instead of redrawing them.
 4. **Plan the reframe and write the element budget down** before building (§ Method, steps 3–6).
 5. **Build a standalone HTML file** at logical size in your scratchpad. Paste the `:root` block from `https://design.cypress.io/colors.css` into it and color with `var(--cy-*)` tokens rather than hex ([colors.md](https://design.cypress.io/agents/colors.md)). Inline every SVG (§ Method, step 8).
 6. **Render at @2x and check the dimensions** (§ Deliver at @2x and verify). In this repo: `node scripts/render-illustration.mjs illustration.html out@2x.png 800 425`.
-7. **Do the element inventory** against the source and re-render until it's clean (§ Deliver at @2x and verify), then run § Self-check before delivering.
+7. **Do the element inventory** against the source, checking icon construction and color against the Figma components rather than memory, and re-render until it's clean (§ Deliver at @2x and verify), then run § Self-check before delivering.
 8. **Deliver the PNG** with the inventory's intentional removals listed and any judgment calls flagged.
 
 ## The misses that cost the most review rounds
@@ -74,3 +85,4 @@ Each step names the section of ui-illustrations.md that holds its rules.
 - **Hand-drawing a substitute** (CSS avatars, generic icons, invented tooltips or highlights) when the real component or asset exists. Readers notice a pattern they don't recognize even when they can't say why.
 - **Dropping structural elements that carry meaning**: the gray injected-app surround, avatar rings, tooltip icons. They're plainly visible in the source and easy to lose in an impression-based check — the inventory exists to catch them.
 - **Fixed-width cards that leave remainder strips** instead of stretching on the grid.
+- **Values off the system**: fractional pixels, 6–8px radii where the system uses 4px, grays and reds that aren't tokens. Each is small; together they read as off-brand.
