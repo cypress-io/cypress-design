@@ -38,10 +38,10 @@ const galleries = {
   Textbox,
 }
 
-// The TestResult gallery scrolls inside a 400px box on the docs page; let it
-// grow so the snapshot shows every row, not just the first few.
-const percyCSS: Record<string, string> = {
-  TestResult: '.max-h-\\[400px\\] { max-height: none !important; }',
+// The TestResult gallery scrolls inside a fixed-height box on the docs page;
+// let it grow so the snapshot shows every row, not just the first few.
+const unclipped: Record<string, string> = {
+  TestResult: '.max-h-96',
 }
 
 describe('All states galleries (Vue)', { viewportWidth: 1280 }, () => {
@@ -49,8 +49,11 @@ describe('All states galleries (Vue)', { viewportWidth: 1280 }, () => {
     it(name, () => {
       mount(gallery)
       cy.get('[data-cy-root]').children().should('have.length.above', 0)
+      const selector = unclipped[name]
+      // Fail if the gallery's classes change, rather than snapshot it clipped
+      if (selector) cy.get(selector).should('exist')
       cy.percySnapshot(`${name} all states - vue`, {
-        percyCSS: percyCSS[name],
+        percyCSS: selector && `${selector} { max-height: none !important; }`,
       })
     })
   })
