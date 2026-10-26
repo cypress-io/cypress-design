@@ -253,13 +253,19 @@ This boundary fixes assistive tech, not search indexing — crawlers still read 
 
 Design at logical size, ship at 2×. Blurry assets undercut everything else on the page.
 
-Build the illustration as a standalone HTML file sized to the logical frame, then render it:
+Build the illustration as a standalone HTML file sized to the logical frame, then render it. In the cypress-design repo, `scripts/render-illustration.mjs` finds Chrome or Chromium on macOS, Linux, or a cloud session:
 
 ```bash
-"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=800,425 --screenshot=out@2x.png "file://$PWD/illustration.html"
+node scripts/render-illustration.mjs illustration.html out@2x.png 800 425
 ```
 
-`--window-size` takes logical px; the scale factor doubles the output. Confirm the PNG's real dimensions before delivering — a 1600×850 file proves the 800×425 layout rendered at 2×.
+Anywhere else, run Chrome or Chromium headless directly; the binary's path depends on the OS, and running as root also needs `--no-sandbox`:
+
+```bash
+<chrome> --headless --disable-gpu --hide-scrollbars --force-device-scale-factor=2 --window-size=800,425 --screenshot=out@2x.png "file://$PWD/illustration.html"
+```
+
+Both take the logical size; the scale factor doubles the output. Confirm the PNG's real dimensions before delivering — a 1600×850 file proves the 800×425 layout rendered at 2×.
 
 **Then look at the render — with an element inventory, not an impression.** List every element in the source region you kept (nav, rings, tooltip icon, surrounds, badges, connectors) and mark each one present, intentionally removed, or missing. Every review round in practice has been a missing element that was plainly visible in the original — the gray injected-app surround, the avatar rings, the tooltip's icon — not a subtle style gap. Impressionistic comparison passes over exactly these. Open the PNG and check it against the source side by side. A live-preview widget in a chat column is not proof: it may be transform-scaled to fit, so it shows neither the true size nor the true crop. Iterate on the file and re-render until the comparison holds.
 
