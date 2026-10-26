@@ -29,7 +29,7 @@ Accessibility is a content concern, not only a design one. These rules apply whe
 
 **Don't rely on visuals alone.** If a reader can't see colors, images, or video, the core message must still land in the text. Provide alt text for informative images and mark decorative ones as decorative. Keep text and key UI at sufficient contrast for low-vision and color-blind readers.
 
-**Use descriptive link text.** A link must make sense on its own — "Read the Test Replay setup guide", never standalone "click here" or "learn more". (Errors and warnings share this rule; see [errors.md](https://design.cypress.io/agents/errors.md).)
+**Use descriptive link text.** A link must make sense on its own — "Read the Test Replay setup guide", never standalone "click here" or "learn more". (Errors and warnings share this rule; see the [cypress-error-messages skill](https://design.cypress.io/agents/skills/cypress-error-messages/SKILL.md).)
 
 **"Disabled" and "disability" are the correct words — don't tiptoe around them.** This language moves quickly, and we'll get corrected sometimes; stay open to it.
 
