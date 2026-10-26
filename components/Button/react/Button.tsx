@@ -21,17 +21,23 @@ type ReactButtonProps = ButtonPropsJsx &
     ? React.HTMLProps<HTMLAnchorElement>
     : Omit<React.HTMLProps<HTMLButtonElement>, 'size'>)
 
-export const Button: React.FC<ReactButtonProps> = ({
-  variant = DefaultVariant,
-  size = DefaultSize,
-  disabled = false,
-  href,
-  className,
-  children,
-  type = 'button',
-  square = false,
-  ...rest
-}) => {
+export const Button = React.forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ReactButtonProps
+>(function Button(
+  {
+    variant = DefaultVariant,
+    size = DefaultSize,
+    disabled = false,
+    href,
+    className,
+    children,
+    type = 'button',
+    square = false,
+    ...rest
+  },
+  ref,
+) {
   // Determine if we should use the disabled variant
   const useDisabledVariant =
     disabled &&
@@ -51,10 +57,11 @@ export const Button: React.FC<ReactButtonProps> = ({
   const Comp = href ? 'a' : 'button'
 
   return (
-    // @ts-expect-error since the button cannot have an href, ts will complain
     <Comp
       {...(href ? {} : { type })}
       {...rest}
+      // @ts-expect-error `Comp` is either element, so ts expects a ref to both at once
+      ref={ref}
       href={href}
       className={clsx(
         CssStaticClasses,
@@ -69,6 +76,6 @@ export const Button: React.FC<ReactButtonProps> = ({
       {children}
     </Comp>
   )
-}
+})
 
 export default Button

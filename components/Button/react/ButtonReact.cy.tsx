@@ -166,6 +166,26 @@ describe('<Button />', { viewportHeight: 600, viewportWidth: 1000 }, () => {
     })
   })
 
+  it('forwards the ref to the rendered button', () => {
+    const ref = React.createRef<HTMLButtonElement | HTMLAnchorElement>()
+    mount(<Button ref={ref}>Click Me</Button>)
+    cy.get('button').then(($el) => {
+      expect(ref.current).to.equal($el[0])
+    })
+  })
+
+  it('forwards the ref to the rendered link', () => {
+    const ref = React.createRef<HTMLButtonElement | HTMLAnchorElement>()
+    mount(
+      <Button ref={ref} href="#">
+        Link
+      </Button>,
+    )
+    cy.get('a').then(($el) => {
+      expect(ref.current).to.equal($el[0])
+    })
+  })
+
   function mountStory(options: Parameters<typeof ButtonStory>[0] = {}) {
     mount(<ButtonStory {...options} />)
   }
