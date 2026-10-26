@@ -24,7 +24,7 @@ Lead with reader benefit; the action you want follows from understanding. See [L
 - No hype, no marketing fluff. Avoid "simply", "just", "easy", "powerful", "seamless", "delight".
 - Prefer present tense, active voice.
 - **Match register to stakes.** The voice stays constant; the register tightens as stakes rise. More instructional for tutorials and learning; calm and direct for product changes; serious and precise for security, reliability, and deprecations. Clarity always outranks personality.
-- For errors, warnings, and deprecation messages specifically — stricter rules apply (no exclamation points, no blame, structured what/why/next). See [errors.md](https://design.cypress.io/agents/errors.md).
+- For errors, warnings, and deprecation messages specifically — stricter rules apply (no exclamation points, no blame, structured what/why/next). See the [cypress-error-messages skill](https://design.cypress.io/agents/skills/cypress-error-messages/SKILL.md).
 
 ## Point of view
 
@@ -125,7 +125,7 @@ Keep these lists current: when a name changes or a new one ships, update the rel
 
 - **Numbers.** Spell out one through nine; use numerals for 10 and above. Always use numerals for metrics, measurements, and performance data.
 - **Dates and time.** Spell out the day of the week and abbreviate the month (Tuesday, Jan 14). Use numerals with am/pm (7am, 7:30pm). Include time zones when scheduling matters.
-- **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly, and never two in one sentence — a second em-dash aside asks the reader to hold two interruptions open at once and forces a re-read to find the actual subject and verb; reach for a comma, a colon, or a second sentence instead. (Two em-dash asides in two separate sentences are fine — this is a per-sentence rule.) Never use exclamation points in error messages or alerts — see [errors.md](https://design.cypress.io/agents/errors.md).
+- **Punctuation.** Use the serial (Oxford) comma. Use a colon to introduce a list. Use em dashes sparingly, and never two in one sentence — a second em-dash aside asks the reader to hold two interruptions open at once and forces a re-read to find the actual subject and verb; reach for a comma, a colon, or a second sentence instead. (Two em-dash asides in two separate sentences are fine — this is a per-sentence rule.) Never use exclamation points in error messages or alerts — see the [cypress-error-messages skill](https://design.cypress.io/agents/skills/cypress-error-messages/SKILL.md).
 
 ## Writing about accessibility and inclusion
 
@@ -138,5 +138,5 @@ Confirm the reader can answer: what changed, why Cypress made this choice, wheth
 ## Related
 
 - [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — the feature-headline formula (a narrow supplement — fetch only when writing a spotlight title, nav label, or other single-feature headline)
-- [errors.md](https://design.cypress.io/agents/errors.md) — stricter overrides for errors, warnings, and deprecations
+- [cypress-error-messages skill](https://design.cypress.io/agents/skills/cypress-error-messages/SKILL.md) — stricter overrides for errors, warnings, and deprecations
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — content accessibility and disability language
