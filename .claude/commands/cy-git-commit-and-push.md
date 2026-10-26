@@ -1,1 +1,0 @@
-../../.agents/skills/cy-git-commit-and-push.md

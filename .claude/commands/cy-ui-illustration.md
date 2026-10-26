@@ -1,0 +1,1 @@
+../../.agents/skills/cy-ui-illustration/SKILL.md

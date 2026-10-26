@@ -1,77 +1,50 @@
 ---
 name: cy-design-review
-description: Run a structured design and product review against the Cypress design guidance before shipping work that creates or changes a user-facing surface. Use across any Cypress repo (cypress.io, cypress-cloud, cypress-services, cypress-app, cypress-design, etc.) when reviewing a PR, evaluating a prototype, critiquing AI-generated UI / copy / illustration, or before claiming any design / UX / product task done. Triggers automatically when an agent is creating or modifying pages, components, marketing surfaces, blog posts, illustrations, copy, or making UX / product decisions on Cypress surfaces.
+description: Use when reviewing someone else's user-facing work against the Cypress design guidance — a PR, a prototype, a proposal, or AI-generated UI, copy, or illustration — or when asked for a design review, in any Cypress repo. For checking your own work before calling it done, run review-checklist.md instead.
 ---
 
 # cy-design-review
 
-Structured design and product review against the Cypress design pillars, voice, and review-checklist hosted at `https://design.cypress.io/agents/`. Pairs with the mechanical checklist (`review-checklist.md`), which handles token / spacing / a11y violations.
-
-## When to run
-
-- Before merging or shipping any UI, UX, copy, or illustration work — in any Cypress repo
-- When generating new pages, components, or copy with AI
-- When asked for a design review on a proposal
-- Before claiming any design / UX / product task done
+Review a user-facing surface against the Cypress design guidance hosted at `https://design.cypress.io/agents/`, and hand the author findings they can act on.
 
 ## Steps
 
-1. **Identify the surface and the job.** What is this — page, component, copy, illustration, AI-generated output? Who is the user (fetch `https://design.cypress.io/agents/personas.md`) and what's the JTBD? If you can't answer this, stop and ask the requester.
+1. **Name the surface, the user, and the job.** What is it — page, component, copy, illustration, flow? Who uses it (see [personas.md](https://design.cypress.io/agents/personas.md)) and what are they trying to get done?
+   - **New surface, brief, or initiative:** it also needs a named business goal (activation, retention, revenue, lead gen). If the user, job, or goal is missing, that's your first finding.
+   - **Change to an existing surface:** take the why from the PR description. Ask the author only if it's missing.
+2. **Look at it rendered.** Run it locally, or open the preview deployment or visual snapshots if the PR has them. Check light and dark themes, each interactive state (hover, focus, disabled, error, empty, loading), and narrow widths. Judge spacing, hierarchy, and focus from the screen, not from class names.
+3. **Load the guidance that applies.** Use [index.md](https://design.cypress.io/agents/index.md) to pick the design docs and components the surface touches. Load [voice.md](https://design.cypress.io/agents/voice.md) if copy changed.
+4. **Walk the work against each doc you loaded.** Note every place it departs from the guidance, with a one-line why.
+5. **Run the checklists.** [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) for every surface. Add [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) for a brief, initiative, or design proposal.
+6. **Write it up** in the format below, in your reply. If you're reviewing a PR, offer to post it as a PR review, and post only once the user agrees: the author and reviewers see it.
 
-2. **Identify the business goal.** What outcome should this drive (revenue, retention, activation, lead gen, NPS)? If there isn't one named, the work isn't ready for review.
+## Writing findings
 
-3. **Fetch the relevant pillars.** As applicable: `https://design.cypress.io/agents/illustrations.md` (illustrations), `https://design.cypress.io/agents/accessibility.md` (interactive surfaces), `https://design.cypress.io/agents/errors.md` (error / warning / deprecation messages).
-
-4. **Fetch voice + the mechanical checklist.** `https://design.cypress.io/agents/voice.md` for any copy. `https://design.cypress.io/agents/review-checklist.md` for the mechanical pass.
-
-5. **Walk the work against each fetched pillar.** For each, ask: does this design honor or violate it? Note violations with a one-line _why_.
-
-6. **Cluster findings by section.** Copy, accessibility, product rigor, etc. Use numbered lists.
-
-7. **Lead with framing problems if any exist.** If the design solves the wrong JTBD, ignores business goals, or skipped the design process, that lands first — visual nits second.
-
-8. **Always include the WHY for each finding.** A finding without a reason teaches nothing and reads as a power play.
-
-9. **Run the checklists last.** Use `https://design.cypress.io/agents/review-checklist.md` to catch token, color, spacing, icon, and accessibility violations. If the work is a product brief, initiative, or design proposal — not just a UI surface — also run `https://design.cypress.io/agents/product-review-checklist.md` for product rigor: problem defined before solution, alternatives compared, success metric + measurement, review date, post-launch decision.
+- **Framing problems go first.** If the work solves the wrong job, serves the wrong user, or has no goal, that outweighs every visual detail.
+- **Give each finding its why.** A finding without a reason teaches nothing and reads as a power play.
+- **Point at the existing answer.** Name the component, token, or doc section the author should use instead.
+- **Don't gate-keep.** If the framing is right and the work is good, say so plainly.
 
 ## Output format
 
 ```text
 ## Framing
-(if the JTBD, persona, or business goal is unclear or wrong, name it here)
+(only if the user, job, or goal is unclear or wrong)
 
 ## Findings
+Group under the headings that apply: Visual and layout, Interaction and states,
+Copy, Accessibility, Reuse of existing components, Product rigor.
+1. <finding> — <why> — <what to use instead>
 
-### Copy (if applicable)
-1. <finding> — <why>
-
-### Accessibility
-1. <finding> — <why>
-
-### Product rigor (if reviewing a brief / initiative / product decision)
-1. <finding> — <why>
-
-## Mechanical checklist
-- [ ] colors
-- [ ] spacing
-- [ ] iconography
-- [ ] voice
-- [ ] components
-- [ ] a11y
-
-## Product checklist (if reviewing a brief / initiative)
-- [ ] problem defined before solution
-- [ ] alternatives compared
-- [ ] success metric + measurement infrastructure
-- [ ] review date set
-- [ ] post-launch keep/iterate/kill decision owned
+## Checklists
+review-checklist.md: <failed checks, or "all applicable checks pass">
+product-review-checklist.md: <failed checks, or "not applicable">
 
 ## Recommendation
-<ship / revise / reframe>
+<ship / revise / reframe>, with one line on why
 ```
 
 ## Don't
 
-- Don't run on internal-only surfaces (private dashboards, throwaway docs) unless explicitly asked.
-- Don't deliver findings without the WHY behind each one.
-- Don't gate-keep — if the framing is right and the work is good, say so directly.
+- Don't run on internal-only surfaces (private dashboards, throwaway docs) unless asked.
+- Don't copy checklist items into the review. Report results against the checklists themselves, so the review stays in step with them.
