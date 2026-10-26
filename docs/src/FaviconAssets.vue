@@ -79,41 +79,33 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
 </script>
 
 <template>
-  <div class="my-[24px] flex flex-col gap-[32px]">
+  <div class="my-6 flex flex-col gap-8">
     <!-- how it looks in a tab -->
-    <section class="flex flex-col gap-[12px]">
-      <h3 class="!mb-0 !mt-0 text-[18px]">In a browser tab</h3>
-      <p class="!my-0 text-[14px] text-gray-700">
+    <section class="flex flex-col gap-3">
+      <h3 class="!mb-0 !mt-0 text-lg">In a browser tab</h3>
+      <p class="!my-0 text-sm text-gray-700">
         The real <code>favicon.ico</code> at the sizes a browser actually
         renders, on Chrome's light and dark tab colours.
       </p>
-      <div class="grid gap-[12px] md:grid-cols-2">
-        <div
-          class="overflow-x-auto rounded-t-[10px] px-[11px] pt-[11px]"
-          style="background: #dee1e6"
-        >
-          <div class="flex min-w-min items-end gap-[2px]">
+      <div class="grid gap-3 md:grid-cols-2">
+        <div class="chrome-tab-strip chrome-tab-strip-light overflow-x-auto">
+          <div class="flex min-w-min items-end gap-0.5">
             <div
               v-for="s of ICO_SIZES"
               :key="`l${s}`"
-              class="flex items-center gap-[7px] whitespace-nowrap rounded-t-[9px] px-[13px] py-[9px] text-[11px]"
-              style="background: #ffffff; color: #5a6072"
+              class="chrome-tab flex items-center whitespace-nowrap"
             >
               <img :src="SRC['favicon.ico']" :width="s" :height="s" alt="" />
               {{ s }}
             </div>
           </div>
         </div>
-        <div
-          class="overflow-x-auto rounded-t-[10px] px-[11px] pt-[11px]"
-          style="background: #202124"
-        >
-          <div class="flex min-w-min items-end gap-[2px]">
+        <div class="chrome-tab-strip chrome-tab-strip-dark overflow-x-auto">
+          <div class="flex min-w-min items-end gap-0.5">
             <div
               v-for="s of ICO_SIZES"
               :key="`d${s}`"
-              class="flex items-center gap-[7px] whitespace-nowrap rounded-t-[9px] px-[13px] py-[9px] text-[11px]"
-              style="background: #35363a; color: #9aa0ae"
+              class="chrome-tab flex items-center whitespace-nowrap"
             >
               <img :src="SRC['favicon.ico']" :width="s" :height="s" alt="" />
               {{ s }}
@@ -124,80 +116,76 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
     </section>
 
     <!-- the adaptive svg -->
-    <section class="flex flex-col gap-[12px]">
-      <h3 class="!mb-0 !mt-0 text-[18px]">favicon.svg — the adaptive one</h3>
-      <p class="!my-0 text-[14px] text-gray-700">
+    <section class="flex flex-col gap-3">
+      <h3 class="!mb-0 !mt-0 text-lg">favicon.svg — the adaptive one</h3>
+      <p class="!my-0 text-sm text-gray-700">
         One file, two palettes, swapped with <code>prefers-color-scheme</code>.
         Your system is currently <b>{{ scheme }}</b
         >, so this is the <b>{{ scheme }}</b> variant. Flip your appearance and
         it repaints.
       </p>
-      <div
-        class="flex flex-wrap items-end gap-[24px] rounded bg-gray-50 p-[24px]"
-      >
+      <div class="flex flex-wrap items-end gap-6 rounded bg-gray-50 p-6">
         <div
           v-for="s of [16, 24, 32, 48, 64, 128]"
           :key="s"
-          class="flex flex-col items-center gap-[8px]"
+          class="flex flex-col items-center gap-2"
         >
           <img :src="SRC['favicon.svg']" :width="s" :height="s" alt="" />
-          <span class="text-[11px] text-gray-600">{{ s }}</span>
+          <span class="text-xs text-gray-600">{{ s }}</span>
         </div>
       </div>
     </section>
 
     <!-- the rest -->
-    <section class="flex flex-col gap-[12px]">
-      <h3 class="!mb-0 !mt-0 text-[18px]">The other surfaces</h3>
-      <p class="!my-0 text-[14px] text-gray-700">
+    <section class="flex flex-col gap-3">
+      <h3 class="!mb-0 !mt-0 text-lg">The other surfaces</h3>
+      <p class="!my-0 text-sm text-gray-700">
         Each renders a single fixed image and never adapts. The apple-touch icon
         is deliberately opaque: iOS composites on white, so transparent corners
         produce a hard edge.
       </p>
-      <div
-        class="flex flex-wrap items-end gap-[28px] rounded bg-gray-50 p-[24px]"
-      >
-        <div class="flex flex-col items-center gap-[8px]">
+      <div class="flex flex-wrap items-end gap-7 rounded bg-gray-50 p-6">
+        <div class="flex flex-col items-center gap-2">
           <img
             :src="SRC['apple-touch-icon.png']"
             width="90"
             height="90"
             alt=""
           />
-          <span class="text-[11px] text-gray-600">apple-touch 180</span>
+          <span class="text-xs text-gray-600">apple-touch 180</span>
         </div>
-        <div class="flex flex-col items-center gap-[8px]">
+        <div class="flex flex-col items-center gap-2">
           <img
             :src="SRC['android-chrome-192x192.png']"
             width="90"
             height="90"
             alt=""
           />
-          <span class="text-[11px] text-gray-600">android 192</span>
+          <span class="text-xs text-gray-600">android 192</span>
         </div>
-        <div class="flex flex-col items-center gap-[8px]">
+        <div class="flex flex-col items-center gap-2">
           <img
             :src="SRC['android-chrome-512x512.png']"
             width="90"
             height="90"
             alt=""
           />
-          <span class="text-[11px] text-gray-600">android 512</span>
+          <span class="text-xs text-gray-600">android 512</span>
         </div>
       </div>
     </section>
 
     <!-- inventory -->
-    <section class="flex flex-col gap-[12px]">
-      <h3 class="!mb-0 !mt-0 text-[18px]">What ships</h3>
+    <section class="flex flex-col gap-3">
+      <h3 class="!mb-0 !mt-0 text-lg">What ships</h3>
       <div class="overflow-x-auto">
-        <table class="w-full border-collapse text-[14px]">
+        <table class="w-full border-collapse text-sm">
           <thead>
             <tr class="text-left text-gray-600">
-              <th class="py-[8px] pr-[16px] font-medium">File</th>
-              <th class="py-[8px] pr-[16px] font-medium">Size</th>
-              <th class="py-[8px] pr-[16px] font-medium">Alpha</th>
-              <th class="py-[8px] font-medium">Used by</th>
+              <th class="py-2 pr-4 font-medium">File</th>
+              <th class="py-2 pr-4 font-medium">Size</th>
+              <th class="py-2 pr-4 font-medium">Alpha</th>
+              <th class="py-2 font-medium">Used by</th>
             </tr>
           </thead>
           <tbody>
@@ -206,21 +194,21 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
               :key="f.name"
               class="border-t border-gray-100 align-top"
             >
-              <td class="py-[8px] pr-[16px] font-mono text-[12.5px]">
+              <td class="py-2 pr-4 font-mono text-xs">
                 {{ f.name }}
               </td>
-              <td class="py-[8px] pr-[16px] font-mono text-[12.5px]">
+              <td class="py-2 pr-4 font-mono text-xs">
                 {{ f.dims }}
               </td>
-              <td class="py-[8px] pr-[16px] font-mono text-[12.5px]">
+              <td class="py-2 pr-4 font-mono text-xs">
                 {{ f.alpha }}
               </td>
-              <td class="py-[8px] text-gray-700">{{ f.used }}</td>
+              <td class="py-2 text-gray-700">{{ f.used }}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="!my-0 text-[12.5px] text-gray-600">
+      <p class="!my-0 text-xs text-gray-600">
         {{ FAVICON_ASSETS.length }} files, {{ FAVICON_LINKS.length }} link tags
         — every row is generated from the package's own asset list, so this
         table cannot drift from what ships.
@@ -228,3 +216,32 @@ onUnmounted(() => mq?.removeEventListener('change', sync))
     </section>
   </div>
 </template>
+
+<style scoped>
+/* A copy of Chrome's tab strip, measured from the browser rather than set on
+   our grid, so the favicon is shown on the surface it really renders on. */
+.chrome-tab-strip {
+  border-radius: 10px 10px 0 0;
+  padding: 11px 11px 0;
+}
+.chrome-tab {
+  gap: 7px;
+  border-radius: 9px 9px 0 0;
+  padding: 9px 13px;
+  font-size: 11px;
+}
+.chrome-tab-strip-light {
+  background: #dee1e6;
+}
+.chrome-tab-strip-light .chrome-tab {
+  background: #ffffff;
+  color: #5a6072;
+}
+.chrome-tab-strip-dark {
+  background: #202124;
+}
+.chrome-tab-strip-dark .chrome-tab {
+  background: #35363a;
+  color: #9aa0ae;
+}
+</style>

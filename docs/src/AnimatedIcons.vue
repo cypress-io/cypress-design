@@ -26,17 +26,17 @@ const animated = reactive({
 
 <template>
   <div class="rounded bg-gray-50 p-4 text-center">
-    <h2 class="m-4 text-[24px]">Animated Icons</h2>
+    <h2 class="m-4 text-2xl">Animated Icons</h2>
     <p class="m-4 text-gray-800">Click to see the animation start</p>
-    <div class="flex flex-wrap justify-center gap-[16px] bg-white p-8">
+    <div class="flex flex-wrap justify-center gap-4 bg-white p-8">
       <div
         v-for="(Icon, iconName) of animatedIcons"
         :key="iconName"
-        class="flex flex-col items-center gap-[8px]"
+        class="flex flex-col items-center gap-2"
       >
         <component
           :is="Icon"
-          class="h-[64px] w-[64px]"
+          class="size-16"
           :animated="animated[iconName]"
           stroke-color="indigo-500"
           fill-color="jade-200"

@@ -10,10 +10,10 @@ export default function Description() {
       onArchive={() => {}}
       description={
         <>
-          <p className="!mb-[4px] !mt-0 text-[16px] font-semibold !leading-4 text-gray-900">
+          <p className="!mb-1 !mt-0 text-base font-semibold !leading-4 text-gray-900">
             Run timed out
           </p>
-          <p className="!mb-0 !leading-[20px]">
+          <p className="!mb-0 !leading-5">
             The run started, but never completed. This can happen when the run
             is cancelled from CI or when Cypress crashes during running tests.
             Check your CI logs for more information.

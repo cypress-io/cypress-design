@@ -63,7 +63,7 @@ import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
   <body class="bg-white text-gray-900 font-brand">
     <!-- Fixed header -->
     <header
-      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-[72px] justify-between items-center px-6 md:px-8 border-b border-gray-1000/[.07]"
+      class="flex flex-row-reverse md:flex-row fixed z-40 w-full bg-white h-docs-header justify-between items-center px-6 md:px-8 border-b border-gray-100"
     >
       <a href="/">
         <img src="/logo.svg" class="h-8 md:mr-8" alt="Cypress Design System" />
@@ -73,7 +73,7 @@ import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
         href="https://github.com/cypress-io/cypress-design"
         target="_blank"
         rel="noopener noreferrer"
-        class="fixed bottom-[34px] right-[116px] md:static flex items-center gap-2 px-3 py-1.5 text-sm text-indigo-500 bg-gray-50 border border-gray-200 rounded-full hover:border-gray-300 transition-colors"
+        class="fixed bottom-8 right-28 md:static flex items-center gap-2 px-3 py-1.5 text-sm text-indigo-500 bg-gray-50 border border-gray-200 rounded-full hover:border-gray-300 transition-colors"
         aria-label="View on GitHub"
       >
         <!-- GitHub Mark -->
@@ -109,7 +109,7 @@ import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
     </header>
 
     <!-- Header spacer -->
-    <div class="h-[72px]"></div>
+    <div class="h-docs-header"></div>
 
     <div class="flex min-h-full pb-8">
       <!-- Mobile backdrop -->
@@ -120,18 +120,18 @@ import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
       </div>
 
       <!-- Sidebar spacer (desktop only) -->
-      <div class="w-[250px] hidden md:block shrink-0"></div>
+      <div class="w-docs-sidebar hidden md:block shrink-0"></div>
 
       <!-- Sidebar (fixed) -->
       <aside
         id="sidebar"
-        class="fixed py-8 bg-white z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 h-[calc(100vh-72px)] overflow-auto border-r border-gray-100/[.07]"
+        class="fixed py-8 bg-white z-50 -translate-x-full md:translate-x-0 transition-transform duration-300 top-docs-header bottom-0 overflow-auto border-r border-gray-100"
       >
         <Sidebar currentPath={currentPath} />
       </aside>
 
       <!-- Main content -->
-      <main class="w-full max-w-[800px] mx-6 min-[1420px]:mx-auto md:mt-6 min-w-0">
+      <main class="w-full max-w-docs-content mx-6 min-[1420px]:mx-auto md:mt-6 min-w-0">
         <div class="relative">
           {editPath && <EditButton editPath={editPath} />}
           {rawContent ? (
@@ -150,7 +150,7 @@ import Favicon, { FAVICON_LINKS } from '@cypress-design/react-favicon'
       {
         outlineHeadings.length > 0 && (
           <aside class="hidden xl:block">
-            <div class="w-[300px]">
+            <div class="w-docs-outline">
               <Outline headings={outlineHeadings} />
             </div>
           </aside>

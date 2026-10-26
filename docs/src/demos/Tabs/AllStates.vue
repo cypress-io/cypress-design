@@ -66,6 +66,6 @@ const types = [
       :variant="type"
       :tabs="type.includes('large') ? demoTabsLarge : demoTabsSmall"
     />
-    <div class="h-[20px]" />
+    <div class="h-5" />
   </template>
 </template>

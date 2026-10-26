@@ -170,7 +170,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
   <div class="mb-2 rounded bg-white p-4">
     <div class="grid grid-cols-2 items-start gap-4 md:grid-cols-4">
       <div>
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-500">
           default
         </p>
         <SelectOptionList
@@ -187,7 +187,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         tile below. On narrow screens (2-col grid) it stacks naturally.
       -->
       <div class="col-span-2">
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-500">
           all content types + footer
         </p>
         <SelectOptionList
@@ -214,12 +214,12 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
-            <span class="flex items-start gap-[8px]">
+            <span class="flex items-start gap-2">
               <IconActionInfoOutline
                 size="16"
-                class="mt-[2px] shrink-0 text-gray-600"
+                class="mt-0.5 shrink-0 text-gray-600"
               />
-              <span class="text-[14px] leading-[20px] text-gray-700">
+              <span class="text-sm leading-5 text-gray-700">
                 Selecting
                 <span class="font-medium text-gray-900">“All Projects”</span>
                 ensures all future projects are assigned to this team.
@@ -234,7 +234,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
            it sits next to the size-40 all-content-types tile, not glued to
            the last column of the row above. -->
       <div class="md:col-start-1">
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-500">
           default — size 40
         </p>
         <SelectOptionList
@@ -245,7 +245,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         />
       </div>
       <div class="col-span-2">
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-500">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-500">
           all content types + footer — size 40
         </p>
         <SelectOptionList
@@ -273,12 +273,12 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
-            <span class="flex items-start gap-[8px]">
+            <span class="flex items-start gap-2">
               <IconActionInfoOutline
                 size="16"
-                class="mt-[2px] shrink-0 text-gray-600"
+                class="mt-0.5 shrink-0 text-gray-600"
               />
-              <span class="text-[14px] leading-[20px] text-gray-700">
+              <span class="text-sm leading-5 text-gray-700">
                 Selecting
                 <span class="font-medium text-gray-900">“All Projects”</span>
                 ensures all future projects are assigned to this team.
@@ -297,7 +297,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
   <div class="mb-4 rounded bg-gray-1000 p-4">
     <div class="grid grid-cols-2 items-start gap-4 md:grid-cols-4">
       <div>
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-600">
           default
         </p>
         <SelectOptionList
@@ -308,7 +308,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         />
       </div>
       <div class="col-span-2">
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-600">
           all content types + footer
         </p>
         <SelectOptionList
@@ -336,12 +336,12 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
-            <span class="flex items-start gap-[8px]">
+            <span class="flex items-start gap-2">
               <IconActionInfoOutline
                 size="16"
-                class="mt-[2px] shrink-0 text-gray-400"
+                class="mt-0.5 shrink-0 text-gray-400"
               />
-              <span class="text-[14px] leading-[20px] text-gray-400">
+              <span class="text-sm leading-5 text-gray-400">
                 Selecting
                 <span class="font-medium text-gray-100">“All Projects”</span>
                 ensures all future projects are assigned to this team.
@@ -353,7 +353,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
       <!-- Size-40 mirrors so the dark grid offers the same size comparison.
            See the light-mode counterpart for why `md:col-start-1` is here. -->
       <div class="md:col-start-1">
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-600">
           default — size 40
         </p>
         <SelectOptionList
@@ -365,7 +365,7 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
         />
       </div>
       <div class="col-span-2">
-        <p class="mb-1 text-[11px] uppercase tracking-wide text-gray-600">
+        <p class="mb-1 text-xs uppercase tracking-wide text-gray-600">
           all content types + footer — size 40
         </p>
         <SelectOptionList
@@ -394,12 +394,12 @@ function onMixedSelect(item: { type?: string; value?: string }): void {
           @header-tab-change="(id: string) => (tab = id)"
         >
           <template #footer>
-            <span class="flex items-start gap-[8px]">
+            <span class="flex items-start gap-2">
               <IconActionInfoOutline
                 size="16"
-                class="mt-[2px] shrink-0 text-gray-400"
+                class="mt-0.5 shrink-0 text-gray-400"
               />
-              <span class="text-[14px] leading-[20px] text-gray-400">
+              <span class="text-sm leading-5 text-gray-400">
                 Selecting
                 <span class="font-medium text-gray-100">“All Projects”</span>
                 ensures all future projects are assigned to this team.

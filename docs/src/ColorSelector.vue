@@ -18,7 +18,7 @@ function emitValue(event: Event) {
 </script>
 
 <template>
-  <div class="relative h-[20px] leading-[20px]">
+  <div class="relative h-5 leading-5">
     <select
       class="absolute bottom-0 left-0 right-0 top-0 cursor-pointer opacity-0"
       @change="emitValue"

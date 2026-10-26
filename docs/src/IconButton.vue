@@ -115,15 +115,15 @@ const sizesGridCols = computed(
   <div
     ref="$button"
     tabindex="0"
-    class="flex min-h-[72px] flex-wrap items-center gap-x-[16px] overflow-hidden rounded bg-indigo-50"
+    class="flex min-h-16 flex-wrap items-center gap-x-4 overflow-hidden rounded bg-indigo-50"
     :class="{
-      'mx-[16px] !cursor-default justify-end px-[8px] pb-[4px] md:flex-nowrap md:justify-start':
+      'mx-4 !cursor-default justify-end px-2 pb-1 md:flex-nowrap md:justify-start':
         focused,
-      'cursor-pointer justify-center py-[8px] transition-colors hover:bg-indigo-100':
+      'cursor-pointer justify-center py-2 transition-colors hover:bg-indigo-100':
         !focused,
-      'absolute left-0 right-0 z-20 min-h-[120px] w-auto items-center md:left-[28px] md:right-[28px] md:min-h-0':
+      'absolute left-0 right-0 z-20 min-h-32 w-auto items-center md:left-7 md:right-7 md:min-h-0':
         localFocused,
-      'mx-auto w-[calc(100%-32px)] items-end lg:w-[700px]':
+      'items-end self-stretch lg:mx-auto lg:w-full lg:max-w-2xl':
         !localFocused && focused,
     }"
     :style="localFocused ? buttonStyle : undefined"
@@ -133,26 +133,26 @@ const sizesGridCols = computed(
     <button
       v-if="localFocused"
       ref="$closeButton"
-      class="absolute right-[4px] top-[4px] rounded-full border-2 border-solid border-transparent hover:border-gray-500"
+      class="absolute right-1 top-1 rounded-full border-2 border-solid border-transparent hover:border-gray-500"
       @click.stop="localFocused = false"
     >
       <span class="sr-only">Close</span>
       <IconActionDeleteMedium />
     </button>
     <p
-      class="shrink-0 overflow-hidden whitespace-nowrap py-[4px] text-[16px] leading-none"
+      class="shrink-0 overflow-hidden whitespace-nowrap py-1 text-base leading-none"
       :class="{
-        'w-full text-left md:w-auto md:min-w-[350px] md:text-right': focused,
+        'w-full text-left md:w-auto md:min-w-80 md:text-right': focused,
         hidden: !focused,
       }"
     >
-      <span class="group mb-[8px] flex items-center gap-x-[8px] md:justify-end"
+      <span class="group mb-2 flex items-center gap-x-2 md:justify-end"
         ><CopyButton class="hidden md:block" :text="iconName" /><code
           class="!m-0 leading-none"
           >{{ iconName }}</code
         ></span
       >
-      <span class="group flex items-center gap-x-[8px] md:justify-end"
+      <span class="group flex items-center gap-x-2 md:justify-end"
         ><CopyButton
           class="hidden md:block"
           :text="`&lt;Icon${upperFirst(camelCase(iconName))}/&gt;`"
@@ -163,7 +163,7 @@ const sizesGridCols = computed(
     </p>
 
     <div
-      class="grid grow gap-[16px] transition-all duration-1000"
+      class="grid grow gap-4 transition-all duration-1000"
       :class="localFocused ? 'grid-cols-5 justify-items-center' : sizesGridCols"
     >
       <IconSized
