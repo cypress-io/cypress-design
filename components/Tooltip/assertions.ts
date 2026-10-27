@@ -64,4 +64,26 @@ export default function assertions(
       expect(left).to.be.greaterThan(0)
     })
   })
+
+  it('points the arrow at the reference after shifting', () => {
+    mountStory({ single: true, placement: 'bottom' })
+    cy.contains('[tabindex="0"]', 'Lorem ipsum').focus()
+    cy.contains('div', 'popit: Lorem ipsum').should('be.visible')
+    waitForTooltipsToPosition()
+    cy.get('[role="tooltip"] svg').should(($arrow) => {
+      const reference = Cypress.$('[tabindex="0"]')[0].getBoundingClientRect()
+      const tooltip = $arrow
+        .closest('[role="tooltip"]')[0]
+        .getBoundingClientRect()
+      const arrow = $arrow[0].getBoundingClientRect()
+      expect(
+        tooltip.left + tooltip.width / 2,
+        'tooltip shifted off center',
+      ).not.to.be.closeTo(reference.left + reference.width / 2, 2)
+      expect(arrow.left + arrow.width / 2).to.be.closeTo(
+        reference.left + reference.width / 2,
+        2,
+      )
+    })
+  })
 }
