@@ -1,5 +1,14 @@
 # @cypress-design/vue-tabs
 
+## 1.2.4
+
+### Patch Changes
+
+- [#776](https://github.com/cypress-io/cypress-design/pull/776) [`5c52648`](https://github.com/cypress-io/cypress-design/commit/5c5264804b4949b022c7655220685091d755551d) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Keep `Tabs` under overlays and modals. The tab list now creates its own stacking context at `z-index: 1`, so the `z-index` values it uses for the active tab and marker no longer compete with the rest of the page. You can remove any `relative z-0` wrapper you added around `Tabs` to work around this.
+
+- Updated dependencies [[`5c52648`](https://github.com/cypress-io/cypress-design/commit/5c5264804b4949b022c7655220685091d755551d)]:
+  - @cypress-design/constants-tabs@1.2.3
+
 ## 1.2.3
 
 ### Patch Changes
