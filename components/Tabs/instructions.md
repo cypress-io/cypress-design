@@ -65,3 +65,7 @@ interface Tab {
 ## Slots
 
 _None_ — tab content panels must be managed by the consuming component, linked via `aria-controls`.
+
+## Stacking
+
+The tab list is positioned with `z-index: 1` and forms its own stacking context, so the layers inside it never rise above the rest of the page. To place an overlay, dropdown, or sticky header over `Tabs`, give it `z-10` or higher. Don't wrap `Tabs` in a `relative z-0` element: the underline variants' active marker overhangs the bottom edge by 1.5px, and content positioned right after the wrapper would cover it.

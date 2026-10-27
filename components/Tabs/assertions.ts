@@ -73,6 +73,80 @@ export default function assertions(
       cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
     })
 
+    describe('stacking', () => {
+      // Cypress doesn't reset <body> between tests, so a leftover node would block clicks in later tests
+      afterEach(() => {
+        cy.document().then((doc) => {
+          doc.getElementById('overlay')?.remove()
+          doc.getElementById('panel')?.remove()
+        })
+      })
+
+      Object.keys(CssVariants)
+        .filter((variant) => variant.startsWith('underline'))
+        .forEach((variant) => {
+          // Tall enough to fit the overhang below underline-center's 64px tab list
+          it(
+            `keeps the marker overhang above the next positioned element in ${variant}`,
+            { viewportHeight: 160 },
+            () => {
+              mountStory({
+                tabs,
+                activeId: 'ov',
+                variant: variant as keyof typeof CssVariants,
+              })
+              cy.get('[role="tablist"]').then(($tablist) => {
+                const panel = $tablist[0].ownerDocument.createElement('div')
+                panel.id = 'panel'
+                panel.style.cssText =
+                  'position:relative;height:40px;background:white'
+                $tablist[0].after(panel)
+              })
+              // Retries until the sliding marker has replaced the static one and finished animating
+              cy.get('[role="tablist"]').should(($tablist) => {
+                const tablistBottom = $tablist[0].getBoundingClientRect().bottom
+                const marker = Array.from($tablist[0].children).find(
+                  (child) =>
+                    child.getBoundingClientRect().bottom > tablistBottom,
+                )
+                expect(marker, 'marker overhanging the tab list').to.exist
+                const { x, width, bottom } = marker!.getBoundingClientRect()
+                expect(
+                  $tablist[0].ownerDocument.elementFromPoint(
+                    x + width / 2,
+                    bottom - 0.5,
+                  ),
+                ).to.equal(marker)
+              })
+            },
+          )
+        })
+
+      Object.keys(CssVariants).forEach((variant) => {
+        it(`stays under a z-10 overlay in ${variant}`, () => {
+          mountStory({
+            tabs,
+            activeId: 'ov',
+            variant: variant as keyof typeof CssVariants,
+          })
+          cy.document().then((doc) => {
+            const overlay = doc.createElement('div')
+            overlay.id = 'overlay'
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:10'
+            doc.body.appendChild(overlay)
+          })
+          cy.get('[aria-selected="true"]').then(($tab) => {
+            const { x, y, width, height } = $tab[0].getBoundingClientRect()
+            const topmost = $tab[0].ownerDocument.elementFromPoint(
+              x + width / 2,
+              y + height / 2,
+            )
+            expect(topmost?.id).to.equal('overlay')
+          })
+        })
+      })
+    })
+
     Object.keys(CssVariants).forEach((variant) => {
       it(`renders ${variant}`, () => {
         mountStory({
