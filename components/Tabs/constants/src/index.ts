@@ -61,7 +61,7 @@ export const CssVariants = {
   default: {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[4px] rounded border border-gray-100 bg-white text-gray-700 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-100 bg-white text-gray-700 relative isolate',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-black relative z-20',
@@ -88,7 +88,7 @@ export const CssVariants = {
   'indigo-light': {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[4px] rounded border border-gray-100 bg-white text-gray-700 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-100 bg-white text-gray-700 relative isolate',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-indigo-500 relative z-20',
@@ -113,7 +113,7 @@ export const CssVariants = {
   'dark-small': {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[4px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative isolate',
       button:
         'flex items-center px-[8px] h-[20px] leading-[16px] text-[12px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-white relative z-20',
@@ -137,7 +137,7 @@ export const CssVariants = {
   'dark-large': {
     classes: {
       wrapper:
-        'p-[4px] inline-flex gap-[4px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative',
+        'p-[4px] inline-flex gap-[4px] rounded border border-gray-900 bg-gray-1000 text-gray-400 relative isolate',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap bg-transparent border-0',
       active: 'text-white relative z-20',
@@ -161,7 +161,7 @@ export const CssVariants = {
   'underline-small': {
     classes: {
       wrapper:
-        'py-[4px] flex gap-[8px] border-0 border-b border-solid border-gray-100 text-gray-700 relative',
+        'py-[4px] flex gap-[8px] border-0 border-b border-solid border-gray-100 text-gray-700 relative isolate',
       button:
         'flex items-center px-[12px] h-[24px] leading-[20px] text-[14px] rounded font-medium whitespace-nowrap hocus:no-underline relative bg-transparent border-0',
       active: 'text-indigo-500 z-20',
@@ -186,7 +186,7 @@ export const CssVariants = {
   'underline-center': {
     classes: {
       wrapper:
-        'py-[4px] flex justify-center items-center h-[64px] gap-[32px] text-gray-700 relative',
+        'py-[4px] flex justify-center items-center h-[64px] gap-[32px] text-gray-700 relative isolate',
       subWrapper:
         'absolute bottom-0 left-0 right-0 block h-[1px] rounded-full bg-gradient-to-r from-transparent via-gray-100 via-gray-100 via-gray-100 to-transparent',
       button:
@@ -213,7 +213,7 @@ export const CssVariants = {
   'underline-large': {
     classes: {
       wrapper:
-        'py-[4px] flex gap-[8px] border-0 border-b border-solid border-gray-100 text-gray-700 relative',
+        'py-[4px] flex gap-[8px] border-0 border-b border-solid border-gray-100 text-gray-700 relative isolate',
       button:
         'flex items-center px-[12px] h-[32px] leading-[24px] text-[16px] rounded font-medium whitespace-nowrap relative hocus:no-underline bg-transparent border-0',
       active: 'text-indigo-500 z-20',

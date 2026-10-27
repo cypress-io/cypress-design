@@ -73,6 +73,37 @@ export default function assertions(
       cy.get('[aria-selected="true"]').should('contain.text', 'Overview')
     })
 
+    describe('under a z-10 overlay', () => {
+      // Neither mount clears extra nodes, so a leftover overlay would block clicks in later tests
+      afterEach(() => {
+        cy.document().then((doc) => doc.getElementById('overlay')?.remove())
+      })
+
+      Object.keys(CssVariants).forEach((variant) => {
+        it(`stays under it in ${variant}`, () => {
+          mountStory({
+            tabs,
+            activeId: 'ov',
+            variant: variant as keyof typeof CssVariants,
+          })
+          cy.document().then((doc) => {
+            const overlay = doc.createElement('div')
+            overlay.id = 'overlay'
+            overlay.style.cssText = 'position:fixed;inset:0;z-index:10'
+            doc.body.appendChild(overlay)
+          })
+          cy.get('[aria-selected="true"]').then(($tab) => {
+            const { x, y, width, height } = $tab[0].getBoundingClientRect()
+            const topmost = $tab[0].ownerDocument.elementFromPoint(
+              x + width / 2,
+              y + height / 2,
+            )
+            expect(topmost?.id).to.equal('overlay')
+          })
+        })
+      })
+    })
+
     Object.keys(CssVariants).forEach((variant) => {
       it(`renders ${variant}`, () => {
         mountStory({
