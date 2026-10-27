@@ -113,15 +113,17 @@ const Tooltip: React.FC<TooltipProps & React.HTMLProps<HTMLDivElement>> = ({
     open,
     onOpenChange: (newOpen) => !_open && setOpen(newOpen),
     middleware: [
+      offset(offsetOptions),
       forcePlacement
         ? {
             name: 'no-flip',
             fn: (obj) => obj,
           }
         : flip(),
-      offset(offsetOptions),
-      arrow({ element: arrowRef, padding: arrowPadding }),
       shift(shiftOptions),
+      // The arrow must come after shift so it points at the reference, not
+      // where the tooltip was before shift moved it back into view
+      arrow({ element: arrowRef, padding: arrowPadding }),
     ],
     whileElementsMounted: autoUpdate,
   })

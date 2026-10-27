@@ -140,15 +140,17 @@ async function placeTooltip() {
   } = await computePosition(reference.value, tooltip.value, {
     placement: props.placement,
     middleware: [
+      offset(props.offsetOptions),
       props.forcePlacement
         ? {
             name: 'no-flip',
             fn: (obj) => obj,
           }
         : flip(),
-      offset(props.offsetOptions),
-      arrow({ element: arrowRef.value, padding: props.arrowPadding }),
       shift(props.shiftOptions),
+      // The arrow must come after shift so it points at the reference, not
+      // where the tooltip was before shift moved it back into view
+      arrow({ element: arrowRef.value, padding: props.arrowPadding }),
     ],
   })
   const placementSide = placement.split('-')[0] as Side

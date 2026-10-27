@@ -80,11 +80,11 @@ describe('<Tooltip />', { viewportHeight: 800, viewportWidth: 800 }, () => {
     if (single) {
       mount(() => (
         <Tooltip
+          placement="bottom-start"
           {...rest}
           class="m-4 w-[150px] bg-red-300 p-4"
           // @ts-expect-error TSX in volar has a tendency to be a bit wrong, this would work in a template
           tabindex={tabindex}
-          placement="bottom-start"
         >
           {{
             default: () =>
