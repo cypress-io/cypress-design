@@ -72,7 +72,14 @@ export default function assertions(
     waitForTooltipsToPosition()
     cy.get('[role="tooltip"] svg').should(($arrow) => {
       const reference = Cypress.$('[tabindex="0"]')[0].getBoundingClientRect()
+      const tooltip = $arrow
+        .closest('[role="tooltip"]')[0]
+        .getBoundingClientRect()
       const arrow = $arrow[0].getBoundingClientRect()
+      expect(
+        tooltip.left + tooltip.width / 2,
+        'tooltip shifted off center',
+      ).not.to.be.closeTo(reference.left + reference.width / 2, 2)
       expect(arrow.left + arrow.width / 2).to.be.closeTo(
         reference.left + reference.width / 2,
         2,
