@@ -25,6 +25,14 @@ import Button from '@cypress-design/vue-button'
 
 ### Usage
 
+The rule resolves each import to a file before matching it, so your project needs the resolver its `import/resolver` settings name. For the TypeScript resolver used below:
+
+```sh
+npm install --save-dev eslint-import-resolver-typescript
+```
+
+Without `import/resolver` settings, the rule falls back to `eslint-import-resolver-node`, which you also need to install yourself. If the resolver is missing, the rule reports a `Resolve error` instead of your deprecated imports.
+
 ```js
 // .eslintrc.js
 
