@@ -1,5 +1,11 @@
 # @cypress-design/react-button
 
+## 1.15.0
+
+### Minor Changes
+
+- [#772](https://github.com/cypress-io/cypress-design/pull/772) [`5d1c5d8`](https://github.com/cypress-io/cypress-design/commit/5d1c5d829e516f8565b159a815edba87b180c157) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Forward `ref` to the rendered `<button>` or `<a>` element.
+
 ## 1.14.0
 
 ### Minor Changes
