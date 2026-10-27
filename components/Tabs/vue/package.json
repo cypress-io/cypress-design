@@ -1,6 +1,6 @@
 {
   "name": "@cypress-design/vue-tabs",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "files": [
     "*"
   ],
@@ -20,7 +20,7 @@
     "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
   },
   "dependencies": {
-    "@cypress-design/constants-tabs": "workspace:^1.2.2"
+    "@cypress-design/constants-tabs": "workspace:^1.2.3"
   },
   "devDependencies": {
     "@cypress-design/rollup-plugin-tailwind-keep": "*"

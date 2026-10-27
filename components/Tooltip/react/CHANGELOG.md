@@ -1,5 +1,13 @@
 # @cypress-design/react-tooltip
 
+## 2.2.1
+
+### Patch Changes
+
+- [#774](https://github.com/cypress-io/cypress-design/pull/774) [`0a38712`](https://github.com/cypress-io/cypress-design/commit/0a38712b9eef9b3ae1727cccaa59bc517b93eb2d) Thanks [@jennifer-shehane](https://github.com/jennifer-shehane)! - Point the tooltip arrow at its trigger when the tooltip shifts to stay in view. Near the edge of the viewport, the arrow used to stay where the tooltip would have been before it shifted, so it could point tens of pixels away from the trigger.
+
+  Tooltips also now count their distance from the trigger (`offsetOptions`) when deciding whether to flip to the other side. A tooltip that fit only without that gap used to stay put and run past the edge of the viewport by up to that distance; it now flips to the side where it fits.
+
 ## 2.2.0
 
 ### Minor Changes
