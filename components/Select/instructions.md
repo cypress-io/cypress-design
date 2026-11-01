@@ -195,4 +195,4 @@ The default trigger has Button's states; its chevron rotates 180° while the pop
 
 ## References
 
-Figma: [light mode](https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5020-18440), [dark mode](https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5116-122756). Implementation notes: [architecture.md](https://design.cypress.io/agents/components/Select/architecture.md).
+Figma: [light mode](https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5020-18440), [dark mode](https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5116-122756).
