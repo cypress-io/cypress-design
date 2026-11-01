@@ -5,7 +5,7 @@ description: 'Tooltip API — tooltip shown on hover or controlled with the open
 
 # Tooltip — Props, Events & Slots
 
-Install and import: `components/Tooltip/react/ReadMe.md` and `components/Tooltip/vue/ReadMe.md`. Both packages also export the Floating UI `Placement` type.
+Install and import: [React](https://design.cypress.io/agents/components/Tooltip/react/ReadMe.md) and [Vue](https://design.cypress.io/agents/components/Tooltip/vue/ReadMe.md). Both packages also export the Floating UI `Placement` type.
 
 ## Props
 
@@ -25,6 +25,8 @@ Install and import: `components/Tooltip/react/ReadMe.md` and `components/Tooltip
 
 `className` / `class` and any other attributes land on the trigger wrapper, a plain block `<div>` around the trigger. Add `inline-block` (as the ReadMe examples do) when the wrapper should hug an inline trigger.
 
+In React, Floating UI's handlers are spread after yours, so `onFocus`, `onBlur`, `onMouseMove`, `onMouseLeave`, `onPointerDown`, `onPointerEnter`, `onKeyDown` and `aria-describedby` passed to the Tooltip are overridden. Put those on the trigger element instead. In Vue, listeners passed to the Tooltip merge with its own.
+
 ## Events
 
 _None_ — the tooltip manages its own show/hide via hover and focus (or the `open` prop).
@@ -36,8 +38,8 @@ _None_ — the tooltip manages its own show/hide via hover and focus (or the `op
 
 ## Accessibility
 
-- The wrapper `<div>` is not focusable. Use a focusable trigger or add `tabIndex="0"` to the Tooltip so keyboard users can open it.
-- React opens on focus of the wrapper or any element inside it. Vue listens for `focus` / `blur` on the wrapper `<div>` itself; those events don't bubble, so in Vue make the wrapper the focus target (`tabIndex="0"` on the Tooltip).
+- The wrapper `<div>` is not focusable, so keyboard users need a focus target. In React, use a focusable trigger or add `tabIndex={0}` to the Tooltip. In Vue, add `tabindex="0"` to the Tooltip; a focusable trigger alone doesn't open it.
+- React opens on keyboard focus of the wrapper or any element inside it: the focused element must match `:focus-visible`, so clicking a button doesn't open it. Vue listens for `focus` / `blur` on the wrapper `<div>` itself; those events don't bubble, so focus inside the wrapper doesn't open it.
 - Escape closes the tooltip unless `open` is `true` (Vue: only while focus is inside the wrapper).
 - React sets `aria-describedby` on the wrapper pointing at the `role="tooltip"` element while open. Vue renders `role="tooltip"` but sets no `aria-describedby`; add it yourself if the trigger needs to announce the content.
 - Content is prefixed with visually hidden "Tooltip: " text. React mounts the content in `document.body` only while open; Vue keeps it in the DOM under `#portal-target`, hidden with `visibility: hidden` when closed.
