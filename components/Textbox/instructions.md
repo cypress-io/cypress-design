@@ -5,24 +5,24 @@ description: 'Textbox API — single-line text input with optional labels, icons
 
 # Textbox — usage
 
-How to use the Textbox component. Anything documented here is supported; anything missing isn't.
+How to use the Textbox component.
 
 ## What it is
 
-A single-line text input with optional left/right labels, left/right icons, and an optional divider between the left icon and the input. Clicking any part of the control focuses the input.
+A single-line text input with optional left/right labels, left/right icons, and an optional divider between the left icon and the input. The whole control is a `<label>` wrapping the `<input>`, so clicking any part of it focuses the input.
 
 ## Props
 
-All props are optional unless noted. React and Vue expose the same prop surface, with framework-idiomatic differences called out per prop. Vue uses kebab-case for attribute names and binds the value via `v-model` (which maps to the `modelValue` prop).
+All props are optional. Framework differences are called out per prop. Vue uses kebab-case for attribute names and binds the value via `v-model` (which maps to the `modelValue` prop).
 
-- **`theme`** — `'light' | 'dark'`, default `'light'`. Visual theme.
-- **`variant`** — `'default' | 'valid' | 'invalid' | 'warning'`, default `'default'`. Semantic variant. `'invalid'` auto-sets `aria-invalid="true"` unless overridden.
+- **`theme`** — `'light' | 'dark'`, default `'light'`. Visual theme. The component does not follow system color scheme; pass `theme` explicitly.
+- **`variant`** — `'default' | 'valid' | 'invalid' | 'warning'`, default `'default'`. Semantic variant. `'invalid'` sets `aria-invalid="true"` unless you pass `aria-invalid`.
 - **`size`** — `'32' | '40' | '48'`, default `'40'`. Height in pixels (as a string).
 - **`rounded`** — `boolean`, default `false`. Full-radius corners when `true`.
-- **`labelLeft`** — `string | ReactNode` (React) / `string` (Vue). Static label rendered left of the input. Vue currently renders this via text interpolation, so non-string values will stringify.
-- **`labelRight`** — `string | ReactNode` (React) / `string` (Vue). Static label rendered right of the input. Vue currently renders this via text interpolation, so non-string values will stringify.
-- **`iconLeft`** — Icon component or node. Rendered inside the input container, left of the input.
-- **`iconRight`** — Icon component or node. Rendered inside the input container, right of the input.
+- **`labelLeft`** / **`labelRight`** — Static label rendered left / right of the input. React: `string | ReactNode`. Vue: pass a string; Vue renders it with text interpolation, so other values are stringified.
+- **`iconLeft`** / **`iconRight`** — Icon rendered inside the input container, left / right of the input. Its color follows the theme/variant.
+  - React: pass a function component (for example an icon from `@cypress-design/react-icon`), which is rendered with `size="16"` and the color classes, so its color can't be overridden. Or pass a React element, which is wrapped in a `<span>` carrying the color classes; only the span gets them, so the element's own color props or classes may win. Components wrapped in `forwardRef` or `memo` aren't functions and aren't supported — React throws "Objects are not valid as a React child". Pass them as an element instead (`iconLeft={<LucideIcon />}`).
+  - Vue: pass a component; it is rendered with `size="16"` and the color classes.
 - **`divider`** — `boolean`, default `false`. Vertical divider between `iconLeft` and the input. **Only renders when `iconLeft` is also provided.**
 - **`disabled`** — `boolean`, default `false`. Disables the underlying `<input>`.
 - **`placeholder`** — `string`. Standard HTML placeholder.
@@ -32,12 +32,17 @@ All props are optional unless noted. React and Vue expose the same prop surface,
 - **`defaultValue`** — `string` (React only). Uncontrolled initial value. Vue does not have an equivalent — initialize `modelValue` instead.
 - **`modelValue`** — `string` (Vue only). Bound via `v-model`. Updates are emitted through `update:modelValue`.
 - **`type`** — standard HTML input types, default `'text'`. Passed through to `<input>`.
-- **`onChange`** — `(event) => void` (React). Standard change handler. Vue uses `v-model` / `@input`.
-- **`aria-invalid`** — `boolean`. Defaults to `true` when `variant="invalid"`; otherwise undefined. Override explicitly to opt out.
+- **`onChange`** — `(event: ChangeEvent<HTMLInputElement>) => void` (React only). Vue uses `v-model` / `@input`.
+- **`aria-invalid`** — `boolean | 'true' | 'false' | 'grammar' | 'spelling'`. Defaults to `true` when `variant="invalid"`; otherwise unset. Pass it explicitly to override.
 
-Any other standard `<input>` attributes (e.g. `name`, `autocomplete`, `maxlength`, `aria-*`, event handlers) are forwarded to the underlying `<input>`. React forwards `ref` to the `<input>` element.
+Other attributes go to the underlying `<input>` (e.g. `id`, `name`, `autocomplete`, `maxlength`, `aria-*`), including `style` in both frameworks. Only `class` differs:
+
+- **React** — `className` goes on the wrapper `<label>`. All other props, including `style` and event handlers such as `onFocus` / `onKeyDown`, are spread onto the `<input>`. `ref` is forwarded to the `<input>`.
+- **Vue** — `inheritAttrs: false` binds every non-prop attribute, including `class` and `style`, to the `<input>`, so there is no way to add a class to the wrapper. A template ref gives the component instance, not the input; reach the input with `ref.value.$el.querySelector('input')`.
 
 ## Events
+
+**Vue only.** React uses the standard input handlers (`onChange`, `onFocus`, `onBlur`, `onKeyDown`, `onKeyUp`, …), which are passed to the `<input>`.
 
 | Event               | Payload         | Description                                        |
 | ------------------- | --------------- | -------------------------------------------------- |
@@ -48,61 +53,10 @@ Any other standard `<input>` attributes (e.g. `name`, `autocomplete`, `maxlength
 | `keydown`           | `KeyboardEvent` | Emitted on keydown inside the input                |
 | `keyup`             | `KeyboardEvent` | Emitted on keyup inside the input                  |
 
-### update:modelValue
-
 ```vue
 <Textbox
-  @update:modelValue="(value: string) => {
-    // your code here
-  }"
-/>
-```
-
-### input
-
-```vue
-<Textbox
-  @input="(event: Event) => {
-    // your code here
-  }"
-/>
-```
-
-### focus
-
-```vue
-<Textbox
-  @focus="(event: FocusEvent) => {
-    // your code here
-  }"
-/>
-```
-
-### blur
-
-```vue
-<Textbox
-  @blur="(event: FocusEvent) => {
-    // your code here
-  }"
-/>
-```
-
-### keydown
-
-```vue
-<Textbox
+  v-model="query"
   @keydown="(event: KeyboardEvent) => {
-    // your code here
-  }"
-/>
-```
-
-### keyup
-
-```vue
-<Textbox
-  @keyup="(event: KeyboardEvent) => {
     // your code here
   }"
 />
@@ -110,39 +64,28 @@ Any other standard `<input>` attributes (e.g. `name`, `autocomplete`, `maxlength
 
 ## Slots
 
-_None_ — the component renders its own internal structure. Pass content via props (`labelLeft`, `labelRight`, `iconLeft`, `iconRight`).
+_None_ — pass content via props (`labelLeft`, `labelRight`, `iconLeft`, `iconRight`).
 
 ## States
 
-The component responds to the standard interactive states automatically — no state prop to manage:
+The component styles the standard interactive states with CSS — no state prop to manage:
 
 - `default` — has a value, no interaction.
 - `placeholder` — input is empty and placeholder is shown.
 - `hover` — mouse over the control.
-- `active` / focused — input is focused via mouse or programmatically.
-- `focus-visible` — input received focus via keyboard (Tab).
+- `focused` — the input has focus, from mouse, keyboard, or script. Keyboard and mouse focus look the same.
 - `disabled` — the `disabled` prop is `true`. Overrides hover/focus visuals.
 
-State priority: `disabled` > `focus-visible` > `active/focused` > `hover` > `placeholder` > `default`.
-
-Hover, active, and focus styling applies to the entire control — labels and icons visually respond alongside the input, not just the `<input>` element.
+Hover and focus styling (border and outline ring) wraps the entire control, labels included, and icon colors change with it — not just the `<input>` element.
 
 ## Accessibility
 
-- The component provides an implicit label association for the inner input. Clicking anywhere in the control focuses it.
-- `aria-invalid` is set automatically when `variant="invalid"`; callers can override.
-- **`labelLeft` / `labelRight` are decorative** — they are not `<label for>` associations. If the Textbox has no other visible heading or associated label, provide `aria-label` or `aria-labelledby`.
-- For error messaging, pair `variant="invalid"` with `aria-describedby` pointing at an external error message element. The component does not render error text itself.
-
-## Known limitations
-
-- **Icon colors cannot be overridden by the consumer.** They're locked to the active theme/variant combination.
-- **No automatic light/dark switching** based on system preference — pass `theme` explicitly.
-- Extending state behavior beyond the built-in pseudo-class-driven states may require code changes in the component itself (see `architecture.md`).
+- The `<input>` is wrapped in the component's `<label>`, and `labelLeft` / `labelRight` render as spans inside that `<label>`. Under the HTML-AAM label rules, their text becomes part of the input's accessible name; an `aria-label` or `aria-labelledby` on the input replaces it.
+- If the label text isn't a meaningful name on its own (for example a `https://` prefix or a unit), or there is no label, give the input a name with `aria-label` or `aria-labelledby`. A placeholder is not a substitute.
+- For error messaging, pair `variant="invalid"` with `aria-describedby` pointing at an error message element you render. The component does not render error text itself.
 
 ## References
 
-- [Live demos](./ReadMe.md) render on the design system site.
 - Light mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=911-826>
 - Dark mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5752-24044>
-- Implementation details: [`architecture.md`](./architecture.md)
+- Implementation details: [architecture.md](https://design.cypress.io/agents/components/Textbox/architecture.md)

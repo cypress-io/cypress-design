@@ -12,8 +12,7 @@ _how_; `instructions.md` is the usage contract.
 
 `buildSpecResultsView()` in `constants/src/index.ts` derives everything the
 render needs (pills, tick-bar groups, completeness flags). It is kept out of the
-React file so it can be unit-tested on its own and reused unchanged by a Vue
-implementation. `SpecResults.tsx` is a render layer over that result. The
+React file so it can be unit-tested on its own. `SpecResults.tsx` is a render layer over that result. The
 constants package is private and bundled into the React dist (same packaging
 as `RunResults`), so consumers install one package.
 
@@ -32,10 +31,14 @@ as `RunResults`), so consumers install one package.
   skipped icon since nothing was saved by automation.
 - **`cancelledReason` is a run-level flag**, not per-spec: every cancelled spec
   in one run shares the same cause, so it rides alongside the count.
-- **The scheduled-to-complete tooltip copies the real setting's name and
-  description** ("Run Completion Delay") nearly verbatim rather than
-  paraphrasing, so the two can't drift, and the tooltip is `interactive` so the
-  "Update setting" link inside it is actually clickable.
+- **The scheduled-to-complete tooltip names the real setting** ("Run
+  Completion Delay") but deliberately does not copy the General settings page's
+  description verbatim: that text says "seconds", while the pill shows the
+  human duration the caller passes in `scheduledToComplete` (e.g. "2m"), so the
+  tooltip would contradict the pill. The
+  tooltip is `interactive` so its "Update setting" link is clickable; the link
+  repeats the pill's own href so the destination is explicit rather than
+  relying on the reader knowing the pill is a link.
 - **`description` is a bare `ReactNode` slot** because Cloud's
   `RunDetailsBanner` and this strip had become two stacked panels explaining the
   same run. The slot lets the caller put run-level context (crash output, who
@@ -50,8 +53,10 @@ as `RunResults`), so consumers install one package.
   router dependency of its own. Pass `renderLink` (same pattern `RunResults`
   uses) to navigate client-side instead; see `instructions.md` ("Custom link
   renderer") for a worked example and the react-router-dom v6 relative-path
-  gotcha. The relative href form only resolves correctly from exactly
-  `/runs/:id/<tab>`, regardless of which link renderer is in play.
+  gotcha. The count-pill hrefs (`specs?…`) resolve from any
+  `.../runs/:id/<tab>` URL; `../../settings/general` reaches the project's
+  settings only from `/projects/:id/runs/:id/<tab>`. This holds for any link
+  renderer.
 
 ## Gotchas
 
@@ -62,25 +67,22 @@ as `RunResults`), so consumers install one package.
   the raw `stroke` attribute in the SVG does nothing: consumer class rules beat
   presentation attributes, so confirm color changes with `getComputedStyle`.
 - **Running-tick shimmer is an injected `<style>`** (`ensureShimmerStyle`),
-  because the `@keyframes` had no utility-class equivalent without a preset
-  change. Known debt: the right home is a `shimmer` keyframe in
-  `@cypress-design/css` (it already owns `cardHover`), which would also replace
-  the raw hex with the indigo token.
+  because `@cypress-design/css` has no `shimmer` keyframe (it owns `cardHover`
+  only), so there's no utility class for it. The injected rule uses a raw hex,
+  not the indigo token.
 - **Sizes are literal `[Npx]` values, not Tailwind's rem scale**, because
   `cypress-services` still ships `bootstrap-sass`'s `html { font-size: 10px }`
   and every rem utility renders there at 62.5% (tracked as PD-32 in that repo).
-  Consumers with a 16px root render identically either way. Don't switch back
-  to the named scale until that root-font-size bug is fixed at the source.
+  Consumers with a 16px root render identically either way. Keep the px values.
 - **Dividers use `[border-top-style:solid]` / `[border-bottom-style:solid]`.**
   `cypress-services` sets `corePlugins.preflight: false` in its Tailwind
   config, so `border-t` alone (width only) renders no line there. The named
   `border-solid` utility was tried and reverted: that consumer already uses it,
-  and regenerating it changed an unrelated `Button`'s border. Tracked as
-  [PD-42](https://cypress-io.atlassian.net/browse/PD-42) to fix in the consumer;
-  a consumer with normal preflight doesn't need this.
+  and regenerating it changed an unrelated `Button`'s border
+  ([PD-42](https://cypress-io.atlassian.net/browse/PD-42)). A consumer with
+  normal preflight doesn't need this.
 
-## Vue
+## Framework support
 
-Not implemented yet. `constants/` is framework-agnostic and reusable as-is; the
-docs page already renders the React demo (`docs/src/demos/SpecResults.astro`),
-so a Vue port only adds its own tab.
+React only. `constants/` is framework-agnostic, and the docs page renders the
+React demo (`docs/src/demos/SpecResults.astro`).

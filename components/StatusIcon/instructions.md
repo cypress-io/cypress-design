@@ -5,25 +5,23 @@ description: 'StatusIcon API — run/spec/group/test-result status indicator: pr
 
 # StatusIcon — Props, Events & Slots
 
-## Install
+Install and import commands: [React ReadMe](https://design.cypress.io/agents/components/StatusIcon/react/ReadMe.md) and [Vue ReadMe](https://design.cypress.io/agents/components/StatusIcon/vue/ReadMe.md).
 
-```bash
-yarn add @cypress-design/vue-statusicon          # Vue
-yarn add @cypress-design/react-statusicon        # React
-yarn add @cypress-design/constants-statusicon    # shared types
-```
+Also install `@cypress-design/constants-statusicon` as a dependency. The framework packages list it only as a devDependency (the runtime code is bundled), but their published type declarations import it: `StatusType` and the `status`, `size` and `variant` prop types resolve through it, and without it TypeScript can't type those props. Both framework packages re-export the status union as the `StatusType` type. React also exports `StatusIconProps`.
+
+Vue has no default export: `import { StatusIcon } from '@cypress-design/vue-statusicon'`. React has both a default and a named `StatusIcon` export.
 
 ## Props
 
 | Prop      | Type                                                                                                                                                                                                  | Default     | Description                                                                                                                                         |
 | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `status`  | `"running" \| "failing" \| "passed" \| "failed" \| "unclaimed" \| "placeholder" \| "cancelled" \| "noTests" \| "errored" \| "timedOut" \| "overLimit" \| "skipped" \| "pending" \| null \| undefined` | `undefined` | Status to represent. `null`/`undefined` renders the `placeholder` icon. In Vue the type doesn't include `null`, and the default is `"placeholder"`. |
-| `variant` | `"simple" \| "outline" \| "solid"`                                                                                                                                                                    | `"simple"`  | Visual style of the icon. If a status has no dedicated icon for the requested variant, it falls back to one it does have (see table below).         |
-| `size`    | `"4" \| "8" \| "12" \| "16" \| "24"`                                                                                                                                                                  | `"24"`      | Icon canvas size in px. At `4`/`8`, every status renders as a small filled dot — outline/solid detail isn't visible at that scale.                  |
-
-This is the live prop type from `@cypress-design/constants-statusicon` (`constants.ts`) — treat it, not this file's prose, as the source of truth if they ever disagree.
+| `variant` | `"simple" \| "outline" \| "solid"`                                                                                                                                                                    | `"simple"`  | Visual style of the icon. Every variant renders an icon for every status; where a status has no artwork in that style, another style's is used.     |
+| `size`    | `"4" \| "8" \| "12" \| "16" \| "24"`                                                                                                                                                                  | `"24"`      | Icon canvas size in px. At `4`, `8` and `12` every variant uses the same artwork, so `variant` has no visible effect at those sizes.                |
 
 The tree-shakable `SolidStatusIcon`, `OutlineStatusIcon` and `SimpleStatusIcon` take the same `size` and `status` props with the same defaults. In Vue, a `size`/`status` pair with no icon asset (an unknown status or a size outside the list) renders nothing instead of throwing.
+
+Other SVG attributes (`aria-*`, `data-*`, …) reach the `<svg>`: React spreads its remaining SVG props onto it and appends `className` to the component's classes; Vue passes them through as fallthrough attributes.
 
 ## Events
 
@@ -33,26 +31,34 @@ _None._
 
 _None._
 
-## Choosing a status: object type, color, and variant support
+## Choosing a status
 
-`status` is shared across four object types — **Run, Spec, Group, Test result** — but not every status applies to every type. Picking a status for the wrong object type (e.g. `skipped` on a Run) is a misuse of the component, not just a style choice. This table is the authoritative mapping; see also [colors.md](../../.agents/colors.md) for the general color-token rules these statuses draw from.
+| Status        | Color token                    | Use                               |
+| ------------- | ------------------------------ | --------------------------------- |
+| `running`     | `indigo-400` (fill `gray-100`) | Runs, specs, groups, test results |
+| `failing`     | `red-400` (fill `gray-100`)    | Runs, specs, groups, test results |
+| `passed`      | `jade-400`                     | Runs, specs, groups, test results |
+| `failed`      | `red-400`                      | Runs, specs, groups, test results |
+| `unclaimed`   | `gray-100`                     | Specs                             |
+| `placeholder` | `gray-300`                     | Placeholder                       |
+| `cancelled`   | `gray-300`                     | Runs, specs, groups, test results |
+| `noTests`     | `orange-400`                   | Runs, specs, groups               |
+| `errored`     | `orange-400`                   | Runs, specs, groups, test results |
+| `timedOut`    | `orange-400`                   | Runs, specs, groups, test results |
+| `overLimit`   | `orange-400`                   | Runs, specs, groups               |
+| `skipped`     | `gray-400`                     | Test results                      |
+| `pending`     | `gray-300`                     | Test results                      |
 
-| `status`      | Color token                      | Used by                       | Icon variants available      | Notes                                                                                                                                                                                                                                                                                                                                                                      |
-| ------------- | -------------------------------- | ----------------------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `running`     | `indigo-400` (track: `gray-100`) | Run, Spec, Group, Test result | `outline`                    | In-progress, nothing failed yet. Animated in product UI; `secondaryColor` `gray-100` is the static ring behind the spinner.                                                                                                                                                                                                                                                |
-| `failing`     | `red-400` (track: `gray-100`)    | Run, Spec, Group, Test result | `outline`                    | In-progress with at least one failure seen so far ("erroring" in some product copy).                                                                                                                                                                                                                                                                                       |
-| `passed`      | `jade-400`                       | Run, Spec, Group, Test result | `outline`, `simple`, `solid` |                                                                                                                                                                                                                                                                                                                                                                            |
-| `failed`      | `red-400`                        | Run, Spec, Group, Test result | `outline`, `simple`, `solid` |                                                                                                                                                                                                                                                                                                                                                                            |
-| `unclaimed`   | `gray-100`                       | Spec only                     | `outline`                    | "Queued" is the DS-facing name for this state (icon assets are named `cyStatusQueued*`); `unclaimed` is just the internal prop value — don't pass `"queued"`, it isn't valid. Also reused in Cypress App as a per-test placeholder before a test's commands have started running (visual "will run soon" state), even though `constants.ts` only lists its `use` as Specs. |
-| `placeholder` | `gray-300`                       | Generic loading/empty state   | `solid`                      | Default icon when `status` is omitted or `null`.                                                                                                                                                                                                                                                                                                                           |
-| `cancelled`   | `gray-300`                       | Run, Spec, Group, Test result | `outline`, `solid`           | "Manually Cancelled" in product copy.                                                                                                                                                                                                                                                                                                                                      |
-| `noTests`     | `orange-400`                     | Run, Spec, Group              | `outline`, `solid`           | Part of the "Errored / Timed Out / Over Limit / No Tests" family — same color, different cause.                                                                                                                                                                                                                                                                            |
-| `errored`     | `orange-400`                     | Run, Spec, Group, Test result | `outline`, `solid`           |                                                                                                                                                                                                                                                                                                                                                                            |
-| `timedOut`    | `orange-400`                     | Run, Spec, Group, Test result | `outline`, `solid`           |                                                                                                                                                                                                                                                                                                                                                                            |
-| `overLimit`   | `orange-400`                     | Run, Spec, Group              | `outline`, `solid`           |                                                                                                                                                                                                                                                                                                                                                                            |
-| `skipped`     | `gray-400`                       | Test result only              | `outline`                    |                                                                                                                                                                                                                                                                                                                                                                            |
-| `pending`     | `gray-300`                       | Test result only              | `outline`                    | **Deprecated** — avoid for new UI.                                                                                                                                                                                                                                                                                                                                         |
+- Pick a status whose `use` covers the object you're showing (Run, Spec, Group, or Test result) — e.g. `skipped` and `pending` are test-result-only, `unclaimed` is spec-only, `noTests` and `overLimit` don't apply to test results.
+- `running` and `failing` are in-progress states (`failing` = at least one failure so far); their icons animate via SVG `<animate>` at every size. At `4`, `8` and `12`, `failing` uses the `running` artwork, so only color (red vs indigo) tells them apart; the failing X appears only at `16` and `24`.
+- The queued state is `status="unclaimed"` (its icon assets are named `cyStatusQueued*`). `"queued"` isn't a valid value.
+- `noTests`, `errored`, `timedOut` and `overLimit` share one color and one icon at every size; the icon alone doesn't distinguish them, so show the cause in text.
+- There is no `flaky` status. For a flaky indicator use `IconStatusFlaky` from `@cypress-design/react-icon` / `@cypress-design/vue-icon` (see [Icon](https://design.cypress.io/agents/components/Icon/instructions.md)).
 
-**Known gap — "Flaky":** the Figma status spec includes a shared `Flaky` status (plus a separate, explicitly "(Not in use)" test-result-only Flaky variant). Neither has a corresponding value in this component: there is no `flaky` entry in `statusTypes`, and `icon-registry` has no flaky icon assets. If a task calls for a flaky indicator, that isn't implementable via `<StatusIcon status="flaky" />` today — it would need new icon assets and a constants change, or a separate component. Flag it rather than inventing a value; passing `"flaky"` won't type-check.
+**Color reservations:** `indigo` = running/in-progress, `red` = failed/failing, `jade` = passed, `orange` = the errored/timedOut/overLimit/noTests family, `gray` shades = neutral/inactive states (`unclaimed`, `placeholder`, `cancelled`, `skipped`, `pending`). Don't show a status in a hue outside this mapping; see [colors.md](https://design.cypress.io/agents/colors.md).
 
-**Color reservations, restated for status:** `indigo` = running/in-progress, `red` = failed/failing, `jade` = passed, `orange` = the errored/timedOut/overLimit/noTests family, `gray` shades = neutral/inactive states (`unclaimed`, `placeholder`, `cancelled`, `skipped`, `pending`). Don't introduce a different hue for a new status without checking this table first.
+## Accessibility
+
+- StatusIcon renders a bare `<svg>` with no `<title>`, `role`, or `aria-label`, so it has no accessible name. Always pair it with visible text naming the status; when that text is adjacent, hide the icon with `aria-hidden="true"`.
+- Status is conveyed by color and shape only, and several statuses share an icon (see above) — never use the icon as the sole indicator.
+- The `running` and `failing` animations are SVG `<animate>` loops that don't respond to `prefers-reduced-motion`.
