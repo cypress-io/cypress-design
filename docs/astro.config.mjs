@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config'
 import react from '@astrojs/react'
 import vue from '@astrojs/vue'
 import mdx from '@astrojs/mdx'
+import { remarkAgentLinks } from './src/lib/remark-agent-links.mjs'
 
 // Tailwind and PostCSS are picked up automatically via postcss.config.mjs at repo root.
 // Token CSS (colors.css, tokens.css) is built separately and served from public/.
@@ -22,7 +23,7 @@ function remarkStripLive() {
 export default defineConfig({
   integrations: [react(), vue(), mdx()],
   markdown: {
-    remarkPlugins: [remarkStripLive],
+    remarkPlugins: [remarkStripLive, remarkAgentLinks],
   },
   vite: {
     // The tile editor (docs/src/lib/tile-editor.ts) loads these on first
