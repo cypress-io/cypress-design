@@ -7,7 +7,7 @@ description: 'TestResult API — single test result row with status, title, and 
 
 ## Props
 
-All props are derived from the `TestResultData` interface, exported by `@cypress-design/constants-testresult`. Install it alongside the framework package ([React](https://design.cypress.io/agents/components/TestResult/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/TestResult/vue/ReadMe.md)): the framework packages' type declarations import it but don't depend on it or re-export it.
+All props come from the `TestResultData` interface in `@cypress-design/constants-testresult`. Also install that package alongside the framework package ([React](https://design.cypress.io/agents/components/TestResult/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/TestResult/vue/ReadMe.md)); the framework packages' types depend on it.
 
 | Prop       | Type                                                                                                                                                                             | Default  | Description                                             |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------- |

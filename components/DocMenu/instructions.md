@@ -5,7 +5,7 @@ description: 'DocMenu API — sidebar navigation used in documentation sites: pr
 
 # DocMenu — Props, Events & Slots
 
-Alongside the framework package ([React](https://design.cypress.io/agents/components/DocMenu/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/DocMenu/vue/ReadMe.md)), install `@cypress-design/constants-docmenu`. Both framework packages re-export the `NavGroup` and `NavItemLink` types from it, but those types only resolve when it's installed.
+Also install `@cypress-design/constants-docmenu` alongside the framework package ([React](https://design.cypress.io/agents/components/DocMenu/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/DocMenu/vue/ReadMe.md)). The framework packages re-export its `NavGroup` and `NavItemLink` types, which only work when it's installed.
 
 ## Props
 

@@ -5,9 +5,7 @@ description: 'StatusIcon API — run/spec/group/test-result status indicator: pr
 
 # StatusIcon — Props, Events & Slots
 
-Install and import commands: [React ReadMe](https://design.cypress.io/agents/components/StatusIcon/react/ReadMe.md) and [Vue ReadMe](https://design.cypress.io/agents/components/StatusIcon/vue/ReadMe.md).
-
-Also install `@cypress-design/constants-statusicon` as a dependency. The framework packages list it only as a devDependency (the runtime code is bundled), but their published type declarations import it: `StatusType` and the `status`, `size` and `variant` prop types resolve through it, and without it TypeScript can't type those props. Both framework packages re-export the status union as the `StatusType` type. React also exports `StatusIconProps`.
+Also install `@cypress-design/constants-statusicon` alongside the framework package ([React](https://design.cypress.io/agents/components/StatusIcon/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/StatusIcon/vue/ReadMe.md)). The `status`, `size` and `variant` prop types come from it, so TypeScript can't check those props without it. Both framework packages re-export the status union as the `StatusType` type. React also exports `StatusIconProps`.
 
 Vue has no default export: `import { StatusIcon } from '@cypress-design/vue-statusicon'`. React has both a default and a named `StatusIcon` export.
 
