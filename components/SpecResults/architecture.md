@@ -32,10 +32,13 @@ as `RunResults`), so consumers install one package.
   skipped icon since nothing was saved by automation.
 - **`cancelledReason` is a run-level flag**, not per-spec: every cancelled spec
   in one run shares the same cause, so it rides alongside the count.
-- **The scheduled-to-complete tooltip copies the real setting's name and
-  description** ("Run Completion Delay") nearly verbatim rather than
-  paraphrasing, so the two can't drift, and the tooltip is `interactive` so the
-  "Update setting" link inside it is actually clickable.
+- **The scheduled-to-complete tooltip names the real setting** ("Run
+  Completion Delay") but deliberately does not copy the General settings page's
+  description verbatim: that text says "seconds", while the pill shows a
+  rounded human duration ("2m"), so the tooltip would contradict the pill. The
+  tooltip is `interactive` so its "Update setting" link is clickable; the link
+  repeats the pill's own href so the destination is explicit rather than
+  relying on the reader knowing the pill is a link.
 - **`description` is a bare `ReactNode` slot** because Cloud's
   `RunDetailsBanner` and this strip had become two stacked panels explaining the
   same run. The slot lets the caller put run-level context (crash output, who
