@@ -5,7 +5,7 @@ description: 'Icon API — tree-shaken named icon exports: usage, shared props, 
 
 # Icon — Props, Events & Slots
 
-Install commands and live examples: `components/Icon/react/ReadMe.md` and `components/Icon/vue/ReadMe.md`.
+Install commands and live examples: [react/ReadMe.md](https://design.cypress.io/agents/components/Icon/react/ReadMe.md) and [vue/ReadMe.md](https://design.cypress.io/agents/components/Icon/vue/ReadMe.md).
 
 ## Usage
 
@@ -61,7 +61,7 @@ _None._
 
 ## Accessibility
 
-- Icons set no `role` or `aria-*` attribute by default; screen readers may announce them unless you say otherwise.
+- Icons set no `role` or `aria-*` attribute; the consumer decides whether each icon is decorative or meaningful.
 - Decorative icon (next to visible text, or inside a labeled control): pass `aria-hidden="true"`.
 - Meaningful icon with no visible text: pass `alt` (rendered as `<title>`) and `role="img"`. Animated icons have no `alt`; use `role="img"` with `aria-label`.
-- Icons have no focus or click handling. Wrap it in a `<button>` or `<a>` with an accessible name for interaction.
+- Icons have no focus or click handling. For interaction, wrap the icon in a `<button>` or `<a>` with an accessible name.
