@@ -9,7 +9,7 @@ Review a user-facing surface against the Cypress design guidance hosted at `http
 
 ## Steps
 
-1. **Name the surface, the user, and the job.** What is it — page, component, copy, illustration, flow? Who uses it (see [personas.md](https://design.cypress.io/agents/personas.md)) and what are they trying to get done?
+1. **Name the surface, the user, and the job.** What is it — page, component, copy, illustration, flow? Who uses it, and what are they trying to get done?
    - **New surface, brief, or initiative:** it also needs a named business goal (activation, retention, revenue, lead gen). If the user, job, or goal is missing, that's your first finding.
    - **Change to an existing surface:** take the why from the PR description. Ask the author only if it's missing.
 2. **Look at it rendered.** Run it locally, or open the preview deployment or visual snapshots if the PR has them. Check light and dark themes, each interactive state (hover, focus, disabled, error, empty, loading), and narrow widths. Judge spacing, hierarchy, and focus from the screen, not from class names.
