@@ -5,7 +5,7 @@ description: "How Select is built — file layout, state ownership, JS-driven fo
 
 # Select — architecture
 
-How the Select component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](./instructions.md).
+How the Select component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](https://design.cypress.io/agents/components/Select/instructions.md).
 
 ## File layout
 
@@ -17,7 +17,7 @@ components/Select/
 ├── assertions.ts                   # Shared Cypress assertions (open/close, selected, etc.)
 ├── constants/src/
 │   ├── base-classes.ts             # Wrapper + trigger + popover + size classes
-│   ├── option-item-classes.ts      # CssOptionItemClasses keyed by `${theme}-${state}`
+│   ├── option-item-classes.ts      # CssOptionItemClasses keyed by `${theme}-default`
 │   ├── option-list-classes.ts      # Popover panel + header + footer classes per theme
 │   ├── content-type-classes.ts     # Per-content-type row internals (checkbox, user, button, etc.)
 │   └── index.ts                    # Re-exports + SelectProps + SelectItem types + Default* values
@@ -41,7 +41,7 @@ Select does not reimplement primitives that already exist in cypress-design. Spe
 
 - **Default trigger** is a [`Button`](../Button/) rendering `{selectedLabel ?? placeholder}` followed by a chevron icon as the last child of the button's default slot. Button has no `iconRight` prop, so the chevron is just a child node. The chevron rotates 180° while `open === true`. Button's variant and size do the heavy lifting for hover, focus-visible, disabled visuals.
 - **Header tabs** are the existing [`Tabs`](../Tabs/) component.
-- **Search input** in the header is a [`Textbox`](../Textbox/) sized to match the row size.
+- **Search input** in the header is a [`Textbox`](../Textbox/) at a fixed `size="32"`, whatever the row size.
 - **`type: 'checkbox'` rows** render the existing [`Checkbox`](../Checkbox/) component to the left of the label.
 - **`type: 'button'` rows** render the existing [`Button`](../Button/) component.
 - **`tag`** on default rows renders the existing [`Tag`](../Tag/) component.
@@ -67,25 +67,26 @@ Rows do not receive real DOM focus. Instead:
 
 - The trigger (or the search Textbox, if the popover has a search input) keeps real DOM focus.
 - The currently keyboard-focused row is marked with `data-focused="true"` and referenced from the focus owner via `aria-activedescendant`.
+- The default trigger sets `role="combobox"` on its Button because `aria-activedescendant` isn't valid on the implicit `button` role.
 - Hover and focus visuals share a single Tailwind line in the constants (`hover:... data-[focused=true]:...`) so the visual treatment is identical regardless of input modality.
 
 This avoids the awkward "is the search input focused or is an option focused?" problem and matches the [ARIA combobox-with-listbox-popup pattern](https://www.w3.org/WAI/ARIA/apg/patterns/combobox/).
 
 ## Constants keying
 
-| Constant                   | Keys                | Purpose                                                                                                                                       |
-| -------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CssStaticClasses`         | —                   | Static classes applied to every Select wrapper                                                                                                |
-| `CssPopoverClasses`        | `theme`             | Popover panel container (background, border, shadow, rounding)                                                                                |
-| `CssPopoverSizeClasses`    | `size`              | Popover padding / min-width / row spacing                                                                                                     |
-| `CssOptionItemClasses`     | `${theme}-default`  | Row classes. Includes hover, active, focus-visible, disabled, selected pseudo / data-attr modifiers in one string — same approach as Textbox. |
-| `CssOptionItemSizeClasses` | `size`              | Row height + horizontal padding                                                                                                               |
-| `CssOptionItemTypeClasses` | `type`              | Per-content-type structural classes (gap, alignment, two-line text)                                                                           |
-| `CssHeaderClasses`         | `theme`             | Header container background + border                                                                                                          |
-| `CssFooterClasses`         | `theme`             | Footer container background + border                                                                                                          |
-| `CssAlignmentClasses`      | `'left' \| 'right'` | Popover horizontal offset relative to the trigger                                                                                             |
+| Constant                                                                        | Keys                | Purpose                                                                                                                                       |
+| ------------------------------------------------------------------------------- | ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `CssWrapperClasses`                                                             | —                   | Static classes on every Select wrapper                                                                                                        |
+| `CssPopoverClasses`                                                             | `theme`             | Popover panel container (background, border, outline, rounding)                                                                               |
+| `CssPopoverSizeClasses`                                                         | `size`              | Popover font size and line height, inherited by the rows                                                                                      |
+| `CssOptionItemClasses`                                                          | `${theme}-default`  | Row classes. Includes hover, active, focus-visible, disabled, selected pseudo / data-attr modifiers in one string — same approach as Textbox. |
+| `CssOptionItemHeightClasses`, `CssOptionItemPaddingClasses`                     | `size`              | Row min-height and padding                                                                                                                    |
+| `CssDefaultRowClasses`, `CssCheckboxRow*`, `CssUserRow*`, `CssButtonRowClasses` | — or `theme`        | Per-content-type row internals, in `content-type-classes.ts`                                                                                  |
+| `CssHeaderClasses`                                                              | `theme`             | Header bottom border                                                                                                                          |
+| `CssFooterClasses`                                                              | `theme`             | Footer background + top border                                                                                                                |
+| `CssAlignmentClasses`                                                           | `'left' \| 'right'` | Popover horizontal offset relative to the trigger                                                                                             |
 
-Keying mirrors Textbox: every visual state for a given `(theme, size)` lives in a single class string with `:hover` / `data-[focused=true]:` / `data-[selected=true]:` / `aria-[disabled=true]:` modifiers. Adding a state means editing the strings, not adding new keys.
+Keying mirrors Textbox: every visual state for a given theme lives in a single class string with `:hover` / `data-[focused=true]:` / `data-[selected=true]:` / `aria-[disabled=true]:` modifiers. Adding a state means editing the strings, not adding new keys.
 
 ## Popover positioning
 
@@ -103,12 +104,7 @@ When `maxHeight` is set and the rows would overflow, the **items area** scrolls 
 
 ## Filtering
 
-When `searchable` is true, `Select` (not OptionList) owns the `searchValue` string and computes a derived `displayItems` array via `filterAndCollapseHeadlines(items, searchValue)`. The filtered list is passed down to OptionList as the `items` prop; OptionList does no filtering of its own. Items are filtered before render:
-
-- The filter is case-insensitive substring match against `item.label`.
-- `headline` and `divider` rows are always rendered (they're structural).
-- If a `headline` group has no matching rows after filtering, the headline is hidden too — drop empty groups so the popover doesn't show stray section headers.
-- `button` rows are always rendered (they're CTAs, not filterable options).
+When `searchable` and `searchFilters` are both true, `Select` (not OptionList) owns the `searchValue` string and computes a derived `displayItems` array via `filterAndCollapseHeadlines(items, searchValue)` in `constants/src/filter-items.ts`. The filtered list is passed down to OptionList as the `items` prop; OptionList does no filtering of its own. Which rows survive is consumer-facing behavior, documented once under `searchFilters` in [`instructions.md`](https://design.cypress.io/agents/components/Select/instructions.md).
 
 Custom filtering (fuzzy match, multi-field, async) is not built in. The consumer can pass an already-filtered `items` array and skip `searchable`.
 
@@ -116,7 +112,7 @@ Custom filtering (fuzzy match, multi-field, async) is not built in. The consumer
 
 A capture-phase `mousedown` listener on `document` closes the popover when the event's target is outside both the wrapper and the popover. A `keydown` listener on the wrapper handles `Escape` and the arrow keys.
 
-In Vue, both listeners are wired in `onMounted` / `onBeforeUnmount`. In React, both go in a `useEffect`.
+In Vue, the `mousedown` listener is added and removed by a `watch(open)` (and removed in `onBeforeUnmount`); `keydown` is a template `@keydown` on the wrapper. In React, the `mousedown` listener goes in a `useEffect` gated on `open`; `keydown` is the wrapper's `onKeyDown` prop.
 
 ## Trigger swap
 
@@ -146,6 +142,6 @@ This is a deliberate choice: trying to auto-wire ARIA onto an arbitrary node is 
 
 ## Extension points
 
-- New content type → add a discriminated union variant to `SelectItem` in constants, add a branch in `SelectOptionItem`, add classes to `CssOptionItemTypeClasses` if structural changes are needed. Update the keyboard-traversal "selectable types" allowlist in Select.
+- New content type → add a discriminated union variant to `SelectItem` in constants, add a branch in `SelectOptionItem`, add row classes to `content-type-classes.ts` if structural changes are needed. Update the keyboard-traversal "selectable types" allowlist in Select.
 - New state → edit the relevant variant class string in `option-item-classes.ts`. Do not add a new constants key per state.
-- New theme → add a `${theme}-default` entry to every theme-keyed constant.
+- New theme → add the theme to every theme-keyed constant (as `${theme}-default` in `CssOptionItemClasses`).
