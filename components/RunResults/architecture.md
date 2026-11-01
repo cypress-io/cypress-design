@@ -20,7 +20,7 @@ components/RunResults/
 ├── react/
 │   ├── RunResults.tsx         # Main + internal Stat
 │   ├── index.ts              # Re-exports
-│   └── RunResultsReact.cy.tsx # Cypress component tests (Stage 3)
+│   └── RunResultsReact.cy.tsx # Cypress component tests
 └── vue/
     ├── RunResults.vue
     ├── index.ts
@@ -42,7 +42,7 @@ The cypress-services source has a sibling `FlakyBadge` React component. We don't
 Simplified render tree (React; Vue mirrors this):
 
 ```text
-<div data-cy="run-results">          (root wrapper: inline-flex; will hold multiple lists in future)
+<div data-cy="run-results">          (root wrapper: inline-flex)
   <ul>                              (the pill: flex, items-center, rounded, ::after border)
     {/* Leading stats (independent, each optional) */}
     {flaky > 0 && <Stat status="flaky" />}
@@ -57,9 +57,8 @@ Simplified render tree (React; Vue mirrors this):
 ```
 
 The wrapper `<div>` is the root: `ref`, fallthrough attributes, and `className`
-land on it (DS convention). It currently wraps a single `<ul>`, but is kept
-deliberately because it will hold **multiple** stat lists in the future. The
-`<ul>` takes `pillClassName` (see "Overriding the pill").
+land on it (DS convention). The `<ul>` takes `pillClassName` (see "Two class
+props" below).
 
 Flaky and self-healed are conceptually independent — not a unit. They render in fixed left-to-right order when both are present, but neither implies the other.
 
@@ -80,7 +79,7 @@ Each `Stat` is:
 </li>
 ```
 
-The Tooltip lives **inside** the `<li>`, wrapping the inner `<a>` (linked) or `<span>` (unlinked) — _not_ the `<li>` itself. The shared `@cypress-design/{react,vue}-tooltip` renders a `<div ref=...>` around its children, and inserting that `<div>` between `<ul>` and `<li>` would violate list semantics. The whole stat surface still triggers the tooltip because the inner `<a>` / `<span>` uses `w-full` plus the `<li>`-level padding, so hover/focus anywhere on the stat hits the Tooltip's reference element.
+The Tooltip lives **inside** the `<li>`, wrapping the inner `<a>` (linked) or `<span>` (unlinked) — _not_ the `<li>` itself. The shared `@cypress-design/{react,vue}-tooltip` renders a `<div ref=...>` around its children, and inserting that `<div>` between `<ul>` and `<li>` would violate list semantics. The whole stat surface still triggers the tooltip on hover because the inner `<a>` / `<span>` uses `w-full` plus the `<li>`-level padding, so the pointer anywhere on the stat is over the Tooltip's reference element. Keyboard focus on a linked stat opens the tooltip in React only: React's Tooltip uses Floating UI's `useFocus`, which sees focus on the inner `<a>`, while Vue's Tooltip binds a native `@focus` on its own wrapper `<div>` (`components/Tooltip/vue/Tooltip.vue`), and `focus` does not bubble from the `<a>`.
 
 ## Separator
 
@@ -167,7 +166,7 @@ The Vue template can call the helper as `getTooltipLabel(...)`; React calls it d
 The cypress-services source's `darkTheme` boolean only adjusts the separator color. We extend it to a full themed palette (border, text, hover background, separator) because:
 
 1. The pill is meant to live on dark surfaces, where the default light gray-100 border becomes invisible.
-2. The repo convention is `theme: 'light' | 'dark'` (see Textbox, Tag, TestResult — to be cross-checked in Stage 2).
+2. The repo convention is `theme: 'light' | 'dark'` (see Textbox and Select).
 
 Approach: a single `CssTheme[theme]` lookup. No `dark:` modifier classes; the parent's `dark` class is **not** consulted. This matches Textbox's strategy and is consistent with the "explicit theme prop" decision recorded in `implement-component.md`.
 
@@ -189,7 +188,7 @@ twMerge(CssClasses.list, CssTheme[theme].list, pillClassName)
 
 `tailwind-merge` resolves conflicting utilities by keeping the **last** one, so `pillClassName="bg-gray-900"` wins over the theme's `bg-gray-1000` (and `bg-transparent` works) — without the Tailwind source-order problem a plain append (`clsx`) would hit, where two `bg-*` utilities leave the winner up to stylesheet order. Non-conflicting classes (the `::after` border shadow, text size) are untouched. It's a general escape hatch for any pill utility, not just background.
 
-Why two props (rather than one `className` on the `<ul>`): the wrapper is **not** vestigial — it will hold multiple `<ul>` stat lists in the future — so `className` stays on the root per convention, and the pill gets its own escape hatch. The Vue side passes the wrapper class array straight to Vue (which normalizes string/array/object fallthrough) and runs `pillClassName` through `clsx` + `twMerge` on the `<ul>`.
+Why two props (rather than one `className` on the `<ul>`): `className` stays on the root wrapper per DS convention, and the pill gets its own escape hatch. The Vue side passes the wrapper class array straight to Vue (which normalizes string/array/object fallthrough) and runs `pillClassName` through `clsx` + `twMerge` on the `<ul>`.
 
 ## State handling
 
@@ -206,7 +205,7 @@ Three-way decision per stat: no href → `<span>`; href + `renderLink` callback 
 
 `renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: unknown, className?: string) => unknown`. `children` is typed `unknown` because the two frameworks pass different shapes: in React it's a JSX element (the icon + count fragment), in Vue it's an **array** of `VNode`s. `className` is the component's computed link styling (gray text, `px-[6px]`, no-underline, hover/focus) — the caller applies it to their router link so it matches the default `<a>`. Consumers wrap whatever they receive in their framework's router link; the array form is fine to pass straight into a Vue router-link as its default slot content.
 
-The native `<a>` path applies `aria-label` and `data-cy="link-{status}"`. The `renderLink` callback receives neither, so the caller must add both to its element (documented under "Custom link renderer" in `instructions.md`).
+The native `<a>` path applies `aria-label` and `data-cy="link-{status}"`. The `renderLink` callback receives neither, nor the stat key. The caller must add `aria-label` to its element — without it the link's accessible name is only the count, since the icons have no name — and adds `data-cy` only if its tests rely on the selector. See "Custom link renderer" in [`instructions.md`](https://design.cypress.io/agents/components/RunResults/instructions.md#custom-link-renderer).
 
 ## Self-healed gating
 
@@ -224,15 +223,9 @@ The consumer decides visibility based on whether the run could have self-healed 
 
 ## Gotchas
 
-- The flaky `IconStatusFlaky` has a path-fill quirk (`fill: transparent !important` on the first path) in the source SCSS. The icon component may handle this internally now — verify in Stage 2; if not, the workaround is a wrapper class on the `<li>` that targets `svg path:first-child`.
+- `IconStatusFlaky`'s first path is a yellow background fill. `CssClasses.iconFlaky` hides it with `[&_path:first-child]:fill-transparent`; don't drop that class from the flaky icon.
 - The separator uses `::after` on the last leading `<li>`, not a separate sibling element. Don't refactor to a sibling `<li role="separator">` — it changes the semantics (assistive tech announces it as a list item) and breaks the existing `data-cy` selector contract.
 - `null` counts are coerced to `0` for both display and "is this stat empty" logic. Don't introduce a difference between `null` and `0` without a strong reason.
 - Don't add `dark:` modifier classes anywhere — theming is via explicit `theme` lookup.
 - `className` appends to the root wrapper via `clsx` (can't override DS classes — only add). To override a pill utility (e.g. `bg-*`), use `pillClassName`, which is merged onto the `<ul>` via `tailwind-merge` — that's the documented escape hatch.
 - `StatKey` is camelCase (`selfHealed`) matching repo convention (see `StatusIcon`'s `noTests`, `timedOut`, `overLimit`). `data-cy` attributes use kebab-case (`status-icon-self-healed`, `total-self-healed`) — DOM convention. Convert at the boundary via a small inline helper; don't propagate kebab-case into the TS API.
-
-## Planned / potential work
-
-- Number formatting for large counts (`1,234`).
-- An `auto` theme that follows the parent's `dark` class (cross-repo concern, not specific to this component).
-- `RunResults` size variants (compact vs. comfortable padding). Today the pill is a single fixed size.
