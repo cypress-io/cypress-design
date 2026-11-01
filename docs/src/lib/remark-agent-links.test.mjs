@@ -22,10 +22,8 @@ describe('humanUrlFor', () => {
     )
   })
 
-  it('sends contributor notes to the source on GitHub', () => {
-    expect(humanUrlFor(`${A}components/Textbox/architecture.md`)).toBe(
-      'https://github.com/cypress-io/cypress-design/blob/main/components/Textbox/architecture.md',
-    )
+  it('drops contributor notes', () => {
+    expect(humanUrlFor(`${A}components/Textbox/architecture.md`)).toBeNull()
   })
 
   it('sends the colors pillar to the colors page', () => {
@@ -61,5 +59,84 @@ describe('remarkAgentLinks', () => {
     remarkAgentLinks()(tree)
     expect(tree.children[0].children[0].url).toBe('/components/Tag')
     expect(tree.children[1].url).toBe('/colors')
+  })
+
+  const arch = (label) => ({
+    type: 'link',
+    url: `${A}components/Select/architecture.md`,
+    children: [{ type: 'text', value: label }],
+  })
+  const text = (value) => ({ type: 'text', value })
+
+  it('removes a list item that only held an architecture link', () => {
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'list',
+          children: [
+            {
+              type: 'listItem',
+              children: [{ type: 'paragraph', children: [text('Figma: x')] }],
+            },
+            {
+              type: 'listItem',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [
+                    text('Implementation details: '),
+                    arch('architecture.md'),
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }
+    remarkAgentLinks()(tree)
+    expect(tree.children[0].children).toHaveLength(1)
+  })
+
+  it('removes the whole list when that was its only item', () => {
+    const tree = {
+      type: 'root',
+      children: [
+        {
+          type: 'list',
+          children: [
+            {
+              type: 'listItem',
+              children: [
+                {
+                  type: 'paragraph',
+                  children: [text('Notes: '), arch('architecture.md')],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    }
+    remarkAgentLinks()(tree)
+    expect(tree.children).toHaveLength(0)
+  })
+
+  it('keeps the rest of a sentence when the link sits inside real text', () => {
+    const paragraph = {
+      type: 'paragraph',
+      children: [
+        text('Sizes are px-based; see '),
+        arch('the notes'),
+        text('.'),
+      ],
+    }
+    const tree = { type: 'root', children: [paragraph] }
+    remarkAgentLinks()(tree)
+    expect(tree.children).toHaveLength(1)
+    expect(paragraph.children.map((c) => c.value).join('')).toBe(
+      'Sizes are px-based; see .',
+    )
   })
 })

@@ -88,4 +88,3 @@ Hover and focus styling (border and outline ring) wraps the entire control, labe
 
 - Light mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=911-826>
 - Dark mode Figma: <https://www.figma.com/design/1DRMyEt2idRzHMmV0NTA3O/Component---Inputs-v1.0----latest?node-id=5752-24044>
-- Implementation details: [architecture.md](https://design.cypress.io/agents/components/Textbox/architecture.md)
