@@ -7,15 +7,6 @@ description: 'Logo API — the CypressMark, CypressLockUp, and CypressWatermark 
 
 The Logo package exports three separate components. Import the one you need.
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-logo        # Vue
-yarn add @cypress-design/react-logo      # React
-```
-
----
-
 ## `CypressMark`
 
 The Cypress logomark (icon only, no wordmark).
@@ -26,8 +17,6 @@ The Cypress logomark (icon only, no wordmark).
 | --------- | -------------------------------------------- | ----------- | --------------------------- |
 | `variant` | `"default" \| "color-dark" \| "color-white"` | `"default"` | Which color asset to render |
 
----
-
 ## `CypressLockUp`
 
 The full Cypress logo (icon + wordmark).
@@ -37,8 +26,6 @@ The full Cypress logo (icon + wordmark).
 | Prop      | Type                                                    | Default     | Description                 |
 | --------- | ------------------------------------------------------- | ----------- | --------------------------- |
 | `variant` | `"default" \| "color-dark" \| "color-white" \| "white"` | `"default"` | Which color asset to render |
-
----
 
 ## `CypressWatermark`
 
@@ -53,8 +40,6 @@ A faded, decorative version of `CypressMark` used as a background element.
 ---
 
 All three components render an `<svg>` sized from the asset's `viewBox`. Extra attributes such as `class`/`className`, `width`, and `height` are passed through to it.
-
----
 
 ## Events
 

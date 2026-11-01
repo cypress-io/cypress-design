@@ -5,13 +5,6 @@ description: 'Checkbox API — checkbox input: props, events, and slots. Fetch w
 
 # Checkbox — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-checkbox        # Vue
-yarn add @cypress-design/react-checkbox      # React
-```
-
 ## Props
 
 | Prop                          | Type                                 | Default                       | Description                                                                                                                                                                                                                                                                       |

@@ -5,13 +5,6 @@ description: 'Accordion API — expandable section with a header and collapsible
 
 # Accordion — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-accordion        # Vue
-yarn add @cypress-design/react-accordion      # React
-```
-
 ## Props
 
 | Prop                   | Type                                          | Default | Description                                                                                                     |

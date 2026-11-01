@@ -5,17 +5,9 @@ description: 'TestResult API — single test result row with status, title, and 
 
 # TestResult — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-testresult          # Vue
-yarn add @cypress-design/react-testresult        # React
-yarn add @cypress-design/constants-testresult    # shared types + TestResults fixture
-```
-
 ## Props
 
-All props are derived from the `TestResultData` interface:
+All props come from the `TestResultData` interface in `@cypress-design/constants-testresult`. Also install that package alongside the framework package ([React](https://design.cypress.io/agents/components/TestResult/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/TestResult/vue/ReadMe.md)); the framework packages' types depend on it.
 
 | Prop       | Type                                                                                                                                                                             | Default  | Description                                             |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------- |

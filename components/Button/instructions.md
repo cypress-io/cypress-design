@@ -5,14 +5,6 @@ description: 'Button API — variants, sizes, and states: props, events, and slo
 
 # Button — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-button        # Vue
-yarn add @cypress-design/react-button      # React
-yarn add @cypress-design/constants-button  # shared types
-```
-
 ## Props
 
 | Prop       | Type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Default         | Description                                                                                                                                                                                                                                   |
