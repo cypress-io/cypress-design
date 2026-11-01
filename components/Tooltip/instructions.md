@@ -5,34 +5,39 @@ description: 'Tooltip API — tooltip shown on hover or controlled with the open
 
 # Tooltip — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-tooltip        # Vue
-yarn add @cypress-design/react-tooltip      # React
-```
+Install and import: `components/Tooltip/react/ReadMe.md` and `components/Tooltip/vue/ReadMe.md`. Both packages also export the Floating UI `Placement` type.
 
 ## Props
 
-| Prop             | Type                                                                      | Default           | Description                                                      |
-| ---------------- | ------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------------- |
-| `placement`      | `"top" \| "bottom" \| "left" \| "right" \| "top-start" \| "top-end" \| …` | `"top"`           | Where the tooltip appears relative to the target                 |
-| `color`          | `"light" \| "dark"`                                                       | `"light"`         | Tooltip background color                                         |
-| `disabled`       | `boolean`                                                                 | `false`           | Hides the tooltip and disables hover behavior                    |
-| `open`           | `boolean`                                                                 | —                 | Controlled open state (bypasses hover)                           |
-| `interactive`    | `boolean`                                                                 | `false`           | When true, the tooltip stays open when the pointer moves into it |
-| `forcePlacement` | `boolean`                                                                 | `false`           | Prevents automatic flip to opposite side                         |
-| `arrowPadding`   | `number`                                                                  | `24`              | Space between the arrow and tooltip edges                        |
-| `shiftOptions`   | `ShiftOptions`                                                            | `{ padding: 16 }` | Floating UI shift middleware options                             |
-| `offsetOptions`  | `OffsetOptions`                                                           | `16`              | Distance from the reference element in px                        |
+| Prop              | Type                                                                      | Default           | Description                                                                                                                                          |
+| ----------------- | ------------------------------------------------------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `placement`       | `"top" \| "bottom" \| "left" \| "right" \| "top-start" \| "top-end" \| …` | `"bottom"`        | Where the tooltip appears relative to the trigger. The default is Floating UI's; neither package sets its own.                                       |
+| `color`           | `"light" \| "dark"`                                                       | `"light"`         | Tooltip background color                                                                                                                             |
+| `disabled`        | `boolean`                                                                 | `false`           | Removes the tooltip content and disables hover and focus behavior                                                                                    |
+| `open`            | `boolean`                                                                 | `false`           | `true` forces the tooltip open and disables hover, focus, and Escape. `false` leaves hover and focus in control; it cannot force the tooltip closed. |
+| `interactive`     | `boolean`                                                                 | `false`           | When true, the tooltip stays open while the pointer moves from the trigger into it                                                                   |
+| `forcePlacement`  | `boolean`                                                                 | `false`           | Prevents automatic flip to the opposite side                                                                                                         |
+| `arrowPadding`    | `number`                                                                  | `24`              | Minimum space between the arrow and the tooltip edges                                                                                                |
+| `shiftOptions`    | `ShiftOptions`                                                            | `{ padding: 16 }` | Floating UI `shift` middleware options                                                                                                               |
+| `offsetOptions`   | `number \| OffsetOptions`                                                 | `16`              | Floating UI `offset` middleware options; a number is the distance from the trigger in px                                                             |
+| `popper`          | `ReactNode`                                                               | —                 | **React only.** Tooltip content (Vue uses the `popper` slot)                                                                                         |
+| `popperClassName` | `string`                                                                  | —                 | **React only.** Class for the floating tooltip container                                                                                             |
+
+`className` / `class` and any other attributes land on the trigger wrapper, a plain block `<div>` around the trigger. Add `inline-block` (as the ReadMe examples do) when the wrapper should hug an inline trigger.
 
 ## Events
 
-_None_ — the tooltip manages its own show/hide via hover (or the `open` prop for controlled use).
+_None_ — the tooltip manages its own show/hide via hover and focus (or the `open` prop).
 
-## Slots
+## Trigger and content
 
-| Slot      | Description                                    |
-| --------- | ---------------------------------------------- |
-| `default` | The trigger element the tooltip is attached to |
-| `popper`  | Content rendered inside the tooltip bubble     |
+- **Vue:** `default` slot = trigger, `popper` slot = tooltip content.
+- **React:** `children` = trigger, `popper` prop = tooltip content.
+
+## Accessibility
+
+- The wrapper `<div>` is not focusable. Use a focusable trigger or add `tabIndex="0"` to the Tooltip so keyboard users can open it.
+- React opens on focus of the wrapper or any element inside it. Vue listens for `focus` / `blur` on the wrapper `<div>` itself; those events don't bubble, so in Vue make the wrapper the focus target (`tabIndex="0"` on the Tooltip).
+- Escape closes the tooltip unless `open` is `true` (Vue: only while focus is inside the wrapper).
+- React sets `aria-describedby` on the wrapper pointing at the `role="tooltip"` element while open. Vue renders `role="tooltip"` but sets no `aria-describedby`; add it yourself if the trigger needs to announce the content.
+- Content is prefixed with visually hidden "Tooltip: " text. React mounts the content in `document.body` only while open; Vue keeps it in the DOM under `#portal-target`, hidden with `visibility: hidden` when closed.
