@@ -5,7 +5,7 @@ description: "How RunResults is built — file layout, render structure, status-
 
 # RunResults — architecture
 
-How the RunResults component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](./instructions.md).
+How the RunResults component is built. Read this when extending, fixing, or rebuilding the component. For usage, see [`instructions.md`](https://design.cypress.io/agents/components/RunResults/instructions.md).
 
 ## File layout
 
@@ -154,17 +154,11 @@ Built by a helper `getTooltipLabel(status, count, isLinked)` in `constants/src/i
 
 The `links` prop is optional. Vue defaults it to `{}`; React reads it with optional chaining. Either way, omitting `links` entirely — or omitting any individual key — is safe and resolves to `isLinked: false` for that stat.
 
-Returns:
-
-- `flaky`, count `n`:
-  - `n === 1`: `"This test both passed and failed when retried within a run"`
-  - else: `"{n} tests both passed and failed when retried within a run"`
-- Other statuses, linked (`isLinked: true`): `"View {status} tests"`
-- Other statuses, unlinked (`isLinked: false`): `"{Capitalized status} tests"`
+The label strings are documented under "Tooltip behavior" in `instructions.md`. For a linked flaky stat, `getTooltipLabel` returns `"View flaky tests"` (used as the `<a>` `aria-label`), while the tooltip text always comes from `getFlakyTooltipText`.
 
 Inline ternary for the flaky singular/plural — no `pluralize` dependency. The source used `pluralize('test', value)` but for a single call site a ternary is clearer and avoids a tree-shake-resistant dep.
 
-`selfHealed` is treated like any other status for label purposes (`"View self-healed tests"` / `"Self-healed tests"`). When rendering "self-healed" inside the label text or a `data-cy` attribute, the helper converts the camelCase key to kebab-case via a small inline helper — single call site, no util dep.
+`selfHealed` is treated like any other status for label purposes. When rendering "self-healed" inside the label text or a `data-cy` attribute, the helper converts the camelCase key to kebab-case via a small inline helper — single call site, no util dep.
 
 The Vue template can call the helper as `getTooltipLabel(...)`; React calls it directly. Avoid re-implementing the strings in both files.
 
@@ -212,7 +206,7 @@ Three-way decision per stat: no href → `<span>`; href + `renderLink` callback 
 
 `renderLink` is a unified **function prop** in both React and Vue — not a Vue scoped slot. Signature: `(href: string, children: unknown, className?: string) => unknown`. `children` is typed `unknown` because the two frameworks pass different shapes: in React it's a JSX element (the icon + count fragment), in Vue it's an **array** of `VNode`s. `className` is the component's computed link styling (gray text, `px-[6px]`, no-underline, hover/focus) — the caller applies it to their router link so it matches the default `<a>`. Consumers wrap whatever they receive in their framework's router link; the array form is fine to pass straight into a Vue router-link as its default slot content.
 
-The `aria-label` and `data-cy="link-{status}"` end up on the rendered element. The native `<a>` path applies both; the `renderLink` path delegates that responsibility to the caller (noted in `instructions.md`).
+The native `<a>` path applies `aria-label` and `data-cy="link-{status}"`. The `renderLink` callback receives neither, so the caller must add both to its element (documented under "Custom link renderer" in `instructions.md`).
 
 ## Self-healed gating
 
