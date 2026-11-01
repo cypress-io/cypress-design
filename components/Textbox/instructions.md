@@ -20,8 +20,8 @@ All props are optional. Framework differences are called out per prop. Vue uses 
 - **`size`** — `'32' | '40' | '48'`, default `'40'`. Height in pixels (as a string).
 - **`rounded`** — `boolean`, default `false`. Full-radius corners when `true`.
 - **`labelLeft`** / **`labelRight`** — Static label rendered left / right of the input. React: `string | ReactNode`. Vue: pass a string; Vue renders it with text interpolation, so other values are stringified.
-- **`iconLeft`** / **`iconRight`** — Icon rendered inside the input container, left / right of the input. Its color follows the theme/variant and can't be overridden.
-  - React: pass a function component (for example an icon from `@cypress-design/react-icon`), which is rendered with `size="16"` and the color classes, or a React element, which is wrapped in a `<span>` carrying the color classes.
+- **`iconLeft`** / **`iconRight`** — Icon rendered inside the input container, left / right of the input. Its color follows the theme/variant.
+  - React: pass a function component (for example an icon from `@cypress-design/react-icon`), which is rendered with `size="16"` and the color classes, so its color can't be overridden. Or pass a React element, which is wrapped in a `<span>` carrying the color classes; only the span gets them, so the element's own color props or classes may win. Components wrapped in `forwardRef` or `memo` aren't functions and aren't supported — React throws "Objects are not valid as a React child". Pass them as an element instead (`iconLeft={<LucideIcon />}`).
   - Vue: pass a component; it is rendered with `size="16"` and the color classes.
 - **`divider`** — `boolean`, default `false`. Vertical divider between `iconLeft` and the input. **Only renders when `iconLeft` is also provided.**
 - **`disabled`** — `boolean`, default `false`. Disables the underlying `<input>`.
@@ -35,9 +35,9 @@ All props are optional. Framework differences are called out per prop. Vue uses 
 - **`onChange`** — `(event: ChangeEvent<HTMLInputElement>) => void` (React only). Vue uses `v-model` / `@input`.
 - **`aria-invalid`** — `boolean | 'true' | 'false' | 'grammar' | 'spelling'`. Defaults to `true` when `variant="invalid"`; otherwise unset. Pass it explicitly to override.
 
-Other attributes go to the underlying `<input>` (e.g. `id`, `name`, `autocomplete`, `maxlength`, `aria-*`), with one framework difference for `class` / `style`:
+Other attributes go to the underlying `<input>` (e.g. `id`, `name`, `autocomplete`, `maxlength`, `aria-*`), including `style` in both frameworks. Only `class` differs:
 
-- **React** — `className` goes on the wrapper `<label>`. All other props, including event handlers such as `onFocus` / `onKeyDown`, are spread onto the `<input>`. `ref` is forwarded to the `<input>`.
+- **React** — `className` goes on the wrapper `<label>`. All other props, including `style` and event handlers such as `onFocus` / `onKeyDown`, are spread onto the `<input>`. `ref` is forwarded to the `<input>`.
 - **Vue** — `inheritAttrs: false` binds every non-prop attribute, including `class` and `style`, to the `<input>`, so there is no way to add a class to the wrapper. A template ref gives the component instance, not the input; reach the input with `ref.value.$el.querySelector('input')`.
 
 ## Events
