@@ -11,9 +11,9 @@ Fetch only what the task needs. Don't preload all files.
 
 ## Design pillars
 
-Several pillars lead with a `## Principles` section that governs the tokens and rules below it (colors, typography, spacing, iconography, illustrations). Others (voice, personas, accessibility) are organized differently — open each file for the structure that fits its content.
+Several pillars lead with a `## Principles` section that governs the tokens and rules below it (colors, typography, spacing, iconography, illustrations). Others (voice, accessibility) are organized differently — open each file for the structure that fits its content.
 
-<!-- docs: colors.md typography.md spacing.md iconography.md illustrations.md ui-illustrations.md voice.md voice-headings.md personas.md accessibility.md -->
+<!-- docs: colors.md typography.md spacing.md iconography.md illustrations.md ui-illustrations.md voice.md voice-headings.md accessibility.md -->
 
 - [colors.md](https://design.cypress.io/agents/colors.md) — Fetch when choosing colors, picking tokens for backgrounds/text/borders, evaluating contrast, or designing color pairings. Skip for non-visual code.
 - [typography.md](https://design.cypress.io/agents/typography.md) — Fetch when setting font family, size, weight, line-height, or letter-spacing. Skip for layout-only or color-only changes.
@@ -23,7 +23,6 @@ Several pillars lead with a `## Principles` section that governs the tokens and 
 - [ui-illustrations.md](https://design.cypress.io/agents/ui-illustrations.md) — Fetch when producing a shrunken, abstracted illustration of a product screen — a UI image that pairs with a paragraph to show a feature's context and story without being a screenshot. Covers the abstraction contract, element budget, scale, alignment, icon fidelity, and the render-and-verify loop. For watercolor / marketing illustration craft see illustrations.md.
 - [voice.md](https://design.cypress.io/agents/voice.md) — Fetch when writing user-facing copy — UI strings, error messages, empty states, marketing prose, docs body. Covers tone, capitalization, product naming, and mechanics (numbers, dates, punctuation). Skip for code comments and internal logs.
 - [voice-headings.md](https://design.cypress.io/agents/voice-headings.md) — Fetch when writing a feature-spotlight title, nav label, or headline that names one specific Cypress feature — the {Verb+value} with {Feature} formula and its failure modes. Supplements voice.md.
-- [personas.md](https://design.cypress.io/agents/personas.md) — Fetch when writing copy or designing flows that target specific Cypress user roles (QA engineers, developers, eng managers). Skip for purely structural changes.
 - [accessibility.md](https://design.cypress.io/agents/accessibility.md) — When to invest in accessibility and the patterns to follow on the surfaces you ship. Fetch when designing interactive elements, modals, custom inputs, animations, evaluating whether a flow works for users on keyboard / assistive tech, or writing copy about accessibility or disability.
 
 <!-- /docs -->
@@ -51,5 +50,3 @@ Fetch on demand — don't preload all of them:
 ## Before marking done
 
 Run [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) against your diff (tokens, spacing, a11y — is the surface built right?).
-
-When the work is a product brief, initiative, or design proposal — not just a UI surface — also run [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) (problem defined, alternatives compared, success metric + measurement, review date, post-launch decision — should we be building it, and will we know if it worked?).

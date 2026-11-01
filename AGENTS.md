@@ -7,8 +7,6 @@ Before doing any work, you MUST read:
 
 Before claiming any UI / visual / content task is done, run `/.agents/review-checklist.md` against your own diff.
 
-When the work is a product brief, initiative, or design proposal (not just a UI surface), also run `/.agents/product-review-checklist.md` — problem defined before solution, alternatives compared, success metric + measurement infrastructure, review date, and a post-launch keep/iterate/kill decision.
-
 Before pushing, run the checks in `ReadMe.md` under "Before you push" — CI runs more than the pre-commit hook does — and add a changeset if the diff touches a published package (see `/.agents/architecture.md` under "Publishing"). Never bypass the hook with `--no-verify`.
 
 PRs are squash-merged, so the PR title becomes the commit on `main`. Write it as a Conventional Commit, `type(scope): sentence` (for example `docs(agents): recommend contrast steps that meet WCAG AA`), following `git log --oneline` on `main`. Branch commit messages are discarded at merge; keep them short.
@@ -38,7 +36,7 @@ Applies to `AGENTS.md`, everything under `/.agents/`, and the component `instruc
 - **Point to the source of truth instead of copying it.** Name the file, config key, or script that holds the fact (`workspaces` in `package.json`, `eslint.config.js`, `.github/workflows/`) rather than restating versions, script bodies, file lists, or settings that will drift. Copy only what the source can't say: the rule and the _why_.
 - **Prefer repo paths over URLs for repo facts.** A path in backticks is checkable with one command; a link to a GitHub line or external page breaks silently. Cross-doc links between `.agents/` files are the exception — keep those absolute (see above).
 - **Verify every claim before committing it.** Check that each path exists, each command runs, and each described behavior matches the code. Write commands that work on any contributor's machine and in cloud sessions — no personal paths (`~/Sites/...`) or OS-only flags (`stat -f`).
-- **Present state only.** No migration history, "this branch", or roadmaps. Planned and deferred work goes in GitHub issues; an agent reading a plan here may try to build it.
+- **Present state only.** No migration history, "this branch", or roadmaps. Bugs and planned or deferred work go in GitHub issues; an agent reading a plan or to-do list here may try to build it.
 - **Keep always-loaded files short.** `AGENTS.md`, `architecture.md`, and `index.md` load on every task. Put task-specific detail in a skill, a pillar, or a component's `architecture.md`, loaded on demand.
 - **One owner per fact.** If another file already covers it, link to that file instead of repeating it.
 - **Give every served doc frontmatter** — each `.agents/` file and each component `instructions.md` / `architecture.md` — with a one-line `description` that says when to load it. (Framework `ReadMe.md` files are also npm READMEs, so `copy-agents.mjs` generates theirs; don't add frontmatter to them.) PR CI fails if a served doc has none. The description is the only place that says when to load a doc: `scripts/agents-index.mjs` generates the doc lists in `index.md` from it, and `scripts/copy-agents.mjs` lists it in `llms.txt`. To list a new doc in the index, add its path to a `docs:` marker in `index.md`; after changing a description or marker, run `node scripts/agents-index.mjs` and commit the result (PR CI fails otherwise).
@@ -78,16 +76,6 @@ Each component may have:
 - `components/<Name>/react/ReadMe.md` and `components/<Name>/vue/ReadMe.md` — install command, import path, code examples
 
 Not every component has all files yet — add them when a component is created or meaningfully revised. When adding a new component, update the component list in `/.agents/index.md`.
-
-## Pages
-
-Page-specific acceptance criteria live in `/.agents/pages/<page-name>.md`. Load the relevant file when working on or verifying a docs page.
-
-Track bugs and deferred follow-up work in GitHub issues, not in these files or anywhere else under `/.agents/`. Agents read these files as guidance, so a to-do list here turns into stale instructions.
-
-Available pages:
-
-- `pages/colors.md` — `/colors` page sections, palette behavior, TOC
 
 ## Skills
 
