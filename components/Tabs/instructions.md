@@ -5,9 +5,7 @@ description: 'Tabs API — tab bar: props, events, and slots. Fetch when using, 
 
 # Tabs — Props, Events & Slots
 
-Install and import commands: [React ReadMe](https://design.cypress.io/agents/components/Tabs/react/ReadMe.md) and [Vue ReadMe](https://design.cypress.io/agents/components/Tabs/vue/ReadMe.md).
-
-The `Tab` type and `SwitchEvent` class are not re-exported by either framework package; import them from `@cypress-design/constants-tabs`. That package is a runtime dependency of `@cypress-design/react-tabs` and `@cypress-design/vue-tabs`, so the import resolves when it is hoisted but fails under pnpm (strict) or Yarn Plug'n'Play. If you import from it, add `@cypress-design/constants-tabs` to your own `dependencies`.
+To import the `Tab` type or the `SwitchEvent` class, add `@cypress-design/constants-tabs` to your own dependencies alongside the framework package ([React](https://design.cypress.io/agents/components/Tabs/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/Tabs/vue/ReadMe.md)); neither framework package re-exports them.
 
 ## Props
 
