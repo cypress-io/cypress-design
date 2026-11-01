@@ -5,9 +5,9 @@ description: 'Alert API — status message with info, success, warning, error, n
 
 # Alert — Props, Events & Slots
 
-## Props
+Alongside the framework package ([React](https://design.cypress.io/agents/components/Alert/react/ReadMe.md), [Vue](https://design.cypress.io/agents/components/Alert/vue/ReadMe.md)), install `@cypress-design/constants-alert`. It provides the `AlertVariant` and `AlertSize` types; the framework packages' type declarations import it but don't depend on it or re-export it.
 
-The `AlertVariant` and `AlertSize` types come from `@cypress-design/constants-alert`; the framework packages don't re-export them.
+## Props
 
 | Prop                      | Type                                                                  | Default                | Description                                                                                         |
 | ------------------------- | --------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------- |

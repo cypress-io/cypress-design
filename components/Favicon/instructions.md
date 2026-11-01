@@ -29,8 +29,10 @@ you only install it directly when you cannot use a component (see _Without the c
   not ship every surface, e.g. one with no web manifest. `FAVICON_LINKS` is re-exported from both
   component packages.
 - The defaults include `<link rel="manifest" href="/site.webmanifest">`, and no package ships that
-  file. Either serve your own manifest (`MANIFEST_ICONS` from `@cypress-design/favicon` is its icons
-  array) or pass a `links` list without the manifest tag.
+  file. Either serve your own manifest or pass a `links` list without the manifest tag.
+  `MANIFEST_ICONS` is the manifest's icons array; it's exported only from `@cypress-design/favicon`,
+  not re-exported from the component packages, so to import it add `@cypress-design/favicon` as a
+  direct dependency.
 
 ## Picking a build
 
