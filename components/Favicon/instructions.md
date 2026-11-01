@@ -1,13 +1,13 @@
 ---
 name: components/Favicon/instructions
-description: 'Favicon — renders the Cypress favicon <link> tags into <head>. Covers which package to install, props, picking a build, using the assets without the component, and the two deliberately omitted tags. Fetch when adding or changing favicons on a Cypress site.'
+description: 'Favicon — renders the Cypress favicon <link> tags for <head>. Covers which package to install, props, picking a build, using the assets without the component, and the two deliberately omitted tags. Fetch when adding or changing favicons on a Cypress site.'
 ---
 
 # Favicon — Props, Setup & Reference
 
-Renders the Cypress favicon `<link>` tags into `<head>`. No visual output, no interactivity, no
-state — it exists so sites stop hand-writing markup that is easy to get subtly wrong. The demo above
-shows the icon set it declares.
+Renders the Cypress favicon `<link>` tags where you place it — there's no portal, so put it inside
+`<head>`. No visual output, no interactivity, no state — it exists so sites stop hand-writing markup
+that is easy to get subtly wrong. The demo above shows the icon set it declares.
 
 ## Which package do I install?
 
@@ -28,6 +28,9 @@ you only install it directly when you cannot use a component (see _Without the c
 - `links?: FaviconLink[]` — defaults to `FAVICON_LINKS`. Pass a filtered list for a site that does
   not ship every surface, e.g. one with no web manifest. `FAVICON_LINKS` is re-exported from both
   component packages.
+- The defaults include `<link rel="manifest" href="/site.webmanifest">`, and no package ships that
+  file. Either serve your own manifest (`MANIFEST_ICONS` from `@cypress-design/favicon` is its icons
+  array) or pass a `links` list without the manifest tag.
 
 ## Picking a build
 

@@ -5,13 +5,6 @@ description: 'Modal API — native <dialog> modal and how it closes in Vue vs Re
 
 # Modal — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-modal        # Vue
-yarn add @cypress-design/react-modal      # React
-```
-
 ## Props
 
 | Prop                | Type        | Default       | Description                                                                                                  |

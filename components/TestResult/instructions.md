@@ -5,17 +5,9 @@ description: 'TestResult API — single test result row with status, title, and 
 
 # TestResult — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-testresult          # Vue
-yarn add @cypress-design/react-testresult        # React
-yarn add @cypress-design/constants-testresult    # shared types + TestResults fixture
-```
-
 ## Props
 
-All props are derived from the `TestResultData` interface:
+All props are derived from the `TestResultData` interface, exported by `@cypress-design/constants-testresult` (the framework packages don't re-export it):
 
 | Prop       | Type                                                                                                                                                                             | Default  | Description                                             |
 | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------- |

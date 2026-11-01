@@ -5,13 +5,6 @@ description: 'Spinner API — loading indicator: props, events, and slots. Fetch
 
 # Spinner — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-spinner        # Vue
-yarn add @cypress-design/react-spinner      # React
-```
-
 ## Props
 
 | Prop      | Type                | Default   | Description                                                                                                                                      |

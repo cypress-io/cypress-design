@@ -5,14 +5,6 @@ description: 'DocMenu API — sidebar navigation used in documentation sites: pr
 
 # DocMenu — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-docmenu          # Vue
-yarn add @cypress-design/react-docmenu        # React
-yarn add @cypress-design/constants-docmenu    # shared types (NavGroup, NavItemLink)
-```
-
 ## Props
 
 | Prop                                            | Type                                           | Default  | Description                                                                                                                                                        |

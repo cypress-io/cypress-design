@@ -5,15 +5,9 @@ description: 'Alert API — status message with info, success, warning, error, n
 
 # Alert — Props, Events & Slots
 
-## Install
-
-```bash
-yarn add @cypress-design/vue-alert        # Vue
-yarn add @cypress-design/react-alert      # React
-yarn add @cypress-design/constants-alert  # shared types
-```
-
 ## Props
+
+The `AlertVariant` and `AlertSize` types come from `@cypress-design/constants-alert`; the framework packages don't re-export them.
 
 | Prop                      | Type                                                                  | Default                | Description                                                                                         |
 | ------------------------- | --------------------------------------------------------------------- | ---------------------- | --------------------------------------------------------------------------------------------------- |
