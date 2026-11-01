@@ -55,7 +55,7 @@ There are three pieces of internal state:
 
 1. **`open: boolean`** — popover visibility. Controlled when `open` prop is provided, uncontrolled otherwise (`useState(defaultOpen ?? false)`).
 2. **`selectedValue: string | undefined`** — current selection. Controlled when `value` is provided, uncontrolled otherwise.
-3. **`focusedIndex: number`** — index of the currently focused (keyboard-traversed) row inside the _filtered_ item list. Reset to the index of the selected item whenever the popover opens.
+3. **`focusedIndex: number`** — index of the currently focused (keyboard-traversed) row among the interactive rows of the _filtered_ item list. `-1` means no row is focused; it resets to `-1` whenever the popover opens and whenever the displayed rows change, so the first arrow keypress lands focus.
 
 Search input value (`searchValue`) is also internal state, owned by `Select` (not `SelectOptionList`). The popover receives it as a controlled prop and emits `update:searchValue` / calls `onSearchValueChange` when the input changes. Keeping it on `Select` is what makes keyboard nav and rendering agree on the filtered list — Select computes `displayItems = filterAndCollapseHeadlines(items, searchValue)` once and feeds it to OptionList; both keyboard traversal indices and rendered rows derive from the same array. Header active-tab is controlled by the consumer.
 
@@ -91,7 +91,7 @@ Keying mirrors Textbox: every visual state for a given `(theme, size)` lives in 
 
 The popover is `position: absolute` inside a wrapper that's `position: relative`. The wrapper is the same DOM node as the trigger, so the popover is naturally anchored to it. `align` is implemented with `left-0` / `right-0` (no JS calculations).
 
-There is no viewport collision detection. If the popover overflows the viewport in the chosen direction, the consumer must change `align` or place the trigger differently. Picking up Floating UI is a future option but adds a runtime dependency.
+There is no viewport collision detection; the consumer-facing rule is in `instructions.md` under "Dropdown sizing".
 
 ## Popover sizing
 
@@ -132,7 +132,7 @@ trigger={({ open, selected, toggle, close }) => (
 
 When `trigger` is provided, Select:
 
-- Does **not** render its default Textbox.
+- Does **not** render its default Button.
 - Wraps the consumer's node in the same wrapper element (so the popover anchors correctly).
 - Does **not** add ARIA attributes to the consumer's node — the consumer wires them via the render-prop context. Document this explicitly in `instructions.md`.
 
@@ -149,11 +149,3 @@ This is a deliberate choice: trying to auto-wire ARIA onto an arbitrary node is 
 - New content type → add a discriminated union variant to `SelectItem` in constants, add a branch in `SelectOptionItem`, add classes to `CssOptionItemTypeClasses` if structural changes are needed. Update the keyboard-traversal "selectable types" allowlist in Select.
 - New state → edit the relevant variant class string in `option-item-classes.ts`. Do not add a new constants key per state.
 - New theme → add a `${theme}-default` entry to every theme-keyed constant.
-
-## Planned / potential work
-
-- Multi-select (`multiple` prop). Would change `value` to `string[]` and keep the popover open after click.
-- Radio content type — blocked on a shared Radio component.
-- Floating UI integration for collision-aware popover placement.
-- Virtualization for very long lists.
-- Async / fuzzy filtering hooks.
