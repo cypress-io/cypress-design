@@ -15,7 +15,7 @@ Review a user-facing surface against the Cypress design guidance hosted at `http
 2. **Look at it rendered.** Run it locally, or open the preview deployment or visual snapshots if the PR has them. Check light and dark themes, each interactive state (hover, focus, disabled, error, empty, loading), and narrow widths. Judge spacing, hierarchy, and focus from the screen, not from class names.
 3. **Load the guidance that applies.** Use [index.md](https://design.cypress.io/agents/index.md) to pick the design docs and components the surface touches. Load [voice.md](https://design.cypress.io/agents/voice.md) if copy changed.
 4. **Walk the work against each doc you loaded.** Note every place it departs from the guidance, with a one-line why.
-5. **Run the checklists.** [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) for every surface. Add [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) for a brief, initiative, or design proposal.
+5. **Run the checklist.** Walk [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) for every surface.
 6. **Write it up** in the format below, in your reply. If you're reviewing a PR, offer to post it as a PR review, and post only once the user agrees: the author and reviewers see it.
 
 ## Writing findings
@@ -33,12 +33,11 @@ Review a user-facing surface against the Cypress design guidance hosted at `http
 
 ## Findings
 Group under the headings that apply: Visual and layout, Interaction and states,
-Copy, Accessibility, Reuse of existing components, Product rigor.
+Copy, Accessibility, Reuse of existing components.
 1. <finding> — <why> — <what to use instead>
 
-## Checklists
+## Checklist
 review-checklist.md: <failed checks, or "all applicable checks pass">
-product-review-checklist.md: <failed checks, or "not applicable">
 
 ## Recommendation
 <ship / revise / reframe>, with one line on why
