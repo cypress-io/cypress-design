@@ -58,7 +58,7 @@ A status with a count of zero is not rendered at all.
 
 ## Interaction
 
-- Count pill `href`s are `specs?specStatus=[...]`, relative to the run tab's URL, and resolve correctly only from exactly `/projects/:id/runs/:id/<tab>` (see [architecture.md](https://design.cypress.io/agents/components/SpecResults/architecture.md), Decisions). The scheduled-to-complete pill links to `../../settings/general` instead. By default links are a plain `<a href>` (full page load); pass `renderLink` to navigate client-side — see "Custom link renderer" below.
+- Count pill `href`s are `specs?specStatus=[...]`, relative to the run tab's URL, so they resolve from any `.../runs/:id/<tab>` page. The scheduled-to-complete pill links to `../../settings/general` instead, which lands on the project's settings only when the page is `/projects/:id/runs/:id/<tab>`. By default links are a plain `<a href>` (full page load); pass `renderLink` to navigate client-side — see "Custom link renderer" below.
 - `errored` filters on `ERRORED` + `TIMEDOUT`; `skipped` filters on `NOTESTS` + `CANCELLED`; the remaining pill filters on `RUNNING` + `UNCLAIMED` (`STATUS_FILTER_VALUES` in `components/SpecResults/constants/src/index.ts`).
 - Hover: linked pills get a `gray-50` background and their text takes the status's hue (`HOVER_TEXT_CLASS` / `HOVER_COUNT_CLASS` in the same constants file; the skipped pill stays gray).
 - Cancel run fires `onCancel`. The component does not confirm or disable itself; the caller owns that flow.
@@ -169,6 +169,6 @@ const renderLink: SpecResultsRenderLink = (href, children, props) => (
 
 ## Rules
 
-- Sizes are literal `[Npx]` values. Don't convert them to Tailwind's rem-based utilities; see [architecture.md](https://design.cypress.io/agents/components/SpecResults/architecture.md) (Gotchas) for why.
+- Sizes are px-based, so the component renders the same under a root font size other than 16px.
 - Copy ("specs", "remaining", "Testing in progress", …) is hardcoded English; there is no prop to localize it.
 - Pill order is fixed. There is no prop to reorder or hide pills; only a zero count hides one.
