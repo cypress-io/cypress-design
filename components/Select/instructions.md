@@ -123,50 +123,16 @@ Rendered below the items when any footer prop (or the Vue `#footer` slot) is set
 
 `items` is a `SelectItem[]`; the `type` field picks the row. `Icon` fields take an icon component (`IconActionAddSmall`) or a rendered element; `Node` is anything the framework can render (a React node, a Vue VNode).
 
+<!-- prettier-ignore -->
 ```ts
 type SelectItem =
-  | {
-      type?: 'default'
-      value: string
-      label: string
-      iconLeft?: Icon
-      iconRight?: Icon
-      slotRight?: Node
-      tag?: string
-      disabled?: boolean
-    }
+  | { type?: 'default'; value: string; label: string; iconLeft?: Icon; iconRight?: Icon; slotRight?: Node; tag?: string; disabled?: boolean }
   | { type: 'headline'; label: string; key?: string }
   | { type: 'divider'; key?: string }
-  | {
-      type: 'checkbox'
-      value: string
-      label: string
-      subText?: string
-      disabled?: boolean
-    }
-  | {
-      type: 'user'
-      value: string
-      label: string
-      secondary?: string
-      iconLeft?: Icon
-      disabled?: boolean
-    }
-  | {
-      type: 'button'
-      key: string
-      label: string
-      onClick: () => void
-      variant?: string
-      iconLeft?: Icon
-    }
-  | {
-      type: 'custom'
-      value?: string
-      key?: string
-      label?: string
-      render: (ctx: { selected: boolean }) => Node
-    }
+  | { type: 'checkbox'; value: string; label: string; subText?: string; disabled?: boolean }
+  | { type: 'user'; value: string; label: string; secondary?: string; iconLeft?: Icon; disabled?: boolean }
+  | { type: 'button'; key: string; label: string; onClick: () => void; variant?: string; iconLeft?: Icon }
+  | { type: 'custom'; value?: string; key?: string; label?: string; render: (ctx: { selected: boolean }) => Node }
 ```
 
 Behavior the shapes don't spell out:
