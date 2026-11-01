@@ -51,5 +51,3 @@ Fetch on demand — don't preload all of them:
 ## Before marking done
 
 Run [review-checklist.md](https://design.cypress.io/agents/review-checklist.md) against your diff (tokens, spacing, a11y — is the surface built right?).
-
-When the work is a product brief, initiative, or design proposal — not just a UI surface — also run [product-review-checklist.md](https://design.cypress.io/agents/product-review-checklist.md) (problem defined, alternatives compared, success metric + measurement, review date, post-launch decision — should we be building it, and will we know if it worked?).

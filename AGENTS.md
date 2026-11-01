@@ -7,8 +7,6 @@ Before doing any work, you MUST read:
 
 Before claiming any UI / visual / content task is done, run `/.agents/review-checklist.md` against your own diff.
 
-When the work is a product brief, initiative, or design proposal (not just a UI surface), also run `/.agents/product-review-checklist.md` — problem defined before solution, alternatives compared, success metric + measurement infrastructure, review date, and a post-launch keep/iterate/kill decision.
-
 Before pushing, run the checks in `ReadMe.md` under "Before you push" — CI runs more than the pre-commit hook does — and add a changeset if the diff touches a published package (see `/.agents/architecture.md` under "Publishing"). Never bypass the hook with `--no-verify`.
 
 PRs are squash-merged, so the PR title becomes the commit on `main`. Write it as a Conventional Commit, `type(scope): sentence` (for example `docs(agents): recommend contrast steps that meet WCAG AA`), following `git log --oneline` on `main`. Branch commit messages are discarded at merge; keep them short.
