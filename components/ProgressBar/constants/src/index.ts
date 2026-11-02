@@ -176,11 +176,13 @@ export function buildProgressBarView(props: ProgressBarProps): ProgressBarView {
     }
   })
 
-  const labelled = props.segments?.length
-    ? sized
-        .filter(({ segment }) => segment.label)
-        .map(({ segment }) => `${segment.label} ${toAmount(segment.value)}`)
-    : []
+  // Only when every segment is named: aria-valuetext replaces the numeric
+  // announcement, so a partial list would hide the unnamed shares. Amounts
+  // are the clamped ones, matching the widths and aria-valuenow.
+  const labelled =
+    props.segments?.length && sized.every(({ segment }) => segment.label)
+      ? sized.map(({ segment, amount }) => `${segment.label} ${amount}`)
+      : []
 
   return {
     trackClasses: [

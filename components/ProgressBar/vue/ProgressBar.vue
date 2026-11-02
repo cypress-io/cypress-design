@@ -1,5 +1,11 @@
 <script lang="ts">
-import { computed, defineComponent, watchEffect, type PropType } from 'vue'
+import {
+  computed,
+  defineComponent,
+  normalizeClass,
+  watchEffect,
+  type PropType,
+} from 'vue'
 import { twMerge } from 'tailwind-merge'
 import {
   buildProgressBarView,
@@ -42,8 +48,16 @@ export default defineComponent({
     fillClassName: { type: String, default: undefined },
     valueText: { type: String, default: undefined },
   },
-  setup(props) {
-    const view = computed(() => buildProgressBarView(props))
+  // Setup's `attrs` is read rather than `this.$attrs`: only the former is
+  // tracked by computed() in production builds.
+  setup(props, { attrs }) {
+    const view = computed(() =>
+      buildProgressBarView({
+        ...props,
+        valueText:
+          props.valueText ?? (attrs['aria-valuetext'] as string | undefined),
+      }),
+    )
     const fills = computed(() =>
       view.value.fills.map((fill) => ({
         key: fill.key,
@@ -56,17 +70,18 @@ export default defineComponent({
       if (view.value.hasActiveFill) ensureActiveStyle()
     })
 
-    return { view, fills }
-  },
-  computed: {
-    rootAttrs() {
-      const attrs = { ...this.$attrs }
-      delete attrs.class
-      return attrs
-    },
-    rootClass(): string {
-      return twMerge(this.view.trackClasses, this.$attrs.class as string)
-    },
+    const rootAttrs = computed(() => {
+      const rest = { ...attrs }
+      delete rest.class
+      return rest
+    })
+    // normalizeClass flattens Vue's object and array class syntax, which
+    // twMerge would otherwise drop.
+    const rootClass = computed(() =>
+      twMerge(view.value.trackClasses, normalizeClass(attrs.class)),
+    )
+
+    return { view, fills, rootAttrs, rootClass }
   },
 })
 </script>
