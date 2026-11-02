@@ -1452,6 +1452,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/constants-table@workspace:^0.0.0, @cypress-design/constants-table@workspace:components/Table/constants":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/constants-table@workspace:components/Table/constants"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/constants-tabs@npm:*, @cypress-design/constants-tabs@workspace:^1.2.3, @cypress-design/constants-tabs@workspace:components/Tabs/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-tabs@workspace:components/Tabs/constants"
@@ -1824,6 +1830,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/react-table@workspace:components/Table/react":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/react-table@workspace:components/Table/react"
+  dependencies:
+    "@cypress-design/constants-table": "workspace:^0.0.0"
+    "@cypress-design/react-icon": "workspace:^3.4.0"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    clsx: "npm:*"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/react-tabs@npm:*, @cypress-design/react-tabs@workspace:^1.2.2, @cypress-design/react-tabs@workspace:components/Tabs/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-tabs@workspace:components/Tabs/react"
@@ -1951,7 +1968,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/vue-icon@npm:*, @cypress-design/vue-icon@workspace:^3.3.2, @cypress-design/vue-icon@workspace:components/Icon/vue":
+"@cypress-design/vue-icon@npm:*, @cypress-design/vue-icon@workspace:^3.3.2, @cypress-design/vue-icon@workspace:^3.4.0, @cypress-design/vue-icon@workspace:components/Icon/vue":
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-icon@workspace:components/Icon/vue"
   dependencies:
@@ -2038,6 +2055,16 @@ __metadata:
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.3.2"
     clsx: "npm:*"
+  languageName: unknown
+  linkType: soft
+
+"@cypress-design/vue-table@workspace:components/Table/vue":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/vue-table@workspace:components/Table/vue"
+  dependencies:
+    "@cypress-design/constants-table": "workspace:^0.0.0"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    "@cypress-design/vue-icon": "workspace:^3.4.0"
   languageName: unknown
   linkType: soft
 

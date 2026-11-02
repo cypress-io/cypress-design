@@ -1,0 +1,266 @@
+<script lang="ts" setup generic="Row">
+import { type Component, type VNode, computed, ref, watch } from 'vue'
+import { IconArrowDown, IconArrowUp } from '@cypress-design/vue-icon'
+import CellContent from './_TableCellContent.vue'
+import {
+  type TableColumnBase,
+  type TableRowKey,
+  type TableSort,
+  CssAlignClasses,
+  CssBodyCellClasses,
+  CssClickableRowCellClasses,
+  CssClickableRowClasses,
+  CssHeaderCellClasses,
+  CssHeaderContentClasses,
+  CssIconClasses,
+  CssRowLinkClasses,
+  CssScrollContainerClasses,
+  CssSortButtonClasses,
+  CssSortIndicatorClasses,
+  CssSortIndicatorHiddenClasses,
+  CssStickyHeaderCellClasses,
+  CssTableClasses,
+  IconFillColor,
+  IconStrokeColor,
+  MinRowsToSort,
+  RowLinkAttributes,
+  SortArrowStrokeColor,
+  followRowLink,
+  getArrowDirection,
+  getBodyCellPaddingEnd,
+  getCellAlign,
+  getCellValue,
+  getColumnWidthClasses,
+  getHeaderAlign,
+  getNextSort,
+  getPrimaryColumnKey,
+  getRowKey,
+  sortRows,
+} from '@cypress-design/constants-table'
+
+type TableColumn = TableColumnBase<Row, Component>
+
+// The root is the scroll wrapper; `class` and other attributes belong on the
+// `<table>`, same as the React component.
+defineOptions({ inheritAttrs: false })
+
+const props = withDefaults(
+  defineProps<{
+    columns: TableColumn[]
+    rows: Row[]
+    /**
+     * Field name or function giving each row a unique, stable key.
+     */
+    rowKey?: TableRowKey<Row>
+    /**
+     * Current sort; bind with `v-model:sort`.
+     */
+    sort?: TableSort | null
+    /**
+     * Show the sort state without reordering `rows`; the page sorts them.
+     */
+    manualSort?: boolean
+    /**
+     * Returns the props for a row's link, or `undefined` for a non-clickable row.
+     */
+    rowLink?: (row: Row) => Record<string, unknown> | undefined
+    /**
+     * Element or component that renders row links, e.g. `RouterLink`.
+     */
+    rowLinkAs?: string | Component
+    /**
+     * Pin the header row to the top of the nearest scrolling ancestor.
+     */
+    stickyHeader?: boolean
+  }>(),
+  {
+    rowKey: 'id',
+    sort: undefined,
+    manualSort: false,
+    rowLink: undefined,
+    rowLinkAs: 'a',
+    stickyHeader: false,
+  },
+)
+
+const emit = defineEmits<{
+  (event: 'update:sort', sort: TableSort): void
+}>()
+
+defineSlots<
+  {
+    [K in `cell-${string}`]?: (props: { row: Row; value: unknown }) => VNode[]
+  } & {
+    [K in `header-${string}`]?: (props: { column: TableColumn }) => VNode[]
+  }
+>()
+
+const currentSort = ref<TableSort | null>(props.sort ?? null)
+watch(
+  () => props.sort,
+  (sort) => {
+    currentSort.value = sort ?? null
+  },
+)
+
+const primaryKey = computed(() => getPrimaryColumnKey(props.columns))
+const canSort = computed(() => props.rows.length >= MinRowsToSort)
+
+const displayedRows = computed(() =>
+  (props.manualSort
+    ? props.rows
+    : sortRows(props.rows, props.columns, currentSort.value)
+  ).map((row) => ({
+    row,
+    key: getRowKey(row, props.rowKey),
+    link: props.rowLink?.(row),
+  })),
+)
+
+function handleSort(column: TableColumn) {
+  const next = getNextSort(column, currentSort.value)
+  currentSort.value = next
+  emit('update:sort', next)
+}
+
+function handleRowClick(event: MouseEvent) {
+  followRowLink(event, event.currentTarget as HTMLElement)
+}
+
+function cellTitle(row: Row, column: TableColumn) {
+  const value = getCellValue(row, column)
+  return column.truncate && typeof value === 'string' ? value : undefined
+}
+</script>
+
+<template>
+  <div :class="{ [CssScrollContainerClasses]: !stickyHeader }">
+    <table v-bind="$attrs" :class="CssTableClasses">
+      <thead>
+        <tr>
+          <th
+            v-for="column in columns"
+            :key="column.key"
+            scope="col"
+            :aria-sort="
+              currentSort?.key === column.key && canSort
+                ? currentSort.direction
+                : undefined
+            "
+            :class="[
+              CssHeaderCellClasses,
+              CssAlignClasses[getHeaderAlign(column)],
+              {
+                [CssStickyHeaderCellClasses]: stickyHeader,
+              },
+              getColumnWidthClasses(column, column.key === primaryKey),
+            ]"
+          >
+            <component
+              :is="column.sortable && canSort ? 'button' : 'span'"
+              :type="column.sortable && canSort ? 'button' : undefined"
+              :class="
+                column.sortable && canSort
+                  ? CssSortButtonClasses
+                  : CssHeaderContentClasses
+              "
+              @click="
+                column.sortable && canSort ? handleSort(column) : undefined
+              "
+            >
+              <component
+                :is="column.icon"
+                v-if="column.icon"
+                aria-hidden="true"
+                :class="CssIconClasses"
+                :stroke-color="IconStrokeColor"
+                :fill-color="IconFillColor"
+              />
+              <span class="truncate">
+                <slot :name="`header-${column.key}`" :column="column">
+                  {{ column.label }}
+                </slot>
+              </span>
+              <span
+                v-if="column.sortable && canSort"
+                :class="[
+                  CssSortIndicatorClasses,
+                  {
+                    [CssSortIndicatorHiddenClasses]:
+                      currentSort?.key !== column.key,
+                  },
+                ]"
+              >
+                <component
+                  :is="
+                    getArrowDirection(column, currentSort) === 'ascending'
+                      ? IconArrowUp
+                      : IconArrowDown
+                  "
+                  aria-hidden="true"
+                  :stroke-color="SortArrowStrokeColor"
+                />
+              </span>
+            </component>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          v-for="{ row, key, link } in displayedRows"
+          :key="key"
+          :class="{ [CssClickableRowClasses]: link }"
+          @click="link && handleRowClick($event)"
+          @auxclick="link && handleRowClick($event)"
+        >
+          <td
+            v-for="column in columns"
+            :key="column.key"
+            :class="[
+              CssBodyCellClasses,
+              CssAlignClasses[getCellAlign(column, row)],
+              getBodyCellPaddingEnd(column, getCellAlign(column, row), canSort),
+              getColumnWidthClasses(column, column.key === primaryKey),
+              { [CssClickableRowCellClasses]: link },
+            ]"
+          >
+            <component
+              :is="rowLinkAs"
+              v-if="link && column.key === primaryKey"
+              v-bind="{ ...link, ...RowLinkAttributes }"
+              :class="CssRowLinkClasses"
+            >
+              <CellContent
+                :icon="column.cellIcon?.(row)"
+                :truncate="column.truncate"
+                :title="cellTitle(row, column)"
+              >
+                <slot
+                  :name="`cell-${column.key}`"
+                  :row="row"
+                  :value="getCellValue(row, column)"
+                >
+                  {{ getCellValue(row, column) }}
+                </slot>
+              </CellContent>
+            </component>
+            <CellContent
+              v-else
+              :icon="column.cellIcon?.(row)"
+              :truncate="column.truncate"
+              :title="cellTitle(row, column)"
+            >
+              <slot
+                :name="`cell-${column.key}`"
+                :row="row"
+                :value="getCellValue(row, column)"
+              >
+                {{ getCellValue(row, column) }}
+              </slot>
+            </CellContent>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>

@@ -63,6 +63,9 @@ const config: KnipConfig = {
     // `rollup.config.mjs`.
     'components/Favicon/react': {},
     'components/Favicon/vue': {},
+    // Table has no component tests yet, for the same reason.
+    'components/Table/react': {},
+    'components/Table/vue': {},
     'components/TestResult/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
       // The build bundles vue-statusicon, which imports icon-registry and
