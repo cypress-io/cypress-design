@@ -25,8 +25,18 @@ export default function a11yAssertions(mountStory: MountFn): void {
   })
 
   it('forwards aria-labelledby', () => {
+    // The heading lives outside the mount root, which Cypress clears between
+    // tests but `document.body` keeps, so drop any copy from a prior run.
+    cy.document().then((doc) => {
+      doc.getElementById('usage-heading')?.remove()
+      const heading = doc.createElement('h2')
+      heading.id = 'usage-heading'
+      heading.textContent = 'Included tests'
+      doc.body.insertBefore(heading, doc.body.firstChild)
+    })
     mountStory({ value: 50, 'aria-labelledby': 'usage-heading' })
     cy.get(bar).should('have.attr', 'aria-labelledby', 'usage-heading')
+    cy.get('#usage-heading').should('have.text', 'Included tests')
   })
 
   it('reports the clamped total as aria-valuenow', () => {
