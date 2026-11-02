@@ -40,7 +40,7 @@ All Tailwind classes live in constants, not the component files, which keeps the
 
 ## Class merging and overrides
 
-Each fill's class list is ordered static → preset color → last-fill rounding → shimmer → caller's class, and merged with `twMerge`, so a caller's `bg-*` replaces the preset instead of fighting it in the cascade. The track does the same with `className` (React) or `class` (Vue). The Vue component sets `inheritAttrs: false` and binds `$attrs` itself for this reason: Vue's own fallthrough would append `class` without merging.
+Each fill's class list is ordered static → preset color → last-fill rounding → shimmer → caller's class, and merged with `twMerge`, so a caller's `bg-*` replaces the preset instead of fighting it in the cascade. The track does the same with `className` (React) or `class` (Vue). The Vue component sets `inheritAttrs: false` and binds the attributes itself for this reason: Vue's own fallthrough would append `class` without merging. It runs `class` through `normalizeClass` first, since twMerge drops object and array syntax, and reads setup's `attrs` rather than `this.$attrs`, which computed() doesn't track in production builds.
 
 Only the last visible fill gets `rounded-r-full`. The track's `rounded-full` plus `overflow-hidden` rounds the start, so the joins between segments stay square.
 

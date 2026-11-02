@@ -23,6 +23,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
   active,
   fillClassName,
   valueText,
+  'aria-valuetext': ariaValueText,
   className,
   ...rest
 }) => {
@@ -35,7 +36,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({
     theme,
     active,
     fillClassName,
-    valueText,
+    valueText: valueText ?? ariaValueText,
   })
 
   if (view.hasActiveFill) ensureActiveStyle()
