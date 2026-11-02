@@ -16,7 +16,7 @@ function mountStory({
 }
 
 describe('<ProgressBar /> Vue', () => {
-  assertions(mountStory, 'vue')
+  assertions(mountStory)
 })
 
 describe('<ProgressBar /> Vue — class syntax', () => {

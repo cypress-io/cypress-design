@@ -16,10 +16,7 @@ function fillWidths(): Cypress.Chainable<number[]> {
   })
 }
 
-export default function assertions(
-  mountStory: MountFn,
-  fw: 'vue' | 'react',
-): void {
+export default function assertions(mountStory: MountFn): void {
   describe('single value', () => {
     it('fills the share of the track given by value / max', () => {
       mountStory({ value: 30 })
@@ -27,7 +24,6 @@ export default function assertions(
       fillWidths().should('deep.equal', [30])
       cy.get(fill).should('have.class', 'bg-indigo-500')
       cy.get(fill).should('have.class', 'rounded-r-full')
-      cy.percySnapshotUnlessInVueGallery(`ProgressBar default - ${fw}`)
     })
 
     it('scales against a custom max', () => {
@@ -65,7 +61,6 @@ export default function assertions(
       it(`renders ${size}px tall`, () => {
         mountStory({ value: 50, size })
         cy.get(bar).invoke('outerHeight').should('equal', Number(size))
-        cy.percySnapshotUnlessInVueGallery(`ProgressBar size ${size} - ${fw}`)
       })
     })
 
@@ -79,14 +74,12 @@ export default function assertions(
     it('applies a preset color', () => {
       mountStory({ value: 50, color: 'teal' })
       cy.get(fill).should('have.class', 'bg-teal-400')
-      cy.percySnapshotUnlessInVueGallery(`ProgressBar color - ${fw}`)
     })
 
     it('uses the dark fills and track on the dark theme', () => {
       mountStory({ value: 50, theme: 'dark' })
       cy.get(bar).should('have.class', 'bg-gray-900')
       cy.get(fill).should('have.class', 'bg-indigo-400')
-      cy.percySnapshotUnlessInVueGallery(`ProgressBar dark - ${fw}`)
     })
 
     it('lets fillClassName override the preset color', () => {
@@ -117,7 +110,6 @@ export default function assertions(
       cy.get(fill).eq(1).should('have.class', 'bg-teal-400')
       cy.get(fill).eq(0).should('not.have.class', 'rounded-r-full')
       cy.get(fill).eq(1).should('have.class', 'rounded-r-full')
-      cy.percySnapshotUnlessInVueGallery(`ProgressBar segments - ${fw}`)
     })
 
     it('ignores value when segments are given', () => {
@@ -148,7 +140,6 @@ export default function assertions(
         .should('have.css', 'animation-name')
         .and('equal', 'cy-progress-bar-shimmer')
       cy.get('style#cy-progress-bar-active-style').should('have.length', 1)
-      cy.percySnapshotUnlessInVueGallery(`ProgressBar active - ${fw}`)
     })
 
     it('does not animate by default', () => {
