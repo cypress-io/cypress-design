@@ -1,0 +1,65 @@
+/// <reference types="cypress" />
+
+import type { ProgressBarProps } from '@cypress-design/constants-progressbar'
+
+type MountFn = (
+  props?: ProgressBarProps & {
+    'aria-label'?: string
+    'aria-labelledby'?: string
+  },
+) => void
+
+const bar = '[data-cy="progress-bar"]'
+
+export default function a11yAssertions(mountStory: MountFn): void {
+  it('exposes the value as a progressbar', () => {
+    mountStory({ value: 3600, max: 10000, 'aria-label': 'Included tests' })
+    cy.get(bar)
+      .should('have.attr', 'role', 'progressbar')
+      .and('have.attr', 'aria-valuemin', '0')
+      .and('have.attr', 'aria-valuemax', '10000')
+      .and('have.attr', 'aria-valuenow', '3600')
+      .and('have.attr', 'aria-label', 'Included tests')
+      .and('not.have.attr', 'aria-valuetext')
+  })
+
+  it('forwards aria-labelledby', () => {
+    mountStory({ value: 50, 'aria-labelledby': 'usage-heading' })
+    cy.get(bar).should('have.attr', 'aria-labelledby', 'usage-heading')
+  })
+
+  it('reports the clamped total as aria-valuenow', () => {
+    mountStory({ value: 140, 'aria-label': 'Upload' })
+    cy.get(bar).should('have.attr', 'aria-valuenow', '100')
+  })
+
+  it('reads labelled segments out as aria-valuetext', () => {
+    mountStory({
+      max: 412,
+      'aria-label': 'Test runs by mode',
+      segments: [
+        { value: 233, label: 'Open mode' },
+        { value: 179, label: 'Run mode', color: 'teal' },
+      ],
+    })
+    cy.get(bar)
+      .should('have.attr', 'aria-valuenow', '412')
+      .and('have.attr', 'aria-valuetext', 'Open mode 233, Run mode 179')
+  })
+
+  it('lets valueText override the announcement', () => {
+    mountStory({
+      value: 64,
+      'aria-label': 'Included tests',
+      valueText: '64% left',
+    })
+    cy.get(bar).should('have.attr', 'aria-valuetext', '64% left')
+  })
+
+  it('stops the shimmer for reduced motion', () => {
+    mountStory({ value: 40, active: true, 'aria-label': 'Uploading' })
+    cy.get('style#cy-progress-bar-active-style')
+      .invoke('text')
+      .should('contain', 'prefers-reduced-motion: reduce')
+  })
+}
