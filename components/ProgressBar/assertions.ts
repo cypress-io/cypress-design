@@ -60,6 +60,7 @@ export default function assertions(
       it(`renders ${size}px tall`, () => {
         mountStory({ value: 50, size })
         cy.get(bar).invoke('outerHeight').should('equal', Number(size))
+        cy.percySnapshotUnlessInVueGallery(`ProgressBar size ${size} - ${fw}`)
       })
     })
 
@@ -73,12 +74,14 @@ export default function assertions(
     it('applies a preset color', () => {
       mountStory({ value: 50, color: 'teal' })
       cy.get(fill).should('have.class', 'bg-teal-400')
+      cy.percySnapshotUnlessInVueGallery(`ProgressBar color - ${fw}`)
     })
 
     it('uses the dark fills and track on the dark theme', () => {
       mountStory({ value: 50, theme: 'dark' })
       cy.get(bar).should('have.class', 'bg-gray-900')
       cy.get(fill).should('have.class', 'bg-indigo-400')
+      cy.percySnapshotUnlessInVueGallery(`ProgressBar dark - ${fw}`)
     })
 
     it('lets fillClassName override the preset color', () => {
@@ -140,6 +143,7 @@ export default function assertions(
         .should('have.css', 'animation-name')
         .and('equal', 'cy-progress-bar-shimmer')
       cy.get('style#cy-progress-bar-active-style').should('have.length', 1)
+      cy.percySnapshotUnlessInVueGallery(`ProgressBar active - ${fw}`)
     })
 
     it('does not animate by default', () => {
