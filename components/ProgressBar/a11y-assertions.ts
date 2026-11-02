@@ -6,6 +6,7 @@ type MountFn = (
   props?: ProgressBarProps & {
     'aria-label'?: string
     'aria-labelledby'?: string
+    'aria-valuetext'?: string
   },
 ) => void
 
@@ -45,6 +46,37 @@ export default function a11yAssertions(mountStory: MountFn): void {
     cy.get(bar)
       .should('have.attr', 'aria-valuenow', '412')
       .and('have.attr', 'aria-valuetext', 'Open mode 233, Run mode 179')
+  })
+
+  it('announces the clamped amounts the bar draws', () => {
+    mountStory({
+      'aria-label': 'Usage',
+      segments: [
+        { value: 80, label: 'Included' },
+        { value: 60, label: 'On-demand' },
+      ],
+    })
+    cy.get(bar)
+      .should('have.attr', 'aria-valuenow', '100')
+      .and('have.attr', 'aria-valuetext', 'Included 80, On-demand 20')
+  })
+
+  it('leaves aria-valuetext off when a segment has no label', () => {
+    mountStory({
+      max: 412,
+      'aria-label': 'Test runs by mode',
+      segments: [{ value: 233, label: 'Open mode' }, { value: 179 }],
+    })
+    cy.get(bar).should('not.have.attr', 'aria-valuetext')
+  })
+
+  it('keeps an aria-valuetext passed as an attribute', () => {
+    mountStory({
+      value: 64,
+      'aria-label': 'Included tests',
+      'aria-valuetext': '64% left',
+    })
+    cy.get(bar).should('have.attr', 'aria-valuetext', '64% left')
   })
 
   it('lets valueText override the announcement', () => {
