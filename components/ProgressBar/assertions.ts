@@ -35,9 +35,14 @@ export default function assertions(
       fillWidths().should('deep.equal', [36])
     })
 
-    it('clamps values outside 0..max', () => {
+    // One mount per test: Vue's mount doesn't unmount the previous
+    // component until the test ends.
+    it('caps values above max', () => {
       mountStory({ value: 140 })
       fillWidths().should('deep.equal', [100])
+    })
+
+    it('treats negative values as 0', () => {
       mountStory({ value: -10 })
       cy.get(fill).should('not.exist')
     })
