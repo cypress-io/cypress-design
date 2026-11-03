@@ -82,4 +82,4 @@ Width changes animate over 500ms, so updating `value` moves the fill smoothly.
 
 - No indeterminate mode: a bar always shows a value. Use `active` with your best estimate, or a Spinner when there's none.
 - No built-in label, value text, or legend. Render those yourself next to the bar.
-- The 2px gap between segments takes width from the last segment, so the last fill is a few pixels shorter than its exact share.
+- The 2px gaps between segments add to the fills rather than coming out of them. Below 100%, a bar with `n` segments ends `2px × (n - 1)` past its value. At 100%, the overflow shrinks every fill in proportion to its width. Either way, segment edges are a few pixels off their exact share.
