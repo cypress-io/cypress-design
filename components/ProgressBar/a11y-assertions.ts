@@ -120,19 +120,26 @@ export default function a11yAssertions(mountStory: MountFn): void {
     cy.get(bar).should('have.attr', 'aria-valuetext', '64% left')
   })
 
+  // cypress/support/component.ts already spies on console.warn and fails any
+  // test that warns, so these read that spy instead of adding their own.
   describe('dev warning', () => {
     it('warns when the bar has no name', () => {
-      cy.spy(console, 'warn').as('warn')
       mountStory({ value: 50 })
       cy.get(bar).should('exist')
-      cy.get('@warn').should('have.been.calledWithMatch', /\[ProgressBar\]/)
+      cy.window().then((win) => {
+        const warn = win.console.warn as unknown as sinon.SinonSpy
+        expect(warn).to.have.been.calledWithMatch(/\[ProgressBar\]/)
+        // Clear the expected warning so the support file's check passes.
+        warn.resetHistory()
+      })
     })
 
     it('stays quiet when the bar is named', () => {
-      cy.spy(console, 'warn').as('warn')
       mountStory({ value: 50, 'aria-label': 'Upload' })
       cy.get(bar).should('exist')
-      cy.get('@warn').should('not.have.been.calledWithMatch', /\[ProgressBar\]/)
+      cy.window()
+        .its('console.warn')
+        .should('not.have.been.calledWithMatch', /\[ProgressBar\]/)
     })
   })
 
