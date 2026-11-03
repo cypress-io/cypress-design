@@ -24,7 +24,7 @@ import {
   CssTableClasses,
   IconFillColor,
   IconStrokeColor,
-  RowLinkAttributes,
+  RowLinkCellAttributes,
   SortArrowStrokeColor,
   followRowLink,
   getArrowDirection,
@@ -117,6 +117,20 @@ const displayedRows = computed(() =>
     row,
     key: getRowKey(row, props.rowKey),
     link: props.rowLink?.(row),
+    // Resolved once per cell; the template reads each in several places.
+    cells: props.columns.map((column) => {
+      const value = getCellValue(row, column)
+      const isPrimary = column.key === primaryKey.value
+      return {
+        column,
+        value,
+        isPrimary,
+        align: getCellAlign(column, row),
+        icon: column.cellIcon?.(row),
+        title: column.truncate && typeof value === 'string' ? value : undefined,
+        widthClass: getCellContentWidthClasses(column, isPrimary),
+      }
+    }),
   })),
 )
 
@@ -128,11 +142,6 @@ function handleSort(column: TableColumn) {
 
 function handleRowClick(event: MouseEvent) {
   followRowLink(event, event.currentTarget as HTMLElement)
-}
-
-function cellTitle(row: Row, column: TableColumn) {
-  const value = getCellValue(row, column)
-  return column.truncate && typeof value === 'string' ? value : undefined
 }
 </script>
 
@@ -210,59 +219,58 @@ function cellTitle(row: Row, column: TableColumn) {
       </thead>
       <tbody>
         <tr
-          v-for="{ row, key, link } in displayedRows"
+          v-for="{ row, key, link, cells } in displayedRows"
           :key="key"
           :class="{ [CssClickableRowClasses]: link }"
           @click="link && handleRowClick($event)"
           @auxclick="link && handleRowClick($event)"
         >
           <td
-            v-for="column in columns"
+            v-for="{
+              column,
+              value,
+              isPrimary,
+              align,
+              icon,
+              title,
+              widthClass,
+            } in cells"
             :key="column.key"
+            v-bind="link && isPrimary ? RowLinkCellAttributes : {}"
             :class="[
               CssBodyCellClasses,
-              CssAlignClasses[getCellAlign(column, row)],
-              getBodyCellPaddingEnd(column, getCellAlign(column, row), canSort),
-              getColumnWidthClasses(column, column.key === primaryKey),
+              CssAlignClasses[align],
+              getBodyCellPaddingEnd(column, align, canSort),
+              getColumnWidthClasses(column, isPrimary),
               { [CssClickableRowCellClasses]: link },
             ]"
           >
             <component
               :is="rowLinkAs"
-              v-if="link && column.key === primaryKey"
-              v-bind="{ ...link, ...RowLinkAttributes }"
+              v-if="link && isPrimary"
+              v-bind="link"
               :class="CssRowLinkClasses"
             >
               <CellContent
-                :icon="column.cellIcon?.(row)"
+                :icon="icon"
                 :truncate="column.truncate"
-                :width-class="getCellContentWidthClasses(column, true)"
-                :title="cellTitle(row, column)"
+                :width-class="widthClass"
+                :title="title"
               >
-                <slot
-                  :name="`cell-${column.key}`"
-                  :row="row"
-                  :value="getCellValue(row, column)"
-                >
-                  {{ getCellValue(row, column) }}
+                <slot :name="`cell-${column.key}`" :row="row" :value="value">
+                  {{ value }}
                 </slot>
               </CellContent>
             </component>
             <CellContent
               v-else
-              :icon="column.cellIcon?.(row)"
+              :icon="icon"
               :truncate="column.truncate"
-              :width-class="
-                getCellContentWidthClasses(column, column.key === primaryKey)
-              "
-              :title="cellTitle(row, column)"
+              :width-class="widthClass"
+              :title="title"
             >
-              <slot
-                :name="`cell-${column.key}`"
-                :row="row"
-                :value="getCellValue(row, column)"
-              >
-                {{ getCellValue(row, column) }}
+              <slot :name="`cell-${column.key}`" :row="row" :value="value">
+                {{ value }}
               </slot>
             </CellContent>
           </td>
