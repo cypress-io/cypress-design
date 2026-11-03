@@ -75,7 +75,7 @@ Width changes animate over 500ms, so updating `value` moves the fill smoothly.
 
 - The root has `role="progressbar"` with `aria-valuemin="0"`, `aria-valuemax` set to `max`, and `aria-valuenow` set to the filled total (the sum of the segments, capped at `max`).
 - **Always name the bar** with `aria-label` or `aria-labelledby`. The component renders no text, and a progressbar without a name fails Cypress Accessibility.
-- When every segment has a `label`, `aria-valuetext` defaults to each label and its value ("Open mode 233, Run mode 179"), using the same capped amounts the bar draws. If any segment has no label, the default is left off so screen readers read the numeric value instead. Pass `valueText` (or `aria-valuetext`) when another phrasing reads better ("3,600 of 10,000 used"); `valueText` wins if both are set.
+- When every segment has a `label`, `aria-valuetext` defaults to each label and its value, formatted for the reader's locale ("Open mode 233, Run mode 179" or "Included 3,600"), using the same capped amounts the bar draws. If any segment has no label, the default is left off so screen readers read the numeric value instead. Pass `valueText` (or `aria-valuetext`) when another phrasing reads better ("3,600 of 10,000 used"); `valueText` wins if both are set.
 - Color alone can't carry meaning. Show the numbers in text next to the bar, the way the usage legends do. Every preset fill holds 3:1 against its track except `indigo-light` (2.1:1 on light), which needs that text beside it. Check a custom `fillClassName` color against the track yourself.
 
 ## Known limitations
