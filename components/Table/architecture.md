@@ -29,21 +29,23 @@ Class strings also live in constants. The Tailwind ESLint rules only cover `comp
 
 ## Sort state
 
-Both frameworks keep a local copy of the sort so an uncontrolled table works. React treats `sort !== undefined` as controlled and never writes local state then. Vue always writes the local ref and emits `update:sort`; a `watch` on the prop resyncs it, so `v-model:sort` and an unbound table both work.
+Both frameworks treat `sort !== undefined` as controlled: a click only reports the next sort (`onSortChange` / `update:sort`) and the table shows the prop. Unbound, they keep the sort in local state, so an uncontrolled table works too. Vue's `v-model:sort` is the controlled case.
 
 `manualSort` only skips `sortRows`; the header still shows and reports sort state.
 
-Sorting is hidden below `MinRowsToSort` rows because there's nothing to reorder.
+Sorting is hidden below `MinRowsToSort` rows because there's nothing to reorder, except with `manualSort`, where `rows` may be one page of a longer list.
+
+Row keys come from `rowKey`. A row missing the field gets a key generated once per row object (a `WeakMap`), so keys stay unique and move with the row when it's re-sorted.
 
 ## Column width and scrolling
 
-The primary `<th>`/`<td>` get `w-full`, so in an auto-layout table the column takes the leftover width. A truncating primary column adds `max-w-0`, which lets it shrink below its content so the inner `truncate` element ellipsizes instead of widening the table. Other truncating columns have no leftover width to shrink into, so they cap at `max-w-xs` instead.
+The primary `<th>`/`<td>` get `w-full`, so in an auto-layout table the column takes the leftover width. A truncating primary column adds `max-w-0`, which lets it shrink below its content so the inner `truncate` element ellipsizes instead of widening the table. Other truncating columns have no leftover width to shrink into, so their content caps at `max-w-xs`. The cap goes on the content element rather than the `<td>`, because CSS leaves `max-width` on table cells undefined. Truncating text next to an icon has `min-w-0` so it can shrink inside the flex row.
 
-Without truncation a long value widens the table, so the `<table>` sits in an `overflow-x-auto` wrapper. The wrapper is dropped when `stickyHeader` is set: an overflow wrapper becomes the header's nearest scrolling ancestor, and since it never scrolls vertically the header would never stick. Vue sets `inheritAttrs: false` and binds `$attrs` on the `<table>`, so attributes land on the table in both frameworks.
+Without truncation a long value widens the table, so the `<table>` sits in an `overflow-x-auto` wrapper. The wrapper has 2px padding offset by an equal negative margin, so the hovered row's outer ring isn't clipped and the table still lines up with its surroundings. The wrapper is dropped when `stickyHeader` is set: an overflow wrapper becomes the header's nearest scrolling ancestor, and since it never scrolls vertically the header would never stick. Vue sets `inheritAttrs: false` and binds `$attrs` on the `<table>`, so attributes land on the table in both frameworks.
 
 ## Clickable rows
 
-The row link is a real link element in the primary cell, so focus, screen readers, and Cmd/Ctrl-click on the link work natively. Clicks elsewhere on the row go through `followRowLink`, which ignores clicks on interactive descendants and text selections, opens a new tab for Cmd/Ctrl/middle-click, and otherwise calls `click()` on the link so router links run their own handler.
+The row link is a real link element in the primary cell, so focus, screen readers, and Cmd/Ctrl-click on the link work natively. Clicks elsewhere on the row go through `followRowLink`, which ignores clicks on interactive elements inside the row (not ancestors of the table, which may be a focusable scroll container) and text selections, opens a new tab for Cmd/Ctrl/Shift/middle-click, and otherwise calls `click()` on the link so router links run their own handler.
 
 A stretched `::after` overlay on the link would be simpler, but Safari doesn't treat a `position: relative` table row as the containing block (WebKit bug 240961), so the overlay escapes the row.
 

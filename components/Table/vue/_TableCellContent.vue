@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import {
-  CssCellIconContentClasses,
   CssIconClasses,
+  CssIconContentClasses,
   CssTruncateClasses,
   IconFillColor,
   IconStrokeColor,
@@ -11,12 +11,13 @@ import {
 defineProps<{
   icon?: Component
   truncate?: boolean
+  widthClass?: string
   title?: string
 }>()
 </script>
 
 <template>
-  <span v-if="icon" :class="CssCellIconContentClasses">
+  <span v-if="icon" :class="[CssIconContentClasses, widthClass]">
     <component
       :is="icon"
       aria-hidden="true"
@@ -28,7 +29,11 @@ defineProps<{
       <slot />
     </span>
   </span>
-  <span v-else-if="truncate" :class="CssTruncateClasses" :title="title">
+  <span
+    v-else-if="truncate"
+    :class="[CssTruncateClasses, widthClass]"
+    :title="title"
+  >
     <slot />
   </span>
   <slot v-else />

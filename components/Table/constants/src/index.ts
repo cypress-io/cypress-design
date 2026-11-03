@@ -34,7 +34,13 @@ export const DefaultAlign: TableAlign = 'left'
 export const DefaultFirstSortDirection: TableSortDirection = 'ascending'
 
 // Sorting with one row has nothing to reorder, so headers render as plain text.
+// With `manualSort` the page may hold more rows than it passes (one page of a
+// server-sorted list), so the headers always stay sortable.
 export const MinRowsToSort = 2
+
+export function getCanSort(rowCount: number, manualSort: boolean): boolean {
+  return manualSort || rowCount >= MinRowsToSort
+}
 
 export function getCellValue<Row>(
   row: Row,
@@ -62,9 +68,22 @@ export function getPrimaryColumnKey<Row>(
   return (columns.find((column) => column.primary) ?? columns[0])?.key
 }
 
+// Rows missing their key field get a generated key tied to the row object, so
+// keys stay unique and follow the row when it's reordered.
+const generatedRowKeys = new WeakMap<object, string>()
+let nextGeneratedRowKey = 0
+
 export function getRowKey<Row>(row: Row, rowKey: TableRowKey<Row>): string {
   if (typeof rowKey === 'function') return rowKey(row)
-  return String((row as Record<string, unknown>)[rowKey])
+  const value = (row as Record<string, unknown>)[rowKey]
+  if (value !== undefined && value !== null) return String(value)
+  const object = row as object
+  let key = generatedRowKeys.get(object)
+  if (key === undefined) {
+    key = `table-row-${nextGeneratedRowKey++}`
+    generatedRowKeys.set(object, key)
+  }
+  return key
 }
 
 export function getNextSort<Row>(
@@ -161,12 +180,17 @@ const InteractiveSelector =
 export function followRowLink(event: MouseEvent, row: HTMLElement): void {
   if (event.defaultPrevented) return
   if (event.button !== 0 && event.button !== 1) return
-  const target = event.target as Element | null
-  if (target?.closest(InteractiveSelector)) return
+  // Only interactive elements inside the row count; the table itself may sit
+  // in a focusable scroll container or a `<label>`.
+  const interactive = (event.target as Element | null)?.closest(
+    InteractiveSelector,
+  )
+  if (interactive && row.contains(interactive)) return
   if (window.getSelection()?.toString()) return
   const link = row.querySelector<HTMLAnchorElement>(`[${RowLinkAttribute}]`)
   if (!link) return
-  const newTab = event.button === 1 || event.metaKey || event.ctrlKey
+  const newTab =
+    event.button === 1 || event.metaKey || event.ctrlKey || event.shiftKey
   if (newTab && link.href) {
     window.open(link.href, '_blank', 'noopener')
     return
@@ -191,44 +215,53 @@ export const CssStickyHeaderCellClasses = 'sticky top-0 z-10'
 export const CssPrimaryCellClasses = 'w-full'
 
 // `max-w-0` lets the full-width primary column shrink below its content so it
-// ellipsizes instead of widening the table. Other columns have no leftover
-// width to give, so they cap at a fixed width instead.
-export const CssTruncateCellClasses = {
-  primary: 'max-w-0',
-  other: 'max-w-xs',
-} as const
+// ellipsizes instead of widening the table.
+export const CssTruncatePrimaryCellClasses = 'max-w-0'
 
 export function getColumnWidthClasses<Row>(
   column: TableColumnBase<Row>,
   isPrimary: boolean,
 ): string {
-  const classes: string[] = []
-  if (isPrimary) classes.push(CssPrimaryCellClasses)
-  if (column.truncate) {
-    classes.push(
-      isPrimary ? CssTruncateCellClasses.primary : CssTruncateCellClasses.other,
-    )
-  }
-  return classes.join(' ')
+  if (!isPrimary) return ''
+  return column.truncate
+    ? `${CssPrimaryCellClasses} ${CssTruncatePrimaryCellClasses}`
+    : CssPrimaryCellClasses
+}
+
+// Other truncating columns have no leftover width to give, so their content
+// caps at a fixed width. The cap sits on the content, not the `<td>`, because
+// `max-width` on table cells is undefined in CSS.
+export const CssContentWidthClasses = {
+  fit: 'max-w-full',
+  capped: 'max-w-xs',
+} as const
+
+export function getCellContentWidthClasses<Row>(
+  column: TableColumnBase<Row>,
+  isPrimary: boolean,
+): string {
+  return column.truncate && !isPrimary
+    ? CssContentWidthClasses.capped
+    : CssContentWidthClasses.fit
 }
 
 // Without truncation a long value widens its column, so the table scrolls
-// sideways inside this wrapper. A sticky header needs the consumer's scroll
-// container instead: an `overflow` wrapper here would become the header's
-// sticky ancestor and it would never stick.
-export const CssScrollContainerClasses = 'overflow-x-auto'
+// sideways inside this wrapper. Its padding, offset by an equal negative
+// margin, leaves room for the hovered row's outer ring, which the overflow
+// would otherwise clip. A sticky header needs the consumer's scroll container
+// instead: an `overflow` wrapper here would become the header's sticky
+// ancestor and it would never stick.
+export const CssScrollContainerClasses = '-m-0.5 overflow-x-auto p-0.5'
 
-export const CssHeaderContentClasses =
-  'inline-flex max-w-full items-center gap-2 align-middle'
+// Icon + text, used by headers and by cells with a `cellIcon`.
+export const CssIconContentClasses =
+  'inline-flex items-center gap-2 align-middle'
 
 export const CssIconClasses = 'shrink-0'
 
 export const IconStrokeColor = 'gray-500'
 
 export const IconFillColor = 'gray-50'
-
-export const CssCellIconContentClasses =
-  'inline-flex max-w-full items-center gap-2 align-middle'
 
 export const CssSortButtonClasses =
   'group/sort inline-flex max-w-full items-center gap-2 rounded text-gray-900 hover:text-indigo-500 focus-visible:text-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500'
@@ -244,10 +277,10 @@ export const SortArrowStrokeColor = 'indigo-500'
 export const CssBodyCellClasses =
   'whitespace-nowrap border-b border-gray-50 py-3 pl-4'
 
-// The sort indicator takes its space even while hidden, so a sortable
-// header's label ends 28px (indicator + gap) before the cell edge. Right- and
-// center-aligned cells in that column get the same extra end padding so their
-// values line up with the label.
+// The sort indicator takes its space even while hidden, so a right- or
+// center-aligned sortable header's label sits 28px (indicator + gap) further
+// from the end edge. Cells aligned the same way as that header get the same
+// extra end padding so their values line up with the label.
 export const CssBodyCellPaddingEndClasses = {
   default: 'pr-4',
   sortable: 'pr-11',
@@ -255,15 +288,22 @@ export const CssBodyCellPaddingEndClasses = {
 
 export function getBodyCellPaddingEnd<Row>(
   column: TableColumnBase<Row>,
-  align: TableAlign,
+  cellAlign: TableAlign,
   canSort: boolean,
 ): string {
-  return column.sortable && canSort && align !== 'left'
+  const headerAlign = getHeaderAlign(column)
+  return column.sortable &&
+    canSort &&
+    headerAlign !== 'left' &&
+    cellAlign === headerAlign
     ? CssBodyCellPaddingEndClasses.sortable
     : CssBodyCellPaddingEndClasses.default
 }
 
-export const CssTruncateClasses = 'block truncate'
+// `min-w-0` lets the text shrink when it sits next to an icon in a flex row.
+export const CssTruncateClasses = 'block min-w-0 truncate'
+
+export const CssLabelClasses = 'min-w-0 truncate'
 
 // Cells paint over the row's shadow, so their divider is hidden while the
 // outline shows, or it would draw over the outline's bottom edge.

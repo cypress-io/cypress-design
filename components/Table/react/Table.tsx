@@ -7,12 +7,13 @@ import {
   type TableSort,
   CssAlignClasses,
   CssBodyCellClasses,
-  CssCellIconContentClasses,
   CssClickableRowCellClasses,
   CssClickableRowClasses,
   CssHeaderCellClasses,
-  CssHeaderContentClasses,
+  CssContentWidthClasses,
   CssIconClasses,
+  CssIconContentClasses,
+  CssLabelClasses,
   CssRowLinkClasses,
   CssScrollContainerClasses,
   CssSortButtonClasses,
@@ -23,13 +24,14 @@ import {
   CssTruncateClasses,
   IconFillColor,
   IconStrokeColor,
-  MinRowsToSort,
   RowLinkAttributes,
   SortArrowStrokeColor,
   followRowLink,
   getArrowDirection,
   getBodyCellPaddingEnd,
+  getCanSort,
   getCellAlign,
+  getCellContentWidthClasses,
   getCellValue,
   getColumnWidthClasses,
   getHeaderAlign,
@@ -107,8 +109,10 @@ export function Table<Row>({
   const sort = isControlled ? sortProp : internalSort
 
   const primaryKey = getPrimaryColumnKey(columns)
-  const canSort = rows.length >= MinRowsToSort
+  const canSort = getCanSort(rows.length, manualSort)
 
+  // Recomputed whenever `columns` changes identity, so consumers should define
+  // columns outside the component or memoize them.
   const displayedRows = React.useMemo(
     () => (manualSort ? rows : sortRows(rows, columns, sort)),
     [rows, columns, sort, manualSort],
@@ -145,7 +149,7 @@ export function Table<Row>({
                       fillColor={IconFillColor}
                     />
                   )}
-                  <span className="truncate">{column.label}</span>
+                  <span className={CssLabelClasses}>{column.label}</span>
                 </>
               )
 
@@ -181,7 +185,14 @@ export function Table<Row>({
                       </span>
                     </button>
                   ) : (
-                    <span className={CssHeaderContentClasses}>{label}</span>
+                    <span
+                      className={clsx(
+                        CssIconContentClasses,
+                        CssContentWidthClasses.fit,
+                      )}
+                    >
+                      {label}
+                    </span>
                   )}
                 </th>
               )
@@ -211,8 +222,12 @@ export function Table<Row>({
                       : undefined
                   const align = getCellAlign(column, row)
                   const CellIcon = column.cellIcon?.(row)
+                  const widthClasses = getCellContentWidthClasses(
+                    column,
+                    isPrimary,
+                  )
                   const body = CellIcon ? (
-                    <span className={CssCellIconContentClasses}>
+                    <span className={clsx(CssIconContentClasses, widthClasses)}>
                       <CellIcon
                         aria-hidden="true"
                         className={CssIconClasses}
@@ -229,7 +244,10 @@ export function Table<Row>({
                       </span>
                     </span>
                   ) : column.truncate ? (
-                    <span className={CssTruncateClasses} title={title}>
+                    <span
+                      className={clsx(CssTruncateClasses, widthClasses)}
+                      title={title}
+                    >
                       {content}
                     </span>
                   ) : (

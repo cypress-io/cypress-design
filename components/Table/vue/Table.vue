@@ -1,5 +1,5 @@
 <script lang="ts" setup generic="Row">
-import { type Component, type VNode, computed, ref, watch } from 'vue'
+import { type Component, type VNode, computed, ref } from 'vue'
 import { IconArrowDown, IconArrowUp } from '@cypress-design/vue-icon'
 import CellContent from './_TableCellContent.vue'
 import {
@@ -11,8 +11,10 @@ import {
   CssClickableRowCellClasses,
   CssClickableRowClasses,
   CssHeaderCellClasses,
-  CssHeaderContentClasses,
+  CssContentWidthClasses,
   CssIconClasses,
+  CssIconContentClasses,
+  CssLabelClasses,
   CssRowLinkClasses,
   CssScrollContainerClasses,
   CssSortButtonClasses,
@@ -22,13 +24,14 @@ import {
   CssTableClasses,
   IconFillColor,
   IconStrokeColor,
-  MinRowsToSort,
   RowLinkAttributes,
   SortArrowStrokeColor,
   followRowLink,
   getArrowDirection,
   getBodyCellPaddingEnd,
+  getCanSort,
   getCellAlign,
+  getCellContentWidthClasses,
   getCellValue,
   getColumnWidthClasses,
   getHeaderAlign,
@@ -95,16 +98,16 @@ defineSlots<
   }
 >()
 
-const currentSort = ref<TableSort | null>(props.sort ?? null)
-watch(
-  () => props.sort,
-  (sort) => {
-    currentSort.value = sort ?? null
-  },
+// Bound `sort` (including `null`) makes the table controlled: clicks only emit
+// `update:sort` and the parent decides. Unbound, the table keeps its own sort.
+const localSort = ref<TableSort | null>(null)
+const isControlled = computed(() => props.sort !== undefined)
+const currentSort = computed(() =>
+  isControlled.value ? props.sort ?? null : localSort.value,
 )
 
 const primaryKey = computed(() => getPrimaryColumnKey(props.columns))
-const canSort = computed(() => props.rows.length >= MinRowsToSort)
+const canSort = computed(() => getCanSort(props.rows.length, props.manualSort))
 
 const displayedRows = computed(() =>
   (props.manualSort
@@ -119,7 +122,7 @@ const displayedRows = computed(() =>
 
 function handleSort(column: TableColumn) {
   const next = getNextSort(column, currentSort.value)
-  currentSort.value = next
+  if (!isControlled.value) localSort.value = next
   emit('update:sort', next)
 }
 
@@ -162,7 +165,7 @@ function cellTitle(row: Row, column: TableColumn) {
               :class="
                 column.sortable && canSort
                   ? CssSortButtonClasses
-                  : CssHeaderContentClasses
+                  : [CssIconContentClasses, CssContentWidthClasses.fit]
               "
               @click="
                 column.sortable && canSort ? handleSort(column) : undefined
@@ -176,7 +179,7 @@ function cellTitle(row: Row, column: TableColumn) {
                 :stroke-color="IconStrokeColor"
                 :fill-color="IconFillColor"
               />
-              <span class="truncate">
+              <span :class="CssLabelClasses">
                 <slot :name="`header-${column.key}`" :column="column">
                   {{ column.label }}
                 </slot>
@@ -233,6 +236,7 @@ function cellTitle(row: Row, column: TableColumn) {
               <CellContent
                 :icon="column.cellIcon?.(row)"
                 :truncate="column.truncate"
+                :width-class="getCellContentWidthClasses(column, true)"
                 :title="cellTitle(row, column)"
               >
                 <slot
@@ -248,6 +252,9 @@ function cellTitle(row: Row, column: TableColumn) {
               v-else
               :icon="column.cellIcon?.(row)"
               :truncate="column.truncate"
+              :width-class="
+                getCellContentWidthClasses(column, column.key === primaryKey)
+              "
               :title="cellTitle(row, column)"
             >
               <slot

@@ -44,14 +44,14 @@ Only `columns` and `rows` are required. Vue takes the same props in kebab-case.
 
 - **`columns`** — `TableColumn[]`, **required**. See [Columns](#columns).
 - **`rows`** — `Row[]`, **required**. Any objects. React types the table as `Table<Row>` from this prop.
-- **`rowKey`** — `string | ((row: Row) => string)`. Default `'id'`. A unique, stable key per row.
+- **`rowKey`** — `string | ((row: Row) => string)`. Default `'id'`. A unique, stable key per row. Rows missing the field get a generated key tied to the row object.
 
 ### Sorting
 
-- **`sort`** — `TableSort | null`. The current sort. Controlled when set. Vue binds it with `v-model:sort`.
+- **`sort`** — `TableSort | null`. The current sort. Controlled when set, including `null` for unsorted: a click only reports the new sort, and the table shows whatever `sort` the page passes back. Vue binds it with `v-model:sort`.
 - **`defaultSort`** — `TableSort`. React only. Initial sort for an uncontrolled table. Vue seeds it by binding `v-model:sort` to a local ref.
 - **`onSortChange`** — `(sort: TableSort) => void`. React only. Called when a sort button is clicked. Vue emits `update:sort`.
-- **`manualSort`** — `boolean`. Default `false`. When `false`, Table reorders `rows` itself using each column's `sortValue`. When `true`, Table only shows the sort state and reports clicks; the page reorders `rows` (server-side sorting, or sorting persisted in the URL).
+- **`manualSort`** — `boolean`. Default `false`. When `false`, Table reorders `rows` itself using each column's `sortValue`. When `true`, Table only shows the sort state and reports clicks; the page reorders `rows` (server-side sorting, or sorting persisted in the URL). Sort buttons stay visible however many rows are passed, since `rows` may be one page of a longer list.
 
 A click on the sorted column's button flips its direction. A click on any other sortable column sorts by that column in its `firstSortDirection`. There is no unsorted state once a sort is set.
 
@@ -100,6 +100,8 @@ Use `firstSortDirection: 'descending'` for columns where the largest value is th
 
 Set `primary` on at most one column. The primary column grows to fill the remaining width and holds the row link.
 
+React: define `columns` outside the component, or wrap it in `useMemo`. A new `columns` array on every render makes Table re-sort `rows` on every render.
+
 ### Width and scrolling
 
 Cells don't wrap. By default every value shows in full: a long value widens its column, and when the table is wider than its container it scrolls sideways.
@@ -118,25 +120,27 @@ By default a cell shows `row[column.key]` as text.
 - Vue: use the `cell-<key>` scoped slot, with `row` and `value` (the default `row[key]`) as slot props.
 
 ```tsx
-<Table
+const columns: TableColumn<User>[] = [
+  { key: 'name', label: 'User', render: (u) => <UserCell user={u} /> },
+  {
+    key: 'calls',
+    label: 'Calls',
+    sortable: true,
+    firstSortDirection: 'descending',
+    render: (u) => <CallsBar value={u.calls} max={MaxCalls} />,
+  },
+  {
+    key: 'lastActive',
+    label: 'Last active',
+    sortValue: (u) => u.lastActiveAt,
+  },
+]
+
+;<Table
   aria-label="Usage"
   rows={users}
   defaultSort={{ key: 'calls', direction: 'descending' }}
-  columns={[
-    { key: 'name', label: 'User', render: (u) => <UserCell user={u} /> },
-    {
-      key: 'calls',
-      label: 'Calls',
-      sortable: true,
-      firstSortDirection: 'descending',
-      render: (u) => <CallsBar value={u.calls} max={maxCalls} />,
-    },
-    {
-      key: 'lastActive',
-      label: 'Last active',
-      sortValue: (u) => u.lastActiveAt,
-    },
-  ]}
+  columns={columns}
 />
 ```
 
@@ -171,7 +175,7 @@ By default a cell shows `row[column.key]` as text.
 ### Headers
 
 - Each header shows the column's `icon` (if any), then the `label`. Header and cell icons render with a `gray-500` outline and `gray-50` fill.
-- A sortable header wraps the label in a sort button. The round sort button with an arrow sits after the label in every alignment. Its space is reserved even while it's hidden, so right- and center-aligned cells in a sortable column get matching extra end padding and their values line up with the label, not with the button.
+- A sortable header wraps the label in a sort button. The round sort button with an arrow sits after the label in every alignment. Its space is reserved even while it's hidden, so when a sortable header is right- or center-aligned, cells aligned the same way get matching extra end padding and their values line up with the label, not with the button.
 - Vue: a `header-<key>` scoped slot replaces the label, with `column` as its slot prop. The icon and sort button stay in place. React has no header override.
 
 ## Sorting states
@@ -179,13 +183,13 @@ By default a cell shows `row[column.key]` as text.
 - **Sorted column:** the sort button is always visible. The arrow points up for ascending, down for descending.
 - **Other sortable columns:** the sort button appears on hover and keyboard focus, showing the arrow for the column's `firstSortDirection`, the direction a click applies.
 - **Hover / focus-visible:** the label turns indigo; keyboard focus adds an outline around the label and sort button.
-- **Fewer than two rows:** sort buttons are hidden and headers render as plain text, since there's nothing to reorder.
+- **Fewer than two rows:** sort buttons are hidden and headers render as plain text, since there's nothing to reorder. With `manualSort` they always show.
 
 ## Clickable rows
 
 Rows are not clickable unless `rowLink` is set. A clickable row:
 
-- Renders the primary cell's content inside the link element (`rowLinkAs`, given the props `rowLink` returns). A click anywhere else on the row follows that link too; Cmd/Ctrl-click or middle-click opens it in a new tab. Clicks that end a text selection don't navigate.
+- Renders the primary cell's content inside the link element (`rowLinkAs`, given the props `rowLink` returns). A click anywhere else on the row follows that link too; Cmd/Ctrl/Shift-click or middle-click opens it in a new tab. Clicks that end a text selection don't navigate.
 - Shows a rounded outline on hover, and a darker outline while its link has keyboard focus.
 
 A row `rowLink` returns `undefined` for renders without a link and without hover or focus styles. Non-clickable tables never show a row hover state.
