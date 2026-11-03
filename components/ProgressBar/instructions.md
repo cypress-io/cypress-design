@@ -43,7 +43,7 @@ All props are optional. Vue takes the same names in kebab-case (`fill-class-name
 - **`fillClassName`** — `string`. Extra classes for the fill, merged last with `tailwind-merge`, so a `bg-*` class here replaces the preset color. Single-value bars only; give each segment its own `className` instead.
 - **`valueText`** — `string`. Overrides what screen readers announce for the value (sets `aria-valuetext`).
 
-Other attributes (`aria-label`, `aria-labelledby`, `id`, `data-*`, event handlers) go to the root `<div>`.
+Other attributes (`aria-label`, `aria-labelledby`, `id`, `data-*`, event handlers) go to the root `<div>`. In React, `ref` does too.
 
 - **React** — `className` is merged onto the track with `tailwind-merge`, so a `bg-*` class recolors the track. The `ProgressBarProps`, `ProgressBarSegment`, `ProgressBarColor`, `ProgressBarSize`, and `ProgressBarTheme` types are exported.
 - **Vue** — `class` is merged the same way, in any form Vue accepts (string, object, or array). The same types are exported.

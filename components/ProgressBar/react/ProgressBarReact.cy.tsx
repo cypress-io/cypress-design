@@ -14,6 +14,14 @@ function mountStory(props: ProgressBarProps = {}) {
 
 describe('<ProgressBar /> React', () => {
   assertions(mountStory)
+
+  it('forwards a ref to the track', () => {
+    const ref = React.createRef<HTMLDivElement>()
+    mount(<ProgressBar ref={ref} value={50} aria-label="Progress" />)
+    cy.get('[data-cy="progress-bar"]').then(($bar) => {
+      expect(ref.current).to.equal($bar[0])
+    })
+  })
 })
 
 // One snapshot of every resting state, mirroring the Vue docs gallery

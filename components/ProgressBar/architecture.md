@@ -46,6 +46,6 @@ Only the last visible fill gets `rounded-r-full`. The track's `rounded-full` plu
 
 ## Shimmer
 
-The active shimmer is a gradient plus a `@keyframes` rule. `@cypress-design/css` has no keyframe for it, so `ensureActiveStyle` injects one global `<style id="cy-progress-bar-active-style">` the first time an active fill renders. The id check means a page with both the React and Vue packages injects it once. The rule sets only `background-image`, never `background-color`, so it layers over any fill color, including custom ones. It's turned off under `prefers-reduced-motion: reduce`, and Percy freezes animations globally (`.percy.yml`).
+The active shimmer is a gradient plus a `@keyframes` rule. `@cypress-design/css` has no keyframe for it, so `ensureActiveStyle` injects one global `<style id="cy-progress-bar-active-style">` the first time an active fill renders: from `useInsertionEffect` in React, so render stays pure, and from a `watchEffect` in Vue. The id check means a page with both the React and Vue packages injects it once. The rule sets only `background-image`, never `background-color`, so it layers over any fill color, including custom ones. It's turned off under `prefers-reduced-motion: reduce`, and Percy freezes animations globally (`.percy.yml`).
 
 Fill widths are inline `style` widths, since they're computed at runtime; that's the one inline style in the component.
