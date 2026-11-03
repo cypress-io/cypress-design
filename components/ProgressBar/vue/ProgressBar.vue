@@ -3,6 +3,7 @@ import {
   computed,
   defineComponent,
   normalizeClass,
+  onMounted,
   watchEffect,
   type PropType,
 } from 'vue'
@@ -10,6 +11,7 @@ import { twMerge } from 'tailwind-merge'
 import {
   buildProgressBarView,
   ensureActiveStyle,
+  warnIfUnnamed,
   DefaultColor,
   DefaultMax,
   DefaultSize,
@@ -50,7 +52,7 @@ export default defineComponent({
   },
   // `$attrs` is read in the template, not in a computed: attrs aren't
   // reactive, but the template re-renders whenever they change.
-  setup(props) {
+  setup(props, { attrs }) {
     const view = computed(() => buildProgressBarView(props))
     const fills = computed(() =>
       view.value.fills.map((fill) => ({
@@ -62,6 +64,11 @@ export default defineComponent({
 
     watchEffect(() => {
       if (view.value.hasActiveFill) ensureActiveStyle()
+    })
+
+    // A one-off check at mount, so it can read setup's non-reactive attrs.
+    onMounted(() => {
+      warnIfUnnamed(attrs['aria-label'], attrs['aria-labelledby'])
     })
 
     // normalizeClass flattens Vue's object and array class syntax, which

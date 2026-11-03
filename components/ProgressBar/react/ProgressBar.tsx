@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import {
   buildProgressBarView,
   ensureActiveStyle,
+  warnIfUnnamed,
   type ProgressBarProps as SharedProgressBarProps,
 } from '@cypress-design/constants-progressbar'
 
@@ -49,6 +50,12 @@ export const ProgressBar = React.forwardRef<HTMLDivElement, ProgressBarProps>(
     React.useInsertionEffect(() => {
       if (view.hasActiveFill) ensureActiveStyle()
     }, [view.hasActiveFill])
+
+    const label = rest['aria-label']
+    const labelledBy = rest['aria-labelledby']
+    React.useEffect(() => {
+      warnIfUnnamed(label, labelledBy)
+    }, [label, labelledBy])
 
     return (
       <div
