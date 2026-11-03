@@ -71,6 +71,23 @@ export default function a11yAssertions(mountStory: MountFn): void {
       .and('have.attr', 'aria-valuetext', 'Included 80, On-demand 20')
   })
 
+  it('formats announced amounts for the locale', () => {
+    mountStory({
+      max: 10000,
+      'aria-label': 'Usage',
+      segments: [
+        { value: 3600, label: 'Included' },
+        { value: 1200, label: 'On-demand' },
+      ],
+    })
+    // Built from the browser's own locale, so the test holds outside en-US.
+    cy.get(bar).should(
+      'have.attr',
+      'aria-valuetext',
+      `Included ${(3600).toLocaleString()}, On-demand ${(1200).toLocaleString()}`,
+    )
+  })
+
   it('leaves aria-valuetext off when a segment has no label', () => {
     mountStory({
       max: 412,
