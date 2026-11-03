@@ -6,14 +6,20 @@ import { Table, type TableColumn } from './Table'
 import assertions, {
   type MountOptions,
   type User,
-  callsColumn,
-  columns,
+  callsColumn as sharedCallsColumn,
+  columns as sharedColumns,
   expectColumn,
-  lastActiveColumn,
-  nameColumn,
+  lastActiveColumn as sharedLastActiveColumn,
+  nameColumn as sharedNameColumn,
   spyOnLink,
   users,
 } from '../assertions'
+
+// The shared fixtures leave the icon type open; React columns take components.
+const columns = sharedColumns as TableColumn<User>[]
+const nameColumn = sharedNameColumn as TableColumn<User>
+const callsColumn = sharedCallsColumn as TableColumn<User>
+const lastActiveColumn = sharedLastActiveColumn as TableColumn<User>
 
 function mountStory({
   focusableContainer,
@@ -93,7 +99,7 @@ describe('<Table /> React', () => {
     mount(
       <Table
         aria-label="Usage"
-        columns={columns as TableColumn<User>[]}
+        columns={columns}
         rows={users}
         rowLinkAs={PlainLink}
         rowLink={(user) => ({ href: `#${user.id}` })}

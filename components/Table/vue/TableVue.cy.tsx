@@ -1,5 +1,5 @@
 /// <reference types="cypress" />
-import { ref } from 'vue'
+import { type Component, ref } from 'vue'
 import { mount } from 'cypress/vue'
 import { IconDocumentBlank } from '@cypress-design/vue-icon'
 import type {
@@ -10,17 +10,22 @@ import Table from './Table.vue'
 import assertions, {
   type MountOptions,
   type User,
-  columns,
+  columns as sharedColumns,
   expectColumn,
   nameColumn,
   spyOnLink,
   users,
 } from '../assertions'
 
+// The shared fixtures leave the icon type open; Vue columns take components.
+type VueColumn = TableColumnBase<User, Component>
+const columns = sharedColumns as VueColumn[]
+
 function mountStory({
   focusableContainer,
   className,
   onSortChange,
+  columns: storyColumns,
   ...props
 }: MountOptions) {
   mount(() => (
@@ -28,6 +33,7 @@ function mountStory({
       <Table
         aria-label="Usage"
         class={className}
+        columns={storyColumns as VueColumn[]}
         {...props}
         onUpdate:sort={onSortChange}
       />
@@ -97,7 +103,9 @@ describe('<Table /> Vue', () => {
     mount(() => (
       <Table
         aria-label="Usage"
-        columns={[nameColumn, { key: 'actions', label: 'Actions' }]}
+        columns={
+          [nameColumn, { key: 'actions', label: 'Actions' }] as VueColumn[]
+        }
         rows={users}
         rowLink={(user: User) => ({ href: `#${user.id}` })}
       >
