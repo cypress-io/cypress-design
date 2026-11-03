@@ -93,12 +93,28 @@ export function expectColumn(index: number, values: string[]): void {
   })
 }
 
+// Reads the drawn arrow rather than which icon was picked: the head's left
+// stroke passes through (5, 6) on the up arrow and (5, 10) on the down one,
+// in the icon's 16x16 viewBox.
+function expectArrow(label: string, direction: 'up' | 'down'): void {
+  cy.contains('th', label)
+    .find('button svg path')
+    .should(($path) => {
+      const path = $path[0] as unknown as SVGPathElement
+      const point = direction === 'up' ? { x: 5, y: 6 } : { x: 5, y: 10 }
+      expect(path.isPointInStroke(new DOMPoint(point.x, point.y))).to.equal(
+        true,
+      )
+    })
+}
+
 function sortButton(label: string) {
   return cy.contains('th', label).find('button')
 }
 
-// Stops the row link from navigating the test frame and records its clicks.
-function spyOnLink(href: string): void {
+// Stops the row link from navigating the test frame and records its clicks
+// as `@linkClick`.
+export function spyOnLink(href: string): void {
   cy.get(`a[href="${href}"]`).then(($link) => {
     const onClick = cy.spy((event: Event) => event.preventDefault())
     $link[0].addEventListener('click', onClick)
@@ -106,7 +122,7 @@ function spyOnLink(href: string): void {
   })
 }
 
-const linkToUser = (user: User) =>
+export const linkToUser = (user: User) =>
   user.id === 'sam' ? undefined : { href: `#${user.id}` }
 
 export default function assertions(
@@ -232,6 +248,16 @@ export default function assertions(
       sortButton('Calls').click()
       cy.contains('th', 'User').should('not.have.attr', 'aria-sort')
       cy.contains('th', 'Calls').should('have.attr', 'aria-sort', 'descending')
+    })
+
+    it('points the arrow in the direction a click applies, then the current one', () => {
+      mountStory({ columns, rows: users })
+      expectArrow('User', 'up')
+      expectArrow('Calls', 'down')
+      sortButton('User').click()
+      expectArrow('User', 'up')
+      sortButton('User').click()
+      expectArrow('User', 'down')
     })
 
     it('shows the sort button only on the sorted column at rest', () => {
