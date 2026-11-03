@@ -24,7 +24,7 @@ import {
   CssTruncateClasses,
   IconFillColor,
   IconStrokeColor,
-  RowLinkAttributes,
+  RowLinkCellAttributes,
   SortArrowStrokeColor,
   followRowLink,
   getArrowDirection,
@@ -257,6 +257,7 @@ export function Table<Row>({
                   return (
                     <td
                       key={column.key}
+                      {...(isPrimary && linkProps && RowLinkCellAttributes)}
                       className={clsx(
                         CssBodyCellClasses,
                         CssAlignClasses[align],
@@ -268,8 +269,10 @@ export function Table<Row>({
                       {isPrimary && linkProps ? (
                         <RowLink
                           {...linkProps}
-                          {...RowLinkAttributes}
-                          className={CssRowLinkClasses}
+                          className={clsx(
+                            CssRowLinkClasses,
+                            linkProps.className as string | undefined,
+                          )}
                         >
                           {body}
                         </RowLink>
