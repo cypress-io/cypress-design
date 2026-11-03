@@ -1420,6 +1420,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/constants-progressbar@npm:*, @cypress-design/constants-progressbar@workspace:components/ProgressBar/constants":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/constants-progressbar@workspace:components/ProgressBar/constants"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/constants-runresults@npm:*, @cypress-design/constants-runresults@workspace:components/RunResults/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-runresults@workspace:components/RunResults/constants"
@@ -1754,6 +1760,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@cypress-design/react-progressbar@workspace:components/ProgressBar/react":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/react-progressbar@workspace:components/ProgressBar/react"
+  dependencies:
+    "@cypress-design/constants-progressbar": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    tailwind-merge: "npm:^2.0.0"
+  languageName: unknown
+  linkType: soft
+
 "@cypress-design/react-runresults@workspace:components/RunResults/react":
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-runresults@workspace:components/RunResults/react"
@@ -1988,6 +2004,16 @@ __metadata:
   dependencies:
     "@cypress-design/constants-modal": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.3.2"
+  languageName: unknown
+  linkType: soft
+
+"@cypress-design/vue-progressbar@workspace:components/ProgressBar/vue":
+  version: 0.0.0-use.local
+  resolution: "@cypress-design/vue-progressbar@workspace:components/ProgressBar/vue"
+  dependencies:
+    "@cypress-design/constants-progressbar": "npm:*"
+    "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
+    tailwind-merge: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
 

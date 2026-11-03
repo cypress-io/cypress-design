@@ -40,12 +40,12 @@ All Tailwind classes live in constants, not the component files, which keeps the
 
 ## Class merging and overrides
 
-Each fill's class list is ordered static → preset color → last-fill rounding → shimmer → caller's class, and merged with `twMerge`, so a caller's `bg-*` replaces the preset instead of fighting it in the cascade. The track does the same with `className` (React) or `class` (Vue). The Vue component sets `inheritAttrs: false` and binds `$attrs` itself for this reason: Vue's own fallthrough would append `class` without merging.
+Each fill's class list is ordered static → preset color → last-fill rounding → shimmer → caller's class, and merged with `twMerge`, so a caller's `bg-*` replaces the preset instead of fighting it in the cascade. The track does the same with `className` (React) or `class` (Vue). The Vue component sets `inheritAttrs: false` and binds the attributes itself for this reason: Vue's own fallthrough would append `class` without merging. It runs `class` through `normalizeClass` first, since twMerge drops object and array syntax, and reads `$attrs` in the template rather than in a computed: attrs aren't reactive, but the template re-renders whenever they change, including attributes added after mount.
 
 Only the last visible fill gets `rounded-r-full`. The track's `rounded-full` plus `overflow-hidden` rounds the start, so the joins between segments stay square.
 
 ## Shimmer
 
-The active shimmer is a gradient plus a `@keyframes` rule. `@cypress-design/css` has no keyframe for it, so `ensureActiveStyle` injects one global `<style id="cy-progress-bar-active-style">` the first time an active fill renders. The id check means a page with both the React and Vue packages injects it once. The rule sets only `background-image`, never `background-color`, so it layers over any fill color, including custom ones. It's turned off under `prefers-reduced-motion: reduce`, and Percy freezes animations globally (`.percy.yml`).
+The active shimmer is a gradient plus a `@keyframes` rule. `@cypress-design/css` has no keyframe for it, so `ensureActiveStyle` injects one global `<style id="cy-progress-bar-active-style">` the first time an active fill renders: from `useInsertionEffect` in React, so render stays pure, and from a `watchEffect` in Vue. The id check means a page with both the React and Vue packages injects it once. The rule sets only `background-image`, never `background-color`, so it layers over any fill color, including custom ones. It's turned off under `prefers-reduced-motion: reduce`, and Percy freezes animations globally (`.percy.yml`).
 
 Fill widths are inline `style` widths, since they're computed at runtime; that's the one inline style in the component.
