@@ -5,12 +5,11 @@ import {
   type MountFn,
   type User,
   columns,
+  linkToUser,
   nameColumn,
+  spyOnLink,
   users,
 } from './assertions'
-
-const linkToUser = (user: User) =>
-  user.id === 'sam' ? undefined : { href: `#${user.id}` }
 
 // A focusable sentinel before the table, so tests Tab into it for real
 // (programmatic focus doesn't exercise tab order or `:focus-visible`).
@@ -84,9 +83,12 @@ export default function a11yAssertions(
         rows: users,
         rowLink: linkToUser,
       })
-      cy.get('tbody a').each(($link) => {
-        expect($link.text().trim()).to.be.oneOf(users.map((user) => user.name))
-      })
+      cy.get('tbody a').should('have.length', 3)
+      users
+        .filter((user) => linkToUser(user))
+        .forEach((user) => {
+          cy.get(`a[href="#${user.id}"]`).should('have.text', user.name)
+        })
     })
   })
 
@@ -116,11 +118,7 @@ export default function a11yAssertions(
 
     it('follows the row link with Enter', () => {
       mountStory({ columns, rows: users.slice(0, 2), rowLink: linkToUser })
-      cy.get('a[href="#jordan"]').then(($link) => {
-        const onClick = cy.spy((event: Event) => event.preventDefault())
-        $link[0].addEventListener('click', onClick)
-        cy.wrap(onClick).as('linkClick')
-      })
+      spyOnLink('#jordan')
       focusSentinel()
       cy.realPress('Tab')
       cy.realPress('Tab')
