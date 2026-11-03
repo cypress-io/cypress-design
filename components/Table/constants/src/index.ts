@@ -69,7 +69,8 @@ export function getPrimaryColumnKey<Row>(
 }
 
 // Rows missing their key field get a generated key tied to the row object, so
-// keys stay unique and follow the row when it's reordered.
+// keys stay unique and follow the row when it's reordered. Primitive rows
+// can't be WeakMap keys, so they key by their own value.
 const generatedRowKeys = new WeakMap<object, string>()
 let nextGeneratedRowKey = 0
 
@@ -77,11 +78,11 @@ export function getRowKey<Row>(row: Row, rowKey: TableRowKey<Row>): string {
   if (typeof rowKey === 'function') return rowKey(row)
   const value = (row as Record<string, unknown>)[rowKey]
   if (value !== undefined && value !== null) return String(value)
-  const object = row as object
-  let key = generatedRowKeys.get(object)
+  if (typeof row !== 'object' || row === null) return String(row)
+  let key = generatedRowKeys.get(row)
   if (key === undefined) {
     key = `table-row-${nextGeneratedRowKey++}`
-    generatedRowKeys.set(object, key)
+    generatedRowKeys.set(row, key)
   }
   return key
 }
@@ -166,15 +167,19 @@ export function sortRows<Row>(
   )
 }
 
-const RowLinkAttribute = 'data-table-row-link'
-export const RowLinkAttributes = { [RowLinkAttribute]: '' } as const
+// Marks the primary cell of a clickable row. The cell, not the link, carries
+// the marker because a `rowLinkAs` component may not pass extra attributes
+// through to the element it renders.
+const RowLinkCellAttribute = 'data-table-row-link-cell'
+export const RowLinkCellAttributes = { [RowLinkCellAttribute]: '' } as const
 
 const InteractiveSelector =
   'a, button, input, select, textarea, label, summary, [role="button"], [role="link"], [tabindex]:not([tabindex="-1"])'
 
 // A click anywhere on a clickable row follows its link. The link is a real
 // `<a>` in the primary cell so keyboard, screen reader, and Cmd/Ctrl-click on
-// the link itself work natively; this covers the rest of the row. A stretched
+// the link itself work natively; this covers the rest of the row. The link is
+// the cell's `<a href>`, or else whatever `rowLinkAs` rendered. A stretched
 // `::after` overlay would be simpler, but Safari doesn't position against a
 // `position: relative` table row (WebKit bug 240961).
 export function followRowLink(event: MouseEvent, row: HTMLElement): void {
@@ -187,11 +192,14 @@ export function followRowLink(event: MouseEvent, row: HTMLElement): void {
   )
   if (interactive && row.contains(interactive)) return
   if (window.getSelection()?.toString()) return
-  const link = row.querySelector<HTMLAnchorElement>(`[${RowLinkAttribute}]`)
+  const cell = row.querySelector(`[${RowLinkCellAttribute}]`)
+  const link =
+    cell?.querySelector<HTMLAnchorElement>('a[href]') ??
+    (cell?.firstElementChild as HTMLElement | null | undefined)
   if (!link) return
   const newTab =
     event.button === 1 || event.metaKey || event.ctrlKey || event.shiftKey
-  if (newTab && link.href) {
+  if (newTab && link instanceof HTMLAnchorElement) {
     window.open(link.href, '_blank', 'noopener')
     return
   }

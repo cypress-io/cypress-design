@@ -44,7 +44,7 @@ Only `columns` and `rows` are required. Vue takes the same props in kebab-case.
 
 - **`columns`** — `TableColumn[]`, **required**. See [Columns](#columns).
 - **`rows`** — `Row[]`, **required**. Any objects. React types the table as `Table<Row>` from this prop.
-- **`rowKey`** — `string | ((row: Row) => string)`. Default `'id'`. A unique, stable key per row. Rows missing the field get a generated key tied to the row object.
+- **`rowKey`** — `string | ((row: Row) => string)`. Default `'id'`. A unique, stable key per row. Rows missing the field get a generated key tied to the row object, which changes when the page passes new objects (after a refetch, say) and remounts those rows, so give rows a stable `id` or set `rowKey`.
 
 ### Sorting
 
@@ -60,7 +60,7 @@ Built-in sorting is stable. It compares `sortValue` results: numbers numerically
 ### Rows
 
 - **`rowLink`** — `(row: Row) => Record<string, unknown> | undefined`. Makes rows clickable. Returns the props for the row's link element; return `undefined` to leave that row non-clickable. See [Clickable rows](#clickable-rows).
-- **`rowLinkAs`** — `string | Component`. Default `'a'`. The element or component that renders the row link, for example React Router's `Link` or Vue's `RouterLink`.
+- **`rowLinkAs`** — `string | Component`. Default `'a'`. The element or component that renders the row link, for example React Router's `Link` or Vue's `RouterLink`. A `className` (React) or `class` (Vue) returned by `rowLink` is added to the link's own classes.
 
 ### Layout
 

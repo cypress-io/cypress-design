@@ -13,6 +13,7 @@ import assertions, {
   columns,
   expectColumn,
   nameColumn,
+  spyOnLink,
   users,
 } from '../assertions'
 
@@ -109,11 +110,7 @@ describe('<Table /> Vue', () => {
         }}
       </Table>
     ))
-    cy.get('a[href="#jordan"]').then(($link) => {
-      const onClick = cy.spy((event: Event) => event.preventDefault())
-      $link[0].addEventListener('click', onClick)
-      cy.wrap(onClick).as('linkClick')
-    })
+    spyOnLink('#jordan')
     cy.contains('tr', 'Jordan Lee').contains('button', 'Remove').click()
     cy.get('@action').should('have.been.calledOnce')
     cy.get('@linkClick').should('not.have.been.called')

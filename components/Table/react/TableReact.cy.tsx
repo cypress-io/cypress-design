@@ -11,6 +11,7 @@ import assertions, {
   expectColumn,
   lastActiveColumn,
   nameColumn,
+  spyOnLink,
   users,
 } from '../assertions'
 
@@ -62,6 +63,47 @@ describe('<Table /> React', () => {
     expectColumn(1, ['188', '316', '480', ''])
   })
 
+  it('adds a `className` from `rowLink` to the link', () => {
+    mountStory({
+      columns,
+      rows: users,
+      rowLink: (user) => ({ href: `#${user.id}`, className: 'font-bold' }),
+    })
+    cy.get('a[href="#jordan"]')
+      .should('have.class', 'font-bold')
+      .and('have.class', 'text-indigo-500')
+  })
+
+  it('follows a `rowLinkAs` component that drops extra attributes', () => {
+    function PlainLink({
+      href,
+      className,
+      children,
+    }: {
+      href: string
+      className?: string
+      children?: React.ReactNode
+    }) {
+      return (
+        <a href={href} className={className}>
+          {children}
+        </a>
+      )
+    }
+    mount(
+      <Table
+        aria-label="Usage"
+        columns={columns as TableColumn<User>[]}
+        rows={users}
+        rowLinkAs={PlainLink}
+        rowLink={(user) => ({ href: `#${user.id}` })}
+      />,
+    )
+    spyOnLink('#jordan')
+    cy.contains('td', '480').click()
+    cy.get('@linkClick').should('have.been.calledOnce')
+  })
+
   it('keeps clicks on interactive cell content off the row link', () => {
     const onAction = cy.spy().as('action')
     mountStory({
@@ -80,11 +122,7 @@ describe('<Table /> React', () => {
       rows: users,
       rowLink: (user) => ({ href: `#${user.id}` }),
     })
-    cy.get('a[href="#jordan"]').then(($link) => {
-      const onClick = cy.spy((event: Event) => event.preventDefault())
-      $link[0].addEventListener('click', onClick)
-      cy.wrap(onClick).as('linkClick')
-    })
+    spyOnLink('#jordan')
     cy.contains('tr', 'Jordan Lee').contains('button', 'Remove').click()
     cy.get('@action').should('have.been.calledOnce')
     cy.get('@linkClick').should('not.have.been.called')
