@@ -178,10 +178,14 @@ export function buildProgressBarView(props: ProgressBarProps): ProgressBarView {
 
   // Only when every segment is named: aria-valuetext replaces the numeric
   // announcement, so a partial list would hide the unnamed shares. Amounts
-  // are the clamped ones, matching the widths and aria-valuenow.
+  // are the clamped ones, matching the widths and aria-valuenow, and
+  // locale-formatted so "3600" is read as "3,600".
   const labelled =
     props.segments?.length && sized.every(({ segment }) => segment.label)
-      ? sized.map(({ segment, amount }) => `${segment.label} ${amount}`)
+      ? sized.map(
+          ({ segment, amount }) =>
+            `${segment.label} ${amount.toLocaleString()}`,
+        )
       : []
 
   return {
