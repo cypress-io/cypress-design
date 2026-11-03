@@ -126,6 +126,11 @@ export default function assertions(mountStory: MountFn): void {
       cy.get(bar).should('have.attr', 'aria-valuenow', '100')
     })
 
+    it('rounds aria-valuenow for fractional segments', () => {
+      mountStory({ max: 1, segments: [{ value: 0.1 }, { value: 0.2 }] })
+      cy.get(bar).should('have.attr', 'aria-valuenow', '0.3')
+    })
+
     it('applies a per-segment className', () => {
       mountStory({ segments: [{ value: 50, className: 'bg-teal-600' }] })
       cy.get(fill).should('have.class', 'bg-teal-600')

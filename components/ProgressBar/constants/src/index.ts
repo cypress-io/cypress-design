@@ -195,7 +195,8 @@ export function buildProgressBarView(props: ProgressBarProps): ProgressBarView {
       CssTrackClasses[theme],
     ].join(' '),
     max,
-    now: max - remaining,
+    // Rounded so float sums like 0.1 + 0.2 don't announce 0.30000000000000004.
+    now: Math.round((max - remaining) * 1e6) / 1e6,
     valueText:
       props.valueText ?? (labelled.length ? labelled.join(', ') : undefined),
     fills,
