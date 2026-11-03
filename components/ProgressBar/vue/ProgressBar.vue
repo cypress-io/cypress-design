@@ -48,16 +48,10 @@ export default defineComponent({
     fillClassName: { type: String, default: undefined },
     valueText: { type: String, default: undefined },
   },
-  // Setup's `attrs` is read rather than `this.$attrs`: only the former is
-  // tracked by computed() in production builds.
-  setup(props, { attrs }) {
-    const view = computed(() =>
-      buildProgressBarView({
-        ...props,
-        valueText:
-          props.valueText ?? (attrs['aria-valuetext'] as string | undefined),
-      }),
-    )
+  // `$attrs` is read in the template, not in a computed: attrs aren't
+  // reactive, but the template re-renders whenever they change.
+  setup(props) {
+    const view = computed(() => buildProgressBarView(props))
     const fills = computed(() =>
       view.value.fills.map((fill) => ({
         key: fill.key,
@@ -70,18 +64,18 @@ export default defineComponent({
       if (view.value.hasActiveFill) ensureActiveStyle()
     })
 
-    const rootAttrs = computed(() => {
-      const rest = { ...attrs }
-      delete rest.class
-      return rest
-    })
     // normalizeClass flattens Vue's object and array class syntax, which
     // twMerge would otherwise drop.
-    const rootClass = computed(() =>
-      twMerge(view.value.trackClasses, normalizeClass(attrs.class)),
-    )
+    const trackClass = (attrClass: unknown) =>
+      twMerge(view.value.trackClasses, normalizeClass(attrClass))
+    // `valueText` wins over an `aria-valuetext` attribute, which wins over
+    // the labelled-segment default.
+    const valueTextFor = (attrValueText: unknown) =>
+      props.valueText ??
+      (attrValueText as string | undefined) ??
+      view.value.valueText
 
-    return { view, fills, rootAttrs, rootClass }
+    return { view, fills, trackClass, valueTextFor }
   },
 })
 </script>
@@ -89,13 +83,13 @@ export default defineComponent({
 <template>
   <div
     data-cy="progress-bar"
-    v-bind="rootAttrs"
+    v-bind="{ ...$attrs, class: undefined }"
     role="progressbar"
     aria-valuemin="0"
     :aria-valuemax="view.max"
     :aria-valuenow="view.now"
-    :aria-valuetext="view.valueText"
-    :class="rootClass"
+    :aria-valuetext="valueTextFor($attrs['aria-valuetext'])"
+    :class="trackClass($attrs.class)"
   >
     <div
       v-for="fill in fills"

@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+import { ref } from 'vue'
 import { mount } from 'cypress/vue'
 import ProgressBar from './ProgressBar.vue'
 import assertions from '../assertions'
@@ -34,5 +35,23 @@ describe('<ProgressBar /> Vue — class syntax', () => {
       .should('have.class', 'bg-white')
       .and('have.class', 'mt-2')
       .and('not.have.class', 'bg-gray-50')
+  })
+})
+
+describe('<ProgressBar /> Vue — attrs', () => {
+  it('renders attributes added after mount', () => {
+    const attrs = ref<Record<string, string>>({})
+    mount(() => (
+      <div class="w-96 p-8">
+        <ProgressBar aria-label="Progress" value={50} {...attrs.value} />
+      </div>
+    ))
+    cy.get('[data-cy="progress-bar"]').should('not.have.attr', 'data-test')
+    cy.then(() => {
+      attrs.value = { 'data-test': 'late', 'aria-valuetext': '50% left' }
+    })
+    cy.get('[data-cy="progress-bar"]')
+      .should('have.attr', 'data-test', 'late')
+      .and('have.attr', 'aria-valuetext', '50% left')
   })
 })
