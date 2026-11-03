@@ -116,6 +116,31 @@ export function ensureActiveStyle() {
   document.head.appendChild(style)
 }
 
+// Consumers' bundlers replace `process.env.NODE_ENV` at build time. Where
+// nothing does and `process` doesn't exist, the read throws and the warning
+// stays off.
+declare const process: { env: { NODE_ENV?: string } }
+
+function isDev(): boolean {
+  try {
+    return process.env.NODE_ENV !== 'production'
+  } catch {
+    return false
+  }
+}
+
+/**
+ * Dev-only: warns when the bar has neither `aria-label` nor
+ * `aria-labelledby`, since the component renders no text to name it.
+ */
+export function warnIfUnnamed(label: unknown, labelledBy: unknown): void {
+  if (label || labelledBy || !isDev()) return
+  // eslint-disable-next-line no-console -- the dev-only warning is the point
+  console.warn(
+    '[ProgressBar] Name the bar with `aria-label` or `aria-labelledby` so screen readers can announce it.',
+  )
+}
+
 export interface ProgressBarFill {
   key: string
   /** Share of the track, 0–100. */

@@ -120,6 +120,22 @@ export default function a11yAssertions(mountStory: MountFn): void {
     cy.get(bar).should('have.attr', 'aria-valuetext', '64% left')
   })
 
+  describe('dev warning', () => {
+    it('warns when the bar has no name', () => {
+      cy.spy(console, 'warn').as('warn')
+      mountStory({ value: 50 })
+      cy.get(bar).should('exist')
+      cy.get('@warn').should('have.been.calledWithMatch', /\[ProgressBar\]/)
+    })
+
+    it('stays quiet when the bar is named', () => {
+      cy.spy(console, 'warn').as('warn')
+      mountStory({ value: 50, 'aria-label': 'Upload' })
+      cy.get(bar).should('exist')
+      cy.get('@warn').should('not.have.been.calledWithMatch', /\[ProgressBar\]/)
+    })
+  })
+
   it('stops the shimmer for reduced motion', () => {
     mountStory({ value: 40, active: true, 'aria-label': 'Uploading' })
     cy.get('style#cy-progress-bar-active-style')
