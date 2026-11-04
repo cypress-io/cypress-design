@@ -88,7 +88,7 @@ const users: User[] = [
 // `primary` gives the bar column the leftover width; the number beside the
 // bar carries the value in text.
 const columns: TableColumn<User>[] = [
-  { key: 'name', label: 'User' },
+  { key: 'name', label: 'User', sortable: true },
   {
     key: 'calls',
     label: 'Calls',
@@ -99,6 +99,7 @@ const columns: TableColumn<User>[] = [
   {
     key: 'lastActive',
     label: 'Last active',
+    sortable: true,
     sortValue: (user) => user.lastActiveMinutes,
   },
 ]
@@ -146,7 +147,7 @@ const sort = ref<TableSort | null>({ key: 'calls', direction: 'descending' })
     </Table>
     <a
       href="#vue-all-users"
-      class="block border-t border-gray-100 px-4 py-3 text-indigo-500 hover:underline"
+      class="block px-4 py-3 text-indigo-500 hover:underline"
     >
       View all 14 users
     </a>
