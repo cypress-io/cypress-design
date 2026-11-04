@@ -6,6 +6,7 @@ import Button from './Button/AllStates.vue'
 import DocMenu from './DocMenu/AllStates.vue'
 import Icon from './Icon/AllStates.vue'
 import Menu from './Menu/AllStates.vue'
+import ProgressBar from './ProgressBar/AllStates.vue'
 import RunResults from './RunResults/AllStates.vue'
 import Select from './Select/AllStates.vue'
 import Spinner from './Spinner/AllStates.vue'
@@ -28,6 +29,7 @@ const galleries = {
   DocMenu,
   Icon,
   Menu,
+  ProgressBar,
   RunResults,
   Select,
   Spinner,
