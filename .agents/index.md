@@ -40,6 +40,7 @@ Fetch on demand — don't preload all of them:
 
 `Accordion` `Alert` `Button` `Checkbox` `Favicon` `Icon` `Logo` `Menu` `Modal` `Spinner` `Tabs` `Textbox` `Tooltip`
 `DocMenu` — sidebar navigation used in documentation sites
+`ProgressBar` — rounded bar showing one value or stacked segments against a max, in 6/8/12px heights, preset or custom colors, light/dark themes, and an animated active state
 `RunResults` — pill of test result counts (passed/failed/skipped/pending) with optional flaky and self-healed leading stats
 `Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
 `SpecResults` — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar. React only for now (`@cypress-design/react-spec-results`)
