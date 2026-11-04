@@ -33,15 +33,6 @@ export type TableRowKey<Row> = string | ((row: Row) => string)
 export const DefaultAlign: TableAlign = 'left'
 export const DefaultFirstSortDirection: TableSortDirection = 'ascending'
 
-// Sorting with one row has nothing to reorder, so headers render as plain text.
-// With `manualSort` the page may hold more rows than it passes (one page of a
-// server-sorted list), so the headers always stay sortable.
-export const MinRowsToSort = 2
-
-export function getCanSort(rowCount: number, manualSort: boolean): boolean {
-  return manualSort || rowCount >= MinRowsToSort
-}
-
 export function getCellValue<Row>(
   row: Row,
   column: TableColumnBase<Row>,
@@ -297,13 +288,9 @@ export const CssBodyCellPaddingEndClasses = {
 export function getBodyCellPaddingEnd<Row>(
   column: TableColumnBase<Row>,
   cellAlign: TableAlign,
-  canSort: boolean,
 ): string {
   const headerAlign = getHeaderAlign(column)
-  return column.sortable &&
-    canSort &&
-    headerAlign !== 'left' &&
-    cellAlign === headerAlign
+  return column.sortable && headerAlign !== 'left' && cellAlign === headerAlign
     ? CssBodyCellPaddingEndClasses.sortable
     : CssBodyCellPaddingEndClasses.default
 }

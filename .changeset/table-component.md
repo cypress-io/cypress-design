@@ -1,5 +1,4 @@
 ---
-'@cypress-design/constants-table': major
 '@cypress-design/react-table': major
 '@cypress-design/vue-table': major
 ---
