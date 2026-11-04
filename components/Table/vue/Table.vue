@@ -29,7 +29,6 @@ import {
   followRowLink,
   getArrowDirection,
   getBodyCellPaddingEnd,
-  getCanSort,
   getCellAlign,
   getCellContentWidthClasses,
   getCellValue,
@@ -107,7 +106,6 @@ const currentSort = computed(() =>
 )
 
 const primaryKey = computed(() => getPrimaryColumnKey(props.columns))
-const canSort = computed(() => getCanSort(props.rows.length, props.manualSort))
 
 const displayedRows = computed(() =>
   (props.manualSort
@@ -155,7 +153,7 @@ function handleRowClick(event: MouseEvent) {
             :key="column.key"
             scope="col"
             :aria-sort="
-              currentSort?.key === column.key && canSort
+              currentSort?.key === column.key
                 ? currentSort.direction
                 : undefined
             "
@@ -169,16 +167,14 @@ function handleRowClick(event: MouseEvent) {
             ]"
           >
             <component
-              :is="column.sortable && canSort ? 'button' : 'span'"
-              :type="column.sortable && canSort ? 'button' : undefined"
+              :is="column.sortable ? 'button' : 'span'"
+              :type="column.sortable ? 'button' : undefined"
               :class="
-                column.sortable && canSort
+                column.sortable
                   ? CssSortButtonClasses
                   : [CssIconContentClasses, CssContentWidthClasses.fit]
               "
-              @click="
-                column.sortable && canSort ? handleSort(column) : undefined
-              "
+              @click="column.sortable ? handleSort(column) : undefined"
             >
               <component
                 :is="column.icon"
@@ -194,7 +190,7 @@ function handleRowClick(event: MouseEvent) {
                 </slot>
               </span>
               <span
-                v-if="column.sortable && canSort"
+                v-if="column.sortable"
                 :class="[
                   CssSortIndicatorClasses,
                   {
@@ -240,7 +236,7 @@ function handleRowClick(event: MouseEvent) {
             :class="[
               CssBodyCellClasses,
               CssAlignClasses[align],
-              getBodyCellPaddingEnd(column, align, canSort),
+              getBodyCellPaddingEnd(column, align),
               getColumnWidthClasses(column, isPrimary),
               { [CssClickableRowCellClasses]: link },
             ]"

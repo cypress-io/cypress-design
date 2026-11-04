@@ -29,7 +29,6 @@ import {
   followRowLink,
   getArrowDirection,
   getBodyCellPaddingEnd,
-  getCanSort,
   getCellAlign,
   getCellContentWidthClasses,
   getCellValue,
@@ -88,20 +87,23 @@ export interface TableProps<Row>
   stickyHeader?: boolean
 }
 
-export function Table<Row>({
-  columns,
-  rows,
-  rowKey = 'id',
-  sort: sortProp,
-  defaultSort,
-  onSortChange,
-  manualSort = false,
-  rowLink,
-  rowLinkAs: RowLink = 'a',
-  stickyHeader = false,
-  className,
-  ...rest
-}: TableProps<Row>) {
+function TableInner<Row>(
+  {
+    columns,
+    rows,
+    rowKey = 'id',
+    sort: sortProp,
+    defaultSort,
+    onSortChange,
+    manualSort = false,
+    rowLink,
+    rowLinkAs: RowLink = 'a',
+    stickyHeader = false,
+    className,
+    ...rest
+  }: TableProps<Row>,
+  ref: React.ForwardedRef<HTMLTableElement>,
+) {
   const [internalSort, setInternalSort] = React.useState<TableSort | null>(
     defaultSort ?? null,
   )
@@ -109,7 +111,6 @@ export function Table<Row>({
   const sort = isControlled ? sortProp : internalSort
 
   const primaryKey = getPrimaryColumnKey(columns)
-  const canSort = getCanSort(rows.length, manualSort)
 
   // Recomputed whenever `columns` changes identity, so consumers should define
   // columns outside the component or memoize them.
@@ -129,7 +130,7 @@ export function Table<Row>({
 
   return (
     <div className={clsx(!stickyHeader && CssScrollContainerClasses)}>
-      <table className={clsx(CssTableClasses, className)} {...rest}>
+      <table ref={ref} className={clsx(CssTableClasses, className)} {...rest}>
         <thead>
           <tr>
             {columns.map((column) => {
@@ -157,7 +158,7 @@ export function Table<Row>({
                 <th
                   key={column.key}
                   scope="col"
-                  aria-sort={isSorted && canSort ? sort.direction : undefined}
+                  aria-sort={isSorted ? sort.direction : undefined}
                   className={clsx(
                     CssHeaderCellClasses,
                     CssAlignClasses[getHeaderAlign(column)],
@@ -165,7 +166,7 @@ export function Table<Row>({
                     getColumnWidthClasses(column, column.key === primaryKey),
                   )}
                 >
-                  {column.sortable && canSort ? (
+                  {column.sortable ? (
                     <button
                       type="button"
                       className={CssSortButtonClasses}
@@ -261,7 +262,7 @@ export function Table<Row>({
                       className={clsx(
                         CssBodyCellClasses,
                         CssAlignClasses[align],
-                        getBodyCellPaddingEnd(column, align, canSort),
+                        getBodyCellPaddingEnd(column, align),
                         getColumnWidthClasses(column, isPrimary),
                         linkProps && CssClickableRowCellClasses,
                       )}
@@ -290,5 +291,10 @@ export function Table<Row>({
     </div>
   )
 }
+
+// `forwardRef` drops the `Row` generic, so the cast restores it.
+export const Table = React.forwardRef(TableInner) as <Row>(
+  props: TableProps<Row> & { ref?: React.Ref<HTMLTableElement> },
+) => React.ReactElement
 
 export default Table

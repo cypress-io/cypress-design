@@ -34,7 +34,7 @@ Use Table when the user compares **many records across the same attributes** —
 
 - React: `@cypress-design/react-table`
 - Vue: `@cypress-design/vue-table`
-  Both packages export `Table` (also the default export) and the types `TableColumn`, `TableSort`, `TableAlign`, `TableSortDirection`, and `TableSortValue`. React also exports `TableProps`.
+  Both packages export `Table` (also the default export), the sort helpers `sortRows` and `getNextSort` (see [`manualSort`](#sorting)), and the types `TableColumn`, `TableSort`, `TableAlign`, `TableSortDirection`, and `TableSortValue`. React also exports `TableProps`.
 
 ## Props
 
@@ -51,7 +51,7 @@ Only `columns` and `rows` are required. Vue takes the same props in kebab-case.
 - **`sort`** — `TableSort | null`. The current sort. Controlled when set, including `null` for unsorted: a click only reports the new sort, and the table shows whatever `sort` the page passes back. Vue binds it with `v-model:sort`.
 - **`defaultSort`** — `TableSort`. React only. Initial sort for an uncontrolled table. Vue seeds it by binding `v-model:sort` to a local ref.
 - **`onSortChange`** — `(sort: TableSort) => void`. React only. Called when a sort button is clicked. Vue emits `update:sort`.
-- **`manualSort`** — `boolean`. Default `false`. When `false`, Table reorders `rows` itself using each column's `sortValue`. When `true`, Table only shows the sort state and reports clicks; the page reorders `rows` (server-side sorting, or sorting persisted in the URL). Sort buttons stay visible however many rows are passed, since `rows` may be one page of a longer list.
+- **`manualSort`** — `boolean`. Default `false`. When `false`, Table reorders `rows` itself using each column's `sortValue`. When `true`, Table only shows the sort state and reports clicks; the page reorders `rows` (server-side sorting, or sorting persisted in the URL). To sort client-side exactly like the built-in sort, call `sortRows(rows, columns, sort)`; `getNextSort(column, sort)` gives the sort a click on `column` would apply.
 
 A click on the sorted column's button flips its direction. A click on any other sortable column sorts by that column in its `firstSortDirection`. There is no unsorted state once a sort is set.
 
@@ -66,7 +66,7 @@ Built-in sorting is stable. It compares `sortValue` results: numbers numerically
 
 - **`stickyHeader`** — `boolean`. Default `false`. Pins the header row to the top of the nearest scrolling ancestor while the rows scroll under it. The header gets a white background so rows don't show through. Table doesn't create the scroll container; give an ancestor a fixed height and `overflow-auto`, or let the page scroll. See [Width and scrolling](#width-and-scrolling) for how this changes sideways scrolling.
 
-React: `className`, `aria-*`, and other `<table>` props go on the `<table>` element. Vue: `class` and other non-prop attributes fall through to the same element.
+React: `className`, `aria-*`, `ref`, and other `<table>` props go on the `<table>` element. Vue: `class` and other non-prop attributes fall through to the same element.
 
 ### Columns
 
@@ -100,7 +100,7 @@ Use `firstSortDirection: 'descending'` for columns where the largest value is th
 
 Set `primary` on at most one column. The primary column grows to fill the remaining width and holds the row link.
 
-React: define `columns` outside the component, or wrap it in `useMemo`. A new `columns` array on every render makes Table re-sort `rows` on every render.
+Define `columns` once: outside the component or in `useMemo` (React), or in `<script setup>` (Vue), not inline in the JSX or template. A new `columns` array on every render makes Table re-sort `rows` on every render.
 
 ### Width and scrolling
 
@@ -108,7 +108,13 @@ Cells don't wrap. By default every value shows in full: a long value widens its 
 
 Set `truncate: true` on a column to cut long values off with an ellipsis instead, with the full value in `title` when it's a string. The primary column truncates to fit the width left over by the other columns; any other column truncates past 320px.
 
-With `stickyHeader`, Table doesn't add its own sideways scrolling, because a scroll wrapper inside the table would stop the header from sticking. Give the ancestor that scrolls vertically `overflow-auto` so it scrolls both ways, or truncate the long columns.
+With `stickyHeader`, Table doesn't add its own sideways scrolling, because a scroll wrapper inside the table would stop the header from sticking. Give the ancestor that scrolls vertically `overflow-auto` so it scrolls both ways, or truncate the long columns:
+
+```tsx
+<div className="max-h-[480px] overflow-auto">
+  <Table aria-label="Views" columns={columns} rows={views} stickyHeader />
+</div>
+```
 
 ### Cells
 
@@ -145,31 +151,49 @@ const columns: TableColumn<User>[] = [
 ```
 
 ```vue
-<Table
-  v-model:sort="sort"
-  aria-label="Views"
-  :rows="views"
-  :columns="[
-    { key: 'view', label: 'Views', icon: IconDocumentBlank, sortable: true },
-    {
-      key: 'snapshots',
-      label: 'Snapshots',
-      align: 'right',
-      sortable: true,
-      firstSortDirection: 'descending',
-    },
-    {
-      key: 'tested',
-      label: 'Tested elements',
-      align: 'right',
-      sortValue: (v) => v.testedCount,
-    },
-    { key: 'coverage', label: 'Coverage %', align: 'right', sortable: true },
-  ]"
->
-  <template #cell-tested="{ row }">{{ row.testedCount }} of {{ row.totalCount }}</template>
-  <template #cell-coverage="{ row }"><CoverageBar :value="row.coverage" /></template>
-</Table>
+<script setup lang="ts">
+import { ref } from 'vue'
+import { IconDocumentBlank } from '@cypress-design/vue-icon'
+import Table, {
+  type TableColumn,
+  type TableSort,
+} from '@cypress-design/vue-table'
+
+const sort = ref<TableSort | null>(null)
+const columns: TableColumn<View>[] = [
+  { key: 'view', label: 'Views', icon: IconDocumentBlank, sortable: true },
+  {
+    key: 'snapshots',
+    label: 'Snapshots',
+    align: 'right',
+    sortable: true,
+    firstSortDirection: 'descending',
+  },
+  {
+    key: 'tested',
+    label: 'Tested elements',
+    align: 'right',
+    sortValue: (v) => v.testedCount,
+  },
+  { key: 'coverage', label: 'Coverage %', align: 'right', sortable: true },
+]
+</script>
+
+<template>
+  <Table
+    v-model:sort="sort"
+    aria-label="Views"
+    :rows="views"
+    :columns="columns"
+  >
+    <template #cell-tested="{ row }">
+      {{ row.testedCount }} of {{ row.totalCount }}
+    </template>
+    <template #cell-coverage="{ row }">
+      <CoverageBar :value="row.coverage" />
+    </template>
+  </Table>
+</template>
 ```
 
 ### Headers
@@ -183,7 +207,8 @@ const columns: TableColumn<User>[] = [
 - **Sorted column:** the sort button is always visible. The arrow points up for ascending, down for descending.
 - **Other sortable columns:** the sort button appears on hover and keyboard focus, showing the arrow for the column's `firstSortDirection`, the direction a click applies.
 - **Hover / focus-visible:** the label turns indigo; keyboard focus adds an outline around the label and sort button.
-- **Fewer than two rows:** sort buttons are hidden and headers render as plain text, since there's nothing to reorder. With `manualSort` they always show.
+
+Sort buttons show however many rows there are, so the header doesn't change when a filter narrows `rows` to one row or none.
 
 ## Clickable rows
 
@@ -195,6 +220,8 @@ Rows are not clickable unless `rowLink` is set. A clickable row:
 A row `rowLink` returns `undefined` for renders without a link and without hover or focus styles. Non-clickable tables never show a row hover state.
 
 Interactive content inside other cells (buttons, links, inputs) keeps its own click behavior and doesn't trigger the row link.
+
+On clickable rows, the primary cell's content (its `render` or `cell-<key>` slot) sits inside the row link, so it must not contain a link, button, or other interactive element. Nesting them is invalid HTML and confuses keyboard and screen reader users. Put row actions in another cell.
 
 ```tsx
 import { Link } from 'react-router-dom'

@@ -311,15 +311,14 @@ export default function assertions(
       cy.contains('th', 'Calls').should('have.attr', 'aria-sort', 'descending')
     })
 
-    it('renders plain headers with fewer than two rows', () => {
-      mountStory({ columns, rows: [users[0]] })
-      cy.get('thead button').should('not.exist')
-      cy.contains('th', 'User').should('not.have.attr', 'aria-sort')
-    })
-
-    it('keeps the sort buttons with `manualSort` and one row', () => {
-      mountStory({ columns, rows: [users[0]], manualSort: true })
+    it('keeps the sort buttons and sort state with one row', () => {
+      mountStory({
+        columns,
+        rows: [users[0]],
+        sort: { key: 'calls', direction: 'descending' },
+      })
       cy.get('thead button').should('have.length', 3)
+      cy.contains('th', 'Calls').should('have.attr', 'aria-sort', 'descending')
     })
 
     it('keeps rows without an id intact when sorting', () => {

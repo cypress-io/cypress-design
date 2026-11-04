@@ -1452,7 +1452,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/constants-table@workspace:^0.0.0, @cypress-design/constants-table@workspace:components/Table/constants":
+"@cypress-design/constants-table@npm:*, @cypress-design/constants-table@workspace:components/Table/constants":
   version: 0.0.0-use.local
   resolution: "@cypress-design/constants-table@workspace:components/Table/constants"
   languageName: unknown
@@ -1834,7 +1834,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-table@workspace:components/Table/react"
   dependencies:
-    "@cypress-design/constants-table": "workspace:^0.0.0"
+    "@cypress-design/constants-table": "npm:*"
     "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     clsx: "npm:*"
@@ -2062,7 +2062,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-table@workspace:components/Table/vue"
   dependencies:
-    "@cypress-design/constants-table": "workspace:^0.0.0"
+    "@cypress-design/constants-table": "npm:*"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.4.0"
   languageName: unknown

@@ -137,6 +137,14 @@ describe('<Table /> React', () => {
 
 // One snapshot of the resting states, instead of one per test.
 describe('<Table /> React — all states', { viewportWidth: 1280 }, () => {
+  it('forwards its ref to the table element', () => {
+    const ref = React.createRef<HTMLTableElement>()
+    mount(<Table ref={ref} aria-label="Usage" columns={columns} rows={users} />)
+    cy.get('table').then(($table) => {
+      expect(ref.current).to.equal($table[0])
+    })
+  })
+
   it('renders sorting, icons, alignment, truncation, and clickable rows', () => {
     mount(
       <div className="flex max-w-3xl flex-col gap-8 p-8">

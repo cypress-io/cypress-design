@@ -11,7 +11,9 @@ import assertions, {
   type MountOptions,
   type User,
   columns as sharedColumns,
+  callsColumn,
   expectColumn,
+  lastActiveColumn,
   nameColumn,
   spyOnLink,
   users,
@@ -122,5 +124,57 @@ describe('<Table /> Vue', () => {
     cy.contains('tr', 'Jordan Lee').contains('button', 'Remove').click()
     cy.get('@action').should('have.been.calledOnce')
     cy.get('@linkClick').should('not.have.been.called')
+  })
+
+  it('renders sorting, icons, alignment, truncation, and clickable rows', () => {
+    mount(() => (
+      <div class="flex max-w-3xl flex-col gap-8 p-8">
+        <Table
+          aria-label="Sorted"
+          columns={
+            [
+              { ...nameColumn, icon: IconDocumentBlank },
+              callsColumn,
+              lastActiveColumn,
+            ] as VueColumn[]
+          }
+          rows={users}
+          sort={{ key: 'calls', direction: 'descending' }}
+        />
+        <Table
+          aria-label="Alignment and cell icons"
+          columns={
+            [
+              {
+                ...nameColumn,
+                cellIcon: (user: User) =>
+                  user.calls === null ? undefined : IconDocumentBlank,
+              },
+              { ...callsColumn, sortable: false, headerAlign: 'center' },
+              { ...lastActiveColumn, align: 'center' },
+            ] as VueColumn[]
+          }
+          rows={users}
+        />
+        <Table
+          aria-label="Clickable rows, truncated"
+          columns={
+            [{ ...nameColumn, truncate: true }, callsColumn] as VueColumn[]
+          }
+          rows={[
+            {
+              ...users[0],
+              name: 'Jordan Lee from the platform team at a very long company name that keeps going',
+            },
+            ...users.slice(1),
+          ]}
+          rowLink={(user: User) =>
+            user.id === 'sam' ? undefined : { href: `#${user.id}` }
+          }
+        />
+      </div>
+    ))
+    cy.get('table').should('have.length', 3)
+    cy.percySnapshot('Table all states - vue')
   })
 })
