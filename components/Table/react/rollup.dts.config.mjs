@@ -15,5 +15,11 @@ export default {
     }),
     dts({ respectExternal: true }),
   ],
-  external: ['@cypress-design/react-icon', 'clsx', 'react', 'react-dom'],
+  external: [
+    '@cypress-design/react-icon',
+    'clsx',
+    'react',
+    'react-dom',
+    'tailwind-merge',
+  ],
 }

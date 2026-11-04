@@ -1,5 +1,6 @@
 <script lang="ts" setup generic="Row">
-import { type Component, type VNode, computed, ref } from 'vue'
+import { type Component, type VNode, computed, normalizeClass, ref } from 'vue'
+import { twMerge } from 'tailwind-merge'
 import { IconArrowDown, IconArrowUp } from '@cypress-design/vue-icon'
 import CellContent from './_TableCellContent.vue'
 import {
@@ -43,7 +44,9 @@ import {
 type TableColumn = TableColumnBase<Row, Component>
 
 // The root is the scroll wrapper; `class` and other attributes belong on the
-// `<table>`, same as the React component.
+// `<table>`, same as the React component. `class` is merged with twMerge so a
+// consumer class (e.g. `bg-gray-50`) overrides the default; normalizeClass
+// flattens Vue's object and array class syntax first.
 defineOptions({ inheritAttrs: false })
 
 const props = withDefaults(
@@ -145,7 +148,10 @@ function handleRowClick(event: MouseEvent) {
 
 <template>
   <div :class="{ [CssScrollContainerClasses]: !stickyHeader }">
-    <table v-bind="$attrs" :class="CssTableClasses">
+    <table
+      v-bind="{ ...$attrs, class: undefined }"
+      :class="twMerge(CssTableClasses, normalizeClass($attrs.class))"
+    >
       <thead>
         <tr>
           <th
