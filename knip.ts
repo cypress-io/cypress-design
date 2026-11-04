@@ -64,7 +64,9 @@ const config: KnipConfig = {
     'components/Favicon/react': {},
     'components/Favicon/vue': {},
     // Table has no component tests yet, for the same reason.
-    'components/Table/react': {},
+    'components/Table/react': {
+      rollup: ['rollup.config.mjs', 'rollup.dts.config.mjs'],
+    },
     'components/Table/vue': {},
     'components/TestResult/vue': {
       entry: ['index.ts', '**/*.cy.tsx'],
