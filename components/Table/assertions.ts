@@ -148,6 +148,13 @@ export default function assertions(
         .and('have.class', 'mt-2')
         .and('have.class', 'w-full')
     })
+
+    it('lets a class override the default table classes', () => {
+      mountStory({ columns, rows: users, className: 'bg-gray-50' })
+      cy.get('table')
+        .should('have.class', 'bg-gray-50')
+        .and('not.have.class', 'bg-white')
+    })
   })
 
   describe('alignment', () => {
