@@ -86,6 +86,7 @@ const columns: TableColumn<User>[] = [
   {
     key: 'name',
     label: 'User',
+    sortable: true,
     render: (user) => (
       <span className="flex items-center gap-3 whitespace-nowrap">
         <span
@@ -120,6 +121,7 @@ const columns: TableColumn<User>[] = [
   {
     key: 'lastActive',
     label: 'Last active',
+    sortable: true,
     sortValue: (user) => user.lastActiveMinutes,
     render: (user) => (
       <span className="whitespace-nowrap text-gray-700">{user.lastActive}</span>
@@ -138,7 +140,7 @@ export default function ProgressBarCell() {
       />
       <a
         href="#react-all-users"
-        className="block border-t border-gray-100 px-4 py-3 text-indigo-500 hover:underline"
+        className="block px-4 py-3 text-indigo-500 hover:underline"
       >
         View all 14 users
       </a>
