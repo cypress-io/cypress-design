@@ -27,13 +27,15 @@ Everything both frameworks need to agree on is a plain function in `constants/sr
 
 Class strings also live in constants. The Tailwind ESLint rules only cover `components/*/react` and `components/*/vue`, and several classes here are arbitrary values (the row outline shadows copy the UI Coverage table).
 
+The constants package is private and bundled into each framework package, so class strings and helpers can change without a breaking release. The React and Vue packages re-export the public types plus `sortRows` and `getNextSort`, so a `manualSort` page can sort exactly like the built-in sort.
+
 ## Sort state
 
 Both frameworks treat `sort !== undefined` as controlled: a click only reports the next sort (`onSortChange` / `update:sort`) and the table shows the prop. Unbound, they keep the sort in local state, so an uncontrolled table works too. Vue's `v-model:sort` is the controlled case.
 
 `manualSort` only skips `sortRows`; the header still shows and reports sort state.
 
-Sorting is hidden below `MinRowsToSort` rows because there's nothing to reorder, except with `manualSort`, where `rows` may be one page of a longer list.
+Sort buttons show for every sortable column whatever the row count. Hiding them for one row would make the header (and `aria-sort`) change as a filter narrows the rows.
 
 Row keys come from `rowKey`. A row missing the field gets a key generated once per row object (a `WeakMap`), so keys stay unique and move with the row when it's re-sorted.
 
