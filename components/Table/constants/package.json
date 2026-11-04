@@ -1,6 +1,7 @@
 {
   "name": "@cypress-design/constants-table",
   "version": "0.0.0",
+  "private": true,
   "files": [
     "*"
   ],
