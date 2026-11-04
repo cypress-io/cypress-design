@@ -26,6 +26,8 @@ export const tileModules: Record<string, () => Promise<unknown>> = {
   '@cypress-design/react-logo': () => import('@cypress-design/react-logo'),
   '@cypress-design/react-menu': () => import('@cypress-design/react-menu'),
   '@cypress-design/react-modal': () => import('@cypress-design/react-modal'),
+  '@cypress-design/react-progressbar': () =>
+    import('@cypress-design/react-progressbar'),
   '@cypress-design/react-runresults': () =>
     import('@cypress-design/react-runresults'),
   '@cypress-design/react-select': () => import('@cypress-design/react-select'),
@@ -54,6 +56,8 @@ export const tileModules: Record<string, () => Promise<unknown>> = {
   '@cypress-design/vue-logo': () => import('@cypress-design/vue-logo'),
   '@cypress-design/vue-menu': () => import('@cypress-design/vue-menu'),
   '@cypress-design/vue-modal': () => import('@cypress-design/vue-modal'),
+  '@cypress-design/vue-progressbar': () =>
+    import('@cypress-design/vue-progressbar'),
   '@cypress-design/vue-runresults': () =>
     import('@cypress-design/vue-runresults'),
   '@cypress-design/vue-select': () => import('@cypress-design/vue-select'),
