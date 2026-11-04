@@ -7,6 +7,7 @@ export default [
   { name: 'Icons', title: 'Icons' },
   { name: 'Alignment', title: 'Alignment' },
   { name: 'Truncation', title: 'Truncation' },
+  { name: 'ProgressBarCell', title: 'Progress bar in a cell' },
   { name: 'ClickableRows', title: 'Clickable rows' },
   { name: 'StickyHeader', title: 'Sticky header' },
   { name: 'ManualSort', title: 'Page-controlled sorting' },
