@@ -9,7 +9,7 @@ export default generateViteConfig(
   },
   // vue-icon is external by default; constants-table is private and bundled
   // into this dist.
-  [],
+  ['tailwind-merge'],
   // One self-contained `dist/index.d.ts`, with the private constants
   // package's public types inlined for consumers who don't install it.
   [

@@ -1,5 +1,6 @@
 import * as React from 'react'
 import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
 import { IconArrowDown, IconArrowUp } from '@cypress-design/react-icon'
 import {
   type TableColumnBase,
@@ -130,7 +131,12 @@ function TableInner<Row>(
 
   return (
     <div className={clsx(!stickyHeader && CssScrollContainerClasses)}>
-      <table ref={ref} className={clsx(CssTableClasses, className)} {...rest}>
+      {/* Merged so a consumer class (e.g. `bg-gray-50`) overrides the default. */}
+      <table
+        ref={ref}
+        className={twMerge(CssTableClasses, className)}
+        {...rest}
+      >
         <thead>
           <tr>
             {columns.map((column) => {
