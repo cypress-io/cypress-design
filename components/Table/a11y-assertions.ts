@@ -12,14 +12,10 @@ import {
 } from './assertions'
 
 // A focusable sentinel before the table, so tests Tab into it for real
-// (programmatic focus doesn't exercise tab order or `:focus-visible`).
-// Cypress clears the mount root between tests but not `document.body`, so
-// drop any copy left by an earlier test first.
+// (programmatic focus doesn't exercise tab order). Cypress clears the mount
+// root between tests but not `document.body`, so `afterEach` removes it.
 function focusSentinel(): void {
   cy.document().then((doc) => {
-    doc
-      .querySelectorAll('[data-cy="sentinel"]')
-      .forEach((node) => node.remove())
     const button = doc.createElement('button')
     button.setAttribute('data-cy', 'sentinel')
     button.textContent = 'sentinel'
@@ -31,7 +27,16 @@ function focusSentinel(): void {
 export default function a11yAssertions(
   mountStory: MountFn,
   icon: TableColumnBase<User>['icon'],
+  fw: 'vue' | 'react',
 ): void {
+  afterEach(() => {
+    cy.document().then((doc) => {
+      doc
+        .querySelectorAll('[data-cy="sentinel"]')
+        .forEach((node) => node.remove())
+    })
+  })
+
   describe('semantics', () => {
     it('renders a named native table with column headers', () => {
       mountStory({ columns, rows: users })
@@ -129,13 +134,21 @@ export default function a11yAssertions(
       cy.get('@linkClick').should('have.been.calledOnce')
     })
 
+    // These check that focus lands where expected and the `focus-visible`
+    // classes are wired up, not computed outline styles: Chrome's
+    // `:focus-visible` heuristic is unreliable inside Cypress's test iframe,
+    // even with real key events. Percy covers the painted outline.
     it('outlines a focused sort button', () => {
       mountStory({ columns, rows: users })
       focusSentinel()
       cy.realPress('Tab')
       cy.focused()
-        .should('have.css', 'outline-style', 'solid')
-        .and('have.css', 'outline-width', '2px')
+        .should('have.prop', 'tagName', 'BUTTON')
+        .and('contain.text', 'User')
+        .and('have.class', 'focus-visible:outline')
+        .and('have.class', 'focus-visible:outline-2')
+        .and('have.class', 'focus-visible:outline-indigo-500')
+      cy.percySnapshot(`Table focused sort button - ${fw}`)
     })
 
     it('outlines the row whose link has keyboard focus', () => {
@@ -148,9 +161,11 @@ export default function a11yAssertions(
       cy.focused()
         .should('have.attr', 'href', '#jordan')
         .closest('tr')
-        .should('have.css', 'box-shadow')
-        .and('include', 'inset')
-      cy.contains('tr', 'Maya Patel').should('have.css', 'box-shadow', 'none')
+        .should(
+          'have.class',
+          'has-[:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]',
+        )
+      cy.percySnapshot(`Table focused row link - ${fw}`)
     })
   })
 }
