@@ -21,7 +21,8 @@
   },
   "dependencies": {
     "@cypress-design/react-icon": "workspace:^3.4.0",
-    "clsx": "*"
+    "clsx": "*",
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@cypress-design/constants-table": "*",
