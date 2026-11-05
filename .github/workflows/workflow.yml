@@ -75,6 +75,14 @@ jobs:
     name: Release
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     needs: [build, make-nonce, test, e2e-test, template-test, health-check]
+    ## npm checks the calling workflow (this file) for trusted publishing, so
+    ## the caller has to grant id-token too
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: read
     uses: ./.github/workflows/release.yml
     secrets: inherit
     with:
@@ -84,6 +92,14 @@ jobs:
     name: Release Next
     if: github.ref == 'refs/heads/next' && github.event_name == 'push'
     needs: [build, make-nonce, test, e2e-test, template-test, health-check]
+    ## npm checks the calling workflow (this file) for trusted publishing, so
+    ## the caller has to grant id-token too
+    permissions:
+      id-token: write
+      contents: write
+      packages: write
+      pull-requests: write
+      issues: read
     uses: ./.github/workflows/release-next.yml
     secrets: inherit
     with:

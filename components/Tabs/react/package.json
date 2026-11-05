@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/react-tabs",
   "version": "1.3.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/Tabs/react"
+  },
   "files": [
     "*"
   ],

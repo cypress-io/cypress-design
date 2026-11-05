@@ -2,6 +2,11 @@
   "name": "@cypress-design/eslint-plugin",
   "version": "0.3.0",
   "description": "ESLint rules that ship with the Cypress Design System",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "packages/eslint-plugin"
+  },
   "keywords": [
     "eslint",
     "eslintplugin",

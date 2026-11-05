@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/react-statusicon",
   "version": "1.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/StatusIcon/react"
+  },
   "files": [
     "*"
   ],
