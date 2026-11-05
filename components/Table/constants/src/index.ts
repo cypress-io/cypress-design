@@ -182,7 +182,15 @@ export function followRowLink(event: MouseEvent, row: HTMLElement): void {
     InteractiveSelector,
   )
   if (interactive && row.contains(interactive)) return
-  if (window.getSelection()?.toString()) return
+  // A click that ends a text selection inside the row selects, not navigates.
+  // A selection elsewhere on the page doesn't block the row.
+  const selection = window.getSelection()
+  if (
+    selection?.toString() &&
+    selection.anchorNode &&
+    row.contains(selection.anchorNode)
+  )
+    return
   const cell = row.querySelector(`[${RowLinkCellAttribute}]`)
   const link =
     cell?.querySelector<HTMLAnchorElement>('a[href]') ??
@@ -301,12 +309,14 @@ export const CssTruncateClasses = 'block min-w-0 truncate'
 export const CssLabelClasses = 'min-w-0 truncate'
 
 // Cells paint over the row's shadow, so their divider is hidden while the
-// outline shows, or it would draw over the outline's bottom edge.
+// outline shows, or it would draw over the outline's bottom edge. The focus
+// outline tracks the row link only (inside the marked primary cell), so a
+// focused control in another cell keeps its own ring without outlining the row.
 export const CssClickableRowClasses =
-  'group/row cursor-pointer rounded hover:shadow-[inset_0_0_0_1px_theme(colors.gray.200),0_0_0_2px_theme(colors.gray.50)] has-[:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]'
+  'group/row cursor-pointer rounded hover:shadow-[inset_0_0_0_1px_theme(colors.gray.200),0_0_0_2px_theme(colors.gray.50)] has-[[data-table-row-link-cell]_:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]'
 
 export const CssClickableRowCellClasses =
-  'group-hover/row:border-transparent group-has-[:focus-visible]/row:border-transparent'
+  'group-hover/row:border-transparent group-has-[[data-table-row-link-cell]_:focus-visible]/row:border-transparent'
 
 export const CssRowLinkClasses =
   'block text-indigo-500 no-underline focus-visible:outline-none'
