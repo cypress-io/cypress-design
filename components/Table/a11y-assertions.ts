@@ -163,7 +163,7 @@ export default function a11yAssertions(
         .closest('tr')
         .should(
           'have.class',
-          'has-[:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]',
+          'has-[[data-table-row-link-cell]_:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]',
         )
       cy.percySnapshot(`Table focused row link - ${fw}`)
     })
