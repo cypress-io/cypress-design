@@ -466,6 +466,36 @@ export default function assertions(
       cy.get('@linkClick').should('have.been.calledOnce')
     })
 
+    it('ignores a click that ends a text selection inside the row', () => {
+      mountStory({ columns, rows: users, rowLink: linkToUser })
+      spyOnLink('#jordan')
+      cy.contains('td', '480').then(($cell) => {
+        $cell[0].ownerDocument.getSelection()?.selectAllChildren($cell[0])
+      })
+      // `trigger` skips Cypress's mousedown handling, which would reset the
+      // selection before the click lands.
+      cy.contains('td', '480').trigger('click', {
+        eventConstructor: 'MouseEvent',
+        button: 0,
+      })
+      cy.get('@linkClick').should('not.have.been.called')
+    })
+
+    it('follows the link while text elsewhere on the page is selected', () => {
+      mountStory({ columns, rows: users, rowLink: linkToUser })
+      spyOnLink('#jordan')
+      cy.contains('th', 'Calls').then(($header) => {
+        $header[0].ownerDocument.getSelection()?.selectAllChildren($header[0])
+      })
+      // `trigger` skips Cypress's mousedown handling, which would reset the
+      // selection before the click lands.
+      cy.contains('td', '480').trigger('click', {
+        eventConstructor: 'MouseEvent',
+        button: 0,
+      })
+      cy.get('@linkClick').should('have.been.calledOnce')
+    })
+
     it('opens a new tab for Cmd, Ctrl, Shift, and middle clicks', () => {
       mountStory({ columns, rows: users, rowLink: linkToUser })
       spyOnLink('#jordan')
