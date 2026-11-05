@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/react-menu",
   "version": "1.3.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/Menu/react"
+  },
   "files": [
     "*"
   ],

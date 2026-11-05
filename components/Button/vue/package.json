@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/vue-button",
   "version": "1.13.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/Button/vue"
+  },
   "files": [
     "*"
   ],

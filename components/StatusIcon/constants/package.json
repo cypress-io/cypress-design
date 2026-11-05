@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/constants-statusicon",
   "version": "1.0.2",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/StatusIcon/constants"
+  },
   "files": [
     "*"
   ],

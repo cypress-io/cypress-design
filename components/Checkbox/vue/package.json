@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/vue-checkbox",
   "version": "1.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/Checkbox/vue"
+  },
   "files": [
     "*"
   ],

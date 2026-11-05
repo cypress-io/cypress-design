@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/react-docmenu",
   "version": "1.2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/DocMenu/react"
+  },
   "files": [
     "*"
   ],
