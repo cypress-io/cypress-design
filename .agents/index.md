@@ -45,6 +45,7 @@ Fetch on demand — don't preload all of them:
 `Select` — single-select dropdown with Button trigger (swappable), optional header (title / tabs / search), optional footer, and pluggable row content types (default / headline / divider / checkbox / user / button / custom)
 `SpecResults` — a run's per-status spec breakdown (failed/errored/passed/skipped/remaining) as filterable pills plus a proportional progress bar. React only for now (`@cypress-design/react-spec-results`)
 `StatusIcon` — run/spec/group/test-result status indicator (passed, failed, failing, running, unclaimed, placeholder, cancelled, noTests, errored, timedOut, overLimit, skipped, pending)
+`Table` — data table from a column config: header and cell icons, sort buttons, left/center/right alignment per column or cell, optional truncation, clickable rows, and sticky header
 `Tag` — small colored label
 `TestResult` — single test result row with status, title, and actions
 
