@@ -11,6 +11,7 @@ import {
   CssClickableRowCellClasses,
   CssClickableRowClasses,
   CssHeaderCellClasses,
+  CssHeaderRowClasses,
   CssContentWidthClasses,
   CssIconClasses,
   CssIconContentClasses,
@@ -38,6 +39,7 @@ import {
   getNextSort,
   getPrimaryColumnKey,
   getRowKey,
+  setTitleFromText,
   sortRows,
 } from '@cypress-design/constants-table'
 
@@ -137,8 +139,8 @@ function TableInner<Row>(
         className={twMerge(CssTableClasses, className)}
         {...rest}
       >
-        <thead>
-          <tr>
+        <thead className={CssHeaderRowClasses}>
+          <tr className={CssHeaderRowClasses}>
             {columns.map((column) => {
               const isSorted = sort?.key === column.key
               const Icon = column.icon
@@ -213,7 +215,10 @@ function TableInner<Row>(
             return (
               <tr
                 key={getRowKey(row, rowKey)}
-                className={clsx(linkProps && CssClickableRowClasses)}
+                className={clsx(
+                  linkProps &&
+                    CssClickableRowClasses[stickyHeader ? 'sticky' : 'default'],
+                )}
                 onClick={linkProps ? handleRowClick : undefined}
                 onAuxClick={linkProps ? handleRowClick : undefined}
               >
@@ -223,9 +228,19 @@ function TableInner<Row>(
                   const content = column.render
                     ? column.render(row)
                     : (value as React.ReactNode)
-                  const title =
-                    column.truncate && typeof value === 'string'
+                  // `render` output that isn't plain text gets its tooltip from
+                  // the rendered text on hover.
+                  const text = column.render
+                    ? typeof content === 'string' || typeof content === 'number'
+                      ? String(content)
+                      : undefined
+                    : typeof value === 'string'
                       ? value
+                      : undefined
+                  const title = column.truncate ? text : undefined
+                  const onTitleHover =
+                    column.truncate && text === undefined && column.render
+                      ? setTitleFromText
                       : undefined
                   const align = getCellAlign(column, row)
                   const CellIcon = column.cellIcon?.(row)
@@ -246,6 +261,10 @@ function TableInner<Row>(
                           column.truncate ? CssTruncateClasses : undefined
                         }
                         title={title}
+                        onMouseEnter={
+                          onTitleHover &&
+                          ((event) => onTitleHover(event.nativeEvent))
+                        }
                       >
                         {content}
                       </span>
@@ -254,6 +273,10 @@ function TableInner<Row>(
                     <span
                       className={clsx(CssTruncateClasses, widthClasses)}
                       title={title}
+                      onMouseEnter={
+                        onTitleHover &&
+                        ((event) => onTitleHover(event.nativeEvent))
+                      }
                     >
                       {content}
                     </span>

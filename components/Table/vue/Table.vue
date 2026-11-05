@@ -12,6 +12,7 @@ import {
   CssClickableRowCellClasses,
   CssClickableRowClasses,
   CssHeaderCellClasses,
+  CssHeaderRowClasses,
   CssContentWidthClasses,
   CssIconClasses,
   CssIconContentClasses,
@@ -92,7 +93,7 @@ const emit = defineEmits<{
   (event: 'update:sort', sort: TableSort): void
 }>()
 
-defineSlots<
+const slots = defineSlots<
   {
     [K in `cell-${string}`]?: (props: { row: Row; value: unknown }) => VNode[]
   } & {
@@ -128,7 +129,15 @@ const displayedRows = computed(() =>
         isPrimary,
         align: getCellAlign(column, row),
         icon: column.cellIcon?.(row),
-        title: column.truncate && typeof value === 'string' ? value : undefined,
+        // A `cell-<key>` slot can show other text than `row[key]`, so its
+        // tooltip comes from the rendered text on hover.
+        hasSlot: !!slots[`cell-${column.key}`],
+        title:
+          column.truncate &&
+          !slots[`cell-${column.key}`] &&
+          typeof value === 'string'
+            ? value
+            : undefined,
         widthClass: getCellContentWidthClasses(column, isPrimary),
       }
     }),
@@ -152,8 +161,8 @@ function handleRowClick(event: MouseEvent) {
       v-bind="{ ...$attrs, class: undefined }"
       :class="twMerge(CssTableClasses, normalizeClass($attrs.class))"
     >
-      <thead>
-        <tr>
+      <thead :class="CssHeaderRowClasses">
+        <tr :class="CssHeaderRowClasses">
           <th
             v-for="column in columns"
             :key="column.key"
@@ -175,6 +184,11 @@ function handleRowClick(event: MouseEvent) {
             <component
               :is="column.sortable ? 'button' : 'span'"
               :type="column.sortable ? 'button' : undefined"
+              :aria-label="
+                column.sortable && $slots[`header-${column.key}`]
+                  ? column.label
+                  : undefined
+              "
               :class="
                 column.sortable
                   ? CssSortButtonClasses
@@ -223,7 +237,9 @@ function handleRowClick(event: MouseEvent) {
         <tr
           v-for="{ row, key, link, cells } in displayedRows"
           :key="key"
-          :class="{ [CssClickableRowClasses]: link }"
+          :class="
+            link && CssClickableRowClasses[stickyHeader ? 'sticky' : 'default']
+          "
           @click="link && handleRowClick($event)"
           @auxclick="link && handleRowClick($event)"
         >
@@ -235,6 +251,7 @@ function handleRowClick(event: MouseEvent) {
               align,
               icon,
               title,
+              hasSlot,
               widthClass,
             } in cells"
             :key="column.key"
@@ -258,6 +275,7 @@ function handleRowClick(event: MouseEvent) {
                 :truncate="column.truncate"
                 :width-class="widthClass"
                 :title="title"
+                :title-from-text="hasSlot && column.truncate"
               >
                 <slot :name="`cell-${column.key}`" :row="row" :value="value">
                   {{ value }}
@@ -270,6 +288,7 @@ function handleRowClick(event: MouseEvent) {
               :truncate="column.truncate"
               :width-class="widthClass"
               :title="title"
+              :title-from-text="hasSlot && column.truncate"
             >
               <slot :name="`cell-${column.key}`" :row="row" :value="value">
                 {{ value }}
