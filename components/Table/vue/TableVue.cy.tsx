@@ -73,6 +73,40 @@ describe('<Table /> Vue', () => {
       </Table>
     ))
     cy.contains('th', 'Calls today').find('button em').should('exist')
+    // The slot is presentational; the button keeps the column label as its name.
+    cy.contains('th', 'Calls today')
+      .find('button')
+      .should('have.attr', 'aria-label', 'Calls')
+  })
+
+  it('adds a `class` from `rowLink` to the link', () => {
+    mountStory({
+      columns,
+      rows: users,
+      rowLink: (user) => ({ href: `#${user.id}`, class: 'font-bold' }),
+    })
+    cy.get('a[href="#jordan"]')
+      .should('have.class', 'font-bold')
+      .and('have.class', 'text-indigo-500')
+  })
+
+  it('takes the truncation tooltip from a `cell-<key>` slot', () => {
+    mount(() => (
+      <Table
+        aria-label="Usage"
+        columns={[{ ...nameColumn, truncate: true }] as VueColumn[]}
+        rows={users.slice(0, 1)}
+      >
+        {{
+          'cell-name': ({ row }: { row: User }) => <em>{row.name} (team)</em>,
+        }}
+      </Table>
+    ))
+    cy.contains('em', 'Jordan Lee (team)')
+      .parent()
+      .should('not.have.attr', 'title')
+      .trigger('mouseenter')
+      .should('have.attr', 'title', 'Jordan Lee (team)')
   })
 
   it('re-sorts when the parent passes the new sort back', () => {
@@ -125,7 +159,11 @@ describe('<Table /> Vue', () => {
     cy.get('@action').should('have.been.calledOnce')
     cy.get('@linkClick').should('not.have.been.called')
   })
+})
 
+// One snapshot of the resting states, instead of one per test. Wide enough
+// for the `max-w-3xl` layout, matching the React snapshot.
+describe('<Table /> Vue — all states', { viewportWidth: 1280 }, () => {
   it('renders sorting, icons, alignment, truncation, and clickable rows', () => {
     mount(() => (
       <div class="flex max-w-3xl flex-col gap-8 p-8">

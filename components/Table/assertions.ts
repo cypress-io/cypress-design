@@ -1,8 +1,10 @@
 /// <reference types="cypress" />
 
-import type {
-  TableColumnBase,
-  TableSort,
+import {
+  CssClickableRowClasses,
+  type TableColumnBase,
+  type TableSort,
+  sortRows,
 } from '@cypress-design/constants-table'
 
 export interface User {
@@ -154,6 +156,14 @@ export default function assertions(
       cy.get('table')
         .should('have.class', 'bg-gray-50')
         .and('not.have.class', 'bg-white')
+      // Header cells follow the table's background instead of painting white.
+      cy.get('table').then(($table) => {
+        cy.contains('th', 'User').should(
+          'have.css',
+          'background-color',
+          $table.css('background-color'),
+        )
+      })
     })
   })
 
@@ -311,6 +321,19 @@ export default function assertions(
       cy.contains('th', 'User').should('have.attr', 'aria-sort', 'ascending')
     })
 
+    it('stays unsorted when controlled with `sort: null`', () => {
+      const onSortChange = cy.spy().as('sortChange')
+      mountStory({ columns, rows: users, sort: null, onSortChange })
+      sortButton('Calls').click()
+      cy.get('@sortChange').should('have.been.calledOnceWith', {
+        key: 'calls',
+        direction: 'descending',
+      })
+      // The parent didn't pass the new sort back, so the rows keep their order.
+      expectColumn(0, ['Jordan Lee', 'Maya Patel', 'Sam Rivera', 'Alex Kim'])
+      cy.get('th[aria-sort]').should('not.exist')
+    })
+
     it('leaves the order to the page with `manualSort`', () => {
       mountStory({ columns, rows: users, manualSort: true })
       sortButton('Calls').click()
@@ -326,6 +349,43 @@ export default function assertions(
       })
       cy.get('thead button').should('have.length', 3)
       cy.contains('th', 'Calls').should('have.attr', 'aria-sort', 'descending')
+    })
+
+    it('keeps the sort buttons with no rows', () => {
+      mountStory({ columns, rows: [] })
+      cy.get('thead button').should('have.length', 3)
+      cy.get('tbody tr').should('not.exist')
+    })
+
+    it('sorts `NaN` last in both directions', () => {
+      mountStory({
+        columns,
+        rows: users.map((user) =>
+          user.id === 'maya' ? { ...user, calls: Number.NaN } : user,
+        ),
+      })
+      sortButton('Calls').click()
+      expectColumn(1, ['480', '188', 'NaN', ''])
+      sortButton('Calls').click()
+      expectColumn(1, ['188', '480', 'NaN', ''])
+    })
+
+    it('sorts `Date` values by time', () => {
+      type Meeting = { id: string; at: Date }
+      const events: Meeting[] = [
+        { id: 'monday', at: new Date(2025, 0, 6) },
+        { id: 'march', at: new Date(2024, 2, 1) },
+        { id: 'friday', at: new Date(2025, 0, 3) },
+      ]
+      const sorted = sortRows(events, [{ key: 'at', label: 'At' }], {
+        key: 'at',
+        direction: 'ascending',
+      })
+      expect(sorted.map(({ id }) => id)).to.deep.equal([
+        'march',
+        'friday',
+        'monday',
+      ])
     })
 
     it('keeps rows without an id intact when sorting', () => {
@@ -519,6 +579,51 @@ export default function assertions(
       cy.get('@linkClick').should('not.have.been.called')
     })
 
+    it('puts the link in the `primary` column when it is not first', () => {
+      mountStory({
+        columns: [nameColumn, { ...callsColumn, primary: true }],
+        rows: users,
+        rowLink: linkToUser,
+      })
+      cy.contains('td', '480')
+        .should('have.class', 'w-full')
+        .find('a[href="#jordan"]')
+        .should('exist')
+      cy.contains('td', 'Jordan Lee')
+        .should('not.have.class', 'w-full')
+        .find('a')
+        .should('not.exist')
+    })
+
+    it('keeps clicks on menu items off the row link', () => {
+      mountStory({ columns, rows: users, rowLink: linkToUser })
+      spyOnLink('#jordan')
+      // Menu items use `tabindex="-1"` for roving focus.
+      cy.contains('td', '480').then(($cell) => {
+        $cell.append('<span role="menuitem" tabindex="-1">Remove</span>')
+      })
+      cy.contains('[role="menuitem"]', 'Remove').click()
+      cy.get('@linkClick').should('not.have.been.called')
+    })
+
+    it('ignores a click that extends a selection into the row', () => {
+      mountStory({ columns, rows: users, rowLink: linkToUser })
+      spyOnLink('#jordan')
+      // A Shift-click from a selection that started above the table.
+      cy.contains('th', 'User').then(($header) => {
+        cy.contains('td', '480').then(($cell) => {
+          $header[0].ownerDocument
+            .getSelection()
+            ?.setBaseAndExtent($header[0], 0, $cell[0], 1)
+        })
+      })
+      cy.contains('td', '480').trigger('click', {
+        eventConstructor: 'MouseEvent',
+        button: 0,
+      })
+      cy.get('@linkClick').should('not.have.been.called')
+    })
+
     it('has no row hover state without `rowLink`', () => {
       mountStory({ columns, rows: users })
       cy.get('tbody a').should('not.exist')
@@ -527,6 +632,20 @@ export default function assertions(
   })
 
   describe('sticky header', () => {
+    it('keeps the row hover outline inside a sticky table', () => {
+      mountStory({
+        columns,
+        rows: users,
+        rowLink: linkToUser,
+        stickyHeader: true,
+      })
+      cy.contains('tr', 'Jordan Lee').should(
+        'have.attr',
+        'class',
+        CssClickableRowClasses.sticky,
+      )
+    })
+
     it('pins the header cells and drops the scroll wrapper', () => {
       mountStory({ columns, rows: users, stickyHeader: true })
       cy.get('thead th').each(($th) => {

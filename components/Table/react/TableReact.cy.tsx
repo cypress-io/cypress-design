@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 import * as React from 'react'
+import { createPortal } from 'react-dom'
 import { mount } from 'cypress/react'
 import { IconDocumentBlank } from '@cypress-design/react-icon'
 import { Table, type TableColumn } from './Table'
@@ -108,6 +109,89 @@ describe('<Table /> React', () => {
     spyOnLink('#jordan')
     cy.contains('td', '480').click()
     cy.get('@linkClick').should('have.been.calledOnce')
+  })
+
+  it('passes row clicks to a `rowLinkAs` that is not a link', () => {
+    function ButtonLink({
+      onActivate,
+      className,
+      children,
+    }: {
+      onActivate: (event: React.MouseEvent) => void
+      className?: string
+      children?: React.ReactNode
+    }) {
+      return (
+        <button type="button" className={className} onClick={onActivate}>
+          {children}
+        </button>
+      )
+    }
+    const onActivate = cy.spy().as('activate')
+    cy.window().then((win) => {
+      cy.stub(win, 'open').as('open')
+    })
+    mount(
+      <Table
+        aria-label="Usage"
+        columns={columns}
+        rows={users}
+        rowLinkAs={ButtonLink}
+        rowLink={() => ({ onActivate })}
+      />,
+    )
+    cy.contains('td', '480').click()
+    cy.get('@activate').should('have.been.calledOnce')
+    // A modified click goes to the component too, with its modifier key.
+    cy.contains('td', '480').click({ metaKey: true })
+    cy.get('@activate').should('have.been.calledTwice')
+    cy.get('@activate').its('secondCall.args.0.metaKey').should('equal', true)
+    cy.get('@open').should('not.have.been.called')
+  })
+
+  it('keeps clicks in a portaled menu off the row link', () => {
+    mountStory({
+      columns: [
+        nameColumn,
+        {
+          key: 'menu',
+          label: 'Menu',
+          render: () =>
+            createPortal(
+              <div data-cy="portaled">Open menu</div>,
+              document.body,
+            ),
+        } as TableColumn<User>,
+      ],
+      rows: users.slice(0, 1),
+      rowLink: (user) => ({ href: `#${user.id}` }),
+    })
+    spyOnLink('#jordan')
+    cy.get('[data-cy="portaled"]').click()
+    cy.get('@linkClick').should('not.have.been.called')
+  })
+
+  it('takes the truncation tooltip from `render`', () => {
+    mountStory({
+      columns: [
+        {
+          ...nameColumn,
+          truncate: true,
+          render: (user: User) => `${user.name} (team)`,
+        } as TableColumn<User>,
+        {
+          ...lastActiveColumn,
+          truncate: true,
+          render: (user: User) => <em>{user.lastActive}, local time</em>,
+        } as TableColumn<User>,
+      ],
+      rows: users.slice(0, 1),
+    })
+    cy.get('[title="Jordan Lee (team)"]').should('exist')
+    cy.contains('em', '2 min ago, local time')
+      .parent()
+      .trigger('mouseover')
+      .should('have.attr', 'title', '2 min ago, local time')
   })
 
   it('keeps clicks on interactive cell content off the row link', () => {
