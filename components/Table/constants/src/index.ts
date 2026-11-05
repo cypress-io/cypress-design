@@ -106,8 +106,10 @@ export function getArrowDirection<Row>(
 
 const collator = new Intl.Collator(undefined, { numeric: true })
 
-function isEmpty(value: SortScalar): value is null | undefined {
-  return value === null || value === undefined
+// `NaN` counts as empty: `a - b` with a `NaN` is `NaN`, which `Array.sort`
+// reads as equal and which breaks the order of the other rows.
+function isEmpty(value: SortScalar): boolean {
+  return value === null || value === undefined || Number.isNaN(value)
 }
 
 // Empty values sort last whatever the direction, so `direction` is applied
@@ -143,6 +145,12 @@ function compareSortValues(
   return 0
 }
 
+// A `Date` would otherwise compare as `String(date)` and sort by weekday. An
+// invalid date becomes `NaN` and sorts last.
+function toSortScalar(value: unknown): SortScalar {
+  return value instanceof Date ? value.getTime() : (value as SortScalar)
+}
+
 export function sortRows<Row>(
   rows: Row[],
   columns: TableColumnBase<Row>[],
@@ -151,7 +159,7 @@ export function sortRows<Row>(
   const column = sort && columns.find(({ key }) => key === sort.key)
   if (!sort || !column) return rows
   const getValue =
-    column.sortValue ?? ((row: Row) => getCellValue(row, column) as SortScalar)
+    column.sortValue ?? ((row: Row) => toSortScalar(getCellValue(row, column)))
   // Array.prototype.sort is stable, so ties keep their order from `rows`.
   return [...rows].sort((a, b) =>
     compareSortValues(getValue(a), getValue(b), sort.direction),
@@ -164,8 +172,42 @@ export function sortRows<Row>(
 const RowLinkCellAttribute = 'data-table-row-link-cell'
 export const RowLinkCellAttributes = { [RowLinkCellAttribute]: '' } as const
 
-const InteractiveSelector =
-  'a, button, input, select, textarea, label, summary, [role="button"], [role="link"], [tabindex]:not([tabindex="-1"])'
+// Widget roles count even with `tabindex="-1"`, which menu items and options
+// use for roving focus.
+const InteractiveSelector = [
+  'a',
+  'button',
+  'input',
+  'select',
+  'textarea',
+  'label',
+  'summary',
+  '[tabindex]:not([tabindex="-1"])',
+  ...[
+    'button',
+    'link',
+    'menuitem',
+    'menuitemcheckbox',
+    'menuitemradio',
+    'option',
+    'checkbox',
+    'radio',
+    'switch',
+    'tab',
+  ].map((role) => `[role="${role}"]`),
+].join(', ')
+
+// A click ends a text selection on the row when the selection starts, ends,
+// or passes through it (Shift-click extends a selection from above the table).
+function hasSelectionOnRow(row: HTMLElement): boolean {
+  const selection = window.getSelection()
+  if (!selection || selection.isCollapsed || !selection.toString()) return false
+  return (
+    (!!selection.anchorNode && row.contains(selection.anchorNode)) ||
+    (!!selection.focusNode && row.contains(selection.focusNode)) ||
+    selection.containsNode(row, true)
+  )
+}
 
 // A click anywhere on a clickable row follows its link. The link is a real
 // `<a>` in the primary cell so keyboard, screen reader, and Cmd/Ctrl-click on
@@ -176,33 +218,51 @@ const InteractiveSelector =
 export function followRowLink(event: MouseEvent, row: HTMLElement): void {
   if (event.defaultPrevented) return
   if (event.button !== 0 && event.button !== 1) return
+  const target = event.target
+  // React delivers clicks in a portaled menu to the row's handler even though
+  // the menu's DOM sits outside the row.
+  if (!(target instanceof Element) || !row.contains(target)) return
   // Only interactive elements inside the row count; the table itself may sit
   // in a focusable scroll container or a `<label>`.
-  const interactive = (event.target as Element | null)?.closest(
-    InteractiveSelector,
-  )
+  const interactive = target.closest(InteractiveSelector)
   if (interactive && row.contains(interactive)) return
-  // A click that ends a text selection inside the row selects, not navigates.
-  // A selection elsewhere on the page doesn't block the row.
-  const selection = window.getSelection()
-  if (
-    selection?.toString() &&
-    selection.anchorNode &&
-    row.contains(selection.anchorNode)
-  )
-    return
+  if (hasSelectionOnRow(row)) return
   const cell = row.querySelector(`[${RowLinkCellAttribute}]`)
   const link =
     cell?.querySelector<HTMLAnchorElement>('a[href]') ??
     (cell?.firstElementChild as HTMLElement | null | undefined)
-  if (!link) return
+  // A click on the link itself already reached it.
+  if (!link || link.contains(target)) return
   const newTab =
     event.button === 1 || event.metaKey || event.ctrlKey || event.shiftKey
-  if (newTab && link instanceof HTMLAnchorElement) {
+  if (!newTab) {
+    link.click()
+  } else if (link instanceof HTMLAnchorElement) {
     window.open(link.href, '_blank', 'noopener')
-    return
+  } else {
+    // Another `rowLinkAs` element decides what a modified click does.
+    link.dispatchEvent(
+      new MouseEvent(event.type, {
+        bubbles: true,
+        cancelable: true,
+        view: window,
+        button: event.button,
+        buttons: event.buttons,
+        altKey: event.altKey,
+        ctrlKey: event.ctrlKey,
+        metaKey: event.metaKey,
+        shiftKey: event.shiftKey,
+      }),
+    )
   }
-  link.click()
+}
+
+// Custom cell content (`render` or a `cell-<key>` slot) can show different
+// text than `row[key]`, so a truncating cell's tooltip reads the rendered text
+// when the pointer arrives.
+export function setTitleFromText(event: MouseEvent): void {
+  const element = event.currentTarget as HTMLElement
+  element.title = element.textContent?.trim() ?? ''
 }
 
 export const CssTableClasses =
@@ -214,8 +274,13 @@ export const CssAlignClasses = {
   right: 'text-right',
 } as const satisfies Record<TableAlign, string>
 
+// Header cells take the table's background through `thead` and the header row,
+// so a `bg-*` class on the table colors them too and a sticky header stays
+// opaque over the rows.
+export const CssHeaderRowClasses = 'bg-inherit'
+
 export const CssHeaderCellClasses =
-  'whitespace-nowrap border-b border-gray-100 bg-white px-4 py-3 font-medium'
+  'whitespace-nowrap border-b border-gray-100 bg-inherit px-4 py-3 font-medium'
 
 export const CssStickyHeaderCellClasses = 'sticky top-0 z-10'
 
@@ -312,8 +377,14 @@ export const CssLabelClasses = 'min-w-0 truncate'
 // outline shows, or it would draw over the outline's bottom edge. The focus
 // outline tracks the row link only (inside the marked primary cell), so a
 // focused control in another cell keeps its own ring without outlining the row.
-export const CssClickableRowClasses =
-  'group/row cursor-pointer rounded hover:shadow-[inset_0_0_0_1px_theme(colors.gray.200),0_0_0_2px_theme(colors.gray.50)] has-[[data-table-row-link-cell]_:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]'
+// A sticky table has no padded wrapper, so the consumer's scroll container
+// would clip the outer ring: its hover outline stays inside the row.
+export const CssClickableRowClasses = {
+  default:
+    'group/row cursor-pointer rounded hover:shadow-[inset_0_0_0_1px_theme(colors.gray.200),0_0_0_2px_theme(colors.gray.50)] has-[[data-table-row-link-cell]_:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]',
+  sticky:
+    'group/row cursor-pointer rounded hover:shadow-[inset_0_0_0_1px_theme(colors.gray.200)] has-[[data-table-row-link-cell]_:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]',
+} as const
 
 export const CssClickableRowCellClasses =
   'group-hover/row:border-transparent group-has-[[data-table-row-link-cell]_:focus-visible]/row:border-transparent'

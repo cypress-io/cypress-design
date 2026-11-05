@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import Table, { type TableSort } from '@cypress-design/react-table'
+import Table, { type TableSort, sortRows } from '@cypress-design/react-table'
 
 type User = { id: string; name: string; calls: number }
 
@@ -22,20 +22,14 @@ const users: User[] = [
 ]
 
 // With `manualSort` the table only shows the sort state. The page orders
-// `rows` itself, for example from a server query or the URL.
+// `rows` itself, for example from a server query or the URL. `sortRows` sorts
+// exactly like the built-in sort; a server-sorted page doesn't need it.
 export default function ManualSort() {
   const [sort, setSort] = useState<TableSort>({
     key: 'calls',
     direction: 'descending',
   })
-  const rows = useMemo(() => {
-    const order = sort.direction === 'ascending' ? 1 : -1
-    return [...users].sort((a, b) =>
-      sort.key === 'calls'
-        ? (a.calls - b.calls) * order
-        : a.name.localeCompare(b.name) * order,
-    )
-  }, [sort])
+  const rows = useMemo(() => sortRows(users, columns, sort), [sort])
 
   return (
     <Table

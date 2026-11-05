@@ -6,6 +6,7 @@ import {
   CssTruncateClasses,
   IconFillColor,
   IconStrokeColor,
+  setTitleFromText,
 } from '@cypress-design/constants-table'
 
 defineProps<{
@@ -13,6 +14,8 @@ defineProps<{
   truncate?: boolean
   widthClass?: string
   title?: string
+  // Read `title` from the rendered text on hover (custom slot content).
+  titleFromText?: boolean
 }>()
 </script>
 
@@ -25,7 +28,11 @@ defineProps<{
       :stroke-color="IconStrokeColor"
       :fill-color="IconFillColor"
     />
-    <span :class="truncate ? CssTruncateClasses : undefined" :title="title">
+    <span
+      :class="truncate ? CssTruncateClasses : undefined"
+      :title="title"
+      @mouseenter="titleFromText ? setTitleFromText($event) : undefined"
+    >
       <slot />
     </span>
   </span>
@@ -33,6 +40,7 @@ defineProps<{
     v-else-if="truncate"
     :class="[CssTruncateClasses, widthClass]"
     :title="title"
+    @mouseenter="titleFromText ? setTitleFromText($event) : undefined"
   >
     <slot />
   </span>
