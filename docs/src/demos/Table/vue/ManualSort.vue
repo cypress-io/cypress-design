@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import Table, { type TableSort } from '@cypress-design/vue-table'
+import Table, { type TableSort, sortRows } from '@cypress-design/vue-table'
 
 type User = { id: string; name: string; calls: number }
 
@@ -23,17 +23,10 @@ const users: User[] = [
 ]
 
 // With `manual-sort` the table only shows the sort state. The page orders
-// `rows` itself, for example from a server query or the URL.
+// `rows` itself, for example from a server query or the URL. `sortRows` sorts
+// exactly like the built-in sort; a server-sorted page doesn't need it.
 const sort = ref<TableSort>({ key: 'calls', direction: 'descending' })
-const rows = computed(() => {
-  const { key, direction } = sort.value
-  const order = direction === 'ascending' ? 1 : -1
-  return [...users].sort((a, b) =>
-    key === 'calls'
-      ? (a.calls - b.calls) * order
-      : a.name.localeCompare(b.name) * order,
-  )
-})
+const rows = computed(() => sortRows(users, columns, sort.value))
 </script>
 
 <template>
