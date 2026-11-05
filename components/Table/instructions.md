@@ -34,7 +34,8 @@ Use Table when the user compares **many records across the same attributes** —
 
 - React: `@cypress-design/react-table`
 - Vue: `@cypress-design/vue-table`
-  Both packages export `Table` (also the default export), the sort helpers `sortRows` and `getNextSort` (see [`manualSort`](#sorting)), and the types `TableColumn`, `TableSort`, `TableAlign`, `TableSortDirection`, and `TableSortValue`. React also exports `TableProps`.
+
+Both packages export `Table` (also the default export), the sort helpers `sortRows` and `getNextSort` (see [`manualSort`](#sorting)), and the types `TableColumn`, `TableSort`, `TableAlign`, `TableSortDirection`, and `TableSortValue`. React also exports `TableProps`.
 
 ## Props
 
@@ -53,9 +54,9 @@ Only `columns` and `rows` are required. Vue takes the same props in kebab-case.
 - **`onSortChange`** — `(sort: TableSort) => void`. React only. Called when a sort button is clicked. Vue emits `update:sort`.
 - **`manualSort`** — `boolean`. Default `false`. When `false`, Table reorders `rows` itself using each column's `sortValue`. When `true`, Table only shows the sort state and reports clicks; the page reorders `rows` (server-side sorting, or sorting persisted in the URL). To sort client-side exactly like the built-in sort, call `sortRows(rows, columns, sort)`; `getNextSort(column, sort)` gives the sort a click on `column` would apply.
 
-A click on the sorted column's button flips its direction. A click on any other sortable column sorts by that column in its `firstSortDirection`. There is no unsorted state once a sort is set.
+A click on the sorted column's button flips its direction. A click on any other sortable column sorts by that column in its `firstSortDirection`. Clicks never return to unsorted; a controlled page can still clear the sort by passing `sort={null}`.
 
-Built-in sorting is stable. It compares `sortValue` results: numbers numerically, strings with `localeCompare` (numeric collation), arrays element by element (for tie-breakers). `null` and `undefined` sort last in both directions.
+Built-in sorting is stable. It compares `sortValue` results: numbers numerically, strings with `localeCompare` (numeric collation), arrays element by element (for tie-breakers). Without a `sortValue`, a `Date` in `row[key]` sorts by its time. `null`, `undefined`, and `NaN` sort last in both directions.
 
 ### Rows
 
@@ -64,7 +65,7 @@ Built-in sorting is stable. It compares `sortValue` results: numbers numerically
 
 ### Layout
 
-- **`stickyHeader`** — `boolean`. Default `false`. Pins the header row to the top of the nearest scrolling ancestor while the rows scroll under it. The header gets a white background so rows don't show through. Table doesn't create the scroll container; give an ancestor a fixed height and `overflow-auto`, or let the page scroll. See [Width and scrolling](#width-and-scrolling) for how this changes sideways scrolling.
+- **`stickyHeader`** — `boolean`. Default `false`. Pins the header row to the top of the nearest scrolling ancestor while the rows scroll under it. Header cells take the table's background (white by default, or a `bg-*` class on the table), so rows don't show through; keep that background opaque. Clickable rows draw their hover outline inside the row, because the scroll container would clip an outline outside it. Table doesn't create the scroll container; give an ancestor a fixed height and `overflow-auto`, or let the page scroll. See [Width and scrolling](#width-and-scrolling) for how this changes sideways scrolling.
 
 React: `className`, `aria-*`, `ref`, and other `<table>` props go on the `<table>` element. Vue: `class` and other non-prop attributes fall through to the same element.
 
@@ -73,6 +74,12 @@ React: `className`, `aria-*`, `ref`, and other `<table>` props go on the `<table
 ```ts
 type TableAlign = 'left' | 'center' | 'right'
 type TableSortDirection = 'ascending' | 'descending'
+type TableSortValue =
+  | string
+  | number
+  | null
+  | undefined
+  | (string | number | null | undefined)[]
 
 interface TableSort {
   key: string // the sorted column's key
@@ -87,7 +94,7 @@ interface TableColumn<Row> {
   headerAlign?: TableAlign // header only; overrides `align`
   cellAlign?: TableAlign | ((row: Row) => TableAlign) // cells only; overrides `align` per cell
   sortable?: boolean // default false
-  sortValue?: (row: Row) => string | number | null | (string | number | null)[] // default row[key]
+  sortValue?: (row: Row) => TableSortValue // default row[key]; only read when `sortable`
   firstSortDirection?: TableSortDirection // direction of the first click; default 'ascending'
   primary?: boolean // identifying column; default: the first column
   truncate?: boolean // ellipsize long values; default false
@@ -106,7 +113,7 @@ Define `columns` once: outside the component or in `useMemo` (React), or in `<sc
 
 Cells don't wrap. By default every value shows in full: a long value widens its column, and when the table is wider than its container it scrolls sideways.
 
-Set `truncate: true` on a column to cut long values off with an ellipsis instead, with the full value in `title` when it's a string. The primary column truncates to fit the width left over by the other columns; any other column truncates past 320px.
+Set `truncate: true` on a column to cut long values off with an ellipsis instead, with the full text in `title`. With `render` (React) or a `cell-<key>` slot (Vue), `title` is the text the cell shows, not the raw `row[key]`. The primary column truncates to fit the width left over by the other columns; any other column truncates past 320px.
 
 With `stickyHeader`, Table doesn't add its own sideways scrolling, because a scroll wrapper inside the table would stop the header from sticking. Give the ancestor that scrolls vertically `overflow-auto` so it scrolls both ways, or truncate the long columns:
 
@@ -138,7 +145,8 @@ const columns: TableColumn<User>[] = [
   {
     key: 'lastActive',
     label: 'Last active',
-    sortValue: (u) => u.lastActiveAt,
+    sortable: true,
+    sortValue: (u) => u.lastActiveAt, // a timestamp in ms
   },
 ]
 
@@ -173,6 +181,7 @@ const columns: TableColumn<View>[] = [
     key: 'tested',
     label: 'Tested elements',
     align: 'right',
+    sortable: true,
     sortValue: (v) => v.testedCount,
   },
   { key: 'coverage', label: 'Coverage %', align: 'right', sortable: true },
@@ -200,7 +209,7 @@ const columns: TableColumn<View>[] = [
 
 - Each header shows the column's `icon` (if any), then the `label`. Header and cell icons render with a `gray-500` outline and `gray-50` fill.
 - A sortable header wraps the label in a sort button. The round sort button with an arrow sits after the label in every alignment. Its space is reserved even while it's hidden, so when a sortable header is right- or center-aligned, cells aligned the same way get matching extra end padding and their values line up with the label, not with the button.
-- Vue: a `header-<key>` scoped slot replaces the label, with `column` as its slot prop. The icon and sort button stay in place. React has no header override.
+- Vue: a `header-<key>` scoped slot replaces the label's visible content, with `column` as its slot prop. The icon and sort button stay in place. The slot is presentational: a sortable header's button keeps `column.label` as its accessible name, so keep the slot's text close to the label. React has no header override.
 
 ## Sorting states
 
@@ -214,12 +223,12 @@ Sort buttons show however many rows there are, so the header doesn't change when
 
 Rows are not clickable unless `rowLink` is set. A clickable row:
 
-- Renders the primary cell's content inside the link element (`rowLinkAs`, given the props `rowLink` returns). A click anywhere else on the row follows that link too; Cmd/Ctrl/Shift-click or middle-click opens it in a new tab. Clicks that end a text selection don't navigate.
-- Shows a rounded outline on hover, and a darker outline while its link has keyboard focus.
+- Renders the primary cell's content inside the link element (`rowLinkAs`, given the props `rowLink` returns). A click anywhere else on the row follows that link too. Cmd/Ctrl/Shift-click or middle-click (`auxclick`) on the rest of the row opens it in a new tab when the link is an `<a href>`; with another `rowLinkAs` element, the row passes the click, with its button and modifier keys, on to that element. A click that ends a text selection inside the row doesn't navigate; a selection elsewhere on the page doesn't block it.
+- Shows a rounded outline on hover, and a darker outline while its link has keyboard focus. Focus on a control in another cell doesn't outline the row.
 
 A row `rowLink` returns `undefined` for renders without a link and without hover or focus styles. Non-clickable tables never show a row hover state.
 
-Interactive content inside other cells (buttons, links, inputs) keeps its own click behavior and doesn't trigger the row link.
+Interactive content inside other cells (buttons, links, inputs, menu items, checkboxes, switches, tabs) keeps its own click behavior and doesn't trigger the row link. So do clicks in a menu or popover the cell portals or teleports elsewhere on the page.
 
 On clickable rows, the primary cell's content (its `render` or `cell-<key>` slot) sits inside the row link, so it must not contain a link, button, or other interactive element. Nesting them is invalid HTML and confuses keyboard and screen reader users. Put row actions in another cell.
 
@@ -244,7 +253,7 @@ Light only. The table has a white background and isn't styled for dark surfaces.
 
 - Renders a native `<table>` with `<thead>`/`<tbody>`; headers are `<th scope="col">`.
 - Give the table an accessible name with `aria-label`, or `aria-labelledby` pointing at the visible title above it (for example, the "Usage" card heading).
-- Sort buttons are `<button>` elements named by the column `label`. The sorted column's `<th>` has `aria-sort="ascending"` or `"descending"`; the arrow is `aria-hidden`.
+- Sort buttons are `<button>` elements named by the column `label`, including when a Vue `header-<key>` slot replaces the visible label. The sorted column's `<th>` has `aria-sort="ascending"` or `"descending"`; the arrow is `aria-hidden`.
 - Row links are real links: one Tab stop per clickable row, Enter follows the link. Their accessible name is the primary cell's text.
 - Keyboard focus on sort buttons and row links uses `focus-visible` outlines.
 - Header and cell icons are decorative (`aria-hidden`); the label or cell text carries the meaning. Don't use a cell icon as the only signal of a value.
