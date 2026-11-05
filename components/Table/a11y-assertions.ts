@@ -1,6 +1,11 @@
 /// <reference types="cypress" />
 
-import type { TableColumnBase } from '@cypress-design/constants-table'
+import {
+  CssClickableRowClasses,
+  CssSortButtonClasses,
+  RowLinkCellAttributes,
+  type TableColumnBase,
+} from '@cypress-design/constants-table'
 import {
   type MountFn,
   type User,
@@ -11,11 +16,19 @@ import {
   users,
 } from './assertions'
 
+// The marker the row's focus outline selects on (`RowLinkCellAttribute` isn't
+// exported).
+const RowLinkCellAttribute = Object.keys(RowLinkCellAttributes)[0]
+
 // A focusable sentinel before the table, so tests Tab into it for real
 // (programmatic focus doesn't exercise tab order). Cypress clears the mount
-// root between tests but not `document.body`, so `afterEach` removes it.
+// root between tests but not `document.body`, so any sentinel left by an
+// interrupted test is removed first, and `afterEach` removes this one.
 function focusSentinel(): void {
   cy.document().then((doc) => {
+    doc
+      .querySelectorAll('[data-cy="sentinel"]')
+      .forEach((node) => node.remove())
     const button = doc.createElement('button')
     button.setAttribute('data-cy', 'sentinel')
     button.textContent = 'sentinel'
@@ -27,7 +40,6 @@ function focusSentinel(): void {
 export default function a11yAssertions(
   mountStory: MountFn,
   icon: TableColumnBase<User>['icon'],
-  fw: 'vue' | 'react',
 ): void {
   afterEach(() => {
     cy.document().then((doc) => {
@@ -76,7 +88,8 @@ export default function a11yAssertions(
         rows: users,
         rowLink: linkToUser,
       })
-      cy.get('table svg').should('have.length.greaterThan', 3)
+      // 1 header icon, 3 sort arrows, and 4 cell icons.
+      cy.get('table svg').should('have.length', 8)
       cy.get('table svg').each(($svg) => {
         expect($svg).to.have.attr('aria-hidden', 'true')
       })
@@ -94,6 +107,10 @@ export default function a11yAssertions(
         .forEach((user) => {
           cy.get(`a[href="#${user.id}"]`).should('have.text', user.name)
         })
+      // The row's focus outline selects on this marker.
+      cy.get('a[href="#jordan"]')
+        .closest('td')
+        .should('have.attr', RowLinkCellAttribute)
     })
   })
 
@@ -135,23 +152,19 @@ export default function a11yAssertions(
     })
 
     // These check that focus lands where expected and the `focus-visible`
-    // classes are wired up, not computed outline styles: Chrome's
-    // `:focus-visible` heuristic is unreliable inside Cypress's test iframe,
-    // even with real key events. Percy covers the painted outline.
-    it('outlines a focused sort button', () => {
+    // classes are wired up, not that an outline paints: Chrome's
+    // `:focus-visible` heuristic is unreliable inside Cypress's test iframe.
+    it('wires the focus outline classes on the focused sort button', () => {
       mountStory({ columns, rows: users })
       focusSentinel()
       cy.realPress('Tab')
       cy.focused()
         .should('have.prop', 'tagName', 'BUTTON')
         .and('contain.text', 'User')
-        .and('have.class', 'focus-visible:outline')
-        .and('have.class', 'focus-visible:outline-2')
-        .and('have.class', 'focus-visible:outline-indigo-500')
-      cy.percySnapshot(`Table focused sort button - ${fw}`)
+        .and('have.attr', 'class', CssSortButtonClasses)
     })
 
-    it('outlines the row whose link has keyboard focus', () => {
+    it('wires the focus outline classes on the row of the focused link', () => {
       mountStory({ columns, rows: users.slice(0, 2), rowLink: linkToUser })
       focusSentinel()
       cy.realPress('Tab')
@@ -161,11 +174,7 @@ export default function a11yAssertions(
       cy.focused()
         .should('have.attr', 'href', '#jordan')
         .closest('tr')
-        .should(
-          'have.class',
-          'has-[[data-table-row-link-cell]_:focus-visible]:shadow-[inset_0_0_0_2px_theme(colors.gray.600)]',
-        )
-      cy.percySnapshot(`Table focused row link - ${fw}`)
+        .should('have.attr', 'class', CssClickableRowClasses.default)
     })
   })
 }

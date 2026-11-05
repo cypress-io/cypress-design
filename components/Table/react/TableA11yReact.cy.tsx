@@ -23,5 +23,5 @@ function mountStory({
 }
 
 describe('<Table /> React — Accessibility', () => {
-  a11yAssertions(mountStory, IconDocumentBlank, 'react')
+  a11yAssertions(mountStory, IconDocumentBlank)
 })

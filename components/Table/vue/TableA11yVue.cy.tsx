@@ -28,5 +28,5 @@ function mountStory({
 }
 
 describe('<Table /> Vue — Accessibility', () => {
-  a11yAssertions(mountStory, IconDocumentBlank, 'vue')
+  a11yAssertions(mountStory, IconDocumentBlank)
 })
