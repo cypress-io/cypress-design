@@ -38,6 +38,7 @@ export const tileModules: Record<string, () => Promise<unknown>> = {
   '@cypress-design/react-statusicon': () =>
     import('@cypress-design/react-statusicon'),
   '@cypress-design/react-tabs': () => import('@cypress-design/react-tabs'),
+  '@cypress-design/react-table': () => import('@cypress-design/react-table'),
   '@cypress-design/react-tag': () => import('@cypress-design/react-tag'),
   '@cypress-design/react-testresult': () =>
     import('@cypress-design/react-testresult'),
@@ -67,6 +68,7 @@ export const tileModules: Record<string, () => Promise<unknown>> = {
   '@cypress-design/vue-statusicon': () =>
     import('@cypress-design/vue-statusicon'),
   '@cypress-design/vue-tabs': () => import('@cypress-design/vue-tabs'),
+  '@cypress-design/vue-table': () => import('@cypress-design/vue-table'),
   '@cypress-design/vue-tag': () => import('@cypress-design/vue-tag'),
   '@cypress-design/vue-testresult': () =>
     import('@cypress-design/vue-testresult'),
