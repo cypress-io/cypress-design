@@ -3,14 +3,12 @@
 import * as React from 'react'
 import { mount } from 'cypress/react'
 import Modal from './Modal'
-import assertions from '../assertions'
+import assertions, { type ModalStoryOptions } from '../assertions'
 
-const ComponentUsingModal = (options: {
-  title?: string
-  helpLink?: string
-  helpLinkLabel?: string
-  fullscreen?: boolean
-}) => {
+const ComponentUsingModal = ({
+  footer,
+  ...options
+}: ModalStoryOptions & { className?: string }) => {
   const [visibleModal, setVisibleModal] = React.useState(false)
   return (
     <div>
@@ -19,6 +17,7 @@ const ComponentUsingModal = (options: {
       <div className="h-[900px] w-[50px] bg-red-200"></div>
       <Modal
         {...options}
+        footer={footer ? <span>{footer}</span> : undefined}
         show={visibleModal}
         onClose={() => setVisibleModal(false)}
       >
@@ -34,17 +33,40 @@ const ComponentUsingModal = (options: {
 }
 
 describe('Modal', () => {
-  function mountStory(
-    options: {
-      title?: string
-      helpLink?: string
-      helpLinkLabel?: string
-      fullscreen?: boolean
-    } = {},
-  ) {
+  function mountStory(options: ModalStoryOptions = {}) {
     mount(<ComponentUsingModal {...options} />)
   }
   assertions(mountStory)
+
+  it('lets className override the size width', () => {
+    cy.viewport(1200, 600)
+    mount(<ComponentUsingModal title="Modal" size="xl" className="w-96" />)
+    cy.findByRole('button', { name: 'Open Modal' }).click()
+    cy.findByRole('dialog').should('have.css', 'width', '384px')
+  })
+
+  it('does not call onClose on Escape or a backdrop click when they are off', () => {
+    const onClose = cy.stub().as('onClose')
+    mount(
+      <Modal
+        show
+        title="Unsaved form"
+        closeOnBackdropClick={false}
+        closeOnEscape={false}
+        onClose={onClose}
+      >
+        <p>Unsaved changes</p>
+      </Modal>,
+    )
+    cy.findByRole('dialog').should('be.visible')
+    cy.realPress('Escape')
+    cy.realPress('Escape')
+    cy.get('body').realClick({ x: 4, y: 4 })
+    cy.findByRole('dialog').should('be.visible')
+    cy.get('@onClose').should('not.have.been.called')
+    cy.findByRole('button', { name: 'Close' }).click()
+    cy.get('@onClose').should('have.been.calledOnce')
+  })
 
   it('stays open and scroll-locked on repeated Escape when the parent keeps it open', () => {
     const onClose = cy.stub().as('onClose')

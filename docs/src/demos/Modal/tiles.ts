@@ -4,5 +4,8 @@
 export default [
   { name: 'Default', title: 'Default' },
   { name: 'HelpLink', title: 'With help link' },
+  { name: 'Size', title: 'Fixed size' },
+  { name: 'Footer', title: 'With footer' },
+  { name: 'NonDismissible', title: 'Not dismissible' },
   { name: 'Fullscreen', title: 'Fullscreen' },
 ]
