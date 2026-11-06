@@ -31,7 +31,11 @@ defineProps<{
     <span
       :class="truncate ? CssTruncateClasses : undefined"
       :title="title"
-      @mouseenter="titleFromText ? setTitleFromText($event) : undefined"
+      @mouseenter="
+        titleFromText
+          ? setTitleFromText($event.currentTarget as HTMLElement)
+          : undefined
+      "
     >
       <slot />
     </span>
@@ -40,7 +44,11 @@ defineProps<{
     v-else-if="truncate"
     :class="[CssTruncateClasses, widthClass]"
     :title="title"
-    @mouseenter="titleFromText ? setTitleFromText($event) : undefined"
+    @mouseenter="
+      titleFromText
+        ? setTitleFromText($event.currentTarget as HTMLElement)
+        : undefined
+    "
   >
     <slot />
   </span>

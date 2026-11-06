@@ -260,8 +260,7 @@ export function followRowLink(event: MouseEvent, row: HTMLElement): void {
 // Custom cell content (`render` or a `cell-<key>` slot) can show different
 // text than `row[key]`, so a truncating cell's tooltip reads the rendered text
 // when the pointer arrives.
-export function setTitleFromText(event: MouseEvent): void {
-  const element = event.currentTarget as HTMLElement
+export function setTitleFromText(element: HTMLElement): void {
   element.title = element.textContent?.trim() ?? ''
 }
 
