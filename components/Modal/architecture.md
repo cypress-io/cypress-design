@@ -1,6 +1,6 @@
 ---
 name: components/Modal/architecture
-description: "How Modal is built: file layout, preflight independence, size presets, class merging, the footer, how Escape and backdrop clicks close (or don't), the close button focus ring, and type bundling. Fetch alongside instructions.md when changing Modal; skip when only using it."
+description: "How Modal is built: file layout, preflight independence, size presets, class merging, the footer, how Escape and backdrop clicks close (or don't), the close button focus ring, type bundling, and why there are no Percy snapshots. Fetch alongside instructions.md when changing Modal; skip when only using it."
 ---
 
 # Modal: architecture
@@ -53,3 +53,7 @@ The close button keeps `outline-none` but shows `focus-visible:ring-2 focus-visi
 ## Types
 
 `ModalSize` comes from `@cypress-design/constants-modal`, which is a bundled devDependency. Both packages emit one self-contained `dist/index.d.ts` with that type inlined: React through `rollup.dts.config.mjs`, Vue through `vite-plugin-dts` with `bundledPackages`. Consumers never install the constants package.
+
+## Visual tests
+
+Don't add Percy snapshots of an open modal. `showModal()` puts the `<dialog>` in the top layer, which doesn't survive Percy's DOM serialization, so Percy captures an empty page; restoring the centering with `.percy.yml` doesn't fix it in Percy's renderer. Cover visual states with computed-style assertions in `assertions.ts` instead (widths, padding, divider borders, the focus ring's `box-shadow`).

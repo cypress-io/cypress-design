@@ -38,7 +38,6 @@ export default function assertions(
     mountStory({ title: 'Modal' })
     cy.contains('Open Modal').click()
     cy.findByRole('dialog').should('be.visible')
-    cy.percySnapshot()
   })
 
   it('renders with helpLink', () => {
@@ -123,7 +122,6 @@ export default function assertions(
           'width',
           `${sizeWidths[size]}px`,
         )
-        cy.percySnapshot()
       })
     })
 
@@ -168,7 +166,6 @@ export default function assertions(
         .should('contain', 'Footer actions')
         .and('have.css', 'border-top-style', 'solid')
         .and('have.css', 'border-top-width', '1px')
-      cy.percySnapshot()
     })
 
     it('lets footerClassName override the defaults', () => {
@@ -237,7 +234,6 @@ export default function assertions(
       cy.findByRole('button', { name: 'Close' })
         .should('have.focus')
         .and('not.have.css', 'box-shadow', 'none')
-      cy.percySnapshot()
     })
 
     it('closes with Enter even when Escape and backdrop clicks are off', () => {
