@@ -357,17 +357,17 @@ export default function assertions(
       cy.get('tbody tr').should('not.exist')
     })
 
+    // Checked on the shared sort: React warns when it renders `NaN` as text.
     it('sorts `NaN` last in both directions', () => {
-      mountStory({
-        columns,
-        rows: users.map((user) =>
-          user.id === 'maya' ? { ...user, calls: Number.NaN } : user,
-        ),
-      })
-      sortButton('Calls').click()
-      expectColumn(1, ['480', '188', 'NaN', ''])
-      sortButton('Calls').click()
-      expectColumn(1, ['188', '480', 'NaN', ''])
+      const rows = users.map((user) =>
+        user.id === 'maya' ? { ...user, calls: Number.NaN } : user,
+      )
+      const callsIn = (direction: TableSort['direction']) =>
+        sortRows(rows, columns, { key: 'calls', direction }).map(
+          ({ calls }) => calls,
+        )
+      expect(callsIn('descending')).to.deep.equal([480, 188, Number.NaN, null])
+      expect(callsIn('ascending')).to.deep.equal([188, 480, Number.NaN, null])
     })
 
     it('sorts `Date` values by time', () => {
