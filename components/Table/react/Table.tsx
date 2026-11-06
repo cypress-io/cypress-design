@@ -263,7 +263,7 @@ function TableInner<Row>(
                         title={title}
                         onMouseEnter={
                           onTitleHover &&
-                          ((event) => onTitleHover(event.nativeEvent))
+                          ((event) => onTitleHover(event.currentTarget))
                         }
                       >
                         {content}
@@ -275,7 +275,7 @@ function TableInner<Row>(
                       title={title}
                       onMouseEnter={
                         onTitleHover &&
-                        ((event) => onTitleHover(event.nativeEvent))
+                        ((event) => onTitleHover(event.currentTarget))
                       }
                     >
                       {content}
