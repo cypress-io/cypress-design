@@ -79,6 +79,29 @@ describe('<Table /> Vue', () => {
       .should('have.attr', 'aria-label', 'Calls')
   })
 
+  it('updates table attributes added or changed after mount', () => {
+    const label = ref('Usage')
+    const period = ref<string | undefined>(undefined)
+    mount(() => (
+      <Table
+        aria-label={label.value}
+        data-period={period.value}
+        columns={columns}
+        rows={users}
+      />
+    ))
+    cy.get('table')
+      .should('have.attr', 'aria-label', 'Usage')
+      .and('not.have.attr', 'data-period')
+    cy.then(() => {
+      label.value = 'Calls by user'
+      period.value = 'week'
+    })
+    cy.get('table')
+      .should('have.attr', 'aria-label', 'Calls by user')
+      .and('have.attr', 'data-period', 'week')
+  })
+
   it('adds a `class` from `rowLink` to the link', () => {
     mountStory({
       columns,

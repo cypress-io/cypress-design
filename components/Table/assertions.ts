@@ -222,6 +222,26 @@ export default function assertions(
         })
     })
 
+    it('pads sortable center-aligned cells the same way', () => {
+      mountStory({
+        columns: [nameColumn, { ...callsColumn, align: 'center' }],
+        rows: users,
+      })
+      cy.contains('th', 'Calls').should('have.css', 'text-align', 'center')
+      cy.contains('td', '480').should('have.css', 'padding-right', '44px')
+    })
+
+    it('keeps the default padding when cells differ from a center header', () => {
+      mountStory({
+        columns: [
+          nameColumn,
+          { ...callsColumn, headerAlign: 'center', cellAlign: 'right' },
+        ],
+        rows: users,
+      })
+      cy.contains('td', '480').should('have.css', 'padding-right', '16px')
+    })
+
     it('keeps the default padding when the header is left-aligned', () => {
       mountStory({
         columns: [
@@ -243,6 +263,10 @@ export default function assertions(
       sortButton('User').click()
       expectColumn(0, ['Sam Rivera', 'Maya Patel', 'Jordan Lee', 'Alex Kim'])
       cy.contains('th', 'User').should('have.attr', 'aria-sort', 'descending')
+      // Clicks never return to unsorted; the third goes back to ascending.
+      sortButton('User').click()
+      expectColumn(0, ['Alex Kim', 'Jordan Lee', 'Maya Patel', 'Sam Rivera'])
+      cy.contains('th', 'User').should('have.attr', 'aria-sort', 'ascending')
     })
 
     it('starts in `firstSortDirection` and keeps empty values last', () => {
