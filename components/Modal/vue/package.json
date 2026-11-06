@@ -15,12 +15,12 @@
     }
   },
   "scripts": {
-    "build": "yarn build:module && yarn build:types",
-    "build:module": "yarn exec vite build",
-    "build:types": "yarn exec vue-tsc --project ./tsconfig.build.json"
+    "build": "yarn build:module",
+    "build:module": "yarn exec vite build"
   },
   "dependencies": {
-    "@cypress-design/vue-icon": "workspace:^3.3.2"
+    "@cypress-design/vue-icon": "workspace:^3.3.2",
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@cypress-design/constants-modal": "*"

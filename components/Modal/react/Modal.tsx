@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { createPortal } from 'react-dom'
-import clsx from 'clsx'
+import { twMerge } from 'tailwind-merge'
 import {
   IconActionQuestionMarkCircle,
   IconActionDelete,
@@ -8,15 +8,18 @@ import {
 import {
   ClassCloseButton,
   ClassContent,
+  ClassFooter,
   ClassHelpLink,
   ClassHelpLinkDash,
   ClassModal,
   ClassModalFullscreenDimensions,
+  ClassModalSizes,
   ClassModalStandardDimensions,
   ClassTitle,
   ClassTitleBox,
   disableBodyScroll,
   freeBodyScroll,
+  type ModalSize,
 } from '@cypress-design/constants-modal'
 
 interface ModalProps {
@@ -24,10 +27,30 @@ interface ModalProps {
   helpLink?: string
   helpLinkLabel?: string
   children?: React.ReactNode
+  /**
+   * Content of a footer bar below the body, separated by a divider.
+   */
+  footer?: React.ReactNode
   show?: boolean
   onClose?: () => void
   fullscreen?: boolean
+  /**
+   * Fixed width. Without it, the modal sizes to its content. Ignored when
+   * `fullscreen` is set.
+   */
+  size?: ModalSize
+  /**
+   * Whether a click on the backdrop calls `onClose`.
+   */
+  closeOnBackdropClick?: boolean
+  /**
+   * Whether Escape calls `onClose`.
+   */
+  closeOnEscape?: boolean
   className?: string
+  titleBoxClassName?: string
+  contentClassName?: string
+  footerClassName?: string
   closeIcon?: React.ReactNode
 }
 
@@ -38,8 +61,15 @@ const Modal: React.FC<ModalProps> = ({
   helpLinkLabel = 'Need help',
   onClose,
   children,
+  footer,
   fullscreen = false,
+  size,
+  closeOnBackdropClick = true,
+  closeOnEscape = true,
   className,
+  titleBoxClassName,
+  contentClassName,
+  footerClassName,
   closeIcon,
 }) => {
   const dialogRef = React.useRef<HTMLDialogElement>(null)
@@ -48,6 +78,9 @@ const Modal: React.FC<ModalProps> = ({
   // Set while handling `cancel`, so the native `close` that may follow the
   // same Escape doesn't call onClose a second time.
   const handledCancel = React.useRef(false)
+  // Set while an Escape keypress is in flight, so a native close it causes
+  // can be told apart from `<form method="dialog">` or `dialog.close()`.
+  const pressedEscape = React.useRef(false)
 
   React.useEffect(() => {
     if (show) {
@@ -66,10 +99,11 @@ const Modal: React.FC<ModalProps> = ({
     [],
   )
 
-  const closeOnClickBackdrop = React.useCallback<
+  const handleBackdropClick = React.useCallback<
     React.MouseEventHandler<HTMLDialogElement>
   >(
     (event) => {
+      if (!closeOnBackdropClick) return
       const rect = dialogRef.current?.getBoundingClientRect()
       if (!rect) return
       const isInDialog =
@@ -81,53 +115,65 @@ const Modal: React.FC<ModalProps> = ({
         onClose?.()
       }
     },
-    [onClose],
+    [closeOnBackdropClick, onClose],
   )
 
   // Escape fires `cancel` on the native dialog. Stop the browser closing it
   // behind our back and let the parent close it through `onClose`.
-  const closeOnCancel = React.useCallback<
+  const handleCancel = React.useCallback<
     React.ReactEventHandler<HTMLDialogElement>
   >(
     (event) => {
       event.preventDefault()
       handledCancel.current = true
       setTimeout(() => (handledCancel.current = false))
-      onClose?.()
+      if (closeOnEscape) onClose?.()
     },
-    [onClose],
+    [closeOnEscape, onClose],
   )
 
   // Safety net for a native close we didn't initiate — e.g. a repeated
   // Escape, which the browser won't let us cancel. Give the parent the chance
   // to close; if it keeps `show` true, reopen so the dialog matches `show`
   // (and the scroll lock stays consistent).
-  const syncOnNativeClose = React.useCallback(() => {
+  const handleKeyDown = React.useCallback<
+    React.KeyboardEventHandler<HTMLDialogElement>
+  >((event) => {
+    if (event.key !== 'Escape') return
+    pressedEscape.current = true
+    setTimeout(() => (pressedEscape.current = false))
+  }, [])
+
+  const handleNativeClose = React.useCallback(() => {
     if (!showRef.current) return
-    if (!handledCancel.current) onClose?.()
+    const isBlockedEscape = pressedEscape.current && !closeOnEscape
+    if (!handledCancel.current && !isBlockedEscape) onClose?.()
     setTimeout(() => {
       const dialog = dialogRef.current
       if (showRef.current && dialog && !dialog.open) dialog.showModal()
     })
-  }, [onClose])
+  }, [closeOnEscape, onClose])
 
   return (
     show &&
     createPortal(
       <dialog
         ref={dialogRef}
-        className={clsx(
+        className={twMerge(
           show ? ClassModal : null,
           fullscreen
             ? ClassModalFullscreenDimensions
-            : ClassModalStandardDimensions,
+            : size
+              ? ClassModalSizes[size]
+              : ClassModalStandardDimensions,
           className,
         )}
-        onClick={closeOnClickBackdrop}
-        onCancel={closeOnCancel}
-        onClose={syncOnNativeClose}
+        onClick={handleBackdropClick}
+        onCancel={handleCancel}
+        onKeyDown={handleKeyDown}
+        onClose={handleNativeClose}
       >
-        <div className={ClassTitleBox}>
+        <div className={twMerge(ClassTitleBox, titleBoxClassName)}>
           <div id="cy_modal_label" className={ClassTitle}>
             {title}
           </div>
@@ -164,7 +210,12 @@ const Modal: React.FC<ModalProps> = ({
             )}
           </button>
         </div>
-        <div className={ClassContent}>{children}</div>
+        <div className={twMerge(ClassContent, contentClassName)}>
+          {children}
+        </div>
+        {footer ? (
+          <div className={twMerge(ClassFooter, footerClassName)}>{footer}</div>
+        ) : null}
       </dialog>,
       document.body,
     )

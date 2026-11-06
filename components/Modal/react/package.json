@@ -17,11 +17,11 @@
   "scripts": {
     "build": "yarn build:module && yarn build:types",
     "build:module": "rollup -c ./rollup.config.mjs",
-    "build:types": "tsc --project ./tsconfig.build.json"
+    "build:types": "tsc --project ./tsconfig.types.json && rollup -c ./rollup.dts.config.mjs && rimraf dist/dts"
   },
   "dependencies": {
     "@cypress-design/react-icon": "workspace:^3.4.0",
-    "clsx": "*"
+    "tailwind-merge": "^2.0.0"
   },
   "devDependencies": {
     "@cypress-design/constants-modal": "*",
