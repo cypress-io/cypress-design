@@ -188,10 +188,10 @@ describe('<Table /> React', () => {
       rows: users.slice(0, 1),
     })
     cy.get('[title="Jordan Lee (team)"]').should('exist')
-    cy.contains('em', '2 min ago, local time')
-      .parent()
-      .trigger('mouseover')
-      .should('have.attr', 'title', '2 min ago, local time')
+    cy.contains('em', '2 min ago, local time').parent().as('cell')
+    // React's `onMouseEnter` needs real pointer events.
+    cy.get('@cell').realHover()
+    cy.get('@cell').should('have.attr', 'title', '2 min ago, local time')
   })
 
   it('keeps clicks on interactive cell content off the row link', () => {

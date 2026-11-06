@@ -102,11 +102,10 @@ describe('<Table /> Vue', () => {
         }}
       </Table>
     ))
-    cy.contains('em', 'Jordan Lee (team)')
-      .parent()
-      .should('not.have.attr', 'title')
-      .trigger('mouseenter')
-      .should('have.attr', 'title', 'Jordan Lee (team)')
+    cy.contains('em', 'Jordan Lee (team)').parent().as('cell')
+    cy.get('@cell').should('not.have.attr', 'title')
+    cy.get('@cell').trigger('mouseenter')
+    cy.get('@cell').should('have.attr', 'title', 'Jordan Lee (team)')
   })
 
   it('re-sorts when the parent passes the new sort back', () => {
