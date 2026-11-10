@@ -41,13 +41,9 @@ jobs:
           git config --local user.email "${{ secrets.CYPRESS_BOT_APP_ID }}+cypress-bot[bot]@users.noreply.github.com"
           git config --local user.name "cypress-bot[bot]"
 
-      - name: Configure .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      ## npm trusted publishing (OIDC) needs npm >= 11.5.1; Node 22 bundles npm 10
+      - name: Install npm with trusted publishing support
+        run: npm install -g npm@^11.5.1
 
       - name: Remove changeset pre if it exists
         run: yarn changeset pre exit
@@ -65,5 +61,4 @@ jobs:
           commit: 'ci(changesets): version packages'
           title: 'ci(changesets): version packages'
         env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

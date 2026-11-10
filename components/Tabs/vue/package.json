@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/vue-tabs",
   "version": "1.2.4",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/Tabs/vue"
+  },
   "files": [
     "*"
   ],

@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/css",
   "version": "1.3.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "css"
+  },
   "main": "./dist/index.cjs.js",
   "module": "./dist/index.es.mjs",
   "types": "./dist/index.d.ts",

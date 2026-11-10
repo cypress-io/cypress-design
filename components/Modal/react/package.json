@@ -1,6 +1,11 @@
 {
   "name": "@cypress-design/react-modal",
   "version": "1.4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cypress-io/cypress-design.git",
+    "directory": "components/Modal/react"
+  },
   "files": [
     "*"
   ],
