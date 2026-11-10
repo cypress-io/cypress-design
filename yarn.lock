@@ -1756,7 +1756,7 @@ __metadata:
     "@cypress-design/constants-modal": "npm:*"
     "@cypress-design/react-icon": "workspace:^3.4.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
-    clsx: "npm:*"
+    tailwind-merge: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
 
@@ -2004,6 +2004,7 @@ __metadata:
   dependencies:
     "@cypress-design/constants-modal": "npm:*"
     "@cypress-design/vue-icon": "workspace:^3.3.2"
+    tailwind-merge: "npm:^2.0.0"
   languageName: unknown
   linkType: soft
 

@@ -1,8 +1,10 @@
 <script lang="ts" setup>
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { normalizeClass, onMounted, onUnmounted, ref, watch } from 'vue'
+import { twMerge } from 'tailwind-merge'
 import {
   ClassModal,
   ClassModalFullscreenDimensions,
+  ClassModalSizes,
   ClassModalStandardDimensions,
   ClassTitleBox,
   ClassTitle,
@@ -10,13 +12,19 @@ import {
   ClassHelpLink,
   ClassCloseButton,
   ClassContent,
+  ClassFooter,
   disableBodyScroll,
   freeBodyScroll,
+  type ModalSize,
 } from '@cypress-design/constants-modal'
 import {
   IconActionDelete,
   IconActionQuestionMarkCircle,
 } from '@cypress-design/vue-icon'
+
+// `class` is merged with twMerge on the dialog so it can override the size and
+// other defaults; Vue's own fallthrough would only append it.
+defineOptions({ inheritAttrs: false })
 
 const internalShow = ref(false)
 
@@ -32,16 +40,49 @@ const props = withDefaults(
     helpLink?: string
     helpLinkLabel?: string
     fullscreen?: boolean
+    /**
+     * Fixed width. Without it, the modal sizes to its content. Ignored when
+     * `fullscreen` is set.
+     */
+    size?: ModalSize
+    /**
+     * Whether a click on the backdrop closes the modal.
+     */
+    closeOnBackdropClick?: boolean
+    /**
+     * Whether Escape closes the modal.
+     */
+    closeOnEscape?: boolean
+    titleBoxClassName?: string
+    contentClassName?: string
+    footerClassName?: string
   }>(),
   {
     helpLinkLabel: 'Need help',
+    closeOnBackdropClick: true,
+    closeOnEscape: true,
   },
 )
 
 defineSlots<{
   default?: () => unknown
   closeIcon?: () => unknown
+  footer?: () => unknown
 }>()
+
+// normalizeClass flattens Vue's object and array class syntax, which twMerge
+// would otherwise drop. Called from the template, since attrs aren't reactive.
+function dialogClass(attrClass: unknown) {
+  return twMerge(
+    internalShow.value ? ClassModal : null,
+    props.fullscreen
+      ? ClassModalFullscreenDimensions
+      : props.size
+        ? ClassModalSizes[props.size]
+        : ClassModalStandardDimensions,
+    normalizeClass(attrClass),
+  )
+}
 
 const $dialog = ref<HTMLDialogElement>()
 
@@ -86,7 +127,8 @@ onUnmounted(() => {
   freeBodyScroll()
 })
 
-function closeOnClickBackdrop(event: MouseEvent) {
+function handleBackdropClick(event: MouseEvent) {
+  if (!props.closeOnBackdropClick) return
   var rect = $dialog.value?.getBoundingClientRect()
   if (!rect) return
   var isInDialog =
@@ -101,33 +143,48 @@ function closeOnClickBackdrop(event: MouseEvent) {
 
 // Escape fires `cancel` on the native dialog. Stop the browser closing it
 // behind our back and close through the same path as the close button.
-function closeOnCancel(event: Event) {
+function handleCancel(event: Event) {
   event.preventDefault()
-  internalShow.value = false
+  if (props.closeOnEscape) internalShow.value = false
+}
+
+// Set while an Escape keypress is in flight, so a native close it causes can
+// be told apart from `<form method="dialog">` or `dialog.close()`.
+let pressedEscape = false
+function handleKeyDown(event: KeyboardEvent) {
+  if (event.key !== 'Escape') return
+  pressedEscape = true
+  setTimeout(() => (pressedEscape = false))
 }
 
 // Safety net for any native close we didn't initiate (a repeated Escape the
 // browser won't let us cancel, `<form method="dialog">`, `dialog.close()`):
-// bring our state, events, and the scroll lock back in line.
-function syncOnNativeClose() {
-  if (internalShow.value) internalShow.value = false
+// bring our state, events, and the scroll lock back in line. An Escape that
+// isn't allowed to close reopens the dialog instead.
+function handleNativeClose() {
+  if (!internalShow.value) return
+  if (pressedEscape && !props.closeOnEscape) {
+    setTimeout(() => {
+      const dialog = $dialog.value
+      if (internalShow.value && dialog && !dialog.open) dialog.showModal()
+    })
+    return
+  }
+  internalShow.value = false
 }
 </script>
 
 <template>
   <dialog
     ref="$dialog"
-    :class="[
-      internalShow ? ClassModal : null,
-      fullscreen
-        ? ClassModalFullscreenDimensions
-        : ClassModalStandardDimensions,
-    ]"
-    @click="closeOnClickBackdrop"
-    @cancel="closeOnCancel"
-    @close="syncOnNativeClose"
+    v-bind="{ ...$attrs, class: undefined }"
+    :class="dialogClass($attrs.class)"
+    @click="handleBackdropClick"
+    @cancel="handleCancel"
+    @keydown="handleKeyDown"
+    @close="handleNativeClose"
   >
-    <div :class="ClassTitleBox">
+    <div :class="twMerge(ClassTitleBox, titleBoxClassName)">
       <div id="cy_modal_label" :class="ClassTitle">
         {{ title }}
       </div>
@@ -162,8 +219,11 @@ function syncOnNativeClose() {
         </slot>
       </button>
     </div>
-    <div :class="ClassContent">
+    <div :class="twMerge(ClassContent, contentClassName)">
       <slot />
+    </div>
+    <div v-if="$slots.footer" :class="twMerge(ClassFooter, footerClassName)">
+      <slot name="footer" />
     </div>
   </dialog>
 </template>
