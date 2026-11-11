@@ -124,7 +124,7 @@ export function spyOnLink(href: string): void {
   })
 }
 
-const linkToUser = (user: User) =>
+export const linkToUser = (user: User) =>
   user.id === 'sam' ? undefined : { href: `#${user.id}` }
 
 export default function assertions(
