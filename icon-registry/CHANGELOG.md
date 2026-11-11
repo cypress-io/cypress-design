@@ -1,5 +1,11 @@
 # @cypress-design/icon-registry
 
+## 3.5.0
+
+### Minor Changes
+
+- [#818](https://github.com/cypress-io/cypress-design/pull/818) [`1e05ad5`](https://github.com/cypress-io/cypress-design/commit/1e05ad56e72dd8cca6758e238de84a4ad0648dcb) Thanks [@emilmilanov](https://github.com/emilmilanov)! - Adding icon object-webhook (x16, x24)
+
 ## 3.4.0
 
 ## 3.3.2

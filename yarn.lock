@@ -1630,7 +1630,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:^3.3.2, @cypress-design/icon-registry@workspace:^3.4.0, @cypress-design/icon-registry@workspace:icon-registry":
+"@cypress-design/icon-registry@npm:*, @cypress-design/icon-registry@workspace:^3.3.2, @cypress-design/icon-registry@workspace:^3.4.0, @cypress-design/icon-registry@workspace:^3.5.0, @cypress-design/icon-registry@workspace:icon-registry":
   version: 0.0.0-use.local
   resolution: "@cypress-design/icon-registry@workspace:icon-registry"
   dependencies:
@@ -1718,7 +1718,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/react-icon@workspace:components/Icon/react"
   dependencies:
-    "@cypress-design/icon-registry": "workspace:^3.4.0"
+    "@cypress-design/icon-registry": "workspace:^3.5.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@types/lodash": "npm:^4.17.4"
     clsx: "npm:*"
@@ -1971,7 +1971,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@cypress-design/vue-icon@workspace:components/Icon/vue"
   dependencies:
-    "@cypress-design/icon-registry": "workspace:^3.4.0"
+    "@cypress-design/icon-registry": "workspace:^3.5.0"
     "@cypress-design/rollup-plugin-tailwind-keep": "npm:*"
     "@types/lodash": "npm:^4.17.4"
     dedent: "npm:^1.5.3"
